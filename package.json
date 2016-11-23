@@ -1,0 +1,20 @@
+{
+  "name": "mbed-cloud-sdk-javascript",
+  "version": "0.0.1",
+  "description": "mbed Cloud JavaScript SDK",
+  "homepage": "https://github.com/ARMmbed/mbed-cloud-sdk-javascript",
+  "author": "Rob Moran <rob.moran@arm.com>",
+  "license": "MIT",
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ARMmbed/mbed-cloud-sdk-javascript.git"
+  },
+  "keywords": [
+    "mbed",
+    "SDK"
+  ],
+  "Dependencies": {
+    "superagent": "^3.0.0"
+  }
+}
