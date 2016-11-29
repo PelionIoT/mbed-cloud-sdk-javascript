@@ -105,7 +105,7 @@
     /**
      * Delete subscriptions from an endpoint
      * Deletes all resource subscriptions in a single endpoint.
-     * @param {String} endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match.  You cannot use wildcards here. 
+     * @param {String} endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
      * @param {module:api/SubscriptionsApi~v2SubscriptionsEndpointNameDeleteCallback} callback The callback function, accepting three arguments: error, data, response
      */
     this.v2SubscriptionsEndpointNameDelete = function(endpointName, callback) {
@@ -297,7 +297,7 @@
 
     /**
      * Subscribe to a resource path
-     * The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LWM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to mbed Cloud Connect service. An application needs to call a /notification/callback method to get mbed Cloud Connect to push a notification of the resource changes.  You can also use /subscriptions to set a pre-subscription. 
+     * The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated solution-dependent logic. The OMA LWM2M resource model including objects, object instances, resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device to provide value change notifications to mbed Cloud Connect service. An application needs to call a /notification/callback method to get mbed Cloud Connect to push a notification of the resource changes. You can also use /subscriptions to set a pre-subscription. 
      * @param {String} endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
      * @param {String} resourcePath Resource&#39;s URL. 
      * @param {module:api/SubscriptionsApi~v2SubscriptionsEndpointNameResourcePathPutCallback} callback The callback function, accepting three arguments: error, data, response
@@ -349,7 +349,7 @@
 
     /**
      * Get pre-subscriptions
-     * You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure  as described above. If there are no pre-subscribed resources, it returns with an empty array. 
+     * You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure as described above. If there are no pre-subscribed resources, it returns with an empty array. 
      * @param {module:api/SubscriptionsApi~v2SubscriptionsGetCallback} callback The callback function, accepting three arguments: error, data, response
      */
     this.v2SubscriptionsGet = function(callback) {
@@ -387,7 +387,7 @@
 
     /**
      * Set pre-subscriptions
-     * Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its name, type and registered resources match the pre-subscription data, mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint name  (optionally having an \\* character at the end), endpoint type, a list of resources or expressions  with an \\* character at the end. The pre-subscription concerns all the endpoints that are already  registered and the server sends subscription requests to the devices immediately when the patterns are set.  There is only one pre-subscribe array, so changing the pre-subscription data removes all the previous subscriptions.  To remove the pre-subscription data, put an empty array as a rule. 
+     * Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers and its name, type and registered resources match the pre-subscription data, mbed Cloud Connect sends subscription requests to the device automatically. The pattern may include the endpoint name (optionally having an \\* character at the end), endpoint type, a list of resources or expressions with an \\* character at the end. The pre-subscription concerns all the endpoints that are already registered and the server sends subscription requests to the devices immediately when the patterns are set. There is only one pre-subscribe array, so changing the pre-subscription data removes all the previous subscriptions. To remove the pre-subscription data, put an empty array as a rule. 
      * @param {module:model/PresubscriptionArray} presubsription Array of pre-subscriptions.
      * @param {module:api/SubscriptionsApi~v2SubscriptionsPutCallback} callback The callback function, accepting three arguments: error, data, response
      */

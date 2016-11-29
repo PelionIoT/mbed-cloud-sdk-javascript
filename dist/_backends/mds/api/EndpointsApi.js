@@ -66,7 +66,7 @@
 
     /**
      * List the resources on an endpoint
-     * The list of resources is cached by mbed Cloud Connect, so this call does  not create a message to the device. 
+     * The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
      * @param {String} endpointName A unique identifier for an endpoint. Note that the endpoint name needs to be an exact match. You cannot use wildcards here. 
      * @param {module:api/EndpointsApi~v2EndpointsEndpointNameGetCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/Resource>}
