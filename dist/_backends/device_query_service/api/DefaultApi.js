@@ -65,7 +65,6 @@
      */
 
     /**
-     * Create device query
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Create device query&lt;/p&gt;
      * @param {String} name The name of the query
      * @param {String} query The device query
@@ -111,7 +110,7 @@
       var returnType = DeviceQuerySerializer;
 
       return this.apiClient.callApi(
-        '/v3/device-queries/', 'POST',
+        '/v3/device-queries{var}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -126,7 +125,6 @@
      */
 
     /**
-     * Delete device query
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Delete device query&lt;/p&gt;
      * @param {String} queryId 
      * @param {module:api/DefaultApi~deviceQueryDestroyCallback} callback The callback function, accepting three arguments: error, data, response
@@ -157,7 +155,7 @@
       var returnType = DeviceQuerySerializer;
 
       return this.apiClient.callApi(
-        '/v3/device-queries/{query_id}/', 'DELETE',
+        '/v3/device-queries/{query_id}{var}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -172,7 +170,6 @@
      */
 
     /**
-     * List all device queries
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;List all device queries. The result will be paged into pages of 100.&lt;/p&gt;
      * @param {Object} opts Optional parameters
      * @param {String} opts.description 
@@ -214,7 +211,7 @@
       var returnType = [DeviceQuerySerializer];
 
       return this.apiClient.callApi(
-        '/v3/device-queries/', 'GET',
+        '/v3/device-queries{var}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -229,7 +226,6 @@
      */
 
     /**
-     * Update device query fields
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Update device query fields&lt;/p&gt;
      * @param {String} queryId 
      * @param {Object} opts Optional parameters
@@ -272,7 +268,7 @@
       var returnType = DeviceQuerySerializer;
 
       return this.apiClient.callApi(
-        '/v3/device-queries/{query_id}/', 'PATCH',
+        '/v3/device-queries/{query_id}{var}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -287,7 +283,6 @@
      */
 
     /**
-     * Retrieve device query
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Retrieve device query.&lt;/p&gt;
      * @param {String} queryId 
      * @param {module:api/DefaultApi~deviceQueryRetrieveCallback} callback The callback function, accepting three arguments: error, data, response
@@ -318,7 +313,7 @@
       var returnType = DeviceQuerySerializer;
 
       return this.apiClient.callApi(
-        '/v3/device-queries/{query_id}/', 'GET',
+        '/v3/device-queries/{query_id}{var}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -333,7 +328,6 @@
      */
 
     /**
-     * Update device query
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Update device query.&lt;/p&gt;
      * @param {String} queryId 
      * @param {String} name The name of the query
@@ -386,7 +380,7 @@
       var returnType = DeviceQuerySerializer;
 
       return this.apiClient.callApi(
-        '/v3/device-queries/{query_id}/', 'PUT',
+        '/v3/device-queries/{query_id}{var}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );

@@ -57,6 +57,51 @@
 
 
     /**
+     * Callback function to receive the result of the downloadsMbedFactoryProvisioningPackageGet operation.
+     * @callback module:api/DefaultApi~downloadsMbedFactoryProvisioningPackageGetCallback
+     * @param {String} error Error message, if any.
+     * @param {'String'} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Returns a specific Factory Tool package in a ZIP archive. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
+     * @param {String} os Requires Factory Tool OS name (Windows or Linux).
+     * @param {module:api/DefaultApi~downloadsMbedFactoryProvisioningPackageGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link 'String'}
+     */
+    this.downloadsMbedFactoryProvisioningPackageGet = function(os, callback) {
+      var postBody = null;
+
+      // verify the required parameter 'os' is set
+      if (os == undefined || os == null) {
+        throw "Missing the required parameter 'os' when calling downloadsMbedFactoryProvisioningPackageGet";
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'os': os
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['Bearer'];
+      var contentTypes = [];
+      var accepts = [];
+      var returnType = 'String';
+
+      return this.apiClient.callApi(
+        '/downloads/mbed_factory_provisioning_package', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the downloadsMbedFactoryProvisioningPackageInfoGet operation.
      * @callback module:api/DefaultApi~downloadsMbedFactoryProvisioningPackageInfoGetCallback
      * @param {String} error Error message, if any.
@@ -66,17 +111,11 @@
 
     /**
      * Gets a list of downloadable Factory Tool versions. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
-     * @param {String} authorization \&quot;Bearer\&quot; followed by a reference token (API key forbidden).
      * @param {module:api/DefaultApi~downloadsMbedFactoryProvisioningPackageInfoGetCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/AListOfDownloadableFactoryToolVersions_}
      */
-    this.downloadsMbedFactoryProvisioningPackageInfoGet = function(authorization, callback) {
+    this.downloadsMbedFactoryProvisioningPackageInfoGet = function(callback) {
       var postBody = null;
-
-      // verify the required parameter 'authorization' is set
-      if (authorization == undefined || authorization == null) {
-        throw "Missing the required parameter 'authorization' when calling downloadsMbedFactoryProvisioningPackageInfoGet";
-      }
 
 
       var pathParams = {
@@ -84,7 +123,6 @@
       var queryParams = {
       };
       var headerParams = {
-        'Authorization': authorization
       };
       var formParams = {
       };
@@ -96,57 +134,6 @@
 
       return this.apiClient.callApi(
         '/downloads/mbed_factory_provisioning_package/info', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the downloadsMbedFactoryProvisioningPackageososGet operation.
-     * @callback module:api/DefaultApi~downloadsMbedFactoryProvisioningPackageososGetCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Returns a specific Factory Tool package in a ZIP archive. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
-     * @param {String} authorization \&quot;Bearer\&quot; followed by a reference token (API key forbidden).
-     * @param {String} os Requires Factory Tool OS name (Windows or Linux).
-     * @param {module:api/DefaultApi~downloadsMbedFactoryProvisioningPackageososGetCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    this.downloadsMbedFactoryProvisioningPackageososGet = function(authorization, os, callback) {
-      var postBody = null;
-
-      // verify the required parameter 'authorization' is set
-      if (authorization == undefined || authorization == null) {
-        throw "Missing the required parameter 'authorization' when calling downloadsMbedFactoryProvisioningPackageososGet";
-      }
-
-      // verify the required parameter 'os' is set
-      if (os == undefined || os == null) {
-        throw "Missing the required parameter 'os' when calling downloadsMbedFactoryProvisioningPackageososGet";
-      }
-
-
-      var pathParams = {
-        'os': os
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-        'Authorization': authorization
-      };
-      var formParams = {
-      };
-
-      var authNames = ['Bearer'];
-      var contentTypes = [];
-      var accepts = [];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/downloads/mbed_factory_provisioning_package?os={os}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );

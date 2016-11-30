@@ -3,37 +3,12 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dateTime** | **Date** |  | 
-**stateChange** | **Boolean** |  | 
-**description** | **String** |  | 
-**changes** | **String** |  | 
-**eventTypeDescription** | **String** |  | 
-**deviceLogId** | **String** |  | 
-**eventType** | **String** |  | 
-**data** | **String** |  | 
-**deviceId** | **String** |  | 
-
-
-<a name="EventTypeEnum"></a>
-## Enum: EventTypeEnum
-
-
-* `` (value: `""`)
-
-* `update.device.device-created` (value: `"update.device.device-created"`)
-
-* `update.device.device-updated` (value: `"update.device.device-updated"`)
-
-* `update.deployment.campaign-device-metadata-created` (value: `"update.deployment.campaign-device-metadata-created"`)
-
-* `update.deployment.campaign-device-metadata-updated` (value: `"update.deployment.campaign-device-metadata-updated"`)
-
-* `update.deployment.campaign-device-metadata-removed` (value: `"update.deployment.campaign-device-metadata-removed"`)
-
-* `update.connector.connector-device.firmware-update.state` (value: `"update.connector.connector-device.firmware-update.state"`)
-
-* `update.connector.connector-device.firmware-update.result` (value: `"update.connector.connector-device.firmware-update.result"`)
-
-
+**_object** | **String** | API Resource name | [optional] 
+**hasMore** | **Boolean** | Whether there are more results to display | [optional] 
+**totalCount** | **Integer** | Total number of records | [optional] 
+**after** | **String** | Entity id for fetch after it | [optional] 
+**limit** | **Integer** | The number of results to return | [optional] 
+**data** | [**DeviceLogSerializerData**](DeviceLogSerializerData.md) |  | [optional] 
+**order** | **String** | Order of returned records | [optional] 
 
 

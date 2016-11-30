@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/DeviceSerializerData'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./DeviceSerializerData'));
   } else {
     // Browser globals (root is window)
     if (!root.DeviceCatalogApi) {
       root.DeviceCatalogApi = {};
     }
-    root.DeviceCatalogApi.DeviceSerializer = factory(root.DeviceCatalogApi.ApiClient);
+    root.DeviceCatalogApi.DeviceSerializer = factory(root.DeviceCatalogApi.ApiClient, root.DeviceCatalogApi.DeviceSerializerData);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, DeviceSerializerData) {
   'use strict';
 
 
@@ -52,58 +52,17 @@
    * Constructs a new <code>DeviceSerializer</code>.
    * @alias module:model/DeviceSerializer
    * @class
-   * @param bootstrappedTimestamp {String} 
-   * @param updatedAt {Date} The time the object was updated
-   * @param customAttributes {String} Up to 5 custom JSON attributes
-   * @param deviceClass {String} The device class
-   * @param id {String} The ID of the device
-   * @param description {String} The description of the object
-   * @param autoUpdate {Boolean} Mark this device for auto firmware update
-   * @param mechanism {module:model/DeviceSerializer.MechanismEnum} The ID of the channel used to communicate with the device
-   * @param state {module:model/DeviceSerializer.StateEnum} The current state of the device
-   * @param etag {Date} The entity instance signature
-   * @param provisionKey {String} The key used to provision the device
-   * @param serialNumber {String} The serial number of the device
-   * @param vendorId {String} The device vendor ID
-   * @param accountId {String} The owning IAM account ID
-   * @param deployedState {module:model/DeviceSerializer.DeployedStateEnum} The state of the device's deployment
-   * @param _object {String} The API resource entity
-   * @param trustClass {Integer} The device trust class
-   * @param deployment {String} The last deployment used on the device
-   * @param mechanismUrl {String} The address of the connector to use
-   * @param trustLevel {Integer} The device trust level
-   * @param deviceId {String} DEPRECATED: The ID of the device
-   * @param name {String} The name of the object
-   * @param createdAt {Date} The time the object was created
-   * @param manifest {String} URL for the current device manifest
    */
-  var exports = function(bootstrappedTimestamp, updatedAt, customAttributes, deviceClass, id, description, autoUpdate, mechanism, state, etag, provisionKey, serialNumber, vendorId, accountId, deployedState, _object, trustClass, deployment, mechanismUrl, trustLevel, deviceId, name, createdAt, manifest) {
+  var exports = function() {
     var _this = this;
 
-    _this['bootstrapped_timestamp'] = bootstrappedTimestamp;
-    _this['updated_at'] = updatedAt;
-    _this['custom_attributes'] = customAttributes;
-    _this['device_class'] = deviceClass;
-    _this['id'] = id;
-    _this['description'] = description;
-    _this['auto_update'] = autoUpdate;
-    _this['mechanism'] = mechanism;
-    _this['state'] = state;
-    _this['etag'] = etag;
-    _this['provision_key'] = provisionKey;
-    _this['serial_number'] = serialNumber;
-    _this['vendor_id'] = vendorId;
-    _this['account_id'] = accountId;
-    _this['deployed_state'] = deployedState;
-    _this['object'] = _object;
-    _this['trust_class'] = trustClass;
-    _this['deployment'] = deployment;
-    _this['mechanism_url'] = mechanismUrl;
-    _this['trust_level'] = trustLevel;
-    _this['device_id'] = deviceId;
-    _this['name'] = name;
-    _this['created_at'] = createdAt;
-    _this['manifest'] = manifest;
+
+
+
+
+
+
+
   };
 
   /**
@@ -117,263 +76,66 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('bootstrapped_timestamp')) {
-        obj['bootstrapped_timestamp'] = ApiClient.convertToType(data['bootstrapped_timestamp'], 'String');
-      }
-      if (data.hasOwnProperty('updated_at')) {
-        obj['updated_at'] = ApiClient.convertToType(data['updated_at'], 'Date');
-      }
-      if (data.hasOwnProperty('custom_attributes')) {
-        obj['custom_attributes'] = ApiClient.convertToType(data['custom_attributes'], 'String');
-      }
-      if (data.hasOwnProperty('device_class')) {
-        obj['device_class'] = ApiClient.convertToType(data['device_class'], 'String');
-      }
-      if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
-      }
-      if (data.hasOwnProperty('description')) {
-        obj['description'] = ApiClient.convertToType(data['description'], 'String');
-      }
-      if (data.hasOwnProperty('auto_update')) {
-        obj['auto_update'] = ApiClient.convertToType(data['auto_update'], 'Boolean');
-      }
-      if (data.hasOwnProperty('mechanism')) {
-        obj['mechanism'] = ApiClient.convertToType(data['mechanism'], 'String');
-      }
-      if (data.hasOwnProperty('state')) {
-        obj['state'] = ApiClient.convertToType(data['state'], 'String');
-      }
-      if (data.hasOwnProperty('etag')) {
-        obj['etag'] = ApiClient.convertToType(data['etag'], 'Date');
-      }
-      if (data.hasOwnProperty('provision_key')) {
-        obj['provision_key'] = ApiClient.convertToType(data['provision_key'], 'String');
-      }
-      if (data.hasOwnProperty('serial_number')) {
-        obj['serial_number'] = ApiClient.convertToType(data['serial_number'], 'String');
-      }
-      if (data.hasOwnProperty('vendor_id')) {
-        obj['vendor_id'] = ApiClient.convertToType(data['vendor_id'], 'String');
-      }
-      if (data.hasOwnProperty('account_id')) {
-        obj['account_id'] = ApiClient.convertToType(data['account_id'], 'String');
-      }
-      if (data.hasOwnProperty('deployed_state')) {
-        obj['deployed_state'] = ApiClient.convertToType(data['deployed_state'], 'String');
-      }
       if (data.hasOwnProperty('object')) {
         obj['object'] = ApiClient.convertToType(data['object'], 'String');
       }
-      if (data.hasOwnProperty('trust_class')) {
-        obj['trust_class'] = ApiClient.convertToType(data['trust_class'], 'Integer');
+      if (data.hasOwnProperty('has_more')) {
+        obj['has_more'] = ApiClient.convertToType(data['has_more'], 'Boolean');
       }
-      if (data.hasOwnProperty('deployment')) {
-        obj['deployment'] = ApiClient.convertToType(data['deployment'], 'String');
+      if (data.hasOwnProperty('total_count')) {
+        obj['total_count'] = ApiClient.convertToType(data['total_count'], 'Integer');
       }
-      if (data.hasOwnProperty('mechanism_url')) {
-        obj['mechanism_url'] = ApiClient.convertToType(data['mechanism_url'], 'String');
+      if (data.hasOwnProperty('after')) {
+        obj['after'] = ApiClient.convertToType(data['after'], 'String');
       }
-      if (data.hasOwnProperty('trust_level')) {
-        obj['trust_level'] = ApiClient.convertToType(data['trust_level'], 'Integer');
+      if (data.hasOwnProperty('limit')) {
+        obj['limit'] = ApiClient.convertToType(data['limit'], 'Integer');
       }
-      if (data.hasOwnProperty('device_id')) {
-        obj['device_id'] = ApiClient.convertToType(data['device_id'], 'String');
+      if (data.hasOwnProperty('data')) {
+        obj['data'] = DeviceSerializerData.constructFromObject(data['data']);
       }
-      if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
-      }
-      if (data.hasOwnProperty('created_at')) {
-        obj['created_at'] = ApiClient.convertToType(data['created_at'], 'Date');
-      }
-      if (data.hasOwnProperty('manifest')) {
-        obj['manifest'] = ApiClient.convertToType(data['manifest'], 'String');
+      if (data.hasOwnProperty('order')) {
+        obj['order'] = ApiClient.convertToType(data['order'], 'String');
       }
     }
     return obj;
   }
 
   /**
-   * @member {String} bootstrapped_timestamp
-   */
-  exports.prototype['bootstrapped_timestamp'] = undefined;
-  /**
-   * The time the object was updated
-   * @member {Date} updated_at
-   */
-  exports.prototype['updated_at'] = undefined;
-  /**
-   * Up to 5 custom JSON attributes
-   * @member {String} custom_attributes
-   */
-  exports.prototype['custom_attributes'] = undefined;
-  /**
-   * The device class
-   * @member {String} device_class
-   */
-  exports.prototype['device_class'] = undefined;
-  /**
-   * The ID of the device
-   * @member {String} id
-   */
-  exports.prototype['id'] = undefined;
-  /**
-   * The description of the object
-   * @member {String} description
-   */
-  exports.prototype['description'] = undefined;
-  /**
-   * Mark this device for auto firmware update
-   * @member {Boolean} auto_update
-   */
-  exports.prototype['auto_update'] = undefined;
-  /**
-   * The ID of the channel used to communicate with the device
-   * @member {module:model/DeviceSerializer.MechanismEnum} mechanism
-   */
-  exports.prototype['mechanism'] = undefined;
-  /**
-   * The current state of the device
-   * @member {module:model/DeviceSerializer.StateEnum} state
-   */
-  exports.prototype['state'] = undefined;
-  /**
-   * The entity instance signature
-   * @member {Date} etag
-   */
-  exports.prototype['etag'] = undefined;
-  /**
-   * The key used to provision the device
-   * @member {String} provision_key
-   */
-  exports.prototype['provision_key'] = undefined;
-  /**
-   * The serial number of the device
-   * @member {String} serial_number
-   */
-  exports.prototype['serial_number'] = undefined;
-  /**
-   * The device vendor ID
-   * @member {String} vendor_id
-   */
-  exports.prototype['vendor_id'] = undefined;
-  /**
-   * The owning IAM account ID
-   * @member {String} account_id
-   */
-  exports.prototype['account_id'] = undefined;
-  /**
-   * The state of the device's deployment
-   * @member {module:model/DeviceSerializer.DeployedStateEnum} deployed_state
-   */
-  exports.prototype['deployed_state'] = undefined;
-  /**
-   * The API resource entity
+   * API Resource name
    * @member {String} object
    */
   exports.prototype['object'] = undefined;
   /**
-   * The device trust class
-   * @member {Integer} trust_class
+   * Whether there are more results to display
+   * @member {Boolean} has_more
    */
-  exports.prototype['trust_class'] = undefined;
+  exports.prototype['has_more'] = undefined;
   /**
-   * The last deployment used on the device
-   * @member {String} deployment
+   * Total number of records
+   * @member {Integer} total_count
    */
-  exports.prototype['deployment'] = undefined;
+  exports.prototype['total_count'] = undefined;
   /**
-   * The address of the connector to use
-   * @member {String} mechanism_url
+   * Entity id for fetch after it
+   * @member {String} after
    */
-  exports.prototype['mechanism_url'] = undefined;
+  exports.prototype['after'] = undefined;
   /**
-   * The device trust level
-   * @member {Integer} trust_level
+   * The number of results to return
+   * @member {Integer} limit
    */
-  exports.prototype['trust_level'] = undefined;
+  exports.prototype['limit'] = undefined;
   /**
-   * DEPRECATED: The ID of the device
-   * @member {String} device_id
+   * @member {module:model/DeviceSerializerData} data
    */
-  exports.prototype['device_id'] = undefined;
+  exports.prototype['data'] = undefined;
   /**
-   * The name of the object
-   * @member {String} name
+   * Order of returned records
+   * @member {String} order
    */
-  exports.prototype['name'] = undefined;
-  /**
-   * The time the object was created
-   * @member {Date} created_at
-   */
-  exports.prototype['created_at'] = undefined;
-  /**
-   * URL for the current device manifest
-   * @member {String} manifest
-   */
-  exports.prototype['manifest'] = undefined;
+  exports.prototype['order'] = undefined;
 
-
-  /**
-   * Allowed values for the <code>mechanism</code> property.
-   * @enum {String}
-   * @readonly
-   */
-  exports.MechanismEnum = {
-    /**
-     * value: "connector"
-     * @const
-     */
-    "connector": "connector",
-    /**
-     * value: "direct"
-     * @const
-     */
-    "direct": "direct"  };
-
-  /**
-   * Allowed values for the <code>state</code> property.
-   * @enum {String}
-   * @readonly
-   */
-  exports.StateEnum = {
-    /**
-     * value: "unenrolled"
-     * @const
-     */
-    "unenrolled": "unenrolled",
-    /**
-     * value: "cloud_enrolling"
-     * @const
-     */
-    "cloud_enrolling": "cloud_enrolling",
-    /**
-     * value: "bootstrapped"
-     * @const
-     */
-    "bootstrapped": "bootstrapped",
-    /**
-     * value: "registered"
-     * @const
-     */
-    "registered": "registered"  };
-
-  /**
-   * Allowed values for the <code>deployed_state</code> property.
-   * @enum {String}
-   * @readonly
-   */
-  exports.DeployedStateEnum = {
-    /**
-     * value: "development"
-     * @const
-     */
-    "development": "development",
-    /**
-     * value: "production"
-     * @const
-     */
-    "production": "production"  };
 
 
   return exports;

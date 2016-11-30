@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/DeviceLogSerializerData'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./DeviceLogSerializerData'));
   } else {
     // Browser globals (root is window)
     if (!root.DeviceCatalogApi) {
       root.DeviceCatalogApi = {};
     }
-    root.DeviceCatalogApi.DeviceLogSerializer = factory(root.DeviceCatalogApi.ApiClient);
+    root.DeviceCatalogApi.DeviceLogSerializer = factory(root.DeviceCatalogApi.ApiClient, root.DeviceCatalogApi.DeviceLogSerializerData);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, DeviceLogSerializerData) {
   'use strict';
 
 
@@ -52,28 +52,17 @@
    * Constructs a new <code>DeviceLogSerializer</code>.
    * @alias module:model/DeviceLogSerializer
    * @class
-   * @param dateTime {Date} 
-   * @param stateChange {Boolean} 
-   * @param description {String} 
-   * @param changes {String} 
-   * @param eventTypeDescription {String} 
-   * @param deviceLogId {String} 
-   * @param eventType {module:model/DeviceLogSerializer.EventTypeEnum} 
-   * @param data {String} 
-   * @param deviceId {String} 
    */
-  var exports = function(dateTime, stateChange, description, changes, eventTypeDescription, deviceLogId, eventType, data, deviceId) {
+  var exports = function() {
     var _this = this;
 
-    _this['date_time'] = dateTime;
-    _this['state_change'] = stateChange;
-    _this['description'] = description;
-    _this['changes'] = changes;
-    _this['event_type_description'] = eventTypeDescription;
-    _this['device_log_id'] = deviceLogId;
-    _this['event_type'] = eventType;
-    _this['data'] = data;
-    _this['device_id'] = deviceId;
+
+
+
+
+
+
+
   };
 
   /**
@@ -87,121 +76,66 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('date_time')) {
-        obj['date_time'] = ApiClient.convertToType(data['date_time'], 'Date');
+      if (data.hasOwnProperty('object')) {
+        obj['object'] = ApiClient.convertToType(data['object'], 'String');
       }
-      if (data.hasOwnProperty('state_change')) {
-        obj['state_change'] = ApiClient.convertToType(data['state_change'], 'Boolean');
+      if (data.hasOwnProperty('has_more')) {
+        obj['has_more'] = ApiClient.convertToType(data['has_more'], 'Boolean');
       }
-      if (data.hasOwnProperty('description')) {
-        obj['description'] = ApiClient.convertToType(data['description'], 'String');
+      if (data.hasOwnProperty('total_count')) {
+        obj['total_count'] = ApiClient.convertToType(data['total_count'], 'Integer');
       }
-      if (data.hasOwnProperty('changes')) {
-        obj['changes'] = ApiClient.convertToType(data['changes'], 'String');
+      if (data.hasOwnProperty('after')) {
+        obj['after'] = ApiClient.convertToType(data['after'], 'String');
       }
-      if (data.hasOwnProperty('event_type_description')) {
-        obj['event_type_description'] = ApiClient.convertToType(data['event_type_description'], 'String');
-      }
-      if (data.hasOwnProperty('device_log_id')) {
-        obj['device_log_id'] = ApiClient.convertToType(data['device_log_id'], 'String');
-      }
-      if (data.hasOwnProperty('event_type')) {
-        obj['event_type'] = ApiClient.convertToType(data['event_type'], 'String');
+      if (data.hasOwnProperty('limit')) {
+        obj['limit'] = ApiClient.convertToType(data['limit'], 'Integer');
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = ApiClient.convertToType(data['data'], 'String');
+        obj['data'] = DeviceLogSerializerData.constructFromObject(data['data']);
       }
-      if (data.hasOwnProperty('device_id')) {
-        obj['device_id'] = ApiClient.convertToType(data['device_id'], 'String');
+      if (data.hasOwnProperty('order')) {
+        obj['order'] = ApiClient.convertToType(data['order'], 'String');
       }
     }
     return obj;
   }
 
   /**
-   * @member {Date} date_time
+   * API Resource name
+   * @member {String} object
    */
-  exports.prototype['date_time'] = undefined;
+  exports.prototype['object'] = undefined;
   /**
-   * @member {Boolean} state_change
+   * Whether there are more results to display
+   * @member {Boolean} has_more
    */
-  exports.prototype['state_change'] = undefined;
+  exports.prototype['has_more'] = undefined;
   /**
-   * @member {String} description
+   * Total number of records
+   * @member {Integer} total_count
    */
-  exports.prototype['description'] = undefined;
+  exports.prototype['total_count'] = undefined;
   /**
-   * @member {String} changes
+   * Entity id for fetch after it
+   * @member {String} after
    */
-  exports.prototype['changes'] = undefined;
+  exports.prototype['after'] = undefined;
   /**
-   * @member {String} event_type_description
+   * The number of results to return
+   * @member {Integer} limit
    */
-  exports.prototype['event_type_description'] = undefined;
+  exports.prototype['limit'] = undefined;
   /**
-   * @member {String} device_log_id
-   */
-  exports.prototype['device_log_id'] = undefined;
-  /**
-   * @member {module:model/DeviceLogSerializer.EventTypeEnum} event_type
-   */
-  exports.prototype['event_type'] = undefined;
-  /**
-   * @member {String} data
+   * @member {module:model/DeviceLogSerializerData} data
    */
   exports.prototype['data'] = undefined;
   /**
-   * @member {String} device_id
+   * Order of returned records
+   * @member {String} order
    */
-  exports.prototype['device_id'] = undefined;
+  exports.prototype['order'] = undefined;
 
-
-  /**
-   * Allowed values for the <code>event_type</code> property.
-   * @enum {String}
-   * @readonly
-   */
-  exports.EventTypeEnum = {
-    /**
-     * value: ""
-     * @const
-     */
-    "": "",
-    /**
-     * value: "update.device.device-created"
-     * @const
-     */
-    "update.device.device-created": "update.device.device-created",
-    /**
-     * value: "update.device.device-updated"
-     * @const
-     */
-    "update.device.device-updated": "update.device.device-updated",
-    /**
-     * value: "update.deployment.campaign-device-metadata-created"
-     * @const
-     */
-    "update.deployment.campaign-device-metadata-created": "update.deployment.campaign-device-metadata-created",
-    /**
-     * value: "update.deployment.campaign-device-metadata-updated"
-     * @const
-     */
-    "update.deployment.campaign-device-metadata-updated": "update.deployment.campaign-device-metadata-updated",
-    /**
-     * value: "update.deployment.campaign-device-metadata-removed"
-     * @const
-     */
-    "update.deployment.campaign-device-metadata-removed": "update.deployment.campaign-device-metadata-removed",
-    /**
-     * value: "update.connector.connector-device.firmware-update.state"
-     * @const
-     */
-    "update.connector.connector-device.firmware-update.state": "update.connector.connector-device.firmware-update.state",
-    /**
-     * value: "update.connector.connector-device.firmware-update.result"
-     * @const
-     */
-    "update.connector.connector-device.firmware-update.result": "update.connector.connector-device.firmware-update.result"  };
 
 
   return exports;
