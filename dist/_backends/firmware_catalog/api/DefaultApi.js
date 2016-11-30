@@ -65,7 +65,6 @@
      */
 
     /**
-     * Reads the deploy_info
      * &lt;p&gt;Reads the deploy_info.json file and returns the Build and Git ID to the caller.&lt;/p&gt; &lt;p&gt;Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.&lt;/p&gt;
      * @param {module:api/DefaultApi~deployInfoGETCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
@@ -104,7 +103,6 @@
      */
 
     /**
-     * Create firmware image
      * &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;Create firmware image&lt;/p&gt;&lt;pre&gt;YAMLError:  while scanning a simple key   in \&quot;&lt;unicode string&gt;\&quot;, line 16, column 9:             Cannot validate the data used to ...              ^ could not find expected &#39;:&#39;   in \&quot;&lt;unicode string&gt;\&quot;, line 17, column 5:         - code: 401         ^&lt;/pre&gt;
      * @param {String} datafile The binary file of firmware image
      * @param {String} name The name of the object
@@ -181,7 +179,6 @@
      */
 
     /**
-     * Delete firmware image
      * &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;Delete firmware image&lt;/p&gt;
      * @param {Integer} imageId The ID of the firmware image
      * @param {Object} opts Optional parameters
@@ -247,7 +244,6 @@
      */
 
     /**
-     * List all firmware images
      * &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;List all firmware images. The result will be paged into pages of 100.&lt;/p&gt;
      * @param {Object} opts Optional parameters
      * @param {String} opts.updatingRequestId 
@@ -310,7 +306,6 @@
      */
 
     /**
-     * Retrieve firmware image
      * &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;Retrieve firmware image&lt;/p&gt;
      * @param {Integer} imageId The ID of the firmware image
      * @param {Object} opts Optional parameters
@@ -376,7 +371,6 @@
      */
 
     /**
-     * Create firmware manifest
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Create firmware manifest&lt;/p&gt;
      * @param {String} datafile The manifest file to create
      * @param {String} name The name of the object
@@ -457,7 +451,6 @@
      */
 
     /**
-     * Delete firmware manifest
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Delete firmware manifest&lt;/p&gt;
      * @param {Integer} manifestId The ID of the firmware manifest
      * @param {Object} opts Optional parameters
@@ -527,7 +520,6 @@
      */
 
     /**
-     * List all firmware manifests
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;List all firmware manifests&lt;/p&gt;
      * @param {Object} opts Optional parameters
      * @param {String} opts.updatingRequestId 
@@ -594,7 +586,6 @@
      */
 
     /**
-     * Retrieve firmware manifest
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Retrieve firmware manifest&lt;/p&gt;
      * @param {Integer} manifestId The ID of the firmware manifest
      * @param {Object} opts Optional parameters

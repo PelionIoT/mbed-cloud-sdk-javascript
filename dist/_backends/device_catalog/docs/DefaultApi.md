@@ -136,13 +136,9 @@ Bearer.apiKey = 'YOUR API KEY';
 var apiInstance = new DeviceCatalogApi.DefaultApi();
 
 var opts = { 
-  '_object': "_object_example", // String | 
   'limit': 56, // Integer | 
-  'hasMore': true, // Boolean | 
-  'data': ["data_example"], // [String] | 
   'order': "order_example", // String | 
-  'after': "after_example", // String | 
-  'totalCount': 56 // Integer | 
+  'after': "after_example" // String | 
 };
 
 var callback = function(error, data, response) {
@@ -159,13 +155,9 @@ apiInstance.deviceList(opts, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **_object** | **String**|  | [optional] 
  **limit** | **Integer**|  | [optional] 
- **hasMore** | **Boolean**|  | [optional] 
- **data** | [**[String]**](String.md)|  | [optional] 
  **order** | **String**|  | [optional] 
  **after** | **String**|  | [optional] 
- **totalCount** | **Integer**|  | [optional] 
 
 ### Return type
 
@@ -202,13 +194,9 @@ Bearer.apiKey = 'YOUR API KEY';
 var apiInstance = new DeviceCatalogApi.DefaultApi();
 
 var opts = { 
-  '_object': "_object_example", // String | 
   'limit': 56, // Integer | 
-  'hasMore': true, // Boolean | 
-  'data': ["data_example"], // [String] | 
   'order': "order_example", // String | 
-  'after': "after_example", // String | 
-  'totalCount': 56 // Integer | 
+  'after': "after_example" // String | 
 };
 
 var callback = function(error, data, response) {
@@ -225,13 +213,9 @@ apiInstance.deviceLogList(opts, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **_object** | **String**|  | [optional] 
  **limit** | **Integer**|  | [optional] 
- **hasMore** | **Boolean**|  | [optional] 
- **data** | [**[String]**](String.md)|  | [optional] 
  **order** | **String**|  | [optional] 
  **after** | **String**|  | [optional] 
- **totalCount** | **Integer**|  | [optional] 
 
 ### Return type
 

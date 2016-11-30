@@ -4,22 +4,22 @@ All URIs are relative to *http://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deployInfoGET**](DefaultApi.md#deployInfoGET) | **GET** /v3/fc_deploy_info | Reads the deploy_info
-[**firmwareImageCreate**](DefaultApi.md#firmwareImageCreate) | **POST** /v3/firmware/images/ | Create firmware image
-[**firmwareImageDestroy**](DefaultApi.md#firmwareImageDestroy) | **DELETE** /v3/firmware/images/{image_id}/ | Delete firmware image
-[**firmwareImageList**](DefaultApi.md#firmwareImageList) | **GET** /v3/firmware/images/ | List all firmware images
-[**firmwareImageRetrieve**](DefaultApi.md#firmwareImageRetrieve) | **GET** /v3/firmware/images/{image_id}/ | Retrieve firmware image
-[**firmwareManifestCreate**](DefaultApi.md#firmwareManifestCreate) | **POST** /v3/firmware/manifests/ | Create firmware manifest
-[**firmwareManifestDestroy**](DefaultApi.md#firmwareManifestDestroy) | **DELETE** /v3/firmware/manifests/{manifest_id}/ | Delete firmware manifest
-[**firmwareManifestList**](DefaultApi.md#firmwareManifestList) | **GET** /v3/firmware/manifests/ | List all firmware manifests
-[**firmwareManifestRetrieve**](DefaultApi.md#firmwareManifestRetrieve) | **GET** /v3/firmware/manifests/{manifest_id}/ | Retrieve firmware manifest
+[**deployInfoGET**](DefaultApi.md#deployInfoGET) | **GET** /v3/fc_deploy_info | 
+[**firmwareImageCreate**](DefaultApi.md#firmwareImageCreate) | **POST** /v3/firmware/images/ | 
+[**firmwareImageDestroy**](DefaultApi.md#firmwareImageDestroy) | **DELETE** /v3/firmware/images/{image_id}/ | 
+[**firmwareImageList**](DefaultApi.md#firmwareImageList) | **GET** /v3/firmware/images/ | 
+[**firmwareImageRetrieve**](DefaultApi.md#firmwareImageRetrieve) | **GET** /v3/firmware/images/{image_id}/ | 
+[**firmwareManifestCreate**](DefaultApi.md#firmwareManifestCreate) | **POST** /v3/firmware/manifests/ | 
+[**firmwareManifestDestroy**](DefaultApi.md#firmwareManifestDestroy) | **DELETE** /v3/firmware/manifests/{manifest_id}/ | 
+[**firmwareManifestList**](DefaultApi.md#firmwareManifestList) | **GET** /v3/firmware/manifests/ | 
+[**firmwareManifestRetrieve**](DefaultApi.md#firmwareManifestRetrieve) | **GET** /v3/firmware/manifests/{manifest_id}/ | 
 
 
 <a name="deployInfoGET"></a>
 # **deployInfoGET**
 > Object deployInfoGET()
 
-Reads the deploy_info
+
 
 &lt;p&gt;Reads the deploy_info.json file and returns the Build and Git ID to the caller.&lt;/p&gt; &lt;p&gt;Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.&lt;/p&gt;
 
@@ -66,7 +66,7 @@ This endpoint does not need any parameter.
 # **firmwareImageCreate**
 > FirmwareImageSerializer firmwareImageCreate(datafile, name, opts)
 
-Create firmware image
+
 
 &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;Create firmware image&lt;/p&gt;&lt;pre&gt;YAMLError:  while scanning a simple key   in \&quot;&lt;unicode string&gt;\&quot;, line 16, column 9:             Cannot validate the data used to ...              ^ could not find expected &#39;:&#39;   in \&quot;&lt;unicode string&gt;\&quot;, line 17, column 5:         - code: 401         ^&lt;/pre&gt;
 
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 # **firmwareImageDestroy**
 > FirmwareImageSerializer firmwareImageDestroy(imageId, opts)
 
-Delete firmware image
+
 
 &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;Delete firmware image&lt;/p&gt;
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 # **firmwareImageList**
 > [FirmwareImageSerializer] firmwareImageList(opts)
 
-List all firmware images
+
 
 &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;List all firmware images. The result will be paged into pages of 100.&lt;/p&gt;
 
@@ -293,7 +293,7 @@ Name | Type | Description  | Notes
 # **firmwareImageRetrieve**
 > FirmwareImageSerializer firmwareImageRetrieve(imageId, opts)
 
-Retrieve firmware image
+
 
 &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;Retrieve firmware image&lt;/p&gt;
 
@@ -366,7 +366,7 @@ Name | Type | Description  | Notes
 # **firmwareManifestCreate**
 > FirmwareManifestSerializer firmwareManifestCreate(datafile, name, opts)
 
-Create firmware manifest
+
 
 &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Create firmware manifest&lt;/p&gt;
 
@@ -450,7 +450,7 @@ Name | Type | Description  | Notes
 # **firmwareManifestDestroy**
 > FirmwareManifestSerializer firmwareManifestDestroy(manifestId, opts)
 
-Delete firmware manifest
+
 
 &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Delete firmware manifest&lt;/p&gt;
 
@@ -527,7 +527,7 @@ Name | Type | Description  | Notes
 # **firmwareManifestList**
 > [FirmwareManifestSerializer] firmwareManifestList(opts)
 
-List all firmware manifests
+
 
 &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;List all firmware manifests&lt;/p&gt;
 
@@ -605,7 +605,7 @@ Name | Type | Description  | Notes
 # **firmwareManifestRetrieve**
 > FirmwareManifestSerializer firmwareManifestRetrieve(manifestId, opts)
 
-Retrieve firmware manifest
+
 
 &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Retrieve firmware manifest&lt;/p&gt;
 

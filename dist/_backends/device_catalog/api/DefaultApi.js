@@ -150,13 +150,9 @@
     /**
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;List all update devices. The result is paged into pages of 100.&lt;/p&gt;
      * @param {Object} opts Optional parameters
-     * @param {String} opts._object 
      * @param {Integer} opts.limit 
-     * @param {Boolean} opts.hasMore 
-     * @param {Array.<String>} opts.data 
      * @param {String} opts.order 
      * @param {String} opts.after 
-     * @param {Integer} opts.totalCount 
      * @param {module:api/DefaultApi~deviceListCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/DeviceSerializer}
      */
@@ -168,13 +164,9 @@
       var pathParams = {
       };
       var queryParams = {
-        'object': opts['_object'],
         'limit': opts['limit'],
-        'has_more': opts['hasMore'],
-        'data': this.apiClient.buildCollectionParam(opts['data'], 'csv'),
         'order': opts['order'],
-        'after': opts['after'],
-        'total_count': opts['totalCount']
+        'after': opts['after']
       };
       var headerParams = {
       };
@@ -204,13 +196,9 @@
     /**
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;List all device logs.&lt;/p&gt;
      * @param {Object} opts Optional parameters
-     * @param {String} opts._object 
      * @param {Integer} opts.limit 
-     * @param {Boolean} opts.hasMore 
-     * @param {Array.<String>} opts.data 
      * @param {String} opts.order 
      * @param {String} opts.after 
-     * @param {Integer} opts.totalCount 
      * @param {module:api/DefaultApi~deviceLogListCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/DeviceLogSerializer}
      */
@@ -222,13 +210,9 @@
       var pathParams = {
       };
       var queryParams = {
-        'object': opts['_object'],
         'limit': opts['limit'],
-        'has_more': opts['hasMore'],
-        'data': this.apiClient.buildCollectionParam(opts['data'], 'csv'),
         'order': opts['order'],
-        'after': opts['after'],
-        'total_count': opts['totalCount']
+        'after': opts['after']
       };
       var headerParams = {
       };

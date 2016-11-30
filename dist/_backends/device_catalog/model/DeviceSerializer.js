@@ -92,7 +92,7 @@
         obj['limit'] = ApiClient.convertToType(data['limit'], 'Integer');
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = DeviceSerializerData.constructFromObject(data['data']);
+        obj['data'] = ApiClient.convertToType(data['data'], [DeviceSerializerData]);
       }
       if (data.hasOwnProperty('order')) {
         obj['order'] = ApiClient.convertToType(data['order'], 'String');
@@ -127,7 +127,7 @@
    */
   exports.prototype['limit'] = undefined;
   /**
-   * @member {module:model/DeviceSerializerData} data
+   * @member {Array.<module:model/DeviceSerializerData>} data
    */
   exports.prototype['data'] = undefined;
   /**

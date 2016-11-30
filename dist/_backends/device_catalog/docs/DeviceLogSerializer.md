@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **totalCount** | **Integer** | Total number of records | [optional] 
 **after** | **String** | Entity id for fetch after it | [optional] 
 **limit** | **Integer** | The number of results to return | [optional] 
-**data** | [**DeviceLogSerializerData**](DeviceLogSerializerData.md) |  | [optional] 
+**data** | [**[DeviceLogSerializerData]**](DeviceLogSerializerData.md) |  | [optional] 
 **order** | **String** | Order of returned records | [optional] 
 
 
