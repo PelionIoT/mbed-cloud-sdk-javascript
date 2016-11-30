@@ -88,7 +88,7 @@
       var returnType = DeviceSerializer;
 
       return this.apiClient.callApi(
-        '/v3/devices{var}', 'POST',
+        '/v3/devices/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -133,7 +133,7 @@
       var returnType = DeviceSerializer;
 
       return this.apiClient.callApi(
-        '/v3/devices/{device_id}{var}', 'DELETE',
+        '/v3/devices/{device_id}/', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -143,7 +143,7 @@
      * Callback function to receive the result of the deviceList operation.
      * @callback module:api/DefaultApi~deviceListCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/DeviceSerializer>} data The data returned by the service call.
+     * @param {module:model/DeviceSerializer} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -158,7 +158,7 @@
      * @param {String} opts.after 
      * @param {Integer} opts.totalCount 
      * @param {module:api/DefaultApi~deviceListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/DeviceSerializer>}
+     * data is of type: {@link module:model/DeviceSerializer}
      */
     this.deviceList = function(opts, callback) {
       opts = opts || {};
@@ -184,10 +184,10 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = [DeviceSerializer];
+      var returnType = DeviceSerializer;
 
       return this.apiClient.callApi(
-        '/v3/devices{var}', 'GET',
+        '/v3/devices/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -197,7 +197,7 @@
      * Callback function to receive the result of the deviceLogList operation.
      * @callback module:api/DefaultApi~deviceLogListCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/DeviceLogSerializer>} data The data returned by the service call.
+     * @param {module:model/DeviceLogSerializer} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -212,7 +212,7 @@
      * @param {String} opts.after 
      * @param {Integer} opts.totalCount 
      * @param {module:api/DefaultApi~deviceLogListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/DeviceLogSerializer>}
+     * data is of type: {@link module:model/DeviceLogSerializer}
      */
     this.deviceLogList = function(opts, callback) {
       opts = opts || {};
@@ -238,10 +238,10 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = [DeviceLogSerializer];
+      var returnType = DeviceLogSerializer;
 
       return this.apiClient.callApi(
-        '/v3/devicelog{var}', 'GET',
+        '/v3/devicelog/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -286,7 +286,7 @@
       var returnType = DeviceLogSerializer;
 
       return this.apiClient.callApi(
-        '/v3/devicelog/{device_log_id}{var}', 'GET',
+        '/v3/devicelog/{device_log_id}/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -331,7 +331,7 @@
       var returnType = DeviceSerializer;
 
       return this.apiClient.callApi(
-        '/v3/devices/{device_id}{var}', 'PATCH',
+        '/v3/devices/{device_id}/', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -376,7 +376,7 @@
       var returnType = DeviceSerializer;
 
       return this.apiClient.callApi(
-        '/v3/devices/{device_id}{var}', 'GET',
+        '/v3/devices/{device_id}/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -421,7 +421,7 @@
       var returnType = DeviceSerializer;
 
       return this.apiClient.callApi(
-        '/v3/devices/{device_id}{var}', 'PUT',
+        '/v3/devices/{device_id}/', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );

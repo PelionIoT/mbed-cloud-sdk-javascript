@@ -110,7 +110,7 @@
       var returnType = DeviceQuerySerializer;
 
       return this.apiClient.callApi(
-        '/v3/device-queries{var}', 'POST',
+        '/v3/device-queries/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -155,7 +155,7 @@
       var returnType = DeviceQuerySerializer;
 
       return this.apiClient.callApi(
-        '/v3/device-queries/{query_id}{var}', 'DELETE',
+        '/v3/device-queries/{query_id}/', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -211,7 +211,7 @@
       var returnType = [DeviceQuerySerializer];
 
       return this.apiClient.callApi(
-        '/v3/device-queries{var}', 'GET',
+        '/v3/device-queries/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -268,7 +268,7 @@
       var returnType = DeviceQuerySerializer;
 
       return this.apiClient.callApi(
-        '/v3/device-queries/{query_id}{var}', 'PATCH',
+        '/v3/device-queries/{query_id}/', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -313,7 +313,7 @@
       var returnType = DeviceQuerySerializer;
 
       return this.apiClient.callApi(
-        '/v3/device-queries/{query_id}{var}', 'GET',
+        '/v3/device-queries/{query_id}/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -380,7 +380,7 @@
       var returnType = DeviceQuerySerializer;
 
       return this.apiClient.callApi(
-        '/v3/device-queries/{query_id}{var}', 'PUT',
+        '/v3/device-queries/{query_id}/', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );

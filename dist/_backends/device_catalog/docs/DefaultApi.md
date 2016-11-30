@@ -4,14 +4,14 @@ All URIs are relative to *http://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deviceCreate**](DefaultApi.md#deviceCreate) | **POST** /v3/devices{var} | 
-[**deviceDestroy**](DefaultApi.md#deviceDestroy) | **DELETE** /v3/devices/{device_id}{var} | 
-[**deviceList**](DefaultApi.md#deviceList) | **GET** /v3/devices{var} | 
-[**deviceLogList**](DefaultApi.md#deviceLogList) | **GET** /v3/devicelog{var} | 
-[**deviceLogRetrieve**](DefaultApi.md#deviceLogRetrieve) | **GET** /v3/devicelog/{device_log_id}{var} | 
-[**devicePartialUpdate**](DefaultApi.md#devicePartialUpdate) | **PATCH** /v3/devices/{device_id}{var} | 
-[**deviceRetrieve**](DefaultApi.md#deviceRetrieve) | **GET** /v3/devices/{device_id}{var} | 
-[**deviceUpdate**](DefaultApi.md#deviceUpdate) | **PUT** /v3/devices/{device_id}{var} | 
+[**deviceCreate**](DefaultApi.md#deviceCreate) | **POST** /v3/devices/ | 
+[**deviceDestroy**](DefaultApi.md#deviceDestroy) | **DELETE** /v3/devices/{device_id}/ | 
+[**deviceList**](DefaultApi.md#deviceList) | **GET** /v3/devices/ | 
+[**deviceLogList**](DefaultApi.md#deviceLogList) | **GET** /v3/devicelog/ | 
+[**deviceLogRetrieve**](DefaultApi.md#deviceLogRetrieve) | **GET** /v3/devicelog/{device_log_id}/ | 
+[**devicePartialUpdate**](DefaultApi.md#devicePartialUpdate) | **PATCH** /v3/devices/{device_id}/ | 
+[**deviceRetrieve**](DefaultApi.md#deviceRetrieve) | **GET** /v3/devices/{device_id}/ | 
+[**deviceUpdate**](DefaultApi.md#deviceUpdate) | **PUT** /v3/devices/{device_id}/ | 
 
 
 <a name="deviceCreate"></a>
@@ -116,7 +116,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceList"></a>
 # **deviceList**
-> [DeviceSerializer] deviceList(opts)
+> DeviceSerializer deviceList(opts)
 
 
 
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[DeviceSerializer]**](DeviceSerializer.md)
+[**DeviceSerializer**](DeviceSerializer.md)
 
 ### Authorization
 
@@ -182,7 +182,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceLogList"></a>
 # **deviceLogList**
-> [DeviceLogSerializer] deviceLogList(opts)
+> DeviceLogSerializer deviceLogList(opts)
 
 
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[DeviceLogSerializer]**](DeviceLogSerializer.md)
+[**DeviceLogSerializer**](DeviceLogSerializer.md)
 
 ### Authorization
 
