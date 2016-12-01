@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 <a name="firmwareImageList"></a>
 # **firmwareImageList**
-> [FirmwareImageSerializer] firmwareImageList(opts)
+> FirmwareImageSerializer firmwareImageList(opts)
 
 
 
@@ -262,7 +262,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[FirmwareImageSerializer]**](FirmwareImageSerializer.md)
+[**FirmwareImageSerializer**](FirmwareImageSerializer.md)
 
 ### Authorization
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 <a name="firmwareManifestList"></a>
 # **firmwareManifestList**
-> [FirmwareManifestSerializer] firmwareManifestList(opts)
+> FirmwareManifestSerializer firmwareManifestList(opts)
 
 
 
@@ -574,7 +574,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[FirmwareManifestSerializer]**](FirmwareManifestSerializer.md)
+[**FirmwareManifestSerializer**](FirmwareManifestSerializer.md)
 
 ### Authorization
 

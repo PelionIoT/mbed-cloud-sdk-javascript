@@ -239,7 +239,7 @@
      * Callback function to receive the result of the firmwareImageList operation.
      * @callback module:api/DefaultApi~firmwareImageListCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/FirmwareImageSerializer>} data The data returned by the service call.
+     * @param {module:model/FirmwareImageSerializer} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -250,7 +250,7 @@
      * @param {String} opts.order 
      * @param {String} opts.after 
      * @param {module:api/DefaultApi~firmwareImageListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/FirmwareImageSerializer>}
+     * data is of type: {@link module:model/FirmwareImageSerializer}
      */
     this.firmwareImageList = function(opts, callback) {
       opts = opts || {};
@@ -272,7 +272,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = [FirmwareImageSerializer];
+      var returnType = FirmwareImageSerializer;
 
       return this.apiClient.callApi(
         '/v3/firmware/images/', 'GET',
@@ -499,7 +499,7 @@
      * Callback function to receive the result of the firmwareManifestList operation.
      * @callback module:api/DefaultApi~firmwareManifestListCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/FirmwareManifestSerializer>} data The data returned by the service call.
+     * @param {module:model/FirmwareManifestSerializer} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -520,7 +520,7 @@
      * @param {String} opts.timestamp 
      * @param {Integer} opts.page The page number to retrieve. If not given, then defaults to first page. 
      * @param {module:api/DefaultApi~firmwareManifestListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/FirmwareManifestSerializer>}
+     * data is of type: {@link module:model/FirmwareManifestSerializer}
      */
     this.firmwareManifestList = function(opts, callback) {
       opts = opts || {};
@@ -552,7 +552,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = [FirmwareManifestSerializer];
+      var returnType = FirmwareManifestSerializer;
 
       return this.apiClient.callApi(
         '/v3/firmware/manifests/', 'GET',
