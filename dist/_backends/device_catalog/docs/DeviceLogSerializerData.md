@@ -18,21 +18,19 @@ Name | Type | Description | Notes
 ## Enum: EventTypeEnum
 
 
-* `` (value: `""`)
+* `device.device-created` (value: `"update.device.device-created"`)
 
-* `update.device.device-created` (value: `"update.device.device-created"`)
+* `device.device-updated` (value: `"update.device.device-updated"`)
 
-* `update.device.device-updated` (value: `"update.device.device-updated"`)
+* `deployment.campaign-device-metadata-created` (value: `"update.deployment.campaign-device-metadata-created"`)
 
-* `update.deployment.campaign-device-metadata-created` (value: `"update.deployment.campaign-device-metadata-created"`)
+* `deployment.campaign-device-metadata-updated` (value: `"update.deployment.campaign-device-metadata-updated"`)
 
-* `update.deployment.campaign-device-metadata-updated` (value: `"update.deployment.campaign-device-metadata-updated"`)
+* `deployment.campaign-device-metadata-removed` (value: `"update.deployment.campaign-device-metadata-removed"`)
 
-* `update.deployment.campaign-device-metadata-removed` (value: `"update.deployment.campaign-device-metadata-removed"`)
+* `connector.connector-device.firmware-update.state` (value: `"update.connector.connector-device.firmware-update.state"`)
 
-* `update.connector.connector-device.firmware-update.state` (value: `"update.connector.connector-device.firmware-update.state"`)
-
-* `update.connector.connector-device.firmware-update.result` (value: `"update.connector.connector-device.firmware-update.result"`)
+* `connector.connector-device.firmware-update.result` (value: `"update.connector.connector-device.firmware-update.result"`)
 
 
 

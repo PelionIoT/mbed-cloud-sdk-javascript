@@ -155,45 +155,40 @@
    */
   exports.EventTypeEnum = {
     /**
-     * value: ""
-     * @const
-     */
-    "": "",
-    /**
      * value: "update.device.device-created"
      * @const
      */
-    "update.device.device-created": "update.device.device-created",
+    "device.device-created": "update.device.device-created",
     /**
      * value: "update.device.device-updated"
      * @const
      */
-    "update.device.device-updated": "update.device.device-updated",
+    "device.device-updated": "update.device.device-updated",
     /**
      * value: "update.deployment.campaign-device-metadata-created"
      * @const
      */
-    "update.deployment.campaign-device-metadata-created": "update.deployment.campaign-device-metadata-created",
+    "deployment.campaign-device-metadata-created": "update.deployment.campaign-device-metadata-created",
     /**
      * value: "update.deployment.campaign-device-metadata-updated"
      * @const
      */
-    "update.deployment.campaign-device-metadata-updated": "update.deployment.campaign-device-metadata-updated",
+    "deployment.campaign-device-metadata-updated": "update.deployment.campaign-device-metadata-updated",
     /**
      * value: "update.deployment.campaign-device-metadata-removed"
      * @const
      */
-    "update.deployment.campaign-device-metadata-removed": "update.deployment.campaign-device-metadata-removed",
+    "deployment.campaign-device-metadata-removed": "update.deployment.campaign-device-metadata-removed",
     /**
      * value: "update.connector.connector-device.firmware-update.state"
      * @const
      */
-    "update.connector.connector-device.firmware-update.state": "update.connector.connector-device.firmware-update.state",
+    "connector.connector-device.firmware-update.state": "update.connector.connector-device.firmware-update.state",
     /**
      * value: "update.connector.connector-device.firmware-update.result"
      * @const
      */
-    "update.connector.connector-device.firmware-update.result": "update.connector.connector-device.firmware-update.result"  };
+    "connector.connector-device.firmware-update.result": "update.connector.connector-device.firmware-update.result"  };
 
 
   return exports;
