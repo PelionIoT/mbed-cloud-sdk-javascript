@@ -3,15 +3,12 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**datafile** | **String** | The binary file of firmware image | 
-**description** | **String** | The description of the object | 
-**createdAt** | **Date** | The time the object was created | 
-**_object** | **String** | The API resource entity | 
-**updatedAt** | **Date** | The time the object was updated | 
-**imageId** | **String** | DEPRECATED: The ID of the firmware image | 
-**etag** | **Date** | The entity instance signature | 
-**datafileChecksum** | **String** | Checksum generated for the datafile | 
-**id** | **String** | The ID of the firmware image | 
-**name** | **String** | The name of the object | 
+**_object** | **String** | API Resource name | [optional] 
+**hasMore** | **Boolean** | Whether there are more results to display | [optional] 
+**totalCount** | **Integer** | Total number of records | [optional] 
+**after** | **String** | Entity id for fetch after it | [optional] 
+**limit** | **Integer** | The number of results to return | [optional] 
+**data** | [**[FirmwareImageSerializerData]**](FirmwareImageSerializerData.md) |  | [optional] 
+**order** | **String** | Order of returned records | [optional] 
 
 

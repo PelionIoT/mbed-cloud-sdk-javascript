@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/FirmwareImageSerializerData'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./FirmwareImageSerializerData'));
   } else {
     // Browser globals (root is window)
     if (!root.FirmwareCatalogApi) {
       root.FirmwareCatalogApi = {};
     }
-    root.FirmwareCatalogApi.FirmwareImageSerializer = factory(root.FirmwareCatalogApi.ApiClient);
+    root.FirmwareCatalogApi.FirmwareImageSerializer = factory(root.FirmwareCatalogApi.ApiClient, root.FirmwareCatalogApi.FirmwareImageSerializerData);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, FirmwareImageSerializerData) {
   'use strict';
 
 
@@ -52,30 +52,17 @@
    * Constructs a new <code>FirmwareImageSerializer</code>.
    * @alias module:model/FirmwareImageSerializer
    * @class
-   * @param datafile {String} The binary file of firmware image
-   * @param description {String} The description of the object
-   * @param createdAt {Date} The time the object was created
-   * @param _object {String} The API resource entity
-   * @param updatedAt {Date} The time the object was updated
-   * @param imageId {String} DEPRECATED: The ID of the firmware image
-   * @param etag {Date} The entity instance signature
-   * @param datafileChecksum {String} Checksum generated for the datafile
-   * @param id {String} The ID of the firmware image
-   * @param name {String} The name of the object
    */
-  var exports = function(datafile, description, createdAt, _object, updatedAt, imageId, etag, datafileChecksum, id, name) {
+  var exports = function() {
     var _this = this;
 
-    _this['datafile'] = datafile;
-    _this['description'] = description;
-    _this['created_at'] = createdAt;
-    _this['object'] = _object;
-    _this['updated_at'] = updatedAt;
-    _this['image_id'] = imageId;
-    _this['etag'] = etag;
-    _this['datafile_checksum'] = datafileChecksum;
-    _this['id'] = id;
-    _this['name'] = name;
+
+
+
+
+
+
+
   };
 
   /**
@@ -89,90 +76,65 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('datafile')) {
-        obj['datafile'] = ApiClient.convertToType(data['datafile'], 'String');
-      }
-      if (data.hasOwnProperty('description')) {
-        obj['description'] = ApiClient.convertToType(data['description'], 'String');
-      }
-      if (data.hasOwnProperty('created_at')) {
-        obj['created_at'] = ApiClient.convertToType(data['created_at'], 'Date');
-      }
       if (data.hasOwnProperty('object')) {
         obj['object'] = ApiClient.convertToType(data['object'], 'String');
       }
-      if (data.hasOwnProperty('updated_at')) {
-        obj['updated_at'] = ApiClient.convertToType(data['updated_at'], 'Date');
+      if (data.hasOwnProperty('has_more')) {
+        obj['has_more'] = ApiClient.convertToType(data['has_more'], 'Boolean');
       }
-      if (data.hasOwnProperty('image_id')) {
-        obj['image_id'] = ApiClient.convertToType(data['image_id'], 'String');
+      if (data.hasOwnProperty('total_count')) {
+        obj['total_count'] = ApiClient.convertToType(data['total_count'], 'Integer');
       }
-      if (data.hasOwnProperty('etag')) {
-        obj['etag'] = ApiClient.convertToType(data['etag'], 'Date');
+      if (data.hasOwnProperty('after')) {
+        obj['after'] = ApiClient.convertToType(data['after'], 'String');
       }
-      if (data.hasOwnProperty('datafile_checksum')) {
-        obj['datafile_checksum'] = ApiClient.convertToType(data['datafile_checksum'], 'String');
+      if (data.hasOwnProperty('limit')) {
+        obj['limit'] = ApiClient.convertToType(data['limit'], 'Integer');
       }
-      if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+      if (data.hasOwnProperty('data')) {
+        obj['data'] = ApiClient.convertToType(data['data'], [FirmwareImageSerializerData]);
       }
-      if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String');
+      if (data.hasOwnProperty('order')) {
+        obj['order'] = ApiClient.convertToType(data['order'], 'String');
       }
     }
     return obj;
   }
 
   /**
-   * The binary file of firmware image
-   * @member {String} datafile
-   */
-  exports.prototype['datafile'] = undefined;
-  /**
-   * The description of the object
-   * @member {String} description
-   */
-  exports.prototype['description'] = undefined;
-  /**
-   * The time the object was created
-   * @member {Date} created_at
-   */
-  exports.prototype['created_at'] = undefined;
-  /**
-   * The API resource entity
+   * API Resource name
    * @member {String} object
    */
   exports.prototype['object'] = undefined;
   /**
-   * The time the object was updated
-   * @member {Date} updated_at
+   * Whether there are more results to display
+   * @member {Boolean} has_more
    */
-  exports.prototype['updated_at'] = undefined;
+  exports.prototype['has_more'] = undefined;
   /**
-   * DEPRECATED: The ID of the firmware image
-   * @member {String} image_id
+   * Total number of records
+   * @member {Integer} total_count
    */
-  exports.prototype['image_id'] = undefined;
+  exports.prototype['total_count'] = undefined;
   /**
-   * The entity instance signature
-   * @member {Date} etag
+   * Entity id for fetch after it
+   * @member {String} after
    */
-  exports.prototype['etag'] = undefined;
+  exports.prototype['after'] = undefined;
   /**
-   * Checksum generated for the datafile
-   * @member {String} datafile_checksum
+   * The number of results to return
+   * @member {Integer} limit
    */
-  exports.prototype['datafile_checksum'] = undefined;
+  exports.prototype['limit'] = undefined;
   /**
-   * The ID of the firmware image
-   * @member {String} id
+   * @member {Array.<module:model/FirmwareImageSerializerData>} data
    */
-  exports.prototype['id'] = undefined;
+  exports.prototype['data'] = undefined;
   /**
-   * The name of the object
-   * @member {String} name
+   * Order of returned records
+   * @member {String} order
    */
-  exports.prototype['name'] = undefined;
+  exports.prototype['order'] = undefined;
 
 
 
