@@ -153,6 +153,8 @@
      * @param {Integer} opts.limit 
      * @param {String} opts.order 
      * @param {String} opts.after 
+     * @param {String} opts.filter 
+     * @param {String} opts.include 
      * @param {module:api/DefaultApi~deviceListCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/DeviceSerializer}
      */
@@ -166,7 +168,9 @@
       var queryParams = {
         'limit': opts['limit'],
         'order': opts['order'],
-        'after': opts['after']
+        'after': opts['after'],
+        'filter': opts['filter'],
+        'include': opts['include']
       };
       var headerParams = {
       };
@@ -199,6 +203,8 @@
      * @param {Integer} opts.limit 
      * @param {String} opts.order 
      * @param {String} opts.after 
+     * @param {String} opts.filter 
+     * @param {String} opts.include 
      * @param {module:api/DefaultApi~deviceLogListCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/DeviceLogSerializer}
      */
@@ -212,7 +218,9 @@
       var queryParams = {
         'limit': opts['limit'],
         'order': opts['order'],
-        'after': opts['after']
+        'after': opts['after'],
+        'filter': opts['filter'],
+        'include': opts['include']
       };
       var headerParams = {
       };

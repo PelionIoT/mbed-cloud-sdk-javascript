@@ -138,7 +138,9 @@ var apiInstance = new DeviceCatalogApi.DefaultApi();
 var opts = { 
   'limit': 56, // Integer | 
   'order': "order_example", // String | 
-  'after': "after_example" // String | 
+  'after': "after_example", // String | 
+  'filter': "filter_example", // String | 
+  'include': "include_example" // String | 
 };
 
 var callback = function(error, data, response) {
@@ -158,6 +160,8 @@ Name | Type | Description  | Notes
  **limit** | **Integer**|  | [optional] 
  **order** | **String**|  | [optional] 
  **after** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+ **include** | **String**|  | [optional] 
 
 ### Return type
 
@@ -196,7 +200,9 @@ var apiInstance = new DeviceCatalogApi.DefaultApi();
 var opts = { 
   'limit': 56, // Integer | 
   'order': "order_example", // String | 
-  'after': "after_example" // String | 
+  'after': "after_example", // String | 
+  'filter': "filter_example", // String | 
+  'include': "include_example" // String | 
 };
 
 var callback = function(error, data, response) {
@@ -216,6 +222,8 @@ Name | Type | Description  | Notes
  **limit** | **Integer**|  | [optional] 
  **order** | **String**|  | [optional] 
  **after** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+ **include** | **String**|  | [optional] 
 
 ### Return type
 
