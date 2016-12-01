@@ -25,12 +25,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/FirmwareImageSerializer', 'model/FirmwareManifestSerializer', 'model/WriteFirmwareImageSerializer', 'model/WriteFirmwareManifestSerializer', 'api/DefaultApi'], factory);
+    define(['ApiClient', 'model/FirmwareImageSerializer', 'model/FirmwareManifestSerializer', 'api/DefaultApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/FirmwareImageSerializer'), require('./model/FirmwareManifestSerializer'), require('./model/WriteFirmwareImageSerializer'), require('./model/WriteFirmwareManifestSerializer'), require('./api/DefaultApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/FirmwareImageSerializer'), require('./model/FirmwareManifestSerializer'), require('./api/DefaultApi'));
   }
-}(function(ApiClient, FirmwareImageSerializer, FirmwareManifestSerializer, WriteFirmwareImageSerializer, WriteFirmwareManifestSerializer, DefaultApi) {
+}(function(ApiClient, FirmwareImageSerializer, FirmwareManifestSerializer, DefaultApi) {
   'use strict';
 
   /**
@@ -80,16 +80,6 @@
      * @property {module:model/FirmwareManifestSerializer}
      */
     FirmwareManifestSerializer: FirmwareManifestSerializer,
-    /**
-     * The WriteFirmwareImageSerializer model constructor.
-     * @property {module:model/WriteFirmwareImageSerializer}
-     */
-    WriteFirmwareImageSerializer: WriteFirmwareImageSerializer,
-    /**
-     * The WriteFirmwareManifestSerializer model constructor.
-     * @property {module:model/WriteFirmwareManifestSerializer}
-     */
-    WriteFirmwareManifestSerializer: WriteFirmwareManifestSerializer,
     /**
      * The DefaultApi service constructor.
      * @property {module:api/DefaultApi}
