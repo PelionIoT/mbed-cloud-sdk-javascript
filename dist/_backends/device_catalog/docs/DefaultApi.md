@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 <a name="deviceCreate"></a>
 # **deviceCreate**
-> DeviceSerializer deviceCreate()
+> DeviceListResp deviceCreate(mechanism, provisionKey, opts)
 
 
 
@@ -35,6 +35,35 @@ Bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new DeviceCatalogApi.DefaultApi();
 
+var mechanism = "mechanism_example"; // String | The ID of the channel used to communicate with the device
+
+var provisionKey = "provisionKey_example"; // String | The key used to provision the device
+
+var opts = { 
+  'accountId': "accountId_example", // String | The owning IAM account ID
+  'autoUpdate': true, // Boolean | Mark this device for auto firmware update
+  'bootstrappedTimestamp': "bootstrappedTimestamp_example", // String | 
+  'createdAt': new Date("2013-10-20T19:20:30+01:00"), // Date | 
+  'customAttributes': "customAttributes_example", // String | Up to 5 custom JSON attributes
+  'deployedState': "deployedState_example", // String | The state of the device's deployment
+  'deployment': "deployment_example", // String | The last deployment used on the device
+  'description': "description_example", // String | The description of the object
+  'deviceClass': "deviceClass_example", // String | 
+  'deviceId': "deviceId_example", // String | DEPRECATED: The ID of the device
+  'etag': new Date("2013-10-20T19:20:30+01:00"), // Date | The entity instance signature
+  'id': "id_example", // String | The ID of the device
+  'manifest': "manifest_example", // String | URL for the current device manifest
+  'mechanismUrl': "mechanismUrl_example", // String | The address of the connector to use
+  'name': "name_example", // String | The name of the object
+  '_object': "_object_example", // String | The API resource entity
+  'serialNumber': "serialNumber_example", // String | The serial number of the device
+  'state': "state_example", // String | The current state of the device
+  'trustClass': 789, // Integer | The device trust class
+  'trustLevel': 789, // Integer | The device trust level
+  'updatedAt': new Date("2013-10-20T19:20:30+01:00"), // Date | The time the object was updated
+  'vendorId': "vendorId_example" // String | The device vendor ID
+};
+
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -42,15 +71,41 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.deviceCreate(callback);
+apiInstance.deviceCreate(mechanism, provisionKey, opts, callback);
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mechanism** | **String**| The ID of the channel used to communicate with the device | 
+ **provisionKey** | **String**| The key used to provision the device | 
+ **accountId** | **String**| The owning IAM account ID | [optional] 
+ **autoUpdate** | **Boolean**| Mark this device for auto firmware update | [optional] 
+ **bootstrappedTimestamp** | **String**|  | [optional] 
+ **createdAt** | **Date**|  | [optional] 
+ **customAttributes** | **String**| Up to 5 custom JSON attributes | [optional] 
+ **deployedState** | **String**| The state of the device&#39;s deployment | [optional] 
+ **deployment** | **String**| The last deployment used on the device | [optional] 
+ **description** | **String**| The description of the object | [optional] 
+ **deviceClass** | **String**|  | [optional] 
+ **deviceId** | **String**| DEPRECATED: The ID of the device | [optional] 
+ **etag** | **Date**| The entity instance signature | [optional] 
+ **id** | **String**| The ID of the device | [optional] 
+ **manifest** | **String**| URL for the current device manifest | [optional] 
+ **mechanismUrl** | **String**| The address of the connector to use | [optional] 
+ **name** | **String**| The name of the object | [optional] 
+ **_object** | **String**| The API resource entity | [optional] 
+ **serialNumber** | **String**| The serial number of the device | [optional] 
+ **state** | **String**| The current state of the device | [optional] 
+ **trustClass** | **Integer**| The device trust class | [optional] 
+ **trustLevel** | **Integer**| The device trust level | [optional] 
+ **updatedAt** | **Date**| The time the object was updated | [optional] 
+ **vendorId** | **String**| The device vendor ID | [optional] 
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -63,7 +118,7 @@ This endpoint does not need any parameter.
 
 <a name="deviceDestroy"></a>
 # **deviceDestroy**
-> DeviceSerializer deviceDestroy(deviceId)
+> DeviceListResp deviceDestroy(deviceId)
 
 
 
@@ -103,7 +158,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -116,7 +171,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceList"></a>
 # **deviceList**
-> DeviceSerializer deviceList(opts)
+> DeviceListResp deviceList(opts)
 
 
 
@@ -165,7 +220,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -293,7 +348,7 @@ Name | Type | Description  | Notes
 
 <a name="devicePartialUpdate"></a>
 # **devicePartialUpdate**
-> DeviceSerializer devicePartialUpdate(deviceId)
+> DeviceListResp devicePartialUpdate(deviceId)
 
 
 
@@ -333,7 +388,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -346,7 +401,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceRetrieve"></a>
 # **deviceRetrieve**
-> DeviceSerializer deviceRetrieve(deviceId)
+> DeviceListResp deviceRetrieve(deviceId)
 
 
 
@@ -386,7 +441,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -399,7 +454,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceUpdate"></a>
 # **deviceUpdate**
-> DeviceSerializer deviceUpdate(deviceId)
+> DeviceListResp deviceUpdate(deviceId)
 
 
 
@@ -439,7 +494,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 

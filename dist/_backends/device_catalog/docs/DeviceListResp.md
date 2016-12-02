@@ -1,4 +1,4 @@
-# DeviceCatalogApi.DeviceSerializer
+# DeviceCatalogApi.DeviceListResp
 
 ## Properties
 Name | Type | Description | Notes
@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **totalCount** | **Integer** | Total number of records | [optional] 
 **after** | **String** | Entity id for fetch after it | [optional] 
 **limit** | **Integer** | The number of results to return | [optional] 
-**data** | [**[DeviceSerializerData]**](DeviceSerializerData.md) |  | [optional] 
+**data** | [**[DeviceDetail]**](DeviceDetail.md) |  | [optional] 
 **order** | **String** | Order of returned records | [optional] 
 
 

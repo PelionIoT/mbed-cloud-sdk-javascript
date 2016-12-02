@@ -34,7 +34,7 @@
     if (!root.DeviceCatalogApi) {
       root.DeviceCatalogApi = {};
     }
-    root.DeviceCatalogApi.DeviceSerializerData = factory(root.DeviceCatalogApi.ApiClient);
+    root.DeviceCatalogApi.DeviceDetail = factory(root.DeviceCatalogApi.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -43,20 +43,17 @@
 
 
   /**
-   * The DeviceSerializerData model module.
-   * @module model/DeviceSerializerData
+   * The DeviceDetail model module.
+   * @module model/DeviceDetail
    * @version 0.1
    */
 
   /**
-   * Constructs a new <code>DeviceSerializerData</code>.
-   * @alias module:model/DeviceSerializerData
+   * Constructs a new <code>DeviceDetail</code>.
+   * @alias module:model/DeviceDetail
    * @class
-   * @param mechanism {module:model/DeviceSerializerData.MechanismEnum} The ID of the channel used to communicate with the device
-   * @param provisionKey {String} The key used to provision the device
-   * @param accountId {String} The owning IAM account ID
    */
-  var exports = function(mechanism, provisionKey, accountId) {
+  var exports = function() {
     var _this = this;
 
 
@@ -66,13 +63,13 @@
 
 
 
-    _this['mechanism'] = mechanism;
 
 
-    _this['provision_key'] = provisionKey;
 
 
-    _this['account_id'] = accountId;
+
+
+
 
 
 
@@ -86,11 +83,11 @@
   };
 
   /**
-   * Constructs a <code>DeviceSerializerData</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>DeviceDetail</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/DeviceSerializerData} obj Optional instance to populate.
-   * @return {module:model/DeviceSerializerData} The populated <code>DeviceSerializerData</code> instance.
+   * @param {module:model/DeviceDetail} obj Optional instance to populate.
+   * @return {module:model/DeviceDetail} The populated <code>DeviceDetail</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
@@ -208,12 +205,12 @@
   exports.prototype['auto_update'] = undefined;
   /**
    * The ID of the channel used to communicate with the device
-   * @member {module:model/DeviceSerializerData.MechanismEnum} mechanism
+   * @member {module:model/DeviceDetail.MechanismEnum} mechanism
    */
   exports.prototype['mechanism'] = undefined;
   /**
    * The current state of the device
-   * @member {module:model/DeviceSerializerData.StateEnum} state
+   * @member {module:model/DeviceDetail.StateEnum} state
    */
   exports.prototype['state'] = undefined;
   /**
@@ -243,7 +240,7 @@
   exports.prototype['account_id'] = undefined;
   /**
    * The state of the device's deployment
-   * @member {module:model/DeviceSerializerData.DeployedStateEnum} deployed_state
+   * @member {module:model/DeviceDetail.DeployedStateEnum} deployed_state
    */
   exports.prototype['deployed_state'] = undefined;
   /**

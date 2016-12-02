@@ -25,32 +25,32 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/DeviceSerializerData'], factory);
+    define(['ApiClient', 'model/DeviceDetail'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./DeviceSerializerData'));
+    module.exports = factory(require('../ApiClient'), require('./DeviceDetail'));
   } else {
     // Browser globals (root is window)
     if (!root.DeviceCatalogApi) {
       root.DeviceCatalogApi = {};
     }
-    root.DeviceCatalogApi.DeviceSerializer = factory(root.DeviceCatalogApi.ApiClient, root.DeviceCatalogApi.DeviceSerializerData);
+    root.DeviceCatalogApi.DeviceListResp = factory(root.DeviceCatalogApi.ApiClient, root.DeviceCatalogApi.DeviceDetail);
   }
-}(this, function(ApiClient, DeviceSerializerData) {
+}(this, function(ApiClient, DeviceDetail) {
   'use strict';
 
 
 
 
   /**
-   * The DeviceSerializer model module.
-   * @module model/DeviceSerializer
+   * The DeviceListResp model module.
+   * @module model/DeviceListResp
    * @version 0.1
    */
 
   /**
-   * Constructs a new <code>DeviceSerializer</code>.
-   * @alias module:model/DeviceSerializer
+   * Constructs a new <code>DeviceListResp</code>.
+   * @alias module:model/DeviceListResp
    * @class
    */
   var exports = function() {
@@ -66,11 +66,11 @@
   };
 
   /**
-   * Constructs a <code>DeviceSerializer</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>DeviceListResp</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/DeviceSerializer} obj Optional instance to populate.
-   * @return {module:model/DeviceSerializer} The populated <code>DeviceSerializer</code> instance.
+   * @param {module:model/DeviceListResp} obj Optional instance to populate.
+   * @return {module:model/DeviceListResp} The populated <code>DeviceListResp</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
@@ -92,7 +92,7 @@
         obj['limit'] = ApiClient.convertToType(data['limit'], 'Integer');
       }
       if (data.hasOwnProperty('data')) {
-        obj['data'] = ApiClient.convertToType(data['data'], [DeviceSerializerData]);
+        obj['data'] = ApiClient.convertToType(data['data'], [DeviceDetail]);
       }
       if (data.hasOwnProperty('order')) {
         obj['order'] = ApiClient.convertToType(data['order'], 'String');
@@ -127,7 +127,7 @@
    */
   exports.prototype['limit'] = undefined;
   /**
-   * @member {Array.<module:model/DeviceSerializerData>} data
+   * @member {Array.<module:model/DeviceDetail>} data
    */
   exports.prototype['data'] = undefined;
   /**

@@ -1,4 +1,4 @@
-# DeviceCatalogApi.DeviceSerializerData
+# DeviceCatalogApi.DeviceDetail
 
 ## Properties
 Name | Type | Description | Notes
@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **id** | **String** | The ID of the device | [optional] 
 **description** | **String** | The description of the object | [optional] 
 **autoUpdate** | **Boolean** | Mark this device for auto firmware update | [optional] 
-**mechanism** | **String** | The ID of the channel used to communicate with the device | 
+**mechanism** | **String** | The ID of the channel used to communicate with the device | [optional] 
 **state** | **String** | The current state of the device | [optional] 
 **etag** | **Date** | The entity instance signature | [optional] 
-**provisionKey** | **String** | The key used to provision the device | 
+**provisionKey** | **String** | The key used to provision the device | [optional] 
 **serialNumber** | **String** | The serial number of the device | [optional] 
 **vendorId** | **String** | The device vendor ID | [optional] 
-**accountId** | **String** | The owning IAM account ID | 
+**accountId** | **String** | The owning IAM account ID | [optional] 
 **deployedState** | **String** | The state of the device&#39;s deployment | [optional] 
 **_object** | **String** | The API resource entity | [optional] 
 **trustClass** | **Integer** | The device trust class | [optional] 
