@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 <a name="deviceCreate"></a>
 # **deviceCreate**
-> DeviceListResp deviceCreate(mechanism, provisionKey, opts)
+> DeviceDetail deviceCreate(mechanism, provisionKey, opts)
 
 
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceListResp**](DeviceListResp.md)
+[**DeviceDetail**](DeviceDetail.md)
 
 ### Authorization
 

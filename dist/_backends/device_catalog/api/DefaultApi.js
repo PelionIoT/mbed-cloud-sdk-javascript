@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/DeviceListResp', 'model/DeviceLogSerializer'], factory);
+    define(['ApiClient', 'model/DeviceDetail', 'model/DeviceListResp', 'model/DeviceLogSerializer'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/DeviceListResp'), require('../model/DeviceLogSerializer'));
+    module.exports = factory(require('../ApiClient'), require('../model/DeviceDetail'), require('../model/DeviceListResp'), require('../model/DeviceLogSerializer'));
   } else {
     // Browser globals (root is window)
     if (!root.DeviceCatalogApi) {
       root.DeviceCatalogApi = {};
     }
-    root.DeviceCatalogApi.DefaultApi = factory(root.DeviceCatalogApi.ApiClient, root.DeviceCatalogApi.DeviceListResp, root.DeviceCatalogApi.DeviceLogSerializer);
+    root.DeviceCatalogApi.DefaultApi = factory(root.DeviceCatalogApi.ApiClient, root.DeviceCatalogApi.DeviceDetail, root.DeviceCatalogApi.DeviceListResp, root.DeviceCatalogApi.DeviceLogSerializer);
   }
-}(this, function(ApiClient, DeviceListResp, DeviceLogSerializer) {
+}(this, function(ApiClient, DeviceDetail, DeviceListResp, DeviceLogSerializer) {
   'use strict';
 
   /**
@@ -60,7 +60,7 @@
      * Callback function to receive the result of the deviceCreate operation.
      * @callback module:api/DefaultApi~deviceCreateCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceListResp} data The data returned by the service call.
+     * @param {module:model/DeviceDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -92,7 +92,7 @@
      * @param {Date} opts.updatedAt The time the object was updated
      * @param {String} opts.vendorId The device vendor ID
      * @param {module:api/DefaultApi~deviceCreateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceListResp}
+     * data is of type: {@link module:model/DeviceDetail}
      */
     this.deviceCreate = function(mechanism, provisionKey, opts, callback) {
       opts = opts || {};
@@ -145,7 +145,7 @@
       var authNames = ['Bearer'];
       var contentTypes = ['application/x-www-form-urlencoded'];
       var accepts = [];
-      var returnType = DeviceListResp;
+      var returnType = DeviceDetail;
 
       return this.apiClient.callApi(
         '/v3/devices/', 'POST',
