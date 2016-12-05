@@ -34,7 +34,7 @@
     if (!root.DeviceCatalogApi) {
       root.DeviceCatalogApi = {};
     }
-    root.DeviceCatalogApi.WriteDeviceLogSerializer = factory(root.DeviceCatalogApi.ApiClient);
+    root.DeviceCatalogApi.DeviceLogSerializerData = factory(root.DeviceCatalogApi.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -43,42 +43,56 @@
 
 
   /**
-   * The WriteDeviceLogSerializer model module.
-   * @module model/WriteDeviceLogSerializer
+   * The DeviceLogSerializerData model module.
+   * @module model/DeviceLogSerializerData
    * @version 0.1
    */
 
   /**
-   * Constructs a new <code>WriteDeviceLogSerializer</code>.
-   * @alias module:model/WriteDeviceLogSerializer
+   * Constructs a new <code>DeviceLogSerializerData</code>.
+   * @alias module:model/DeviceLogSerializerData
    * @class
    * @param dateTime {Date} 
    */
   var exports = function(dateTime) {
     var _this = this;
 
-
     _this['date_time'] = dateTime;
+
+
+
+
+
+
 
 
   };
 
   /**
-   * Constructs a <code>WriteDeviceLogSerializer</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>DeviceLogSerializerData</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/WriteDeviceLogSerializer} obj Optional instance to populate.
-   * @return {module:model/WriteDeviceLogSerializer} The populated <code>WriteDeviceLogSerializer</code> instance.
+   * @param {module:model/DeviceLogSerializerData} obj Optional instance to populate.
+   * @return {module:model/DeviceLogSerializerData} The populated <code>DeviceLogSerializerData</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('date_time')) {
+        obj['date_time'] = ApiClient.convertToType(data['date_time'], 'Date');
+      }
       if (data.hasOwnProperty('state_change')) {
         obj['state_change'] = ApiClient.convertToType(data['state_change'], 'Boolean');
       }
-      if (data.hasOwnProperty('date_time')) {
-        obj['date_time'] = ApiClient.convertToType(data['date_time'], 'Date');
+      if (data.hasOwnProperty('description')) {
+        obj['description'] = ApiClient.convertToType(data['description'], 'String');
+      }
+      if (data.hasOwnProperty('changes')) {
+        obj['changes'] = ApiClient.convertToType(data['changes'], 'String');
+      }
+      if (data.hasOwnProperty('event_type_description')) {
+        obj['event_type_description'] = ApiClient.convertToType(data['event_type_description'], 'String');
       }
       if (data.hasOwnProperty('device_log_id')) {
         obj['device_log_id'] = ApiClient.convertToType(data['device_log_id'], 'String');
@@ -86,26 +100,52 @@
       if (data.hasOwnProperty('event_type')) {
         obj['event_type'] = ApiClient.convertToType(data['event_type'], 'String');
       }
+      if (data.hasOwnProperty('data')) {
+        obj['data'] = ApiClient.convertToType(data['data'], 'String');
+      }
+      if (data.hasOwnProperty('device_id')) {
+        obj['device_id'] = ApiClient.convertToType(data['device_id'], 'String');
+      }
     }
     return obj;
   }
 
   /**
+   * @member {Date} date_time
+   */
+  exports.prototype['date_time'] = undefined;
+  /**
    * @member {Boolean} state_change
    */
   exports.prototype['state_change'] = undefined;
   /**
-   * @member {Date} date_time
+   * @member {String} description
    */
-  exports.prototype['date_time'] = undefined;
+  exports.prototype['description'] = undefined;
+  /**
+   * @member {String} changes
+   */
+  exports.prototype['changes'] = undefined;
+  /**
+   * @member {String} event_type_description
+   */
+  exports.prototype['event_type_description'] = undefined;
   /**
    * @member {String} device_log_id
    */
   exports.prototype['device_log_id'] = undefined;
   /**
-   * @member {module:model/WriteDeviceLogSerializer.EventTypeEnum} event_type
+   * @member {module:model/DeviceLogSerializerData.EventTypeEnum} event_type
    */
   exports.prototype['event_type'] = undefined;
+  /**
+   * @member {String} data
+   */
+  exports.prototype['data'] = undefined;
+  /**
+   * @member {String} device_id
+   */
+  exports.prototype['device_id'] = undefined;
 
 
   /**
@@ -115,45 +155,40 @@
    */
   exports.EventTypeEnum = {
     /**
-     * value: ""
-     * @const
-     */
-    "": "",
-    /**
      * value: "update.device.device-created"
      * @const
      */
-    "update.device.device-created": "update.device.device-created",
+    "device.device-created": "update.device.device-created",
     /**
      * value: "update.device.device-updated"
      * @const
      */
-    "update.device.device-updated": "update.device.device-updated",
+    "device.device-updated": "update.device.device-updated",
     /**
      * value: "update.deployment.campaign-device-metadata-created"
      * @const
      */
-    "update.deployment.campaign-device-metadata-created": "update.deployment.campaign-device-metadata-created",
+    "deployment.campaign-device-metadata-created": "update.deployment.campaign-device-metadata-created",
     /**
      * value: "update.deployment.campaign-device-metadata-updated"
      * @const
      */
-    "update.deployment.campaign-device-metadata-updated": "update.deployment.campaign-device-metadata-updated",
+    "deployment.campaign-device-metadata-updated": "update.deployment.campaign-device-metadata-updated",
     /**
      * value: "update.deployment.campaign-device-metadata-removed"
      * @const
      */
-    "update.deployment.campaign-device-metadata-removed": "update.deployment.campaign-device-metadata-removed",
+    "deployment.campaign-device-metadata-removed": "update.deployment.campaign-device-metadata-removed",
     /**
      * value: "update.connector.connector-device.firmware-update.state"
      * @const
      */
-    "update.connector.connector-device.firmware-update.state": "update.connector.connector-device.firmware-update.state",
+    "connector.connector-device.firmware-update.state": "update.connector.connector-device.firmware-update.state",
     /**
      * value: "update.connector.connector-device.firmware-update.result"
      * @const
      */
-    "update.connector.connector-device.firmware-update.result": "update.connector.connector-device.firmware-update.result"  };
+    "connector.connector-device.firmware-update.result": "update.connector.connector-device.firmware-update.result"  };
 
 
   return exports;

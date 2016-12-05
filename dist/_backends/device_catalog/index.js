@@ -25,12 +25,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/DeviceLogSerializer', 'model/DeviceSerializer', 'model/WriteDeviceLogSerializer', 'model/WriteDeviceSerializer', 'api/DefaultApi'], factory);
+    define(['ApiClient', 'model/DeviceDetail', 'model/DeviceListResp', 'model/DeviceLogSerializer', 'model/DeviceLogSerializerData', 'api/DefaultApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/DeviceLogSerializer'), require('./model/DeviceSerializer'), require('./model/WriteDeviceLogSerializer'), require('./model/WriteDeviceSerializer'), require('./api/DefaultApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/DeviceDetail'), require('./model/DeviceListResp'), require('./model/DeviceLogSerializer'), require('./model/DeviceLogSerializerData'), require('./api/DefaultApi'));
   }
-}(function(ApiClient, DeviceLogSerializer, DeviceSerializer, WriteDeviceLogSerializer, WriteDeviceSerializer, DefaultApi) {
+}(function(ApiClient, DeviceDetail, DeviceListResp, DeviceLogSerializer, DeviceLogSerializerData, DefaultApi) {
   'use strict';
 
   /**
@@ -71,25 +71,25 @@
      */
     ApiClient: ApiClient,
     /**
+     * The DeviceDetail model constructor.
+     * @property {module:model/DeviceDetail}
+     */
+    DeviceDetail: DeviceDetail,
+    /**
+     * The DeviceListResp model constructor.
+     * @property {module:model/DeviceListResp}
+     */
+    DeviceListResp: DeviceListResp,
+    /**
      * The DeviceLogSerializer model constructor.
      * @property {module:model/DeviceLogSerializer}
      */
     DeviceLogSerializer: DeviceLogSerializer,
     /**
-     * The DeviceSerializer model constructor.
-     * @property {module:model/DeviceSerializer}
+     * The DeviceLogSerializerData model constructor.
+     * @property {module:model/DeviceLogSerializerData}
      */
-    DeviceSerializer: DeviceSerializer,
-    /**
-     * The WriteDeviceLogSerializer model constructor.
-     * @property {module:model/WriteDeviceLogSerializer}
-     */
-    WriteDeviceLogSerializer: WriteDeviceLogSerializer,
-    /**
-     * The WriteDeviceSerializer model constructor.
-     * @property {module:model/WriteDeviceSerializer}
-     */
-    WriteDeviceSerializer: WriteDeviceSerializer,
+    DeviceLogSerializerData: DeviceLogSerializerData,
     /**
      * The DefaultApi service constructor.
      * @property {module:api/DefaultApi}

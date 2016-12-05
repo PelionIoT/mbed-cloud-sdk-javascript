@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/DeviceSerializer', 'model/DeviceLogSerializer'], factory);
+    define(['ApiClient', 'model/DeviceDetail', 'model/DeviceListResp', 'model/DeviceLogSerializer'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/DeviceSerializer'), require('../model/DeviceLogSerializer'));
+    module.exports = factory(require('../ApiClient'), require('../model/DeviceDetail'), require('../model/DeviceListResp'), require('../model/DeviceLogSerializer'));
   } else {
     // Browser globals (root is window)
     if (!root.DeviceCatalogApi) {
       root.DeviceCatalogApi = {};
     }
-    root.DeviceCatalogApi.DefaultApi = factory(root.DeviceCatalogApi.ApiClient, root.DeviceCatalogApi.DeviceSerializer, root.DeviceCatalogApi.DeviceLogSerializer);
+    root.DeviceCatalogApi.DefaultApi = factory(root.DeviceCatalogApi.ApiClient, root.DeviceCatalogApi.DeviceDetail, root.DeviceCatalogApi.DeviceListResp, root.DeviceCatalogApi.DeviceLogSerializer);
   }
-}(this, function(ApiClient, DeviceSerializer, DeviceLogSerializer) {
+}(this, function(ApiClient, DeviceDetail, DeviceListResp, DeviceLogSerializer) {
   'use strict';
 
   /**
@@ -60,18 +60,53 @@
      * Callback function to receive the result of the deviceCreate operation.
      * @callback module:api/DefaultApi~deviceCreateCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceSerializer} data The data returned by the service call.
+     * @param {module:model/DeviceDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Create device
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Create device&lt;/p&gt;
+     * @param {module:model/String} mechanism The ID of the channel used to communicate with the device
+     * @param {String} provisionKey The key used to provision the device
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.accountId The owning IAM account ID
+     * @param {Boolean} opts.autoUpdate Mark this device for auto firmware update
+     * @param {String} opts.bootstrappedTimestamp 
+     * @param {Date} opts.createdAt 
+     * @param {String} opts.customAttributes Up to 5 custom JSON attributes
+     * @param {module:model/String} opts.deployedState The state of the device&#39;s deployment
+     * @param {String} opts.deployment The last deployment used on the device
+     * @param {String} opts.description The description of the object
+     * @param {String} opts.deviceClass 
+     * @param {String} opts.deviceId DEPRECATED: The ID of the device
+     * @param {Date} opts.etag The entity instance signature
+     * @param {String} opts.id The ID of the device
+     * @param {String} opts.manifest URL for the current device manifest
+     * @param {String} opts.mechanismUrl The address of the connector to use
+     * @param {String} opts.name The name of the object
+     * @param {String} opts._object The API resource entity
+     * @param {String} opts.serialNumber The serial number of the device
+     * @param {module:model/String} opts.state The current state of the device
+     * @param {Integer} opts.trustClass The device trust class
+     * @param {Integer} opts.trustLevel The device trust level
+     * @param {Date} opts.updatedAt The time the object was updated
+     * @param {String} opts.vendorId The device vendor ID
      * @param {module:api/DefaultApi~deviceCreateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceSerializer}
+     * data is of type: {@link module:model/DeviceDetail}
      */
-    this.deviceCreate = function(callback) {
+    this.deviceCreate = function(mechanism, provisionKey, opts, callback) {
+      opts = opts || {};
       var postBody = null;
+
+      // verify the required parameter 'mechanism' is set
+      if (mechanism == undefined || mechanism == null) {
+        throw "Missing the required parameter 'mechanism' when calling deviceCreate";
+      }
+
+      // verify the required parameter 'provisionKey' is set
+      if (provisionKey == undefined || provisionKey == null) {
+        throw "Missing the required parameter 'provisionKey' when calling deviceCreate";
+      }
 
 
       var pathParams = {
@@ -81,12 +116,36 @@
       var headerParams = {
       };
       var formParams = {
+        'account_id': opts['accountId'],
+        'auto_update': opts['autoUpdate'],
+        'bootstrapped_timestamp': opts['bootstrappedTimestamp'],
+        'created_at': opts['createdAt'],
+        'custom_attributes': opts['customAttributes'],
+        'deployed_state': opts['deployedState'],
+        'deployment': opts['deployment'],
+        'description': opts['description'],
+        'device_class': opts['deviceClass'],
+        'device_id': opts['deviceId'],
+        'etag': opts['etag'],
+        'id': opts['id'],
+        'manifest': opts['manifest'],
+        'mechanism': mechanism,
+        'mechanism_url': opts['mechanismUrl'],
+        'name': opts['name'],
+        'object': opts['_object'],
+        'provision_key': provisionKey,
+        'serial_number': opts['serialNumber'],
+        'state': opts['state'],
+        'trust_class': opts['trustClass'],
+        'trust_level': opts['trustLevel'],
+        'updated_at': opts['updatedAt'],
+        'vendor_id': opts['vendorId']
       };
 
       var authNames = ['Bearer'];
-      var contentTypes = [];
+      var contentTypes = ['application/x-www-form-urlencoded'];
       var accepts = [];
-      var returnType = DeviceSerializer;
+      var returnType = DeviceDetail;
 
       return this.apiClient.callApi(
         '/v3/devices/', 'POST',
@@ -99,16 +158,15 @@
      * Callback function to receive the result of the deviceDestroy operation.
      * @callback module:api/DefaultApi~deviceDestroyCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceSerializer} data The data returned by the service call.
+     * @param {module:model/DeviceListResp} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Delete device
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Delete device&lt;/p&gt;
      * @param {String} deviceId 
      * @param {module:api/DefaultApi~deviceDestroyCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceSerializer}
+     * data is of type: {@link module:model/DeviceListResp}
      */
     this.deviceDestroy = function(deviceId, callback) {
       var postBody = null;
@@ -132,7 +190,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = DeviceSerializer;
+      var returnType = DeviceListResp;
 
       return this.apiClient.callApi(
         '/v3/devices/{device_id}/', 'DELETE',
@@ -145,37 +203,20 @@
      * Callback function to receive the result of the deviceList operation.
      * @callback module:api/DefaultApi~deviceListCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/DeviceSerializer>} data The data returned by the service call.
+     * @param {module:model/DeviceListResp} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * List all update devices
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;List all update devices. The result is paged into pages of 100.&lt;/p&gt;
      * @param {Object} opts Optional parameters
-     * @param {String} opts.createdAt 
-     * @param {String} opts.updatedAt 
-     * @param {String} opts.autoUpdate 
-     * @param {String} opts.bootstrappedTimestamp 
-     * @param {module:model/String} opts.deployedState 
-     * @param {String} opts.deployment 
-     * @param {String} opts.description 
-     * @param {String} opts.deviceClass 
-     * @param {String} opts.deviceId 
-     * @param {String} opts.etag 
-     * @param {String} opts.manifest 
-     * @param {module:model/String} opts.mechanism 
-     * @param {String} opts.mechanismUrl 
-     * @param {String} opts.name 
-     * @param {String} opts._object 
-     * @param {String} opts.provisionKey 
-     * @param {String} opts.serialNumber 
-     * @param {module:model/String} opts.state 
-     * @param {String} opts.trustClass 
-     * @param {String} opts.trustLevel 
-     * @param {String} opts.vendorId 
+     * @param {Integer} opts.limit 
+     * @param {String} opts.order 
+     * @param {String} opts.after 
+     * @param {String} opts.filter 
+     * @param {String} opts.include 
      * @param {module:api/DefaultApi~deviceListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/DeviceSerializer>}
+     * data is of type: {@link module:model/DeviceListResp}
      */
     this.deviceList = function(opts, callback) {
       opts = opts || {};
@@ -185,27 +226,11 @@
       var pathParams = {
       };
       var queryParams = {
-        'created_at': opts['createdAt'],
-        'updated_at': opts['updatedAt'],
-        'auto_update': opts['autoUpdate'],
-        'bootstrapped_timestamp': opts['bootstrappedTimestamp'],
-        'deployed_state': opts['deployedState'],
-        'deployment': opts['deployment'],
-        'description': opts['description'],
-        'device_class': opts['deviceClass'],
-        'device_id': opts['deviceId'],
-        'etag': opts['etag'],
-        'manifest': opts['manifest'],
-        'mechanism': opts['mechanism'],
-        'mechanism_url': opts['mechanismUrl'],
-        'name': opts['name'],
-        'object': opts['_object'],
-        'provision_key': opts['provisionKey'],
-        'serial_number': opts['serialNumber'],
-        'state': opts['state'],
-        'trust_class': opts['trustClass'],
-        'trust_level': opts['trustLevel'],
-        'vendor_id': opts['vendorId']
+        'limit': opts['limit'],
+        'order': opts['order'],
+        'after': opts['after'],
+        'filter': opts['filter'],
+        'include': opts['include']
       };
       var headerParams = {
       };
@@ -215,7 +240,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = [DeviceSerializer];
+      var returnType = DeviceListResp;
 
       return this.apiClient.callApi(
         '/v3/devices/', 'GET',
@@ -225,146 +250,23 @@
     }
 
     /**
-     * Callback function to receive the result of the deviceLogCreate operation.
-     * @callback module:api/DefaultApi~deviceLogCreateCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/DeviceLogSerializer} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * The APIs for creating and manipulating devices
-     * &lt;p&gt;The APIs for creating and manipulating devices.&lt;/p&gt;
-     * @param {Date} dateTime 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.deviceLogId 
-     * @param {module:model/String} opts.eventType 
-     * @param {Boolean} opts.stateChange 
-     * @param {String} opts.dateTime2 
-     * @param {String} opts.deviceId 
-     * @param {String} opts.deviceLogId2 
-     * @param {module:model/String} opts.eventType2 
-     * @param {String} opts.stateChange2 
-     * @param {module:api/DefaultApi~deviceLogCreateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceLogSerializer}
-     */
-    this.deviceLogCreate = function(dateTime, opts, callback) {
-      opts = opts || {};
-      var postBody = null;
-
-      // verify the required parameter 'dateTime' is set
-      if (dateTime == undefined || dateTime == null) {
-        throw "Missing the required parameter 'dateTime' when calling deviceLogCreate";
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'date_time': opts['dateTime2'],
-        'device_id': opts['deviceId'],
-        'device_log_id': opts['deviceLogId2'],
-        'event_type': opts['eventType2'],
-        'state_change': opts['stateChange2']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-        'date_time': dateTime,
-        'device_log_id': opts['deviceLogId'],
-        'event_type': opts['eventType'],
-        'state_change': opts['stateChange']
-      };
-
-      var authNames = ['Bearer'];
-      var contentTypes = [];
-      var accepts = [];
-      var returnType = DeviceLogSerializer;
-
-      return this.apiClient.callApi(
-        '/v3/devicelog/', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deviceLogDestroy operation.
-     * @callback module:api/DefaultApi~deviceLogDestroyCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/DeviceLogSerializer} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * The APIs for creating and manipulating devices
-     * &lt;p&gt;The APIs for creating and manipulating devices.&lt;/p&gt;
-     * @param {String} deviceLogId 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.dateTime 
-     * @param {String} opts.deviceId 
-     * @param {String} opts.deviceLogId2 
-     * @param {module:model/String} opts.eventType 
-     * @param {String} opts.stateChange 
-     * @param {module:api/DefaultApi~deviceLogDestroyCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceLogSerializer}
-     */
-    this.deviceLogDestroy = function(deviceLogId, opts, callback) {
-      opts = opts || {};
-      var postBody = null;
-
-      // verify the required parameter 'deviceLogId' is set
-      if (deviceLogId == undefined || deviceLogId == null) {
-        throw "Missing the required parameter 'deviceLogId' when calling deviceLogDestroy";
-      }
-
-
-      var pathParams = {
-        'device_log_id': deviceLogId
-      };
-      var queryParams = {
-        'date_time': opts['dateTime'],
-        'device_id': opts['deviceId'],
-        'device_log_id': opts['deviceLogId2'],
-        'event_type': opts['eventType'],
-        'state_change': opts['stateChange']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['Bearer'];
-      var contentTypes = [];
-      var accepts = [];
-      var returnType = DeviceLogSerializer;
-
-      return this.apiClient.callApi(
-        '/v3/devicelog/{device_log_id}/', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the deviceLogList operation.
      * @callback module:api/DefaultApi~deviceLogListCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/DeviceLogSerializer>} data The data returned by the service call.
+     * @param {module:model/DeviceLogSerializer} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * List all device logs
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;List all device logs.&lt;/p&gt;
      * @param {Object} opts Optional parameters
-     * @param {String} opts.dateTime 
-     * @param {String} opts.deviceId 
-     * @param {String} opts.deviceLogId 
-     * @param {module:model/String} opts.eventType 
-     * @param {String} opts.stateChange 
+     * @param {Integer} opts.limit 
+     * @param {String} opts.order 
+     * @param {String} opts.after 
+     * @param {String} opts.filter 
+     * @param {String} opts.include 
      * @param {module:api/DefaultApi~deviceLogListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/DeviceLogSerializer>}
+     * data is of type: {@link module:model/DeviceLogSerializer}
      */
     this.deviceLogList = function(opts, callback) {
       opts = opts || {};
@@ -374,81 +276,15 @@
       var pathParams = {
       };
       var queryParams = {
-        'date_time': opts['dateTime'],
-        'device_id': opts['deviceId'],
-        'device_log_id': opts['deviceLogId'],
-        'event_type': opts['eventType'],
-        'state_change': opts['stateChange']
+        'limit': opts['limit'],
+        'order': opts['order'],
+        'after': opts['after'],
+        'filter': opts['filter'],
+        'include': opts['include']
       };
       var headerParams = {
       };
       var formParams = {
-      };
-
-      var authNames = ['Bearer'];
-      var contentTypes = [];
-      var accepts = [];
-      var returnType = [DeviceLogSerializer];
-
-      return this.apiClient.callApi(
-        '/v3/devicelog/', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deviceLogPartialUpdate operation.
-     * @callback module:api/DefaultApi~deviceLogPartialUpdateCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/DeviceLogSerializer} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * The APIs for creating and manipulating devices
-     * &lt;p&gt;The APIs for creating and manipulating devices.&lt;/p&gt;
-     * @param {String} deviceLogId 
-     * @param {Object} opts Optional parameters
-     * @param {Date} opts.dateTime 
-     * @param {String} opts.deviceLogId2 
-     * @param {module:model/String} opts.eventType 
-     * @param {Boolean} opts.stateChange 
-     * @param {String} opts.dateTime2 
-     * @param {String} opts.deviceId 
-     * @param {String} opts.deviceLogId3 
-     * @param {module:model/String} opts.eventType2 
-     * @param {String} opts.stateChange2 
-     * @param {module:api/DefaultApi~deviceLogPartialUpdateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceLogSerializer}
-     */
-    this.deviceLogPartialUpdate = function(deviceLogId, opts, callback) {
-      opts = opts || {};
-      var postBody = null;
-
-      // verify the required parameter 'deviceLogId' is set
-      if (deviceLogId == undefined || deviceLogId == null) {
-        throw "Missing the required parameter 'deviceLogId' when calling deviceLogPartialUpdate";
-      }
-
-
-      var pathParams = {
-        'device_log_id': deviceLogId
-      };
-      var queryParams = {
-        'date_time': opts['dateTime2'],
-        'device_id': opts['deviceId'],
-        'device_log_id': opts['deviceLogId3'],
-        'event_type': opts['eventType2'],
-        'state_change': opts['stateChange2']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-        'date_time': opts['dateTime'],
-        'device_log_id': opts['deviceLogId2'],
-        'event_type': opts['eventType'],
-        'state_change': opts['stateChange']
       };
 
       var authNames = ['Bearer'];
@@ -457,7 +293,7 @@
       var returnType = DeviceLogSerializer;
 
       return this.apiClient.callApi(
-        '/v3/devicelog/{device_log_id}/', 'PATCH',
+        '/v3/devicelog/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, callback
       );
@@ -472,7 +308,6 @@
      */
 
     /**
-     * Retrieve device log
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device log.&lt;/p&gt;
      * @param {String} deviceLogId 
      * @param {module:api/DefaultApi~deviceLogRetrieveCallback} callback The callback function, accepting three arguments: error, data, response
@@ -510,90 +345,18 @@
     }
 
     /**
-     * Callback function to receive the result of the deviceLogUpdate operation.
-     * @callback module:api/DefaultApi~deviceLogUpdateCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/DeviceLogSerializer} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * The APIs for creating and manipulating devices
-     * &lt;p&gt;The APIs for creating and manipulating devices.&lt;/p&gt;
-     * @param {String} deviceLogId 
-     * @param {Date} dateTime 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.deviceLogId2 
-     * @param {module:model/String} opts.eventType 
-     * @param {Boolean} opts.stateChange 
-     * @param {String} opts.dateTime2 
-     * @param {String} opts.deviceId 
-     * @param {String} opts.deviceLogId3 
-     * @param {module:model/String} opts.eventType2 
-     * @param {String} opts.stateChange2 
-     * @param {module:api/DefaultApi~deviceLogUpdateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceLogSerializer}
-     */
-    this.deviceLogUpdate = function(deviceLogId, dateTime, opts, callback) {
-      opts = opts || {};
-      var postBody = null;
-
-      // verify the required parameter 'deviceLogId' is set
-      if (deviceLogId == undefined || deviceLogId == null) {
-        throw "Missing the required parameter 'deviceLogId' when calling deviceLogUpdate";
-      }
-
-      // verify the required parameter 'dateTime' is set
-      if (dateTime == undefined || dateTime == null) {
-        throw "Missing the required parameter 'dateTime' when calling deviceLogUpdate";
-      }
-
-
-      var pathParams = {
-        'device_log_id': deviceLogId
-      };
-      var queryParams = {
-        'date_time': opts['dateTime2'],
-        'device_id': opts['deviceId'],
-        'device_log_id': opts['deviceLogId3'],
-        'event_type': opts['eventType2'],
-        'state_change': opts['stateChange2']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-        'date_time': dateTime,
-        'device_log_id': opts['deviceLogId2'],
-        'event_type': opts['eventType'],
-        'state_change': opts['stateChange']
-      };
-
-      var authNames = ['Bearer'];
-      var contentTypes = [];
-      var accepts = [];
-      var returnType = DeviceLogSerializer;
-
-      return this.apiClient.callApi(
-        '/v3/devicelog/{device_log_id}/', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the devicePartialUpdate operation.
      * @callback module:api/DefaultApi~devicePartialUpdateCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceSerializer} data The data returned by the service call.
+     * @param {module:model/DeviceListResp} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Update device fields
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device fields&lt;/p&gt;
      * @param {String} deviceId The ID of the device
      * @param {module:api/DefaultApi~devicePartialUpdateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceSerializer}
+     * data is of type: {@link module:model/DeviceListResp}
      */
     this.devicePartialUpdate = function(deviceId, callback) {
       var postBody = null;
@@ -617,7 +380,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = DeviceSerializer;
+      var returnType = DeviceListResp;
 
       return this.apiClient.callApi(
         '/v3/devices/{device_id}/', 'PATCH',
@@ -630,16 +393,15 @@
      * Callback function to receive the result of the deviceRetrieve operation.
      * @callback module:api/DefaultApi~deviceRetrieveCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceSerializer} data The data returned by the service call.
+     * @param {module:model/DeviceListResp} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Retrieve device
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device.&lt;/p&gt;
      * @param {String} deviceId 
      * @param {module:api/DefaultApi~deviceRetrieveCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceSerializer}
+     * data is of type: {@link module:model/DeviceListResp}
      */
     this.deviceRetrieve = function(deviceId, callback) {
       var postBody = null;
@@ -663,7 +425,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = DeviceSerializer;
+      var returnType = DeviceListResp;
 
       return this.apiClient.callApi(
         '/v3/devices/{device_id}/', 'GET',
@@ -676,16 +438,15 @@
      * Callback function to receive the result of the deviceUpdate operation.
      * @callback module:api/DefaultApi~deviceUpdateCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceSerializer} data The data returned by the service call.
+     * @param {module:model/DeviceListResp} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Update device
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device.&lt;/p&gt;
      * @param {String} deviceId The ID of the device
      * @param {module:api/DefaultApi~deviceUpdateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceSerializer}
+     * data is of type: {@link module:model/DeviceListResp}
      */
     this.deviceUpdate = function(deviceId, callback) {
       var postBody = null;
@@ -709,7 +470,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = DeviceSerializer;
+      var returnType = DeviceListResp;
 
       return this.apiClient.callApi(
         '/v3/devices/{device_id}/', 'PUT',

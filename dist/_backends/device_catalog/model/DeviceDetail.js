@@ -34,7 +34,7 @@
     if (!root.DeviceCatalogApi) {
       root.DeviceCatalogApi = {};
     }
-    root.DeviceCatalogApi.DeviceSerializer = factory(root.DeviceCatalogApi.ApiClient);
+    root.DeviceCatalogApi.DeviceDetail = factory(root.DeviceCatalogApi.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -43,75 +43,51 @@
 
 
   /**
-   * The DeviceSerializer model module.
-   * @module model/DeviceSerializer
+   * The DeviceDetail model module.
+   * @module model/DeviceDetail
    * @version 0.1
    */
 
   /**
-   * Constructs a new <code>DeviceSerializer</code>.
-   * @alias module:model/DeviceSerializer
+   * Constructs a new <code>DeviceDetail</code>.
+   * @alias module:model/DeviceDetail
    * @class
-   * @param bootstrappedTimestamp {String} 
-   * @param updatedAt {Date} The time the object was updated
-   * @param customAttributes {String} Up to 5 custom JSON attributes
-   * @param deviceClass {String} The device class
-   * @param id {String} The ID of the device
-   * @param description {String} The description of the object
-   * @param autoUpdate {Boolean} Mark this device for auto firmware update
-   * @param mechanism {module:model/DeviceSerializer.MechanismEnum} The ID of the channel used to communicate with the device
-   * @param state {module:model/DeviceSerializer.StateEnum} The current state of the device
-   * @param etag {Date} The entity instance signature
-   * @param provisionKey {String} The key used to provision the device
-   * @param serialNumber {String} The serial number of the device
-   * @param vendorId {String} The device vendor ID
-   * @param accountId {String} The owning IAM account ID
-   * @param deployedState {module:model/DeviceSerializer.DeployedStateEnum} The state of the device's deployment
-   * @param _object {String} The API resource entity
-   * @param trustClass {Integer} The device trust class
-   * @param deployment {String} The last deployment used on the device
-   * @param mechanismUrl {String} The address of the connector to use
-   * @param trustLevel {Integer} The device trust level
-   * @param deviceId {String} DEPRECATED: The ID of the device
-   * @param name {String} The name of the object
-   * @param createdAt {Date} The time the object was created
-   * @param manifest {String} URL for the current device manifest
    */
-  var exports = function(bootstrappedTimestamp, updatedAt, customAttributes, deviceClass, id, description, autoUpdate, mechanism, state, etag, provisionKey, serialNumber, vendorId, accountId, deployedState, _object, trustClass, deployment, mechanismUrl, trustLevel, deviceId, name, createdAt, manifest) {
+  var exports = function() {
     var _this = this;
 
-    _this['bootstrapped_timestamp'] = bootstrappedTimestamp;
-    _this['updated_at'] = updatedAt;
-    _this['custom_attributes'] = customAttributes;
-    _this['device_class'] = deviceClass;
-    _this['id'] = id;
-    _this['description'] = description;
-    _this['auto_update'] = autoUpdate;
-    _this['mechanism'] = mechanism;
-    _this['state'] = state;
-    _this['etag'] = etag;
-    _this['provision_key'] = provisionKey;
-    _this['serial_number'] = serialNumber;
-    _this['vendor_id'] = vendorId;
-    _this['account_id'] = accountId;
-    _this['deployed_state'] = deployedState;
-    _this['object'] = _object;
-    _this['trust_class'] = trustClass;
-    _this['deployment'] = deployment;
-    _this['mechanism_url'] = mechanismUrl;
-    _this['trust_level'] = trustLevel;
-    _this['device_id'] = deviceId;
-    _this['name'] = name;
-    _this['created_at'] = createdAt;
-    _this['manifest'] = manifest;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   };
 
   /**
-   * Constructs a <code>DeviceSerializer</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>DeviceDetail</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/DeviceSerializer} obj Optional instance to populate.
-   * @return {module:model/DeviceSerializer} The populated <code>DeviceSerializer</code> instance.
+   * @param {module:model/DeviceDetail} obj Optional instance to populate.
+   * @return {module:model/DeviceDetail} The populated <code>DeviceDetail</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
@@ -229,12 +205,12 @@
   exports.prototype['auto_update'] = undefined;
   /**
    * The ID of the channel used to communicate with the device
-   * @member {module:model/DeviceSerializer.MechanismEnum} mechanism
+   * @member {module:model/DeviceDetail.MechanismEnum} mechanism
    */
   exports.prototype['mechanism'] = undefined;
   /**
    * The current state of the device
-   * @member {module:model/DeviceSerializer.StateEnum} state
+   * @member {module:model/DeviceDetail.StateEnum} state
    */
   exports.prototype['state'] = undefined;
   /**
@@ -264,7 +240,7 @@
   exports.prototype['account_id'] = undefined;
   /**
    * The state of the device's deployment
-   * @member {module:model/DeviceSerializer.DeployedStateEnum} deployed_state
+   * @member {module:model/DeviceDetail.DeployedStateEnum} deployed_state
    */
   exports.prototype['deployed_state'] = undefined;
   /**

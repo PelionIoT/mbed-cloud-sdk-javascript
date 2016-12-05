@@ -4,25 +4,21 @@ All URIs are relative to *http://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deviceCreate**](DefaultApi.md#deviceCreate) | **POST** /v3/devices/ | Create device
-[**deviceDestroy**](DefaultApi.md#deviceDestroy) | **DELETE** /v3/devices/{device_id}/ | Delete device
-[**deviceList**](DefaultApi.md#deviceList) | **GET** /v3/devices/ | List all update devices
-[**deviceLogCreate**](DefaultApi.md#deviceLogCreate) | **POST** /v3/devicelog/ | The APIs for creating and manipulating devices
-[**deviceLogDestroy**](DefaultApi.md#deviceLogDestroy) | **DELETE** /v3/devicelog/{device_log_id}/ | The APIs for creating and manipulating devices
-[**deviceLogList**](DefaultApi.md#deviceLogList) | **GET** /v3/devicelog/ | List all device logs
-[**deviceLogPartialUpdate**](DefaultApi.md#deviceLogPartialUpdate) | **PATCH** /v3/devicelog/{device_log_id}/ | The APIs for creating and manipulating devices
-[**deviceLogRetrieve**](DefaultApi.md#deviceLogRetrieve) | **GET** /v3/devicelog/{device_log_id}/ | Retrieve device log
-[**deviceLogUpdate**](DefaultApi.md#deviceLogUpdate) | **PUT** /v3/devicelog/{device_log_id}/ | The APIs for creating and manipulating devices
-[**devicePartialUpdate**](DefaultApi.md#devicePartialUpdate) | **PATCH** /v3/devices/{device_id}/ | Update device fields
-[**deviceRetrieve**](DefaultApi.md#deviceRetrieve) | **GET** /v3/devices/{device_id}/ | Retrieve device
-[**deviceUpdate**](DefaultApi.md#deviceUpdate) | **PUT** /v3/devices/{device_id}/ | Update device
+[**deviceCreate**](DefaultApi.md#deviceCreate) | **POST** /v3/devices/ | 
+[**deviceDestroy**](DefaultApi.md#deviceDestroy) | **DELETE** /v3/devices/{device_id}/ | 
+[**deviceList**](DefaultApi.md#deviceList) | **GET** /v3/devices/ | 
+[**deviceLogList**](DefaultApi.md#deviceLogList) | **GET** /v3/devicelog/ | 
+[**deviceLogRetrieve**](DefaultApi.md#deviceLogRetrieve) | **GET** /v3/devicelog/{device_log_id}/ | 
+[**devicePartialUpdate**](DefaultApi.md#devicePartialUpdate) | **PATCH** /v3/devices/{device_id}/ | 
+[**deviceRetrieve**](DefaultApi.md#deviceRetrieve) | **GET** /v3/devices/{device_id}/ | 
+[**deviceUpdate**](DefaultApi.md#deviceUpdate) | **PUT** /v3/devices/{device_id}/ | 
 
 
 <a name="deviceCreate"></a>
 # **deviceCreate**
-> DeviceSerializer deviceCreate()
+> DeviceDetail deviceCreate(mechanism, provisionKey, opts)
 
-Create device
+
 
 &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Create device&lt;/p&gt;
 
@@ -39,6 +35,35 @@ Bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new DeviceCatalogApi.DefaultApi();
 
+var mechanism = "mechanism_example"; // String | The ID of the channel used to communicate with the device
+
+var provisionKey = "provisionKey_example"; // String | The key used to provision the device
+
+var opts = { 
+  'accountId': "accountId_example", // String | The owning IAM account ID
+  'autoUpdate': true, // Boolean | Mark this device for auto firmware update
+  'bootstrappedTimestamp': "bootstrappedTimestamp_example", // String | 
+  'createdAt': new Date("2013-10-20T19:20:30+01:00"), // Date | 
+  'customAttributes': "customAttributes_example", // String | Up to 5 custom JSON attributes
+  'deployedState': "deployedState_example", // String | The state of the device's deployment
+  'deployment': "deployment_example", // String | The last deployment used on the device
+  'description': "description_example", // String | The description of the object
+  'deviceClass': "deviceClass_example", // String | 
+  'deviceId': "deviceId_example", // String | DEPRECATED: The ID of the device
+  'etag': new Date("2013-10-20T19:20:30+01:00"), // Date | The entity instance signature
+  'id': "id_example", // String | The ID of the device
+  'manifest': "manifest_example", // String | URL for the current device manifest
+  'mechanismUrl': "mechanismUrl_example", // String | The address of the connector to use
+  'name': "name_example", // String | The name of the object
+  '_object': "_object_example", // String | The API resource entity
+  'serialNumber': "serialNumber_example", // String | The serial number of the device
+  'state': "state_example", // String | The current state of the device
+  'trustClass': 789, // Integer | The device trust class
+  'trustLevel': 789, // Integer | The device trust level
+  'updatedAt': new Date("2013-10-20T19:20:30+01:00"), // Date | The time the object was updated
+  'vendorId': "vendorId_example" // String | The device vendor ID
+};
+
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -46,15 +71,41 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.deviceCreate(callback);
+apiInstance.deviceCreate(mechanism, provisionKey, opts, callback);
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mechanism** | **String**| The ID of the channel used to communicate with the device | 
+ **provisionKey** | **String**| The key used to provision the device | 
+ **accountId** | **String**| The owning IAM account ID | [optional] 
+ **autoUpdate** | **Boolean**| Mark this device for auto firmware update | [optional] 
+ **bootstrappedTimestamp** | **String**|  | [optional] 
+ **createdAt** | **Date**|  | [optional] 
+ **customAttributes** | **String**| Up to 5 custom JSON attributes | [optional] 
+ **deployedState** | **String**| The state of the device&#39;s deployment | [optional] 
+ **deployment** | **String**| The last deployment used on the device | [optional] 
+ **description** | **String**| The description of the object | [optional] 
+ **deviceClass** | **String**|  | [optional] 
+ **deviceId** | **String**| DEPRECATED: The ID of the device | [optional] 
+ **etag** | **Date**| The entity instance signature | [optional] 
+ **id** | **String**| The ID of the device | [optional] 
+ **manifest** | **String**| URL for the current device manifest | [optional] 
+ **mechanismUrl** | **String**| The address of the connector to use | [optional] 
+ **name** | **String**| The name of the object | [optional] 
+ **_object** | **String**| The API resource entity | [optional] 
+ **serialNumber** | **String**| The serial number of the device | [optional] 
+ **state** | **String**| The current state of the device | [optional] 
+ **trustClass** | **Integer**| The device trust class | [optional] 
+ **trustLevel** | **Integer**| The device trust level | [optional] 
+ **updatedAt** | **Date**| The time the object was updated | [optional] 
+ **vendorId** | **String**| The device vendor ID | [optional] 
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceDetail**](DeviceDetail.md)
 
 ### Authorization
 
@@ -62,14 +113,14 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: Not defined
 
 <a name="deviceDestroy"></a>
 # **deviceDestroy**
-> DeviceSerializer deviceDestroy(deviceId)
+> DeviceListResp deviceDestroy(deviceId)
 
-Delete device
+
 
 &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Delete device&lt;/p&gt;
 
@@ -107,7 +158,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -120,9 +171,9 @@ Name | Type | Description  | Notes
 
 <a name="deviceList"></a>
 # **deviceList**
-> [DeviceSerializer] deviceList(opts)
+> DeviceListResp deviceList(opts)
 
-List all update devices
+
 
 &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;List all update devices. The result is paged into pages of 100.&lt;/p&gt;
 
@@ -140,27 +191,11 @@ Bearer.apiKey = 'YOUR API KEY';
 var apiInstance = new DeviceCatalogApi.DefaultApi();
 
 var opts = { 
-  'createdAt': "createdAt_example", // String | 
-  'updatedAt': "updatedAt_example", // String | 
-  'autoUpdate': "autoUpdate_example", // String | 
-  'bootstrappedTimestamp': "bootstrappedTimestamp_example", // String | 
-  'deployedState': "deployedState_example", // String | 
-  'deployment': "deployment_example", // String | 
-  'description': "description_example", // String | 
-  'deviceClass': "deviceClass_example", // String | 
-  'deviceId': "deviceId_example", // String | 
-  'etag': "etag_example", // String | 
-  'manifest': "manifest_example", // String | 
-  'mechanism': "mechanism_example", // String | 
-  'mechanismUrl': "mechanismUrl_example", // String | 
-  'name': "name_example", // String | 
-  '_object': "_object_example", // String | 
-  'provisionKey': "provisionKey_example", // String | 
-  'serialNumber': "serialNumber_example", // String | 
-  'state': "state_example", // String | 
-  'trustClass': "trustClass_example", // String | 
-  'trustLevel': "trustLevel_example", // String | 
-  'vendorId': "vendorId_example" // String | 
+  'limit': 56, // Integer | 
+  'order': "order_example", // String | 
+  'after': "after_example", // String | 
+  'filter': "filter_example", // String | 
+  'include': "include_example" // String | 
 };
 
 var callback = function(error, data, response) {
@@ -177,167 +212,15 @@ apiInstance.deviceList(opts, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createdAt** | **String**|  | [optional] 
- **updatedAt** | **String**|  | [optional] 
- **autoUpdate** | **String**|  | [optional] 
- **bootstrappedTimestamp** | **String**|  | [optional] 
- **deployedState** | **String**|  | [optional] 
- **deployment** | **String**|  | [optional] 
- **description** | **String**|  | [optional] 
- **deviceClass** | **String**|  | [optional] 
- **deviceId** | **String**|  | [optional] 
- **etag** | **String**|  | [optional] 
- **manifest** | **String**|  | [optional] 
- **mechanism** | **String**|  | [optional] 
- **mechanismUrl** | **String**|  | [optional] 
- **name** | **String**|  | [optional] 
- **_object** | **String**|  | [optional] 
- **provisionKey** | **String**|  | [optional] 
- **serialNumber** | **String**|  | [optional] 
- **state** | **String**|  | [optional] 
- **trustClass** | **String**|  | [optional] 
- **trustLevel** | **String**|  | [optional] 
- **vendorId** | **String**|  | [optional] 
+ **limit** | **Integer**|  | [optional] 
+ **order** | **String**|  | [optional] 
+ **after** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+ **include** | **String**|  | [optional] 
 
 ### Return type
 
-[**[DeviceSerializer]**](DeviceSerializer.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-<a name="deviceLogCreate"></a>
-# **deviceLogCreate**
-> DeviceLogSerializer deviceLogCreate(dateTime, opts)
-
-The APIs for creating and manipulating devices
-
-&lt;p&gt;The APIs for creating and manipulating devices.&lt;/p&gt;
-
-### Example
-```javascript
-var DeviceCatalogApi = require('device_catalog_api');
-var defaultClient = DeviceCatalogApi.ApiClient.default;
-
-// Configure API key authorization: Bearer
-var Bearer = defaultClient.authentications['Bearer'];
-Bearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.apiKeyPrefix = 'Token';
-
-var apiInstance = new DeviceCatalogApi.DefaultApi();
-
-var dateTime = new Date("2013-10-20T19:20:30+01:00"); // Date | 
-
-var opts = { 
-  'deviceLogId': "deviceLogId_example", // String | 
-  'eventType': "eventType_example", // String | 
-  'stateChange': true, // Boolean | 
-  'dateTime2': "dateTime_example", // String | 
-  'deviceId': "deviceId_example", // String | 
-  'deviceLogId2': "deviceLogId_example", // String | 
-  'eventType2': "eventType_example", // String | 
-  'stateChange2': "stateChange_example" // String | 
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.deviceLogCreate(dateTime, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dateTime** | **Date**|  | 
- **deviceLogId** | **String**|  | [optional] 
- **eventType** | **String**|  | [optional] 
- **stateChange** | **Boolean**|  | [optional] 
- **dateTime2** | **String**|  | [optional] 
- **deviceId** | **String**|  | [optional] 
- **deviceLogId2** | **String**|  | [optional] 
- **eventType2** | **String**|  | [optional] 
- **stateChange2** | **String**|  | [optional] 
-
-### Return type
-
-[**DeviceLogSerializer**](DeviceLogSerializer.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-<a name="deviceLogDestroy"></a>
-# **deviceLogDestroy**
-> DeviceLogSerializer deviceLogDestroy(deviceLogId, opts)
-
-The APIs for creating and manipulating devices
-
-&lt;p&gt;The APIs for creating and manipulating devices.&lt;/p&gt;
-
-### Example
-```javascript
-var DeviceCatalogApi = require('device_catalog_api');
-var defaultClient = DeviceCatalogApi.ApiClient.default;
-
-// Configure API key authorization: Bearer
-var Bearer = defaultClient.authentications['Bearer'];
-Bearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.apiKeyPrefix = 'Token';
-
-var apiInstance = new DeviceCatalogApi.DefaultApi();
-
-var deviceLogId = "deviceLogId_example"; // String | 
-
-var opts = { 
-  'dateTime': "dateTime_example", // String | 
-  'deviceId': "deviceId_example", // String | 
-  'deviceLogId2': "deviceLogId_example", // String | 
-  'eventType': "eventType_example", // String | 
-  'stateChange': "stateChange_example" // String | 
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.deviceLogDestroy(deviceLogId, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceLogId** | **String**|  | 
- **dateTime** | **String**|  | [optional] 
- **deviceId** | **String**|  | [optional] 
- **deviceLogId2** | **String**|  | [optional] 
- **eventType** | **String**|  | [optional] 
- **stateChange** | **String**|  | [optional] 
-
-### Return type
-
-[**DeviceLogSerializer**](DeviceLogSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -350,9 +233,9 @@ Name | Type | Description  | Notes
 
 <a name="deviceLogList"></a>
 # **deviceLogList**
-> [DeviceLogSerializer] deviceLogList(opts)
+> DeviceLogSerializer deviceLogList(opts)
 
-List all device logs
+
 
 &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;List all device logs.&lt;/p&gt;
 
@@ -370,11 +253,11 @@ Bearer.apiKey = 'YOUR API KEY';
 var apiInstance = new DeviceCatalogApi.DefaultApi();
 
 var opts = { 
-  'dateTime': "dateTime_example", // String | 
-  'deviceId': "deviceId_example", // String | 
-  'deviceLogId': "deviceLogId_example", // String | 
-  'eventType': "eventType_example", // String | 
-  'stateChange': "stateChange_example" // String | 
+  'limit': 56, // Integer | 
+  'order': "order_example", // String | 
+  'after': "after_example", // String | 
+  'filter': "filter_example", // String | 
+  'include': "include_example" // String | 
 };
 
 var callback = function(error, data, response) {
@@ -391,84 +274,11 @@ apiInstance.deviceLogList(opts, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **dateTime** | **String**|  | [optional] 
- **deviceId** | **String**|  | [optional] 
- **deviceLogId** | **String**|  | [optional] 
- **eventType** | **String**|  | [optional] 
- **stateChange** | **String**|  | [optional] 
-
-### Return type
-
-[**[DeviceLogSerializer]**](DeviceLogSerializer.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-<a name="deviceLogPartialUpdate"></a>
-# **deviceLogPartialUpdate**
-> DeviceLogSerializer deviceLogPartialUpdate(deviceLogId, opts)
-
-The APIs for creating and manipulating devices
-
-&lt;p&gt;The APIs for creating and manipulating devices.&lt;/p&gt;
-
-### Example
-```javascript
-var DeviceCatalogApi = require('device_catalog_api');
-var defaultClient = DeviceCatalogApi.ApiClient.default;
-
-// Configure API key authorization: Bearer
-var Bearer = defaultClient.authentications['Bearer'];
-Bearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.apiKeyPrefix = 'Token';
-
-var apiInstance = new DeviceCatalogApi.DefaultApi();
-
-var deviceLogId = "deviceLogId_example"; // String | 
-
-var opts = { 
-  'dateTime': new Date("2013-10-20T19:20:30+01:00"), // Date | 
-  'deviceLogId2': "deviceLogId_example", // String | 
-  'eventType': "eventType_example", // String | 
-  'stateChange': true, // Boolean | 
-  'dateTime2': "dateTime_example", // String | 
-  'deviceId': "deviceId_example", // String | 
-  'deviceLogId3': "deviceLogId_example", // String | 
-  'eventType2': "eventType_example", // String | 
-  'stateChange2': "stateChange_example" // String | 
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.deviceLogPartialUpdate(deviceLogId, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceLogId** | **String**|  | 
- **dateTime** | **Date**|  | [optional] 
- **deviceLogId2** | **String**|  | [optional] 
- **eventType** | **String**|  | [optional] 
- **stateChange** | **Boolean**|  | [optional] 
- **dateTime2** | **String**|  | [optional] 
- **deviceId** | **String**|  | [optional] 
- **deviceLogId3** | **String**|  | [optional] 
- **eventType2** | **String**|  | [optional] 
- **stateChange2** | **String**|  | [optional] 
+ **limit** | **Integer**|  | [optional] 
+ **order** | **String**|  | [optional] 
+ **after** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+ **include** | **String**|  | [optional] 
 
 ### Return type
 
@@ -487,7 +297,7 @@ Name | Type | Description  | Notes
 # **deviceLogRetrieve**
 > DeviceLogSerializer deviceLogRetrieve(deviceLogId)
 
-Retrieve device log
+
 
 &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device log.&lt;/p&gt;
 
@@ -536,85 +346,11 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a name="deviceLogUpdate"></a>
-# **deviceLogUpdate**
-> DeviceLogSerializer deviceLogUpdate(deviceLogId, dateTime, opts)
-
-The APIs for creating and manipulating devices
-
-&lt;p&gt;The APIs for creating and manipulating devices.&lt;/p&gt;
-
-### Example
-```javascript
-var DeviceCatalogApi = require('device_catalog_api');
-var defaultClient = DeviceCatalogApi.ApiClient.default;
-
-// Configure API key authorization: Bearer
-var Bearer = defaultClient.authentications['Bearer'];
-Bearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.apiKeyPrefix = 'Token';
-
-var apiInstance = new DeviceCatalogApi.DefaultApi();
-
-var deviceLogId = "deviceLogId_example"; // String | 
-
-var dateTime = new Date("2013-10-20T19:20:30+01:00"); // Date | 
-
-var opts = { 
-  'deviceLogId2': "deviceLogId_example", // String | 
-  'eventType': "eventType_example", // String | 
-  'stateChange': true, // Boolean | 
-  'dateTime2': "dateTime_example", // String | 
-  'deviceId': "deviceId_example", // String | 
-  'deviceLogId3': "deviceLogId_example", // String | 
-  'eventType2': "eventType_example", // String | 
-  'stateChange2': "stateChange_example" // String | 
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.deviceLogUpdate(deviceLogId, dateTime, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceLogId** | **String**|  | 
- **dateTime** | **Date**|  | 
- **deviceLogId2** | **String**|  | [optional] 
- **eventType** | **String**|  | [optional] 
- **stateChange** | **Boolean**|  | [optional] 
- **dateTime2** | **String**|  | [optional] 
- **deviceId** | **String**|  | [optional] 
- **deviceLogId3** | **String**|  | [optional] 
- **eventType2** | **String**|  | [optional] 
- **stateChange2** | **String**|  | [optional] 
-
-### Return type
-
-[**DeviceLogSerializer**](DeviceLogSerializer.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
 <a name="devicePartialUpdate"></a>
 # **devicePartialUpdate**
-> DeviceSerializer devicePartialUpdate(deviceId)
+> DeviceListResp devicePartialUpdate(deviceId)
 
-Update device fields
+
 
 &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device fields&lt;/p&gt;
 
@@ -652,7 +388,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -665,9 +401,9 @@ Name | Type | Description  | Notes
 
 <a name="deviceRetrieve"></a>
 # **deviceRetrieve**
-> DeviceSerializer deviceRetrieve(deviceId)
+> DeviceListResp deviceRetrieve(deviceId)
 
-Retrieve device
+
 
 &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device.&lt;/p&gt;
 
@@ -705,7 +441,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 
@@ -718,9 +454,9 @@ Name | Type | Description  | Notes
 
 <a name="deviceUpdate"></a>
 # **deviceUpdate**
-> DeviceSerializer deviceUpdate(deviceId)
+> DeviceListResp deviceUpdate(deviceId)
 
-Update device
+
 
 &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device.&lt;/p&gt;
 
@@ -758,7 +494,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceSerializer**](DeviceSerializer.md)
+[**DeviceListResp**](DeviceListResp.md)
 
 ### Authorization
 

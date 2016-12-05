@@ -4,19 +4,19 @@ All URIs are relative to *http://api.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deviceQueryCreate**](DefaultApi.md#deviceQueryCreate) | **POST** /v3/device-queries/ | Create device query
-[**deviceQueryDestroy**](DefaultApi.md#deviceQueryDestroy) | **DELETE** /v3/device-queries/{query_id}/ | Delete device query
-[**deviceQueryList**](DefaultApi.md#deviceQueryList) | **GET** /v3/device-queries/ | List all device queries
-[**deviceQueryPartialUpdate**](DefaultApi.md#deviceQueryPartialUpdate) | **PATCH** /v3/device-queries/{query_id}/ | Update device query fields
-[**deviceQueryRetrieve**](DefaultApi.md#deviceQueryRetrieve) | **GET** /v3/device-queries/{query_id}/ | Retrieve device query
-[**deviceQueryUpdate**](DefaultApi.md#deviceQueryUpdate) | **PUT** /v3/device-queries/{query_id}/ | Update device query
+[**deviceQueryCreate**](DefaultApi.md#deviceQueryCreate) | **POST** /v3/device-queries/ | 
+[**deviceQueryDestroy**](DefaultApi.md#deviceQueryDestroy) | **DELETE** /v3/device-queries/{query_id}/ | 
+[**deviceQueryList**](DefaultApi.md#deviceQueryList) | **GET** /v3/device-queries/ | 
+[**deviceQueryPartialUpdate**](DefaultApi.md#deviceQueryPartialUpdate) | **PATCH** /v3/device-queries/{query_id}/ | 
+[**deviceQueryRetrieve**](DefaultApi.md#deviceQueryRetrieve) | **GET** /v3/device-queries/{query_id}/ | 
+[**deviceQueryUpdate**](DefaultApi.md#deviceQueryUpdate) | **PUT** /v3/device-queries/{query_id}/ | 
 
 
 <a name="deviceQueryCreate"></a>
 # **deviceQueryCreate**
 > DeviceQuerySerializer deviceQueryCreate(name, query, opts)
 
-Create device query
+
 
 &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Create device query&lt;/p&gt;
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 # **deviceQueryDestroy**
 > DeviceQuerySerializer deviceQueryDestroy(queryId)
 
-Delete device query
+
 
 &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Delete device query&lt;/p&gt;
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 # **deviceQueryList**
 > [DeviceQuerySerializer] deviceQueryList(opts)
 
-List all device queries
+
 
 &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;List all device queries. The result will be paged into pages of 100.&lt;/p&gt;
 
@@ -201,7 +201,7 @@ Name | Type | Description  | Notes
 # **deviceQueryPartialUpdate**
 > DeviceQuerySerializer deviceQueryPartialUpdate(queryId, opts)
 
-Update device query fields
+
 
 &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Update device query fields&lt;/p&gt;
 
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 # **deviceQueryRetrieve**
 > DeviceQuerySerializer deviceQueryRetrieve(queryId)
 
-Retrieve device query
+
 
 &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Retrieve device query.&lt;/p&gt;
 
@@ -319,7 +319,7 @@ Name | Type | Description  | Notes
 # **deviceQueryUpdate**
 > DeviceQuerySerializer deviceQueryUpdate(queryId, name, query, opts)
 
-Update device query
+
 
 &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Update device query.&lt;/p&gt;
 
