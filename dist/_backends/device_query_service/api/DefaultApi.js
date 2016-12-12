@@ -105,7 +105,7 @@
       };
 
       var authNames = ['Bearer'];
-      var contentTypes = [];
+      var contentTypes = ['application/x-www-form-urlencoded'];
       var accepts = [];
       var returnType = DeviceQueryDetail;
 
