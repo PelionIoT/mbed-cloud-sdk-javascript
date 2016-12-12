@@ -1,0 +1,11 @@
+general:
+  artifacts:
+    - "docs"
+
+machine:
+  node:
+    version: 4.4.0
+
+test:
+  override:
+    - gulp

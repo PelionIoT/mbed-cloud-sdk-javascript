@@ -1,5 +1,7 @@
 # mbed Cloud JavaScript SDK
 
+[![Circle CI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript.svg?style=shield&circle-token=62ef40035b1b5442234a44ad7e74199ea582f3f4)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript/)
+
 JavaScript SDK for mbed Cloud
 
 ## Usage in Node.js (CommonJS modules)
