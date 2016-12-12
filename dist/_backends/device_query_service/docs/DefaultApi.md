@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceQueryList"></a>
 # **deviceQueryList**
-> [DeviceQueryResp] deviceQueryList(opts)
+> DeviceQueryResp deviceQueryList(opts)
 
 
 
@@ -186,7 +186,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[DeviceQueryResp]**](DeviceQueryResp.md)
+[**DeviceQueryResp**](DeviceQueryResp.md)
 
 ### Authorization
 

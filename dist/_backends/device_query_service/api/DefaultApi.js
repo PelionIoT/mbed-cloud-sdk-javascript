@@ -165,7 +165,7 @@
      * Callback function to receive the result of the deviceQueryList operation.
      * @callback module:api/DefaultApi~deviceQueryListCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/DeviceQueryResp>} data The data returned by the service call.
+     * @param {module:model/DeviceQueryResp} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -181,7 +181,7 @@
      * @param {String} opts.query 
      * @param {String} opts.queryId 
      * @param {module:api/DefaultApi~deviceQueryListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/DeviceQueryResp>}
+     * data is of type: {@link module:model/DeviceQueryResp}
      */
     this.deviceQueryList = function(opts, callback) {
       opts = opts || {};
@@ -208,7 +208,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = [DeviceQueryResp];
+      var returnType = DeviceQueryResp;
 
       return this.apiClient.callApi(
         '/v3/device-queries/', 'GET',
