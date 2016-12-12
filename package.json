@@ -4,7 +4,7 @@
   "description": "mbed Cloud JavaScript SDK",
   "homepage": "https://github.com/ARMmbed/mbed-cloud-sdk-javascript",
   "author": "Rob Moran <rob.moran@arm.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "main": "./index.js",
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "gulp-uglify": "^2.0.0"
   },
   "dependencies": {
+    "minimist": "^1.2.0",
     "superagent": "^3.0.0"
   }
 }

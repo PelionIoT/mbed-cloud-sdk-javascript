@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Devices</title>
+    <script src="config.js"></script>
     <script src="../dist/bundles/devices.js"></script>
 </head>
 <body>
@@ -14,22 +15,10 @@
             resultsEl.innerText += message + "\n";
         }
 
-        var key = "<mbed-cloud-app-key>";
-        var domain = "https://api.mbedcloud.com";
+        var devices = new Devices(window.config);
 
-        var devices = new Devices(key, domain);
-
-        function iterateResources(resources) {
-            var promises = resources.map(resource => {
-                return resource.getValue()
-                .then(value => {
-                    log(resource.uri);
-                    log(value);
-                });
-            });
-
-            return Promise.all(promises);
-        }
+        devices.listEndpoints()
+        .then(iterateEndpoints);
 
         function iterateEndpoints(endpoints) {
             var promises = endpoints.map(endpoint => {
@@ -43,8 +32,17 @@
             return Promise.all(promises);
         }
 
-        devices.listEndpoints()
-        .then(iterateEndpoints);
+        function iterateResources(resources) {
+            var promises = resources.map(resource => {
+                return resource.getValue()
+                .then(value => {
+                    log(resource.uri);
+                    log(value);
+                });
+            });
+
+            return Promise.all(promises);
+        }
     </script>
 </body>
 </html>

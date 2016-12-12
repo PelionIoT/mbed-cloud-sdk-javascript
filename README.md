@@ -2,9 +2,17 @@
 
 JavaScript SDK for mbed Cloud
 
-## Prerequisites
+## Usage in Node.js (CommonJS modules)
 
-[Node.js](https://nodejs.org) if using the CommonJS modules.
+If using [Node.js](https://nodejs.org), you will first need to install the npm dependencies:
+
+```bash
+> npm install
+```
+
+## Usage in Browser (RequireJS / AMD modules, Vanilla JS / SPAs)
+
+The bundled files in `dist/bundles` are standalone modules following the [UMD](https://github.com/umdjs/umd) specification so should be usable without any further installation or modification.
 
 ## Development
 

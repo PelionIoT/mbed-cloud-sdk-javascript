@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+<body style="background: transparent;">
+    <script src="scripts/docstrap.lib.js"></script>
+    <script src="scripts/lunr.min.js"></script>
+    <script src="scripts/fulltext-search.js"></script>
+
+    <script type="text/x-docstrap-searchdb">
+    {"classes.list.html":{"id":"classes.list.html","title":"Classes","body":" mbed Cloud SDK Classes Devices Classes Classes module:Devices module:Devices module:Devices module:Devices module:Devices module:Devices × Search results Close "},"index.html":{"id":"index.html","title":"Index","body":" mbed Cloud SDK Classes Devices mbed-cloud-sdk-javascript 0.0.1 mbed Cloud JavaScript SDKJavaScript SDK for mbed Cloud Usage in Node.js (CommonJS modules)If using Node.js, you will first need to install the npm dependencies: &gt; npm installUsage in Browser (RequireJS / AMD modules, Vanilla JS / SPAs)The bundled files in dist/bundles are standalone modules following the UMD specification so should be usable without any further installation or modification. DevelopmentPrerequisitesgulp installed globally by running: &gt; npm install -g gulpInstallingAfter cloning this repository, install the npm dependencies: &gt; npm installBuildingSimply use the default gulp task to build the SDK and docs &gt; gulp × Search results Close "},"module-Devices.html":{"id":"module-Devices.html","title":"Class: module:Devices","body":" mbed Cloud SDK Classes Devices Class: module:Devices module:Devices new module:Devices(key, host) Represents Devices. Parameters: Name Type Description key object API key host object the URL Properties: Name Type Description _client object te client API Methods listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; Class: module:Devices module:Devices new module:Devices(key, host) Represents Devices. Parameters: Name Type Description key object API key host object the URL Properties: Name Type Description _client object te client API Methods listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; Class: module:Devices module:Devices new module:Devices(key, host) Represents Devices. Parameters: Name Type Description key object API key host object the URL Properties: Name Type Description _client object te client API Methods listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; Class: module:Devices module:Devices new module:Devices(key, host) Represents Devices. Parameters: Name Type Description key object API key host object the URL Properties: Name Type Description _client object te client API Methods listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; Class: module:Devices module:Devices new module:Devices(key, host) Represents Devices. Parameters: Name Type Description key object API key host object the URL Properties: Name Type Description _client object te client API Methods listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; Class: module:Devices module:Devices new module:Devices(key, host) Represents Devices. Parameters: Name Type Description key object API key host object the URL Properties: Name Type Description _client object te client API Methods listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; listEndpoints() Retrieves endpoints Returns: Type Promise.&lt;Array&gt; × Search results Close "}}
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            Searcher.init();
+        });
+
+        $(window).on("message", function(msg) {
+            var msgData = msg.originalEvent.data;
+
+            if (msgData.msgid != "docstrap.quicksearch.start") {
+                return;
+            }
+
+            var results = Searcher.search(msgData.searchTerms);
+
+            window.parent.postMessage({"results": results, "msgid": "docstrap.quicksearch.done"}, "*");
+        });
+    </script>
+</body>
+</html>
