@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 <a name="deviceQueryCreate"></a>
 # **deviceQueryCreate**
-> DeviceQuerySerializer deviceQueryCreate(name, query, opts)
+> DeviceQueryDetail deviceQueryCreate(name, query, opts)
 
 
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuerySerializer**](DeviceQuerySerializer.md)
+[**DeviceQueryDetail**](DeviceQueryDetail.md)
 
 ### Authorization
 
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceQueryDestroy"></a>
 # **deviceQueryDestroy**
-> DeviceQuerySerializer deviceQueryDestroy(queryId)
+> DeviceQueryDetail deviceQueryDestroy(queryId)
 
 
 
@@ -118,7 +118,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuerySerializer**](DeviceQuerySerializer.md)
+[**DeviceQueryDetail**](DeviceQueryDetail.md)
 
 ### Authorization
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceQueryList"></a>
 # **deviceQueryList**
-> [DeviceQuerySerializer] deviceQueryList(opts)
+> [DeviceQueryResp] deviceQueryList(opts)
 
 
 
@@ -186,7 +186,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[DeviceQuerySerializer]**](DeviceQuerySerializer.md)
+[**[DeviceQueryResp]**](DeviceQueryResp.md)
 
 ### Authorization
 
@@ -199,7 +199,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceQueryPartialUpdate"></a>
 # **deviceQueryPartialUpdate**
-> DeviceQuerySerializer deviceQueryPartialUpdate(queryId, opts)
+> DeviceQueryDetail deviceQueryPartialUpdate(queryId, opts)
 
 
 
@@ -251,7 +251,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuerySerializer**](DeviceQuerySerializer.md)
+[**DeviceQueryDetail**](DeviceQueryDetail.md)
 
 ### Authorization
 
@@ -264,7 +264,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceQueryRetrieve"></a>
 # **deviceQueryRetrieve**
-> DeviceQuerySerializer deviceQueryRetrieve(queryId)
+> DeviceQueryDetail deviceQueryRetrieve(queryId)
 
 
 
@@ -304,7 +304,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuerySerializer**](DeviceQuerySerializer.md)
+[**DeviceQueryDetail**](DeviceQueryDetail.md)
 
 ### Authorization
 
@@ -317,7 +317,7 @@ Name | Type | Description  | Notes
 
 <a name="deviceQueryUpdate"></a>
 # **deviceQueryUpdate**
-> DeviceQuerySerializer deviceQueryUpdate(queryId, name, query, opts)
+> DeviceQueryDetail deviceQueryUpdate(queryId, name, query, opts)
 
 
 
@@ -371,7 +371,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceQuerySerializer**](DeviceQuerySerializer.md)
+[**DeviceQueryDetail**](DeviceQueryDetail.md)
 
 ### Authorization
 

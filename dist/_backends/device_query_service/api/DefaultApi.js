@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/DeviceQuerySerializer'], factory);
+    define(['ApiClient', 'model/DeviceQueryDetail', 'model/DeviceQueryResp'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/DeviceQuerySerializer'));
+    module.exports = factory(require('../ApiClient'), require('../model/DeviceQueryDetail'), require('../model/DeviceQueryResp'));
   } else {
     // Browser globals (root is window)
     if (!root.DeviceQueryServiceApi) {
       root.DeviceQueryServiceApi = {};
     }
-    root.DeviceQueryServiceApi.DefaultApi = factory(root.DeviceQueryServiceApi.ApiClient, root.DeviceQueryServiceApi.DeviceQuerySerializer);
+    root.DeviceQueryServiceApi.DefaultApi = factory(root.DeviceQueryServiceApi.ApiClient, root.DeviceQueryServiceApi.DeviceQueryDetail, root.DeviceQueryServiceApi.DeviceQueryResp);
   }
-}(this, function(ApiClient, DeviceQuerySerializer) {
+}(this, function(ApiClient, DeviceQueryDetail, DeviceQueryResp) {
   'use strict';
 
   /**
@@ -60,7 +60,7 @@
      * Callback function to receive the result of the deviceQueryCreate operation.
      * @callback module:api/DefaultApi~deviceQueryCreateCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceQuerySerializer} data The data returned by the service call.
+     * @param {module:model/DeviceQueryDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -73,7 +73,7 @@
      * @param {String} opts._object The API resource entity
      * @param {String} opts.queryId DEPRECATED: The ID of the query
      * @param {module:api/DefaultApi~deviceQueryCreateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceQuerySerializer}
+     * data is of type: {@link module:model/DeviceQueryDetail}
      */
     this.deviceQueryCreate = function(name, query, opts, callback) {
       opts = opts || {};
@@ -107,7 +107,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = DeviceQuerySerializer;
+      var returnType = DeviceQueryDetail;
 
       return this.apiClient.callApi(
         '/v3/device-queries/', 'POST',
@@ -120,7 +120,7 @@
      * Callback function to receive the result of the deviceQueryDestroy operation.
      * @callback module:api/DefaultApi~deviceQueryDestroyCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceQuerySerializer} data The data returned by the service call.
+     * @param {module:model/DeviceQueryDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -128,7 +128,7 @@
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Delete device query&lt;/p&gt;
      * @param {String} queryId 
      * @param {module:api/DefaultApi~deviceQueryDestroyCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceQuerySerializer}
+     * data is of type: {@link module:model/DeviceQueryDetail}
      */
     this.deviceQueryDestroy = function(queryId, callback) {
       var postBody = null;
@@ -152,7 +152,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = DeviceQuerySerializer;
+      var returnType = DeviceQueryDetail;
 
       return this.apiClient.callApi(
         '/v3/device-queries/{query_id}/', 'DELETE',
@@ -165,7 +165,7 @@
      * Callback function to receive the result of the deviceQueryList operation.
      * @callback module:api/DefaultApi~deviceQueryListCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/DeviceQuerySerializer>} data The data returned by the service call.
+     * @param {Array.<module:model/DeviceQueryResp>} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -181,7 +181,7 @@
      * @param {String} opts.query 
      * @param {String} opts.queryId 
      * @param {module:api/DefaultApi~deviceQueryListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/DeviceQuerySerializer>}
+     * data is of type: {@link Array.<module:model/DeviceQueryResp>}
      */
     this.deviceQueryList = function(opts, callback) {
       opts = opts || {};
@@ -208,7 +208,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = [DeviceQuerySerializer];
+      var returnType = [DeviceQueryResp];
 
       return this.apiClient.callApi(
         '/v3/device-queries/', 'GET',
@@ -221,7 +221,7 @@
      * Callback function to receive the result of the deviceQueryPartialUpdate operation.
      * @callback module:api/DefaultApi~deviceQueryPartialUpdateCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceQuerySerializer} data The data returned by the service call.
+     * @param {module:model/DeviceQueryDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -235,7 +235,7 @@
      * @param {String} opts.query The device query
      * @param {String} opts.queryId2 DEPRECATED: The ID of the query
      * @param {module:api/DefaultApi~deviceQueryPartialUpdateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceQuerySerializer}
+     * data is of type: {@link module:model/DeviceQueryDetail}
      */
     this.deviceQueryPartialUpdate = function(queryId, opts, callback) {
       opts = opts || {};
@@ -265,7 +265,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = DeviceQuerySerializer;
+      var returnType = DeviceQueryDetail;
 
       return this.apiClient.callApi(
         '/v3/device-queries/{query_id}/', 'PATCH',
@@ -278,7 +278,7 @@
      * Callback function to receive the result of the deviceQueryRetrieve operation.
      * @callback module:api/DefaultApi~deviceQueryRetrieveCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceQuerySerializer} data The data returned by the service call.
+     * @param {module:model/DeviceQueryDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -286,7 +286,7 @@
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Retrieve device query.&lt;/p&gt;
      * @param {String} queryId 
      * @param {module:api/DefaultApi~deviceQueryRetrieveCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceQuerySerializer}
+     * data is of type: {@link module:model/DeviceQueryDetail}
      */
     this.deviceQueryRetrieve = function(queryId, callback) {
       var postBody = null;
@@ -310,7 +310,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = DeviceQuerySerializer;
+      var returnType = DeviceQueryDetail;
 
       return this.apiClient.callApi(
         '/v3/device-queries/{query_id}/', 'GET',
@@ -323,7 +323,7 @@
      * Callback function to receive the result of the deviceQueryUpdate operation.
      * @callback module:api/DefaultApi~deviceQueryUpdateCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/DeviceQuerySerializer} data The data returned by the service call.
+     * @param {module:model/DeviceQueryDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -337,7 +337,7 @@
      * @param {String} opts._object The API resource entity
      * @param {String} opts.queryId2 DEPRECATED: The ID of the query
      * @param {module:api/DefaultApi~deviceQueryUpdateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DeviceQuerySerializer}
+     * data is of type: {@link module:model/DeviceQueryDetail}
      */
     this.deviceQueryUpdate = function(queryId, name, query, opts, callback) {
       opts = opts || {};
@@ -377,7 +377,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = DeviceQuerySerializer;
+      var returnType = DeviceQueryDetail;
 
       return this.apiClient.callApi(
         '/v3/device-queries/{query_id}/', 'PUT',
