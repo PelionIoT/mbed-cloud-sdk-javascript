@@ -34,7 +34,7 @@
     if (!root.DeviceQueryServiceApi) {
       root.DeviceQueryServiceApi = {};
     }
-    root.DeviceQueryServiceApi.DeviceQuerySerializer = factory(root.DeviceQueryServiceApi.ApiClient);
+    root.DeviceQueryServiceApi.DeviceQueryDetail = factory(root.DeviceQueryServiceApi.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -43,14 +43,14 @@
 
 
   /**
-   * The DeviceQuerySerializer model module.
-   * @module model/DeviceQuerySerializer
+   * The DeviceQueryDetail model module.
+   * @module model/DeviceQueryDetail
    * @version 0.1
    */
 
   /**
-   * Constructs a new <code>DeviceQuerySerializer</code>.
-   * @alias module:model/DeviceQuerySerializer
+   * Constructs a new <code>DeviceQueryDetail</code>.
+   * @alias module:model/DeviceQueryDetail
    * @class
    * @param description {String} The description of the object
    * @param createdAt {Date} The time the object was created
@@ -77,11 +77,11 @@
   };
 
   /**
-   * Constructs a <code>DeviceQuerySerializer</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>DeviceQueryDetail</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/DeviceQuerySerializer} obj Optional instance to populate.
-   * @return {module:model/DeviceQuerySerializer} The populated <code>DeviceQuerySerializer</code> instance.
+   * @param {module:model/DeviceQueryDetail} obj Optional instance to populate.
+   * @return {module:model/DeviceQueryDetail} The populated <code>DeviceQueryDetail</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {

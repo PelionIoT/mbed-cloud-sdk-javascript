@@ -25,12 +25,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/DeviceQuerySerializer', 'model/WriteDeviceQuerySerializer', 'api/DefaultApi'], factory);
+    define(['ApiClient', 'model/DeviceQueryDetail', 'model/DeviceQueryResp', 'api/DefaultApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/DeviceQuerySerializer'), require('./model/WriteDeviceQuerySerializer'), require('./api/DefaultApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/DeviceQueryDetail'), require('./model/DeviceQueryResp'), require('./api/DefaultApi'));
   }
-}(function(ApiClient, DeviceQuerySerializer, WriteDeviceQuerySerializer, DefaultApi) {
+}(function(ApiClient, DeviceQueryDetail, DeviceQueryResp, DefaultApi) {
   'use strict';
 
   /**
@@ -71,15 +71,15 @@
      */
     ApiClient: ApiClient,
     /**
-     * The DeviceQuerySerializer model constructor.
-     * @property {module:model/DeviceQuerySerializer}
+     * The DeviceQueryDetail model constructor.
+     * @property {module:model/DeviceQueryDetail}
      */
-    DeviceQuerySerializer: DeviceQuerySerializer,
+    DeviceQueryDetail: DeviceQueryDetail,
     /**
-     * The WriteDeviceQuerySerializer model constructor.
-     * @property {module:model/WriteDeviceQuerySerializer}
+     * The DeviceQueryResp model constructor.
+     * @property {module:model/DeviceQueryResp}
      */
-    WriteDeviceQuerySerializer: WriteDeviceQuerySerializer,
+    DeviceQueryResp: DeviceQueryResp,
     /**
      * The DefaultApi service constructor.
      * @property {module:api/DefaultApi}
