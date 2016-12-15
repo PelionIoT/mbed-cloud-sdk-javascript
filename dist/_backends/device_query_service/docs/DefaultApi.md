@@ -151,14 +151,9 @@ Bearer.apiKey = 'YOUR API KEY';
 var apiInstance = new DeviceQueryServiceApi.DefaultApi();
 
 var opts = { 
-  'description': "description_example", // String | 
-  'createdAt': "createdAt_example", // String | 
-  'updatedAt': "updatedAt_example", // String | 
-  'etag': "etag_example", // String | 
-  'name': "name_example", // String | 
-  '_object': "_object_example", // String | 
-  'query': "query_example", // String | 
-  'queryId': "queryId_example" // String | 
+  'limit': 56, // Integer | 
+  'order': "order_example", // String | 
+  'after': "after_example" // String | 
 };
 
 var callback = function(error, data, response) {
@@ -175,14 +170,9 @@ apiInstance.deviceQueryList(opts, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **description** | **String**|  | [optional] 
- **createdAt** | **String**|  | [optional] 
- **updatedAt** | **String**|  | [optional] 
- **etag** | **String**|  | [optional] 
- **name** | **String**|  | [optional] 
- **_object** | **String**|  | [optional] 
- **query** | **String**|  | [optional] 
- **queryId** | **String**|  | [optional] 
+ **limit** | **Integer**|  | [optional] 
+ **order** | **String**|  | [optional] 
+ **after** | **String**|  | [optional] 
 
 ### Return type
 
