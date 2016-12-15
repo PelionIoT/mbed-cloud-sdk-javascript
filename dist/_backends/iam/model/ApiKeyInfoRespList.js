@@ -52,20 +52,21 @@
    * Constructs a new <code>ApiKeyInfoRespList</code>.
    * @alias module:model/ApiKeyInfoRespList
    * @class
-   * @param _object {module:model/ApiKeyInfoRespList.ObjectEnum} Entity name: always 'list'
+   * @param hasMore {Boolean} Whether there are more results to display
    * @param totalCount {Integer} The total number or records, if requested 
-   * @param limit {Integer} The number of results to return, (range: 2-1000), or equals to `total_count`
+   * @param limit {Integer} The number of results to return
    * @param data {Array.<module:model/ApiKeyInfoResp>} A list of entities.
+   * @param order {module:model/ApiKeyInfoRespList.OrderEnum} The order of the records to return. Available values: ASC, DESC; by default ASC.
    */
-  var exports = function(_object, totalCount, limit, data) {
+  var exports = function(hasMore, totalCount, limit, data, order) {
     var _this = this;
 
+    _this['has_more'] = hasMore;
+    _this['total_count'] = totalCount;
 
-    _this['object'] = _object;
-    _this['totalCount'] = totalCount;
     _this['limit'] = limit;
     _this['data'] = data;
-
+    _this['order'] = order;
   };
 
   /**
@@ -79,14 +80,14 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('after')) {
-        obj['after'] = ApiClient.convertToType(data['after'], 'String');
+      if (data.hasOwnProperty('has_more')) {
+        obj['has_more'] = ApiClient.convertToType(data['has_more'], 'Boolean');
+      }
+      if (data.hasOwnProperty('total_count')) {
+        obj['total_count'] = ApiClient.convertToType(data['total_count'], 'Integer');
       }
       if (data.hasOwnProperty('object')) {
         obj['object'] = ApiClient.convertToType(data['object'], 'String');
-      }
-      if (data.hasOwnProperty('totalCount')) {
-        obj['totalCount'] = ApiClient.convertToType(data['totalCount'], 'Integer');
       }
       if (data.hasOwnProperty('limit')) {
         obj['limit'] = ApiClient.convertToType(data['limit'], 'Integer');
@@ -102,22 +103,22 @@
   }
 
   /**
-   * The entity ID to fetch after the given one.
-   * @member {String} after
+   * Whether there are more results to display
+   * @member {Boolean} has_more
    */
-  exports.prototype['after'] = undefined;
+  exports.prototype['has_more'] = undefined;
+  /**
+   * The total number or records, if requested 
+   * @member {Integer} total_count
+   */
+  exports.prototype['total_count'] = undefined;
   /**
    * Entity name: always 'list'
    * @member {module:model/ApiKeyInfoRespList.ObjectEnum} object
    */
   exports.prototype['object'] = undefined;
   /**
-   * The total number or records, if requested 
-   * @member {Integer} totalCount
-   */
-  exports.prototype['totalCount'] = undefined;
-  /**
-   * The number of results to return, (range: 2-1000), or equals to `total_count`
+   * The number of results to return
    * @member {Integer} limit
    */
   exports.prototype['limit'] = undefined;
