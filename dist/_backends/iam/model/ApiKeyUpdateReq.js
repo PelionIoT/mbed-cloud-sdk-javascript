@@ -34,7 +34,7 @@
     if (!root.IamIdentitiesRestApi) {
       root.IamIdentitiesRestApi = {};
     }
-    root.IamIdentitiesRestApi.ApiKeyInfoReq = factory(root.IamIdentitiesRestApi.ApiClient);
+    root.IamIdentitiesRestApi.ApiKeyUpdateReq = factory(root.IamIdentitiesRestApi.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -43,15 +43,15 @@
 
 
   /**
-   * The ApiKeyInfoReq model module.
-   * @module model/ApiKeyInfoReq
+   * The ApiKeyUpdateReq model module.
+   * @module model/ApiKeyUpdateReq
    * @version v3
    */
 
   /**
-   * Constructs a new <code>ApiKeyInfoReq</code>.
+   * Constructs a new <code>ApiKeyUpdateReq</code>.
    * This object represents an API key in requests towards mbed Cloud.
-   * @alias module:model/ApiKeyInfoReq
+   * @alias module:model/ApiKeyUpdateReq
    * @class
    * @param name {String} The display name for the API key.
    */
@@ -60,15 +60,14 @@
 
 
     _this['name'] = name;
-
   };
 
   /**
-   * Constructs a <code>ApiKeyInfoReq</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>ApiKeyUpdateReq</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ApiKeyInfoReq} obj Optional instance to populate.
-   * @return {module:model/ApiKeyInfoReq} The populated <code>ApiKeyInfoReq</code> instance.
+   * @param {module:model/ApiKeyUpdateReq} obj Optional instance to populate.
+   * @return {module:model/ApiKeyUpdateReq} The populated <code>ApiKeyUpdateReq</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
@@ -79,9 +78,6 @@
       }
       if (data.hasOwnProperty('name')) {
         obj['name'] = ApiClient.convertToType(data['name'], 'String');
-      }
-      if (data.hasOwnProperty('groups')) {
-        obj['groups'] = ApiClient.convertToType(data['groups'], ['String']);
       }
     }
     return obj;
@@ -97,11 +93,6 @@
    * @member {String} name
    */
   exports.prototype['name'] = undefined;
-  /**
-   * A list of group IDs this API key belongs to.
-   * @member {Array.<String>} groups
-   */
-  exports.prototype['groups'] = undefined;
 
 
 

@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -52,10 +52,10 @@
    * Constructs a new <code>GroupSummaryList</code>.
    * @alias module:model/GroupSummaryList
    * @class
-   * @param _object {module:model/GroupSummaryList.ObjectEnum} entity name: always 'list'
+   * @param _object {module:model/GroupSummaryList.ObjectEnum} Entity name: always 'list'
    * @param totalCount {Integer} The total number or records, if requested 
-   * @param limit {Integer} The number of results to return, (range: 2-1000), or equals to total_count
-   * @param data {Array.<module:model/GroupSummary>} List of entities.
+   * @param limit {Integer} The number of results to return, (range: 2-1000), or equals to `total_count`
+   * @param data {Array.<module:model/GroupSummary>} A list of entities.
    */
   var exports = function(_object, totalCount, limit, data) {
     var _this = this;
@@ -102,12 +102,12 @@
   }
 
   /**
-   * The entity id to fetch after it.
+   * The entity ID to fetch after the given one.
    * @member {String} after
    */
   exports.prototype['after'] = undefined;
   /**
-   * entity name: always 'list'
+   * Entity name: always 'list'
    * @member {module:model/GroupSummaryList.ObjectEnum} object
    */
   exports.prototype['object'] = undefined;
@@ -117,17 +117,17 @@
    */
   exports.prototype['totalCount'] = undefined;
   /**
-   * The number of results to return, (range: 2-1000), or equals to total_count
+   * The number of results to return, (range: 2-1000), or equals to `total_count`
    * @member {Integer} limit
    */
   exports.prototype['limit'] = undefined;
   /**
-   * List of entities.
+   * A list of entities.
    * @member {Array.<module:model/GroupSummary>} data
    */
   exports.prototype['data'] = undefined;
   /**
-   * The order of the records to return. Available values: ASC, DESC. Default value is ASC
+   * The order of the records to return. Available values: ASC, DESC; by default ASC.
    * @member {module:model/GroupSummaryList.OrderEnum} order
    */
   exports.prototype['order'] = undefined;
@@ -159,6 +159,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "ca_cert"
+     * @const
+     */
+    "ca_cert": "ca_cert",
     /**
      * value: "list"
      * @const

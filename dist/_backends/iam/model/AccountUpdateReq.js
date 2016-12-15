@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -53,9 +53,8 @@
    * This object represents an account update request.
    * @alias module:model/AccountUpdateReq
    * @class
-   * @param aliases {Array.<String>} An array of aliases.
    */
-  var exports = function(aliases) {
+  var exports = function() {
     var _this = this;
 
 
@@ -69,7 +68,10 @@
 
 
 
-    _this['aliases'] = aliases;
+
+
+
+
   };
 
   /**
@@ -101,6 +103,9 @@
       if (data.hasOwnProperty('company')) {
         obj['company'] = ApiClient.convertToType(data['company'], 'String');
       }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'String');
+      }
       if (data.hasOwnProperty('state')) {
         obj['state'] = ApiClient.convertToType(data['state'], 'String');
       }
@@ -109,6 +114,12 @@
       }
       if (data.hasOwnProperty('postal_code')) {
         obj['postal_code'] = ApiClient.convertToType(data['postal_code'], 'String');
+      }
+      if (data.hasOwnProperty('is_provisioning_allowed')) {
+        obj['is_provisioning_allowed'] = ApiClient.convertToType(data['is_provisioning_allowed'], 'Boolean');
+      }
+      if (data.hasOwnProperty('tier')) {
+        obj['tier'] = ApiClient.convertToType(data['tier'], 'String');
       }
       if (data.hasOwnProperty('phone_number')) {
         obj['phone_number'] = ApiClient.convertToType(data['phone_number'], 'String');
@@ -154,6 +165,11 @@
    */
   exports.prototype['company'] = undefined;
   /**
+   * The status of the account. Manageable by the root admin only.
+   * @member {String} status
+   */
+  exports.prototype['status'] = undefined;
+  /**
    * The state part of the postal address.
    * @member {String} state
    */
@@ -168,6 +184,17 @@
    * @member {String} postal_code
    */
   exports.prototype['postal_code'] = undefined;
+  /**
+   * Flag (true/false) indicating whether Factory Tool is allowed to download or not. Manageable by the root admin only.
+   * @member {Boolean} is_provisioning_allowed
+   * @default false
+   */
+  exports.prototype['is_provisioning_allowed'] = false;
+  /**
+   * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future. Manageable by the root admin only.
+   * @member {String} tier
+   */
+  exports.prototype['tier'] = undefined;
   /**
    * The phone number of the company.
    * @member {String} phone_number

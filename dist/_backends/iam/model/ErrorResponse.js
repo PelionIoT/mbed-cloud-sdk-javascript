@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -53,11 +53,11 @@
    * This object represents an error message
    * @alias module:model/ErrorResponse
    * @class
-   * @param code {Integer} response code
-   * @param _object {module:model/ErrorResponse.ObjectEnum} entity name, always 'error'
-   * @param requestId {String} request id
-   * @param message {String} a human readable message with detailed info
-   * @param type {module:model/ErrorResponse.TypeEnum} error type
+   * @param code {Integer} Response code.
+   * @param _object {module:model/ErrorResponse.ObjectEnum} Entity name, always 'error'.
+   * @param requestId {String} Request ID
+   * @param message {String} A human readable message with detailed info.
+   * @param type {module:model/ErrorResponse.TypeEnum} Error type.
    */
   var exports = function(code, _object, requestId, message, type) {
     var _this = this;
@@ -104,32 +104,32 @@
   }
 
   /**
-   * response code
+   * Response code.
    * @member {Integer} code
    */
   exports.prototype['code'] = undefined;
   /**
-   * failed input fields during request object validation
+   * Failed input fields during request object validation.
    * @member {Array.<module:model/Field>} fields
    */
   exports.prototype['fields'] = undefined;
   /**
-   * entity name, always 'error'
+   * Entity name, always 'error'.
    * @member {module:model/ErrorResponse.ObjectEnum} object
    */
   exports.prototype['object'] = undefined;
   /**
-   * request id
+   * Request ID
    * @member {String} request_id
    */
   exports.prototype['request_id'] = undefined;
   /**
-   * a human readable message with detailed info
+   * A human readable message with detailed info.
    * @member {String} message
    */
   exports.prototype['message'] = undefined;
   /**
-   * error type
+   * Error type.
    * @member {module:model/ErrorResponse.TypeEnum} type
    */
   exports.prototype['type'] = undefined;
@@ -161,6 +161,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "ca_cert"
+     * @const
+     */
+    "ca_cert": "ca_cert",
     /**
      * value: "list"
      * @const
@@ -228,6 +233,11 @@
      * @const
      */
     "method_not_supported": "method_not_supported",
+    /**
+     * value: "not_acceptable"
+     * @const
+     */
+    "not_acceptable": "not_acceptable",
     /**
      * value: "duplicate"
      * @const

@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -53,7 +53,7 @@
    * This object represents an account in requests and responses.
    * @alias module:model/AccountInfo
    * @class
-   * @param _object {module:model/AccountInfo.ObjectEnum} entity name: always 'account'
+   * @param _object {module:model/AccountInfo.ObjectEnum} Entity name: always 'account'
    * @param status {module:model/AccountInfo.StatusEnum} The status of the account.
    * @param id {String} Account ID.
    * @param etag {String} API resource entity version.
@@ -63,6 +63,7 @@
    */
   var exports = function(_object, status, id, etag, isProvisioningAllowed, tier, aliases) {
     var _this = this;
+
 
 
 
@@ -107,6 +108,9 @@
       }
       if (data.hasOwnProperty('display_name')) {
         obj['display_name'] = ApiClient.convertToType(data['display_name'], 'String');
+      }
+      if (data.hasOwnProperty('upgraded_at')) {
+        obj['upgraded_at'] = ApiClient.convertToType(data['upgraded_at'], 'String');
       }
       if (data.hasOwnProperty('country')) {
         obj['country'] = ApiClient.convertToType(data['country'], 'String');
@@ -178,6 +182,11 @@
    */
   exports.prototype['display_name'] = undefined;
   /**
+   * Time when upgraded to commercial account in UTC format RFC3339.
+   * @member {String} upgraded_at
+   */
+  exports.prototype['upgraded_at'] = undefined;
+  /**
    * The country part of the postal address.
    * @member {String} country
    */
@@ -188,7 +197,7 @@
    */
   exports.prototype['company'] = undefined;
   /**
-   * entity name: always 'account'
+   * Entity name: always 'account'
    * @member {module:model/AccountInfo.ObjectEnum} object
    */
   exports.prototype['object'] = undefined;
@@ -282,6 +291,11 @@
      */
     "account": "account",
     /**
+     * value: "ca_cert"
+     * @const
+     */
+    "ca_cert": "ca_cert",
+    /**
      * value: "list"
      * @const
      */
@@ -298,6 +312,11 @@
    * @readonly
    */
   exports.StatusEnum = {
+    /**
+     * value: "ENROLLING"
+     * @const
+     */
+    "ENROLLING": "ENROLLING",
     /**
      * value: "ACTIVE"
      * @const

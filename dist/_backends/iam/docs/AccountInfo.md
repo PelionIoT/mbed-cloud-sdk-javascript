@@ -7,9 +7,10 @@ Name | Type | Description | Notes
 **city** | **String** | The city part of the postal address. | [optional] 
 **addressLine1** | **String** | Postal address line 1. | [optional] 
 **displayName** | **String** | The display name for the account. | [optional] 
+**upgradedAt** | **String** | Time when upgraded to commercial account in UTC format RFC3339. | [optional] 
 **country** | **String** | The country part of the postal address. | [optional] 
 **company** | **String** | The name of the company. | [optional] 
-**_object** | **String** | entity name: always &#39;account&#39; | 
+**_object** | **String** | Entity name: always &#39;account&#39; | 
 **status** | **String** | The status of the account. | 
 **id** | **String** | Account ID. | 
 **email** | **String** | The company email address for this account. | [optional] 
@@ -36,6 +37,8 @@ Name | Type | Description | Notes
 
 * `account` (value: `"account"`)
 
+* `ca_cert` (value: `"ca_cert"`)
+
 * `list` (value: `"list"`)
 
 * `error` (value: `"error"`)
@@ -46,6 +49,8 @@ Name | Type | Description | Notes
 <a name="StatusEnum"></a>
 ## Enum: StatusEnum
 
+
+* `ENROLLING` (value: `"ENROLLING"`)
 
 * `ACTIVE` (value: `"ACTIVE"`)
 

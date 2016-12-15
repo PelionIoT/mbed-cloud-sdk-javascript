@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -56,8 +56,8 @@
    * @param status {module:model/UserInfoResp.StatusEnum} The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
    * @param username {String} A username containing alphanumerical letters and -,._@+= characters.
    * @param accountId {String} The UUID of the account.
-   * @param _object {module:model/UserInfoResp.ObjectEnum} entity name: always 'user'
-   * @param email {String} Email address.
+   * @param _object {module:model/UserInfoResp.ObjectEnum} Entity name: always 'user'
+   * @param email {String} The email address.
    * @param etag {String} API resource entity version.
    * @param id {String} The UUID of the user.
    */
@@ -194,7 +194,7 @@
    */
   exports.prototype['created_at'] = undefined;
   /**
-   * entity name: always 'user'
+   * Entity name: always 'user'
    * @member {module:model/UserInfoResp.ObjectEnum} object
    */
   exports.prototype['object'] = undefined;
@@ -205,7 +205,7 @@
    */
   exports.prototype['is_gtc_accepted'] = false;
   /**
-   * Email address.
+   * The email address.
    * @member {String} email
    */
   exports.prototype['email'] = undefined;
@@ -310,6 +310,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "ca_cert"
+     * @const
+     */
+    "ca_cert": "ca_cert",
     /**
      * value: "list"
      * @const

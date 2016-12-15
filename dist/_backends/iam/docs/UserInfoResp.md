@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **passwordChangedTime** | **Integer** | A timestamp of the latest change of the user password, in milliseconds. | [optional] 
 **groups** | **[String]** | A list of IDs of the groups this user belongs to. | [optional] 
 **createdAt** | **String** | Creation UTC time RFC3339. | [optional] 
-**_object** | **String** | entity name: always &#39;user&#39; | 
+**_object** | **String** | Entity name: always &#39;user&#39; | 
 **isGtcAccepted** | **Boolean** | A flag indicating that the General Terms and Conditions has been accepted. | [optional] [default to false]
-**email** | **String** | Email address. | 
+**email** | **String** | The email address. | 
 **isMarketingAccepted** | **Boolean** | A flag indicating that receiving marketing information has been accepted. | [optional] [default to false]
 **etag** | **String** | API resource entity version. | 
 **fullName** | **String** | The full name of the user. | [optional] 
@@ -50,6 +50,8 @@ Name | Type | Description | Notes
 * `group` (value: `"group"`)
 
 * `account` (value: `"account"`)
+
+* `ca_cert` (value: `"ca_cert"`)
 
 * `list` (value: `"list"`)
 

@@ -14,11 +14,11 @@ Method | HTTP request | Description
 
 <a name="createUser"></a>
 # **createUser**
-> UserInfoResp createUser(body)
+> UserInfoResp createUser(body, opts)
 
 Create a new user.
 
-Endpoint for creating a new user.
+An endpoint for creating a new user.
 
 ### Example
 ```javascript
@@ -35,6 +35,9 @@ var apiInstance = new IamIdentitiesRestApi.AccountAdminApi();
 
 var body = new IamIdentitiesRestApi.UserInfoReq(); // UserInfoReq | A user object with attributes.
 
+var opts = { 
+  'action': "create" // String | Action, either 'create' or 'invite'.
+};
 
 var callback = function(error, data, response) {
   if (error) {
@@ -43,7 +46,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.createUser(body, callback);
+apiInstance.createUser(body, opts, callback);
 ```
 
 ### Parameters
@@ -51,6 +54,7 @@ apiInstance.createUser(body, callback);
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**UserInfoReq**](UserInfoReq.md)| A user object with attributes. | 
+ **action** | **String**| Action, either &#39;create&#39; or &#39;invite&#39;. | [optional] [default to create]
 
 ### Return type
 
@@ -67,11 +71,11 @@ Name | Type | Description  | Notes
 
 <a name="deleteUser"></a>
 # **deleteUser**
-> deleteUser(userId)
+> deleteUser(userId, opts)
 
 Delete a user.
 
-Endpoint for deleting a user.
+An endpoint for deleting a user.
 
 ### Example
 ```javascript
@@ -88,6 +92,9 @@ var apiInstance = new IamIdentitiesRestApi.AccountAdminApi();
 
 var userId = "userId_example"; // String | The ID of the user to be deleted.
 
+var opts = { 
+  'force': "force_example" // String | Flag indicating that user is forced to be deleted.
+};
 
 var callback = function(error, data, response) {
   if (error) {
@@ -96,7 +103,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-apiInstance.deleteUser(userId, callback);
+apiInstance.deleteUser(userId, opts, callback);
 ```
 
 ### Parameters
@@ -104,6 +111,7 @@ apiInstance.deleteUser(userId, callback);
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userId** | **String**| The ID of the user to be deleted. | 
+ **force** | **String**| Flag indicating that user is forced to be deleted. | [optional] 
 
 ### Return type
 
@@ -120,11 +128,11 @@ null (empty response body)
 
 <a name="getAllUsers"></a>
 # **getAllUsers**
-> UserInfoRespList getAllUsers()
+> UserInfoRespList getAllUsers(opts)
 
 Get the details of all users.
 
-Endpoint for retrieving the details of all users.
+An endpoint for retrieving the details of all users.
 
 ### Example
 ```javascript
@@ -139,6 +147,14 @@ Bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new IamIdentitiesRestApi.AccountAdminApi();
 
+var opts = { 
+  'limit': 50, // Integer | The number of results to return (2-1000), default is 50.
+  'after': "after_example", // String | The entity ID to fetch after the given one.
+  'order': "ASC", // String | The order of the records, ASC or DESC; by default ASC
+  'include': "include_example", // String | Comma separated additional data to return. Currently supported: total_count
+  'filter': "filter_example" // String | Filter for the query, for example filter=status%3Dactive,status%3Dreset.
+};
+
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -146,11 +162,18 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.getAllUsers(callback);
+apiInstance.getAllUsers(opts, callback);
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **String**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional] 
+ **filter** | **String**| Filter for the query, for example filter&#x3D;status%3Dactive,status%3Dreset. | [optional] 
 
 ### Return type
 
@@ -171,7 +194,7 @@ This endpoint does not need any parameter.
 
 Details of a user.
 
-Endpoint for retrieving the details of a user.
+An endpoint for retrieving the details of a user.
 
 ### Example
 ```javascript
@@ -220,11 +243,11 @@ Name | Type | Description  | Notes
 
 <a name="updateMyAccount"></a>
 # **updateMyAccount**
-> UpdatedResponse updateMyAccount(body)
+> AccountInfo updateMyAccount(body)
 
 Updates attributes of the account.
 
-Endpoint for updating the account.
+An endpoint for updating the account.
 
 ### Example
 ```javascript
@@ -260,7 +283,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**AccountInfo**](AccountInfo.md)
 
 ### Authorization
 
@@ -277,7 +300,7 @@ Name | Type | Description  | Notes
 
 Update user details.
 
-Endpoint for updating user details.
+An endpoint for updating user details.
 
 ### Example
 ```javascript

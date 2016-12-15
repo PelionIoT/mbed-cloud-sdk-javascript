@@ -11,6 +11,6 @@ Name | Type | Description | Notes
 **fullName** | **String** | The full name of the user. | [optional] 
 **address** | **String** | Address. | [optional] 
 **password** | **String** | The password when creating a new user. It will will generated when not present in the request. | [optional] 
-**email** | **String** | Email address. | 
+**email** | **String** | The email address. | 
 
 

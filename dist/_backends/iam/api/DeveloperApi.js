@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ApiKeyInfoReq', 'model/ApiKeyInfoResp', 'model/ErrorResponse', 'model/ApiKeyInfoRespList', 'model/GroupSummaryList', 'model/AccountInfo', 'model/UserInfoResp', 'model/UserInfoReq'], factory);
+    define(['ApiClient', 'model/ApiKeyInfoReq', 'model/ApiKeyInfoResp', 'model/ErrorResponse', 'model/ApiKeyInfoRespList', 'model/GroupSummaryList', 'model/AccountInfo', 'model/UserInfoResp', 'model/ApiKeyUpdateReq', 'model/UserInfoReq'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ApiKeyInfoReq'), require('../model/ApiKeyInfoResp'), require('../model/ErrorResponse'), require('../model/ApiKeyInfoRespList'), require('../model/GroupSummaryList'), require('../model/AccountInfo'), require('../model/UserInfoResp'), require('../model/UserInfoReq'));
+    module.exports = factory(require('../ApiClient'), require('../model/ApiKeyInfoReq'), require('../model/ApiKeyInfoResp'), require('../model/ErrorResponse'), require('../model/ApiKeyInfoRespList'), require('../model/GroupSummaryList'), require('../model/AccountInfo'), require('../model/UserInfoResp'), require('../model/ApiKeyUpdateReq'), require('../model/UserInfoReq'));
   } else {
     // Browser globals (root is window)
     if (!root.IamIdentitiesRestApi) {
       root.IamIdentitiesRestApi = {};
     }
-    root.IamIdentitiesRestApi.DeveloperApi = factory(root.IamIdentitiesRestApi.ApiClient, root.IamIdentitiesRestApi.ApiKeyInfoReq, root.IamIdentitiesRestApi.ApiKeyInfoResp, root.IamIdentitiesRestApi.ErrorResponse, root.IamIdentitiesRestApi.ApiKeyInfoRespList, root.IamIdentitiesRestApi.GroupSummaryList, root.IamIdentitiesRestApi.AccountInfo, root.IamIdentitiesRestApi.UserInfoResp, root.IamIdentitiesRestApi.UserInfoReq);
+    root.IamIdentitiesRestApi.DeveloperApi = factory(root.IamIdentitiesRestApi.ApiClient, root.IamIdentitiesRestApi.ApiKeyInfoReq, root.IamIdentitiesRestApi.ApiKeyInfoResp, root.IamIdentitiesRestApi.ErrorResponse, root.IamIdentitiesRestApi.ApiKeyInfoRespList, root.IamIdentitiesRestApi.GroupSummaryList, root.IamIdentitiesRestApi.AccountInfo, root.IamIdentitiesRestApi.UserInfoResp, root.IamIdentitiesRestApi.ApiKeyUpdateReq, root.IamIdentitiesRestApi.UserInfoReq);
   }
-}(this, function(ApiClient, ApiKeyInfoReq, ApiKeyInfoResp, ErrorResponse, ApiKeyInfoRespList, GroupSummaryList, AccountInfo, UserInfoResp, UserInfoReq) {
+}(this, function(ApiClient, ApiKeyInfoReq, ApiKeyInfoResp, ErrorResponse, ApiKeyInfoRespList, GroupSummaryList, AccountInfo, UserInfoResp, ApiKeyUpdateReq, UserInfoReq) {
   'use strict';
 
   /**
@@ -66,7 +66,7 @@
 
     /**
      * Create a new API key.
-     * Endpoint for creating the new API key.
+     * An endpoint for creating a new API key.
      * @param {module:model/ApiKeyInfoReq} body The details of the API key to be created.
      * @param {module:api/DeveloperApi~createApiKeyCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ApiKeyInfoResp}
@@ -111,7 +111,7 @@
 
     /**
      * Delete API key.
-     * Endpoint for deleting the API key.
+     * An endpoint for deleting the API key.
      * @param {String} apiKey The ID of the API key to be deleted.
      * @param {module:api/DeveloperApi~deleteApiKeyCallback} callback The callback function, accepting three arguments: error, data, response
      */
@@ -156,8 +156,13 @@
 
     /**
      * Get all API keys
-     * Endpoint for retrieving API keys in an array, optionally filtered by the owner.
+     * An endpoint for retrieving API keys in an array, optionally filtered by the owner.
      * @param {Object} opts Optional parameters
+     * @param {Integer} opts.limit The number of results to return (2-1000), default is 50. (default to 50)
+     * @param {String} opts.after The entity ID to fetch after the given one.
+     * @param {String} opts.order The order of the records, ASC or DESC; by default ASC (default to ASC)
+     * @param {String} opts.include Comma separated additional data to return. Currently supported: total_count
+     * @param {String} opts.filter A filter for the query, for example filter&#x3D;owner%3Duuid.
      * @param {String} opts.owner Owner name filter.
      * @param {module:api/DeveloperApi~getAllApiKeysCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ApiKeyInfoRespList}
@@ -170,6 +175,11 @@
       var pathParams = {
       };
       var queryParams = {
+        'limit': opts['limit'],
+        'after': opts['after'],
+        'order': opts['order'],
+        'include': opts['include'],
+        'filter': opts['filter'],
         'owner': opts['owner']
       };
       var headerParams = {
@@ -199,17 +209,27 @@
 
     /**
      * Get all group information.
-     * Endpoint for retrieving all group information.
+     * An endpoint for retrieving all group information.
+     * @param {Object} opts Optional parameters
+     * @param {Integer} opts.limit The number of results to return (2-1000), default is 50. (default to 50)
+     * @param {String} opts.after The entity ID to fetch after the given one.
+     * @param {String} opts.order The order of the records, ASC or DESC; by default ASC (default to ASC)
+     * @param {String} opts.include Comma separated additional data to return. Currently supported: total_count
      * @param {module:api/DeveloperApi~getAllGroupsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/GroupSummaryList}
      */
-    this.getAllGroups = function(callback) {
+    this.getAllGroups = function(opts, callback) {
+      opts = opts || {};
       var postBody = null;
 
 
       var pathParams = {
       };
       var queryParams = {
+        'limit': opts['limit'],
+        'after': opts['after'],
+        'order': opts['order'],
+        'include': opts['include']
       };
       var headerParams = {
       };
@@ -238,7 +258,7 @@
 
     /**
      * Get API key details.
-     * Endpoint for retrieving API key details.
+     * An endpoint for retrieving API key details.
      * @param {String} apiKey The ID of the API key to be retrieved.
      * @param {module:api/DeveloperApi~getApiKeyCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ApiKeyInfoResp}
@@ -314,6 +334,45 @@
     }
 
     /**
+     * Callback function to receive the result of the getMyApiKey operation.
+     * @callback module:api/DeveloperApi~getMyApiKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ApiKeyInfoResp} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get API key details.
+     * An endpoint for retrieving API key details.
+     * @param {module:api/DeveloperApi~getMyApiKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/ApiKeyInfoResp}
+     */
+    this.getMyApiKey = function(callback) {
+      var postBody = null;
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['Bearer'];
+      var contentTypes = [];
+      var accepts = ['application/json'];
+      var returnType = ApiKeyInfoResp;
+
+      return this.apiClient.callApi(
+        '/v3/api-keys/me', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the getMyUser operation.
      * @callback module:api/DeveloperApi~getMyUserCallback
      * @param {String} error Error message, if any.
@@ -323,7 +382,7 @@
 
     /**
      * Details of the current user.
-     * Endpoint for retrieving the details of the logged in user.
+     * An endpoint for retrieving the details of the logged in user.
      * @param {module:api/DeveloperApi~getMyUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/UserInfoResp}
      */
@@ -362,9 +421,9 @@
 
     /**
      * Update API key details.
-     * Endpoint for updating API key details.
+     * An endpoint for updating API key details.
      * @param {String} apiKey The ID of the API key to be updated.
-     * @param {module:model/ApiKeyInfoReq} body New API key attributes to be stored.
+     * @param {module:model/ApiKeyUpdateReq} body New API key attributes to be stored.
      * @param {module:api/DeveloperApi~updateApiKeyCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ApiKeyInfoResp}
      */
@@ -405,6 +464,51 @@
     }
 
     /**
+     * Callback function to receive the result of the updateMyApiKey operation.
+     * @callback module:api/DeveloperApi~updateMyApiKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ApiKeyInfoResp} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Update API key details.
+     * An endpoint for updating API key details.
+     * @param {module:model/ApiKeyUpdateReq} body New API key attributes to be stored.
+     * @param {module:api/DeveloperApi~updateMyApiKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/ApiKeyInfoResp}
+     */
+    this.updateMyApiKey = function(body, callback) {
+      var postBody = body;
+
+      // verify the required parameter 'body' is set
+      if (body == undefined || body == null) {
+        throw "Missing the required parameter 'body' when calling updateMyApiKey";
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['Bearer'];
+      var contentTypes = [];
+      var accepts = ['application/json'];
+      var returnType = ApiKeyInfoResp;
+
+      return this.apiClient.callApi(
+        '/v3/api-keys/me', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the updateMyUser operation.
      * @callback module:api/DeveloperApi~updateMyUserCallback
      * @param {String} error Error message, if any.
@@ -414,7 +518,7 @@
 
     /**
      * Update user details.
-     * Endpoint for updating the details of the logged in user.
+     * An endpoint for updating the details of the logged in user.
      * @param {module:model/UserInfoReq} body New attributes for the logged in user.
      * @param {module:api/DeveloperApi~updateMyUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/UserInfoResp}

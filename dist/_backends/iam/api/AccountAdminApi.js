@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/UserInfoResp', 'model/UserInfoReq', 'model/ErrorResponse', 'model/UserInfoRespList', 'model/AccountUpdateReq', 'model/UpdatedResponse'], factory);
+    define(['ApiClient', 'model/UserInfoResp', 'model/UserInfoReq', 'model/ErrorResponse', 'model/UserInfoRespList', 'model/AccountUpdateReq', 'model/AccountInfo'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/UserInfoResp'), require('../model/UserInfoReq'), require('../model/ErrorResponse'), require('../model/UserInfoRespList'), require('../model/AccountUpdateReq'), require('../model/UpdatedResponse'));
+    module.exports = factory(require('../ApiClient'), require('../model/UserInfoResp'), require('../model/UserInfoReq'), require('../model/ErrorResponse'), require('../model/UserInfoRespList'), require('../model/AccountUpdateReq'), require('../model/AccountInfo'));
   } else {
     // Browser globals (root is window)
     if (!root.IamIdentitiesRestApi) {
       root.IamIdentitiesRestApi = {};
     }
-    root.IamIdentitiesRestApi.AccountAdminApi = factory(root.IamIdentitiesRestApi.ApiClient, root.IamIdentitiesRestApi.UserInfoResp, root.IamIdentitiesRestApi.UserInfoReq, root.IamIdentitiesRestApi.ErrorResponse, root.IamIdentitiesRestApi.UserInfoRespList, root.IamIdentitiesRestApi.AccountUpdateReq, root.IamIdentitiesRestApi.UpdatedResponse);
+    root.IamIdentitiesRestApi.AccountAdminApi = factory(root.IamIdentitiesRestApi.ApiClient, root.IamIdentitiesRestApi.UserInfoResp, root.IamIdentitiesRestApi.UserInfoReq, root.IamIdentitiesRestApi.ErrorResponse, root.IamIdentitiesRestApi.UserInfoRespList, root.IamIdentitiesRestApi.AccountUpdateReq, root.IamIdentitiesRestApi.AccountInfo);
   }
-}(this, function(ApiClient, UserInfoResp, UserInfoReq, ErrorResponse, UserInfoRespList, AccountUpdateReq, UpdatedResponse) {
+}(this, function(ApiClient, UserInfoResp, UserInfoReq, ErrorResponse, UserInfoRespList, AccountUpdateReq, AccountInfo) {
   'use strict';
 
   /**
@@ -66,12 +66,15 @@
 
     /**
      * Create a new user.
-     * Endpoint for creating a new user.
+     * An endpoint for creating a new user.
      * @param {module:model/UserInfoReq} body A user object with attributes.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.action Action, either &#39;create&#39; or &#39;invite&#39;. (default to create)
      * @param {module:api/AccountAdminApi~createUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/UserInfoResp}
      */
-    this.createUser = function(body, callback) {
+    this.createUser = function(body, opts, callback) {
+      opts = opts || {};
       var postBody = body;
 
       // verify the required parameter 'body' is set
@@ -83,6 +86,7 @@
       var pathParams = {
       };
       var queryParams = {
+        'action': opts['action']
       };
       var headerParams = {
       };
@@ -111,11 +115,14 @@
 
     /**
      * Delete a user.
-     * Endpoint for deleting a user.
+     * An endpoint for deleting a user.
      * @param {String} userId The ID of the user to be deleted.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.force Flag indicating that user is forced to be deleted.
      * @param {module:api/AccountAdminApi~deleteUserCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    this.deleteUser = function(userId, callback) {
+    this.deleteUser = function(userId, opts, callback) {
+      opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'userId' is set
@@ -128,6 +135,7 @@
         'user-id': userId
       };
       var queryParams = {
+        'force': opts['force']
       };
       var headerParams = {
       };
@@ -156,17 +164,29 @@
 
     /**
      * Get the details of all users.
-     * Endpoint for retrieving the details of all users.
+     * An endpoint for retrieving the details of all users.
+     * @param {Object} opts Optional parameters
+     * @param {Integer} opts.limit The number of results to return (2-1000), default is 50. (default to 50)
+     * @param {String} opts.after The entity ID to fetch after the given one.
+     * @param {String} opts.order The order of the records, ASC or DESC; by default ASC (default to ASC)
+     * @param {String} opts.include Comma separated additional data to return. Currently supported: total_count
+     * @param {String} opts.filter Filter for the query, for example filter&#x3D;status%3Dactive,status%3Dreset.
      * @param {module:api/AccountAdminApi~getAllUsersCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/UserInfoRespList}
      */
-    this.getAllUsers = function(callback) {
+    this.getAllUsers = function(opts, callback) {
+      opts = opts || {};
       var postBody = null;
 
 
       var pathParams = {
       };
       var queryParams = {
+        'limit': opts['limit'],
+        'after': opts['after'],
+        'order': opts['order'],
+        'include': opts['include'],
+        'filter': opts['filter']
       };
       var headerParams = {
       };
@@ -195,7 +215,7 @@
 
     /**
      * Details of a user.
-     * Endpoint for retrieving the details of a user.
+     * An endpoint for retrieving the details of a user.
      * @param {String} userId The ID or name of the user whose details are retrieved.
      * @param {module:api/AccountAdminApi~getUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/UserInfoResp}
@@ -235,16 +255,16 @@
      * Callback function to receive the result of the updateMyAccount operation.
      * @callback module:api/AccountAdminApi~updateMyAccountCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/UpdatedResponse} data The data returned by the service call.
+     * @param {module:model/AccountInfo} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Updates attributes of the account.
-     * Endpoint for updating the account.
+     * An endpoint for updating the account.
      * @param {module:model/AccountUpdateReq} body Details of the account to be updated.
      * @param {module:api/AccountAdminApi~updateMyAccountCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/UpdatedResponse}
+     * data is of type: {@link module:model/AccountInfo}
      */
     this.updateMyAccount = function(body, callback) {
       var postBody = body;
@@ -267,7 +287,7 @@
       var authNames = ['Bearer'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
-      var returnType = UpdatedResponse;
+      var returnType = AccountInfo;
 
       return this.apiClient.callApi(
         '/v3/accounts/me', 'PUT',
@@ -286,7 +306,7 @@
 
     /**
      * Update user details.
-     * Endpoint for updating user details.
+     * An endpoint for updating user details.
      * @param {String} userId The ID of the user whose details are updated.
      * @param {module:model/UserInfoReq} body A user object with attributes.
      * @param {module:api/AccountAdminApi~updateUserCallback} callback The callback function, accepting three arguments: error, data, response

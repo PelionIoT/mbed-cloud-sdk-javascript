@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -55,7 +55,7 @@
    * @class
    * @param name {String} The name of the group.
    * @param apiKeyCount {Integer} The number of API keys in this group.
-   * @param _object {module:model/GroupSummary.ObjectEnum} entity name: always 'group'
+   * @param _object {module:model/GroupSummary.ObjectEnum} Entity name: always 'group'
    * @param etag {String} API resource entity version.
    * @param id {String} The UUID of the group.
    * @param userCount {Integer} The number of users in this group.
@@ -137,7 +137,7 @@
    */
   exports.prototype['created_at'] = undefined;
   /**
-   * entity name: always 'group'
+   * Entity name: always 'group'
    * @member {module:model/GroupSummary.ObjectEnum} object
    */
   exports.prototype['object'] = undefined;
@@ -189,6 +189,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "ca_cert"
+     * @const
+     */
+    "ca_cert": "ca_cert",
     /**
      * value: "list"
      * @const

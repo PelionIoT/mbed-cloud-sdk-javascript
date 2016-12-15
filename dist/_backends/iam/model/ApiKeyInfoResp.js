@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -53,11 +53,11 @@
    * This object represents an API key in mbed Cloud.
    * @alias module:model/ApiKeyInfoResp
    * @class
-   * @param apikey {String} API key.
+   * @param apikey {String} The API key.
    * @param name {String} The display name for the API key.
-   * @param _object {module:model/ApiKeyInfoResp.ObjectEnum} entity name: always 'apikey'
+   * @param _object {module:model/ApiKeyInfoResp.ObjectEnum} Entity name: always 'apikey'
    * @param etag {String} API resource entity version.
-   * @param id {String} UUID of the API key.
+   * @param id {String} The UUID of the API key.
    */
   var exports = function(apikey, name, _object, etag, id) {
     var _this = this;
@@ -133,7 +133,7 @@
    */
   exports.prototype['status'] = undefined;
   /**
-   * API key.
+   * The API key.
    * @member {String} apikey
    */
   exports.prototype['apikey'] = undefined;
@@ -148,7 +148,7 @@
    */
   exports.prototype['created_at'] = undefined;
   /**
-   * entity name: always 'apikey'
+   * Entity name: always 'apikey'
    * @member {module:model/ApiKeyInfoResp.ObjectEnum} object
    */
   exports.prototype['object'] = undefined;
@@ -173,12 +173,12 @@
    */
   exports.prototype['owner'] = undefined;
   /**
-   * API key secret.
+   * API key secret, deprecated and always empty string.
    * @member {String} secret_key
    */
   exports.prototype['secret_key'] = undefined;
   /**
-   * UUID of the API key.
+   * The UUID of the API key.
    * @member {String} id
    */
   exports.prototype['id'] = undefined;
@@ -232,6 +232,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "ca_cert"
+     * @const
+     */
+    "ca_cert": "ca_cert",
     /**
      * value: "list"
      * @const

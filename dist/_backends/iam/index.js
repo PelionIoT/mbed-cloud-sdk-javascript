@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -25,16 +25,16 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AccountInfo', 'model/AccountUpdateReq', 'model/ApiKeyInfoReq', 'model/ApiKeyInfoResp', 'model/ApiKeyInfoRespList', 'model/ErrorResponse', 'model/Field', 'model/GroupSummary', 'model/GroupSummaryList', 'model/UpdatedResponse', 'model/UserInfoReq', 'model/UserInfoResp', 'model/UserInfoRespList', 'api/AccountAdminApi', 'api/DeveloperApi'], factory);
+    define(['ApiClient', 'model/AccountInfo', 'model/AccountUpdateReq', 'model/ApiKeyInfoReq', 'model/ApiKeyInfoResp', 'model/ApiKeyInfoRespList', 'model/ApiKeyUpdateReq', 'model/ErrorResponse', 'model/Field', 'model/GroupSummary', 'model/GroupSummaryList', 'model/UserInfoReq', 'model/UserInfoResp', 'model/UserInfoRespList', 'api/AccountAdminApi', 'api/DeveloperApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/AccountInfo'), require('./model/AccountUpdateReq'), require('./model/ApiKeyInfoReq'), require('./model/ApiKeyInfoResp'), require('./model/ApiKeyInfoRespList'), require('./model/ErrorResponse'), require('./model/Field'), require('./model/GroupSummary'), require('./model/GroupSummaryList'), require('./model/UpdatedResponse'), require('./model/UserInfoReq'), require('./model/UserInfoResp'), require('./model/UserInfoRespList'), require('./api/AccountAdminApi'), require('./api/DeveloperApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/AccountInfo'), require('./model/AccountUpdateReq'), require('./model/ApiKeyInfoReq'), require('./model/ApiKeyInfoResp'), require('./model/ApiKeyInfoRespList'), require('./model/ApiKeyUpdateReq'), require('./model/ErrorResponse'), require('./model/Field'), require('./model/GroupSummary'), require('./model/GroupSummaryList'), require('./model/UserInfoReq'), require('./model/UserInfoResp'), require('./model/UserInfoRespList'), require('./api/AccountAdminApi'), require('./api/DeveloperApi'));
   }
-}(function(ApiClient, AccountInfo, AccountUpdateReq, ApiKeyInfoReq, ApiKeyInfoResp, ApiKeyInfoRespList, ErrorResponse, Field, GroupSummary, GroupSummaryList, UpdatedResponse, UserInfoReq, UserInfoResp, UserInfoRespList, AccountAdminApi, DeveloperApi) {
+}(function(ApiClient, AccountInfo, AccountUpdateReq, ApiKeyInfoReq, ApiKeyInfoResp, ApiKeyInfoRespList, ApiKeyUpdateReq, ErrorResponse, Field, GroupSummary, GroupSummaryList, UserInfoReq, UserInfoResp, UserInfoRespList, AccountAdminApi, DeveloperApi) {
   'use strict';
 
   /**
-   * REST_API_to_manage_accounts_groups_users_and_api_keys.<br>
+   * REST_API_to_manage_accounts_groups_users_and_API_keys.<br>
    * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
    * <p>
    * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
@@ -96,6 +96,11 @@
      */
     ApiKeyInfoRespList: ApiKeyInfoRespList,
     /**
+     * The ApiKeyUpdateReq model constructor.
+     * @property {module:model/ApiKeyUpdateReq}
+     */
+    ApiKeyUpdateReq: ApiKeyUpdateReq,
+    /**
      * The ErrorResponse model constructor.
      * @property {module:model/ErrorResponse}
      */
@@ -115,11 +120,6 @@
      * @property {module:model/GroupSummaryList}
      */
     GroupSummaryList: GroupSummaryList,
-    /**
-     * The UpdatedResponse model constructor.
-     * @property {module:model/UpdatedResponse}
-     */
-    UpdatedResponse: UpdatedResponse,
     /**
      * The UserInfoReq model constructor.
      * @property {module:model/UserInfoReq}
