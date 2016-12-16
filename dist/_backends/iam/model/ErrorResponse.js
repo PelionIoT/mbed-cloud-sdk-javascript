@@ -50,12 +50,12 @@
 
   /**
    * Constructs a new <code>ErrorResponse</code>.
-   * This object represents an error message
+   * This object represents an error message.
    * @alias module:model/ErrorResponse
    * @class
    * @param code {Integer} Response code.
    * @param _object {module:model/ErrorResponse.ObjectEnum} Entity name, always 'error'.
-   * @param requestId {String} Request ID
+   * @param requestId {String} Request ID.
    * @param message {String} A human readable message with detailed info.
    * @param type {module:model/ErrorResponse.TypeEnum} Error type.
    */
@@ -119,7 +119,7 @@
    */
   exports.prototype['object'] = undefined;
   /**
-   * Request ID
+   * Request ID.
    * @member {String} request_id
    */
   exports.prototype['request_id'] = undefined;
@@ -161,6 +161,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "account_template"
+     * @const
+     */
+    "account_template": "account_template",
     /**
      * value: "ca_cert"
      * @const

@@ -302,7 +302,7 @@ Name | Type | Description  | Notes
 
 <a name="getMyAccountInfo"></a>
 # **getMyAccountInfo**
-> AccountInfo getMyAccountInfo()
+> AccountInfo getMyAccountInfo(opts)
 
 Get account info.
 
@@ -321,6 +321,10 @@ Bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new IamIdentitiesRestApi.DeveloperApi();
 
+var opts = { 
+  'include': "include_example" // String | Comma separated additional data to return. Currently supported: limits
+};
+
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -328,11 +332,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.getMyAccountInfo(callback);
+apiInstance.getMyAccountInfo(opts, callback);
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **include** | **String**| Comma separated additional data to return. Currently supported: limits | [optional] 
 
 ### Return type
 

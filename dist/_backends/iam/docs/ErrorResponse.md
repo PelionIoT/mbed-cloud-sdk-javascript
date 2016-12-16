@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **code** | **Integer** | Response code. | 
 **fields** | [**[Field]**](Field.md) | Failed input fields during request object validation. | [optional] 
 **_object** | **String** | Entity name, always &#39;error&#39;. | 
-**requestId** | **String** | Request ID | 
+**requestId** | **String** | Request ID. | 
 **message** | **String** | A human readable message with detailed info. | 
 **type** | **String** | Error type. | 
 
@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 * `group` (value: `"group"`)
 
 * `account` (value: `"account"`)
+
+* `account_template` (value: `"account_template"`)
 
 * `ca_cert` (value: `"ca_cert"`)
 

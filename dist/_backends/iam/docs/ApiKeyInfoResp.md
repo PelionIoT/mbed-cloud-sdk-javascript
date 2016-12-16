@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **createdAt** | **String** | Creation UTC time RFC3339. | [optional] 
 **_object** | **String** | Entity name: always &#39;apikey&#39; | 
 **creationTime** | **Integer** | The timestamp of the API key creation in the storage, in milliseconds. | [optional] 
+**creationTimeMillis** | **Integer** |  | [optional] 
 **etag** | **String** | API resource entity version. | 
 **groups** | **[String]** | A list of group IDs this API key belongs to. | [optional] 
 **owner** | **String** | The owner of this API key, who is the creator by default. | [optional] 
@@ -39,6 +40,8 @@ Name | Type | Description | Notes
 * `group` (value: `"group"`)
 
 * `account` (value: `"account"`)
+
+* `account_template` (value: `"account_template"`)
 
 * `ca_cert` (value: `"ca_cert"`)
 

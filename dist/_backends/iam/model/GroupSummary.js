@@ -70,6 +70,7 @@
     _this['object'] = _object;
 
     _this['etag'] = etag;
+
     _this['id'] = id;
     _this['userCount'] = userCount;
   };
@@ -105,6 +106,9 @@
       }
       if (data.hasOwnProperty('etag')) {
         obj['etag'] = ApiClient.convertToType(data['etag'], 'String');
+      }
+      if (data.hasOwnProperty('creationTimeMillis')) {
+        obj['creationTimeMillis'] = ApiClient.convertToType(data['creationTimeMillis'], 'Integer');
       }
       if (data.hasOwnProperty('id')) {
         obj['id'] = ApiClient.convertToType(data['id'], 'String');
@@ -152,6 +156,10 @@
    */
   exports.prototype['etag'] = undefined;
   /**
+   * @member {Integer} creationTimeMillis
+   */
+  exports.prototype['creationTimeMillis'] = undefined;
+  /**
    * The UUID of the group.
    * @member {String} id
    */
@@ -189,6 +197,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "account_template"
+     * @const
+     */
+    "account_template": "account_template",
     /**
      * value: "ca_cert"
      * @const

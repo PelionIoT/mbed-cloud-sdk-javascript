@@ -81,6 +81,7 @@
 
 
 
+
     _this['id'] = id;
 
   };
@@ -137,6 +138,9 @@
       }
       if (data.hasOwnProperty('address')) {
         obj['address'] = ApiClient.convertToType(data['address'], 'String');
+      }
+      if (data.hasOwnProperty('creationTimeMillis')) {
+        obj['creationTimeMillis'] = ApiClient.convertToType(data['creationTimeMillis'], 'Integer');
       }
       if (data.hasOwnProperty('creation_time')) {
         obj['creation_time'] = ApiClient.convertToType(data['creation_time'], 'Integer');
@@ -231,6 +235,10 @@
    */
   exports.prototype['address'] = undefined;
   /**
+   * @member {Integer} creationTimeMillis
+   */
+  exports.prototype['creationTimeMillis'] = undefined;
+  /**
    * A timestamp of the user creation in the storage, in milliseconds.
    * @member {Integer} creation_time
    */
@@ -310,6 +318,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "account_template"
+     * @const
+     */
+    "account_template": "account_template",
     /**
      * value: "ca_cert"
      * @const

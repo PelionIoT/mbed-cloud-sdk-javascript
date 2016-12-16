@@ -72,6 +72,7 @@
 
 
 
+
   };
 
   /**
@@ -102,6 +103,9 @@
       }
       if (data.hasOwnProperty('company')) {
         obj['company'] = ApiClient.convertToType(data['company'], 'String');
+      }
+      if (data.hasOwnProperty('template_id')) {
+        obj['template_id'] = ApiClient.convertToType(data['template_id'], 'String');
       }
       if (data.hasOwnProperty('status')) {
         obj['status'] = ApiClient.convertToType(data['status'], 'String');
@@ -164,6 +168,11 @@
    * @member {String} company
    */
   exports.prototype['company'] = undefined;
+  /**
+   * Account template ID. Manageable by the root admin only.
+   * @member {String} template_id
+   */
+  exports.prototype['template_id'] = undefined;
   /**
    * The status of the account. Manageable by the root admin only.
    * @member {String} status

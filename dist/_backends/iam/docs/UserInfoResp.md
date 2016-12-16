@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **etag** | **String** | API resource entity version. | 
 **fullName** | **String** | The full name of the user. | [optional] 
 **address** | **String** | Address. | [optional] 
+**creationTimeMillis** | **Integer** |  | [optional] 
 **creationTime** | **Integer** | A timestamp of the user creation in the storage, in milliseconds. | [optional] 
 **password** | **String** | The password when creating a new user. It will will generated when not present in the request. | [optional] 
 **phoneNumber** | **String** | Phone number. | [optional] 
@@ -50,6 +51,8 @@ Name | Type | Description | Notes
 * `group` (value: `"group"`)
 
 * `account` (value: `"account"`)
+
+* `account_template` (value: `"account_template"`)
 
 * `ca_cert` (value: `"ca_cert"`)
 

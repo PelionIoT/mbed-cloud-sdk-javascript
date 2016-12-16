@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/Policy'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./Policy'));
   } else {
     // Browser globals (root is window)
     if (!root.IamIdentitiesRestApi) {
       root.IamIdentitiesRestApi = {};
     }
-    root.IamIdentitiesRestApi.AccountInfo = factory(root.IamIdentitiesRestApi.ApiClient);
+    root.IamIdentitiesRestApi.AccountInfo = factory(root.IamIdentitiesRestApi.ApiClient, root.IamIdentitiesRestApi.Policy);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, Policy) {
   'use strict';
 
 
@@ -53,37 +53,41 @@
    * This object represents an account in requests and responses.
    * @alias module:model/AccountInfo
    * @class
-   * @param _object {module:model/AccountInfo.ObjectEnum} Entity name: always 'account'
-   * @param status {module:model/AccountInfo.StatusEnum} The status of the account.
    * @param id {String} Account ID.
-   * @param etag {String} API resource entity version.
-   * @param isProvisioningAllowed {Boolean} Flag (true/false) indicating whether Factory Tool is allowed to download or not..
-   * @param tier {String} The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
    * @param aliases {Array.<String>} An array of aliases.
+   * @param etag {String} API resource entity version.
+   * @param isProvisioningAllowed {Boolean} Flag (true/false) indicating whether Factory Tool is allowed to download or not.
+   * @param status {module:model/AccountInfo.StatusEnum} The status of the account.
+   * @param _object {module:model/AccountInfo.ObjectEnum} Entity name: always 'account'
+   * @param tier {String} The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
    */
-  var exports = function(_object, status, id, etag, isProvisioningAllowed, tier, aliases) {
+  var exports = function(id, aliases, etag, isProvisioningAllowed, status, _object, tier) {
     var _this = this;
 
 
 
-
-
-
-
-
-    _this['object'] = _object;
-    _this['status'] = status;
     _this['id'] = id;
+    _this['aliases'] = aliases;
+
+
+
 
 
     _this['etag'] = etag;
-
-
     _this['is_provisioning_allowed'] = isProvisioningAllowed;
+
+
+    _this['status'] = status;
+
+    _this['object'] = _object;
+
     _this['tier'] = tier;
 
 
-    _this['aliases'] = aliases;
+
+
+
+
   };
 
   /**
@@ -97,6 +101,18 @@
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('phone_number')) {
+        obj['phone_number'] = ApiClient.convertToType(data['phone_number'], 'String');
+      }
+      if (data.hasOwnProperty('postal_code')) {
+        obj['postal_code'] = ApiClient.convertToType(data['postal_code'], 'String');
+      }
+      if (data.hasOwnProperty('id')) {
+        obj['id'] = ApiClient.convertToType(data['id'], 'String');
+      }
+      if (data.hasOwnProperty('aliases')) {
+        obj['aliases'] = ApiClient.convertToType(data['aliases'], ['String']);
+      }
       if (data.hasOwnProperty('address_line2')) {
         obj['address_line2'] = ApiClient.convertToType(data['address_line2'], 'String');
       }
@@ -109,11 +125,23 @@
       if (data.hasOwnProperty('display_name')) {
         obj['display_name'] = ApiClient.convertToType(data['display_name'], 'String');
       }
-      if (data.hasOwnProperty('upgraded_at')) {
-        obj['upgraded_at'] = ApiClient.convertToType(data['upgraded_at'], 'String');
+      if (data.hasOwnProperty('state')) {
+        obj['state'] = ApiClient.convertToType(data['state'], 'String');
       }
-      if (data.hasOwnProperty('country')) {
-        obj['country'] = ApiClient.convertToType(data['country'], 'String');
+      if (data.hasOwnProperty('etag')) {
+        obj['etag'] = ApiClient.convertToType(data['etag'], 'String');
+      }
+      if (data.hasOwnProperty('is_provisioning_allowed')) {
+        obj['is_provisioning_allowed'] = ApiClient.convertToType(data['is_provisioning_allowed'], 'Boolean');
+      }
+      if (data.hasOwnProperty('creationTimeMillis')) {
+        obj['creationTimeMillis'] = ApiClient.convertToType(data['creationTimeMillis'], 'Integer');
+      }
+      if (data.hasOwnProperty('email')) {
+        obj['email'] = ApiClient.convertToType(data['email'], 'String');
+      }
+      if (data.hasOwnProperty('status')) {
+        obj['status'] = ApiClient.convertToType(data['status'], 'String');
       }
       if (data.hasOwnProperty('company')) {
         obj['company'] = ApiClient.convertToType(data['company'], 'String');
@@ -121,46 +149,54 @@
       if (data.hasOwnProperty('object')) {
         obj['object'] = ApiClient.convertToType(data['object'], 'String');
       }
-      if (data.hasOwnProperty('status')) {
-        obj['status'] = ApiClient.convertToType(data['status'], 'String');
-      }
-      if (data.hasOwnProperty('id')) {
-        obj['id'] = ApiClient.convertToType(data['id'], 'String');
-      }
-      if (data.hasOwnProperty('email')) {
-        obj['email'] = ApiClient.convertToType(data['email'], 'String');
-      }
-      if (data.hasOwnProperty('state')) {
-        obj['state'] = ApiClient.convertToType(data['state'], 'String');
-      }
-      if (data.hasOwnProperty('etag')) {
-        obj['etag'] = ApiClient.convertToType(data['etag'], 'String');
-      }
-      if (data.hasOwnProperty('postal_code')) {
-        obj['postal_code'] = ApiClient.convertToType(data['postal_code'], 'String');
-      }
-      if (data.hasOwnProperty('contact')) {
-        obj['contact'] = ApiClient.convertToType(data['contact'], 'String');
-      }
-      if (data.hasOwnProperty('is_provisioning_allowed')) {
-        obj['is_provisioning_allowed'] = ApiClient.convertToType(data['is_provisioning_allowed'], 'Boolean');
+      if (data.hasOwnProperty('upgraded_at')) {
+        obj['upgraded_at'] = ApiClient.convertToType(data['upgraded_at'], 'String');
       }
       if (data.hasOwnProperty('tier')) {
         obj['tier'] = ApiClient.convertToType(data['tier'], 'String');
       }
-      if (data.hasOwnProperty('phone_number')) {
-        obj['phone_number'] = ApiClient.convertToType(data['phone_number'], 'String');
+      if (data.hasOwnProperty('limits')) {
+        obj['limits'] = ApiClient.convertToType(data['limits'], {'String': 'String'});
+      }
+      if (data.hasOwnProperty('country')) {
+        obj['country'] = ApiClient.convertToType(data['country'], 'String');
       }
       if (data.hasOwnProperty('created_at')) {
         obj['created_at'] = ApiClient.convertToType(data['created_at'], 'String');
       }
-      if (data.hasOwnProperty('aliases')) {
-        obj['aliases'] = ApiClient.convertToType(data['aliases'], ['String']);
+      if (data.hasOwnProperty('contact')) {
+        obj['contact'] = ApiClient.convertToType(data['contact'], 'String');
+      }
+      if (data.hasOwnProperty('policies')) {
+        obj['policies'] = ApiClient.convertToType(data['policies'], [Policy]);
+      }
+      if (data.hasOwnProperty('template_id')) {
+        obj['template_id'] = ApiClient.convertToType(data['template_id'], 'String');
       }
     }
     return obj;
   }
 
+  /**
+   * The phone number of the company.
+   * @member {String} phone_number
+   */
+  exports.prototype['phone_number'] = undefined;
+  /**
+   * The postal code part of the postal address.
+   * @member {String} postal_code
+   */
+  exports.prototype['postal_code'] = undefined;
+  /**
+   * Account ID.
+   * @member {String} id
+   */
+  exports.prototype['id'] = undefined;
+  /**
+   * An array of aliases.
+   * @member {Array.<String>} aliases
+   */
+  exports.prototype['aliases'] = undefined;
   /**
    * Postal address line 2.
    * @member {String} address_line2
@@ -182,15 +218,35 @@
    */
   exports.prototype['display_name'] = undefined;
   /**
-   * Time when upgraded to commercial account in UTC format RFC3339.
-   * @member {String} upgraded_at
+   * The state part of the postal address.
+   * @member {String} state
    */
-  exports.prototype['upgraded_at'] = undefined;
+  exports.prototype['state'] = undefined;
   /**
-   * The country part of the postal address.
-   * @member {String} country
+   * API resource entity version.
+   * @member {String} etag
    */
-  exports.prototype['country'] = undefined;
+  exports.prototype['etag'] = undefined;
+  /**
+   * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
+   * @member {Boolean} is_provisioning_allowed
+   * @default false
+   */
+  exports.prototype['is_provisioning_allowed'] = false;
+  /**
+   * @member {Integer} creationTimeMillis
+   */
+  exports.prototype['creationTimeMillis'] = undefined;
+  /**
+   * The company email address for this account.
+   * @member {String} email
+   */
+  exports.prototype['email'] = undefined;
+  /**
+   * The status of the account.
+   * @member {module:model/AccountInfo.StatusEnum} status
+   */
+  exports.prototype['status'] = undefined;
   /**
    * The name of the company.
    * @member {String} company
@@ -202,67 +258,73 @@
    */
   exports.prototype['object'] = undefined;
   /**
-   * The status of the account.
-   * @member {module:model/AccountInfo.StatusEnum} status
+   * Time when upgraded to commercial account in UTC format RFC3339.
+   * @member {String} upgraded_at
    */
-  exports.prototype['status'] = undefined;
-  /**
-   * Account ID.
-   * @member {String} id
-   */
-  exports.prototype['id'] = undefined;
-  /**
-   * The company email address for this account.
-   * @member {String} email
-   */
-  exports.prototype['email'] = undefined;
-  /**
-   * The state part of the postal address.
-   * @member {String} state
-   */
-  exports.prototype['state'] = undefined;
-  /**
-   * API resource entity version.
-   * @member {String} etag
-   */
-  exports.prototype['etag'] = undefined;
-  /**
-   * The postal code part of the postal address.
-   * @member {String} postal_code
-   */
-  exports.prototype['postal_code'] = undefined;
-  /**
-   * The name of the contact person for this account.
-   * @member {String} contact
-   */
-  exports.prototype['contact'] = undefined;
-  /**
-   * Flag (true/false) indicating whether Factory Tool is allowed to download or not..
-   * @member {Boolean} is_provisioning_allowed
-   * @default false
-   */
-  exports.prototype['is_provisioning_allowed'] = false;
+  exports.prototype['upgraded_at'] = undefined;
   /**
    * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
    * @member {String} tier
    */
   exports.prototype['tier'] = undefined;
   /**
-   * The phone number of the company.
-   * @member {String} phone_number
+   * List of limits as key-value pairs if requested.
+   * @member {Object.<String, String>} limits
    */
-  exports.prototype['phone_number'] = undefined;
+  exports.prototype['limits'] = undefined;
+  /**
+   * The country part of the postal address.
+   * @member {String} country
+   */
+  exports.prototype['country'] = undefined;
   /**
    * Creation UTC time RFC3339.
    * @member {String} created_at
    */
   exports.prototype['created_at'] = undefined;
   /**
-   * An array of aliases.
-   * @member {Array.<String>} aliases
+   * The name of the contact person for this account.
+   * @member {String} contact
    */
-  exports.prototype['aliases'] = undefined;
+  exports.prototype['contact'] = undefined;
+  /**
+   * List of policies if requested.
+   * @member {Array.<module:model/Policy>} policies
+   */
+  exports.prototype['policies'] = undefined;
+  /**
+   * Account template ID.
+   * @member {String} template_id
+   */
+  exports.prototype['template_id'] = undefined;
 
+
+  /**
+   * Allowed values for the <code>status</code> property.
+   * @enum {String}
+   * @readonly
+   */
+  exports.StatusEnum = {
+    /**
+     * value: "ENROLLING"
+     * @const
+     */
+    "ENROLLING": "ENROLLING",
+    /**
+     * value: "ACTIVE"
+     * @const
+     */
+    "ACTIVE": "ACTIVE",
+    /**
+     * value: "SUSPENDED"
+     * @const
+     */
+    "SUSPENDED": "SUSPENDED",
+    /**
+     * value: "DISABLED"
+     * @const
+     */
+    "DISABLED": "DISABLED"  };
 
   /**
    * Allowed values for the <code>object</code> property.
@@ -291,6 +353,11 @@
      */
     "account": "account",
     /**
+     * value: "account_template"
+     * @const
+     */
+    "account_template": "account_template",
+    /**
      * value: "ca_cert"
      * @const
      */
@@ -305,33 +372,6 @@
      * @const
      */
     "error": "error"  };
-
-  /**
-   * Allowed values for the <code>status</code> property.
-   * @enum {String}
-   * @readonly
-   */
-  exports.StatusEnum = {
-    /**
-     * value: "ENROLLING"
-     * @const
-     */
-    "ENROLLING": "ENROLLING",
-    /**
-     * value: "ACTIVE"
-     * @const
-     */
-    "ACTIVE": "ACTIVE",
-    /**
-     * value: "SUSPENDED"
-     * @const
-     */
-    "SUSPENDED": "SUSPENDED",
-    /**
-     * value: "DISABLED"
-     * @const
-     */
-    "DISABLED": "DISABLED"  };
 
 
   return exports;

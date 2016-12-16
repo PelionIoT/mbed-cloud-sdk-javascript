@@ -305,16 +305,20 @@
     /**
      * Get account info.
      * Returns detailed information about the account.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.include Comma separated additional data to return. Currently supported: limits
      * @param {module:api/DeveloperApi~getMyAccountInfoCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/AccountInfo}
      */
-    this.getMyAccountInfo = function(callback) {
+    this.getMyAccountInfo = function(opts, callback) {
+      opts = opts || {};
       var postBody = null;
 
 
       var pathParams = {
       };
       var queryParams = {
+        'include': opts['include']
       };
       var headerParams = {
       };

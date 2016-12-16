@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **displayName** | **String** | The display name for the account. | [optional] 
 **country** | **String** | The country part of the postal address. | [optional] 
 **company** | **String** | The name of the company. | [optional] 
+**templateId** | **String** | Account template ID. Manageable by the root admin only. | [optional] 
 **status** | **String** | The status of the account. Manageable by the root admin only. | [optional] 
 **state** | **String** | The state part of the postal address. | [optional] 
 **contact** | **String** | The name of the contact person for this account. | [optional] 

@@ -68,6 +68,7 @@
 
     _this['object'] = _object;
 
+
     _this['etag'] = etag;
 
 
@@ -104,6 +105,9 @@
       }
       if (data.hasOwnProperty('creation_time')) {
         obj['creation_time'] = ApiClient.convertToType(data['creation_time'], 'Integer');
+      }
+      if (data.hasOwnProperty('creationTimeMillis')) {
+        obj['creationTimeMillis'] = ApiClient.convertToType(data['creationTimeMillis'], 'Integer');
       }
       if (data.hasOwnProperty('etag')) {
         obj['etag'] = ApiClient.convertToType(data['etag'], 'String');
@@ -157,6 +161,10 @@
    * @member {Integer} creation_time
    */
   exports.prototype['creation_time'] = undefined;
+  /**
+   * @member {Integer} creationTimeMillis
+   */
+  exports.prototype['creationTimeMillis'] = undefined;
   /**
    * API resource entity version.
    * @member {String} etag
@@ -232,6 +240,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "account_template"
+     * @const
+     */
+    "account_template": "account_template",
     /**
      * value: "ca_cert"
      * @const

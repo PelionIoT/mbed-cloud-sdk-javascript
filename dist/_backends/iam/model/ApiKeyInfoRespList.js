@@ -52,21 +52,21 @@
    * Constructs a new <code>ApiKeyInfoRespList</code>.
    * @alias module:model/ApiKeyInfoRespList
    * @class
-   * @param hasMore {Boolean} Whether there are more results to display
-   * @param totalCount {Integer} The total number or records, if requested 
-   * @param limit {Integer} The number of results to return
+   * @param totalCount {Integer} The total number or records, if requested. It might be returned also for small lists.
+   * @param _object {module:model/ApiKeyInfoRespList.ObjectEnum} Entity name: always 'list'
+   * @param limit {Integer} The number of results to return, (range: 2-1000), or equals to `total_count`
    * @param data {Array.<module:model/ApiKeyInfoResp>} A list of entities.
-   * @param order {module:model/ApiKeyInfoRespList.OrderEnum} The order of the records to return. Available values: ASC, DESC; by default ASC.
    */
-  var exports = function(hasMore, totalCount, limit, data, order) {
+  var exports = function(totalCount, _object, limit, data) {
     var _this = this;
 
-    _this['has_more'] = hasMore;
-    _this['total_count'] = totalCount;
 
+
+    _this['total_count'] = totalCount;
+    _this['object'] = _object;
     _this['limit'] = limit;
     _this['data'] = data;
-    _this['order'] = order;
+
   };
 
   /**
@@ -80,6 +80,9 @@
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('after')) {
+        obj['after'] = ApiClient.convertToType(data['after'], 'String');
+      }
       if (data.hasOwnProperty('has_more')) {
         obj['has_more'] = ApiClient.convertToType(data['has_more'], 'Boolean');
       }
@@ -103,12 +106,18 @@
   }
 
   /**
-   * Whether there are more results to display
-   * @member {Boolean} has_more
+   * The entity ID to fetch after the given one.
+   * @member {String} after
    */
-  exports.prototype['has_more'] = undefined;
+  exports.prototype['after'] = undefined;
   /**
-   * The total number or records, if requested 
+   * Flag indicating whether there is more results.
+   * @member {Boolean} has_more
+   * @default false
+   */
+  exports.prototype['has_more'] = false;
+  /**
+   * The total number or records, if requested. It might be returned also for small lists.
    * @member {Integer} total_count
    */
   exports.prototype['total_count'] = undefined;
@@ -118,7 +127,7 @@
    */
   exports.prototype['object'] = undefined;
   /**
-   * The number of results to return
+   * The number of results to return, (range: 2-1000), or equals to `total_count`
    * @member {Integer} limit
    */
   exports.prototype['limit'] = undefined;
@@ -160,6 +169,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "account_template"
+     * @const
+     */
+    "account_template": "account_template",
     /**
      * value: "ca_cert"
      * @const

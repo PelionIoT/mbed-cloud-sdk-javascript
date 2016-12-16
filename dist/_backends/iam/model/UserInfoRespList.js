@@ -52,17 +52,18 @@
    * Constructs a new <code>UserInfoRespList</code>.
    * @alias module:model/UserInfoRespList
    * @class
+   * @param totalCount {Integer} The total number or records, if requested. It might be returned also for small lists.
    * @param _object {module:model/UserInfoRespList.ObjectEnum} Entity name: always 'list'
-   * @param totalCount {Integer} The total number or records, if requested 
    * @param limit {Integer} The number of results to return, (range: 2-1000), or equals to `total_count`
    * @param data {Array.<module:model/UserInfoResp>} A list of entities.
    */
-  var exports = function(_object, totalCount, limit, data) {
+  var exports = function(totalCount, _object, limit, data) {
     var _this = this;
 
 
+
+    _this['total_count'] = totalCount;
     _this['object'] = _object;
-    _this['totalCount'] = totalCount;
     _this['limit'] = limit;
     _this['data'] = data;
 
@@ -82,11 +83,14 @@
       if (data.hasOwnProperty('after')) {
         obj['after'] = ApiClient.convertToType(data['after'], 'String');
       }
+      if (data.hasOwnProperty('has_more')) {
+        obj['has_more'] = ApiClient.convertToType(data['has_more'], 'Boolean');
+      }
+      if (data.hasOwnProperty('total_count')) {
+        obj['total_count'] = ApiClient.convertToType(data['total_count'], 'Integer');
+      }
       if (data.hasOwnProperty('object')) {
         obj['object'] = ApiClient.convertToType(data['object'], 'String');
-      }
-      if (data.hasOwnProperty('totalCount')) {
-        obj['totalCount'] = ApiClient.convertToType(data['totalCount'], 'Integer');
       }
       if (data.hasOwnProperty('limit')) {
         obj['limit'] = ApiClient.convertToType(data['limit'], 'Integer');
@@ -107,15 +111,21 @@
    */
   exports.prototype['after'] = undefined;
   /**
+   * Flag indicating whether there is more results.
+   * @member {Boolean} has_more
+   * @default false
+   */
+  exports.prototype['has_more'] = false;
+  /**
+   * The total number or records, if requested. It might be returned also for small lists.
+   * @member {Integer} total_count
+   */
+  exports.prototype['total_count'] = undefined;
+  /**
    * Entity name: always 'list'
    * @member {module:model/UserInfoRespList.ObjectEnum} object
    */
   exports.prototype['object'] = undefined;
-  /**
-   * The total number or records, if requested 
-   * @member {Integer} totalCount
-   */
-  exports.prototype['totalCount'] = undefined;
   /**
    * The number of results to return, (range: 2-1000), or equals to `total_count`
    * @member {Integer} limit
@@ -159,6 +169,11 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "account_template"
+     * @const
+     */
+    "account_template": "account_template",
     /**
      * value: "ca_cert"
      * @const

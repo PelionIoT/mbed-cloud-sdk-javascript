@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **_object** | **String** | Entity name: always &#39;group&#39; | 
 **creationTime** | **Integer** | A timestamp of the group creation in the storage, in milliseconds. | [optional] 
 **etag** | **String** | API resource entity version. | 
+**creationTimeMillis** | **Integer** |  | [optional] 
 **id** | **String** | The UUID of the group. | 
 **userCount** | **Integer** | The number of users in this group. | 
 
@@ -25,6 +26,8 @@ Name | Type | Description | Notes
 * `group` (value: `"group"`)
 
 * `account` (value: `"account"`)
+
+* `account_template` (value: `"account_template"`)
 
 * `ca_cert` (value: `"ca_cert"`)
 
