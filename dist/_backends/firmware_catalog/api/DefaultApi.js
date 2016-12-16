@@ -417,7 +417,7 @@
       };
 
       var authNames = ['Bearer'];
-      var contentTypes = [];
+      var contentTypes = ['multipart/form-data'];
       var accepts = [];
       var returnType = FirmwareManifestSerializer;
 
