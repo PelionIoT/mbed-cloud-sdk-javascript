@@ -506,19 +506,9 @@
     /**
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;List all firmware manifests&lt;/p&gt;
      * @param {Object} opts Optional parameters
-     * @param {String} opts.updatingRequestId 
-     * @param {String} opts.updatingIpAddress 
-     * @param {String} opts.name 
-     * @param {String} opts.description 
-     * @param {String} opts.createdAt 
-     * @param {String} opts.updatedAt 
-     * @param {String} opts.datafileChecksum 
-     * @param {String} opts.deviceClass 
-     * @param {String} opts.etag 
-     * @param {String} opts.manifestId 
-     * @param {String} opts._object 
-     * @param {String} opts.timestamp 
-     * @param {Integer} opts.page The page number to retrieve. If not given, then defaults to first page. 
+     * @param {Integer} opts.limit 
+     * @param {String} opts.order 
+     * @param {String} opts.after 
      * @param {module:api/DefaultApi~firmwareManifestListCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/FirmwareManifestSerializer}
      */
@@ -530,19 +520,9 @@
       var pathParams = {
       };
       var queryParams = {
-        'updating_request_id': opts['updatingRequestId'],
-        'updating_ip_address': opts['updatingIpAddress'],
-        'name': opts['name'],
-        'description': opts['description'],
-        'created_at': opts['createdAt'],
-        'updated_at': opts['updatedAt'],
-        'datafile_checksum': opts['datafileChecksum'],
-        'device_class': opts['deviceClass'],
-        'etag': opts['etag'],
-        'manifest_id': opts['manifestId'],
-        'object': opts['_object'],
-        'timestamp': opts['timestamp'],
-        'page': opts['page']
+        'limit': opts['limit'],
+        'order': opts['order'],
+        'after': opts['after']
       };
       var headerParams = {
       };

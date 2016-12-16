@@ -529,19 +529,9 @@ Bearer.apiKey = 'YOUR API KEY';
 var apiInstance = new FirmwareCatalogApi.DefaultApi();
 
 var opts = { 
-  'updatingRequestId': "updatingRequestId_example", // String | 
-  'updatingIpAddress': "updatingIpAddress_example", // String | 
-  'name': "name_example", // String | 
-  'description': "description_example", // String | 
-  'createdAt': "createdAt_example", // String | 
-  'updatedAt': "updatedAt_example", // String | 
-  'datafileChecksum': "datafileChecksum_example", // String | 
-  'deviceClass': "deviceClass_example", // String | 
-  'etag': "etag_example", // String | 
-  'manifestId': "manifestId_example", // String | 
-  '_object': "_object_example", // String | 
-  'timestamp': "timestamp_example", // String | 
-  'page': 56 // Integer | The page number to retrieve. If not given, then defaults to first page. 
+  'limit': 56, // Integer | 
+  'order': "order_example", // String | 
+  'after': "after_example" // String | 
 };
 
 var callback = function(error, data, response) {
@@ -558,19 +548,9 @@ apiInstance.firmwareManifestList(opts, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updatingRequestId** | **String**|  | [optional] 
- **updatingIpAddress** | **String**|  | [optional] 
- **name** | **String**|  | [optional] 
- **description** | **String**|  | [optional] 
- **createdAt** | **String**|  | [optional] 
- **updatedAt** | **String**|  | [optional] 
- **datafileChecksum** | **String**|  | [optional] 
- **deviceClass** | **String**|  | [optional] 
- **etag** | **String**|  | [optional] 
- **manifestId** | **String**|  | [optional] 
- **_object** | **String**|  | [optional] 
- **timestamp** | **String**|  | [optional] 
- **page** | **Integer**| The page number to retrieve. If not given, then defaults to first page.  | [optional] 
+ **limit** | **Integer**|  | [optional] 
+ **order** | **String**|  | [optional] 
+ **after** | **String**|  | [optional] 
 
 ### Return type
 
