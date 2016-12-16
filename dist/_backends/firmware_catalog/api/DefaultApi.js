@@ -249,6 +249,7 @@
      * @param {Integer} opts.limit 
      * @param {String} opts.order 
      * @param {String} opts.after 
+     * @param {String} opts.include 
      * @param {module:api/DefaultApi~firmwareImageListCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/FirmwareImageSerializer}
      */
@@ -262,7 +263,8 @@
       var queryParams = {
         'limit': opts['limit'],
         'order': opts['order'],
-        'after': opts['after']
+        'after': opts['after'],
+        'include': opts['include']
       };
       var headerParams = {
       };
@@ -509,6 +511,7 @@
      * @param {Integer} opts.limit 
      * @param {String} opts.order 
      * @param {String} opts.after 
+     * @param {String} opts.include 
      * @param {module:api/DefaultApi~firmwareManifestListCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ManifestSerializer}
      */
@@ -522,7 +525,8 @@
       var queryParams = {
         'limit': opts['limit'],
         'order': opts['order'],
-        'after': opts['after']
+        'after': opts['after'],
+        'include': opts['include']
       };
       var headerParams = {
       };
