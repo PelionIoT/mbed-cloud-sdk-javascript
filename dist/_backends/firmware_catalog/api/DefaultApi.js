@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/FirmwareImageSerializer', 'model/FirmwareManifestSerializer', 'model/ManifestSerializer'], factory);
+    define(['ApiClient', 'model/FirmwareImageSerializer', 'model/ManifestSerializerData', 'model/ManifestSerializer'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/FirmwareImageSerializer'), require('../model/FirmwareManifestSerializer'), require('../model/ManifestSerializer'));
+    module.exports = factory(require('../ApiClient'), require('../model/FirmwareImageSerializer'), require('../model/ManifestSerializerData'), require('../model/ManifestSerializer'));
   } else {
     // Browser globals (root is window)
     if (!root.FirmwareCatalogApi) {
       root.FirmwareCatalogApi = {};
     }
-    root.FirmwareCatalogApi.DefaultApi = factory(root.FirmwareCatalogApi.ApiClient, root.FirmwareCatalogApi.FirmwareImageSerializer, root.FirmwareCatalogApi.FirmwareManifestSerializer, root.FirmwareCatalogApi.ManifestSerializer);
+    root.FirmwareCatalogApi.DefaultApi = factory(root.FirmwareCatalogApi.ApiClient, root.FirmwareCatalogApi.FirmwareImageSerializer, root.FirmwareCatalogApi.ManifestSerializerData, root.FirmwareCatalogApi.ManifestSerializer);
   }
-}(this, function(ApiClient, FirmwareImageSerializer, FirmwareManifestSerializer, ManifestSerializer) {
+}(this, function(ApiClient, FirmwareImageSerializer, ManifestSerializerData, ManifestSerializer) {
   'use strict';
 
   /**
@@ -352,30 +352,18 @@
      * Callback function to receive the result of the firmwareManifestCreate operation.
      * @callback module:api/DefaultApi~firmwareManifestCreateCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/FirmwareManifestSerializer} data The data returned by the service call.
+     * @param {module:model/ManifestSerializerData} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Create firmware manifest&lt;/p&gt;
-     * @param {String} datafile The manifest file to create
+     * @param {File} datafile The manifest file to create
      * @param {String} name The name of the object
      * @param {Object} opts Optional parameters
      * @param {String} opts.description The description of the object
-     * @param {String} opts.updatingRequestId 
-     * @param {String} opts.updatingIpAddress 
-     * @param {String} opts.name2 
-     * @param {String} opts.description2 
-     * @param {String} opts.createdAt 
-     * @param {String} opts.updatedAt 
-     * @param {String} opts.datafileChecksum 
-     * @param {String} opts.deviceClass 
-     * @param {String} opts.etag 
-     * @param {String} opts.manifestId 
-     * @param {String} opts._object 
-     * @param {String} opts.timestamp 
      * @param {module:api/DefaultApi~firmwareManifestCreateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FirmwareManifestSerializer}
+     * data is of type: {@link module:model/ManifestSerializerData}
      */
     this.firmwareManifestCreate = function(datafile, name, opts, callback) {
       opts = opts || {};
@@ -395,18 +383,6 @@
       var pathParams = {
       };
       var queryParams = {
-        'updating_request_id': opts['updatingRequestId'],
-        'updating_ip_address': opts['updatingIpAddress'],
-        'name': opts['name2'],
-        'description': opts['description2'],
-        'created_at': opts['createdAt'],
-        'updated_at': opts['updatedAt'],
-        'datafile_checksum': opts['datafileChecksum'],
-        'device_class': opts['deviceClass'],
-        'etag': opts['etag'],
-        'manifest_id': opts['manifestId'],
-        'object': opts['_object'],
-        'timestamp': opts['timestamp']
       };
       var headerParams = {
       };
@@ -419,7 +395,7 @@
       var authNames = ['Bearer'];
       var contentTypes = ['multipart/form-data'];
       var accepts = [];
-      var returnType = FirmwareManifestSerializer;
+      var returnType = ManifestSerializerData;
 
       return this.apiClient.callApi(
         '/v3/firmware/manifests/', 'POST',
@@ -432,30 +408,17 @@
      * Callback function to receive the result of the firmwareManifestDestroy operation.
      * @callback module:api/DefaultApi~firmwareManifestDestroyCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/FirmwareManifestSerializer} data The data returned by the service call.
+     * @param {module:model/ManifestSerializerData} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Delete firmware manifest&lt;/p&gt;
      * @param {Integer} manifestId The ID of the firmware manifest
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.updatingRequestId 
-     * @param {String} opts.updatingIpAddress 
-     * @param {String} opts.name 
-     * @param {String} opts.description 
-     * @param {String} opts.createdAt 
-     * @param {String} opts.updatedAt 
-     * @param {String} opts.datafileChecksum 
-     * @param {String} opts.deviceClass 
-     * @param {String} opts.etag 
-     * @param {String} opts._object 
-     * @param {String} opts.timestamp 
      * @param {module:api/DefaultApi~firmwareManifestDestroyCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FirmwareManifestSerializer}
+     * data is of type: {@link module:model/ManifestSerializerData}
      */
-    this.firmwareManifestDestroy = function(manifestId, opts, callback) {
-      opts = opts || {};
+    this.firmwareManifestDestroy = function(manifestId, callback) {
       var postBody = null;
 
       // verify the required parameter 'manifestId' is set
@@ -468,17 +431,6 @@
         'manifest_id': manifestId
       };
       var queryParams = {
-        'updating_request_id': opts['updatingRequestId'],
-        'updating_ip_address': opts['updatingIpAddress'],
-        'name': opts['name'],
-        'description': opts['description'],
-        'created_at': opts['createdAt'],
-        'updated_at': opts['updatedAt'],
-        'datafile_checksum': opts['datafileChecksum'],
-        'device_class': opts['deviceClass'],
-        'etag': opts['etag'],
-        'object': opts['_object'],
-        'timestamp': opts['timestamp']
       };
       var headerParams = {
       };
@@ -488,7 +440,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = FirmwareManifestSerializer;
+      var returnType = ManifestSerializerData;
 
       return this.apiClient.callApi(
         '/v3/firmware/manifests/{manifest_id}/', 'DELETE',
@@ -549,7 +501,7 @@
      * Callback function to receive the result of the firmwareManifestRetrieve operation.
      * @callback module:api/DefaultApi~firmwareManifestRetrieveCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/FirmwareManifestSerializer} data The data returned by the service call.
+     * @param {module:model/ManifestSerializerData} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -569,7 +521,7 @@
      * @param {String} opts._object 
      * @param {String} opts.timestamp 
      * @param {module:api/DefaultApi~firmwareManifestRetrieveCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FirmwareManifestSerializer}
+     * data is of type: {@link module:model/ManifestSerializerData}
      */
     this.firmwareManifestRetrieve = function(manifestId, opts, callback) {
       opts = opts || {};
@@ -605,7 +557,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = FirmwareManifestSerializer;
+      var returnType = ManifestSerializerData;
 
       return this.apiClient.callApi(
         '/v3/firmware/manifests/{manifest_id}/', 'GET',

@@ -350,7 +350,7 @@ Name | Type | Description  | Notes
 
 <a name="firmwareManifestCreate"></a>
 # **firmwareManifestCreate**
-> FirmwareManifestSerializer firmwareManifestCreate(datafile, name, opts)
+> ManifestSerializerData firmwareManifestCreate(datafile, name, opts)
 
 
 
@@ -369,24 +369,12 @@ Bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new FirmwareCatalogApi.DefaultApi();
 
-var datafile = "datafile_example"; // String | The manifest file to create
+var datafile = "/path/to/file.txt"; // File | The manifest file to create
 
 var name = "name_example"; // String | The name of the object
 
 var opts = { 
-  'description': "description_example", // String | The description of the object
-  'updatingRequestId': "updatingRequestId_example", // String | 
-  'updatingIpAddress': "updatingIpAddress_example", // String | 
-  'name2': "name_example", // String | 
-  'description2': "description_example", // String | 
-  'createdAt': "createdAt_example", // String | 
-  'updatedAt': "updatedAt_example", // String | 
-  'datafileChecksum': "datafileChecksum_example", // String | 
-  'deviceClass': "deviceClass_example", // String | 
-  'etag': "etag_example", // String | 
-  'manifestId': "manifestId_example", // String | 
-  '_object': "_object_example", // String | 
-  'timestamp': "timestamp_example" // String | 
+  'description': "description_example" // String | The description of the object
 };
 
 var callback = function(error, data, response) {
@@ -403,25 +391,13 @@ apiInstance.firmwareManifestCreate(datafile, name, opts, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **datafile** | **String**| The manifest file to create | 
+ **datafile** | **File**| The manifest file to create | 
  **name** | **String**| The name of the object | 
  **description** | **String**| The description of the object | [optional] 
- **updatingRequestId** | **String**|  | [optional] 
- **updatingIpAddress** | **String**|  | [optional] 
- **name2** | **String**|  | [optional] 
- **description2** | **String**|  | [optional] 
- **createdAt** | **String**|  | [optional] 
- **updatedAt** | **String**|  | [optional] 
- **datafileChecksum** | **String**|  | [optional] 
- **deviceClass** | **String**|  | [optional] 
- **etag** | **String**|  | [optional] 
- **manifestId** | **String**|  | [optional] 
- **_object** | **String**|  | [optional] 
- **timestamp** | **String**|  | [optional] 
 
 ### Return type
 
-[**FirmwareManifestSerializer**](FirmwareManifestSerializer.md)
+[**ManifestSerializerData**](ManifestSerializerData.md)
 
 ### Authorization
 
@@ -434,7 +410,7 @@ Name | Type | Description  | Notes
 
 <a name="firmwareManifestDestroy"></a>
 # **firmwareManifestDestroy**
-> FirmwareManifestSerializer firmwareManifestDestroy(manifestId, opts)
+> ManifestSerializerData firmwareManifestDestroy(manifestId)
 
 
 
@@ -455,19 +431,6 @@ var apiInstance = new FirmwareCatalogApi.DefaultApi();
 
 var manifestId = 56; // Integer | The ID of the firmware manifest
 
-var opts = { 
-  'updatingRequestId': "updatingRequestId_example", // String | 
-  'updatingIpAddress': "updatingIpAddress_example", // String | 
-  'name': "name_example", // String | 
-  'description': "description_example", // String | 
-  'createdAt': "createdAt_example", // String | 
-  'updatedAt': "updatedAt_example", // String | 
-  'datafileChecksum': "datafileChecksum_example", // String | 
-  'deviceClass': "deviceClass_example", // String | 
-  'etag': "etag_example", // String | 
-  '_object': "_object_example", // String | 
-  'timestamp': "timestamp_example" // String | 
-};
 
 var callback = function(error, data, response) {
   if (error) {
@@ -476,7 +439,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.firmwareManifestDestroy(manifestId, opts, callback);
+apiInstance.firmwareManifestDestroy(manifestId, callback);
 ```
 
 ### Parameters
@@ -484,21 +447,10 @@ apiInstance.firmwareManifestDestroy(manifestId, opts, callback);
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **manifestId** | **Integer**| The ID of the firmware manifest | 
- **updatingRequestId** | **String**|  | [optional] 
- **updatingIpAddress** | **String**|  | [optional] 
- **name** | **String**|  | [optional] 
- **description** | **String**|  | [optional] 
- **createdAt** | **String**|  | [optional] 
- **updatedAt** | **String**|  | [optional] 
- **datafileChecksum** | **String**|  | [optional] 
- **deviceClass** | **String**|  | [optional] 
- **etag** | **String**|  | [optional] 
- **_object** | **String**|  | [optional] 
- **timestamp** | **String**|  | [optional] 
 
 ### Return type
 
-[**FirmwareManifestSerializer**](FirmwareManifestSerializer.md)
+[**ManifestSerializerData**](ManifestSerializerData.md)
 
 ### Authorization
 
@@ -571,7 +523,7 @@ Name | Type | Description  | Notes
 
 <a name="firmwareManifestRetrieve"></a>
 # **firmwareManifestRetrieve**
-> FirmwareManifestSerializer firmwareManifestRetrieve(manifestId, opts)
+> ManifestSerializerData firmwareManifestRetrieve(manifestId, opts)
 
 
 
@@ -635,7 +587,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirmwareManifestSerializer**](FirmwareManifestSerializer.md)
+[**ManifestSerializerData**](ManifestSerializerData.md)
 
 ### Authorization
 
