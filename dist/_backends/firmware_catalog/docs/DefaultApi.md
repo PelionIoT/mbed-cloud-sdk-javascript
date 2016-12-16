@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 <a name="firmwareManifestList"></a>
 # **firmwareManifestList**
-> FirmwareManifestSerializer firmwareManifestList(opts)
+> ManifestSerializer firmwareManifestList(opts)
 
 
 
@@ -554,7 +554,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirmwareManifestSerializer**](FirmwareManifestSerializer.md)
+[**ManifestSerializer**](ManifestSerializer.md)
 
 ### Authorization
 

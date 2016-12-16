@@ -25,12 +25,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/FirmwareImageSerializer', 'model/FirmwareImageSerializerData', 'model/FirmwareManifestSerializer', 'api/DefaultApi'], factory);
+    define(['ApiClient', 'model/FirmwareImageSerializer', 'model/FirmwareImageSerializerData', 'model/FirmwareManifestSerializerData', 'model/ManifestSerializer', 'api/DefaultApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/FirmwareImageSerializer'), require('./model/FirmwareImageSerializerData'), require('./model/FirmwareManifestSerializer'), require('./api/DefaultApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/FirmwareImageSerializer'), require('./model/FirmwareImageSerializerData'), require('./model/FirmwareManifestSerializerData'), require('./model/ManifestSerializer'), require('./api/DefaultApi'));
   }
-}(function(ApiClient, FirmwareImageSerializer, FirmwareImageSerializerData, FirmwareManifestSerializer, DefaultApi) {
+}(function(ApiClient, FirmwareImageSerializer, FirmwareImageSerializerData, FirmwareManifestSerializerData, ManifestSerializer, DefaultApi) {
   'use strict';
 
   /**
@@ -81,10 +81,15 @@
      */
     FirmwareImageSerializerData: FirmwareImageSerializerData,
     /**
-     * The FirmwareManifestSerializer model constructor.
-     * @property {module:model/FirmwareManifestSerializer}
+     * The FirmwareManifestSerializerData model constructor.
+     * @property {module:model/FirmwareManifestSerializerData}
      */
-    FirmwareManifestSerializer: FirmwareManifestSerializer,
+    FirmwareManifestSerializerData: FirmwareManifestSerializerData,
+    /**
+     * The ManifestSerializer model constructor.
+     * @property {module:model/ManifestSerializer}
+     */
+    ManifestSerializer: ManifestSerializer,
     /**
      * The DefaultApi service constructor.
      * @property {module:api/DefaultApi}

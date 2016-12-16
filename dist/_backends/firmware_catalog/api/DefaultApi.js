@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/FirmwareImageSerializer', 'model/FirmwareManifestSerializer'], factory);
+    define(['ApiClient', 'model/FirmwareImageSerializer', 'model/FirmwareManifestSerializer', 'model/ManifestSerializer'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/FirmwareImageSerializer'), require('../model/FirmwareManifestSerializer'));
+    module.exports = factory(require('../ApiClient'), require('../model/FirmwareImageSerializer'), require('../model/FirmwareManifestSerializer'), require('../model/ManifestSerializer'));
   } else {
     // Browser globals (root is window)
     if (!root.FirmwareCatalogApi) {
       root.FirmwareCatalogApi = {};
     }
-    root.FirmwareCatalogApi.DefaultApi = factory(root.FirmwareCatalogApi.ApiClient, root.FirmwareCatalogApi.FirmwareImageSerializer, root.FirmwareCatalogApi.FirmwareManifestSerializer);
+    root.FirmwareCatalogApi.DefaultApi = factory(root.FirmwareCatalogApi.ApiClient, root.FirmwareCatalogApi.FirmwareImageSerializer, root.FirmwareCatalogApi.FirmwareManifestSerializer, root.FirmwareCatalogApi.ManifestSerializer);
   }
-}(this, function(ApiClient, FirmwareImageSerializer, FirmwareManifestSerializer) {
+}(this, function(ApiClient, FirmwareImageSerializer, FirmwareManifestSerializer, ManifestSerializer) {
   'use strict';
 
   /**
@@ -499,7 +499,7 @@
      * Callback function to receive the result of the firmwareManifestList operation.
      * @callback module:api/DefaultApi~firmwareManifestListCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/FirmwareManifestSerializer} data The data returned by the service call.
+     * @param {module:model/ManifestSerializer} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -510,7 +510,7 @@
      * @param {String} opts.order 
      * @param {String} opts.after 
      * @param {module:api/DefaultApi~firmwareManifestListCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FirmwareManifestSerializer}
+     * data is of type: {@link module:model/ManifestSerializer}
      */
     this.firmwareManifestList = function(opts, callback) {
       opts = opts || {};
@@ -532,7 +532,7 @@
       var authNames = ['Bearer'];
       var contentTypes = [];
       var accepts = [];
-      var returnType = FirmwareManifestSerializer;
+      var returnType = ManifestSerializer;
 
       return this.apiClient.callApi(
         '/v3/firmware/manifests/', 'GET',
