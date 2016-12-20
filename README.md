@@ -18,14 +18,6 @@ The bundled files in `dist/bundles` are standalone modules following the [UMD](h
 
 ## Development
 
-### Prerequisites
-
-```gulp``` installed globally by running:
-
-```bash
-> npm install -g gulp
-```
-
 ### Installing
 
 After cloning this repository, install the npm dependencies:
@@ -39,5 +31,5 @@ After cloning this repository, install the npm dependencies:
 Simply use the default ```gulp``` task to build the SDK and docs
 
 ```bash
-> gulp
+> npm run gulp
 ```
