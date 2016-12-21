@@ -1,4 +1,4 @@
-# FirmwareCatalogApi.FirmwareManifestSerializerData
+# FirmwareCatalogApi.ManifestSerializerData
 
 ## Properties
 Name | Type | Description | Notes

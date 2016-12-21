@@ -34,7 +34,7 @@
     if (!root.FirmwareCatalogApi) {
       root.FirmwareCatalogApi = {};
     }
-    root.FirmwareCatalogApi.FirmwareManifestSerializerData = factory(root.FirmwareCatalogApi.ApiClient);
+    root.FirmwareCatalogApi.ManifestSerializerData = factory(root.FirmwareCatalogApi.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -43,14 +43,14 @@
 
 
   /**
-   * The FirmwareManifestSerializerData model module.
-   * @module model/FirmwareManifestSerializerData
+   * The ManifestSerializerData model module.
+   * @module model/ManifestSerializerData
    * @version 0.1
    */
 
   /**
-   * Constructs a new <code>FirmwareManifestSerializerData</code>.
-   * @alias module:model/FirmwareManifestSerializerData
+   * Constructs a new <code>ManifestSerializerData</code>.
+   * @alias module:model/ManifestSerializerData
    * @class
    */
   var exports = function() {
@@ -71,11 +71,11 @@
   };
 
   /**
-   * Constructs a <code>FirmwareManifestSerializerData</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>ManifestSerializerData</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/FirmwareManifestSerializerData} obj Optional instance to populate.
-   * @return {module:model/FirmwareManifestSerializerData} The populated <code>FirmwareManifestSerializerData</code> instance.
+   * @param {module:model/ManifestSerializerData} obj Optional instance to populate.
+   * @return {module:model/ManifestSerializerData} The populated <code>ManifestSerializerData</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
