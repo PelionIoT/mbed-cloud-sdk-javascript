@@ -9,3 +9,9 @@ machine:
 test:
   override:
     - npm run gulp
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - if [[ -n $AWS_ACCESS_KEY_ID && -n $AWS_SECRET_ACCESS_KEY && -n $AWS_DEFAULT_REGION ]] ; then aws s3 sync --delete --cache-control max-age=3600 docs/ s3://mbed-cloud-sdk-javascript; fi
