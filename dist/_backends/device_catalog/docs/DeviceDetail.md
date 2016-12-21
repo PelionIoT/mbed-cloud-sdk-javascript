@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **bootstrappedTimestamp** | **String** |  | [optional] 
 **updatedAt** | **Date** | The time the object was updated | [optional] 
-**customAttributes** | **String** | Up to 5 custom JSON attributes | [optional] 
+**customAttributes** | **Object** | Up to 5 custom JSON attributes | [optional] 
 **deviceClass** | **String** | The device class | [optional] 
 **id** | **String** | The ID of the device | [optional] 
 **description** | **String** | The description of the object | [optional] 

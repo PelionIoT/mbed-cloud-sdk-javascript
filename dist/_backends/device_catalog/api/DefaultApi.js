@@ -73,7 +73,7 @@
      * @param {Boolean} opts.autoUpdate Mark this device for auto firmware update
      * @param {String} opts.bootstrappedTimestamp 
      * @param {Date} opts.createdAt 
-     * @param {String} opts.customAttributes Up to 5 custom JSON attributes
+     * @param {Object.<String, {String: String}>} opts.customAttributes Up to 5 custom JSON attributes
      * @param {module:model/String} opts.deployedState The state of the device&#39;s deployment
      * @param {String} opts.deployment The last deployment used on the device
      * @param {String} opts.description The description of the object
