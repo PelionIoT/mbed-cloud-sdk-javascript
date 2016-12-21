@@ -44,7 +44,7 @@ var opts = {
   'autoUpdate': true, // Boolean | Mark this device for auto firmware update
   'bootstrappedTimestamp': "bootstrappedTimestamp_example", // String | 
   'createdAt': new Date("2013-10-20T19:20:30+01:00"), // Date | 
-  'customAttributes': "customAttributes_example", // String | Up to 5 custom JSON attributes
+  'customAttributes': {key: "customAttributes_example"}, // {String: String} | Up to 5 custom JSON attributes
   'deployedState': "deployedState_example", // String | The state of the device's deployment
   'deployment': "deployment_example", // String | The last deployment used on the device
   'description': "description_example", // String | The description of the object
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
  **autoUpdate** | **Boolean**| Mark this device for auto firmware update | [optional] 
  **bootstrappedTimestamp** | **String**|  | [optional] 
  **createdAt** | **Date**|  | [optional] 
- **customAttributes** | **String**| Up to 5 custom JSON attributes | [optional] 
+ **customAttributes** | [**{String: String}**](String.md)| Up to 5 custom JSON attributes | [optional] 
  **deployedState** | **String**| The state of the device&#39;s deployment | [optional] 
  **deployment** | **String**| The last deployment used on the device | [optional] 
  **description** | **String**| The description of the object | [optional] 

@@ -3,12 +3,12 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**code** | **Integer** | response code | 
-**fields** | [**[Field]**](Field.md) | failed input fields during request object validation | [optional] 
-**_object** | **String** | entity name, always &#39;error&#39; | 
-**requestId** | **String** | request id | 
-**message** | **String** | a human readable message with detailed info | 
-**type** | **String** | error type | 
+**code** | **Integer** | Response code. | 
+**fields** | [**[Field]**](Field.md) | Failed input fields during request object validation. | [optional] 
+**_object** | **String** | Entity name, always &#39;error&#39;. | 
+**requestId** | **String** | Request ID. | 
+**message** | **String** | A human readable message with detailed info. | 
+**type** | **String** | Error type. | 
 
 
 <a name="ObjectEnum"></a>
@@ -22,6 +22,10 @@ Name | Type | Description | Notes
 * `group` (value: `"group"`)
 
 * `account` (value: `"account"`)
+
+* `account_template` (value: `"account_template"`)
+
+* `ca_cert` (value: `"ca_cert"`)
 
 * `list` (value: `"list"`)
 
@@ -53,6 +57,8 @@ Name | Type | Description | Notes
 * `not_found` (value: `"not_found"`)
 
 * `method_not_supported` (value: `"method_not_supported"`)
+
+* `not_acceptable` (value: `"not_acceptable"`)
 
 * `duplicate` (value: `"duplicate"`)
 

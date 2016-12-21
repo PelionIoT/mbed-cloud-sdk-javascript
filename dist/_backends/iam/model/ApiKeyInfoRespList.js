@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -52,17 +52,18 @@
    * Constructs a new <code>ApiKeyInfoRespList</code>.
    * @alias module:model/ApiKeyInfoRespList
    * @class
-   * @param _object {module:model/ApiKeyInfoRespList.ObjectEnum} entity name: always 'list'
-   * @param totalCount {Integer} The total number or records, if requested 
-   * @param limit {Integer} The number of results to return, (range: 2-1000), or equals to total_count
-   * @param data {Array.<module:model/ApiKeyInfoResp>} List of entities.
+   * @param totalCount {Integer} The total number or records, if requested. It might be returned also for small lists.
+   * @param _object {module:model/ApiKeyInfoRespList.ObjectEnum} Entity name: always 'list'
+   * @param limit {Integer} The number of results to return, (range: 2-1000), or equals to `total_count`
+   * @param data {Array.<module:model/ApiKeyInfoResp>} A list of entities.
    */
-  var exports = function(_object, totalCount, limit, data) {
+  var exports = function(totalCount, _object, limit, data) {
     var _this = this;
 
 
+
+    _this['total_count'] = totalCount;
     _this['object'] = _object;
-    _this['totalCount'] = totalCount;
     _this['limit'] = limit;
     _this['data'] = data;
 
@@ -82,11 +83,14 @@
       if (data.hasOwnProperty('after')) {
         obj['after'] = ApiClient.convertToType(data['after'], 'String');
       }
+      if (data.hasOwnProperty('has_more')) {
+        obj['has_more'] = ApiClient.convertToType(data['has_more'], 'Boolean');
+      }
+      if (data.hasOwnProperty('total_count')) {
+        obj['total_count'] = ApiClient.convertToType(data['total_count'], 'Integer');
+      }
       if (data.hasOwnProperty('object')) {
         obj['object'] = ApiClient.convertToType(data['object'], 'String');
-      }
-      if (data.hasOwnProperty('totalCount')) {
-        obj['totalCount'] = ApiClient.convertToType(data['totalCount'], 'Integer');
       }
       if (data.hasOwnProperty('limit')) {
         obj['limit'] = ApiClient.convertToType(data['limit'], 'Integer');
@@ -102,32 +106,38 @@
   }
 
   /**
-   * The entity id to fetch after it.
+   * The entity ID to fetch after the given one.
    * @member {String} after
    */
   exports.prototype['after'] = undefined;
   /**
-   * entity name: always 'list'
+   * Flag indicating whether there is more results.
+   * @member {Boolean} has_more
+   * @default false
+   */
+  exports.prototype['has_more'] = false;
+  /**
+   * The total number or records, if requested. It might be returned also for small lists.
+   * @member {Integer} total_count
+   */
+  exports.prototype['total_count'] = undefined;
+  /**
+   * Entity name: always 'list'
    * @member {module:model/ApiKeyInfoRespList.ObjectEnum} object
    */
   exports.prototype['object'] = undefined;
   /**
-   * The total number or records, if requested 
-   * @member {Integer} totalCount
-   */
-  exports.prototype['totalCount'] = undefined;
-  /**
-   * The number of results to return, (range: 2-1000), or equals to total_count
+   * The number of results to return, (range: 2-1000), or equals to `total_count`
    * @member {Integer} limit
    */
   exports.prototype['limit'] = undefined;
   /**
-   * List of entities.
+   * A list of entities.
    * @member {Array.<module:model/ApiKeyInfoResp>} data
    */
   exports.prototype['data'] = undefined;
   /**
-   * The order of the records to return. Available values: ASC, DESC. Default value is ASC
+   * The order of the records to return. Available values: ASC, DESC; by default ASC.
    * @member {module:model/ApiKeyInfoRespList.OrderEnum} order
    */
   exports.prototype['order'] = undefined;
@@ -159,6 +169,16 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "account_template"
+     * @const
+     */
+    "account_template": "account_template",
+    /**
+     * value: "ca_cert"
+     * @const
+     */
+    "ca_cert": "ca_cert",
     /**
      * value: "list"
      * @const

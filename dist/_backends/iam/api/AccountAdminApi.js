@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -25,18 +25,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/UserInfoResp', 'model/UserInfoReq', 'model/ErrorResponse', 'model/UserInfoRespList', 'model/AccountUpdateReq', 'model/UpdatedResponse'], factory);
+    define(['ApiClient', 'model/CACertificateResp', 'model/CACertificateReq', 'model/ErrorResponse', 'model/UserInfoResp', 'model/UserInfoReq', 'model/CACertificateRespList', 'model/UserInfoRespList', 'model/AccountUpdateReq', 'model/AccountInfo'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/UserInfoResp'), require('../model/UserInfoReq'), require('../model/ErrorResponse'), require('../model/UserInfoRespList'), require('../model/AccountUpdateReq'), require('../model/UpdatedResponse'));
+    module.exports = factory(require('../ApiClient'), require('../model/CACertificateResp'), require('../model/CACertificateReq'), require('../model/ErrorResponse'), require('../model/UserInfoResp'), require('../model/UserInfoReq'), require('../model/CACertificateRespList'), require('../model/UserInfoRespList'), require('../model/AccountUpdateReq'), require('../model/AccountInfo'));
   } else {
     // Browser globals (root is window)
     if (!root.IamIdentitiesRestApi) {
       root.IamIdentitiesRestApi = {};
     }
-    root.IamIdentitiesRestApi.AccountAdminApi = factory(root.IamIdentitiesRestApi.ApiClient, root.IamIdentitiesRestApi.UserInfoResp, root.IamIdentitiesRestApi.UserInfoReq, root.IamIdentitiesRestApi.ErrorResponse, root.IamIdentitiesRestApi.UserInfoRespList, root.IamIdentitiesRestApi.AccountUpdateReq, root.IamIdentitiesRestApi.UpdatedResponse);
+    root.IamIdentitiesRestApi.AccountAdminApi = factory(root.IamIdentitiesRestApi.ApiClient, root.IamIdentitiesRestApi.CACertificateResp, root.IamIdentitiesRestApi.CACertificateReq, root.IamIdentitiesRestApi.ErrorResponse, root.IamIdentitiesRestApi.UserInfoResp, root.IamIdentitiesRestApi.UserInfoReq, root.IamIdentitiesRestApi.CACertificateRespList, root.IamIdentitiesRestApi.UserInfoRespList, root.IamIdentitiesRestApi.AccountUpdateReq, root.IamIdentitiesRestApi.AccountInfo);
   }
-}(this, function(ApiClient, UserInfoResp, UserInfoReq, ErrorResponse, UserInfoRespList, AccountUpdateReq, UpdatedResponse) {
+}(this, function(ApiClient, CACertificateResp, CACertificateReq, ErrorResponse, UserInfoResp, UserInfoReq, CACertificateRespList, UserInfoRespList, AccountUpdateReq, AccountInfo) {
   'use strict';
 
   /**
@@ -57,6 +57,51 @@
 
 
     /**
+     * Callback function to receive the result of the addCertificate operation.
+     * @callback module:api/AccountAdminApi~addCertificateCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/CACertificateResp} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Upload a new CA certificate.
+     * An endpoint for uploading new CA certificates.
+     * @param {module:model/CACertificateReq} body A CA certificate object with attributes.
+     * @param {module:api/AccountAdminApi~addCertificateCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/CACertificateResp}
+     */
+    this.addCertificate = function(body, callback) {
+      var postBody = body;
+
+      // verify the required parameter 'body' is set
+      if (body == undefined || body == null) {
+        throw "Missing the required parameter 'body' when calling addCertificate";
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['Bearer'];
+      var contentTypes = ['application/json'];
+      var accepts = ['application/json'];
+      var returnType = CACertificateResp;
+
+      return this.apiClient.callApi(
+        '/v3/ca-certificates', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the createUser operation.
      * @callback module:api/AccountAdminApi~createUserCallback
      * @param {String} error Error message, if any.
@@ -66,12 +111,15 @@
 
     /**
      * Create a new user.
-     * Endpoint for creating a new user.
+     * An endpoint for creating a new user.
      * @param {module:model/UserInfoReq} body A user object with attributes.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.action Action, either &#39;create&#39; or &#39;invite&#39;. (default to create)
      * @param {module:api/AccountAdminApi~createUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/UserInfoResp}
      */
-    this.createUser = function(body, callback) {
+    this.createUser = function(body, opts, callback) {
+      opts = opts || {};
       var postBody = body;
 
       // verify the required parameter 'body' is set
@@ -83,6 +131,7 @@
       var pathParams = {
       };
       var queryParams = {
+        'action': opts['action']
       };
       var headerParams = {
       };
@@ -102,6 +151,51 @@
     }
 
     /**
+     * Callback function to receive the result of the deleteCertificate operation.
+     * @callback module:api/AccountAdminApi~deleteCertificateCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Delete a CA certificate by ID.
+     * An endpoint for deleting a CA certificate.
+     * @param {String} caCertId The ID of the CA certificate to be deleted.
+     * @param {module:api/AccountAdminApi~deleteCertificateCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    this.deleteCertificate = function(caCertId, callback) {
+      var postBody = null;
+
+      // verify the required parameter 'caCertId' is set
+      if (caCertId == undefined || caCertId == null) {
+        throw "Missing the required parameter 'caCertId' when calling deleteCertificate";
+      }
+
+
+      var pathParams = {
+        'ca-cert-id': caCertId
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['Bearer'];
+      var contentTypes = [];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/v3/ca-certificates/{ca-cert-id}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the deleteUser operation.
      * @callback module:api/AccountAdminApi~deleteUserCallback
      * @param {String} error Error message, if any.
@@ -111,11 +205,14 @@
 
     /**
      * Delete a user.
-     * Endpoint for deleting a user.
+     * An endpoint for deleting a user.
      * @param {String} userId The ID of the user to be deleted.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.force Flag indicating that user is forced to be deleted.
      * @param {module:api/AccountAdminApi~deleteUserCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    this.deleteUser = function(userId, callback) {
+    this.deleteUser = function(userId, opts, callback) {
+      opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'userId' is set
@@ -128,6 +225,7 @@
         'user-id': userId
       };
       var queryParams = {
+        'force': opts['force']
       };
       var headerParams = {
       };
@@ -147,6 +245,57 @@
     }
 
     /**
+     * Callback function to receive the result of the getAllCertificates operation.
+     * @callback module:api/AccountAdminApi~getAllCertificatesCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/CACertificateRespList} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get all CA certificates.
+     * An endpoint for retrieving CA certificates in an array.
+     * @param {Object} opts Optional parameters
+     * @param {Integer} opts.limit The number of results to return (2-1000), default is 50. (default to 50)
+     * @param {String} opts.after The entity ID to fetch after the given one.
+     * @param {String} opts.order The order of the records, ASC or DESC; by default ASC (default to ASC)
+     * @param {String} opts.include Comma separated additional data to return. Currently supported: total_count
+     * @param {String} opts.filter The filter for the query, for example filter&#x3D;service%3Dlwm2m
+     * @param {module:api/AccountAdminApi~getAllCertificatesCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/CACertificateRespList}
+     */
+    this.getAllCertificates = function(opts, callback) {
+      opts = opts || {};
+      var postBody = null;
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'limit': opts['limit'],
+        'after': opts['after'],
+        'order': opts['order'],
+        'include': opts['include'],
+        'filter': opts['filter']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['Bearer'];
+      var contentTypes = [];
+      var accepts = ['application/json'];
+      var returnType = CACertificateRespList;
+
+      return this.apiClient.callApi(
+        '/v3/ca-certificates', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the getAllUsers operation.
      * @callback module:api/AccountAdminApi~getAllUsersCallback
      * @param {String} error Error message, if any.
@@ -156,17 +305,29 @@
 
     /**
      * Get the details of all users.
-     * Endpoint for retrieving the details of all users.
+     * An endpoint for retrieving the details of all users.
+     * @param {Object} opts Optional parameters
+     * @param {Integer} opts.limit The number of results to return (2-1000), default is 50. (default to 50)
+     * @param {String} opts.after The entity ID to fetch after the given one.
+     * @param {String} opts.order The order of the records, ASC or DESC; by default ASC (default to ASC)
+     * @param {String} opts.include Comma separated additional data to return. Currently supported: total_count
+     * @param {String} opts.filter Filter for the query, for example filter&#x3D;status%3Dactive,status%3Dreset.
      * @param {module:api/AccountAdminApi~getAllUsersCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/UserInfoRespList}
      */
-    this.getAllUsers = function(callback) {
+    this.getAllUsers = function(opts, callback) {
+      opts = opts || {};
       var postBody = null;
 
 
       var pathParams = {
       };
       var queryParams = {
+        'limit': opts['limit'],
+        'after': opts['after'],
+        'order': opts['order'],
+        'include': opts['include'],
+        'filter': opts['filter']
       };
       var headerParams = {
       };
@@ -186,6 +347,52 @@
     }
 
     /**
+     * Callback function to receive the result of the getCertificate operation.
+     * @callback module:api/AccountAdminApi~getCertificateCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/CACertificateResp} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get CA certificate by ID.
+     * An endpoint for retrieving a CA certificate by ID.
+     * @param {String} caCertId The ID or name of the CA certificate to be retrieved.
+     * @param {module:api/AccountAdminApi~getCertificateCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/CACertificateResp}
+     */
+    this.getCertificate = function(caCertId, callback) {
+      var postBody = null;
+
+      // verify the required parameter 'caCertId' is set
+      if (caCertId == undefined || caCertId == null) {
+        throw "Missing the required parameter 'caCertId' when calling getCertificate";
+      }
+
+
+      var pathParams = {
+        'ca-cert-id': caCertId
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['Bearer'];
+      var contentTypes = [];
+      var accepts = ['application/json'];
+      var returnType = CACertificateResp;
+
+      return this.apiClient.callApi(
+        '/v3/ca-certificates/{ca-cert-id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the getUser operation.
      * @callback module:api/AccountAdminApi~getUserCallback
      * @param {String} error Error message, if any.
@@ -195,7 +402,7 @@
 
     /**
      * Details of a user.
-     * Endpoint for retrieving the details of a user.
+     * An endpoint for retrieving the details of a user.
      * @param {String} userId The ID or name of the user whose details are retrieved.
      * @param {module:api/AccountAdminApi~getUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/UserInfoResp}
@@ -232,19 +439,71 @@
     }
 
     /**
+     * Callback function to receive the result of the updateCertificate operation.
+     * @callback module:api/AccountAdminApi~updateCertificateCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/CACertificateResp} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Update CA certificate.
+     * An endpoint for updating existing CA certificates.
+     * @param {String} caCertId The ID of the CA certificate to be updated.
+     * @param {module:model/CACertificateReq} body A CA certificate object with attributes.
+     * @param {module:api/AccountAdminApi~updateCertificateCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/CACertificateResp}
+     */
+    this.updateCertificate = function(caCertId, body, callback) {
+      var postBody = body;
+
+      // verify the required parameter 'caCertId' is set
+      if (caCertId == undefined || caCertId == null) {
+        throw "Missing the required parameter 'caCertId' when calling updateCertificate";
+      }
+
+      // verify the required parameter 'body' is set
+      if (body == undefined || body == null) {
+        throw "Missing the required parameter 'body' when calling updateCertificate";
+      }
+
+
+      var pathParams = {
+        'ca-cert-id': caCertId
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['Bearer'];
+      var contentTypes = ['application/json'];
+      var accepts = ['application/json'];
+      var returnType = CACertificateResp;
+
+      return this.apiClient.callApi(
+        '/v3/ca-certificates/{ca-cert-id}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the updateMyAccount operation.
      * @callback module:api/AccountAdminApi~updateMyAccountCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/UpdatedResponse} data The data returned by the service call.
+     * @param {module:model/AccountInfo} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Updates attributes of the account.
-     * Endpoint for updating the account.
+     * An endpoint for updating the account.
      * @param {module:model/AccountUpdateReq} body Details of the account to be updated.
      * @param {module:api/AccountAdminApi~updateMyAccountCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/UpdatedResponse}
+     * data is of type: {@link module:model/AccountInfo}
      */
     this.updateMyAccount = function(body, callback) {
       var postBody = body;
@@ -267,7 +526,7 @@
       var authNames = ['Bearer'];
       var contentTypes = ['application/json'];
       var accepts = ['application/json'];
-      var returnType = UpdatedResponse;
+      var returnType = AccountInfo;
 
       return this.apiClient.callApi(
         '/v3/accounts/me', 'PUT',
@@ -286,7 +545,7 @@
 
     /**
      * Update user details.
-     * Endpoint for updating user details.
+     * An endpoint for updating user details.
      * @param {String} userId The ID of the user whose details are updated.
      * @param {module:model/UserInfoReq} body A user object with attributes.
      * @param {module:api/AccountAdminApi~updateUserCallback} callback The callback function, accepting three arguments: error, data, response

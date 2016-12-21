@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -54,7 +54,7 @@
    * @alias module:model/UserInfoReq
    * @class
    * @param username {String} A username containing alphanumerical letters and -,._@+= characters.
-   * @param email {String} Email address.
+   * @param email {String} The email address.
    */
   var exports = function(username, email) {
     var _this = this;
@@ -155,7 +155,7 @@
    */
   exports.prototype['password'] = undefined;
   /**
-   * Email address.
+   * The email address.
    * @member {String} email
    */
   exports.prototype['email'] = undefined;

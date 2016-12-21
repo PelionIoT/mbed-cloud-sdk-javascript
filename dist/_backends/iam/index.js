@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -25,16 +25,16 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AccountInfo', 'model/AccountUpdateReq', 'model/ApiKeyInfoReq', 'model/ApiKeyInfoResp', 'model/ApiKeyInfoRespList', 'model/ErrorResponse', 'model/Field', 'model/GroupSummary', 'model/GroupSummaryList', 'model/UpdatedResponse', 'model/UserInfoReq', 'model/UserInfoResp', 'model/UserInfoRespList', 'api/AccountAdminApi', 'api/DeveloperApi'], factory);
+    define(['ApiClient', 'model/AccountEnrollmentReq', 'model/AccountEnrollmentResp', 'model/AccountInfo', 'model/AccountSignupReq', 'model/AccountSignupResp', 'model/AccountSignupVerify', 'model/AccountTemplateReq', 'model/AccountTemplateResp', 'model/AccountTemplateRespList', 'model/AccountUpdateReq', 'model/ApiKeyInfoReq', 'model/ApiKeyInfoResp', 'model/ApiKeyInfoRespList', 'model/ApiKeyUpdateReq', 'model/CACertificateReq', 'model/CACertificateResp', 'model/CACertificateRespList', 'model/ErrorResponse', 'model/Field', 'model/GroupSummary', 'model/GroupSummaryList', 'model/PasswordRecoveryReq', 'model/PasswordResetReq', 'model/Policy', 'model/UserInfoReq', 'model/UserInfoResp', 'model/UserInfoRespList', 'api/AccountAdminApi', 'api/DefaultApi', 'api/DeveloperApi', 'api/RootAdminApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/AccountInfo'), require('./model/AccountUpdateReq'), require('./model/ApiKeyInfoReq'), require('./model/ApiKeyInfoResp'), require('./model/ApiKeyInfoRespList'), require('./model/ErrorResponse'), require('./model/Field'), require('./model/GroupSummary'), require('./model/GroupSummaryList'), require('./model/UpdatedResponse'), require('./model/UserInfoReq'), require('./model/UserInfoResp'), require('./model/UserInfoRespList'), require('./api/AccountAdminApi'), require('./api/DeveloperApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/AccountEnrollmentReq'), require('./model/AccountEnrollmentResp'), require('./model/AccountInfo'), require('./model/AccountSignupReq'), require('./model/AccountSignupResp'), require('./model/AccountSignupVerify'), require('./model/AccountTemplateReq'), require('./model/AccountTemplateResp'), require('./model/AccountTemplateRespList'), require('./model/AccountUpdateReq'), require('./model/ApiKeyInfoReq'), require('./model/ApiKeyInfoResp'), require('./model/ApiKeyInfoRespList'), require('./model/ApiKeyUpdateReq'), require('./model/CACertificateReq'), require('./model/CACertificateResp'), require('./model/CACertificateRespList'), require('./model/ErrorResponse'), require('./model/Field'), require('./model/GroupSummary'), require('./model/GroupSummaryList'), require('./model/PasswordRecoveryReq'), require('./model/PasswordResetReq'), require('./model/Policy'), require('./model/UserInfoReq'), require('./model/UserInfoResp'), require('./model/UserInfoRespList'), require('./api/AccountAdminApi'), require('./api/DefaultApi'), require('./api/DeveloperApi'), require('./api/RootAdminApi'));
   }
-}(function(ApiClient, AccountInfo, AccountUpdateReq, ApiKeyInfoReq, ApiKeyInfoResp, ApiKeyInfoRespList, ErrorResponse, Field, GroupSummary, GroupSummaryList, UpdatedResponse, UserInfoReq, UserInfoResp, UserInfoRespList, AccountAdminApi, DeveloperApi) {
+}(function(ApiClient, AccountEnrollmentReq, AccountEnrollmentResp, AccountInfo, AccountSignupReq, AccountSignupResp, AccountSignupVerify, AccountTemplateReq, AccountTemplateResp, AccountTemplateRespList, AccountUpdateReq, ApiKeyInfoReq, ApiKeyInfoResp, ApiKeyInfoRespList, ApiKeyUpdateReq, CACertificateReq, CACertificateResp, CACertificateRespList, ErrorResponse, Field, GroupSummary, GroupSummaryList, PasswordRecoveryReq, PasswordResetReq, Policy, UserInfoReq, UserInfoResp, UserInfoRespList, AccountAdminApi, DefaultApi, DeveloperApi, RootAdminApi) {
   'use strict';
 
   /**
-   * REST_API_to_manage_accounts_groups_users_and_api_keys.<br>
+   * REST_API_to_manage_accounts_groups_users_and_API_keys.<br>
    * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
    * <p>
    * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
@@ -71,10 +71,50 @@
      */
     ApiClient: ApiClient,
     /**
+     * The AccountEnrollmentReq model constructor.
+     * @property {module:model/AccountEnrollmentReq}
+     */
+    AccountEnrollmentReq: AccountEnrollmentReq,
+    /**
+     * The AccountEnrollmentResp model constructor.
+     * @property {module:model/AccountEnrollmentResp}
+     */
+    AccountEnrollmentResp: AccountEnrollmentResp,
+    /**
      * The AccountInfo model constructor.
      * @property {module:model/AccountInfo}
      */
     AccountInfo: AccountInfo,
+    /**
+     * The AccountSignupReq model constructor.
+     * @property {module:model/AccountSignupReq}
+     */
+    AccountSignupReq: AccountSignupReq,
+    /**
+     * The AccountSignupResp model constructor.
+     * @property {module:model/AccountSignupResp}
+     */
+    AccountSignupResp: AccountSignupResp,
+    /**
+     * The AccountSignupVerify model constructor.
+     * @property {module:model/AccountSignupVerify}
+     */
+    AccountSignupVerify: AccountSignupVerify,
+    /**
+     * The AccountTemplateReq model constructor.
+     * @property {module:model/AccountTemplateReq}
+     */
+    AccountTemplateReq: AccountTemplateReq,
+    /**
+     * The AccountTemplateResp model constructor.
+     * @property {module:model/AccountTemplateResp}
+     */
+    AccountTemplateResp: AccountTemplateResp,
+    /**
+     * The AccountTemplateRespList model constructor.
+     * @property {module:model/AccountTemplateRespList}
+     */
+    AccountTemplateRespList: AccountTemplateRespList,
     /**
      * The AccountUpdateReq model constructor.
      * @property {module:model/AccountUpdateReq}
@@ -96,6 +136,26 @@
      */
     ApiKeyInfoRespList: ApiKeyInfoRespList,
     /**
+     * The ApiKeyUpdateReq model constructor.
+     * @property {module:model/ApiKeyUpdateReq}
+     */
+    ApiKeyUpdateReq: ApiKeyUpdateReq,
+    /**
+     * The CACertificateReq model constructor.
+     * @property {module:model/CACertificateReq}
+     */
+    CACertificateReq: CACertificateReq,
+    /**
+     * The CACertificateResp model constructor.
+     * @property {module:model/CACertificateResp}
+     */
+    CACertificateResp: CACertificateResp,
+    /**
+     * The CACertificateRespList model constructor.
+     * @property {module:model/CACertificateRespList}
+     */
+    CACertificateRespList: CACertificateRespList,
+    /**
      * The ErrorResponse model constructor.
      * @property {module:model/ErrorResponse}
      */
@@ -116,10 +176,20 @@
      */
     GroupSummaryList: GroupSummaryList,
     /**
-     * The UpdatedResponse model constructor.
-     * @property {module:model/UpdatedResponse}
+     * The PasswordRecoveryReq model constructor.
+     * @property {module:model/PasswordRecoveryReq}
      */
-    UpdatedResponse: UpdatedResponse,
+    PasswordRecoveryReq: PasswordRecoveryReq,
+    /**
+     * The PasswordResetReq model constructor.
+     * @property {module:model/PasswordResetReq}
+     */
+    PasswordResetReq: PasswordResetReq,
+    /**
+     * The Policy model constructor.
+     * @property {module:model/Policy}
+     */
+    Policy: Policy,
     /**
      * The UserInfoReq model constructor.
      * @property {module:model/UserInfoReq}
@@ -141,10 +211,20 @@
      */
     AccountAdminApi: AccountAdminApi,
     /**
+     * The DefaultApi service constructor.
+     * @property {module:api/DefaultApi}
+     */
+    DefaultApi: DefaultApi,
+    /**
      * The DeveloperApi service constructor.
      * @property {module:api/DeveloperApi}
      */
-    DeveloperApi: DeveloperApi
+    DeveloperApi: DeveloperApi,
+    /**
+     * The RootAdminApi service constructor.
+     * @property {module:api/RootAdminApi}
+     */
+    RootAdminApi: RootAdminApi
   };
 
   return exports;

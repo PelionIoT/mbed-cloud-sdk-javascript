@@ -4,16 +4,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | **String** | The status of the API key. | [optional] 
-**apikey** | **String** | API key. | 
+**apikey** | **String** | The API key. | 
 **name** | **String** | The display name for the API key. | 
 **createdAt** | **String** | Creation UTC time RFC3339. | [optional] 
-**_object** | **String** | entity name: always &#39;apikey&#39; | 
+**_object** | **String** | Entity name: always &#39;apikey&#39; | 
 **creationTime** | **Integer** | The timestamp of the API key creation in the storage, in milliseconds. | [optional] 
+**creationTimeMillis** | **Integer** |  | [optional] 
 **etag** | **String** | API resource entity version. | 
 **groups** | **[String]** | A list of group IDs this API key belongs to. | [optional] 
 **owner** | **String** | The owner of this API key, who is the creator by default. | [optional] 
-**secretKey** | **String** | API key secret. | [optional] 
-**id** | **String** | UUID of the API key. | 
+**secretKey** | **String** | API key secret, deprecated and always empty string. | [optional] 
+**id** | **String** | The UUID of the API key. | 
 **lastLoginTime** | **Integer** | The timestamp of the latest API key usage, in milliseconds. | [optional] 
 
 
@@ -39,6 +40,10 @@ Name | Type | Description | Notes
 * `group` (value: `"group"`)
 
 * `account` (value: `"account"`)
+
+* `account_template` (value: `"account_template"`)
+
+* `ca_cert` (value: `"ca_cert"`)
 
 * `list` (value: `"list"`)
 

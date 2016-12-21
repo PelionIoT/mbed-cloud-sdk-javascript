@@ -1,6 +1,6 @@
 /**
  * IAM Identities REST API
- * REST API to manage accounts, groups, users and api-keys
+ * REST API to manage accounts, groups, users and API keys
  *
  * OpenAPI spec version: v3
  * 
@@ -55,7 +55,7 @@
    * @class
    * @param name {String} The name of the group.
    * @param apiKeyCount {Integer} The number of API keys in this group.
-   * @param _object {module:model/GroupSummary.ObjectEnum} entity name: always 'group'
+   * @param _object {module:model/GroupSummary.ObjectEnum} Entity name: always 'group'
    * @param etag {String} API resource entity version.
    * @param id {String} The UUID of the group.
    * @param userCount {Integer} The number of users in this group.
@@ -70,6 +70,7 @@
     _this['object'] = _object;
 
     _this['etag'] = etag;
+
     _this['id'] = id;
     _this['userCount'] = userCount;
   };
@@ -106,6 +107,9 @@
       if (data.hasOwnProperty('etag')) {
         obj['etag'] = ApiClient.convertToType(data['etag'], 'String');
       }
+      if (data.hasOwnProperty('creationTimeMillis')) {
+        obj['creationTimeMillis'] = ApiClient.convertToType(data['creationTimeMillis'], 'Integer');
+      }
       if (data.hasOwnProperty('id')) {
         obj['id'] = ApiClient.convertToType(data['id'], 'String');
       }
@@ -137,7 +141,7 @@
    */
   exports.prototype['created_at'] = undefined;
   /**
-   * entity name: always 'group'
+   * Entity name: always 'group'
    * @member {module:model/GroupSummary.ObjectEnum} object
    */
   exports.prototype['object'] = undefined;
@@ -151,6 +155,10 @@
    * @member {String} etag
    */
   exports.prototype['etag'] = undefined;
+  /**
+   * @member {Integer} creationTimeMillis
+   */
+  exports.prototype['creationTimeMillis'] = undefined;
   /**
    * The UUID of the group.
    * @member {String} id
@@ -189,6 +197,16 @@
      * @const
      */
     "account": "account",
+    /**
+     * value: "account_template"
+     * @const
+     */
+    "account_template": "account_template",
+    /**
+     * value: "ca_cert"
+     * @const
+     */
+    "ca_cert": "ca_cert",
     /**
      * value: "list"
      * @const

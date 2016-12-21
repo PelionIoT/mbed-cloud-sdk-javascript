@@ -25,12 +25,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/FirmwareImageSerializer', 'model/FirmwareImageSerializerData', 'model/FirmwareManifestSerializer', 'api/DefaultApi'], factory);
+    define(['ApiClient', 'model/FirmwareImageSerializer', 'model/FirmwareImageSerializerData', 'model/ManifestSerializer', 'model/ManifestSerializerData', 'api/DefaultApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/FirmwareImageSerializer'), require('./model/FirmwareImageSerializerData'), require('./model/FirmwareManifestSerializer'), require('./api/DefaultApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/FirmwareImageSerializer'), require('./model/FirmwareImageSerializerData'), require('./model/ManifestSerializer'), require('./model/ManifestSerializerData'), require('./api/DefaultApi'));
   }
-}(function(ApiClient, FirmwareImageSerializer, FirmwareImageSerializerData, FirmwareManifestSerializer, DefaultApi) {
+}(function(ApiClient, FirmwareImageSerializer, FirmwareImageSerializerData, ManifestSerializer, ManifestSerializerData, DefaultApi) {
   'use strict';
 
   /**
@@ -81,10 +81,15 @@
      */
     FirmwareImageSerializerData: FirmwareImageSerializerData,
     /**
-     * The FirmwareManifestSerializer model constructor.
-     * @property {module:model/FirmwareManifestSerializer}
+     * The ManifestSerializer model constructor.
+     * @property {module:model/ManifestSerializer}
      */
-    FirmwareManifestSerializer: FirmwareManifestSerializer,
+    ManifestSerializer: ManifestSerializer,
+    /**
+     * The ManifestSerializerData model constructor.
+     * @property {module:model/ManifestSerializerData}
+     */
+    ManifestSerializerData: ManifestSerializerData,
     /**
      * The DefaultApi service constructor.
      * @property {module:api/DefaultApi}

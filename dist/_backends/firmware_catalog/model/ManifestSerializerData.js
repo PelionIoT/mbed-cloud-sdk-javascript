@@ -34,7 +34,7 @@
     if (!root.FirmwareCatalogApi) {
       root.FirmwareCatalogApi = {};
     }
-    root.FirmwareCatalogApi.FirmwareManifestSerializer = factory(root.FirmwareCatalogApi.ApiClient);
+    root.FirmwareCatalogApi.ManifestSerializerData = factory(root.FirmwareCatalogApi.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -43,51 +43,39 @@
 
 
   /**
-   * The FirmwareManifestSerializer model module.
-   * @module model/FirmwareManifestSerializer
+   * The ManifestSerializerData model module.
+   * @module model/ManifestSerializerData
    * @version 0.1
    */
 
   /**
-   * Constructs a new <code>FirmwareManifestSerializer</code>.
-   * @alias module:model/FirmwareManifestSerializer
+   * Constructs a new <code>ManifestSerializerData</code>.
+   * @alias module:model/ManifestSerializerData
    * @class
-   * @param datafile {String} 
-   * @param manifestId {String} DEPRECATED: The ID of the firmware manifest
-   * @param description {String} The description of the object
-   * @param timestamp {Date} The version of the firmware manifest (as a timestamp)
-   * @param createdAt {Date} The time the object was created
-   * @param _object {String} The API resource entity
-   * @param updatedAt {Date} The time the object was updated
-   * @param manifestContents {String} The contents of the manifest
-   * @param etag {Date} The entity instance signature
-   * @param deviceClass {String} The class of device
-   * @param id {String} The ID of the firmware manifest
-   * @param name {String} The name of the object
    */
-  var exports = function(datafile, manifestId, description, timestamp, createdAt, _object, updatedAt, manifestContents, etag, deviceClass, id, name) {
+  var exports = function() {
     var _this = this;
 
-    _this['datafile'] = datafile;
-    _this['manifest_id'] = manifestId;
-    _this['description'] = description;
-    _this['timestamp'] = timestamp;
-    _this['created_at'] = createdAt;
-    _this['object'] = _object;
-    _this['updated_at'] = updatedAt;
-    _this['manifest_contents'] = manifestContents;
-    _this['etag'] = etag;
-    _this['device_class'] = deviceClass;
-    _this['id'] = id;
-    _this['name'] = name;
+
+
+
+
+
+
+
+
+
+
+
+
   };
 
   /**
-   * Constructs a <code>FirmwareManifestSerializer</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>ManifestSerializerData</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/FirmwareManifestSerializer} obj Optional instance to populate.
-   * @return {module:model/FirmwareManifestSerializer} The populated <code>FirmwareManifestSerializer</code> instance.
+   * @param {module:model/ManifestSerializerData} obj Optional instance to populate.
+   * @return {module:model/ManifestSerializerData} The populated <code>ManifestSerializerData</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {

@@ -10,8 +10,10 @@ Method | HTTP request | Description
 [**getAllGroups**](DeveloperApi.md#getAllGroups) | **GET** /v3/policy-groups | Get all group information.
 [**getApiKey**](DeveloperApi.md#getApiKey) | **GET** /v3/api-keys/{apiKey} | Get API key details.
 [**getMyAccountInfo**](DeveloperApi.md#getMyAccountInfo) | **GET** /v3/accounts/me | Get account info.
+[**getMyApiKey**](DeveloperApi.md#getMyApiKey) | **GET** /v3/api-keys/me | Get API key details.
 [**getMyUser**](DeveloperApi.md#getMyUser) | **GET** /v3/users/me | Details of the current user.
 [**updateApiKey**](DeveloperApi.md#updateApiKey) | **PUT** /v3/api-keys/{apiKey} | Update API key details.
+[**updateMyApiKey**](DeveloperApi.md#updateMyApiKey) | **PUT** /v3/api-keys/me | Update API key details.
 [**updateMyUser**](DeveloperApi.md#updateMyUser) | **PUT** /v3/users/me | Update user details.
 
 
@@ -21,7 +23,7 @@ Method | HTTP request | Description
 
 Create a new API key.
 
-Endpoint for creating the new API key.
+An endpoint for creating a new API key.
 
 ### Example
 ```javascript
@@ -74,7 +76,7 @@ Name | Type | Description  | Notes
 
 Delete API key.
 
-Endpoint for deleting the API key.
+An endpoint for deleting the API key.
 
 ### Example
 ```javascript
@@ -127,7 +129,7 @@ null (empty response body)
 
 Get all API keys
 
-Endpoint for retrieving API keys in an array, optionally filtered by the owner.
+An endpoint for retrieving API keys in an array, optionally filtered by the owner.
 
 ### Example
 ```javascript
@@ -143,6 +145,11 @@ Bearer.apiKey = 'YOUR API KEY';
 var apiInstance = new IamIdentitiesRestApi.DeveloperApi();
 
 var opts = { 
+  'limit': 50, // Integer | The number of results to return (2-1000), default is 50.
+  'after': "after_example", // String | The entity ID to fetch after the given one.
+  'order': "ASC", // String | The order of the records, ASC or DESC; by default ASC
+  'include': "include_example", // String | Comma separated additional data to return. Currently supported: total_count
+  'filter': "filter_example", // String | A filter for the query, for example filter=owner%3Duuid.
   'owner': "owner_example" // String | Owner name filter.
 };
 
@@ -160,6 +167,11 @@ apiInstance.getAllApiKeys(opts, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **String**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional] 
+ **filter** | **String**| A filter for the query, for example filter&#x3D;owner%3Duuid. | [optional] 
  **owner** | **String**| Owner name filter. | [optional] 
 
 ### Return type
@@ -177,11 +189,11 @@ Name | Type | Description  | Notes
 
 <a name="getAllGroups"></a>
 # **getAllGroups**
-> GroupSummaryList getAllGroups()
+> GroupSummaryList getAllGroups(opts)
 
 Get all group information.
 
-Endpoint for retrieving all group information.
+An endpoint for retrieving all group information.
 
 ### Example
 ```javascript
@@ -196,6 +208,13 @@ Bearer.apiKey = 'YOUR API KEY';
 
 var apiInstance = new IamIdentitiesRestApi.DeveloperApi();
 
+var opts = { 
+  'limit': 50, // Integer | The number of results to return (2-1000), default is 50.
+  'after': "after_example", // String | The entity ID to fetch after the given one.
+  'order': "ASC", // String | The order of the records, ASC or DESC; by default ASC
+  'include': "include_example" // String | Comma separated additional data to return. Currently supported: total_count
+};
+
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -203,11 +222,17 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.getAllGroups(callback);
+apiInstance.getAllGroups(opts, callback);
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional] 
+ **order** | **String**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional] 
 
 ### Return type
 
@@ -228,7 +253,7 @@ This endpoint does not need any parameter.
 
 Get API key details.
 
-Endpoint for retrieving API key details.
+An endpoint for retrieving API key details.
 
 ### Example
 ```javascript
@@ -277,11 +302,65 @@ Name | Type | Description  | Notes
 
 <a name="getMyAccountInfo"></a>
 # **getMyAccountInfo**
-> AccountInfo getMyAccountInfo()
+> AccountInfo getMyAccountInfo(opts)
 
 Get account info.
 
 Returns detailed information about the account.
+
+### Example
+```javascript
+var IamIdentitiesRestApi = require('iam_identities_rest_api');
+var defaultClient = IamIdentitiesRestApi.ApiClient.default;
+
+// Configure API key authorization: Bearer
+var Bearer = defaultClient.authentications['Bearer'];
+Bearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.apiKeyPrefix = 'Token';
+
+var apiInstance = new IamIdentitiesRestApi.DeveloperApi();
+
+var opts = { 
+  'include': "include_example" // String | Comma separated additional data to return. Currently supported: limits
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.getMyAccountInfo(opts, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **include** | **String**| Comma separated additional data to return. Currently supported: limits | [optional] 
+
+### Return type
+
+[**AccountInfo**](AccountInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getMyApiKey"></a>
+# **getMyApiKey**
+> ApiKeyInfoResp getMyApiKey()
+
+Get API key details.
+
+An endpoint for retrieving API key details.
 
 ### Example
 ```javascript
@@ -303,7 +382,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.getMyAccountInfo(callback);
+apiInstance.getMyApiKey(callback);
 ```
 
 ### Parameters
@@ -311,7 +390,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**AccountInfo**](AccountInfo.md)
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
 
 ### Authorization
 
@@ -328,7 +407,7 @@ This endpoint does not need any parameter.
 
 Details of the current user.
 
-Endpoint for retrieving the details of the logged in user.
+An endpoint for retrieving the details of the logged in user.
 
 ### Example
 ```javascript
@@ -375,7 +454,7 @@ This endpoint does not need any parameter.
 
 Update API key details.
 
-Endpoint for updating API key details.
+An endpoint for updating API key details.
 
 ### Example
 ```javascript
@@ -392,7 +471,7 @@ var apiInstance = new IamIdentitiesRestApi.DeveloperApi();
 
 var apiKey = "apiKey_example"; // String | The ID of the API key to be updated.
 
-var body = new IamIdentitiesRestApi.ApiKeyInfoReq(); // ApiKeyInfoReq | New API key attributes to be stored.
+var body = new IamIdentitiesRestApi.ApiKeyUpdateReq(); // ApiKeyUpdateReq | New API key attributes to be stored.
 
 
 var callback = function(error, data, response) {
@@ -410,7 +489,60 @@ apiInstance.updateApiKey(apiKey, body, callback);
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **apiKey** | **String**| The ID of the API key to be updated. | 
- **body** | [**ApiKeyInfoReq**](ApiKeyInfoReq.md)| New API key attributes to be stored. | 
+ **body** | [**ApiKeyUpdateReq**](ApiKeyUpdateReq.md)| New API key attributes to be stored. | 
+
+### Return type
+
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateMyApiKey"></a>
+# **updateMyApiKey**
+> ApiKeyInfoResp updateMyApiKey(body)
+
+Update API key details.
+
+An endpoint for updating API key details.
+
+### Example
+```javascript
+var IamIdentitiesRestApi = require('iam_identities_rest_api');
+var defaultClient = IamIdentitiesRestApi.ApiClient.default;
+
+// Configure API key authorization: Bearer
+var Bearer = defaultClient.authentications['Bearer'];
+Bearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.apiKeyPrefix = 'Token';
+
+var apiInstance = new IamIdentitiesRestApi.DeveloperApi();
+
+var body = new IamIdentitiesRestApi.ApiKeyUpdateReq(); // ApiKeyUpdateReq | New API key attributes to be stored.
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.updateMyApiKey(body, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**ApiKeyUpdateReq**](ApiKeyUpdateReq.md)| New API key attributes to be stored. | 
 
 ### Return type
 
@@ -431,7 +563,7 @@ Name | Type | Description  | Notes
 
 Update user details.
 
-Endpoint for updating the details of the logged in user.
+An endpoint for updating the details of the logged in user.
 
 ### Example
 ```javascript

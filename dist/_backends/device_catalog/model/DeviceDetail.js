@@ -100,7 +100,7 @@
         obj['updated_at'] = ApiClient.convertToType(data['updated_at'], 'Date');
       }
       if (data.hasOwnProperty('custom_attributes')) {
-        obj['custom_attributes'] = ApiClient.convertToType(data['custom_attributes'], 'String');
+        obj['custom_attributes'] = ApiClient.convertToType(data['custom_attributes'], Object);
       }
       if (data.hasOwnProperty('device_class')) {
         obj['device_class'] = ApiClient.convertToType(data['device_class'], 'String');
@@ -180,7 +180,7 @@
   exports.prototype['updated_at'] = undefined;
   /**
    * Up to 5 custom JSON attributes
-   * @member {String} custom_attributes
+   * @member {Object} custom_attributes
    */
   exports.prototype['custom_attributes'] = undefined;
   /**

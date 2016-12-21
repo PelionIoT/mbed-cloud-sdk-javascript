@@ -172,14 +172,9 @@
     /**
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;List all device queries. The result will be paged into pages of 100.&lt;/p&gt;
      * @param {Object} opts Optional parameters
-     * @param {String} opts.description 
-     * @param {String} opts.createdAt 
-     * @param {String} opts.updatedAt 
-     * @param {String} opts.etag 
-     * @param {String} opts.name 
-     * @param {String} opts._object 
-     * @param {String} opts.query 
-     * @param {String} opts.queryId 
+     * @param {Integer} opts.limit 
+     * @param {String} opts.order 
+     * @param {String} opts.after 
      * @param {module:api/DefaultApi~deviceQueryListCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/DeviceQueryResp}
      */
@@ -191,14 +186,9 @@
       var pathParams = {
       };
       var queryParams = {
-        'description': opts['description'],
-        'created_at': opts['createdAt'],
-        'updated_at': opts['updatedAt'],
-        'etag': opts['etag'],
-        'name': opts['name'],
-        'object': opts['_object'],
-        'query': opts['query'],
-        'query_id': opts['queryId']
+        'limit': opts['limit'],
+        'order': opts['order'],
+        'after': opts['after']
       };
       var headerParams = {
       };
