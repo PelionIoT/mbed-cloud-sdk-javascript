@@ -1,10 +1,4 @@
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/*
+/* 
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -20,190 +14,250 @@ var __extends = (this && this.__extends) || function (d, b) {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var events_1 = require("events");
-var polygoat_1 = require("./helpers/polygoat");
-var mds_1 = require("./_api/mds");
+
+import { EventEmitter } from "events";
+import { polygoat as pg }  from "./helpers/polygoat";
+import { EndpointsApi } from "./_api/mds";
+
+export interface DevicesOptions {
+    /**
+    * Access Key for your mbed Device Connector account
+    */
+    accessKey: string;
+    /**
+    * URL for mbed Device Connector API
+    */
+    host?: string;
+}
+
+export interface ResourceValueOptions {
+    /**
+    * If true, the response will come only from the cache
+    * (default: false)
+    */
+    cacheOnly?: boolean;
+    /**
+    * If true, mbed Device Connector will not wait for a response
+    * Creates a CoAP Non-Confirmable requests
+    * If false, a response is expected and the CoAP request is confirmable
+    * (default: false)
+    */
+    noResp?: string;
+}
+
+export interface CallbackData {
+    /**
+    * The callback URL
+    */
+    url: string;
+    /**
+    * The headers that should be set when mbed Cloud Connect puts to the given callback URL
+    */
+    headers?: any;
+}
+
 /**
 * Root Devices object
 */
-var Devices = (function (_super) {
-    __extends(Devices, _super);
+export class Devices extends EventEmitter {
+
+    private api: any;
+
+    /**
+    * Resource notification event
+    * @event
+    */
+    static EVENT_NOTIFICATION:string = "notification";
+
+    /**
+    * Endpoint registration event
+    * @event
+    */
+    static EVENT_REGISTRATION:string = "registration";
+
+    /**
+    * Endpoint registration update event
+    * @event
+    */
+    static EVENT_UPDATE:string = "reg-update";
+
+    /**
+    * Endpoint de-registration event
+    * @event
+    */
+    static EVENT_DEREGISTRATION:string = "de-registration";
+
+    /**
+    * Endpoint registration expiration event
+    * @event
+    */
+    static EVENT_EXPIRED:string = "registration-expired";
+
     /**
     * @param options Options object
     */
-    function Devices(options) {
-        var _this = _super.call(this) || this;
-        _this.api = new mds_1.EndpointsApi();
-        //        if (options.host) this.client.basePath = options.host;
-        if (options.accessKey)
-            _this.api.setApiKey("Bearer", "Bearer " + options.accessKey);
-        return _this;
+    constructor(options: DevicesOptions) {
+        super();
+        this.api = new EndpointsApi();
+//        if (options.host) this.client.basePath = options.host;
+        if (options.accessKey) this.api.setApiKey("Bearer", "Bearer " + options.accessKey);
     }
+
     /**
     * Gets a list of currently registered endpoints
     * @param type Filters endpoints by endpoint-type
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
-    Devices.prototype.getEndpoints = function (type, callback) {
+    public getEndpoints(type?:string, callback?: Function):Promise<Endpoint[]> {
         var api = this.api;
-        return polygoat_1.polygoat(function (done) {
-            api.v2EndpointsGet(type, function (error, response) {
-                if (error)
-                    return done(error);
-                var endpoints = response.body.map(function (endpoint) {
+
+        return pg(function(done) {
+            api.v2EndpointsGet(type, function(error, response) {
+                if (error) return done(error);
+                var endpoints = response.body.map(function(endpoint) {
                     return new Endpoint(api, endpoint);
                 });
                 done(null, endpoints);
             });
         }, callback);
-    };
+    }
+
     /**
     * Begins long polling constantly for notifications
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Devices.prototype.startNotifications = function (callback) {
+    public startNotifications(callback?: Function):Promise<void> {
         //mds.NotificationsApi.v2NotificationPullGet
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Stops long polling for notifications
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Devices.prototype.stopNotifications = function (callback) {
-        return polygoat_1.polygoat(function (done) {
+    public stopNotifications(callback?: Function):Promise<void> {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Gets the current callback data
     * @param callback A function that is passed the arguments (error, callbackData)
     * @returns Optional Promise containing the callback data
     */
-    Devices.prototype.getCallback = function (callback) {
+    public getCallback(callback?: Function):Promise<CallbackData> {
         //mds.DefaultApi.v2NotificationCallbackGet
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Puts callback data
     * @param data callback data
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Devices.prototype.putCallback = function (data, callback) {
+    public putCallback(data:CallbackData, callback?: Function):Promise<void> {
         //mds.NotificationsApi.v2NotificationCallbackPut
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Devices.prototype.deleteCallback = function (callback) {
+    public deleteCallback(callback?: Function):Promise<void> {
         //mds.DefaultApi.v2NotificationCallbackDelete
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Gets pre-subscription data
     * @param callback A function that is passed (error, data)
     * @returns Optional Promise containing data
     */
-    Devices.prototype.getSubscriptionData = function (callback) {
+    public getSubscriptionData(callback?: Function):Promise<any> {
         //mds.SubscriptionsApi.v2SubscriptionsGet
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Puts pre-subscription data
     * @param data The pre-subscription data
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Devices.prototype.putSubscriptionData = function (data, callback) {
+    public putSubscriptionData(data:any, callback?: Function):Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsPut
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Removes all subscriptions
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Devices.prototype.deleteSubscriptions = function (callback) {
+    public deleteSubscriptions(callback?: Function):Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsDelete
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
-    return Devices;
-}(events_1.EventEmitter));
-exports.Devices = Devices;
-/**
-* Resource notification event
-* @event
-*/
-Devices.EVENT_NOTIFICATION = "notification";
-/**
-* Endpoint registration event
-* @event
-*/
-Devices.EVENT_REGISTRATION = "registration";
-/**
-* Endpoint registration update event
-* @event
-*/
-Devices.EVENT_UPDATE = "reg-update";
-/**
-* Endpoint de-registration event
-* @event
-*/
-Devices.EVENT_DEREGISTRATION = "de-registration";
-/**
-* Endpoint registration expiration event
-* @event
-*/
-Devices.EVENT_EXPIRED = "registration-expired";
+    }
+}
+
 /**
 * Endpoint object
 */
-var Endpoint = (function () {
-    function Endpoint(api, options) {
+export class Endpoint {
+
+    private api: any;
+    name: any;
+    status: any;
+    type: any;
+
+    constructor(api, options) {
         this.api = api;
         this.name = options.name;
         this.status = options.status;
         this.type = options.type;
     }
+
     /**
     * Gets a list of an endpoint's resources
     * @param callback A function that is passed the arguments (error, resources)
     * @returns Optional Promise of endpoint resources
     */
-    Endpoint.prototype.getResources = function (callback) {
+    public getResources(callback?: Function):Promise<Resource[]> {
         var name = this.name;
         var api = this.api;
-        return polygoat_1.polygoat(function (done) {
-            api.v2EndpointsEndpointNameGet(name, function (error, response) {
-                if (error)
-                    return done(error);
-                var resources = response.body.map(function (resource) {
+
+        return pg(function(done) {
+            api.v2EndpointsEndpointNameGet(name, function(error, response) {
+                if (error) return done(error);
+                var resources = response.body.map(function(resource) {
                     return new Resource(api, resource);
                 });
                 done(null, resources);
             });
         }, callback);
-    };
+    }
+
     /**
     * Adds a new resource
     * @param path The path of the resource
@@ -212,73 +266,85 @@ var Endpoint = (function () {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Endpoint.prototype.postResource = function (path, value, options, callback) {
+    public postResource(path:string, value?:string, options?: ResourceValueOptions, callback?: Function):Promise<void> {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPost
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Deletes a resource
     * @param path Path of the resource to delete
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Endpoint.prototype.deleteResource = function (path, callback) {
+    public deleteResource(path?:string, callback?: Function):Promise<void> {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathDelete
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Gets a list of an endpoint's subscriptions
     * @param callback A function that is passed (error, subscriptions)
     * @returns Optional Promise containing the subscriptions
     */
-    Endpoint.prototype.getSubscriptions = function (callback) {
+    public getSubscriptions(callback?: Function):Promise<any> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameGet
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Removes an endpoint's subscriptions
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Endpoint.prototype.deleteSubscriptions = function (callback) {
+    public deleteSubscriptions(callback?: Function):Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameDelete
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
-    return Endpoint;
-}());
-exports.Endpoint = Endpoint;
+    }
+}
+
 /**
 * Resource object
 */
-var Resource = (function () {
-    function Resource(api, options) {
+export class Resource {
+
+    private api: any;
+    obs: any;
+    rt: any;
+    type: any;
+    uri: any;
+
+    constructor(api, options) {
         this.api = api;
         this.obs = options.obs;
         this.rt = options.rt;
         this.type = options.type;
         this.uri = options.uri;
     }
+
     /**
     * Gets the value of a resource
     * @param options Options object
     * @param callback A function that is passed the arguments (error, value) where value is the value of the resource formatted as a string
     * @returns Optional Promise of resource value
     */
-    Resource.prototype.getValue = function (options, callback) {
+    public getValue(options?: ResourceValueOptions, callback?: Function):Promise<string> {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathGet
         var uri = this.uri;
-        return polygoat_1.polygoat(function (done) {
+
+        return pg(function(done) {
             done(null, "value - " + uri);
         }, callback);
-    };
+    }
+
     /**
     * Puts the value of a resource
     * @param value The value of the resource
@@ -286,45 +352,46 @@ var Resource = (function () {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Resource.prototype.putValue = function (value, options, callback) {
+    public putValue(value:string, options?: ResourceValueOptions, callback?: Function):Promise<void> {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPut
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Gets the status of a resource's subscription
     * @param callback A function that is passed (error, subscribed) where subscribed is true or false
     * @returns Optional Promise containing resource subscription status
     */
-    Resource.prototype.getSubscription = function (callback) {
+    public getSubscription(callback?: Function):Promise<boolean> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathGet
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Puts a subscription to a resource
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Resource.prototype.putSubscription = function (callback) {
+    public putSubscription(callback?: Function):Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathPut
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
+    }
+
     /**
     * Deletes a resource's subscription
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    Resource.prototype.deleteSubscription = function (callback) {
+    public deleteSubscription(callback?: Function):Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathDelete
-        return polygoat_1.polygoat(function (done) {
+        return pg(function(done) {
             done(null, null);
         }, callback);
-    };
-    return Resource;
-}());
-exports.Resource = Resource;
+    }
+}
