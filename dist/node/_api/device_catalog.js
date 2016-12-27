@@ -273,7 +273,7 @@ var DefaultApi = (function () {
         configurable: true
     });
     DefaultApi.prototype.setApiKey = function (key, value) {
-        this.authentications[key].apiKey = value;
+        this.authentications[DefaultApiApiKeys[key]].apiKey = value;
     };
     DefaultApi.prototype.extendObj = function (objA, objB) {
         for (var key in objB) {

@@ -297,7 +297,7 @@ var DefaultApi = (function () {
         configurable: true
     });
     DefaultApi.prototype.setApiKey = function (key, value) {
-        this.authentications[key].apiKey = value;
+        this.authentications[DefaultApiApiKeys[key]].apiKey = value;
     };
     DefaultApi.prototype.extendObj = function (objA, objB) {
         for (var key in objB) {
@@ -422,7 +422,7 @@ var EndpointsApi = (function () {
         configurable: true
     });
     EndpointsApi.prototype.setApiKey = function (key, value) {
-        this.authentications[key].apiKey = value;
+        this.authentications[EndpointsApiApiKeys[key]].apiKey = value;
     };
     EndpointsApi.prototype.extendObj = function (objA, objB) {
         for (var key in objB) {
@@ -557,7 +557,7 @@ var NotificationsApi = (function () {
         configurable: true
     });
     NotificationsApi.prototype.setApiKey = function (key, value) {
-        this.authentications[key].apiKey = value;
+        this.authentications[NotificationsApiApiKeys[key]].apiKey = value;
     };
     NotificationsApi.prototype.extendObj = function (objA, objB) {
         for (var key in objB) {
@@ -688,7 +688,7 @@ var ResourcesApi = (function () {
         configurable: true
     });
     ResourcesApi.prototype.setApiKey = function (key, value) {
-        this.authentications[key].apiKey = value;
+        this.authentications[ResourcesApiApiKeys[key]].apiKey = value;
     };
     ResourcesApi.prototype.extendObj = function (objA, objB) {
         for (var key in objB) {
@@ -969,7 +969,7 @@ var SubscriptionsApi = (function () {
         configurable: true
     });
     SubscriptionsApi.prototype.setApiKey = function (key, value) {
-        this.authentications[key].apiKey = value;
+        this.authentications[SubscriptionsApiApiKeys[key]].apiKey = value;
     };
     SubscriptionsApi.prototype.extendObj = function (objA, objB) {
         for (var key in objB) {

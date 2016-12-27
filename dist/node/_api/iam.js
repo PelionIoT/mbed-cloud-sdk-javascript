@@ -697,7 +697,7 @@ var AccountAdminApi = (function () {
         configurable: true
     });
     AccountAdminApi.prototype.setApiKey = function (key, value) {
-        this.authentications[key].apiKey = value;
+        this.authentications[AccountAdminApiApiKeys[key]].apiKey = value;
     };
     AccountAdminApi.prototype.extendObj = function (objA, objB) {
         for (var key in objB) {
@@ -1296,7 +1296,7 @@ var DefaultApi = (function () {
         configurable: true
     });
     DefaultApi.prototype.setApiKey = function (key, value) {
-        this.authentications[key].apiKey = value;
+        this.authentications[DefaultApiApiKeys[key]].apiKey = value;
     };
     DefaultApi.prototype.extendObj = function (objA, objB) {
         for (var key in objB) {
@@ -1727,7 +1727,7 @@ var DeveloperApi = (function () {
         configurable: true
     });
     DeveloperApi.prototype.setApiKey = function (key, value) {
-        this.authentications[key].apiKey = value;
+        this.authentications[DeveloperApiApiKeys[key]].apiKey = value;
     };
     DeveloperApi.prototype.extendObj = function (objA, objB) {
         for (var key in objB) {
@@ -2298,7 +2298,7 @@ var RootAdminApi = (function () {
         configurable: true
     });
     RootAdminApi.prototype.setApiKey = function (key, value) {
-        this.authentications[key].apiKey = value;
+        this.authentications[RootAdminApiApiKeys[key]].apiKey = value;
     };
     RootAdminApi.prototype.extendObj = function (objA, objB) {
         for (var key in objB) {
