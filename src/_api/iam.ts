@@ -202,7 +202,7 @@ export class AccountEnrollmentResp {
     /**
     * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
     */
-    'status': StatusEnum;
+    'status': AccountEnrollmentResp.StatusEnum;
     /**
     * A username containing alphanumerical letters and -,._@+= characters.
     */
@@ -234,7 +234,7 @@ export class AccountEnrollmentResp {
     /**
     * Entity name: always 'user'
     */
-    'object': ObjectEnum;
+    'object': AccountEnrollmentResp.ObjectEnum;
     /**
     * A flag indicating that the General Terms and Conditions has been accepted.
     */
@@ -356,7 +356,7 @@ export class AccountInfo {
     /**
     * The status of the account.
     */
-    'status': StatusEnum;
+    'status': AccountInfo.StatusEnum;
     /**
     * The name of the company.
     */
@@ -364,7 +364,7 @@ export class AccountInfo {
     /**
     * Entity name: always 'account'
     */
-    'object': ObjectEnum;
+    'object': AccountInfo.ObjectEnum;
     /**
     * Time when upgraded to commercial account in UTC format RFC3339.
     */
@@ -532,7 +532,7 @@ export class AccountTemplateResp {
     /**
     * entity name: 'user', 'apikey', 'group', 'account' or error
     */
-    'object': ObjectEnum;
+    'object': AccountTemplateResp.ObjectEnum;
     /**
     * API resource entity version.
     */
@@ -580,7 +580,7 @@ export class AccountTemplateRespList {
     /**
     * Entity name: always 'list'
     */
-    'object': ObjectEnum;
+    'object': AccountTemplateRespList.ObjectEnum;
     /**
     * The number of results to return, (range: 2-1000), or equals to `total_count`
     */
@@ -592,7 +592,7 @@ export class AccountTemplateRespList {
     /**
     * The order of the records to return. Available values: ASC, DESC; by default ASC.
     */
-    'order': OrderEnum;
+    'order': AccountTemplateRespList.OrderEnum;
 }
 
 export namespace AccountTemplateRespList {
@@ -706,7 +706,7 @@ export class ApiKeyInfoResp {
     /**
     * The status of the API key.
     */
-    'status': StatusEnum;
+    'status': ApiKeyInfoResp.StatusEnum;
     /**
     * The API key.
     */
@@ -722,7 +722,7 @@ export class ApiKeyInfoResp {
     /**
     * Entity name: always 'apikey'
     */
-    'object': ObjectEnum;
+    'object': ApiKeyInfoResp.ObjectEnum;
     /**
     * The timestamp of the API key creation in the storage, in milliseconds.
     */
@@ -786,7 +786,7 @@ export class ApiKeyInfoRespList {
     /**
     * Entity name: always 'list'
     */
-    'object': ObjectEnum;
+    'object': ApiKeyInfoRespList.ObjectEnum;
     /**
     * The number of results to return, (range: 2-1000), or equals to `total_count`
     */
@@ -798,7 +798,7 @@ export class ApiKeyInfoRespList {
     /**
     * The order of the records to return. Available values: ASC, DESC; by default ASC.
     */
-    'order': OrderEnum;
+    'order': ApiKeyInfoRespList.OrderEnum;
 }
 
 export namespace ApiKeyInfoRespList {
@@ -846,7 +846,7 @@ export class CACertificateReq {
     /**
     * Service name where the certificate must be used.
     */
-    'service': ServiceEnum;
+    'service': CACertificateReq.ServiceEnum;
     /**
     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
     */
@@ -871,7 +871,7 @@ export class CACertificateResp {
     /**
     * Service name where the certificate is to be used.
     */
-    'service': ServiceEnum;
+    'service': CACertificateResp.ServiceEnum;
     /**
     * Creation UTC time RFC3339.
     */
@@ -879,7 +879,7 @@ export class CACertificateResp {
     /**
     * entity name: 'user', 'apikey', 'group', 'account' or error
     */
-    'object': ObjectEnum;
+    'object': CACertificateResp.ObjectEnum;
     /**
     * Subject of the certificate.
     */
@@ -944,7 +944,7 @@ export class CACertificateRespList {
     /**
     * Entity name: always 'list'
     */
-    'object': ObjectEnum;
+    'object': CACertificateRespList.ObjectEnum;
     /**
     * The number of results to return, (range: 2-1000), or equals to `total_count`
     */
@@ -956,7 +956,7 @@ export class CACertificateRespList {
     /**
     * The order of the records to return. Available values: ASC, DESC; by default ASC.
     */
-    'order': OrderEnum;
+    'order': CACertificateRespList.OrderEnum;
 }
 
 export namespace CACertificateRespList {
@@ -990,7 +990,7 @@ export class ErrorResponse {
     /**
     * Entity name, always 'error'.
     */
-    'object': ObjectEnum;
+    'object': ErrorResponse.ObjectEnum;
     /**
     * Request ID.
     */
@@ -1002,7 +1002,7 @@ export class ErrorResponse {
     /**
     * Error type.
     */
-    'type': TypeEnum;
+    'type': ErrorResponse.TypeEnum;
 }
 
 export namespace ErrorResponse {
@@ -1064,7 +1064,7 @@ export class GroupSummary {
     /**
     * Entity name: always 'group'
     */
-    'object': ObjectEnum;
+    'object': GroupSummary.ObjectEnum;
     /**
     * A timestamp of the group creation in the storage, in milliseconds.
     */
@@ -1112,7 +1112,7 @@ export class GroupSummaryList {
     /**
     * Entity name: always 'list'
     */
-    'object': ObjectEnum;
+    'object': GroupSummaryList.ObjectEnum;
     /**
     * The number of results to return, (range: 2-1000), or equals to `total_count`
     */
@@ -1124,7 +1124,7 @@ export class GroupSummaryList {
     /**
     * The order of the records to return. Available values: ASC, DESC; by default ASC.
     */
-    'order': OrderEnum;
+    'order': GroupSummaryList.OrderEnum;
 }
 
 export namespace GroupSummaryList {
@@ -1234,7 +1234,7 @@ export class UserInfoResp {
     /**
     * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
     */
-    'status': StatusEnum;
+    'status': UserInfoResp.StatusEnum;
     /**
     * A username containing alphanumerical letters and -,._@+= characters.
     */
@@ -1262,7 +1262,7 @@ export class UserInfoResp {
     /**
     * Entity name: always 'user'
     */
-    'object': ObjectEnum;
+    'object': UserInfoResp.ObjectEnum;
     /**
     * A flag indicating that the General Terms and Conditions has been accepted.
     */
@@ -1344,7 +1344,7 @@ export class UserInfoRespList {
     /**
     * Entity name: always 'list'
     */
-    'object': ObjectEnum;
+    'object': UserInfoRespList.ObjectEnum;
     /**
     * The number of results to return, (range: 2-1000), or equals to `total_count`
     */
@@ -1356,7 +1356,7 @@ export class UserInfoRespList {
     /**
     * The order of the records to return. Available values: ASC, DESC; by default ASC.
     */
-    'order': OrderEnum;
+    'order': UserInfoRespList.OrderEnum;
 }
 
 export namespace UserInfoRespList {

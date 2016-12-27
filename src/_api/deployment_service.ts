@@ -213,7 +213,7 @@ export class CampaignDeviceMetadataSerializer {
     /**
     * The state of the deployment
     */
-    'deploymentState': DeploymentStateEnum;
+    'deploymentState': CampaignDeviceMetadataSerializer.DeploymentStateEnum;
     /**
     * The ID of the metadata concerning this device/campaign
     */
@@ -241,7 +241,7 @@ export class UpdateCampaignSerializer {
     /**
     * The state of the campaign
     */
-    'state': StateEnum;
+    'state': UpdateCampaignSerializer.StateEnum;
     /**
     * The updating IAM user ID
     */
@@ -322,7 +322,7 @@ export class UpdateCampaignStatusSerializer {
     /**
     * The state of the campaign
     */
-    'state': StateEnum;
+    'state': UpdateCampaignStatusSerializer.StateEnum;
     /**
     * The updating IAM user ID
     */
@@ -411,7 +411,7 @@ export class WriteCampaignDeviceMetadataSerializer {
     /**
     * The state of the deployment
     */
-    'deploymentState': DeploymentStateEnum;
+    'deploymentState': WriteCampaignDeviceMetadataSerializer.DeploymentStateEnum;
     /**
     * The ID of the device to deploy
     */
@@ -435,7 +435,7 @@ export class WriteUpdateCampaignSerializer {
     /**
     * The state of the campaign
     */
-    'state': StateEnum;
+    'state': WriteUpdateCampaignSerializer.StateEnum;
     /**
     * The updating IAM user ID
     */

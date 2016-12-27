@@ -202,11 +202,11 @@ export class DeviceDetail {
     /**
     * The ID of the channel used to communicate with the device
     */
-    'mechanism': MechanismEnum;
+    'mechanism': DeviceDetail.MechanismEnum;
     /**
     * The current state of the device
     */
-    'state': StateEnum;
+    'state': DeviceDetail.StateEnum;
     /**
     * The entity instance signature
     */
@@ -230,7 +230,7 @@ export class DeviceDetail {
     /**
     * The state of the device's deployment
     */
-    'deployedState': DeployedStateEnum;
+    'deployedState': DeviceDetail.DeployedStateEnum;
     /**
     * The API resource entity
     */
@@ -348,7 +348,7 @@ export class DeviceLogSerializerData {
     'changes': string;
     'eventTypeDescription': string;
     'deviceLogId': string;
-    'eventType': EventTypeEnum;
+    'eventType': DeviceLogSerializerData.EventTypeEnum;
     'data': string;
     'deviceId': string;
 }
