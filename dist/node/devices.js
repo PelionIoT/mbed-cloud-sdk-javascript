@@ -36,7 +36,7 @@ var Devices = (function (_super) {
         _this.api = new mds_1.EndpointsApi();
         //        if (options.host) this.client.basePath = options.host;
         if (options.accessKey)
-            _this.api.setApiKey("Bearer", "Bearer " + options.accessKey);
+            _this.api.setApiKey(mds_1.EndpointsApiApiKeys.Bearer, "Bearer " + options.accessKey);
         return _this;
     }
     /**

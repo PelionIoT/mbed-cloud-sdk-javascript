@@ -37,8 +37,9 @@ export = {
 };
 
 // create typings for polygoat and remove local ts class
-// read generated docs https://github.com/ARMmbed/mbed-cloud-sdk-javascript/tree/master/dist/_backends/mds/docs
+// read generated docs https://github.com/ARMmbed/mbed-cloud-sdk-javascript/tree/7ec7b3142c8c19d22125dd8440d9cea2071320f6/dist/_backends/mds/docs
 // change exports so we don't have device.device
 // longpolling
+// unit testing + mock server?
 // iam
 // querying/sorting/paging

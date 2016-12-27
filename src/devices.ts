@@ -17,7 +17,7 @@
 
 import { EventEmitter } from "events";
 import { polygoat as pg }  from "./helpers/polygoat";
-import { EndpointsApi } from "./_api/mds";
+import { EndpointsApi, EndpointsApiApiKeys } from "./_api/mds";
 
 export interface DevicesOptions {
     /**
@@ -61,7 +61,7 @@ export interface CallbackData {
 */
 export class Devices extends EventEmitter {
 
-    private api: any;
+    private api: EndpointsApi;
 
     /**
     * Resource notification event
@@ -100,7 +100,7 @@ export class Devices extends EventEmitter {
         super();
         this.api = new EndpointsApi();
 //        if (options.host) this.client.basePath = options.host;
-        if (options.accessKey) this.api.setApiKey("Bearer", "Bearer " + options.accessKey);
+        if (options.accessKey) this.api.setApiKey(EndpointsApiApiKeys.Bearer, "Bearer " + options.accessKey);
     }
 
     /**
@@ -226,12 +226,12 @@ export class Devices extends EventEmitter {
 */
 export class Endpoint {
 
-    private api: any;
+    private api: EndpointsApi;
     name: any;
     status: any;
     type: any;
 
-    constructor(api, options) {
+    constructor(api: EndpointsApi, options) {
         this.api = api;
         this.name = options.name;
         this.status = options.status;
@@ -316,13 +316,13 @@ export class Endpoint {
 */
 export class Resource {
 
-    private api: any;
+    private api: EndpointsApi;
     obs: any;
     rt: any;
     type: any;
     uri: any;
 
-    constructor(api, options) {
+    constructor(api: EndpointsApi, options) {
         this.api = api;
         this.obs = options.obs;
         this.rt = options.rt;

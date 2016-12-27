@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
+import { EndpointsApi } from "./_api/mds";
 export interface DevicesOptions {
     /**
     * Access Key for your mbed Device Connector account
@@ -134,7 +135,7 @@ export declare class Endpoint {
     name: any;
     status: any;
     type: any;
-    constructor(api: any, options: any);
+    constructor(api: EndpointsApi, options: any);
     /**
     * Gets a list of an endpoint's resources
     * @param callback A function that is passed the arguments (error, resources)
@@ -179,7 +180,7 @@ export declare class Resource {
     rt: any;
     type: any;
     uri: any;
-    constructor(api: any, options: any);
+    constructor(api: EndpointsApi, options: any);
     /**
     * Gets the value of a resource
     * @param options Options object
