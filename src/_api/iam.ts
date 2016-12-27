@@ -1458,7 +1458,7 @@ export class AccountAdminApi {
     }
 
     public setApiKey(key: AccountAdminApiApiKeys, value: string) {
-        this.authentications[key].apiKey = value;
+        this.authentications[AccountAdminApiApiKeys[key]].apiKey = value;
     }
     private extendObj<T1,T2>(objA: T1, objB: T2) {
         for(let key in objB){
@@ -2155,7 +2155,7 @@ export class DefaultApi {
     }
 
     public setApiKey(key: DefaultApiApiKeys, value: string) {
-        this.authentications[key].apiKey = value;
+        this.authentications[DefaultApiApiKeys[key]].apiKey = value;
     }
     private extendObj<T1,T2>(objA: T1, objB: T2) {
         for(let key in objB){
@@ -2652,7 +2652,7 @@ export class DeveloperApi {
     }
 
     public setApiKey(key: DeveloperApiApiKeys, value: string) {
-        this.authentications[key].apiKey = value;
+        this.authentications[DeveloperApiApiKeys[key]].apiKey = value;
     }
     private extendObj<T1,T2>(objA: T1, objB: T2) {
         for(let key in objB){
@@ -3316,7 +3316,7 @@ export class RootAdminApi {
     }
 
     public setApiKey(key: RootAdminApiApiKeys, value: string) {
-        this.authentications[key].apiKey = value;
+        this.authentications[RootAdminApiApiKeys[key]].apiKey = value;
     }
     private extendObj<T1,T2>(objA: T1, objB: T2) {
         for(let key in objB){

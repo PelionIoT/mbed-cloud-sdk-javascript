@@ -426,7 +426,7 @@ export class DefaultApi {
     }
 
     public setApiKey(key: DefaultApiApiKeys, value: string) {
-        this.authentications[key].apiKey = value;
+        this.authentications[DefaultApiApiKeys[key]].apiKey = value;
     }
     private extendObj<T1,T2>(objA: T1, objB: T2) {
         for(let key in objB){
@@ -563,7 +563,7 @@ export class EndpointsApi {
     }
 
     public setApiKey(key: EndpointsApiApiKeys, value: string) {
-        this.authentications[key].apiKey = value;
+        this.authentications[EndpointsApiApiKeys[key]].apiKey = value;
     }
     private extendObj<T1,T2>(objA: T1, objB: T2) {
         for(let key in objB){
@@ -712,7 +712,7 @@ export class NotificationsApi {
     }
 
     public setApiKey(key: NotificationsApiApiKeys, value: string) {
-        this.authentications[key].apiKey = value;
+        this.authentications[NotificationsApiApiKeys[key]].apiKey = value;
     }
     private extendObj<T1,T2>(objA: T1, objB: T2) {
         for(let key in objB){
@@ -856,7 +856,7 @@ export class ResourcesApi {
     }
 
     public setApiKey(key: ResourcesApiApiKeys, value: string) {
-        this.authentications[key].apiKey = value;
+        this.authentications[ResourcesApiApiKeys[key]].apiKey = value;
     }
     private extendObj<T1,T2>(objA: T1, objB: T2) {
         for(let key in objB){
@@ -1177,7 +1177,7 @@ export class SubscriptionsApi {
     }
 
     public setApiKey(key: SubscriptionsApiApiKeys, value: string) {
-        this.authentications[key].apiKey = value;
+        this.authentications[SubscriptionsApiApiKeys[key]].apiKey = value;
     }
     private extendObj<T1,T2>(objA: T1, objB: T2) {
         for(let key in objB){

@@ -447,7 +447,7 @@ export class DefaultApi {
     }
 
     public setApiKey(key: DefaultApiApiKeys, value: string) {
-        this.authentications[key].apiKey = value;
+        this.authentications[DefaultApiApiKeys[key]].apiKey = value;
     }
     private extendObj<T1,T2>(objA: T1, objB: T2) {
         for(let key in objB){
