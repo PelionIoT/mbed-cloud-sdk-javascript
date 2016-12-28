@@ -15,8 +15,8 @@
 * limitations under the License.
 */
 
+import pg = require("polygoat");
 import { EventEmitter } from "events";
-import { polygoat as pg }  from "./helpers/polygoat";
 import { EndpointsApi, EndpointsApiApiKeys } from "./_api/mds";
 
 export interface DevicesOptions {
@@ -56,6 +56,12 @@ export interface CallbackData {
     headers?: any;
 }
 
+export interface EndpointOptions {
+    name: any;
+    status: any;
+    type: any;
+}
+
 /**
 * Root Devices object
 */
@@ -67,31 +73,31 @@ export class Devices extends EventEmitter {
     * Resource notification event
     * @event
     */
-    static EVENT_NOTIFICATION:string = "notification";
+    static EVENT_NOTIFICATION: string = "notification";
 
     /**
     * Endpoint registration event
     * @event
     */
-    static EVENT_REGISTRATION:string = "registration";
+    static EVENT_REGISTRATION: string = "registration";
 
     /**
     * Endpoint registration update event
     * @event
     */
-    static EVENT_UPDATE:string = "reg-update";
+    static EVENT_UPDATE: string = "reg-update";
 
     /**
     * Endpoint de-registration event
     * @event
     */
-    static EVENT_DEREGISTRATION:string = "de-registration";
+    static EVENT_DEREGISTRATION: string = "de-registration";
 
     /**
     * Endpoint registration expiration event
     * @event
     */
-    static EVENT_EXPIRED:string = "registration-expired";
+    static EVENT_EXPIRED: string = "registration-expired";
 
     /**
     * @param options Options object
@@ -109,14 +115,12 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
-    public getEndpoints(type?:string, callback?: Function):Promise<Endpoint[]> {
-        var api = this.api;
-
-        return pg(function(done) {
-            api.v2EndpointsGet(type, function(error, response) {
+    public getEndpoints(type?: string, callback?: (err: any, data?: Endpoint[]) => void): Promise<Endpoint[]> {
+        return pg(done => {
+            this.api.v2EndpointsGet(type, (error, response) => {
                 if (error) return done(error);
-                var endpoints = response.body.map(function(endpoint) {
-                    return new Endpoint(api, endpoint);
+                var endpoints = response.body.map(endpoint => {
+                    return new Endpoint(this.api, endpoint);
                 });
                 done(null, endpoints);
             });
@@ -128,9 +132,9 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public startNotifications(callback?: Function):Promise<void> {
+    public startNotifications(callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.NotificationsApi.v2NotificationPullGet
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -140,8 +144,8 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public stopNotifications(callback?: Function):Promise<void> {
-        return pg(function(done) {
+    public stopNotifications(callback?: (err: any, data?: void) => void): Promise<void> {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -151,9 +155,9 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed the arguments (error, callbackData)
     * @returns Optional Promise containing the callback data
     */
-    public getCallback(callback?: Function):Promise<CallbackData> {
+    public getCallback(callback?: (err: any, data?: CallbackData) => void): Promise<CallbackData> {
         //mds.DefaultApi.v2NotificationCallbackGet
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -164,9 +168,9 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public putCallback(data:CallbackData, callback?: Function):Promise<void> {
+    public putCallback(data: CallbackData, callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.NotificationsApi.v2NotificationCallbackPut
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -176,9 +180,9 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public deleteCallback(callback?: Function):Promise<void> {
+    public deleteCallback(callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.DefaultApi.v2NotificationCallbackDelete
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -188,9 +192,9 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed (error, data)
     * @returns Optional Promise containing data
     */
-    public getSubscriptionData(callback?: Function):Promise<any> {
+    public getSubscriptionData(callback?: (err: any, data?: any) => void): Promise<any> {
         //mds.SubscriptionsApi.v2SubscriptionsGet
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -201,9 +205,9 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public putSubscriptionData(data:any, callback?: Function):Promise<void> {
+    public putSubscriptionData(data: any, callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsPut
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -213,9 +217,9 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public deleteSubscriptions(callback?: Function):Promise<void> {
+    public deleteSubscriptions(callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsDelete
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -226,13 +230,7 @@ export class Devices extends EventEmitter {
 */
 export class Endpoint {
 
-    private api: EndpointsApi;
-    name: any;
-    status: any;
-    type: any;
-
-    constructor(api: EndpointsApi, options) {
-        this.api = api;
+    constructor(private api: EndpointsApi, options: EndpointOptions) {
         this.name = options.name;
         this.status = options.status;
         this.type = options.type;
@@ -243,15 +241,12 @@ export class Endpoint {
     * @param callback A function that is passed the arguments (error, resources)
     * @returns Optional Promise of endpoint resources
     */
-    public getResources(callback?: Function):Promise<Resource[]> {
-        var name = this.name;
-        var api = this.api;
-
-        return pg(function(done) {
-            api.v2EndpointsEndpointNameGet(name, function(error, response) {
+    public getResources(callback?: (err: any, data?: Resource[]) => void): Promise<Resource[]> {
+        return pg(done => {
+            this.api.v2EndpointsEndpointNameGet(this.name, (error, response) => {
                 if (error) return done(error);
-                var resources = response.body.map(function(resource) {
-                    return new Resource(api, resource);
+                var resources = response.body.map(resource => {
+                    return new Resource(this.api, resource);
                 });
                 done(null, resources);
             });
@@ -266,9 +261,9 @@ export class Endpoint {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public postResource(path:string, value?:string, options?: ResourceValueOptions, callback?: Function):Promise<void> {
+    public postResource(path: string, value?:string, options?: ResourceValueOptions, callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPost
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -279,9 +274,9 @@ export class Endpoint {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public deleteResource(path?:string, callback?: Function):Promise<void> {
+    public deleteResource(path?: string, callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathDelete
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -291,9 +286,9 @@ export class Endpoint {
     * @param callback A function that is passed (error, subscriptions)
     * @returns Optional Promise containing the subscriptions
     */
-    public getSubscriptions(callback?: Function):Promise<any> {
+    public getSubscriptions(callback?: (err: any, data?: any) => void): Promise<any> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameGet
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -303,27 +298,26 @@ export class Endpoint {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public deleteSubscriptions(callback?: Function):Promise<void> {
+    public deleteSubscriptions(callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameDelete
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
 }
+export interface Endpoint extends EndpointOptions { }
 
 /**
 * Resource object
 */
 export class Resource {
 
-    private api: EndpointsApi;
     obs: any;
     rt: any;
     type: any;
     uri: any;
 
-    constructor(api: EndpointsApi, options) {
-        this.api = api;
+    constructor(private api: EndpointsApi, options) {
         this.obs = options.obs;
         this.rt = options.rt;
         this.type = options.type;
@@ -336,12 +330,11 @@ export class Resource {
     * @param callback A function that is passed the arguments (error, value) where value is the value of the resource formatted as a string
     * @returns Optional Promise of resource value
     */
-    public getValue(options?: ResourceValueOptions, callback?: Function):Promise<string> {
+    public getValue(options?: ResourceValueOptions, callback?: (err: any, data?: string) => void): Promise<string> {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathGet
-        var uri = this.uri;
-
-        return pg(function(done) {
-            done(null, "value - " + uri);
+        this.api = null;
+        return pg(done => {
+            done(null, "value - " + this.uri);
         }, callback);
     }
 
@@ -352,9 +345,9 @@ export class Resource {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public putValue(value:string, options?: ResourceValueOptions, callback?: Function):Promise<void> {
+    public putValue(value: string, options?: ResourceValueOptions, callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPut
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -364,9 +357,9 @@ export class Resource {
     * @param callback A function that is passed (error, subscribed) where subscribed is true or false
     * @returns Optional Promise containing resource subscription status
     */
-    public getSubscription(callback?: Function):Promise<boolean> {
+    public getSubscription(callback?: (err: any, data?: boolean) => void): Promise<boolean> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathGet
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -376,9 +369,9 @@ export class Resource {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public putSubscription(callback?: Function):Promise<void> {
+    public putSubscription(callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathPut
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }
@@ -388,9 +381,9 @@ export class Resource {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public deleteSubscription(callback?: Function):Promise<void> {
+    public deleteSubscription(callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathDelete
-        return pg(function(done) {
+        return pg(done => {
             done(null, null);
         }, callback);
     }

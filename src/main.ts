@@ -16,30 +16,31 @@
 */
 
 //import config = require('./helpers/node_config');
-//import Access = require('./access');
+import { Access } from "./access";
 //import Development = require('./development');
-import Devices = require("./devices");
+import { Devices } from "./devices";
 //import Logging = require('./logging');
 //import Manufacturing = require('./manufacturing');
 //import Update = require('./update');
 
 export = {
 //	config: config,
-//    Access: Access,
+    Access: Access,
 //    Assets: Assets,
 //    Billing: Billing,
 //    Development: Development,
-    Devices: Devices.Devices
+    Devices: Devices
 //    Logging: Logging,
 //    Manufacturing: Manufacturing,
 //    Statistics: Statistics,
 //    Update: Update
 };
 
-// create typings for polygoat and remove local ts class
+// examples in ts?
+// config env/minimist
 // read generated docs https://github.com/ARMmbed/mbed-cloud-sdk-javascript/tree/7ec7b3142c8c19d22125dd8440d9cea2071320f6/dist/_backends/mds/docs
-// change exports so we don't have device.device
 // longpolling
-// unit testing + mock server?
+// wire up rest of devices
 // iam
+// unit testing + mock server?
 // querying/sorting/paging

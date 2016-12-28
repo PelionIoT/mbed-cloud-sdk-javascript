@@ -9,6 +9,8 @@ var typedoc     = require("gulp-typedoc");
 var ts          = require("gulp-typescript");
 var uglify      = require("gulp-uglify");
 
+var name = "mbed Cloud SDK";
+var bundleName = name.replace(/\s/g, "");
 var srcDir = "src";
 var docsDir = "docs";
 var distDir = "dist";
@@ -19,7 +21,7 @@ var bundleDir = distDir + "/bundles";
 gulp.task("doc", function() {
     return gulp.src([srcDir + "/*.ts", "!" + srcDir + "/main.ts"])
         .pipe(typedoc({
-            name: "mbed Cloud JavaScript SDK",
+            name: name,
             readme: "./README.md",
             module: "commonjs",
             target: "es6",
@@ -65,9 +67,9 @@ gulp.task("browserify", ["typescript"], function () {
         console.log("Creating", bundleDir + "/" + name);
 
         file.contents = browserify(file.path, {
-            debug: true,
-            standalone: name
-        }).ignore("buffer")
+            standalone: bundleName
+        })
+        .ignore("buffer")
         .bundle();
     }))
     .pipe(buffer())

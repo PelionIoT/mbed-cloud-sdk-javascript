@@ -2,7 +2,7 @@
 <head>
     <title>Devices</title>
     <script src="config.js"></script>
-    <script src="../dist/bundles/devices.js"></script>
+    <script src="../dist/bundles/main.js"></script>
 </head>
 <body>
     <div id="results"></div>
@@ -16,6 +16,7 @@
         }
 
         var devices = new window.mbedCloudSDK.Devices(window.config);
+        var access = new window.mbedCloudSDK.Access(window.config);
 
         devices.getEndpoints(null, function(err, endpoints) {
             endpoints.forEach(function(endpoint) {
@@ -57,6 +58,19 @@
 
             return Promise.all(promises);
         }
+
+        access.getUsers(null, null, null, null, null, function(err, users) {
+            users.forEach(user => {
+                log(user.full_name);
+            });
+        });
+
+        access.getUsers()
+        .then(users => {
+            users.forEach(user => {
+                log(user.full_name);
+            });
+        });
     </script>
 </body>
 </html>

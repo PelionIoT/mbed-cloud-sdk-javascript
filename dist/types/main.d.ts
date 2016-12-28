@@ -1,5 +1,7 @@
-import Devices = require("./devices");
+import { Access } from "./access";
+import { Devices } from "./devices";
 declare var _default: {
-    Devices: typeof Devices.Devices;
+    Access: typeof Access;
+    Devices: typeof Devices;
 };
 export = _default;

@@ -1,4 +1,5 @@
 var Devices = require('../dist/node/main').Devices;
+var Access = require('../dist/node/main').Access;
 var config = require('./config');
 
 function log(message) {
@@ -6,6 +7,7 @@ function log(message) {
 }
 
 var devices = new Devices(config);
+var access = new Access(config);
 
 devices.getEndpoints(null, function(err, endpoints) {
     endpoints.forEach(function(endpoint) {
@@ -47,3 +49,16 @@ function iterateResources(resources) {
 
     return Promise.all(promises);
 }
+
+access.getUsers(null, null, null, null, null, function(err, users) {
+    users.forEach(user => {
+        log(user.full_name);
+    });
+});
+
+access.getUsers()
+.then(users => {
+    users.forEach(user => {
+        log(user.full_name);
+    });
+});

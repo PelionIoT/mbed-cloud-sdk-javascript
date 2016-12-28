@@ -20,8 +20,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+var pg = require("polygoat");
 var events_1 = require("events");
-var polygoat_1 = require("./helpers/polygoat");
 var mds_1 = require("./_api/mds");
 /**
 * Root Devices object
@@ -46,13 +46,13 @@ var Devices = (function (_super) {
     * @returns Optional Promise of currently registered endpoints
     */
     Devices.prototype.getEndpoints = function (type, callback) {
-        var api = this.api;
-        return polygoat_1.polygoat(function (done) {
-            api.v2EndpointsGet(type, function (error, response) {
+        var _this = this;
+        return pg(function (done) {
+            _this.api.v2EndpointsGet(type, function (error, response) {
                 if (error)
                     return done(error);
                 var endpoints = response.body.map(function (endpoint) {
-                    return new Endpoint(api, endpoint);
+                    return new Endpoint(_this.api, endpoint);
                 });
                 done(null, endpoints);
             });
@@ -65,7 +65,7 @@ var Devices = (function (_super) {
     */
     Devices.prototype.startNotifications = function (callback) {
         //mds.NotificationsApi.v2NotificationPullGet
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -75,7 +75,7 @@ var Devices = (function (_super) {
     * @returns Optional Promise containing any error
     */
     Devices.prototype.stopNotifications = function (callback) {
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -86,7 +86,7 @@ var Devices = (function (_super) {
     */
     Devices.prototype.getCallback = function (callback) {
         //mds.DefaultApi.v2NotificationCallbackGet
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -98,7 +98,7 @@ var Devices = (function (_super) {
     */
     Devices.prototype.putCallback = function (data, callback) {
         //mds.NotificationsApi.v2NotificationCallbackPut
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -109,7 +109,7 @@ var Devices = (function (_super) {
     */
     Devices.prototype.deleteCallback = function (callback) {
         //mds.DefaultApi.v2NotificationCallbackDelete
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -120,7 +120,7 @@ var Devices = (function (_super) {
     */
     Devices.prototype.getSubscriptionData = function (callback) {
         //mds.SubscriptionsApi.v2SubscriptionsGet
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -132,7 +132,7 @@ var Devices = (function (_super) {
     */
     Devices.prototype.putSubscriptionData = function (data, callback) {
         //mds.SubscriptionsApi.v2SubscriptionsPut
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -143,7 +143,7 @@ var Devices = (function (_super) {
     */
     Devices.prototype.deleteSubscriptions = function (callback) {
         //mds.SubscriptionsApi.v2SubscriptionsDelete
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -191,14 +191,13 @@ var Endpoint = (function () {
     * @returns Optional Promise of endpoint resources
     */
     Endpoint.prototype.getResources = function (callback) {
-        var name = this.name;
-        var api = this.api;
-        return polygoat_1.polygoat(function (done) {
-            api.v2EndpointsEndpointNameGet(name, function (error, response) {
+        var _this = this;
+        return pg(function (done) {
+            _this.api.v2EndpointsEndpointNameGet(_this.name, function (error, response) {
                 if (error)
                     return done(error);
                 var resources = response.body.map(function (resource) {
-                    return new Resource(api, resource);
+                    return new Resource(_this.api, resource);
                 });
                 done(null, resources);
             });
@@ -214,7 +213,7 @@ var Endpoint = (function () {
     */
     Endpoint.prototype.postResource = function (path, value, options, callback) {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPost
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -226,7 +225,7 @@ var Endpoint = (function () {
     */
     Endpoint.prototype.deleteResource = function (path, callback) {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathDelete
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -237,7 +236,7 @@ var Endpoint = (function () {
     */
     Endpoint.prototype.getSubscriptions = function (callback) {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameGet
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -248,7 +247,7 @@ var Endpoint = (function () {
     */
     Endpoint.prototype.deleteSubscriptions = function (callback) {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameDelete
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -273,10 +272,11 @@ var Resource = (function () {
     * @returns Optional Promise of resource value
     */
     Resource.prototype.getValue = function (options, callback) {
+        var _this = this;
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathGet
-        var uri = this.uri;
-        return polygoat_1.polygoat(function (done) {
-            done(null, "value - " + uri);
+        this.api = null;
+        return pg(function (done) {
+            done(null, "value - " + _this.uri);
         }, callback);
     };
     /**
@@ -288,7 +288,7 @@ var Resource = (function () {
     */
     Resource.prototype.putValue = function (value, options, callback) {
         //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPut
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -299,7 +299,7 @@ var Resource = (function () {
     */
     Resource.prototype.getSubscription = function (callback) {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathGet
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -310,7 +310,7 @@ var Resource = (function () {
     */
     Resource.prototype.putSubscription = function (callback) {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathPut
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };
@@ -321,7 +321,7 @@ var Resource = (function () {
     */
     Resource.prototype.deleteSubscription = function (callback) {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathDelete
-        return polygoat_1.polygoat(function (done) {
+        return pg(function (done) {
             done(null, null);
         }, callback);
     };

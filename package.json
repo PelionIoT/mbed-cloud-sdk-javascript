@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "minimist": "^1.2.0",
-    "polygoat": "^1.1.4",
+    "polygoat": "thegecko/polygoat",
     "superagent": "^3.0.0"
   }
 }

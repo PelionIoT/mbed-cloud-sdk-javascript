@@ -35,6 +35,11 @@ export interface CallbackData {
     */
     headers?: any;
 }
+export interface EndpointOptions {
+    name: any;
+    status: any;
+    type: any;
+}
 /**
 * Root Devices object
 */
@@ -75,73 +80,70 @@ export declare class Devices extends EventEmitter {
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
-    getEndpoints(type?: string, callback?: Function): Promise<Endpoint[]>;
+    getEndpoints(type?: string, callback?: (err: any, data?: Endpoint[]) => void): Promise<Endpoint[]>;
     /**
     * Begins long polling constantly for notifications
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    startNotifications(callback?: Function): Promise<void>;
+    startNotifications(callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Stops long polling for notifications
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    stopNotifications(callback?: Function): Promise<void>;
+    stopNotifications(callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Gets the current callback data
     * @param callback A function that is passed the arguments (error, callbackData)
     * @returns Optional Promise containing the callback data
     */
-    getCallback(callback?: Function): Promise<CallbackData>;
+    getCallback(callback?: (err: any, data?: CallbackData) => void): Promise<CallbackData>;
     /**
     * Puts callback data
     * @param data callback data
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    putCallback(data: CallbackData, callback?: Function): Promise<void>;
+    putCallback(data: CallbackData, callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    deleteCallback(callback?: Function): Promise<void>;
+    deleteCallback(callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Gets pre-subscription data
     * @param callback A function that is passed (error, data)
     * @returns Optional Promise containing data
     */
-    getSubscriptionData(callback?: Function): Promise<any>;
+    getSubscriptionData(callback?: (err: any, data?: any) => void): Promise<any>;
     /**
     * Puts pre-subscription data
     * @param data The pre-subscription data
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    putSubscriptionData(data: any, callback?: Function): Promise<void>;
+    putSubscriptionData(data: any, callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Removes all subscriptions
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    deleteSubscriptions(callback?: Function): Promise<void>;
+    deleteSubscriptions(callback?: (err: any, data?: void) => void): Promise<void>;
 }
 /**
 * Endpoint object
 */
 export declare class Endpoint {
     private api;
-    name: any;
-    status: any;
-    type: any;
-    constructor(api: EndpointsApi, options: any);
+    constructor(api: EndpointsApi, options: EndpointOptions);
     /**
     * Gets a list of an endpoint's resources
     * @param callback A function that is passed the arguments (error, resources)
     * @returns Optional Promise of endpoint resources
     */
-    getResources(callback?: Function): Promise<Resource[]>;
+    getResources(callback?: (err: any, data?: Resource[]) => void): Promise<Resource[]>;
     /**
     * Adds a new resource
     * @param path The path of the resource
@@ -150,26 +152,28 @@ export declare class Endpoint {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    postResource(path: string, value?: string, options?: ResourceValueOptions, callback?: Function): Promise<void>;
+    postResource(path: string, value?: string, options?: ResourceValueOptions, callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Deletes a resource
     * @param path Path of the resource to delete
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    deleteResource(path?: string, callback?: Function): Promise<void>;
+    deleteResource(path?: string, callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Gets a list of an endpoint's subscriptions
     * @param callback A function that is passed (error, subscriptions)
     * @returns Optional Promise containing the subscriptions
     */
-    getSubscriptions(callback?: Function): Promise<any>;
+    getSubscriptions(callback?: (err: any, data?: any) => void): Promise<any>;
     /**
     * Removes an endpoint's subscriptions
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    deleteSubscriptions(callback?: Function): Promise<void>;
+    deleteSubscriptions(callback?: (err: any, data?: void) => void): Promise<void>;
+}
+export interface Endpoint extends EndpointOptions {
 }
 /**
 * Resource object
@@ -187,7 +191,7 @@ export declare class Resource {
     * @param callback A function that is passed the arguments (error, value) where value is the value of the resource formatted as a string
     * @returns Optional Promise of resource value
     */
-    getValue(options?: ResourceValueOptions, callback?: Function): Promise<string>;
+    getValue(options?: ResourceValueOptions, callback?: (err: any, data?: string) => void): Promise<string>;
     /**
     * Puts the value of a resource
     * @param value The value of the resource
@@ -195,23 +199,23 @@ export declare class Resource {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    putValue(value: string, options?: ResourceValueOptions, callback?: Function): Promise<void>;
+    putValue(value: string, options?: ResourceValueOptions, callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Gets the status of a resource's subscription
     * @param callback A function that is passed (error, subscribed) where subscribed is true or false
     * @returns Optional Promise containing resource subscription status
     */
-    getSubscription(callback?: Function): Promise<boolean>;
+    getSubscription(callback?: (err: any, data?: boolean) => void): Promise<boolean>;
     /**
     * Puts a subscription to a resource
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    putSubscription(callback?: Function): Promise<void>;
+    putSubscription(callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Deletes a resource's subscription
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    deleteSubscription(callback?: Function): Promise<void>;
+    deleteSubscription(callback?: (err: any, data?: void) => void): Promise<void>;
 }

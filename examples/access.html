@@ -1,0 +1,34 @@
+<html>
+<head>
+    <title>Devices</title>
+    <script src="config.js"></script>
+    <script src="../dist/bundles/access.js"></script>
+</head>
+<body>
+    <div id="results"></div>
+
+    <script>
+        var resultsEl = document.getElementById("results");
+
+        function log(message) {
+            console.log(message);
+            resultsEl.innerText += message + "\n";
+        }
+
+        var access = new window.mbedCloudSDK.Access(window.config);
+
+        access.getUsers(null, null, null, null, null, function(err, users) {
+            users.forEach(user => {
+                log(user.full_name);
+            });
+        });
+
+        access.getUsers()
+        .then(users => {
+            users.forEach(user => {
+                log(user.full_name);
+            });
+        });
+    </script>
+</body>
+</html>
