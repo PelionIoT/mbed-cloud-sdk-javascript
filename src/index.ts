@@ -16,9 +16,9 @@
 */
 
 //import config = require('./helpers/node_config');
-import { Access } from "./access";
+import { Access } from "./access/";
 //import Development = require('./development');
-import { Devices } from "./devices";
+import { Devices } from "./devices/";
 //import Logging = require('./logging');
 //import Manufacturing = require('./manufacturing');
 //import Update = require('./update');

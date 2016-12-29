@@ -1,4 +1,4 @@
-var Devices = require('../dist/node/main').Devices;
+var Devices = require('../dist/node/').Devices;
 var config = require('./config');
 
 function log(message) {

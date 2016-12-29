@@ -16,8 +16,52 @@
 */
 
 import pg = require("polygoat");
-import { AccountAdminApi, AccountAdminApiApiKeys } from "./_api/iam";
+import { AccountAdminApi, AccountAdminApiApiKeys } from "../_api/iam";
 
+/**
+* Root Account object
+*/
+export class Access {
+
+    private api: AccountAdminApi;
+
+    /**
+    * @param options Options object
+    */
+    constructor(options: Access.AccessOptions) {
+        this.api = new AccountAdminApi();
+//        if (options.host) this.client.basePath = options.host;
+        if (options.accessKey) this.api.setApiKey(AccountAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
+    }
+
+    /**
+    * Gets a list of currently registered endpoints
+    * @param type Filters endpoints by endpoint-type
+    * @param callback A function that is passed the arguments (error, endpoints)
+    * @returns Optional Promise of currently registered endpoints
+    */
+    public getUsers(limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (err: any, data?: Access.User[]) => void): Promise<Access.User[]> {
+        return pg(done => {
+            this.api.getAllUsers(limit, after, order, include, filter, (error, response) => {
+                if (error) return done(error);
+                /*
+                { object: 'list',
+                 limit: 50,
+                 order: 'ASC',
+                 total_count: 23,
+                 has_more: false,
+                 data:
+                 */
+                var users = response.body.data.map(user => {
+                    return new Access.User(this.api, user);
+                });
+                done(null, users);
+            });
+        }, callback);
+    }
+}
+
+export namespace Access {
 export interface AccessOptions {
     /**
     * Access Key for your mbed Device Connector account
@@ -37,49 +81,6 @@ export interface UserOptions {
     id: string;
 }
 
-/**
-* Root Account object
-*/
-export class Access {
-
-    private api: AccountAdminApi;
-
-    /**
-    * @param options Options object
-    */
-    constructor(options: AccessOptions) {
-        this.api = new AccountAdminApi();
-//        if (options.host) this.client.basePath = options.host;
-        if (options.accessKey) this.api.setApiKey(AccountAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
-    }
-
-    /**
-    * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
-    */
-    public getUsers(limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (err: any, data?: User[]) => void): Promise<User[]> {
-        return pg(done => {
-            this.api.getAllUsers(limit, after, order, include, filter, (error, response) => {
-                if (error) return done(error);
-                /*
-                { object: 'list',
-                 limit: 50,
-                 order: 'ASC',
-                 total_count: 23,
-                 has_more: false,
-                 data:
-                 */
-                var users = response.body.data.map(user => {
-                    return new User(this.api, user);
-                });
-                done(null, users);
-            });
-        }, callback);
-    }
-}
-
 export class User {
     constructor(private api: AccountAdminApi, options: UserOptions) {
         for(var key in options) {
@@ -89,3 +90,5 @@ export class User {
     }
 }
 export interface User extends UserOptions {}
+}
+

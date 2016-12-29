@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
-import { EndpointsApi } from "./_api/mds";
+import { EndpointsApi } from "../_api/mds";
 export interface DevicesOptions {
     /**
     * Access Key for your mbed Device Connector account

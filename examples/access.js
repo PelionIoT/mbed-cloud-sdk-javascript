@@ -1,4 +1,4 @@
-var Access = require('../dist/node/main').Access;
+var Access = require('../dist/node/').Access;
 var config = require('./config');
 
 function log(message) {

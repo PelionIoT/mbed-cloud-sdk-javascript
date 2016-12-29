@@ -16,14 +16,14 @@
 * limitations under the License.
 */
 //import config = require('./helpers/node_config');
-var access_1 = require("./access");
+var _1 = require("./access/");
 //import Development = require('./development');
-var devices_1 = require("./devices");
+var _2 = require("./devices/");
 module.exports = {
     //	config: config,
-    Access: access_1.Access,
+    Access: _1.Access,
     //    Assets: Assets,
     //    Billing: Billing,
     //    Development: Development,
-    Devices: devices_1.Devices
+    Devices: _2.Devices
 };

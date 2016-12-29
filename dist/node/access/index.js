@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 var pg = require("polygoat");
-var iam_1 = require("./_api/iam");
+var iam_1 = require("../_api/iam");
 /**
 * Root Account object
 */
@@ -51,7 +51,7 @@ var Access = (function () {
                  data:
                  */
                 var users = response.body.data.map(function (user) {
-                    return new User(_this.api, user);
+                    return new Access.User(_this.api, user);
                 });
                 done(null, users);
             });
@@ -60,14 +60,16 @@ var Access = (function () {
     return Access;
 }());
 exports.Access = Access;
-var User = (function () {
-    function User(api, options) {
-        this.api = api;
-        for (var key in options) {
-            this[key] = options[key];
+(function (Access) {
+    var User = (function () {
+        function User(api, options) {
+            this.api = api;
+            for (var key in options) {
+                this[key] = options[key];
+            }
+            this.api = null;
         }
-        this.api = null;
-    }
-    return User;
-}());
-exports.User = User;
+        return User;
+    }());
+    Access.User = User;
+})(Access = exports.Access || (exports.Access = {}));

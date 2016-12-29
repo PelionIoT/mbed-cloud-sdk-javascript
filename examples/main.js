@@ -1,13 +1,12 @@
-var Devices = require('../dist/node/main').Devices;
-var Access = require('../dist/node/main').Access;
+var mbedSDK = require('../dist/node/');
 var config = require('./config');
 
 function log(message) {
     console.log(message);
 }
 
-var devices = new Devices(config);
-var access = new Access(config);
+var devices = new mbedSDK.Devices(config);
+var access = new mbedSDK.Access(config);
 
 devices.getEndpoints(null, function(err, endpoints) {
     endpoints.forEach(function(endpoint) {

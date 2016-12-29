@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AccessOptions | mbed Cloud SDK</title>
+	<title>CallbackData | mbed Cloud SDK</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_access_.html">&quot;access&quot;</a>
-				</li>
-				<li>
-					<a href="_access_.accessoptions.html">AccessOptions</a>
+					<a href="callbackdata.html">CallbackData</a>
 				</li>
 			</ul>
-			<h1>Interface AccessOptions</h1>
+			<h1>Interface CallbackData</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +68,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">AccessOptions</span>
+						<span class="target">CallbackData</span>
 					</li>
 				</ul>
 			</section>
@@ -82,8 +79,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_access_.accessoptions.html#accesskey" class="tsd-kind-icon">access<wbr>Key</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_access_.accessoptions.html#host" class="tsd-kind-icon">host</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="callbackdata.html#headers" class="tsd-kind-icon">headers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="callbackdata.html#url" class="tsd-kind-icon">url</a></li>
 							</ul>
 						</section>
 					</div>
@@ -92,32 +89,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="accesskey" class="tsd-anchor"></a>
-					<h3>access<wbr>Key</h3>
-					<div class="tsd-signature tsd-kind-icon">access<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="headers" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> headers</h3>
+					<div class="tsd-signature tsd-kind-icon">headers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/eaa543b/src/access.ts#L25">access.ts:25</a></li>
+							<li>Defined in devices/index.ts:56</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Access Key for your mbed Device Connector account</p>
+							<p>The headers that should be set when mbed Cloud Connect puts to the given callback URL</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="host" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> host</h3>
-					<div class="tsd-signature tsd-kind-icon">host<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="url" class="tsd-anchor"></a>
+					<h3>url</h3>
+					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/eaa543b/src/access.ts#L29">access.ts:29</a></li>
+							<li>Defined in devices/index.ts:52</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>URL for mbed Device Connector API</p>
+							<p>The callback URL</p>
 						</div>
 					</div>
 				</section>
@@ -129,39 +126,45 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="../modules/_access_.html">"access"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_devices_.html">"devices"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_access_.access.html" class="tsd-kind-icon">Access</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/access.html" class="tsd-kind-icon">Access</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_access_.user.html" class="tsd-kind-icon">User</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/devices.html" class="tsd-kind-icon">Devices</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/endpoint.html" class="tsd-kind-icon">Endpoint</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/resource.html" class="tsd-kind-icon">Resource</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_access_.accessoptions.html" class="tsd-kind-icon">Access<wbr>Options</a>
+					<li class="current tsd-kind-interface">
+						<a href="callbackdata.html" class="tsd-kind-icon">Callback<wbr>Data</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_access_.accessoptions.html#accesskey" class="tsd-kind-icon">access<wbr>Key</a>
+								<a href="callbackdata.html#headers" class="tsd-kind-icon">headers</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_access_.accessoptions.html#host" class="tsd-kind-icon">host</a>
+								<a href="callbackdata.html#url" class="tsd-kind-icon">url</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_access_.useroptions.html" class="tsd-kind-icon">User<wbr>Options</a>
+					<li class=" tsd-kind-interface">
+						<a href="devicesoptions.html" class="tsd-kind-icon">Devices<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="endpointoptions.html" class="tsd-kind-icon">Endpoint<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="resourcevalueoptions.html" class="tsd-kind-icon">Resource<wbr>Value<wbr>Options</a>
 					</li>
 				</ul>
 			</nav>

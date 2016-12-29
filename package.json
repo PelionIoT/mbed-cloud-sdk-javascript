@@ -5,8 +5,8 @@
   "homepage": "https://github.com/ARMmbed/mbed-cloud-sdk-javascript",
   "author": "Rob Moran <rob.moran@arm.com>",
   "license": "Apache-2.0",
-  "main": "./dist/node/main.js",
-  "types": "./dist/types/main.d.ts",
+  "main": "./dist/node/index.js",
+  "types": "./dist/types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ARMmbed/mbed-cloud-sdk-javascript.git"
@@ -25,6 +25,7 @@
     "@types/node": "^6.0.52",
     "@types/superagent": "^2.0.36",
     "browserify": "^13.1.1",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-buffer": "0.0.2",
     "gulp-sourcemaps": "^1.9.1",

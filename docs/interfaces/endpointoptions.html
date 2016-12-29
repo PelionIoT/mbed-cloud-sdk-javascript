@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ResourceValueOptions | mbed Cloud SDK</title>
+	<title>EndpointOptions | mbed Cloud SDK</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_devices_.html">&quot;devices&quot;</a>
-				</li>
-				<li>
-					<a href="_devices_.resourcevalueoptions.html">ResourceValueOptions</a>
+					<a href="endpointoptions.html">EndpointOptions</a>
 				</li>
 			</ul>
-			<h1>Interface ResourceValueOptions</h1>
+			<h1>Interface EndpointOptions</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +68,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ResourceValueOptions</span>
+						<span class="target">EndpointOptions</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="../classes/endpoint.html" class="tsd-signature-type">Endpoint</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -82,8 +84,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_devices_.resourcevalueoptions.html#cacheonly" class="tsd-kind-icon">cache<wbr>Only</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_devices_.resourcevalueoptions.html#noresp" class="tsd-kind-icon">no<wbr>Resp</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="endpointoptions.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="endpointoptions.html#status" class="tsd-kind-icon">status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="endpointoptions.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -92,38 +95,34 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="cacheonly" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cache<wbr>Only</h3>
-					<div class="tsd-signature tsd-kind-icon">cache<wbr>Only<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/eaa543b/src/devices.ts#L38">devices.ts:38</a></li>
+							<li>Defined in devices/index.ts:60</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>If true, the response will come only from the cache
-							(default: false)</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="noresp" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> no<wbr>Resp</h3>
-					<div class="tsd-signature tsd-kind-icon">no<wbr>Resp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="status" class="tsd-anchor"></a>
+					<h3>status</h3>
+					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/eaa543b/src/devices.ts#L45">devices.ts:45</a></li>
+							<li>Defined in devices/index.ts:61</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>If true, mbed Device Connector will not wait for a response
-								Creates a CoAP Non-Confirmable requests
-								If false, a response is expected and the CoAP request is confirmable
-							(default: false)</p>
-						</div>
-					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in devices/index.ts:62</li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -133,49 +132,49 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_access_.html">"access"</a>
-					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="../modules/_devices_.html">"devices"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_devices_.devices.html" class="tsd-kind-icon">Devices</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/access.html" class="tsd-kind-icon">Access</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_devices_.endpoint.html" class="tsd-kind-icon">Endpoint</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/devices.html" class="tsd-kind-icon">Devices</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_devices_.resource.html" class="tsd-kind-icon">Resource</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/endpoint.html" class="tsd-kind-icon">Endpoint</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_devices_.callbackdata.html" class="tsd-kind-icon">Callback<wbr>Data</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/resource.html" class="tsd-kind-icon">Resource</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_devices_.devicesoptions.html" class="tsd-kind-icon">Devices<wbr>Options</a>
+					<li class=" tsd-kind-interface">
+						<a href="callbackdata.html" class="tsd-kind-icon">Callback<wbr>Data</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_devices_.endpointoptions.html" class="tsd-kind-icon">Endpoint<wbr>Options</a>
+					<li class=" tsd-kind-interface">
+						<a href="devicesoptions.html" class="tsd-kind-icon">Devices<wbr>Options</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_devices_.resourcevalueoptions.html" class="tsd-kind-icon">Resource<wbr>Value<wbr>Options</a>
+					<li class="current tsd-kind-interface">
+						<a href="endpointoptions.html" class="tsd-kind-icon">Endpoint<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_devices_.resourcevalueoptions.html#cacheonly" class="tsd-kind-icon">cache<wbr>Only</a>
+								<a href="endpointoptions.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_devices_.resourcevalueoptions.html#noresp" class="tsd-kind-icon">no<wbr>Resp</a>
+								<a href="endpointoptions.html#status" class="tsd-kind-icon">status</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="endpointoptions.html#type" class="tsd-kind-icon">type</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface">
+						<a href="resourcevalueoptions.html" class="tsd-kind-icon">Resource<wbr>Value<wbr>Options</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
