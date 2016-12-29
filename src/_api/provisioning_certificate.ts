@@ -46,7 +46,7 @@ export interface RequestOptions {
     body?:any;
 }
 
-export function request(options:any, callback?:Function) {
+export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
     var request = superagent(options.method, url);
 
@@ -294,7 +294,7 @@ export class DefaultApi {
      * Gets the account&#39;s provisioning certificate.
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3ProvisioningCertificateGet (authorization: string, callback?: Function) {
+    public v3ProvisioningCertificateGet (authorization: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/provisioning-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -330,7 +330,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
