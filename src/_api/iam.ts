@@ -46,7 +46,7 @@ export interface RequestOptions {
     body?:any;
 }
 
-export function request(options:any, callback?:Function) {
+export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
     var request = superagent(options.method, url);
 
@@ -1473,7 +1473,7 @@ export class AccountAdminApi {
      * An endpoint for uploading new CA certificates.
      * @param body A CA certificate object with attributes.
      */
-    public addCertificate (body: CACertificateReq, callback?: Function) {
+    public addCertificate (body: CACertificateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1508,7 +1508,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1528,7 +1528,7 @@ export class AccountAdminApi {
      * @param body A user object with attributes.
      * @param action Action, either &#39;create&#39; or &#39;invite&#39;.
      */
-    public createUser (body: UserInfoReq, action?: string, callback?: Function) {
+    public createUser (body: UserInfoReq, action?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1567,7 +1567,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1586,7 +1586,7 @@ export class AccountAdminApi {
      * An endpoint for deleting a CA certificate.
      * @param caCertId The ID of the CA certificate to be deleted.
      */
-    public deleteCertificate (caCertId: string, callback?: Function) {
+    public deleteCertificate (caCertId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
             .replace('{' + 'ca-cert-id' + '}', String(caCertId));
         let queryParameters: any = {};
@@ -1621,7 +1621,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1641,7 +1641,7 @@ export class AccountAdminApi {
      * @param userId The ID of the user to be deleted.
      * @param force Flag indicating that user is forced to be deleted.
      */
-    public deleteUser (userId: string, force?: string, callback?: Function) {
+    public deleteUser (userId: string, force?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/{user-id}'
             .replace('{' + 'user-id' + '}', String(userId));
         let queryParameters: any = {};
@@ -1680,7 +1680,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1703,7 +1703,7 @@ export class AccountAdminApi {
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param filter The filter for the query, for example filter&#x3D;service%3Dlwm2m
      */
-    public getAllCertificates (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: Function) {
+    public getAllCertificates (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1752,7 +1752,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1775,7 +1775,7 @@ export class AccountAdminApi {
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param filter Filter for the query, for example filter&#x3D;status%3Dactive,status%3Dreset.
      */
-    public getAllUsers (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: Function) {
+    public getAllUsers (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1824,7 +1824,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1843,7 +1843,7 @@ export class AccountAdminApi {
      * An endpoint for retrieving a CA certificate by ID.
      * @param caCertId The ID or name of the CA certificate to be retrieved.
      */
-    public getCertificate (caCertId: string, callback?: Function) {
+    public getCertificate (caCertId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
             .replace('{' + 'ca-cert-id' + '}', String(caCertId));
         let queryParameters: any = {};
@@ -1878,7 +1878,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1897,7 +1897,7 @@ export class AccountAdminApi {
      * An endpoint for retrieving the details of a user.
      * @param userId The ID or name of the user whose details are retrieved.
      */
-    public getUser (userId: string, callback?: Function) {
+    public getUser (userId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/{user-id}'
             .replace('{' + 'user-id' + '}', String(userId));
         let queryParameters: any = {};
@@ -1932,7 +1932,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1952,7 +1952,7 @@ export class AccountAdminApi {
      * @param caCertId The ID of the CA certificate to be updated.
      * @param body A CA certificate object with attributes.
      */
-    public updateCertificate (caCertId: string, body: CACertificateReq, callback?: Function) {
+    public updateCertificate (caCertId: string, body: CACertificateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
             .replace('{' + 'ca-cert-id' + '}', String(caCertId));
         let queryParameters: any = {};
@@ -1993,7 +1993,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2012,7 +2012,7 @@ export class AccountAdminApi {
      * An endpoint for updating the account.
      * @param body Details of the account to be updated.
      */
-    public updateMyAccount (body: AccountUpdateReq, callback?: Function) {
+    public updateMyAccount (body: AccountUpdateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/accounts/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2047,7 +2047,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2067,7 +2067,7 @@ export class AccountAdminApi {
      * @param userId The ID of the user whose details are updated.
      * @param body A user object with attributes.
      */
-    public updateUser (userId: string, body: UserInfoReq, callback?: Function) {
+    public updateUser (userId: string, body: UserInfoReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/{user-id}'
             .replace('{' + 'user-id' + '}', String(userId));
         let queryParameters: any = {};
@@ -2108,7 +2108,7 @@ export class AccountAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2171,7 +2171,7 @@ export class DefaultApi {
      * @param invitationId Invitation ID received in email.
      * @param body Details of the user accepting the invitation.
      */
-    public activateUser (invitationId: string, body: UserInfoReq, callback?: Function) {
+    public activateUser (invitationId: string, body: UserInfoReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/invitations/{invitation-id}'
             .replace('{' + 'invitation-id' + '}', String(invitationId));
         let queryParameters: any = {};
@@ -2212,7 +2212,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2232,7 +2232,7 @@ export class DefaultApi {
      * @param body Hash received by email and new password.
      * @param xForwardedFor 
      */
-    public applyPasswordRecovery (body: PasswordRecoveryReq, xForwardedFor?: string, callback?: Function) {
+    public applyPasswordRecovery (body: PasswordRecoveryReq, xForwardedFor?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/recover';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2269,7 +2269,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2288,7 +2288,7 @@ export class DefaultApi {
      * Returns information about the user being invited.
      * @param invitationId Invitation ID received in email.
      */
-    public getInvitedUser (invitationId: string, callback?: Function) {
+    public getInvitedUser (invitationId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/invitations/{invitation-id}'
             .replace('{' + 'invitation-id' + '}', String(invitationId));
         let queryParameters: any = {};
@@ -2323,7 +2323,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2342,7 +2342,7 @@ export class DefaultApi {
      * Retrieving the details of a user to register.
      * @param signupId ID received while signing up.
      */
-    public getSelfEnrollingUser (signupId: string, callback?: Function) {
+    public getSelfEnrollingUser (signupId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register/{signup-id}'
             .replace('{' + 'signup-id' + '}', String(signupId));
         let queryParameters: any = {};
@@ -2377,7 +2377,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2397,7 +2397,7 @@ export class DefaultApi {
      * @param signupId ID received while signing up.
      * @param body Details of the account to be created.
      */
-    public registerAccount (signupId: string, body: AccountEnrollmentReq, callback?: Function) {
+    public registerAccount (signupId: string, body: AccountEnrollmentReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register/{signup-id}'
             .replace('{' + 'signup-id' + '}', String(signupId));
         let queryParameters: any = {};
@@ -2438,7 +2438,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2458,7 +2458,7 @@ export class DefaultApi {
      * @param body Email address of the user whose password needs to be recovered.
      * @param xForwardedFor 
      */
-    public requestPasswordRecovery (body: PasswordResetReq, xForwardedFor?: string, callback?: Function) {
+    public requestPasswordRecovery (body: PasswordResetReq, xForwardedFor?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/recover';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2495,7 +2495,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2514,7 +2514,7 @@ export class DefaultApi {
      * Signing up for a new free tier account with email address.
      * @param body Email address of the user to be signed up.
      */
-    public signup (body: AccountSignupReq, callback?: Function) {
+    public signup (body: AccountSignupReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2549,7 +2549,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2569,7 +2569,7 @@ export class DefaultApi {
      * @param signupId ID received while signing up.
      * @param body Verification code received by email and aliases to be checked.
      */
-    public verifySelfEnrollment (signupId: string, body?: AccountSignupVerify, callback?: Function) {
+    public verifySelfEnrollment (signupId: string, body?: AccountSignupVerify, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register/{signup-id}'
             .replace('{' + 'signup-id' + '}', String(signupId));
         let queryParameters: any = {};
@@ -2605,7 +2605,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2667,7 +2667,7 @@ export class DeveloperApi {
      * An endpoint for creating a new API key.
      * @param body The details of the API key to be created.
      */
-    public createApiKey (body: ApiKeyInfoReq, callback?: Function) {
+    public createApiKey (body: ApiKeyInfoReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2702,7 +2702,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2721,7 +2721,7 @@ export class DeveloperApi {
      * An endpoint for deleting the API key.
      * @param apiKey The ID of the API key to be deleted.
      */
-    public deleteApiKey (apiKey: string, callback?: Function) {
+    public deleteApiKey (apiKey: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/{apiKey}'
             .replace('{' + 'apiKey' + '}', String(apiKey));
         let queryParameters: any = {};
@@ -2756,7 +2756,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2780,7 +2780,7 @@ export class DeveloperApi {
      * @param filter A filter for the query, for example filter&#x3D;owner%3Duuid.
      * @param owner Owner name filter.
      */
-    public getAllApiKeys (limit?: number, after?: string, order?: string, include?: string, filter?: string, owner?: string, callback?: Function) {
+    public getAllApiKeys (limit?: number, after?: string, order?: string, include?: string, filter?: string, owner?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2833,7 +2833,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2855,7 +2855,7 @@ export class DeveloperApi {
      * @param order The order of the records, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      */
-    public getAllGroups (limit?: number, after?: string, order?: string, include?: string, callback?: Function) {
+    public getAllGroups (limit?: number, after?: string, order?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/policy-groups';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2900,7 +2900,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2919,7 +2919,7 @@ export class DeveloperApi {
      * An endpoint for retrieving API key details.
      * @param apiKey The ID of the API key to be retrieved.
      */
-    public getApiKey (apiKey: string, callback?: Function) {
+    public getApiKey (apiKey: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/{apiKey}'
             .replace('{' + 'apiKey' + '}', String(apiKey));
         let queryParameters: any = {};
@@ -2954,7 +2954,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -2973,7 +2973,7 @@ export class DeveloperApi {
      * Returns detailed information about the account.
      * @param include Comma separated additional data to return. Currently supported: limits
      */
-    public getMyAccountInfo (include?: string, callback?: Function) {
+    public getMyAccountInfo (include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/accounts/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -3006,7 +3006,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -3024,7 +3024,7 @@ export class DeveloperApi {
      * Get API key details.
      * An endpoint for retrieving API key details.
      */
-    public getMyApiKey (callback?: Function) {
+    public getMyApiKey (callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -3053,7 +3053,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -3071,7 +3071,7 @@ export class DeveloperApi {
      * Details of the current user.
      * An endpoint for retrieving the details of the logged in user.
      */
-    public getMyUser (callback?: Function) {
+    public getMyUser (callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -3100,7 +3100,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -3120,7 +3120,7 @@ export class DeveloperApi {
      * @param apiKey The ID of the API key to be updated.
      * @param body New API key attributes to be stored.
      */
-    public updateApiKey (apiKey: string, body: ApiKeyUpdateReq, callback?: Function) {
+    public updateApiKey (apiKey: string, body: ApiKeyUpdateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/{apiKey}'
             .replace('{' + 'apiKey' + '}', String(apiKey));
         let queryParameters: any = {};
@@ -3161,7 +3161,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -3180,7 +3180,7 @@ export class DeveloperApi {
      * An endpoint for updating API key details.
      * @param body New API key attributes to be stored.
      */
-    public updateMyApiKey (body: ApiKeyUpdateReq, callback?: Function) {
+    public updateMyApiKey (body: ApiKeyUpdateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -3215,7 +3215,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -3234,7 +3234,7 @@ export class DeveloperApi {
      * An endpoint for updating the details of the logged in user.
      * @param body New attributes for the logged in user.
      */
-    public updateMyUser (body: UserInfoReq, callback?: Function) {
+    public updateMyUser (body: UserInfoReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -3269,7 +3269,7 @@ export class DeveloperApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -3331,7 +3331,7 @@ export class RootAdminApi {
      * Endpoint for creating a new account template.
      * @param body Details of the account template to be created.
      */
-    public createAccountTemplate (body: AccountTemplateReq, callback?: Function) {
+    public createAccountTemplate (body: AccountTemplateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/admin/v3/account-templates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -3366,7 +3366,7 @@ export class RootAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -3385,7 +3385,7 @@ export class RootAdminApi {
      * Endpoint for deleting a account template by ID.
      * @param templateId The ID of the account template to be deleted.
      */
-    public deleteAccountTemplate (templateId: string, callback?: Function) {
+    public deleteAccountTemplate (templateId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/admin/v3/account-templates/{template-id}'
             .replace('{' + 'template-id' + '}', String(templateId));
         let queryParameters: any = {};
@@ -3420,7 +3420,7 @@ export class RootAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -3439,7 +3439,7 @@ export class RootAdminApi {
      * Endpoint for retrieving a account template by ID.
      * @param templateId The ID of the account template to be retrieved.
      */
-    public getAccountTemplate (templateId: string, callback?: Function) {
+    public getAccountTemplate (templateId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/admin/v3/account-templates/{template-id}'
             .replace('{' + 'template-id' + '}', String(templateId));
         let queryParameters: any = {};
@@ -3474,7 +3474,7 @@ export class RootAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -3496,7 +3496,7 @@ export class RootAdminApi {
      * @param order The order of the records, ASC or DESC. Default value is ASC
      * @param include Comma separate additional data to return. Currently supported: total_count
      */
-    public getAllAccountTemplates (limit?: number, after?: string, order?: string, include?: string, callback?: Function) {
+    public getAllAccountTemplates (limit?: number, after?: string, order?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/admin/v3/account-templates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -3541,7 +3541,7 @@ export class RootAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -3561,7 +3561,7 @@ export class RootAdminApi {
      * @param templateId The ID of the account template to be updated.
      * @param body Details of the account template to be updated.
      */
-    public updateAccountTemplate (templateId: string, body: AccountTemplateReq, callback?: Function) {
+    public updateAccountTemplate (templateId: string, body: AccountTemplateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/admin/v3/account-templates/{template-id}'
             .replace('{' + 'template-id' + '}', String(templateId));
         let queryParameters: any = {};
@@ -3602,7 +3602,7 @@ export class RootAdminApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);

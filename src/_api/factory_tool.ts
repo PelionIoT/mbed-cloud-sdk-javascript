@@ -46,7 +46,7 @@ export interface RequestOptions {
     body?:any;
 }
 
-export function request(options:any, callback?:Function) {
+export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
     var request = superagent(options.method, url);
 
@@ -307,7 +307,7 @@ export class DefaultApi {
      * Returns a specific Factory Tool package in a ZIP archive. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
      * @param os Requires Factory Tool OS name (Windows or Linux).
      */
-    public downloadsMbedFactoryProvisioningPackageGet (os: string, callback?: Function) {
+    public downloadsMbedFactoryProvisioningPackageGet (os: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/downloads/mbed_factory_provisioning_package';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -345,7 +345,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -363,7 +363,7 @@ export class DefaultApi {
      * 
      * Gets a list of downloadable Factory Tool versions. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
      */
-    public downloadsMbedFactoryProvisioningPackageInfoGet (callback?: Function) {
+    public downloadsMbedFactoryProvisioningPackageInfoGet (callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/downloads/mbed_factory_provisioning_package/info';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -392,7 +392,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);

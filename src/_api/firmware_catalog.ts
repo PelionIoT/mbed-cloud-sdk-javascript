@@ -46,7 +46,7 @@ export interface RequestOptions {
     body?:any;
 }
 
-export function request(options:any, callback?:Function) {
+export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
     var request = superagent(options.method, url);
 
@@ -417,7 +417,7 @@ export class DefaultApi {
      * 
      * &lt;p&gt;Reads the deploy_info.json file and returns the Build and Git ID to the caller.&lt;/p&gt; &lt;p&gt;Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.&lt;/p&gt;
      */
-    public deployInfoGET (callback?: Function) {
+    public deployInfoGET (callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/fc_deploy_info';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -446,7 +446,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -477,7 +477,7 @@ export class DefaultApi {
      * @param imageId 
      * @param object 
      */
-    public firmwareImageCreate (datafile: string, name: string, description?: string, updatingRequestId?: string, updatingIpAddress?: string, name2?: string, description2?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, imageId?: string, object?: string, callback?: Function) {
+    public firmwareImageCreate (datafile: string, name: string, description?: string, updatingRequestId?: string, updatingIpAddress?: string, name2?: string, description2?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, imageId?: string, object?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware/images/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -568,7 +568,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -596,7 +596,7 @@ export class DefaultApi {
      * @param etag 
      * @param object 
      */
-    public firmwareImageDestroy (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: Function) {
+    public firmwareImageDestroy (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware/images/{image_id}/'
             .replace('{' + 'image_id' + '}', String(imageId));
         let queryParameters: any = {};
@@ -667,7 +667,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -689,7 +689,7 @@ export class DefaultApi {
      * @param after 
      * @param include 
      */
-    public firmwareImageList (limit?: number, order?: string, after?: string, include?: string, callback?: Function) {
+    public firmwareImageList (limit?: number, order?: string, after?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware/images/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -734,7 +734,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -762,7 +762,7 @@ export class DefaultApi {
      * @param etag 
      * @param object 
      */
-    public firmwareImageRetrieve (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: Function) {
+    public firmwareImageRetrieve (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware/images/{image_id}/'
             .replace('{' + 'image_id' + '}', String(imageId));
         let queryParameters: any = {};
@@ -833,7 +833,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -854,7 +854,7 @@ export class DefaultApi {
      * @param name The name of the object
      * @param description The description of the object
      */
-    public firmwareManifestCreate (datafile: any, name: string, description?: string, callback?: Function) {
+    public firmwareManifestCreate (datafile: any, name: string, description?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware/manifests/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -906,7 +906,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -925,7 +925,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Delete firmware manifest&lt;/p&gt;
      * @param manifestId The ID of the firmware manifest
      */
-    public firmwareManifestDestroy (manifestId: number, callback?: Function) {
+    public firmwareManifestDestroy (manifestId: number, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware/manifests/{manifest_id}/'
             .replace('{' + 'manifest_id' + '}', String(manifestId));
         let queryParameters: any = {};
@@ -960,7 +960,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -982,7 +982,7 @@ export class DefaultApi {
      * @param after 
      * @param include 
      */
-    public firmwareManifestList (limit?: number, order?: string, after?: string, include?: string, callback?: Function) {
+    public firmwareManifestList (limit?: number, order?: string, after?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware/manifests/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1027,7 +1027,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1057,7 +1057,7 @@ export class DefaultApi {
      * @param object 
      * @param timestamp 
      */
-    public firmwareManifestRetrieve (manifestId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, deviceClass?: string, etag?: string, object?: string, timestamp?: string, callback?: Function) {
+    public firmwareManifestRetrieve (manifestId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, deviceClass?: string, etag?: string, object?: string, timestamp?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware/manifests/{manifest_id}/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1139,7 +1139,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);

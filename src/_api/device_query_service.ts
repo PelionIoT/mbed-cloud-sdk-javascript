@@ -46,7 +46,7 @@ export interface RequestOptions {
     body?:any;
 }
 
-export function request(options:any, callback?:Function) {
+export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
     var request = superagent(options.method, url);
 
@@ -342,7 +342,7 @@ export class DefaultApi {
      * @param object The API resource entity
      * @param queryId DEPRECATED: The ID of the query
      */
-    public deviceQueryCreate (name: string, query: string, description?: string, object?: string, queryId?: string, callback?: Function) {
+    public deviceQueryCreate (name: string, query: string, description?: string, object?: string, queryId?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -401,7 +401,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -420,7 +420,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Delete device query&lt;/p&gt;
      * @param queryId 
      */
-    public deviceQueryDestroy (queryId: string, callback?: Function) {
+    public deviceQueryDestroy (queryId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/{query_id}/'
             .replace('{' + 'query_id' + '}', String(queryId));
         let queryParameters: any = {};
@@ -455,7 +455,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -476,7 +476,7 @@ export class DefaultApi {
      * @param order 
      * @param after 
      */
-    public deviceQueryList (limit?: number, order?: string, after?: string, callback?: Function) {
+    public deviceQueryList (limit?: number, order?: string, after?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -517,7 +517,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -541,7 +541,7 @@ export class DefaultApi {
      * @param query The device query
      * @param queryId2 DEPRECATED: The ID of the query
      */
-    public deviceQueryPartialUpdate (queryId: string, description?: string, name?: string, object?: string, query?: string, queryId2?: string, callback?: Function) {
+    public deviceQueryPartialUpdate (queryId: string, description?: string, name?: string, object?: string, query?: string, queryId2?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/{query_id}/'
             .replace('{' + 'query_id' + '}', String(queryId));
         let queryParameters: any = {};
@@ -596,7 +596,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -615,7 +615,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Retrieve device query.&lt;/p&gt;
      * @param queryId 
      */
-    public deviceQueryRetrieve (queryId: string, callback?: Function) {
+    public deviceQueryRetrieve (queryId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/{query_id}/'
             .replace('{' + 'query_id' + '}', String(queryId));
         let queryParameters: any = {};
@@ -650,7 +650,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -674,7 +674,7 @@ export class DefaultApi {
      * @param object The API resource entity
      * @param queryId2 DEPRECATED: The ID of the query
      */
-    public deviceQueryUpdate (queryId: string, name: string, query: string, description?: string, object?: string, queryId2?: string, callback?: Function) {
+    public deviceQueryUpdate (queryId: string, name: string, query: string, description?: string, object?: string, queryId2?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/{query_id}/'
             .replace('{' + 'query_id' + '}', String(queryId));
         let queryParameters: any = {};
@@ -739,7 +739,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);

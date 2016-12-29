@@ -46,7 +46,7 @@ export interface RequestOptions {
     body?:any;
 }
 
-export function request(options:any, callback?:Function) {
+export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
     var request = superagent(options.method, url);
 
@@ -485,7 +485,7 @@ export class DefaultApi {
      * @param updatedAt The time the object was updated
      * @param vendorId The device vendor ID
      */
-    public deviceCreate (mechanism: string, provisionKey: string, accountId?: string, autoUpdate?: boolean, bootstrappedTimestamp?: string, createdAt?: Date, customAttributes?: { [key: string]: string; }, deployedState?: string, deployment?: string, description?: string, deviceClass?: string, deviceId?: string, etag?: Date, id?: string, manifest?: string, mechanismUrl?: string, name?: string, object?: string, serialNumber?: string, state?: string, trustClass?: number, trustLevel?: number, updatedAt?: Date, vendorId?: string, callback?: Function) {
+    public deviceCreate (mechanism: string, provisionKey: string, accountId?: string, autoUpdate?: boolean, bootstrappedTimestamp?: string, createdAt?: Date, customAttributes?: { [key: string]: string; }, deployedState?: string, deployment?: string, description?: string, deviceClass?: string, deviceId?: string, etag?: Date, id?: string, manifest?: string, mechanismUrl?: string, name?: string, object?: string, serialNumber?: string, state?: string, trustClass?: number, trustLevel?: number, updatedAt?: Date, vendorId?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -620,7 +620,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -639,7 +639,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Delete device&lt;/p&gt;
      * @param deviceId 
      */
-    public deviceDestroy (deviceId: string, callback?: Function) {
+    public deviceDestroy (deviceId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -674,7 +674,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -697,7 +697,7 @@ export class DefaultApi {
      * @param filter 
      * @param include 
      */
-    public deviceList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: Function) {
+    public deviceList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -746,7 +746,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -769,7 +769,7 @@ export class DefaultApi {
      * @param filter 
      * @param include 
      */
-    public deviceLogList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: Function) {
+    public deviceLogList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devicelog/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -818,7 +818,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -837,7 +837,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device log.&lt;/p&gt;
      * @param deviceLogId 
      */
-    public deviceLogRetrieve (deviceLogId: string, callback?: Function) {
+    public deviceLogRetrieve (deviceLogId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devicelog/{device_log_id}/'
             .replace('{' + 'device_log_id' + '}', String(deviceLogId));
         let queryParameters: any = {};
@@ -872,7 +872,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -891,7 +891,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device fields&lt;/p&gt;
      * @param deviceId The ID of the device
      */
-    public devicePartialUpdate (deviceId: string, callback?: Function) {
+    public devicePartialUpdate (deviceId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -926,7 +926,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -945,7 +945,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device.&lt;/p&gt;
      * @param deviceId 
      */
-    public deviceRetrieve (deviceId: string, callback?: Function) {
+    public deviceRetrieve (deviceId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -980,7 +980,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -999,7 +999,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device.&lt;/p&gt;
      * @param deviceId The ID of the device
      */
-    public deviceUpdate (deviceId: string, callback?: Function) {
+    public deviceUpdate (deviceId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -1034,7 +1034,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);

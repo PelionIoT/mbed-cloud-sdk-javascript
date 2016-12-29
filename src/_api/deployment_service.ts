@@ -46,7 +46,7 @@ export interface RequestOptions {
     body?:any;
 }
 
-export function request(options:any, callback?:Function) {
+export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
     var request = superagent(options.method, url);
 
@@ -586,7 +586,7 @@ export class DefaultApi {
      * 
      * &lt;p&gt;Reads the deploy_info.json file and returns the Build and Git ID to the caller.&lt;/p&gt; &lt;p&gt;Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.&lt;/p&gt;
      */
-    public deployInfoGET (callback?: Function) {
+    public deployInfoGET (callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ds_deploy_info';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -615,7 +615,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -642,7 +642,7 @@ export class DefaultApi {
      * @param state The state of the campaign
      * @param when The timestamp at which update campaign scheduled to start
      */
-    public updateCampaignCreate (name: string, campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: Function) {
+    public updateCampaignCreate (name: string, campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -712,7 +712,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -745,7 +745,7 @@ export class DefaultApi {
      * @param state 
      * @param when 
      */
-    public updateCampaignDestroy (campaignId: string, updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, callback?: Function) {
+    public updateCampaignDestroy (campaignId: string, updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -836,7 +836,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -871,7 +871,7 @@ export class DefaultApi {
      * @param page The page number to retrieve. If not given, then defaults to first page.
      * @param rootManifestUrl The firmware catalog URL for the manifest that will be sent to the device as part of the campaign
      */
-    public updateCampaignList (updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, campaignId?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, page?: number, rootManifestUrl?: string, callback?: Function) {
+    public updateCampaignList (updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, campaignId?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, page?: number, rootManifestUrl?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -968,7 +968,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -995,7 +995,7 @@ export class DefaultApi {
      * @param state The state of the campaign
      * @param when The timestamp at which update campaign scheduled to start
      */
-    public updateCampaignPartialUpdate (campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, name?: string, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: Function) {
+    public updateCampaignPartialUpdate (campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, name?: string, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1060,7 +1060,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1094,7 +1094,7 @@ export class DefaultApi {
      * @param when 
      * @param rootManifestUrl The firmware catalog URL for the manifest that will be sent to the device as part of the campaign
      */
-    public updateCampaignRetrieve (campaignId: string, updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, rootManifestUrl?: string, callback?: Function) {
+    public updateCampaignRetrieve (campaignId: string, updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, rootManifestUrl?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1192,7 +1192,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1225,7 +1225,7 @@ export class DefaultApi {
      * @param state 
      * @param when 
      */
-    public updateCampaignStatus (campaignId: string, updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, callback?: Function) {
+    public updateCampaignStatus (campaignId: string, updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/status/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -1316,7 +1316,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -1343,7 +1343,7 @@ export class DefaultApi {
      * @param state The state of the campaign
      * @param when The timestamp at which update campaign scheduled to start
      */
-    public updateCampaignUpdate (name: string, campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: Function) {
+    public updateCampaignUpdate (name: string, campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1413,7 +1413,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);

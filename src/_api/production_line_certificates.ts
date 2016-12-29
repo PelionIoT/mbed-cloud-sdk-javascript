@@ -46,7 +46,7 @@ export interface RequestOptions {
     body?:any;
 }
 
-export function request(options:any, callback?:Function) {
+export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
     var request = superagent(options.method, url);
 
@@ -351,7 +351,7 @@ export class DefaultApi {
      * Gets the list of production line certificates associated with the account. 
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3ProductionLineCertificatesGet (authorization: string, callback?: Function) {
+    public v3ProductionLineCertificatesGet (authorization: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -387,7 +387,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -407,7 +407,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param mUUID Certificate mUUID
      */
-    public v3ProductionLineCertificatesMUUIDDelete (authorization: string, mUUID: string, callback?: Function) {
+    public v3ProductionLineCertificatesMUUIDDelete (authorization: string, mUUID: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates/{mUUID}'
             .replace('{' + 'mUUID' + '}', String(mUUID));
         let queryParameters: any = {};
@@ -449,7 +449,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -469,7 +469,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param mUUID Certificate mUUID.
      */
-    public v3ProductionLineCertificatesMUUIDGet (authorization: string, mUUID: string, callback?: Function) {
+    public v3ProductionLineCertificatesMUUIDGet (authorization: string, mUUID: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates/{mUUID}'
             .replace('{' + 'mUUID' + '}', String(mUUID));
         let queryParameters: any = {};
@@ -511,7 +511,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -532,7 +532,7 @@ export class DefaultApi {
      * @param mUUID Certificate mUUID
      * @param body 
      */
-    public v3ProductionLineCertificatesMUUIDPut (authorization: string, mUUID: string, body: Body1, callback?: Function) {
+    public v3ProductionLineCertificatesMUUIDPut (authorization: string, mUUID: string, body: Body1, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates/{mUUID}'
             .replace('{' + 'mUUID' + '}', String(mUUID));
         let queryParameters: any = {};
@@ -580,7 +580,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -600,7 +600,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param body 
      */
-    public v3ProductionLineCertificatesPost (authorization: string, body: Body, callback?: Function) {
+    public v3ProductionLineCertificatesPost (authorization: string, body: Body, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -642,7 +642,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);

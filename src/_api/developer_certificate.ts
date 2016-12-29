@@ -46,7 +46,7 @@ export interface RequestOptions {
     body?:any;
 }
 
-export function request(options:any, callback?:Function) {
+export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
     var request = superagent(options.method, url);
 
@@ -301,7 +301,7 @@ export class DefaultApi {
      * Deletes the account&#39;s developer certificate (only one per account allowed).
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3DeveloperCertificateDelete (authorization: string, callback?: Function) {
+    public v3DeveloperCertificateDelete (authorization: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/developer-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -337,7 +337,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -356,7 +356,7 @@ export class DefaultApi {
      * Gets the developer certificate of the account.
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3DeveloperCertificateGet (authorization: string, callback?: Function) {
+    public v3DeveloperCertificateGet (authorization: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/developer-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -392,7 +392,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
@@ -412,7 +412,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param body 
      */
-    public v3DeveloperCertificatePost (authorization: string, body: Body, callback?: Function) {
+    public v3DeveloperCertificatePost (authorization: string, body: Body, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/developer-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -454,7 +454,7 @@ export class DefaultApi {
             }
         }
 
-        request(requestOptions, (error, response) => {
+        return request(requestOptions, (error, response) => {
             if (callback) {
                 if (error) {
                     return callback(error);
