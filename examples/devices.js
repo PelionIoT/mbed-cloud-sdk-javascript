@@ -7,12 +7,12 @@ function log(message) {
 
 var devices = new Devices(config);
 
-devices.getEndpoints(null, function(err, endpoints) {
+devices.getEndpoints(function(err, endpoints) {
     endpoints.forEach(function(endpoint) {
         endpoint.getResources(function(err, resources) {
             log(endpoint.name);
             resources.forEach(function(resource) {
-                resource.getValue(null, function(err, value) {
+                resource.getValue(function(err, value) {
                     log(resource.uri);
                     log(value);
                 });

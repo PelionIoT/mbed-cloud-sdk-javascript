@@ -1,31 +1,28 @@
+import { connectionOptions } from "../helpers/connectionOptions";
 import { AccountAdminApi } from "../_api/iam";
 /**
 * Root Account object
 */
 export declare class Access {
-    private api;
+    private _apis;
     /**
     * @param options Options object
     */
-    constructor(options: Access.AccessOptions);
-    /**
-    * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
-    */
-    getUsers(limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (err: any, data?: Access.User[]) => void): Promise<Access.User[]>;
+    constructor(options: connectionOptions);
+    getUsers(options?: Access.UsersOptions): Promise<Access.User[]>;
+    getUsers(options?: Access.UsersOptions, callback?: (err: any, data?: Access.User[]) => void): any;
 }
 export declare namespace Access {
-    interface AccessOptions {
-        /**
-        * Access Key for your mbed Device Connector account
-        */
-        accessKey: string;
-        /**
-        * URL for mbed Device Connector API
-        */
-        host?: string;
+    class APIContainer {
+        adAPI: AccountAdminApi;
+        constructor(options: connectionOptions);
+    }
+    interface UsersOptions {
+        limit?: number;
+        order?: string;
+        after?: string;
+        include?: string;
+        filter?: string;
     }
     interface UserOptions {
         account_id: string;
@@ -35,8 +32,8 @@ export declare namespace Access {
         id: string;
     }
     class User {
-        private api;
-        constructor(api: AccountAdminApi, options: UserOptions);
+        private _apis;
+        constructor(_apis: APIContainer, options: UserOptions);
     }
     interface User extends UserOptions {
     }

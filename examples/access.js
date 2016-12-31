@@ -7,7 +7,7 @@ function log(message) {
 
 var access = new Access(config);
 
-access.getUsers(null, null, null, null, null, function(err, users) {
+access.getUsers(function(err, users) {
     users.forEach(user => {
         log(user.full_name);
     });

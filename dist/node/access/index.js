@@ -25,10 +25,7 @@ var Access = (function () {
     * @param options Options object
     */
     function Access(options) {
-        this.api = new iam_1.AccountAdminApi();
-        //        if (options.host) this.client.basePath = options.host;
-        if (options.accessKey)
-            this.api.setApiKey(iam_1.AccountAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
+        this._apis = new Access.APIContainer(options);
     }
     /**
     * Gets a list of currently registered endpoints
@@ -36,10 +33,16 @@ var Access = (function () {
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
-    Access.prototype.getUsers = function (limit, after, order, include, filter, callback) {
+    Access.prototype.getUsers = function (options, callback) {
         var _this = this;
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        var limit = options.limit, after = options.after, order = options.order, include = options.include, filter = options.filter;
         return pg(function (done) {
-            _this.api.getAllUsers(limit, after, order, include, filter, function (error, response) {
+            _this._apis.adAPI.getAllUsers(limit, after, order, include, filter, function (error, data) {
                 if (error)
                     return done(error);
                 /*
@@ -50,8 +53,8 @@ var Access = (function () {
                  has_more: false,
                  data:
                  */
-                var users = response.body.data.map(function (user) {
-                    return new Access.User(_this.api, user);
+                var users = data.data.map(function (user) {
+                    return new Access.User(_this._apis, user);
                 });
                 done(null, users);
             });
@@ -61,13 +64,21 @@ var Access = (function () {
 }());
 exports.Access = Access;
 (function (Access) {
+    var APIContainer = (function () {
+        function APIContainer(options) {
+            this.adAPI = new iam_1.AccountAdminApi(options.host);
+            this.adAPI.setApiKey(iam_1.AccountAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
+        }
+        return APIContainer;
+    }());
+    Access.APIContainer = APIContainer;
     var User = (function () {
-        function User(api, options) {
-            this.api = api;
+        function User(_apis, options) {
+            this._apis = _apis;
             for (var key in options) {
                 this[key] = options[key];
             }
-            this.api = null;
+            this._apis = null; //deleteme
         }
         return User;
     }());

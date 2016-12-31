@@ -1,21 +1,31 @@
-var mbedSDK = require('../dist/node/');
+var mbedCloudSDK = require('../dist/node/');
 var config = require('./config');
 
 function log(message) {
     console.log(message);
 }
 
-var devices = new mbedSDK.Devices(config);
-var access = new mbedSDK.Access(config);
+var devices = new mbedCloudSDK.Devices(config);
+var access = new mbedCloudSDK.Access(config);
 
-devices.getEndpoints(null, function(err, endpoints) {
+devices.on(mbedCloudSDK.Devices.EVENT_UPDATE, update => {
+    log("up:" + update.ep);
+});
+
+devices.startNotifications();
+
+devices.getEndpoints(function(err, endpoints) {
     endpoints.forEach(function(endpoint) {
         endpoint.getResources(function(err, resources) {
             log(endpoint.name);
             resources.forEach(function(resource) {
-                resource.getValue(null, function(err, value) {
+                resource.getValue(function(err, value) {
+                    if (err) {
+                        log(err);
+                        return;
+                    }
                     log(resource.uri);
-                    log(value);
+                    log("val:" + value);
                 });
             });
         });
@@ -42,14 +52,17 @@ function iterateResources(resources) {
         return resource.getValue()
         .then(value => {
             log(resource.uri);
-            log(value);
+            log("val:" + value);
+        })
+        .catch(err => {
+            log(err);
         });
     });
 
     return Promise.all(promises);
 }
 
-access.getUsers(null, null, null, null, null, function(err, users) {
+access.getUsers(function(err, users) {
     users.forEach(user => {
         log(user.full_name);
     });
@@ -61,3 +74,7 @@ access.getUsers()
         log(user.full_name);
     });
 });
+
+setTimeout(function() {
+    devices.stopNotifications();
+}, 10000);

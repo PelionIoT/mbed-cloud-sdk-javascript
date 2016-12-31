@@ -64,7 +64,11 @@ function request(options, callback) {
     }
     request.end(function (error, response) {
         if (callback) {
-            callback(error, response);
+            var data = null;
+            if (response && !error) {
+                data = response.body || response.text;
+            }
+            callback(error, data, response);
         }
     });
     return request;
@@ -415,15 +419,9 @@ var DefaultApi = (function () {
                 requestOptions.form = formParams;
             }
         }
-        request(requestOptions, function (error, response) {
+        return request(requestOptions, function (error, data, response) {
             if (callback) {
-                if (error) {
-                    return callback(error);
-                }
-                if (response.statusCode >= 200 && response.statusCode <= 299) {
-                    return callback(null, response);
-                }
-                callback(response);
+                callback(error, data, response);
             }
         });
     };
@@ -461,15 +459,9 @@ var DefaultApi = (function () {
                 requestOptions.form = formParams;
             }
         }
-        request(requestOptions, function (error, response) {
+        return request(requestOptions, function (error, data, response) {
             if (callback) {
-                if (error) {
-                    return callback(error);
-                }
-                if (response.statusCode >= 200 && response.statusCode <= 299) {
-                    return callback(null, response);
-                }
-                callback(response);
+                callback(error, data, response);
             }
         });
     };
@@ -521,15 +513,9 @@ var DefaultApi = (function () {
                 requestOptions.form = formParams;
             }
         }
-        request(requestOptions, function (error, response) {
+        return request(requestOptions, function (error, data, response) {
             if (callback) {
-                if (error) {
-                    return callback(error);
-                }
-                if (response.statusCode >= 200 && response.statusCode <= 299) {
-                    return callback(null, response);
-                }
-                callback(response);
+                callback(error, data, response);
             }
         });
     };
@@ -581,15 +567,9 @@ var DefaultApi = (function () {
                 requestOptions.form = formParams;
             }
         }
-        request(requestOptions, function (error, response) {
+        return request(requestOptions, function (error, data, response) {
             if (callback) {
-                if (error) {
-                    return callback(error);
-                }
-                if (response.statusCode >= 200 && response.statusCode <= 299) {
-                    return callback(null, response);
-                }
-                callback(response);
+                callback(error, data, response);
             }
         });
     };
@@ -627,15 +607,9 @@ var DefaultApi = (function () {
                 requestOptions.form = formParams;
             }
         }
-        request(requestOptions, function (error, response) {
+        return request(requestOptions, function (error, data, response) {
             if (callback) {
-                if (error) {
-                    return callback(error);
-                }
-                if (response.statusCode >= 200 && response.statusCode <= 299) {
-                    return callback(null, response);
-                }
-                callback(response);
+                callback(error, data, response);
             }
         });
     };
@@ -673,15 +647,9 @@ var DefaultApi = (function () {
                 requestOptions.form = formParams;
             }
         }
-        request(requestOptions, function (error, response) {
+        return request(requestOptions, function (error, data, response) {
             if (callback) {
-                if (error) {
-                    return callback(error);
-                }
-                if (response.statusCode >= 200 && response.statusCode <= 299) {
-                    return callback(null, response);
-                }
-                callback(response);
+                callback(error, data, response);
             }
         });
     };
@@ -719,15 +687,9 @@ var DefaultApi = (function () {
                 requestOptions.form = formParams;
             }
         }
-        request(requestOptions, function (error, response) {
+        return request(requestOptions, function (error, data, response) {
             if (callback) {
-                if (error) {
-                    return callback(error);
-                }
-                if (response.statusCode >= 200 && response.statusCode <= 299) {
-                    return callback(null, response);
-                }
-                callback(response);
+                callback(error, data, response);
             }
         });
     };
@@ -765,15 +727,9 @@ var DefaultApi = (function () {
                 requestOptions.form = formParams;
             }
         }
-        request(requestOptions, function (error, response) {
+        return request(requestOptions, function (error, data, response) {
             if (callback) {
-                if (error) {
-                    return callback(error);
-                }
-                if (response.statusCode >= 200 && response.statusCode <= 299) {
-                    return callback(null, response);
-                }
-                callback(response);
+                callback(error, data, response);
             }
         });
     };

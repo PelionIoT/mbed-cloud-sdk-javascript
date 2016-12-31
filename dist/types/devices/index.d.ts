@@ -1,50 +1,17 @@
 /// <reference types="node" />
+import { connectionOptions } from "../helpers/connectionOptions";
 import { EventEmitter } from "events";
-import { EndpointsApi } from "../_api/mds";
-export interface DevicesOptions {
-    /**
-    * Access Key for your mbed Device Connector account
-    */
-    accessKey: string;
-    /**
-    * URL for mbed Device Connector API
-    */
-    host?: string;
-}
-export interface ResourceValueOptions {
-    /**
-    * If true, the response will come only from the cache
-    * (default: false)
-    */
-    cacheOnly?: boolean;
-    /**
-    * If true, mbed Device Connector will not wait for a response
-    * Creates a CoAP Non-Confirmable requests
-    * If false, a response is expected and the CoAP request is confirmable
-    * (default: false)
-    */
-    noResp?: string;
-}
-export interface CallbackData {
-    /**
-    * The callback URL
-    */
-    url: string;
-    /**
-    * The headers that should be set when mbed Cloud Connect puts to the given callback URL
-    */
-    headers?: any;
-}
-export interface EndpointOptions {
-    name: any;
-    status: any;
-    type: any;
-}
+import { EndpointsApi, NotificationsApi, ResourcesApi, SubscriptionsApi } from "../_api/mds";
 /**
 * Root Devices object
 */
 export declare class Devices extends EventEmitter {
-    private api;
+    private _apis;
+    private _pollRequest;
+    static polling: boolean;
+    static asyncFns: {
+        [key: string]: Function;
+    };
     /**
     * Resource notification event
     * @event
@@ -73,20 +40,21 @@ export declare class Devices extends EventEmitter {
     /**
     * @param options Options object
     */
-    constructor(options: DevicesOptions);
-    /**
-    * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
-    */
-    getEndpoints(type?: string, callback?: (err: any, data?: Endpoint[]) => void): Promise<Endpoint[]>;
+    constructor(options: connectionOptions);
+    getEndpoints(options?: {
+        type?: string;
+    }): Promise<Devices.Endpoint[]>;
+    getEndpoints(options?: {
+        type?: string;
+    }, callback?: (err: any, data?: Devices.Endpoint[]) => void): void;
     /**
     * Begins long polling constantly for notifications
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    startNotifications(callback?: (err: any, data?: void) => void): Promise<void>;
+    startNotifications(options?: {
+        requestCallback?: (err: any, data?: any) => any;
+    }, callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Stops long polling for notifications
     * @param callback A function that is passed any error
@@ -98,14 +66,16 @@ export declare class Devices extends EventEmitter {
     * @param callback A function that is passed the arguments (error, callbackData)
     * @returns Optional Promise containing the callback data
     */
-    getCallback(callback?: (err: any, data?: CallbackData) => void): Promise<CallbackData>;
+    getCallback(callback?: (err: any, data?: Devices.Webhook) => void): Promise<Devices.Webhook>;
     /**
     * Puts callback data
     * @param data callback data
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    putCallback(data: CallbackData, callback?: (err: any, data?: void) => void): Promise<void>;
+    putCallback(options: {
+        data: Devices.Webhook;
+    }, callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
     * @param callback A function that is passed any error
@@ -124,7 +94,9 @@ export declare class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    putSubscriptionData(data: any, callback?: (err: any, data?: void) => void): Promise<void>;
+    putSubscriptionData(options: {
+        presubsription: string[];
+    }, callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Removes all subscriptions
     * @param callback A function that is passed any error
@@ -132,90 +104,162 @@ export declare class Devices extends EventEmitter {
     */
     deleteSubscriptions(callback?: (err: any, data?: void) => void): Promise<void>;
 }
-/**
-* Endpoint object
-*/
-export declare class Endpoint {
-    private api;
-    constructor(api: EndpointsApi, options: EndpointOptions);
+export declare namespace Devices {
+    function decode(data: any): string;
+    interface Webhook {
+        /**
+        * The URL to which the notifications must be sent
+        */
+        url?: string;
+        /**
+        * Headers (key/value) that must be sent with the request
+        */
+        headers?: {};
+    }
+    class APIContainer {
+        epAPI: EndpointsApi;
+        notAPI: NotificationsApi;
+        resAPI: ResourcesApi;
+        subAPI: SubscriptionsApi;
+        constructor(options: connectionOptions);
+    }
+    interface ResourceValueOptions {
+        /**
+        * If true, the response will come only from the cache
+        */
+        cacheOnly?: boolean;
+        /**
+        * If true, mbed Device Connector will not wait for a response
+        * Creates a CoAP Non-Confirmable requests
+        * If false, a response is expected and the CoAP request is confirmable
+        * (default: false)
+        */
+        noResp?: boolean;
+    }
+    type Statuses = "ACTIVE" | "STALE";
+    interface EndpointOptions {
+        /**
+        * Unique identifier representing the endpoint
+        */
+        name?: string;
+        /**
+        * Type of endpoint. (Free text)
+        */
+        type?: string;
+        /**
+        * Possible values ACTIVE, STALE
+        */
+        status?: Statuses;
+        /**
+        * Determines whether the device is in queue mode
+        */
+        queueMode?: boolean;
+    }
     /**
-    * Gets a list of an endpoint's resources
-    * @param callback A function that is passed the arguments (error, resources)
-    * @returns Optional Promise of endpoint resources
+    * Endpoint object
     */
-    getResources(callback?: (err: any, data?: Resource[]) => void): Promise<Resource[]>;
+    class Endpoint {
+        private _apis;
+        constructor(_apis: APIContainer, options: EndpointOptions);
+        getResources(): Promise<Resource[]>;
+        getResources(callback: (err: any, data?: Resource[]) => void): void;
+        /**
+        * Deletes a resource
+        * @param path Path of the resource to delete
+        * @param noResp Whether to make a non-confirmable request to the device
+        * @param callback A function that is passed any error
+        * @returns Optional Promise containing any error
+        */
+        deleteResource(options: {
+            path: string;
+            noResp?: boolean;
+        }, callback?: (err: any, data?: void) => void): Promise<void>;
+        /**
+        * Gets a list of an endpoint's subscriptions
+        * @param callback A function that is passed (error, subscriptions)
+        * @returns Optional Promise containing the subscriptions
+        */
+        getSubscriptions(callback?: (err: any, data?: any) => void): Promise<any>;
+        /**
+        * Removes an endpoint's subscriptions
+        * @param callback A function that is passed any error
+        * @returns Optional Promise containing any error
+        */
+        deleteSubscriptions(callback?: (err: any, data?: void) => void): Promise<void>;
+    }
+    interface Endpoint extends EndpointOptions {
+    }
+    interface ResourceOptions {
+        /**
+        * Whether you can subscribe to changes for this resource
+        */
+        obs: boolean;
+        /**
+        * Resource's type
+        */
+        rt: string;
+        /**
+        * The content type of the resource
+        */
+        type: string;
+        /**
+        * Resource's url
+        */
+        uri: string;
+        /**
+        * The endpoint the resource belongs to
+        */
+        endpoint: Endpoint;
+    }
     /**
-    * Adds a new resource
-    * @param path The path of the resource
-    * @param value The value of the resource
-    * @param options Options object
-    * @param callback A function that is passed any error
-    * @returns Optional Promise containing any error
+    * Resource object
     */
-    postResource(path: string, value?: string, options?: ResourceValueOptions, callback?: (err: any, data?: void) => void): Promise<void>;
-    /**
-    * Deletes a resource
-    * @param path Path of the resource to delete
-    * @param callback A function that is passed any error
-    * @returns Optional Promise containing any error
-    */
-    deleteResource(path?: string, callback?: (err: any, data?: void) => void): Promise<void>;
-    /**
-    * Gets a list of an endpoint's subscriptions
-    * @param callback A function that is passed (error, subscriptions)
-    * @returns Optional Promise containing the subscriptions
-    */
-    getSubscriptions(callback?: (err: any, data?: any) => void): Promise<any>;
-    /**
-    * Removes an endpoint's subscriptions
-    * @param callback A function that is passed any error
-    * @returns Optional Promise containing any error
-    */
-    deleteSubscriptions(callback?: (err: any, data?: void) => void): Promise<void>;
-}
-export interface Endpoint extends EndpointOptions {
-}
-/**
-* Resource object
-*/
-export declare class Resource {
-    private api;
-    obs: any;
-    rt: any;
-    type: any;
-    uri: any;
-    constructor(api: EndpointsApi, options: any);
-    /**
-    * Gets the value of a resource
-    * @param options Options object
-    * @param callback A function that is passed the arguments (error, value) where value is the value of the resource formatted as a string
-    * @returns Optional Promise of resource value
-    */
-    getValue(options?: ResourceValueOptions, callback?: (err: any, data?: string) => void): Promise<string>;
-    /**
-    * Puts the value of a resource
-    * @param value The value of the resource
-    * @param options Options object
-    * @param callback A function that is passed any error
-    * @returns Optional Promise containing any error
-    */
-    putValue(value: string, options?: ResourceValueOptions, callback?: (err: any, data?: void) => void): Promise<void>;
-    /**
-    * Gets the status of a resource's subscription
-    * @param callback A function that is passed (error, subscribed) where subscribed is true or false
-    * @returns Optional Promise containing resource subscription status
-    */
-    getSubscription(callback?: (err: any, data?: boolean) => void): Promise<boolean>;
-    /**
-    * Puts a subscription to a resource
-    * @param callback A function that is passed any error
-    * @returns Optional Promise containing any error
-    */
-    putSubscription(callback?: (err: any, data?: void) => void): Promise<void>;
-    /**
-    * Deletes a resource's subscription
-    * @param callback A function that is passed any error
-    * @returns Optional Promise containing any error
-    */
-    deleteSubscription(callback?: (err: any, data?: void) => void): Promise<void>;
+    class Resource {
+        private _apis;
+        constructor(_apis: APIContainer, options: ResourceOptions);
+        getValue(options?: ResourceValueOptions): Promise<string>;
+        getValue(options?: ResourceValueOptions, callback?: (err: any, data?: string) => void): any;
+        /**
+        * Puts the value of a resource
+        * @param value The value of the resource
+        * @param noResp If true, mbed Device Connector will not wait for a response
+        * @param callback A function that is passed any error
+        * @returns Optional Promise containing any error
+        */
+        putValue(options: {
+            value: string;
+            noResp?: boolean;
+        }, callback?: (err: any, data?: void) => void): Promise<void>;
+        /**
+        * Execute a function on a resource
+        * @param function The function to trigger
+        * @param noResp If true, mbed Device Connector will not wait for a response
+        * @param callback A function that is passed any error
+        * @returns Optional Promise containing any error
+        */
+        execute(options: {
+            function?: string;
+            noResp?: boolean;
+        }, callback?: (err: any, data?: void) => void): Promise<void>;
+        /**
+        * Gets the status of a resource's subscription
+        * @param callback A function that is passed (error, subscribed) where subscribed is true or false
+        * @returns Optional Promise containing resource subscription status
+        */
+        getSubscription(callback?: (err: any, data?: boolean) => void): Promise<boolean>;
+        /**
+        * Subscribe to a resource
+        * @param callback A function that is passed any error
+        * @returns Optional Promise containing any error
+        */
+        putSubscription(callback?: (err: any, data?: void) => void): Promise<void>;
+        /**
+        * Deletes a resource's subscription
+        * @param callback A function that is passed any error
+        * @returns Optional Promise containing any error
+        */
+        deleteSubscription(callback?: (err: any, data?: void) => void): Promise<void>;
+    }
+    interface Resource extends ResourceOptions {
+    }
 }

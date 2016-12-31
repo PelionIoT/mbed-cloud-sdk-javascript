@@ -86,14 +86,15 @@
 						<section class="tsd-index-section ">
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-class"><a href="access.apicontainer.html" class="tsd-kind-icon">APIContainer</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-class"><a href="access.user.html" class="tsd-kind-icon">User</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-class"><a href="../interfaces/access.accessoptions.html" class="tsd-kind-icon">Access<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-class"><a href="../interfaces/access.useroptions.html" class="tsd-kind-icon">User<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class"><a href="../interfaces/access.usersoptions.html" class="tsd-kind-icon">Users<wbr>Options</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -117,13 +118,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Access<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/access.accessoptions.html" class="tsd-signature-type">AccessOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="access.html" class="tsd-signature-type">Access</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Access<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/connectionoptions.html" class="tsd-signature-type">connectionOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="access.html" class="tsd-signature-type">Access</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in access/index.ts:26</li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L27">access/index.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -131,7 +132,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/access.accessoptions.html" class="tsd-signature-type">AccessOptions</a></h5>
+									<h5>options: <a href="../interfaces/connectionoptions.html" class="tsd-signature-type">connectionOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>Options object</p>
@@ -150,13 +151,14 @@
 					<a name="getusers" class="tsd-anchor"></a>
 					<h3>get<wbr>Users</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Users<span class="tsd-signature-symbol">(</span>limit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, after<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, order<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, include<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, filter<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="access.user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Users<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/access.usersoptions.html" class="tsd-signature-type">UsersOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="access.user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Users<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/access.usersoptions.html" class="tsd-signature-type">UsersOptions</a>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in access/index.ts:43</li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L36">access/index.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -167,24 +169,34 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> limit: <span class="tsd-signature-type">number</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/access.usersoptions.html" class="tsd-signature-type">UsersOptions</a></h5>
 								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="access.user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Optional Promise of currently registered endpoints</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L37">access/index.ts:37</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets a list of currently registered endpoints</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> after: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> order: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> include: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> filter: <span class="tsd-signature-type">string</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/access.usersoptions.html" class="tsd-signature-type">UsersOptions</a></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>A function that is passed the arguments (error, endpoints)</p>
+										<div class="lead">
+											<p>A function that is passed the arguments (error, endpoints)</p>
+										</div>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
@@ -209,7 +221,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="access.user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 							<p>Optional Promise of currently registered endpoints</p>
 						</li>
 					</ul>
@@ -232,13 +244,16 @@
 						<a href="access.html" class="tsd-kind-icon">Access</a>
 						<ul>
 							<li class=" tsd-kind-class tsd-parent-kind-class">
+								<a href="access.apicontainer.html" class="tsd-kind-icon">APIContainer</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-class">
 								<a href="access.user.html" class="tsd-kind-icon">User</a>
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="../interfaces/access.accessoptions.html" class="tsd-kind-icon">Access<wbr>Options</a>
+								<a href="../interfaces/access.useroptions.html" class="tsd-kind-icon">User<wbr>Options</a>
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="../interfaces/access.useroptions.html" class="tsd-kind-icon">User<wbr>Options</a>
+								<a href="../interfaces/access.usersoptions.html" class="tsd-kind-icon">Users<wbr>Options</a>
 							</li>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="access.html#constructor" class="tsd-kind-icon">constructor</a>
@@ -251,25 +266,16 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class">
+						<a href="development.html" class="tsd-kind-icon">Development</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="devices.html" class="tsd-kind-icon">Devices</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="endpoint.html" class="tsd-kind-icon">Endpoint</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="resource.html" class="tsd-kind-icon">Resource</a>
+						<a href="update.html" class="tsd-kind-icon">Update</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/callbackdata.html" class="tsd-kind-icon">Callback<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/devicesoptions.html" class="tsd-kind-icon">Devices<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/endpointoptions.html" class="tsd-kind-icon">Endpoint<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/resourcevalueoptions.html" class="tsd-kind-icon">Resource<wbr>Value<wbr>Options</a>
+						<a href="../interfaces/connectionoptions.html" class="tsd-kind-icon">connection<wbr>Options</a>
 					</li>
 				</ul>
 			</nav>

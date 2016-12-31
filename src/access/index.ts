@@ -16,6 +16,7 @@
 */
 
 import pg = require("polygoat");
+import { connectionOptions } from "../helpers/connectionOptions";
 import { AccountAdminApi, AccountAdminApiApiKeys } from "../_api/iam";
 
 /**
@@ -23,26 +24,32 @@ import { AccountAdminApi, AccountAdminApiApiKeys } from "../_api/iam";
 */
 export class Access {
 
-    private api: AccountAdminApi;
+    private _apis: Access.APIContainer;
 
     /**
     * @param options Options object
     */
-    constructor(options: Access.AccessOptions) {
-        this.api = new AccountAdminApi();
-//        if (options.host) this.client.basePath = options.host;
-        if (options.accessKey) this.api.setApiKey(AccountAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
+    constructor(options: connectionOptions) {
+        this._apis = new Access.APIContainer(options);
     }
 
+    public getUsers(options?: Access.UsersOptions): Promise<Access.User[]>;
+    public getUsers(options?: Access.UsersOptions, callback?: (err: any, data?: Access.User[]) => void);
     /**
     * Gets a list of currently registered endpoints
     * @param type Filters endpoints by endpoint-type
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
-    public getUsers(limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (err: any, data?: Access.User[]) => void): Promise<Access.User[]> {
+    public getUsers(options?: any, callback?: (err: any, data?: Access.User[]) => void): Promise<Access.User[]> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let {limit, after, order, include, filter} = options;
         return pg(done => {
-            this.api.getAllUsers(limit, after, order, include, filter, (error, response) => {
+            this._apis.adAPI.getAllUsers(limit, after, order, include, filter, (error, data) => {
                 if (error) return done(error);
                 /*
                 { object: 'list',
@@ -52,8 +59,8 @@ export class Access {
                  has_more: false,
                  data:
                  */
-                var users = response.body.data.map(user => {
-                    return new Access.User(this.api, user);
+                var users = data.data.map(user => {
+                    return new Access.User(this._apis, user);
                 });
                 done(null, users);
             });
@@ -62,33 +69,40 @@ export class Access {
 }
 
 export namespace Access {
-export interface AccessOptions {
-    /**
-    * Access Key for your mbed Device Connector account
-    */
-    accessKey: string;
-    /**
-    * URL for mbed Device Connector API
-    */
-    host?: string;
-}
 
-export interface UserOptions {
-    account_id: string;
-    status: string;
-    username: string;
-    full_name: string;
-    id: string;
-}
+    export class APIContainer {
 
-export class User {
-    constructor(private api: AccountAdminApi, options: UserOptions) {
-        for(var key in options) {
-            this[key] = options[key];
+        adAPI: AccountAdminApi;
+
+        constructor(options: connectionOptions) {
+            this.adAPI = new AccountAdminApi(options.host);
+            this.adAPI.setApiKey(AccountAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
         }
-        this.api = null;
     }
-}
-export interface User extends UserOptions {}
-}
 
+    export interface UsersOptions {
+        limit?: number;
+        order?: string;
+        after?: string;
+        include?: string;
+        filter?: string;
+    }
+
+    export interface UserOptions {
+        account_id: string;
+        status: string;
+        username: string;
+        full_name: string;
+        id: string;
+    }
+
+    export class User {
+        constructor(private _apis: APIContainer, options: UserOptions) {
+            for(var key in options) {
+                this[key] = options[key];
+            }
+            this._apis = null //deleteme
+        }
+    }
+    export interface User extends UserOptions {}
+}

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CallbackData | mbed Cloud SDK</title>
+	<title>APIContainer | mbed Cloud SDK</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="callbackdata.html">CallbackData</a>
+					<a href="access.html">Access</a>
+				</li>
+				<li>
+					<a href="access.apicontainer.html">APIContainer</a>
 				</li>
 			</ul>
-			<h1>Interface CallbackData</h1>
+			<h1>Class APIContainer</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +71,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CallbackData</span>
+						<span class="target">APIContainer</span>
 					</li>
 				</ul>
 			</section>
@@ -77,46 +80,57 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="access.apicontainer.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="callbackdata.html#headers" class="tsd-kind-icon">headers</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="callbackdata.html#url" class="tsd-kind-icon">url</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="access.apicontainer.html#adapi" class="tsd-kind-icon">adAPI</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="headers" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> headers</h3>
-					<div class="tsd-signature tsd-kind-icon">headers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in devices/index.ts:56</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The headers that should be set when mbed Cloud Connect puts to the given callback URL</p>
-						</div>
-					</div>
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new APIContainer<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/connectionoptions.html" class="tsd-signature-type">connectionOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="access.apicontainer.html" class="tsd-signature-type">APIContainer</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L75">access/index.ts:75</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>options: <a href="../interfaces/connectionoptions.html" class="tsd-signature-type">connectionOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="access.apicontainer.html" class="tsd-signature-type">APIContainer</a></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="url" class="tsd-anchor"></a>
-					<h3>url</h3>
-					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="adapi" class="tsd-anchor"></a>
+					<h3>adAPI</h3>
+					<div class="tsd-signature tsd-kind-icon">adAPI<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AccountAdminApi</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in devices/index.ts:52</li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L75">access/index.ts:75</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The callback URL</p>
-						</div>
-					</div>
 				</section>
 			</section>
 		</div>
@@ -130,41 +144,52 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class">
-						<a href="../classes/access.html" class="tsd-kind-icon">Access</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/devices.html" class="tsd-kind-icon">Devices</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/endpoint.html" class="tsd-kind-icon">Endpoint</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/resource.html" class="tsd-kind-icon">Resource</a>
-					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="callbackdata.html" class="tsd-kind-icon">Callback<wbr>Data</a>
+					<li class="current tsd-kind-class">
+						<a href="access.html" class="tsd-kind-icon">Access</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="callbackdata.html#headers" class="tsd-kind-icon">headers</a>
+							<li class="current tsd-kind-class tsd-parent-kind-class">
+								<a href="access.apicontainer.html" class="tsd-kind-icon">APIContainer</a>
+								<ul>
+									<li class=" tsd-kind-constructor tsd-parent-kind-class">
+										<a href="access.apicontainer.html#constructor" class="tsd-kind-icon">constructor</a>
+									</li>
+									<li class=" tsd-kind-property tsd-parent-kind-class">
+										<a href="access.apicontainer.html#adapi" class="tsd-kind-icon">adAPI</a>
+									</li>
+								</ul>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="callbackdata.html#url" class="tsd-kind-icon">url</a>
+							<li class=" tsd-kind-class tsd-parent-kind-class">
+								<a href="access.user.html" class="tsd-kind-icon">User</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class">
+								<a href="../interfaces/access.useroptions.html" class="tsd-kind-icon">User<wbr>Options</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class">
+								<a href="../interfaces/access.usersoptions.html" class="tsd-kind-icon">Users<wbr>Options</a>
+							</li>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="access.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="access.html#getusers" class="tsd-kind-icon">get<wbr>Users</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="devicesoptions.html" class="tsd-kind-icon">Devices<wbr>Options</a>
+					<li class=" tsd-kind-class">
+						<a href="development.html" class="tsd-kind-icon">Development</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="devices.html" class="tsd-kind-icon">Devices</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="update.html" class="tsd-kind-icon">Update</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="endpointoptions.html" class="tsd-kind-icon">Endpoint<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="resourcevalueoptions.html" class="tsd-kind-icon">Resource<wbr>Value<wbr>Options</a>
+						<a href="../interfaces/connectionoptions.html" class="tsd-kind-icon">connection<wbr>Options</a>
 					</li>
 				</ul>
 			</nav>
