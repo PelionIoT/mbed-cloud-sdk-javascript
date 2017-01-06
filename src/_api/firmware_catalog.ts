@@ -273,7 +273,7 @@ export class ManifestSerializer {
     * The number of results to return
     */
     'limit': number;
-    'data': Array<ManifestSerializerData>;
+    'data': Array<FirmwareManifestSerializerData>;
     /**
     * Order of returned records
     */
@@ -309,7 +309,7 @@ export class ManifestSerializerData {
     /**
     * The contents of the manifest
     */
-    'manifestContents': string;
+    'manifestContents': any;
     /**
     * The entity instance signature
     */
