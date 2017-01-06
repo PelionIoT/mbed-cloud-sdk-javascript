@@ -256,35 +256,7 @@ export class FirmwareImageSerializerData {
     'name': string;
 }
 
-export class ManifestSerializer {
-    /**
-    * API Resource name
-    */
-    'object': string;
-    /**
-    * Whether there are more results to display
-    */
-    'hasMore': boolean;
-    /**
-    * Total number of records
-    */
-    'totalCount': number;
-    /**
-    * Entity id for fetch after it
-    */
-    'after': string;
-    /**
-    * The number of results to return
-    */
-    'limit': number;
-    'data': Array<FirmwareManifestSerializerData>;
-    /**
-    * Order of returned records
-    */
-    'order': string;
-}
-
-export class ManifestSerializerData {
+export class FirmwareManifestSerializerData {
     'datafile': string;
     /**
     * DEPRECATED: The ID of the firmware manifest
@@ -330,6 +302,34 @@ export class ManifestSerializerData {
     * The name of the object
     */
     'name': string;
+}
+
+export class ManifestSerializer {
+    /**
+    * API Resource name
+    */
+    'object': string;
+    /**
+    * Whether there are more results to display
+    */
+    'hasMore': boolean;
+    /**
+    * Total number of records
+    */
+    'totalCount': number;
+    /**
+    * Entity id for fetch after it
+    */
+    'after': string;
+    /**
+    * The number of results to return
+    */
+    'limit': number;
+    'data': Array<FirmwareManifestSerializerData>;
+    /**
+    * Order of returned records
+    */
+    'order': string;
 }
 
 
