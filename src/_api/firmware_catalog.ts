@@ -48,8 +48,12 @@ export interface RequestOptions {
 
 export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
+
     // Normalize slashes in url
-    url = url.replace(/\/+/g, "/");
+    url = url.replace(/([:])?\/+/g, function($0, $1) {
+        return $1 ? $0: "/";
+    });
+
     var request = superagent(options.method, url);
 
     if (options.auth && (options.auth.username || options.auth.password)) {
@@ -252,35 +256,7 @@ export class FirmwareImageSerializerData {
     'name': string;
 }
 
-export class ManifestSerializer {
-    /**
-    * API Resource name
-    */
-    'object': string;
-    /**
-    * Whether there are more results to display
-    */
-    'hasMore': boolean;
-    /**
-    * Total number of records
-    */
-    'totalCount': number;
-    /**
-    * Entity id for fetch after it
-    */
-    'after': string;
-    /**
-    * The number of results to return
-    */
-    'limit': number;
-    'data': Array<ManifestSerializerData>;
-    /**
-    * Order of returned records
-    */
-    'order': string;
-}
-
-export class ManifestSerializerData {
+export class FirmwareManifestSerializerData {
     'datafile': string;
     /**
     * DEPRECATED: The ID of the firmware manifest
@@ -309,7 +285,7 @@ export class ManifestSerializerData {
     /**
     * The contents of the manifest
     */
-    'manifestContents': string;
+    'manifestContents': any;
     /**
     * The entity instance signature
     */
@@ -326,6 +302,34 @@ export class ManifestSerializerData {
     * The name of the object
     */
     'name': string;
+}
+
+export class ManifestSerializer {
+    /**
+    * API Resource name
+    */
+    'object': string;
+    /**
+    * Whether there are more results to display
+    */
+    'hasMore': boolean;
+    /**
+    * Total number of records
+    */
+    'totalCount': number;
+    /**
+    * Entity id for fetch after it
+    */
+    'after': string;
+    /**
+    * The number of results to return
+    */
+    'limit': number;
+    'data': Array<FirmwareManifestSerializerData>;
+    /**
+    * Order of returned records
+    */
+    'order': string;
 }
 
 

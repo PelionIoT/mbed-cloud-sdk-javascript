@@ -48,8 +48,12 @@ export interface RequestOptions {
 
 export function request(options:any, callback?:Function): superagent.SuperAgentRequest {
     var url = options.uri;
+
     // Normalize slashes in url
-    url = url.replace(/\/+/g, "/");
+    url = url.replace(/([:])?\/+/g, function($0, $1) {
+        return $1 ? $0: "/";
+    });
+
     var request = superagent(options.method, url);
 
     if (options.auth && (options.auth.username || options.auth.password)) {
