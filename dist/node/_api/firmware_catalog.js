@@ -26,6 +26,10 @@ var superagent = require("superagent");
 var defaultBasePath = 'http://api.mbedcloud.com';
 function request(options, callback) {
     var url = options.uri;
+    // Normalize slashes in url
+    url = url.replace(/([:])?\/+/g, function ($0, $1) {
+        return $1 ? $0 : "/";
+    });
     var request = superagent(options.method, url);
     if (options.auth && (options.auth.username || options.auth.password)) {
         request.auth(options.auth.username || '', options.auth.password || '');
@@ -155,18 +159,18 @@ var FirmwareImageSerializerData = (function () {
     return FirmwareImageSerializerData;
 }());
 exports.FirmwareImageSerializerData = FirmwareImageSerializerData;
+var FirmwareManifestSerializerData = (function () {
+    function FirmwareManifestSerializerData() {
+    }
+    return FirmwareManifestSerializerData;
+}());
+exports.FirmwareManifestSerializerData = FirmwareManifestSerializerData;
 var ManifestSerializer = (function () {
     function ManifestSerializer() {
     }
     return ManifestSerializer;
 }());
 exports.ManifestSerializer = ManifestSerializer;
-var ManifestSerializerData = (function () {
-    function ManifestSerializerData() {
-    }
-    return ManifestSerializerData;
-}());
-exports.ManifestSerializerData = ManifestSerializerData;
 var HttpBasicAuth = (function () {
     function HttpBasicAuth() {
     }

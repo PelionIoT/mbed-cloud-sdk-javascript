@@ -16,7 +16,9 @@
 * limitations under the License.
 */
 var pg = require("polygoat");
-var iam_1 = require("../_api/iam");
+var api_1 = require("./api");
+var user_1 = require("./user");
+var certificate_1 = require("./certificate");
 /**
 * Root Account object
 */
@@ -25,11 +27,11 @@ var Access = (function () {
     * @param options Options object
     */
     function Access(options) {
-        this._apis = new Access.APIContainer(options);
+        this._api = new api_1.Api(options);
     }
     /**
     * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
+    * @param options Filters endpoints by endpoint-type
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
@@ -42,7 +44,7 @@ var Access = (function () {
         }
         var limit = options.limit, after = options.after, order = options.order, include = options.include, filter = options.filter;
         return pg(function (done) {
-            _this._apis.adAPI.getAllUsers(limit, after, order, include, filter, function (error, data) {
+            _this._api.admin.getAllUsers(limit, after, order, include, filter, function (error, data) {
                 if (error)
                     return done(error);
                 /*
@@ -54,33 +56,37 @@ var Access = (function () {
                  data:
                  */
                 var users = data.data.map(function (user) {
-                    return new Access.User(_this._apis, user);
+                    return new user_1.User(_this._api, user);
                 });
                 done(null, users);
+            });
+        }, callback);
+    };
+    /**
+    * Gets a list of certificates
+    * @param type Filters endpoints by endpoint-type
+    * @param callback A function that is passed the arguments (error, endpoints)
+    * @returns Optional Promise of currently registered endpoints
+    */
+    Access.prototype.getCertificates = function (options, callback) {
+        var _this = this;
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        var limit = options.limit, after = options.after, order = options.order, include = options.include, filter = options.filter;
+        return pg(function (done) {
+            _this._api.admin.getAllCertificates(limit, after, order, include, filter, function (error, data) {
+                if (error)
+                    return done(error);
+                var certificates = data.data.map(function (certificate) {
+                    return new certificate_1.Certificate(_this._api, certificate);
+                });
+                done(null, certificates);
             });
         }, callback);
     };
     return Access;
 }());
 exports.Access = Access;
-(function (Access) {
-    var APIContainer = (function () {
-        function APIContainer(options) {
-            this.adAPI = new iam_1.AccountAdminApi(options.host);
-            this.adAPI.setApiKey(iam_1.AccountAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
-        }
-        return APIContainer;
-    }());
-    Access.APIContainer = APIContainer;
-    var User = (function () {
-        function User(_apis, options) {
-            this._apis = _apis;
-            for (var key in options) {
-                this[key] = options[key];
-            }
-            this._apis = null; //deleteme
-        }
-        return User;
-    }());
-    Access.User = User;
-})(Access = exports.Access || (exports.Access = {}));

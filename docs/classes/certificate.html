@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>User | mbed Cloud SDK</title>
+	<title>Certificate | mbed Cloud SDK</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="access.html">Access</a>
-				</li>
-				<li>
-					<a href="access.user.html">User</a>
+					<a href="certificate.html">Certificate</a>
 				</li>
 			</ul>
-			<h1>Class User</h1>
+			<h1>Class Certificate</h1>
 		</div>
 	</div>
 </header>
@@ -71,12 +68,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="../interfaces/access.useroptions.html" class="tsd-signature-type">UserOptions</a>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">User</span>
-							</li>
-						</ul>
+						<span class="target">Certificate</span>
 					</li>
 				</ul>
 			</section>
@@ -87,17 +79,15 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="access.user.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="certificate.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="access.user.html#account_id" class="tsd-kind-icon">account_<wbr>id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="access.user.html#full_name" class="tsd-kind-icon">full_<wbr>name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="access.user.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="access.user.html#status" class="tsd-kind-icon">status</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="access.user.html#username" class="tsd-kind-icon">username</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="certificate.html#createdat" class="tsd-kind-icon">created<wbr>At</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="certificate.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="certificate.html#pubkey" class="tsd-kind-icon">pub<wbr>Key</a></li>
 							</ul>
 						</section>
 					</div>
@@ -109,85 +99,75 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>User<span class="tsd-signature-symbol">(</span>_apis<span class="tsd-signature-symbol">: </span><a href="access.apicontainer.html" class="tsd-signature-type">APIContainer</a>, options<span class="tsd-signature-symbol">: </span><a href="../interfaces/access.useroptions.html" class="tsd-signature-type">UserOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="access.user.html" class="tsd-signature-type">User</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Certificate<span class="tsd-signature-symbol">(</span>_api<span class="tsd-signature-symbol">: </span><a href="api.html" class="tsd-signature-type">Api</a>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="certificate.html" class="tsd-signature-type">Certificate</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L99">access/index.ts:99</a></li>
+									<li>Defined in access/certificate.ts:20</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>_apis: <a href="access.apicontainer.html" class="tsd-signature-type">APIContainer</a></h5>
+									<h5>_api: <a href="api.html" class="tsd-signature-type">Api</a></h5>
 								</li>
 								<li>
-									<h5>options: <a href="../interfaces/access.useroptions.html" class="tsd-signature-type">UserOptions</a></h5>
+									<h5>options: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="access.user.html" class="tsd-signature-type">User</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="certificate.html" class="tsd-signature-type">Certificate</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="account_id" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> account_<wbr>id</h3>
-					<div class="tsd-signature tsd-kind-icon">account_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="createdat" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> created<wbr>At</h3>
+					<div class="tsd-signature tsd-kind-icon">created<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="../interfaces/access.useroptions.html">UserOptions</a>.<a href="../interfaces/access.useroptions.html#account_id">account_id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L92">access/index.ts:92</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/02e28df/src/development/index.ts#L89">development/index.ts:89</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>UTC time of the entity creation.</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="full_name" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> full_<wbr>name</h3>
-					<div class="tsd-signature tsd-kind-icon">full_<wbr>name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="../interfaces/access.useroptions.html">UserOptions</a>.<a href="../interfaces/access.useroptions.html#full_name">full_name</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L95">access/index.ts:95</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="id" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> id</h3>
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="../interfaces/access.useroptions.html">UserOptions</a>.<a href="../interfaces/access.useroptions.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L96">access/index.ts:96</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/02e28df/src/development/index.ts#L97">development/index.ts:97</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>entity ID</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="status" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> status</h3>
-					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="pubkey" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> pub<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">pub<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="../interfaces/access.useroptions.html">UserOptions</a>.<a href="../interfaces/access.useroptions.html#status">status</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L93">access/index.ts:93</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/02e28df/src/development/index.ts#L93">development/index.ts:93</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="username" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> username</h3>
-					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="../interfaces/access.useroptions.html">UserOptions</a>.<a href="../interfaces/access.useroptions.html#username">username</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/access/index.ts#L94">access/index.ts:94</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The developer certificate public key in PEM format (NIST P-256 curve).</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -201,48 +181,28 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="access.html" class="tsd-kind-icon">Access</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="api.html" class="tsd-kind-icon">Api</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="access.html" class="tsd-kind-icon">Access</a>
+						<a href="certificate.html" class="tsd-kind-icon">Certificate</a>
 						<ul>
-							<li class=" tsd-kind-class tsd-parent-kind-class">
-								<a href="access.apicontainer.html" class="tsd-kind-icon">APIContainer</a>
-							</li>
-							<li class="current tsd-kind-class tsd-parent-kind-class">
-								<a href="access.user.html" class="tsd-kind-icon">User</a>
-								<ul>
-									<li class=" tsd-kind-constructor tsd-parent-kind-class">
-										<a href="access.user.html#constructor" class="tsd-kind-icon">constructor</a>
-									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-										<a href="access.user.html#account_id" class="tsd-kind-icon">account_<wbr>id</a>
-									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-										<a href="access.user.html#full_name" class="tsd-kind-icon">full_<wbr>name</a>
-									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-										<a href="access.user.html#id" class="tsd-kind-icon">id</a>
-									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-										<a href="access.user.html#status" class="tsd-kind-icon">status</a>
-									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-										<a href="access.user.html#username" class="tsd-kind-icon">username</a>
-									</li>
-								</ul>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="../interfaces/access.useroptions.html" class="tsd-kind-icon">User<wbr>Options</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="../interfaces/access.usersoptions.html" class="tsd-kind-icon">Users<wbr>Options</a>
-							</li>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="access.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="certificate.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="access.html#getusers" class="tsd-kind-icon">get<wbr>Users</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="certificate.html#createdat" class="tsd-kind-icon">created<wbr>At</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="certificate.html#id" class="tsd-kind-icon">id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="certificate.html#pubkey" class="tsd-kind-icon">pub<wbr>Key</a>
 							</li>
 						</ul>
 					</li>
@@ -252,13 +212,67 @@
 						<a href="development.html" class="tsd-kind-icon">Development</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="device.html" class="tsd-kind-icon">Device</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="devices.html" class="tsd-kind-icon">Devices</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="query.html" class="tsd-kind-icon">Query</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="resource.html" class="tsd-kind-icon">Resource</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="update.html" class="tsd-kind-icon">Update</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="user.html" class="tsd-kind-icon">User</a>
+					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/connectionoptions.html" class="tsd-kind-icon">connection<wbr>Options</a>
+						<a href="../interfaces/connectionoptions.html" class="tsd-kind-icon">Connection<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/devicedetail.html" class="tsd-kind-icon">Device<wbr>Detail</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/devicetype.html" class="tsd-kind-icon">Device<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/listoptions.html" class="tsd-kind-icon">List<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="../interfaces/listresponse.html" class="tsd-kind-icon">List<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/querydetail.html" class="tsd-kind-icon">Query<wbr>Detail</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/resourcetype.html" class="tsd-kind-icon">Resource<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/resourcevalueoptions.html" class="tsd-kind-icon">Resource<wbr>Value<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/useroptions.html" class="tsd-kind-icon">User<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/webhook.html" class="tsd-kind-icon">Webhook</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#deploymentenum" class="tsd-kind-icon">Deployment<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#devicestateenum" class="tsd-kind-icon">Device<wbr>State<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#devicestatuses" class="tsd-kind-icon">Device<wbr>Statuses</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#mechanismenum" class="tsd-kind-icon">Mechanism<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#decodebase64" class="tsd-kind-icon">decode<wbr>Base64</a>
 					</li>
 				</ul>
 			</nav>

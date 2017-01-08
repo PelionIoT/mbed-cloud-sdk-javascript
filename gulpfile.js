@@ -20,26 +20,32 @@ var nodeDir = distDir + "/node";
 var typesDir = distDir + "/types";
 var bundleDir = distDir + "/bundles";
 
+function handleError() {
+    this.emit("end");
+}
+
 gulp.task("clean", function() {
-    return del([docsDir, distDir]);
+    return del(distDir);
 });
 
-gulp.task("doc", ["clean"], function() {
-    return gulp.src([srcDir + "/**/*.ts", "!" + srcDir + "/_api/*"])
-        .pipe(typedoc({
-            name: name,
-            readme: "./README.md",
-            module: "commonjs",
-            target: "es6",
-            mode: "file",
-            out: docsDir,
-            excludeExternals: true,
-            excludePrivate: true,
-            hideGenerator: true
-            //gaID
-            //gaSite
-        }))
-    ;
+gulp.task("doc", function() {
+    return gulp.src([srcDir + "/**/*.ts", "!" + srcDir + "/_api/**"])
+    .pipe(typedoc({
+        name: name,
+        readme: "./README.md",
+        module: "commonjs",
+        target: "es6",
+        mode: "file",
+        out: docsDir,
+        excludeExternals: true,
+        excludePrivate: true,
+        hideGenerator: true,
+        //entryPoint: "mbedSDK"
+        //theme: "minimal"//"node_modules/typedoc-markdown-theme/bin"
+        //gaID
+        //gaSite
+    }))
+    .on('error', handleError);
 });
 
 gulp.task("typescript", ["clean"], function() {
@@ -57,17 +63,13 @@ gulp.task("typescript", ["clean"], function() {
     return merge([
         gulp.src(srcDir + "/**/*.ts")
         .pipe(ts(options))
-        .on('error', function() {
-            process.exit(1)
-        }).js
+        .on('error', handleError).js
         .pipe(gulp.dest(nodeDir)),
         gulp.src([srcDir + "/**/*.ts", "!" + srcDir + "/_api/*"])
         .pipe(ts(options))
-        .on('error', function() {
-            process.exit(1)
-        }).dts
+        .on('error', handleError).dts
         .pipe(gulp.dest(typesDir))
-    ])
+    ]);
 });
 
 gulp.task("browserify", ["typescript"], function() {
@@ -97,7 +99,12 @@ gulp.task("browserify", ["typescript"], function() {
         }
     }))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(bundleDir));
+    .pipe(gulp.dest(bundleDir))
+    .on('error', handleError);
+});
+
+gulp.task("watch", ["doc", "browserify"], function() {
+    gulp.watch(srcDir + "/**", ["doc", "browserify"]);
 });
 
 gulp.task("default", ["doc", "browserify"]);

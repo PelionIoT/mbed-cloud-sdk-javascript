@@ -16,34 +16,29 @@
 */
 
 //import config = require('./helpers/node_config');
-import { Access } from "./access";
-import { Development } from "./development";
-import { Devices } from "./devices";
-import { Update } from "./update";
-
-
-export = {
-//	config: config,
-    Access: Access, //iam
-//    Assets: Assets,
-//    Billing: Billing,
-    Development: Development,
-    Devices: Devices, //
-//    Logging: Logging, // device logs from ??
-//    Manufacturing: Manufacturing, //production_line_certificates, provisioining_certificates, factory_tool
-//    Statistics: Statistics,
-    Update: Update //firmware_catalog, deployment_service
-};
+export { Access } from "./access";
+export { Development } from "./development";
+export { Devices } from "./devices";
+export { Update } from "./update";
 
 // add comments to code from https://github.com/ARMmbed/mbed-cloud-sdk-javascript/tree/7ec7b3142c8c19d22125dd8440d9cea2071320f6/dist/_backends
+// add events/subscriptions to devices/endpoints/resources for updates got through long polling notifications w/ obs guards?
 
-// long polling
+// implement presubscriptions and test?
+// implement webhooks and test? webhooks can be done
+
+// others: putvalue, deleteresource, execute
+
 // examples in ts?
 // config env/minimist
+// split into multiple files?
+// legal approval
+// polygoat to deffotyped?
 
-// wire up rest of devices (mds, device_catalog, device_query_service)
-// development
-// access
-// update
+// access - users, groups, keys, policies?
+
+// development - certs
+// update - manifest mgmt, firmware mgmt, start and monitor campaigns
+// look at dqs and device catalog into devices
 // unit testing + mock server?
 // querying/sorting/paging

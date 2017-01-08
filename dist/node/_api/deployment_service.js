@@ -26,6 +26,10 @@ var superagent = require("superagent");
 var defaultBasePath = 'http://api.mbedcloud.com';
 function request(options, callback) {
     var url = options.uri;
+    // Normalize slashes in url
+    url = url.replace(/([:])?\/+/g, function ($0, $1) {
+        return $1 ? $0 : "/";
+    });
     var request = superagent(options.method, url);
     if (options.auth && (options.auth.username || options.auth.password)) {
         request.auth(options.auth.username || '', options.auth.password || '');

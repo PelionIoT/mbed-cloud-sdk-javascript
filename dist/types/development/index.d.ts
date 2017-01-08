@@ -1,3 +1,4 @@
+import { ConnectionOptions } from "../helpers/interfaces";
 /**
 * Root Account object
 */
@@ -6,36 +7,29 @@ export declare class Development {
     /**
     * @param options Options object
     */
-    constructor(options: Development.DevelopmentOptions);
-    /**
-    * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
-    */
-    postCertificate(options: Development.CertificateOptions, callback?: (err: any, data?: any) => void): Promise<any>;
-    getCertificate(options?: Development.CertificateOptions, callback?: (err: any, data?: any) => void): Promise<any>;
-    deleteCertificate(options: Development.CertificateOptions, callback?: (err: any, data?: void) => void): Promise<void>;
+    constructor(options: ConnectionOptions);
+    postCertificate(options: {
+        pubKey: string;
+    }): Promise<Certificate>;
+    postCertificate(options: {
+        pubKey: string;
+    }, callback: (err: any, data?: Certificate) => void): any;
+    getCertificate(): Promise<Certificate>;
+    getCertificate(callback?: (err: any, data?: Certificate) => void): any;
+    deleteCertificate(): Promise<void>;
+    deleteCertificate(callback?: (err: any, data?: void) => void): any;
 }
-export declare namespace Development {
-    interface DevelopmentOptions {
-        /**
-        * Access Key for your mbed Device Connector account
-        */
-        accessKey: string;
-        /**
-        * URL for mbed Device Connector API
-        */
-        host?: string;
-    }
-    interface CertificateBody {
-        /**
-        * The developer certificate public key in PEM format (NIST P-256 curve).
-        */
-        'pubKey': string;
-    }
-    interface CertificateOptions {
-        authorization: string;
-        body?: CertificateBody;
-    }
+export interface Certificate {
+    /**
+    * UTC time of the entity creation.
+    */
+    createdAt: string;
+    /**
+    * The developer certificate public key in PEM format (NIST P-256 curve).
+    */
+    pubKey: string;
+    /**
+    * entity ID
+    */
+    id: string;
 }

@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 var pg = require("polygoat");
-var developer_certificate_1 = require("../_api/developer_certificate");
+var api_1 = require("./api");
 /**
 * Root Account object
 */
@@ -25,44 +25,47 @@ var Development = (function () {
     * @param options Options object
     */
     function Development(options) {
-        this._api = new developer_certificate_1.DefaultApi();
-        //        if (options.host) this.client.basePath = options.host;
-        if (options.accessKey)
-            this._api.setApiKey(developer_certificate_1.DefaultApiApiKeys.Bearer, "Bearer " + options.accessKey);
+        this._api = new api_1.Api(options);
     }
     /**
-    * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
+    * Adds a developer certificate to the account (only one per account allowed).
+    * @param callback
+    * @returns Optional Promise
     */
     Development.prototype.postCertificate = function (options, callback) {
         var _this = this;
-        var authorization = options.authorization, body = options.body;
         return pg(function (done) {
-            _this._api.v3DeveloperCertificatePost(authorization, body, function (error, data) {
+            _this._api.default.v3DeveloperCertificatePost("authorization", options, function (error, data) {
                 if (error)
                     return done(error);
                 done(null, data);
             });
         }, callback);
     };
-    Development.prototype.getCertificate = function (options, callback) {
+    /**
+    * Gets the developer certificate of the account.
+    * @param callback
+    * @returns Optional Promise
+    */
+    Development.prototype.getCertificate = function (callback) {
         var _this = this;
-        var authorization = options.authorization;
         return pg(function (done) {
-            _this._api.v3DeveloperCertificateGet(authorization, function (error, data) {
+            _this._api.default.v3DeveloperCertificateGet("options.authorization", function (error, data) {
                 if (error)
                     return done(error);
                 done(null, data);
             });
         }, callback);
     };
-    Development.prototype.deleteCertificate = function (options, callback) {
+    /**
+    * Deletes the account's developer certificate (only one per account allowed).
+    * @param callback
+    * @returns Optional Promise
+    */
+    Development.prototype.deleteCertificate = function (callback) {
         var _this = this;
-        var authorization = options.authorization;
         return pg(function (done) {
-            _this._api.v3DeveloperCertificateDelete(authorization, function (error, data) {
+            _this._api.default.v3DeveloperCertificateDelete("options.authorization", function (error, data) {
                 if (error)
                     return done(error);
                 done(null, data);

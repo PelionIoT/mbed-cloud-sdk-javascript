@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Endpoint | mbed Cloud SDK</title>
+	<title>Device | mbed Cloud SDK</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="devices.html">Devices</a>
-				</li>
-				<li>
-					<a href="devices.endpoint.html">Endpoint</a>
+					<a href="device.html">Device</a>
 				</li>
 			</ul>
-			<h1>Class Endpoint</h1>
+			<h1>Class Device</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +67,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Endpoint object</p>
+						<p>Device object</p>
 					</div>
 				</div>
 			</section>
@@ -78,10 +75,10 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="../interfaces/devices.endpointoptions.html" class="tsd-signature-type">EndpointOptions</a>
+						<a href="../interfaces/devicetype.html" class="tsd-signature-type">DeviceType</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">Endpoint</span>
+								<span class="target">Device</span>
 							</li>
 						</ul>
 					</li>
@@ -94,25 +91,27 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="devices.endpoint.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="device.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="devices.endpoint.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="devices.endpoint.html#queuemode" class="tsd-kind-icon">queue<wbr>Mode</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="devices.endpoint.html#status" class="tsd-kind-icon">status</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="devices.endpoint.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="device.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="device.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="device.html#queuemode" class="tsd-kind-icon">queue<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="device.html#status" class="tsd-kind-icon">status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="device.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="devices.endpoint.html#deleteresource" class="tsd-kind-icon">delete<wbr>Resource</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="devices.endpoint.html#deletesubscriptions" class="tsd-kind-icon">delete<wbr>Subscriptions</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="devices.endpoint.html#getresources" class="tsd-kind-icon">get<wbr>Resources</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="devices.endpoint.html#getsubscriptions" class="tsd-kind-icon">get<wbr>Subscriptions</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="device.html#deleteresource" class="tsd-kind-icon">delete<wbr>Resource</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="device.html#deletesubscriptions" class="tsd-kind-icon">delete<wbr>Subscriptions</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="device.html#getdetails" class="tsd-kind-icon">get<wbr>Details</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="device.html#getresources" class="tsd-kind-icon">get<wbr>Resources</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="device.html#getsubscriptions" class="tsd-kind-icon">get<wbr>Subscriptions</a></li>
 							</ul>
 						</section>
 					</div>
@@ -124,44 +123,54 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Endpoint<span class="tsd-signature-symbol">(</span>_apis<span class="tsd-signature-symbol">: </span><a href="devices.apicontainer.html" class="tsd-signature-type">APIContainer</a>, options<span class="tsd-signature-symbol">: </span><a href="../interfaces/devices.endpointoptions.html" class="tsd-signature-type">EndpointOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="devices.endpoint.html" class="tsd-signature-type">Endpoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Device<span class="tsd-signature-symbol">(</span>_api<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Api</span>, id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="device.html" class="tsd-signature-type">Device</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/devices/index.ts#L370">devices/index.ts:370</a></li>
+									<li>Defined in devices/device.ts:26</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>_apis: <a href="devices.apicontainer.html" class="tsd-signature-type">APIContainer</a></h5>
+									<h5>_api: <span class="tsd-signature-type">Api</span></h5>
 								</li>
 								<li>
-									<h5>options: <a href="../interfaces/devices.endpointoptions.html" class="tsd-signature-type">EndpointOptions</a></h5>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="devices.endpoint.html" class="tsd-signature-type">Endpoint</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="device.html" class="tsd-signature-type">Device</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in devices/device.ts:28</li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a name="name" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> name</h3>
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="../interfaces/devices.endpointoptions.html">EndpointOptions</a>.<a href="../interfaces/devices.endpointoptions.html#name">name</a></p>
+						<p>Inherited from <a href="../interfaces/devicetype.html">DeviceType</a>.<a href="../interfaces/devicetype.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/devices/index.ts#L352">devices/index.ts:352</a></li>
+							<li>Defined in devices/types.ts:121</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Unique identifier representing the endpoint</p>
+							<p>Unique identifier representing the device</p>
 						</div>
 					</div>
 				</section>
@@ -170,9 +179,9 @@
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> queue<wbr>Mode</h3>
 					<div class="tsd-signature tsd-kind-icon">queue<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="../interfaces/devices.endpointoptions.html">EndpointOptions</a>.<a href="../interfaces/devices.endpointoptions.html#queuemode">queueMode</a></p>
+						<p>Inherited from <a href="../interfaces/devicetype.html">DeviceType</a>.<a href="../interfaces/devicetype.html#queuemode">queueMode</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/devices/index.ts#L364">devices/index.ts:364</a></li>
+							<li>Defined in devices/types.ts:133</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -184,11 +193,11 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a name="status" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> status</h3>
-					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <a href="devices.html#statuses" class="tsd-signature-type">Statuses</a></div>
+					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <a href="../globals.html#devicestatuses" class="tsd-signature-type">DeviceStatuses</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="../interfaces/devices.endpointoptions.html">EndpointOptions</a>.<a href="../interfaces/devices.endpointoptions.html#status">status</a></p>
+						<p>Inherited from <a href="../interfaces/devicetype.html">DeviceType</a>.<a href="../interfaces/devicetype.html#status">status</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/devices/index.ts#L360">devices/index.ts:360</a></li>
+							<li>Defined in devices/types.ts:129</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -202,14 +211,14 @@
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> type</h3>
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="../interfaces/devices.endpointoptions.html">EndpointOptions</a>.<a href="../interfaces/devices.endpointoptions.html#type">type</a></p>
+						<p>Inherited from <a href="../interfaces/devicetype.html">DeviceType</a>.<a href="../interfaces/devicetype.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/devices/index.ts#L356">devices/index.ts:356</a></li>
+							<li>Defined in devices/types.ts:125</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Type of endpoint. (Free text)</p>
+							<p>Type of device. (Free text)</p>
 						</div>
 					</div>
 				</section>
@@ -226,7 +235,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/devices/index.ts#L405">devices/index.ts:405</a></li>
+									<li>Defined in devices/device.ts:74</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -290,12 +299,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/devices/index.ts#L429">devices/index.ts:429</a></li>
+									<li>Defined in devices/device.ts:98</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Removes an endpoint&#39;s subscriptions</p>
+									<p>Removes a device&#39;s subscriptions</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -334,36 +343,106 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getdetails" class="tsd-anchor"></a>
+					<h3>get<wbr>Details</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Details<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Details<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in devices/device.ts:31</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets details of a device</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Optional Promise of details</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in devices/device.ts:32</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets details of a device</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>A function that is passed the arguments (error, details)</p>
+										</div>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>err: <span class="tsd-signature-type">any</span></h5>
+														</li>
+														<li>
+															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">any</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<p>Optional Promise of details</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getresources" class="tsd-anchor"></a>
 					<h3>get<wbr>Resources</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Resources<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="devices.resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Resources<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Resources<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/devices/index.ts#L378">devices/index.ts:378</a></li>
+									<li>Defined in devices/device.ts:47</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets a list of an endpoint&#39;s resources</p>
+									<p>Gets a list of a device&#39;s resources</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="devices.resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>Optional Promise of endpoint resources</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Optional Promise of device resources</p>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/devices/index.ts#L379">devices/index.ts:379</a></li>
+									<li>Defined in devices/device.ts:48</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets a list of an endpoint&#39;s resources</p>
+									<p>Gets a list of a device&#39;s resources</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -378,7 +457,7 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><a href="devices.resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -388,7 +467,7 @@
 															<h5>err: <span class="tsd-signature-type">any</span></h5>
 														</li>
 														<li>
-															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <a href="devices.resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">[]</span></h5>
+															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">[]</span></h5>
 														</li>
 													</ul>
 													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -399,7 +478,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-							<p>Optional Promise of endpoint resources</p>
+							<p>Optional Promise of device resources</p>
 						</li>
 					</ul>
 				</section>
@@ -413,12 +492,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/c4b49ca/src/devices/index.ts#L417">devices/index.ts:417</a></li>
+									<li>Defined in devices/device.ts:86</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets a list of an endpoint&#39;s subscriptions</p>
+									<p>Gets a list of a device&#39;s subscriptions</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -472,54 +551,115 @@
 						<a href="access.html" class="tsd-kind-icon">Access</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="api.html" class="tsd-kind-icon">Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="certificate.html" class="tsd-kind-icon">Certificate</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="development.html" class="tsd-kind-icon">Development</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="devices.html" class="tsd-kind-icon">Devices</a>
+						<a href="device.html" class="tsd-kind-icon">Device</a>
 						<ul>
-							<li class="current tsd-kind-class tsd-parent-kind-class">
-								<a href="devices.endpoint.html" class="tsd-kind-icon">Endpoint</a>
-								<ul>
-									<li class=" tsd-kind-constructor tsd-parent-kind-class">
-										<a href="devices.endpoint.html#constructor" class="tsd-kind-icon">constructor</a>
-									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-										<a href="devices.endpoint.html#name" class="tsd-kind-icon">name</a>
-									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-										<a href="devices.endpoint.html#queuemode" class="tsd-kind-icon">queue<wbr>Mode</a>
-									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-										<a href="devices.endpoint.html#status" class="tsd-kind-icon">status</a>
-									</li>
-									<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-										<a href="devices.endpoint.html#type" class="tsd-kind-icon">type</a>
-									</li>
-									<li class=" tsd-kind-method tsd-parent-kind-class">
-										<a href="devices.endpoint.html#deleteresource" class="tsd-kind-icon">delete<wbr>Resource</a>
-									</li>
-									<li class=" tsd-kind-method tsd-parent-kind-class">
-										<a href="devices.endpoint.html#deletesubscriptions" class="tsd-kind-icon">delete<wbr>Subscriptions</a>
-									</li>
-									<li class=" tsd-kind-method tsd-parent-kind-class">
-										<a href="devices.endpoint.html#getresources" class="tsd-kind-icon">get<wbr>Resources</a>
-									</li>
-									<li class=" tsd-kind-method tsd-parent-kind-class">
-										<a href="devices.endpoint.html#getsubscriptions" class="tsd-kind-icon">get<wbr>Subscriptions</a>
-									</li>
-								</ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="device.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="device.html#id" class="tsd-kind-icon">id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="device.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="device.html#queuemode" class="tsd-kind-icon">queue<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="device.html#status" class="tsd-kind-icon">status</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="device.html#type" class="tsd-kind-icon">type</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="device.html#deleteresource" class="tsd-kind-icon">delete<wbr>Resource</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="device.html#deletesubscriptions" class="tsd-kind-icon">delete<wbr>Subscriptions</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="device.html#getdetails" class="tsd-kind-icon">get<wbr>Details</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="device.html#getresources" class="tsd-kind-icon">get<wbr>Resources</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="device.html#getsubscriptions" class="tsd-kind-icon">get<wbr>Subscriptions</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class">
+						<a href="devices.html" class="tsd-kind-icon">Devices</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="query.html" class="tsd-kind-icon">Query</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="resource.html" class="tsd-kind-icon">Resource</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="update.html" class="tsd-kind-icon">Update</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="user.html" class="tsd-kind-icon">User</a>
+					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/connectionoptions.html" class="tsd-kind-icon">connection<wbr>Options</a>
+						<a href="../interfaces/connectionoptions.html" class="tsd-kind-icon">Connection<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/devicedetail.html" class="tsd-kind-icon">Device<wbr>Detail</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/devicetype.html" class="tsd-kind-icon">Device<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/listoptions.html" class="tsd-kind-icon">List<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="../interfaces/listresponse.html" class="tsd-kind-icon">List<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/querydetail.html" class="tsd-kind-icon">Query<wbr>Detail</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/resourcetype.html" class="tsd-kind-icon">Resource<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/resourcevalueoptions.html" class="tsd-kind-icon">Resource<wbr>Value<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/useroptions.html" class="tsd-kind-icon">User<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/webhook.html" class="tsd-kind-icon">Webhook</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#deploymentenum" class="tsd-kind-icon">Deployment<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#devicestateenum" class="tsd-kind-icon">Device<wbr>State<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#devicestatuses" class="tsd-kind-icon">Device<wbr>Statuses</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#mechanismenum" class="tsd-kind-icon">Mechanism<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#decodebase64" class="tsd-kind-icon">decode<wbr>Base64</a>
 					</li>
 				</ul>
 			</nav>

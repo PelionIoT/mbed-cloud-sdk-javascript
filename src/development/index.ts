@@ -16,54 +16,65 @@
 */
 
 import pg = require("polygoat");
-import { DefaultApi, DefaultApiApiKeys } from "../_api/developer_certificate";
+import { ConnectionOptions } from "../helpers/interfaces";
+import { Api } from "./api";
 
 /**
 * Root Account object
 */
 export class Development {
 
-    private _api: DefaultApi;
+    private _api: Api;
 
     /**
     * @param options Options object
     */
-    constructor(options: Development.DevelopmentOptions) {
-        this._api = new DefaultApi();
-//        if (options.host) this.client.basePath = options.host;
-        if (options.accessKey) this._api.setApiKey(DefaultApiApiKeys.Bearer, "Bearer " + options.accessKey);
+    constructor(options: ConnectionOptions) {
+        this._api = new Api(options);
     }
 
+    public postCertificate(options: { pubKey: string }): Promise<Certificate>;
+    public postCertificate(options: { pubKey: string }, callback: (err: any, data?: Certificate) => void);
     /**
-    * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
+    * Adds a developer certificate to the account (only one per account allowed).
+    * @param callback
+    * @returns Optional Promise
     */
-    public postCertificate(options: Development.CertificateOptions, callback?: (err: any, data?: any) => void): Promise<any> {
-        let { authorization, body } = options;
+    public postCertificate(options: { pubKey: string }, callback?: (err: any, data?: any) => void): Promise<any> {
         return pg(done => {
-            this._api.v3DeveloperCertificatePost(authorization, body, (error, data) => {
+            this._api.default.v3DeveloperCertificatePost("authorization", options, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
         }, callback);
     }
 
-    public getCertificate(options?: Development.CertificateOptions, callback?: (err: any, data?: any) => void): Promise<any> {
-        let { authorization } = options;
+    public getCertificate(): Promise<Certificate>;
+    public getCertificate(callback?: (err: any, data?: Certificate) => void);
+    /**
+    * Gets the developer certificate of the account.
+    * @param callback
+    * @returns Optional Promise
+    */
+    public getCertificate(callback?: (err: any, data?: Certificate) => void): Promise<Certificate> {
         return pg(done => {
-            this._api.v3DeveloperCertificateGet(authorization, (error, data) => {
+            this._api.default.v3DeveloperCertificateGet("options.authorization", (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
         }, callback);
     }
 
-    public deleteCertificate(options: Development.CertificateOptions, callback?: (err: any, data?: void) => void): Promise<void> {
-        let { authorization } = options;
+    public deleteCertificate(): Promise<void>;
+    public deleteCertificate(callback?: (err: any, data?: void) => void);
+    /**
+    * Deletes the account's developer certificate (only one per account allowed).
+    * @param callback
+    * @returns Optional Promise
+    */
+    public deleteCertificate(callback?: (err: any, data?: void) => void): Promise<void> {
         return pg(done => {
-            this._api.v3DeveloperCertificateDelete(authorization, (error, data) => {
+            this._api.default.v3DeveloperCertificateDelete("options.authorization", (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -71,27 +82,17 @@ export class Development {
     }
 }
 
-export namespace Development {
-    export interface DevelopmentOptions {
-        /**
-        * Access Key for your mbed Device Connector account
-        */
-        accessKey: string;
-        /**
-        * URL for mbed Device Connector API
-        */
-        host?: string;
-    }
-
-    export interface CertificateBody {
-        /**
-        * The developer certificate public key in PEM format (NIST P-256 curve).
-        */
-        'pubKey': string;
-    }
-
-    export interface CertificateOptions {
-        authorization: string;
-        body?: CertificateBody;
-    }
+export interface Certificate {
+    /**
+    * UTC time of the entity creation.
+    */
+    createdAt: string;
+    /**
+    * The developer certificate public key in PEM format (NIST P-256 curve).
+    */
+    pubKey: string;
+    /**
+    * entity ID
+    */
+    id: string;
 }

@@ -22,7 +22,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 */
 var pg = require("polygoat");
 var events_1 = require("events");
-var mds_1 = require("../_api/mds");
+var api_1 = require("./api");
+var data_1 = require("../helpers/data");
+var device_1 = require("./device");
 /**
 * Root Devices object
 */
@@ -33,16 +35,84 @@ var Devices = (function (_super) {
     */
     function Devices(options) {
         var _this = _super.call(this) || this;
-        _this._apis = new Devices.APIContainer(options);
+        _this._api = new api_1.Api(options);
         return _this;
     }
     /**
-    * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
+    * Create a device
+    * @param options device details
+    * @param callback A function that is passed the arguments (error, device)
+    * @returns Optional Promise of device
     */
-    Devices.prototype.getEndpoints = function (options, callback) {
+    Devices.prototype.createDevice = function (options, callback) {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        return pg(function (done) {
+            /*
+            this._api.catalog.deviceCreate(xxx, (error, data) => {
+                if (error) return done(error);
+                done(null, data);
+            });
+            */
+        }, callback);
+    };
+    /**
+    * Delete a device
+    * @param options device ID
+    * @param callback A function that is passed any error
+    * @returns Optional Promise
+    */
+    Devices.prototype.deleteDevice = function (options, callback) {
+        var _this = this;
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        var id = options.id;
+        return pg(function (done) {
+            _this._api.catalog.deviceDestroy(id, function (error, data) {
+                if (error)
+                    return done(error);
+                done(null, null);
+            });
+        }, callback);
+    };
+    /**
+    * Gets a list of known devices
+    * @param options Filters devices
+    * @param callback A function that is passed the arguments (error, devices)
+    * @returns Optional Promise of devices
+    */
+    Devices.prototype.getKnown = function (options, callback) {
+        var _this = this;
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        var limit = options.limit, after = options.after, order = options.order, include = options.include, filter = options.filter;
+        return pg(function (done) {
+            _this._api.catalog.deviceList(limit, order, after, filter, include, function (error, data) {
+                if (error)
+                    return done(error);
+                var devices = data.data.map(function (device) {
+                    return new device_1.Device(_this._api, device.id);
+                });
+                done(null, devices);
+            });
+        }, callback);
+    };
+    /**
+    * Gets a list of currently connected device
+    * @param type Filters devices by device type
+    * @param callback A function that is passed the arguments (error, devices)
+    * @returns Optional Promise of currently connected devices
+    */
+    Devices.prototype.getConnected = function (options, callback) {
         var _this = this;
         options = options || {};
         if (typeof options === "function") {
@@ -51,13 +121,13 @@ var Devices = (function (_super) {
         }
         var type = options.type;
         return pg(function (done) {
-            _this._apis.epAPI.v2EndpointsGet(type, function (error, data) {
+            _this._api.endpoints.v2EndpointsGet(type, function (error, data) {
                 if (error)
                     return done(error);
-                var endpoints = data.map(function (endpoint) {
-                    return new Devices.Endpoint(_this._apis, endpoint);
+                var devices = data.map(function (device) {
+                    return new device_1.Device(_this._api, device.name);
                 });
-                done(null, endpoints);
+                done(null, devices);
             });
         }, callback);
     };
@@ -75,13 +145,17 @@ var Devices = (function (_super) {
         var requestCallback = options.requestCallback;
         function poll() {
             var _this = this;
-            this._pollRequest = this._apis.notAPI.v2NotificationPullGet(function (error, data) {
+            this._pollRequest = this._api.notifications.v2NotificationPullGet(function (error, data) {
                 if (!Devices.polling)
                     return;
                 //payload, path, ep(endpoint name), ct(content type)
                 if (data["notifications"]) {
                     data["notifications"].forEach(function (notification) {
-                        _this.emit(Devices.EVENT_NOTIFICATION, notification);
+                        var path = notification.ep + notification.path;
+                        var resource = Devices.resourceSubs[path];
+                        if (resource) {
+                            resource.emit(Devices.EVENT_NOTIFICATION, data_1.decodeBase64(notification));
+                        }
                     });
                 }
                 //q(queue mode), ept(endpoint type), ep(endpont name), resources[][path, rf(resource type, ct, obs, _if(interface description)]
@@ -119,7 +193,7 @@ var Devices = (function (_super) {
                             }
                             else {
                                 if (response.payload) {
-                                    fn(null, Devices.decode(response));
+                                    fn(null, data_1.decodeBase64(response));
                                     return;
                                 }
                                 fn(null, response);
@@ -226,233 +300,157 @@ var Devices = (function (_super) {
             done(null, null);
         }, callback);
     };
+    /**
+    * Create a device
+    * @param options device details
+    * @param callback A function that is passed the arguments (error, device)
+    * @returns Optional Promise of device
+    */
+    Devices.prototype.createQuery = function (options, callback) {
+        var _this = this;
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        var name = options.name, query = options.query, description = options.description;
+        return pg(function (done) {
+            _this._api.query.deviceQueryCreate(name, query, description, null, null, function (error, data) {
+                if (error)
+                    return done(error);
+                done(null, data);
+            });
+        }, callback);
+    };
+    /**
+    * Delete a device
+    * @param options device ID
+    * @param callback A function that is passed any error
+    * @returns Optional Promise
+    */
+    Devices.prototype.deleteQuery = function (options, callback) {
+        var _this = this;
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        var id = options.id;
+        return pg(function (done) {
+            _this._api.query.deviceQueryDestroy(id, function (error, data) {
+                if (error)
+                    return done(error);
+                done(null, null);
+            });
+        }, callback);
+    };
+    /**
+    * Delete a device
+    * @param options device ID
+    * @param callback A function that is passed any error
+    * @returns Optional Promise
+    */
+    Devices.prototype.getQueries = function (options, callback) {
+        var _this = this;
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        var limit = options.limit, order = options.order, after = options.after;
+        return pg(function (done) {
+            _this._api.query.deviceQueryList(limit, order, after, function (error, data) {
+                if (error)
+                    return done(error);
+                done(null, null);
+            });
+        }, callback);
+    };
+    /**
+    * Delete a device
+    * @param options device ID
+    * @param callback A function that is passed any error
+    * @returns Optional Promise
+    */
+    Devices.prototype.getQuery = function (options, callback) {
+        var _this = this;
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        var id = options.id;
+        return pg(function (done) {
+            _this._api.query.deviceQueryRetrieve(id, function (error, data) {
+                if (error)
+                    return done(error);
+                done(null, null);
+            });
+        }, callback);
+    };
+    /**
+    * Delete a device
+    * @param options device ID
+    * @param callback A function that is passed any error
+    * @returns Optional Promise
+    */
+    Devices.prototype.updateQuery = function (options, callback) {
+        var _this = this;
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        var id = options.id, name = options.name, query = options.query, description = options.description;
+        if (name && query) {
+            // Full update
+            return pg(function (done) {
+                _this._api.query.deviceQueryUpdate(id, name, query, description, null, null, function (error, data) {
+                    if (error)
+                        return done(error);
+                    done(null, null);
+                });
+            }, callback);
+        }
+        else {
+            // Partial update
+            return pg(function (done) {
+                _this._api.query.deviceQueryPartialUpdate(id, description, name, null, query, null, function (error, data) {
+                    if (error)
+                        return done(error);
+                    done(null, null);
+                });
+            }, callback);
+        }
+    };
     return Devices;
 }(events_1.EventEmitter));
 exports.Devices = Devices;
 Devices.polling = false;
 Devices.asyncFns = {};
+Devices.resourceSubs = {};
 /**
 * Resource notification event
 * @event
 */
 Devices.EVENT_NOTIFICATION = "notification";
 /**
-* Endpoint registration event
+* Device registration event
 * @event
 */
 Devices.EVENT_REGISTRATION = "registration";
 /**
-* Endpoint registration update event
+* Device registration update event
 * @event
 */
 Devices.EVENT_UPDATE = "reg-update";
 /**
-* Endpoint de-registration event
+* Device de-registration event
 * @event
 */
 Devices.EVENT_DEREGISTRATION = "de-registration";
 /**
-* Endpoint registration expiration event
+* Device registration expiration event
 * @event
 */
 Devices.EVENT_EXPIRED = "registration-expired";
-(function (Devices) {
-    function decode(data) {
-        var result = "";
-        if (typeof atob === "function") {
-            result = atob(data.payload);
-        }
-        else {
-            result = new Buffer(data.payload, "base64").toString("utf8");
-        }
-        if (data.ct.indexOf("json") > -1) {
-            result = JSON.parse(result);
-        }
-        return result;
-    }
-    Devices.decode = decode;
-    var APIContainer = (function () {
-        function APIContainer(options) {
-            this.epAPI = new mds_1.EndpointsApi(options.host);
-            this.notAPI = new mds_1.NotificationsApi(options.host);
-            this.resAPI = new mds_1.ResourcesApi(options.host);
-            this.subAPI = new mds_1.SubscriptionsApi(options.host);
-            this.epAPI.setApiKey(mds_1.EndpointsApiApiKeys.Bearer, "Bearer " + options.accessKey);
-            this.notAPI.setApiKey(mds_1.NotificationsApiApiKeys.Bearer, "Bearer " + options.accessKey);
-            this.resAPI.setApiKey(mds_1.ResourcesApiApiKeys.Bearer, "Bearer " + options.accessKey);
-            this.subAPI.setApiKey(mds_1.SubscriptionsApiApiKeys.Bearer, "Bearer " + options.accessKey);
-        }
-        return APIContainer;
-    }());
-    Devices.APIContainer = APIContainer;
-    /**
-    * Endpoint object
-    */
-    var Endpoint = (function () {
-        function Endpoint(_apis, options) {
-            this._apis = _apis;
-            for (var key in options) {
-                this[key] = options[key];
-            }
-        }
-        /**
-        * Gets a list of an endpoint's resources
-        * @param callback A function that is passed the arguments (error, resources)
-        * @returns Optional Promise of endpoint resources
-        */
-        Endpoint.prototype.getResources = function (callback) {
-            var _this = this;
-            return pg(function (done) {
-                _this._apis.epAPI.v2EndpointsEndpointNameGet(_this.name, function (error, data) {
-                    if (error)
-                        return done(error);
-                    var resources = data.map(function (resource) {
-                        resource.endpoint = _this;
-                        return new Resource(_this._apis, resource);
-                    });
-                    done(null, resources);
-                });
-            }, callback);
-        };
-        /**
-        * Deletes a resource
-        * @param path Path of the resource to delete
-        * @param noResp Whether to make a non-confirmable request to the device
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        Endpoint.prototype.deleteResource = function (options, callback) {
-            //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathDelete
-            return pg(function (done) {
-                done(null, null);
-            }, callback);
-        };
-        /**
-        * Gets a list of an endpoint's subscriptions
-        * @param callback A function that is passed (error, subscriptions)
-        * @returns Optional Promise containing the subscriptions
-        */
-        Endpoint.prototype.getSubscriptions = function (callback) {
-            //mds.SubscriptionsApi.v2SubscriptionsEndpointNameGet
-            return pg(function (done) {
-                done(null, null);
-            }, callback);
-        };
-        /**
-        * Removes an endpoint's subscriptions
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        Endpoint.prototype.deleteSubscriptions = function (callback) {
-            //mds.SubscriptionsApi.v2SubscriptionsEndpointNameDelete
-            return pg(function (done) {
-                done(null, null);
-            }, callback);
-        };
-        return Endpoint;
-    }());
-    Devices.Endpoint = Endpoint;
-    /**
-    * Resource object
-    */
-    var Resource = (function () {
-        function Resource(_apis, options) {
-            this._apis = _apis;
-            for (var key in options) {
-                this[key] = options[key];
-            }
-        }
-        /**
-        * Gets the value of a resource
-        * @param options Options object
-        * @param callback A function that is passed the arguments (error, value) where value is the value of the resource formatted as a string
-        * @returns Optional Promise of resource value
-        */
-        Resource.prototype.getValue = function (options, callback) {
-            var _this = this;
-            options = options || {};
-            if (typeof options === "function") {
-                callback = options;
-                options = {};
-            }
-            var cacheOnly = options.cacheOnly, noResp = options.noResp;
-            return pg(function (done) {
-                _this._apis.resAPI.v2EndpointsEndpointNameResourcePathGet(_this.endpoint.name, _this.uri.substr(1), cacheOnly, noResp, function (error, data) {
-                    if (error)
-                        return done(error);
-                    var asyncID = data["async-response-id"];
-                    if (Devices.polling && asyncID) {
-                        Devices.asyncFns[asyncID] = done;
-                        return;
-                    }
-                    done(null, asyncID || data);
-                });
-            }, callback);
-        };
-        /**
-        * Puts the value of a resource
-        * @param value The value of the resource
-        * @param noResp If true, mbed Device Connector will not wait for a response
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        Resource.prototype.putValue = function (options, callback) {
-            //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPut
-            return pg(function (done) {
-                done(null, null);
-            }, callback);
-        };
-        /**
-        * Execute a function on a resource
-        * @param function The function to trigger
-        * @param noResp If true, mbed Device Connector will not wait for a response
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        Resource.prototype.execute = function (options, callback) {
-            //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPost
-            return pg(function (done) {
-                done(null, null);
-            }, callback);
-        };
-        /**
-        * Gets the status of a resource's subscription
-        * @param callback A function that is passed (error, subscribed) where subscribed is true or false
-        * @returns Optional Promise containing resource subscription status
-        */
-        Resource.prototype.getSubscription = function (callback) {
-            //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathGet
-            return pg(function (done) {
-                done(null, null);
-            }, callback);
-        };
-        /**
-        * Subscribe to a resource
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        Resource.prototype.putSubscription = function (callback) {
-            var _this = this;
-            return pg(function (done) {
-                _this._apis.subAPI.v2SubscriptionsEndpointNameResourcePathPut(_this.endpoint.name, _this.uri, function (error, data) {
-                    if (error)
-                        return done(error);
-                    done(null, data);
-                });
-            }, callback);
-        };
-        /**
-        * Deletes a resource's subscription
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        Resource.prototype.deleteSubscription = function (callback) {
-            //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathDelete
-            return pg(function (done) {
-                done(null, null);
-            }, callback);
-        };
-        return Resource;
-    }());
-    Devices.Resource = Resource;
-})(Devices = exports.Devices || (exports.Devices = {}));

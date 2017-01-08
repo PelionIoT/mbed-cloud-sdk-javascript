@@ -17,18 +17,10 @@
 */
 //import config = require('./helpers/node_config');
 var access_1 = require("./access");
+exports.Access = access_1.Access;
 var development_1 = require("./development");
+exports.Development = development_1.Development;
 var devices_1 = require("./devices");
+exports.Devices = devices_1.Devices;
 var update_1 = require("./update");
-module.exports = {
-    //	config: config,
-    Access: access_1.Access,
-    //    Assets: Assets,
-    //    Billing: Billing,
-    Development: development_1.Development,
-    Devices: devices_1.Devices,
-    //    Logging: Logging, // device logs from ??
-    //    Manufacturing: Manufacturing, //production_line_certificates, provisioining_certificates, factory_tool
-    //    Statistics: Statistics,
-    Update: update_1.Update //firmware_catalog, deployment_service
-};
+exports.Update = update_1.Update;

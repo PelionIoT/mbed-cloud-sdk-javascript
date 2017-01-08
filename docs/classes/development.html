@@ -84,14 +84,6 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-class"><a href="../interfaces/development.certificatebody.html" class="tsd-kind-icon">Certificate<wbr>Body</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-class"><a href="../interfaces/development.certificateoptions.html" class="tsd-kind-icon">Certificate<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-class"><a href="../interfaces/development.developmentoptions.html" class="tsd-kind-icon">Development<wbr>Options</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="development.html#constructor" class="tsd-kind-icon">constructor</a></li>
@@ -114,13 +106,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Development<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/development.developmentoptions.html" class="tsd-signature-type">DevelopmentOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="development.html" class="tsd-signature-type">Development</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Development<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/connectionoptions.html" class="tsd-signature-type">ConnectionOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="development.html" class="tsd-signature-type">Development</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in development/index.ts:26</li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/02e28df/src/development/index.ts#L27">development/index.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -128,7 +120,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/development.developmentoptions.html" class="tsd-signature-type">DevelopmentOptions</a></h5>
+									<h5>options: <a href="../interfaces/connectionoptions.html" class="tsd-signature-type">ConnectionOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>Options object</p>
@@ -147,20 +139,37 @@
 					<a name="deletecertificate" class="tsd-anchor"></a>
 					<h3>delete<wbr>Certificate</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">delete<wbr>Certificate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/development.certificateoptions.html" class="tsd-signature-type">CertificateOptions</a>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>Certificate<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>Certificate<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in development/index.ts:63</li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/02e28df/src/development/index.ts#L68">development/index.ts:68</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Deletes the account&#39;s developer certificate (only one per account allowed).</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Optional Promise</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/02e28df/src/development/index.ts#L69">development/index.ts:69</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Deletes the account&#39;s developer certificate (only one per account allowed).</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
-								<li>
-									<h5>options: <a href="../interfaces/development.certificateoptions.html" class="tsd-signature-type">CertificateOptions</a></h5>
-								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
 									<ul class="tsd-parameters">
@@ -186,7 +195,8 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Optional Promise</p>
 						</li>
 					</ul>
 				</section>
@@ -194,26 +204,43 @@
 					<a name="getcertificate" class="tsd-anchor"></a>
 					<h3>get<wbr>Certificate</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Certificate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/development.certificateoptions.html" class="tsd-signature-type">CertificateOptions</a>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Certificate<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Certificate</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Certificate<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in development/index.ts:53</li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/02e28df/src/development/index.ts#L52">development/index.ts:52</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the developer certificate of the account.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Certificate</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Optional Promise</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/02e28df/src/development/index.ts#L53">development/index.ts:53</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the developer certificate of the account.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/development.certificateoptions.html" class="tsd-signature-type">CertificateOptions</a></h5>
-								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Certificate</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -223,7 +250,7 @@
 															<h5>err: <span class="tsd-signature-type">any</span></h5>
 														</li>
 														<li>
-															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">any</span></h5>
+															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">Certificate</span></h5>
 														</li>
 													</ul>
 													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -233,7 +260,8 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Optional Promise</p>
 						</li>
 					</ul>
 				</section>
@@ -241,34 +269,62 @@
 					<a name="postcertificate" class="tsd-anchor"></a>
 					<h3>post<wbr>Certificate</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">post<wbr>Certificate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/development.certificateoptions.html" class="tsd-signature-type">CertificateOptions</a>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">post<wbr>Certificate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Certificate</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">post<wbr>Certificate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in development/index.ts:43</li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/02e28df/src/development/index.ts#L36">development/index.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets a list of currently registered endpoints</p>
+									<p>Adds a developer certificate to the account (only one per account allowed).</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/development.certificateoptions.html" class="tsd-signature-type">CertificateOptions</a></h5>
+									<h5>options: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>pub<wbr>Key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Certificate</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Optional Promise</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/02e28df/src/development/index.ts#L37">development/index.ts:37</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds a developer certificate to the account (only one per account allowed).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>options: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>pub<wbr>Key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A function that is passed the arguments (error, endpoints)</p>
-									</div>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Certificate</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -278,7 +334,7 @@
 															<h5>err: <span class="tsd-signature-type">any</span></h5>
 														</li>
 														<li>
-															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">any</span></h5>
+															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">Certificate</span></h5>
 														</li>
 													</ul>
 													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -288,8 +344,8 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>Optional Promise of currently registered endpoints</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Optional Promise</p>
 						</li>
 					</ul>
 				</section>
@@ -308,20 +364,17 @@
 					<li class=" tsd-kind-class">
 						<a href="access.html" class="tsd-kind-icon">Access</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="api.html" class="tsd-kind-icon">Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="certificate.html" class="tsd-kind-icon">Certificate</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
 						<a href="development.html" class="tsd-kind-icon">Development</a>
 						<ul>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="../interfaces/development.certificatebody.html" class="tsd-kind-icon">Certificate<wbr>Body</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="../interfaces/development.certificateoptions.html" class="tsd-kind-icon">Certificate<wbr>Options</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="../interfaces/development.developmentoptions.html" class="tsd-kind-icon">Development<wbr>Options</a>
-							</li>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="development.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
@@ -339,13 +392,67 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class">
+						<a href="device.html" class="tsd-kind-icon">Device</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="devices.html" class="tsd-kind-icon">Devices</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="query.html" class="tsd-kind-icon">Query</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="resource.html" class="tsd-kind-icon">Resource</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="update.html" class="tsd-kind-icon">Update</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="user.html" class="tsd-kind-icon">User</a>
+					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/connectionoptions.html" class="tsd-kind-icon">connection<wbr>Options</a>
+						<a href="../interfaces/connectionoptions.html" class="tsd-kind-icon">Connection<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/devicedetail.html" class="tsd-kind-icon">Device<wbr>Detail</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/devicetype.html" class="tsd-kind-icon">Device<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/listoptions.html" class="tsd-kind-icon">List<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="../interfaces/listresponse.html" class="tsd-kind-icon">List<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/querydetail.html" class="tsd-kind-icon">Query<wbr>Detail</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/resourcetype.html" class="tsd-kind-icon">Resource<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/resourcevalueoptions.html" class="tsd-kind-icon">Resource<wbr>Value<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/useroptions.html" class="tsd-kind-icon">User<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/webhook.html" class="tsd-kind-icon">Webhook</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#deploymentenum" class="tsd-kind-icon">Deployment<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#devicestateenum" class="tsd-kind-icon">Device<wbr>State<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#devicestatuses" class="tsd-kind-icon">Device<wbr>Statuses</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#mechanismenum" class="tsd-kind-icon">Mechanism<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#decodebase64" class="tsd-kind-icon">decode<wbr>Base64</a>
 					</li>
 				</ul>
 			</nav>

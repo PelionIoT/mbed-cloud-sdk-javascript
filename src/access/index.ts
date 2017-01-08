@@ -16,32 +16,34 @@
 */
 
 import pg = require("polygoat");
-import { connectionOptions } from "../helpers/connectionOptions";
-import { AccountAdminApi, AccountAdminApiApiKeys } from "../_api/iam";
+import { ConnectionOptions, ListOptions } from "../helpers/interfaces";
+import { Api } from "./api";
+import { User } from "./user";
+import { Certificate } from "./certificate";
 
 /**
 * Root Account object
 */
 export class Access {
 
-    private _apis: Access.APIContainer;
+    private _api: Api;
 
     /**
     * @param options Options object
     */
-    constructor(options: connectionOptions) {
-        this._apis = new Access.APIContainer(options);
+    constructor(options: ConnectionOptions) {
+        this._api = new Api(options);
     }
 
-    public getUsers(options?: Access.UsersOptions): Promise<Access.User[]>;
-    public getUsers(options?: Access.UsersOptions, callback?: (err: any, data?: Access.User[]) => void);
+    public getUsers(options?: ListOptions): Promise<User[]>;
+    public getUsers(options?: ListOptions, callback?: (err: any, data?: User[]) => void);
     /**
     * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
+    * @param options Filters endpoints by endpoint-type
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
-    public getUsers(options?: any, callback?: (err: any, data?: Access.User[]) => void): Promise<Access.User[]> {
+    public getUsers(options?: any, callback?: (err: any, data?: User[]) => void): Promise<User[]> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -49,7 +51,7 @@ export class Access {
         }
         let {limit, after, order, include, filter} = options;
         return pg(done => {
-            this._apis.adAPI.getAllUsers(limit, after, order, include, filter, (error, data) => {
+            this._api.admin.getAllUsers(limit, after, order, include, filter, (error, data) => {
                 if (error) return done(error);
                 /*
                 { object: 'list',
@@ -60,49 +62,81 @@ export class Access {
                  data:
                  */
                 var users = data.data.map(user => {
-                    return new Access.User(this._apis, user);
+                    return new User(this._api, user);
                 });
                 done(null, users);
             });
         }, callback);
     }
+
+    public getCertificates(options?: ListOptions): Promise<Certificate[]>;
+    public getCertificates(options?: ListOptions, callback?: (err: any, data?: Certificate[]) => void);
+    /**
+    * Gets a list of certificates
+    * @param type Filters endpoints by endpoint-type
+    * @param callback A function that is passed the arguments (error, endpoints)
+    * @returns Optional Promise of currently registered endpoints
+    */
+    public getCertificates(options?: any, callback?: (err: any, data?: Certificate[]) => void): Promise<Certificate[]> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let {limit, after, order, include, filter} = options;
+        return pg(done => {
+            this._api.admin.getAllCertificates(limit, after, order, include, filter, (error, data) => {
+                if (error) return done(error);
+                var certificates = data.data.map(certificate => {
+                    return new Certificate(this._api, certificate);
+                });
+                done(null, certificates);
+            });
+        }, callback);
+    }
 }
 
-export namespace Access {
+//USERS
+//adAPI.getAllUsers
+//adAPI.getUser (details)
+//adAPI.createUSER
+//adAPI.deleteUser
+//defAPI.activateUser
+//defAPI.requestPasswordRecovery
+//defAPI.applyPasswordRecovery
+//defAPI.getInvitedUser
+//defAPI.getSelfEnrollingUSer
+//defAPI.setApiKey
+//defAPI.registerAccount
+//defAPI.signup
 
-    export class APIContainer {
+//CURRENT_USER
+//devAPI.getMyAccountinfo
+//devAPI.getMyApiKey
+//devAPI.getMyUser
 
-        adAPI: AccountAdminApi;
+//KEYS
+//devAPI.createApiKey
+//devAPI.deleteApiKey
+//devAPI.getAllApiKeys
+//devAPI.getApiKey
+//rootAPI.setApiKey
 
-        constructor(options: connectionOptions) {
-            this.adAPI = new AccountAdminApi(options.host);
-            this.adAPI.setApiKey(AccountAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
-        }
-    }
+//GROUPS
+//devAPI.getAllGroups
 
-    export interface UsersOptions {
-        limit?: number;
-        order?: string;
-        after?: string;
-        include?: string;
-        filter?: string;
-    }
+//ACCOUNTS
+//rootAPI.getAllAccountTemplates
+//rootAPI.getAccountTemplate
+//rootAPI.createAccountTemplate
+//rootAPI.deleteAccountTemplate
+//rootAPI.updateAccountTemplate
 
-    export interface UserOptions {
-        account_id: string;
-        status: string;
-        username: string;
-        full_name: string;
-        id: string;
-    }
+//CERTS
+//adAPI.getAllCertificates
+//adAPI.getCertificate (details)
+//adAPI.addCertificate
+//adAPI.deleteCertificate
 
-    export class User {
-        constructor(private _apis: APIContainer, options: UserOptions) {
-            for(var key in options) {
-                this[key] = options[key];
-            }
-            this._apis = null //deleteme
-        }
-    }
-    export interface User extends UserOptions {}
-}
+//??????
+//rootAPI.useQuerystring

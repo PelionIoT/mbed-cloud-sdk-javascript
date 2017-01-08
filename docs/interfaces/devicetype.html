@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CertificateBody | mbed Cloud SDK</title>
+	<title>DeviceType | mbed Cloud SDK</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../classes/development.html">Development</a>
-				</li>
-				<li>
-					<a href="development.certificatebody.html">CertificateBody</a>
+					<a href="devicetype.html">DeviceType</a>
 				</li>
 			</ul>
-			<h1>Interface CertificateBody</h1>
+			<h1>Interface DeviceType</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +68,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CertificateBody</span>
+						<span class="target">DeviceType</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="../classes/device.html" class="tsd-signature-type">Device</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -82,7 +84,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="development.certificatebody.html#pubkey" class="tsd-kind-icon">pub<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="devicetype.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="devicetype.html#queuemode" class="tsd-kind-icon">queue<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="devicetype.html#status" class="tsd-kind-icon">status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="devicetype.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -91,17 +96,62 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="pubkey" class="tsd-anchor"></a>
-					<h3>pub<wbr>Key</h3>
-					<div class="tsd-signature tsd-kind-icon">pub<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="name" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in development/index.ts:90</li>
+							<li>Defined in devices/types.ts:121</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The developer certificate public key in PEM format (NIST P-256 curve).</p>
+							<p>Unique identifier representing the device</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="queuemode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> queue<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">queue<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in devices/types.ts:133</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Determines whether the device is in queue mode</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="status" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> status</h3>
+					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <a href="../globals.html#devicestatuses" class="tsd-signature-type">DeviceStatuses</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in devices/types.ts:129</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Possible values ACTIVE, STALE</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="type" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in devices/types.ts:125</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Type of device. (Free text)</p>
 						</div>
 					</div>
 				</section>
@@ -120,49 +170,95 @@
 					<li class=" tsd-kind-class">
 						<a href="../classes/access.html" class="tsd-kind-icon">Access</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/api.html" class="tsd-kind-icon">Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/certificate.html" class="tsd-kind-icon">Certificate</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/development.html" class="tsd-kind-icon">Development</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/device.html" class="tsd-kind-icon">Device</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/devices.html" class="tsd-kind-icon">Devices</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/query.html" class="tsd-kind-icon">Query</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/resource.html" class="tsd-kind-icon">Resource</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/update.html" class="tsd-kind-icon">Update</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/user.html" class="tsd-kind-icon">User</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="connectionoptions.html" class="tsd-kind-icon">Connection<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="devicedetail.html" class="tsd-kind-icon">Device<wbr>Detail</a>
+					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class">
-						<a href="../classes/development.html" class="tsd-kind-icon">Development</a>
+					<li class="current tsd-kind-interface">
+						<a href="devicetype.html" class="tsd-kind-icon">Device<wbr>Type</a>
 						<ul>
-							<li class="current tsd-kind-interface tsd-parent-kind-class">
-								<a href="development.certificatebody.html" class="tsd-kind-icon">Certificate<wbr>Body</a>
-								<ul>
-									<li class=" tsd-kind-property tsd-parent-kind-interface">
-										<a href="development.certificatebody.html#pubkey" class="tsd-kind-icon">pub<wbr>Key</a>
-									</li>
-								</ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="devicetype.html#name" class="tsd-kind-icon">name</a>
 							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="development.certificateoptions.html" class="tsd-kind-icon">Certificate<wbr>Options</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="devicetype.html#queuemode" class="tsd-kind-icon">queue<wbr>Mode</a>
 							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="development.developmentoptions.html" class="tsd-kind-icon">Development<wbr>Options</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="devicetype.html#status" class="tsd-kind-icon">status</a>
 							</li>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="../classes/development.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/development.html#deletecertificate" class="tsd-kind-icon">delete<wbr>Certificate</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/development.html#getcertificate" class="tsd-kind-icon">get<wbr>Certificate</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/development.html#postcertificate" class="tsd-kind-icon">post<wbr>Certificate</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="devicetype.html#type" class="tsd-kind-icon">type</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class">
-						<a href="../classes/devices.html" class="tsd-kind-icon">Devices</a>
+					<li class=" tsd-kind-interface">
+						<a href="listoptions.html" class="tsd-kind-icon">List<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/update.html" class="tsd-kind-icon">Update</a>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="listresponse.html" class="tsd-kind-icon">List<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="connectionoptions.html" class="tsd-kind-icon">connection<wbr>Options</a>
+						<a href="querydetail.html" class="tsd-kind-icon">Query<wbr>Detail</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="resourcetype.html" class="tsd-kind-icon">Resource<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="resourcevalueoptions.html" class="tsd-kind-icon">Resource<wbr>Value<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="useroptions.html" class="tsd-kind-icon">User<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="webhook.html" class="tsd-kind-icon">Webhook</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#deploymentenum" class="tsd-kind-icon">Deployment<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#devicestateenum" class="tsd-kind-icon">Device<wbr>State<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#devicestatuses" class="tsd-kind-icon">Device<wbr>Statuses</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#mechanismenum" class="tsd-kind-icon">Mechanism<wbr>Enum</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#decodebase64" class="tsd-kind-icon">decode<wbr>Base64</a>
 					</li>
 				</ul>
 			</nav>

@@ -17,10 +17,18 @@
 
         var devices = new window.mbedCloudSDK.Devices(window.config);
 
-        devices.getEndpoints(function(err, endpoints) {
-            endpoints.forEach(function(endpoint) {
-                endpoint.getResources(function(err, resources) {
-                    log(endpoint.name);
+        devices.getRegistered(function(err, devices) {
+            devices.forEach(function(device) {
+                device.getDetails(function(err, data) {
+                    log(data);
+                });
+            });
+        });
+
+        devices.getKnown(function(err, devices) {
+            devices.forEach(function(device) {
+                device.getResources(function(err, resources) {
+                    log(device.name);
                     resources.forEach(function(resource) {
                         resource.getValue(function(err, value) {
                             log(resource.uri);
@@ -31,14 +39,28 @@
             });
         });
 
-        devices.getEndpoints()
-        .then(iterateEndpoints);
+        devices.getConnected(function(err, devices) {
+            devices.forEach(function(device) {
+                device.getResources(function(err, resources) {
+                    log(device.name);
+                    resources.forEach(function(resource) {
+                        resource.getValue(function(err, value) {
+                            log(resource.uri);
+                            log(value);
+                        });
+                    });
+                });
+            });
+        });
 
-        function iterateEndpoints(endpoints) {
-            var promises = endpoints.map(endpoint => {
-                return endpoint.getResources()
+        devices.getConnected()
+        .then(iterateDevices);
+
+        function iterateDevices(devices) {
+            var promises = devices.map(device => {
+                return device.getResources()
                 .then(resources => {
-                    log(endpoint.name);
+                    log(device.name);
                     return iterateResources(resources);
                 });
             });

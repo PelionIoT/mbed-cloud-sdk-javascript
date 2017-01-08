@@ -16,8 +16,7 @@
 * limitations under the License.
 */
 var pg = require("polygoat");
-//import { DefaultApi as DeploymentAPI, DefaultApiApiKeys } from "../_api/deployment_service";
-var firmware_catalog_1 = require("../_api/firmware_catalog");
+var api_1 = require("./api");
 /**
 * Root Update object
 */
@@ -26,10 +25,7 @@ var Update = (function () {
     * @param options Options object
     */
     function Update(options) {
-        this._api = new firmware_catalog_1.DefaultApi();
-        //        if (options.host) this.client.basePath = options.host;
-        if (options.accessKey)
-            this._api.setApiKey(firmware_catalog_1.DefaultApiApiKeys.Bearer, "Bearer " + options.accessKey);
+        this._api = new api_1.Api(options);
     }
     /**
     * Gets a list of currently registered endpoints
@@ -42,7 +38,7 @@ var Update = (function () {
         options = options || {};
         var limit = options.limit, order = options.order, after = options.after, include = options.include;
         return pg(function (done) {
-            _this._api.firmwareImageList(limit, order, after, include, function (error, data) {
+            _this._api.firmware.firmwareImageList(limit, order, after, include, function (error, data) {
                 if (error)
                     return done(error);
                 done(null, data);
@@ -54,7 +50,7 @@ var Update = (function () {
         options = options || {};
         var limit = options.limit, order = options.order, after = options.after, include = options.include;
         return pg(function (done) {
-            _this._api.firmwareManifestList(limit, order, after, include, function (error, data) {
+            _this._api.firmware.firmwareManifestList(limit, order, after, include, function (error, data) {
                 if (error)
                     return done(error);
                 done(null, data);

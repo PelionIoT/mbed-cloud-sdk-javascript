@@ -15,13 +15,13 @@
 * limitations under the License.
 */
 
-export interface connectionOptions {
-    /**
-    * Access Key for your mbed Cloud account
-    */
-    accessKey: string;
-    /**
-    * URL for mbed Cloud API
-    */
-    host?: string;
+import { Api } from "./api";
+
+export class Certificate {
+    constructor(private _api: Api, options: any) {
+        for(var key in options) {
+            this[key] = options[key];
+        }
+        this._api = null //deleteme
+    }
 }

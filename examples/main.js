@@ -14,10 +14,10 @@ devices.on(mbedCloudSDK.Devices.EVENT_UPDATE, update => {
 
 devices.startNotifications();
 
-devices.getEndpoints(function(err, endpoints) {
-    endpoints.forEach(function(endpoint) {
-        endpoint.getResources(function(err, resources) {
-            log(endpoint.name);
+devices.getConnected(function(err, devices) {
+    devices.forEach(function(device) {
+        device.getResources(function(err, resources) {
+            log(device.name);
             resources.forEach(function(resource) {
                 resource.getValue(function(err, value) {
                     if (err) {
@@ -32,14 +32,14 @@ devices.getEndpoints(function(err, endpoints) {
     });
 });
 
-devices.getEndpoints()
-.then(iterateEndpoints);
+devices.getConnected()
+.then(iterateDevices);
 
-function iterateEndpoints(endpoints) {
-    var promises = endpoints.map(endpoint => {
-        return endpoint.getResources()
+function iterateDevices(devices) {
+    var promises = devices.map(device => {
+        return device.getResources()
         .then(resources => {
-            log(endpoint.name);
+            log(device.name);
             return iterateResources(resources);
         });
     });

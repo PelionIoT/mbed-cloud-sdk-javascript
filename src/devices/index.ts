@@ -17,19 +17,36 @@
 
 import pg = require("polygoat");
 import superagent = require("superagent");
-import { connectionOptions } from "../helpers/connectionOptions";
 import { EventEmitter } from "events";
-import { EndpointsApi, NotificationsApi, EndpointsApiApiKeys, NotificationsApiApiKeys, ResourcesApi, ResourcesApiApiKeys, SubscriptionsApi, SubscriptionsApiApiKeys } from "../_api/mds";
+import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
+import { Api } from "./api";
+import { DeviceDetail, QueryDetail } from "./types";
+import { decodeBase64 } from "../helpers/data";
+import { Device } from "./device";
+import { Resource } from "./resource";
+import { Query } from "./query";
+
+export interface Webhook {
+    /**
+    * The URL to which the notifications must be sent
+    */
+    url?: string;
+    /**
+    * Headers (key/value) that must be sent with the request
+    */
+    headers?: {};
+}
 
 /**
 * Root Devices object
 */
 export class Devices extends EventEmitter {
 
-    private _apis: Devices.APIContainer;
+    private _api: Api;
     private _pollRequest: superagent.SuperAgentRequest;
     static polling: boolean = false;
     static asyncFns: { [key: string]: Function; } = {};
+    static resourceSubs: { [key: string]: Resource; } = {};
 
     /**
     * Resource notification event
@@ -38,25 +55,25 @@ export class Devices extends EventEmitter {
     static EVENT_NOTIFICATION: string = "notification";
 
     /**
-    * Endpoint registration event
+    * Device registration event
     * @event
     */
     static EVENT_REGISTRATION: string = "registration";
 
     /**
-    * Endpoint registration update event
+    * Device registration update event
     * @event
     */
     static EVENT_UPDATE: string = "reg-update";
 
     /**
-    * Endpoint de-registration event
+    * Device de-registration event
     * @event
     */
     static EVENT_DEREGISTRATION: string = "de-registration";
 
     /**
-    * Endpoint registration expiration event
+    * Device registration expiration event
     * @event
     */
     static EVENT_EXPIRED: string = "registration-expired";
@@ -64,20 +81,93 @@ export class Devices extends EventEmitter {
     /**
     * @param options Options object
     */
-    constructor(options: connectionOptions) {
+    constructor(options: ConnectionOptions) {
         super();
-        this._apis = new Devices.APIContainer(options);
+        this._api = new Api(options);
     }
 
-    public getEndpoints(options?: { type?: string }): Promise<Devices.Endpoint[]>;
-    public getEndpoints(options?: { type?: string }, callback?: (err: any, data?: Devices.Endpoint[]) => void): void;
+    public createDevice(options?: DeviceDetail): Promise<Device>;
+    public createDevice(options?: DeviceDetail, callback?: (err: any, data?: Device) => void): void;
     /**
-    * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
+    * Create a device
+    * @param options device details
+    * @param callback A function that is passed the arguments (error, device)
+    * @returns Optional Promise of device
     */
-    public getEndpoints(options?: any, callback?: (err: any, data?: Devices.Endpoint[]) => void): Promise<Devices.Endpoint[]> {
+    public createDevice(options?:any, callback?: (err: any, data?: Device) => void): Promise<Device> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        return pg(done => {
+            /*
+            this._api.catalog.deviceCreate(xxx, (error, data) => {
+                if (error) return done(error);
+                done(null, data);
+            });
+            */
+        }, callback);
+    }
+
+    public deleteDevice(options?: { id: string }): Promise<void>;
+    public deleteDevice(options?: { id: string }, callback?: (err: any, data?: void) => void): void;
+    /**
+    * Delete a device
+    * @param options device ID
+    * @param callback A function that is passed any error
+    * @returns Optional Promise
+    */
+    public deleteDevice(options?:any, callback?: (err: any, data?: void) => void): Promise<void> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { id } = options;
+        return pg(done => {
+            this._api.catalog.deviceDestroy(id, (error, data) => {
+                if (error) return done(error);
+                done(null, null);
+            });
+        }, callback);
+    }
+
+    public getKnown(options?: ListOptions): Promise<Device[]>;
+    public getKnown(options?: ListOptions, callback?: (err: any, data?: Device[]) => void): void;
+    /**
+    * Gets a list of known devices
+    * @param options Filters devices
+    * @param callback A function that is passed the arguments (error, devices)
+    * @returns Optional Promise of devices
+    */
+    public getKnown(options?: any, callback?: (err: any, data?: Device[]) => void): Promise<Device[]> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let {limit, after, order, include, filter} = options;
+        return pg(done => {
+            this._api.catalog.deviceList(limit, order, after, filter, include, (error, data: ListResponse<DeviceDetail>) => {
+                if (error) return done(error);
+                var devices = data.data.map(device => {
+                    return new Device(this._api, device.id);
+                });
+                done(null, devices);
+            });
+        }, callback);
+    }
+
+    public getConnected(options?: { type?: string }): Promise<Device[]>;
+    public getConnected(options?: { type?: string }, callback?: (err: any, data?: Device[]) => void): void;
+    /**
+    * Gets a list of currently connected device
+    * @param type Filters devices by device type
+    * @param callback A function that is passed the arguments (error, devices)
+    * @returns Optional Promise of currently connected devices
+    */
+    public getConnected(options?: any, callback?: (err: any, data?: Device[]) => void): Promise<Device[]> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -85,12 +175,12 @@ export class Devices extends EventEmitter {
         }
         let { type } = options;
         return pg(done => {
-            this._apis.epAPI.v2EndpointsGet(type, (error, data) => {
+            this._api.endpoints.v2EndpointsGet(type, (error, data) => {
                 if (error) return done(error);
-                var endpoints = data.map(endpoint => {
-                    return new Devices.Endpoint(this._apis, endpoint);
+                var devices = data.map(device => {
+                    return new Device(this._api, device.name);
                 });
-                done(null, endpoints);
+                done(null, devices);
             });
         }, callback);
     }
@@ -109,14 +199,19 @@ export class Devices extends EventEmitter {
         let { requestCallback } = options;
 
         function poll() {
-            this._pollRequest = this._apis.notAPI.v2NotificationPullGet((error, data) => {
+            this._pollRequest = this._api.notifications.v2NotificationPullGet((error, data) => {
 
                 if (!Devices.polling) return;
 
                 //payload, path, ep(endpoint name), ct(content type)
                 if (data["notifications"]) {
                     data["notifications"].forEach(notification => {
-                        this.emit(Devices.EVENT_NOTIFICATION, notification);
+                        var path = notification.ep + notification.path;
+                        var resource = Devices.resourceSubs[path];
+
+                        if (resource) {
+                            resource.emit(Devices.EVENT_NOTIFICATION, decodeBase64(notification));
+                        }
                     });
                 }
 
@@ -158,7 +253,7 @@ export class Devices extends EventEmitter {
                                 fn(response.error || response.status, response);
                             } else {
                                 if (response.payload) {
-                                    fn(null, Devices.decode(response));
+                                    fn(null, decodeBase64(response));
                                     return;
                                 }
 
@@ -211,7 +306,7 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed the arguments (error, callbackData)
     * @returns Optional Promise containing the callback data
     */
-    public getCallback(callback?: (err: any, data?: Devices.Webhook) => void): Promise<Devices.Webhook> {
+    public getCallback(callback?: (err: any, data?: Webhook) => void): Promise<Webhook> {
         //mds.DefaultApi.v2NotificationCallbackGet
         return pg(done => {
             done(null, null);
@@ -224,7 +319,7 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public putCallback(options: { data: Devices.Webhook }, callback?: (err: any, data?: void) => void): Promise<void> {
+    public putCallback(options: { data: Webhook }, callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.NotificationsApi.v2NotificationCallbackPut
         return pg(done => {
             done(null, null);
@@ -279,291 +374,131 @@ export class Devices extends EventEmitter {
             done(null, null);
         }, callback);
     }
-}
 
-export namespace Devices {
+    public createQuery(options: { name: string, query: string, description?: string }): Promise<Query>;
+    public createQuery(options: { name: string, query: string, description?: string }, callback?: (err: any, data?: Query) => void): void;
+    /**
+    * Create a device
+    * @param options device details
+    * @param callback A function that is passed the arguments (error, device)
+    * @returns Optional Promise of device
+    */
+    public createQuery(options?:any, callback?: (err: any, data?: Query) => void): Promise<Query> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { name, query, description } = options;
+        return pg(done => {
+            this._api.query.deviceQueryCreate(name, query, description, null, null, (error, data) => {
+                if (error) return done(error);
+                done(null, data);
+            });
+        }, callback);
+    }
 
-    export function decode(data) {
-        var result = "";
+    public deleteQuery(options?: { id: string }): Promise<void>;
+    public deleteQuery(options?: { id: string }, callback?: (err: any, data?: void) => void): void;
+    /**
+    * Delete a device
+    * @param options device ID
+    * @param callback A function that is passed any error
+    * @returns Optional Promise
+    */
+    public deleteQuery(options?:any, callback?: (err: any, data?: void) => void): Promise<void> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { id } = options;
+        return pg(done => {
+            this._api.query.deviceQueryDestroy(id, (error, data) => {
+                if (error) return done(error);
+                done(null, null);
+            });
+        }, callback);
+    }
 
-        if (typeof atob === "function") {
-            result = atob(data.payload);
+    public getQueries(options?: ListOptions): Promise<Query[]>;
+    public getQueries(options?: ListOptions, callback?: (err: any, data?: Query[]) => void): void;
+    /**
+    * Delete a device
+    * @param options device ID
+    * @param callback A function that is passed any error
+    * @returns Optional Promise
+    */
+    public getQueries(options?:any, callback?: (err: any, data?: Query[]) => void): Promise<Query[]> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { limit, order, after } = options;
+        return pg(done => {
+            this._api.query.deviceQueryList(limit, order, after, (error, data: ListResponse<QueryDetail>) => {
+                if (error) return done(error);
+                done(null, null);
+            });
+        }, callback);
+    }
+
+    public getQuery(options?: { id: string }): Promise<Query>;
+    public getQuery(options?: { id: string }, callback?: (err: any, data?: Query) => void): void;
+    /**
+    * Delete a device
+    * @param options device ID
+    * @param callback A function that is passed any error
+    * @returns Optional Promise
+    */
+    public getQuery(options?:any, callback?: (err: any, data?: Query) => void): Promise<Query> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { id } = options;
+        return pg(done => {
+            this._api.query.deviceQueryRetrieve(id, (error, data: QueryDetail) => {
+                if (error) return done(error);
+                done(null, null);
+            });
+        }, callback);
+    }
+
+    public updateQuery(options?: { id: string, name?: string, query?: string, description?: string }): Promise<Query>;
+    public updateQuery(options?: { id: string, name?: string, query?: string, description?: string }, callback?: (err: any, data?: Query) => void): void;
+    /**
+    * Delete a device
+    * @param options device ID
+    * @param callback A function that is passed any error
+    * @returns Optional Promise
+    */
+    public updateQuery(options?:any, callback?: (err: any, data?: Query) => void): Promise<Query> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { id, name, query, description } = options;
+
+        if (name && query) {
+            // Full update
+            return pg(done => {
+                this._api.query.deviceQueryUpdate(id, name, query, description, null, null, (error, data: QueryDetail) => {
+                    if (error) return done(error);
+                    done(null, null);
+                });
+            }, callback);
         } else {
-            result = new Buffer(data.payload, "base64").toString("utf8");
-        }
-
-        if (data.ct.indexOf("json") > -1) {
-            result = JSON.parse(result);
-        }
-
-        return result;
-    }
-
-    export interface Webhook {
-        /**
-        * The URL to which the notifications must be sent
-        */
-        url?: string;
-        /**
-        * Headers (key/value) that must be sent with the request
-        */
-        headers?: {};
-    }
-
-    export class APIContainer {
-
-        epAPI: EndpointsApi;
-        notAPI: NotificationsApi;
-        resAPI: ResourcesApi;
-        subAPI: SubscriptionsApi;
-
-        constructor(options: connectionOptions) {
-            this.epAPI = new EndpointsApi(options.host);
-            this.notAPI = new NotificationsApi(options.host);
-            this.resAPI = new ResourcesApi(options.host);
-            this.subAPI = new SubscriptionsApi(options.host);
-
-            this.epAPI.setApiKey(EndpointsApiApiKeys.Bearer, "Bearer " + options.accessKey);
-            this.notAPI.setApiKey(NotificationsApiApiKeys.Bearer, "Bearer " + options.accessKey);
-            this.resAPI.setApiKey(ResourcesApiApiKeys.Bearer, "Bearer " + options.accessKey);
-            this.subAPI.setApiKey(SubscriptionsApiApiKeys.Bearer, "Bearer " + options.accessKey);
-        }
-    }
-
-    export interface ResourceValueOptions {
-        /**
-        * If true, the response will come only from the cache
-        */
-        cacheOnly?: boolean;
-        /**
-        * If true, mbed Device Connector will not wait for a response
-        * Creates a CoAP Non-Confirmable requests
-        * If false, a response is expected and the CoAP request is confirmable
-        * (default: false)
-        */
-        noResp?: boolean;
-    }
-
-    export type Statuses = "ACTIVE" | "STALE";
-    export interface EndpointOptions {
-        /**
-        * Unique identifier representing the endpoint
-        */
-        name?: string;
-        /**
-        * Type of endpoint. (Free text)
-        */
-        type?: string;
-        /**
-        * Possible values ACTIVE, STALE
-        */
-        status?: Statuses;
-        /**
-        * Determines whether the device is in queue mode
-        */
-        queueMode?: boolean;
-    }
-
-    /**
-    * Endpoint object
-    */
-    export class Endpoint {
-
-        constructor(private _apis: APIContainer, options: EndpointOptions) {
-            for(var key in options) {
-                this[key] = options[key];
-            }
-        }
-
-        public getResources(): Promise<Resource[]>;
-        public getResources(callback: (err: any, data?: Resource[]) => void): void;
-        /**
-        * Gets a list of an endpoint's resources
-        * @param callback A function that is passed the arguments (error, resources)
-        * @returns Optional Promise of endpoint resources
-        */
-        public getResources(callback?: (err: any, data?: Resource[]) => void): Promise<Resource[]> {
+            // Partial update
             return pg(done => {
-                this._apis.epAPI.v2EndpointsEndpointNameGet(this.name, (error, data) => {
+                this._api.query.deviceQueryPartialUpdate(id, description, name, null, query, null, (error, data: QueryDetail) => {
                     if (error) return done(error);
-                    var resources = data.map(resource => {
-                        resource.endpoint = this;
-                        return new Resource(this._apis, resource);
-                    });
-                    done(null, resources);
+                    done(null, null);
                 });
             }, callback);
         }
-
-        /**
-        * Deletes a resource
-        * @param path Path of the resource to delete
-        * @param noResp Whether to make a non-confirmable request to the device
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        public deleteResource(options: { path: string, noResp?: boolean }, callback?: (err: any, data?: void) => void): Promise<void> {
-            //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathDelete
-            return pg(done => {
-                done(null, null);
-            }, callback);
-        }
-
-        /**
-        * Gets a list of an endpoint's subscriptions
-        * @param callback A function that is passed (error, subscriptions)
-        * @returns Optional Promise containing the subscriptions
-        */
-        public getSubscriptions(callback?: (err: any, data?: any) => void): Promise<any> {
-            //mds.SubscriptionsApi.v2SubscriptionsEndpointNameGet
-            return pg(done => {
-                done(null, null);
-            }, callback);
-        }
-
-        /**
-        * Removes an endpoint's subscriptions
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        public deleteSubscriptions(callback?: (err: any, data?: void) => void): Promise<void> {
-            //mds.SubscriptionsApi.v2SubscriptionsEndpointNameDelete
-            return pg(done => {
-                done(null, null);
-            }, callback);
-        }
     }
-    export interface Endpoint extends EndpointOptions {}
-
-    export interface ResourceOptions {
-        /**
-        * Whether you can subscribe to changes for this resource
-        */
-        obs: boolean;
-        /**
-        * Resource's type
-        */
-        rt: string;
-        /**
-        * The content type of the resource
-        */
-        type: string;
-        /**
-        * Resource's url
-        */
-        uri: string;
-        /**
-        * The endpoint the resource belongs to
-        */
-        endpoint: Endpoint;
-    }
-
-    /**
-    * Resource object
-    */
-    export class Resource {
-
-        constructor(private _apis: APIContainer, options: ResourceOptions) {
-            for(var key in options) {
-                this[key] = options[key];
-            }
-        }
-
-        public getValue(options?: ResourceValueOptions): Promise<string>;
-        public getValue(options?: ResourceValueOptions, callback?: (err: any, data?: string) => void);
-        /**
-        * Gets the value of a resource
-        * @param options Options object
-        * @param callback A function that is passed the arguments (error, value) where value is the value of the resource formatted as a string
-        * @returns Optional Promise of resource value
-        */
-        public getValue(options?: any, callback?: (err: any, data?: string) => void): Promise<string> {
-            options = options || {};
-            if (typeof options === "function") {
-                callback = options;
-                options = {};
-            }
-            let { cacheOnly, noResp } = options;
-            return pg(done => {
-                this._apis.resAPI.v2EndpointsEndpointNameResourcePathGet(this.endpoint.name, this.uri.substr(1), cacheOnly, noResp, (error, data) => {
-                    if (error) return done(error);
-
-                    var asyncID = data["async-response-id"];
-                    if (Devices.polling && asyncID) {
-                        Devices.asyncFns[asyncID] = done;
-                        return;
-                    }
-
-                    done(null, asyncID || data);
-                });
-            }, callback);
-        }
-
-        /**
-        * Puts the value of a resource
-        * @param value The value of the resource
-        * @param noResp If true, mbed Device Connector will not wait for a response
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        public putValue(options: { value: string, noResp?: boolean }, callback?: (err: any, data?: void) => void): Promise<void> {
-            //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPut
-            return pg(done => {
-                done(null, null);
-            }, callback);
-        }
-
-        /**
-        * Execute a function on a resource
-        * @param function The function to trigger
-        * @param noResp If true, mbed Device Connector will not wait for a response
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        public execute(options: { function?:string, noResp?: boolean }, callback?: (err: any, data?: void) => void): Promise<void> {
-            //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPost
-            return pg(done => {
-                done(null, null);
-            }, callback);
-        }
-
-        /**
-        * Gets the status of a resource's subscription
-        * @param callback A function that is passed (error, subscribed) where subscribed is true or false
-        * @returns Optional Promise containing resource subscription status
-        */
-        public getSubscription(callback?: (err: any, data?: boolean) => void): Promise<boolean> {
-            //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathGet
-            return pg(done => {
-                done(null, null);
-            }, callback);
-        }
-
-        /**
-        * Subscribe to a resource
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        public putSubscription(callback?: (err: any, data?: void) => void): Promise<void> {
-            return pg(done => {
-                this._apis.subAPI.v2SubscriptionsEndpointNameResourcePathPut(this.endpoint.name, this.uri, (error, data) => {
-                    if (error) return done(error);
-                    done(null, data);
-                });
-            }, callback);
-        }
-
-        /**
-        * Deletes a resource's subscription
-        * @param callback A function that is passed any error
-        * @returns Optional Promise containing any error
-        */
-        public deleteSubscription(callback?: (err: any, data?: void) => void): Promise<void> {
-            //mds.SubscriptionsApi.v2SubscriptionsEndpointNameResourcePathDelete
-            return pg(done => {
-                done(null, null);
-            }, callback);
-        }
-    }
-    export interface Resource extends ResourceOptions { }
 }

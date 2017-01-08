@@ -1,40 +1,17 @@
-import { connectionOptions } from "../helpers/connectionOptions";
-import { AccountAdminApi } from "../_api/iam";
+import { ConnectionOptions, ListOptions } from "../helpers/interfaces";
+import { User } from "./user";
+import { Certificate } from "./certificate";
 /**
 * Root Account object
 */
 export declare class Access {
-    private _apis;
+    private _api;
     /**
     * @param options Options object
     */
-    constructor(options: connectionOptions);
-    getUsers(options?: Access.UsersOptions): Promise<Access.User[]>;
-    getUsers(options?: Access.UsersOptions, callback?: (err: any, data?: Access.User[]) => void): any;
-}
-export declare namespace Access {
-    class APIContainer {
-        adAPI: AccountAdminApi;
-        constructor(options: connectionOptions);
-    }
-    interface UsersOptions {
-        limit?: number;
-        order?: string;
-        after?: string;
-        include?: string;
-        filter?: string;
-    }
-    interface UserOptions {
-        account_id: string;
-        status: string;
-        username: string;
-        full_name: string;
-        id: string;
-    }
-    class User {
-        private _apis;
-        constructor(_apis: APIContainer, options: UserOptions);
-    }
-    interface User extends UserOptions {
-    }
+    constructor(options: ConnectionOptions);
+    getUsers(options?: ListOptions): Promise<User[]>;
+    getUsers(options?: ListOptions, callback?: (err: any, data?: User[]) => void): any;
+    getCertificates(options?: ListOptions): Promise<Certificate[]>;
+    getCertificates(options?: ListOptions, callback?: (err: any, data?: Certificate[]) => void): any;
 }

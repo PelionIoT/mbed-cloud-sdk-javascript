@@ -16,23 +16,21 @@
 */
 
 import pg = require("polygoat");
-//import { DefaultApi as DeploymentAPI, DefaultApiApiKeys } from "../_api/deployment_service";
-import { DefaultApi as FirmwareAPI, DefaultApiApiKeys } from "../_api/firmware_catalog";
+import { ConnectionOptions, ListOptions } from "../helpers/interfaces";
+import { Api } from "./api";
 
 /**
 * Root Update object
 */
 export class Update {
 
-    private _api: FirmwareAPI;
+    private _api: Api;
 
     /**
     * @param options Options object
     */
-    constructor(options: Update.UpdateOptions) {
-        this._api = new FirmwareAPI();
-//        if (options.host) this.client.basePath = options.host;
-        if (options.accessKey) this._api.setApiKey(DefaultApiApiKeys.Bearer, "Bearer " + options.accessKey);
+    constructor(options: ConnectionOptions) {
+        this._api = new Api(options);
     }
 
     /**
@@ -41,46 +39,25 @@ export class Update {
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
-    public getFirmwareImages(options?: Update.ListOptions, callback?: (err: any, data?: any) => void): Promise<any> {
+    public getFirmwareImages(options?: ListOptions, callback?: (err: any, data?: any) => void): Promise<any> {
         options = options || {};
         let { limit, order, after, include } = options;
         return pg(done => {
-            this._api.firmwareImageList(limit, order, after, include, (error, data) => {
+            this._api.firmware.firmwareImageList(limit, order, after, include, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
         }, callback);
     }
 
-    public getManifests(options?: Update.ListOptions, callback?: (err: any, data?: any) => void): Promise<any> {
+    public getManifests(options?: ListOptions, callback?: (err: any, data?: any) => void): Promise<any> {
         options = options || {};
         let { limit, order, after, include } = options;
         return pg(done => {
-            this._api.firmwareManifestList(limit, order, after, include, (error, data) => {
+            this._api.firmware.firmwareManifestList(limit, order, after, include, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
         }, callback);
-    }
-}
-
-export namespace Update {
-
-    export interface UpdateOptions {
-        /**
-        * Access Key for your mbed Device Connector account
-        */
-        accessKey: string;
-        /**
-        * URL for mbed Device Connector API
-        */
-        host?: string;
-    }
-
-    export interface ListOptions {
-        limit?: number;
-        order?: string;
-        after?: string;
-        include?: string;
     }
 }
