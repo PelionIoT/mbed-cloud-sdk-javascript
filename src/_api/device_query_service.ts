@@ -471,8 +471,9 @@ export class DefaultApi {
      * @param limit 
      * @param order 
      * @param after 
+     * @param include 
      */
-    public deviceQueryList (limit?: number, order?: string, after?: string, callback?: Function): superagent.SuperAgentRequest {
+    public deviceQueryList (limit?: number, order?: string, after?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -489,6 +490,10 @@ export class DefaultApi {
 
         if (after !== undefined) {
             queryParameters['after'] = after;
+        }
+
+        if (include !== undefined) {
+            queryParameters['include'] = include;
         }
 
         let useFormData = false;
