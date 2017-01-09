@@ -1246,65 +1246,21 @@ export class DefaultApi {
     /**
      * 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign&lt;/p&gt;
-     * @param name A name for this campaign
-     * @param campaignId DEPRECATED: The ID of the campaign
-     * @param description An optional description of the campaign
-     * @param deviceFilter The filter for the devices the campaign will target
-     * @param finished The timestamp when the update campaign finished
-     * @param object The API resource entity
-     * @param rootManifestId 
-     * @param state The state of the campaign
-     * @param when The timestamp at which update campaign scheduled to start
+     * @param body Update campaign object to create
      */
-    public updateCampaignUpdate (name: string, campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignUpdate (body: WriteUpdateCampaignSerializer, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
         let formParams: any = {};
 
 
-        // verify required parameter 'name' is not null or undefined
-        if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling updateCampaignUpdate.');
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling updateCampaignUpdate.');
         }
 
         let useFormData = false;
-
-        if (campaignId !== undefined) {
-            formParams['campaign_id'] = campaignId;
-        }
-
-        if (description !== undefined) {
-            formParams['description'] = description;
-        }
-
-        if (deviceFilter !== undefined) {
-            formParams['device_filter'] = deviceFilter;
-        }
-
-        if (finished !== undefined) {
-            formParams['finished'] = finished;
-        }
-
-        if (name !== undefined) {
-            formParams['name'] = name;
-        }
-
-        if (object !== undefined) {
-            formParams['object'] = object;
-        }
-
-        if (rootManifestId !== undefined) {
-            formParams['root_manifest_id'] = rootManifestId;
-        }
-
-        if (state !== undefined) {
-            formParams['state'] = state;
-        }
-
-        if (when !== undefined) {
-            formParams['when'] = when;
-        }
 
         let requestOptions: RequestOptions = {
             method: 'PUT',
@@ -1313,6 +1269,7 @@ export class DefaultApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
+            body: body,
         };
 
         this.authentications.Bearer.applyToRequest(requestOptions);
