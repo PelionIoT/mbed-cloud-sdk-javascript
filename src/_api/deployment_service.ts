@@ -658,43 +658,43 @@ export class DefaultApi {
             throw new Error('Required parameter name was null or undefined when calling updateCampaignCreate.');
         }
 
-        let useFormData = false;
-
         if (campaignId !== undefined) {
-            formParams['campaign_id'] = campaignId;
+            queryParameters['campaign_id'] = campaignId;
         }
 
         if (description !== undefined) {
-            formParams['description'] = description;
+            queryParameters['description'] = description;
         }
 
         if (deviceFilter !== undefined) {
-            formParams['device_filter'] = deviceFilter;
+            queryParameters['device_filter'] = deviceFilter;
         }
 
         if (finished !== undefined) {
-            formParams['finished'] = finished;
+            queryParameters['finished'] = finished;
         }
 
         if (name !== undefined) {
-            formParams['name'] = name;
+            queryParameters['name'] = name;
         }
 
         if (object !== undefined) {
-            formParams['object'] = object;
+            queryParameters['object'] = object;
         }
 
         if (rootManifestId !== undefined) {
-            formParams['root_manifest_id'] = rootManifestId;
+            queryParameters['root_manifest_id'] = rootManifestId;
         }
 
         if (state !== undefined) {
-            formParams['state'] = state;
+            queryParameters['state'] = state;
         }
 
         if (when !== undefined) {
-            formParams['when'] = when;
+            queryParameters['when'] = when;
         }
+
+        let useFormData = false;
 
         let requestOptions: RequestOptions = {
             method: 'POST',
