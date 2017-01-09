@@ -1246,14 +1246,21 @@ export class DefaultApi {
     /**
      * 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign&lt;/p&gt;
+     * @param campaignId Campaign ID to update
      * @param body Update campaign object to create
      */
-    public updateCampaignUpdate (body: WriteUpdateCampaignSerializer, callback?: Function): superagent.SuperAgentRequest {
-        const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/';
+    public updateCampaignUpdate (campaignId: string, body: WriteUpdateCampaignSerializer, callback?: Function): superagent.SuperAgentRequest {
+        const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/'
+            .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
         let formParams: any = {};
 
+
+        // verify required parameter 'campaignId' is not null or undefined
+        if (campaignId === null || campaignId === undefined) {
+            throw new Error('Required parameter campaignId was null or undefined when calling updateCampaignUpdate.');
+        }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
