@@ -683,22 +683,8 @@ export class DefaultApi {
      * 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Delete update campaign&lt;/p&gt;
      * @param campaignId The ID of the update campaign
-     * @param updatingRequestId 
-     * @param updatingIpAddress 
-     * @param createdAt 
-     * @param updatedAt 
-     * @param attempts 
-     * @param description 
-     * @param deviceFilter 
-     * @param etag 
-     * @param finished 
-     * @param name 
-     * @param object 
-     * @param rootManifestId 
-     * @param state 
-     * @param when 
      */
-    public updateCampaignDestroy (campaignId: string, updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignDestroy (campaignId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -709,62 +695,6 @@ export class DefaultApi {
         // verify required parameter 'campaignId' is not null or undefined
         if (campaignId === null || campaignId === undefined) {
             throw new Error('Required parameter campaignId was null or undefined when calling updateCampaignDestroy.');
-        }
-
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
-        }
-
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
-        }
-
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-
-        if (attempts !== undefined) {
-            queryParameters['attempts'] = attempts;
-        }
-
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-
-        if (deviceFilter !== undefined) {
-            queryParameters['device_filter'] = deviceFilter;
-        }
-
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-
-        if (finished !== undefined) {
-            queryParameters['finished'] = finished;
-        }
-
-        if (name !== undefined) {
-            queryParameters['name'] = name;
-        }
-
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-
-        if (rootManifestId !== undefined) {
-            queryParameters['root_manifest_id'] = rootManifestId;
-        }
-
-        if (state !== undefined) {
-            queryParameters['state'] = state;
-        }
-
-        if (when !== undefined) {
-            queryParameters['when'] = when;
         }
 
         let useFormData = false;
@@ -1007,24 +937,10 @@ export class DefaultApi {
      * 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Retrieve campaign&lt;/p&gt;
      * @param campaignId The ID of the campaign
-     * @param updatingRequestId 
-     * @param updatingIpAddress 
-     * @param createdAt 
-     * @param updatedAt 
-     * @param attempts 
-     * @param description 
-     * @param deviceFilter 
-     * @param etag 
-     * @param finished 
-     * @param name 
-     * @param object 
-     * @param rootManifestId 
-     * @param state 
-     * @param when 
-     * @param rootManifestUrl The firmware catalog URL for the manifest that will be sent to the device as part of the campaign
      */
-    public updateCampaignRetrieve (campaignId: string, updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, rootManifestUrl?: string, callback?: Function): superagent.SuperAgentRequest {
-        const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/';
+    public updateCampaignRetrieve (campaignId: string, callback?: Function): superagent.SuperAgentRequest {
+        const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/'
+            .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
         let formParams: any = {};
@@ -1035,71 +951,7 @@ export class DefaultApi {
             throw new Error('Required parameter campaignId was null or undefined when calling updateCampaignRetrieve.');
         }
 
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
-        }
-
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
-        }
-
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-
-        if (attempts !== undefined) {
-            queryParameters['attempts'] = attempts;
-        }
-
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-
-        if (deviceFilter !== undefined) {
-            queryParameters['device_filter'] = deviceFilter;
-        }
-
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-
-        if (finished !== undefined) {
-            queryParameters['finished'] = finished;
-        }
-
-        if (name !== undefined) {
-            queryParameters['name'] = name;
-        }
-
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-
-        if (rootManifestId !== undefined) {
-            queryParameters['root_manifest_id'] = rootManifestId;
-        }
-
-        if (state !== undefined) {
-            queryParameters['state'] = state;
-        }
-
-        if (when !== undefined) {
-            queryParameters['when'] = when;
-        }
-
-        if (rootManifestUrl !== undefined) {
-            queryParameters['root_manifest_url'] = rootManifestUrl;
-        }
-
         let useFormData = false;
-
-        if (campaignId !== undefined) {
-            formParams['campaign_id'] = campaignId;
-        }
 
         let requestOptions: RequestOptions = {
             method: 'GET',
@@ -1131,22 +983,8 @@ export class DefaultApi {
      * 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Show the status of an update campaign&lt;/p&gt;
      * @param campaignId The ID of the update campaign
-     * @param updatingRequestId 
-     * @param updatingIpAddress 
-     * @param createdAt 
-     * @param updatedAt 
-     * @param attempts 
-     * @param description 
-     * @param deviceFilter 
-     * @param etag 
-     * @param finished 
-     * @param name 
-     * @param object 
-     * @param rootManifestId 
-     * @param state 
-     * @param when 
      */
-    public updateCampaignStatus (campaignId: string, updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignStatus (campaignId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/status/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -1157,62 +995,6 @@ export class DefaultApi {
         // verify required parameter 'campaignId' is not null or undefined
         if (campaignId === null || campaignId === undefined) {
             throw new Error('Required parameter campaignId was null or undefined when calling updateCampaignStatus.');
-        }
-
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
-        }
-
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
-        }
-
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-
-        if (attempts !== undefined) {
-            queryParameters['attempts'] = attempts;
-        }
-
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-
-        if (deviceFilter !== undefined) {
-            queryParameters['device_filter'] = deviceFilter;
-        }
-
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-
-        if (finished !== undefined) {
-            queryParameters['finished'] = finished;
-        }
-
-        if (name !== undefined) {
-            queryParameters['name'] = name;
-        }
-
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-
-        if (rootManifestId !== undefined) {
-            queryParameters['root_manifest_id'] = rootManifestId;
-        }
-
-        if (state !== undefined) {
-            queryParameters['state'] = state;
-        }
-
-        if (when !== undefined) {
-            queryParameters['when'] = when;
         }
 
         let useFormData = false;
