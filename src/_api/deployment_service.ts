@@ -646,7 +646,7 @@ export class DefaultApi {
      * @param state The state of the campaign
      * @param when The timestamp at which update campaign scheduled to start
      */
-    public updateCampaignCreate (name: string, campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignCreate (name: string, campaignId?: string, description?: string, deviceFilter?: string, finished?: string, object?: string, rootManifestId?: string, state?: string, when?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -658,42 +658,6 @@ export class DefaultApi {
             throw new Error('Required parameter name was null or undefined when calling updateCampaignCreate.');
         }
 
-        if (campaignId !== undefined) {
-            queryParameters['campaign_id'] = campaignId;
-        }
-
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-
-        if (deviceFilter !== undefined) {
-            queryParameters['device_filter'] = deviceFilter;
-        }
-
-        if (finished !== undefined) {
-            queryParameters['finished'] = finished;
-        }
-
-        if (name !== undefined) {
-            queryParameters['name'] = name;
-        }
-
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-
-        if (rootManifestId !== undefined) {
-            queryParameters['root_manifest_id'] = rootManifestId;
-        }
-
-        if (state !== undefined) {
-            queryParameters['state'] = state;
-        }
-
-        if (when !== undefined) {
-            queryParameters['when'] = when;
-        }
-
         let useFormData = false;
 
         let requestOptions: RequestOptions = {
@@ -703,6 +667,7 @@ export class DefaultApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
+            body: when,
         };
 
         this.authentications.Bearer.applyToRequest(requestOptions);
