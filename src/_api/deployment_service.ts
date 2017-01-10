@@ -245,6 +245,30 @@ export namespace CampaignDeviceMetadataSerializer {
         Manifestremoved = <any> 'manifestremoved'
     }
 }
+export class UpdateCampaignPage {
+    /**
+    * Whether there are more results to display
+    */
+    'hasMore': boolean;
+    /**
+    * Total number of records
+    */
+    'totalCount': number;
+    /**
+    * API Resource name
+    */
+    'object': string;
+    /**
+    * The number of results to return
+    */
+    'limit': number;
+    'data': Array<UpdateCampaignSerializer>;
+    /**
+    * Order of returned records
+    */
+    'order': string;
+}
+
 export class UpdateCampaignSerializer {
     /**
     * An optional description of the campaign
@@ -728,97 +752,37 @@ export class DefaultApi {
     /**
      * 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;List all update campaigns&lt;/p&gt;
-     * @param updatingRequestId 
-     * @param updatingIpAddress 
-     * @param createdAt 
-     * @param updatedAt 
-     * @param attempts 
-     * @param campaignId 
-     * @param description 
-     * @param deviceFilter 
-     * @param etag 
-     * @param finished 
-     * @param name 
-     * @param object 
-     * @param rootManifestId 
-     * @param state 
-     * @param when 
-     * @param page The page number to retrieve. If not given, then defaults to first page.
-     * @param rootManifestUrl The firmware catalog URL for the manifest that will be sent to the device as part of the campaign
+     * @param limit 
+     * @param order 
+     * @param after 
+     * @param filter 
+     * @param include 
      */
-    public updateCampaignList (updatingRequestId?: string, updatingIpAddress?: string, createdAt?: string, updatedAt?: string, attempts?: string, campaignId?: string, description?: string, deviceFilter?: string, etag?: string, finished?: string, name?: string, object?: string, rootManifestId?: string, state?: string, when?: string, page?: number, rootManifestUrl?: string, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
         let formParams: any = {};
 
 
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
         }
 
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
+        if (order !== undefined) {
+            queryParameters['order'] = order;
         }
 
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
+        if (after !== undefined) {
+            queryParameters['after'] = after;
         }
 
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
+        if (filter !== undefined) {
+            queryParameters['filter'] = filter;
         }
 
-        if (attempts !== undefined) {
-            queryParameters['attempts'] = attempts;
-        }
-
-        if (campaignId !== undefined) {
-            queryParameters['campaign_id'] = campaignId;
-        }
-
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-
-        if (deviceFilter !== undefined) {
-            queryParameters['device_filter'] = deviceFilter;
-        }
-
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-
-        if (finished !== undefined) {
-            queryParameters['finished'] = finished;
-        }
-
-        if (name !== undefined) {
-            queryParameters['name'] = name;
-        }
-
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-
-        if (rootManifestId !== undefined) {
-            queryParameters['root_manifest_id'] = rootManifestId;
-        }
-
-        if (state !== undefined) {
-            queryParameters['state'] = state;
-        }
-
-        if (when !== undefined) {
-            queryParameters['when'] = when;
-        }
-
-        if (page !== undefined) {
-            queryParameters['page'] = page;
-        }
-
-        if (rootManifestUrl !== undefined) {
-            queryParameters['root_manifest_url'] = rootManifestUrl;
+        if (include !== undefined) {
+            queryParameters['include'] = include;
         }
 
         let useFormData = false;
