@@ -349,8 +349,8 @@ export namespace UpdateCampaignSerializer {
     }
 }
 export class UpdateCampaignStatusSerializer {
-    'directDevices': string;
-    'connectorDevices': string;
+    'directDevices': number;
+    'connectorDevices': number;
     /**
     * An optional description of the campaign
     */
@@ -367,13 +367,13 @@ export class UpdateCampaignStatusSerializer {
     * The time the object was created
     */
     'createdAt': Date;
-    'totalDevices': string;
+    'totalDevices': number;
     'campaigndevicemetadataSet': Array<CampaignDeviceMetadataSerializer>;
     /**
     * DEPRECATED: The ID of the campaign
     */
     'campaignId': string;
-    'deployedDevices': string;
+    'deployedDevices': number;
     /**
     * The time the object was updated
     */
