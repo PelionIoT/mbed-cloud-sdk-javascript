@@ -954,8 +954,9 @@ export class DefaultApi {
      * 
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device.&lt;/p&gt;
      * @param deviceId The ID of the device
+     * @param body Device object to update
      */
-    public deviceUpdate (deviceId: string, callback?: Function): superagent.SuperAgentRequest {
+    public deviceUpdate (deviceId: string, body: DeviceDetail, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -968,6 +969,11 @@ export class DefaultApi {
             throw new Error('Required parameter deviceId was null or undefined when calling deviceUpdate.');
         }
 
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling deviceUpdate.');
+        }
+
         let useFormData = false;
 
         let requestOptions: RequestOptions = {
@@ -977,6 +983,7 @@ export class DefaultApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
+            body: body,
         };
 
         this.authentications.Bearer.applyToRequest(requestOptions);
