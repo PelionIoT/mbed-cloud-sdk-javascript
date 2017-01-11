@@ -185,6 +185,12 @@ export function paramToString(param:any) {
     return param.toString();
 }
 
+export class Body {
+    'query': string;
+    'description': string;
+    'name': string;
+}
+
 export class DeviceQueryDetail {
     /**
     * The description of the object
@@ -645,13 +651,9 @@ export class DefaultApi {
      * 
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Update device query.&lt;/p&gt;
      * @param queryId 
-     * @param name The name of the query
-     * @param query The device query
-     * @param description The description of the object
-     * @param object The API resource entity
-     * @param queryId2 DEPRECATED: The ID of the query
+     * @param body Device query update object
      */
-    public deviceQueryUpdate (queryId: string, name: string, query: string, description?: string, object?: string, queryId2?: string, callback?: Function): superagent.SuperAgentRequest {
+    public deviceQueryUpdate (queryId: string, body: Body, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/{query_id}/'
             .replace('{' + 'query_id' + '}', String(queryId));
         let queryParameters: any = {};
@@ -664,37 +666,12 @@ export class DefaultApi {
             throw new Error('Required parameter queryId was null or undefined when calling deviceQueryUpdate.');
         }
 
-        // verify required parameter 'name' is not null or undefined
-        if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling deviceQueryUpdate.');
-        }
-
-        // verify required parameter 'query' is not null or undefined
-        if (query === null || query === undefined) {
-            throw new Error('Required parameter query was null or undefined when calling deviceQueryUpdate.');
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling deviceQueryUpdate.');
         }
 
         let useFormData = false;
-
-        if (description !== undefined) {
-            formParams['description'] = description;
-        }
-
-        if (name !== undefined) {
-            formParams['name'] = name;
-        }
-
-        if (object !== undefined) {
-            formParams['object'] = object;
-        }
-
-        if (query !== undefined) {
-            formParams['query'] = query;
-        }
-
-        if (queryId2 !== undefined) {
-            formParams['query_id'] = queryId2;
-        }
 
         let requestOptions: RequestOptions = {
             method: 'PUT',
@@ -703,6 +680,7 @@ export class DefaultApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
+            body: body,
         };
 
         this.authentications.Bearer.applyToRequest(requestOptions);
