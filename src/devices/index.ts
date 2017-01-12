@@ -133,15 +133,15 @@ export class Devices extends EventEmitter {
         }, callback);
     }
 
-    public getKnown(options?: ListOptions): Promise<Device[]>;
-    public getKnown(options?: ListOptions, callback?: (err: any, data?: Device[]) => void): void;
+    public listKnownDevices(options?: ListOptions): Promise<Device[]>;
+    public listKnownDevices(options?: ListOptions, callback?: (err: any, data?: Device[]) => void): void;
     /**
     * Gets a list of known devices
     * @param options Filters devices
     * @param callback A function that is passed the arguments (error, devices)
     * @returns Optional Promise of devices
     */
-    public getKnown(options?: any, callback?: (err: any, data?: Device[]) => void): Promise<Device[]> {
+    public listKnownDevices(options?: any, callback?: (err: any, data?: Device[]) => void): Promise<Device[]> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -159,15 +159,15 @@ export class Devices extends EventEmitter {
         }, callback);
     }
 
-    public getConnected(options?: { type?: string }): Promise<Device[]>;
-    public getConnected(options?: { type?: string }, callback?: (err: any, data?: Device[]) => void): void;
+    public listConnectedDevices(options?: { type?: string }): Promise<Device[]>;
+    public listConnectedDevices(options?: { type?: string }, callback?: (err: any, data?: Device[]) => void): void;
     /**
     * Gets a list of currently connected device
     * @param type Filters devices by device type
     * @param callback A function that is passed the arguments (error, devices)
     * @returns Optional Promise of currently connected devices
     */
-    public getConnected(options?: any, callback?: (err: any, data?: Device[]) => void): Promise<Device[]> {
+    public listConnectedDevices(options?: any, callback?: (err: any, data?: Device[]) => void): Promise<Device[]> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -306,7 +306,7 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed the arguments (error, callbackData)
     * @returns Optional Promise containing the callback data
     */
-    public getCallback(callback?: (err: any, data?: Webhook) => void): Promise<Webhook> {
+    public getWebhookData(callback?: (err: any, data?: Webhook) => void): Promise<Webhook> {
         //mds.DefaultApi.v2NotificationCallbackGet
         return pg(done => {
             done(null, null);
@@ -319,7 +319,7 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public putCallback(options: { data: Webhook }, callback?: (err: any, data?: void) => void): Promise<void> {
+    public updateWebhookData(options: { data: Webhook }, callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.NotificationsApi.v2NotificationCallbackPut
         return pg(done => {
             done(null, null);
@@ -331,7 +331,7 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public deleteCallback(callback?: (err: any, data?: void) => void): Promise<void> {
+    public deleteWebhookData(callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.DefaultApi.v2NotificationCallbackDelete
         return pg(done => {
             done(null, null);
@@ -356,7 +356,7 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public putSubscriptionData(options: { presubsription: string[] }, callback?: (err: any, data?: void) => void): Promise<void> {
+    public updateSubscriptionData(options: { presubsription: string[] }, callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.SubscriptionsApi.v2SubscriptionsPut
         return pg(done => {
             done(null, null);
@@ -421,15 +421,15 @@ export class Devices extends EventEmitter {
         }, callback);
     }
 
-    public getQueries(options?: ListOptions): Promise<Query[]>;
-    public getQueries(options?: ListOptions, callback?: (err: any, data?: Query[]) => void): void;
+    public listQueries(options?: ListOptions): Promise<Query[]>;
+    public listQueries(options?: ListOptions, callback?: (err: any, data?: Query[]) => void): void;
     /**
     * Delete a device
     * @param options device ID
     * @param callback A function that is passed any error
     * @returns Optional Promise
     */
-    public getQueries(options?:any, callback?: (err: any, data?: Query[]) => void): Promise<Query[]> {
+    public listQueries(options?:any, callback?: (err: any, data?: Query[]) => void): Promise<Query[]> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;

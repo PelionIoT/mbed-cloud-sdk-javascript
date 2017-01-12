@@ -21,12 +21,11 @@ import { Api } from "./api";
 import { Resource } from"./resource";
 
 /**
-* Device object
-*/
+ * Object representing a device
+ */
 export class Device {
 
-    constructor(private _api: Api, public id: string) {
-    }
+    constructor(private _api: Api, public id: string) {}
 
     public getDetails(): Promise<any>;
     public getDetails(callback: (err: any, data?: any) => void): void;
@@ -44,14 +43,14 @@ export class Device {
         }, callback);
     }
 
-    public getResources(): Promise<Resource[]>;
-    public getResources(callback: (err: any, data?: Resource[]) => void): void;
+    public listResources(): Promise<Resource[]>;
+    public listResources(callback: (err: any, data?: Resource[]) => void): void;
     /**
     * Gets a list of a device's resources
     * @param callback A function that is passed the arguments (error, resources)
     * @returns Optional Promise of device resources
     */
-    public getResources(callback?: (err: any, data?: Resource[]) => void): Promise<Resource[]> {
+    public listResources(callback?: (err: any, data?: Resource[]) => void): Promise<Resource[]> {
         return pg(done => {
             this._api.endpoints.v2EndpointsEndpointNameGet(this.id, (error, data) => {
                 if (error) return done(error);
@@ -83,7 +82,7 @@ export class Device {
     * @param callback A function that is passed (error, subscriptions)
     * @returns Optional Promise containing the subscriptions
     */
-    public getSubscriptions(callback?: (err: any, data?: any) => void): Promise<any> {
+    public listSubscriptions(callback?: (err: any, data?: any) => void): Promise<any> {
         //mds.SubscriptionsApi.v2SubscriptionsEndpointNameGet
         return pg(done => {
             done(null, null);

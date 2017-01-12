@@ -35,15 +35,36 @@ export class Access {
         this._api = new Api(options);
     }
 
-    public getUsers(options?: ListOptions): Promise<User[]>;
-    public getUsers(options?: ListOptions, callback?: (err: any, data?: User[]) => void);
+    /**
+     * List device logs
+     * @param options list options
+     * @returns Promise of listResponse
+     */
+    public getAccountDetails(): Promise<any>;
+    /**
+     * List device logs
+     * @param options list options
+     * @param callback A function that is passed the return arguments (error, listResponse)
+     */
+    public getAccountDetails(callback: (err: any, data?: any) => any): void;
+    public getAccountDetails(callback?: (err: any, data?: any) => any): Promise<any> {
+        return pg(done => {
+            this._api.developer.getMyAccountInfo(null, (error, data) => {
+                if (error) return done(error);
+                done(null, data);
+            });
+        }, callback);
+    }
+
+    public listUsers(options?: ListOptions): Promise<User[]>;
+    public listUsers(options?: ListOptions, callback?: (err: any, data?: User[]) => void);
     /**
     * Gets a list of currently registered endpoints
     * @param options Filters endpoints by endpoint-type
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
-    public getUsers(options?: any, callback?: (err: any, data?: User[]) => void): Promise<User[]> {
+    public listUsers(options?: any, callback?: (err: any, data?: User[]) => void): Promise<User[]> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -69,15 +90,15 @@ export class Access {
         }, callback);
     }
 
-    public getCertificates(options?: ListOptions): Promise<Certificate[]>;
-    public getCertificates(options?: ListOptions, callback?: (err: any, data?: Certificate[]) => void);
+    public listCertificates(options?: ListOptions): Promise<Certificate[]>;
+    public listCertificates(options?: ListOptions, callback?: (err: any, data?: Certificate[]) => void);
     /**
     * Gets a list of certificates
     * @param type Filters endpoints by endpoint-type
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
-    public getCertificates(options?: any, callback?: (err: any, data?: Certificate[]) => void): Promise<Certificate[]> {
+    public listCertificates(options?: any, callback?: (err: any, data?: Certificate[]) => void): Promise<Certificate[]> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;

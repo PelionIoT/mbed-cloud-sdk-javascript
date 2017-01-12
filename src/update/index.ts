@@ -39,7 +39,7 @@ export class Update {
     * @param callback A function that is passed the arguments (error, endpoints)
     * @returns Optional Promise of currently registered endpoints
     */
-    public getFirmwareImages(options?: ListOptions, callback?: (err: any, data?: any) => void): Promise<any> {
+    public listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: any) => void): Promise<any> {
         options = options || {};
         let { limit, order, after, include } = options;
         return pg(done => {
@@ -50,7 +50,7 @@ export class Update {
         }, callback);
     }
 
-    public getManifests(options?: ListOptions, callback?: (err: any, data?: any) => void): Promise<any> {
+    public listManifests(options?: ListOptions, callback?: (err: any, data?: any) => void): Promise<any> {
         options = options || {};
         let { limit, order, after, include } = options;
         return pg(done => {

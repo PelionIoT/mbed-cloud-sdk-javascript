@@ -54,7 +54,7 @@ export class Resource extends EventEmitter {
 
         this.on("newListener", (eventName, listener) => {
             if (eventName === Resource.EVENT_NOTIFICATION) {
-                this.putSubscription((error, asyncID) => {
+                this.createSubscription((error, asyncID) => {
                     if (Devices.polling) {
                         // record this resource at this path for notifications
                         Devices.resourceSubs[this.device.id + this.uri] = this;
@@ -155,7 +155,7 @@ export class Resource extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    private putSubscription(callback?: (err: any, data?: void) => void): Promise<void> {
+    private createSubscription(callback?: (err: any, data?: void) => void): Promise<void> {
         return pg(done => {
             this._api.subscriptions.v2SubscriptionsEndpointNameResourcePathPut(this.device.id, this.uri, (error, data) => {
                 if (error) return done(error);
@@ -181,4 +181,4 @@ export class Resource extends EventEmitter {
         }, callback);
     }
 }
-export interface Resource extends ResourceType { }
+export interface Resource extends ResourceType {}

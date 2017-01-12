@@ -2,15 +2,11 @@
   "name": "mbed-cloud-sdk",
   "version": "0.0.1",
   "description": "mbed Cloud JavaScript SDK",
-  "homepage": "https://github.com/ARMmbed/mbed-cloud-sdk-javascript",
+  "homepage": "https://www.mbed.com",
   "author": "Rob Moran <rob.moran@arm.com>",
   "license": "Apache-2.0",
   "main": "./dist/node/index.js",
   "types": "./dist/types/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ARMmbed/mbed-cloud-sdk-javascript.git"
-  },
   "keywords": [
     "mbed",
     "SDK"
@@ -38,7 +34,6 @@
     "typescript": "2.1.1"
   },
   "dependencies": {
-    "minimist": "^1.2.0",
     "polygoat": "thegecko/polygoat",
     "superagent": "^3.0.0"
   }

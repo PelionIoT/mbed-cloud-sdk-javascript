@@ -20,6 +20,7 @@ export { Access } from "./access";
 export { Development } from "./development";
 export { Devices } from "./devices";
 export { Update } from "./update";
+export { Logging } from "./logging";
 
 // add comments to code from https://github.com/ARMmbed/mbed-cloud-sdk-javascript/tree/7ec7b3142c8c19d22125dd8440d9cea2071320f6/dist/_backends
 // add events/subscriptions to devices/endpoints/resources for updates got through long polling notifications w/ obs guards?

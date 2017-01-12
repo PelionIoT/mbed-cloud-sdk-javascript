@@ -17,15 +17,16 @@
 
 import { ConnectionOptions } from "../helpers/interfaces";
 import {
-    DefaultApi, DefaultApiApiKeys
+    DefaultApi as DevelopmentApi,
+    DefaultApiApiKeys as DevelopmentApiApiKeys
 } from "../_api/developer_certificate";
 
 export class Api {
 
-    default: DefaultApi;
+    development: DevelopmentApi;
 
     constructor(options: ConnectionOptions) {
-        this.default = new DefaultApi(options.host);
-        this.default.setApiKey(DefaultApiApiKeys.Bearer, "Bearer " + options.accessKey);
+        this.development = new DevelopmentApi(options.host);
+        this.development.setApiKey(DevelopmentApiApiKeys.Bearer, "Bearer " + options.accessKey);
     }
 }

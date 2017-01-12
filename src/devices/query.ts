@@ -20,7 +20,8 @@ import { QueryDetail } from "./types";
 
 export class Query {
 
-    constructor(private _api: Api) {
+	constructor(private _api: Api) {
+		this._api = null; //deleteme
     }
 }
 export interface Query extends QueryDetail { }

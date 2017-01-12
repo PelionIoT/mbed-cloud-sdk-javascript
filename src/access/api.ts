@@ -17,7 +17,8 @@
 
 import { ConnectionOptions } from "../helpers/interfaces";
 import {
-    DefaultApi, DefaultApiApiKeys,
+    DefaultApi as AccessApi,
+    DefaultApiApiKeys as AccessApiApiKeys,
     DeveloperApi, DeveloperApiApiKeys,
     RootAdminApi, RootAdminApiApiKeys,
     AccountAdminApi, AccountAdminApiApiKeys
@@ -25,18 +26,18 @@ import {
 
 export class Api {
 
-    default: DefaultApi;
+    access: AccessApi;
     developer: DeveloperApi;
     admin: AccountAdminApi;
     root: RootAdminApi;
 
     constructor(options: ConnectionOptions) {
-        this.default = new DefaultApi(options.host);
+        this.access = new AccessApi(options.host);
         this.developer = new DeveloperApi(options.host);
         this.admin = new AccountAdminApi(options.host);
         this.root = new RootAdminApi(options.host);
 
-        this.default.setApiKey(DefaultApiApiKeys.Bearer, "Bearer " + options.accessKey);
+        this.access.setApiKey(AccessApiApiKeys.Bearer, "Bearer " + options.accessKey);
         this.developer.setApiKey(DeveloperApiApiKeys.Bearer, "Bearer " + options.accessKey);
         this.admin.setApiKey(AccountAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
         this.root.setApiKey(RootAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);

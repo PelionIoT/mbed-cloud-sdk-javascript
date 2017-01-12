@@ -18,81 +18,93 @@
 import pg = require("polygoat");
 import { ConnectionOptions } from "../helpers/interfaces";
 import { Api } from "./api";
+import { Certificate } from "./types";
 
 /**
-* Root Account object
-*/
+ * Root Development object
+ */
 export class Development {
 
     private _api: Api;
 
     /**
-    * @param options Options object
-    */
+     * @param options connection options
+     */
     constructor(options: ConnectionOptions) {
         this._api = new Api(options);
     }
 
-    public postCertificate(options: { pubKey: string }): Promise<Certificate>;
-    public postCertificate(options: { pubKey: string }, callback: (err: any, data?: Certificate) => void);
+    private map(from: Certificate, to?:Certificate): Certificate {
+        to = to || {};
+
+        to.created_at    = from.created_at;
+        to.etag          = from.etag;
+        to.id            = from.id;
+        to.pub_key       = from.pub_key;
+
+        return to;
+    }
+
     /**
-    * Adds a developer certificate to the account (only one per account allowed).
-    * @param callback
-    * @returns Optional Promise
-    */
-    public postCertificate(options: { pubKey: string }, callback?: (err: any, data?: any) => void): Promise<any> {
+     * Adds a developer certificate to the account (only one per account allowed).
+     * @param options.pubKey The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
+     * @returns Promise containing created certificate
+     */
+    public addCertificate(options: { pub_key: string }): Promise<Certificate>;
+    /**
+     * Adds a developer certificate to the account (only one per account allowed).
+     * @param options.pub_key The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
+     * @param callback A function that is passed the return arguments (error, certificate)
+     */
+    public addCertificate(options: { pub_key: string }, callback: (err: any, data?: Certificate) => any);
+    public addCertificate(options: { pub_key: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
         return pg(done => {
-            this._api.default.v3DeveloperCertificatePost("authorization", options, (error, data) => {
+            this._api.development.v3DeveloperCertificatePost("", options, (error, data) => {
                 if (error) return done(error);
-                done(null, data);
+
+                let cert = this.map(data);
+                done(null, cert);
             });
         }, callback);
     }
 
+    /**
+     * Gets the current developer certificate of the account.
+     * @returns Promise containing current certificate
+     */
     public getCertificate(): Promise<Certificate>;
-    public getCertificate(callback?: (err: any, data?: Certificate) => void);
     /**
-    * Gets the developer certificate of the account.
-    * @param callback
-    * @returns Optional Promise
-    */
-    public getCertificate(callback?: (err: any, data?: Certificate) => void): Promise<Certificate> {
+     * Gets the current developer certificate of the account.
+     * @param callback A function that is passed the return arguments (error, certificate)
+     */
+    public getCertificate(callback: (err: any, data?: Certificate) => any);
+    public getCertificate(callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
         return pg(done => {
-            this._api.default.v3DeveloperCertificateGet("options.authorization", (error, data) => {
+            this._api.development.v3DeveloperCertificateGet("", (error, data) => {
                 if (error) return done(error);
-                done(null, data);
+
+                let cert = this.map(data);
+                done(null, cert);
             });
         }, callback);
     }
 
+    /**
+     * Deletes the account's developer certificate (only one per account allowed).
+     * @returns empty Promise
+     */
     public deleteCertificate(): Promise<void>;
-    public deleteCertificate(callback?: (err: any, data?: void) => void);
     /**
-    * Deletes the account's developer certificate (only one per account allowed).
-    * @param callback
-    * @returns Optional Promise
-    */
-    public deleteCertificate(callback?: (err: any, data?: void) => void): Promise<void> {
+     * Deletes the account's developer certificate (only one per account allowed).
+     * @param callback A function that is passed the return arguments (error, void)
+     */
+    public deleteCertificate(callback?: (err: any, data?: void) => any);
+    public deleteCertificate(callback?: (err: any, data?: void) => any): Promise<void> {
         return pg(done => {
-            this._api.default.v3DeveloperCertificateDelete("options.authorization", (error, data) => {
+            this._api.development.v3DeveloperCertificateDelete("", (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
         }, callback);
     }
-}
-
-export interface Certificate {
-    /**
-    * UTC time of the entity creation.
-    */
-    createdAt: string;
-    /**
-    * The developer certificate public key in PEM format (NIST P-256 curve).
-    */
-    pubKey: string;
-    /**
-    * entity ID
-    */
-    id: string;
 }

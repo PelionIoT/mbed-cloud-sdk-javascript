@@ -15,17 +15,16 @@ var bundleName = name.replace(/\s/g, "");
 
 var srcDir = "src";
 var docsDir = "docs";
-var distDir = "dist";
-var nodeDir = distDir + "/node";
-var typesDir = distDir + "/types";
-var bundleDir = distDir + "/bundles";
+var nodeDir = "lib";
+var typesDir = "types";
+var bundleDir = "bundles";
 
 function handleError() {
     this.emit("end");
 }
 
 gulp.task("clean", function() {
-    return del(distDir);
+    return del([nodeDir, typesDir, bundleDir]);
 });
 
 gulp.task("doc", function() {
@@ -35,7 +34,7 @@ gulp.task("doc", function() {
         readme: "./README.md",
         module: "commonjs",
         target: "es6",
-        mode: "file",
+        //mode: "file",
         out: docsDir,
         excludeExternals: true,
         excludePrivate: true,
@@ -45,10 +44,10 @@ gulp.task("doc", function() {
         //gaID
         //gaSite
     }))
-    .on('error', handleError);
+    .on("error", handleError);
 });
 
-gulp.task("typescript", ["clean"], function() {
+gulp.task("typescript", function() {
     var options = {
         target: "es5",
         lib: ["dom", "es5", "es2015.promise"],
@@ -63,11 +62,11 @@ gulp.task("typescript", ["clean"], function() {
     return merge([
         gulp.src(srcDir + "/**/*.ts")
         .pipe(ts(options))
-        .on('error', handleError).js
+        .on("error", handleError).js
         .pipe(gulp.dest(nodeDir)),
         gulp.src([srcDir + "/**/*.ts", "!" + srcDir + "/_api/*"])
         .pipe(ts(options))
-        .on('error', handleError).dts
+        .on("error", handleError).dts
         .pipe(gulp.dest(typesDir))
     ]);
 });
@@ -79,14 +78,15 @@ gulp.task("browserify", ["typescript"], function() {
     .pipe(tap(function(file) {
         var name = path.dirname(file.relative);
         if (name === ".") name = "index";
-        name += path.extname(file.relative)
+        name += ".min" + path.extname(file.relative)
         console.log("Creating", bundleDir + "/" + name);
 
         file.contents = browserify(file.path, {
             standalone: bundleName
         })
         .ignore("buffer")
-        .bundle();
+        .bundle()
+        .on("error", handleError);
         file.path = path.join(file.base, name);
     }))
     .pipe(buffer())
@@ -99,12 +99,11 @@ gulp.task("browserify", ["typescript"], function() {
         }
     }))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(bundleDir))
-    .on('error', handleError);
+    .pipe(gulp.dest(bundleDir));
 });
 
-gulp.task("watch", ["doc", "browserify"], function() {
-    gulp.watch(srcDir + "/**", ["doc", "browserify"]);
-});
+gulp.task("default", ["clean", "doc", "browserify"]);
 
-gulp.task("default", ["doc", "browserify"]);
+gulp.task("watch", ["default"], function() {
+    gulp.watch(srcDir + "/**/*.*", ["doc", "browserify"]);
+});
