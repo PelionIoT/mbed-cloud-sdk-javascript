@@ -782,7 +782,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device log.&lt;/p&gt;
      * @param deviceLogId 
      */
-    public deviceLogRetrieve (deviceLogId: string, callback?: (error:any, data:DeviceLogSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceLogRetrieve (deviceLogId: string, callback?: (error:any, data:DeviceLogSerializerData, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devicelog/{device_log_id}/'
             .replace('{' + 'device_log_id' + '}', String(deviceLogId));
         let queryParameters: any = {};
