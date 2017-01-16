@@ -173,43 +173,6 @@ export function paramToString(param:any) {
     return param.toString();
 }
 
-export class AListOfDownloadableFactoryToolVersions_ {
-    'linArchiveInfo': FactoryToolDownload;
-    'winArchiveInfo': FactoryToolDownload;
-}
-
-export class FactoryToolDownload {
-    /**
-    * Download URL path for the specific archive.
-    */
-    'downloadPath': string;
-    /**
-    * Supported operating system.
-    */
-    'os': string;
-    /**
-    * The archive filename.
-    */
-    'filename': string;
-    /**
-    * Factory Tool version.
-    */
-    'version': string;
-    /**
-    * Generated SHA256 value of the archive file.
-    */
-    'sha256': string;
-    /**
-    * Supported client versions for the tool.
-    */
-    'clientVersions': string;
-    /**
-    * Size of archive file (MB).
-    */
-    'size': string;
-}
-
-
 export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
@@ -260,6 +223,43 @@ export class VoidAuth implements Authentication {
     }
 }
 
+export interface AListOfDownloadableFactoryToolVersions_ {
+    "linArchiveInfo"?: FactoryToolDownload;
+    "winArchiveInfo"?: FactoryToolDownload;
+}
+
+export interface FactoryToolDownload {
+    /**
+     * Download URL path for the specific archive.
+     */
+    "downloadPath"?: string;
+    /**
+     * Supported operating system.
+     */
+    "os"?: string;
+    /**
+     * The archive filename.
+     */
+    "filename"?: string;
+    /**
+     * Factory Tool version.
+     */
+    "version"?: string;
+    /**
+     * Generated SHA256 value of the archive file.
+     */
+    "Sha256"?: string;
+    /**
+     * Supported client versions for the tool.
+     */
+    "clientVersions"?: string;
+    /**
+     * Size of archive file (MB).
+     */
+    "size"?: string;
+}
+
+
 export enum DefaultApiApiKeys {
     Bearer,
 }
@@ -307,7 +307,7 @@ export class DefaultApi {
      * Returns a specific Factory Tool package in a ZIP archive. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
      * @param os Requires Factory Tool OS name (Windows or Linux).
      */
-    public downloadsMbedFactoryProvisioningPackageGet (os: string, callback?: Function): superagent.SuperAgentRequest {
+    public downloadsMbedFactoryProvisioningPackageGet (os: string, callback?: (error:any, data:string, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/downloads/mbed_factory_provisioning_package';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -355,7 +355,7 @@ export class DefaultApi {
      * 
      * Gets a list of downloadable Factory Tool versions. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
      */
-    public downloadsMbedFactoryProvisioningPackageInfoGet (callback?: Function): superagent.SuperAgentRequest {
+    public downloadsMbedFactoryProvisioningPackageInfoGet (callback?: (error:any, data:AListOfDownloadableFactoryToolVersions_, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/downloads/mbed_factory_provisioning_package/info';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);

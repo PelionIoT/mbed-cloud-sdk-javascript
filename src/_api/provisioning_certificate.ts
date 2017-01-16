@@ -173,30 +173,6 @@ export function paramToString(param:any) {
     return param.toString();
 }
 
-export class ProvisioningCertificate {
-    /**
-    * UTC time of the entity creation.
-    */
-    'createdAt': string;
-    /**
-    * The provisioning certificate.
-    */
-    'provisioning-context-certificate': string;
-    /**
-    * Entity ID.
-    */
-    'id': string;
-    /**
-    * Currently not used.
-    */
-    'etag': string;
-    /**
-    * Currently not used.
-    */
-    'object': string;
-}
-
-
 export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
@@ -247,6 +223,30 @@ export class VoidAuth implements Authentication {
     }
 }
 
+export interface ProvisioningCertificate {
+    /**
+     * UTC time of the entity creation.
+     */
+    "created_at"?: string;
+    /**
+     * The provisioning certificate.
+     */
+    "provisioning-context-certificate"?: string;
+    /**
+     * Entity ID.
+     */
+    "id"?: string;
+    /**
+     * Currently not used.
+     */
+    "etag"?: string;
+    /**
+     * Currently not used.
+     */
+    "object"?: string;
+}
+
+
 export enum DefaultApiApiKeys {
     Bearer,
 }
@@ -294,7 +294,7 @@ export class DefaultApi {
      * Gets the account&#39;s provisioning certificate.
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3ProvisioningCertificateGet (authorization: string, callback?: Function): superagent.SuperAgentRequest {
+    public v3ProvisioningCertificateGet (authorization: string, callback?: (error:any, data:ProvisioningCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/provisioning-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);

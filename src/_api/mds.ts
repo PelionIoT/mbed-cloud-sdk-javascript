@@ -173,177 +173,6 @@ export function paramToString(param:any) {
     return param.toString();
 }
 
-export class AsyncID {
-    /**
-    * Asynchronous response unique ID.
-    */
-    'async-response-id': string;
-}
-
-export class AsyncIDResponse {
-    /**
-    * HTTP status code, for example 200 for OK.
-    */
-    'status': number;
-    /**
-    * Requested data, base64 encoded.
-    */
-    'payload': string;
-    /**
-    * Determines how long this value will be valid in cache, in seconds. 0 means that value won't be stored in cache.
-    */
-    'max-age': string;
-    /**
-    * Optional error message, describing error.
-    */
-    'error': string;
-    /**
-    * Asynchronous response unique ID.
-    */
-    'id': string;
-    /**
-    * Content type
-    */
-    'ct': string;
-}
-
-export class Endpoint {
-    /**
-    * Possible values ACTIVE, STALE.
-    */
-    'status': string;
-    /**
-    * Determines whether the device is in queue mode. <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. 
-    */
-    'q': boolean;
-    /**
-    * Type of endpoint. (Free text)
-    */
-    'type': string;
-    /**
-    * Unique identifier representing the endpoint.
-    */
-    'name': string;
-}
-
-export class EndpointData {
-    /**
-    * Queue mode (default value is false)
-    */
-    'q': boolean;
-    /**
-    * Endpoint type
-    */
-    'ept': string;
-    /**
-    * Endpoint name
-    */
-    'ep': string;
-    'resources': Array<ResourcesData>;
-}
-
-export class NotificationData {
-    /**
-    * Timestamp
-    */
-    'timestamp': string;
-    /**
-    * Base64 encoded payload
-    */
-    'payload': string;
-    /**
-    * URI path
-    */
-    'path': string;
-    /**
-    * Max age
-    */
-    'max-age': string;
-    /**
-    * Endpoint name
-    */
-    'ep': string;
-    /**
-    * Content type
-    */
-    'ct': string;
-}
-
-export class NotificationMessage {
-    'async-responses': Array<AsyncIDResponse>;
-    'de-registrations': Array<string>;
-    'reg-updates': Array<EndpointData>;
-    'registrations': Array<EndpointData>;
-    'notifications': Array<NotificationData>;
-    'registrations-expired': Array<string>;
-}
-
-export class Presubscription {
-    'endpoint-name': string;
-    'endpoint-type': string;
-    'resource-path': Array<ResourcePath>;
-}
-
-export class PresubscriptionArray extends Array<Presubscription> {
-}
-
-export class Resource {
-    /**
-    * Resource's type
-    */
-    'rt': string;
-    /**
-    * The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the LWM2M specification: http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry 
-    */
-    'type': string;
-    /**
-    * Resource's url.
-    */
-    'uri': string;
-    /**
-    * Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". 
-    */
-    'obs': boolean;
-}
-
-export class ResourcePath {
-}
-
-export class ResourcesData {
-    /**
-    * Resource's URI path
-    */
-    'path': string;
-    /**
-    * Resource type
-    */
-    'rf': string;
-    /**
-    * Content type
-    */
-    'ct': string;
-    /**
-    * Whether the resource is observable or not (true/false)
-    */
-    'obs': boolean;
-    /**
-    * Interface description
-    */
-    'if': string;
-}
-
-export class Webhook {
-    /**
-    * The URL to which the notifications must be sent. We recommend that you serve this URL over HTTPS.
-    */
-    'url': string;
-    /**
-    * Headers (key/value) that must be sent with the request. Optional.
-    */
-    'headers': any;
-}
-
-
 export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
@@ -394,6 +223,177 @@ export class VoidAuth implements Authentication {
     }
 }
 
+export interface AsyncID {
+    /**
+     * Asynchronous response unique ID.
+     */
+    "async-response-id"?: string;
+}
+
+export interface AsyncIDResponse {
+    /**
+     * HTTP status code, for example 200 for OK.
+     */
+    "status"?: number;
+    /**
+     * Requested data, base64 encoded.
+     */
+    "payload"?: string;
+    /**
+     * Determines how long this value will be valid in cache, in seconds. 0 means that value won't be stored in cache.
+     */
+    "max-age"?: string;
+    /**
+     * Optional error message, describing error.
+     */
+    "error"?: string;
+    /**
+     * Asynchronous response unique ID.
+     */
+    "id"?: string;
+    /**
+     * Content type
+     */
+    "ct"?: string;
+}
+
+export interface Endpoint {
+    /**
+     * Possible values ACTIVE, STALE.
+     */
+    "status"?: string;
+    /**
+     * Determines whether the device is in queue mode. <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. 
+     */
+    "q"?: boolean;
+    /**
+     * Type of endpoint. (Free text)
+     */
+    "type"?: string;
+    /**
+     * Unique identifier representing the endpoint.
+     */
+    "name"?: string;
+}
+
+export interface EndpointData {
+    /**
+     * Queue mode (default value is false)
+     */
+    "q"?: boolean;
+    /**
+     * Endpoint type
+     */
+    "ept"?: string;
+    /**
+     * Endpoint name
+     */
+    "ep"?: string;
+    "resources"?: Array<ResourcesData>;
+}
+
+export interface NotificationData {
+    /**
+     * Timestamp
+     */
+    "timestamp"?: string;
+    /**
+     * Base64 encoded payload
+     */
+    "payload"?: string;
+    /**
+     * URI path
+     */
+    "path"?: string;
+    /**
+     * Max age
+     */
+    "max-age"?: string;
+    /**
+     * Endpoint name
+     */
+    "ep"?: string;
+    /**
+     * Content type
+     */
+    "ct"?: string;
+}
+
+export interface NotificationMessage {
+    "async-responses"?: Array<AsyncIDResponse>;
+    "de-registrations"?: Array<string>;
+    "reg-updates"?: Array<EndpointData>;
+    "registrations"?: Array<EndpointData>;
+    "notifications"?: Array<NotificationData>;
+    "registrations-expired"?: Array<string>;
+}
+
+export interface Presubscription {
+    "endpoint-name"?: string;
+    "endpoint-type"?: string;
+    "resource-path"?: Array<ResourcePath>;
+}
+
+export interface PresubscriptionArray extends Array<Presubscription> {
+}
+
+export interface Resource {
+    /**
+     * Resource's type
+     */
+    "rt"?: string;
+    /**
+     * The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the LWM2M specification: http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry 
+     */
+    "type"?: string;
+    /**
+     * Resource's url.
+     */
+    "uri"?: string;
+    /**
+     * Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". 
+     */
+    "obs"?: boolean;
+}
+
+export interface ResourcePath {
+}
+
+export interface ResourcesData {
+    /**
+     * Resource's URI path
+     */
+    "path"?: string;
+    /**
+     * Resource type
+     */
+    "rf"?: string;
+    /**
+     * Content type
+     */
+    "ct"?: string;
+    /**
+     * Whether the resource is observable or not (true/false)
+     */
+    "obs"?: boolean;
+    /**
+     * Interface description
+     */
+    "if"?: string;
+}
+
+export interface Webhook {
+    /**
+     * The URL to which the notifications must be sent. We recommend that you serve this URL over HTTPS.
+     */
+    "url"?: string;
+    /**
+     * Headers (key/value) that must be sent with the request. Optional.
+     */
+    "headers"?: any;
+}
+
+
 export enum DefaultApiApiKeys {
     Bearer,
 }
@@ -440,7 +440,7 @@ export class DefaultApi {
      * Delete callback URL
      * Deletes the callback URL.
      */
-    public v2NotificationCallbackDelete (callback?: Function): superagent.SuperAgentRequest {
+    public v2NotificationCallbackDelete (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/notification/callback';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -479,7 +479,7 @@ export class DefaultApi {
      * Check callback URL
      * Shows the current callback URL if exists.
      */
-    public v2NotificationCallbackGet (callback?: Function): superagent.SuperAgentRequest {
+    public v2NotificationCallbackGet (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/notification/callback';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -562,7 +562,7 @@ export class EndpointsApi {
      * The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
      * @param endpointName A unique identifier for an endpoint. Note that the endpoint name needs to be an exact match. You cannot use wildcards here. 
      */
-    public v2EndpointsEndpointNameGet (endpointName: string, callback?: Function): superagent.SuperAgentRequest {
+    public v2EndpointsEndpointNameGet (endpointName: string, callback?: (error:any, data:Array<Resource>, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints/{endpointName}'
             .replace('{' + 'endpointName' + '}', String(endpointName));
         let queryParameters: any = {};
@@ -608,7 +608,7 @@ export class EndpointsApi {
      * Endpoints are physical devices running mbed Cloud Client. 
      * @param type Filter endpoints by endpoint-type.
      */
-    public v2EndpointsGet (type?: string, callback?: Function): superagent.SuperAgentRequest {
+    public v2EndpointsGet (type?: string, callback?: (error:any, data:Array<Endpoint>, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -695,7 +695,7 @@ export class NotificationsApi {
      * Register a URL to which the server should deliver notifications of the subscribed resource changes. To get notifications pushed you need to also place the subscriptions.  Notifications are delivered as PUT messages to the HTTP server defined by the client with a subscription server message. The given URL should be accessible and respond to the PUT request with response code of 200 or 204. mbed Cloud Connect tests the callback URL with empty payload when the URL is registered. For more information on callback notification, see NotificationData.  **Note**: Only one callback URL per access-key can be active. If you register a new URL when another one is already active, the old URL is replaced by the new. 
      * @param webhook A json object that contains the URL to which notifications need to be sent, and the optional headers. 
      */
-    public v2NotificationCallbackPut (webhook: Webhook, callback?: Function): superagent.SuperAgentRequest {
+    public v2NotificationCallbackPut (webhook: Webhook, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/notification/callback';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -740,7 +740,7 @@ export class NotificationsApi {
      * Get notifications using Long Poll
      * In this case, notifications are delivered through HTTP long-poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  **Note:** If it is not possible to have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, to reduce network traffic and to increase performance we recommend that you use callback URLs (webhooks) whenever possible. 
      */
-    public v2NotificationPullGet (callback?: Function): superagent.SuperAgentRequest {
+    public v2NotificationPullGet (callback?: (error:any, data:NotificationMessage, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/notification/pull';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -825,7 +825,7 @@ export class ResourcesApi {
      * @param resourcePath Resource&#39;s url. 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    public v2EndpointsEndpointNameResourcePathDelete (endpointName: string, resourcePath: string, noResp?: boolean, callback?: Function): superagent.SuperAgentRequest {
+    public v2EndpointsEndpointNameResourcePathDelete (endpointName: string, resourcePath: string, noResp?: boolean, callback?: (error:any, data:AsyncID, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -884,7 +884,7 @@ export class ResourcesApi {
      * @param cacheOnly If true, the response comes only from the cache. Default: false. 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If a request is made with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    public v2EndpointsEndpointNameResourcePathGet (endpointName: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: Function): superagent.SuperAgentRequest {
+    public v2EndpointsEndpointNameResourcePathGet (endpointName: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error:any, data:AsyncID, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -947,7 +947,7 @@ export class ResourcesApi {
      * @param resourceFunction This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client. 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    public v2EndpointsEndpointNameResourcePathPost (endpointName: string, resourcePath: string, resourceFunction?: string, noResp?: boolean, callback?: Function): superagent.SuperAgentRequest {
+    public v2EndpointsEndpointNameResourcePathPost (endpointName: string, resourcePath: string, resourceFunction?: string, noResp?: boolean, callback?: (error:any, data:AsyncID, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -1007,7 +1007,7 @@ export class ResourcesApi {
      * @param resourceValue Value to be set to the resource. (Check accceptable content-types) 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    public v2EndpointsEndpointNameResourcePathPut (endpointName: string, resourcePath: string, resourceValue: string, noResp?: boolean, callback?: Function): superagent.SuperAgentRequest {
+    public v2EndpointsEndpointNameResourcePathPut (endpointName: string, resourcePath: string, resourceValue: string, noResp?: boolean, callback?: (error:any, data:AsyncID, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -1111,7 +1111,7 @@ export class SubscriptionsApi {
      * Remove all subscriptions
      * Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.
      */
-    public v2SubscriptionsDelete (callback?: Function): superagent.SuperAgentRequest {
+    public v2SubscriptionsDelete (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1151,7 +1151,7 @@ export class SubscriptionsApi {
      * Deletes all resource subscriptions in a single endpoint.
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
      */
-    public v2SubscriptionsEndpointNameDelete (endpointName: string, callback?: Function): superagent.SuperAgentRequest {
+    public v2SubscriptionsEndpointNameDelete (endpointName: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions/{endpointName}'
             .replace('{' + 'endpointName' + '}', String(endpointName));
         let queryParameters: any = {};
@@ -1197,7 +1197,7 @@ export class SubscriptionsApi {
      * Lists all subscribed resources from a single endpoint.
      * @param endpointName A unique identifier for the endpoint. Note that endpoint name must be an exact match. You cannot use wildcards here. 
      */
-    public v2SubscriptionsEndpointNameGet (endpointName: string, callback?: Function): superagent.SuperAgentRequest {
+    public v2SubscriptionsEndpointNameGet (endpointName: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions/{endpointName}'
             .replace('{' + 'endpointName' + '}', String(endpointName));
         let queryParameters: any = {};
@@ -1244,7 +1244,7 @@ export class SubscriptionsApi {
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
      * @param resourcePath Resource&#39;s url. 
      */
-    public v2SubscriptionsEndpointNameResourcePathDelete (endpointName: string, resourcePath: string, callback?: Function): superagent.SuperAgentRequest {
+    public v2SubscriptionsEndpointNameResourcePathDelete (endpointName: string, resourcePath: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -1297,7 +1297,7 @@ export class SubscriptionsApi {
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
      * @param resourcePath Resource&#39;s url. 
      */
-    public v2SubscriptionsEndpointNameResourcePathGet (endpointName: string, resourcePath: string, callback?: Function): superagent.SuperAgentRequest {
+    public v2SubscriptionsEndpointNameResourcePathGet (endpointName: string, resourcePath: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -1350,7 +1350,7 @@ export class SubscriptionsApi {
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
      * @param resourcePath Resource&#39;s URL. 
      */
-    public v2SubscriptionsEndpointNameResourcePathPut (endpointName: string, resourcePath: string, callback?: Function): superagent.SuperAgentRequest {
+    public v2SubscriptionsEndpointNameResourcePathPut (endpointName: string, resourcePath: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -1401,7 +1401,7 @@ export class SubscriptionsApi {
      * Get pre-subscriptions
      * You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure as described above. If there are no pre-subscribed resources, it returns with an empty array. 
      */
-    public v2SubscriptionsGet (callback?: Function): superagent.SuperAgentRequest {
+    public v2SubscriptionsGet (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1441,7 +1441,7 @@ export class SubscriptionsApi {
      * Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers and its name, type and registered resources match the pre-subscription data, mbed Cloud Connect sends subscription requests to the device automatically. The pattern may include the endpoint name (optionally having an \\* character at the end), endpoint type, a list of resources or expressions with an \\* character at the end. The pre-subscription concerns all the endpoints that are already registered and the server sends subscription requests to the devices immediately when the patterns are set. There is only one pre-subscribe array, so changing the pre-subscription data removes all the previous subscriptions. To remove the pre-subscription data, put an empty array as a rule. 
      * @param presubsription Array of pre-subscriptions.
      */
-    public v2SubscriptionsPut (presubsription: PresubscriptionArray, callback?: Function): superagent.SuperAgentRequest {
+    public v2SubscriptionsPut (presubsription: PresubscriptionArray, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);

@@ -173,347 +173,6 @@ export function paramToString(param:any) {
     return param.toString();
 }
 
-export class CampaignDeviceMetadataSerializer {
-    /**
-    * The description of the object
-    */
-    'description': string;
-    /**
-    * The update campaign to which this device belongs
-    */
-    'campaign': string;
-    /**
-    * The time the object was created
-    */
-    'createdAt': Date;
-    /**
-    * The API resource entity
-    */
-    'object': string;
-    /**
-    * The time the object was updated
-    */
-    'updatedAt': Date;
-    /**
-    * The ID of the channel used to communicated with the device
-    */
-    'mechanism': string;
-    /**
-    * The name of the object
-    */
-    'name': string;
-    /**
-    * The entity instance signature
-    */
-    'etag': Date;
-    /**
-    * The address of the Connector to use
-    */
-    'mechanismUrl': string;
-    /**
-    * The state of the deployment
-    */
-    'deploymentState': CampaignDeviceMetadataSerializer.CampaignDeviceMetadataSerializer.DeploymentStateEnum;
-    /**
-    * The ID of the metadata concerning this device/campaign
-    */
-    'id': string;
-    /**
-    * The ID of the device to deploy
-    */
-    'deviceId': string;
-}
-
-export namespace CampaignDeviceMetadataSerializer {
-    export enum DeploymentStateEnum {
-        Pending = <any> 'pending',
-        UpdatedDeviceCatalog = <any> 'updated_device_catalog',
-        UpdatedConnectorChannel = <any> 'updated_connector_channel',
-        Deployed = <any> 'deployed',
-        Manifestremoved = <any> 'manifestremoved'
-    }
-}
-export class UpdateCampaignPage {
-    /**
-    * Whether there are more results to display
-    */
-    'hasMore': boolean;
-    /**
-    * Total number of records
-    */
-    'totalCount': number;
-    /**
-    * API Resource name
-    */
-    'object': string;
-    /**
-    * The number of results to return
-    */
-    'limit': number;
-    'data': Array<UpdateCampaignSerializer>;
-    /**
-    * Order of returned records
-    */
-    'order': string;
-}
-
-export class UpdateCampaignSerializer {
-    /**
-    * An optional description of the campaign
-    */
-    'description': string;
-    /**
-    * The state of the campaign
-    */
-    'state': UpdateCampaignSerializer.UpdateCampaignSerializer.StateEnum;
-    /**
-    * The updating IAM user ID
-    */
-    'updatingUserId': string;
-    /**
-    * The time the object was created
-    */
-    'createdAt': Date;
-    /**
-    * The API resource entity
-    */
-    'object': string;
-    'rootManifestId': string;
-    /**
-    * DEPRECATED: The ID of the campaign
-    */
-    'campaignId': string;
-    /**
-    * The updating account ID
-    */
-    'updatingAccountId': string;
-    /**
-    * The time the object was updated
-    */
-    'updatedAt': Date;
-    /**
-    * The timestamp at which update campaign scheduled to start
-    */
-    'when': Date;
-    /**
-    * The timestamp when the update campaign finished
-    */
-    'finished': Date;
-    /**
-    * The entity instance signature
-    */
-    'etag': Date;
-    'rootManifestUrl': string;
-    /**
-    * The gateway client API key
-    */
-    'updatingApiKey': string;
-    /**
-    * The ID of the campaign
-    */
-    'id': string;
-    /**
-    * The filter for the devices the campaign will target
-    */
-    'deviceFilter': string;
-    /**
-    * A name for this campaign
-    */
-    'name': string;
-}
-
-export namespace UpdateCampaignSerializer {
-    export enum StateEnum {
-        Draft = <any> 'draft',
-        Scheduled = <any> 'scheduled',
-        Devicefetch = <any> 'devicefetch',
-        Devicecopy = <any> 'devicecopy',
-        Devicecopycomplete = <any> 'devicecopycomplete',
-        Publishing = <any> 'publishing',
-        Deploying = <any> 'deploying',
-        Deployed = <any> 'deployed',
-        Manifestremoved = <any> 'manifestremoved',
-        Expired = <any> 'expired'
-    }
-}
-export class UpdateCampaignStatusSerializer {
-    'directDevices': number;
-    'connectorDevices': number;
-    /**
-    * An optional description of the campaign
-    */
-    'description': string;
-    /**
-    * The state of the campaign
-    */
-    'state': UpdateCampaignStatusSerializer.UpdateCampaignStatusSerializer.StateEnum;
-    /**
-    * The updating IAM user ID
-    */
-    'updatingUserId': string;
-    /**
-    * The time the object was created
-    */
-    'createdAt': Date;
-    'totalDevices': number;
-    'campaigndevicemetadataSet': Array<CampaignDeviceMetadataSerializer>;
-    /**
-    * DEPRECATED: The ID of the campaign
-    */
-    'campaignId': string;
-    'deployedDevices': number;
-    /**
-    * The time the object was updated
-    */
-    'updatedAt': Date;
-    /**
-    * The timestamp at which campaign is scheduled to start
-    */
-    'when': Date;
-    /**
-    * The timestamp when the update campaign finished
-    */
-    'finished': Date;
-    'rootManifestUrl': string;
-    /**
-    * The gateway client API key
-    */
-    'updatingApiKey': string;
-    /**
-    * The updating account ID
-    */
-    'updatingAccountId': string;
-    /**
-    * The filter for the devices the campaign will target
-    */
-    'deviceFilter': string;
-    /**
-    * A name for this campaign
-    */
-    'name': string;
-}
-
-export namespace UpdateCampaignStatusSerializer {
-    export enum StateEnum {
-        Draft = <any> 'draft',
-        Scheduled = <any> 'scheduled',
-        Devicefetch = <any> 'devicefetch',
-        Devicecopy = <any> 'devicecopy',
-        Devicecopycomplete = <any> 'devicecopycomplete',
-        Publishing = <any> 'publishing',
-        Deploying = <any> 'deploying',
-        Deployed = <any> 'deployed',
-        Manifestremoved = <any> 'manifestremoved',
-        Expired = <any> 'expired'
-    }
-}
-export class WriteCampaignDeviceMetadataSerializer {
-    /**
-    * The description of the object
-    */
-    'description': string;
-    /**
-    * The update campaign to which this device belongs
-    */
-    'campaign': string;
-    /**
-    * The API resource entity
-    */
-    'object': string;
-    /**
-    * The ID of the channel used to communicated with the device
-    */
-    'mechanism': string;
-    /**
-    * The name of the object
-    */
-    'name': string;
-    /**
-    * The address of the Connector to use
-    */
-    'mechanismUrl': string;
-    /**
-    * The state of the deployment
-    */
-    'deploymentState': WriteCampaignDeviceMetadataSerializer.WriteCampaignDeviceMetadataSerializer.DeploymentStateEnum;
-    /**
-    * The ID of the device to deploy
-    */
-    'deviceId': string;
-}
-
-export namespace WriteCampaignDeviceMetadataSerializer {
-    export enum DeploymentStateEnum {
-        Pending = <any> 'pending',
-        UpdatedDeviceCatalog = <any> 'updated_device_catalog',
-        UpdatedConnectorChannel = <any> 'updated_connector_channel',
-        Deployed = <any> 'deployed',
-        Manifestremoved = <any> 'manifestremoved'
-    }
-}
-export class WriteUpdateCampaignSerializer {
-    /**
-    * A name for this campaign
-    */
-    'name': string;
-    /**
-    * The state of the campaign
-    */
-    'state': WriteUpdateCampaignSerializer.WriteUpdateCampaignSerializer.StateEnum;
-    /**
-    * The updating IAM user ID
-    */
-    'updatingUserId': string;
-    /**
-    * The API resource entity
-    */
-    'object': string;
-    'rootManifestId': string;
-    /**
-    * DEPRECATED: The ID of the campaign
-    */
-    'campaignId': string;
-    /**
-    * The gateway client API key
-    */
-    'updatingApiKey': string;
-    /**
-    * The timestamp at which update campaign scheduled to start
-    */
-    'when': Date;
-    /**
-    * The timestamp when the update campaign finished
-    */
-    'finished': Date;
-    /**
-    * The updating account ID
-    */
-    'updatingAccountId': string;
-    /**
-    * The filter for the devices the campaign will target
-    */
-    'deviceFilter': string;
-    /**
-    * An optional description of the campaign
-    */
-    'description': string;
-}
-
-export namespace WriteUpdateCampaignSerializer {
-    export enum StateEnum {
-        Draft = <any> 'draft',
-        Scheduled = <any> 'scheduled',
-        Devicefetch = <any> 'devicefetch',
-        Devicecopy = <any> 'devicecopy',
-        Devicecopycomplete = <any> 'devicecopycomplete',
-        Publishing = <any> 'publishing',
-        Deploying = <any> 'deploying',
-        Deployed = <any> 'deployed',
-        Manifestremoved = <any> 'manifestremoved',
-        Expired = <any> 'expired'
-    }
-}
-
 export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
@@ -564,6 +223,292 @@ export class VoidAuth implements Authentication {
     }
 }
 
+export interface CampaignDeviceMetadataSerializer {
+    /**
+     * The description of the object
+     */
+    "description": string;
+    /**
+     * The update campaign to which this device belongs
+     */
+    "campaign": string;
+    /**
+     * The time the object was created
+     */
+    "created_at": Date;
+    /**
+     * The API resource entity
+     */
+    "object": string;
+    /**
+     * The time the object was updated
+     */
+    "updated_at": Date;
+    /**
+     * The ID of the channel used to communicated with the device
+     */
+    "mechanism": string;
+    /**
+     * The name of the object
+     */
+    "name": string;
+    /**
+     * The entity instance signature
+     */
+    "etag": Date;
+    /**
+     * The address of the Connector to use
+     */
+    "mechanism_url": string;
+    /**
+     * The state of the deployment
+     */
+    "deployment_state": CampaignDeviceMetadataSerializerDeploymentStateEnum;
+    /**
+     * The ID of the metadata concerning this device/campaign
+     */
+    "id": string;
+    /**
+     * The ID of the device to deploy
+     */
+    "device_id": string;
+}
+
+export type CampaignDeviceMetadataSerializerDeploymentStateEnum = "pending" | "updated_device_catalog" | "updated_connector_channel" | "deployed" | "manifestremoved";
+export interface UpdateCampaignPage {
+    /**
+     * Whether there are more results to display
+     */
+    "has_more"?: boolean;
+    /**
+     * Total number of records
+     */
+    "total_count"?: number;
+    /**
+     * API Resource name
+     */
+    "object"?: string;
+    /**
+     * The number of results to return
+     */
+    "limit"?: number;
+    "data"?: Array<UpdateCampaignSerializer>;
+    /**
+     * Order of returned records
+     */
+    "order"?: string;
+}
+
+export interface UpdateCampaignSerializer {
+    /**
+     * An optional description of the campaign
+     */
+    "description": string;
+    /**
+     * The state of the campaign
+     */
+    "state": UpdateCampaignSerializerStateEnum;
+    /**
+     * The updating IAM user ID
+     */
+    "updating_user_id": string;
+    /**
+     * The time the object was created
+     */
+    "created_at": Date;
+    /**
+     * The API resource entity
+     */
+    "object": string;
+    "root_manifest_id": string;
+    /**
+     * DEPRECATED: The ID of the campaign
+     */
+    "campaign_id": string;
+    /**
+     * The updating account ID
+     */
+    "updating_account_id": string;
+    /**
+     * The time the object was updated
+     */
+    "updated_at": Date;
+    /**
+     * The timestamp at which update campaign scheduled to start
+     */
+    "when": Date;
+    /**
+     * The timestamp when the update campaign finished
+     */
+    "finished": Date;
+    /**
+     * The entity instance signature
+     */
+    "etag": Date;
+    "root_manifest_url": string;
+    /**
+     * The gateway client API key
+     */
+    "updating_api_key": string;
+    /**
+     * The ID of the campaign
+     */
+    "id": string;
+    /**
+     * The filter for the devices the campaign will target
+     */
+    "device_filter": string;
+    /**
+     * A name for this campaign
+     */
+    "name": string;
+}
+
+export type UpdateCampaignSerializerStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export interface UpdateCampaignStatusSerializer {
+    "direct_devices": number;
+    "connector_devices": number;
+    /**
+     * An optional description of the campaign
+     */
+    "description": string;
+    /**
+     * The state of the campaign
+     */
+    "state": UpdateCampaignStatusSerializerStateEnum;
+    /**
+     * The updating IAM user ID
+     */
+    "updating_user_id": string;
+    /**
+     * The time the object was created
+     */
+    "created_at": Date;
+    "total_devices": number;
+    "campaigndevicemetadata_set": Array<CampaignDeviceMetadataSerializer>;
+    /**
+     * DEPRECATED: The ID of the campaign
+     */
+    "campaign_id": string;
+    "deployed_devices": number;
+    /**
+     * The time the object was updated
+     */
+    "updated_at": Date;
+    /**
+     * The timestamp at which campaign is scheduled to start
+     */
+    "when": Date;
+    /**
+     * The timestamp when the update campaign finished
+     */
+    "finished": Date;
+    "root_manifest_url": string;
+    /**
+     * The gateway client API key
+     */
+    "updating_api_key": string;
+    /**
+     * The updating account ID
+     */
+    "updating_account_id": string;
+    /**
+     * The filter for the devices the campaign will target
+     */
+    "device_filter": string;
+    /**
+     * A name for this campaign
+     */
+    "name": string;
+}
+
+export type UpdateCampaignStatusSerializerStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export interface WriteCampaignDeviceMetadataSerializer {
+    /**
+     * The description of the object
+     */
+    "description"?: string;
+    /**
+     * The update campaign to which this device belongs
+     */
+    "campaign": string;
+    /**
+     * The API resource entity
+     */
+    "object"?: string;
+    /**
+     * The ID of the channel used to communicated with the device
+     */
+    "mechanism": string;
+    /**
+     * The name of the object
+     */
+    "name": string;
+    /**
+     * The address of the Connector to use
+     */
+    "mechanism_url"?: string;
+    /**
+     * The state of the deployment
+     */
+    "deployment_state"?: WriteCampaignDeviceMetadataSerializerDeploymentStateEnum;
+    /**
+     * The ID of the device to deploy
+     */
+    "device_id": string;
+}
+
+export type WriteCampaignDeviceMetadataSerializerDeploymentStateEnum = "pending" | "updated_device_catalog" | "updated_connector_channel" | "deployed" | "manifestremoved";
+export interface WriteUpdateCampaignSerializer {
+    /**
+     * A name for this campaign
+     */
+    "name": string;
+    /**
+     * The state of the campaign
+     */
+    "state"?: WriteUpdateCampaignSerializerStateEnum;
+    /**
+     * The updating IAM user ID
+     */
+    "updating_user_id"?: string;
+    /**
+     * The API resource entity
+     */
+    "object"?: string;
+    "root_manifest_id"?: string;
+    /**
+     * DEPRECATED: The ID of the campaign
+     */
+    "campaign_id"?: string;
+    /**
+     * The gateway client API key
+     */
+    "updating_api_key"?: string;
+    /**
+     * The timestamp at which update campaign scheduled to start
+     */
+    "when"?: Date;
+    /**
+     * The timestamp when the update campaign finished
+     */
+    "finished"?: Date;
+    /**
+     * The updating account ID
+     */
+    "updating_account_id"?: string;
+    /**
+     * The filter for the devices the campaign will target
+     */
+    "device_filter"?: string;
+    /**
+     * An optional description of the campaign
+     */
+    "description"?: string;
+}
+
+export type WriteUpdateCampaignSerializerStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+
 export enum DefaultApiApiKeys {
     Bearer,
 }
@@ -610,7 +555,7 @@ export class DefaultApi {
      * 
      * &lt;p&gt;Reads the deploy_info.json file and returns the Build and Git ID to the caller.&lt;/p&gt; &lt;p&gt;Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.&lt;/p&gt;
      */
-    public deployInfoGET (callback?: Function): superagent.SuperAgentRequest {
+    public deployInfoGET (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ds_deploy_info';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -650,7 +595,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Create update campaign&lt;/p&gt;
      * @param body Update campaign object to create
      */
-    public updateCampaignCreate (body: WriteUpdateCampaignSerializer, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignCreate (body: WriteUpdateCampaignSerializer, callback?: (error:any, data:UpdateCampaignSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -696,7 +641,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Delete update campaign&lt;/p&gt;
      * @param campaignId The ID of the update campaign
      */
-    public updateCampaignDestroy (campaignId: string, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignDestroy (campaignId: string, callback?: (error:any, data:UpdateCampaignSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -746,7 +691,7 @@ export class DefaultApi {
      * @param filter 
      * @param include 
      */
-    public updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data:UpdateCampaignPage, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -814,7 +759,7 @@ export class DefaultApi {
      * @param state The state of the campaign
      * @param when The timestamp at which update campaign scheduled to start
      */
-    public updateCampaignPartialUpdate (campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, name?: string, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignPartialUpdate (campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, name?: string, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: (error:any, data:UpdateCampaignSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -890,7 +835,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Retrieve campaign&lt;/p&gt;
      * @param campaignId The ID of the campaign
      */
-    public updateCampaignRetrieve (campaignId: string, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignRetrieve (campaignId: string, callback?: (error:any, data:UpdateCampaignSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -936,7 +881,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Show the status of an update campaign&lt;/p&gt;
      * @param campaignId The ID of the update campaign
      */
-    public updateCampaignStatus (campaignId: string, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignStatus (campaignId: string, callback?: (error:any, data:UpdateCampaignStatusSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/status/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -983,7 +928,7 @@ export class DefaultApi {
      * @param campaignId Campaign ID to update
      * @param body Update campaign object to create
      */
-    public updateCampaignUpdate (campaignId: string, body: WriteUpdateCampaignSerializer, callback?: Function): superagent.SuperAgentRequest {
+    public updateCampaignUpdate (campaignId: string, body: WriteUpdateCampaignSerializer, callback?: (error:any, data:UpdateCampaignSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};

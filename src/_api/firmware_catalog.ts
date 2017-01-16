@@ -173,154 +173,6 @@ export function paramToString(param:any) {
     return param.toString();
 }
 
-export class FirmwareImageSerializer {
-    /**
-    * API Resource name
-    */
-    'object': string;
-    /**
-    * Whether there are more results to display
-    */
-    'hasMore': boolean;
-    /**
-    * Total number of records
-    */
-    'totalCount': number;
-    /**
-    * Entity id for fetch after it
-    */
-    'after': string;
-    /**
-    * The number of results to return
-    */
-    'limit': number;
-    'data': Array<FirmwareImageSerializerData>;
-    /**
-    * Order of returned records
-    */
-    'order': string;
-}
-
-export class FirmwareImageSerializerData {
-    /**
-    * The binary file of firmware image
-    */
-    'datafile': string;
-    /**
-    * The description of the object
-    */
-    'description': string;
-    /**
-    * The time the object was created
-    */
-    'createdAt': Date;
-    /**
-    * The API resource entity
-    */
-    'object': string;
-    /**
-    * The time the object was updated
-    */
-    'updatedAt': Date;
-    /**
-    * DEPRECATED: The ID of the firmware image
-    */
-    'imageId': string;
-    /**
-    * The entity instance signature
-    */
-    'etag': Date;
-    /**
-    * Checksum generated for the datafile
-    */
-    'datafileChecksum': string;
-    /**
-    * The ID of the firmware image
-    */
-    'id': string;
-    /**
-    * The name of the object
-    */
-    'name': string;
-}
-
-export class FirmwareManifestSerializerData {
-    'datafile': string;
-    /**
-    * DEPRECATED: The ID of the firmware manifest
-    */
-    'manifestId': string;
-    /**
-    * The description of the object
-    */
-    'description': string;
-    /**
-    * The version of the firmware manifest (as a timestamp)
-    */
-    'timestamp': Date;
-    /**
-    * The time the object was created
-    */
-    'createdAt': Date;
-    /**
-    * The API resource entity
-    */
-    'object': string;
-    /**
-    * The time the object was updated
-    */
-    'updatedAt': Date;
-    /**
-    * The contents of the manifest
-    */
-    'manifestContents': any;
-    /**
-    * The entity instance signature
-    */
-    'etag': Date;
-    /**
-    * The class of device
-    */
-    'deviceClass': string;
-    /**
-    * The ID of the firmware manifest
-    */
-    'id': string;
-    /**
-    * The name of the object
-    */
-    'name': string;
-}
-
-export class ManifestSerializer {
-    /**
-    * API Resource name
-    */
-    'object': string;
-    /**
-    * Whether there are more results to display
-    */
-    'hasMore': boolean;
-    /**
-    * Total number of records
-    */
-    'totalCount': number;
-    /**
-    * Entity id for fetch after it
-    */
-    'after': string;
-    /**
-    * The number of results to return
-    */
-    'limit': number;
-    'data': Array<FirmwareManifestSerializerData>;
-    /**
-    * Order of returned records
-    */
-    'order': string;
-}
-
-
 export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
@@ -371,6 +223,154 @@ export class VoidAuth implements Authentication {
     }
 }
 
+export interface FirmwareImageSerializer {
+    /**
+     * API Resource name
+     */
+    "object"?: string;
+    /**
+     * Whether there are more results to display
+     */
+    "has_more"?: boolean;
+    /**
+     * Total number of records
+     */
+    "total_count"?: number;
+    /**
+     * Entity id for fetch after it
+     */
+    "after"?: string;
+    /**
+     * The number of results to return
+     */
+    "limit"?: number;
+    "data"?: Array<FirmwareImageSerializerData>;
+    /**
+     * Order of returned records
+     */
+    "order"?: string;
+}
+
+export interface FirmwareImageSerializerData {
+    /**
+     * The binary file of firmware image
+     */
+    "datafile": string;
+    /**
+     * The description of the object
+     */
+    "description": string;
+    /**
+     * The time the object was created
+     */
+    "created_at": Date;
+    /**
+     * The API resource entity
+     */
+    "object": string;
+    /**
+     * The time the object was updated
+     */
+    "updated_at": Date;
+    /**
+     * DEPRECATED: The ID of the firmware image
+     */
+    "image_id": string;
+    /**
+     * The entity instance signature
+     */
+    "etag": Date;
+    /**
+     * Checksum generated for the datafile
+     */
+    "datafile_checksum": string;
+    /**
+     * The ID of the firmware image
+     */
+    "id": string;
+    /**
+     * The name of the object
+     */
+    "name": string;
+}
+
+export interface FirmwareManifestSerializerData {
+    "datafile"?: string;
+    /**
+     * DEPRECATED: The ID of the firmware manifest
+     */
+    "manifest_id"?: string;
+    /**
+     * The description of the object
+     */
+    "description"?: string;
+    /**
+     * The version of the firmware manifest (as a timestamp)
+     */
+    "timestamp"?: Date;
+    /**
+     * The time the object was created
+     */
+    "created_at"?: Date;
+    /**
+     * The API resource entity
+     */
+    "object"?: string;
+    /**
+     * The time the object was updated
+     */
+    "updated_at"?: Date;
+    /**
+     * The contents of the manifest
+     */
+    "manifest_contents"?: any;
+    /**
+     * The entity instance signature
+     */
+    "etag"?: Date;
+    /**
+     * The class of device
+     */
+    "device_class"?: string;
+    /**
+     * The ID of the firmware manifest
+     */
+    "id"?: string;
+    /**
+     * The name of the object
+     */
+    "name"?: string;
+}
+
+export interface ManifestSerializer {
+    /**
+     * API Resource name
+     */
+    "object": string;
+    /**
+     * Whether there are more results to display
+     */
+    "has_more"?: boolean;
+    /**
+     * Total number of records
+     */
+    "total_count"?: number;
+    /**
+     * Entity id for fetch after it
+     */
+    "after"?: string;
+    /**
+     * The number of results to return
+     */
+    "limit"?: number;
+    "data"?: Array<FirmwareManifestSerializerData>;
+    /**
+     * Order of returned records
+     */
+    "order"?: string;
+}
+
+
 export enum DefaultApiApiKeys {
     Bearer,
 }
@@ -417,7 +417,7 @@ export class DefaultApi {
      * 
      * &lt;p&gt;Reads the deploy_info.json file and returns the Build and Git ID to the caller.&lt;/p&gt; &lt;p&gt;Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.&lt;/p&gt;
      */
-    public deployInfoGET (callback?: Function): superagent.SuperAgentRequest {
+    public deployInfoGET (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/fc_deploy_info';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -469,7 +469,7 @@ export class DefaultApi {
      * @param imageId 
      * @param object 
      */
-    public firmwareImageCreate (datafile: string, name: string, description?: string, updatingRequestId?: string, updatingIpAddress?: string, name2?: string, description2?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, imageId?: string, object?: string, callback?: Function): superagent.SuperAgentRequest {
+    public firmwareImageCreate (datafile: string, name: string, description?: string, updatingRequestId?: string, updatingIpAddress?: string, name2?: string, description2?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, imageId?: string, object?: string, callback?: (error:any, data:FirmwareImageSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-images/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -580,7 +580,7 @@ export class DefaultApi {
      * @param etag 
      * @param object 
      */
-    public firmwareImageDestroy (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: Function): superagent.SuperAgentRequest {
+    public firmwareImageDestroy (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: (error:any, data:FirmwareImageSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-images/{image_id}/'
             .replace('{' + 'image_id' + '}', String(imageId));
         let queryParameters: any = {};
@@ -665,7 +665,7 @@ export class DefaultApi {
      * @param after 
      * @param include 
      */
-    public firmwareImageList (limit?: number, order?: string, after?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
+    public firmwareImageList (limit?: number, order?: string, after?: string, include?: string, callback?: (error:any, data:FirmwareImageSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-images/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -730,7 +730,7 @@ export class DefaultApi {
      * @param etag 
      * @param object 
      */
-    public firmwareImageRetrieve (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: Function): superagent.SuperAgentRequest {
+    public firmwareImageRetrieve (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: (error:any, data:FirmwareImageSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-images/{image_id}/'
             .replace('{' + 'image_id' + '}', String(imageId));
         let queryParameters: any = {};
@@ -814,7 +814,7 @@ export class DefaultApi {
      * @param name The name of the object
      * @param description The description of the object
      */
-    public firmwareManifestCreate (datafile: Buffer, name: string, description?: string, callback?: Function): superagent.SuperAgentRequest {
+    public firmwareManifestCreate (datafile: any, name: string, description?: string, callback?: (error:any, data:FirmwareManifestSerializerData, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-manifests/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -877,7 +877,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Delete firmware manifest&lt;/p&gt;
      * @param manifestId The ID of the firmware manifest
      */
-    public firmwareManifestDestroy (manifestId: number, callback?: Function): superagent.SuperAgentRequest {
+    public firmwareManifestDestroy (manifestId: number, callback?: (error:any, data:FirmwareManifestSerializerData, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-manifests/{manifest_id}/'
             .replace('{' + 'manifest_id' + '}', String(manifestId));
         let queryParameters: any = {};
@@ -926,7 +926,7 @@ export class DefaultApi {
      * @param after 
      * @param include 
      */
-    public firmwareManifestList (limit?: number, order?: string, after?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
+    public firmwareManifestList (limit?: number, order?: string, after?: string, include?: string, callback?: (error:any, data:ManifestSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-manifests/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -993,7 +993,7 @@ export class DefaultApi {
      * @param object 
      * @param timestamp 
      */
-    public firmwareManifestRetrieve (manifestId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, deviceClass?: string, etag?: string, object?: string, timestamp?: string, callback?: Function): superagent.SuperAgentRequest {
+    public firmwareManifestRetrieve (manifestId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, deviceClass?: string, etag?: string, object?: string, timestamp?: string, callback?: (error:any, data:FirmwareManifestSerializerData, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-manifests/{manifest_id}/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
