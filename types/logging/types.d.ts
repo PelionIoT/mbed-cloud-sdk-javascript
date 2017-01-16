@@ -5,7 +5,7 @@ export declare type EventTypeEnum = "update.device.device-created" | "update.dev
 /**
  * Device log data structure
  */
-export interface DeviceLog {
+export interface DeviceLogType {
     /**
      * Date and time of the event
      */

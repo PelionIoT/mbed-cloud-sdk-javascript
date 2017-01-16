@@ -1,4 +1,4 @@
-import { ConnectionOptions, ListOptions } from "../helpers/interfaces";
+import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
 import { User } from "./user";
 import { Certificate } from "./certificate";
 /**
@@ -10,6 +10,7 @@ export declare class Access {
     * @param options Options object
     */
     constructor(options: ConnectionOptions);
+    private mapUser(from);
     /**
      * List device logs
      * @param options list options
@@ -22,8 +23,8 @@ export declare class Access {
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
     getAccountDetails(callback: (err: any, data?: any) => any): void;
-    listUsers(options?: ListOptions): Promise<User[]>;
-    listUsers(options?: ListOptions, callback?: (err: any, data?: User[]) => void): any;
+    listUsers(options?: ListOptions): Promise<ListResponse<User>>;
+    listUsers(options?: ListOptions, callback?: (err: any, data?: ListResponse<User>) => void): any;
     listCertificates(options?: ListOptions): Promise<Certificate[]>;
     listCertificates(options?: ListOptions, callback?: (err: any, data?: Certificate[]) => void): any;
 }

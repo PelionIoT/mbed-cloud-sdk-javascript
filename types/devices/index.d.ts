@@ -1,20 +1,10 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
-import { ConnectionOptions, ListOptions } from "../helpers/interfaces";
-import { DeviceDetail } from "./types";
+import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
+import { DeviceType, WebhookType } from "./types";
 import { Device } from "./device";
 import { Resource } from "./resource";
 import { Query } from "./query";
-export interface Webhook {
-    /**
-    * The URL to which the notifications must be sent
-    */
-    url?: string;
-    /**
-    * Headers (key/value) that must be sent with the request
-    */
-    headers?: {};
-}
 /**
 * Root Devices object
 */
@@ -53,26 +43,28 @@ export declare class Devices extends EventEmitter {
     * @event
     */
     static EVENT_EXPIRED: string;
+    private mapDevice(from);
+    private mapQuery(from);
     /**
     * @param options Options object
     */
     constructor(options: ConnectionOptions);
-    createDevice(options?: DeviceDetail): Promise<Device>;
-    createDevice(options?: DeviceDetail, callback?: (err: any, data?: Device) => void): void;
+    createDevice(options?: DeviceType): Promise<Device>;
+    createDevice(options?: DeviceType, callback?: (err: any, data?: Device) => void): void;
     deleteDevice(options?: {
         id: string;
     }): Promise<void>;
     deleteDevice(options?: {
         id: string;
     }, callback?: (err: any, data?: void) => void): void;
-    listKnownDevices(options?: ListOptions): Promise<Device[]>;
-    listKnownDevices(options?: ListOptions, callback?: (err: any, data?: Device[]) => void): void;
+    listDevices(options?: ListOptions): Promise<ListResponse<Device>>;
+    listDevices(options?: ListOptions, callback?: (err: any, data?: ListResponse<Device>) => void): void;
     listConnectedDevices(options?: {
         type?: string;
-    }): Promise<Device[]>;
+    }): Promise<ListResponse<Device>>;
     listConnectedDevices(options?: {
         type?: string;
-    }, callback?: (err: any, data?: Device[]) => void): void;
+    }, callback?: (err: any, data?: ListResponse<Device>) => void): void;
     /**
     * Begins long polling constantly for notifications
     * @param callback A function that is passed any error
@@ -92,22 +84,22 @@ export declare class Devices extends EventEmitter {
     * @param callback A function that is passed the arguments (error, callbackData)
     * @returns Optional Promise containing the callback data
     */
-    getWebhookData(callback?: (err: any, data?: Webhook) => void): Promise<Webhook>;
+    getWebhook(callback?: (err: any, data?: WebhookType) => void): Promise<WebhookType>;
     /**
     * Puts callback data
     * @param data callback data
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    updateWebhookData(options: {
-        data: Webhook;
+    updateWebhook(options: {
+        data: WebhookType;
     }, callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    deleteWebhookData(callback?: (err: any, data?: void) => void): Promise<void>;
+    deleteWebhook(callback?: (err: any, data?: void) => void): Promise<void>;
     /**
     * Gets pre-subscription data
     * @param callback A function that is passed (error, data)
@@ -145,8 +137,8 @@ export declare class Devices extends EventEmitter {
     deleteQuery(options?: {
         id: string;
     }, callback?: (err: any, data?: void) => void): void;
-    listQueries(options?: ListOptions): Promise<Query[]>;
-    listQueries(options?: ListOptions, callback?: (err: any, data?: Query[]) => void): void;
+    listQueries(options?: ListOptions): Promise<ListResponse<Query>>;
+    listQueries(options?: ListOptions, callback?: (err: any, data?: ListResponse<Query>) => void): void;
     getQuery(options?: {
         id: string;
     }): Promise<Query>;

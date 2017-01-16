@@ -27,10 +27,25 @@ export interface ConnectionOptions {
 }
 
 export interface ListOptions {
+    /*
+     * how many objects to retrieve in the page
+     */
     limit?: number;
+    /*
+     * ASC or DESC
+     */
     order?: string;
+    /*
+     * the ID of the the item after which to retrieve the next page
+     */
     after?: string;
+    /*
+     * ASC or DESC
+     */
     include?: string;
+    /*
+     * URL encoded query string parameter to filter returned data
+     */
     filter?: string;
 }
 

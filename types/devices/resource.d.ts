@@ -20,12 +20,13 @@ export interface ResourceValueOptions {
 */
 export declare class Resource extends EventEmitter {
     private _api;
+    private _deviceId;
     /**
     * Resource notification event
     * @event
     */
     static EVENT_NOTIFICATION: string;
-    constructor(_api: Api, options: ResourceType);
+    constructor(_api: Api, _deviceId: string, options: ResourceType);
     getValue(options?: ResourceValueOptions): Promise<string | Object>;
     getValue(options?: ResourceValueOptions, callback?: (err: any, data?: string) => void): any;
     /**

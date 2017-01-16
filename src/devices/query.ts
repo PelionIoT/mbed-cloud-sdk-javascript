@@ -16,12 +16,16 @@
 */
 
 import { Api } from "./api";
-import { QueryDetail } from "./types";
+import { QueryType } from "./types";
 
 export class Query {
 
-	constructor(private _api: Api) {
+	constructor(private _api: Api, options: QueryType) {
+        for(var key in options) {
+            this[key] = options[key];
+        }
+
 		this._api = null; //deleteme
     }
 }
-export interface Query extends QueryDetail { }
+export interface Query extends QueryType {}

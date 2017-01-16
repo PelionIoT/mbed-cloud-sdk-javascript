@@ -20,7 +20,6 @@ import {
     DefaultApi as AccessApi,
     DefaultApiApiKeys as AccessApiApiKeys,
     DeveloperApi, DeveloperApiApiKeys,
-    RootAdminApi, RootAdminApiApiKeys,
     AccountAdminApi, AccountAdminApiApiKeys
 } from "../_api/iam";
 
@@ -29,17 +28,14 @@ export class Api {
     access: AccessApi;
     developer: DeveloperApi;
     admin: AccountAdminApi;
-    root: RootAdminApi;
 
     constructor(options: ConnectionOptions) {
         this.access = new AccessApi(options.host);
         this.developer = new DeveloperApi(options.host);
         this.admin = new AccountAdminApi(options.host);
-        this.root = new RootAdminApi(options.host);
 
         this.access.setApiKey(AccessApiApiKeys.Bearer, "Bearer " + options.accessKey);
         this.developer.setApiKey(DeveloperApiApiKeys.Bearer, "Bearer " + options.accessKey);
         this.admin.setApiKey(AccountAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
-        this.root.setApiKey(RootAdminApiApiKeys.Bearer, "Bearer " + options.accessKey);
     }
 }

@@ -19,23 +19,16 @@ import pg = require("polygoat");
 import superagent = require("superagent");
 import { EventEmitter } from "events";
 import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
+import { decodeBase64, mapListResponse } from "../helpers/data";
 import { Api } from "./api";
-import { DeviceDetail, QueryDetail } from "./types";
-import { decodeBase64 } from "../helpers/data";
+import { DeviceType, QueryType, WebhookType } from "./types";
+import { DeviceDetail as apiDeviceType } from "../_api/device_catalog";
+import { DeviceQueryDetail as apiQueryType } from "../_api/device_query_service";
 import { Device } from "./device";
 import { Resource } from "./resource";
 import { Query } from "./query";
 
-export interface Webhook {
-    /**
-    * The URL to which the notifications must be sent
-    */
-    url?: string;
-    /**
-    * Headers (key/value) that must be sent with the request
-    */
-    headers?: {};
-}
+
 
 /**
 * Root Devices object
@@ -78,6 +71,47 @@ export class Devices extends EventEmitter {
     */
     static EVENT_EXPIRED: string = "registration-expired";
 
+    private mapDevice(from: apiDeviceType): Device {
+        let type:DeviceType = {
+            accountId:                from.account_id,
+            autoUpdate:               from.auto_update,
+            bootstrappedTimestamp:    from.bootstrapped_timestamp,
+            createdAt:                from.created_at,
+            customAttributes:         from.custom_attributes,
+            deployedState:            from.deployed_state,
+            deployment:               from.deployment,
+            description:              from.description,
+            deviceClass:              from.device_class,
+            id:                       from.id,
+            manifest:                 from.manifest,
+            mechanism:                from.mechanism,
+            mechanismUrl:             from.mechanism_url,
+            name:                     from.name,
+            provisionKey:             from.provision_key,
+            serialNumber:             from.serial_number,
+            state:                    from.state,
+            trustClass:               from.trust_class,
+            trustLevel:               from.trust_level,
+            updatedAt:                from.updated_at,
+            vendorId:                 from.vendor_id
+        };
+
+        return new Device(this._api, type);
+    }
+
+    private mapQuery(from: apiQueryType): Query {
+        let type:QueryType = {
+            createdAt:      from.created_at,
+            description:    from.description,
+            id:             from.id,
+            name:           from.name,
+            query:          from.query,
+            updatedAt:      from.updated_at
+        };
+
+        return new Query(this._api, type);
+    }
+
     /**
     * @param options Options object
     */
@@ -86,8 +120,8 @@ export class Devices extends EventEmitter {
         this._api = new Api(options);
     }
 
-    public createDevice(options?: DeviceDetail): Promise<Device>;
-    public createDevice(options?: DeviceDetail, callback?: (err: any, data?: Device) => void): void;
+    public createDevice(options?: DeviceType): Promise<Device>;
+    public createDevice(options?: DeviceType, callback?: (err: any, data?: Device) => void): void;
     /**
     * Create a device
     * @param options device details
@@ -133,15 +167,15 @@ export class Devices extends EventEmitter {
         }, callback);
     }
 
-    public listKnownDevices(options?: ListOptions): Promise<Device[]>;
-    public listKnownDevices(options?: ListOptions, callback?: (err: any, data?: Device[]) => void): void;
+    public listDevices(options?: ListOptions): Promise<ListResponse<Device>>;
+    public listDevices(options?: ListOptions, callback?: (err: any, data?: ListResponse<Device>) => void): void;
     /**
-    * Gets a list of known devices
+    * Gets a list of devices
     * @param options Filters devices
     * @param callback A function that is passed the arguments (error, devices)
     * @returns Optional Promise of devices
     */
-    public listKnownDevices(options?: any, callback?: (err: any, data?: Device[]) => void): Promise<Device[]> {
+    public listDevices(options?: any, callback?: (err: any, data?: ListResponse<Device>) => void): Promise<ListResponse<Device>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -149,25 +183,26 @@ export class Devices extends EventEmitter {
         }
         let {limit, after, order, include, filter} = options;
         return pg(done => {
-            this._api.catalog.deviceList(limit, order, after, filter, include, (error, data: ListResponse<DeviceDetail>) => {
+            this._api.catalog.deviceList(limit, order, after, filter, include, (error, data) => {
                 if (error) return done(error);
-                var devices = data.data.map(device => {
-                    return new Device(this._api, device.id);
-                });
-                done(null, devices);
+
+                let devices = data.data.map(this.mapDevice);
+                let response = mapListResponse<Device>(data, devices);
+
+                done(null, response);
             });
         }, callback);
     }
 
-    public listConnectedDevices(options?: { type?: string }): Promise<Device[]>;
-    public listConnectedDevices(options?: { type?: string }, callback?: (err: any, data?: Device[]) => void): void;
+    public listConnectedDevices(options?: { type?: string }): Promise<ListResponse<Device>>;
+    public listConnectedDevices(options?: { type?: string }, callback?: (err: any, data?: ListResponse<Device>) => void): void;
     /**
     * Gets a list of currently connected device
     * @param type Filters devices by device type
     * @param callback A function that is passed the arguments (error, devices)
     * @returns Optional Promise of currently connected devices
     */
-    public listConnectedDevices(options?: any, callback?: (err: any, data?: Device[]) => void): Promise<Device[]> {
+    public listConnectedDevices(options?: any, callback?: (err: any, data?: ListResponse<Device>) => void): Promise<ListResponse<Device>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -177,10 +212,12 @@ export class Devices extends EventEmitter {
         return pg(done => {
             this._api.endpoints.v2EndpointsGet(type, (error, data) => {
                 if (error) return done(error);
-                var devices = data.map(device => {
-                    return new Device(this._api, device.name);
-                });
-                done(null, devices);
+
+                let response:ListResponse<Device> = {
+                    data: data.map(this.mapDevice)
+                };
+
+                done(null, response);
             });
         }, callback);
     }
@@ -306,7 +343,7 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed the arguments (error, callbackData)
     * @returns Optional Promise containing the callback data
     */
-    public getWebhookData(callback?: (err: any, data?: Webhook) => void): Promise<Webhook> {
+    public getWebhook(callback?: (err: any, data?: WebhookType) => void): Promise<WebhookType> {
         //mds.DefaultApi.v2NotificationCallbackGet
         return pg(done => {
             done(null, null);
@@ -319,7 +356,7 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public updateWebhookData(options: { data: Webhook }, callback?: (err: any, data?: void) => void): Promise<void> {
+    public updateWebhook(options: { data: WebhookType }, callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.NotificationsApi.v2NotificationCallbackPut
         return pg(done => {
             done(null, null);
@@ -331,7 +368,7 @@ export class Devices extends EventEmitter {
     * @param callback A function that is passed any error
     * @returns Optional Promise containing any error
     */
-    public deleteWebhookData(callback?: (err: any, data?: void) => void): Promise<void> {
+    public deleteWebhook(callback?: (err: any, data?: void) => void): Promise<void> {
         //mds.DefaultApi.v2NotificationCallbackDelete
         return pg(done => {
             done(null, null);
@@ -393,7 +430,9 @@ export class Devices extends EventEmitter {
         return pg(done => {
             this._api.query.deviceQueryCreate(name, query, description, null, null, (error, data) => {
                 if (error) return done(error);
-                done(null, data);
+
+                let query = this.mapQuery(data);
+                done(null, query);
             });
         }, callback);
     }
@@ -421,25 +460,29 @@ export class Devices extends EventEmitter {
         }, callback);
     }
 
-    public listQueries(options?: ListOptions): Promise<Query[]>;
-    public listQueries(options?: ListOptions, callback?: (err: any, data?: Query[]) => void): void;
+    public listQueries(options?: ListOptions): Promise<ListResponse<Query>>;
+    public listQueries(options?: ListOptions, callback?: (err: any, data?: ListResponse<Query>) => void): void;
     /**
     * Delete a device
     * @param options device ID
     * @param callback A function that is passed any error
     * @returns Optional Promise
     */
-    public listQueries(options?:any, callback?: (err: any, data?: Query[]) => void): Promise<Query[]> {
+    public listQueries(options?:any, callback?: (err: any, data?: ListResponse<Query>) => void): Promise<ListResponse<Query>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let { limit, order, after } = options;
+        let { limit, order, after, include } = options;
         return pg(done => {
-            this._api.query.deviceQueryList(limit, order, after, (error, data: ListResponse<QueryDetail>) => {
+            this._api.query.deviceQueryList(limit, order, after, include, (error, data) => {
                 if (error) return done(error);
-                done(null, null);
+
+                let queries = data.data.map(this.mapQuery);
+                let response = mapListResponse(data, queries);
+
+                done(null, response);
             });
         }, callback);
     }
@@ -460,9 +503,11 @@ export class Devices extends EventEmitter {
         }
         let { id } = options;
         return pg(done => {
-            this._api.query.deviceQueryRetrieve(id, (error, data: QueryDetail) => {
+            this._api.query.deviceQueryRetrieve(id, (error, data) => {
                 if (error) return done(error);
-                done(null, null);
+
+                let query = this.mapQuery(data);
+                done(null, query);
             });
         }, callback);
     }
@@ -486,17 +531,21 @@ export class Devices extends EventEmitter {
         if (name && query) {
             // Full update
             return pg(done => {
-                this._api.query.deviceQueryUpdate(id, name, query, description, null, null, (error, data: QueryDetail) => {
+                this._api.query.deviceQueryUpdate(id, options, (error, data) => {
                     if (error) return done(error);
-                    done(null, null);
+
+                    let query = this.mapQuery(data);
+                    done(null, query);
                 });
             }, callback);
         } else {
             // Partial update
             return pg(done => {
-                this._api.query.deviceQueryPartialUpdate(id, description, name, null, query, null, (error, data: QueryDetail) => {
+                this._api.query.deviceQueryPartialUpdate(id, description, name, null, query, null, (error, data) => {
                     if (error) return done(error);
-                    done(null, null);
+
+                    let query = this.mapQuery(data);
+                    done(null, query);
                 });
             }, callback);
         }

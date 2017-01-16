@@ -1,5 +1,5 @@
 import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { DeviceLog } from "./types";
+import { DeviceLogType } from "./types";
 /**
  * Root Logging class
  */
@@ -9,19 +9,19 @@ export declare class Logging {
      * @param options connection options
      */
     constructor(options: ConnectionOptions);
-    private map(from, to?);
+    private mapDeviceLog(from);
     /**
      * List device logs
      * @param options list options
      * @returns Promise of listResponse
      */
-    listDeviceLogs(options?: ListOptions): Promise<ListResponse<DeviceLog>>;
+    listDeviceLogs(options?: ListOptions): Promise<ListResponse<DeviceLogType>>;
     /**
      * List device logs
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    listDeviceLogs(options?: ListOptions, callback?: (err: any, data?: ListResponse<DeviceLog>) => any): void;
+    listDeviceLogs(options?: ListOptions, callback?: (err: any, data?: ListResponse<DeviceLogType>) => any): void;
     /**
      * Get a single device log
      * @param options.id device log ID
@@ -29,7 +29,7 @@ export declare class Logging {
      */
     getDeviceLog(options: {
         id: string;
-    }): Promise<DeviceLog>;
+    }): Promise<DeviceLogType>;
     /**
      * Get a single device log
      * @param options.id device log ID
@@ -37,5 +37,5 @@ export declare class Logging {
      */
     getDeviceLog(options: {
         id: string;
-    }, callback: (err: any, data?: DeviceLog) => any): void;
+    }, callback: (err: any, data?: DeviceLogType) => any): void;
 }

@@ -46,7 +46,7 @@ export class Resource extends EventEmitter {
     */
     static EVENT_NOTIFICATION: string = "notification";
 
-    constructor(private _api: Api, options: ResourceType) {
+    constructor(private _api: Api, private _deviceId: string, options: ResourceType) {
         super();
         for(var key in options) {
             this[key] = options[key];
@@ -57,7 +57,7 @@ export class Resource extends EventEmitter {
                 this.createSubscription((error, asyncID) => {
                     if (Devices.polling) {
                         // record this resource at this path for notifications
-                        Devices.resourceSubs[this.device.id + this.uri] = this;
+                        Devices.resourceSubs[this._deviceId + this.path] = this;
                     } else {
                         // return the asyncID for use with webhooks
                         this.emit(Resource.EVENT_NOTIFICATION, asyncID);
@@ -70,7 +70,7 @@ export class Resource extends EventEmitter {
             if (eventName === Resource.EVENT_NOTIFICATION) {
                 if (this.listenerCount(Resource.EVENT_NOTIFICATION) === 0) {
                     // no-one is listening :(
-                    delete Devices.resourceSubs[this.device.id + this.uri];
+                    delete Devices.resourceSubs[this._deviceId + this.path];
                     this.deleteSubscription();
                 }
             }
@@ -93,7 +93,7 @@ export class Resource extends EventEmitter {
         }
         let { cacheOnly, noResp } = options;
         return pg(done => {
-            this._api.resources.v2EndpointsEndpointNameResourcePathGet(this.device.id, this.uri, cacheOnly, noResp, (error, data) => {
+            this._api.resources.v2EndpointsEndpointNameResourcePathGet(this._deviceId, this.path, cacheOnly, noResp, (error, data) => {
                 if (error) return done(error);
 
                 var asyncID = data["async-response-id"];
@@ -102,7 +102,7 @@ export class Resource extends EventEmitter {
                     return;
                 }
 
-                done(null, asyncID || data);
+                done(null, asyncID);
             });
         }, callback);
     }
@@ -142,8 +142,8 @@ export class Resource extends EventEmitter {
     */
     public getSubscription(callback?: (err: any, data?: boolean) => void): Promise<boolean> {
         return pg(done => {
-            if (!this.obs) done(null, null);
-            this._api.subscriptions.v2SubscriptionsEndpointNameResourcePathGet(this.device.id, this.uri, (error, data) => {
+            if (!this.observable) done(null, null);
+            this._api.subscriptions.v2SubscriptionsEndpointNameResourcePathGet(this._deviceId, this.path, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -157,7 +157,7 @@ export class Resource extends EventEmitter {
     */
     private createSubscription(callback?: (err: any, data?: void) => void): Promise<void> {
         return pg(done => {
-            this._api.subscriptions.v2SubscriptionsEndpointNameResourcePathPut(this.device.id, this.uri, (error, data) => {
+            this._api.subscriptions.v2SubscriptionsEndpointNameResourcePathPut(this._deviceId, this.path, (error, data) => {
                 if (error) return done(error);
                 var asyncID = data["async-response-id"];
                 if (asyncID) {
@@ -177,7 +177,7 @@ export class Resource extends EventEmitter {
     */
     private deleteSubscription(callback?: (err: any, data?: void) => void): Promise<void> {
         return pg(done => {
-            this._api.subscriptions.v2SubscriptionsEndpointNameResourcePathDelete(this.device.id, this.uri, done);
+            this._api.subscriptions.v2SubscriptionsEndpointNameResourcePathDelete(this._deviceId, this.path, done);
         }, callback);
     }
 }

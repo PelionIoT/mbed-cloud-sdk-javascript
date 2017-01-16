@@ -1,2 +1,5 @@
 node_modules
+test
+logs
 .DS_Store
+header.h

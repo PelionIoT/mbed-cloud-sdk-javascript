@@ -33,15 +33,15 @@ export function decodeBase64(data) {
     return result;
 }
 
-export function mapListResponse<T>(from: any, to?:ListResponse<T>): ListResponse<T> {
-    to = to || {};
+export function mapListResponse<T>(from: any, data:T[]): ListResponse<T> {
+    let to: ListResponse<T> = {};
 
     to.after         = from.after;
-    to.data          = from.data;
     to.hasMore       = from.has_more;
     to.limit         = from.limit;
     to.order         = from.order;
     to.totalCount    = from.total_count;
+    to.data          = data
 
     return to;
 }

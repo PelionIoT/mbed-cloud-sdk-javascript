@@ -16,16 +16,32 @@
 */
 
 import pg = require("polygoat");
-import { DeviceType } from "./types";
+import { DeviceType, ResourceType } from "./types";
 import { Api } from "./api";
-import { Resource } from"./resource";
+import { Resource } from "./resource";
+import { Resource as apiResourceType } from "../_api/mds";
 
 /**
  * Object representing a device
  */
 export class Device {
 
-    constructor(private _api: Api, public id: string) {}
+    private mapResource(from: apiResourceType): Resource {
+        let type:ResourceType = {
+            contentType:    from.type,
+            observable:     from.obs,
+            type:           from.rt,
+            path:           from.uri
+        };
+
+        return new Resource(this._api, this.id, type);
+    }
+
+    constructor(private _api: Api, options: DeviceType) {
+        for(var key in options) {
+            this[key] = options[key];
+        }
+    }
 
     public getDetails(): Promise<any>;
     public getDetails(callback: (err: any, data?: any) => void): void;
@@ -54,10 +70,7 @@ export class Device {
         return pg(done => {
             this._api.endpoints.v2EndpointsEndpointNameGet(this.id, (error, data) => {
                 if (error) return done(error);
-                var resources = data.map(resource => {
-                    resource.device = this;
-                    return new Resource(this._api, resource);
-                });
+                var resources = data.map(this.mapResource);
                 done(null, resources);
             });
         }, callback);

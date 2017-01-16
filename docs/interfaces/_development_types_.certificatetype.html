@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DeviceLog | mbed Cloud SDK</title>
+	<title>CertificateType | mbed Cloud SDK</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,31 +54,24 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_logging_types_.html">&quot;logging/types&quot;</a>
+					<a href="../modules/_development_types_.html">&quot;development/types&quot;</a>
 				</li>
 				<li>
-					<a href="_logging_types_.devicelog.html">DeviceLog</a>
+					<a href="_development_types_.certificatetype.html">CertificateType</a>
 				</li>
 			</ul>
-			<h1>Interface DeviceLog</h1>
+			<h1>Interface CertificateType</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Device log data structure</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">DeviceLog</span>
+						<span class="target">CertificateType</span>
 					</li>
 				</ul>
 			</section>
@@ -89,15 +82,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logging_types_.devicelog.html#changes" class="tsd-kind-icon">changes</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logging_types_.devicelog.html#data" class="tsd-kind-icon">data</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logging_types_.devicelog.html#description" class="tsd-kind-icon">description</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logging_types_.devicelog.html#deviceid" class="tsd-kind-icon">device<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logging_types_.devicelog.html#eventdate" class="tsd-kind-icon">event<wbr>Date</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logging_types_.devicelog.html#eventtype" class="tsd-kind-icon">event<wbr>Type</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logging_types_.devicelog.html#eventtypedescription" class="tsd-kind-icon">event<wbr>Type<wbr>Description</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logging_types_.devicelog.html#logid" class="tsd-kind-icon">log<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logging_types_.devicelog.html#statechanged" class="tsd-kind-icon">state<wbr>Changed</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_development_types_.certificatetype.html#createdat" class="tsd-kind-icon">created<wbr>At</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_development_types_.certificatetype.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_development_types_.certificatetype.html#publickey" class="tsd-kind-icon">public<wbr>Key</a></li>
 							</ul>
 						</section>
 					</div>
@@ -106,137 +93,47 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="changes" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> changes</h3>
-					<div class="tsd-signature tsd-kind-icon">changes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="createdat" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> created<wbr>At</h3>
+					<div class="tsd-signature tsd-kind-icon">created<wbr>At<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in logging/types.ts:42</li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/7de3b4a/src/development/types.ts#L22">development/types.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Changes made</p>
+							<p>UTC time of the entity creation.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="data" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> data</h3>
-					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="id" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in logging/types.ts:58</li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/7de3b4a/src/development/types.ts#L30">development/types.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Data pertaining to the event</p>
+							<p>Entity ID.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="description" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> description</h3>
-					<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="publickey" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> public<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">public<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in logging/types.ts:38</li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/7de3b4a/src/development/types.ts#L26">development/types.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Description of the event</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="deviceid" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> device<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">device<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in logging/types.ts:62</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Device ID related to the event</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="eventdate" class="tsd-anchor"></a>
-					<h3>event<wbr>Date</h3>
-					<div class="tsd-signature tsd-kind-icon">event<wbr>Date<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in logging/types.ts:30</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Date and time of the event</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="eventtype" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> event<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">event<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../modules/_logging_types_.html#eventtypeenum" class="tsd-signature-type">EventTypeEnum</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in logging/types.ts:54</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Type of the event</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="eventtypedescription" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> event<wbr>Type<wbr>Description</h3>
-					<div class="tsd-signature tsd-kind-icon">event<wbr>Type<wbr>Description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in logging/types.ts:46</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Description of the event type</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="logid" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> log<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">log<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in logging/types.ts:50</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>ID of the event log entry</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="statechanged" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> state<wbr>Changed</h3>
-					<div class="tsd-signature tsd-kind-icon">state<wbr>Changed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in logging/types.ts:34</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Whether the event changed state</p>
+							<p>The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.</p>
 						</div>
 					</div>
 				</section>
@@ -266,7 +163,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_development_index_.html">"development/index"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_development_types_.html">"development/types"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -302,7 +199,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_logging_index_.html">"logging/index"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_logging_types_.html">"logging/types"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -318,42 +215,21 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_logging_types_.devicelog.html" class="tsd-kind-icon">Device<wbr>Log</a>
+						<a href="_development_types_.certificatetype.html" class="tsd-kind-icon">Certificate<wbr>Type</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_logging_types_.devicelog.html#changes" class="tsd-kind-icon">changes</a>
+								<a href="_development_types_.certificatetype.html#createdat" class="tsd-kind-icon">created<wbr>At</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_logging_types_.devicelog.html#data" class="tsd-kind-icon">data</a>
+								<a href="_development_types_.certificatetype.html#id" class="tsd-kind-icon">id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_logging_types_.devicelog.html#description" class="tsd-kind-icon">description</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_logging_types_.devicelog.html#deviceid" class="tsd-kind-icon">device<wbr>Id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_logging_types_.devicelog.html#eventdate" class="tsd-kind-icon">event<wbr>Date</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_logging_types_.devicelog.html#eventtype" class="tsd-kind-icon">event<wbr>Type</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_logging_types_.devicelog.html#eventtypedescription" class="tsd-kind-icon">event<wbr>Type<wbr>Description</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_logging_types_.devicelog.html#logid" class="tsd-kind-icon">log<wbr>Id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_logging_types_.devicelog.html#statechanged" class="tsd-kind-icon">state<wbr>Changed</a>
+								<a href="_development_types_.certificatetype.html#publickey" class="tsd-kind-icon">public<wbr>Key</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_logging_types_.html#eventtypeenum" class="tsd-kind-icon">Event<wbr>Type<wbr>Enum</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

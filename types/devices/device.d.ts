@@ -6,8 +6,8 @@ import { Resource } from "./resource";
  */
 export declare class Device {
     private _api;
-    id: string;
-    constructor(_api: Api, id: string);
+    private mapResource(from);
+    constructor(_api: Api, options: DeviceType);
     getDetails(): Promise<any>;
     getDetails(callback: (err: any, data?: any) => void): void;
     listResources(): Promise<Resource[]>;

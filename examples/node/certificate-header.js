@@ -44,7 +44,7 @@ function generateKeys() {
 
 function addCertificate(publicKey, successFn) {
     development.addCertificate({
-        pub_key: publicKey
+        publicKey: publicKey
     }, function(err, cert) {
 
         if (err) {
@@ -52,7 +52,7 @@ function addCertificate(publicKey, successFn) {
             return
         }
 
-        console.log(`Certificate added with raw public key: ${cert.pub_key}`);
+        console.log(`Certificate added with raw public key: ${cert.publicKey}`);
         successFn();
     });
 }
@@ -65,7 +65,7 @@ function checkCertificate(successFn) {
             return;
         }
 
-        if (cert.pub_key) {
+        if (cert.publicKey) {
             var rl = readline.createInterface({
                 input: process.stdin,
                 output: process.stdout

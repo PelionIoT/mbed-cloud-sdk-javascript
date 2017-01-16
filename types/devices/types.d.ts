@@ -1,16 +1,15 @@
-import { Device } from "./device";
 export declare type MechanismEnum = "connector" | "direct";
 export declare type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered";
 export declare type DeploymentEnum = "development" | "production";
-export interface DeviceDetail {
+export interface DeviceType {
     /**
     * The key used to provision the device
     */
-    provision_key: string;
+    provisionKey?: string;
     /**
     * The ID of the channel used to communicate with the device
     */
-    mechanism: MechanismEnum;
+    mechanism?: MechanismEnum;
     /**
     * The current state of the device
     */
@@ -18,7 +17,7 @@ export interface DeviceDetail {
     /**
     * The state of the device's deployment
     */
-    deployed_state?: DeploymentEnum;
+    deployedState?: DeploymentEnum;
     /**
     * The ID of the device
     */
@@ -34,47 +33,43 @@ export interface DeviceDetail {
     /**
     * The time the object was bootstrapped
     */
-    bootstrapped_timestamp?: Date;
+    bootstrappedTimestamp?: string;
     /**
     * The time the object was updated
     */
-    updated_at?: Date;
+    updatedAt?: Date;
     /**
     * Up to 5 custom JSON attributes
     */
-    custom_attributes?: {};
+    customAttributes?: {};
     /**
     * The device class
     */
-    device_class?: string;
+    deviceClass?: string;
     /**
     * Mark this device for auto firmware update
     */
-    auto_update?: boolean;
-    /**
-    * The entity instance signature
-    */
-    etag?: Date;
+    autoUpdate?: boolean;
     /**
     * The serial number of the device
     */
-    serial_number?: string;
+    serialNumber?: string;
     /**
     * The device vendor ID
     */
-    vendor_id?: string;
+    vendorId?: string;
     /**
     * The owning IAM account ID
     */
-    account_id?: string;
+    accountId?: string;
     /**
     * The device trust level
     */
-    trust_level?: number;
+    trustLevel?: number;
     /**
     * The device trust class
     */
-    trust_class?: number;
+    trustClass?: number;
     /**
     * The last deployment used on the device
     */
@@ -82,58 +77,35 @@ export interface DeviceDetail {
     /**
     * The address of the connector to use
     */
-    mechanism_url?: string;
+    mechanismUrl?: string;
     /**
     * The time the object was created
     */
-    created_at?: Date;
+    createdAt?: Date;
     /**
     * URL for the current device manifest
     */
     manifest?: string;
 }
-export declare type DeviceStatuses = "ACTIVE" | "STALE";
-export interface DeviceType {
-    /**
-    * Unique identifier representing the device
-    */
-    name?: string;
-    /**
-    * Type of device. (Free text)
-    */
-    type?: string;
-    /**
-    * Possible values ACTIVE, STALE
-    */
-    status?: DeviceStatuses;
-    /**
-    * Determines whether the device is in queue mode
-    */
-    queueMode?: boolean;
-}
 export interface ResourceType {
     /**
     * Whether you can subscribe to changes for this resource
     */
-    obs: boolean;
+    observable: boolean;
     /**
     * Resource's type
     */
-    rt: string;
+    type: string;
     /**
     * The content type of the resource
     */
-    type: string;
+    contentType: string;
     /**
     * Resource's url
     */
-    uri: string;
-    /**
-    * The device the resource belongs to
-    */
-    device: Device;
+    path: string;
 }
-export interface QueryDetail {
+export interface QueryType {
     /**
     * The ID of the query
     */
@@ -153,13 +125,19 @@ export interface QueryDetail {
     /**
     * The time the object was created
     */
-    created_at: Date;
+    createdAt: Date;
     /**
     * The time the object was updated
     */
-    updated_at: Date;
+    updatedAt: Date;
+}
+export interface WebhookType {
     /**
-    * The entity instance signature
+    * The URL to which the notifications must be sent
     */
-    etag: Date;
+    url?: string;
+    /**
+    * Headers (key/value) that must be sent with the request
+    */
+    headers?: {};
 }

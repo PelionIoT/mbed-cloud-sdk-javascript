@@ -18,7 +18,8 @@
 import pg = require("polygoat");
 import { ConnectionOptions } from "../helpers/interfaces";
 import { Api } from "./api";
-import { Certificate } from "./types";
+import { CertificateType } from "./types";
+import { DeveloperCertificate as apiCertificateType } from "../_api/developer_certificate";
 
 /**
  * Root Development object
@@ -34,35 +35,35 @@ export class Development {
         this._api = new Api(options);
     }
 
-    private map(from: Certificate, to?:Certificate): Certificate {
-        to = to || {};
-
-        to.created_at    = from.created_at;
-        to.etag          = from.etag;
-        to.id            = from.id;
-        to.pub_key       = from.pub_key;
-
-        return to;
+    private mapCertificate(from: apiCertificateType): CertificateType {
+        return {
+            createdAt:    from.created_at,
+            id:           from.id,
+            publicKey:    from.pub_key
+        };
     }
 
     /**
      * Adds a developer certificate to the account (only one per account allowed).
-     * @param options.pubKey The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
+     * @param options.publicKey The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
      * @returns Promise containing created certificate
      */
-    public addCertificate(options: { pub_key: string }): Promise<Certificate>;
+    public addCertificate(options: { publicKey: string }): Promise<CertificateType>;
     /**
      * Adds a developer certificate to the account (only one per account allowed).
-     * @param options.pub_key The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
+     * @param options.publicKey The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public addCertificate(options: { pub_key: string }, callback: (err: any, data?: Certificate) => any);
-    public addCertificate(options: { pub_key: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
+    public addCertificate(options: { publicKey: string }, callback: (err: any, data?: CertificateType) => any);
+    public addCertificate(options: { publicKey: string }, callback?: (err: any, data?: CertificateType) => any): Promise<CertificateType> {
+        let body = {
+            pub_key: options.publicKey
+        };
         return pg(done => {
-            this._api.development.v3DeveloperCertificatePost("", options, (error, data) => {
+            this._api.development.v3DeveloperCertificatePost("", body, (error, data) => {
                 if (error) return done(error);
 
-                let cert = this.map(data);
+                let cert = this.mapCertificate(data);
                 done(null, cert);
             });
         }, callback);
@@ -72,18 +73,18 @@ export class Development {
      * Gets the current developer certificate of the account.
      * @returns Promise containing current certificate
      */
-    public getCertificate(): Promise<Certificate>;
+    public getCertificate(): Promise<CertificateType>;
     /**
      * Gets the current developer certificate of the account.
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public getCertificate(callback: (err: any, data?: Certificate) => any);
-    public getCertificate(callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
+    public getCertificate(callback: (err: any, data?: CertificateType) => any);
+    public getCertificate(callback?: (err: any, data?: CertificateType) => any): Promise<CertificateType> {
         return pg(done => {
             this._api.development.v3DeveloperCertificateGet("", (error, data) => {
                 if (error) return done(error);
 
-                let cert = this.map(data);
+                let cert = this.mapCertificate(data);
                 done(null, cert);
             });
         }, callback);
