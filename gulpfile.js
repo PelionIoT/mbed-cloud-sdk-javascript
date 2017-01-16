@@ -18,9 +18,11 @@ var docsDir = "docs";
 var nodeDir = "lib";
 var typesDir = "types";
 var bundleDir = "bundles";
+var watching = false;
 
 function handleError() {
-    this.emit("end");
+    if (watching) this.emit("end");
+    else process.exit(1);
 }
 
 gulp.task("clean", function() {
@@ -105,5 +107,6 @@ gulp.task("browserify", ["typescript"], function() {
 gulp.task("default", ["clean", "doc", "browserify"]);
 
 gulp.task("watch", ["default"], function() {
+    watching = true;
     gulp.watch(srcDir + "/**/*.*", ["doc", "browserify"]);
 });
