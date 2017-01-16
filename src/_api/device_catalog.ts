@@ -173,6 +173,198 @@ export function paramToString(param:any) {
     return param.toString();
 }
 
+export class DeviceDetail {
+    'bootstrappedTimestamp': string;
+    /**
+    * The time the object was updated
+    */
+    'updatedAt': Date;
+    /**
+    * Up to 5 custom JSON attributes
+    */
+    'customAttributes': any;
+    /**
+    * The device class
+    */
+    'deviceClass': string;
+    /**
+    * The ID of the device
+    */
+    'id': string;
+    /**
+    * The description of the object
+    */
+    'description': string;
+    /**
+    * Mark this device for auto firmware update
+    */
+    'autoUpdate': boolean;
+    /**
+    * The ID of the channel used to communicate with the device
+    */
+    'mechanism': DeviceDetail.DeviceDetail.MechanismEnum;
+    /**
+    * The current state of the device
+    */
+    'state': DeviceDetail.DeviceDetail.StateEnum;
+    /**
+    * The entity instance signature
+    */
+    'etag': Date;
+    /**
+    * The key used to provision the device
+    */
+    'provisionKey': string;
+    /**
+    * The serial number of the device
+    */
+    'serialNumber': string;
+    /**
+    * The device vendor ID
+    */
+    'vendorId': string;
+    /**
+    * The owning IAM account ID
+    */
+    'accountId': string;
+    /**
+    * The state of the device's deployment
+    */
+    'deployedState': DeviceDetail.DeviceDetail.DeployedStateEnum;
+    /**
+    * The API resource entity
+    */
+    'object': string;
+    /**
+    * The device trust class
+    */
+    'trustClass': number;
+    /**
+    * The last deployment used on the device
+    */
+    'deployment': string;
+    /**
+    * The address of the connector to use
+    */
+    'mechanismUrl': string;
+    /**
+    * The device trust level
+    */
+    'trustLevel': number;
+    /**
+    * DEPRECATED: The ID of the device
+    */
+    'deviceId': string;
+    /**
+    * The name of the object
+    */
+    'name': string;
+    /**
+    * The time the object was created
+    */
+    'createdAt': Date;
+    /**
+    * URL for the current device manifest
+    */
+    'manifest': string;
+}
+
+export namespace DeviceDetail {
+    export enum MechanismEnum {
+        Connector = <any> 'connector',
+        Direct = <any> 'direct'
+    }
+    export enum StateEnum {
+        Unenrolled = <any> 'unenrolled',
+        CloudEnrolling = <any> 'cloud_enrolling',
+        Bootstrapped = <any> 'bootstrapped',
+        Registered = <any> 'registered'
+    }
+    export enum DeployedStateEnum {
+        Development = <any> 'development',
+        Production = <any> 'production'
+    }
+}
+export class DeviceListResp {
+    /**
+    * API Resource name
+    */
+    'object': string;
+    /**
+    * Whether there are more results to display
+    */
+    'hasMore': boolean;
+    /**
+    * Total number of records
+    */
+    'totalCount': number;
+    /**
+    * Entity id for fetch after it
+    */
+    'after': string;
+    /**
+    * The number of results to return
+    */
+    'limit': number;
+    'data': Array<DeviceDetail>;
+    /**
+    * Order of returned records
+    */
+    'order': string;
+}
+
+export class DeviceLogSerializer {
+    /**
+    * API Resource name
+    */
+    'object': string;
+    /**
+    * Whether there are more results to display
+    */
+    'hasMore': boolean;
+    /**
+    * Total number of records
+    */
+    'totalCount': number;
+    /**
+    * Entity id for fetch after it
+    */
+    'after': string;
+    /**
+    * The number of results to return
+    */
+    'limit': number;
+    'data': Array<DeviceLogSerializerData>;
+    /**
+    * Order of returned records
+    */
+    'order': string;
+}
+
+export class DeviceLogSerializerData {
+    'dateTime': Date;
+    'stateChange': boolean;
+    'description': string;
+    'changes': string;
+    'eventTypeDescription': string;
+    'deviceLogId': string;
+    'eventType': DeviceLogSerializerData.DeviceLogSerializerData.EventTypeEnum;
+    'data': string;
+    'deviceId': string;
+}
+
+export namespace DeviceLogSerializerData {
+    export enum EventTypeEnum {
+        DeviceDeviceCreated = <any> 'update.device.device-created',
+        DeviceDeviceUpdated = <any> 'update.device.device-updated',
+        DeploymentCampaignDeviceMetadataCreated = <any> 'update.deployment.campaign-device-metadata-created',
+        DeploymentCampaignDeviceMetadataUpdated = <any> 'update.deployment.campaign-device-metadata-updated',
+        DeploymentCampaignDeviceMetadataRemoved = <any> 'update.deployment.campaign-device-metadata-removed',
+        ConnectorConnectorDeviceFirmwareUpdateState = <any> 'update.connector.connector-device.firmware-update.state',
+        ConnectorConnectorDeviceFirmwareUpdateResult = <any> 'update.connector.connector-device.firmware-update.result'
+    }
+}
+
 export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
@@ -222,175 +414,6 @@ export class VoidAuth implements Authentication {
         // Do nothing
     }
 }
-
-export interface DeviceDetail {
-    "bootstrapped_timestamp"?: string;
-    /**
-     * The time the object was updated
-     */
-    "updated_at"?: Date;
-    /**
-     * Up to 5 custom JSON attributes
-     */
-    "custom_attributes"?: any;
-    /**
-     * The device class
-     */
-    "device_class"?: string;
-    /**
-     * The ID of the device
-     */
-    "id"?: string;
-    /**
-     * The description of the object
-     */
-    "description"?: string;
-    /**
-     * Mark this device for auto firmware update
-     */
-    "auto_update"?: boolean;
-    /**
-     * The ID of the channel used to communicate with the device
-     */
-    "mechanism"?: DeviceDetailMechanismEnum;
-    /**
-     * The current state of the device
-     */
-    "state"?: DeviceDetailStateEnum;
-    /**
-     * The entity instance signature
-     */
-    "etag"?: Date;
-    /**
-     * The key used to provision the device
-     */
-    "provision_key"?: string;
-    /**
-     * The serial number of the device
-     */
-    "serial_number"?: string;
-    /**
-     * The device vendor ID
-     */
-    "vendor_id"?: string;
-    /**
-     * The owning IAM account ID
-     */
-    "account_id"?: string;
-    /**
-     * The state of the device's deployment
-     */
-    "deployed_state"?: DeviceDetailDeployedStateEnum;
-    /**
-     * The API resource entity
-     */
-    "object"?: string;
-    /**
-     * The device trust class
-     */
-    "trust_class"?: number;
-    /**
-     * The last deployment used on the device
-     */
-    "deployment"?: string;
-    /**
-     * The address of the connector to use
-     */
-    "mechanism_url"?: string;
-    /**
-     * The device trust level
-     */
-    "trust_level"?: number;
-    /**
-     * DEPRECATED: The ID of the device
-     */
-    "device_id"?: string;
-    /**
-     * The name of the object
-     */
-    "name"?: string;
-    /**
-     * The time the object was created
-     */
-    "created_at"?: Date;
-    /**
-     * URL for the current device manifest
-     */
-    "manifest"?: string;
-}
-
-export type DeviceDetailMechanismEnum = "connector" | "direct";
-export type DeviceDetailStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered";
-export type DeviceDetailDeployedStateEnum = "development" | "production";
-export interface DeviceListResp {
-    /**
-     * API Resource name
-     */
-    "object"?: string;
-    /**
-     * Whether there are more results to display
-     */
-    "has_more"?: boolean;
-    /**
-     * Total number of records
-     */
-    "total_count"?: number;
-    /**
-     * Entity id for fetch after it
-     */
-    "after"?: string;
-    /**
-     * The number of results to return
-     */
-    "limit"?: number;
-    "data"?: Array<DeviceDetail>;
-    /**
-     * Order of returned records
-     */
-    "order"?: string;
-}
-
-export interface DeviceLogSerializer {
-    /**
-     * API Resource name
-     */
-    "object"?: string;
-    /**
-     * Whether there are more results to display
-     */
-    "has_more"?: boolean;
-    /**
-     * Total number of records
-     */
-    "total_count"?: number;
-    /**
-     * Entity id for fetch after it
-     */
-    "after"?: string;
-    /**
-     * The number of results to return
-     */
-    "limit"?: number;
-    "data"?: Array<DeviceLogSerializerData>;
-    /**
-     * Order of returned records
-     */
-    "order"?: string;
-}
-
-export interface DeviceLogSerializerData {
-    "date_time": Date;
-    "state_change"?: boolean;
-    "description"?: string;
-    "changes"?: string;
-    "event_type_description"?: string;
-    "device_log_id"?: string;
-    "event_type"?: DeviceLogSerializerDataEventTypeEnum;
-    "data"?: string;
-    "device_id"?: string;
-}
-
-export type DeviceLogSerializerDataEventTypeEnum = "update.device.device-created" | "update.device.device-updated" | "update.deployment.campaign-device-metadata-created" | "update.deployment.campaign-device-metadata-updated" | "update.deployment.campaign-device-metadata-removed" | "update.connector.connector-device.firmware-update.state" | "update.connector.connector-device.firmware-update.result";
 
 export enum DefaultApiApiKeys {
     Bearer,
@@ -462,7 +485,7 @@ export class DefaultApi {
      * @param updatedAt The time the object was updated
      * @param vendorId The device vendor ID
      */
-    public deviceCreate (mechanism: string, provisionKey: string, accountId?: string, autoUpdate?: boolean, bootstrappedTimestamp?: string, createdAt?: Date, customAttributes?: { [key: string]: string; }, deployedState?: string, deployment?: string, description?: string, deviceClass?: string, deviceId?: string, etag?: Date, id?: string, manifest?: string, mechanismUrl?: string, name?: string, object?: string, serialNumber?: string, state?: string, trustClass?: number, trustLevel?: number, updatedAt?: Date, vendorId?: string, callback?: (error:any, data:DeviceDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceCreate (mechanism: string, provisionKey: string, accountId?: string, autoUpdate?: boolean, bootstrappedTimestamp?: string, createdAt?: Date, customAttributes?: { [key: string]: string; }, deployedState?: string, deployment?: string, description?: string, deviceClass?: string, deviceId?: string, etag?: Date, id?: string, manifest?: string, mechanismUrl?: string, name?: string, object?: string, serialNumber?: string, state?: string, trustClass?: number, trustLevel?: number, updatedAt?: Date, vendorId?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -608,7 +631,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Delete device&lt;/p&gt;
      * @param deviceId 
      */
-    public deviceDestroy (deviceId: string, callback?: (error:any, data:DeviceListResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceDestroy (deviceId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -658,7 +681,7 @@ export class DefaultApi {
      * @param filter 
      * @param include 
      */
-    public deviceList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data:DeviceListResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -722,7 +745,7 @@ export class DefaultApi {
      * @param filter 
      * @param include 
      */
-    public deviceLogList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data:DeviceLogSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceLogList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devicelog/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -782,7 +805,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device log.&lt;/p&gt;
      * @param deviceLogId 
      */
-    public deviceLogRetrieve (deviceLogId: string, callback?: (error:any, data:DeviceLogSerializerData, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceLogRetrieve (deviceLogId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devicelog/{device_log_id}/'
             .replace('{' + 'device_log_id' + '}', String(deviceLogId));
         let queryParameters: any = {};
@@ -828,7 +851,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device fields&lt;/p&gt;
      * @param deviceId The ID of the device
      */
-    public devicePartialUpdate (deviceId: string, callback?: (error:any, data:DeviceListResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public devicePartialUpdate (deviceId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -874,7 +897,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device.&lt;/p&gt;
      * @param deviceId 
      */
-    public deviceRetrieve (deviceId: string, callback?: (error:any, data:DeviceListResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceRetrieve (deviceId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -921,7 +944,7 @@ export class DefaultApi {
      * @param deviceId The ID of the device
      * @param body Device object to update
      */
-    public deviceUpdate (deviceId: string, body: DeviceDetail, callback?: (error:any, data:DeviceDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceUpdate (deviceId: string, body: DeviceDetail, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};

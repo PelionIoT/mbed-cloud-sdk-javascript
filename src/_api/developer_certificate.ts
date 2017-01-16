@@ -173,6 +173,37 @@ export function paramToString(param:any) {
     return param.toString();
 }
 
+export class Body {
+    /**
+    * The developer certificate public key in PEM format (NIST P-256 curve).
+    */
+    'pubKey': string;
+}
+
+export class DeveloperCertificate {
+    /**
+    * UTC time of the entity creation.
+    */
+    'createdAt': string;
+    /**
+    * Currently not used.
+    */
+    'etag': string;
+    /**
+    * The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
+    */
+    'pubKey': string;
+    /**
+    * Currently not used.
+    */
+    'object': string;
+    /**
+    * Entity ID.
+    */
+    'id': string;
+}
+
+
 export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
@@ -223,37 +254,6 @@ export class VoidAuth implements Authentication {
     }
 }
 
-export interface Body {
-    /**
-     * The developer certificate public key in PEM format (NIST P-256 curve).
-     */
-    "pub_key"?: string;
-}
-
-export interface DeveloperCertificate {
-    /**
-     * UTC time of the entity creation.
-     */
-    "created_at"?: string;
-    /**
-     * Currently not used.
-     */
-    "etag"?: string;
-    /**
-     * The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
-     */
-    "pub_key"?: string;
-    /**
-     * Currently not used.
-     */
-    "object"?: string;
-    /**
-     * Entity ID.
-     */
-    "id"?: string;
-}
-
-
 export enum DefaultApiApiKeys {
     Bearer,
 }
@@ -301,7 +301,7 @@ export class DefaultApi {
      * Deletes the account&#39;s developer certificate (only one per account allowed).
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3DeveloperCertificateDelete (authorization: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3DeveloperCertificateDelete (authorization: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/developer-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -348,7 +348,7 @@ export class DefaultApi {
      * Gets the developer certificate of the account.
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3DeveloperCertificateGet (authorization: string, callback?: (error:any, data:DeveloperCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3DeveloperCertificateGet (authorization: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/developer-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -396,7 +396,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param body 
      */
-    public v3DeveloperCertificatePost (authorization: string, body: Body, callback?: (error:any, data:DeveloperCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3DeveloperCertificatePost (authorization: string, body: Body, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/developer-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);

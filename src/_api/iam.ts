@@ -173,6 +173,1123 @@ export function paramToString(param:any) {
     return param.toString();
 }
 
+/**
+* This object represents an account creation response.
+*/
+export class AccountEnrollmentReq {
+    /**
+    * A username for the new account admin containing alphanumerical letters and -,._@+= characters.
+    */
+    'username': string;
+    /**
+    * The password for the new account admin.
+    */
+    'password': string;
+    /**
+    * Verification code.
+    */
+    'code': string;
+    /**
+    * An array of aliases.
+    */
+    'aliases': Array<string>;
+}
+
+/**
+* This object represents an account creation response.
+*/
+export class AccountEnrollmentResp {
+    /**
+    * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+    */
+    'status': AccountEnrollmentResp.AccountEnrollmentResp.StatusEnum;
+    /**
+    * A username containing alphanumerical letters and -,._@+= characters.
+    */
+    'username': string;
+    /**
+    * A flag indicating whether the user's email address has been verified or not.
+    */
+    'emailVerified': boolean;
+    /**
+    * The UUID of the account.
+    */
+    'accountId': string;
+    /**
+    * A timestamp of the latest change of the user password, in milliseconds.
+    */
+    'passwordChangedTime': number;
+    /**
+    * An array of aliases.
+    */
+    'aliases': Array<string>;
+    /**
+    * A list of IDs of the groups this user belongs to.
+    */
+    'groups': Array<string>;
+    /**
+    * Creation UTC time RFC3339.
+    */
+    'createdAt': string;
+    /**
+    * Entity name: always 'user'
+    */
+    'object': AccountEnrollmentResp.AccountEnrollmentResp.ObjectEnum;
+    /**
+    * A flag indicating that the General Terms and Conditions has been accepted.
+    */
+    'isGtcAccepted': boolean;
+    /**
+    * The email address.
+    */
+    'email': string;
+    /**
+    * A flag indicating that receiving marketing information has been accepted.
+    */
+    'isMarketingAccepted': boolean;
+    /**
+    * API resource entity version.
+    */
+    'etag': string;
+    /**
+    * The full name of the user.
+    */
+    'fullName': string;
+    /**
+    * Address.
+    */
+    'address': string;
+    'creationTimeMillis': number;
+    /**
+    * A timestamp of the user creation in the storage, in milliseconds.
+    */
+    'creationTime': number;
+    /**
+    * The password when creating a new user. It will will generated when not present in the request.
+    */
+    'password': string;
+    /**
+    * Phone number.
+    */
+    'phoneNumber': string;
+    /**
+    * The UUID of the user.
+    */
+    'id': string;
+    /**
+    * A timestamp of the latest login of the user, in milliseconds.
+    */
+    'lastLoginTime': number;
+}
+
+export namespace AccountEnrollmentResp {
+    export enum StatusEnum {
+        INVITED = <any> 'INVITED',
+        ACTIVE = <any> 'ACTIVE',
+        RESET = <any> 'RESET',
+        INACTIVE = <any> 'INACTIVE'
+    }
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+}
+/**
+* This object represents an account in requests and responses.
+*/
+export class AccountInfo {
+    /**
+    * The status of the account.
+    */
+    'status': AccountInfo.AccountInfo.StatusEnum;
+    /**
+    * The postal code part of the postal address.
+    */
+    'postalCode': string;
+    /**
+    * The ID of the parent account, if it has any.
+    */
+    'parentID': string;
+    /**
+    * Account ID.
+    */
+    'id': string;
+    /**
+    * An array of aliases.
+    */
+    'aliases': Array<string>;
+    /**
+    * Postal address line 2.
+    */
+    'addressLine2': string;
+    /**
+    * The city part of the postal address.
+    */
+    'city': string;
+    /**
+    * Postal address line 1.
+    */
+    'addressLine1': string;
+    /**
+    * The display name for the account.
+    */
+    'displayName': string;
+    /**
+    * The state part of the postal address.
+    */
+    'state': string;
+    /**
+    * API resource entity version.
+    */
+    'etag': string;
+    /**
+    * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
+    */
+    'isProvisioningAllowed': boolean;
+    'creationTimeMillis': number;
+    /**
+    * The company email address for this account.
+    */
+    'email': string;
+    /**
+    * The phone number of the company.
+    */
+    'phoneNumber': string;
+    /**
+    * The name of the company.
+    */
+    'company': string;
+    /**
+    * Entity name: always 'account'
+    */
+    'object': AccountInfo.AccountInfo.ObjectEnum;
+    /**
+    * Time when upgraded to commercial account in UTC format RFC3339.
+    */
+    'upgradedAt': string;
+    /**
+    * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
+    */
+    'tier': string;
+    /**
+    * List of limits as key-value pairs if requested.
+    */
+    'limits': { [key: string]: string; };
+    /**
+    * The country part of the postal address.
+    */
+    'country': string;
+    /**
+    * Creation UTC time RFC3339.
+    */
+    'createdAt': string;
+    /**
+    * The name of the contact person for this account.
+    */
+    'contact': string;
+    /**
+    * List of policies if requested.
+    */
+    'policies': Array<Policy>;
+    /**
+    * Account template ID.
+    */
+    'templateId': string;
+}
+
+export namespace AccountInfo {
+    export enum StatusEnum {
+        ENROLLING = <any> 'ENROLLING',
+        ACTIVE = <any> 'ACTIVE',
+        SUSPENDED = <any> 'SUSPENDED',
+        DISABLED = <any> 'DISABLED'
+    }
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+}
+/**
+* This object represents a service sign-up request.
+*/
+export class AccountSignupReq {
+    /**
+    * The phone number of the user.
+    */
+    'phoneNumber': string;
+    /**
+    * A flag indicating that receiving marketing information has been accepted.
+    */
+    'isMarketingAccepted': boolean;
+    /**
+    * The country for the company.
+    */
+    'country': string;
+    /**
+    * The name of the company.
+    */
+    'company': string;
+    /**
+    * A flag indicating that the General Terms and Conditions has been accepted.
+    */
+    'isGtcAccepted': boolean;
+    /**
+    * The full name of the user.
+    */
+    'fullName': string;
+    /**
+    * The email address of the user.
+    */
+    'email': string;
+}
+
+/**
+* This object represents a service sign-up request.
+*/
+export class AccountSignupResp {
+    /**
+    * The email address of the user.
+    */
+    'email': string;
+    /**
+    * The UUID of the account enrolling.
+    */
+    'accountId': string;
+    /**
+    * The sign-up ID.
+    */
+    'id': string;
+}
+
+/**
+* This object represents a verify request during service sign-up process.
+*/
+export class AccountSignupVerify {
+    /**
+    * Verification code, also required while checking account aliases.
+    */
+    'code': string;
+    /**
+    * Account alias array to be checked for being unique.
+    */
+    'aliases': Array<string>;
+}
+
+/**
+* This object represents an account update request.
+*/
+export class AccountUpdateReq {
+    /**
+    * Postal address line 2.
+    */
+    'addressLine2': string;
+    /**
+    * The city part of the postal address.
+    */
+    'city': string;
+    /**
+    * Postal address line 1.
+    */
+    'addressLine1': string;
+    /**
+    * The display name for the account.
+    */
+    'displayName': string;
+    /**
+    * The country part of the postal address.
+    */
+    'country': string;
+    /**
+    * The name of the company.
+    */
+    'company': string;
+    /**
+    * Account template ID. Manageable by the root admin only.
+    */
+    'templateId': string;
+    /**
+    * The status of the account. Manageable by the root admin only.
+    */
+    'status': string;
+    /**
+    * The state part of the postal address.
+    */
+    'state': string;
+    /**
+    * The name of the contact person for this account.
+    */
+    'contact': string;
+    /**
+    * The postal code part of the postal address.
+    */
+    'postalCode': string;
+    /**
+    * Flag (true/false) indicating whether Factory Tool is allowed to download or not. Manageable by the root admin only.
+    */
+    'isProvisioningAllowed': boolean;
+    /**
+    * The ID of the parent account, if it has any.
+    */
+    'parentID': string;
+    /**
+    * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future. Manageable by the root admin only.
+    */
+    'tier': string;
+    /**
+    * The phone number of the company.
+    */
+    'phoneNumber': string;
+    /**
+    * The company email address for this account.
+    */
+    'email': string;
+    /**
+    * An array of aliases.
+    */
+    'aliases': Array<string>;
+}
+
+/**
+* This object represents an API key in requests towards mbed Cloud.
+*/
+export class ApiKeyInfoReq {
+    /**
+    * The owner of this API key, who is the creator by default.
+    */
+    'owner': string;
+    /**
+    * The display name for the API key.
+    */
+    'name': string;
+    /**
+    * A list of group IDs this API key belongs to.
+    */
+    'groups': Array<string>;
+}
+
+/**
+* This object represents an API key in mbed Cloud.
+*/
+export class ApiKeyInfoResp {
+    /**
+    * A list of group IDs this API key belongs to.
+    */
+    'groups': Array<string>;
+    /**
+    * The status of the API key.
+    */
+    'status': ApiKeyInfoResp.ApiKeyInfoResp.StatusEnum;
+    /**
+    * The display name for the API key.
+    */
+    'name': string;
+    /**
+    * Creation UTC time RFC3339.
+    */
+    'createdAt': string;
+    /**
+    * Entity name: always 'api-key'
+    */
+    'object': ApiKeyInfoResp.ApiKeyInfoResp.ObjectEnum;
+    /**
+    * The timestamp of the API key creation in the storage, in milliseconds.
+    */
+    'creationTime': number;
+    'creationTimeMillis': number;
+    /**
+    * API resource entity version.
+    */
+    'etag': string;
+    /**
+    * The API key.
+    */
+    'key': string;
+    /**
+    * The owner of this API key, who is the creator by default.
+    */
+    'owner': string;
+    /**
+    * The UUID of the API key.
+    */
+    'id': string;
+    /**
+    * The timestamp of the latest API key usage, in milliseconds.
+    */
+    'lastLoginTime': number;
+}
+
+export namespace ApiKeyInfoResp {
+    export enum StatusEnum {
+        ACTIVE = <any> 'ACTIVE',
+        INACTIVE = <any> 'INACTIVE'
+    }
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+}
+export class ApiKeyInfoRespList {
+    /**
+    * The entity ID to fetch after the given one.
+    */
+    'after': string;
+    /**
+    * Flag indicating whether there is more results.
+    */
+    'hasMore': boolean;
+    /**
+    * The total number or records, if requested. It might be returned also for small lists.
+    */
+    'totalCount': number;
+    /**
+    * Entity name: always 'list'
+    */
+    'object': ApiKeyInfoRespList.ApiKeyInfoRespList.ObjectEnum;
+    /**
+    * The number of results to return, (range: 2-1000), or equals to `total_count`
+    */
+    'limit': number;
+    /**
+    * A list of entities.
+    */
+    'data': Array<ApiKeyInfoResp>;
+    /**
+    * The order of the records to return. Available values: ASC, DESC; by default ASC.
+    */
+    'order': ApiKeyInfoRespList.ApiKeyInfoRespList.OrderEnum;
+}
+
+export namespace ApiKeyInfoRespList {
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+    export enum OrderEnum {
+        ASC = <any> 'ASC',
+        DESC = <any> 'DESC'
+    }
+}
+/**
+* This object represents an API key in requests towards mbed Cloud.
+*/
+export class ApiKeyUpdateReq {
+    /**
+    * The owner of this API key, who is the creator by default.
+    */
+    'owner': string;
+    /**
+    * The display name for the API key.
+    */
+    'name': string;
+}
+
+/**
+* This object represents an CA Certificate in requests.
+*/
+export class CACertificateReq {
+    /**
+    * X509.v3 CA certificate in PEM or base64 encoded DER format.
+    */
+    'certData': string;
+    /**
+    * Certificate name.
+    */
+    'name': string;
+    /**
+    * Service name where the certificate must be used.
+    */
+    'service': CACertificateReq.CACertificateReq.ServiceEnum;
+    /**
+    * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
+    */
+    'signature': string;
+}
+
+export namespace CACertificateReq {
+    export enum ServiceEnum {
+        Lwm2m = <any> 'lwm2m',
+        Bootstrap = <any> 'bootstrap',
+        Provisioning = <any> 'provisioning'
+    }
+}
+/**
+* This object represents an CA Certificate in responses.
+*/
+export class CACertificateResp {
+    /**
+    * The UUID of the account.
+    */
+    'accountId': string;
+    /**
+    * Service name where the certificate is to be used.
+    */
+    'service': CACertificateResp.CACertificateResp.ServiceEnum;
+    /**
+    * Creation UTC time RFC3339.
+    */
+    'createdAt': string;
+    /**
+    * Entity name: always 'ca-cert'
+    */
+    'object': CACertificateResp.CACertificateResp.ObjectEnum;
+    /**
+    * Subject of the certificate.
+    */
+    'subject': string;
+    /**
+    * Expiration time in UTC formatted as RFC3339.
+    */
+    'validity': string;
+    /**
+    * API resource entity version.
+    */
+    'etag': string;
+    'creationTimeMillis': number;
+    /**
+    * Issuer of the certificate.
+    */
+    'issuer': string;
+    /**
+    * X509.v3 CA certificate in PEM or base64 encoded DER format.
+    */
+    'certData': string;
+    /**
+    * Entity ID.
+    */
+    'id': string;
+    /**
+    * Certificate name.
+    */
+    'name': string;
+}
+
+export namespace CACertificateResp {
+    export enum ServiceEnum {
+        Lwm2m = <any> 'lwm2m',
+        Bootstrap = <any> 'bootstrap',
+        Provisioning = <any> 'provisioning'
+    }
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+}
+export class CACertificateRespList {
+    /**
+    * The entity ID to fetch after the given one.
+    */
+    'after': string;
+    /**
+    * Flag indicating whether there is more results.
+    */
+    'hasMore': boolean;
+    /**
+    * The total number or records, if requested. It might be returned also for small lists.
+    */
+    'totalCount': number;
+    /**
+    * Entity name: always 'list'
+    */
+    'object': CACertificateRespList.CACertificateRespList.ObjectEnum;
+    /**
+    * The number of results to return, (range: 2-1000), or equals to `total_count`
+    */
+    'limit': number;
+    /**
+    * A list of entities.
+    */
+    'data': Array<CACertificateResp>;
+    /**
+    * The order of the records to return. Available values: ASC, DESC; by default ASC.
+    */
+    'order': CACertificateRespList.CACertificateRespList.OrderEnum;
+}
+
+export namespace CACertificateRespList {
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+    export enum OrderEnum {
+        ASC = <any> 'ASC',
+        DESC = <any> 'DESC'
+    }
+}
+/**
+* This object represents an error message.
+*/
+export class ErrorResponse {
+    /**
+    * Response code.
+    */
+    'code': number;
+    /**
+    * Failed input fields during request object validation.
+    */
+    'fields': Array<Field>;
+    /**
+    * Entity name, always 'error'.
+    */
+    'object': ErrorResponse.ErrorResponse.ObjectEnum;
+    /**
+    * Request ID.
+    */
+    'requestId': string;
+    /**
+    * A human readable message with detailed info.
+    */
+    'message': string;
+    /**
+    * Error type.
+    */
+    'type': ErrorResponse.ErrorResponse.TypeEnum;
+}
+
+export namespace ErrorResponse {
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+    export enum TypeEnum {
+        Success = <any> 'success',
+        Created = <any> 'created',
+        Accepted = <any> 'accepted',
+        PermanentlyDeleted = <any> 'permanently_deleted',
+        ValidationError = <any> 'validation_error',
+        InvalidToken = <any> 'invalid_token',
+        AccessDenied = <any> 'access_denied',
+        AccountLimitExceeded = <any> 'account_limit_exceeded',
+        NotFound = <any> 'not_found',
+        MethodNotSupported = <any> 'method_not_supported',
+        NotAcceptable = <any> 'not_acceptable',
+        Duplicate = <any> 'duplicate',
+        PreconditionFailed = <any> 'precondition_failed',
+        UnsupportedMediaType = <any> 'unsupported_media_type',
+        RateLimitExceeded = <any> 'rate_limit_exceeded',
+        InternalServerError = <any> 'internal_server_error',
+        SystemUnavailable = <any> 'system_unavailable'
+    }
+}
+export class Field {
+    'message': string;
+    'name': string;
+}
+
+/**
+* This object contains basic information about groups.
+*/
+export class GroupSummary {
+    /**
+    * The name of the group.
+    */
+    'name': string;
+    /**
+    * A timestamp of the latest group update, in milliseconds.
+    */
+    'lastUpdateTime': number;
+    /**
+    * The number of API keys in this group.
+    */
+    'apiKeyCount': number;
+    /**
+    * Creation UTC time RFC3339.
+    */
+    'createdAt': string;
+    /**
+    * Entity name: always 'group'
+    */
+    'object': GroupSummary.GroupSummary.ObjectEnum;
+    /**
+    * A timestamp of the group creation in the storage, in milliseconds.
+    */
+    'creationTime': number;
+    /**
+    * API resource entity version.
+    */
+    'etag': string;
+    'creationTimeMillis': number;
+    /**
+    * The UUID of the group.
+    */
+    'id': string;
+    /**
+    * The number of users in this group.
+    */
+    'userCount': number;
+}
+
+export namespace GroupSummary {
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+}
+export class GroupSummaryList {
+    /**
+    * The entity ID to fetch after the given one.
+    */
+    'after': string;
+    /**
+    * Flag indicating whether there is more results.
+    */
+    'hasMore': boolean;
+    /**
+    * The total number or records, if requested. It might be returned also for small lists.
+    */
+    'totalCount': number;
+    /**
+    * Entity name: always 'list'
+    */
+    'object': GroupSummaryList.GroupSummaryList.ObjectEnum;
+    /**
+    * The number of results to return, (range: 2-1000), or equals to `total_count`
+    */
+    'limit': number;
+    /**
+    * A list of entities.
+    */
+    'data': Array<GroupSummary>;
+    /**
+    * The order of the records to return. Available values: ASC, DESC; by default ASC.
+    */
+    'order': GroupSummaryList.GroupSummaryList.OrderEnum;
+}
+
+export namespace GroupSummaryList {
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+    export enum OrderEnum {
+        ASC = <any> 'ASC',
+        DESC = <any> 'DESC'
+    }
+}
+/**
+* This object represents a password recovery request.
+*/
+export class PasswordRecoveryReq {
+    /**
+    * The new password to be set.
+    */
+    'password': string;
+    /**
+    * The hash code for the password recovery.
+    */
+    'hash': string;
+}
+
+/**
+* This object represents a password recovery request.
+*/
+export class PasswordResetReq {
+    /**
+    * Email address.
+    */
+    'email': string;
+}
+
+/**
+* This object represents a policy.
+*/
+export class Policy {
+    /**
+    * Comma separated list of actions, empty string represents all actions.
+    */
+    'action': string;
+    /**
+    * Resource that is protected by this policy.
+    */
+    'resource': string;
+    /**
+    * True or false controlling whether an action is allowed or not.
+    */
+    'allow': boolean;
+}
+
+/**
+* This object represents a user in requests towards mbed Cloud.
+*/
+export class UserInfoReq {
+    /**
+    * A username containing alphanumerical letters and -,._@+= characters.
+    */
+    'username': string;
+    /**
+    * Phone number.
+    */
+    'phoneNumber': string;
+    /**
+    * A flag indicating that receiving marketing information has been accepted.
+    */
+    'isMarketingAccepted': boolean;
+    /**
+    * A list of IDs of the groups this user belongs to.
+    */
+    'groups': Array<string>;
+    /**
+    * A flag indicating that the General Terms and Conditions has been accepted.
+    */
+    'isGtcAccepted': boolean;
+    /**
+    * The full name of the user.
+    */
+    'fullName': string;
+    /**
+    * Address.
+    */
+    'address': string;
+    /**
+    * The password when creating a new user. It will will generated when not present in the request.
+    */
+    'password': string;
+    /**
+    * The email address.
+    */
+    'email': string;
+}
+
+/**
+* This object represents a user in mbed Cloud.
+*/
+export class UserInfoResp {
+    /**
+    * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+    */
+    'status': UserInfoResp.UserInfoResp.StatusEnum;
+    /**
+    * A username containing alphanumerical letters and -,._@+= characters.
+    */
+    'username': string;
+    /**
+    * A flag indicating whether the user's email address has been verified or not.
+    */
+    'emailVerified': boolean;
+    /**
+    * The UUID of the account.
+    */
+    'accountId': string;
+    /**
+    * A timestamp of the latest change of the user password, in milliseconds.
+    */
+    'passwordChangedTime': number;
+    /**
+    * A list of IDs of the groups this user belongs to.
+    */
+    'groups': Array<string>;
+    /**
+    * Creation UTC time RFC3339.
+    */
+    'createdAt': string;
+    /**
+    * Entity name: always 'user'
+    */
+    'object': UserInfoResp.UserInfoResp.ObjectEnum;
+    /**
+    * A flag indicating that the General Terms and Conditions has been accepted.
+    */
+    'isGtcAccepted': boolean;
+    /**
+    * The email address.
+    */
+    'email': string;
+    /**
+    * A flag indicating that receiving marketing information has been accepted.
+    */
+    'isMarketingAccepted': boolean;
+    /**
+    * API resource entity version.
+    */
+    'etag': string;
+    /**
+    * The full name of the user.
+    */
+    'fullName': string;
+    /**
+    * Address.
+    */
+    'address': string;
+    'creationTimeMillis': number;
+    /**
+    * A timestamp of the user creation in the storage, in milliseconds.
+    */
+    'creationTime': number;
+    /**
+    * The password when creating a new user. It will will generated when not present in the request.
+    */
+    'password': string;
+    /**
+    * Phone number.
+    */
+    'phoneNumber': string;
+    /**
+    * The UUID of the user.
+    */
+    'id': string;
+    /**
+    * A timestamp of the latest login of the user, in milliseconds.
+    */
+    'lastLoginTime': number;
+}
+
+export namespace UserInfoResp {
+    export enum StatusEnum {
+        INVITED = <any> 'INVITED',
+        ACTIVE = <any> 'ACTIVE',
+        RESET = <any> 'RESET',
+        INACTIVE = <any> 'INACTIVE'
+    }
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+}
+export class UserInfoRespList {
+    /**
+    * The entity ID to fetch after the given one.
+    */
+    'after': string;
+    /**
+    * Flag indicating whether there is more results.
+    */
+    'hasMore': boolean;
+    /**
+    * The total number or records, if requested. It might be returned also for small lists.
+    */
+    'totalCount': number;
+    /**
+    * Entity name: always 'list'
+    */
+    'object': UserInfoRespList.UserInfoRespList.ObjectEnum;
+    /**
+    * The number of results to return, (range: 2-1000), or equals to `total_count`
+    */
+    'limit': number;
+    /**
+    * A list of entities.
+    */
+    'data': Array<UserInfoResp>;
+    /**
+    * The order of the records to return. Available values: ASC, DESC; by default ASC.
+    */
+    'order': UserInfoRespList.UserInfoRespList.OrderEnum;
+}
+
+export namespace UserInfoRespList {
+    export enum ObjectEnum {
+        User = <any> 'user',
+        ApiKey = <any> 'api_key',
+        Group = <any> 'group',
+        Account = <any> 'account',
+        AccountTemplate = <any> 'account_template',
+        CaCert = <any> 'ca_cert',
+        List = <any> 'list',
+        Error = <any> 'error'
+    }
+    export enum OrderEnum {
+        ASC = <any> 'ASC',
+        DESC = <any> 'DESC'
+    }
+}
+/**
+* This object represents a user in requests towards mbed Cloud.
+*/
+export class UserUpdateReq {
+    /**
+    * A username containing alphanumerical letters and -,._@+= characters.
+    */
+    'username': string;
+    /**
+    * Phone number.
+    */
+    'phoneNumber': string;
+    /**
+    * A flag indicating that receiving marketing information has been accepted.
+    */
+    'isMarketingAccepted': boolean;
+    /**
+    * A flag indicating that the General Terms and Conditions has been accepted.
+    */
+    'isGtcAccepted': boolean;
+    /**
+    * The full name of the user.
+    */
+    'fullName': string;
+    /**
+    * Address.
+    */
+    'address': string;
+    /**
+    * The password when creating a new user. It will will generated when not present in the request.
+    */
+    'password': string;
+    /**
+    * The email address.
+    */
+    'email': string;
+}
+
+
 export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
@@ -223,944 +1340,6 @@ export class VoidAuth implements Authentication {
     }
 }
 
-/**
- * This object represents an account creation response.
- */
-export interface AccountEnrollmentReq {
-    /**
-     * A username for the new account admin containing alphanumerical letters and -,._@+= characters.
-     */
-    "username": string;
-    /**
-     * The password for the new account admin.
-     */
-    "password": string;
-    /**
-     * Verification code.
-     */
-    "code": string;
-    /**
-     * An array of aliases.
-     */
-    "aliases"?: Array<string>;
-}
-
-/**
- * This object represents an account creation response.
- */
-export interface AccountEnrollmentResp {
-    /**
-     * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
-     */
-    "status": AccountEnrollmentRespStatusEnum;
-    /**
-     * A username containing alphanumerical letters and -,._@+= characters.
-     */
-    "username": string;
-    /**
-     * A flag indicating whether the user's email address has been verified or not.
-     */
-    "email_verified"?: boolean;
-    /**
-     * The UUID of the account.
-     */
-    "account_id": string;
-    /**
-     * A timestamp of the latest change of the user password, in milliseconds.
-     */
-    "password_changed_time"?: number;
-    /**
-     * An array of aliases.
-     */
-    "aliases": Array<string>;
-    /**
-     * A list of IDs of the groups this user belongs to.
-     */
-    "groups"?: Array<string>;
-    /**
-     * Creation UTC time RFC3339.
-     */
-    "created_at"?: string;
-    /**
-     * Entity name: always 'user'
-     */
-    "object": AccountEnrollmentRespObjectEnum;
-    /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
-     */
-    "is_gtc_accepted"?: boolean;
-    /**
-     * The email address.
-     */
-    "email": string;
-    /**
-     * A flag indicating that receiving marketing information has been accepted.
-     */
-    "is_marketing_accepted"?: boolean;
-    /**
-     * API resource entity version.
-     */
-    "etag": string;
-    /**
-     * The full name of the user.
-     */
-    "full_name"?: string;
-    /**
-     * Address.
-     */
-    "address"?: string;
-    "creationTimeMillis"?: number;
-    /**
-     * A timestamp of the user creation in the storage, in milliseconds.
-     */
-    "creation_time"?: number;
-    /**
-     * The password when creating a new user. It will will generated when not present in the request.
-     */
-    "password"?: string;
-    /**
-     * Phone number.
-     */
-    "phone_number"?: string;
-    /**
-     * The UUID of the user.
-     */
-    "id": string;
-    /**
-     * A timestamp of the latest login of the user, in milliseconds.
-     */
-    "last_login_time"?: number;
-}
-
-export type AccountEnrollmentRespStatusEnum = "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type AccountEnrollmentRespObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-/**
- * This object represents an account in requests and responses.
- */
-export interface AccountInfo {
-    /**
-     * The status of the account.
-     */
-    "status": AccountInfoStatusEnum;
-    /**
-     * The postal code part of the postal address.
-     */
-    "postal_code"?: string;
-    /**
-     * The ID of the parent account, if it has any.
-     */
-    "parentID"?: string;
-    /**
-     * Account ID.
-     */
-    "id": string;
-    /**
-     * An array of aliases.
-     */
-    "aliases": Array<string>;
-    /**
-     * Postal address line 2.
-     */
-    "address_line2"?: string;
-    /**
-     * The city part of the postal address.
-     */
-    "city"?: string;
-    /**
-     * Postal address line 1.
-     */
-    "address_line1"?: string;
-    /**
-     * The display name for the account.
-     */
-    "display_name"?: string;
-    /**
-     * The state part of the postal address.
-     */
-    "state"?: string;
-    /**
-     * API resource entity version.
-     */
-    "etag": string;
-    /**
-     * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
-     */
-    "is_provisioning_allowed": boolean;
-    "creationTimeMillis"?: number;
-    /**
-     * The company email address for this account.
-     */
-    "email"?: string;
-    /**
-     * The phone number of the company.
-     */
-    "phone_number"?: string;
-    /**
-     * The name of the company.
-     */
-    "company"?: string;
-    /**
-     * Entity name: always 'account'
-     */
-    "object": AccountInfoObjectEnum;
-    /**
-     * Time when upgraded to commercial account in UTC format RFC3339.
-     */
-    "upgraded_at"?: string;
-    /**
-     * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
-     */
-    "tier": string;
-    /**
-     * List of limits as key-value pairs if requested.
-     */
-    "limits"?: { [key: string]: string; };
-    /**
-     * The country part of the postal address.
-     */
-    "country"?: string;
-    /**
-     * Creation UTC time RFC3339.
-     */
-    "created_at"?: string;
-    /**
-     * The name of the contact person for this account.
-     */
-    "contact"?: string;
-    /**
-     * List of policies if requested.
-     */
-    "policies"?: Array<Policy>;
-    /**
-     * Account template ID.
-     */
-    "template_id"?: string;
-}
-
-export type AccountInfoStatusEnum = "ENROLLING" | "ACTIVE" | "SUSPENDED" | "DISABLED";
-export type AccountInfoObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-/**
- * This object represents a service sign-up request.
- */
-export interface AccountSignupReq {
-    /**
-     * The phone number of the user.
-     */
-    "phone_number"?: string;
-    /**
-     * A flag indicating that receiving marketing information has been accepted.
-     */
-    "is_marketing_accepted"?: boolean;
-    /**
-     * The country for the company.
-     */
-    "country": string;
-    /**
-     * The name of the company.
-     */
-    "company": string;
-    /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
-     */
-    "is_gtc_accepted"?: boolean;
-    /**
-     * The full name of the user.
-     */
-    "full_name": string;
-    /**
-     * The email address of the user.
-     */
-    "email": string;
-}
-
-/**
- * This object represents a service sign-up request.
- */
-export interface AccountSignupResp {
-    /**
-     * The email address of the user.
-     */
-    "email": string;
-    /**
-     * The UUID of the account enrolling.
-     */
-    "account_id": string;
-    /**
-     * The sign-up ID.
-     */
-    "id": string;
-}
-
-/**
- * This object represents a verify request during service sign-up process.
- */
-export interface AccountSignupVerify {
-    /**
-     * Verification code, also required while checking account aliases.
-     */
-    "code": string;
-    /**
-     * Account alias array to be checked for being unique.
-     */
-    "aliases"?: Array<string>;
-}
-
-/**
- * This object represents an account update request.
- */
-export interface AccountUpdateReq {
-    /**
-     * Postal address line 2.
-     */
-    "address_line2"?: string;
-    /**
-     * The city part of the postal address.
-     */
-    "city"?: string;
-    /**
-     * Postal address line 1.
-     */
-    "address_line1"?: string;
-    /**
-     * The display name for the account.
-     */
-    "display_name"?: string;
-    /**
-     * The country part of the postal address.
-     */
-    "country"?: string;
-    /**
-     * The name of the company.
-     */
-    "company"?: string;
-    /**
-     * Account template ID. Manageable by the root admin only.
-     */
-    "template_id"?: string;
-    /**
-     * The status of the account. Manageable by the root admin only.
-     */
-    "status"?: string;
-    /**
-     * The state part of the postal address.
-     */
-    "state"?: string;
-    /**
-     * The name of the contact person for this account.
-     */
-    "contact"?: string;
-    /**
-     * The postal code part of the postal address.
-     */
-    "postal_code"?: string;
-    /**
-     * Flag (true/false) indicating whether Factory Tool is allowed to download or not. Manageable by the root admin only.
-     */
-    "is_provisioning_allowed"?: boolean;
-    /**
-     * The ID of the parent account, if it has any.
-     */
-    "parentID"?: string;
-    /**
-     * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future. Manageable by the root admin only.
-     */
-    "tier"?: string;
-    /**
-     * The phone number of the company.
-     */
-    "phone_number"?: string;
-    /**
-     * The company email address for this account.
-     */
-    "email"?: string;
-    /**
-     * An array of aliases.
-     */
-    "aliases"?: Array<string>;
-}
-
-/**
- * This object represents an API key in requests towards mbed Cloud.
- */
-export interface ApiKeyInfoReq {
-    /**
-     * The owner of this API key, who is the creator by default.
-     */
-    "owner"?: string;
-    /**
-     * The display name for the API key.
-     */
-    "name": string;
-    /**
-     * A list of group IDs this API key belongs to.
-     */
-    "groups"?: Array<string>;
-}
-
-/**
- * This object represents an API key in mbed Cloud.
- */
-export interface ApiKeyInfoResp {
-    /**
-     * A list of group IDs this API key belongs to.
-     */
-    "groups"?: Array<string>;
-    /**
-     * The status of the API key.
-     */
-    "status"?: ApiKeyInfoRespStatusEnum;
-    /**
-     * The display name for the API key.
-     */
-    "name": string;
-    /**
-     * Creation UTC time RFC3339.
-     */
-    "created_at"?: string;
-    /**
-     * Entity name: always 'api-key'
-     */
-    "object": ApiKeyInfoRespObjectEnum;
-    /**
-     * The timestamp of the API key creation in the storage, in milliseconds.
-     */
-    "creation_time"?: number;
-    "creationTimeMillis"?: number;
-    /**
-     * API resource entity version.
-     */
-    "etag": string;
-    /**
-     * The API key.
-     */
-    "key": string;
-    /**
-     * The owner of this API key, who is the creator by default.
-     */
-    "owner"?: string;
-    /**
-     * The UUID of the API key.
-     */
-    "id": string;
-    /**
-     * The timestamp of the latest API key usage, in milliseconds.
-     */
-    "last_login_time"?: number;
-}
-
-export type ApiKeyInfoRespStatusEnum = "ACTIVE" | "INACTIVE";
-export type ApiKeyInfoRespObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-export interface ApiKeyInfoRespList {
-    /**
-     * The entity ID to fetch after the given one.
-     */
-    "after"?: string;
-    /**
-     * Flag indicating whether there is more results.
-     */
-    "has_more": boolean;
-    /**
-     * The total number or records, if requested. It might be returned also for small lists.
-     */
-    "total_count": number;
-    /**
-     * Entity name: always 'list'
-     */
-    "object": ApiKeyInfoRespListObjectEnum;
-    /**
-     * The number of results to return, (range: 2-1000), or equals to `total_count`
-     */
-    "limit": number;
-    /**
-     * A list of entities.
-     */
-    "data": Array<ApiKeyInfoResp>;
-    /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
-     */
-    "order"?: ApiKeyInfoRespListOrderEnum;
-}
-
-export type ApiKeyInfoRespListObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-export type ApiKeyInfoRespListOrderEnum = "ASC" | "DESC";
-/**
- * This object represents an API key in requests towards mbed Cloud.
- */
-export interface ApiKeyUpdateReq {
-    /**
-     * The owner of this API key, who is the creator by default.
-     */
-    "owner"?: string;
-    /**
-     * The display name for the API key.
-     */
-    "name": string;
-}
-
-/**
- * This object represents an CA Certificate in requests.
- */
-export interface CACertificateReq {
-    /**
-     * X509.v3 CA certificate in PEM or base64 encoded DER format.
-     */
-    "cert_data": string;
-    /**
-     * Certificate name.
-     */
-    "name": string;
-    /**
-     * Service name where the certificate must be used.
-     */
-    "service": CACertificateReqServiceEnum;
-    /**
-     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
-     */
-    "signature": string;
-}
-
-export type CACertificateReqServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
-/**
- * This object represents an CA Certificate in responses.
- */
-export interface CACertificateResp {
-    /**
-     * The UUID of the account.
-     */
-    "account_id": string;
-    /**
-     * Service name where the certificate is to be used.
-     */
-    "service": CACertificateRespServiceEnum;
-    /**
-     * Creation UTC time RFC3339.
-     */
-    "created_at"?: string;
-    /**
-     * Entity name: always 'ca-cert'
-     */
-    "object": CACertificateRespObjectEnum;
-    /**
-     * Subject of the certificate.
-     */
-    "subject": string;
-    /**
-     * Expiration time in UTC formatted as RFC3339.
-     */
-    "validity": string;
-    /**
-     * API resource entity version.
-     */
-    "etag": string;
-    "creationTimeMillis"?: number;
-    /**
-     * Issuer of the certificate.
-     */
-    "issuer": string;
-    /**
-     * X509.v3 CA certificate in PEM or base64 encoded DER format.
-     */
-    "cert_data": string;
-    /**
-     * Entity ID.
-     */
-    "id": string;
-    /**
-     * Certificate name.
-     */
-    "name": string;
-}
-
-export type CACertificateRespServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
-export type CACertificateRespObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-export interface CACertificateRespList {
-    /**
-     * The entity ID to fetch after the given one.
-     */
-    "after"?: string;
-    /**
-     * Flag indicating whether there is more results.
-     */
-    "has_more": boolean;
-    /**
-     * The total number or records, if requested. It might be returned also for small lists.
-     */
-    "total_count": number;
-    /**
-     * Entity name: always 'list'
-     */
-    "object": CACertificateRespListObjectEnum;
-    /**
-     * The number of results to return, (range: 2-1000), or equals to `total_count`
-     */
-    "limit": number;
-    /**
-     * A list of entities.
-     */
-    "data": Array<CACertificateResp>;
-    /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
-     */
-    "order"?: CACertificateRespListOrderEnum;
-}
-
-export type CACertificateRespListObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-export type CACertificateRespListOrderEnum = "ASC" | "DESC";
-/**
- * This object represents an error message.
- */
-export interface ErrorResponse {
-    /**
-     * Response code.
-     */
-    "code": number;
-    /**
-     * Failed input fields during request object validation.
-     */
-    "fields"?: Array<Field>;
-    /**
-     * Entity name, always 'error'.
-     */
-    "object": ErrorResponseObjectEnum;
-    /**
-     * Request ID.
-     */
-    "request_id": string;
-    /**
-     * A human readable message with detailed info.
-     */
-    "message": string;
-    /**
-     * Error type.
-     */
-    "type": ErrorResponseTypeEnum;
-}
-
-export type ErrorResponseObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-export type ErrorResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
-export interface Field {
-    "message"?: string;
-    "name"?: string;
-}
-
-/**
- * This object contains basic information about groups.
- */
-export interface GroupSummary {
-    /**
-     * The name of the group.
-     */
-    "name": string;
-    /**
-     * A timestamp of the latest group update, in milliseconds.
-     */
-    "lastUpdateTime"?: number;
-    /**
-     * The number of API keys in this group.
-     */
-    "apiKeyCount": number;
-    /**
-     * Creation UTC time RFC3339.
-     */
-    "created_at"?: string;
-    /**
-     * Entity name: always 'group'
-     */
-    "object": GroupSummaryObjectEnum;
-    /**
-     * A timestamp of the group creation in the storage, in milliseconds.
-     */
-    "creationTime"?: number;
-    /**
-     * API resource entity version.
-     */
-    "etag": string;
-    "creationTimeMillis"?: number;
-    /**
-     * The UUID of the group.
-     */
-    "id": string;
-    /**
-     * The number of users in this group.
-     */
-    "userCount": number;
-}
-
-export type GroupSummaryObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-export interface GroupSummaryList {
-    /**
-     * The entity ID to fetch after the given one.
-     */
-    "after"?: string;
-    /**
-     * Flag indicating whether there is more results.
-     */
-    "has_more": boolean;
-    /**
-     * The total number or records, if requested. It might be returned also for small lists.
-     */
-    "total_count": number;
-    /**
-     * Entity name: always 'list'
-     */
-    "object": GroupSummaryListObjectEnum;
-    /**
-     * The number of results to return, (range: 2-1000), or equals to `total_count`
-     */
-    "limit": number;
-    /**
-     * A list of entities.
-     */
-    "data": Array<GroupSummary>;
-    /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
-     */
-    "order"?: GroupSummaryListOrderEnum;
-}
-
-export type GroupSummaryListObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-export type GroupSummaryListOrderEnum = "ASC" | "DESC";
-/**
- * This object represents a password recovery request.
- */
-export interface PasswordRecoveryReq {
-    /**
-     * The new password to be set.
-     */
-    "password": string;
-    /**
-     * The hash code for the password recovery.
-     */
-    "hash": string;
-}
-
-/**
- * This object represents a password recovery request.
- */
-export interface PasswordResetReq {
-    /**
-     * Email address.
-     */
-    "email": string;
-}
-
-/**
- * This object represents a policy.
- */
-export interface Policy {
-    /**
-     * Comma separated list of actions, empty string represents all actions.
-     */
-    "action"?: string;
-    /**
-     * Resource that is protected by this policy.
-     */
-    "resource"?: string;
-    /**
-     * True or false controlling whether an action is allowed or not.
-     */
-    "allow"?: boolean;
-}
-
-/**
- * This object represents a user in requests towards mbed Cloud.
- */
-export interface UserInfoReq {
-    /**
-     * A username containing alphanumerical letters and -,._@+= characters.
-     */
-    "username": string;
-    /**
-     * Phone number.
-     */
-    "phone_number"?: string;
-    /**
-     * A flag indicating that receiving marketing information has been accepted.
-     */
-    "is_marketing_accepted"?: boolean;
-    /**
-     * A list of IDs of the groups this user belongs to.
-     */
-    "groups"?: Array<string>;
-    /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
-     */
-    "is_gtc_accepted"?: boolean;
-    /**
-     * The full name of the user.
-     */
-    "full_name"?: string;
-    /**
-     * Address.
-     */
-    "address"?: string;
-    /**
-     * The password when creating a new user. It will will generated when not present in the request.
-     */
-    "password"?: string;
-    /**
-     * The email address.
-     */
-    "email": string;
-}
-
-/**
- * This object represents a user in mbed Cloud.
- */
-export interface UserInfoResp {
-    /**
-     * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
-     */
-    "status": UserInfoRespStatusEnum;
-    /**
-     * A username containing alphanumerical letters and -,._@+= characters.
-     */
-    "username": string;
-    /**
-     * A flag indicating whether the user's email address has been verified or not.
-     */
-    "email_verified"?: boolean;
-    /**
-     * The UUID of the account.
-     */
-    "account_id": string;
-    /**
-     * A timestamp of the latest change of the user password, in milliseconds.
-     */
-    "password_changed_time"?: number;
-    /**
-     * A list of IDs of the groups this user belongs to.
-     */
-    "groups"?: Array<string>;
-    /**
-     * Creation UTC time RFC3339.
-     */
-    "created_at"?: string;
-    /**
-     * Entity name: always 'user'
-     */
-    "object": UserInfoRespObjectEnum;
-    /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
-     */
-    "is_gtc_accepted"?: boolean;
-    /**
-     * The email address.
-     */
-    "email": string;
-    /**
-     * A flag indicating that receiving marketing information has been accepted.
-     */
-    "is_marketing_accepted"?: boolean;
-    /**
-     * API resource entity version.
-     */
-    "etag": string;
-    /**
-     * The full name of the user.
-     */
-    "full_name"?: string;
-    /**
-     * Address.
-     */
-    "address"?: string;
-    "creationTimeMillis"?: number;
-    /**
-     * A timestamp of the user creation in the storage, in milliseconds.
-     */
-    "creation_time"?: number;
-    /**
-     * The password when creating a new user. It will will generated when not present in the request.
-     */
-    "password"?: string;
-    /**
-     * Phone number.
-     */
-    "phone_number"?: string;
-    /**
-     * The UUID of the user.
-     */
-    "id": string;
-    /**
-     * A timestamp of the latest login of the user, in milliseconds.
-     */
-    "last_login_time"?: number;
-}
-
-export type UserInfoRespStatusEnum = "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type UserInfoRespObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-export interface UserInfoRespList {
-    /**
-     * The entity ID to fetch after the given one.
-     */
-    "after"?: string;
-    /**
-     * Flag indicating whether there is more results.
-     */
-    "has_more": boolean;
-    /**
-     * The total number or records, if requested. It might be returned also for small lists.
-     */
-    "total_count": number;
-    /**
-     * Entity name: always 'list'
-     */
-    "object": UserInfoRespListObjectEnum;
-    /**
-     * The number of results to return, (range: 2-1000), or equals to `total_count`
-     */
-    "limit": number;
-    /**
-     * A list of entities.
-     */
-    "data": Array<UserInfoResp>;
-    /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
-     */
-    "order"?: UserInfoRespListOrderEnum;
-}
-
-export type UserInfoRespListObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
-export type UserInfoRespListOrderEnum = "ASC" | "DESC";
-/**
- * This object represents a user in requests towards mbed Cloud.
- */
-export interface UserUpdateReq {
-    /**
-     * A username containing alphanumerical letters and -,._@+= characters.
-     */
-    "username": string;
-    /**
-     * Phone number.
-     */
-    "phone_number"?: string;
-    /**
-     * A flag indicating that receiving marketing information has been accepted.
-     */
-    "is_marketing_accepted"?: boolean;
-    /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
-     */
-    "is_gtc_accepted"?: boolean;
-    /**
-     * The full name of the user.
-     */
-    "full_name"?: string;
-    /**
-     * Address.
-     */
-    "address"?: string;
-    /**
-     * The password when creating a new user. It will will generated when not present in the request.
-     */
-    "password"?: string;
-    /**
-     * The email address.
-     */
-    "email": string;
-}
-
-
 export enum AccountAdminApiApiKeys {
     Bearer,
 }
@@ -1208,7 +1387,7 @@ export class AccountAdminApi {
      * An endpoint for uploading new CA certificates.
      * @param body A CA certificate object with attributes.
      */
-    public addCertificate (body: CACertificateReq, callback?: (error:any, data:CACertificateResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public addCertificate (body: CACertificateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1255,7 +1434,7 @@ export class AccountAdminApi {
      * @param body A user object with attributes.
      * @param action Action, either &#39;create&#39; or &#39;invite&#39;.
      */
-    public createUser (body: UserInfoReq, action?: string, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public createUser (body: UserInfoReq, action?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1305,7 +1484,7 @@ export class AccountAdminApi {
      * An endpoint for deleting a CA certificate.
      * @param caCertId The ID of the CA certificate to be deleted.
      */
-    public deleteCertificate (caCertId: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deleteCertificate (caCertId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
             .replace('{' + 'ca-cert-id' + '}', String(caCertId));
         let queryParameters: any = {};
@@ -1352,7 +1531,7 @@ export class AccountAdminApi {
      * @param userId The ID of the user to be deleted.
      * @param force A flag indicating that the user is forced to be deleted.
      */
-    public deleteUser (userId: string, force?: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deleteUser (userId: string, force?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/{user-id}'
             .replace('{' + 'user-id' + '}', String(userId));
         let queryParameters: any = {};
@@ -1406,7 +1585,7 @@ export class AccountAdminApi {
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param filter Filter by service or expiring days, for example filter&#x3D;service%3Dlwm2m,expire%3D180
      */
-    public getAllCertificates (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (error:any, data:CACertificateRespList, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllCertificates (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1470,7 +1649,7 @@ export class AccountAdminApi {
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param filter Filter for the query, for example filter&#x3D;status%3Dactive,status%3Dreset.
      */
-    public getAllUsers (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (error:any, data:UserInfoRespList, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllUsers (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1530,7 +1709,7 @@ export class AccountAdminApi {
      * An endpoint for retrieving a CA certificate by ID.
      * @param caCertId The ID or name of the CA certificate to be retrieved.
      */
-    public getCertificate (caCertId: string, callback?: (error:any, data:CACertificateResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getCertificate (caCertId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
             .replace('{' + 'ca-cert-id' + '}', String(caCertId));
         let queryParameters: any = {};
@@ -1576,7 +1755,7 @@ export class AccountAdminApi {
      * An endpoint for retrieving the details of a user.
      * @param userId The ID or name of the user whose details are retrieved.
      */
-    public getUser (userId: string, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getUser (userId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/{user-id}'
             .replace('{' + 'user-id' + '}', String(userId));
         let queryParameters: any = {};
@@ -1623,7 +1802,7 @@ export class AccountAdminApi {
      * @param caCertId The ID of the CA certificate to be updated.
      * @param body A CA certificate object with attributes.
      */
-    public updateCertificate (caCertId: string, body: CACertificateReq, callback?: (error:any, data:CACertificateResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCertificate (caCertId: string, body: CACertificateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
             .replace('{' + 'ca-cert-id' + '}', String(caCertId));
         let queryParameters: any = {};
@@ -1675,7 +1854,7 @@ export class AccountAdminApi {
      * An endpoint for updating the account.
      * @param body Details of the account to be updated.
      */
-    public updateMyAccount (body: AccountUpdateReq, callback?: (error:any, data:AccountInfo, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateMyAccount (body: AccountUpdateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/accounts/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1722,7 +1901,7 @@ export class AccountAdminApi {
      * @param userId The ID of the user whose details are updated.
      * @param body A user object with attributes.
      */
-    public updateUser (userId: string, body: UserUpdateReq, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateUser (userId: string, body: UserUpdateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/{user-id}'
             .replace('{' + 'user-id' + '}', String(userId));
         let queryParameters: any = {};
@@ -1818,7 +1997,7 @@ export class DefaultApi {
      * @param invitationId Invitation ID received in email.
      * @param body Details of the user accepting the invitation.
      */
-    public activateUser (invitationId: string, body: UserUpdateReq, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public activateUser (invitationId: string, body: UserUpdateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/invitations/{invitation-id}'
             .replace('{' + 'invitation-id' + '}', String(invitationId));
         let queryParameters: any = {};
@@ -1871,7 +2050,7 @@ export class DefaultApi {
      * @param body Hash received by email and new password.
      * @param xForwardedFor 
      */
-    public applyPasswordRecovery (body: PasswordRecoveryReq, xForwardedFor?: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public applyPasswordRecovery (body: PasswordRecoveryReq, xForwardedFor?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/recover';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1919,7 +2098,7 @@ export class DefaultApi {
      * Returns information about the user being invited.
      * @param invitationId Invitation ID received in email.
      */
-    public getInvitedUser (invitationId: string, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getInvitedUser (invitationId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/invitations/{invitation-id}'
             .replace('{' + 'invitation-id' + '}', String(invitationId));
         let queryParameters: any = {};
@@ -1965,7 +2144,7 @@ export class DefaultApi {
      * Retrieving the details of a user to register.
      * @param signupId ID received while signing up.
      */
-    public getSelfEnrollingUser (signupId: string, callback?: (error:any, data:AccountSignupResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getSelfEnrollingUser (signupId: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register/{signup-id}'
             .replace('{' + 'signup-id' + '}', String(signupId));
         let queryParameters: any = {};
@@ -2012,7 +2191,7 @@ export class DefaultApi {
      * @param signupId ID received while signing up.
      * @param body Details of the account to be created.
      */
-    public registerAccount (signupId: string, body: AccountEnrollmentReq, callback?: (error:any, data:AccountEnrollmentResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public registerAccount (signupId: string, body: AccountEnrollmentReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register/{signup-id}'
             .replace('{' + 'signup-id' + '}', String(signupId));
         let queryParameters: any = {};
@@ -2065,7 +2244,7 @@ export class DefaultApi {
      * @param body Email address of the user whose password needs to be recovered.
      * @param xForwardedFor 
      */
-    public requestPasswordRecovery (body: PasswordResetReq, xForwardedFor?: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public requestPasswordRecovery (body: PasswordResetReq, xForwardedFor?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/recover';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2113,7 +2292,7 @@ export class DefaultApi {
      * Signing up for a new free tier account with email address.
      * @param body Email address of the user to be signed up.
      */
-    public signup (body: AccountSignupReq, callback?: (error:any, data:AccountSignupResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public signup (body: AccountSignupReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2160,7 +2339,7 @@ export class DefaultApi {
      * @param signupId ID received while signing up.
      * @param body Verification code received by email and aliases to be checked.
      */
-    public verifySelfEnrollment (signupId: string, body?: AccountSignupVerify, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public verifySelfEnrollment (signupId: string, body?: AccountSignupVerify, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register/{signup-id}'
             .replace('{' + 'signup-id' + '}', String(signupId));
         let queryParameters: any = {};
@@ -2250,7 +2429,7 @@ export class DeveloperApi {
      * An endpoint for creating a new API key.
      * @param body The details of the API key to be created.
      */
-    public createApiKey (body: ApiKeyInfoReq, callback?: (error:any, data:ApiKeyInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public createApiKey (body: ApiKeyInfoReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2296,7 +2475,7 @@ export class DeveloperApi {
      * An endpoint for deleting the API key.
      * @param apiKey The ID of the API key to be deleted.
      */
-    public deleteApiKey (apiKey: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deleteApiKey (apiKey: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/{apiKey}'
             .replace('{' + 'apiKey' + '}', String(apiKey));
         let queryParameters: any = {};
@@ -2347,7 +2526,7 @@ export class DeveloperApi {
      * @param filter A filter for the query, for example filter&#x3D;owner%3Duuid.
      * @param owner Owner name filter.
      */
-    public getAllApiKeys (limit?: number, after?: string, order?: string, include?: string, filter?: string, owner?: string, callback?: (error:any, data:ApiKeyInfoRespList, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllApiKeys (limit?: number, after?: string, order?: string, include?: string, filter?: string, owner?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2414,7 +2593,7 @@ export class DeveloperApi {
      * @param order The order of the records, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      */
-    public getAllGroups (limit?: number, after?: string, order?: string, include?: string, callback?: (error:any, data:GroupSummaryList, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllGroups (limit?: number, after?: string, order?: string, include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/policy-groups';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2470,7 +2649,7 @@ export class DeveloperApi {
      * An endpoint for retrieving API key details.
      * @param apiKey The ID of the API key to be retrieved.
      */
-    public getApiKey (apiKey: string, callback?: (error:any, data:ApiKeyInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getApiKey (apiKey: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/{apiKey}'
             .replace('{' + 'apiKey' + '}', String(apiKey));
         let queryParameters: any = {};
@@ -2516,7 +2695,7 @@ export class DeveloperApi {
      * Returns detailed information about the account.
      * @param include Comma separated additional data to return. Currently supported: limits
      */
-    public getMyAccountInfo (include?: string, callback?: (error:any, data:AccountInfo, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getMyAccountInfo (include?: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/accounts/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2559,7 +2738,7 @@ export class DeveloperApi {
      * Get API key details.
      * An endpoint for retrieving API key details.
      */
-    public getMyApiKey (callback?: (error:any, data:ApiKeyInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getMyApiKey (callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2598,7 +2777,7 @@ export class DeveloperApi {
      * Details of the current user.
      * An endpoint for retrieving the details of the logged in user.
      */
-    public getMyUser (callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getMyUser (callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2639,7 +2818,7 @@ export class DeveloperApi {
      * @param apiKey The ID of the API key to be updated.
      * @param body New API key attributes to be stored.
      */
-    public updateApiKey (apiKey: string, body: ApiKeyUpdateReq, callback?: (error:any, data:ApiKeyInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateApiKey (apiKey: string, body: ApiKeyUpdateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/{apiKey}'
             .replace('{' + 'apiKey' + '}', String(apiKey));
         let queryParameters: any = {};
@@ -2691,7 +2870,7 @@ export class DeveloperApi {
      * An endpoint for updating API key details.
      * @param body New API key attributes to be stored.
      */
-    public updateMyApiKey (body: ApiKeyUpdateReq, callback?: (error:any, data:ApiKeyInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateMyApiKey (body: ApiKeyUpdateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2737,7 +2916,7 @@ export class DeveloperApi {
      * An endpoint for updating the details of the logged in user.
      * @param body New attributes for the logged in user.
      */
-    public updateMyUser (body: UserUpdateReq, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateMyUser (body: UserUpdateReq, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);

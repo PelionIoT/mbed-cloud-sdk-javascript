@@ -173,6 +173,87 @@ export function paramToString(param:any) {
     return param.toString();
 }
 
+export class AListOfProductionLineCertificates_ {
+    /**
+    * \"list\"
+    */
+    'object': string;
+    /**
+    * Currently not used.
+    */
+    'totalCount': number;
+    /**
+    * Currently not used.
+    */
+    'after': string;
+    /**
+    * Currently not used.
+    */
+    'limit': number;
+    /**
+    * Production line certificates.
+    */
+    'data': Array<ProductionLineCertificate>;
+    /**
+    * Currently not used.
+    */
+    'order': string;
+}
+
+export class Body {
+    /**
+    * Comment of the production line certificate (max length is 256 characters).
+    */
+    'comment': string;
+    /**
+    * Production line certificate public key (from the Factory Tool, raw format - 65 bytes, Base64 encoded).
+    */
+    'production-line-certificate': string;
+}
+
+export class Body1 {
+    /**
+    * Updated comment for the production line certificate (max length: 256 characters).
+    */
+    'comment': string;
+}
+
+export class ProductionLineCertificate {
+    /**
+    * Comment of the production line certificate.
+    */
+    'comment': string;
+    /**
+    * UTC time of the entity creation.
+    */
+    'createdAt': string;
+    /**
+    * Entity name = \"production-line-certificate\"
+    */
+    'object': string;
+    /**
+    * Currently not used.
+    */
+    'etag': string;
+    /**
+    * SHA256 hash of the production line certificate (public signing key).
+    */
+    'publicSigningKeyHash': string;
+    /**
+    * Production line certificate active.
+    */
+    'active': boolean;
+    /**
+    * Production line certificate (public signing key).
+    */
+    'production-line-certificate': string;
+    /**
+    * Entity ID.
+    */
+    'id': string;
+}
+
+
 export interface Authentication {
     /**
     * Apply authentication settings to header and query params.
@@ -223,87 +304,6 @@ export class VoidAuth implements Authentication {
     }
 }
 
-export interface AListOfProductionLineCertificates_ {
-    /**
-     * \"list\"
-     */
-    "object"?: string;
-    /**
-     * Currently not used.
-     */
-    "total_count"?: number;
-    /**
-     * Currently not used.
-     */
-    "after"?: string;
-    /**
-     * Currently not used.
-     */
-    "limit"?: number;
-    /**
-     * Production line certificates.
-     */
-    "data"?: Array<ProductionLineCertificate>;
-    /**
-     * Currently not used.
-     */
-    "order"?: string;
-}
-
-export interface Body {
-    /**
-     * Comment of the production line certificate (max length is 256 characters).
-     */
-    "comment": string;
-    /**
-     * Production line certificate public key (from the Factory Tool, raw format - 65 bytes, Base64 encoded).
-     */
-    "production-line-certificate": string;
-}
-
-export interface Body1 {
-    /**
-     * Updated comment for the production line certificate (max length: 256 characters).
-     */
-    "comment": string;
-}
-
-export interface ProductionLineCertificate {
-    /**
-     * Comment of the production line certificate.
-     */
-    "comment"?: string;
-    /**
-     * UTC time of the entity creation.
-     */
-    "created_at"?: string;
-    /**
-     * Entity name = \"production-line-certificate\"
-     */
-    "object"?: string;
-    /**
-     * Currently not used.
-     */
-    "etag"?: string;
-    /**
-     * SHA256 hash of the production line certificate (public signing key).
-     */
-    "publicSigningKeyHash"?: string;
-    /**
-     * Production line certificate active.
-     */
-    "active"?: boolean;
-    /**
-     * Production line certificate (public signing key).
-     */
-    "production-line-certificate"?: string;
-    /**
-     * Entity ID.
-     */
-    "id"?: string;
-}
-
-
 export enum DefaultApiApiKeys {
     Bearer,
 }
@@ -351,7 +351,7 @@ export class DefaultApi {
      * Gets the list of production line certificates associated with the account. 
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3ProductionLineCertificatesGet (authorization: string, callback?: (error:any, data:AListOfProductionLineCertificates_, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProductionLineCertificatesGet (authorization: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -399,7 +399,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param mUUID Certificate mUUID
      */
-    public v3ProductionLineCertificatesMUUIDDelete (authorization: string, mUUID: string, callback?: (error:any, data:ProductionLineCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProductionLineCertificatesMUUIDDelete (authorization: string, mUUID: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates/{mUUID}'
             .replace('{' + 'mUUID' + '}', String(mUUID));
         let queryParameters: any = {};
@@ -453,7 +453,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param mUUID Certificate mUUID.
      */
-    public v3ProductionLineCertificatesMUUIDGet (authorization: string, mUUID: string, callback?: (error:any, data:ProductionLineCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProductionLineCertificatesMUUIDGet (authorization: string, mUUID: string, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates/{mUUID}'
             .replace('{' + 'mUUID' + '}', String(mUUID));
         let queryParameters: any = {};
@@ -508,7 +508,7 @@ export class DefaultApi {
      * @param mUUID Certificate mUUID
      * @param body 
      */
-    public v3ProductionLineCertificatesMUUIDPut (authorization: string, mUUID: string, body: Body1, callback?: (error:any, data:ProductionLineCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProductionLineCertificatesMUUIDPut (authorization: string, mUUID: string, body: Body1, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates/{mUUID}'
             .replace('{' + 'mUUID' + '}', String(mUUID));
         let queryParameters: any = {};
@@ -568,7 +568,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param body 
      */
-    public v3ProductionLineCertificatesPost (authorization: string, body: Body, callback?: (error:any, data:ProductionLineCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProductionLineCertificatesPost (authorization: string, body: Body, callback?: Function): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
