@@ -336,11 +336,11 @@ export interface UpdateCampaignSerializer {
     /**
      * The timestamp at which update campaign scheduled to start
      */
-    "when": Date;
+    "when"?: Date;
     /**
      * The timestamp when the update campaign finished
      */
-    "finished": Date;
+    "finished"?: Date;
     /**
      * The entity instance signature
      */
@@ -398,11 +398,11 @@ export interface UpdateCampaignStatusSerializer {
     /**
      * The timestamp at which campaign is scheduled to start
      */
-    "when": Date;
+    "when"?: Date;
     /**
      * The timestamp when the update campaign finished
      */
-    "finished": Date;
+    "finished"?: Date;
     "root_manifest_url": string;
     /**
      * The gateway client API key
