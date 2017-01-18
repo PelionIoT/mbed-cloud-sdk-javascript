@@ -5,7 +5,7 @@
     else root.config = factory();
 }(this, function() {
     return {
-        key: "<mbed Cloud Application Key>",
-        domain: "https://api.mbedcloud.com"
+        apiKey: "<mbed Cloud API Key>",
+        host: "https://api.mbedcloud.com"
     };
 }));

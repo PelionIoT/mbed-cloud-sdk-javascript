@@ -2,18 +2,18 @@ var fs = require('fs');
 var path = require('path');
 
 var Logging = require('../../lib/').Logging;
-var config = require('../config');
+var config = require('./config');
 
 var logDir = "logs";
 var logging = new Logging(config);
 
 function ensureDirectory(directory) {
-	var dirName = path.dirname(directory);
-	if (!fs.existsSync(dirName)) {
-		ensureDirectory(dirName);
-	}
-	if (fs.existsSync(directory)) return;
-	fs.mkdirSync(directory);
+    var dirName = path.dirname(directory);
+    if (!fs.existsSync(dirName)) {
+        ensureDirectory(dirName);
+    }
+    if (fs.existsSync(directory)) return;
+    fs.mkdirSync(directory);
 }
 
 function listLogs(after) {

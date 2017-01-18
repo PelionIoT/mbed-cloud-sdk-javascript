@@ -5,19 +5,19 @@ var execSync = require('child_process').execSync;
 
 var Development = require('../../lib/').Development;
 var Access = require('../../lib/').Access;
-var config = require('../config');
+var config = require('./config');
 
 var outputFile = "header.h";
 var development = new Development(config);
 var access = new Access(config);
 
 function ensureDirectory(directory) {
-	var dirName = path.dirname(directory);
-	if (!fs.existsSync(dirName)) {
-		ensureDirectory(dirName);
-	}
-	if (fs.existsSync(directory)) return;
-	fs.mkdirSync(directory);
+    var dirName = path.dirname(directory);
+    if (!fs.existsSync(dirName)) {
+        ensureDirectory(dirName);
+    }
+    if (fs.existsSync(directory)) return;
+    fs.mkdirSync(directory);
 }
 
 function generateKeys() {
@@ -71,7 +71,7 @@ function checkCertificate(successFn) {
                 output: process.stdout
             });
 
-            rl.question("Certificate already exists, overwrite? [y/N] ", function(answer) {
+            rl.question("Remote certificate already exists, overwrite? [y/N] ", function(answer) {
                 if (answer === "y") {
                     development.deleteCertificate(function(err) {
 
