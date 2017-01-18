@@ -391,6 +391,66 @@ export interface DeviceLogSerializerData {
 }
 
 export type DeviceLogSerializerDataEventTypeEnum = "update.device.device-created" | "update.device.device-updated" | "update.deployment.campaign-device-metadata-created" | "update.deployment.campaign-device-metadata-updated" | "update.deployment.campaign-device-metadata-removed" | "update.connector.connector-device.firmware-update.state" | "update.connector.connector-device.firmware-update.result";
+export interface DeviceUpdateDetail {
+    /**
+     * The owning IAM account ID
+     */
+    "account_id"?: string;
+    /**
+     * The name of the object
+     */
+    "name"?: string;
+    /**
+     * Mark this device for auto firmware update
+     */
+    "auto_update"?: boolean;
+    /**
+     * The device vendor ID
+     */
+    "vendor_id"?: string;
+    /**
+     * Up to 5 custom JSON attributes
+     */
+    "custom_attributes"?: any;
+    /**
+     * URL for the current device manifest
+     */
+    "manifest"?: string;
+    /**
+     * The device trust class
+     */
+    "trust_class"?: number;
+    /**
+     * The key used to provision the device
+     */
+    "provision_key"?: string;
+    /**
+     * The ID of the channel used to communicate with the device
+     */
+    "mechanism"?: DeviceUpdateDetailMechanismEnum;
+    /**
+     * The device class
+     */
+    "device_class"?: string;
+    /**
+     * The address of the connector to use
+     */
+    "mechanism_url"?: string;
+    /**
+     * The serial number of the device
+     */
+    "serial_number"?: string;
+    /**
+     * The device trust level
+     */
+    "trust_level"?: number;
+    /**
+     * The description of the object
+     */
+    "description"?: string;
+}
+
+export type DeviceUpdateDetailMechanismEnum = "connector" | "direct";
 
 export enum DefaultApiApiKeys {
     Bearer,
@@ -921,7 +981,7 @@ export class DefaultApi {
      * @param deviceId The ID of the device
      * @param body Device object to update
      */
-    public deviceUpdate (deviceId: string, body: DeviceDetail, callback?: (error:any, data:DeviceDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceUpdate (deviceId: string, body: DeviceUpdateDetail, callback?: (error:any, data:DeviceDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
