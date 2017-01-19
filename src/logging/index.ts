@@ -17,37 +17,22 @@
 
 import pg = require("polygoat");
 import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { mapListResponse } from "../helpers/data";
-import { Api } from "./api";
-import { DeviceLogType } from "./types";
-import { DeviceLogSerializer, DeviceLogSerializerData as apiDeviceLogType } from "../_api/device_catalog";
+import { mapListResponse, encodeInclude } from "../helpers/data";
+import { Endpoints } from "./endpoints";
+import { DeviceLog } from "./deviceLog";
 
 /**
- * Root Logging class
+ * Root Logging API
  */
-export class Logging {
+export class LoggingApi {
 
-    private _api: Api;
+    static _endpoints: Endpoints;
 
     /**
      * @param options connection options
      */
     constructor(options: ConnectionOptions) {
-        this._api = new Api(options);
-    }
-
-    private mapDeviceLog(from: apiDeviceLogType): DeviceLogType {
-        return {
-            changes:                 from.changes,
-            data:                    from.data,
-            eventDate:               from.date_time,
-            description:             from.description,
-            deviceId:                from.device_id,
-            logId:                   from.device_log_id,
-            eventType:               from.event_type,
-            eventTypeDescription:    from.event_type_description,
-            stateChanged:            from.state_change
-        };
+        LoggingApi._endpoints = new Endpoints(options);
     }
 
     /**
@@ -55,14 +40,14 @@ export class Logging {
      * @param options list options
      * @returns Promise of listResponse
      */
-    public listDeviceLogs(options?: ListOptions): Promise<ListResponse<DeviceLogType>>;
+    public listDeviceLogs(options?: ListOptions): Promise<ListResponse<DeviceLog>>;
     /**
      * List device logs
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listDeviceLogs(options?: ListOptions, callback?: (err: any, data?: ListResponse<DeviceLogType>) => any): void;
-    public listDeviceLogs(options?:any, callback?: (err: any, data?: ListResponse<DeviceLogType>) => any): Promise<ListResponse<DeviceLogType>> {
+    public listDeviceLogs(options?: ListOptions, callback?: (err: any, data?: ListResponse<DeviceLog>) => any): void;
+    public listDeviceLogs(options?:any, callback?: (err: any, data?: ListResponse<DeviceLog>) => any): Promise<ListResponse<DeviceLog>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -70,14 +55,14 @@ export class Logging {
         }
         let { limit, order, after, filter, include } = options;
         return pg(done => {
-            this._api.catalog.deviceLogList(limit, order, after, filter, include, (error, data:DeviceLogSerializer) => {
+            LoggingApi._endpoints.catalog.deviceLogList(limit, order, after, filter, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {
-                    return this.mapDeviceLog(log);
+                    return DeviceLog.map(log);
                 });
 
-                done(null, mapListResponse<DeviceLogType>(data, list));
+                done(null, mapListResponse<DeviceLog>(data, list));
             });
         }, callback);
     }
@@ -87,19 +72,19 @@ export class Logging {
      * @param options.id device log ID
      * @returns Promise of device log
      */
-    public getDeviceLog(options: { id: string }): Promise<DeviceLogType>;
+    public getDeviceLog(options: { id: string }): Promise<DeviceLog>;
     /**
      * Get a single device log
      * @param options.id device log ID
-     * @param callback A function that is passed the return arguments (error, deviceLog)
+     * @param callback A function that is passed the return arguments (error, device log)
      */
-    public getDeviceLog(options: { id: string }, callback: (err: any, data?: DeviceLogType) => any): void;
-    public getDeviceLog(options: { id: string }, callback?: (err: any, data?: DeviceLogType) => any): Promise<DeviceLogType> {
+    public getDeviceLog(options: { id: string }, callback: (err: any, data?: DeviceLog) => any): void;
+    public getDeviceLog(options: { id: string }, callback?: (err: any, data?: DeviceLog) => any): Promise<DeviceLog> {
         let { id } = options;
         return pg(done => {
-            this._api.catalog.deviceLogRetrieve(id, (error, data:apiDeviceLogType) => {
+            LoggingApi._endpoints.catalog.deviceLogRetrieve(id, (error, data) => {
                 if (error) return done(error);
-                let log = this.mapDeviceLog(data);
+                let log = DeviceLog.map(data);
                 done(null, log);
             });
         }, callback);

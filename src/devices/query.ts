@@ -15,17 +15,31 @@
 * limitations under the License.
 */
 
-import { Api } from "./api";
 import { QueryType } from "./types";
+import { DeviceQueryDetail as apiQuery } from "../_api/device_query_service";
 
+/*
+ * Query
+ */
 export class Query {
 
-	constructor(private _api: Api, options: QueryType) {
+    constructor(options: QueryType) {
         for(var key in options) {
             this[key] = options[key];
         }
+    }
 
-		this._api = null; //deleteme
+    static map(from: apiQuery): Query {
+        let type:QueryType = {
+            createdAt:      from.created_at,
+            description:    from.description,
+            id:             from.id,
+            name:           from.name,
+            query:          from.query,
+            updatedAt:      from.updated_at
+        };
+
+        return new Query(type);
     }
 }
 export interface Query extends QueryType {}

@@ -3,8 +3,8 @@ var path = require('path');
 var readline = require('readline');
 var execSync = require('child_process').execSync;
 
-var Development = require('../../lib/').Development;
-var Access = require('../../lib/').Access;
+var Development = require('../../lib/').DevelopmentApi;
+var Access = require('../../lib/').AccessApi;
 var config = require('./config');
 
 var outputFile = "header.h";
@@ -49,7 +49,7 @@ function addCertificate(publicKey, successFn) {
 
         if (err) {
             console.log(err);
-            return
+            return;
         }
 
         console.log(`Certificate added with raw public key: ${cert.publicKey}`);
@@ -93,11 +93,11 @@ function checkCertificate(successFn) {
 
 
 function getAccountDetails(successFn) {
-    access.getAccountDetails(function(err, account) {
+    access.getAccount(function(err, account) {
 
         if (err) {
             console.log(err);
-            return
+            return;
         }
 
         successFn(account);

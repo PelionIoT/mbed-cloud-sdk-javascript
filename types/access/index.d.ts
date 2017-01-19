@@ -1,30 +1,51 @@
 import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { User } from "./user";
+import { Endpoints } from "./endpoints";
+import { Account } from "./account";
 import { Certificate } from "./certificate";
+import { User } from "./user";
 /**
-* Root Account object
+* Root Access API
 */
-export declare class Access {
-    private _api;
+export declare class AccessApi {
+    static _endpoints: Endpoints;
     /**
-    * @param options Options object
+    * @param options connection options
     */
     constructor(options: ConnectionOptions);
-    private mapUser(from);
     /**
-     * List device logs
-     * @param options list options
-     * @returns Promise of listResponse
+     * Get account details
+     * @returns Promise of account
      */
-    getAccountDetails(): Promise<any>;
+    getAccount(): Promise<Account>;
     /**
-     * List device logs
-     * @param options list options
-     * @param callback A function that is passed the return arguments (error, listResponse)
+     * Get account details
+     * @param callback A function that is passed the return arguments (error, account)
      */
-    getAccountDetails(callback: (err: any, data?: any) => any): void;
+    getAccount(callback: (err: any, data?: Account) => any): void;
+    /**
+    * List users
+    * @param options list options
+    * @returns Promise of listResponse
+    */
     listUsers(options?: ListOptions): Promise<ListResponse<User>>;
-    listUsers(options?: ListOptions, callback?: (err: any, data?: ListResponse<User>) => void): any;
-    listCertificates(options?: ListOptions): Promise<Certificate[]>;
-    listCertificates(options?: ListOptions, callback?: (err: any, data?: Certificate[]) => void): any;
+    /**
+    * List users
+    * @param options list options
+    * @param callback A function that is passed the arguments (error, listResponse)
+    */
+    listUsers(options?: ListOptions, callback?: (err: any, data?: ListResponse<User>) => any): any;
+    /**
+    * List certificates
+    * @param options list options
+    * @param callback A function that is passed the arguments (error, listResponse)
+    * @returns Promise of listResponse
+    */
+    listCertificates(options?: ListOptions): Promise<ListResponse<Certificate>>;
+    /**
+    * List certificates
+    * @param options list options
+    * @param callback A function that is passed the arguments (error, listResponse)
+    * @returns Promise of listResponse
+    */
+    listCertificates(options?: ListOptions, callback?: (err: any, data?: ListResponse<Certificate>) => any): any;
 }

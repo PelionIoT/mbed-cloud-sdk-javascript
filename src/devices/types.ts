@@ -133,23 +133,23 @@ export interface QueryType {
     /**
     * The name of the query
     */
-    name: string;
+    name?: string;
     /**
     * The device query
     */
-    query: string;
+    query?: string;
     /**
     * The description of the object
     */
-    description: string;
+    description?: string;
     /**
     * The time the object was created
     */
-    createdAt: Date;
+    createdAt?: Date;
     /**
     * The time the object was updated
     */
-    updatedAt: Date;
+    updatedAt?: Date;
 }
 
 export interface WebhookType {
@@ -160,5 +160,5 @@ export interface WebhookType {
     /**
     * Headers (key/value) that must be sent with the request
     */
-    headers?: {};
+    headers?: { [key: string]: string; };
 }

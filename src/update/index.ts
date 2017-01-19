@@ -16,47 +16,78 @@
 */
 
 import pg = require("polygoat");
-import { ConnectionOptions, ListOptions } from "../helpers/interfaces";
-import { Api } from "./api";
+import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
+import { mapListResponse, encodeInclude } from "../helpers/data";
+import { Endpoints } from "./endpoints";
+import { FirmwareImage } from "./firmwareImage";
+import { FirmwareManifest } from "./firmwareManifest";
 
 /**
-* Root Update object
+* Root Update API
 */
-export class Update {
+export class UpdateApi {
 
-    private _api: Api;
+    static _endpoints: Endpoints;
 
     /**
-    * @param options Options object
+    * @param options connection options
     */
     constructor(options: ConnectionOptions) {
-        this._api = new Api(options);
+        UpdateApi._endpoints = new Endpoints(options);
     }
 
     /**
-    * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
-    */
-    public listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: any) => void): Promise<any> {
+     * List firmware images
+     * @param options list options
+     * @returns Promise of listResponse
+     */
+    public listFirmwareImages(options?: ListOptions): Promise<ListResponse<FirmwareImage>>;
+    /**
+     * List firmware images
+     * @param options list options
+     * @param callback A function that is passed the return arguments (error, listResponse)
+     */
+    public listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareImage>) => any): void;
+    public listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareImage>) => any): Promise<ListResponse<FirmwareImage>> {
         options = options || {};
         let { limit, order, after, include } = options;
         return pg(done => {
-            this._api.firmware.firmwareImageList(limit, order, after, include, (error, data) => {
+            UpdateApi._endpoints.firmware.firmwareImageList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
-                done(null, data);
+
+                let list = data.data.map(log => {
+                    return FirmwareImage.map(log);
+                });
+
+                done(null, mapListResponse<FirmwareImage>(data, list));
             });
         }, callback);
     }
 
-    public listManifests(options?: ListOptions, callback?: (err: any, data?: any) => void): Promise<any> {
+    /**
+     * List firmware manifests
+     * @param options list options
+     * @returns Promise of listResponse
+     */
+    public listFirmwareManifests(options?: ListOptions): Promise<ListResponse<FirmwareManifest>>;
+    /**
+     * List manifests
+     * @param options list options
+     * @param callback A function that is passed the return arguments (error, listResponse)
+     */
+    public listFirmwareManifests(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareManifest>) => any): void;
+    public listFirmwareManifests(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareManifest>) => any): Promise<ListResponse<FirmwareManifest>> {
         options = options || {};
         let { limit, order, after, include } = options;
         return pg(done => {
-            this._api.firmware.firmwareManifestList(limit, order, after, include, (error, data) => {
+            UpdateApi._endpoints.firmware.firmwareManifestList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
-                done(null, data);
+
+                let list = data.data.map(log => {
+                    return FirmwareManifest.map(log);
+                });
+
+                done(null, mapListResponse<FirmwareManifest>(data, list));
             });
         }, callback);
     }

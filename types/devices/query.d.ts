@@ -1,8 +1,8 @@
-import { Api } from "./api";
 import { QueryType } from "./types";
+import { DeviceQueryDetail as apiQuery } from "../_api/device_query_service";
 export declare class Query {
-    private _api;
-    constructor(_api: Api, options: QueryType);
+    constructor(options: QueryType);
+    static map(from: apiQuery): Query;
 }
 export interface Query extends QueryType {
 }

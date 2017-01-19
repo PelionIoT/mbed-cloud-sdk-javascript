@@ -1,14 +1,8 @@
-import { Api } from "./api";
-export interface UserOptions {
-    account_id: string;
-    status: string;
-    username: string;
-    full_name: string;
-    id: string;
-}
+import { UserType } from "./types";
+import { UserInfoResp as apiUser } from "../_api/iam";
 export declare class User {
-    private _api;
-    constructor(_api: Api, options: UserOptions);
+    constructor(options: UserType);
+    static map(from: apiUser): User;
 }
-export interface User extends UserOptions {
+export interface User extends UserType {
 }

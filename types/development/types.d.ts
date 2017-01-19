@@ -1,4 +1,4 @@
-export interface CertificateType {
+export interface DeveloperCertificateType {
     /**
      * UTC time of the entity creation.
      */

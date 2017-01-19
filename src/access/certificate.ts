@@ -15,13 +15,34 @@
 * limitations under the License.
 */
 
-import { Api } from "./api";
+import { CertificateType } from "./types";
+import { CACertificateResp as apiCertificate } from "../_api/iam";
 
+/*
+ * Certificate
+ */
 export class Certificate {
-    constructor(private _api: Api, options: any) {
+
+    constructor(options: CertificateType) {
         for(var key in options) {
             this[key] = options[key];
         }
-        this._api = null //deleteme
+    }
+
+    static map(from: apiCertificate): Certificate {
+        let type:CertificateType = {
+            accountId:    from.account_id,
+            createdAt:    from.created_at,
+            data:         from.cert_data,
+            id:           from.id,
+            issuer:       from.issuer,
+            name:         from.name,
+            service:      from.service,
+            subject:      from.subject,
+            validity:     from.validity
+        };
+
+        return new Certificate(type);
     }
 }
+export interface Certificate extends CertificateType {}

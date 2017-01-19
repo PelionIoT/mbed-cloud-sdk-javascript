@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 
-var Logging = require('../../lib/').Logging;
+var Logging = require('../../lib/').LoggingApi;
 var config = require('./config');
 
 var logDir = "logs";
@@ -21,6 +21,12 @@ function listLogs(after) {
         limit: 50,
         after: after
     }, (err, response) => {
+
+        if (err) {
+            console.log(err);
+            return;
+        }
+
         response.data.forEach(deviceLog => {
 
         	var fileName = path.format({

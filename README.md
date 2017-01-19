@@ -47,3 +47,11 @@ Simply use the default ```gulp``` task to build the SDK and docs
 ```bash
 > npm run gulp
 ```
+
+### Watching
+
+To continually watch for changes, use the gulp `watch` task
+
+```bash
+> npm run gulp watch
+```

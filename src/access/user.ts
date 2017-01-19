@@ -15,22 +15,42 @@
 * limitations under the License.
 */
 
-import { Api } from "./api";
+import { UserType } from "./types";
+import { UserInfoResp as apiUser } from "../_api/iam";
 
-export interface UserOptions {
-    account_id: string;
-    status: string;
-    username: string;
-    full_name: string;
-    id: string;
-}
-
+/*
+ * User
+ */
 export class User {
-    constructor(private _api: Api, options: UserOptions) {
+
+    constructor(options: UserType) {
         for(var key in options) {
             this[key] = options[key];
         }
-        this._api = null //deleteme
+    }
+
+    static map(from: apiUser): User {
+        let type:UserType = {
+            accountId:            from.account_id,
+            address:              from.address,
+            createdAt:            from.created_at,
+            creationTime:         from.creation_time,
+            email:                from.email,
+            emailVerified:        from.email_verified,
+            fullName:             from.full_name,
+            groups:               from.groups,
+            gtcAccepted:          from.is_gtc_accepted,
+            id:                   from.id,
+            lastLoginTime:        from.last_login_time,
+            marketingAccepted:    from.is_marketing_accepted,
+            password:             from.password,
+            passwordChangedTime:  from.password_changed_time,
+            phoneNumber:          from.phone_number,
+            status:               from.status,
+            username:             from.username
+        };
+
+        return new User(type);
     }
 }
-export interface User extends UserOptions {}
+export interface User extends UserType {}

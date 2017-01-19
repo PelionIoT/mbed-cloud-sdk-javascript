@@ -1,19 +1,38 @@
-import { ConnectionOptions, ListOptions } from "../helpers/interfaces";
+import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
+import { Endpoints } from "./endpoints";
+import { FirmwareImage } from "./firmwareImage";
+import { FirmwareManifest } from "./firmwareManifest";
 /**
-* Root Update object
+* Root Update API
 */
-export declare class Update {
-    private _api;
+export declare class UpdateApi {
+    static _endpoints: Endpoints;
     /**
-    * @param options Options object
+    * @param options connection options
     */
     constructor(options: ConnectionOptions);
     /**
-    * Gets a list of currently registered endpoints
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
-    */
-    listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: any) => void): Promise<any>;
-    listManifests(options?: ListOptions, callback?: (err: any, data?: any) => void): Promise<any>;
+     * List firmware images
+     * @param options list options
+     * @returns Promise of listResponse
+     */
+    listFirmwareImages(options?: ListOptions): Promise<ListResponse<FirmwareImage>>;
+    /**
+     * List firmware images
+     * @param options list options
+     * @param callback A function that is passed the return arguments (error, listResponse)
+     */
+    listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareImage>) => any): void;
+    /**
+     * List firmware manifests
+     * @param options list options
+     * @returns Promise of listResponse
+     */
+    listFirmwareManifests(options?: ListOptions): Promise<ListResponse<FirmwareManifest>>;
+    /**
+     * List manifests
+     * @param options list options
+     * @param callback A function that is passed the return arguments (error, listResponse)
+     */
+    listFirmwareManifests(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareManifest>) => any): void;
 }

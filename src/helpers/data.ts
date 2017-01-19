@@ -33,6 +33,23 @@ export function decodeBase64(data) {
     return result;
 }
 
+export function encodeInclude(include) {
+    if (!include || !include.length) return null;
+    return include.map(camelToSnake).join(",");
+}
+
+export function snakeToCamel(snake) {
+    return snake.replace(/(\_\w)/g, function(match) {
+        return match[1].toUpperCase();
+    });
+}
+
+export function camelToSnake(camel) {
+    return camel.replace(/([A-Z]+)/g, function(match) {
+        return "-" + match.toLowerCase();
+    });
+}
+
 export function mapListResponse<T>(from: any, data:T[]): ListResponse<T> {
     let to: ListResponse<T> = {};
 

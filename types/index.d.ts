@@ -1,3 +1,5 @@
-export { Access } from "./access";
-export { Development } from "./development";
-export { Logging } from "./logging";
+export { AccessApi } from "./access";
+export { DevelopmentApi } from "./development";
+export { DevicesApi } from "./devices";
+export { LoggingApi } from "./logging";
+export { UpdateApi } from "./update";

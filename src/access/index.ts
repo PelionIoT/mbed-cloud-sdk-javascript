@@ -17,80 +17,70 @@
 
 import pg = require("polygoat");
 import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { mapListResponse } from "../helpers/data";
-import { Api } from "./api";
-import { User, UserOptions } from "./user";
+import { mapListResponse, encodeInclude } from "../helpers/data";
+import { Endpoints } from "./endpoints";
+import { Account } from "./account";
 import { Certificate } from "./certificate";
-import { AccountInfo, UserInfoResp, UserInfoRespList } from "../_api/iam";
+import { User } from "./user";
 
 /**
-* Root Account object
+* Root Access API
 */
-export class Access {
+export class AccessApi {
 
-    private _api: Api;
+    static _endpoints: Endpoints;
 
     /**
-    * @param options Options object
+    * @param options connection options
     */
     constructor(options: ConnectionOptions) {
-        this._api = new Api(options);
-    }
-
-    private mapUser(from: UserInfoResp): User {
-        let to:UserOptions = {
-            account_id: from.account_id,
-            full_name: from.full_name,
-            id: from.id,
-            status: from.status,
-            username: from.username
-        };
-
-        return new User(this._api, to);
+        AccessApi._endpoints = new Endpoints(options);
     }
 
     /**
-     * List device logs
-     * @param options list options
-     * @returns Promise of listResponse
+     * Get account details
+     * @returns Promise of account
      */
-    public getAccountDetails(): Promise<any>;
+    public getAccount(): Promise<Account>;
     /**
-     * List device logs
-     * @param options list options
-     * @param callback A function that is passed the return arguments (error, listResponse)
+     * Get account details
+     * @param callback A function that is passed the return arguments (error, account)
      */
-    public getAccountDetails(callback: (err: any, data?: any) => any): void;
-    public getAccountDetails(callback?: (err: any, data?: any) => any): Promise<any> {
+    public getAccount(callback: (err: any, data?: Account) => any): void;
+    public getAccount(callback?: (err: any, data?: Account) => any): Promise<Account> {
         return pg(done => {
-            this._api.developer.getMyAccountInfo(null, (error, data:AccountInfo) => {
+            AccessApi._endpoints.developer.getMyAccountInfo(null, (error, data) => {
                 if (error) return done(error);
-                done(null, data);
+                done(null, Account.map(data));
             });
         }, callback);
     }
 
-    public listUsers(options?: ListOptions): Promise<ListResponse<User>>;
-    public listUsers(options?: ListOptions, callback?: (err: any, data?: ListResponse<User>) => void);
     /**
-    * Gets a list of currently registered endpoints
-    * @param options Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
+    * List users
+    * @param options list options
+    * @returns Promise of listResponse
     */
-    public listUsers(options?: any, callback?: (err: any, data?: ListResponse<User>) => void): Promise<ListResponse<User>> {
+    public listUsers(options?: ListOptions): Promise<ListResponse<User>>;
+    /**
+    * List users
+    * @param options list options
+    * @param callback A function that is passed the arguments (error, listResponse)
+    */
+    public listUsers(options?: ListOptions, callback?: (err: any, data?: ListResponse<User>) => any);
+    public listUsers(options?: any, callback?: (err: any, data?: ListResponse<User>) => any): Promise<ListResponse<User>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let {limit, after, order, include, filter} = options;
+        let { limit, after, order, include, filter } = options;
         return pg(done => {
-            this._api.admin.getAllUsers(limit, after, order, include, filter, (error, data:UserInfoRespList) => {
+            AccessApi._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), filter, (error, data) => {
                 if (error) return done(error);
 
                 let users = data.data.map(user => {
-                    return this.mapUser(user);
+                    return User.map(user);
                 });
 
                 done(null, mapListResponse(data, users));
@@ -98,28 +88,35 @@ export class Access {
         }, callback);
     }
 
-    public listCertificates(options?: ListOptions): Promise<Certificate[]>;
-    public listCertificates(options?: ListOptions, callback?: (err: any, data?: Certificate[]) => void);
     /**
-    * Gets a list of certificates
-    * @param type Filters endpoints by endpoint-type
-    * @param callback A function that is passed the arguments (error, endpoints)
-    * @returns Optional Promise of currently registered endpoints
+    * List certificates
+    * @param options list options
+    * @param callback A function that is passed the arguments (error, listResponse)
+    * @returns Promise of listResponse
     */
-    public listCertificates(options?: any, callback?: (err: any, data?: Certificate[]) => void): Promise<Certificate[]> {
+    public listCertificates(options?: ListOptions): Promise<ListResponse<Certificate>>;
+    /**
+    * List certificates
+    * @param options list options
+    * @param callback A function that is passed the arguments (error, listResponse)
+    * @returns Promise of listResponse
+    */
+    public listCertificates(options?: ListOptions, callback?: (err: any, data?: ListResponse<Certificate>) => any);
+    public listCertificates(options?: any, callback?: (err: any, data?: ListResponse<Certificate>) => any): Promise<ListResponse<Certificate>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let {limit, after, order, include, filter} = options;
+        let { limit, after, order, include, filter } = options;
         return pg(done => {
-            this._api.admin.getAllCertificates(limit, after, order, include, filter, (error, data) => {
+            AccessApi._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), filter, (error, data) => {
                 if (error) return done(error);
+
                 var certificates = data.data.map(certificate => {
-                    return new Certificate(this._api, certificate);
+                    return Certificate.map(certificate);
                 });
-                done(null, certificates);
+                done(null, mapListResponse(data, certificates));
             });
         }, callback);
     }
@@ -138,11 +135,6 @@ export class Access {
 //defAPI.setApiKey
 //defAPI.registerAccount
 //defAPI.signup
-
-//CURRENT_USER
-//devAPI.getMyAccountinfo
-//devAPI.getMyApiKey
-//devAPI.getMyUser
 
 //KEYS
 //devAPI.createApiKey
@@ -166,6 +158,3 @@ export class Access {
 //adAPI.getCertificate (details)
 //adAPI.addCertificate
 //adAPI.deleteCertificate
-
-//??????
-//rootAPI.useQuerystring

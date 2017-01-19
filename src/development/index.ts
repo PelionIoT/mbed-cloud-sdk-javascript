@@ -17,92 +17,83 @@
 
 import pg = require("polygoat");
 import { ConnectionOptions } from "../helpers/interfaces";
-import { Api } from "./api";
-import { CertificateType } from "./types";
-import { DeveloperCertificate as apiCertificateType } from "../_api/developer_certificate";
+import { Endpoints } from "./endpoints";
+import { DeveloperCertificate } from "./developerCertificate";
 
 /**
- * Root Development object
+ * Root Development API
  */
-export class Development {
+export class DevelopmentApi {
 
-    private _api: Api;
+    static _endpoints: Endpoints;
 
     /**
      * @param options connection options
      */
     constructor(options: ConnectionOptions) {
-        this._api = new Api(options);
-    }
-
-    private mapCertificate(from: apiCertificateType): CertificateType {
-        return {
-            createdAt:    from.created_at,
-            id:           from.id,
-            publicKey:    from.pub_key
-        };
+        DevelopmentApi._endpoints = new Endpoints(options);
     }
 
     /**
-     * Adds a developer certificate to the account (only one per account allowed).
-     * @param options.publicKey The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
+     * Adds a developer certificate to the account (only one per account allowed)
+     * @param options.publicKey The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve
      * @returns Promise containing created certificate
      */
-    public addCertificate(options: { publicKey: string }): Promise<CertificateType>;
+    public addCertificate(options: { publicKey: string }): Promise<DeveloperCertificate>;
     /**
      * Adds a developer certificate to the account (only one per account allowed).
      * @param options.publicKey The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public addCertificate(options: { publicKey: string }, callback: (err: any, data?: CertificateType) => any);
-    public addCertificate(options: { publicKey: string }, callback?: (err: any, data?: CertificateType) => any): Promise<CertificateType> {
+    public addCertificate(options: { publicKey: string }, callback: (err: any, data?: DeveloperCertificate) => any);
+    public addCertificate(options: { publicKey: string }, callback?: (err: any, data?: DeveloperCertificate) => any): Promise<DeveloperCertificate> {
         let body = {
             pub_key: options.publicKey
         };
         return pg(done => {
-            this._api.development.v3DeveloperCertificatePost("", body, (error, data) => {
+            DevelopmentApi._endpoints.development.v3DeveloperCertificatePost("", body, (error, data) => {
                 if (error) return done(error);
 
-                let cert = this.mapCertificate(data);
+                let cert = DeveloperCertificate.map(data);
                 done(null, cert);
             });
         }, callback);
     }
 
     /**
-     * Gets the current developer certificate of the account.
+     * Gets the current developer certificate of the account
      * @returns Promise containing current certificate
      */
-    public getCertificate(): Promise<CertificateType>;
+    public getCertificate(): Promise<DeveloperCertificate>;
     /**
-     * Gets the current developer certificate of the account.
+     * Gets the current developer certificate of the account
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public getCertificate(callback: (err: any, data?: CertificateType) => any);
-    public getCertificate(callback?: (err: any, data?: CertificateType) => any): Promise<CertificateType> {
+    public getCertificate(callback: (err: any, data?: DeveloperCertificate) => any);
+    public getCertificate(callback?: (err: any, data?: DeveloperCertificate) => any): Promise<DeveloperCertificate> {
         return pg(done => {
-            this._api.development.v3DeveloperCertificateGet("", (error, data) => {
+            DevelopmentApi._endpoints.development.v3DeveloperCertificateGet("", (error, data) => {
                 if (error) return done(error);
 
-                let cert = this.mapCertificate(data);
+                let cert = DeveloperCertificate.map(data);
                 done(null, cert);
             });
         }, callback);
     }
 
     /**
-     * Deletes the account's developer certificate (only one per account allowed).
+     * Deletes the account's developer certificate (only one per account allowed)
      * @returns empty Promise
      */
     public deleteCertificate(): Promise<void>;
     /**
-     * Deletes the account's developer certificate (only one per account allowed).
+     * Deletes the account's developer certificate (only one per account allowed)
      * @param callback A function that is passed the return arguments (error, void)
      */
     public deleteCertificate(callback?: (err: any, data?: void) => any);
     public deleteCertificate(callback?: (err: any, data?: void) => any): Promise<void> {
         return pg(done => {
-            this._api.development.v3DeveloperCertificateDelete("", (error, data) => {
+            DevelopmentApi._endpoints.development.v3DeveloperCertificateDelete("", (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });

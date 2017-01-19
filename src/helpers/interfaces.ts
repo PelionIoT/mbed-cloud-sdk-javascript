@@ -17,15 +17,20 @@
 
 export interface ConnectionOptions {
     /**
-    * Access Key for your mbed Cloud account
+    * API Key for your mbed Cloud account
     */
-    accessKey: string;
+    apiKey: string;
     /**
     * URL for mbed Cloud API
     */
     host?: string;
 }
 
+/**
+ * Possible optional fields to request when listing
+ */
+export type IncludeEnum = "totalCount";
+export type OrderEnum = "ASC" | "DESC";
 export interface ListOptions {
     /*
      * how many objects to retrieve in the page
@@ -34,15 +39,15 @@ export interface ListOptions {
     /*
      * ASC or DESC
      */
-    order?: string;
+    order?: OrderEnum;
     /*
      * the ID of the the item after which to retrieve the next page
      */
     after?: string;
     /*
-     * ASC or DESC
+     * Optional fields to include
      */
-    include?: string;
+    include?: IncludeEnum[];
     /*
      * URL encoded query string parameter to filter returned data
      */
@@ -69,7 +74,7 @@ export interface ListResponse<T> {
     /**
     * Order of returned records
     */
-    order?: string;
+    order?: OrderEnum;
     /**
     * Devices
     */

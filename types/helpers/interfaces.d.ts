@@ -1,18 +1,23 @@
 export interface ConnectionOptions {
     /**
-    * Access Key for your mbed Cloud account
+    * API Key for your mbed Cloud account
     */
-    accessKey: string;
+    apiKey: string;
     /**
     * URL for mbed Cloud API
     */
     host?: string;
 }
+/**
+ * Possible optional fields to request when listing
+ */
+export declare type IncludeEnum = "totalCount";
+export declare type OrderEnum = "ASC" | "DESC";
 export interface ListOptions {
     limit?: number;
-    order?: string;
+    order?: OrderEnum;
     after?: string;
-    include?: string;
+    include?: IncludeEnum[];
     filter?: string;
 }
 export interface ListResponse<T> {
@@ -35,7 +40,7 @@ export interface ListResponse<T> {
     /**
     * Order of returned records
     */
-    order?: string;
+    order?: OrderEnum;
     /**
     * Devices
     */

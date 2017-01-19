@@ -1,73 +1,108 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
 import { ResourceType } from "./types";
-import { Api } from "./api";
-export interface ResourceValueOptions {
-    /**
-    * If true, the response will come only from the cache
-    */
-    cacheOnly?: boolean;
-    /**
-    * If true, mbed Device Connector will not wait for a response
-    * Creates a CoAP Non-Confirmable requests
-    * If false, a response is expected and the CoAP request is confirmable
-    * (default: false)
-    */
-    noResp?: boolean;
-}
+import { Resource as apiResourceType } from "../_api/mds";
 /**
-* Resource object
-*/
+ * Resource
+ */
 export declare class Resource extends EventEmitter {
-    private _api;
     private _deviceId;
     /**
-    * Resource notification event
-    * @event
-    */
+     * Resource notification event
+     * @event
+     */
     static EVENT_NOTIFICATION: string;
-    constructor(_api: Api, _deviceId: string, options: ResourceType);
-    getValue(options?: ResourceValueOptions): Promise<string | Object>;
-    getValue(options?: ResourceValueOptions, callback?: (err: any, data?: string) => void): any;
+    constructor(_deviceId: string, options: ResourceType);
+    static map(from: apiResourceType, deviceId: string): Resource;
     /**
-    * Puts the value of a resource
-    * @param value The value of the resource
-    * @param noResp If true, mbed Device Connector will not wait for a response
-    * @param callback A function that is passed any error
-    * @returns Optional Promise containing any error
-    */
-    putValue(options: {
+     * Gets the value of a resource
+     * @param options.cacheOnly If true, the response will come only from the cache
+     * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
+     * @returns Promise of resource value when long polling or an asyncId
+     */
+    getValue(options?: {
+        cacheOnly?: boolean;
+        noResponse?: boolean;
+    }): Promise<string>;
+    /**
+     * Gets the value of a resource
+     * @param options.cacheOnly If true, the response will come only from the cache
+     * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
+     * @param callback A function that is passed the arguments (error, value) where value is the resource value when long polling or an asyncId
+     */
+    getValue(options?: {
+        cacheOnly?: boolean;
+        noResponse?: boolean;
+    }, callback?: (err: any, data?: string) => any): any;
+    /**
+     * Sets the value of a resource
+     * @param options.value The value of the resource
+     * @param options.noResponse If true, mbed Device Connector will not wait for a response
+     * @returns Promise containing any error
+     */
+    setValue(options: {
         value: string;
-        noResp?: boolean;
-    }, callback?: (err: any, data?: void) => void): Promise<void>;
+        noResponse?: boolean;
+    }): Promise<void>;
     /**
-    * Execute a function on a resource
-    * @param function The function to trigger
-    * @param noResp If true, mbed Device Connector will not wait for a response
-    * @param callback A function that is passed any error
-    * @returns Optional Promise containing any error
-    */
+     * Sets the value of a resource
+     * @param options.value The value of the resource
+     * @param options.noResponse If true, mbed Device Connector will not wait for a response
+     * @param callback A function that is passed any error
+     */
+    setValue(options: {
+        value: string;
+        noResponse?: boolean;
+    }, callback?: (err: any, data?: void) => any): any;
+    /**
+     * Execute a function on a resource
+     * @param options.function The function to trigger
+     * @param options.noResponse If true, mbed Device Connector will not wait for a response
+     * @returns Promise containing any error
+     */
     execute(options: {
         function?: string;
-        noResp?: boolean;
-    }, callback?: (err: any, data?: void) => void): Promise<void>;
+        noResponse?: boolean;
+    }): Promise<void>;
     /**
-    * Gets the status of a resource's subscription
-    * @param callback A function that is passed (error, subscribed) where subscribed is true or false
-    * @returns Optional Promise containing resource subscription status
-    */
-    getSubscription(callback?: (err: any, data?: boolean) => void): Promise<boolean>;
+     * Execute a function on a resource
+     * @param options.function The function to trigger
+     * @param options.noResponse If true, mbed Device Connector will not wait for a response
+     * @param callback A function that is passed any error
+     */
+    execute(options: {
+        function?: string;
+        noResponse?: boolean;
+    }, callback?: (err: any, data?: void) => any): any;
     /**
-    * Subscribe to a resource
-    * @param callback A function that is passed any error
-    * @returns Optional Promise containing any error
-    */
-    private createSubscription(callback?);
+     * Gets the status of a resource's subscription
+     * @returns Promise containing resource subscription status
+     */
+    getSubscription(): Promise<boolean>;
     /**
-    * Deletes a resource's subscription
-    * @param callback A function that is passed any error
-    * @returns Optional Promise containing any error
-    */
+     * Gets the status of a resource's subscription
+     * @param callback A function that is passed (error, subscribed) where subscribed is true or false
+     */
+    getSubscription(callback: (err: any, data?: boolean) => any): any;
+    /**
+     * Subscribe to a resource
+     * @returns Promise containing any error
+     */
+    private addSubscription();
+    /**
+     * Subscribe to a resource
+     * @param callback A function that is passed any error
+     */
+    private addSubscription(callback?);
+    /**
+     * Deletes a resource's subscription
+     * @returns Promise containing any error
+     */
+    private deleteSubscription();
+    /**
+     * Deletes a resource's subscription
+     * @param callback A function that is passed any error
+     */
     private deleteSubscription(callback?);
 }
 export interface Resource extends ResourceType {
