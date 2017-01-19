@@ -469,7 +469,7 @@ export class DefaultApi {
      * @param imageId 
      * @param object 
      */
-    public firmwareImageCreate (datafile: any, name: string, description?: string, updatingRequestId?: string, updatingIpAddress?: string, name2?: string, description2?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, imageId?: string, object?: string, callback?: (error:any, data:FirmwareImageSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareImageCreate (datafile: any, name: string, description?: string, updatingRequestId?: string, updatingIpAddress?: string, name2?: string, description2?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, imageId?: string, object?: string, callback?: (error:any, data:FirmwareImageSerializerData, response: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-images/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
