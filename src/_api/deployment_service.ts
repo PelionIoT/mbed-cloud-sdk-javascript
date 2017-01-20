@@ -277,6 +277,10 @@ export interface CampaignDeviceMetadataSerializer {
 export type CampaignDeviceMetadataSerializerDeploymentStateEnum = "pending" | "updated_device_catalog" | "updated_connector_channel" | "deployed" | "manifestremoved";
 export interface UpdateCampaignPage {
     /**
+     * API Resource name
+     */
+    "object"?: string;
+    /**
      * Whether there are more results to display
      */
     "has_more"?: boolean;
@@ -285,9 +289,9 @@ export interface UpdateCampaignPage {
      */
     "total_count"?: number;
     /**
-     * API Resource name
+     * Entity id for fetch after it
      */
-    "object"?: string;
+    "after"?: string;
     /**
      * The number of results to return
      */

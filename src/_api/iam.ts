@@ -224,7 +224,7 @@ export class VoidAuth implements Authentication {
 }
 
 /**
- * This object represents an account creation response.
+ * This object represents an account enrollment request.
  */
 export interface AccountEnrollmentReq {
     /**
@@ -332,8 +332,8 @@ export interface AccountEnrollmentResp {
     "last_login_time"?: number;
 }
 
-export type AccountEnrollmentRespStatusEnum = "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type AccountEnrollmentRespObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type AccountEnrollmentRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type AccountEnrollmentRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 /**
  * This object represents an account in requests and responses.
  */
@@ -408,6 +408,10 @@ export interface AccountInfo {
      */
     "upgraded_at"?: string;
     /**
+     * List of sub accounts.
+     */
+    "subAccounts"?: Array<AccountInfo>;
+    /**
      * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
      */
     "tier": string;
@@ -438,7 +442,7 @@ export interface AccountInfo {
 }
 
 export type AccountInfoStatusEnum = "ENROLLING" | "ACTIVE" | "SUSPENDED" | "DISABLED";
-export type AccountInfoObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type AccountInfoObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 /**
  * This object represents a service sign-up request.
  */
@@ -506,7 +510,7 @@ export interface AccountSignupVerify {
 }
 
 /**
- * This object represents an account update request.
+ * This object represents an account creation request.
  */
 export interface AccountUpdateReq {
     /**
@@ -534,14 +538,6 @@ export interface AccountUpdateReq {
      */
     "company"?: string;
     /**
-     * Account template ID. Manageable by the root admin only.
-     */
-    "template_id"?: string;
-    /**
-     * The status of the account. Manageable by the root admin only.
-     */
-    "status"?: string;
-    /**
      * The state part of the postal address.
      */
     "state"?: string;
@@ -554,17 +550,9 @@ export interface AccountUpdateReq {
      */
     "postal_code"?: string;
     /**
-     * Flag (true/false) indicating whether Factory Tool is allowed to download or not. Manageable by the root admin only.
-     */
-    "is_provisioning_allowed"?: boolean;
-    /**
      * The ID of the parent account, if it has any.
      */
     "parentID"?: string;
-    /**
-     * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future. Manageable by the root admin only.
-     */
-    "tier"?: string;
     /**
      * The phone number of the company.
      */
@@ -649,7 +637,7 @@ export interface ApiKeyInfoResp {
 }
 
 export type ApiKeyInfoRespStatusEnum = "ACTIVE" | "INACTIVE";
-export type ApiKeyInfoRespObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type ApiKeyInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 export interface ApiKeyInfoRespList {
     /**
      * The entity ID to fetch after the given one.
@@ -681,7 +669,7 @@ export interface ApiKeyInfoRespList {
     "order"?: ApiKeyInfoRespListOrderEnum;
 }
 
-export type ApiKeyInfoRespListObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type ApiKeyInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 export type ApiKeyInfoRespListOrderEnum = "ASC" | "DESC";
 /**
  * This object represents an API key in requests towards mbed Cloud.
@@ -772,7 +760,7 @@ export interface CACertificateResp {
 }
 
 export type CACertificateRespServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
-export type CACertificateRespObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type CACertificateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 export interface CACertificateRespList {
     /**
      * The entity ID to fetch after the given one.
@@ -804,7 +792,7 @@ export interface CACertificateRespList {
     "order"?: CACertificateRespListOrderEnum;
 }
 
-export type CACertificateRespListObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type CACertificateRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 export type CACertificateRespListOrderEnum = "ASC" | "DESC";
 /**
  * This object represents an error message.
@@ -836,7 +824,7 @@ export interface ErrorResponse {
     "type": ErrorResponseTypeEnum;
 }
 
-export type ErrorResponseObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type ErrorResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 export type ErrorResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 export interface Field {
     "message"?: string;
@@ -886,7 +874,7 @@ export interface GroupSummary {
     "userCount": number;
 }
 
-export type GroupSummaryObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type GroupSummaryObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 export interface GroupSummaryList {
     /**
      * The entity ID to fetch after the given one.
@@ -918,7 +906,7 @@ export interface GroupSummaryList {
     "order"?: GroupSummaryListOrderEnum;
 }
 
-export type GroupSummaryListObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type GroupSummaryListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 export type GroupSummaryListOrderEnum = "ASC" | "DESC";
 /**
  * This object represents a password recovery request.
@@ -1087,8 +1075,8 @@ export interface UserInfoResp {
     "last_login_time"?: number;
 }
 
-export type UserInfoRespStatusEnum = "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type UserInfoRespObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type UserInfoRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type UserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 export interface UserInfoRespList {
     /**
      * The entity ID to fetch after the given one.
@@ -1120,7 +1108,7 @@ export interface UserInfoRespList {
     "order"?: UserInfoRespListOrderEnum;
 }
 
-export type UserInfoRespListObjectEnum = "user" | "api_key" | "group" | "account" | "account_template" | "ca_cert" | "list" | "error";
+export type UserInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
 export type UserInfoRespListOrderEnum = "ASC" | "DESC";
 /**
  * This object represents a user in requests towards mbed Cloud.
