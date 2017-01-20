@@ -382,11 +382,12 @@ export interface DeviceLogSerializerData {
     "date_time": Date;
     "state_change"?: boolean;
     "description"?: string;
-    "changes"?: any;
+    "changes"?: string;
     "event_type_description"?: string;
     "device_log_id"?: string;
     "event_type"?: DeviceLogSerializerDataEventTypeEnum;
     "data"?: string;
+    "id"?: string;
     "device_id"?: string;
 }
 
