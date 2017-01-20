@@ -386,7 +386,7 @@ export interface DeviceLogSerializerData {
     "event_type_description"?: string;
     "device_log_id"?: string;
     "event_type"?: DeviceLogSerializerDataEventTypeEnum;
-    "data"?: string;
+    "data"?: any;
     "id"?: string;
     "device_id"?: string;
 }
