@@ -21,13 +21,27 @@ export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
 export { UpdateApi } from "./update";
 
-// implement webhooks and test? webhooks can be done - node
+
+//Devices.deleteSubscriptions()
+//device.listsubscriptions
+//device.deletesubscriptions
+//resource.getSubscription
+//resource.addSubscription
+//resource.deleteSubscription
+
+//add device
+//delete device (check asyncID)
+
+// resource.setValue (check asyncID)
+//resource.execute (check asyncID)
+//device.deeteResource(check asyncID)
+
+
+// subscription management and test? - node
 // query/page devices - web
 // long polling example - web
 // get/set resource value example - web
-// implement presubscriptions and test? - node
 
-// others: putvalue, deleteresource, execute
 
 // polygoat to deffotyped?
 // catch/rethrow exceptions in JS - up to me?

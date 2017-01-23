@@ -1,11 +1,10 @@
 import { ConnectionOptions } from "../helpers/interfaces";
-import { Endpoints } from "./endpoints";
 import { DeveloperCertificate } from "./developerCertificate";
 /**
  * Root Development API
  */
 export declare class DevelopmentApi {
-    static _endpoints: Endpoints;
+    private _endpoints;
     /**
      * @param options connection options
      */

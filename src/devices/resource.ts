@@ -32,7 +32,7 @@ export class Resource extends EventEmitter {
      */
     static EVENT_NOTIFICATION: string = "notification";
 
-    constructor(private _deviceId: string, options: ResourceType) {
+    constructor(options: ResourceType, private _api?: DevicesApi) {
         super();
         for(var key in options) {
             this[key] = options[key];
@@ -41,9 +41,9 @@ export class Resource extends EventEmitter {
         this.on("newListener", (eventName, listener) => {
             if (eventName === Resource.EVENT_NOTIFICATION) {
                 this.addSubscription((error, asyncID) => {
-                    if (DevicesApi.polling) {
+                    if (this._api.polling) {
                         // record this resource at this path for notifications
-                        DevicesApi.resourceSubs[this._deviceId + this.path] = this;
+                        this._api._resourceSubs[this.deviceId + this.path] = this;
                     } else {
                         // return the asyncID for use with webhooks
                         this.emit(Resource.EVENT_NOTIFICATION, asyncID);
@@ -56,22 +56,23 @@ export class Resource extends EventEmitter {
             if (eventName === Resource.EVENT_NOTIFICATION) {
                 if (this.listenerCount(Resource.EVENT_NOTIFICATION) === 0) {
                     // no-one is listening :(
-                    delete DevicesApi.resourceSubs[this._deviceId + this.path];
+                    delete this._api._resourceSubs[this.deviceId + this.path];
                     this.deleteSubscription();
                 }
             }
         });
     }
 
-    static map(from: apiResourceType, deviceId: string): Resource {
+    static map(from: apiResourceType, deviceId: string, api: DevicesApi): Resource {
         let type:ResourceType = {
             contentType:    from.type,
             observable:     from.obs,
             type:           from.rt,
-            path:           from.uri
+            path:           from.uri,
+            deviceId:       deviceId
         };
 
-        return new Resource(deviceId, type);
+        return new Resource(type, api);
     }
 
     /**
@@ -95,18 +96,11 @@ export class Resource extends EventEmitter {
             options = {};
         }
         let { cacheOnly, noResponse } = options;
-        return pg(done => {
-            DevicesApi._endpoints.resources.v2EndpointsEndpointNameResourcePathGet(this._deviceId, this.path, cacheOnly, noResponse, (error, data) => {
-                if (error) return done(error);
-
-                var asyncID = data["async-response-id"];
-                if (DevicesApi.polling && asyncID) {
-                    DevicesApi.asyncFns[asyncID] = done;
-                    return;
-                }
-
-                done(null, asyncID);
-            });
+        return this._api.getResourceValue({
+            id:            this.deviceId,
+            path:          this.path,
+            cacheOnly:     cacheOnly,
+            noResponse:    noResponse
         }, callback);
     }
 
@@ -116,39 +110,50 @@ export class Resource extends EventEmitter {
      * @param options.noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise containing any error
      */
-    public setValue(options: { value: string, noResponse?: boolean }): Promise<void>;
+    public setValue(options: { value: string, noResponse?: boolean }): Promise<string>;
     /**
      * Sets the value of a resource
      * @param options.value The value of the resource
      * @param options.noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
-    public setValue(options: { value: string, noResponse?: boolean }, callback?: (err: any, data?: void) => any);
-    public setValue(options?: any, callback?: (err: any, data?: void) => any): Promise<void> {
-        //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPut
-        return pg(done => {
-            done(null, null);
+    public setValue(options: { value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
+    public setValue(options: { value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
+        let { value, noResponse } = options;
+        return this._api.setResourceValue({
+            id:            this.deviceId,
+            path:          this.path,
+            value:         value,
+            noResponse:    noResponse
         }, callback);
     }
 
     /**
      * Execute a function on a resource
-     * @param options.function The function to trigger
+     * @param options.fn The function to trigger
      * @param options.noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise containing any error
      */
-    public execute(options: { function?: string, noResponse?: boolean }): Promise<void>;
+    public execute(options?: { fn?: string, noResponse?: boolean }): Promise<string>;
     /**
      * Execute a function on a resource
-     * @param options.function The function to trigger
+     * @param options.fn The function to trigger
      * @param options.noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
-    public execute(options: { function?: string, noResponse?: boolean }, callback?: (err: any, data?: void) => any);
-    public execute(options?: any, callback?: (err: any, data?: void) => any): Promise<void> {
-        //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathPost
-        return pg(done => {
-            done(null, null);
+    public execute(options: { fn?: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
+    public execute(options?: any, callback?: (err: any, data?: string) => any): Promise<string> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { fn, noResponse } = options;
+        return this._api.executeResource({
+            id:            this.deviceId,
+            path:          this.path,
+            fn:            fn,
+            noResponse:    noResponse
         }, callback);
     }
 
@@ -165,10 +170,10 @@ export class Resource extends EventEmitter {
     public getSubscription(callback?: (err: any, data?: boolean) => any): Promise<boolean> {
         return pg(done => {
             if (!this.observable) done(null, null);
-            DevicesApi._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathGet(this._deviceId, this.path, (error, data) => {
-                if (error) return done(error);
-                done(null, data);
-            });
+            this._api.getResourceSubscription({
+                id:            this.deviceId,
+                path:          this.path
+            }, done);
         }, callback);
     }
 
@@ -183,17 +188,9 @@ export class Resource extends EventEmitter {
      */
     private addSubscription(callback?: (err: any, data?: void) => any);
     private addSubscription(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
-            DevicesApi._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathPut(this._deviceId, this.path, (error, data) => {
-                if (error) return done(error);
-                var asyncID = data["async-response-id"];
-                if (asyncID) {
-                    //DevicesApi.asyncFns[asyncID] = done;
-                    //return;
-                }
-
-                done(null, asyncID || data);
-            });
+        return this._api.addResourceSubscription({
+            id:            this.deviceId,
+            path:          this.path
         }, callback);
     }
 
@@ -208,8 +205,9 @@ export class Resource extends EventEmitter {
      */
     private deleteSubscription(callback?: (err: any, data?: void) => any);
     private deleteSubscription(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
-            DevicesApi._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathDelete(this._deviceId, this.path, done);
+        return this._api.deleteResourceSubscription({
+            id:            this.deviceId,
+            path:          this.path
         }, callback);
     }
 }

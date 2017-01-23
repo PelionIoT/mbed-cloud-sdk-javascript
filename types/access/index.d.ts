@@ -1,5 +1,4 @@
 import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { Endpoints } from "./endpoints";
 import { Account } from "./account";
 import { Certificate } from "./certificate";
 import { User } from "./user";
@@ -7,7 +6,7 @@ import { User } from "./user";
 * Root Access API
 */
 export declare class AccessApi {
-    static _endpoints: Endpoints;
+    private _endpoints;
     /**
     * @param options connection options
     */

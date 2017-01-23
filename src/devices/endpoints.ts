@@ -17,6 +17,8 @@
 
 import { ConnectionOptions } from "../helpers/interfaces";
 import {
+    DefaultApi as WebhookApi,
+    DefaultApiApiKeys as WebhookApiApiKeys,
     EndpointsApi, EndpointsApiApiKeys,
     NotificationsApi, NotificationsApiApiKeys,
     ResourcesApi, ResourcesApiApiKeys,
@@ -33,6 +35,7 @@ import {
 
 export class Endpoints {
 
+    webhooks: WebhookApi;
     endpoints: EndpointsApi;
     notifications: NotificationsApi;
     resources: ResourcesApi;
@@ -41,6 +44,7 @@ export class Endpoints {
     query: QueryApi;
 
     constructor(options: ConnectionOptions) {
+        this.webhooks = new WebhookApi(options.host);
         this.endpoints = new EndpointsApi(options.host);
         this.notifications = new NotificationsApi(options.host);
         this.resources = new ResourcesApi(options.host);
@@ -48,6 +52,7 @@ export class Endpoints {
         this.catalog = new CatalogApi(options.host);
         this.query = new QueryApi(options.host);
 
+        this.webhooks.setApiKey(WebhookApiApiKeys.Bearer, "Bearer " + options.apiKey);
         this.endpoints.setApiKey(EndpointsApiApiKeys.Bearer, "Bearer " + options.apiKey);
         this.notifications.setApiKey(NotificationsApiApiKeys.Bearer, "Bearer " + options.apiKey);
         this.resources.setApiKey(ResourcesApiApiKeys.Bearer, "Bearer " + options.apiKey);

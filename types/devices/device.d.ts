@@ -1,12 +1,14 @@
 import { DeviceType } from "./types";
+import { DevicesApi } from "./index";
 import { Resource } from "./resource";
 import { DeviceDetail as apiDeviceType } from "../_api/device_catalog";
 /**
  * Device
  */
 export declare class Device {
-    constructor(options: DeviceType);
-    static map(from: apiDeviceType): Device;
+    private _api;
+    constructor(options: DeviceType, _api?: DevicesApi);
+    static map(from: apiDeviceType, api: DevicesApi): Device;
     /**
      * Gets details of a device
      * @returns Promise of device
@@ -36,7 +38,7 @@ export declare class Device {
     deleteResource(options: {
         path: string;
         noResponse?: boolean;
-    }): Promise<void>;
+    }): Promise<string>;
     /**
      * Deletes a resource
      * @param options.path Path of the resource to delete
@@ -46,7 +48,7 @@ export declare class Device {
     deleteResource(options: {
         path: string;
         noResponse?: boolean;
-    }, callback?: (err: any, data?: void) => any): any;
+    }, callback?: (err: any, data?: string) => any): any;
     /**
      * List a device's subscriptions
      * @returns Promise containing the subscriptions

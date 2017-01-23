@@ -15,10 +15,9 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
 import { DeviceType } from "./types";
-import { Resource } from "./resource";
 import { DevicesApi } from "./index";
+import { Resource } from "./resource";
 import { DeviceDetail as apiDeviceType } from "../_api/device_catalog";
 
 /**
@@ -26,13 +25,13 @@ import { DeviceDetail as apiDeviceType } from "../_api/device_catalog";
  */
 export class Device {
 
-    constructor(options: DeviceType) {
+    constructor(options: DeviceType, private _api?: DevicesApi) {
         for(var key in options) {
             this[key] = options[key];
         }
     }
 
-    static map(from: apiDeviceType): Device {
+    static map(from: apiDeviceType, api: DevicesApi): Device {
         let type:DeviceType = {
             accountId:                from.account_id,
             autoUpdate:               from.auto_update,
@@ -57,7 +56,7 @@ export class Device {
             vendorId:                 from.vendor_id
         };
 
-        return new Device(type);
+        return new Device(type, api);
     }
 
     /**
@@ -71,13 +70,8 @@ export class Device {
      */
     public getDetails(callback: (err: any, data?: Device) => any);
     public getDetails(callback?: (err: any, data?: Device) => any): Promise<Device> {
-        return pg(done => {
-            DevicesApi._endpoints.catalog.deviceRetrieve(this.id, (error, data) => {
-                if (error) return done(error);
-
-                let device = Device.map(data);
-                done(null, device);
-            });
+        return this._api.getDevice({
+            id: this.id
         }, callback);
     }
 
@@ -92,15 +86,8 @@ export class Device {
      */
     public listResources(callback: (err: any, data?: Resource[]) => any);
     public listResources(callback?: (err: any, data?: Resource[]) => any): Promise<Resource[]> {
-        return pg(done => {
-            DevicesApi._endpoints.endpoints.v2EndpointsEndpointNameGet(this.id, (error, data) => {
-                if (error) return done(error);
-
-                var resources = data.map(resource => {
-                    return Resource.map(resource, this.id);
-                });
-                done(null, resources);
-            });
+        return this._api.listDeviceResources({
+            id: this.id
         }, callback);
     }
 
@@ -110,18 +97,20 @@ export class Device {
      * @param options.noResponse Whether to make a non-confirmable request to the device
      * @returns Promise containing any error
      */
-    public deleteResource(options: { path: string, noResponse?: boolean }): Promise<void>;
+    public deleteResource(options: { path: string, noResponse?: boolean }): Promise<string>;
     /**
      * Deletes a resource
      * @param options.path Path of the resource to delete
      * @param options.noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    public deleteResource(options: { path: string, noResponse?: boolean }, callback?: (err: any, data?: void) => any);
-    public deleteResource(options: { path: string, noResponse?: boolean }, callback?: (err: any, data?: void) => any): Promise<void> {
-        //mds.ResourcesApi.v2EndpointsEndpointNameResourcePathDelete
-        return pg(done => {
-            done(null, null);
+    public deleteResource(options: { path: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
+    public deleteResource(options: { path: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
+        let { path, noResponse } = options;
+        return this._api.deleteDeviceResource({
+            id:            this.id,
+            path:          path,
+            noResponse:    noResponse
         }, callback);
     }
 
@@ -136,9 +125,8 @@ export class Device {
      */
     public listSubscriptions(callback: (err: any, data?: any) => any);
     public listSubscriptions(callback?: (err: any, data?: any) => any): Promise<any> {
-        //mds.SubscriptionsApi.v2SubscriptionsEndpointNameGet
-        return pg(done => {
-            done(null, null);
+        return this._api.listDeviceSubscriptions({
+            id: this.id
         }, callback);
     }
 
@@ -153,9 +141,8 @@ export class Device {
      */
     public deleteSubscriptions(callback: (err: any, data?: void) => any);
     public deleteSubscriptions(callback?: (err: any, data?: void) => any): Promise<void> {
-        //mds.SubscriptionsApi.v2SubscriptionsEndpointNameDelete
-        return pg(done => {
-            done(null, null);
+        return this._api.deleteDeviceSubscriptions({
+            id: this.id
         }, callback);
     }
 }

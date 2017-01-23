@@ -1,11 +1,10 @@
 import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { Endpoints } from "./endpoints";
 import { DeviceLog } from "./deviceLog";
 /**
  * Root Logging API
  */
 export declare class LoggingApi {
-    static _endpoints: Endpoints;
+    private _endpoints;
     /**
      * @param options connection options
      */

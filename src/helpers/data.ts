@@ -17,16 +17,16 @@
 
 import { ListResponse } from "./interfaces";
 
-export function decodeBase64(data) {
+export function decodeBase64(payload, contentType) {
     var result = "";
 
     if (typeof atob === "function") {
-        result = atob(data.payload);
+        result = atob(payload);
     } else {
-        result = new Buffer(data.payload, "base64").toString("utf8");
+        result = new Buffer(payload, "base64").toString("utf8");
     }
 
-    if (data.ct.indexOf("json") > -1) {
+    if (contentType.indexOf("json") > -1) {
         result = JSON.parse(result);
     }
 

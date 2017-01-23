@@ -25,13 +25,13 @@ import { DeveloperCertificate } from "./developerCertificate";
  */
 export class DevelopmentApi {
 
-    static _endpoints: Endpoints;
+    private _endpoints: Endpoints;
 
     /**
      * @param options connection options
      */
     constructor(options: ConnectionOptions) {
-        DevelopmentApi._endpoints = new Endpoints(options);
+        this._endpoints = new Endpoints(options);
     }
 
     /**
@@ -51,7 +51,7 @@ export class DevelopmentApi {
             pub_key: options.publicKey
         };
         return pg(done => {
-            DevelopmentApi._endpoints.development.v3DeveloperCertificatePost("", body, (error, data) => {
+            this._endpoints.development.v3DeveloperCertificatePost("", body, (error, data) => {
                 if (error) return done(error);
 
                 let cert = DeveloperCertificate.map(data);
@@ -72,7 +72,7 @@ export class DevelopmentApi {
     public getCertificate(callback: (err: any, data?: DeveloperCertificate) => any);
     public getCertificate(callback?: (err: any, data?: DeveloperCertificate) => any): Promise<DeveloperCertificate> {
         return pg(done => {
-            DevelopmentApi._endpoints.development.v3DeveloperCertificateGet("", (error, data) => {
+            this._endpoints.development.v3DeveloperCertificateGet("", (error, data) => {
                 if (error) return done(error);
 
                 let cert = DeveloperCertificate.map(data);
@@ -93,7 +93,7 @@ export class DevelopmentApi {
     public deleteCertificate(callback?: (err: any, data?: void) => any);
     public deleteCertificate(callback?: (err: any, data?: void) => any): Promise<void> {
         return pg(done => {
-            DevelopmentApi._endpoints.development.v3DeveloperCertificateDelete("", (error, data) => {
+            this._endpoints.development.v3DeveloperCertificateDelete("", (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });

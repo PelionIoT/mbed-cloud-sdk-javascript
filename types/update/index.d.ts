@@ -1,12 +1,11 @@
 import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { Endpoints } from "./endpoints";
 import { FirmwareImage } from "./firmwareImage";
 import { FirmwareManifest } from "./firmwareManifest";
 /**
 * Root Update API
 */
 export declare class UpdateApi {
-    static _endpoints: Endpoints;
+    private _endpoints;
     /**
     * @param options connection options
     */

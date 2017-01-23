@@ -26,13 +26,13 @@ import { DeviceLog } from "./deviceLog";
  */
 export class LoggingApi {
 
-    static _endpoints: Endpoints;
+    private _endpoints: Endpoints;
 
     /**
      * @param options connection options
      */
     constructor(options: ConnectionOptions) {
-        LoggingApi._endpoints = new Endpoints(options);
+        this._endpoints = new Endpoints(options);
     }
 
     /**
@@ -55,7 +55,7 @@ export class LoggingApi {
         }
         let { limit, order, after, filter, include } = options;
         return pg(done => {
-            LoggingApi._endpoints.catalog.deviceLogList(limit, order, after, filter, encodeInclude(include), (error, data) => {
+            this._endpoints.catalog.deviceLogList(limit, order, after, filter, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {
@@ -82,7 +82,7 @@ export class LoggingApi {
     public getDeviceLog(options: { id: string }, callback?: (err: any, data?: DeviceLog) => any): Promise<DeviceLog> {
         let { id } = options;
         return pg(done => {
-            LoggingApi._endpoints.catalog.deviceLogRetrieve(id, (error, data) => {
+            this._endpoints.catalog.deviceLogRetrieve(id, (error, data) => {
                 if (error) return done(error);
                 let log = DeviceLog.map(data);
                 done(null, log);

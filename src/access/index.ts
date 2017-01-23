@@ -28,13 +28,13 @@ import { User } from "./user";
 */
 export class AccessApi {
 
-    static _endpoints: Endpoints;
+    private _endpoints: Endpoints;
 
     /**
     * @param options connection options
     */
     constructor(options: ConnectionOptions) {
-        AccessApi._endpoints = new Endpoints(options);
+        this._endpoints = new Endpoints(options);
     }
 
     /**
@@ -49,7 +49,7 @@ export class AccessApi {
     public getAccount(callback: (err: any, data?: Account) => any): void;
     public getAccount(callback?: (err: any, data?: Account) => any): Promise<Account> {
         return pg(done => {
-            AccessApi._endpoints.developer.getMyAccountInfo(null, (error, data) => {
+            this._endpoints.developer.getMyAccountInfo(null, (error, data) => {
                 if (error) return done(error);
                 done(null, Account.map(data));
             });
@@ -76,7 +76,7 @@ export class AccessApi {
         }
         let { limit, after, order, include, filter } = options;
         return pg(done => {
-            AccessApi._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), filter, (error, data) => {
+            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), filter, (error, data) => {
                 if (error) return done(error);
 
                 let users = data.data.map(user => {
@@ -110,7 +110,7 @@ export class AccessApi {
         }
         let { limit, after, order, include, filter } = options;
         return pg(done => {
-            AccessApi._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), filter, (error, data) => {
+            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), filter, (error, data) => {
                 if (error) return done(error);
 
                 var certificates = data.data.map(certificate => {

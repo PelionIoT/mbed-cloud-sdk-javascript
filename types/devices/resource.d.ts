@@ -1,19 +1,20 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
 import { ResourceType } from "./types";
+import { DevicesApi } from "./index";
 import { Resource as apiResourceType } from "../_api/mds";
 /**
  * Resource
  */
 export declare class Resource extends EventEmitter {
-    private _deviceId;
+    private _api;
     /**
      * Resource notification event
      * @event
      */
     static EVENT_NOTIFICATION: string;
-    constructor(_deviceId: string, options: ResourceType);
-    static map(from: apiResourceType, deviceId: string): Resource;
+    constructor(options: ResourceType, _api?: DevicesApi);
+    static map(from: apiResourceType, deviceId: string, api: DevicesApi): Resource;
     /**
      * Gets the value of a resource
      * @param options.cacheOnly If true, the response will come only from the cache
@@ -43,7 +44,7 @@ export declare class Resource extends EventEmitter {
     setValue(options: {
         value: string;
         noResponse?: boolean;
-    }): Promise<void>;
+    }): Promise<string>;
     /**
      * Sets the value of a resource
      * @param options.value The value of the resource
@@ -53,27 +54,27 @@ export declare class Resource extends EventEmitter {
     setValue(options: {
         value: string;
         noResponse?: boolean;
-    }, callback?: (err: any, data?: void) => any): any;
+    }, callback?: (err: any, data?: string) => any): any;
     /**
      * Execute a function on a resource
-     * @param options.function The function to trigger
+     * @param options.fn The function to trigger
      * @param options.noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise containing any error
      */
-    execute(options: {
-        function?: string;
+    execute(options?: {
+        fn?: string;
         noResponse?: boolean;
-    }): Promise<void>;
+    }): Promise<string>;
     /**
      * Execute a function on a resource
-     * @param options.function The function to trigger
+     * @param options.fn The function to trigger
      * @param options.noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
     execute(options: {
-        function?: string;
+        fn?: string;
         noResponse?: boolean;
-    }, callback?: (err: any, data?: void) => any): any;
+    }, callback?: (err: any, data?: string) => any): any;
     /**
      * Gets the status of a resource's subscription
      * @returns Promise containing resource subscription status

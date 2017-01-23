@@ -27,13 +27,13 @@ import { FirmwareManifest } from "./firmwareManifest";
 */
 export class UpdateApi {
 
-    static _endpoints: Endpoints;
+    private _endpoints: Endpoints;
 
     /**
     * @param options connection options
     */
     constructor(options: ConnectionOptions) {
-        UpdateApi._endpoints = new Endpoints(options);
+        this._endpoints = new Endpoints(options);
     }
 
     /**
@@ -52,7 +52,7 @@ export class UpdateApi {
         options = options || {};
         let { limit, order, after, include } = options;
         return pg(done => {
-            UpdateApi._endpoints.firmware.firmwareImageList(limit, order, after, encodeInclude(include), (error, data) => {
+            this._endpoints.firmware.firmwareImageList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {
@@ -80,7 +80,7 @@ export class UpdateApi {
         options = options || {};
         let { limit, order, after, include } = options;
         return pg(done => {
-            UpdateApi._endpoints.firmware.firmwareManifestList(limit, order, after, encodeInclude(include), (error, data) => {
+            this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {
