@@ -22,6 +22,7 @@
     "@types/superagent": "^2.0.36",
     "browserify": "^13.1.1",
     "del": "^2.2.2",
+    "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-buffer": "0.0.2",
     "gulp-sourcemaps": "^1.9.1",
