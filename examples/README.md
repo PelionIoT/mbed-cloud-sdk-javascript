@@ -57,7 +57,7 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
   This example creates (or overwrites) a developer certificate.
   This is then used to create a local `C` header file for connecting a device to mbed Cloud Connect.
 
-* __Webhook server__ [webhook-server.js](node/webhook-server.js)
+* __Webhook Server__ [webhook-server.js](node/webhook-server.js)
 
   This example creates a basic webhook server which registers for callbacks from mbed Cloud and receives asynchronous notifications.
   Using the callbacks, the device/resource tree of connected devices is recursed, outputting the value for each resource.
@@ -82,15 +82,25 @@ __Note:__ mbed Cloud is protected with [Cross-origin resource sharing](https://e
 
 ### API Keys
 
-A valid API key needs to be added to the [config.js](web/config.js) file before the examples will run correctly.
+These examples utilise a [config.js](web/config.js) file which can read an API Key (and optionally a host) from the query string or from the file itself.
+
+To use the query string, pass your API key to the page being run. e.g.:
+
+```
+https://www.yourserver.com/<example.html>?<mbed Cloud API Key>
+```
+
+or:
+
+```
+https://www.yourserver.com/<example.html>?apiKey=<mbed Cloud API Key>
+```
+
+You can also simply edit the [config.js](web/config.js) file and add your key.
 
 __Note:__ Your API Key will be publicly visible in your web application. When creating single page web applications, use this method only during development or with a read-only key with access to public data. An intermediate server to handle requests is recommended for production.
 
 ### Examples
-
-* __Device Query Management__ [query-management.html](web/query-management.html)
-
-  This example allows mangement and running of device queries, paging the results.
 
 * __Long Polling__ [long-polling.html](web/long-polling.html)
 
@@ -100,6 +110,10 @@ __Note:__ Your API Key will be publicly visible in your web application. When cr
 * __Device Management__ [device-management.html](web/device-management.html)
 
   This example shows how a management interface for devices can be implemented.
+
+* __Device Query Management__ [query-management.html](web/query-management.html)
+
+  This example allows mangement and running of device queries, paging the results.
 
 * __Update Management__ [update-management.html](web/update-management.html)
 
