@@ -559,7 +559,7 @@ export class DefaultApi {
      * 
      * &lt;p&gt;Reads the deploy_info.json file and returns the Build and Git ID to the caller.&lt;/p&gt; &lt;p&gt;Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.&lt;/p&gt;
      */
-    public deployInfoGET (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deployInfoGET (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ds_deploy_info';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -599,7 +599,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Create update campaign&lt;/p&gt;
      * @param body Update campaign object to create
      */
-    public updateCampaignCreate (body: WriteUpdateCampaignSerializer, callback?: (error:any, data:UpdateCampaignSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignCreate (body: WriteUpdateCampaignSerializer, callback?: (error:any, data?:UpdateCampaignSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -608,7 +608,10 @@ export class DefaultApi {
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateCampaignCreate.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling updateCampaignCreate.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -645,7 +648,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Delete update campaign&lt;/p&gt;
      * @param campaignId The ID of the update campaign
      */
-    public updateCampaignDestroy (campaignId: string, callback?: (error:any, data:UpdateCampaignSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignDestroy (campaignId: string, callback?: (error:any, data?:UpdateCampaignSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -655,7 +658,10 @@ export class DefaultApi {
 
         // verify required parameter 'campaignId' is not null or undefined
         if (campaignId === null || campaignId === undefined) {
-            throw new Error('Required parameter campaignId was null or undefined when calling updateCampaignDestroy.');
+            if (callback) {
+                callback(new Error('Required parameter campaignId was null or undefined when calling updateCampaignDestroy.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -695,7 +701,7 @@ export class DefaultApi {
      * @param filter 
      * @param include 
      */
-    public updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data:UpdateCampaignPage, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -763,7 +769,7 @@ export class DefaultApi {
      * @param state The state of the campaign
      * @param when The timestamp at which update campaign scheduled to start
      */
-    public updateCampaignPartialUpdate (campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, name?: string, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: (error:any, data:UpdateCampaignSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignPartialUpdate (campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, name?: string, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: (error:any, data?:UpdateCampaignSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -839,7 +845,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Retrieve campaign&lt;/p&gt;
      * @param campaignId The ID of the campaign
      */
-    public updateCampaignRetrieve (campaignId: string, callback?: (error:any, data:UpdateCampaignSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignRetrieve (campaignId: string, callback?: (error:any, data?:UpdateCampaignSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -849,7 +855,10 @@ export class DefaultApi {
 
         // verify required parameter 'campaignId' is not null or undefined
         if (campaignId === null || campaignId === undefined) {
-            throw new Error('Required parameter campaignId was null or undefined when calling updateCampaignRetrieve.');
+            if (callback) {
+                callback(new Error('Required parameter campaignId was null or undefined when calling updateCampaignRetrieve.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -885,7 +894,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Show the status of an update campaign&lt;/p&gt;
      * @param campaignId The ID of the update campaign
      */
-    public updateCampaignStatus (campaignId: string, callback?: (error:any, data:UpdateCampaignStatusSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignStatus (campaignId: string, callback?: (error:any, data?:UpdateCampaignStatusSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/status/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -895,7 +904,10 @@ export class DefaultApi {
 
         // verify required parameter 'campaignId' is not null or undefined
         if (campaignId === null || campaignId === undefined) {
-            throw new Error('Required parameter campaignId was null or undefined when calling updateCampaignStatus.');
+            if (callback) {
+                callback(new Error('Required parameter campaignId was null or undefined when calling updateCampaignStatus.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -932,7 +944,7 @@ export class DefaultApi {
      * @param campaignId Campaign ID to update
      * @param body Update campaign object to create
      */
-    public updateCampaignUpdate (campaignId: string, body: WriteUpdateCampaignSerializer, callback?: (error:any, data:UpdateCampaignSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignUpdate (campaignId: string, body: WriteUpdateCampaignSerializer, callback?: (error:any, data?:UpdateCampaignSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/update-campaigns/{campaign_id}/'
             .replace('{' + 'campaign_id' + '}', String(campaignId));
         let queryParameters: any = {};
@@ -942,12 +954,18 @@ export class DefaultApi {
 
         // verify required parameter 'campaignId' is not null or undefined
         if (campaignId === null || campaignId === undefined) {
-            throw new Error('Required parameter campaignId was null or undefined when calling updateCampaignUpdate.');
+            if (callback) {
+                callback(new Error('Required parameter campaignId was null or undefined when calling updateCampaignUpdate.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateCampaignUpdate.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling updateCampaignUpdate.'));
+            }
+            return;
         }
 
         let useFormData = false;

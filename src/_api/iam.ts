@@ -1196,7 +1196,7 @@ export class AccountAdminApi {
      * An endpoint for uploading new CA certificates.
      * @param body A CA certificate object with attributes.
      */
-    public addCertificate (body: CACertificateReq, callback?: (error:any, data:CACertificateResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public addCertificate (body: CACertificateReq, callback?: (error:any, data?:CACertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1205,7 +1205,10 @@ export class AccountAdminApi {
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling addCertificate.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling addCertificate.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1243,7 +1246,7 @@ export class AccountAdminApi {
      * @param body A user object with attributes.
      * @param action Action, either &#39;create&#39; or &#39;invite&#39;.
      */
-    public createUser (body: UserInfoReq, action?: string, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public createUser (body: UserInfoReq, action?: string, callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1252,7 +1255,10 @@ export class AccountAdminApi {
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling createUser.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling createUser.'));
+            }
+            return;
         }
 
         if (action !== undefined) {
@@ -1293,7 +1299,7 @@ export class AccountAdminApi {
      * An endpoint for deleting a CA certificate.
      * @param caCertId The ID of the CA certificate to be deleted.
      */
-    public deleteCertificate (caCertId: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deleteCertificate (caCertId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
             .replace('{' + 'ca-cert-id' + '}', String(caCertId));
         let queryParameters: any = {};
@@ -1303,7 +1309,10 @@ export class AccountAdminApi {
 
         // verify required parameter 'caCertId' is not null or undefined
         if (caCertId === null || caCertId === undefined) {
-            throw new Error('Required parameter caCertId was null or undefined when calling deleteCertificate.');
+            if (callback) {
+                callback(new Error('Required parameter caCertId was null or undefined when calling deleteCertificate.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1340,7 +1349,7 @@ export class AccountAdminApi {
      * @param userId The ID of the user to be deleted.
      * @param force A flag indicating that the user is forced to be deleted.
      */
-    public deleteUser (userId: string, force?: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deleteUser (userId: string, force?: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/{user-id}'
             .replace('{' + 'user-id' + '}', String(userId));
         let queryParameters: any = {};
@@ -1350,7 +1359,10 @@ export class AccountAdminApi {
 
         // verify required parameter 'userId' is not null or undefined
         if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling deleteUser.');
+            if (callback) {
+                callback(new Error('Required parameter userId was null or undefined when calling deleteUser.'));
+            }
+            return;
         }
 
         if (force !== undefined) {
@@ -1394,7 +1406,7 @@ export class AccountAdminApi {
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param filter Filter by service or expiring days, for example filter&#x3D;service%3Dlwm2m,expire%3D180
      */
-    public getAllCertificates (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (error:any, data:CACertificateRespList, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllCertificates (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (error:any, data?:CACertificateRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1458,7 +1470,7 @@ export class AccountAdminApi {
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param filter Filter for the query, for example filter&#x3D;status%3Dactive,status%3Dreset.
      */
-    public getAllUsers (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (error:any, data:UserInfoRespList, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllUsers (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (error:any, data?:UserInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1518,7 +1530,7 @@ export class AccountAdminApi {
      * An endpoint for retrieving a CA certificate by ID.
      * @param caCertId The ID or name of the CA certificate to be retrieved.
      */
-    public getCertificate (caCertId: string, callback?: (error:any, data:CACertificateResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getCertificate (caCertId: string, callback?: (error:any, data?:CACertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
             .replace('{' + 'ca-cert-id' + '}', String(caCertId));
         let queryParameters: any = {};
@@ -1528,7 +1540,10 @@ export class AccountAdminApi {
 
         // verify required parameter 'caCertId' is not null or undefined
         if (caCertId === null || caCertId === undefined) {
-            throw new Error('Required parameter caCertId was null or undefined when calling getCertificate.');
+            if (callback) {
+                callback(new Error('Required parameter caCertId was null or undefined when calling getCertificate.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1564,7 +1579,7 @@ export class AccountAdminApi {
      * An endpoint for retrieving the details of a user.
      * @param userId The ID or name of the user whose details are retrieved.
      */
-    public getUser (userId: string, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getUser (userId: string, callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/{user-id}'
             .replace('{' + 'user-id' + '}', String(userId));
         let queryParameters: any = {};
@@ -1574,7 +1589,10 @@ export class AccountAdminApi {
 
         // verify required parameter 'userId' is not null or undefined
         if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling getUser.');
+            if (callback) {
+                callback(new Error('Required parameter userId was null or undefined when calling getUser.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1611,7 +1629,7 @@ export class AccountAdminApi {
      * @param caCertId The ID of the CA certificate to be updated.
      * @param body A CA certificate object with attributes.
      */
-    public updateCertificate (caCertId: string, body: CACertificateReq, callback?: (error:any, data:CACertificateResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCertificate (caCertId: string, body: CACertificateReq, callback?: (error:any, data?:CACertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
             .replace('{' + 'ca-cert-id' + '}', String(caCertId));
         let queryParameters: any = {};
@@ -1621,12 +1639,18 @@ export class AccountAdminApi {
 
         // verify required parameter 'caCertId' is not null or undefined
         if (caCertId === null || caCertId === undefined) {
-            throw new Error('Required parameter caCertId was null or undefined when calling updateCertificate.');
+            if (callback) {
+                callback(new Error('Required parameter caCertId was null or undefined when calling updateCertificate.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateCertificate.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling updateCertificate.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1663,7 +1687,7 @@ export class AccountAdminApi {
      * An endpoint for updating the account.
      * @param body Details of the account to be updated.
      */
-    public updateMyAccount (body: AccountUpdateReq, callback?: (error:any, data:AccountInfo, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateMyAccount (body: AccountUpdateReq, callback?: (error:any, data?:AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/accounts/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1672,7 +1696,10 @@ export class AccountAdminApi {
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateMyAccount.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling updateMyAccount.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1710,7 +1737,7 @@ export class AccountAdminApi {
      * @param userId The ID of the user whose details are updated.
      * @param body A user object with attributes.
      */
-    public updateUser (userId: string, body: UserUpdateReq, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateUser (userId: string, body: UserUpdateReq, callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/{user-id}'
             .replace('{' + 'user-id' + '}', String(userId));
         let queryParameters: any = {};
@@ -1720,12 +1747,18 @@ export class AccountAdminApi {
 
         // verify required parameter 'userId' is not null or undefined
         if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling updateUser.');
+            if (callback) {
+                callback(new Error('Required parameter userId was null or undefined when calling updateUser.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateUser.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling updateUser.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1806,7 +1839,7 @@ export class DefaultApi {
      * @param invitationId Invitation ID received in email.
      * @param body Details of the user accepting the invitation.
      */
-    public activateUser (invitationId: string, body: UserUpdateReq, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public activateUser (invitationId: string, body: UserUpdateReq, callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/invitations/{invitation-id}'
             .replace('{' + 'invitation-id' + '}', String(invitationId));
         let queryParameters: any = {};
@@ -1816,12 +1849,18 @@ export class DefaultApi {
 
         // verify required parameter 'invitationId' is not null or undefined
         if (invitationId === null || invitationId === undefined) {
-            throw new Error('Required parameter invitationId was null or undefined when calling activateUser.');
+            if (callback) {
+                callback(new Error('Required parameter invitationId was null or undefined when calling activateUser.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling activateUser.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling activateUser.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1859,7 +1898,7 @@ export class DefaultApi {
      * @param body Hash received by email and new password.
      * @param xForwardedFor 
      */
-    public applyPasswordRecovery (body: PasswordRecoveryReq, xForwardedFor?: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public applyPasswordRecovery (body: PasswordRecoveryReq, xForwardedFor?: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/recover';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1868,7 +1907,10 @@ export class DefaultApi {
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling applyPasswordRecovery.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling applyPasswordRecovery.'));
+            }
+            return;
         }
 
         headerParams['X-Forwarded-For'] = xForwardedFor;
@@ -1907,7 +1949,7 @@ export class DefaultApi {
      * Returns information about the user being invited.
      * @param invitationId Invitation ID received in email.
      */
-    public getInvitedUser (invitationId: string, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getInvitedUser (invitationId: string, callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/invitations/{invitation-id}'
             .replace('{' + 'invitation-id' + '}', String(invitationId));
         let queryParameters: any = {};
@@ -1917,7 +1959,10 @@ export class DefaultApi {
 
         // verify required parameter 'invitationId' is not null or undefined
         if (invitationId === null || invitationId === undefined) {
-            throw new Error('Required parameter invitationId was null or undefined when calling getInvitedUser.');
+            if (callback) {
+                callback(new Error('Required parameter invitationId was null or undefined when calling getInvitedUser.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1953,7 +1998,7 @@ export class DefaultApi {
      * Retrieving the details of a user to register.
      * @param signupId ID received while signing up.
      */
-    public getSelfEnrollingUser (signupId: string, callback?: (error:any, data:AccountSignupResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getSelfEnrollingUser (signupId: string, callback?: (error:any, data?:AccountSignupResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register/{signup-id}'
             .replace('{' + 'signup-id' + '}', String(signupId));
         let queryParameters: any = {};
@@ -1963,7 +2008,10 @@ export class DefaultApi {
 
         // verify required parameter 'signupId' is not null or undefined
         if (signupId === null || signupId === undefined) {
-            throw new Error('Required parameter signupId was null or undefined when calling getSelfEnrollingUser.');
+            if (callback) {
+                callback(new Error('Required parameter signupId was null or undefined when calling getSelfEnrollingUser.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -2000,7 +2048,7 @@ export class DefaultApi {
      * @param signupId ID received while signing up.
      * @param body Details of the account to be created.
      */
-    public registerAccount (signupId: string, body: AccountEnrollmentReq, callback?: (error:any, data:AccountEnrollmentResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public registerAccount (signupId: string, body: AccountEnrollmentReq, callback?: (error:any, data?:AccountEnrollmentResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register/{signup-id}'
             .replace('{' + 'signup-id' + '}', String(signupId));
         let queryParameters: any = {};
@@ -2010,12 +2058,18 @@ export class DefaultApi {
 
         // verify required parameter 'signupId' is not null or undefined
         if (signupId === null || signupId === undefined) {
-            throw new Error('Required parameter signupId was null or undefined when calling registerAccount.');
+            if (callback) {
+                callback(new Error('Required parameter signupId was null or undefined when calling registerAccount.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling registerAccount.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling registerAccount.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -2053,7 +2107,7 @@ export class DefaultApi {
      * @param body Email address of the user whose password needs to be recovered.
      * @param xForwardedFor 
      */
-    public requestPasswordRecovery (body: PasswordResetReq, xForwardedFor?: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public requestPasswordRecovery (body: PasswordResetReq, xForwardedFor?: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/recover';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2062,7 +2116,10 @@ export class DefaultApi {
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling requestPasswordRecovery.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling requestPasswordRecovery.'));
+            }
+            return;
         }
 
         headerParams['X-Forwarded-For'] = xForwardedFor;
@@ -2101,7 +2158,7 @@ export class DefaultApi {
      * Signing up for a new free tier account with email address.
      * @param body Email address of the user to be signed up.
      */
-    public signup (body: AccountSignupReq, callback?: (error:any, data:AccountSignupResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public signup (body: AccountSignupReq, callback?: (error:any, data?:AccountSignupResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2110,7 +2167,10 @@ export class DefaultApi {
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling signup.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling signup.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -2148,7 +2208,7 @@ export class DefaultApi {
      * @param signupId ID received while signing up.
      * @param body Verification code received by email and aliases to be checked.
      */
-    public verifySelfEnrollment (signupId: string, body?: AccountSignupVerify, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public verifySelfEnrollment (signupId: string, body?: AccountSignupVerify, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/auth/register/{signup-id}'
             .replace('{' + 'signup-id' + '}', String(signupId));
         let queryParameters: any = {};
@@ -2158,7 +2218,10 @@ export class DefaultApi {
 
         // verify required parameter 'signupId' is not null or undefined
         if (signupId === null || signupId === undefined) {
-            throw new Error('Required parameter signupId was null or undefined when calling verifySelfEnrollment.');
+            if (callback) {
+                callback(new Error('Required parameter signupId was null or undefined when calling verifySelfEnrollment.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -2238,7 +2301,7 @@ export class DeveloperApi {
      * An endpoint for creating a new API key.
      * @param body The details of the API key to be created.
      */
-    public createApiKey (body: ApiKeyInfoReq, callback?: (error:any, data:ApiKeyInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public createApiKey (body: ApiKeyInfoReq, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2247,7 +2310,10 @@ export class DeveloperApi {
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling createApiKey.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling createApiKey.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -2284,7 +2350,7 @@ export class DeveloperApi {
      * An endpoint for deleting the API key.
      * @param apiKey The ID of the API key to be deleted.
      */
-    public deleteApiKey (apiKey: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deleteApiKey (apiKey: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/{apiKey}'
             .replace('{' + 'apiKey' + '}', String(apiKey));
         let queryParameters: any = {};
@@ -2294,7 +2360,10 @@ export class DeveloperApi {
 
         // verify required parameter 'apiKey' is not null or undefined
         if (apiKey === null || apiKey === undefined) {
-            throw new Error('Required parameter apiKey was null or undefined when calling deleteApiKey.');
+            if (callback) {
+                callback(new Error('Required parameter apiKey was null or undefined when calling deleteApiKey.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -2335,7 +2404,7 @@ export class DeveloperApi {
      * @param filter A filter for the query, for example filter&#x3D;owner%3Duuid.
      * @param owner Owner name filter.
      */
-    public getAllApiKeys (limit?: number, after?: string, order?: string, include?: string, filter?: string, owner?: string, callback?: (error:any, data:ApiKeyInfoRespList, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllApiKeys (limit?: number, after?: string, order?: string, include?: string, filter?: string, owner?: string, callback?: (error:any, data?:ApiKeyInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2402,7 +2471,7 @@ export class DeveloperApi {
      * @param order The order of the records, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      */
-    public getAllGroups (limit?: number, after?: string, order?: string, include?: string, callback?: (error:any, data:GroupSummaryList, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllGroups (limit?: number, after?: string, order?: string, include?: string, callback?: (error:any, data?:GroupSummaryList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/policy-groups';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2458,7 +2527,7 @@ export class DeveloperApi {
      * An endpoint for retrieving API key details.
      * @param apiKey The ID of the API key to be retrieved.
      */
-    public getApiKey (apiKey: string, callback?: (error:any, data:ApiKeyInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getApiKey (apiKey: string, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/{apiKey}'
             .replace('{' + 'apiKey' + '}', String(apiKey));
         let queryParameters: any = {};
@@ -2468,7 +2537,10 @@ export class DeveloperApi {
 
         // verify required parameter 'apiKey' is not null or undefined
         if (apiKey === null || apiKey === undefined) {
-            throw new Error('Required parameter apiKey was null or undefined when calling getApiKey.');
+            if (callback) {
+                callback(new Error('Required parameter apiKey was null or undefined when calling getApiKey.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -2504,7 +2576,7 @@ export class DeveloperApi {
      * Returns detailed information about the account.
      * @param include Comma separated additional data to return. Currently supported: limits
      */
-    public getMyAccountInfo (include?: string, callback?: (error:any, data:AccountInfo, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getMyAccountInfo (include?: string, callback?: (error:any, data?:AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/accounts/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2547,7 +2619,7 @@ export class DeveloperApi {
      * Get API key details.
      * An endpoint for retrieving API key details.
      */
-    public getMyApiKey (callback?: (error:any, data:ApiKeyInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getMyApiKey (callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2586,7 +2658,7 @@ export class DeveloperApi {
      * Details of the current user.
      * An endpoint for retrieving the details of the logged in user.
      */
-    public getMyUser (callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getMyUser (callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2627,7 +2699,7 @@ export class DeveloperApi {
      * @param apiKey The ID of the API key to be updated.
      * @param body New API key attributes to be stored.
      */
-    public updateApiKey (apiKey: string, body: ApiKeyUpdateReq, callback?: (error:any, data:ApiKeyInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateApiKey (apiKey: string, body: ApiKeyUpdateReq, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/{apiKey}'
             .replace('{' + 'apiKey' + '}', String(apiKey));
         let queryParameters: any = {};
@@ -2637,12 +2709,18 @@ export class DeveloperApi {
 
         // verify required parameter 'apiKey' is not null or undefined
         if (apiKey === null || apiKey === undefined) {
-            throw new Error('Required parameter apiKey was null or undefined when calling updateApiKey.');
+            if (callback) {
+                callback(new Error('Required parameter apiKey was null or undefined when calling updateApiKey.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateApiKey.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling updateApiKey.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -2679,7 +2757,7 @@ export class DeveloperApi {
      * An endpoint for updating API key details.
      * @param body New API key attributes to be stored.
      */
-    public updateMyApiKey (body: ApiKeyUpdateReq, callback?: (error:any, data:ApiKeyInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateMyApiKey (body: ApiKeyUpdateReq, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/api-keys/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2688,7 +2766,10 @@ export class DeveloperApi {
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateMyApiKey.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling updateMyApiKey.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -2725,7 +2806,7 @@ export class DeveloperApi {
      * An endpoint for updating the details of the logged in user.
      * @param body New attributes for the logged in user.
      */
-    public updateMyUser (body: UserUpdateReq, callback?: (error:any, data:UserInfoResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateMyUser (body: UserUpdateReq, callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/users/me';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -2734,7 +2815,10 @@ export class DeveloperApi {
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateMyUser.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling updateMyUser.'));
+            }
+            return;
         }
 
         let useFormData = false;

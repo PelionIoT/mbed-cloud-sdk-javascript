@@ -348,7 +348,7 @@ export class DefaultApi {
      * @param object The API resource entity
      * @param queryId DEPRECATED: The ID of the query
      */
-    public deviceQueryCreate (name: string, query: string, description?: string, object?: string, queryId?: string, callback?: (error:any, data:DeviceQueryDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryCreate (name: string, query: string, description?: string, object?: string, queryId?: string, callback?: (error:any, data?:DeviceQueryDetail, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -357,12 +357,18 @@ export class DefaultApi {
 
         // verify required parameter 'name' is not null or undefined
         if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling deviceQueryCreate.');
+            if (callback) {
+                callback(new Error('Required parameter name was null or undefined when calling deviceQueryCreate.'));
+            }
+            return;
         }
 
         // verify required parameter 'query' is not null or undefined
         if (query === null || query === undefined) {
-            throw new Error('Required parameter query was null or undefined when calling deviceQueryCreate.');
+            if (callback) {
+                callback(new Error('Required parameter query was null or undefined when calling deviceQueryCreate.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -418,7 +424,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Delete device query&lt;/p&gt;
      * @param queryId 
      */
-    public deviceQueryDestroy (queryId: string, callback?: (error:any, data:DeviceQueryDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryDestroy (queryId: string, callback?: (error:any, data?:DeviceQueryDetail, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/{query_id}/'
             .replace('{' + 'query_id' + '}', String(queryId));
         let queryParameters: any = {};
@@ -428,7 +434,10 @@ export class DefaultApi {
 
         // verify required parameter 'queryId' is not null or undefined
         if (queryId === null || queryId === undefined) {
-            throw new Error('Required parameter queryId was null or undefined when calling deviceQueryDestroy.');
+            if (callback) {
+                callback(new Error('Required parameter queryId was null or undefined when calling deviceQueryDestroy.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -467,7 +476,7 @@ export class DefaultApi {
      * @param after 
      * @param include 
      */
-    public deviceQueryList (limit?: number, order?: string, after?: string, include?: string, callback?: (error:any, data:DeviceQueryResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryList (limit?: number, order?: string, after?: string, include?: string, callback?: (error:any, data?:DeviceQueryResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -528,7 +537,7 @@ export class DefaultApi {
      * @param query The device query
      * @param queryId2 DEPRECATED: The ID of the query
      */
-    public deviceQueryPartialUpdate (queryId: string, description?: string, name?: string, object?: string, query?: string, queryId2?: string, callback?: (error:any, data:DeviceQueryDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryPartialUpdate (queryId: string, description?: string, name?: string, object?: string, query?: string, queryId2?: string, callback?: (error:any, data?:DeviceQueryDetail, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/{query_id}/'
             .replace('{' + 'query_id' + '}', String(queryId));
         let queryParameters: any = {};
@@ -538,7 +547,10 @@ export class DefaultApi {
 
         // verify required parameter 'queryId' is not null or undefined
         if (queryId === null || queryId === undefined) {
-            throw new Error('Required parameter queryId was null or undefined when calling deviceQueryPartialUpdate.');
+            if (callback) {
+                callback(new Error('Required parameter queryId was null or undefined when calling deviceQueryPartialUpdate.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -594,7 +606,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Retrieve device query.&lt;/p&gt;
      * @param queryId 
      */
-    public deviceQueryRetrieve (queryId: string, callback?: (error:any, data:DeviceQueryDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryRetrieve (queryId: string, callback?: (error:any, data?:DeviceQueryDetail, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/{query_id}/'
             .replace('{' + 'query_id' + '}', String(queryId));
         let queryParameters: any = {};
@@ -604,7 +616,10 @@ export class DefaultApi {
 
         // verify required parameter 'queryId' is not null or undefined
         if (queryId === null || queryId === undefined) {
-            throw new Error('Required parameter queryId was null or undefined when calling deviceQueryRetrieve.');
+            if (callback) {
+                callback(new Error('Required parameter queryId was null or undefined when calling deviceQueryRetrieve.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -641,7 +656,7 @@ export class DefaultApi {
      * @param queryId 
      * @param body Device query update object
      */
-    public deviceQueryUpdate (queryId: string, body: Body, callback?: (error:any, data:DeviceQueryDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryUpdate (queryId: string, body: Body, callback?: (error:any, data?:DeviceQueryDetail, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/device-queries/{query_id}/'
             .replace('{' + 'query_id' + '}', String(queryId));
         let queryParameters: any = {};
@@ -651,12 +666,18 @@ export class DefaultApi {
 
         // verify required parameter 'queryId' is not null or undefined
         if (queryId === null || queryId === undefined) {
-            throw new Error('Required parameter queryId was null or undefined when calling deviceQueryUpdate.');
+            if (callback) {
+                callback(new Error('Required parameter queryId was null or undefined when calling deviceQueryUpdate.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling deviceQueryUpdate.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling deviceQueryUpdate.'));
+            }
+            return;
         }
 
         let useFormData = false;
