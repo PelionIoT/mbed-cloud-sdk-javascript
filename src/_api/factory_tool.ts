@@ -307,7 +307,7 @@ export class DefaultApi {
      * Returns a specific Factory Tool package in a ZIP archive. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
      * @param os Requires Factory Tool OS name (Windows or Linux).
      */
-    public downloadsMbedFactoryProvisioningPackageGet (os: string, callback?: (error:any, data:string, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public downloadsMbedFactoryProvisioningPackageGet (os: string, callback?: (error:any, data?:string, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/downloads/mbed_factory_provisioning_package';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -316,7 +316,10 @@ export class DefaultApi {
 
         // verify required parameter 'os' is not null or undefined
         if (os === null || os === undefined) {
-            throw new Error('Required parameter os was null or undefined when calling downloadsMbedFactoryProvisioningPackageGet.');
+            if (callback) {
+                callback(new Error('Required parameter os was null or undefined when calling downloadsMbedFactoryProvisioningPackageGet.'));
+            }
+            return;
         }
 
         if (os !== undefined) {
@@ -355,7 +358,7 @@ export class DefaultApi {
      * 
      * Gets a list of downloadable Factory Tool versions. * mbed Cloud user role must be Administrator. * mbed Cloud account must have Factory Tool downloads enabled. 
      */
-    public downloadsMbedFactoryProvisioningPackageInfoGet (callback?: (error:any, data:AListOfDownloadableFactoryToolVersions_, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public downloadsMbedFactoryProvisioningPackageInfoGet (callback?: (error:any, data?:AListOfDownloadableFactoryToolVersions_, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/downloads/mbed_factory_provisioning_package/info';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);

@@ -301,7 +301,7 @@ export class DefaultApi {
      * Deletes the account&#39;s developer certificate (only one per account allowed).
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3DeveloperCertificateDelete (authorization: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3DeveloperCertificateDelete (authorization: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/developer-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -310,7 +310,10 @@ export class DefaultApi {
 
         // verify required parameter 'authorization' is not null or undefined
         if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling v3DeveloperCertificateDelete.');
+            if (callback) {
+                callback(new Error('Required parameter authorization was null or undefined when calling v3DeveloperCertificateDelete.'));
+            }
+            return;
         }
 
         headerParams['Authorization'] = authorization;
@@ -348,7 +351,7 @@ export class DefaultApi {
      * Gets the developer certificate of the account.
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3DeveloperCertificateGet (authorization: string, callback?: (error:any, data:DeveloperCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3DeveloperCertificateGet (authorization: string, callback?: (error:any, data?:DeveloperCertificate, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/developer-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -357,7 +360,10 @@ export class DefaultApi {
 
         // verify required parameter 'authorization' is not null or undefined
         if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling v3DeveloperCertificateGet.');
+            if (callback) {
+                callback(new Error('Required parameter authorization was null or undefined when calling v3DeveloperCertificateGet.'));
+            }
+            return;
         }
 
         headerParams['Authorization'] = authorization;
@@ -396,7 +402,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param body 
      */
-    public v3DeveloperCertificatePost (authorization: string, body: Body, callback?: (error:any, data:DeveloperCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3DeveloperCertificatePost (authorization: string, body: Body, callback?: (error:any, data?:DeveloperCertificate, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/developer-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -405,12 +411,18 @@ export class DefaultApi {
 
         // verify required parameter 'authorization' is not null or undefined
         if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling v3DeveloperCertificatePost.');
+            if (callback) {
+                callback(new Error('Required parameter authorization was null or undefined when calling v3DeveloperCertificatePost.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling v3DeveloperCertificatePost.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling v3DeveloperCertificatePost.'));
+            }
+            return;
         }
 
         headerParams['Authorization'] = authorization;

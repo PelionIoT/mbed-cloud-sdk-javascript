@@ -351,7 +351,7 @@ export class DefaultApi {
      * Gets the list of production line certificates associated with the account. 
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3ProductionLineCertificatesGet (authorization: string, callback?: (error:any, data:AListOfProductionLineCertificates_, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProductionLineCertificatesGet (authorization: string, callback?: (error:any, data?:AListOfProductionLineCertificates_, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -360,7 +360,10 @@ export class DefaultApi {
 
         // verify required parameter 'authorization' is not null or undefined
         if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling v3ProductionLineCertificatesGet.');
+            if (callback) {
+                callback(new Error('Required parameter authorization was null or undefined when calling v3ProductionLineCertificatesGet.'));
+            }
+            return;
         }
 
         headerParams['Authorization'] = authorization;
@@ -399,7 +402,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param mUUID Certificate mUUID
      */
-    public v3ProductionLineCertificatesMUUIDDelete (authorization: string, mUUID: string, callback?: (error:any, data:ProductionLineCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProductionLineCertificatesMUUIDDelete (authorization: string, mUUID: string, callback?: (error:any, data?:ProductionLineCertificate, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates/{mUUID}'
             .replace('{' + 'mUUID' + '}', String(mUUID));
         let queryParameters: any = {};
@@ -409,12 +412,18 @@ export class DefaultApi {
 
         // verify required parameter 'authorization' is not null or undefined
         if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling v3ProductionLineCertificatesMUUIDDelete.');
+            if (callback) {
+                callback(new Error('Required parameter authorization was null or undefined when calling v3ProductionLineCertificatesMUUIDDelete.'));
+            }
+            return;
         }
 
         // verify required parameter 'mUUID' is not null or undefined
         if (mUUID === null || mUUID === undefined) {
-            throw new Error('Required parameter mUUID was null or undefined when calling v3ProductionLineCertificatesMUUIDDelete.');
+            if (callback) {
+                callback(new Error('Required parameter mUUID was null or undefined when calling v3ProductionLineCertificatesMUUIDDelete.'));
+            }
+            return;
         }
 
         headerParams['Authorization'] = authorization;
@@ -453,7 +462,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param mUUID Certificate mUUID.
      */
-    public v3ProductionLineCertificatesMUUIDGet (authorization: string, mUUID: string, callback?: (error:any, data:ProductionLineCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProductionLineCertificatesMUUIDGet (authorization: string, mUUID: string, callback?: (error:any, data?:ProductionLineCertificate, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates/{mUUID}'
             .replace('{' + 'mUUID' + '}', String(mUUID));
         let queryParameters: any = {};
@@ -463,12 +472,18 @@ export class DefaultApi {
 
         // verify required parameter 'authorization' is not null or undefined
         if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling v3ProductionLineCertificatesMUUIDGet.');
+            if (callback) {
+                callback(new Error('Required parameter authorization was null or undefined when calling v3ProductionLineCertificatesMUUIDGet.'));
+            }
+            return;
         }
 
         // verify required parameter 'mUUID' is not null or undefined
         if (mUUID === null || mUUID === undefined) {
-            throw new Error('Required parameter mUUID was null or undefined when calling v3ProductionLineCertificatesMUUIDGet.');
+            if (callback) {
+                callback(new Error('Required parameter mUUID was null or undefined when calling v3ProductionLineCertificatesMUUIDGet.'));
+            }
+            return;
         }
 
         headerParams['Authorization'] = authorization;
@@ -508,7 +523,7 @@ export class DefaultApi {
      * @param mUUID Certificate mUUID
      * @param body 
      */
-    public v3ProductionLineCertificatesMUUIDPut (authorization: string, mUUID: string, body: Body1, callback?: (error:any, data:ProductionLineCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProductionLineCertificatesMUUIDPut (authorization: string, mUUID: string, body: Body1, callback?: (error:any, data?:ProductionLineCertificate, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates/{mUUID}'
             .replace('{' + 'mUUID' + '}', String(mUUID));
         let queryParameters: any = {};
@@ -518,17 +533,26 @@ export class DefaultApi {
 
         // verify required parameter 'authorization' is not null or undefined
         if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling v3ProductionLineCertificatesMUUIDPut.');
+            if (callback) {
+                callback(new Error('Required parameter authorization was null or undefined when calling v3ProductionLineCertificatesMUUIDPut.'));
+            }
+            return;
         }
 
         // verify required parameter 'mUUID' is not null or undefined
         if (mUUID === null || mUUID === undefined) {
-            throw new Error('Required parameter mUUID was null or undefined when calling v3ProductionLineCertificatesMUUIDPut.');
+            if (callback) {
+                callback(new Error('Required parameter mUUID was null or undefined when calling v3ProductionLineCertificatesMUUIDPut.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling v3ProductionLineCertificatesMUUIDPut.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling v3ProductionLineCertificatesMUUIDPut.'));
+            }
+            return;
         }
 
         headerParams['Authorization'] = authorization;
@@ -568,7 +592,7 @@ export class DefaultApi {
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      * @param body 
      */
-    public v3ProductionLineCertificatesPost (authorization: string, body: Body, callback?: (error:any, data:ProductionLineCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProductionLineCertificatesPost (authorization: string, body: Body, callback?: (error:any, data?:ProductionLineCertificate, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/production-line-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -577,12 +601,18 @@ export class DefaultApi {
 
         // verify required parameter 'authorization' is not null or undefined
         if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling v3ProductionLineCertificatesPost.');
+            if (callback) {
+                callback(new Error('Required parameter authorization was null or undefined when calling v3ProductionLineCertificatesPost.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling v3ProductionLineCertificatesPost.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling v3ProductionLineCertificatesPost.'));
+            }
+            return;
         }
 
         headerParams['Authorization'] = authorization;

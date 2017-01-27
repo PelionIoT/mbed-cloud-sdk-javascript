@@ -417,7 +417,7 @@ export class DefaultApi {
      * 
      * &lt;p&gt;Reads the deploy_info.json file and returns the Build and Git ID to the caller.&lt;/p&gt; &lt;p&gt;Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.&lt;/p&gt;
      */
-    public deployInfoGET (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deployInfoGET (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/fc_deploy_info';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -469,7 +469,7 @@ export class DefaultApi {
      * @param imageId 
      * @param object 
      */
-    public firmwareImageCreate (datafile: string, name: string, description?: string, updatingRequestId?: string, updatingIpAddress?: string, name2?: string, description2?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, imageId?: string, object?: string, callback?: (error:any, data:FirmwareImageSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareImageCreate (datafile: any, name: string, description?: string, updatingRequestId?: string, updatingIpAddress?: string, name2?: string, description2?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, imageId?: string, object?: string, callback?: (error:any, data?:FirmwareImageSerializerData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-images/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -478,12 +478,18 @@ export class DefaultApi {
 
         // verify required parameter 'datafile' is not null or undefined
         if (datafile === null || datafile === undefined) {
-            throw new Error('Required parameter datafile was null or undefined when calling firmwareImageCreate.');
+            if (callback) {
+                callback(new Error('Required parameter datafile was null or undefined when calling firmwareImageCreate.'));
+            }
+            return;
         }
 
         // verify required parameter 'name' is not null or undefined
         if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling firmwareImageCreate.');
+            if (callback) {
+                callback(new Error('Required parameter name was null or undefined when calling firmwareImageCreate.'));
+            }
+            return;
         }
 
         if (updatingRequestId !== undefined) {
@@ -531,6 +537,7 @@ export class DefaultApi {
         if (datafile !== undefined) {
             formParams['datafile'] = datafile;
         }
+        useFormData = true;
 
         if (description !== undefined) {
             formParams['description'] = description;
@@ -580,7 +587,7 @@ export class DefaultApi {
      * @param etag 
      * @param object 
      */
-    public firmwareImageDestroy (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: (error:any, data:FirmwareImageSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareImageDestroy (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: (error:any, data?:FirmwareImageSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-images/{image_id}/'
             .replace('{' + 'image_id' + '}', String(imageId));
         let queryParameters: any = {};
@@ -590,7 +597,10 @@ export class DefaultApi {
 
         // verify required parameter 'imageId' is not null or undefined
         if (imageId === null || imageId === undefined) {
-            throw new Error('Required parameter imageId was null or undefined when calling firmwareImageDestroy.');
+            if (callback) {
+                callback(new Error('Required parameter imageId was null or undefined when calling firmwareImageDestroy.'));
+            }
+            return;
         }
 
         if (updatingRequestId !== undefined) {
@@ -665,7 +675,7 @@ export class DefaultApi {
      * @param after 
      * @param include 
      */
-    public firmwareImageList (limit?: number, order?: string, after?: string, include?: string, callback?: (error:any, data:FirmwareImageSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareImageList (limit?: number, order?: string, after?: string, include?: string, callback?: (error:any, data?:FirmwareImageSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-images/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -730,7 +740,7 @@ export class DefaultApi {
      * @param etag 
      * @param object 
      */
-    public firmwareImageRetrieve (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: (error:any, data:FirmwareImageSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareImageRetrieve (imageId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, etag?: string, object?: string, callback?: (error:any, data?:FirmwareImageSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-images/{image_id}/'
             .replace('{' + 'image_id' + '}', String(imageId));
         let queryParameters: any = {};
@@ -740,7 +750,10 @@ export class DefaultApi {
 
         // verify required parameter 'imageId' is not null or undefined
         if (imageId === null || imageId === undefined) {
-            throw new Error('Required parameter imageId was null or undefined when calling firmwareImageRetrieve.');
+            if (callback) {
+                callback(new Error('Required parameter imageId was null or undefined when calling firmwareImageRetrieve.'));
+            }
+            return;
         }
 
         if (updatingRequestId !== undefined) {
@@ -814,7 +827,7 @@ export class DefaultApi {
      * @param name The name of the object
      * @param description The description of the object
      */
-    public firmwareManifestCreate (datafile: any, name: string, description?: string, callback?: (error:any, data:FirmwareManifestSerializerData, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareManifestCreate (datafile: any, name: string, description?: string, callback?: (error:any, data?:FirmwareManifestSerializerData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-manifests/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -823,12 +836,18 @@ export class DefaultApi {
 
         // verify required parameter 'datafile' is not null or undefined
         if (datafile === null || datafile === undefined) {
-            throw new Error('Required parameter datafile was null or undefined when calling firmwareManifestCreate.');
+            if (callback) {
+                callback(new Error('Required parameter datafile was null or undefined when calling firmwareManifestCreate.'));
+            }
+            return;
         }
 
         // verify required parameter 'name' is not null or undefined
         if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling firmwareManifestCreate.');
+            if (callback) {
+                callback(new Error('Required parameter name was null or undefined when calling firmwareManifestCreate.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -877,7 +896,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Delete firmware manifest&lt;/p&gt;
      * @param manifestId The ID of the firmware manifest
      */
-    public firmwareManifestDestroy (manifestId: number, callback?: (error:any, data:FirmwareManifestSerializerData, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareManifestDestroy (manifestId: number, callback?: (error:any, data?:FirmwareManifestSerializerData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-manifests/{manifest_id}/'
             .replace('{' + 'manifest_id' + '}', String(manifestId));
         let queryParameters: any = {};
@@ -887,7 +906,10 @@ export class DefaultApi {
 
         // verify required parameter 'manifestId' is not null or undefined
         if (manifestId === null || manifestId === undefined) {
-            throw new Error('Required parameter manifestId was null or undefined when calling firmwareManifestDestroy.');
+            if (callback) {
+                callback(new Error('Required parameter manifestId was null or undefined when calling firmwareManifestDestroy.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -926,7 +948,7 @@ export class DefaultApi {
      * @param after 
      * @param include 
      */
-    public firmwareManifestList (limit?: number, order?: string, after?: string, include?: string, callback?: (error:any, data:ManifestSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareManifestList (limit?: number, order?: string, after?: string, include?: string, callback?: (error:any, data?:ManifestSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-manifests/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -993,7 +1015,7 @@ export class DefaultApi {
      * @param object 
      * @param timestamp 
      */
-    public firmwareManifestRetrieve (manifestId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, deviceClass?: string, etag?: string, object?: string, timestamp?: string, callback?: (error:any, data:FirmwareManifestSerializerData, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareManifestRetrieve (manifestId: number, updatingRequestId?: string, updatingIpAddress?: string, name?: string, description?: string, createdAt?: string, updatedAt?: string, datafileChecksum?: string, deviceClass?: string, etag?: string, object?: string, timestamp?: string, callback?: (error:any, data?:FirmwareManifestSerializerData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/firmware-manifests/{manifest_id}/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1002,7 +1024,10 @@ export class DefaultApi {
 
         // verify required parameter 'manifestId' is not null or undefined
         if (manifestId === null || manifestId === undefined) {
-            throw new Error('Required parameter manifestId was null or undefined when calling firmwareManifestRetrieve.');
+            if (callback) {
+                callback(new Error('Required parameter manifestId was null or undefined when calling firmwareManifestRetrieve.'));
+            }
+            return;
         }
 
         if (updatingRequestId !== undefined) {
