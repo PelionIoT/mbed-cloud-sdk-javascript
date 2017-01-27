@@ -1,4 +1,4 @@
-import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
+import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
 import { FirmwareImage } from "./firmwareImage";
 import { FirmwareManifest } from "./firmwareManifest";
 /**
@@ -21,7 +21,7 @@ export declare class UpdateApi {
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareImage>) => any): void;
+    listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareImage>) => any): any;
     /**
      * List firmware manifests
      * @param options list options
@@ -33,5 +33,5 @@ export declare class UpdateApi {
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    listFirmwareManifests(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareManifest>) => any): void;
+    listFirmwareManifests(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareManifest>) => any): any;
 }

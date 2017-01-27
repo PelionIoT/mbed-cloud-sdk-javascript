@@ -15,11 +15,14 @@
 * limitations under the License.
 */
 
+import { ListOptions } from "../common/interfaces";
+
 export interface DevicesApiType {
     /**
-     * Whether webhooks or long polling are being used on this API
+     * Whether async callbacks are handled by the API.
+     * Long polling will set this automatically, but it can also be used alongside the `notify` function with webhooks
      */
-    polling: boolean;
+    handleNotifications: boolean;
 }
 
 export type MechanismEnum = "connector" | "direct";
@@ -66,7 +69,7 @@ export interface DeviceType {
     /**
      * Up to 5 custom JSON attributes
      */
-    customAttributes?: {};
+    customAttributes?: { [key: string]: string; };
     /**
      * The device class
      */
@@ -165,9 +168,13 @@ export interface QueryType {
      */
     name?: string;
     /**
-     * The device query
+     * The attributes of the query
      */
-    query?: string;
+    attributes?: { [key: string]: string };
+    /**
+     * The custom attributes of the query
+     */
+    customAttributes?: { [key: string]: string };
     /**
      * The description of the query
      */
@@ -180,6 +187,13 @@ export interface QueryType {
      * The time the query was updated
      */
     updatedAt?: Date;
+}
+
+export interface QueryOptions extends ListOptions {
+    /**
+     * The custom attributes of the query
+     */
+    customAttributes?: { [key: string]: string };
 }
 
 export interface WebhookType {

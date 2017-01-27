@@ -90,7 +90,7 @@ export interface AccountType {
      */
     "templateId"?: string;
 }
-export declare type UserStatusEnum = "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export declare type UserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
 /**
  * This object represents a user in mbed Cloud.
  */

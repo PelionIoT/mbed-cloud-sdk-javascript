@@ -16,7 +16,7 @@
 */
 
 import pg = require("polygoat");
-import { ConnectionOptions } from "../helpers/interfaces";
+import { ConnectionOptions } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
 import { DeveloperCertificate } from "./developerCertificate";
 

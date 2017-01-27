@@ -9,16 +9,7 @@ export declare class Device {
     private _api;
     constructor(options: DeviceType, _api?: DevicesApi);
     static map(from: apiDeviceType, api: DevicesApi): Device;
-    /**
-     * Gets details of a device
-     * @returns Promise of device
-     */
-    getDetails(): Promise<Device>;
-    /**
-     * Gets details of a device
-     * @param callback A function that is passed the arguments (error, device)
-     */
-    getDetails(callback: (err: any, data?: Device) => any): any;
+    static reverseMap(from: DeviceType): apiDeviceType;
     /**
      * List device's resources
      * @returns Promise of device resources
@@ -29,26 +20,6 @@ export declare class Device {
      * @param callback A function that is passed the arguments (error, resources)
      */
     listResources(callback: (err: any, data?: Resource[]) => any): any;
-    /**
-     * Deletes a resource
-     * @param options.path Path of the resource to delete
-     * @param options.noResponse Whether to make a non-confirmable request to the device
-     * @returns Promise containing any error
-     */
-    deleteResource(options: {
-        path: string;
-        noResponse?: boolean;
-    }): Promise<string>;
-    /**
-     * Deletes a resource
-     * @param options.path Path of the resource to delete
-     * @param options.noResponse Whether to make a non-confirmable request to the device
-     * @param callback A function that is passed any error
-     */
-    deleteResource(options: {
-        path: string;
-        noResponse?: boolean;
-    }, callback?: (err: any, data?: string) => any): any;
     /**
      * List a device's subscriptions
      * @returns Promise containing the subscriptions
@@ -69,6 +40,28 @@ export declare class Device {
      * @param callback A function that is passed any error
      */
     deleteSubscriptions(callback: (err: any, data?: void) => any): any;
+    /**
+     * Update a device
+     * @param options device details
+     * @returns Promise of device
+     */
+    update(options: DeviceType): Promise<Device>;
+    /**
+     * Update a device
+     * @param options device details
+     * @param callback A function that is passed the arguments (error, device)
+     */
+    update(options: DeviceType, callback?: (err: any, data?: Device) => any): any;
+    /**
+     * Deletes a device
+     * @returns Promise containing any error
+     */
+    delete(): Promise<void>;
+    /**
+     * Deletes a device
+     * @param callback A function that is passed any error
+     */
+    delete(callback?: (err: any, data?: void) => any): any;
 }
 export interface Device extends DeviceType {
 }

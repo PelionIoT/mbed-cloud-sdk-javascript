@@ -48,10 +48,10 @@ export interface ListOptions {
      * Optional fields to include
      */
     include?: IncludeEnum[];
-    /*
-     * URL encoded query string parameter to filter returned data
+    /**
+     * The filter attributes of the filter
      */
-    filter?: string;
+    attributes?: { [key: string]: string };
 }
 
 export interface ListResponse<T> {

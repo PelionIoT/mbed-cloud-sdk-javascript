@@ -18,7 +18,12 @@ export interface ListOptions {
     order?: OrderEnum;
     after?: string;
     include?: IncludeEnum[];
-    filter?: string;
+    /**
+     * The filter attributes of the filter
+     */
+    attributes?: {
+        [key: string]: string;
+    };
 }
 export interface ListResponse<T> {
     /**

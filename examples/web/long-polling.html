@@ -14,32 +14,110 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Query Management</title>
+    <title>mbed Cloud SDK</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="style.css">
+
     <script src="config.js"></script>
     <script src="../../bundles/devices.min.js"></script>
 </head>
 <body>
-    <div id="results"></div>
+    <h3 id="header"></h3>
+
+    <table>
+        <thead><tr>
+            <th>Resource Path</th>
+            <th>Value</th>
+        </tr></thead>
+        <tbody id="resources"></tbody>
+    </table>
 
     <script>
-        var resultsEl = document.getElementById("results");
-
-        function log(message) {
-            console.log(message);
-            resultsEl.innerText += message + "\n";
-        }
+        var headerEl = document.getElementById("header");
+        var resourcesEl = document.getElementById("resources");
 
         var devices = new window.mbedCloudSDK.DevicesApi(window.config);
 
-// LONG_POLLING (2348)
-// listConnecteddevices
-// resource.setValue (check asyncID)
-// resource.getValue (check asyncID)
-// startNotifications
-// stopNotifications
+        // Long polling
+        devices.startNotifications();
 
+        window.addEventListener("unload", function() {
+            devices.stopNotifications();
+        });
+
+        // Get specified device or first device
+        var deviceId = "";
+        function getDevice(completeFn) {
+            if (deviceId) {
+                devices.getDevice(deviceId, function(err, device) {
+                    if (!err) completeFn(device);
+                });
+                return;
+            }
+
+            devices.listConnectedDevices(function(err, response) {
+                if (!err) completeFn(response.data[0]);
+            });
+        }
+
+        // Dom element builder
+        function buildElement(type, value, parent) {
+            var element = document.createElement(type);
+            if (value) element.innerHTML = value;
+            if (parent) parent.appendChild(element);
+            return element;
+        }
+
+        getDevice(function(device) {
+            headerEl.innerText = "Device: " + device.id;
+
+            device.listResources(function(err, resources) {
+                resources.forEach(function(resource) {
+
+                    // Build UI
+                    var row = resourcesEl.insertRow(0);
+                    buildElement("td", resource.path, row);
+                    var valueCell = buildElement("td", "Loading...", row);
+                    //var buttonCell = buildElement("td", null, row);
+                    //var button = buildElement("button", "edit...", buttonCell);
+
+                    function updateValue(err, value) {
+                        valueCell.innerHTML = value || err;
+                        valueCell.classList.remove("flash");
+                        void valueCell.offsetWidth;
+                        valueCell.classList.add("flash");
+                    }
+
+                    resource.getValue(updateValue);
+                    resource.on("notification", updateValue);
+
+                    // Update value
+                    /*
+                    button.addEventListener("click", function() {
+                        var value = window.prompt("Enter the new resource value", valueCell.innerHTML);
+                        if (!name) return;
+
+                        resource.setValue({
+                            value: value
+                        }, function(err) {
+                            if (err) {
+                                alert(err);
+                                return;
+                            }
+                            resource.getValue(updateValue);
+                        });
+                    });
+                    */
+                });
+            });
+        });
     </script>
 </body>
 </html>

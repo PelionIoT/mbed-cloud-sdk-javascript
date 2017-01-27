@@ -106,7 +106,7 @@ export interface AccountType {
     "templateId"?: string;
 }
 
-export type UserStatusEnum = "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type UserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
 /**
  * This object represents a user in mbed Cloud.
  */

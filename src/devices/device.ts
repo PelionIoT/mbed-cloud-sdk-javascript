@@ -15,6 +15,7 @@
 * limitations under the License.
 */
 
+import pg = require("polygoat");
 import { DeviceType } from "./types";
 import { DevicesApi } from "./index";
 import { Resource } from "./resource";
@@ -59,20 +60,23 @@ export class Device {
         return new Device(type, api);
     }
 
-    /**
-     * Gets details of a device
-     * @returns Promise of device
-     */
-    public getDetails(): Promise<Device>;
-    /**
-     * Gets details of a device
-     * @param callback A function that is passed the arguments (error, device)
-     */
-    public getDetails(callback: (err: any, data?: Device) => any);
-    public getDetails(callback?: (err: any, data?: Device) => any): Promise<Device> {
-        return this._api.getDevice({
-            id: this.id
-        }, callback);
+    static reverseMap(from: DeviceType): apiDeviceType {
+        return {
+            account_id:           from.accountId,
+            name:                 from.name,
+            auto_update:          from.autoUpdate,
+            vendor_id:            from.vendorId,
+            custom_attributes:    from.customAttributes,
+            manifest:             from.manifest,
+            trust_class:          from.trustClass,
+            provision_key:        from.provisionKey,
+            mechanism:            from.mechanism,
+            device_class:         from.deviceClass,
+            mechanism_url:        from.mechanismUrl,
+            serial_number:        from.serialNumber,
+            trust_level:          from.trustLevel,
+            description:          from.description,
+        };
     }
 
     /**
@@ -86,31 +90,10 @@ export class Device {
      */
     public listResources(callback: (err: any, data?: Resource[]) => any);
     public listResources(callback?: (err: any, data?: Resource[]) => any): Promise<Resource[]> {
-        return this._api.listDeviceResources({
-            id: this.id
-        }, callback);
-    }
-
-    /**
-     * Deletes a resource
-     * @param options.path Path of the resource to delete
-     * @param options.noResponse Whether to make a non-confirmable request to the device
-     * @returns Promise containing any error
-     */
-    public deleteResource(options: { path: string, noResponse?: boolean }): Promise<string>;
-    /**
-     * Deletes a resource
-     * @param options.path Path of the resource to delete
-     * @param options.noResponse Whether to make a non-confirmable request to the device
-     * @param callback A function that is passed any error
-     */
-    public deleteResource(options: { path: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
-    public deleteResource(options: { path: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
-        let { path, noResponse } = options;
-        return this._api.deleteDeviceResource({
-            id:            this.id,
-            path:          path,
-            noResponse:    noResponse
+        return pg(done => {
+            this._api.listDeviceResources({
+                id: this.id
+            }, done);
         }, callback);
     }
 
@@ -125,8 +108,10 @@ export class Device {
      */
     public listSubscriptions(callback: (err: any, data?: any) => any);
     public listSubscriptions(callback?: (err: any, data?: any) => any): Promise<any> {
-        return this._api.listDeviceSubscriptions({
-            id: this.id
+        return pg(done => {
+            this._api.listDeviceSubscriptions({
+                id: this.id
+            }, done);
         }, callback);
     }
 
@@ -141,8 +126,46 @@ export class Device {
      */
     public deleteSubscriptions(callback: (err: any, data?: void) => any);
     public deleteSubscriptions(callback?: (err: any, data?: void) => any): Promise<void> {
-        return this._api.deleteDeviceSubscriptions({
-            id: this.id
+        return pg(done => {
+            this._api.deleteDeviceSubscriptions({
+                id: this.id
+            }, done);
+        }, callback);
+    }
+
+    /**
+     * Update a device
+     * @param options device details
+     * @returns Promise of device
+     */
+    public update(options: DeviceType): Promise<Device>;
+    /**
+     * Update a device
+     * @param options device details
+     * @param callback A function that is passed the arguments (error, device)
+     */
+    public update(options: DeviceType, callback?: (err: any, data?: Device) => any);
+    public update(options: DeviceType, callback?: (err: any, data?: Device) => any): Promise<Device> {
+        return pg(done => {
+            this._api.updateDevice(options, done);
+        }, callback);
+    }
+
+    /**
+     * Deletes a device
+     * @returns Promise containing any error
+     */
+    public delete(): Promise<void>;
+    /**
+     * Deletes a device
+     * @param callback A function that is passed any error
+     */
+    public delete(callback?: (err: any, data?: void) => any);
+    public delete(callback?: (err: any, data?: void) => any): Promise<void> {
+        return pg(done => {
+            this._api.deleteDevice({
+                id:    this.id
+            }, done);
         }, callback);
     }
 }

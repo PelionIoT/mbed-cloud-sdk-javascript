@@ -16,8 +16,8 @@
 */
 
 import pg = require("polygoat");
-import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { mapListResponse, encodeInclude } from "../helpers/data";
+import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
+import { mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
 import { Endpoints } from "./endpoints";
 import { DeviceLog } from "./deviceLog";
 
@@ -37,23 +37,26 @@ export class LoggingApi {
 
     /**
      * List device logs
-     * @param options list options
+     * @param options filter options
      * @returns Promise of listResponse
      */
     public listDeviceLogs(options?: ListOptions): Promise<ListResponse<DeviceLog>>;
     /**
      * List device logs
-     * @param options list options
+     * @param options filter options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listDeviceLogs(options?: ListOptions, callback?: (err: any, data?: ListResponse<DeviceLog>) => any): void;
+    public listDeviceLogs(options?: ListOptions, callback?: (err: any, data?: ListResponse<DeviceLog>) => any);
     public listDeviceLogs(options?:any, callback?: (err: any, data?: ListResponse<DeviceLog>) => any): Promise<ListResponse<DeviceLog>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let { limit, order, after, filter, include } = options;
+
+        let { limit, order, after, attributes, include } = options as ListOptions;
+        let filter = encodeAttributes(attributes);
+
         return pg(done => {
             this._endpoints.catalog.deviceLogList(limit, order, after, filter, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
@@ -78,7 +81,7 @@ export class LoggingApi {
      * @param options.id device log ID
      * @param callback A function that is passed the return arguments (error, device log)
      */
-    public getDeviceLog(options: { id: string }, callback: (err: any, data?: DeviceLog) => any): void;
+    public getDeviceLog(options: { id: string }, callback: (err: any, data?: DeviceLog) => any);
     public getDeviceLog(options: { id: string }, callback?: (err: any, data?: DeviceLog) => any): Promise<DeviceLog> {
         let { id } = options;
         return pg(done => {

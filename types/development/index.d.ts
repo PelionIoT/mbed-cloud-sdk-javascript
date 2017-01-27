@@ -1,4 +1,4 @@
-import { ConnectionOptions } from "../helpers/interfaces";
+import { ConnectionOptions } from "../common/interfaces";
 import { DeveloperCertificate } from "./developerCertificate";
 /**
  * Root Development API

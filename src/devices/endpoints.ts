@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { ConnectionOptions } from "../helpers/interfaces";
+import { ConnectionOptions } from "../common/interfaces";
 import {
     DefaultApi as WebhookApi,
     DefaultApiApiKeys as WebhookApiApiKeys,

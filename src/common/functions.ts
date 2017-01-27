@@ -62,3 +62,27 @@ export function mapListResponse<T>(from: any, data:T[]): ListResponse<T> {
 
     return to;
 }
+
+export function encodeAttributes(from: { [key: string]: string }, prefix: string = ""): string {
+    if (!from) return "";
+
+    return Object.keys(from).map(key => {
+        return `${prefix}${key}=${from[key]}`;
+    }).join("&");
+}
+
+export function decodeAttributes(from: string, prefix: string = ""): { match: { [key: string]: string }, noMatch: { [key: string]: string } } {
+    let to = { match: {}, noMatch: {} };
+    let re = new RegExp(`^(${prefix})?(.+)=(.+)$`);
+
+    from = decodeURIComponent(from);
+    from.split("&").forEach(attrib => {
+        let match = attrib.match(re);
+        if (match) {
+            if (match[1]) to.match[match[2]] = match[3];
+            else to.noMatch[match[2]] = match[3];
+        }
+    });
+
+    return to;
+}

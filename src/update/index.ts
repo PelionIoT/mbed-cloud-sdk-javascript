@@ -16,8 +16,8 @@
 */
 
 import pg = require("polygoat");
-import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { mapListResponse, encodeInclude } from "../helpers/data";
+import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
+import { mapListResponse, encodeInclude } from "../common/functions";
 import { Endpoints } from "./endpoints";
 import { FirmwareImage } from "./firmwareImage";
 import { FirmwareManifest } from "./firmwareManifest";
@@ -47,10 +47,14 @@ export class UpdateApi {
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareImage>) => any): void;
-    public listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareImage>) => any): Promise<ListResponse<FirmwareImage>> {
+    public listFirmwareImages(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareImage>) => any);
+    public listFirmwareImages(options?: any, callback?: (err: any, data?: ListResponse<FirmwareImage>) => any): Promise<ListResponse<FirmwareImage>> {
         options = options || {};
-        let { limit, order, after, include } = options;
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { limit, order, after, include } = options as ListOptions;
         return pg(done => {
             this._endpoints.firmware.firmwareImageList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
@@ -75,10 +79,14 @@ export class UpdateApi {
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listFirmwareManifests(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareManifest>) => any): void;
-    public listFirmwareManifests(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareManifest>) => any): Promise<ListResponse<FirmwareManifest>> {
+    public listFirmwareManifests(options?: ListOptions, callback?: (err: any, data?: ListResponse<FirmwareManifest>) => any);
+    public listFirmwareManifests(options?: any, callback?: (err: any, data?: ListResponse<FirmwareManifest>) => any): Promise<ListResponse<FirmwareManifest>> {
         options = options || {};
-        let { limit, order, after, include } = options;
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { limit, order, after, include } = options as ListOptions;
         return pg(done => {
             this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);

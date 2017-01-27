@@ -1,9 +1,6 @@
 docs
-logs
 src
-test
 .gitignore
 circle.yml
 gulpfile.js
 index.html
-header.h

@@ -18,10 +18,10 @@
 import pg = require("polygoat");
 import superagent = require("superagent");
 import { EventEmitter } from "events";
-import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { decodeBase64, mapListResponse, encodeInclude } from "../helpers/data";
+import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
+import { decodeBase64, mapListResponse, encodeInclude } from "../common/functions";
 import { Endpoints } from "./endpoints";
-import { DevicesApiType, DeviceType, DeviceEventType, QueryType, WebhookType, PresubscriptionType } from "./types";
+import { DevicesApiType, DeviceType, DeviceEventType, QueryType, QueryOptions, WebhookType, PresubscriptionType } from "./types";
 import { Device } from "./device";
 import { Resource } from "./resource";
 import { Query } from "./query";
@@ -33,10 +33,11 @@ import { Presubscription } from "./presubscription";
  */
 export class DevicesApi extends EventEmitter {
 
+    private readonly asyncKey = "async-response-id";
     private _endpoints: Endpoints;
     private _pollRequest: superagent.SuperAgentRequest;
     private _asyncFns: { [key: string]: Function; } = {};
-    public _resourceSubs: { [key: string]: Resource; } = {};
+    private _notifyFns: { [key: string]: Function; } = {};
 
     /**
      * Resource notification event
@@ -77,7 +78,8 @@ export class DevicesApi extends EventEmitter {
     }
 
     /**
-     * Allows a notification to be injected into the polling system
+     * Allows a notification to be injected into the notifications system
+     * `handleNotifications` needs to be set to true for this to work with web hook async responses
      * @param data The notification data to inject
      */
     public notify(data: any) {
@@ -103,10 +105,10 @@ export class DevicesApi extends EventEmitter {
         if (data["notifications"]) {
             data["notifications"].forEach(notification => {
                 var path = notification.ep + notification.path;
-                var resource = this._resourceSubs[path];
+                var fn = this._notifyFns[path];
 
-                if (resource) {
-                    resource.emit(DevicesApi.EVENT_NOTIFICATION, decodeBase64(notification.payload, notification.ct));
+                if (fn) {
+                    fn(decodeBase64(notification.payload, notification.ct));
                 }
             });
         }
@@ -172,16 +174,16 @@ export class DevicesApi extends EventEmitter {
         let { requestCallback } = options;
 
         function poll() {
-            this._pollRequest = this._api.notifications.v2NotificationPullGet((error, data) => {
+            this._pollRequest = this._endpoints.notifications.v2NotificationPullGet((error, data) => {
 
-                if (!this.polling) return;
+                if (!this.handleNotifications) return;
 
                 this.notify(data);
 
                 if (requestCallback) requestCallback(error, data);
 
                 if (error) {
-                    this.polling = false;
+                    this.handleNotifications = false;
                     return;
                 }
 
@@ -190,7 +192,7 @@ export class DevicesApi extends EventEmitter {
         }
 
         poll.call(this);
-        this.polling = true;
+        this.handleNotifications = true;
 
         return pg(done => {
             done(null, null);
@@ -213,7 +215,7 @@ export class DevicesApi extends EventEmitter {
             this._pollRequest = null;
         }
 
-        this.polling = false;
+        this.handleNotifications = false;
 
         return pg(done => {
             done(null, null);
@@ -288,13 +290,13 @@ export class DevicesApi extends EventEmitter {
      * Gets pre-subscription data
      * @returns Promise containing data
      */
-    public getPreSubscription(): Promise<Presubscription[]>;
+    public getPresubscription(): Promise<Presubscription[]>;
     /**
      * Gets pre-subscription data
      * @param callback A function that is passed (error, data)
      */
-    public getPreSubscription(callback?: (err: any, data?: Presubscription[]) => any);
-    public getPreSubscription(callback?: (err: any, data?: Presubscription[]) => any): Promise<Presubscription[]> {
+    public getPresubscription(callback?: (err: any, data?: Presubscription[]) => any);
+    public getPresubscription(callback?: (err: any, data?: Presubscription[]) => any): Promise<Presubscription[]> {
         return pg(done => {
             this._endpoints.subscriptions.v2SubscriptionsGet((error, data) => {
                 if (error) return done(error);
@@ -310,14 +312,14 @@ export class DevicesApi extends EventEmitter {
      * @param options.data The pre-subscription data
      * @returns Promise containing any error
      */
-    public updatePreSubscription(options: PresubscriptionType[]): Promise<void>;
+    public updatePresubscription(options: PresubscriptionType[]): Promise<void>;
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
      * @param options.data The pre-subscription data
      * @param callback A function that is passed any error
      */
-    public updatePreSubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any);
-    public updatePreSubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any): Promise<void> {
+    public updatePresubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any);
+    public updatePresubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any): Promise<void> {
         let presubs = options.map(Presubscription.reverseMap);
         return pg(done => {
             this._endpoints.subscriptions.v2SubscriptionsPut(presubs, (error, data) => {
@@ -351,20 +353,23 @@ export class DevicesApi extends EventEmitter {
      * @param options list options
      * @returns Promise of devices
      */
-    public listDevices(options?: ListOptions): Promise<ListResponse<Device>>;
+    public listDevices(options?: QueryOptions): Promise<ListResponse<Device>>;
     /**
      * Gets a list of devices
      * @param options list options
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listDevices(options?: ListOptions, callback?: (err: any, data?: ListResponse<Device>) => any): void;
+    public listDevices(options?: QueryOptions, callback?: (err: any, data?: ListResponse<Device>) => any);
     public listDevices(options?: any, callback?: (err: any, data?: ListResponse<Device>) => any): Promise<ListResponse<Device>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let { limit, after, order, include, filter } = options;
+
+        let { limit, after, order, include } = options as QueryOptions;
+        let filter = Query.encodeQuery(options);
+
         return pg(done => {
             this._endpoints.catalog.deviceList(limit, order, after, filter, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
@@ -390,7 +395,7 @@ export class DevicesApi extends EventEmitter {
      * @param options.type Filter devices by device type
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listConnectedDevices(options?: { type?: string }, callback?: (err: any, data?: ListResponse<Device>) => any): void;
+    public listConnectedDevices(options?: { type?: string }, callback?: (err: any, data?: ListResponse<Device>) => any);
     public listConnectedDevices(options?: any, callback?: (err: any, data?: ListResponse<Device>) => any): Promise<ListResponse<Device>> {
         options = options || {};
         if (typeof options === "function") {
@@ -443,26 +448,49 @@ export class DevicesApi extends EventEmitter {
      * @param options Device details
      * @returns Promise of device
      */
-    public addDevice(options?: DeviceType): Promise<Device>;
+    public addDevice(options: DeviceType): Promise<Device>;
     /**
      * Add a device
      * @param options Device details
      * @param callback A function that is passed the arguments (error, device)
      */
-    public addDevice(options?: DeviceType, callback?: (err: any, data?: Device) => any): void;
-    public addDevice(options?:any, callback?: (err: any, data?: Device) => any): Promise<Device> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
+    public addDevice(options: DeviceType, callback?: (err: any, data?: Device) => any);
+    public addDevice(options: DeviceType, callback?: (err: any, data?: Device) => any): Promise<Device> {
+        let { mechanism, provisionKey, accountId, autoUpdate, bootstrappedTimestamp, createdAt, customAttributes,
+              deployedState, deployment, description, deviceClass, id, manifest, mechanismUrl, name,
+              serialNumber, state, trustClass, trustLevel, updatedAt, vendorId } = options;
         return pg(done => {
-            /*
-            this._api.catalog.deviceCreate(xxx, (error, data) => {
+            this._endpoints.catalog.deviceCreate(
+              mechanism, provisionKey, accountId, autoUpdate, bootstrappedTimestamp, createdAt, customAttributes,
+              deployedState, deployment, description, deviceClass, null, null, id, manifest, mechanismUrl, name,
+              null, serialNumber, state, trustClass, trustLevel, updatedAt, vendorId, (error, data) => {
                 if (error) return done(error);
-                done(null, data);
+                done(null, Device.map(data, this));
             });
-            */
+        }, callback);
+    }
+
+    /**
+     * Update a device
+     * @param options device details
+     * @returns Promise of device
+     */
+    public updateDevice(options: DeviceType): Promise<Device>;
+    /**
+     * Update a device
+     * @param options device details
+     * @param callback A function that is passed the arguments (error, device)
+     */
+    public updateDevice(options: DeviceType, callback?: (err: any, data?: Device) => any);
+    public updateDevice(options: DeviceType, callback?: (err: any, data?: Device) => any): Promise<Device> {
+        return pg(done => {
+            let apiDevice = Device.reverseMap(options);
+            this._endpoints.catalog.deviceUpdate(options.id, apiDevice, (error, data) => {
+                if (error) return done(error);
+
+                let device = Device.map(data, this);
+                done(null, device);
+            });
         }, callback);
     }
 
@@ -477,7 +505,7 @@ export class DevicesApi extends EventEmitter {
      * @param options.id Device ID
      * @param callback A function that is passed any error
      */
-    public deleteDevice(options: { id: string }, callback?: (err: any, data?: any) => void): void;
+    public deleteDevice(options: { id: string }, callback?: (err: any, data?: void) => any);
     public deleteDevice(options?:any, callback?: (err: any, data?: void) => any): Promise<void> {
         options = options || {};
         if (typeof options === "function") {
@@ -581,7 +609,7 @@ export class DevicesApi extends EventEmitter {
         return pg(done => {
             this._endpoints.resources.v2EndpointsEndpointNameResourcePathDelete(id, path, noResponse, (error, data) => {
                 if (error) return done(error);
-                done(null, data["async-response-id"]);
+                done(null, data[this.asyncKey]);
             });
         }, callback);
     }
@@ -592,7 +620,7 @@ export class DevicesApi extends EventEmitter {
      * @param options.path Resource path
      * @param options.cacheOnly If true, the response will come only from the cache
      * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
-     * @returns Promise of resource value when long polling or an asyncId
+     * @returns Promise of resource value when handling notifications or an asyncId
      */
     public getResourceValue(options: { id: string, path: string, cacheOnly?: boolean, noResponse?: boolean }): Promise<string>;
     /**
@@ -601,7 +629,7 @@ export class DevicesApi extends EventEmitter {
      * @param options.path Resource path
      * @param options.cacheOnly If true, the response will come only from the cache
      * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
-     * @param callback A function that is passed the arguments (error, value) where value is the resource value when long polling or an asyncId
+     * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
     public getResourceValue(options: { id: string, path: string, cacheOnly?: boolean, noResponse?: boolean }, callback: (err: any, data?: string) => any);
     public getResourceValue(options: { id: string, path: string, cacheOnly?: boolean, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
@@ -610,8 +638,8 @@ export class DevicesApi extends EventEmitter {
             this._endpoints.resources.v2EndpointsEndpointNameResourcePathGet(id, path, cacheOnly, noResponse, (error, data) => {
                 if (error) return done(error);
 
-                var asyncID = data["async-response-id"];
-                if (this.polling && asyncID) {
+                var asyncID = data[this.asyncKey];
+                if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
                 }
@@ -642,11 +670,11 @@ export class DevicesApi extends EventEmitter {
     public setResourceValue(options: { id: string, path: string, value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
         let { id, path, value, noResponse } = options;
         return pg(done => {
-            this._endpoints.resources.v2EndpointsEndpointNameResourcePathPut(id, path, value, noResponse, (error, data) => {
+            this._endpoints.resources.v2EndpointsEndpointNameResourcePathPut(id, path.substr(1), value, noResponse, (error, data) => {
                 if (error) return done(error);
 
-                var asyncID = data["async-response-id"];
-                if (this.polling && asyncID) {
+                var asyncID = data[this.asyncKey];
+                if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
                 }
@@ -680,8 +708,8 @@ export class DevicesApi extends EventEmitter {
             this._endpoints.resources.v2EndpointsEndpointNameResourcePathPost(id, path, fn, noResponse, (error, data) => {
                 if (error) return done(error);
 
-                var asyncID = data["async-response-id"];
-                if (this.polling && asyncID) {
+                var asyncID = data[this.asyncKey];
+                if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
                 }
@@ -719,23 +747,35 @@ export class DevicesApi extends EventEmitter {
      * Subscribe to a resource
      * @param options.id Device ID
      * @param options.path Resource path
+     * @param options.fn Function to call with notification
      * @returns Promise containing any error
      */
-    public addResourceSubscription(options: { id: string, path: string }): Promise<void>;
+    public addResourceSubscription(options: { id: string, path: string, fn?: Function }): Promise<void>;
     /**
      * Subscribe to a resource
      * @param options.id Device ID
      * @param options.path Resource path
+     * @param options.fn Function to call with notification
      * @param callback A function that is passed any error
      */
-    public addResourceSubscription(options: { id: string, path: string }, callback?: (err: any, data?: void) => any);
-    public addResourceSubscription(options: { id: string, path: string }, callback?: (err: any, data?: void) => any): Promise<void> {
-        let { id, path } = options;
+    public addResourceSubscription(options: { id: string, path: string, fn?: Function }, callback?: (err: any, data?: void) => any);
+    public addResourceSubscription(options: { id: string, path: string, fn?: Function }, callback?: (err: any, data?: void) => any): Promise<void> {
+        let { id, path, fn } = options;
         return pg(done => {
             this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathPut(id, path, (error, data) => {
                 if (error) return done(error);
 
-                var asyncID = data["async-response-id"];
+                if (fn) {
+                    // Record the function at this path for notifications
+                    this._notifyFns[id + path] = fn;
+                }
+
+                var asyncID = data[this.asyncKey];
+                if (this.handleNotifications && asyncID) {
+                    this._asyncFns[asyncID] = done;
+                    return;
+                }
+
                 done(null, asyncID);
             });
         }, callback);
@@ -758,7 +798,20 @@ export class DevicesApi extends EventEmitter {
     public deleteResourceSubscription(options: { id: string, path: string }, callback?: (err: any, data?: void) => any): Promise<void> {
         let { id, path } = options;
         return pg(done => {
-            this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathDelete(id, path, done);
+            this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathDelete(id, path, (error, data) => {
+                if (error) return done(error);
+
+                // no-one is listening :(
+                delete this._notifyFns[id + path];
+
+                var asyncID = data[this.asyncKey];
+                if (this.handleNotifications && asyncID) {
+                    this._asyncFns[asyncID] = done;
+                    return;
+                }
+
+                done(null, asyncID);
+            });
         }, callback);
     }
 
@@ -775,14 +828,14 @@ export class DevicesApi extends EventEmitter {
      * @param callback A function containing a list response
      * @returns Promise containing a list response
      */
-    public listQueries(options?: ListOptions, callback?: (err: any, data?: ListResponse<Query>) => any): void;
+    public listQueries(options?: ListOptions, callback?: (err: any, data?: ListResponse<Query>) => any);
     public listQueries(options?:any, callback?: (err: any, data?: ListResponse<Query>) => any): Promise<ListResponse<Query>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include } = options;
+        let { limit, order, after, include } = options as ListOptions;
         return pg(done => {
             this._endpoints.query.deviceQueryList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
@@ -808,7 +861,7 @@ export class DevicesApi extends EventEmitter {
      * @param callback A function that is passed the arguments (error, query)
      * @returns Promise of query
      */
-    public getQuery(options: { id: string }, callback?: (err: any, data?: Query) => any): void;
+    public getQuery(options: { id: string }, callback?: (err: any, data?: Query) => any);
     public getQuery(options: { id: string }, callback?: (err: any, data?: Query) => any): Promise<Query> {
         let { id } = options;
         return pg(done => {
@@ -823,22 +876,19 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Add a query
-     * @param options.name query name
-     * @param options.query query string
-     * @param options.description query description
+     * @param options query details
      * @returns Promise of query
      */
-    public addQuery(options: { name: string, query: string, description?: string }): Promise<Query>;
+    public addQuery(options: QueryType): Promise<Query>;
     /**
      * Add a query
-     * @param options.name query name
-     * @param options.query query string
-     * @param options.description query description
+     * @param options query details
      * @param callback A function that is passed the arguments (error, query)
      */
-    public addQuery(options: { name: string, query: string, description?: string }, callback?: (err: any, data?: Query) => any): void;
-    public addQuery(options: { name: string, query: string, description?: string }, callback?: (err: any, data?: Query) => any): Promise<Query> {
-        let { name, query, description } = options;
+    public addQuery(options: QueryType, callback?: (err: any, data?: Query) => any);
+    public addQuery(options: QueryType, callback?: (err: any, data?: Query) => any): Promise<Query> {
+        let { name, description } = options;
+        let query = Query.encodeQuery(options);
         return pg(done => {
             this._endpoints.query.deviceQueryCreate(name, query, description, null, null, (error, data) => {
                 if (error) return done(error);
@@ -860,9 +910,10 @@ export class DevicesApi extends EventEmitter {
      * @param options query details
      * @param callback A function that is passed the arguments (error, query)
      */
-    public updateQuery(options: QueryType, callback?: (err: any, data?: Query) => void): void;
-    public updateQuery(options: QueryType, callback?: (err: any, data?: Query) => void): Promise<Query> {
-        let { id, name, query, description } = options;
+    public updateQuery(options: QueryType, callback?: (err: any, data?: Query) => any);
+    public updateQuery(options: QueryType, callback?: (err: any, data?: Query) => any): Promise<Query> {
+        let { id, name, description } = options;
+        let query = Query.encodeQuery(options);
 
         if (name && query) {
             // Full update
@@ -902,7 +953,7 @@ export class DevicesApi extends EventEmitter {
      * @param options.id query ID
      * @param callback A function that is passed any error
      */
-    public deleteQuery(options: { id: string }, callback?: (err: any, data?: void) => any): void;
+    public deleteQuery(options: { id: string }, callback?: (err: any, data?: void) => any);
     public deleteQuery(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
         let { id } = options;
         return pg(done => {

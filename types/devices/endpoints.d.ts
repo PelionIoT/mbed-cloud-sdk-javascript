@@ -1,4 +1,4 @@
-import { ConnectionOptions } from "../helpers/interfaces";
+import { ConnectionOptions } from "../common/interfaces";
 import { DefaultApi as WebhookApi, EndpointsApi, NotificationsApi, ResourcesApi, SubscriptionsApi } from "../_api/mds";
 import { DefaultApi as CatalogApi } from "../_api/device_catalog";
 import { DefaultApi as QueryApi } from "../_api/device_query_service";

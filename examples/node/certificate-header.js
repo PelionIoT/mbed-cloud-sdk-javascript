@@ -38,11 +38,13 @@ function ensureDirectory(directory) {
 }
 
 function generateKeys() {
+    // USe OpenSSL to generate public/private keys
     var keys = execSync("openssl ecparam -genkey -name prime256v1", {"encoding": "utf8"});
     var publicPem = execSync("openssl ec -pubout", {"encoding": "utf8", input: keys});
     var privatePem = execSync("openssl ec", {"encoding": "utf8", input: keys});
     var hex = execSync("openssl ec -text -noout", {"encoding": "utf8", input: privatePem});
 
+    // Calculate HEX from PEM
     var privateHex = hex.match(/priv:([0-9a-f:\s]+)pub:/)[1];
     privateHex = privateHex.replace(/\s/g, "");
     privateHex = privateHex.split(":").slice(-32);

@@ -16,6 +16,7 @@
 */
 
 import { QueryType } from "./types";
+import { encodeAttributes, decodeAttributes } from "../common/functions";
 import { DeviceQueryDetail as apiQuery } from "../_api/device_query_service";
 
 /*
@@ -23,20 +24,37 @@ import { DeviceQueryDetail as apiQuery } from "../_api/device_query_service";
  */
 export class Query {
 
+    private static readonly CUSTOM_PREFIX = "custom_attributes__";
+
     constructor(options: QueryType) {
         for(var key in options) {
             this[key] = options[key];
         }
     }
 
+    static encodeQuery(from: { attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }): string {
+        let filter = encodeAttributes(from.attributes);
+        let custom = encodeAttributes(from.customAttributes, Query.CUSTOM_PREFIX);
+
+        if (custom) {
+            if (filter) filter += "&";
+            filter +=custom;
+        }
+
+        return filter;
+    }
+
     static map(from: apiQuery): Query {
+        let attributes = decodeAttributes(from.query, Query.CUSTOM_PREFIX);
+
         let type:QueryType = {
-            createdAt:      from.created_at,
-            description:    from.description,
-            id:             from.id,
-            name:           from.name,
-            query:          from.query,
-            updatedAt:      from.updated_at
+            attributes:          attributes.noMatch,
+            customAttributes:    attributes.match,
+            createdAt:           from.created_at,
+            description:         from.description,
+            id:                  from.id,
+            name:                from.name,
+            updatedAt:           from.updated_at
         };
 
         return new Query(type);

@@ -16,8 +16,8 @@
 */
 
 import pg = require("polygoat");
-import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { mapListResponse, encodeInclude } from "../helpers/data";
+import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
+import { mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
 import { Endpoints } from "./endpoints";
 import { Account } from "./account";
 import { Certificate } from "./certificate";
@@ -46,7 +46,7 @@ export class AccessApi {
      * Get account details
      * @param callback A function that is passed the return arguments (error, account)
      */
-    public getAccount(callback: (err: any, data?: Account) => any): void;
+    public getAccount(callback: (err: any, data?: Account) => any);
     public getAccount(callback?: (err: any, data?: Account) => any): Promise<Account> {
         return pg(done => {
             this._endpoints.developer.getMyAccountInfo(null, (error, data) => {
@@ -58,13 +58,13 @@ export class AccessApi {
 
     /**
     * List users
-    * @param options list options
+    * @param options filter options
     * @returns Promise of listResponse
     */
     public listUsers(options?: ListOptions): Promise<ListResponse<User>>;
     /**
     * List users
-    * @param options list options
+    * @param options filter options
     * @param callback A function that is passed the arguments (error, listResponse)
     */
     public listUsers(options?: ListOptions, callback?: (err: any, data?: ListResponse<User>) => any);
@@ -74,7 +74,10 @@ export class AccessApi {
             callback = options;
             options = {};
         }
-        let { limit, after, order, include, filter } = options;
+
+        let { limit, after, order, include, attributes } = options as ListOptions;
+        let filter = encodeAttributes(attributes);
+
         return pg(done => {
             this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), filter, (error, data) => {
                 if (error) return done(error);
@@ -90,14 +93,14 @@ export class AccessApi {
 
     /**
     * List certificates
-    * @param options list options
+    * @param options filter options
     * @param callback A function that is passed the arguments (error, listResponse)
     * @returns Promise of listResponse
     */
     public listCertificates(options?: ListOptions): Promise<ListResponse<Certificate>>;
     /**
     * List certificates
-    * @param options list options
+    * @param options filter options
     * @param callback A function that is passed the arguments (error, listResponse)
     * @returns Promise of listResponse
     */
@@ -108,7 +111,10 @@ export class AccessApi {
             callback = options;
             options = {};
         }
-        let { limit, after, order, include, filter } = options;
+
+        let { limit, after, order, include, attributes } = options as ListOptions;
+        let filter = encodeAttributes(attributes);
+
         return pg(done => {
             this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), filter, (error, data) => {
                 if (error) return done(error);

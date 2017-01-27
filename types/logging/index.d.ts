@@ -1,4 +1,4 @@
-import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
+import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
 import { DeviceLog } from "./deviceLog";
 /**
  * Root Logging API
@@ -11,16 +11,16 @@ export declare class LoggingApi {
     constructor(options: ConnectionOptions);
     /**
      * List device logs
-     * @param options list options
+     * @param options filter options
      * @returns Promise of listResponse
      */
     listDeviceLogs(options?: ListOptions): Promise<ListResponse<DeviceLog>>;
     /**
      * List device logs
-     * @param options list options
+     * @param options filter options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    listDeviceLogs(options?: ListOptions, callback?: (err: any, data?: ListResponse<DeviceLog>) => any): void;
+    listDeviceLogs(options?: ListOptions, callback?: (err: any, data?: ListResponse<DeviceLog>) => any): any;
     /**
      * Get a single device log
      * @param options.id device log ID
@@ -36,5 +36,5 @@ export declare class LoggingApi {
      */
     getDeviceLog(options: {
         id: string;
-    }, callback: (err: any, data?: DeviceLog) => any): void;
+    }, callback: (err: any, data?: DeviceLog) => any): any;
 }

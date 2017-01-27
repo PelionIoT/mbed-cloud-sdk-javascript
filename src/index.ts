@@ -21,34 +21,10 @@ export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
 export { UpdateApi } from "./update";
 
-
-//Devices.deleteSubscriptions()
-//device.listsubscriptions
-//device.deletesubscriptions
-//resource.getSubscription
-//resource.addSubscription
-//resource.deleteSubscription
-
-//add device
-//delete device (check asyncID)
-
-// resource.setValue (check asyncID)
-//resource.execute (check asyncID)
-//device.deeteResource(check asyncID)
-
-
-// subscription management and test? - node
-// query/page devices - web
-// long polling example - web
-// get/set resource value example - web
-
-
-// polygoat to deffotyped?
-// catch/rethrow exceptions in JS - up to me?
-
 // access - users, groups, keys, policies?
 // update - manifest mgmt, firmware mgmt, start and monitor campaigns
 
+// ADDITIONAL
+// polygoat to deffotyped?
 // add links to examples from inline code
 // optionally add iterator/generator functions for paging if language allows
-// unit testing + mock server?

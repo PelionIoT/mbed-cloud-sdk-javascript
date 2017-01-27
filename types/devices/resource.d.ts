@@ -9,7 +9,7 @@ import { Resource as apiResourceType } from "../_api/mds";
 export declare class Resource extends EventEmitter {
     private _api;
     /**
-     * Resource notification event
+     * Resource notification event which returns the notification when handling notifications, otherwise an asyncId
      * @event
      */
     static EVENT_NOTIFICATION: string;
@@ -19,7 +19,7 @@ export declare class Resource extends EventEmitter {
      * Gets the value of a resource
      * @param options.cacheOnly If true, the response will come only from the cache
      * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
-     * @returns Promise of resource value when long polling or an asyncId
+     * @returns Promise of resource value when handling notifications or an asyncId
      */
     getValue(options?: {
         cacheOnly?: boolean;
@@ -29,7 +29,7 @@ export declare class Resource extends EventEmitter {
      * Gets the value of a resource
      * @param options.cacheOnly If true, the response will come only from the cache
      * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
-     * @param callback A function that is passed the arguments (error, value) where value is the resource value when long polling or an asyncId
+     * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
     getValue(options?: {
         cacheOnly?: boolean;
@@ -87,14 +87,16 @@ export declare class Resource extends EventEmitter {
     getSubscription(callback: (err: any, data?: boolean) => any): any;
     /**
      * Subscribe to a resource
+     * @param options.fn Function to call with notification
      * @returns Promise containing any error
      */
-    private addSubscription();
+    private addSubscription(options?);
     /**
      * Subscribe to a resource
+     * @param options.fn Function to call with notification
      * @param callback A function that is passed any error
      */
-    private addSubscription(callback?);
+    private addSubscription(options?, callback?);
     /**
      * Deletes a resource's subscription
      * @returns Promise containing any error
@@ -105,6 +107,22 @@ export declare class Resource extends EventEmitter {
      * @param callback A function that is passed any error
      */
     private deleteSubscription(callback?);
+    /**
+     * Deletes a resource
+     * @param options.noResponse Whether to make a non-confirmable request to the device
+     * @returns Promise containing any error
+     */
+    delete(options?: {
+        noResponse?: boolean;
+    }): Promise<string>;
+    /**
+     * Deletes a resource
+     * @param options.noResponse Whether to make a non-confirmable request to the device
+     * @param callback A function that is passed any error
+     */
+    delete(options?: {
+        noResponse?: boolean;
+    }, callback?: (err: any, data?: string) => any): any;
 }
 export interface Resource extends ResourceType {
 }

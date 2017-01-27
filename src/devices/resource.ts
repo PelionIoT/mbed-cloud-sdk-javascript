@@ -27,7 +27,7 @@ import { Resource as apiResourceType } from "../_api/mds";
 export class Resource extends EventEmitter {
 
     /**
-     * Resource notification event
+     * Resource notification event which returns the notification when handling notifications, otherwise an asyncId
      * @event
      */
     static EVENT_NOTIFICATION: string = "notification";
@@ -40,12 +40,11 @@ export class Resource extends EventEmitter {
 
         this.on("newListener", (eventName, listener) => {
             if (eventName === Resource.EVENT_NOTIFICATION) {
-                this.addSubscription((error, asyncID) => {
-                    if (this._api.polling) {
-                        // record this resource at this path for notifications
-                        this._api._resourceSubs[this.deviceId + this.path] = this;
-                    } else {
-                        // return the asyncID for use with webhooks
+                this.addSubscription({
+                    fn: data => this.emit(Resource.EVENT_NOTIFICATION, data)
+                }, (error, asyncID) => {
+                    if (!this._api.handleNotifications) {
+                        // return the asyncID for use with web hooks
                         this.emit(Resource.EVENT_NOTIFICATION, asyncID);
                     }
                 });
@@ -55,8 +54,6 @@ export class Resource extends EventEmitter {
         this.on("removeListener", (eventName, listener) => {
             if (eventName === Resource.EVENT_NOTIFICATION) {
                 if (this.listenerCount(Resource.EVENT_NOTIFICATION) === 0) {
-                    // no-one is listening :(
-                    delete this._api._resourceSubs[this.deviceId + this.path];
                     this.deleteSubscription();
                 }
             }
@@ -79,14 +76,14 @@ export class Resource extends EventEmitter {
      * Gets the value of a resource
      * @param options.cacheOnly If true, the response will come only from the cache
      * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
-     * @returns Promise of resource value when long polling or an asyncId
+     * @returns Promise of resource value when handling notifications or an asyncId
      */
     public getValue(options?: { cacheOnly?: boolean, noResponse?: boolean }): Promise<string>;
     /**
      * Gets the value of a resource
      * @param options.cacheOnly If true, the response will come only from the cache
      * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
-     * @param callback A function that is passed the arguments (error, value) where value is the resource value when long polling or an asyncId
+     * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
     public getValue(options?: { cacheOnly?: boolean, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
     public getValue(options?: any, callback?: (err: any, data?: string) => any): Promise<string> {
@@ -96,11 +93,13 @@ export class Resource extends EventEmitter {
             options = {};
         }
         let { cacheOnly, noResponse } = options;
-        return this._api.getResourceValue({
-            id:            this.deviceId,
-            path:          this.path,
-            cacheOnly:     cacheOnly,
-            noResponse:    noResponse
+        return pg(done => {
+            this._api.getResourceValue({
+                id:            this.deviceId,
+                path:          this.path,
+                cacheOnly:     cacheOnly,
+                noResponse:    noResponse
+            }, done);
         }, callback);
     }
 
@@ -120,11 +119,13 @@ export class Resource extends EventEmitter {
     public setValue(options: { value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
     public setValue(options: { value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
         let { value, noResponse } = options;
-        return this._api.setResourceValue({
-            id:            this.deviceId,
-            path:          this.path,
-            value:         value,
-            noResponse:    noResponse
+        return pg(done => {
+            this._api.setResourceValue({
+                id:            this.deviceId,
+                path:          this.path,
+                value:         value,
+                noResponse:    noResponse
+            }, done);
         }, callback);
     }
 
@@ -149,11 +150,13 @@ export class Resource extends EventEmitter {
             options = {};
         }
         let { fn, noResponse } = options;
-        return this._api.executeResource({
-            id:            this.deviceId,
-            path:          this.path,
-            fn:            fn,
-            noResponse:    noResponse
+        return pg(done => {
+            this._api.executeResource({
+                id:            this.deviceId,
+                path:          this.path,
+                fn:            fn,
+                noResponse:    noResponse
+            }, done);
         }, callback);
     }
 
@@ -169,7 +172,7 @@ export class Resource extends EventEmitter {
     public getSubscription(callback: (err: any, data?: boolean) => any);
     public getSubscription(callback?: (err: any, data?: boolean) => any): Promise<boolean> {
         return pg(done => {
-            if (!this.observable) done(null, null);
+            if (!this.observable) return done(null, false);
             this._api.getResourceSubscription({
                 id:            this.deviceId,
                 path:          this.path
@@ -179,18 +182,30 @@ export class Resource extends EventEmitter {
 
     /**
      * Subscribe to a resource
+     * @param options.fn Function to call with notification
      * @returns Promise containing any error
      */
-    private addSubscription(): Promise<void>;
+    private addSubscription(options?: { fn?: Function }): Promise<void>;
     /**
      * Subscribe to a resource
+     * @param options.fn Function to call with notification
      * @param callback A function that is passed any error
      */
-    private addSubscription(callback?: (err: any, data?: void) => any);
-    private addSubscription(callback?: (err: any, data?: void) => any): Promise<void> {
-        return this._api.addResourceSubscription({
-            id:            this.deviceId,
-            path:          this.path
+    private addSubscription(options?: { fn?: Function }, callback?: (err: any, data?: void) => any);
+    private addSubscription(options?: { fn?: Function }, callback?: (err: any, data?: void) => any): Promise<void> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { fn } = options;
+        return pg(done => {
+            if (!this.observable) return done(null, null);
+            this._api.addResourceSubscription({
+                id:            this.deviceId,
+                path:          this.path,
+                fn:            fn
+            }, done);
         }, callback);
     }
 
@@ -205,9 +220,39 @@ export class Resource extends EventEmitter {
      */
     private deleteSubscription(callback?: (err: any, data?: void) => any);
     private deleteSubscription(callback?: (err: any, data?: void) => any): Promise<void> {
-        return this._api.deleteResourceSubscription({
-            id:            this.deviceId,
-            path:          this.path
+        return pg(done => {
+            this._api.deleteResourceSubscription({
+                id:            this.deviceId,
+                path:          this.path
+            }, done);
+        }, callback);
+    }
+
+    /**
+     * Deletes a resource
+     * @param options.noResponse Whether to make a non-confirmable request to the device
+     * @returns Promise containing any error
+     */
+    public delete(options?: { noResponse?: boolean }): Promise<string>;
+    /**
+     * Deletes a resource
+     * @param options.noResponse Whether to make a non-confirmable request to the device
+     * @param callback A function that is passed any error
+     */
+    public delete(options?: { noResponse?: boolean }, callback?: (err: any, data?: string) => any);
+    public delete(options: any, callback?: (err: any, data?: string) => any): Promise<string> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+        let { noResponse } = options;
+        return pg(done => {
+            this._api.deleteDeviceResource({
+                id:            this.deviceId,
+                path:          this.path,
+                noResponse:    noResponse
+            }, done);
         }, callback);
     }
 }

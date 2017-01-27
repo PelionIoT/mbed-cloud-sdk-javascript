@@ -14,33 +14,160 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Query Management</title>
+    <title>mbed Cloud SDK</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="style.css">
+
     <script src="config.js"></script>
     <script src="../../bundles/devices.min.js"></script>
 </head>
 <body>
-    <div id="results"></div>
+    <h3>Queries</h3>
+
+    <button id="add">add query...</button>
+
+    <table>
+        <thead><tr>
+            <th>Name</th>
+            <th>Created</th>
+            <th style="text-align: center;">Actions</th>
+        </tr></thead>
+        <tbody id="queries"></tbody>
+    </table>
+
+    <button id="more">load more</button>
 
     <script>
-        var resultsEl = document.getElementById("results");
-
-        function log(message) {
-            console.log(message);
-            resultsEl.innerText += message + "\n";
-        }
+        var queriesEl = document.getElementById("queries");
+        var addEl = document.getElementById("add");
+        var moreEl = document.getElementById("more");
+        var lastId;
 
         var devices = new window.mbedCloudSDK.DevicesApi(window.config);
 
-// known devices, page, save query
-// KNOWN_DEVICE_QUERY_BUILDER (2357)
-// listQueries
-// addQuery
-// updateQuery
-// deletequery
-// listdevices (paging)
+        // Dom element builder
+        function buildElement(type, value, parent, attributes) {
+            var element = document.createElement(type);
+            if (value) element.innerHTML = value;
+            if (parent) parent.appendChild(element);
+            return element;
+        }
 
+        // List queries
+        function listQueries(after) {
+            devices.listQueries({
+                include: ["totalCount"],
+                order: "DESC",
+                after: after,
+                limit: 10
+            }, function(err, response) {
+                response.data.forEach(function(query) {
+
+                    // Build UI
+                    var queryRow = queriesEl.insertRow();
+                    buildElement("td", query.name, queryRow);
+                    buildElement("td", new Date(query.createdAt).toUTCString(), queryRow);
+                    var buttonCell = buildElement("td", null, queryRow);
+                    var runBtn = buildElement("button", "run", buttonCell);
+                    var renameBtn = buildElement("button", "rename...", buttonCell);
+                    var editBtn = buildElement("button", "edit...", buttonCell);
+                    var deleteBtn = buildElement("button", "delete", buttonCell);
+                    var devicesRows = [];
+
+                    // Run query
+                    runBtn.addEventListener("click", function() {
+                        while(devicesRows.length > 0) queriesEl.removeChild(devicesRows.pop());
+                        devices.listDevices({
+                            include: ["totalCount"],
+                            order: "ASC",
+                            limit: 100,
+                            attributes: query.attributes,
+                            customAttributes: query.customAttributes,
+                        }, function(err, response) {
+                            response.data.forEach(function(device) {
+
+                                // Build UI
+                                var value = "└&nbsp;" + device.id + "&nbsp;-&nbsp;" + device.state;
+                                var devicesRow = queriesEl.insertRow(queryRow.rowIndex);
+                                buildElement("td", "&nbsp;", devicesRow);
+                                var deviceCell = buildElement("td", value, devicesRow);
+                                devicesRows.push(devicesRow);
+                                deviceCell.colSpan = "2"
+                            });
+                        });
+                    });
+
+                    // Rename query
+                    renameBtn.addEventListener("click", function() {
+                        var name = window.prompt("Enter a new name for the query", query.name);
+                        if (!name) return;
+
+                        devices.updateQuery({
+                            id: query.id,
+                            name: name
+                        }, function(err) {
+                            location.reload()
+                        });
+                    });
+
+                    // Edit query
+                    editBtn.addEventListener("click", function() {
+                        var state = window.prompt("Enter a new state for the query filter", query.attributes.state || "registered");
+                        if (!state) return;
+
+                        devices.updateQuery({
+                            id: query.id,
+                            attributes: { state: state }
+                        });
+                    });
+
+                    // Delete query
+                    deleteBtn.addEventListener("click", function() {
+                        if (confirm("Are you sure you want to delete query:\n" + (query.name || query.id))) {
+                            devices.deleteQuery({
+                                id: query.id
+                            }, function(err) {
+                                location.reload()
+                            });
+                        }
+                    });
+                });
+
+                moreEl.disabled = !response.hasMore;
+                var lastQuery = response.data.slice(-1).pop();
+                lastId = lastQuery.id;
+            });
+        }
+
+        // Add new query
+        addEl.addEventListener("click", function() {
+            var name = window.prompt("Enter a name for the query", "myQuery");
+            if (!name) return;
+
+            var state = window.prompt("Enter a state to filter on", "registered");
+            if (!state) return;
+
+            devices.addQuery({
+                name: name,
+                attributes: { state: state }
+            }, function(err) {
+                location.reload()
+            });
+        });
+
+        // Page devices
+        moreEl.addEventListener("click", function() {
+            listQueries(lastId);
+        });
+
+        listQueries();
     </script>
 </body>
 </html>

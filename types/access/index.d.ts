@@ -1,4 +1,4 @@
-import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
+import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
 import { Account } from "./account";
 import { Certificate } from "./certificate";
 import { User } from "./user";
@@ -20,29 +20,29 @@ export declare class AccessApi {
      * Get account details
      * @param callback A function that is passed the return arguments (error, account)
      */
-    getAccount(callback: (err: any, data?: Account) => any): void;
+    getAccount(callback: (err: any, data?: Account) => any): any;
     /**
     * List users
-    * @param options list options
+    * @param options filter options
     * @returns Promise of listResponse
     */
     listUsers(options?: ListOptions): Promise<ListResponse<User>>;
     /**
     * List users
-    * @param options list options
+    * @param options filter options
     * @param callback A function that is passed the arguments (error, listResponse)
     */
     listUsers(options?: ListOptions, callback?: (err: any, data?: ListResponse<User>) => any): any;
     /**
     * List certificates
-    * @param options list options
+    * @param options filter options
     * @param callback A function that is passed the arguments (error, listResponse)
     * @returns Promise of listResponse
     */
     listCertificates(options?: ListOptions): Promise<ListResponse<Certificate>>;
     /**
     * List certificates
-    * @param options list options
+    * @param options filter options
     * @param callback A function that is passed the arguments (error, listResponse)
     * @returns Promise of listResponse
     */

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
-import { ConnectionOptions, ListOptions, ListResponse } from "../helpers/interfaces";
-import { DevicesApiType, DeviceType, QueryType, WebhookType, PresubscriptionType } from "./types";
+import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
+import { DevicesApiType, DeviceType, QueryType, QueryOptions, WebhookType, PresubscriptionType } from "./types";
 import { Device } from "./device";
 import { Resource } from "./resource";
 import { Query } from "./query";
@@ -11,12 +11,11 @@ import { Presubscription } from "./presubscription";
  * Root Devices API
  */
 export declare class DevicesApi extends EventEmitter {
+    private readonly asyncKey;
     private _endpoints;
     private _pollRequest;
     private _asyncFns;
-    _resourceSubs: {
-        [key: string]: Resource;
-    };
+    private _notifyFns;
     /**
      * Resource notification event
      * @event
@@ -47,7 +46,8 @@ export declare class DevicesApi extends EventEmitter {
      */
     constructor(options: ConnectionOptions);
     /**
-     * Allows a notification to be injected into the polling system
+     * Allows a notification to be injected into the notifications system
+     * `handleNotifications` needs to be set to true for this to work with web hook async responses
      * @param data The notification data to inject
      */
     notify(data: any): void;
@@ -113,24 +113,24 @@ export declare class DevicesApi extends EventEmitter {
      * Gets pre-subscription data
      * @returns Promise containing data
      */
-    getPreSubscription(): Promise<Presubscription[]>;
+    getPresubscription(): Promise<Presubscription[]>;
     /**
      * Gets pre-subscription data
      * @param callback A function that is passed (error, data)
      */
-    getPreSubscription(callback?: (err: any, data?: Presubscription[]) => any): any;
+    getPresubscription(callback?: (err: any, data?: Presubscription[]) => any): any;
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
      * @param options.data The pre-subscription data
      * @returns Promise containing any error
      */
-    updatePreSubscription(options: PresubscriptionType[]): Promise<void>;
+    updatePresubscription(options: PresubscriptionType[]): Promise<void>;
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
      * @param options.data The pre-subscription data
      * @param callback A function that is passed any error
      */
-    updatePreSubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any): any;
+    updatePresubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any): any;
     /**
      * Removes all subscriptions
      * @returns Promise containing any error
@@ -146,13 +146,13 @@ export declare class DevicesApi extends EventEmitter {
      * @param options list options
      * @returns Promise of devices
      */
-    listDevices(options?: ListOptions): Promise<ListResponse<Device>>;
+    listDevices(options?: QueryOptions): Promise<ListResponse<Device>>;
     /**
      * Gets a list of devices
      * @param options list options
      * @param callback A function that is passed the arguments (error, devices)
      */
-    listDevices(options?: ListOptions, callback?: (err: any, data?: ListResponse<Device>) => any): void;
+    listDevices(options?: QueryOptions, callback?: (err: any, data?: ListResponse<Device>) => any): any;
     /**
      * List connected devices
      * @param options.type Filter devices by device type
@@ -168,7 +168,7 @@ export declare class DevicesApi extends EventEmitter {
      */
     listConnectedDevices(options?: {
         type?: string;
-    }, callback?: (err: any, data?: ListResponse<Device>) => any): void;
+    }, callback?: (err: any, data?: ListResponse<Device>) => any): any;
     /**
      * Gets details of a device
      * @param options.id Device ID
@@ -190,13 +190,25 @@ export declare class DevicesApi extends EventEmitter {
      * @param options Device details
      * @returns Promise of device
      */
-    addDevice(options?: DeviceType): Promise<Device>;
+    addDevice(options: DeviceType): Promise<Device>;
     /**
      * Add a device
      * @param options Device details
      * @param callback A function that is passed the arguments (error, device)
      */
-    addDevice(options?: DeviceType, callback?: (err: any, data?: Device) => any): void;
+    addDevice(options: DeviceType, callback?: (err: any, data?: Device) => any): any;
+    /**
+     * Update a device
+     * @param options device details
+     * @returns Promise of device
+     */
+    updateDevice(options: DeviceType): Promise<Device>;
+    /**
+     * Update a device
+     * @param options device details
+     * @param callback A function that is passed the arguments (error, device)
+     */
+    updateDevice(options: DeviceType, callback?: (err: any, data?: Device) => any): any;
     /**
      * Delete a device
      * @param options.id Device ID
@@ -212,7 +224,7 @@ export declare class DevicesApi extends EventEmitter {
      */
     deleteDevice(options: {
         id: string;
-    }, callback?: (err: any, data?: any) => void): void;
+    }, callback?: (err: any, data?: void) => any): any;
     /**
      * List a device's subscriptions
      * @param options.id Device ID
@@ -291,7 +303,7 @@ export declare class DevicesApi extends EventEmitter {
      * @param options.path Resource path
      * @param options.cacheOnly If true, the response will come only from the cache
      * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
-     * @returns Promise of resource value when long polling or an asyncId
+     * @returns Promise of resource value when handling notifications or an asyncId
      */
     getResourceValue(options: {
         id: string;
@@ -305,7 +317,7 @@ export declare class DevicesApi extends EventEmitter {
      * @param options.path Resource path
      * @param options.cacheOnly If true, the response will come only from the cache
      * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
-     * @param callback A function that is passed the arguments (error, value) where value is the resource value when long polling or an asyncId
+     * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
     getResourceValue(options: {
         id: string;
@@ -393,21 +405,25 @@ export declare class DevicesApi extends EventEmitter {
      * Subscribe to a resource
      * @param options.id Device ID
      * @param options.path Resource path
+     * @param options.fn Function to call with notification
      * @returns Promise containing any error
      */
     addResourceSubscription(options: {
         id: string;
         path: string;
+        fn?: Function;
     }): Promise<void>;
     /**
      * Subscribe to a resource
      * @param options.id Device ID
      * @param options.path Resource path
+     * @param options.fn Function to call with notification
      * @param callback A function that is passed any error
      */
     addResourceSubscription(options: {
         id: string;
         path: string;
+        fn?: Function;
     }, callback?: (err: any, data?: void) => any): any;
     /**
      * Deletes a resource's subscription
@@ -442,7 +458,7 @@ export declare class DevicesApi extends EventEmitter {
      * @param callback A function containing a list response
      * @returns Promise containing a list response
      */
-    listQueries(options?: ListOptions, callback?: (err: any, data?: ListResponse<Query>) => any): void;
+    listQueries(options?: ListOptions, callback?: (err: any, data?: ListResponse<Query>) => any): any;
     /**
      * Get a query
      * @param options.is query ID
@@ -460,31 +476,19 @@ export declare class DevicesApi extends EventEmitter {
      */
     getQuery(options: {
         id: string;
-    }, callback?: (err: any, data?: Query) => any): void;
+    }, callback?: (err: any, data?: Query) => any): any;
     /**
      * Add a query
-     * @param options.name query name
-     * @param options.query query string
-     * @param options.description query description
+     * @param options query details
      * @returns Promise of query
      */
-    addQuery(options: {
-        name: string;
-        query: string;
-        description?: string;
-    }): Promise<Query>;
+    addQuery(options: QueryType): Promise<Query>;
     /**
      * Add a query
-     * @param options.name query name
-     * @param options.query query string
-     * @param options.description query description
+     * @param options query details
      * @param callback A function that is passed the arguments (error, query)
      */
-    addQuery(options: {
-        name: string;
-        query: string;
-        description?: string;
-    }, callback?: (err: any, data?: Query) => any): void;
+    addQuery(options: QueryType, callback?: (err: any, data?: Query) => any): any;
     /**
      * Update a query
      * @param options query details
@@ -496,7 +500,7 @@ export declare class DevicesApi extends EventEmitter {
      * @param options query details
      * @param callback A function that is passed the arguments (error, query)
      */
-    updateQuery(options: QueryType, callback?: (err: any, data?: Query) => void): void;
+    updateQuery(options: QueryType, callback?: (err: any, data?: Query) => any): any;
     /**
      * Delete a query
      * @param options.id query ID
@@ -512,7 +516,7 @@ export declare class DevicesApi extends EventEmitter {
      */
     deleteQuery(options: {
         id: string;
-    }, callback?: (err: any, data?: void) => any): void;
+    }, callback?: (err: any, data?: void) => any): any;
 }
 export interface DevicesApi extends DevicesApiType {
 }

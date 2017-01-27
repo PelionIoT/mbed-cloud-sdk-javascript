@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;helpers/interfaces&quot; | mbed Cloud SDK</title>
+	<title>ConnectionOptions | mbed Cloud SDK</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,64 +54,72 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_helpers_interfaces_.html">&quot;helpers/interfaces&quot;</a>
+					<a href="../modules/_common_interfaces_.html">&quot;common/interfaces&quot;</a>
+				</li>
+				<li>
+					<a href="_common_interfaces_.connectionoptions.html">ConnectionOptions</a>
 				</li>
 			</ul>
-			<h1>External module &quot;helpers/interfaces&quot;</h1>
+			<h1>Interface ConnectionOptions</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">ConnectionOptions</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_helpers_interfaces_.connectionoptions.html" class="tsd-kind-icon">Connection<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_helpers_interfaces_.listoptions.html" class="tsd-kind-icon">List<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_helpers_interfaces_.listresponse.html" class="tsd-kind-icon">List<wbr>Response</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Type aliases</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_helpers_interfaces_.html#includeenum" class="tsd-kind-icon">Include<wbr>Enum</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_helpers_interfaces_.html#orderenum" class="tsd-kind-icon">Order<wbr>Enum</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_common_interfaces_.connectionoptions.html#apikey" class="tsd-kind-icon">api<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_common_interfaces_.connectionoptions.html#host" class="tsd-kind-icon">host</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="includeenum" class="tsd-anchor"></a>
-					<h3>Include<wbr>Enum</h3>
-					<div class="tsd-signature tsd-kind-icon">Include<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"totalCount"</span></div>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="apikey" class="tsd-anchor"></a>
+					<h3>api<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">api<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/2b459ac/src/helpers/interfaces.ts#L32">helpers/interfaces.ts:32</a></li>
+							<li>Defined in common/interfaces.ts:22</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Possible optional fields to request when listing</p>
+							<p>API Key for your mbed Cloud account</p>
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="orderenum" class="tsd-anchor"></a>
-					<h3>Order<wbr>Enum</h3>
-					<div class="tsd-signature tsd-kind-icon">Order<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"ASC"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DESC"</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="host" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> host</h3>
+					<div class="tsd-signature tsd-kind-icon">host<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/2b459ac/src/helpers/interfaces.ts#L33">helpers/interfaces.ts:33</a></li>
+							<li>Defined in common/interfaces.ts:26</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>URL for mbed Cloud API</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -122,26 +130,38 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_helpers_interfaces_.html">"helpers/interfaces"</a>
+						<a href="../modules/_common_interfaces_.html">"common/interfaces"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_helpers_interfaces_.connectionoptions.html" class="tsd-kind-icon">Connection<wbr>Options</a>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_common_interfaces_.connectionoptions.html" class="tsd-kind-icon">Connection<wbr>Options</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_common_interfaces_.connectionoptions.html#apikey" class="tsd-kind-icon">api<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_common_interfaces_.connectionoptions.html#host" class="tsd-kind-icon">host</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_helpers_interfaces_.listoptions.html" class="tsd-kind-icon">List<wbr>Options</a>
+						<a href="_common_interfaces_.listoptions.html" class="tsd-kind-icon">List<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../interfaces/_helpers_interfaces_.listresponse.html" class="tsd-kind-icon">List<wbr>Response</a>
+						<a href="_common_interfaces_.listresponse.html" class="tsd-kind-icon">List<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_helpers_interfaces_.html#includeenum" class="tsd-kind-icon">Include<wbr>Enum</a>
+						<a href="../modules/_common_interfaces_.html#includeenum" class="tsd-kind-icon">Include<wbr>Enum</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_helpers_interfaces_.html#orderenum" class="tsd-kind-icon">Order<wbr>Enum</a>
+						<a href="../modules/_common_interfaces_.html#orderenum" class="tsd-kind-icon">Order<wbr>Enum</a>
 					</li>
 				</ul>
 			</nav>
