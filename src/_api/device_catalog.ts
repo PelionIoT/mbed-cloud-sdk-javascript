@@ -382,15 +382,76 @@ export interface DeviceLogSerializerData {
     "date_time": Date;
     "state_change"?: boolean;
     "description"?: string;
-    "changes"?: string;
+    "changes"?: any;
     "event_type_description"?: string;
     "device_log_id"?: string;
     "event_type"?: DeviceLogSerializerDataEventTypeEnum;
-    "data"?: string;
+    "data"?: any;
+    "id"?: string;
     "device_id"?: string;
 }
 
 export type DeviceLogSerializerDataEventTypeEnum = "update.device.device-created" | "update.device.device-updated" | "update.deployment.campaign-device-metadata-created" | "update.deployment.campaign-device-metadata-updated" | "update.deployment.campaign-device-metadata-removed" | "update.connector.connector-device.firmware-update.state" | "update.connector.connector-device.firmware-update.result";
+export interface DeviceUpdateDetail {
+    /**
+     * The owning IAM account ID
+     */
+    "account_id"?: string;
+    /**
+     * The name of the object
+     */
+    "name"?: string;
+    /**
+     * Mark this device for auto firmware update
+     */
+    "auto_update"?: boolean;
+    /**
+     * The device vendor ID
+     */
+    "vendor_id"?: string;
+    /**
+     * Up to 5 custom JSON attributes
+     */
+    "custom_attributes"?: any;
+    /**
+     * URL for the current device manifest
+     */
+    "manifest"?: string;
+    /**
+     * The device trust class
+     */
+    "trust_class"?: number;
+    /**
+     * The key used to provision the device
+     */
+    "provision_key"?: string;
+    /**
+     * The ID of the channel used to communicate with the device
+     */
+    "mechanism"?: DeviceUpdateDetailMechanismEnum;
+    /**
+     * The device class
+     */
+    "device_class"?: string;
+    /**
+     * The address of the connector to use
+     */
+    "mechanism_url"?: string;
+    /**
+     * The serial number of the device
+     */
+    "serial_number"?: string;
+    /**
+     * The device trust level
+     */
+    "trust_level"?: number;
+    /**
+     * The description of the object
+     */
+    "description"?: string;
+}
+
+export type DeviceUpdateDetailMechanismEnum = "connector" | "direct";
 
 export enum DefaultApiApiKeys {
     Bearer,
@@ -462,7 +523,7 @@ export class DefaultApi {
      * @param updatedAt The time the object was updated
      * @param vendorId The device vendor ID
      */
-    public deviceCreate (mechanism: string, provisionKey: string, accountId?: string, autoUpdate?: boolean, bootstrappedTimestamp?: string, createdAt?: Date, customAttributes?: { [key: string]: string; }, deployedState?: string, deployment?: string, description?: string, deviceClass?: string, deviceId?: string, etag?: Date, id?: string, manifest?: string, mechanismUrl?: string, name?: string, object?: string, serialNumber?: string, state?: string, trustClass?: number, trustLevel?: number, updatedAt?: Date, vendorId?: string, callback?: (error:any, data:DeviceDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceCreate (mechanism: string, provisionKey: string, accountId?: string, autoUpdate?: boolean, bootstrappedTimestamp?: string, createdAt?: Date, customAttributes?: { [key: string]: string; }, deployedState?: string, deployment?: string, description?: string, deviceClass?: string, deviceId?: string, etag?: Date, id?: string, manifest?: string, mechanismUrl?: string, name?: string, object?: string, serialNumber?: string, state?: string, trustClass?: number, trustLevel?: number, updatedAt?: Date, vendorId?: string, callback?: (error:any, data?:DeviceDetail, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -471,12 +532,18 @@ export class DefaultApi {
 
         // verify required parameter 'mechanism' is not null or undefined
         if (mechanism === null || mechanism === undefined) {
-            throw new Error('Required parameter mechanism was null or undefined when calling deviceCreate.');
+            if (callback) {
+                callback(new Error('Required parameter mechanism was null or undefined when calling deviceCreate.'));
+            }
+            return;
         }
 
         // verify required parameter 'provisionKey' is not null or undefined
         if (provisionKey === null || provisionKey === undefined) {
-            throw new Error('Required parameter provisionKey was null or undefined when calling deviceCreate.');
+            if (callback) {
+                callback(new Error('Required parameter provisionKey was null or undefined when calling deviceCreate.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -608,7 +675,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Delete device&lt;/p&gt;
      * @param deviceId 
      */
-    public deviceDestroy (deviceId: string, callback?: (error:any, data:DeviceListResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceDestroy (deviceId: string, callback?: (error:any, data?:DeviceListResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -618,7 +685,10 @@ export class DefaultApi {
 
         // verify required parameter 'deviceId' is not null or undefined
         if (deviceId === null || deviceId === undefined) {
-            throw new Error('Required parameter deviceId was null or undefined when calling deviceDestroy.');
+            if (callback) {
+                callback(new Error('Required parameter deviceId was null or undefined when calling deviceDestroy.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -658,7 +728,7 @@ export class DefaultApi {
      * @param filter 
      * @param include 
      */
-    public deviceList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data:DeviceListResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:DeviceListResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -722,7 +792,7 @@ export class DefaultApi {
      * @param filter 
      * @param include 
      */
-    public deviceLogList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data:DeviceLogSerializer, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceLogList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:DeviceLogSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devicelog/';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -782,7 +852,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device log.&lt;/p&gt;
      * @param deviceLogId 
      */
-    public deviceLogRetrieve (deviceLogId: string, callback?: (error:any, data:DeviceLogSerializerData, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceLogRetrieve (deviceLogId: string, callback?: (error:any, data?:DeviceLogSerializerData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devicelog/{device_log_id}/'
             .replace('{' + 'device_log_id' + '}', String(deviceLogId));
         let queryParameters: any = {};
@@ -792,7 +862,10 @@ export class DefaultApi {
 
         // verify required parameter 'deviceLogId' is not null or undefined
         if (deviceLogId === null || deviceLogId === undefined) {
-            throw new Error('Required parameter deviceLogId was null or undefined when calling deviceLogRetrieve.');
+            if (callback) {
+                callback(new Error('Required parameter deviceLogId was null or undefined when calling deviceLogRetrieve.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -828,7 +901,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device fields&lt;/p&gt;
      * @param deviceId The ID of the device
      */
-    public devicePartialUpdate (deviceId: string, callback?: (error:any, data:DeviceListResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public devicePartialUpdate (deviceId: string, callback?: (error:any, data?:DeviceListResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -838,7 +911,10 @@ export class DefaultApi {
 
         // verify required parameter 'deviceId' is not null or undefined
         if (deviceId === null || deviceId === undefined) {
-            throw new Error('Required parameter deviceId was null or undefined when calling devicePartialUpdate.');
+            if (callback) {
+                callback(new Error('Required parameter deviceId was null or undefined when calling devicePartialUpdate.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -874,7 +950,7 @@ export class DefaultApi {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device.&lt;/p&gt;
      * @param deviceId 
      */
-    public deviceRetrieve (deviceId: string, callback?: (error:any, data:DeviceListResp, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceRetrieve (deviceId: string, callback?: (error:any, data?:DeviceListResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -884,7 +960,10 @@ export class DefaultApi {
 
         // verify required parameter 'deviceId' is not null or undefined
         if (deviceId === null || deviceId === undefined) {
-            throw new Error('Required parameter deviceId was null or undefined when calling deviceRetrieve.');
+            if (callback) {
+                callback(new Error('Required parameter deviceId was null or undefined when calling deviceRetrieve.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -921,7 +1000,7 @@ export class DefaultApi {
      * @param deviceId The ID of the device
      * @param body Device object to update
      */
-    public deviceUpdate (deviceId: string, body: DeviceDetail, callback?: (error:any, data:DeviceDetail, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceUpdate (deviceId: string, body: DeviceUpdateDetail, callback?: (error:any, data?:DeviceDetail, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/devices/{device_id}/'
             .replace('{' + 'device_id' + '}', String(deviceId));
         let queryParameters: any = {};
@@ -931,12 +1010,18 @@ export class DefaultApi {
 
         // verify required parameter 'deviceId' is not null or undefined
         if (deviceId === null || deviceId === undefined) {
-            throw new Error('Required parameter deviceId was null or undefined when calling deviceUpdate.');
+            if (callback) {
+                callback(new Error('Required parameter deviceId was null or undefined when calling deviceUpdate.'));
+            }
+            return;
         }
 
         // verify required parameter 'body' is not null or undefined
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling deviceUpdate.');
+            if (callback) {
+                callback(new Error('Required parameter body was null or undefined when calling deviceUpdate.'));
+            }
+            return;
         }
 
         let useFormData = false;

@@ -294,7 +294,7 @@ export class DefaultApi {
      * Gets the account&#39;s provisioning certificate.
      * @param authorization \&quot;Bearer\&quot; followed by the reference token or API key.
      */
-    public v3ProvisioningCertificateGet (authorization: string, callback?: (error:any, data:ProvisioningCertificate, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ProvisioningCertificateGet (authorization: string, callback?: (error:any, data?:ProvisioningCertificate, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/provisioning-certificate';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -303,7 +303,10 @@ export class DefaultApi {
 
         // verify required parameter 'authorization' is not null or undefined
         if (authorization === null || authorization === undefined) {
-            throw new Error('Required parameter authorization was null or undefined when calling v3ProvisioningCertificateGet.');
+            if (callback) {
+                callback(new Error('Required parameter authorization was null or undefined when calling v3ProvisioningCertificateGet.'));
+            }
+            return;
         }
 
         headerParams['Authorization'] = authorization;
