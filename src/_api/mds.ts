@@ -440,7 +440,7 @@ export class DefaultApi {
      * Delete callback URL
      * Deletes the callback URL.
      */
-    public v2NotificationCallbackDelete (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2NotificationCallbackDelete (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/notification/callback';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -479,7 +479,7 @@ export class DefaultApi {
      * Check callback URL
      * Shows the current callback URL if exists.
      */
-    public v2NotificationCallbackGet (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2NotificationCallbackGet (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/notification/callback';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -562,7 +562,7 @@ export class EndpointsApi {
      * The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
      * @param endpointName A unique identifier for an endpoint. Note that the endpoint name needs to be an exact match. You cannot use wildcards here. 
      */
-    public v2EndpointsEndpointNameGet (endpointName: string, callback?: (error:any, data:Array<Resource>, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsEndpointNameGet (endpointName: string, callback?: (error:any, data?:Array<Resource>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints/{endpointName}'
             .replace('{' + 'endpointName' + '}', String(endpointName));
         let queryParameters: any = {};
@@ -572,7 +572,10 @@ export class EndpointsApi {
 
         // verify required parameter 'endpointName' is not null or undefined
         if (endpointName === null || endpointName === undefined) {
-            throw new Error('Required parameter endpointName was null or undefined when calling v2EndpointsEndpointNameGet.');
+            if (callback) {
+                callback(new Error('Required parameter endpointName was null or undefined when calling v2EndpointsEndpointNameGet.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -608,7 +611,7 @@ export class EndpointsApi {
      * Endpoints are physical devices running mbed Cloud Client. 
      * @param type Filter endpoints by endpoint-type.
      */
-    public v2EndpointsGet (type?: string, callback?: (error:any, data:Array<Endpoint>, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsGet (type?: string, callback?: (error:any, data?:Array<Endpoint>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -695,7 +698,7 @@ export class NotificationsApi {
      * Register a URL to which the server should deliver notifications of the subscribed resource changes. To get notifications pushed you need to also place the subscriptions.  Notifications are delivered as PUT messages to the HTTP server defined by the client with a subscription server message. The given URL should be accessible and respond to the PUT request with response code of 200 or 204. mbed Cloud Connect tests the callback URL with empty payload when the URL is registered. For more information on callback notification, see NotificationData.  **Note**: Only one callback URL per access-key can be active. If you register a new URL when another one is already active, the old URL is replaced by the new. 
      * @param webhook A json object that contains the URL to which notifications need to be sent, and the optional headers. 
      */
-    public v2NotificationCallbackPut (webhook: Webhook, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2NotificationCallbackPut (webhook: Webhook, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/notification/callback';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -704,7 +707,10 @@ export class NotificationsApi {
 
         // verify required parameter 'webhook' is not null or undefined
         if (webhook === null || webhook === undefined) {
-            throw new Error('Required parameter webhook was null or undefined when calling v2NotificationCallbackPut.');
+            if (callback) {
+                callback(new Error('Required parameter webhook was null or undefined when calling v2NotificationCallbackPut.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -740,7 +746,7 @@ export class NotificationsApi {
      * Get notifications using Long Poll
      * In this case, notifications are delivered through HTTP long-poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  **Note:** If it is not possible to have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, to reduce network traffic and to increase performance we recommend that you use callback URLs (webhooks) whenever possible. 
      */
-    public v2NotificationPullGet (callback?: (error:any, data:NotificationMessage, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2NotificationPullGet (callback?: (error:any, data?:NotificationMessage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/notification/pull';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -825,7 +831,7 @@ export class ResourcesApi {
      * @param resourcePath Resource&#39;s url. 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    public v2EndpointsEndpointNameResourcePathDelete (endpointName: string, resourcePath: string, noResp?: boolean, callback?: (error:any, data:AsyncID, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsEndpointNameResourcePathDelete (endpointName: string, resourcePath: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -836,12 +842,18 @@ export class ResourcesApi {
 
         // verify required parameter 'endpointName' is not null or undefined
         if (endpointName === null || endpointName === undefined) {
-            throw new Error('Required parameter endpointName was null or undefined when calling v2EndpointsEndpointNameResourcePathDelete.');
+            if (callback) {
+                callback(new Error('Required parameter endpointName was null or undefined when calling v2EndpointsEndpointNameResourcePathDelete.'));
+            }
+            return;
         }
 
         // verify required parameter 'resourcePath' is not null or undefined
         if (resourcePath === null || resourcePath === undefined) {
-            throw new Error('Required parameter resourcePath was null or undefined when calling v2EndpointsEndpointNameResourcePathDelete.');
+            if (callback) {
+                callback(new Error('Required parameter resourcePath was null or undefined when calling v2EndpointsEndpointNameResourcePathDelete.'));
+            }
+            return;
         }
 
         if (noResp !== undefined) {
@@ -884,7 +896,7 @@ export class ResourcesApi {
      * @param cacheOnly If true, the response comes only from the cache. Default: false. 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If a request is made with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    public v2EndpointsEndpointNameResourcePathGet (endpointName: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error:any, data:AsyncID, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsEndpointNameResourcePathGet (endpointName: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -895,12 +907,18 @@ export class ResourcesApi {
 
         // verify required parameter 'endpointName' is not null or undefined
         if (endpointName === null || endpointName === undefined) {
-            throw new Error('Required parameter endpointName was null or undefined when calling v2EndpointsEndpointNameResourcePathGet.');
+            if (callback) {
+                callback(new Error('Required parameter endpointName was null or undefined when calling v2EndpointsEndpointNameResourcePathGet.'));
+            }
+            return;
         }
 
         // verify required parameter 'resourcePath' is not null or undefined
         if (resourcePath === null || resourcePath === undefined) {
-            throw new Error('Required parameter resourcePath was null or undefined when calling v2EndpointsEndpointNameResourcePathGet.');
+            if (callback) {
+                callback(new Error('Required parameter resourcePath was null or undefined when calling v2EndpointsEndpointNameResourcePathGet.'));
+            }
+            return;
         }
 
         if (cacheOnly !== undefined) {
@@ -947,7 +965,7 @@ export class ResourcesApi {
      * @param resourceFunction This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client. 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    public v2EndpointsEndpointNameResourcePathPost (endpointName: string, resourcePath: string, resourceFunction?: string, noResp?: boolean, callback?: (error:any, data:AsyncID, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsEndpointNameResourcePathPost (endpointName: string, resourcePath: string, resourceFunction?: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -958,12 +976,18 @@ export class ResourcesApi {
 
         // verify required parameter 'endpointName' is not null or undefined
         if (endpointName === null || endpointName === undefined) {
-            throw new Error('Required parameter endpointName was null or undefined when calling v2EndpointsEndpointNameResourcePathPost.');
+            if (callback) {
+                callback(new Error('Required parameter endpointName was null or undefined when calling v2EndpointsEndpointNameResourcePathPost.'));
+            }
+            return;
         }
 
         // verify required parameter 'resourcePath' is not null or undefined
         if (resourcePath === null || resourcePath === undefined) {
-            throw new Error('Required parameter resourcePath was null or undefined when calling v2EndpointsEndpointNameResourcePathPost.');
+            if (callback) {
+                callback(new Error('Required parameter resourcePath was null or undefined when calling v2EndpointsEndpointNameResourcePathPost.'));
+            }
+            return;
         }
 
         if (noResp !== undefined) {
@@ -1007,7 +1031,7 @@ export class ResourcesApi {
      * @param resourceValue Value to be set to the resource. (Check accceptable content-types) 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    public v2EndpointsEndpointNameResourcePathPut (endpointName: string, resourcePath: string, resourceValue: string, noResp?: boolean, callback?: (error:any, data:AsyncID, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsEndpointNameResourcePathPut (endpointName: string, resourcePath: string, resourceValue: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/endpoints/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -1018,17 +1042,26 @@ export class ResourcesApi {
 
         // verify required parameter 'endpointName' is not null or undefined
         if (endpointName === null || endpointName === undefined) {
-            throw new Error('Required parameter endpointName was null or undefined when calling v2EndpointsEndpointNameResourcePathPut.');
+            if (callback) {
+                callback(new Error('Required parameter endpointName was null or undefined when calling v2EndpointsEndpointNameResourcePathPut.'));
+            }
+            return;
         }
 
         // verify required parameter 'resourcePath' is not null or undefined
         if (resourcePath === null || resourcePath === undefined) {
-            throw new Error('Required parameter resourcePath was null or undefined when calling v2EndpointsEndpointNameResourcePathPut.');
+            if (callback) {
+                callback(new Error('Required parameter resourcePath was null or undefined when calling v2EndpointsEndpointNameResourcePathPut.'));
+            }
+            return;
         }
 
         // verify required parameter 'resourceValue' is not null or undefined
         if (resourceValue === null || resourceValue === undefined) {
-            throw new Error('Required parameter resourceValue was null or undefined when calling v2EndpointsEndpointNameResourcePathPut.');
+            if (callback) {
+                callback(new Error('Required parameter resourceValue was null or undefined when calling v2EndpointsEndpointNameResourcePathPut.'));
+            }
+            return;
         }
 
         if (noResp !== undefined) {
@@ -1111,7 +1144,7 @@ export class SubscriptionsApi {
      * Remove all subscriptions
      * Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.
      */
-    public v2SubscriptionsDelete (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsDelete (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1151,7 +1184,7 @@ export class SubscriptionsApi {
      * Deletes all resource subscriptions in a single endpoint.
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
      */
-    public v2SubscriptionsEndpointNameDelete (endpointName: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsEndpointNameDelete (endpointName: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions/{endpointName}'
             .replace('{' + 'endpointName' + '}', String(endpointName));
         let queryParameters: any = {};
@@ -1161,7 +1194,10 @@ export class SubscriptionsApi {
 
         // verify required parameter 'endpointName' is not null or undefined
         if (endpointName === null || endpointName === undefined) {
-            throw new Error('Required parameter endpointName was null or undefined when calling v2SubscriptionsEndpointNameDelete.');
+            if (callback) {
+                callback(new Error('Required parameter endpointName was null or undefined when calling v2SubscriptionsEndpointNameDelete.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1197,7 +1233,7 @@ export class SubscriptionsApi {
      * Lists all subscribed resources from a single endpoint.
      * @param endpointName A unique identifier for the endpoint. Note that endpoint name must be an exact match. You cannot use wildcards here. 
      */
-    public v2SubscriptionsEndpointNameGet (endpointName: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsEndpointNameGet (endpointName: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions/{endpointName}'
             .replace('{' + 'endpointName' + '}', String(endpointName));
         let queryParameters: any = {};
@@ -1207,7 +1243,10 @@ export class SubscriptionsApi {
 
         // verify required parameter 'endpointName' is not null or undefined
         if (endpointName === null || endpointName === undefined) {
-            throw new Error('Required parameter endpointName was null or undefined when calling v2SubscriptionsEndpointNameGet.');
+            if (callback) {
+                callback(new Error('Required parameter endpointName was null or undefined when calling v2SubscriptionsEndpointNameGet.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1244,7 +1283,7 @@ export class SubscriptionsApi {
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
      * @param resourcePath Resource&#39;s url. 
      */
-    public v2SubscriptionsEndpointNameResourcePathDelete (endpointName: string, resourcePath: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsEndpointNameResourcePathDelete (endpointName: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -1255,12 +1294,18 @@ export class SubscriptionsApi {
 
         // verify required parameter 'endpointName' is not null or undefined
         if (endpointName === null || endpointName === undefined) {
-            throw new Error('Required parameter endpointName was null or undefined when calling v2SubscriptionsEndpointNameResourcePathDelete.');
+            if (callback) {
+                callback(new Error('Required parameter endpointName was null or undefined when calling v2SubscriptionsEndpointNameResourcePathDelete.'));
+            }
+            return;
         }
 
         // verify required parameter 'resourcePath' is not null or undefined
         if (resourcePath === null || resourcePath === undefined) {
-            throw new Error('Required parameter resourcePath was null or undefined when calling v2SubscriptionsEndpointNameResourcePathDelete.');
+            if (callback) {
+                callback(new Error('Required parameter resourcePath was null or undefined when calling v2SubscriptionsEndpointNameResourcePathDelete.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1297,7 +1342,7 @@ export class SubscriptionsApi {
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
      * @param resourcePath Resource&#39;s url. 
      */
-    public v2SubscriptionsEndpointNameResourcePathGet (endpointName: string, resourcePath: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsEndpointNameResourcePathGet (endpointName: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -1308,12 +1353,18 @@ export class SubscriptionsApi {
 
         // verify required parameter 'endpointName' is not null or undefined
         if (endpointName === null || endpointName === undefined) {
-            throw new Error('Required parameter endpointName was null or undefined when calling v2SubscriptionsEndpointNameResourcePathGet.');
+            if (callback) {
+                callback(new Error('Required parameter endpointName was null or undefined when calling v2SubscriptionsEndpointNameResourcePathGet.'));
+            }
+            return;
         }
 
         // verify required parameter 'resourcePath' is not null or undefined
         if (resourcePath === null || resourcePath === undefined) {
-            throw new Error('Required parameter resourcePath was null or undefined when calling v2SubscriptionsEndpointNameResourcePathGet.');
+            if (callback) {
+                callback(new Error('Required parameter resourcePath was null or undefined when calling v2SubscriptionsEndpointNameResourcePathGet.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1350,7 +1401,7 @@ export class SubscriptionsApi {
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
      * @param resourcePath Resource&#39;s URL. 
      */
-    public v2SubscriptionsEndpointNameResourcePathPut (endpointName: string, resourcePath: string, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsEndpointNameResourcePathPut (endpointName: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions/{endpointName}/{resourcePath}'
             .replace('{' + 'endpointName' + '}', String(endpointName))
             .replace('{' + 'resourcePath' + '}', String(resourcePath));
@@ -1361,12 +1412,18 @@ export class SubscriptionsApi {
 
         // verify required parameter 'endpointName' is not null or undefined
         if (endpointName === null || endpointName === undefined) {
-            throw new Error('Required parameter endpointName was null or undefined when calling v2SubscriptionsEndpointNameResourcePathPut.');
+            if (callback) {
+                callback(new Error('Required parameter endpointName was null or undefined when calling v2SubscriptionsEndpointNameResourcePathPut.'));
+            }
+            return;
         }
 
         // verify required parameter 'resourcePath' is not null or undefined
         if (resourcePath === null || resourcePath === undefined) {
-            throw new Error('Required parameter resourcePath was null or undefined when calling v2SubscriptionsEndpointNameResourcePathPut.');
+            if (callback) {
+                callback(new Error('Required parameter resourcePath was null or undefined when calling v2SubscriptionsEndpointNameResourcePathPut.'));
+            }
+            return;
         }
 
         let useFormData = false;
@@ -1401,7 +1458,7 @@ export class SubscriptionsApi {
      * Get pre-subscriptions
      * You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure as described above. If there are no pre-subscribed resources, it returns with an empty array. 
      */
-    public v2SubscriptionsGet (callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsGet (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1441,7 +1498,7 @@ export class SubscriptionsApi {
      * Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers and its name, type and registered resources match the pre-subscription data, mbed Cloud Connect sends subscription requests to the device automatically. The pattern may include the endpoint name (optionally having an \\* character at the end), endpoint type, a list of resources or expressions with an \\* character at the end. The pre-subscription concerns all the endpoints that are already registered and the server sends subscription requests to the devices immediately when the patterns are set. There is only one pre-subscribe array, so changing the pre-subscription data removes all the previous subscriptions. To remove the pre-subscription data, put an empty array as a rule. 
      * @param presubsription Array of pre-subscriptions.
      */
-    public v2SubscriptionsPut (presubsription: PresubscriptionArray, callback?: (error:any, data:any, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsPut (presubsription: PresubscriptionArray, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v2/subscriptions';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
@@ -1450,7 +1507,10 @@ export class SubscriptionsApi {
 
         // verify required parameter 'presubsription' is not null or undefined
         if (presubsription === null || presubsription === undefined) {
-            throw new Error('Required parameter presubsription was null or undefined when calling v2SubscriptionsPut.');
+            if (callback) {
+                callback(new Error('Required parameter presubsription was null or undefined when calling v2SubscriptionsPut.'));
+            }
+            return;
         }
 
         let useFormData = false;
