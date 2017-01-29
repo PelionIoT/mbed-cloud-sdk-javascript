@@ -47,11 +47,8 @@ export class DevelopmentApi {
      */
     public addCertificate(options: { publicKey: string }, callback: (err: any, data?: DeveloperCertificate) => any);
     public addCertificate(options: { publicKey: string }, callback?: (err: any, data?: DeveloperCertificate) => any): Promise<DeveloperCertificate> {
-        let body = {
-            pub_key: options.publicKey
-        };
         return pg(done => {
-            this._endpoints.development.v3DeveloperCertificatePost("", body, (error, data) => {
+            this._endpoints.development.v3DeveloperCertificatePost("", DeveloperCertificate.reverseMap(options), (error, data) => {
                 if (error) return done(error);
 
                 let cert = DeveloperCertificate.map(data);

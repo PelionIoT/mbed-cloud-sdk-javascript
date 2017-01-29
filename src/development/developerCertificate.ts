@@ -16,7 +16,10 @@
 */
 
 import { DeveloperCertificateType } from "./types";
-import { DeveloperCertificate as apiDeveloperCertificate } from "../_api/developer_certificate";
+import {
+    Body as apiDeveloperCertificateRequest,
+    DeveloperCertificate as apiDeveloperCertificate
+} from "../_api/developer_certificate";
 
 /*
  * Development Certificate
@@ -37,6 +40,12 @@ export class DeveloperCertificate {
         };
 
         return new DeveloperCertificate(type);
+    }
+
+    static reverseMap(from: any): apiDeveloperCertificateRequest {
+        return {
+            pub_key: from.publicKey
+        };
     }
 }
 export interface DeveloperCertificate extends DeveloperCertificateType {}

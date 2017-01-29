@@ -17,8 +17,8 @@
 
 import { AccountType } from "./types";
 import {
-    AccountInfo as apiAccount,
-    AccountUpdateReq as apiAccountRequest
+    AccountUpdateReq as apiAccountRequest,
+    AccountInfo as apiAccount
 } from "../_api/iam";
 
 /*

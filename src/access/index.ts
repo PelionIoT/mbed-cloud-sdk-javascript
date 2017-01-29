@@ -18,7 +18,7 @@
 import pg = require("polygoat");
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
 import { mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
-import { AccountType, OwnerOptions, CertificateServiceEnum } from "./types";
+import { AccountType, CertificateServiceEnum } from "./types";
 import { Endpoints } from "./endpoints";
 import { Account } from "./account";
 import { Certificate } from "./certificate";
@@ -86,21 +86,22 @@ export class AccessApi {
      * @param options filter options
      * @returns Promise of listResponse
      */
-    public listAPIKeys(options?: OwnerOptions): Promise<ListResponse<ApiKey>>;
+    public listApiKeys(options?: ListOptions): Promise<ListResponse<ApiKey>>;
     /**
      * List certificates
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listAPIKeys(options?: OwnerOptions, callback?: (err: any, data?: ListResponse<ApiKey>) => any);
-    public listAPIKeys(options?: any, callback?: (err: any, data?: ListResponse<ApiKey>) => any): Promise<ListResponse<ApiKey>> {
+    public listApiKeys(options?: ListOptions, callback?: (err: any, data?: ListResponse<ApiKey>) => any);
+    public listApiKeys(options?: any, callback?: (err: any, data?: ListResponse<ApiKey>) => any): Promise<ListResponse<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
 
-        let { limit, after, order, include, attributes, owner } = options as OwnerOptions;
+        let { limit, after, order, include, attributes } = options as ListOptions;
+        let owner = attributes ? attributes["owner"] : null;
         let filter = encodeAttributes(attributes);
 
         return pg(done => {
@@ -302,14 +303,8 @@ export class AccessApi {
      */
     public addCertificate(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
     public addCertificate(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        let certDetails = {
-            cert_data:    options.certificateData,
-            name:         options.name,
-            service:      options.service,
-            signature:    options.signature
-        };
         return pg(done => {
-            this._endpoints.admin.addCertificate(certDetails, (error, data) => {
+            this._endpoints.admin.addCertificate(Certificate.reverseMap(options), (error, data) => {
                 if (error) return done(error);
                 done(null, Certificate.map(data, this));
             });
@@ -337,14 +332,8 @@ export class AccessApi {
      */
     public updateCertificate(options: { id: string, name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
     public updateCertificate(options: { id: string, name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        let certDetails = {
-            cert_data:    options.certificateData,
-            name:         options.name,
-            service:      options.service,
-            signature:    options.signature
-        };
         return pg(done => {
-            this._endpoints.admin.updateCertificate(options.id, certDetails, (error, data) => {
+            this._endpoints.admin.updateCertificate(options.id, Certificate.reverseMap(options), (error, data) => {
                 if (error) return done(error);
                 done(null, Certificate.map(data, this));
             });

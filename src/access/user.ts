@@ -16,13 +16,15 @@
 */
 
 import pg = require("polygoat");
+import { ListOptions } from "../common/interfaces";
 import { UserType } from "./types";
 import {
-    UserInfoResp as apiUser,
-    UserInfoReq as apiUserRequest
+    UserInfoReq as apiUserRequest,
+    UserInfoResp as apiUser
 } from "../_api/iam";
 import { AccessApi } from "./index";
 import { Group } from "./group";
+import { ApiKey } from "./apiKey";
 
 /*
  * User
@@ -86,17 +88,41 @@ export class User {
     public listGroups(callback?: (err: any, data?: Group[]) => any): Promise<Group[]> {
         return pg(done => {
             // AccessApi.listGroups should accept a filter which would be less intense to use
-            this.groups.forEach(groupId => {
-                this._api.listGroups((error, groups) => {
-                    if (error) return done(error);
+            this._api.listGroups((error, groups) => {
+                if (error) return done(error);
 
-                    let userGroups = groups.filter(group => {
-                        return this.groups.indexOf(group.id) > -1;
-                    });
-
-                    done(null, userGroups);
+                let userGroups = groups.filter(group => {
+                    return this.groups.indexOf(group.id) > -1;
                 });
+
+                done(null, userGroups);
             });
+        }, callback);
+    }
+
+    /**
+     * List the API keys for this user
+     * @returns Promise containing API keys
+     */
+    public listApiKeys(options?: ListOptions): Promise<ApiKey[]>;
+    /**
+     * List the API keys for this user
+     * @param callback A function that is passed the return arguments (error, API keys)
+     */
+    public listApiKeys(options?: ListOptions, callback?: (err: any, data?: ApiKey[]) => any);
+    public listApiKeys(options?: any, callback?: (err: any, data?: ApiKey[]) => any): Promise<ApiKey[]> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        let attributes = options.attributes || {};
+        attributes["owner"] = this.id;
+        options.attributes = attributes;
+
+        return pg(done => {
+            this._api.listApiKeys(options, done);
         }, callback);
     }
 

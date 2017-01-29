@@ -1,5 +1,5 @@
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { AccountType, OwnerOptions, CertificateServiceEnum } from "./types";
+import { AccountType, CertificateServiceEnum } from "./types";
 import { Account } from "./account";
 import { Certificate } from "./certificate";
 import { User } from "./user";
@@ -41,13 +41,13 @@ export declare class AccessApi {
      * @param options filter options
      * @returns Promise of listResponse
      */
-    listAPIKeys(options?: OwnerOptions): Promise<ListResponse<ApiKey>>;
+    listApiKeys(options?: ListOptions): Promise<ListResponse<ApiKey>>;
     /**
      * List certificates
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    listAPIKeys(options?: OwnerOptions, callback?: (err: any, data?: ListResponse<ApiKey>) => any): any;
+    listApiKeys(options?: ListOptions, callback?: (err: any, data?: ListResponse<ApiKey>) => any): any;
     /**
      * Get details of an API key
      * @param options.id The API key ID (if not specified, returns current API key)

@@ -15,8 +15,6 @@
 * limitations under the License.
 */
 
-import { ListOptions } from "../common/interfaces";
-
 export type AccountStatusEnum = "ENROLLING" | "ACTIVE" | "SUSPENDED" | "DISABLED";
 /**
  * This object represents an account in requests and responses.
@@ -297,11 +295,4 @@ export interface GroupType {
      * The number of users in this group.
      */
     userCount: number;
-}
-
-export interface OwnerOptions extends ListOptions {
-    /**
-     * The owner of the object
-     */
-    owner?: string;
 }

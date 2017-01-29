@@ -1,7 +1,9 @@
+import { ListOptions } from "../common/interfaces";
 import { UserType } from "./types";
-import { UserInfoResp as apiUser, UserInfoReq as apiUserRequest } from "../_api/iam";
+import { UserInfoReq as apiUserRequest, UserInfoResp as apiUser } from "../_api/iam";
 import { AccessApi } from "./index";
 import { Group } from "./group";
+import { ApiKey } from "./apiKey";
 export declare class User {
     private _api;
     constructor(options: UserType, _api?: AccessApi);
@@ -17,6 +19,16 @@ export declare class User {
      * @param callback A function that is passed the return arguments (error, groups)
      */
     listGroups(callback: (err: any, data?: Group[]) => any): any;
+    /**
+     * List the API keys for this user
+     * @returns Promise containing API keys
+     */
+    listApiKeys(options?: ListOptions): Promise<ApiKey[]>;
+    /**
+     * List the API keys for this user
+     * @param callback A function that is passed the return arguments (error, API keys)
+     */
+    listApiKeys(options?: ListOptions, callback?: (err: any, data?: ApiKey[]) => any): any;
     /**
      * Delete the user
      * @returns Promise containing any error

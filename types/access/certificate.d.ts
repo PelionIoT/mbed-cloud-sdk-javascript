@@ -1,10 +1,11 @@
 import { CertificateType } from "./types";
-import { CACertificateResp as apiCertificate } from "../_api/iam";
+import { CACertificateReq as apiCertificateRequest, CACertificateResp as apiCertificate } from "../_api/iam";
 import { AccessApi } from "./index";
 export declare class Certificate {
     private _api;
     constructor(options: CertificateType, _api?: AccessApi);
     static map(from: apiCertificate, api: AccessApi): Certificate;
+    static reverseMap(from: any): apiCertificateRequest;
     /**
      * Delete the certificate
      * @returns Promise containing any error
