@@ -19,13 +19,13 @@ export interface DeveloperCertificateType {
     /**
      * UTC time of the entity creation.
      */
-    "createdAt"?: string;
+    createdAt?: string;
     /**
      * The developer certificate public key in raw format (65 bytes), Base64 encoded, NIST P-256 curve.
      */
-    "publicKey"?: string;
+    publicKey?: string;
     /**
      * Entity ID.
      */
-    "id"?: string;
+    id?: string;
 }

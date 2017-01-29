@@ -112,7 +112,7 @@ function checkCertificate(successFn) {
 
 
 function getAccountDetails(successFn) {
-    access.getAccount(function(err, account) {
+    access.getAccountDetails(function(err, account) {
 
         if (err) {
             console.log(err);

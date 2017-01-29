@@ -840,7 +840,9 @@ export class DevicesApi extends EventEmitter {
             this._endpoints.query.deviceQueryList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
-                let queries = data.data.map(Query.map);
+                let queries = data.data.map(query => {
+                    return Query.map(query, this);
+                });
                 let response = mapListResponse(data, queries);
 
                 done(null, response);
@@ -868,7 +870,7 @@ export class DevicesApi extends EventEmitter {
             this._endpoints.query.deviceQueryRetrieve(id, (error, data) => {
                 if (error) return done(error);
 
-                let query = Query.map(data);
+                let query = Query.map(data, this);
                 done(null, query);
             });
         }, callback);
@@ -893,7 +895,7 @@ export class DevicesApi extends EventEmitter {
             this._endpoints.query.deviceQueryCreate(name, query, description, null, null, (error, data) => {
                 if (error) return done(error);
 
-                let query = Query.map(data);
+                let query = Query.map(data, this);
                 done(null, query);
             });
         }, callback);
@@ -925,7 +927,7 @@ export class DevicesApi extends EventEmitter {
                 }, (error, data) => {
                     if (error) return done(error);
 
-                    let query = Query.map(data);
+                    let query = Query.map(data, this);
                     done(null, query);
                 });
             }, callback);
@@ -935,7 +937,7 @@ export class DevicesApi extends EventEmitter {
                 this._endpoints.query.deviceQueryPartialUpdate(id, description, name, null, query, null, (error, data) => {
                     if (error) return done(error);
 
-                    let query = Query.map(data);
+                    let query = Query.map(data, this);
                     done(null, query);
                 });
             }, callback);

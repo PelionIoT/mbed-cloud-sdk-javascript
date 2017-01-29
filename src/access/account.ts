@@ -16,7 +16,10 @@
 */
 
 import { AccountType } from "./types";
-import { AccountInfo as apiAccount } from "../_api/iam";
+import {
+    AccountInfo as apiAccount,
+    AccountUpdateReq as apiAccountRequest
+} from "../_api/iam";
 
 /*
  * Account
@@ -55,6 +58,24 @@ export class Account {
         };
 
         return new Account(type);
+    }
+
+    static reverseMap(from: AccountType): apiAccountRequest {
+        return {
+            address_line2:    from.addressLine2,
+            city:             from.city,
+            address_line1:    from.addressLine1,
+            display_name:     from.displayName,
+            country:          from.country,
+            company:          from.company,
+            state:            from.state,
+            contact:          from.contact,
+            postal_code:      from.postcode,
+            parentID:         from.parentId,
+            phone_number:     from.phoneNumber,
+            email:            from.email,
+            aliases:          from.aliases
+        };
     }
 }
 export interface Account extends AccountType {}

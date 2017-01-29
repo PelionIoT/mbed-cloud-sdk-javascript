@@ -15,21 +15,23 @@
 * limitations under the License.
 */
 
+import pg = require("polygoat");
 import { CertificateType } from "./types";
 import { CACertificateResp as apiCertificate } from "../_api/iam";
+import { AccessApi } from "./index";
 
 /*
  * Certificate
  */
 export class Certificate {
 
-    constructor(options: CertificateType) {
+    constructor(options: CertificateType, private _api?: AccessApi) {
         for(var key in options) {
             this[key] = options[key];
         }
     }
 
-    static map(from: apiCertificate): Certificate {
+    static map(from: apiCertificate, api: AccessApi): Certificate {
         let type:CertificateType = {
             accountId:    from.account_id,
             createdAt:    from.created_at,
@@ -42,7 +44,25 @@ export class Certificate {
             validity:     from.validity
         };
 
-        return new Certificate(type);
+        return new Certificate(type, api);
+    }
+
+    /**
+     * Delete the certificate
+     * @returns Promise containing any error
+     */
+    public delete(): Promise<void>;
+    /**
+     * Delete the certificate
+     * @param callback A function that is passed any error
+     */
+    public delete(callback?: (err: any, data?: void) => any);
+    public delete(callback?: (err: any, data?: void) => any): Promise<void> {
+        return pg(done => {
+            this._api.deleteCertificate({
+                id:    this.id
+            }, done);
+        }, callback);
     }
 }
 export interface Certificate extends CertificateType {}

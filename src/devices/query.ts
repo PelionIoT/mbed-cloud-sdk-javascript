@@ -15,9 +15,11 @@
 * limitations under the License.
 */
 
-import { QueryType } from "./types";
+import pg = require("polygoat");
 import { encodeAttributes, decodeAttributes } from "../common/functions";
 import { DeviceQueryDetail as apiQuery } from "../_api/device_query_service";
+import { QueryType } from "./types";
+import { DevicesApi } from "./index";
 
 /*
  * Query
@@ -26,7 +28,7 @@ export class Query {
 
     private static readonly CUSTOM_PREFIX = "custom_attributes__";
 
-    constructor(options: QueryType) {
+    constructor(options: QueryType, private _api?: DevicesApi) {
         for(var key in options) {
             this[key] = options[key];
         }
@@ -44,7 +46,7 @@ export class Query {
         return filter;
     }
 
-    static map(from: apiQuery): Query {
+    static map(from: apiQuery, api: DevicesApi): Query {
         let attributes = decodeAttributes(from.query, Query.CUSTOM_PREFIX);
 
         let type:QueryType = {
@@ -57,7 +59,25 @@ export class Query {
             updatedAt:           from.updated_at
         };
 
-        return new Query(type);
+        return new Query(type, api);
+    }
+
+    /**
+     * Delete the query
+     * @returns Promise containing any error
+     */
+    public delete(): Promise<void>;
+    /**
+     * Delete the query
+     * @param callback A function that is passed any error
+     */
+    public delete(callback?: (err: any, data?: void) => any);
+    public delete(callback?: (err: any, data?: void) => any): Promise<void> {
+        return pg(done => {
+            this._api.deleteQuery({
+                id:    this.id
+            }, done);
+        }, callback);
     }
 }
 export interface Query extends QueryType {}

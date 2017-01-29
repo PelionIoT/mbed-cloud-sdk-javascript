@@ -101,7 +101,6 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#emailverified" class="tsd-kind-icon">email<wbr>Verified</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#fullname" class="tsd-kind-icon">full<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#groups" class="tsd-kind-icon">groups</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#gtcaccepted" class="tsd-kind-icon">gtc<wbr>Accepted</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#lastlogintime" class="tsd-kind-icon">last<wbr>Login<wbr>Time</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#marketingaccepted" class="tsd-kind-icon">marketing<wbr>Accepted</a></li>
@@ -109,13 +108,17 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#passwordchangedtime" class="tsd-kind-icon">password<wbr>Changed<wbr>Time</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#phonenumber" class="tsd-kind-icon">phone<wbr>Number</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#status" class="tsd-kind-icon">status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#termsaccepted" class="tsd-kind-icon">terms<wbr>Accepted</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_access_user_.user.html#username" class="tsd-kind-icon">username</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_access_user_.user.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_access_user_.user.html#listgroups" class="tsd-kind-icon">list<wbr>Groups</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_access_user_.user.html#map" class="tsd-kind-icon">map</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_access_user_.user.html#reversemap" class="tsd-kind-icon">reverse<wbr>Map</a></li>
 							</ul>
 						</section>
 					</div>
@@ -127,19 +130,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>User<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_access_types_.usertype.html" class="tsd-signature-type">UserType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_access_user_.user.html" class="tsd-signature-type">User</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>User<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_access_types_.usertype.html" class="tsd-signature-type">UserType</a>, _api<span class="tsd-signature-symbol">?: </span><a href="_access_index_.accessapi.html" class="tsd-signature-type">AccessApi</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_access_user_.user.html" class="tsd-signature-type">User</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/user.ts#L24">access/user.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/user.ts#L30">access/user.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>options: <a href="../interfaces/_access_types_.usertype.html" class="tsd-signature-type">UserType</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> _api: <a href="_access_index_.accessapi.html" class="tsd-signature-type">AccessApi</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_access_user_.user.html" class="tsd-signature-type">User</a></h4>
@@ -156,7 +162,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#accountid">accountId</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L129">access/types.ts:129</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L163">access/types.ts:163</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -172,7 +178,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#address">address</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L161">access/types.ts:161</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L139">access/types.ts:139</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -188,7 +194,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#createdat">createdAt</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L141">access/types.ts:141</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L171">access/types.ts:171</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -204,7 +210,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#creationtime">creationTime</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L165">access/types.ts:165</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L175">access/types.ts:175</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -220,7 +226,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#email">email</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L149">access/types.ts:149</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L147">access/types.ts:147</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -236,7 +242,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#emailverified">emailVerified</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L125">access/types.ts:125</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L159">access/types.ts:159</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -252,7 +258,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#fullname">fullName</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L157">access/types.ts:157</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L135">access/types.ts:135</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -268,28 +274,12 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#groups">groups</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L137">access/types.ts:137</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L151">access/types.ts:151</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>A list of IDs of the groups this user belongs to.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="gtcaccepted" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> gtc<wbr>Accepted</h3>
-					<div class="tsd-signature tsd-kind-icon">gtc<wbr>Accepted<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#gtcaccepted">gtcAccepted</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L145">access/types.ts:145</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A flag indicating that the General Terms and Conditions has been accepted.</p>
 						</div>
 					</div>
 				</section>
@@ -300,7 +290,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L177">access/types.ts:177</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L179">access/types.ts:179</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -316,7 +306,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#lastlogintime">lastLoginTime</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L181">access/types.ts:181</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L183">access/types.ts:183</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -332,7 +322,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#marketingaccepted">marketingAccepted</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L153">access/types.ts:153</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L127">access/types.ts:127</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -348,7 +338,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#password">password</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L169">access/types.ts:169</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L143">access/types.ts:143</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -364,7 +354,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#passwordchangedtime">passwordChangedTime</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L133">access/types.ts:133</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L167">access/types.ts:167</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -380,7 +370,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#phonenumber">phoneNumber</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L173">access/types.ts:173</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L123">access/types.ts:123</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -396,12 +386,28 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#status">status</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L117">access/types.ts:117</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L155">access/types.ts:155</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="termsaccepted" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> terms<wbr>Accepted</h3>
+					<div class="tsd-signature tsd-kind-icon">terms<wbr>Accepted<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#termsaccepted">termsAccepted</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L131">access/types.ts:131</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A flag indicating that the General Terms and Conditions has been accepted.</p>
 						</div>
 					</div>
 				</section>
@@ -412,7 +418,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_access_types_.usertype.html">UserType</a>.<a href="../interfaces/_access_types_.usertype.html#username">username</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/types.ts#L121">access/types.ts:121</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/types.ts#L119">access/types.ts:119</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -424,17 +430,151 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="map" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> map</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">apiUser</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_access_user_.user.html" class="tsd-signature-type">User</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/ed151ad/src/access/user.ts#L32">access/user.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/user.ts#L107">access/user.ts:107</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete the user</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Promise containing any error</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/user.ts#L112">access/user.ts:112</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete the user</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that is passed any error</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>err: <span class="tsd-signature-type">any</span></h5>
+														</li>
+														<li>
+															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">void</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="listgroups" class="tsd-anchor"></a>
+					<h3>list<wbr>Groups</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">list<wbr>Groups<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_access_group_.group.html" class="tsd-signature-type">Group</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">list<wbr>Groups<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/user.ts#L80">access/user.ts:80</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>List the groups this user belongs to</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_access_group_.group.html" class="tsd-signature-type">Group</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Promise containing groups</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/user.ts#L85">access/user.ts:85</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>List the groups this user belongs to</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that is passed the return arguments (error, groups)</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><a href="_access_group_.group.html" class="tsd-signature-type">Group</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>err: <span class="tsd-signature-type">any</span></h5>
+														</li>
+														<li>
+															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <a href="_access_group_.group.html" class="tsd-signature-type">Group</a><span class="tsd-signature-symbol">[]</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="map" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> map</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">apiUser</span>, api<span class="tsd-signature-symbol">: </span><a href="_access_index_.accessapi.html" class="tsd-signature-type">AccessApi</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_access_user_.user.html" class="tsd-signature-type">User</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/user.ts#L38">access/user.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -442,8 +582,34 @@
 								<li>
 									<h5>from: <span class="tsd-signature-type">apiUser</span></h5>
 								</li>
+								<li>
+									<h5>api: <a href="_access_index_.accessapi.html" class="tsd-signature-type">AccessApi</a></h5>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_access_user_.user.html" class="tsd-signature-type">User</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="reversemap" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> reverse<wbr>Map</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">reverse<wbr>Map<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">apiUserRequest</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/8b26efe/src/access/user.ts#L62">access/user.ts:62</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>from: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">apiUserRequest</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -495,9 +661,6 @@
 								<a href="_access_user_.user.html#groups" class="tsd-kind-icon">groups</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-								<a href="_access_user_.user.html#gtcaccepted" class="tsd-kind-icon">gtc<wbr>Accepted</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="_access_user_.user.html#id" class="tsd-kind-icon">id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
@@ -519,10 +682,22 @@
 								<a href="_access_user_.user.html#status" class="tsd-kind-icon">status</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="_access_user_.user.html#termsaccepted" class="tsd-kind-icon">terms<wbr>Accepted</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="_access_user_.user.html#username" class="tsd-kind-icon">username</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_access_user_.user.html#delete" class="tsd-kind-icon">delete</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_access_user_.user.html#listgroups" class="tsd-kind-icon">list<wbr>Groups</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_access_user_.user.html#map" class="tsd-kind-icon">map</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_access_user_.user.html#reversemap" class="tsd-kind-icon">reverse<wbr>Map</a>
 							</li>
 						</ul>
 					</li>

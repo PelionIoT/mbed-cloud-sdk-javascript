@@ -19,64 +19,64 @@ export interface FirmwareImageType {
     /**
      * The binary file of firmware image
      */
-    "datafile": string;
+    datafile: string;
     /**
      * The description of the object
      */
-    "description": string;
+    description: string;
     /**
      * The time the object was created
      */
-    "createdAt": Date;
+    createdAt: Date;
     /**
      * The time the object was updated
      */
-    "updatedAt": Date;
+    updatedAt: Date;
     /**
      * Checksum generated for the datafile
      */
-    "datafileChecksum": string;
+    datafileChecksum: string;
     /**
      * The ID of the firmware image
      */
-    "id": string;
+    id: string;
     /**
      * The name of the object
      */
-    "name": string;
+    name: string;
 }
 
 export interface FirmwareManifestType {
     /**
      * The description of the object
      */
-    "description"?: string;
+    description?: string;
     /**
      * The version of the firmware manifest (as a timestamp)
      */
-    "timestamp"?: Date;
+    timestamp?: Date;
     /**
      * The time the object was created
      */
-    "createdAt"?: Date;
+    createdAt?: Date;
     /**
      * The time the object was updated
      */
-    "updatedAt"?: Date;
+    updatedAt?: Date;
     /**
      * The contents of the manifest
      */
-    "manifestContents"?: any;
+    manifestContents?: any;
     /**
      * The class of device
      */
-    "deviceClass"?: string;
+    deviceClass?: string;
     /**
      * The ID of the firmware manifest
      */
-    "id"?: string;
+    id?: string;
     /**
      * The name of the object
      */
-    "name"?: string;
+    name?: string;
 }
