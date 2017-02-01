@@ -1,5 +1,6 @@
 docs
 src
+test
 .gitignore
 circle.yml
 gulpfile.js
