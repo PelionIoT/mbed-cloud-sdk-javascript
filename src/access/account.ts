@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle } from "../common/functions";
 import { AccountType } from "./types";
 import {
     AccountUpdateReq as apiAccountRequest,
@@ -117,7 +117,7 @@ export class Account {
      */
     public update(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }, callback?: (err: any, data?: Account) => any);
     public update(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }, callback?: (err: any, data?: Account) => any): Promise<Account> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.updateAccountDetails(options, done);
         }, callback);
     }

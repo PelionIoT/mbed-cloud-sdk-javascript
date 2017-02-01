@@ -15,9 +15,8 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle, mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
 import { Endpoints } from "./endpoints";
 import { DeviceLog } from "./deviceLog";
 
@@ -57,7 +56,7 @@ export class LoggingApi {
         let { limit, order, after, attributes, include } = options as ListOptions;
         let filter = encodeAttributes(attributes);
 
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.catalog.deviceLogList(limit, order, after, filter, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -84,7 +83,7 @@ export class LoggingApi {
     public getDeviceLog(options: { id: string }, callback: (err: any, data?: DeviceLog) => any);
     public getDeviceLog(options: { id: string }, callback?: (err: any, data?: DeviceLog) => any): Promise<DeviceLog> {
         let { id } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.catalog.deviceLogRetrieve(id, (error, data) => {
                 if (error) return done(error);
                 let log = DeviceLog.map(data);

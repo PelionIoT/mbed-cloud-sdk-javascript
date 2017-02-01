@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle } from "../common/functions";
 import { DeveloperCertificateType } from "./types";
 import {
     Body as apiDeveloperCertificateRequest,
@@ -61,7 +61,7 @@ export class DeveloperCertificate {
      */
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteCertificate(done);
         }, callback);
     }

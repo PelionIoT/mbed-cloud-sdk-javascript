@@ -15,9 +15,8 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle, mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
 import { CampaignStateEnum } from "./types";
 import { Endpoints } from "./endpoints";
 import { FirmwareImage } from "./firmwareImage";
@@ -58,7 +57,7 @@ export class UpdateApi {
             options = {};
         }
         let { limit, order, after, include } = options as ListOptions;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.firmware.firmwareImageList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -84,7 +83,7 @@ export class UpdateApi {
      */
     public getFirmwareImage(options: { id: number }, callback: (err: any, data?: FirmwareImage) => any);
     public getFirmwareImage(options: { id: number }, callback?: (err: any, data?: FirmwareImage) => any): Promise<FirmwareImage> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.firmware.firmwareImageRetrieve(options.id, null, null, null, null, null, null, null, null, null, (error, data) => {
                 if (error) return done(error);
                 done(null, FirmwareImage.map(data.data[0], this));
@@ -109,7 +108,7 @@ export class UpdateApi {
      */
     public addFirmwareImage(options: { data: string, name: string, description?: string }, callback: (err: any, data?: FirmwareImage) => any);
     public addFirmwareImage(options: { data: string, name: string, description?: string }, callback?: (err: any, data?: FirmwareImage) => any): Promise<FirmwareImage> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.firmware.firmwareImageCreate(options.data, options.name, options.description, null, null, null, null, null, null, null, null, null, null, (error, data) => {
                 if (error) return done(error);
                 done(null, FirmwareImage.map(data, this));
@@ -130,7 +129,7 @@ export class UpdateApi {
      */
     public deleteFirmwareImage(options: { id: number }, callback: (err: any, data?: void) => any);
     public deleteFirmwareImage(options: { id: number }, callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.firmware.firmwareImageDestroy(options.id, null, null, null, null, null, null, null, null, null, (error, data) => {
                 if (error) return done(error);
                 done(null, null);
@@ -157,7 +156,7 @@ export class UpdateApi {
             options = {};
         }
         let { limit, order, after, include } = options as ListOptions;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -183,7 +182,7 @@ export class UpdateApi {
      */
     public getFirmwareManifest(options: { id: number }, callback: (err: any, data?: FirmwareManifest) => any);
     public getFirmwareManifest(options: { id: number }, callback?: (err: any, data?: FirmwareManifest) => any): Promise<FirmwareManifest> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.firmware.firmwareManifestRetrieve(options.id, null, null, null, null, null, null, null, null, null, null, null, (error, data) => {
                 if (error) return done(error);
                 done(null, FirmwareManifest.map(data, this));
@@ -208,7 +207,7 @@ export class UpdateApi {
      */
     public addFirmwareManifest(options: { data: string, name: string, description?: string }, callback: (err: any, data?: FirmwareManifest) => any);
     public addFirmwareManifest(options: { data: string, name: string, description?: string }, callback?: (err: any, data?: FirmwareManifest) => any): Promise<FirmwareManifest> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.firmware.firmwareManifestCreate(options.data, options.name, options.description, (error, data) => {
                 if (error) return done(error);
                 done(null, FirmwareManifest.map(data, this));
@@ -229,7 +228,7 @@ export class UpdateApi {
      */
     public deleteFirmwareManifest(options: { id: number }, callback: (err: any, data?: void) => any);
     public deleteFirmwareManifest(options: { id: number }, callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.firmware.firmwareManifestDestroy(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, null);
@@ -257,7 +256,7 @@ export class UpdateApi {
         }
         let { limit, order, after, include } = options as ListOptions;
         let filter = encodeAttributes(options);
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.deployment.updateCampaignList(limit, order, after, filter, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -283,7 +282,7 @@ export class UpdateApi {
      */
     public getCampaign(options: { id: string }, callback: (err: any, data?: Campaign) => any);
     public getCampaign(options: { id: string }, callback?: (err: any, data?: Campaign) => any): Promise<Campaign> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.deployment.updateCampaignRetrieve(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, Campaign.map(data, this));
@@ -314,7 +313,7 @@ export class UpdateApi {
      */
     public addCampaign(options: { name: string, description?: string, manifestId?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string }, start?: Date }, callback?: (err: any, data?: Campaign) => any);
     public addCampaign(options: { name: string, description?: string, manifestId?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string }, start?: Date }, callback?: (err: any, data?: Campaign) => any): Promise<Campaign> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.deployment.updateCampaignCreate(Campaign.reverseMap(options), (error, data) => {
                 if (error) return done(error);
                 done(null, Campaign.map(data, this));
@@ -349,7 +348,7 @@ export class UpdateApi {
      */
     public updateCampaign(options: { id: string, name: string, state?: CampaignStateEnum, description?: string, manifestId?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string }, start?: Date }, callback?: (err: any, data?: Campaign) => any);
     public updateCampaign(options: { id: string, name: string, state?: CampaignStateEnum, description?: string, manifestId?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string }, start?: Date }, callback?: (err: any, data?: Campaign) => any): Promise<Campaign> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.deployment.updateCampaignUpdate(options.id, Campaign.reverseMap(options), (error, data) => {
                 if (error) return done(error);
 
@@ -372,7 +371,7 @@ export class UpdateApi {
      */
     public deleteCampaign(options: { id: string }, callback: (err: any, data?: void) => any);
     public deleteCampaign(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.deployment.updateCampaignDestroy(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, null);
@@ -393,7 +392,7 @@ export class UpdateApi {
      */
     public getCampaignStatus(options: { id: string }, callback: (err: any, data?: CampaignState) => any);
     public getCampaignStatus(options: { id: string }, callback?: (err: any, data?: CampaignState) => any): Promise<CampaignState> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.deployment.updateCampaignStatus(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, CampaignState.map(data));
@@ -417,7 +416,7 @@ export class UpdateApi {
     public startCampaign(options: { id: string, name: string }, callback?: (err: any, data?: Campaign) => any);
     public startCampaign(options: { id: string, name: string }, callback?: (err: any, data?: Campaign) => any): Promise<Campaign> {
         (options as any).state = "scheduled";
-        return pg(done => {
+        return asyncStyle(done => {
             this.updateCampaign(options, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -441,7 +440,7 @@ export class UpdateApi {
     public stopCampaign(options: { id: string, name: string }, callback?: (err: any, data?: Campaign) => any);
     public stopCampaign(options: { id: string, name: string }, callback?: (err: any, data?: Campaign) => any): Promise<Campaign> {
         (options as any).state = "draft";
-        return pg(done => {
+        return asyncStyle(done => {
             this.updateCampaign(options, (error, data) => {
                 if (error) return done(error);
                 done(null, data);

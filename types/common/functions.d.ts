@@ -1,4 +1,5 @@
 import { ListResponse } from "./interfaces";
+export declare function asyncStyle<T>(asyncFn: (done: (error: any, response?: T) => any) => void, callbackFn?: (error: any, response: T) => any): Promise<T>;
 export declare function decodeBase64(payload: any, contentType: any): string;
 export declare function encodeInclude(include: any): any;
 export declare function snakeToCamel(snake: any): any;

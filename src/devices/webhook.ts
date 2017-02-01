@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle } from "../common/functions";
 import { WebhookType } from "./types";
 import { Webhook as apiWebhook } from "../_api/mds";
 import { DevicesApi } from "./index";
@@ -60,7 +60,7 @@ export class Webhook {
      */
     public update(options: WebhookType, callback?: (err: any, data?: void) => any);
     public update(options: WebhookType, callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.updateWebhook(options, done);
         }, callback);
     }
@@ -76,7 +76,7 @@ export class Webhook {
      */
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteWebhook(done);
         }, callback);
     }

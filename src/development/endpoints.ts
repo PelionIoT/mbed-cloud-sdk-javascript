@@ -16,17 +16,13 @@
 */
 
 import { ConnectionOptions } from "../common/interfaces";
-import {
-    DefaultApi as DevelopmentApi,
-    DefaultApiApiKeys as DevelopmentApiApiKeys
-} from "../_api/developer_certificate";
+import { DefaultApi as DevelopmentApi } from "../_api/developer_certificate";
 
 export class Endpoints {
 
     development: DevelopmentApi;
 
     constructor(options: ConnectionOptions) {
-        this.development = new DevelopmentApi(options.host);
-        this.development.setApiKey(DevelopmentApiApiKeys.Bearer, "Bearer " + options.apiKey);
+        this.development = new DevelopmentApi(options.apiKey, options.host);
     }
 }

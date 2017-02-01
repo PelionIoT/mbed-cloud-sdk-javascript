@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle } from "../common/functions";
 import { CertificateType, CertificateServiceEnum } from "./types";
 import {
     CACertificateReq as apiCertificateRequest,
@@ -78,7 +78,7 @@ export class Certificate {
      */
     public update(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
     public update(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.updateCertificate({
                 id:                 this.id,
                 name:               options.name,
@@ -100,7 +100,7 @@ export class Certificate {
      */
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteCertificate(this, done);
         }, callback);
     }

@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle } from "../common/functions";
 import { FirmwareImageType } from "./types";
 import { FirmwareImageSerializerData as apiFirmwareImage } from "../_api/firmware_catalog";
 import { UpdateApi } from "./index";
@@ -56,7 +56,7 @@ export class FirmwareImage {
      */
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteFirmwareImage({
                 id:    parseInt(this.id)
             }, done);

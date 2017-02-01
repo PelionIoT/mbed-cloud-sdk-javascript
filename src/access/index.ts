@@ -15,9 +15,8 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle, mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
 import { CertificateServiceEnum } from "./types";
 import { Endpoints } from "./endpoints";
 import { Account } from "./account";
@@ -61,7 +60,7 @@ export class AccessApi {
      */
     public getAccountDetails(callback: (err: any, data?: Account) => any);
     public getAccountDetails(callback?: (err: any, data?: Account) => any): Promise<Account> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.developer.getMyAccountInfo("limits", (error, data) => {
                 if (error) return done(error);
                 done(null, Account.map(data, this));
@@ -107,7 +106,7 @@ export class AccessApi {
     public updateAccountDetails(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }, callback?: (err: any, data?: Account) => any);
     public updateAccountDetails(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }, callback?: (err: any, data?: Account) => any): Promise<Account> {
         let account = Account.reverseMap(options);
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.admin.updateMyAccount(account, (error, data) => {
                 if (error) return done(error);
                 done(null, Account.map(data, this));
@@ -138,7 +137,7 @@ export class AccessApi {
         let owner = attributes ? attributes["owner"] : null;
         let filter = encodeAttributes(attributes);
 
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), filter, owner, (error, data) => {
                 if (error) return done(error);
 
@@ -168,7 +167,7 @@ export class AccessApi {
             callback = options;
             options = {};
         }
-        return pg(done => {
+        return asyncStyle(done => {
             if (options.id) {
                 this._endpoints.developer.getApiKey(options.id, (error, data) => {
                     if (error) return done(error);
@@ -200,7 +199,7 @@ export class AccessApi {
      */
     public addApiKey(options: { name: string, owner?: string, groups?: string[] }, callback: (err: any, data?: ApiKey) => any);
     public addApiKey(options: { name: string, owner?: string, groups?: string[] }, callback?: (err: any, data?: ApiKey) => any): Promise<ApiKey> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.developer.createApiKey(options, (error, data) => {
                 if (error) return done(error);
 
@@ -227,7 +226,7 @@ export class AccessApi {
      */
     public updateApiKey(options: { id?: string, name: string, owner?: string }, callback: (err: any, data?: ApiKey) => any);
     public updateApiKey(options: { id?: string, name: string, owner?: string }, callback?: (err: any, data?: ApiKey) => any): Promise<ApiKey> {
-        return pg(done => {
+        return asyncStyle(done => {
             if (options.id) {
                 this._endpoints.developer.updateApiKey(options.id, options, (error, data) => {
                     if (error) return done(error);
@@ -255,7 +254,7 @@ export class AccessApi {
      */
     public deleteApiKey(options: { id: string }, callback: (err: any, data?: void) => any);
     public deleteApiKey(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.developer.deleteApiKey(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -285,7 +284,7 @@ export class AccessApi {
         let { limit, after, order, include, attributes } = options as ListOptions;
         let filter = encodeAttributes(attributes);
 
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), filter, (error, data) => {
                 if (error) return done(error);
 
@@ -310,7 +309,7 @@ export class AccessApi {
      */
     public getCertificate(options: { id: string }, callback: (err: any, data?: Certificate) => any);
     public getCertificate(options: { id: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.admin.getCertificate(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, Certificate.map(data, this));
@@ -337,7 +336,7 @@ export class AccessApi {
      */
     public addCertificate(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
     public addCertificate(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.admin.addCertificate(Certificate.reverseMap(options), (error, data) => {
                 if (error) return done(error);
                 done(null, Certificate.map(data, this));
@@ -366,7 +365,7 @@ export class AccessApi {
      */
     public updateCertificate(options: { id: string, name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
     public updateCertificate(options: { id: string, name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.admin.updateCertificate(options.id, Certificate.reverseMap(options), (error, data) => {
                 if (error) return done(error);
                 done(null, Certificate.map(data, this));
@@ -387,7 +386,7 @@ export class AccessApi {
      */
     public deleteCertificate(options: { id: string }, callback: (err: any, data?: void) => any);
     public deleteCertificate(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.admin.deleteCertificate(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -417,7 +416,7 @@ export class AccessApi {
         let { limit, after, order, include, attributes } = options as ListOptions;
         let filter = encodeAttributes(attributes);
 
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), filter, (error, data) => {
                 if (error) return done(error);
 
@@ -443,7 +442,7 @@ export class AccessApi {
      */
     public getUser(options: { id: string }, callback: (err: any, data?: User) => any);
     public getUser(options: { id: string }, callback?: (err: any, data?: User) => any): Promise<User> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.admin.getUser(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, User.map(data, this));
@@ -483,7 +482,7 @@ export class AccessApi {
         fullName?: string, address?: string, password?: string, email: string, groups?: string[] }, callback: (err: any, data?: User) => any);
     public addUser(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
         fullName?: string, address?: string, password?: string, email: string, groups?: string[] }, callback?: (err: any, data?: User) => any): Promise<User> {
-        return pg(done => {
+        return asyncStyle(done => {
             let apiUser = User.reverseMap(options);
             this._endpoints.admin.createUser(apiUser, "create", (error, data) => {
                 if (error) return done(error);
@@ -524,7 +523,7 @@ export class AccessApi {
         fullName?: string, address?: string, password?: string, email: string }, callback: (err: any, data?: User) => any);
     public updateUser(options: { id: string, username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
         fullName?: string, address?: string, password?: string, email: string }, callback?: (err: any, data?: User) => any): Promise<User> {
-        return pg(done => {
+        return asyncStyle(done => {
             let apiUser = User.reverseMap(options);
             this._endpoints.admin.updateUser(options.id, apiUser, (error, data) => {
                 if (error) return done(error);
@@ -548,7 +547,7 @@ export class AccessApi {
      */
     public deleteUser(options: { id: string, force?:string }, callback: (err: any, data?: void) => any);
     public deleteUser(options: { id: string, force?:string }, callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.admin.deleteUser(options.id, options.force, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -577,7 +576,7 @@ export class AccessApi {
 
         let { limit, after, order, include } = options as ListOptions;
 
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 

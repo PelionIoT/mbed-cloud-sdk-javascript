@@ -16,17 +16,13 @@
 */
 
 import { ConnectionOptions } from "../common/interfaces";
-import {
-    DefaultApi as CatalogApi,
-    DefaultApiApiKeys as CatalogApiApiKeys
-} from "../_api/device_catalog";
+import { DefaultApi as CatalogApi } from "../_api/device_catalog";
 
 export class Endpoints {
 
     catalog: CatalogApi;
 
     constructor(options: ConnectionOptions) {
-        this.catalog = new CatalogApi(options.host);
-        this.catalog.setApiKey(CatalogApiApiKeys.Bearer, "Bearer " + options.apiKey);
+        this.catalog = new CatalogApi(options.apiKey, options.host);
     }
 }

@@ -35,7 +35,6 @@
     "typescript": "2.1.1"
   },
   "dependencies": {
-    "polygoat": "thegecko/polygoat",
     "superagent": "^3.0.0"
   }
 }

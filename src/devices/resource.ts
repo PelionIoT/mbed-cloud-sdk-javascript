@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle } from "../common/functions";
 import { EventEmitter } from "events";
 import { ResourceType } from "./types";
 import { DevicesApi } from "./index";
@@ -93,7 +93,7 @@ export class Resource extends EventEmitter {
             options = {};
         }
         let { cacheOnly, noResponse } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.getResourceValue({
                 id:            this.deviceId,
                 path:          this.path,
@@ -119,7 +119,7 @@ export class Resource extends EventEmitter {
     public setValue(options: { value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
     public setValue(options: { value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
         let { value, noResponse } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.setResourceValue({
                 id:            this.deviceId,
                 path:          this.path,
@@ -150,7 +150,7 @@ export class Resource extends EventEmitter {
             options = {};
         }
         let { fn, noResponse } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.executeResource({
                 id:            this.deviceId,
                 path:          this.path,
@@ -171,7 +171,7 @@ export class Resource extends EventEmitter {
      */
     public getSubscription(callback: (err: any, data?: boolean) => any);
     public getSubscription(callback?: (err: any, data?: boolean) => any): Promise<boolean> {
-        return pg(done => {
+        return asyncStyle(done => {
             if (!this.observable) return done(null, false);
             this._api.getResourceSubscription({
                 id:            this.deviceId,
@@ -199,7 +199,7 @@ export class Resource extends EventEmitter {
             options = {};
         }
         let { fn } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             if (!this.observable) return done(null, null);
             this._api.addResourceSubscription({
                 id:            this.deviceId,
@@ -220,7 +220,7 @@ export class Resource extends EventEmitter {
      */
     private deleteSubscription(callback?: (err: any, data?: void) => any);
     private deleteSubscription(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteResourceSubscription({
                 id:            this.deviceId,
                 path:          this.path
@@ -247,7 +247,7 @@ export class Resource extends EventEmitter {
             options = {};
         }
         let { noResponse } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteDeviceResource({
                 id:            this.deviceId,
                 path:          this.path,

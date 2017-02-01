@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle } from "../common/functions";
 import { ListOptions } from "../common/interfaces";
 import { UserType } from "./types";
 import {
@@ -105,7 +105,7 @@ export class User {
         fullName?: string, address?: string, password?: string, email: string }, callback: (err: any, data?: User) => any);
     public update(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
         fullName?: string, address?: string, password?: string, email: string }, callback?: (err: any, data?: User) => any): Promise<User> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.updateUser({
                 id: this.id,
                 address:              options.address,
@@ -131,7 +131,7 @@ export class User {
      */
     public listGroups(callback: (err: any, data?: Group[]) => any);
     public listGroups(callback?: (err: any, data?: Group[]) => any): Promise<Group[]> {
-        return pg(done => {
+        return asyncStyle(done => {
             // AccessApi.listGroups should accept a filter which would be less intense to use
             this._api.listGroups((error, groups) => {
                 if (error) return done(error);
@@ -166,7 +166,7 @@ export class User {
         attributes["owner"] = this.id;
         options.attributes = attributes;
 
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.listApiKeys(options, done);
         }, callback);
     }
@@ -182,7 +182,7 @@ export class User {
      */
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteUser(this, done);
         }, callback);
     }

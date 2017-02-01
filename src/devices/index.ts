@@ -15,11 +15,10 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
 import superagent = require("superagent");
 import { EventEmitter } from "events";
+import { asyncStyle, decodeBase64, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { decodeBase64, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
 import { Endpoints } from "./endpoints";
 import { DevicesApiType, DeviceType, DeviceEventType, QueryOptions, WebhookType, PresubscriptionType, MechanismEnum } from "./types";
 import { Device } from "./device";
@@ -194,7 +193,7 @@ export class DevicesApi extends EventEmitter {
         poll.call(this);
         this.handleNotifications = true;
 
-        return pg(done => {
+        return asyncStyle(done => {
             done(null, null);
         }, callback);
     }
@@ -217,7 +216,7 @@ export class DevicesApi extends EventEmitter {
 
         this.handleNotifications = false;
 
-        return pg(done => {
+        return asyncStyle(done => {
             done(null, null);
         }, callback);
     }
@@ -233,7 +232,7 @@ export class DevicesApi extends EventEmitter {
      */
     public getWebhook(callback: (err: any, data?: Webhook) => any);
     public getWebhook(callback?: (err: any, data?: Webhook) => any): Promise<Webhook> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.webhooks.v2NotificationCallbackGet((error, data) => {
                 if (error) return done(error);
 
@@ -256,7 +255,7 @@ export class DevicesApi extends EventEmitter {
      */
     public updateWebhook(options: WebhookType, callback?: (err: any, data?: void) => any);
     public updateWebhook(options: WebhookType, callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.notifications.v2NotificationCallbackPut(Webhook.reverseMap(options), (error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -275,7 +274,7 @@ export class DevicesApi extends EventEmitter {
      */
     public deleteWebhook(callback?: (err: any, data?: void) => any);
     public deleteWebhook(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.webhooks.v2NotificationCallbackDelete((error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -294,7 +293,7 @@ export class DevicesApi extends EventEmitter {
      */
     public getPresubscription(callback?: (err: any, data?: Presubscription[]) => any);
     public getPresubscription(callback?: (err: any, data?: Presubscription[]) => any): Promise<Presubscription[]> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsGet((error, data) => {
                 if (error) return done(error);
 
@@ -318,7 +317,7 @@ export class DevicesApi extends EventEmitter {
     public updatePresubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any);
     public updatePresubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any): Promise<void> {
         let presubs = options.map(Presubscription.reverseMap);
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsPut(presubs, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -337,7 +336,7 @@ export class DevicesApi extends EventEmitter {
      */
     public deletePresubscription(callback?: (err: any, data?: void) => any);
     public deletePresubscription(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsPut([], (error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -356,7 +355,7 @@ export class DevicesApi extends EventEmitter {
      */
     public deleteSubscriptions(callback?: (err: any, data?: void) => any);
     public deleteSubscriptions(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsDelete((error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -386,7 +385,7 @@ export class DevicesApi extends EventEmitter {
         let { limit, after, order, include } = options as QueryOptions;
         let filter = encodeFilter(options, Query.CUSTOM_PREFIX);
 
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.catalog.deviceList(limit, order, after, filter, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -419,7 +418,7 @@ export class DevicesApi extends EventEmitter {
             options = {};
         }
         let { type } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.endpoints.v2EndpointsGet(type, (error, data) => {
                 if (error) return done(error);
 
@@ -449,7 +448,7 @@ export class DevicesApi extends EventEmitter {
      */
     public getDevice(options: { id: string }, callback: (err: any, data?: Device) => any);
     public getDevice(options: { id: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.catalog.deviceRetrieve(options.id, (error, data) => {
                 if (error) return done(error);
 
@@ -475,7 +474,7 @@ export class DevicesApi extends EventEmitter {
         let { mechanism, provisionKey, accountId, autoUpdate, bootstrappedTimestamp, createdAt, customAttributes,
               deployedState, deployment, description, deviceClass, id, manifest, mechanismUrl, name,
               serialNumber, state, trustClass, trustLevel, updatedAt, vendorId } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.catalog.deviceCreate(
               mechanism, provisionKey, accountId, autoUpdate, bootstrappedTimestamp, createdAt, customAttributes,
               deployedState, deployment, description, deviceClass, null, null, id, manifest, mechanismUrl, name,
@@ -527,7 +526,7 @@ export class DevicesApi extends EventEmitter {
      */
     public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any);
     public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
-        return pg(done => {
+        return asyncStyle(done => {
             let apiDevice = Device.reverseMap(options);
             this._endpoints.catalog.deviceUpdate(options.id, apiDevice, (error, data) => {
                 if (error) return done(error);
@@ -557,7 +556,7 @@ export class DevicesApi extends EventEmitter {
             options = {};
         }
         let { id } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.catalog.deviceDestroy(id, (error, data) => {
                 if (error) return done(error);
                 done(null, null);
@@ -578,7 +577,7 @@ export class DevicesApi extends EventEmitter {
      */
     public listDeviceSubscriptions(options: { id: string }, callback: (err: any, data?: any) => any);
     public listDeviceSubscriptions(options: { id: string }, callback?: (err: any, data?: any) => any): Promise<any> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsEndpointNameGet(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -599,7 +598,7 @@ export class DevicesApi extends EventEmitter {
      */
     public deleteDeviceSubscriptions(options: { id: string }, callback: (err: any, data?: void) => any);
     public deleteDeviceSubscriptions(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsEndpointNameDelete(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -620,7 +619,7 @@ export class DevicesApi extends EventEmitter {
      */
     public listDeviceResources(options: { id: string }, callback: (err: any, data?: Resource[]) => any);
     public listDeviceResources(options: { id: string }, callback?: (err: any, data?: Resource[]) => any): Promise<Resource[]> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.endpoints.v2EndpointsEndpointNameGet(options.id, (error, data) => {
                 if (error) return done(error);
 
@@ -650,7 +649,7 @@ export class DevicesApi extends EventEmitter {
     public deleteDeviceResource(options: { id: string, path: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
     public deleteDeviceResource(options: { id: string, path: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
         let { id, path, noResponse } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsEndpointNameResourcePathDelete(id, path, noResponse, (error, data) => {
                 if (error) return done(error);
                 done(null, data[this.asyncKey]);
@@ -678,7 +677,7 @@ export class DevicesApi extends EventEmitter {
     public getResourceValue(options: { id: string, path: string, cacheOnly?: boolean, noResponse?: boolean }, callback: (err: any, data?: string) => any);
     public getResourceValue(options: { id: string, path: string, cacheOnly?: boolean, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
         let { id, path, cacheOnly, noResponse } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsEndpointNameResourcePathGet(id, path, cacheOnly, noResponse, (error, data) => {
                 if (error) return done(error);
 
@@ -713,7 +712,7 @@ export class DevicesApi extends EventEmitter {
     public setResourceValue(options: { id: string, path: string, value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
     public setResourceValue(options: { id: string, path: string, value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
         let { id, path, value, noResponse } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsEndpointNameResourcePathPut(id, path.substr(1), value, noResponse, (error, data) => {
                 if (error) return done(error);
 
@@ -748,7 +747,7 @@ export class DevicesApi extends EventEmitter {
     public executeResource(options: { id: string, path: string, fn?: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
     public executeResource(options: { id: string, path: string, fn?: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
         let { id, path, fn, noResponse } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsEndpointNameResourcePathPost(id, path, fn, noResponse, (error, data) => {
                 if (error) return done(error);
 
@@ -779,7 +778,7 @@ export class DevicesApi extends EventEmitter {
     public getResourceSubscription(options: { id: string, path: string }, callback: (err: any, data?: boolean) => any);
     public getResourceSubscription(options: { id: string, path: string }, callback?: (err: any, data?: boolean) => any): Promise<boolean> {
         let { id, path } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathGet(id, path, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
@@ -805,7 +804,7 @@ export class DevicesApi extends EventEmitter {
     public addResourceSubscription(options: { id: string, path: string, fn?: Function }, callback?: (err: any, data?: void) => any);
     public addResourceSubscription(options: { id: string, path: string, fn?: Function }, callback?: (err: any, data?: void) => any): Promise<void> {
         let { id, path, fn } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathPut(id, path, (error, data) => {
                 if (error) return done(error);
 
@@ -841,7 +840,7 @@ export class DevicesApi extends EventEmitter {
     public deleteResourceSubscription(options: { id: string, path: string }, callback?: (err: any, data?: void) => any);
     public deleteResourceSubscription(options: { id: string, path: string }, callback?: (err: any, data?: void) => any): Promise<void> {
         let { id, path } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathDelete(id, path, (error, data) => {
                 if (error) return done(error);
 
@@ -880,7 +879,7 @@ export class DevicesApi extends EventEmitter {
             options = {};
         }
         let { limit, order, after, include } = options as ListOptions;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.query.deviceQueryList(limit, order, after, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -910,7 +909,7 @@ export class DevicesApi extends EventEmitter {
     public getQuery(options: { id: string }, callback?: (err: any, data?: Query) => any);
     public getQuery(options: { id: string }, callback?: (err: any, data?: Query) => any): Promise<Query> {
         let { id } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.query.deviceQueryRetrieve(id, (error, data) => {
                 if (error) return done(error);
 
@@ -941,7 +940,7 @@ export class DevicesApi extends EventEmitter {
     public addQuery(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any): Promise<Query> {
         let apiQuery = Query.reverseMap(options);
         let { name, description, query } = apiQuery;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.query.deviceQueryCreate(name, query, description, null, null, (error, data) => {
                 if (error) return done(error);
 
@@ -976,7 +975,7 @@ export class DevicesApi extends EventEmitter {
 
         if (apiQuery.name && apiQuery.query) {
             // Full update
-            return pg(done => {
+            return asyncStyle(done => {
                 this._endpoints.query.deviceQueryUpdate(options.id, apiQuery, (error, data) => {
                     if (error) return done(error);
 
@@ -986,7 +985,7 @@ export class DevicesApi extends EventEmitter {
             }, callback);
         } else {
             // Partial update
-            return pg(done => {
+            return asyncStyle(done => {
                 this._endpoints.query.deviceQueryPartialUpdate(options.id, apiQuery.description, apiQuery.name, null, apiQuery.query, null, (error, data) => {
                     if (error) return done(error);
 
@@ -1011,7 +1010,7 @@ export class DevicesApi extends EventEmitter {
     public deleteQuery(options: { id: string }, callback?: (err: any, data?: void) => any);
     public deleteQuery(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
         let { id } = options;
-        return pg(done => {
+        return asyncStyle(done => {
             this._endpoints.query.deviceQueryDestroy(id, (error, data) => {
                 if (error) return done(error);
                 done(null, null);

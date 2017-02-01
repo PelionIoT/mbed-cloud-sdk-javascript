@@ -15,13 +15,12 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle, encodeFilter, decodeAttributes } from "../common/functions";
 import { CampaignType, CampaignStateEnum } from "./types";
 import {
     WriteUpdateCampaignSerializer as apiCampaignRequest,
     UpdateCampaignSerializer as apiCampaign
 } from "../_api/deployment_service";
-import { encodeFilter, decodeAttributes } from "../common/functions";
 import { UpdateApi } from "./index";
 import { CampaignState } from "./campaignState";
 
@@ -83,7 +82,7 @@ export class Campaign {
      */
     public getStatus(callback: (err: any, data?: CampaignState) => any);
     public getStatus(callback?: (err: any, data?: CampaignState) => any): Promise<CampaignState> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.getCampaignStatus({
                 id:    this.id
             }, done);
@@ -115,7 +114,7 @@ export class Campaign {
      */
     public update(options: { name: string, state?: CampaignStateEnum, description?: string, manifestId?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string }, start?: Date }, callback?: (err: any, data?: Campaign) => any);
     public update(options: { name: string, state?: CampaignStateEnum, description?: string, manifestId?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string }, start?: Date }, callback?: (err: any, data?: Campaign) => any): Promise<Campaign> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.updateCampaign({
                 id:this.id,
                 attributes:          options.attributes,
@@ -140,7 +139,7 @@ export class Campaign {
      */
     public start(callback?: (err: any, data?: Campaign) => any);
     public start(callback?: (err: any, data?: Campaign) => any): Promise<Campaign> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.startCampaign(this, done);
         }, callback);
     }
@@ -156,7 +155,7 @@ export class Campaign {
      */
     public stop(callback?: (err: any, data?: Campaign) => any);
     public stop(callback?: (err: any, data?: Campaign) => any): Promise<Campaign> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.stopCampaign(this, done);
         }, callback);
     }
@@ -172,7 +171,7 @@ export class Campaign {
      */
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteCampaign(this, done);
         }, callback);
     }

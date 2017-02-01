@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle } from "../common/functions";
 import { FirmwareManifestType } from "./types";
 import { FirmwareManifestSerializerData as apiFirmwareManifest } from "../_api/firmware_catalog";
 import { UpdateApi } from "./index";
@@ -58,7 +58,7 @@ export class FirmwareManifest {
      */
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteFirmwareManifest({
                 id:    parseInt(this.id)
             }, done);

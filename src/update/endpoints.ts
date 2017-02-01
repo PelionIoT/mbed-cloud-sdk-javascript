@@ -16,14 +16,8 @@
 */
 
 import { ConnectionOptions } from "../common/interfaces";
-import {
-    DefaultApi as FirmwareAPI,
-    DefaultApiApiKeys as FirmwareAPIApiKeys
-} from "../_api/firmware_catalog";
-import {
-    DefaultApi as DeploymentAPI,
-    DefaultApiApiKeys as DeploymentAPIApiKeys
-} from "../_api/deployment_service";
+import { DefaultApi as FirmwareAPI } from "../_api/firmware_catalog";
+import { DefaultApi as DeploymentAPI } from "../_api/deployment_service";
 
 export class Endpoints {
 
@@ -31,10 +25,7 @@ export class Endpoints {
     deployment: DeploymentAPI;
 
     constructor(options: ConnectionOptions) {
-        this.firmware = new FirmwareAPI(options.host);
-        this.deployment = new DeploymentAPI(options.host);
-
-        this.firmware.setApiKey(FirmwareAPIApiKeys.Bearer, "Bearer " + options.apiKey);
-        this.deployment.setApiKey(DeploymentAPIApiKeys.Bearer, "Bearer " + options.apiKey);
+        this.firmware = new FirmwareAPI(options.apiKey, options.host);
+        this.deployment = new DeploymentAPI(options.apiKey, options.host);
     }
 }

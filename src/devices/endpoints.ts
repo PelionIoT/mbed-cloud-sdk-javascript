@@ -18,20 +18,13 @@
 import { ConnectionOptions } from "../common/interfaces";
 import {
     DefaultApi as WebhookApi,
-    DefaultApiApiKeys as WebhookApiApiKeys,
-    EndpointsApi, EndpointsApiApiKeys,
-    NotificationsApi, NotificationsApiApiKeys,
-    ResourcesApi, ResourcesApiApiKeys,
-    SubscriptionsApi, SubscriptionsApiApiKeys
+    EndpointsApi,
+    NotificationsApi,
+    ResourcesApi,
+    SubscriptionsApi
 } from "../_api/mds";
-import {
-    DefaultApi as CatalogApi,
-    DefaultApiApiKeys as CatalogApiApiKeys
-} from "../_api/device_catalog";
-import {
-    DefaultApi as QueryApi,
-    DefaultApiApiKeys as QueryApiApiKeys
-} from "../_api/device_query_service";
+import { DefaultApi as CatalogApi } from "../_api/device_catalog";
+import { DefaultApi as QueryApi } from "../_api/device_query_service";
 
 export class Endpoints {
 
@@ -44,20 +37,12 @@ export class Endpoints {
     query: QueryApi;
 
     constructor(options: ConnectionOptions) {
-        this.webhooks = new WebhookApi(options.host);
-        this.endpoints = new EndpointsApi(options.host);
-        this.notifications = new NotificationsApi(options.host);
-        this.resources = new ResourcesApi(options.host);
-        this.subscriptions = new SubscriptionsApi(options.host);
-        this.catalog = new CatalogApi(options.host);
-        this.query = new QueryApi(options.host);
-
-        this.webhooks.setApiKey(WebhookApiApiKeys.Bearer, "Bearer " + options.apiKey);
-        this.endpoints.setApiKey(EndpointsApiApiKeys.Bearer, "Bearer " + options.apiKey);
-        this.notifications.setApiKey(NotificationsApiApiKeys.Bearer, "Bearer " + options.apiKey);
-        this.resources.setApiKey(ResourcesApiApiKeys.Bearer, "Bearer " + options.apiKey);
-        this.subscriptions.setApiKey(SubscriptionsApiApiKeys.Bearer, "Bearer " + options.apiKey);
-        this.catalog.setApiKey(CatalogApiApiKeys.Bearer, "Bearer " + options.apiKey);
-        this.query.setApiKey(QueryApiApiKeys.Bearer, "Bearer " + options.apiKey);
+        this.webhooks = new WebhookApi(options.apiKey, options.host);
+        this.endpoints = new EndpointsApi(options.apiKey, options.host);
+        this.notifications = new NotificationsApi(options.apiKey, options.host);
+        this.resources = new ResourcesApi(options.apiKey, options.host);
+        this.subscriptions = new SubscriptionsApi(options.apiKey, options.host);
+        this.catalog = new CatalogApi(options.apiKey, options.host);
+        this.query = new QueryApi(options.apiKey, options.host);
     }
 }

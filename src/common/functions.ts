@@ -17,6 +17,19 @@
 
 import { ListResponse } from "./interfaces";
 
+// Inspired by https://github.com/sonnyp/polygoat
+export function asyncStyle<T>(asyncFn: (done: (error: any, response?: T) => any) => void, callbackFn?: (error: any, response: T) => any): Promise<T> {
+    if (callbackFn) asyncFn(callbackFn)
+    else {
+        return new Promise((resolve, reject) => {
+            asyncFn((error, response) => {
+                if (error) reject(error);
+                else resolve(response);
+            });
+        });
+    }
+}
+
 export function decodeBase64(payload, contentType) {
     var result = "";
 

@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle } from "../common/functions";
 import { DeviceType, MechanismEnum } from "./types";
 import { DevicesApi } from "./index";
 import { Resource } from "./resource";
@@ -90,7 +90,7 @@ export class Device {
      */
     public listResources(callback: (err: any, data?: Resource[]) => any);
     public listResources(callback?: (err: any, data?: Resource[]) => any): Promise<Resource[]> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.listDeviceResources({
                 id: this.id
             }, done);
@@ -108,7 +108,7 @@ export class Device {
      */
     public listSubscriptions(callback: (err: any, data?: any) => any);
     public listSubscriptions(callback?: (err: any, data?: any) => any): Promise<any> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.listDeviceSubscriptions({
                 id: this.id
             }, done);
@@ -126,7 +126,7 @@ export class Device {
      */
     public deleteSubscriptions(callback: (err: any, data?: void) => any);
     public deleteSubscriptions(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteDeviceSubscriptions({
                 id: this.id
             }, done);
@@ -172,7 +172,7 @@ export class Device {
      */
     public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any);
     public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.updateDevice({
                 id:this.id,
                 accountId:           options.accountId,
@@ -204,7 +204,7 @@ export class Device {
      */
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteDevice({
                 id:    this.id
             }, done);

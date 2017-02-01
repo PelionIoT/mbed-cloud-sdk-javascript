@@ -15,8 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
-import { encodeFilter, decodeAttributes } from "../common/functions";
+import { asyncStyle, encodeFilter, decodeAttributes } from "../common/functions";
 import {
     Body as apiQueryRequest,
     DeviceQueryDetail as apiQuery
@@ -80,7 +79,7 @@ export class Query {
      */
     public update(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any);
     public update(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any): Promise<Query> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.updateQuery({
                 id:                  this.id,
                 name:                options.name,
@@ -102,7 +101,7 @@ export class Query {
      */
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteQuery(this, done);
         }, callback);
     }

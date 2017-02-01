@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import pg = require("polygoat");
+import { asyncStyle } from "../common/functions";
 import { ApiKeyType } from "./types";
 import { ApiKeyInfoResp as apiApiKey } from "../_api/iam";
 import { AccessApi } from "./index";
@@ -58,7 +58,7 @@ export class ApiKey {
      */
     public listGroups(callback: (err: any, data?: Group[]) => any);
     public listGroups(callback?: (err: any, data?: Group[]) => any): Promise<Group[]> {
-        return pg(done => {
+        return asyncStyle(done => {
             // AccessApi.listGroups should accept a filter which would be less intense to use
             this.groups.forEach(groupId => {
                 this._api.listGroups((error, groups) => {
@@ -90,7 +90,7 @@ export class ApiKey {
     public update(options: { name: string, owner?: string }, callback: (err: any, data?: ApiKey) => any);
     public update(options: { name: string, owner?: string }, callback?: (err: any, data?: ApiKey) => any): Promise<ApiKey> {
         options["id"] = this.id;
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.updateApiKey(options, done);
         }, callback);
     }
@@ -106,7 +106,7 @@ export class ApiKey {
      */
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
-        return pg(done => {
+        return asyncStyle(done => {
             this._api.deleteApiKey(this, done);
         }, callback);
     }

@@ -18,9 +18,8 @@
 import { ConnectionOptions } from "../common/interfaces";
 import {
     DefaultApi as AccessApi,
-    DefaultApiApiKeys as AccessApiApiKeys,
-    DeveloperApi, DeveloperApiApiKeys,
-    AccountAdminApi, AccountAdminApiApiKeys
+    DeveloperApi,
+    AccountAdminApi
 } from "../_api/iam";
 
 export class Endpoints {
@@ -30,12 +29,8 @@ export class Endpoints {
     admin: AccountAdminApi;
 
     constructor(options: ConnectionOptions) {
-        this.access = new AccessApi(options.host);
-        this.developer = new DeveloperApi(options.host);
-        this.admin = new AccountAdminApi(options.host);
-
-        this.access.setApiKey(AccessApiApiKeys.Bearer, "Bearer " + options.apiKey);
-        this.developer.setApiKey(DeveloperApiApiKeys.Bearer, "Bearer " + options.apiKey);
-        this.admin.setApiKey(AccountAdminApiApiKeys.Bearer, "Bearer " + options.apiKey);
+        this.access = new AccessApi(options.apiKey, options.host);
+        this.developer = new DeveloperApi(options.apiKey, options.host);
+        this.admin = new AccountAdminApi(options.apiKey, options.host);
     }
 }
