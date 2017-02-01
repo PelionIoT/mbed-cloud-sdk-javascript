@@ -333,7 +333,7 @@ export interface AccountEnrollmentResp {
 }
 
 export type AccountEnrollmentRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type AccountEnrollmentRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
+export type AccountEnrollmentRespObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
 /**
  * This object represents an account in requests and responses.
  */
@@ -346,10 +346,6 @@ export interface AccountInfo {
      * The postal code part of the postal address.
      */
     "postal_code"?: string;
-    /**
-     * The ID of the parent account, if it has any.
-     */
-    "parentID"?: string;
     /**
      * Account ID.
      */
@@ -374,6 +370,10 @@ export interface AccountInfo {
      * The display name for the account.
      */
     "display_name"?: string;
+    /**
+     * The ID of the parent account, if it has any.
+     */
+    "parent_id"?: string;
     /**
      * The state part of the postal address.
      */
@@ -408,13 +408,13 @@ export interface AccountInfo {
      */
     "upgraded_at"?: string;
     /**
-     * List of sub accounts.
-     */
-    "subAccounts"?: Array<AccountInfo>;
-    /**
      * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
      */
     "tier": string;
+    /**
+     * List of sub accounts.
+     */
+    "sub_accounts"?: Array<AccountInfo>;
     /**
      * List of limits as key-value pairs if requested.
      */
@@ -442,7 +442,7 @@ export interface AccountInfo {
 }
 
 export type AccountInfoStatusEnum = "ENROLLING" | "ACTIVE" | "SUSPENDED" | "DISABLED";
-export type AccountInfoObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
+export type AccountInfoObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
 /**
  * This object represents a service sign-up request.
  */
@@ -637,7 +637,7 @@ export interface ApiKeyInfoResp {
 }
 
 export type ApiKeyInfoRespStatusEnum = "ACTIVE" | "INACTIVE";
-export type ApiKeyInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
+export type ApiKeyInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
 export interface ApiKeyInfoRespList {
     /**
      * The entity ID to fetch after the given one.
@@ -669,7 +669,7 @@ export interface ApiKeyInfoRespList {
     "order"?: ApiKeyInfoRespListOrderEnum;
 }
 
-export type ApiKeyInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
+export type ApiKeyInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
 export type ApiKeyInfoRespListOrderEnum = "ASC" | "DESC";
 /**
  * This object represents an API key in requests towards mbed Cloud.
@@ -685,115 +685,6 @@ export interface ApiKeyUpdateReq {
     "name": string;
 }
 
-/**
- * This object represents an CA Certificate in requests.
- */
-export interface CACertificateReq {
-    /**
-     * X509.v3 CA certificate in PEM or base64 encoded DER format.
-     */
-    "cert_data": string;
-    /**
-     * Certificate name.
-     */
-    "name": string;
-    /**
-     * Service name where the certificate must be used.
-     */
-    "service": CACertificateReqServiceEnum;
-    /**
-     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
-     */
-    "signature": string;
-}
-
-export type CACertificateReqServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
-/**
- * This object represents an CA Certificate in responses.
- */
-export interface CACertificateResp {
-    /**
-     * The UUID of the account.
-     */
-    "account_id": string;
-    /**
-     * Service name where the certificate is to be used.
-     */
-    "service": CACertificateRespServiceEnum;
-    /**
-     * Creation UTC time RFC3339.
-     */
-    "created_at"?: string;
-    /**
-     * Entity name: always 'ca-cert'
-     */
-    "object": CACertificateRespObjectEnum;
-    /**
-     * Subject of the certificate.
-     */
-    "subject": string;
-    /**
-     * Expiration time in UTC formatted as RFC3339.
-     */
-    "validity": string;
-    /**
-     * API resource entity version.
-     */
-    "etag": string;
-    "creationTimeMillis"?: number;
-    /**
-     * Issuer of the certificate.
-     */
-    "issuer": string;
-    /**
-     * X509.v3 CA certificate in PEM or base64 encoded DER format.
-     */
-    "cert_data": string;
-    /**
-     * Entity ID.
-     */
-    "id": string;
-    /**
-     * Certificate name.
-     */
-    "name": string;
-}
-
-export type CACertificateRespServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
-export type CACertificateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
-export interface CACertificateRespList {
-    /**
-     * The entity ID to fetch after the given one.
-     */
-    "after"?: string;
-    /**
-     * Flag indicating whether there is more results.
-     */
-    "has_more": boolean;
-    /**
-     * The total number or records, if requested. It might be returned also for small lists.
-     */
-    "total_count": number;
-    /**
-     * Entity name: always 'list'
-     */
-    "object": CACertificateRespListObjectEnum;
-    /**
-     * The number of results to return, (range: 2-1000), or equals to `total_count`
-     */
-    "limit": number;
-    /**
-     * A list of entities.
-     */
-    "data": Array<CACertificateResp>;
-    /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
-     */
-    "order"?: CACertificateRespListOrderEnum;
-}
-
-export type CACertificateRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
-export type CACertificateRespListOrderEnum = "ASC" | "DESC";
 /**
  * This object represents an error message.
  */
@@ -824,7 +715,7 @@ export interface ErrorResponse {
     "type": ErrorResponseTypeEnum;
 }
 
-export type ErrorResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
+export type ErrorResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
 export type ErrorResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 export interface Field {
     "message"?: string;
@@ -874,7 +765,7 @@ export interface GroupSummary {
     "userCount": number;
 }
 
-export type GroupSummaryObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
+export type GroupSummaryObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
 export interface GroupSummaryList {
     /**
      * The entity ID to fetch after the given one.
@@ -906,7 +797,7 @@ export interface GroupSummaryList {
     "order"?: GroupSummaryListOrderEnum;
 }
 
-export type GroupSummaryListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
+export type GroupSummaryListObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
 export type GroupSummaryListOrderEnum = "ASC" | "DESC";
 /**
  * This object represents a password recovery request.
@@ -950,6 +841,119 @@ export interface Policy {
     "allow"?: boolean;
 }
 
+/**
+ * This object represents a trusted certificate in requests.
+ */
+export interface TrustedCertificateReq {
+    /**
+     * X509.v3 trusted certificate in PEM or base64 encoded DER format.
+     */
+    "cert_data": string;
+    /**
+     * Certificate name.
+     */
+    "name": string;
+    /**
+     * Service name where the certificate must be used.
+     */
+    "service": TrustedCertificateReqServiceEnum;
+    /**
+     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
+     */
+    "signature": string;
+}
+
+export type TrustedCertificateReqServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
+/**
+ * This object represents a trusted certificate in responses.
+ */
+export interface TrustedCertificateResp {
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
+    /**
+     * Service name where the certificate is to be used.
+     */
+    "service": TrustedCertificateRespServiceEnum;
+    /**
+     * Creation UTC time RFC3339.
+     */
+    "created_at"?: string;
+    /**
+     * Entity name: always 'trusted-cert'
+     */
+    "object": TrustedCertificateRespObjectEnum;
+    /**
+     * Subject of the certificate.
+     */
+    "subject": string;
+    /**
+     * Expiration time in UTC formatted as RFC3339.
+     */
+    "validity": string;
+    /**
+     * API resource entity version.
+     */
+    "etag": string;
+    /**
+     * Attestation method where zero means a developer certificate.
+     */
+    "attestation_method": number;
+    "creationTimeMillis"?: number;
+    /**
+     * Issuer of the certificate.
+     */
+    "issuer": string;
+    /**
+     * X509.v3 trusted certificate in PEM or base64 encoded DER format.
+     */
+    "cert_data": string;
+    /**
+     * Entity ID.
+     */
+    "id": string;
+    /**
+     * Certificate name.
+     */
+    "name": string;
+}
+
+export type TrustedCertificateRespServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
+export type TrustedCertificateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
+export interface TrustedCertificateRespList {
+    /**
+     * The entity ID to fetch after the given one.
+     */
+    "after"?: string;
+    /**
+     * Flag indicating whether there is more results.
+     */
+    "has_more": boolean;
+    /**
+     * The total number or records, if requested. It might be returned also for small lists.
+     */
+    "total_count": number;
+    /**
+     * Entity name: always 'list'
+     */
+    "object": TrustedCertificateRespListObjectEnum;
+    /**
+     * The number of results to return, (range: 2-1000), or equals to `total_count`
+     */
+    "limit": number;
+    /**
+     * A list of entities.
+     */
+    "data": Array<TrustedCertificateResp>;
+    /**
+     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     */
+    "order"?: TrustedCertificateRespListOrderEnum;
+}
+
+export type TrustedCertificateRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
+export type TrustedCertificateRespListOrderEnum = "ASC" | "DESC";
 /**
  * This object represents a user in requests towards mbed Cloud.
  */
@@ -1076,7 +1080,7 @@ export interface UserInfoResp {
 }
 
 export type UserInfoRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type UserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
+export type UserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
 export interface UserInfoRespList {
     /**
      * The entity ID to fetch after the given one.
@@ -1108,7 +1112,7 @@ export interface UserInfoRespList {
     "order"?: UserInfoRespListOrderEnum;
 }
 
-export type UserInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "ca-cert" | "list" | "error";
+export type UserInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account_template" | "trusted_cert" | "list" | "error";
 export type UserInfoRespListOrderEnum = "ASC" | "DESC";
 /**
  * This object represents a user in requests towards mbed Cloud.
@@ -1192,12 +1196,12 @@ export class AccountAdminApi {
         return <T1&T2>objA;
     }
     /**
-     * Upload a new CA certificate.
-     * An endpoint for uploading new CA certificates.
-     * @param body A CA certificate object with attributes.
+     * Upload a new trusted certificate.
+     * An endpoint for uploading new trusted certificates.
+     * @param body A trusted certificate object with attributes.
      */
-    public addCertificate (body: CACertificateReq, callback?: (error:any, data?:CACertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        const localVarPath = this.basePath + '/v3/ca-certificates';
+    public addCertificate (body: TrustedCertificateReq, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        const localVarPath = this.basePath + '/v3/trusted-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
         let formParams: any = {};
@@ -1295,22 +1299,22 @@ export class AccountAdminApi {
         });
     }
     /**
-     * Delete a CA certificate by ID.
-     * An endpoint for deleting a CA certificate.
-     * @param caCertId The ID of the CA certificate to be deleted.
+     * Delete a trusted certificate by ID.
+     * An endpoint for deleting a trusted certificate.
+     * @param certId The ID of the trusted certificate to be deleted.
      */
-    public deleteCertificate (caCertId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
-            .replace('{' + 'ca-cert-id' + '}', String(caCertId));
+    public deleteCertificate (certId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        const localVarPath = this.basePath + '/v3/trusted-certificates/{cert-id}'
+            .replace('{' + 'cert-id' + '}', String(certId));
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
         let formParams: any = {};
 
 
-        // verify required parameter 'caCertId' is not null or undefined
-        if (caCertId === null || caCertId === undefined) {
+        // verify required parameter 'certId' is not null or undefined
+        if (certId === null || certId === undefined) {
             if (callback) {
-                callback(new Error('Required parameter caCertId was null or undefined when calling deleteCertificate.'));
+                callback(new Error('Required parameter certId was null or undefined when calling deleteCertificate.'));
             }
             return;
         }
@@ -1398,16 +1402,16 @@ export class AccountAdminApi {
         });
     }
     /**
-     * Get all CA certificates.
-     * An endpoint for retrieving CA certificates in an array.
+     * Get all trusted certificates.
+     * An endpoint for retrieving trusted certificates in an array.
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
      * @param order The order of the records, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
-     * @param filter Filter by service or expiring days, for example filter&#x3D;service%3Dlwm2m,expire%3D180
+     * @param filter Filter by service or expiring days, for example filter&#x3D;service%3Dlwm2m,expire%3D180,attestation_method%3D0
      */
-    public getAllCertificates (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (error:any, data?:CACertificateRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        const localVarPath = this.basePath + '/v3/ca-certificates';
+    public getAllCertificates (limit?: number, after?: string, order?: string, include?: string, filter?: string, callback?: (error:any, data?:TrustedCertificateRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        const localVarPath = this.basePath + '/v3/trusted-certificates';
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
         let formParams: any = {};
@@ -1526,22 +1530,22 @@ export class AccountAdminApi {
         });
     }
     /**
-     * Get CA certificate by ID.
-     * An endpoint for retrieving a CA certificate by ID.
-     * @param caCertId The ID or name of the CA certificate to be retrieved.
+     * Get trusted certificate by ID.
+     * An endpoint for retrieving a trusted certificate by ID.
+     * @param certId The ID or name of the trusted certificate to be retrieved.
      */
-    public getCertificate (caCertId: string, callback?: (error:any, data?:CACertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
-            .replace('{' + 'ca-cert-id' + '}', String(caCertId));
+    public getCertificate (certId: string, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        const localVarPath = this.basePath + '/v3/trusted-certificates/{cert-id}'
+            .replace('{' + 'cert-id' + '}', String(certId));
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
         let formParams: any = {};
 
 
-        // verify required parameter 'caCertId' is not null or undefined
-        if (caCertId === null || caCertId === undefined) {
+        // verify required parameter 'certId' is not null or undefined
+        if (certId === null || certId === undefined) {
             if (callback) {
-                callback(new Error('Required parameter caCertId was null or undefined when calling getCertificate.'));
+                callback(new Error('Required parameter certId was null or undefined when calling getCertificate.'));
             }
             return;
         }
@@ -1624,23 +1628,23 @@ export class AccountAdminApi {
         });
     }
     /**
-     * Update CA certificate.
-     * An endpoint for updating existing CA certificates.
-     * @param caCertId The ID of the CA certificate to be updated.
-     * @param body A CA certificate object with attributes.
+     * Update trusted certificate.
+     * An endpoint for updating existing trusted certificates.
+     * @param certId The ID of the trusted certificate to be updated.
+     * @param body A trusted certificate object with attributes.
      */
-    public updateCertificate (caCertId: string, body: CACertificateReq, callback?: (error:any, data?:CACertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        const localVarPath = this.basePath + '/v3/ca-certificates/{ca-cert-id}'
-            .replace('{' + 'ca-cert-id' + '}', String(caCertId));
+    public updateCertificate (certId: string, body: TrustedCertificateReq, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        const localVarPath = this.basePath + '/v3/trusted-certificates/{cert-id}'
+            .replace('{' + 'cert-id' + '}', String(certId));
         let queryParameters: any = {};
         let headerParams: any = this.extendObj({}, this.defaultHeaders);
         let formParams: any = {};
 
 
-        // verify required parameter 'caCertId' is not null or undefined
-        if (caCertId === null || caCertId === undefined) {
+        // verify required parameter 'certId' is not null or undefined
+        if (certId === null || certId === undefined) {
             if (callback) {
-                callback(new Error('Required parameter caCertId was null or undefined when calling updateCertificate.'));
+                callback(new Error('Required parameter certId was null or undefined when calling updateCertificate.'));
             }
             return;
         }
@@ -2574,7 +2578,7 @@ export class DeveloperApi {
     /**
      * Get account info.
      * Returns detailed information about the account.
-     * @param include Comma separated additional data to return. Currently supported: limits
+     * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
      */
     public getMyAccountInfo (include?: string, callback?: (error:any, data?:AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         const localVarPath = this.basePath + '/v3/accounts/me';
