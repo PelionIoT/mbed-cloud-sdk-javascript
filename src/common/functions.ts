@@ -86,3 +86,15 @@ export function decodeAttributes(from: string, prefix: string = ""): { match: { 
 
     return to;
 }
+
+export function encodeFilter(from: { attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, customPrefix: string): string {
+    let filter = encodeAttributes(from.attributes);
+    let custom = encodeAttributes(from.customAttributes, customPrefix);
+
+    if (custom) {
+        if (filter) filter += "&";
+        filter +=custom;
+    }
+
+    return filter;
+}

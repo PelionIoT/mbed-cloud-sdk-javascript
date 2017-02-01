@@ -15,23 +15,26 @@
 * limitations under the License.
 */
 
+import pg = require("polygoat");
 import { FirmwareManifestType } from "./types";
 import { FirmwareManifestSerializerData as apiFirmwareManifest } from "../_api/firmware_catalog";
+import { UpdateApi } from "./index";
 
 /*
  * Firmware Manifest
  */
 export class FirmwareManifest {
 
-    constructor(options: FirmwareManifestType) {
+    constructor(options: FirmwareManifestType, private _api?: UpdateApi) {
         for(var key in options) {
             this[key] = options[key];
         }
     }
 
-    static map(from: apiFirmwareManifest): FirmwareManifest {
+    static map(from: apiFirmwareManifest, api: UpdateApi): FirmwareManifest {
         let type:FirmwareManifestType = {
         	createdAt:           from.created_at,
+            datafile:            from.datafile,
             description:         from.description,
             deviceClass:         from.device_class,
             id:                  from.id,
@@ -41,7 +44,25 @@ export class FirmwareManifest {
             updatedAt:           from.updated_at
         };
 
-        return new FirmwareManifest(type);
+        return new FirmwareManifest(type, api);
+    }
+
+    /**
+     * Delete the firmware manifest
+     * @returns Promise containing any error
+     */
+    public delete(): Promise<void>;
+    /**
+     * Delete the firmware manifest
+     * @param callback A function that is passed any error
+     */
+    public delete(callback?: (err: any, data?: void) => any);
+    public delete(callback?: (err: any, data?: void) => any): Promise<void> {
+        return pg(done => {
+            this._api.deleteFirmwareManifest({
+                id:    parseInt(this.id)
+            }, done);
+        }, callback);
     }
 }
 export interface FirmwareManifest extends FirmwareManifestType {}

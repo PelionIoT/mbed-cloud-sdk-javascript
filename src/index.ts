@@ -21,10 +21,15 @@ export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
 export { UpdateApi } from "./update";
 
-// access - users, groups, keys, policies?
-// update - manifest mgmt, firmware mgmt, start and monitor campaigns
+/*
+expand requests:
 
+DevicesApi.updateDevice && DevicesApi.device.update
+DevicesApi.addDevice
+*/
+
+// Add DeviceSubscriptions models?? <-perhaps after examples
 // ADDITIONAL
+// extract common superagent functions in _APIs to single file?
 // polygoat to deffotyped?
 // add links to examples from inline code
-// optionally add iterator/generator functions for paging if language allows

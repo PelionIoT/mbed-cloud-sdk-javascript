@@ -39,7 +39,7 @@ export interface AccountType {
     /**
      * An array of aliases.
      */
-    aliases: Array<string>;
+    aliases: string[];
     /**
      * Postal address line 2.
      */

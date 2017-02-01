@@ -16,8 +16,11 @@
 */
 
 import pg = require("polygoat");
-import { encodeAttributes, decodeAttributes } from "../common/functions";
-import { DeviceQueryDetail as apiQuery } from "../_api/device_query_service";
+import { encodeFilter, decodeAttributes } from "../common/functions";
+import {
+    Body as apiQueryRequest,
+    DeviceQueryDetail as apiQuery
+} from "../_api/device_query_service";
 import { QueryType } from "./types";
 import { DevicesApi } from "./index";
 
@@ -26,24 +29,12 @@ import { DevicesApi } from "./index";
  */
 export class Query {
 
-    private static readonly CUSTOM_PREFIX = "custom_attributes__";
+    static readonly CUSTOM_PREFIX = "custom_attributes__";
 
     constructor(options: QueryType, private _api?: DevicesApi) {
         for(var key in options) {
             this[key] = options[key];
         }
-    }
-
-    static encodeQuery(from: { attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }): string {
-        let filter = encodeAttributes(from.attributes);
-        let custom = encodeAttributes(from.customAttributes, Query.CUSTOM_PREFIX);
-
-        if (custom) {
-            if (filter) filter += "&";
-            filter +=custom;
-        }
-
-        return filter;
     }
 
     static map(from: apiQuery, api: DevicesApi): Query {
@@ -62,6 +53,44 @@ export class Query {
         return new Query(type, api);
     }
 
+    static reverseMap(from: any): apiQueryRequest {
+        return {
+            description:    from.description,
+            name:           from.name,
+            query:          encodeFilter(from, Query.CUSTOM_PREFIX)
+        };
+    }
+
+    /**
+     * Update the query
+     * @param options.name The name of the query
+     * @param options.description The description of the query
+     * @param options.attributes The attributes of the query
+     * @param options.customAttributes The custom attributes of the query
+     * @returns Promise of query
+     */
+    public update(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }): Promise<Query>;
+    /**
+     * Update the query
+     * @param options.name The name of the query
+     * @param options.description The description of the query
+     * @param options.attributes The attributes of the query
+     * @param options.customAttributes The custom attributes of the query
+     * @param callback A function that is passed the arguments (error, query)
+     */
+    public update(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any);
+    public update(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any): Promise<Query> {
+        return pg(done => {
+            this._api.updateQuery({
+                id:                  this.id,
+                name:                options.name,
+                description:         options.description,
+                attributes:          options.attributes,
+                customAttributes:    options.customAttributes
+            }, done);
+        }, callback);
+    }
+
     /**
      * Delete the query
      * @returns Promise containing any error
@@ -74,9 +103,7 @@ export class Query {
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
         return pg(done => {
-            this._api.deleteQuery({
-                id:    this.id
-            }, done);
+            this._api.deleteQuery(this, done);
         }, callback);
     }
 }

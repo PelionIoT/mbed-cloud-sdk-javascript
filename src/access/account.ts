@@ -15,24 +15,26 @@
 * limitations under the License.
 */
 
+import pg = require("polygoat");
 import { AccountType } from "./types";
 import {
     AccountUpdateReq as apiAccountRequest,
     AccountInfo as apiAccount
 } from "../_api/iam";
+import { AccessApi } from "./index";
 
 /*
  * Account
  */
 export class Account {
 
-    constructor(options: AccountType) {
+    constructor(options: AccountType, private _api?: AccessApi) {
         for(var key in options) {
             this[key] = options[key];
         }
     }
 
-    static map(from: apiAccount): Account {
+    static map(from: apiAccount, api: AccessApi): Account {
         let type:AccountType = {
             addressLine1:           from.address_line1,
             addressLine2:           from.address_line2,
@@ -57,10 +59,10 @@ export class Account {
             upgradedAt:             from.upgraded_at
         };
 
-        return new Account(type);
+        return new Account(type, api);
     }
 
-    static reverseMap(from: AccountType): apiAccountRequest {
+    static reverseMap(from: any): apiAccountRequest {
         return {
             address_line2:    from.addressLine2,
             city:             from.city,
@@ -76,6 +78,48 @@ export class Account {
             email:            from.email,
             aliases:          from.aliases
         };
+    }
+
+    /**
+     * Update details of the account
+     * @param options.displayName The display name for the account
+     * @param options.parentId The ID of the parent account, if it has any
+     * @param options.aliases An array of aliases
+     * @param options.company The name of the company
+     * @param options.contact The name of the contact person for this account
+     * @param options.email The company email address for this account
+     * @param options.phoneNumber The phone number of the company
+     * @param options.addressLine1 Postal address line 1
+     * @param options.addressLine2 Postal address line 2
+     * @param options.city The city part of the postal address
+     * @param options.state The state part of the postal address
+     * @param options.postcode The postal code part of the postal address
+     * @param options.country The country part of the postal address
+     * @returns Promise of account
+     */
+    public update(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }): Promise<Account>;
+    /**
+     * Update details of the account
+     * @param options.displayName The display name for the account
+     * @param options.parentId The ID of the parent account, if it has any
+     * @param options.aliases An array of aliases
+     * @param options.company The name of the company
+     * @param options.contact The name of the contact person for this account
+     * @param options.email The company email address for this account
+     * @param options.phoneNumber The phone number of the company
+     * @param options.addressLine1 Postal address line 1
+     * @param options.addressLine2 Postal address line 2
+     * @param options.city The city part of the postal address
+     * @param options.state The state part of the postal address
+     * @param options.postcode The postal code part of the postal address
+     * @param options.country The country part of the postal address
+     * @param callback A function that is passed the return arguments (error, account)
+     */
+    public update(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }, callback?: (err: any, data?: Account) => any);
+    public update(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }, callback?: (err: any, data?: Account) => any): Promise<Account> {
+        return pg(done => {
+            this._api.updateAccountDetails(options, done);
+        }, callback);
     }
 }
 export interface Account extends AccountType {}

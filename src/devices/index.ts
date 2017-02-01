@@ -19,9 +19,9 @@ import pg = require("polygoat");
 import superagent = require("superagent");
 import { EventEmitter } from "events";
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { decodeBase64, mapListResponse, encodeInclude } from "../common/functions";
+import { decodeBase64, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
 import { Endpoints } from "./endpoints";
-import { DevicesApiType, DeviceType, DeviceEventType, QueryType, QueryOptions, WebhookType, PresubscriptionType } from "./types";
+import { DevicesApiType, DeviceType, DeviceEventType, QueryOptions, WebhookType, PresubscriptionType } from "./types";
 import { Device } from "./device";
 import { Resource } from "./resource";
 import { Query } from "./query";
@@ -237,7 +237,7 @@ export class DevicesApi extends EventEmitter {
             this._endpoints.webhooks.v2NotificationCallbackGet((error, data) => {
                 if (error) return done(error);
 
-                let webhook = Webhook.map(data);
+                let webhook = Webhook.map(data, this);
                 done(null, webhook);
             });
         }, callback);
@@ -257,10 +257,7 @@ export class DevicesApi extends EventEmitter {
     public updateWebhook(options: WebhookType, callback?: (err: any, data?: void) => any);
     public updateWebhook(options: WebhookType, callback?: (err: any, data?: void) => any): Promise<void> {
         return pg(done => {
-            this._endpoints.notifications.v2NotificationCallbackPut({
-                headers: options.headers,
-                url: options.url
-            }, (error, data) => {
+            this._endpoints.notifications.v2NotificationCallbackPut(Webhook.reverseMap(options), (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -330,6 +327,25 @@ export class DevicesApi extends EventEmitter {
     }
 
     /**
+     * Deletes pre-subscription data
+     * @returns Promise containing any error
+     */
+    public deletePresubscription(): Promise<void>;
+    /**
+     * Deletes pre-subscription data
+     * @param callback A function that is passed any error
+     */
+    public deletePresubscription(callback?: (err: any, data?: void) => any);
+    public deletePresubscription(callback?: (err: any, data?: void) => any): Promise<void> {
+        return pg(done => {
+            this._endpoints.subscriptions.v2SubscriptionsPut([], (error, data) => {
+                if (error) return done(error);
+                done(null, data);
+            });
+        }, callback);
+    }
+
+    /**
      * Removes all subscriptions
      * @returns Promise containing any error
      */
@@ -368,7 +384,7 @@ export class DevicesApi extends EventEmitter {
         }
 
         let { limit, after, order, include } = options as QueryOptions;
-        let filter = Query.encodeQuery(options);
+        let filter = encodeFilter(options, Query.CUSTOM_PREFIX);
 
         return pg(done => {
             this._endpoints.catalog.deviceList(limit, order, after, filter, encodeInclude(include), (error, data) => {
@@ -878,19 +894,25 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Add a query
-     * @param options query details
+     * @param options.name The name of the query
+     * @param options.description The description of the query
+     * @param options.attributes The attributes of the query
+     * @param options.customAttributes The custom attributes of the query
      * @returns Promise of query
      */
-    public addQuery(options: QueryType): Promise<Query>;
+    public addQuery(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }): Promise<Query>;
     /**
      * Add a query
-     * @param options query details
+     * @param options.name The name of the query
+     * @param options.description The description of the query
+     * @param options.attributes The attributes of the query
+     * @param options.customAttributes The custom attributes of the query
      * @param callback A function that is passed the arguments (error, query)
      */
-    public addQuery(options: QueryType, callback?: (err: any, data?: Query) => any);
-    public addQuery(options: QueryType, callback?: (err: any, data?: Query) => any): Promise<Query> {
-        let { name, description } = options;
-        let query = Query.encodeQuery(options);
+    public addQuery(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any);
+    public addQuery(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any): Promise<Query> {
+        let apiQuery = Query.reverseMap(options);
+        let { name, description, query } = apiQuery;
         return pg(done => {
             this._endpoints.query.deviceQueryCreate(name, query, description, null, null, (error, data) => {
                 if (error) return done(error);
@@ -903,28 +925,31 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Update a query
-     * @param options query details
+     * @param options.id The ID of the query
+     * @param options.name The name of the query
+     * @param options.description The description of the query
+     * @param options.attributes The attributes of the query
+     * @param options.customAttributes The custom attributes of the query
      * @returns Promise of query
      */
-    public updateQuery(options: QueryType): Promise<Query>;
+    public updateQuery(options: { id: string, name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }): Promise<Query>;
     /**
      * Update a query
-     * @param options query details
+     * @param options.id The ID of the query
+     * @param options.name The name of the query
+     * @param options.description The description of the query
+     * @param options.attributes The attributes of the query
+     * @param options.customAttributes The custom attributes of the query
      * @param callback A function that is passed the arguments (error, query)
      */
-    public updateQuery(options: QueryType, callback?: (err: any, data?: Query) => any);
-    public updateQuery(options: QueryType, callback?: (err: any, data?: Query) => any): Promise<Query> {
-        let { id, name, description } = options;
-        let query = Query.encodeQuery(options);
+    public updateQuery(options: { id: string, name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any);
+    public updateQuery(options: { id: string, name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any): Promise<Query> {
+        let apiQuery = Query.reverseMap(options);
 
-        if (name && query) {
+        if (apiQuery.name && apiQuery.query) {
             // Full update
             return pg(done => {
-                this._endpoints.query.deviceQueryUpdate(id, {
-                    description: description,
-                    name:name,
-                    query: query
-                }, (error, data) => {
+                this._endpoints.query.deviceQueryUpdate(options.id, apiQuery, (error, data) => {
                     if (error) return done(error);
 
                     let query = Query.map(data, this);
@@ -934,7 +959,7 @@ export class DevicesApi extends EventEmitter {
         } else {
             // Partial update
             return pg(done => {
-                this._endpoints.query.deviceQueryPartialUpdate(id, description, name, null, query, null, (error, data) => {
+                this._endpoints.query.deviceQueryPartialUpdate(options.id, apiQuery.description, apiQuery.name, null, apiQuery.query, null, (error, data) => {
                     if (error) return done(error);
 
                     let query = Query.map(data, this);

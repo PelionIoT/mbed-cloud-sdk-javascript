@@ -18,7 +18,7 @@
 import pg = require("polygoat");
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
 import { mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
-import { AccountType, CertificateServiceEnum } from "./types";
+import { CertificateServiceEnum } from "./types";
 import { Endpoints } from "./endpoints";
 import { Account } from "./account";
 import { Certificate } from "./certificate";
@@ -27,8 +27,18 @@ import { ApiKey } from "./apiKey";
 import { Group } from "./group";
 
 /**
-* Root Access API
-*/
+ * Root Access API:
+ * ----------------
+ * Available, not implemented
+ * access.activateUser
+ * access.applyPasswordRecovery
+ * access.getInvitedUser
+ * access.getSelfEnrollingUser
+ * access.registerAccount
+ * access.requestPasswordRecovery
+ * access.signup
+ * access.verifySelfEnrollment
+ */
 export class AccessApi {
 
     private _endpoints: Endpoints;
@@ -54,29 +64,53 @@ export class AccessApi {
         return pg(done => {
             this._endpoints.developer.getMyAccountInfo("limits", (error, data) => {
                 if (error) return done(error);
-                done(null, Account.map(data));
+                done(null, Account.map(data, this));
             });
         }, callback);
     }
 
     /**
      * Update details of account associated with current API key
-     * @param options account details
+     * @param options.displayName The display name for the account
+     * @param options.parentId The ID of the parent account, if it has any
+     * @param options.aliases An array of aliases
+     * @param options.company The name of the company
+     * @param options.contact The name of the contact person for this account
+     * @param options.email The company email address for this account
+     * @param options.phoneNumber The phone number of the company
+     * @param options.addressLine1 Postal address line 1
+     * @param options.addressLine2 Postal address line 2
+     * @param options.city The city part of the postal address
+     * @param options.state The state part of the postal address
+     * @param options.postcode The postal code part of the postal address
+     * @param options.country The country part of the postal address
      * @returns Promise of account
      */
-    public updateAccountDetails(options: AccountType): Promise<Account>;
+    public updateAccountDetails(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }): Promise<Account>;
     /**
      * Update details of account associated with current API key
-     * @param options account details
+     * @param options.displayName The display name for the account
+     * @param options.parentId The ID of the parent account, if it has any
+     * @param options.aliases An array of aliases
+     * @param options.company The name of the company
+     * @param options.contact The name of the contact person for this account
+     * @param options.email The company email address for this account
+     * @param options.phoneNumber The phone number of the company
+     * @param options.addressLine1 Postal address line 1
+     * @param options.addressLine2 Postal address line 2
+     * @param options.city The city part of the postal address
+     * @param options.state The state part of the postal address
+     * @param options.postcode The postal code part of the postal address
+     * @param options.country The country part of the postal address
      * @param callback A function that is passed the return arguments (error, account)
      */
-    public updateAccountDetails(options: AccountType, callback?: (err: any, data?: Account) => any);
-    public updateAccountDetails(options: AccountType, callback?: (err: any, data?: Account) => any): Promise<Account> {
+    public updateAccountDetails(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }, callback?: (err: any, data?: Account) => any);
+    public updateAccountDetails(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }, callback?: (err: any, data?: Account) => any): Promise<Account> {
         let account = Account.reverseMap(options);
         return pg(done => {
             this._endpoints.admin.updateMyAccount(account, (error, data) => {
                 if (error) return done(error);
-                done(null, Account.map(data));
+                done(null, Account.map(data, this));
             });
         }, callback);
     }
@@ -556,13 +590,3 @@ export class AccessApi {
         }, callback);
     }
 }
-
-//OTHER
-//access.activateUser
-//access.applyPasswordRecovery
-//access.getInvitedUser
-//access.getSelfEnrollingUser
-//access.registerAccount
-//access.requestPasswordRecovery
-//access.signup
-//access.verifySelfEnrollment

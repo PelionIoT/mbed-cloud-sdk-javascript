@@ -75,6 +75,27 @@ export class ApiKey {
     }
 
     /**
+     * Updates an API key
+     * @param options.name The display name for the API key
+     * @param options.owner The owner of this API key
+     * @returns Promise containing API key
+     */
+    public update(options: { name: string, owner?: string }): Promise<ApiKey>;
+    /**
+     * Updates an API key
+     * @param options.name The display name for the API key
+     * @param options.owner The owner of this API key
+     * @param callback A function that is passed the return arguments (error, API key)
+     */
+    public update(options: { name: string, owner?: string }, callback: (err: any, data?: ApiKey) => any);
+    public update(options: { name: string, owner?: string }, callback?: (err: any, data?: ApiKey) => any): Promise<ApiKey> {
+        options["id"] = this.id;
+        return pg(done => {
+            this._api.updateApiKey(options, done);
+        }, callback);
+    }
+
+    /**
      * Delete the API key
      * @returns Promise containing any error
      */
@@ -86,9 +107,7 @@ export class ApiKey {
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
         return pg(done => {
-            this._api.deleteApiKey({
-                id:    this.id
-            }, done);
+            this._api.deleteApiKey(this, done);
         }, callback);
     }
 }

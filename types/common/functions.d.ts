@@ -15,3 +15,11 @@ export declare function decodeAttributes(from: string, prefix?: string): {
         [key: string]: string;
     };
 };
+export declare function encodeFilter(from: {
+    attributes?: {
+        [key: string]: string;
+    };
+    customAttributes?: {
+        [key: string]: string;
+    };
+}, customPrefix: string): string;

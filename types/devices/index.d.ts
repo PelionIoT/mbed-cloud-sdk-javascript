@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { DevicesApiType, DeviceType, QueryType, QueryOptions, WebhookType, PresubscriptionType } from "./types";
+import { DevicesApiType, DeviceType, QueryOptions, WebhookType, PresubscriptionType } from "./types";
 import { Device } from "./device";
 import { Resource } from "./resource";
 import { Query } from "./query";
@@ -131,6 +131,16 @@ export declare class DevicesApi extends EventEmitter {
      * @param callback A function that is passed any error
      */
     updatePresubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any): any;
+    /**
+     * Deletes pre-subscription data
+     * @returns Promise containing any error
+     */
+    deletePresubscription(): Promise<void>;
+    /**
+     * Deletes pre-subscription data
+     * @param callback A function that is passed any error
+     */
+    deletePresubscription(callback?: (err: any, data?: void) => any): any;
     /**
      * Removes all subscriptions
      * @returns Promise containing any error
@@ -479,28 +489,80 @@ export declare class DevicesApi extends EventEmitter {
     }, callback?: (err: any, data?: Query) => any): any;
     /**
      * Add a query
-     * @param options query details
+     * @param options.name The name of the query
+     * @param options.description The description of the query
+     * @param options.attributes The attributes of the query
+     * @param options.customAttributes The custom attributes of the query
      * @returns Promise of query
      */
-    addQuery(options: QueryType): Promise<Query>;
+    addQuery(options: {
+        name: string;
+        description?: string;
+        attributes?: {
+            [key: string]: string;
+        };
+        customAttributes?: {
+            [key: string]: string;
+        };
+    }): Promise<Query>;
     /**
      * Add a query
-     * @param options query details
+     * @param options.name The name of the query
+     * @param options.description The description of the query
+     * @param options.attributes The attributes of the query
+     * @param options.customAttributes The custom attributes of the query
      * @param callback A function that is passed the arguments (error, query)
      */
-    addQuery(options: QueryType, callback?: (err: any, data?: Query) => any): any;
+    addQuery(options: {
+        name: string;
+        description?: string;
+        attributes?: {
+            [key: string]: string;
+        };
+        customAttributes?: {
+            [key: string]: string;
+        };
+    }, callback?: (err: any, data?: Query) => any): any;
     /**
      * Update a query
-     * @param options query details
+     * @param options.id The ID of the query
+     * @param options.name The name of the query
+     * @param options.description The description of the query
+     * @param options.attributes The attributes of the query
+     * @param options.customAttributes The custom attributes of the query
      * @returns Promise of query
      */
-    updateQuery(options: QueryType): Promise<Query>;
+    updateQuery(options: {
+        id: string;
+        name: string;
+        description?: string;
+        attributes?: {
+            [key: string]: string;
+        };
+        customAttributes?: {
+            [key: string]: string;
+        };
+    }): Promise<Query>;
     /**
      * Update a query
-     * @param options query details
+     * @param options.id The ID of the query
+     * @param options.name The name of the query
+     * @param options.description The description of the query
+     * @param options.attributes The attributes of the query
+     * @param options.customAttributes The custom attributes of the query
      * @param callback A function that is passed the arguments (error, query)
      */
-    updateQuery(options: QueryType, callback?: (err: any, data?: Query) => any): any;
+    updateQuery(options: {
+        id: string;
+        name: string;
+        description?: string;
+        attributes?: {
+            [key: string]: string;
+        };
+        customAttributes?: {
+            [key: string]: string;
+        };
+    }, callback?: (err: any, data?: Query) => any): any;
     /**
      * Delete a query
      * @param options.id query ID

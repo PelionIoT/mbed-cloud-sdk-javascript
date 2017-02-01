@@ -94,6 +94,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_update_firmwaremanifest_.firmwaremanifest.html#createdat" class="tsd-kind-icon">created<wbr>At</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_update_firmwaremanifest_.firmwaremanifest.html#datafile" class="tsd-kind-icon">datafile</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_update_firmwaremanifest_.firmwaremanifest.html#description" class="tsd-kind-icon">description</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_update_firmwaremanifest_.firmwaremanifest.html#deviceclass" class="tsd-kind-icon">device<wbr>Class</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_update_firmwaremanifest_.firmwaremanifest.html#id" class="tsd-kind-icon">id</a></li>
@@ -106,6 +107,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_update_firmwaremanifest_.firmwaremanifest.html#delete" class="tsd-kind-icon">delete</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_update_firmwaremanifest_.firmwaremanifest.html#map" class="tsd-kind-icon">map</a></li>
 							</ul>
 						</section>
@@ -118,19 +120,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Firmware<wbr>Manifest<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_update_types_.firmwaremanifesttype.html" class="tsd-signature-type">FirmwareManifestType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_update_firmwaremanifest_.firmwaremanifest.html" class="tsd-signature-type">FirmwareManifest</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Firmware<wbr>Manifest<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_update_types_.firmwaremanifesttype.html" class="tsd-signature-type">FirmwareManifestType</a>, _api<span class="tsd-signature-symbol">?: </span><a href="_update_index_.updateapi.html" class="tsd-signature-type">UpdateApi</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_update_firmwaremanifest_.firmwaremanifest.html" class="tsd-signature-type">FirmwareManifest</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/update/firmwareManifest.ts#L24">update/firmwareManifest.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/firmwareManifest.ts#L26">update/firmwareManifest.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>options: <a href="../interfaces/_update_types_.firmwaremanifesttype.html" class="tsd-signature-type">FirmwareManifestType</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> _api: <a href="_update_index_.updateapi.html" class="tsd-signature-type">UpdateApi</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_update_firmwaremanifest_.firmwaremanifest.html" class="tsd-signature-type">FirmwareManifest</a></h4>
@@ -147,12 +152,28 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_update_types_.firmwaremanifesttype.html">FirmwareManifestType</a>.<a href="../interfaces/_update_types_.firmwaremanifesttype.html#createdat">createdAt</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/update/types.ts#L61">update/types.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/types.ts#L65">update/types.ts:65</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>The time the object was created</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="datafile" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> datafile</h3>
+					<div class="tsd-signature tsd-kind-icon">datafile<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="../interfaces/_update_types_.firmwaremanifesttype.html">FirmwareManifestType</a>.<a href="../interfaces/_update_types_.firmwaremanifesttype.html#datafile">datafile</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/types.ts#L53">update/types.ts:53</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The file of the manifest</p>
 						</div>
 					</div>
 				</section>
@@ -163,7 +184,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_update_types_.firmwaremanifesttype.html">FirmwareManifestType</a>.<a href="../interfaces/_update_types_.firmwaremanifesttype.html#description">description</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/update/types.ts#L53">update/types.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/types.ts#L57">update/types.ts:57</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -179,7 +200,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_update_types_.firmwaremanifesttype.html">FirmwareManifestType</a>.<a href="../interfaces/_update_types_.firmwaremanifesttype.html#deviceclass">deviceClass</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/update/types.ts#L73">update/types.ts:73</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/types.ts#L77">update/types.ts:77</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -195,7 +216,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_update_types_.firmwaremanifesttype.html">FirmwareManifestType</a>.<a href="../interfaces/_update_types_.firmwaremanifesttype.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/update/types.ts#L77">update/types.ts:77</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/types.ts#L81">update/types.ts:81</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -211,7 +232,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_update_types_.firmwaremanifesttype.html">FirmwareManifestType</a>.<a href="../interfaces/_update_types_.firmwaremanifesttype.html#manifestcontents">manifestContents</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/update/types.ts#L69">update/types.ts:69</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/types.ts#L73">update/types.ts:73</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -227,7 +248,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_update_types_.firmwaremanifesttype.html">FirmwareManifestType</a>.<a href="../interfaces/_update_types_.firmwaremanifesttype.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/update/types.ts#L81">update/types.ts:81</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/types.ts#L85">update/types.ts:85</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -243,7 +264,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_update_types_.firmwaremanifesttype.html">FirmwareManifestType</a>.<a href="../interfaces/_update_types_.firmwaremanifesttype.html#timestamp">timestamp</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/update/types.ts#L57">update/types.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/types.ts#L61">update/types.ts:61</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -259,7 +280,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_update_types_.firmwaremanifesttype.html">FirmwareManifestType</a>.<a href="../interfaces/_update_types_.firmwaremanifesttype.html#updatedat">updatedAt</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/update/types.ts#L65">update/types.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/types.ts#L69">update/types.ts:69</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -271,23 +292,93 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="map" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> map</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">apiFirmwareManifest</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_update_firmwaremanifest_.firmwaremanifest.html" class="tsd-signature-type">FirmwareManifest</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/update/firmwareManifest.ts#L32">update/firmwareManifest.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/firmwareManifest.ts#L54">update/firmwareManifest.ts:54</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete the firmware manifest</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Promise containing any error</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/firmwareManifest.ts#L59">update/firmwareManifest.ts:59</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete the firmware manifest</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that is passed any error</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>err: <span class="tsd-signature-type">any</span></h5>
+														</li>
+														<li>
+															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">void</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="map" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> map</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">apiFirmwareManifest</span>, api<span class="tsd-signature-symbol">: </span><a href="_update_index_.updateapi.html" class="tsd-signature-type">UpdateApi</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_update_firmwaremanifest_.firmwaremanifest.html" class="tsd-signature-type">FirmwareManifest</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/update/firmwareManifest.ts#L34">update/firmwareManifest.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>from: <span class="tsd-signature-type">apiFirmwareManifest</span></h5>
+								</li>
+								<li>
+									<h5>api: <a href="_update_index_.updateapi.html" class="tsd-signature-type">UpdateApi</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_update_firmwaremanifest_.firmwaremanifest.html" class="tsd-signature-type">FirmwareManifest</a></h4>
@@ -321,6 +412,9 @@
 								<a href="_update_firmwaremanifest_.firmwaremanifest.html#createdat" class="tsd-kind-icon">created<wbr>At</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="_update_firmwaremanifest_.firmwaremanifest.html#datafile" class="tsd-kind-icon">datafile</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="_update_firmwaremanifest_.firmwaremanifest.html#description" class="tsd-kind-icon">description</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
@@ -340,6 +434,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="_update_firmwaremanifest_.firmwaremanifest.html#updatedat" class="tsd-kind-icon">updated<wbr>At</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_update_firmwaremanifest_.firmwaremanifest.html#delete" class="tsd-kind-icon">delete</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_update_firmwaremanifest_.firmwaremanifest.html#map" class="tsd-kind-icon">map</a>

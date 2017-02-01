@@ -48,6 +48,10 @@ export interface FirmwareImageType {
 
 export interface FirmwareManifestType {
     /**
+     * The file of the manifest
+     */
+    datafile: string;
+    /**
      * The description of the object
      */
     description?: string;
@@ -79,4 +83,122 @@ export interface FirmwareManifestType {
      * The name of the object
      */
     name?: string;
+}
+
+export type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+
+export interface CampaignType {
+    /**
+     * An optional description of the campaign
+     */
+    description: string;
+    /**
+     * The state of the campaign
+     */
+    state: CampaignStateEnum;
+    /**
+     * The updating IAM user ID
+     */
+    userId: string;
+    /**
+     * The time the object was created
+     */
+    createdAt: Date;
+    /**
+     * ???
+     */
+    manifestId: string;
+    /**
+     * The updating account ID
+     */
+    accountId: string;
+    /**
+     * The time the object was updated
+     */
+    updatedAt: Date;
+    /**
+     * The timestamp at which update campaign scheduled to start
+     */
+    startDate?: Date;
+    /**
+     * The timestamp when the update campaign finished
+     */
+    finishDate?: Date;
+    /**
+     * ???
+     */
+    manifestUrl: string;
+    /**
+     * The gateway client API key
+     */
+    apiKey: string;
+    /**
+     * The ID of the campaign
+     */
+    id: string;
+    /**
+     * The attributes of the filter
+     */
+    attributes?: { [key: string]: string };
+    /**
+     * The custom attributes of the filter
+     */
+    customAttributes?: { [key: string]: string };
+    /**
+     * A name for this campaign
+     */
+    name: string;
+}
+
+export interface CampaignStateType extends CampaignType {
+    directDevices: number;
+    connectorDevices: number;
+    deployedDevices: number;
+    totalDevices: number;
+    deviceStates?: DeviceStateType[];
+}
+
+export type DeviceStateEnum = "pending" | "updated_device_catalog" | "updated_connector_channel" | "deployed" | "manifestremoved";
+
+export interface DeviceStateType {
+    /**
+     * The description of the object
+     */
+    description: string;
+    /**
+     * The update campaign to which this device belongs
+     */
+    campaign: string;
+    /**
+     * The time the object was created
+     */
+    createdAt: Date;
+    /**
+     * The time the object was updated
+     */
+    updatedAt: Date;
+    /**
+     * The ID of the channel used to communicated with the device
+     */
+    mechanism: string;
+    /**
+     * The name of the object
+     */
+    name: string;
+    /**
+     * The address of the Connector to use
+     */
+    mechanismUrl: string;
+    /**
+     * The state of the deployment
+     */
+    state: DeviceStateEnum;
+    /**
+     * The ID of the metadata concerning this device/campaign
+     */
+    id: string;
+    /**
+     * The ID of the device to deploy
+     */
+    deviceId: string;
 }

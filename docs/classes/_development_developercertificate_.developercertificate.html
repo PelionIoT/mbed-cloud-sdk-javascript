@@ -101,6 +101,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_development_developercertificate_.developercertificate.html#delete" class="tsd-kind-icon">delete</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_development_developercertificate_.developercertificate.html#map" class="tsd-kind-icon">map</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_development_developercertificate_.developercertificate.html#reversemap" class="tsd-kind-icon">reverse<wbr>Map</a></li>
 							</ul>
@@ -114,19 +115,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Developer<wbr>Certificate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_development_types_.developercertificatetype.html" class="tsd-signature-type">DeveloperCertificateType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_development_developercertificate_.developercertificate.html" class="tsd-signature-type">DeveloperCertificate</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Developer<wbr>Certificate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_development_types_.developercertificatetype.html" class="tsd-signature-type">DeveloperCertificateType</a>, _api<span class="tsd-signature-symbol">: </span><a href="_development_index_.developmentapi.html" class="tsd-signature-type">DevelopmentApi</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_development_developercertificate_.developercertificate.html" class="tsd-signature-type">DeveloperCertificate</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/development/developerCertificate.ts#L27">development/developerCertificate.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/development/developerCertificate.ts#L29">development/developerCertificate.ts:29</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>options: <a href="../interfaces/_development_types_.developercertificatetype.html" class="tsd-signature-type">DeveloperCertificateType</a></h5>
+								</li>
+								<li>
+									<h5>_api: <a href="_development_index_.developmentapi.html" class="tsd-signature-type">DevelopmentApi</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_development_developercertificate_.developercertificate.html" class="tsd-signature-type">DeveloperCertificate</a></h4>
@@ -143,7 +147,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_development_types_.developercertificatetype.html">DeveloperCertificateType</a>.<a href="../interfaces/_development_types_.developercertificatetype.html#createdat">createdAt</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/development/types.ts#L22">development/types.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/development/types.ts#L22">development/types.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -159,7 +163,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_development_types_.developercertificatetype.html">DeveloperCertificateType</a>.<a href="../interfaces/_development_types_.developercertificatetype.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/development/types.ts#L30">development/types.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/development/types.ts#L30">development/types.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -175,7 +179,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="../interfaces/_development_types_.developercertificatetype.html">DeveloperCertificateType</a>.<a href="../interfaces/_development_types_.developercertificatetype.html#publickey">publicKey</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/development/types.ts#L26">development/types.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/development/types.ts#L26">development/types.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -187,23 +191,93 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="map" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> map</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">apiDeveloperCertificate</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_development_developercertificate_.developercertificate.html" class="tsd-signature-type">DeveloperCertificate</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/development/developerCertificate.ts#L35">development/developerCertificate.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/development/developerCertificate.ts#L57">development/developerCertificate.ts:57</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Deletes the developer certificate</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>empty Promise</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/development/developerCertificate.ts#L62">development/developerCertificate.ts:62</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Deletes the developer certificate</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that is passed the return arguments (error, void)</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>err: <span class="tsd-signature-type">any</span></h5>
+														</li>
+														<li>
+															<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">void</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="map" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> map</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">apiDeveloperCertificate</span>, api<span class="tsd-signature-symbol">: </span><a href="_development_index_.developmentapi.html" class="tsd-signature-type">DevelopmentApi</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_development_developercertificate_.developercertificate.html" class="tsd-signature-type">DeveloperCertificate</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/development/developerCertificate.ts#L37">development/developerCertificate.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>from: <span class="tsd-signature-type">apiDeveloperCertificate</span></h5>
+								</li>
+								<li>
+									<h5>api: <a href="_development_index_.developmentapi.html" class="tsd-signature-type">DevelopmentApi</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_development_developercertificate_.developercertificate.html" class="tsd-signature-type">DeveloperCertificate</a></h4>
@@ -220,7 +294,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/a4fb5c1/src/development/developerCertificate.ts#L45">development/developerCertificate.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/ARMmbed/mbed-cloud-sdk-javascript/blob/03f08d1/src/development/developerCertificate.ts#L47">development/developerCertificate.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -264,6 +338,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="_development_developercertificate_.developercertificate.html#publickey" class="tsd-kind-icon">public<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_development_developercertificate_.developercertificate.html#delete" class="tsd-kind-icon">delete</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_development_developercertificate_.developercertificate.html#map" class="tsd-kind-icon">map</a>

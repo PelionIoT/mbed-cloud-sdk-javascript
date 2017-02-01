@@ -16,7 +16,7 @@
 */
 
 import pg = require("polygoat");
-import { CertificateType } from "./types";
+import { CertificateType, CertificateServiceEnum } from "./types";
 import {
     CACertificateReq as apiCertificateRequest,
     CACertificateResp as apiCertificate
@@ -60,6 +60,36 @@ export class Certificate {
     }
 
     /**
+     * Updates the certificate
+     * @param options.name Certificate name
+     * @param options.service Service name where the certificate must be used
+     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
+     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
+     * @returns Promise containing certificate
+     */
+    public update(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }): Promise<Certificate>;
+    /**
+     * Updates the certificate
+     * @param options.name Certificate name
+     * @param options.service Service name where the certificate must be used
+     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
+     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
+     * @param callback A function that is passed the return arguments (error, certificate)
+     */
+    public update(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
+    public update(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
+        return pg(done => {
+            this._api.updateCertificate({
+                id:                 this.id,
+                name:               options.name,
+                certificateData:    options.certificateData,
+                service:            options.service,
+                signature:          options.signature
+            }, done);
+        }, callback);
+    }
+
+    /**
      * Delete the certificate
      * @returns Promise containing any error
      */
@@ -71,9 +101,7 @@ export class Certificate {
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
         return pg(done => {
-            this._api.deleteCertificate({
-                id:    this.id
-            }, done);
+            this._api.deleteCertificate(this, done);
         }, callback);
     }
 }

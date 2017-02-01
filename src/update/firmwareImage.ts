@@ -15,21 +15,23 @@
 * limitations under the License.
 */
 
+import pg = require("polygoat");
 import { FirmwareImageType } from "./types";
 import { FirmwareImageSerializerData as apiFirmwareImage } from "../_api/firmware_catalog";
+import { UpdateApi } from "./index";
 
 /*
  * Firmware Image
  */
 export class FirmwareImage {
 
-    constructor(options: FirmwareImageType) {
+    constructor(options: FirmwareImageType, private _api?: UpdateApi) {
         for(var key in options) {
             this[key] = options[key];
         }
     }
 
-    static map(from: apiFirmwareImage): FirmwareImage {
+    static map(from: apiFirmwareImage, api: UpdateApi): FirmwareImage {
         let type:FirmwareImageType = {
         	createdAt: 			from.created_at,
         	datafile: 			from.datafile,
@@ -40,7 +42,25 @@ export class FirmwareImage {
         	updatedAt:			from.updated_at
         };
 
-        return new FirmwareImage(type);
+        return new FirmwareImage(type, api);
+    }
+
+    /**
+     * Delete the firmware image
+     * @returns Promise containing any error
+     */
+    public delete(): Promise<void>;
+    /**
+     * Delete the firmware image
+     * @param callback A function that is passed any error
+     */
+    public delete(callback?: (err: any, data?: void) => any);
+    public delete(callback?: (err: any, data?: void) => any): Promise<void> {
+        return pg(done => {
+            this._api.deleteFirmwareImage({
+                id:    parseInt(this.id)
+            }, done);
+        }, callback);
     }
 }
 export interface FirmwareImage extends FirmwareImageType {}

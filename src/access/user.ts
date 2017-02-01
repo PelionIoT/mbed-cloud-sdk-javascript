@@ -76,6 +76,51 @@ export class User {
     }
 
     /**
+     * Updates the user
+     * @param options.username A username containing alphanumerical letters and -,._@+= characters
+     * @param options.phoneNumber Phone number
+     * @param options.marketingAccepted A flag indicating that receiving marketing information has been accepted
+     * @param options.termsAccepted A flag indicating that the General Terms and Conditions has been accepted
+     * @param options.fullName The full name of the user
+     * @param options.address Address
+     * @param options.password The password when creating a new user. It will will generated when not present in the request
+     * @param options.email The email address
+     * @returns Promise containing user
+     */
+    public update(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
+        fullName?: string, address?: string, password?: string, email: string }): Promise<User>;
+    /**
+     * Updates the user
+     * @param options.username A username containing alphanumerical letters and -,._@+= characters
+     * @param options.phoneNumber Phone number
+     * @param options.marketingAccepted A flag indicating that receiving marketing information has been accepted
+     * @param options.termsAccepted A flag indicating that the General Terms and Conditions has been accepted
+     * @param options.fullName The full name of the user
+     * @param options.address Address
+     * @param options.password The password when creating a new user. It will will generated when not present in the request
+     * @param options.email The email address
+     * @param callback A function that is passed the return arguments (error, user)
+     */
+    public update(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
+        fullName?: string, address?: string, password?: string, email: string }, callback: (err: any, data?: User) => any);
+    public update(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
+        fullName?: string, address?: string, password?: string, email: string }, callback?: (err: any, data?: User) => any): Promise<User> {
+        return pg(done => {
+            this._api.updateUser({
+                id: this.id,
+                address:              options.address,
+                email:                options.email,
+                fullName:             options.fullName,
+                marketingAccepted:    options.marketingAccepted,
+                password:             options.password,
+                phoneNumber:          options.phoneNumber,
+                termsAccepted:        options.termsAccepted,
+                username:             options.username
+            }, done);
+        }, callback);
+    }
+
+    /**
      * List the groups this user belongs to
      * @returns Promise containing groups
      */
@@ -138,9 +183,7 @@ export class User {
     public delete(callback?: (err: any, data?: void) => any);
     public delete(callback?: (err: any, data?: void) => any): Promise<void> {
         return pg(done => {
-            this._api.deleteUser({
-                id:    this.id
-            }, done);
+            this._api.deleteUser(this, done);
         }, callback);
     }
 }

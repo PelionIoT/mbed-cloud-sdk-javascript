@@ -15,37 +15,55 @@
 * limitations under the License.
 */
 
+import pg = require("polygoat");
 import { DeveloperCertificateType } from "./types";
 import {
     Body as apiDeveloperCertificateRequest,
     DeveloperCertificate as apiDeveloperCertificate
 } from "../_api/developer_certificate";
+import { DevelopmentApi } from "./index";
 
 /*
  * Development Certificate
  */
 export class DeveloperCertificate {
 
-    constructor(options: DeveloperCertificateType) {
+    constructor(options: DeveloperCertificateType, private _api: DevelopmentApi) {
         for(var key in options) {
             this[key] = options[key];
         }
     }
 
-    static map(from: apiDeveloperCertificate): DeveloperCertificate {
+    static map(from: apiDeveloperCertificate, api: DevelopmentApi): DeveloperCertificate {
         let type:DeveloperCertificateType = {
             createdAt:    from.created_at,
             id:           from.id,
             publicKey:    from.pub_key
         };
 
-        return new DeveloperCertificate(type);
+        return new DeveloperCertificate(type, api);
     }
 
     static reverseMap(from: any): apiDeveloperCertificateRequest {
         return {
             pub_key: from.publicKey
         };
+    }
+
+    /**
+     * Deletes the developer certificate
+     * @returns empty Promise
+     */
+    public delete(): Promise<void>;
+    /**
+     * Deletes the developer certificate
+     * @param callback A function that is passed the return arguments (error, void)
+     */
+    public delete(callback?: (err: any, data?: void) => any);
+    public delete(callback?: (err: any, data?: void) => any): Promise<void> {
+        return pg(done => {
+            this._api.deleteCertificate(done);
+        }, callback);
     }
 }
 export interface DeveloperCertificate extends DeveloperCertificateType {}

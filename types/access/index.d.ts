@@ -1,13 +1,23 @@
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { AccountType, CertificateServiceEnum } from "./types";
+import { CertificateServiceEnum } from "./types";
 import { Account } from "./account";
 import { Certificate } from "./certificate";
 import { User } from "./user";
 import { ApiKey } from "./apiKey";
 import { Group } from "./group";
 /**
-* Root Access API
-*/
+ * Root Access API:
+ * ----------------
+ * Available, not implemented
+ * access.activateUser
+ * access.applyPasswordRecovery
+ * access.getInvitedUser
+ * access.getSelfEnrollingUser
+ * access.registerAccount
+ * access.requestPasswordRecovery
+ * access.signup
+ * access.verifySelfEnrollment
+ */
 export declare class AccessApi {
     private _endpoints;
     /**
@@ -26,16 +36,68 @@ export declare class AccessApi {
     getAccountDetails(callback: (err: any, data?: Account) => any): any;
     /**
      * Update details of account associated with current API key
-     * @param options account details
+     * @param options.displayName The display name for the account
+     * @param options.parentId The ID of the parent account, if it has any
+     * @param options.aliases An array of aliases
+     * @param options.company The name of the company
+     * @param options.contact The name of the contact person for this account
+     * @param options.email The company email address for this account
+     * @param options.phoneNumber The phone number of the company
+     * @param options.addressLine1 Postal address line 1
+     * @param options.addressLine2 Postal address line 2
+     * @param options.city The city part of the postal address
+     * @param options.state The state part of the postal address
+     * @param options.postcode The postal code part of the postal address
+     * @param options.country The country part of the postal address
      * @returns Promise of account
      */
-    updateAccountDetails(options: AccountType): Promise<Account>;
+    updateAccountDetails(options: {
+        displayName?: string;
+        parentId?: string;
+        aliases?: string[];
+        company?: string;
+        contact?: string;
+        email?: string;
+        phoneNumber?: string;
+        addressLine1?: string;
+        addressLine2?: string;
+        city?: string;
+        state?: string;
+        postcode?: string;
+        country?: string;
+    }): Promise<Account>;
     /**
      * Update details of account associated with current API key
-     * @param options account details
+     * @param options.displayName The display name for the account
+     * @param options.parentId The ID of the parent account, if it has any
+     * @param options.aliases An array of aliases
+     * @param options.company The name of the company
+     * @param options.contact The name of the contact person for this account
+     * @param options.email The company email address for this account
+     * @param options.phoneNumber The phone number of the company
+     * @param options.addressLine1 Postal address line 1
+     * @param options.addressLine2 Postal address line 2
+     * @param options.city The city part of the postal address
+     * @param options.state The state part of the postal address
+     * @param options.postcode The postal code part of the postal address
+     * @param options.country The country part of the postal address
      * @param callback A function that is passed the return arguments (error, account)
      */
-    updateAccountDetails(options: AccountType, callback?: (err: any, data?: Account) => any): any;
+    updateAccountDetails(options: {
+        displayName?: string;
+        parentId?: string;
+        aliases?: string[];
+        company?: string;
+        contact?: string;
+        email?: string;
+        phoneNumber?: string;
+        addressLine1?: string;
+        addressLine2?: string;
+        city?: string;
+        state?: string;
+        postcode?: string;
+        country?: string;
+    }, callback?: (err: any, data?: Account) => any): any;
     /**
      * List API keys
      * @param options filter options

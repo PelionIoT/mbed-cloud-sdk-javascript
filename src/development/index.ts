@@ -51,7 +51,7 @@ export class DevelopmentApi {
             this._endpoints.development.v3DeveloperCertificatePost("", DeveloperCertificate.reverseMap(options), (error, data) => {
                 if (error) return done(error);
 
-                let cert = DeveloperCertificate.map(data);
+                let cert = DeveloperCertificate.map(data, this);
                 done(null, cert);
             });
         }, callback);
@@ -72,7 +72,7 @@ export class DevelopmentApi {
             this._endpoints.development.v3DeveloperCertificateGet("", (error, data) => {
                 if (error) return done(error);
 
-                let cert = DeveloperCertificate.map(data);
+                let cert = DeveloperCertificate.map(data, this);
                 done(null, cert);
             });
         }, callback);

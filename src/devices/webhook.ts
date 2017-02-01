@@ -15,27 +15,70 @@
 * limitations under the License.
 */
 
+import pg = require("polygoat");
 import { WebhookType } from "./types";
 import { Webhook as apiWebhook } from "../_api/mds";
+import { DevicesApi } from "./index";
 
 /*
  * Webhook
  */
 export class Webhook {
 
-    constructor(options: WebhookType) {
+    constructor(options: WebhookType, private _api?: DevicesApi) {
         for(var key in options) {
             this[key] = options[key];
         }
     }
 
-    static map(from: apiWebhook): Webhook {
+    static map(from: apiWebhook, api: DevicesApi): Webhook {
         let type:WebhookType = {
             headers:    from.headers,
             url:        from.url
         };
 
-        return new Webhook(type);
+        return new Webhook(type, api);
+    }
+
+    static reverseMap(from: WebhookType): WebhookType {
+        return {
+            headers: from.headers,
+            url:     from.url
+        };
+    }
+
+    /**
+     * Updates the webhook
+     * @param options webhook details
+     * @returns Promise containing any error
+     */
+    public update(options: WebhookType): Promise<void>;
+    /**
+     * Updates the webhook
+     * @param options webhook details
+     * @param callback A function that is passed any error
+     */
+    public update(options: WebhookType, callback?: (err: any, data?: void) => any);
+    public update(options: WebhookType, callback?: (err: any, data?: void) => any): Promise<void> {
+        return pg(done => {
+            this._api.updateWebhook(options, done);
+        }, callback);
+    }
+
+    /**
+     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
+     * @returns Promise containing any error
+     */
+    public delete(): Promise<void>;
+    /**
+     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
+     * @param callback A function that is passed any error
+     */
+    public delete(callback?: (err: any, data?: void) => any);
+    public delete(callback?: (err: any, data?: void) => any): Promise<void> {
+        return pg(done => {
+            this._api.deleteWebhook(done);
+        }, callback);
     }
 }
 export interface Webhook extends WebhookType {}

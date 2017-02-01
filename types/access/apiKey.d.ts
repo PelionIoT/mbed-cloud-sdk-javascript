@@ -17,6 +17,26 @@ export declare class ApiKey {
      */
     listGroups(callback: (err: any, data?: Group[]) => any): any;
     /**
+     * Updates an API key
+     * @param options.name The display name for the API key
+     * @param options.owner The owner of this API key
+     * @returns Promise containing API key
+     */
+    update(options: {
+        name: string;
+        owner?: string;
+    }): Promise<ApiKey>;
+    /**
+     * Updates an API key
+     * @param options.name The display name for the API key
+     * @param options.owner The owner of this API key
+     * @param callback A function that is passed the return arguments (error, API key)
+     */
+    update(options: {
+        name: string;
+        owner?: string;
+    }, callback: (err: any, data?: ApiKey) => any): any;
+    /**
      * Delete the API key
      * @returns Promise containing any error
      */
