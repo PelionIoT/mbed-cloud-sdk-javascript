@@ -21,15 +21,8 @@ export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
 export { UpdateApi } from "./update";
 
-/*
-expand requests:
-
-DevicesApi.updateDevice && DevicesApi.device.update
-DevicesApi.addDevice
-*/
-
-// Add DeviceSubscriptions models?? <-perhaps after examples
 // ADDITIONAL
+// Add DeviceSubscriptions models?? <-perhaps after examples
 // extract common superagent functions in _APIs to single file?
 // polygoat to deffotyped?
 // add links to examples from inline code

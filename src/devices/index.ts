@@ -21,7 +21,7 @@ import { EventEmitter } from "events";
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
 import { decodeBase64, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
 import { Endpoints } from "./endpoints";
-import { DevicesApiType, DeviceType, DeviceEventType, QueryOptions, WebhookType, PresubscriptionType } from "./types";
+import { DevicesApiType, DeviceType, DeviceEventType, QueryOptions, WebhookType, PresubscriptionType, MechanismEnum } from "./types";
 import { Device } from "./device";
 import { Resource } from "./resource";
 import { Query } from "./query";
@@ -488,17 +488,45 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Update a device
-     * @param options device details
+     * @param options.id The ID of the device
+     * @param options.name The name of the device
+     * @param options.description The description of the device
+     * @param options.customAttributes Up to 5 custom JSON attributes
+     * @param options.deviceClass The device class
+     * @param options.accountId The owning IAM account ID
+     * @param options.autoUpdate Mark this device for auto firmware update
+     * @param options.vendorId The device vendor ID
+     * @param options.manifest URL for the current device manifest
+     * @param options.trustClass The device trust class
+     * @param options.trustLevel The device trust level
+     * @param options.provisionKey The key used to provision the device
+     * @param options.mechanism The ID of the channel used to communicate with the device
+     * @param options.mechanismUrl The address of the connector to use
+     * @param options.serialNumber The serial number of the device
      * @returns Promise of device
      */
-    public updateDevice(options: DeviceType): Promise<Device>;
+    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }): Promise<Device>;
     /**
      * Update a device
-     * @param options device details
+     * @param options.id The ID of the device
+     * @param options.name The name of the device
+     * @param options.description The description of the device
+     * @param options.customAttributes Up to 5 custom JSON attributes
+     * @param options.deviceClass The device class
+     * @param options.accountId The owning IAM account ID
+     * @param options.autoUpdate Mark this device for auto firmware update
+     * @param options.vendorId The device vendor ID
+     * @param options.manifest URL for the current device manifest
+     * @param options.trustClass The device trust class
+     * @param options.trustLevel The device trust level
+     * @param options.provisionKey The key used to provision the device
+     * @param options.mechanism The ID of the channel used to communicate with the device
+     * @param options.mechanismUrl The address of the connector to use
+     * @param options.serialNumber The serial number of the device
      * @param callback A function that is passed the arguments (error, device)
      */
-    public updateDevice(options: DeviceType, callback?: (err: any, data?: Device) => any);
-    public updateDevice(options: DeviceType, callback?: (err: any, data?: Device) => any): Promise<Device> {
+    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any);
+    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
         return pg(done => {
             let apiDevice = Device.reverseMap(options);
             this._endpoints.catalog.deviceUpdate(options.id, apiDevice, (error, data) => {

@@ -1,4 +1,4 @@
-import { DeviceType } from "./types";
+import { DeviceType, MechanismEnum } from "./types";
 import { DevicesApi } from "./index";
 import { Resource } from "./resource";
 import { DeviceDetail as apiDeviceType } from "../_api/device_catalog";
@@ -41,17 +41,77 @@ export declare class Device {
      */
     deleteSubscriptions(callback: (err: any, data?: void) => any): any;
     /**
-     * Update a device
-     * @param options device details
+     * Update the device
+     * @param options.name The name of the device
+     * @param options.description The description of the device
+     * @param options.customAttributes Up to 5 custom JSON attributes
+     * @param options.deviceClass The device class
+     * @param options.accountId The owning IAM account ID
+     * @param options.autoUpdate Mark this device for auto firmware update
+     * @param options.vendorId The device vendor ID
+     * @param options.manifest URL for the current device manifest
+     * @param options.trustClass The device trust class
+     * @param options.trustLevel The device trust level
+     * @param options.provisionKey The key used to provision the device
+     * @param options.mechanism The ID of the channel used to communicate with the device
+     * @param options.mechanismUrl The address of the connector to use
+     * @param options.serialNumber The serial number of the device
      * @returns Promise of device
      */
-    update(options: DeviceType): Promise<Device>;
+    update(options: {
+        name?: string;
+        description?: string;
+        customAttributes?: {
+            [key: string]: string;
+        };
+        deviceClass?: string;
+        accountId?: string;
+        autoUpdate?: boolean;
+        vendorId?: string;
+        manifest?: string;
+        trustClass?: number;
+        trustLevel?: number;
+        provisionKey?: string;
+        mechanism?: MechanismEnum;
+        mechanismUrl?: string;
+        serialNumber?: string;
+    }): Promise<Device>;
     /**
-     * Update a device
-     * @param options device details
+     * Update the device
+     * @param options.name The name of the device
+     * @param options.description The description of the device
+     * @param options.customAttributes Up to 5 custom JSON attributes
+     * @param options.deviceClass The device class
+     * @param options.accountId The owning IAM account ID
+     * @param options.autoUpdate Mark this device for auto firmware update
+     * @param options.vendorId The device vendor ID
+     * @param options.manifest URL for the current device manifest
+     * @param options.trustClass The device trust class
+     * @param options.trustLevel The device trust level
+     * @param options.provisionKey The key used to provision the device
+     * @param options.mechanism The ID of the channel used to communicate with the device
+     * @param options.mechanismUrl The address of the connector to use
+     * @param options.serialNumber The serial number of the device
      * @param callback A function that is passed the arguments (error, device)
      */
-    update(options: DeviceType, callback?: (err: any, data?: Device) => any): any;
+    update(options: {
+        name?: string;
+        description?: string;
+        customAttributes?: {
+            [key: string]: string;
+        };
+        deviceClass?: string;
+        accountId?: string;
+        autoUpdate?: boolean;
+        vendorId?: string;
+        manifest?: string;
+        trustClass?: number;
+        trustLevel?: number;
+        provisionKey?: string;
+        mechanism?: MechanismEnum;
+        mechanismUrl?: string;
+        serialNumber?: string;
+    }, callback?: (err: any, data?: Device) => any): any;
     /**
      * Deletes a device
      * @returns Promise containing any error

@@ -16,7 +16,7 @@
 */
 
 import pg = require("polygoat");
-import { DeviceType } from "./types";
+import { DeviceType, MechanismEnum } from "./types";
 import { DevicesApi } from "./index";
 import { Resource } from "./resource";
 import { DeviceDetail as apiDeviceType } from "../_api/device_catalog";
@@ -134,20 +134,62 @@ export class Device {
     }
 
     /**
-     * Update a device
-     * @param options device details
+     * Update the device
+     * @param options.name The name of the device
+     * @param options.description The description of the device
+     * @param options.customAttributes Up to 5 custom JSON attributes
+     * @param options.deviceClass The device class
+     * @param options.accountId The owning IAM account ID
+     * @param options.autoUpdate Mark this device for auto firmware update
+     * @param options.vendorId The device vendor ID
+     * @param options.manifest URL for the current device manifest
+     * @param options.trustClass The device trust class
+     * @param options.trustLevel The device trust level
+     * @param options.provisionKey The key used to provision the device
+     * @param options.mechanism The ID of the channel used to communicate with the device
+     * @param options.mechanismUrl The address of the connector to use
+     * @param options.serialNumber The serial number of the device
      * @returns Promise of device
      */
-    public update(options: DeviceType): Promise<Device>;
+    public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }): Promise<Device>;
     /**
-     * Update a device
-     * @param options device details
+     * Update the device
+     * @param options.name The name of the device
+     * @param options.description The description of the device
+     * @param options.customAttributes Up to 5 custom JSON attributes
+     * @param options.deviceClass The device class
+     * @param options.accountId The owning IAM account ID
+     * @param options.autoUpdate Mark this device for auto firmware update
+     * @param options.vendorId The device vendor ID
+     * @param options.manifest URL for the current device manifest
+     * @param options.trustClass The device trust class
+     * @param options.trustLevel The device trust level
+     * @param options.provisionKey The key used to provision the device
+     * @param options.mechanism The ID of the channel used to communicate with the device
+     * @param options.mechanismUrl The address of the connector to use
+     * @param options.serialNumber The serial number of the device
      * @param callback A function that is passed the arguments (error, device)
      */
-    public update(options: DeviceType, callback?: (err: any, data?: Device) => any);
-    public update(options: DeviceType, callback?: (err: any, data?: Device) => any): Promise<Device> {
+    public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any);
+    public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
         return pg(done => {
-            this._api.updateDevice(options, done);
+            this._api.updateDevice({
+                id:this.id,
+                accountId:           options.accountId,
+                autoUpdate:          options.autoUpdate,
+                customAttributes:    options.customAttributes,
+                description:         options.description,
+                deviceClass:         options.deviceClass,
+                manifest:            options.manifest,
+                mechanism:           options.mechanism,
+                mechanismUrl:        options.mechanismUrl,
+                name:                options.name,
+                provisionKey:        options.provisionKey,
+                serialNumber:        options.serialNumber,
+                trustClass:          options.trustClass,
+                trustLevel:          options.trustLevel,
+                vendorId:            options.vendorId
+            }, done);
         }, callback);
     }
 
