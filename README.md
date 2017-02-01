@@ -24,14 +24,21 @@ Please refer to the [examples](./examples/) folder for some node and web example
 
 ### Usage in Node.js (CommonJS modules)
 
-Simply `require` this module and create a new instance of the API you want to use:
+Simply `require` this module and create a new instance of the API you want to use. For example, to list all connected devices:
 
 ```JavaScript
-var LogAPI = require('mbedCloudSDK').LoggingApi;
+var mbed = require("mbed-cloud-sdk");
 
-var logging = new LogApi({ ... });
+var deviceApi = new mbed.DevicesApi({
+	apiKey: "<mbed Cloud API Key>"
+});
 
-logging.listDeviceLogs({ ... }) ...
+deviceApi.listConnectedDevices()
+.then(response => {
+	response.data.forEach(device => {
+		console.log(device.id);
+	});
+});
 ```
 
 ### Usage in Browser (RequireJS / AMD modules, Vanilla JS / SPAs)
@@ -41,15 +48,21 @@ The bundled files in [bundles](./bundles/) are standalone modules following the 
 Include the JavaScript bundle you need on your page from the [bundles](./bundles/) directory, e.g.:
 
 ```html
-<script src="<mbed-cloud-sdk>/bundles/logging.min.js"></script>
+<script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
 ```
 
-If using VanillaJS, the bundles are then accessible through the global `mbedCloudSDK` namespace:
+If using VanillaJS, the bundles are then accessible through the global `mbedCloudSDK` namespace. For example, to list all connected devices:
 
 ```javascript
-var logging = new window.mbedCloudSDK.LoggingApi({ ... }});
+var deviceApi = new window.mbedCloudSDK.DevicesApi({
+	apiKey: "<mbed Cloud API Key>"
+});
 
-logging.listDeviceLogs({ ... }) ...
+deviceApi.listConnectedDevices(function(error, response) {
+	response.data.forEach(function(device) {
+		console.log(device.id);
+	});
+});
 ```
 
 Otherwise, the bundles should be loadable using an AMD framework such as [RequireJS](http://requirejs.org/).
