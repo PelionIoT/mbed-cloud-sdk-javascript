@@ -18,8 +18,6 @@ $ npm install --save mbed-cloud-sdk
 
 ## Documentation
 
-See full [documentation and API reference here](http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/).
-
 Please refer to the [examples](./examples/) folder for some node and web examples.
 
 ### Usage in Node.js (CommonJS modules)

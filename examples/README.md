@@ -62,14 +62,6 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
   This example creates a basic webhook server which registers for callbacks from mbed Cloud and receives asynchronous notifications.
   Using the callbacks, the device/resource tree of connected devices is recursed, outputting the value for each resource.
 
-* __Subscription Management__ [subscription-management.js](node/subscription-management.js)
-
-  This example is a command line interface which allows management of resource subscriptions and pre-subscriptions.
-
-* __User & Key Management__ [user-key-management.js](node/user-key-management.js)
-
-  This example is a command line interface to manage users of mbed Cloud and their API keys.
-
 ## Web
 
 ### Usage
@@ -114,7 +106,3 @@ __Note:__ Your API Key will be publicly visible in your web application. When cr
 * __Device Query Management__ [query-management.html](web/query-management.html)
 
   This example allows mangement and running of device queries, paging the results.
-
-* __Update Management__ [update-management.html](web/update-management.html)
-
-  This example allows mangement of update campaigns, firmware images and manifests.
