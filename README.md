@@ -20,6 +20,8 @@ $ npm install --save mbed-cloud-sdk
 
 See full [documentation and API reference here](http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/).
 
+Please refer to the [examples](./examples/) folder for some node and web examples.
+
 ### Usage in Node.js (CommonJS modules)
 
 Simply `require` this module and create a new instance of the API you want to use:
@@ -57,8 +59,6 @@ You can also use all bundles by including `index.min.js`:
 ```html
 <script src="<mbed-cloud-sdk>/bundles/index.min.js"></script>
 ```
-
-Please refer to the [examples](./examples/) folder for some web-based examples.
 
 __Note:__ mbed Cloud is protected with [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) which restricts cross-origin calls from unknown domains. Until your production server domain has been whitelisted for mbed Cloud and during development, you may disable CORS support in your browser using [command line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi).
 
