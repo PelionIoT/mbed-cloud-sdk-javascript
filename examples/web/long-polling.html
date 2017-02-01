@@ -35,6 +35,7 @@
         <thead><tr>
             <th>Resource Path</th>
             <th>Value</th>
+            <th>Actions</th>
         </tr></thead>
         <tbody id="resources"></tbody>
     </table>
@@ -56,7 +57,9 @@
         var deviceId = "";
         function getDevice(completeFn) {
             if (deviceId) {
-                devices.getDevice(deviceId, function(err, device) {
+                devices.getDevice({
+                    id: deviceId
+                }, function(err, device) {
                     if (!err) completeFn(device);
                 });
                 return;
@@ -76,7 +79,7 @@
         }
 
         getDevice(function(device) {
-            headerEl.innerText = "Device: " + device.id;
+            headerEl.innerText = "Device: " + (device.name || device.id);
 
             device.listResources(function(err, resources) {
                 resources.forEach(function(resource) {
@@ -85,8 +88,8 @@
                     var row = resourcesEl.insertRow(0);
                     buildElement("td", resource.path, row);
                     var valueCell = buildElement("td", "Loading...", row);
-                    //var buttonCell = buildElement("td", null, row);
-                    //var button = buildElement("button", "edit...", buttonCell);
+                    var buttonCell = buildElement("td", null, row);
+                    var button = buildElement("button", "edit...", buttonCell);
 
                     function updateValue(err, value) {
                         valueCell.innerHTML = value || err;
@@ -99,7 +102,6 @@
                     resource.on("notification", updateValue);
 
                     // Update value
-                    /*
                     button.addEventListener("click", function() {
                         var value = window.prompt("Enter the new resource value", valueCell.innerHTML);
                         if (!name) return;
@@ -107,14 +109,9 @@
                         resource.setValue({
                             value: value
                         }, function(err) {
-                            if (err) {
-                                alert(err);
-                                return;
-                            }
                             resource.getValue(updateValue);
                         });
                     });
-                    */
                 });
             });
         });
