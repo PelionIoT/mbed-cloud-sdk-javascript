@@ -22,7 +22,7 @@ var express = require('express');
 var mbed = require('../../lib/');
 var config = require('./config');
 
-var url = "http://c141ddbb.ngrok.io";
+var url = "http://0535834a.ngrok.io";
 var port = 3002;
 
 var devices = new mbed.DevicesApi(config);
@@ -40,7 +40,7 @@ app.put("/", (req, res, next) => {
     });
 
     req.on('end', function() {
-        // Parse data into jJSON and inject into devices notification system
+        // Parse data into JSON and inject into devices notification system
         data = JSON.parse(data);
         devices.notify(data);
     });
@@ -49,10 +49,12 @@ app.put("/", (req, res, next) => {
 	next();
 });
 
+// Start server
 http.createServer(app).listen(port, () => {
     console.log(`Webhook server listening on port ${port}`);
 });
 
+// Set up webhook
 devices.getWebhook((err, webhook) => {
 
 	if (err || !webhook) console.log("No webhook currently registered");
@@ -70,27 +72,38 @@ devices.getWebhook((err, webhook) => {
 	});
 });
 
-// List all connected devices, their resources and values
+// Get device, it's resources and values
 function listDevices() {
-    devices.listConnectedDevices()
-    .then(devices => {
-
-        return devices.data.reduce((promise, device) => {
-            return promise
-            .then(() => device.listResources())
-            .then(resources => {
-                console.log("Device: " + device.id);
-
-                return resources.reduce((promise, resource) => {
-                    return promise
-                    .then(() => resource.getValue())
-                    .then(value => {
-                        console.log(`\t└${resource.path}\t\t: ${value}`);
-                    })
-                    .catch(err => {});
-                }, promise);
-
+    getDevice(device => {
+        console.log("Device: " + (device.name || device.id));
+        device.listResources()
+        .then(resources => {
+            resources.forEach(resource => {
+                resource.getValue()
+                .then(value => {
+                    console.log(`\t└${resource.path}\t\t- ${value}`);
+                })
+                .catch(err => {
+                    console.log(`\t└${resource.path}\t\t- Error: ${err}`);
+                });
             });
-        }, Promise.resolve());
+        });
+    });
+}
+
+// Get specified device or first device
+var deviceId = "";
+function getDevice(completeFn) {
+    if (deviceId) {
+        devices.getDevice({
+            id: deviceId
+        })
+        .then(completeFn);
+        return;
+    }
+
+    devices.listConnectedDevices()
+    .then(response => {
+        completeFn(response.data[0]);
     });
 }

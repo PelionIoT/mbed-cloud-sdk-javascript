@@ -46,13 +46,6 @@
 
         var devices = new window.mbedCloudSDK.DevicesApi(window.config);
 
-        // Long polling
-        devices.startNotifications();
-
-        window.addEventListener("unload", function() {
-            devices.stopNotifications();
-        });
-
         // Get specified device or first device
         var deviceId = "";
         function getDevice(completeFn) {
@@ -70,6 +63,18 @@
             });
         }
 
+        // Clear any webhook
+        function clearWebhook(completeFn) {
+            devices.getWebhook(function(err, webhook) {
+                if (!webhook) {
+                    completeFn();
+                    return;
+                }
+
+                devices.deleteWebhook(completeFn);
+            });
+        }
+
         // Dom element builder
         function buildElement(type, value, parent) {
             var element = document.createElement(type);
@@ -77,6 +82,15 @@
             if (parent) parent.appendChild(element);
             return element;
         }
+
+        // Long polling
+        clearWebhook(function() {
+            devices.startNotifications();
+        });
+
+        window.addEventListener("unload", function() {
+            devices.stopNotifications();
+        });
 
         getDevice(function(device) {
             headerEl.innerText = "Device: " + (device.name || device.id);
@@ -92,7 +106,7 @@
                     var button = buildElement("button", "edit...", buttonCell);
 
                     function updateValue(err, value) {
-                        valueCell.innerHTML = value || err;
+                        valueCell.innerHTML = err ? `Error: ${err}` : value;
                         valueCell.classList.remove("flash");
                         void valueCell.offsetWidth;
                         valueCell.classList.add("flash");
