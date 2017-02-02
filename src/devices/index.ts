@@ -27,6 +27,8 @@ import { Query } from "./query";
 import { Webhook } from "./webhook";
 import { Presubscription } from "./presubscription";
 
+const DEFAULT_POLLING_INTERVAL = 500;
+
 /**
  * Root Devices API
  */
@@ -154,23 +156,25 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Begins long polling constantly for notifications
+     * @param options.interval A polling interval in milliseconds
      * @param options.requestCallback A function that is passed async responses
      * @returns Promise containing any error
      */
-    public startNotifications(options?: { requestCallback?: (err: any, data?: any) => any }): Promise<void>;
+    public startNotifications(options?: { interval?: number, requestCallback?: (err: any, data?: any) => any }): Promise<void>;
     /**
      * Begins long polling constantly for notifications
+     * @param options.interval A polling interval in milliseconds
      * @param options.requestCallback A function that is passed async responses
      * @param callback A function that is passed any error
      */
-    public startNotifications(options?: { requestCallback?: (err: any, data?: any) => any }, callback?: (err: any, data?: void) => any);
+    public startNotifications(options?: { interval?: number, requestCallback?: (err: any, data?: any) => any }, callback?: (err: any, data?: void) => any);
     public startNotifications(options?: any, callback?: (err: any, data?: void) => any): Promise<void> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let { requestCallback } = options;
+        let { interval, requestCallback } = options;
 
         function poll() {
             this._pollRequest = this._endpoints.notifications.v2NotificationPullGet((error, data) => {
@@ -186,7 +190,7 @@ export class DevicesApi extends EventEmitter {
                     return;
                 }
 
-                setTimeout(poll.bind(this), 500);
+                setTimeout(poll.bind(this), interval || DEFAULT_POLLING_INTERVAL);
             });
         }
 
