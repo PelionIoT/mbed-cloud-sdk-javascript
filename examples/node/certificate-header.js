@@ -20,13 +20,13 @@ var path = require('path');
 var readline = require('readline');
 var execSync = require('child_process').execSync;
 
-var Development = require('../../lib/').DevelopmentApi;
-var Access = require('../../lib/').AccessApi;
+var mbed = require('../../lib/');
 var config = require('./config');
 
 var outputFile = "header.h";
-var development = new Development(config);
-var access = new Access(config);
+
+var development = new mbed.DevelopmentApi(config);
+var access = new mbed.AccessApi(config);
 
 function ensureDirectory(directory) {
     var dirName = path.dirname(directory);

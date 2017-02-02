@@ -18,11 +18,11 @@
 var fs = require('fs');
 var path = require('path');
 
-var Logging = require('../../lib/').LoggingApi;
+var mbed = require('../../lib/');
 var config = require('./config');
 
 var logDir = "logs";
-var logging = new Logging(config);
+var logging = new mbed.LoggingApi(config);
 
 function ensureDirectory(directory) {
     var dirName = path.dirname(directory);

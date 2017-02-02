@@ -19,13 +19,13 @@ var fs = require('fs');
 var http = require('http');
 var express = require('express');
 
+var mbed = require('../../lib/');
 var config = require('./config');
-var Devices = require('../../lib/').DevicesApi;
 
-var url = "http://6a58ed40.ngrok.io";
-var port = 3001;
+var url = "http://c141ddbb.ngrok.io";
+var port = 3002;
 
-var devices = new Devices(config);
+var devices = new mbed.DevicesApi(config);
 var app = express();
 
 // Set system to await notifications for callbacks instead of emitting asyncIds
