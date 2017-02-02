@@ -52,7 +52,7 @@ export class ApiBase {
             request.accept("application/json");
         }
 
-        if (options.formParams) {
+        if (Object.keys(options.formParams).length > 0) {
             if (options.useFormData) {
                 request.type("multipart/form-data");
                 let formParams = ApiBase.normalizeParams(options.formParams);
@@ -70,6 +70,8 @@ export class ApiBase {
                 request.type("application/x-www-form-urlencoded");
                 request.send(ApiBase.normalizeParams(options.formParams));
             }
+        } else if (options.body) {
+            request.send(options.body);
         }
 
         request.end(function(error, response) {

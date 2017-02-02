@@ -63,36 +63,50 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<h1 id="mbed-cloud-javascript-sdk">mbed Cloud JavaScript SDK</h1>
-				<p><a href="https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript/"><img src="https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript.svg?style=shield&amp;circle-token=62ef40035b1b5442234a44ad7e74199ea582f3f4" alt="Circle CI"></a></p>
-				<p>The mbed Cloud SDK gives developers access to the full mbed suite using JavaScript.</p>
-				<p>Other languages are available too:</p>
-				<ul>
-					<li><a href="https://github.com/ARMmbed/mbed-cloud-sdk-python">Python</a></li>
-					<li><a href="https://github.com/ARMmbed/mbed-cloud-sdk-dotnet">.Net</a></li>
-				</ul>
-				<p>If you want to contribute to creating a SDK for another language the work is
-					greatly appreciated and you can read more about the process
-				<a href="https://github.com/ARMmbed/mbed-cloud-sdk-codegen/blob/master/docs/create-new-language.md">here</a>.</p>
-				<h2 id="documentation">Documentation</h2>
-				<p>See full <a href="http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/">documentation and API reference
-				here</a>.</p>
-				<h2 id="usage-in-node-js-commonjs-modules-">Usage in Node.js (CommonJS modules)</h2>
-				<p>If using <a href="https://nodejs.org">Node.js</a>, you will first need to install the npm dependencies:</p>
-				<pre><code class="lang-bash">&gt; npm install
+				<p>The mbed Cloud SDK gives developers access to the full mbed Cloud suite using JavaScript.</p>
+				<h2 id="prerequisites">Prerequisites</h2>
+				<p><a href="https://nodejs.org">Node.js &gt; v4.7.0</a> which includes <code>npm</code>.</p>
+				<h2 id="installation">Installation</h2>
+				<p>The SDK is distributed using npm, simply install the package into your project:</p>
+				<pre><code class="lang-bash">$ npm install --save mbed-cloud-sdk
 </code></pre>
-				<h2 id="usage-in-browser-requirejs-amd-modules-vanilla-js-spas-">Usage in Browser (RequireJS / AMD modules, Vanilla JS / SPAs)</h2>
-				<p>The bundled files in <code>dist/bundles</code> are standalone modules following the <a href="https://github.com/umdjs/umd">UMD</a> specification so should be usable without any further installation or modification.</p>
+				<h2 id="documentation">Documentation</h2>
+				<p>See full <a href="http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/">documentation and API reference here</a>.</p>
+				<p>Please refer to the <a href="./examples/">examples</a> folder for some node and web examples.</p>
+				<h3 id="usage-in-node-js-commonjs-modules-">Usage in Node.js (CommonJS modules)</h3>
+				<p>Simply <code>require</code> this module and create a new instance of the API you want to use:</p>
+				<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> LogAPI = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mbedCloudSDK'</span>).LoggingApi;
+
+<span class="hljs-keyword">var</span> logging = <span class="hljs-keyword">new</span> LogApi({ ... });
+
+logging.listDeviceLogs({ ... }) ...
+</code></pre>
+				<h3 id="usage-in-browser-requirejs-amd-modules-vanilla-js-spas-">Usage in Browser (RequireJS / AMD modules, Vanilla JS / SPAs)</h3>
+				<p>The bundled files in <a href="./bundles/">bundles</a> are standalone modules following the <a href="https://github.com/umdjs/umd">UMD</a> specification so should be usable without any further installation or modification.</p>
+				<p>Include the JavaScript bundle you need on your page from the <a href="./bundles/">bundles</a> directory, e.g.:</p>
+				<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"&lt;mbed-cloud-sdk&gt;/bundles/logging.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+				<p>If using VanillaJS, the bundles are then accessible through the global <code>mbedCloudSDK</code> namespace:</p>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> logging = <span class="hljs-keyword">new</span> <span class="hljs-built_in">window</span>.mbedCloudSDK.LoggingApi({ ... }});
+
+logging.listDeviceLogs({ ... }) ...
+</code></pre>
+				<p>Otherwise, the bundles should be loadable using an AMD framework such as <a href="http://requirejs.org/">RequireJS</a>.</p>
+				<p>You can also use all bundles by including <code>index.min.js</code>:</p>
+				<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"&lt;mbed-cloud-sdk&gt;/bundles/index.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+				<p><strong>Note:</strong> mbed Cloud is protected with <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">Cross-origin resource sharing</a> (CORS) which restricts cross-origin calls from unknown domains. Until your production server domain has been whitelisted for mbed Cloud and during development, you may disable CORS support in your browser using <a href="http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/">command line switches</a> or <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi">extensions</a>.</p>
 				<h2 id="development">Development</h2>
 				<h3 id="installing">Installing</h3>
 				<p>After cloning this repository, install the npm dependencies:</p>
 				<pre><code class="lang-bash">&gt; npm install
 </code></pre>
 				<h3 id="building">Building</h3>
-				<p>Simply use the default <code>gulp</code> task to build the SDK and docs</p>
+				<p>Simply use the default <code>gulp</code> task to build the SDK and docs:</p>
 				<pre><code class="lang-bash">&gt; npm run gulp
 </code></pre>
 				<h3 id="watching">Watching</h3>
-				<p>To continually watch for changes, use the gulp <code>watch</code> task</p>
+				<p>To continually watch for changes, use the gulp <code>watch</code> task:</p>
 				<pre><code class="lang-bash">&gt; npm run gulp watch
 </code></pre>
 			</div>
