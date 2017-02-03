@@ -63,33 +63,47 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<h1 id="mbed-cloud-javascript-sdk">mbed Cloud JavaScript SDK</h1>
+				<p><a href="https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript/"><img src="https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript.svg?style=shield&amp;circle-token=62ef40035b1b5442234a44ad7e74199ea582f3f4" alt="Circle CI"></a></p>
 				<p>The mbed Cloud SDK gives developers access to the full mbed Cloud suite using JavaScript.</p>
 				<h2 id="prerequisites">Prerequisites</h2>
 				<p><a href="https://nodejs.org">Node.js &gt; v4.7.0</a> which includes <code>npm</code>.</p>
 				<h2 id="installation">Installation</h2>
 				<p>The SDK is distributed using npm, simply install the package into your project:</p>
-				<pre><code class="lang-bash">$ npm install --save mbed-cloud-sdk
+				<pre><code class="lang-bash">$ npm install ARMmbed/mbed-cloud-sdk-javascript
 </code></pre>
 				<h2 id="documentation">Documentation</h2>
 				<p>See full <a href="http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/">documentation and API reference here</a>.</p>
 				<p>Please refer to the <a href="./examples/">examples</a> folder for some node and web examples.</p>
 				<h3 id="usage-in-node-js-commonjs-modules-">Usage in Node.js (CommonJS modules)</h3>
-				<p>Simply <code>require</code> this module and create a new instance of the API you want to use:</p>
-				<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> LogAPI = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mbedCloudSDK'</span>).LoggingApi;
+				<p>Simply <code>require</code> this module and create a new instance of the API you want to use. For example, to list all connected devices:</p>
+				<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> mbed = <span class="hljs-built_in">require</span>(<span class="hljs-string">"mbed-cloud-sdk"</span>);
 
-<span class="hljs-keyword">var</span> logging = <span class="hljs-keyword">new</span> LogApi({ ... });
+<span class="hljs-keyword">var</span> deviceApi = <span class="hljs-keyword">new</span> mbed.DevicesApi({
+    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">"&lt;mbed Cloud API Key&gt;"</span>
+});
 
-logging.listDeviceLogs({ ... }) ...
+deviceApi.listConnectedDevices()
+.then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+    response.data.forEach(<span class="hljs-function"><span class="hljs-params">device</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(device.id);
+    });
+});
 </code></pre>
 				<h3 id="usage-in-browser-requirejs-amd-modules-vanilla-js-spas-">Usage in Browser (RequireJS / AMD modules, Vanilla JS / SPAs)</h3>
 				<p>The bundled files in <a href="./bundles/">bundles</a> are standalone modules following the <a href="https://github.com/umdjs/umd">UMD</a> specification so should be usable without any further installation or modification.</p>
 				<p>Include the JavaScript bundle you need on your page from the <a href="./bundles/">bundles</a> directory, e.g.:</p>
-				<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"&lt;mbed-cloud-sdk&gt;/bundles/logging.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+				<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"&lt;mbed-cloud-sdk&gt;/bundles/devices.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
-				<p>If using VanillaJS, the bundles are then accessible through the global <code>mbedCloudSDK</code> namespace:</p>
-				<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> logging = <span class="hljs-keyword">new</span> <span class="hljs-built_in">window</span>.mbedCloudSDK.LoggingApi({ ... }});
+				<p>If using VanillaJS, the bundles are then accessible through the global <code>mbedCloudSDK</code> namespace. For example, to list all connected devices:</p>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> deviceApi = <span class="hljs-keyword">new</span> <span class="hljs-built_in">window</span>.mbedCloudSDK.DevicesApi({
+    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">"&lt;mbed Cloud API Key&gt;"</span>
+});
 
-logging.listDeviceLogs({ ... }) ...
+deviceApi.listConnectedDevices(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, response</span>) </span>{
+    response.data.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">device</span>) </span>{
+        <span class="hljs-built_in">console</span>.log(device.id);
+    });
+});
 </code></pre>
 				<p>Otherwise, the bundles should be loadable using an AMD framework such as <a href="http://requirejs.org/">RequireJS</a>.</p>
 				<p>You can also use all bundles by including <code>index.min.js</code>:</p>

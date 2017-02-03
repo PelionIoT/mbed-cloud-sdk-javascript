@@ -53,18 +53,22 @@ export declare class DevicesApi extends EventEmitter {
     notify(data: any): void;
     /**
      * Begins long polling constantly for notifications
+     * @param options.interval A polling interval in milliseconds
      * @param options.requestCallback A function that is passed async responses
      * @returns Promise containing any error
      */
     startNotifications(options?: {
+        interval?: number;
         requestCallback?: (err: any, data?: any) => any;
     }): Promise<void>;
     /**
      * Begins long polling constantly for notifications
+     * @param options.interval A polling interval in milliseconds
      * @param options.requestCallback A function that is passed async responses
      * @param callback A function that is passed any error
      */
     startNotifications(options?: {
+        interval?: number;
         requestCallback?: (err: any, data?: any) => any;
     }, callback?: (err: any, data?: void) => any): any;
     /**

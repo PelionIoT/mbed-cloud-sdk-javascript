@@ -13,7 +13,7 @@ The mbed Cloud SDK gives developers access to the full mbed Cloud suite using Ja
 The SDK is distributed using npm, simply install the package into your project:
 
 ```bash
-$ npm install --save mbed-cloud-sdk
+$ npm install ARMmbed/mbed-cloud-sdk-javascript
 ```
 
 ## Documentation
