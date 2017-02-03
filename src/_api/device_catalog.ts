@@ -414,7 +414,7 @@ export class DefaultApi extends ApiBase {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Delete device&lt;/p&gt;
      * @param deviceId 
      */
-    deviceDestroy (deviceId: string, callback?: (error:any, data?:DeviceListResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceDestroy (deviceId: string, callback?: (error:any, data?:DeviceDetail, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -558,7 +558,7 @@ export class DefaultApi extends ApiBase {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device fields&lt;/p&gt;
      * @param deviceId The ID of the device
      */
-    devicePartialUpdate (deviceId: string, callback?: (error:any, data?:DeviceListResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    devicePartialUpdate (deviceId: string, callback?: (error:any, data?:DeviceDetail, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -588,7 +588,7 @@ export class DefaultApi extends ApiBase {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device.&lt;/p&gt;
      * @param deviceId 
      */
-    deviceRetrieve (deviceId: string, callback?: (error:any, data?:DeviceListResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceRetrieve (deviceId: string, callback?: (error:any, data?:DeviceDetail, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
