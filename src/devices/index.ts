@@ -238,7 +238,14 @@ export class DevicesApi extends EventEmitter {
     public getWebhook(callback?: (err: any, data?: Webhook) => any): Promise<Webhook> {
         return asyncStyle(done => {
             this._endpoints.webhooks.v2NotificationCallbackGet((error, data) => {
-                if (error) return done(error);
+
+                if (error) {
+                    if (error.status === 404) {
+                        // No webhook
+                        return done(null, null);
+                    }
+                    return done(error);
+                }
 
                 let webhook = Webhook.map(data, this);
                 done(null, webhook);

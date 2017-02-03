@@ -56,20 +56,19 @@ http.createServer(app).listen(port, () => {
 
 // Set up webhook
 devices.getWebhook((err, webhook) => {
+    if (!webhook) console.log("No webhook currently registered");
+    else console.log(`Webhook currently set to ${webhook.url}`);
 
-	if (err || !webhook) console.log("No webhook currently registered");
-	else console.log(`Webhook currently set to ${webhook.url}`);
-
-	devices.updateWebhook({
-		url: url
-	}, err => {
-		if (err) {
-			console.log(`${err} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
-			return;
-		}
-		console.log(`Webhook now set to ${url}`);
+    devices.updateWebhook({
+        url: url
+    }, err => {
+        if (err) {
+            console.log(`${err} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
+            return;
+        }
+        console.log(`Webhook now set to ${url}`);
         listDevices();
-	});
+    });
 });
 
 // Get device, it's resources and values
