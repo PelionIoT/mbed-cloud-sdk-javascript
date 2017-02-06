@@ -154,7 +154,7 @@ export class UpdateApi {
     public deleteFirmwareImage(options: { id: number }, callback: (err: any, data?: void) => any);
     public deleteFirmwareImage(options: { id: number }, callback?: (err: any, data?: void) => any): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.firmware.firmwareImageDestroy(options.id, null, null, null, null, null, null, null, null, null, (error, data) => {
+            this._endpoints.firmware.firmwareImageDestroy(options.id, null, null, null, null, null, null, null, null, null, (error) => {
                 if (error) return done(error);
                 done(null, null);
             });
@@ -253,7 +253,7 @@ export class UpdateApi {
     public deleteFirmwareManifest(options: { id: number }, callback: (err: any, data?: void) => any);
     public deleteFirmwareManifest(options: { id: number }, callback?: (err: any, data?: void) => any): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.firmware.firmwareManifestDestroy(options.id, (error, data) => {
+            this._endpoints.firmware.firmwareManifestDestroy(options.id, (error) => {
                 if (error) return done(error);
                 done(null, null);
             });
@@ -396,7 +396,7 @@ export class UpdateApi {
     public deleteCampaign(options: { id: string }, callback: (err: any, data?: void) => any);
     public deleteCampaign(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.deployment.updateCampaignDestroy(options.id, (error, data) => {
+            this._endpoints.deployment.updateCampaignDestroy(options.id, (error) => {
                 if (error) return done(error);
                 done(null, null);
             });

@@ -54,9 +54,9 @@ gulp.task("typescript", function() {
         alwaysStrict: true,
         noEmitOnError: true,
         noUnusedLocals: true,
-        declaration: true
-        //noImplicitAny: true,
-        //noUnusedParameters: true
+        declaration: true,
+        noUnusedParameters: true
+        //noImplicitAny: true
     };
 
     return merge([

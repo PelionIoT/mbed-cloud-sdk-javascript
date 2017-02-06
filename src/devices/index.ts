@@ -592,7 +592,7 @@ export class DevicesApi extends EventEmitter {
         }
         let { id } = options;
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceDestroy(id, (error, data) => {
+            this._endpoints.catalog.deviceDestroy(id, (error) => {
                 if (error) return done(error);
                 done(null, null);
             });
@@ -1046,7 +1046,7 @@ export class DevicesApi extends EventEmitter {
     public deleteQuery(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
         let { id } = options;
         return asyncStyle(done => {
-            this._endpoints.query.deviceQueryDestroy(id, (error, data) => {
+            this._endpoints.query.deviceQueryDestroy(id, (error) => {
                 if (error) return done(error);
                 done(null, null);
             });

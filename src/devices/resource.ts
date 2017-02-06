@@ -38,12 +38,12 @@ export class Resource extends EventEmitter {
             this[key] = options[key];
         }
 
-        this.on("newListener", (eventName, listener) => {
+        this.on("newListener", (eventName) => {
             if (eventName === Resource.EVENT_NOTIFICATION) {
                 this.addSubscription({
                     fn: data => this.emit(Resource.EVENT_NOTIFICATION, data)
                 }, (error, asyncID) => {
-                    if (!this._api.handleNotifications) {
+                    if (!error && !this._api.handleNotifications) {
                         // return the asyncID for use with web hooks
                         this.emit(Resource.EVENT_NOTIFICATION, asyncID);
                     }
@@ -51,7 +51,7 @@ export class Resource extends EventEmitter {
             }
         });
 
-        this.on("removeListener", (eventName, listener) => {
+        this.on("removeListener", (eventName) => {
             if (eventName === Resource.EVENT_NOTIFICATION) {
                 if (this.listenerCount(Resource.EVENT_NOTIFICATION) === 0) {
                     this.deleteSubscription();

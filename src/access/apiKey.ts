@@ -60,16 +60,14 @@ export class ApiKey {
     public listGroups(callback?: (err: any, data?: Group[]) => any): Promise<Group[]> {
         return asyncStyle(done => {
             // AccessApi.listGroups should accept a filter which would be less intense to use
-            this.groups.forEach(groupId => {
-                this._api.listGroups((error, groups) => {
-                    if (error) return done(error);
+            this._api.listGroups((error, groups) => {
+                if (error) return done(error);
 
-                    let userGroups = groups.filter(group => {
-                        return this.groups.indexOf(group.id) > -1;
-                    });
-
-                    done(null, userGroups);
+                let userGroups = groups.filter(group => {
+                    return this.groups.indexOf(group.id) > -1;
                 });
+
+                done(null, userGroups);
             });
         }, callback);
     }
