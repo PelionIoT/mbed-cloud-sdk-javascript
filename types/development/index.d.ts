@@ -1,7 +1,31 @@
 import { ConnectionOptions } from "../common/interfaces";
 import { DeveloperCertificate } from "./developerCertificate";
 /**
- * Root Development API
+ * ## Development API
+ *
+ * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
+ *
+ * To create an instance of this API in [Node.js](https://nodejs.org):
+ *
+ * ```JavaScript
+ * var mbed = require("mbed-cloud-sdk");
+ *
+ * var development = new mbed.DevelopmentApi({
+ *     apiKey: "<mbed Cloud API Key>"
+ * });
+ * ```
+ *
+ * To create an instance of this API in the browser:
+ *
+ * ```html
+ * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ *
+ * <script>
+ *     var development = new mbed.DevelopmentApi({
+ *         apiKey: "<mbed Cloud API Key>"
+ *     });
+ * </script>
+ * ```
  */
 export declare class DevelopmentApi {
     private _endpoints;

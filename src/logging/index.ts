@@ -21,7 +21,31 @@ import { Endpoints } from "./endpoints";
 import { DeviceLog } from "./deviceLog";
 
 /**
- * Root Logging API
+ * ## Logging API
+ *
+ * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
+ *
+ * To create an instance of this API in [Node.js](https://nodejs.org):
+ *
+ * ```JavaScript
+ * var mbed = require("mbed-cloud-sdk");
+ *
+ * var logging = new mbed.LoggingApi({
+ *     apiKey: "<mbed Cloud API Key>"
+ * });
+ * ```
+ *
+ * To create an instance of this API in the browser:
+ *
+ * ```html
+ * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ *
+ * <script>
+ *     var logging = new mbed.LoggingApi({
+ *         apiKey: "<mbed Cloud API Key>"
+ *     });
+ * </script>
+ * ```
  */
 export class LoggingApi {
 

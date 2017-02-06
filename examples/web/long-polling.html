@@ -113,7 +113,9 @@
                     }
 
                     resource.getValue(updateValue);
-                    resource.on("notification", updateValue);
+                    resource.on("notification", function(value) {
+                        updateValue(null, value);
+                    });
 
                     // Update value
                     button.addEventListener("click", function() {

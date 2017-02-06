@@ -21,5 +21,21 @@ export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
 export { UpdateApi } from "./update";
 
+// Fix issues - replace all single value calls with value instead of object (#21)
+// Add "getting your API Key"" instructions to readme and make a more long-winded "getting started" mini guide:)
 // Add DeviceSubscriptions models?? <-perhaps after examples
 // add links to examples from inline code
+
+/**
+ * Root Access API:
+ * ----------------
+ * Available, not implemented
+ * access.activateUser
+ * access.applyPasswordRecovery
+ * access.getInvitedUser
+ * access.getSelfEnrollingUser
+ * access.registerAccount
+ * access.requestPasswordRecovery
+ * access.signup
+ * access.verifySelfEnrollment
+ */

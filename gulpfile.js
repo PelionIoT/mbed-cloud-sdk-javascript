@@ -10,8 +10,8 @@ var typedoc     = require("gulp-typedoc");
 var ts          = require("gulp-typescript");
 var uglify      = require("gulp-uglify");
 
-var name = "mbed Cloud SDK";
-var bundleName = name.replace(/\s/g, "");
+var name = "mbed Cloud SDK for JavaScript";
+var bundleName = "mbedCloudSDK";
 
 var srcDir = "src";
 var docsDir = "docs";
@@ -33,18 +33,16 @@ gulp.task("doc", function() {
     return gulp.src([srcDir + "/**/*.ts", "!" + srcDir + "/_api/**"])
     .pipe(typedoc({
         name: name,
-        readme: "./README.md",
+        readme: "src/documentation.md",
+        theme: "src/theme",
         module: "commonjs",
         target: "es6",
-        //mode: "file",
+        mode: "file",
         out: docsDir,
         excludeExternals: true,
         excludePrivate: true,
         hideGenerator: true,
-        //entryPoint: "mbedSDK"
-        //theme: "minimal"//"node_modules/typedoc-markdown-theme/bin"
-        //gaID
-        //gaSite
+        toc: "DevicesApi,AccessApi,DevelopmentApi,LoggingApi,UpdateApi,ConnectionOptions"
     }))
     .on("error", handleError);
 });
@@ -108,5 +106,5 @@ gulp.task("default", ["clean", "doc", "browserify"]);
 
 gulp.task("watch", ["default"], function() {
     watching = true;
-    gulp.watch(srcDir + "/**/*.*", ["doc", "browserify"]);
+    gulp.watch(srcDir + "/**/*.*", ["clean", "doc", "browserify"]);
 });

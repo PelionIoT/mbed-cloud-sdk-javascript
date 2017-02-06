@@ -26,17 +26,31 @@ import { ApiKey } from "./apiKey";
 import { Group } from "./group";
 
 /**
- * Root Access API:
- * ----------------
- * Available, not implemented
- * access.activateUser
- * access.applyPasswordRecovery
- * access.getInvitedUser
- * access.getSelfEnrollingUser
- * access.registerAccount
- * access.requestPasswordRecovery
- * access.signup
- * access.verifySelfEnrollment
+ * ## Access API
+ *
+ * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
+ *
+ * To create an instance of this API in [Node.js](https://nodejs.org):
+ *
+ * ```JavaScript
+ * var mbed = require("mbed-cloud-sdk");
+ *
+ * var access = new mbed.AccessApi({
+ *     apiKey: "<mbed Cloud API Key>"
+ * });
+ * ```
+ *
+ * To create an instance of this API in the browser:
+ *
+ * ```html
+ * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ *
+ * <script>
+ *     var access = new mbed.AccessApi({
+ *         apiKey: "<mbed Cloud API Key>"
+ *     });
+ * </script>
+ * ```
  */
 export class AccessApi {
 

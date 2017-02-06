@@ -5,8 +5,32 @@ import { FirmwareManifest } from "./firmwareManifest";
 import { Campaign } from "./campaign";
 import { CampaignState } from "./campaignState";
 /**
-* Root Update API
-*/
+ * ## Update API
+ *
+ * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
+ *
+ * To create an instance of this API in [Node.js](https://nodejs.org):
+ *
+ * ```JavaScript
+ * var mbed = require("mbed-cloud-sdk");
+ *
+ * var update = new mbed.UpdateApi({
+ *     apiKey: "<mbed Cloud API Key>"
+ * });
+ * ```
+ *
+ * To create an instance of this API in the browser:
+ *
+ * ```html
+ * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ *
+ * <script>
+ *     var update = new mbed.UpdateApi({
+ *         apiKey: "<mbed Cloud API Key>"
+ *     });
+ * </script>
+ * ```
+ */
 export declare class UpdateApi {
     private _endpoints;
     /**
