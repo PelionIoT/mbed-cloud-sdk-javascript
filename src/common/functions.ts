@@ -39,7 +39,7 @@ export function decodeBase64(payload, contentType) {
         result = new Buffer(payload, "base64").toString("utf8");
     }
 
-    if (typeof contentType != 'undefined' && contentType.indexOf("json") > -1) {
+    if (contentType && contentType.indexOf("json") > -1) {
         result = JSON.parse(result);
     }
 
