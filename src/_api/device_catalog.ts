@@ -275,7 +275,7 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Create device&lt;/p&gt;
      */
-    deviceCreate (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceCreate (callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
