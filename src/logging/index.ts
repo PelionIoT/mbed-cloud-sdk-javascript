@@ -38,7 +38,7 @@ import { DeviceLog } from "./deviceLog";
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ * <script src="<mbed-cloud-sdk>/bundles/logging.min.js"></script>
  *
  * <script>
  *     var logging = new mbed.LoggingApi({

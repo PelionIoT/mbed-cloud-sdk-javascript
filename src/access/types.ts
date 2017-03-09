@@ -15,15 +15,44 @@
 * limitations under the License.
 */
 
-export type AccountStatusEnum = "ENROLLING" | "ACTIVE" | "SUSPENDED" | "DISABLED";
+/**
+ * This object represents a policy. Either the feature or the resource must be specified.
+ */
+export interface Policy {
+    /**
+     * Comma separated list of actions, empty string represents all actions.
+     */
+    action?: string;
+    /**
+     * Resource that is protected by this policy.
+     */
+    resource?: string;
+    /**
+     * Feature name corresponding to this policy.
+     */
+    feature?: string;
+    /**
+     * True or false controlling whether an action is allowed or not.
+     */
+    allow?: boolean;
+}
+
 /**
  * This object represents an account in requests and responses.
  */
 export interface AccountType {
     /**
+     * List of sub accounts.
+     */
+    //subAccounts?: Array<AccountType>;
+    /**
+     * List of policies if requested.
+     */
+    policies?: Array<Policy>;
+    /**
      * The status of the account.
      */
-    status?: AccountStatusEnum;
+    status?: string;
     /**
      * The postal code part of the postal address.
      */
@@ -144,10 +173,6 @@ export interface UserType {
      */
     email: string;
     /**
-     * A list of IDs of the groups this user belongs to.
-     */
-    groups?: string[];
-    /**
      * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
      */
     readonly status: UserStatusEnum;
@@ -181,58 +206,11 @@ export interface UserType {
     lastLoginTime?: number;
 }
 
-export type CertificateServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
-/**
- * This object represents an CA Certificate in responses.
- */
-export interface CertificateType {
-    /**
-     * The UUID of the account.
-     */
-    accountId: string;
-    /**
-     * Service name where the certificate is to be used.
-     */
-    service: CertificateServiceEnum;
-    /**
-     * Creation UTC time RFC3339.
-     */
-    createdAt?: string;
-    /**
-     * Subject of the certificate.
-     */
-    subject: string;
-    /**
-     * Expiration time in UTC formatted as RFC3339.
-     */
-    validity: string;
-    /**
-     * Issuer of the certificate.
-     */
-    issuer: string;
-    /**
-     * X509.v3 CA certificate in PEM or base64 encoded DER format.
-     */
-    data: string;
-    /**
-     * Entity ID.
-     */
-    id: string;
-    /**
-     * Certificate name.
-     */
-    name: string;
-}
-
 export type KeyStatusEnum = "ACTIVE" | "INACTIVE";
 /**
  * This object represents an API key in mbed Cloud.
  */
 export interface ApiKeyType {
-    /**
-     * A list of group IDs this API key belongs to.
-     */
-    groups?: string[];
     /**
      * The status of the API key.
      */
@@ -261,38 +239,4 @@ export interface ApiKeyType {
      * The timestamp of the latest API key usage, in milliseconds.
      */
     lastLoginTime?: number;
-}
-
-/**
- * This object contains basic information about groups.
- */
-export interface GroupType {
-    /**
-     * The name of the group.
-     */
-    name: string;
-    /**
-     * A timestamp of the latest group update, in milliseconds.
-     */
-    lastUpdateTime?: number;
-    /**
-     * The number of API keys in this group.
-     */
-    apiKeyCount: number;
-    /**
-     * Creation UTC time RFC3339.
-     */
-    createdAt?: string;
-    /**
-     * A timestamp of the group creation in the storage, in milliseconds.
-     */
-    creationTime?: number;
-    /**
-     * The UUID of the group.
-     */
-    id: string;
-    /**
-     * The number of users in this group.
-     */
-    userCount: number;
 }

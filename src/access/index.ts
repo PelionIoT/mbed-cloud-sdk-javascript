@@ -17,13 +17,10 @@
 
 import { asyncStyle, mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { CertificateServiceEnum } from "./types";
 import { Endpoints } from "./endpoints";
 import { Account } from "./account";
-import { Certificate } from "./certificate";
 import { User } from "./user";
 import { ApiKey } from "./apiKey";
-import { Group } from "./group";
 
 /**
  * ## Access API
@@ -43,7 +40,7 @@ import { Group } from "./group";
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ * <script src="<mbed-cloud-sdk>/bundles/access.min.js"></script>
  *
  * <script>
  *     var access = new mbed.AccessApi({
@@ -135,7 +132,7 @@ export class AccessApi {
      */
     public listApiKeys(options?: ListOptions): Promise<ListResponse<ApiKey>>;
     /**
-     * List certificates
+     * List API keys
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
@@ -149,10 +146,9 @@ export class AccessApi {
 
         let { limit, after, order, include, attributes } = options as ListOptions;
         let owner = attributes ? attributes["owner"] : null;
-        let filter = encodeAttributes(attributes);
 
         return asyncStyle(done => {
-            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), filter, owner, (error, data) => {
+            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), owner, (error, data) => {
                 if (error) return done(error);
 
                 var keys = data.data.map(key => {
@@ -200,19 +196,17 @@ export class AccessApi {
      * Adds an API key
      * @param options.name The display name for the API key
      * @param options.owner The owner of this API key
-     * @param options.groups A list of group IDs this API key belongs to
      * @returns Promise containing API key
      */
-    public addApiKey(options: { name: string, owner?: string, groups?: string[] }): Promise<ApiKey>;
+    public addApiKey(options: { name: string, owner?: string }): Promise<ApiKey>;
     /**
      * Adds an API key
      * @param options.name The display name for the API key
      * @param options.owner The owner of this API key
-     * @param options.groups A list of group IDs this API key belongs to
      * @param callback A function that is passed the return arguments (error, API key)
      */
-    public addApiKey(options: { name: string, owner?: string, groups?: string[] }, callback: (err: any, data?: ApiKey) => any);
-    public addApiKey(options: { name: string, owner?: string, groups?: string[] }, callback?: (err: any, data?: ApiKey) => any): Promise<ApiKey> {
+    public addApiKey(options: { name: string, owner?: string }, callback: (err: any, data?: ApiKey) => any);
+    public addApiKey(options: { name: string, owner?: string }, callback?: (err: any, data?: ApiKey) => any): Promise<ApiKey> {
         return asyncStyle(done => {
             this._endpoints.developer.createApiKey(options, (error, data) => {
                 if (error) return done(error);
@@ -270,138 +264,6 @@ export class AccessApi {
     public deleteApiKey(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.developer.deleteApiKey(options.id, (error, data) => {
-                if (error) return done(error);
-                done(null, data);
-            });
-        }, callback);
-    }
-
-    /**
-     * List certificates
-     * @param options filter options
-     * @returns Promise of listResponse
-     */
-    public listCertificates(options?: ListOptions): Promise<ListResponse<Certificate>>;
-    /**
-     * List certificates
-     * @param options filter options
-     * @param callback A function that is passed the arguments (error, listResponse)
-     */
-    public listCertificates(options?: ListOptions, callback?: (err: any, data?: ListResponse<Certificate>) => any);
-    public listCertificates(options?: any, callback?: (err: any, data?: ListResponse<Certificate>) => any): Promise<ListResponse<Certificate>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
-
-        let { limit, after, order, include, attributes } = options as ListOptions;
-        let filter = encodeAttributes(attributes);
-
-        return asyncStyle(done => {
-            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), filter, (error, data) => {
-                if (error) return done(error);
-
-                var certificates = data.data.map(certificate => {
-                    return Certificate.map(certificate, this);
-                });
-                done(null, mapListResponse(data, certificates));
-            });
-        }, callback);
-    }
-
-    /**
-     * Get details of a certificate
-     * @param options.id The certificate ID
-     * @returns Promise containing the certificate
-     */
-    public getCertificate(options: { id: string }): Promise<Certificate>;
-    /**
-     * Get details of a certificate
-     * @param options.id The certificate ID
-     * @param callback A function that is passed the return arguments (error, certificate)
-     */
-    public getCertificate(options: { id: string }, callback: (err: any, data?: Certificate) => any);
-    public getCertificate(options: { id: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return asyncStyle(done => {
-            this._endpoints.admin.getCertificate(options.id, (error, data) => {
-                if (error) return done(error);
-                done(null, Certificate.map(data, this));
-            });
-        }, callback);
-    }
-
-    /**
-     * Adds a certificate
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @returns Promise containing certificate
-     */
-    public addCertificate(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }): Promise<Certificate>;
-    /**
-     * Adds a certificate
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @param callback A function that is passed the return arguments (error, certificate)
-     */
-    public addCertificate(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
-    public addCertificate(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return asyncStyle(done => {
-            this._endpoints.admin.addCertificate(Certificate.reverseMap(options), (error, data) => {
-                if (error) return done(error);
-                done(null, Certificate.map(data, this));
-            });
-        }, callback);
-    }
-
-    /**
-     * Updates a certificate
-     * @param options.id The certificate ID
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @returns Promise containing certificate
-     */
-    public updateCertificate(options: { id: string, name: string, service: CertificateServiceEnum, certificateData: string, signature: string }): Promise<Certificate>;
-    /**
-     * Updates a certificate
-     * @param options.id The certificate ID
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @param callback A function that is passed the return arguments (error, certificate)
-     */
-    public updateCertificate(options: { id: string, name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
-    public updateCertificate(options: { id: string, name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return asyncStyle(done => {
-            this._endpoints.admin.updateCertificate(options.id, Certificate.reverseMap(options), (error, data) => {
-                if (error) return done(error);
-                done(null, Certificate.map(data, this));
-            });
-        }, callback);
-    }
-
-    /**
-     * Deletes a certificate
-     * @param options.id The certificate ID
-     * @returns Promise containing any error
-     */
-    public deleteCertificate(options: { id: string }): Promise<void>;
-    /**
-     * Deletes a certificate
-     * @param options.id The certificate ID
-     * @param callback A function that is passed the return arguments (error, void)
-     */
-    public deleteCertificate(options: { id: string }, callback: (err: any, data?: void) => any);
-    public deleteCertificate(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.admin.deleteCertificate(options.id, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -474,11 +336,10 @@ export class AccessApi {
      * @param options.address Address
      * @param options.password The password when creating a new user. It will will generated when not present in the request
      * @param options.email The email address
-     * @param options. A list of IDs of the groups this user belongs to
      * @returns Promise containing user
      */
     public addUser(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
-        fullName?: string, address?: string, password?: string, email: string, groups?: string[] }): Promise<User>;
+        fullName?: string, address?: string, password?: string, email: string }): Promise<User>;
     /**
      * Adds a user
      * @param options.username A username containing alphanumerical letters and -,._@+= characters
@@ -489,13 +350,12 @@ export class AccessApi {
      * @param options.address Address
      * @param options.password The password when creating a new user. It will will generated when not present in the request
      * @param options.email The email address
-     * @param options. A list of IDs of the groups this user belongs to
      * @param callback A function that is passed the return arguments (error, user)
      */
     public addUser(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
-        fullName?: string, address?: string, password?: string, email: string, groups?: string[] }, callback: (err: any, data?: User) => any);
+        fullName?: string, address?: string, password?: string, email: string }, callback: (err: any, data?: User) => any);
     public addUser(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
-        fullName?: string, address?: string, password?: string, email: string, groups?: string[] }, callback?: (err: any, data?: User) => any): Promise<User> {
+        fullName?: string, address?: string, password?: string, email: string }, callback?: (err: any, data?: User) => any): Promise<User> {
         return asyncStyle(done => {
             let apiUser = User.reverseMap(options);
             this._endpoints.admin.createUser(apiUser, "create", (error, data) => {
@@ -565,40 +425,6 @@ export class AccessApi {
             this._endpoints.admin.deleteUser(options.id, options.force, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
-            });
-        }, callback);
-    }
-
-    /**
-     * List groups
-     * @param options filter options
-     * @returns Promise of listResponse
-     */
-    public listGroups(options?: ListOptions): Promise<ListResponse<Group>>;
-    /**
-     * List groups
-     * @param options filter options
-     * @param callback A function that is passed the arguments (error, listResponse)
-     */
-    public listGroups(options?: ListOptions, callback?: (err: any, data?: ListResponse<Group>) => any);
-    public listGroups(options?: any, callback?: (err: any, data?: ListResponse<Group>) => any): Promise<ListResponse<Group>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
-
-        let { limit, after, order, include } = options as ListOptions;
-
-        return asyncStyle(done => {
-            this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let groups = data.data.map(user => {
-                    return Group.map(user);
-                });
-
-                done(null, mapListResponse(data, groups));
             });
         }, callback);
     }

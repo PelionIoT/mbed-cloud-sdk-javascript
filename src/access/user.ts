@@ -23,7 +23,6 @@ import {
     UserInfoResp as apiUser
 } from "../_api/iam";
 import { AccessApi } from "./index";
-import { Group } from "./group";
 import { ApiKey } from "./apiKey";
 
 /*
@@ -46,7 +45,6 @@ export class User {
             email:                from.email,
             emailVerified:        from.email_verified,
             fullName:             from.full_name,
-            groups:               from.groups,
             termsAccepted:        from.is_gtc_accepted,
             id:                   from.id,
             lastLoginTime:        from.last_login_time,
@@ -63,10 +61,10 @@ export class User {
 
     static reverseMap(from: any): apiUserRequest {
         return {
+            id:                       null,
             username:                 from.username,
             phone_number:             from.phoneNumber,
             is_marketing_accepted:    from.marketingAccepted,
-            groups:                   from.groups,
             is_gtc_accepted:          from.termsAccepted,
             full_name:                from.fullName,
             address:                  from.address,
@@ -117,31 +115,6 @@ export class User {
                 termsAccepted:        options.termsAccepted,
                 username:             options.username
             }, done);
-        }, callback);
-    }
-
-    /**
-     * List the groups this user belongs to
-     * @returns Promise containing groups
-     */
-    public listGroups(): Promise<Group[]>;
-    /**
-     * List the groups this user belongs to
-     * @param callback A function that is passed the return arguments (error, groups)
-     */
-    public listGroups(callback: (err: any, data?: Group[]) => any);
-    public listGroups(callback?: (err: any, data?: Group[]) => any): Promise<Group[]> {
-        return asyncStyle(done => {
-            // AccessApi.listGroups should accept a filter which would be less intense to use
-            this._api.listGroups((error, groups) => {
-                if (error) return done(error);
-
-                let userGroups = groups.filter(group => {
-                    return this.groups.indexOf(group.id) > -1;
-                });
-
-                done(null, userGroups);
-            });
         }, callback);
     }
 

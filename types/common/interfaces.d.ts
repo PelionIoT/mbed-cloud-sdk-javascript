@@ -8,6 +8,9 @@ export interface ConnectionOptions {
     */
     host?: string;
 }
+export interface CallbackFn<T> {
+    (err: any, data?: T): any;
+}
 /**
  * Possible optional fields to request when listing
  */

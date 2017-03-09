@@ -2,7 +2,6 @@ import { ListOptions } from "../common/interfaces";
 import { UserType } from "./types";
 import { UserInfoReq as apiUserRequest, UserInfoResp as apiUser } from "../_api/iam";
 import { AccessApi } from "./index";
-import { Group } from "./group";
 import { ApiKey } from "./apiKey";
 export declare class User {
     private _api;
@@ -53,16 +52,6 @@ export declare class User {
         password?: string;
         email: string;
     }, callback: (err: any, data?: User) => any): any;
-    /**
-     * List the groups this user belongs to
-     * @returns Promise containing groups
-     */
-    listGroups(): Promise<Group[]>;
-    /**
-     * List the groups this user belongs to
-     * @param callback A function that is passed the return arguments (error, groups)
-     */
-    listGroups(callback: (err: any, data?: Group[]) => any): any;
     /**
      * List the API keys for this user
      * @returns Promise containing API keys

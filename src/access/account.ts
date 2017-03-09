@@ -48,7 +48,7 @@ export class Account {
             email:                  from.email,
             id:                     from.id,
             limits:                 from.limits,
-            parentId:               from.parentID,
+            parentId:               from.parent_id,
             phoneNumber:            from.phone_number,
             postcode:               from.postal_code,
             provisioningAllowed:    from.is_provisioning_allowed,

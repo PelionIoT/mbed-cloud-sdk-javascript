@@ -16,26 +16,18 @@
 */
 
 export { AccessApi } from "./access";
-export { DevelopmentApi } from "./development";
+export { CertificatesApi } from "./certificates";
 export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
 export { UpdateApi } from "./update";
 
-// Fix issues - replace all single value calls with value instead of object (#21)
-// Add "getting your API Key"" instructions to readme and make a more long-winded "getting started" mini guide:)
-// Add DeviceSubscriptions models?? <-perhaps after examples
-// add links to examples from inline code
+// add policies and subAccounts to iam.accounttype
+// add listPolicies and listSubAccounts to User
+// document includeExpired and type on listCertificates()
+// update certificate example
 
-/**
- * Root Access API:
- * ----------------
- * Available, not implemented
- * access.activateUser
- * access.applyPasswordRecovery
- * access.getInvitedUser
- * access.getSelfEnrollingUser
- * access.registerAccount
- * access.requestPasswordRecovery
- * access.signup
- * access.verifySelfEnrollment
- */
+// work out how new filters work __eq, etc.
+// strongly type all add/update objects?
+// add typed callbackfn?
+// Fix issues - replace all single value calls with value instead of object (#21)
+// Add DeviceSubscriptions models?? <-perhaps after examples

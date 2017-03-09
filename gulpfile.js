@@ -42,7 +42,7 @@ gulp.task("doc", function() {
         excludeExternals: true,
         excludePrivate: true,
         hideGenerator: true,
-        toc: "DevicesApi,AccessApi,DevelopmentApi,LoggingApi,UpdateApi,ConnectionOptions"
+        toc: "DevicesApi,AccessApi,CertificatesApi,LoggingApi,UpdateApi,ConnectionOptions"
     }))
     .on("error", handleError);
 });
@@ -106,5 +106,5 @@ gulp.task("default", ["clean", "doc", "browserify"]);
 
 gulp.task("watch", ["default"], function() {
     watching = true;
-    gulp.watch(srcDir + "/**/*.*", ["clean", "doc", "browserify"]);
+    gulp.watch(srcDir + "/**/*.*", ["default"]);
 });

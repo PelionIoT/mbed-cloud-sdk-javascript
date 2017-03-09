@@ -915,9 +915,6 @@ img { max-width: 100%; }
 					<a href="user.html#fullname" class="tsd-kind-icon">full<wbr>Name</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a href="user.html#groups" class="tsd-kind-icon">groups</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a href="user.html#id" class="tsd-kind-icon">id</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
@@ -949,9 +946,6 @@ img { max-width: 100%; }
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="user.html#listapikeys" class="tsd-kind-icon">list<wbr>Api<wbr>Keys</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="user.html#listgroups" class="tsd-kind-icon">list<wbr>Groups</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="user.html#update" class="tsd-kind-icon">update</a>
@@ -1001,7 +995,6 @@ img { max-width: 100%; }
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="user.html#email" class="tsd-kind-icon">email</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="user.html#emailverified" class="tsd-kind-icon">email<wbr>Verified</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="user.html#fullname" class="tsd-kind-icon">full<wbr>Name</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="user.html#groups" class="tsd-kind-icon">groups</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="user.html#id" class="tsd-kind-icon">id</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="user.html#lastlogintime" class="tsd-kind-icon">last<wbr>Login<wbr>Time</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="user.html#marketingaccepted" class="tsd-kind-icon">marketing<wbr>Accepted</a></li>
@@ -1018,7 +1011,6 @@ img { max-width: 100%; }
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="user.html#delete" class="tsd-kind-icon">delete</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="user.html#listapikeys" class="tsd-kind-icon">list<wbr>Api<wbr>Keys</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="user.html#listgroups" class="tsd-kind-icon">list<wbr>Groups</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="user.html#update" class="tsd-kind-icon">update</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="user.html#map" class="tsd-kind-icon">map</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="user.html#reversemap" class="tsd-kind-icon">reverse<wbr>Map</a></li>
@@ -1143,19 +1135,6 @@ img { max-width: 100%; }
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<p>The full name of the user.</p>
-					</div>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-				<a name="groups" class="tsd-anchor"></a>
-				<h3>groups</h3>
-				<div class="tsd-signature tsd-kind-icon">groups<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
-				<aside class="tsd-sources">
-					<p>Inherited from <a href="../interfaces/usertype.html">UserType</a>.<a href="../interfaces/usertype.html#groups">groups</a></p>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>A list of IDs of the groups this user belongs to.</p>
 					</div>
 				</div>
 			</section>
@@ -1397,67 +1376,6 @@ img { max-width: 100%; }
 													</li>
 													<li>
 														<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <a href="apikey.html" class="tsd-signature-type">ApiKey</a><span class="tsd-signature-symbol">[]</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="listgroups" class="tsd-anchor"></a>
-				<h3>list<wbr>Groups</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Groups<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="group.html" class="tsd-signature-type">Group</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Groups<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>List the groups this user belongs to</p>
-							</div>
-						</div>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="group.html" class="tsd-signature-type">Group</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						<p>Promise containing groups</p>
-					</li>
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>List the groups this user belongs to</p>
-							</div>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>callback: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>A function that is passed the return arguments (error, groups)</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><a href="group.html" class="tsd-signature-type">Group</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>err: <span class="tsd-signature-type">any</span></h5>
-													</li>
-													<li>
-														<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <a href="group.html" class="tsd-signature-type">Group</a><span class="tsd-signature-symbol">[]</span></h5>
 													</li>
 												</ul>
 												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>

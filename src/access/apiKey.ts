@@ -19,7 +19,6 @@ import { asyncStyle } from "../common/functions";
 import { ApiKeyType } from "./types";
 import { ApiKeyInfoResp as apiApiKey } from "../_api/iam";
 import { AccessApi } from "./index";
-import { Group } from "./group";
 
 /*
  * API Key
@@ -35,7 +34,6 @@ export class ApiKey {
     static map(from: apiApiKey, api: AccessApi): ApiKey {
         let type:ApiKeyType = {
             createdAt:        from.created_at,
-            groups:           from.groups,
             id:               from.id,
             key:              from.key,
             lastLoginTime:    from.last_login_time,
@@ -45,31 +43,6 @@ export class ApiKey {
         };
 
         return new ApiKey(type, api);
-    }
-
-    /**
-     * List the groups this API key belongs to
-     * @returns Promise containing groups
-     */
-    public listGroups(): Promise<Group[]>;
-    /**
-     * List the groups this API key belongs to
-     * @param callback A function that is passed the return arguments (error, groups)
-     */
-    public listGroups(callback: (err: any, data?: Group[]) => any);
-    public listGroups(callback?: (err: any, data?: Group[]) => any): Promise<Group[]> {
-        return asyncStyle(done => {
-            // AccessApi.listGroups should accept a filter which would be less intense to use
-            this._api.listGroups((error, groups) => {
-                if (error) return done(error);
-
-                let userGroups = groups.filter(group => {
-                    return this.groups.indexOf(group.id) > -1;
-                });
-
-                done(null, userGroups);
-            });
-        }, callback);
     }
 
     /**

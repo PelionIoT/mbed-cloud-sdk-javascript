@@ -1,10 +1,7 @@
 import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { CertificateServiceEnum } from "./types";
 import { Account } from "./account";
-import { Certificate } from "./certificate";
 import { User } from "./user";
 import { ApiKey } from "./apiKey";
-import { Group } from "./group";
 /**
  * ## Access API
  *
@@ -23,7 +20,7 @@ import { Group } from "./group";
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ * <script src="<mbed-cloud-sdk>/bundles/access.min.js"></script>
  *
  * <script>
  *     var access = new mbed.AccessApi({
@@ -119,7 +116,7 @@ export declare class AccessApi {
      */
     listApiKeys(options?: ListOptions): Promise<ListResponse<ApiKey>>;
     /**
-     * List certificates
+     * List API keys
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
@@ -144,25 +141,21 @@ export declare class AccessApi {
      * Adds an API key
      * @param options.name The display name for the API key
      * @param options.owner The owner of this API key
-     * @param options.groups A list of group IDs this API key belongs to
      * @returns Promise containing API key
      */
     addApiKey(options: {
         name: string;
         owner?: string;
-        groups?: string[];
     }): Promise<ApiKey>;
     /**
      * Adds an API key
      * @param options.name The display name for the API key
      * @param options.owner The owner of this API key
-     * @param options.groups A list of group IDs this API key belongs to
      * @param callback A function that is passed the return arguments (error, API key)
      */
     addApiKey(options: {
         name: string;
         owner?: string;
-        groups?: string[];
     }, callback: (err: any, data?: ApiKey) => any): any;
     /**
      * Updates an API key
@@ -202,110 +195,6 @@ export declare class AccessApi {
      * @param callback A function that is passed the return arguments (error, void)
      */
     deleteApiKey(options: {
-        id: string;
-    }, callback: (err: any, data?: void) => any): any;
-    /**
-     * List certificates
-     * @param options filter options
-     * @returns Promise of listResponse
-     */
-    listCertificates(options?: ListOptions): Promise<ListResponse<Certificate>>;
-    /**
-     * List certificates
-     * @param options filter options
-     * @param callback A function that is passed the arguments (error, listResponse)
-     */
-    listCertificates(options?: ListOptions, callback?: (err: any, data?: ListResponse<Certificate>) => any): any;
-    /**
-     * Get details of a certificate
-     * @param options.id The certificate ID
-     * @returns Promise containing the certificate
-     */
-    getCertificate(options: {
-        id: string;
-    }): Promise<Certificate>;
-    /**
-     * Get details of a certificate
-     * @param options.id The certificate ID
-     * @param callback A function that is passed the return arguments (error, certificate)
-     */
-    getCertificate(options: {
-        id: string;
-    }, callback: (err: any, data?: Certificate) => any): any;
-    /**
-     * Adds a certificate
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @returns Promise containing certificate
-     */
-    addCertificate(options: {
-        name: string;
-        service: CertificateServiceEnum;
-        certificateData: string;
-        signature: string;
-    }): Promise<Certificate>;
-    /**
-     * Adds a certificate
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @param callback A function that is passed the return arguments (error, certificate)
-     */
-    addCertificate(options: {
-        name: string;
-        service: CertificateServiceEnum;
-        certificateData: string;
-        signature: string;
-    }, callback: (err: any, data?: Certificate) => any): any;
-    /**
-     * Updates a certificate
-     * @param options.id The certificate ID
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @returns Promise containing certificate
-     */
-    updateCertificate(options: {
-        id: string;
-        name: string;
-        service: CertificateServiceEnum;
-        certificateData: string;
-        signature: string;
-    }): Promise<Certificate>;
-    /**
-     * Updates a certificate
-     * @param options.id The certificate ID
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @param callback A function that is passed the return arguments (error, certificate)
-     */
-    updateCertificate(options: {
-        id: string;
-        name: string;
-        service: CertificateServiceEnum;
-        certificateData: string;
-        signature: string;
-    }, callback: (err: any, data?: Certificate) => any): any;
-    /**
-     * Deletes a certificate
-     * @param options.id The certificate ID
-     * @returns Promise containing any error
-     */
-    deleteCertificate(options: {
-        id: string;
-    }): Promise<void>;
-    /**
-     * Deletes a certificate
-     * @param options.id The certificate ID
-     * @param callback A function that is passed the return arguments (error, void)
-     */
-    deleteCertificate(options: {
         id: string;
     }, callback: (err: any, data?: void) => any): any;
     /**
@@ -346,7 +235,6 @@ export declare class AccessApi {
      * @param options.address Address
      * @param options.password The password when creating a new user. It will will generated when not present in the request
      * @param options.email The email address
-     * @param options. A list of IDs of the groups this user belongs to
      * @returns Promise containing user
      */
     addUser(options: {
@@ -358,7 +246,6 @@ export declare class AccessApi {
         address?: string;
         password?: string;
         email: string;
-        groups?: string[];
     }): Promise<User>;
     /**
      * Adds a user
@@ -370,7 +257,6 @@ export declare class AccessApi {
      * @param options.address Address
      * @param options.password The password when creating a new user. It will will generated when not present in the request
      * @param options.email The email address
-     * @param options. A list of IDs of the groups this user belongs to
      * @param callback A function that is passed the return arguments (error, user)
      */
     addUser(options: {
@@ -382,7 +268,6 @@ export declare class AccessApi {
         address?: string;
         password?: string;
         email: string;
-        groups?: string[];
     }, callback: (err: any, data?: User) => any): any;
     /**
      * Updates a user
@@ -452,16 +337,4 @@ export declare class AccessApi {
         id: string;
         force?: string;
     }, callback: (err: any, data?: void) => any): any;
-    /**
-     * List groups
-     * @param options filter options
-     * @returns Promise of listResponse
-     */
-    listGroups(options?: ListOptions): Promise<ListResponse<Group>>;
-    /**
-     * List groups
-     * @param options filter options
-     * @param callback A function that is passed the arguments (error, listResponse)
-     */
-    listGroups(options?: ListOptions, callback?: (err: any, data?: ListResponse<Group>) => any): any;
 }

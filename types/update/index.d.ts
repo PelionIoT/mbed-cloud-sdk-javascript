@@ -22,7 +22,7 @@ import { CampaignState } from "./campaignState";
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ * <script src="<mbed-cloud-sdk>/bundles/update.min.js"></script>
  *
  * <script>
  *     var update = new mbed.UpdateApi({
