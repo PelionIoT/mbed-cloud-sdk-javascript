@@ -20,6 +20,12 @@
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
 
+export interface Body {
+    "query": string;
+    "description"?: string;
+    "name": string;
+}
+
 export interface DeviceQuery {
     /**
      * The description of the object
@@ -63,7 +69,7 @@ export interface DeviceQueryPage {
     "object": string;
     "has_more": boolean;
     "total_count": number;
-    "after": string;
+    "after"?: string;
     "limit": number;
     "data": Array<DeviceQuery>;
     "order": string;
@@ -321,13 +327,9 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Update device query.&lt;/p&gt;
      * @param queryId 
-     * @param name The name of the query
-     * @param query The device query
-     * @param description The description of the object
-     * @param object The API resource entity
-     * @param queryId2 DEPRECATED: The ID of the query
+     * @param body Device query update object
      */
-    deviceQueryUpdate (queryId: string, name: string, query: string, description?: string, object?: string, queryId2?: string, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceQueryUpdate (queryId: string, body: Body, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "queryId" is set
         if (queryId === null || queryId === undefined) {
             if (callback) {
@@ -335,17 +337,10 @@ export class DefaultApi extends ApiBase {
             }
             return;
         }
-        // verify required parameter "name" is set
-        if (name === null || name === undefined) {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'name' missing when calling 'deviceQueryUpdate'."));
-            }
-            return;
-        }
-        // verify required parameter "query" is set
-        if (query === null || query === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'query' missing when calling 'deviceQueryUpdate'."));
+                callback(new Error("Required parameter 'body' missing when calling 'deviceQueryUpdate'."));
             }
             return;
         }
@@ -356,26 +351,6 @@ export class DefaultApi extends ApiBase {
 
         let useFormData = false;
         let formParams: any = {};
-        if (description !== undefined) {
-            formParams['description'] = description;
-        }
-
-        if (name !== undefined) {
-            formParams['name'] = name;
-        }
-
-        if (object !== undefined) {
-            formParams['object'] = object;
-        }
-
-        if (query !== undefined) {
-            formParams['query'] = query;
-        }
-
-        if (queryId2 !== undefined) {
-            formParams['query_id'] = queryId2;
-        }
-
 
         return this.request({
             url: '/v3/device-queries/{query_id}/'.replace('{' + 'query_id' + '}', String(queryId)),
@@ -385,6 +360,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
+            body: body,
         }, callback);
     }
 }

@@ -310,12 +310,13 @@ export interface AccountEnrollmentResp {
 /**
  * This object represents an account in requests and responses.
  */
+export type AccountInfoStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
 export type AccountInfoObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface AccountInfo {
     /**
      * The status of the account.
      */
-    "status": string;
+    "status": AccountInfoStatusEnum;
     /**
      * The postal code part of the postal address.
      */
@@ -377,6 +378,10 @@ export interface AccountInfo {
      * Entity name: always 'account'
      */
     "object": AccountInfoObjectEnum;
+    /**
+     * A reason note for updating the status of the account
+     */
+    "reason"?: string;
     /**
      * Time when upgraded to commercial account in UTC format RFC3339.
      */
@@ -626,6 +631,64 @@ export interface AccountTemplateRespList {
 }
 
 /**
+ * This object represents an account creation request.
+ */
+export interface AccountUpdateReq {
+    /**
+     * Postal address line 2.
+     */
+    "address_line2"?: string;
+    /**
+     * The city part of the postal address.
+     */
+    "city"?: string;
+    /**
+     * Postal address line 1.
+     */
+    "address_line1"?: string;
+    /**
+     * The display name for the account.
+     */
+    "display_name"?: string;
+    /**
+     * The country part of the postal address.
+     */
+    "country"?: string;
+    /**
+     * The name of the company.
+     */
+    "company"?: string;
+    /**
+     * The state part of the postal address.
+     */
+    "state"?: string;
+    /**
+     * The name of the contact person for this account.
+     */
+    "contact"?: string;
+    /**
+     * The postal code part of the postal address.
+     */
+    "postal_code"?: string;
+    /**
+     * The ID of the parent account, if it has any.
+     */
+    "parentID"?: string;
+    /**
+     * The phone number of the company.
+     */
+    "phone_number"?: string;
+    /**
+     * The company email address for this account.
+     */
+    "email"?: string;
+    /**
+     * An array of aliases.
+     */
+    "aliases"?: Array<string>;
+}
+
+/**
  * This object represents an account update request.
  */
 export interface AccountUpdateRootReq {
@@ -661,6 +724,10 @@ export interface AccountUpdateRootReq {
      * The name of the company.
      */
     "company"?: string;
+    /**
+     * A reason note for changing account status. Manageable by the root admin only.
+     */
+    "reason"?: string;
     /**
      * Account template ID. Manageable by the root admin only.
      */
@@ -809,6 +876,20 @@ export interface ApiKeyInfoRespList {
      * The order of the records to return. Available values: ASC, DESC; by default ASC.
      */
     "order"?: ApiKeyInfoRespListOrderEnum;
+}
+
+/**
+ * This object represents an API key in requests towards mbed Cloud.
+ */
+export interface ApiKeyUpdateReq {
+    /**
+     * The owner of this API key, who is the creator by default.
+     */
+    "owner"?: string;
+    /**
+     * The display name for the API key.
+     */
+    "name": string;
 }
 
 /**
@@ -1120,7 +1201,7 @@ export interface SubjectList {
 /**
  * This object represents a trusted certificate in internal requests.
  */
-export type TrustedCertificateInternalReqServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
+export type TrustedCertificateInternalReqServiceEnum = "lwm2m" | "bootstrap";
 export interface TrustedCertificateInternalReq {
     /**
      * X509.v3 private key in PEM or base64 encoded DER format.
@@ -1151,7 +1232,7 @@ export interface TrustedCertificateInternalReq {
 /**
  * This object represents a trusted certificate in responses.
  */
-export type TrustedCertificateInternalRespServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
+export type TrustedCertificateInternalRespServiceEnum = "lwm2m" | "bootstrap";
 export type TrustedCertificateInternalRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface TrustedCertificateInternalResp {
     /**
@@ -1249,7 +1330,7 @@ export interface TrustedCertificateInternalRespList {
 /**
  * This object represents a trusted certificate in requests.
  */
-export type TrustedCertificateReqServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
+export type TrustedCertificateReqServiceEnum = "lwm2m" | "bootstrap";
 export interface TrustedCertificateReq {
     /**
      * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
@@ -1276,7 +1357,7 @@ export interface TrustedCertificateReq {
 /**
  * This object represents a trusted certificate in responses.
  */
-export type TrustedCertificateRespServiceEnum = "lwm2m" | "bootstrap" | "provisioning";
+export type TrustedCertificateRespServiceEnum = "lwm2m" | "bootstrap";
 export type TrustedCertificateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface TrustedCertificateResp {
     /**
@@ -1678,23 +1759,15 @@ export class AccountAdminApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Add members to a group.
-     * An endpoint for adding users and API keys to groups.
-     * @param groupID The ID of the group to be updated.
-     * @param body A list of users and API keys to be added to the group.
+     * Add an alias.
+     * Adds an alias to the account.
+     * @param alias 
      */
-    addSubjectsToGroup (groupID: string, body: SubjectList, callback?: (error:any, data?:UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "groupID" is set
-        if (groupID === null || groupID === undefined) {
+    addMyAccountAlias (alias: string, callback?: (error:any, data?:UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "alias" is set
+        if (alias === null || alias === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'addSubjectsToGroup'."));
-            }
-            return;
-        }
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'addSubjectsToGroup'."));
+                callback(new Error("Required parameter 'alias' missing when calling 'addMyAccountAlias'."));
             }
             return;
         }
@@ -1707,86 +1780,13 @@ export class AccountAdminApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/policy-groups/{groupID}'.replace('{' + 'groupID' + '}', String(groupID)),
-            method: 'POST',
+            url: '/v3/accounts/me/alias/{alias}'.replace('{' + 'alias' + '}', String(alias)),
+            method: 'PUT',
             headers: headerParams,
             query: queryParameters,
             useFormData: useFormData,
             formParams: formParams,
             json: true,
-            body: body,
-        }, callback);
-    }
-    /** 
-     * Add users to a group.
-     * An endpoint for adding users to groups.
-     * @param groupID The ID of the group to be updated.
-     * @param body A list of users to be added to the group.
-     */
-    addUsersToGroup (groupID: string, body: SubjectList, callback?: (error:any, data?:UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "groupID" is set
-        if (groupID === null || groupID === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'addUsersToGroup'."));
-            }
-            return;
-        }
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'addUsersToGroup'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/policy-groups/{groupID}/users'.replace('{' + 'groupID' + '}', String(groupID)),
-            method: 'POST',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-            body: body,
-        }, callback);
-    }
-    /** 
-     * Create a new group.
-     * An endpoint for creating a new group.
-     * @param body Details of the group to be created.
-     */
-    createGroup (body: GroupCreationInfo, callback?: (error:any, data?:GroupSummary, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'createGroup'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/policy-groups',
-            method: 'POST',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-            body: body,
         }, callback);
     }
     /** 
@@ -1848,37 +1848,6 @@ export class AccountAdminApi extends ApiBase {
 
         return this.request({
             url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
-            method: 'DELETE',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * Delete a group.
-     * An endpoint for deleting a group.
-     * @param groupID The ID of the group to be deleted.
-     */
-    deleteGroup (groupID: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "groupID" is set
-        if (groupID === null || groupID === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'deleteGroup'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/policy-groups/{groupID}'.replace('{' + 'groupID' + '}', String(groupID)),
             method: 'DELETE',
             headers: headerParams,
             query: queryParameters,
@@ -2083,53 +2052,6 @@ export class AccountAdminApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Get users of a group.
-     * An endpoint for listing the users of a group with details.
-     * @param groupID The ID of the group whose users are retrieved.
-     * @param limit The number of results to return (2-1000), default is 50.
-     * @param after The entity ID to fetch after the given one.
-     * @param order The order of the records, ASC or DESC; by default ASC
-     * @param include Comma separated additional data to return. Currently supported: total_count
-     */
-    getUsersOfGroup (groupID: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error:any, data?:UserInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "groupID" is set
-        if (groupID === null || groupID === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'getUsersOfGroup'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/policy-groups/{groupID}/users'.replace('{' + 'groupID' + '}', String(groupID)),
-            method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
      * Remove an alias.
      * Removes an alias from the account.
      * @param accountID The ID of the account to be updated.
@@ -2169,23 +2091,15 @@ export class AccountAdminApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Remove users from a group.
-     * An endpoint for removing users from groups.
-     * @param groupID The ID of the group whose users are removed.
-     * @param body A list of users to be removed from the group.
+     * Remove an alias.
+     * Removes an alias from the account.
+     * @param alias Account alias to be removed.
      */
-    removeUsersFromGroup (groupID: string, body: SubjectList, callback?: (error:any, data?:UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "groupID" is set
-        if (groupID === null || groupID === undefined) {
+    removeMyAccountAlias (alias: string, callback?: (error:any, data?:UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "alias" is set
+        if (alias === null || alias === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'removeUsersFromGroup'."));
-            }
-            return;
-        }
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'removeUsersFromGroup'."));
+                callback(new Error("Required parameter 'alias' missing when calling 'removeMyAccountAlias'."));
             }
             return;
         }
@@ -2198,14 +2112,13 @@ export class AccountAdminApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/policy-groups/{groupID}/users'.replace('{' + 'groupID' + '}', String(groupID)),
+            url: '/v3/accounts/me/alias/{alias}'.replace('{' + 'alias' + '}', String(alias)),
             method: 'DELETE',
             headers: headerParams,
             query: queryParameters,
             useFormData: useFormData,
             formParams: formParams,
             json: true,
-            body: body,
         }, callback);
     }
     /** 
@@ -2270,6 +2183,38 @@ export class AccountAdminApi extends ApiBase {
 
         return this.request({
             url: '/v3/accounts/{accountID}/alias'.replace('{' + 'accountID' + '}', String(accountID)),
+            method: 'POST',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+            body: body,
+        }, callback);
+    }
+    /** 
+     * Set aliases.
+     * Defines the aliases of the account and overwrites the previous set of aliases.
+     * @param body List of aliases to be set.
+     */
+    setMyAccountAliases (body: Array<string>, callback?: (error:any, data?:UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'body' missing when calling 'setMyAccountAliases'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/accounts/me/alias',
             method: 'POST',
             headers: headerParams,
             query: queryParameters,
@@ -2350,6 +2295,38 @@ export class AccountAdminApi extends ApiBase {
 
         return this.request({
             url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
+            method: 'PUT',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+            body: body,
+        }, callback);
+    }
+    /** 
+     * Updates attributes of the account.
+     * An endpoint for updating the account.
+     * @param body Details of the account to be updated.
+     */
+    updateMyAccount (body: AccountUpdateReq, callback?: (error:any, data?:AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'body' missing when calling 'updateMyAccount'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/accounts/me',
             method: 'PUT',
             headers: headerParams,
             query: queryParameters,
@@ -2776,7 +2753,7 @@ export class DefaultApi extends ApiBase {
      * The heartbeat method for this API.
      * 
      */
-    headAllCertificates (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    headAllApiKeys (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -2786,7 +2763,7 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/trusted-certificates',
+            url: '/v3/api-keys',
             method: 'HEAD',
             headers: headerParams,
             query: queryParameters,
@@ -2799,7 +2776,7 @@ export class DefaultApi extends ApiBase {
      * The heartbeat method for this API.
      * 
      */
-    headAllGroups (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    headAllCertificates (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -2809,7 +2786,7 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/policy-groups',
+            url: '/v3/trusted-certificates',
             method: 'HEAD',
             headers: headerParams,
             query: queryParameters,
@@ -2902,6 +2879,52 @@ export class DefaultApi extends ApiBase {
 
         return this.request({
             url: '/auth/invitations',
+            method: 'HEAD',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * The heartbeat method for this API.
+     * 
+     */
+    headMyAccount (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/accounts/me',
+            method: 'HEAD',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * The heartbeat method for this API.
+     * 
+     */
+    headMyApiKey (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/api-keys/me',
             method: 'HEAD',
             headers: headerParams,
             query: queryParameters,
@@ -3158,46 +3181,6 @@ export class DefaultApi extends ApiBase {
 export class DeveloperApi extends ApiBase {
 
     /** 
-     * Add API keys to a group.
-     * Ann endpoint for adding API keys to groups.
-     * @param groupID The ID of the group to be updated.
-     * @param body A list of API keys to be added to the group.
-     */
-    addApiKeysToGroup (groupID: string, body: SubjectList, callback?: (error:any, data?:UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "groupID" is set
-        if (groupID === null || groupID === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'addApiKeysToGroup'."));
-            }
-            return;
-        }
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'addApiKeysToGroup'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/policy-groups/{groupID}/api-keys'.replace('{' + 'groupID' + '}', String(groupID)),
-            method: 'POST',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-            body: body,
-        }, callback);
-    }
-    /** 
      * Change the password of the current user.
      * An endpoint for changing the password of the logged in user.
      * @param body Old and new password.
@@ -3227,6 +3210,69 @@ export class DeveloperApi extends ApiBase {
             formParams: formParams,
             json: true,
             body: body,
+        }, callback);
+    }
+    /** 
+     * Create a new API key.
+     * An endpoint for creating a new API key.
+     * @param body The details of the API key to be created.
+     */
+    createApiKey (body: ApiKeyInfoReq, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'body' missing when calling 'createApiKey'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/api-keys',
+            method: 'POST',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+            body: body,
+        }, callback);
+    }
+    /** 
+     * Delete API key.
+     * An endpoint for deleting the API key.
+     * @param apiKey The ID of the API key to be deleted.
+     */
+    deleteApiKey (apiKey: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'apiKey' missing when calling 'deleteApiKey'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/api-keys/{apiKey}'.replace('{' + 'apiKey' + '}', String(apiKey)),
+            method: 'DELETE',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
         }, callback);
     }
     /** 
@@ -3296,14 +3342,17 @@ export class DeveloperApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Get all group information.
-     * An endpoint for retrieving all group information.
+     * Get all API keys
+     * An endpoint for retrieving API keys in an array, optionally filtered by the owner.
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
      * @param order The order of the records, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
+     * @param filter A filter for the query, for example filter&#x3D;owner%3Duuid.
+     * @param owner Owner name filter.
+     * @param ownerEq Owner name filter.
      */
-    getAllGroups (limit?: number, after?: string, order?: string, include?: string, callback?: (error:any, data?:GroupSummaryList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    getAllApiKeys (limit?: number, after?: string, order?: string, include?: string, filter?: string, owner?: string, ownerEq?: string, callback?: (error:any, data?:ApiKeyInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -3320,12 +3369,21 @@ export class DeveloperApi extends ApiBase {
         if (include !== undefined) {
             queryParameters['include'] = include;
         }
+        if (filter !== undefined) {
+            queryParameters['filter'] = filter;
+        }
+        if (owner !== undefined) {
+            queryParameters['owner'] = owner;
+        }
+        if (ownerEq !== undefined) {
+            queryParameters['owner__eq'] = ownerEq;
+        }
 
         let useFormData = false;
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/policy-groups',
+            url: '/v3/api-keys',
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -3335,19 +3393,15 @@ export class DeveloperApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Get the API keys of a group.
-     * An endpoint for listing the API keys of the group with details.
-     * @param groupID The ID of the group whose API keys are retrieved.
-     * @param limit The number of results to return (2-1000), default is 50.
-     * @param after The entity ID to fetch after the given one.
-     * @param order The order of the records, ASC or DESC; by default ASC
-     * @param include Comma separated additional data to return. Currently supported: total_count
+     * Get API key details.
+     * An endpoint for retrieving API key details.
+     * @param apiKey The ID of the API key to be retrieved.
      */
-    getApiKeysOfGroup (groupID: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error:any, data?:ApiKeyInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "groupID" is set
-        if (groupID === null || groupID === undefined) {
+    getApiKey (apiKey: string, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'getApiKeysOfGroup'."));
+                callback(new Error("Required parameter 'apiKey' missing when calling 'getApiKey'."));
             }
             return;
         }
@@ -3355,15 +3409,80 @@ export class DeveloperApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/api-keys/{apiKey}'.replace('{' + 'apiKey' + '}', String(apiKey)),
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Get aliases.
+     * Retrieves the aliases of the account as an array.
+     */
+    getMyAccountAliases (callback?: (error:any, data?:Array<string>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/accounts/me/alias',
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Read account attributes.
+     * Reads all account attributes as map.
+     * @param name A comma separated list of attribute names.
+     */
+    getMyAccountAttributes (name?: string, callback?: (error:any, data?:{ [key: string]: any; }, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+        if (name !== undefined) {
+            queryParameters['name'] = name;
         }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/accounts/me/attributes',
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Get account info.
+     * Returns detailed information about the account.
+     * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+     */
+    getMyAccountInfo (include?: string, callback?: (error:any, data?:AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
         if (include !== undefined) {
             queryParameters['include'] = include;
         }
@@ -3372,7 +3491,7 @@ export class DeveloperApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/policy-groups/{groupID}/api-keys'.replace('{' + 'groupID' + '}', String(groupID)),
+            url: '/v3/accounts/me',
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -3382,18 +3501,10 @@ export class DeveloperApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Get group information.
-     * An endpoint for getting general information about the group.
-     * @param groupID The ID or name of the group to be retrieved.
+     * Get API key details.
+     * An endpoint for retrieving API key details.
      */
-    getGroupSummary (groupID: string, callback?: (error:any, data?:GroupSummary, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "groupID" is set
-        if (groupID === null || groupID === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'getGroupSummary'."));
-            }
-            return;
-        }
+    getMyApiKey (callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -3403,7 +3514,7 @@ export class DeveloperApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/policy-groups/{groupID}'.replace('{' + 'groupID' + '}', String(groupID)),
+            url: '/v3/api-keys/me',
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -3436,23 +3547,15 @@ export class DeveloperApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Remove API keys from a group.
-     * An endpoint for removing API keys from groups.
-     * @param groupID The ID of the group whose API keys are removed.
-     * @param body A list of API keys to be removed from the group.
+     * Reset secret key.
+     * An endpoint for resetting the secret key of the API key. The new secret key will visible in the response.
+     * @param apiKey The ID of the API key to be reset.
      */
-    removeApiKeysFromGroup (groupID: string, body: SubjectList, callback?: (error:any, data?:UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "groupID" is set
-        if (groupID === null || groupID === undefined) {
+    resetSecret (apiKey: string, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'removeApiKeysFromGroup'."));
-            }
-            return;
-        }
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'removeApiKeysFromGroup'."));
+                callback(new Error("Required parameter 'apiKey' missing when calling 'resetSecret'."));
             }
             return;
         }
@@ -3465,8 +3568,79 @@ export class DeveloperApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/policy-groups/{groupID}/api-keys'.replace('{' + 'groupID' + '}', String(groupID)),
-            method: 'DELETE',
+            url: '/v3/api-keys/{apiKey}/reset-secret'.replace('{' + 'apiKey' + '}', String(apiKey)),
+            method: 'POST',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Update API key details.
+     * An endpoint for updating API key details.
+     * @param apiKey The ID of the API key to be updated.
+     * @param body New API key attributes to be stored.
+     */
+    updateApiKey (apiKey: string, body: ApiKeyUpdateReq, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'apiKey' missing when calling 'updateApiKey'."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'body' missing when calling 'updateApiKey'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/api-keys/{apiKey}'.replace('{' + 'apiKey' + '}', String(apiKey)),
+            method: 'PUT',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+            body: body,
+        }, callback);
+    }
+    /** 
+     * Update API key details.
+     * An endpoint for updating API key details.
+     * @param body New API key attributes to be stored.
+     */
+    updateMyApiKey (body: ApiKeyUpdateReq, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'body' missing when calling 'updateMyApiKey'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/api-keys/me',
+            method: 'PUT',
             headers: headerParams,
             query: queryParameters,
             useFormData: useFormData,
@@ -3878,6 +4052,37 @@ export class RootAdminApi extends ApiBase {
 
         return this.request({
             url: '/admin/v3/accounts',
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Details of a user.
+     * An endpoint for retrieving the details of a user.
+     * @param userId The ID or name of the user whose details are retrieved.
+     */
+    adminGetUser (userId: string, callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'userId' missing when calling 'adminGetUser'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/admin/v3/users/{user-id}'.replace('{' + 'user-id' + '}', String(userId)),
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
