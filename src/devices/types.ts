@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -114,6 +114,10 @@ export interface DeviceType {
      * URL for the current device manifest
      */
     manifest?: string;
+    /**
+     * The device endpoint type
+     */
+    type?: string;
 }
 
 export interface DeviceEventType {

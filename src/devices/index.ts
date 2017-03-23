@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -460,7 +460,8 @@ export class DevicesApi extends EventEmitter {
                 let response:ListResponse<Device> = {
                     data: data.map(device => {
                         return Device.map({
-                            id: device.name
+                            id: device.name,
+                            type: device.type
                         }, this)
                     })
                 };
@@ -508,12 +509,12 @@ export class DevicesApi extends EventEmitter {
     public addDevice(options: DeviceType, callback?: (err: any, data?: Device) => any): Promise<Device> {
         let { mechanism, provisionKey, accountId, autoUpdate, bootstrappedTimestamp, createdAt, customAttributes,
               deployedState, deployment, description, deviceClass, id, manifest, mechanismUrl, name,
-              serialNumber, state, trustClass, trustLevel, updatedAt, vendorId } = options;
+              serialNumber, state, trustClass, trustLevel, updatedAt, vendorId, type } = options;
         return asyncStyle(done => {
             this._endpoints.catalog.deviceCreate(
               mechanism, provisionKey, accountId, autoUpdate, bootstrappedTimestamp, createdAt, customAttributes,
               deployedState, deployment, description, deviceClass, null, null, id, manifest, mechanismUrl, name,
-              null, serialNumber, state, trustClass, trustLevel, updatedAt, vendorId, (error, data) => {
+              null, serialNumber, state, trustClass, trustLevel, updatedAt, vendorId, type, (error, data) => {
                 if (error) return done(error);
                 done(null, Device.map(data, this));
             });
@@ -539,7 +540,7 @@ export class DevicesApi extends EventEmitter {
      * @param options.serialNumber The serial number of the device
      * @returns Promise of device
      */
-    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }): Promise<Device>;
+    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string, type?: string }): Promise<Device>;
     /**
      * Update a device
      * @param options.id The ID of the device
@@ -559,8 +560,8 @@ export class DevicesApi extends EventEmitter {
      * @param options.serialNumber The serial number of the device
      * @param callback A function that is passed the arguments (error, device)
      */
-    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any);
-    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
+    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string, type?: string }, callback?: (err: any, data?: Device) => any);
+    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string, type?: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
         return asyncStyle(done => {
             let apiDevice = Device.reverseMap(options);
             this._endpoints.catalog.deviceUpdate(options.id, apiDevice, (error, data) => {
