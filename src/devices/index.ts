@@ -127,6 +127,10 @@ export class DevicesApi extends EventEmitter {
             return device;
         }
 
+        if (!data) {
+            return;
+        }
+
         if (data["notifications"]) {
             data["notifications"].forEach(notification => {
                 var path = notification.ep + notification.path;
