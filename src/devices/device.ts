@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -54,7 +54,8 @@ export class Device {
             trustClass:               from.trust_class,
             trustLevel:               from.trust_level,
             updatedAt:                from.updated_at,
-            vendorId:                 from.vendor_id
+            vendorId:                 from.vendor_id,
+            type:                     from.type
         };
 
         return new Device(type, api);
@@ -76,6 +77,7 @@ export class Device {
             serial_number:        from.serialNumber,
             trust_level:          from.trustLevel,
             description:          from.description,
+            type:                 from.type
         };
     }
 
@@ -151,7 +153,7 @@ export class Device {
      * @param options.serialNumber The serial number of the device
      * @returns Promise of device
      */
-    public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }): Promise<Device>;
+    public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string, type?: string }): Promise<Device>;
     /**
      * Update the device
      * @param options.name The name of the device
@@ -168,10 +170,11 @@ export class Device {
      * @param options.mechanism The ID of the channel used to communicate with the device
      * @param options.mechanismUrl The address of the connector to use
      * @param options.serialNumber The serial number of the device
+     * @param options.type The endpoint type of the device
      * @param callback A function that is passed the arguments (error, device)
      */
-    public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any);
-    public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
+    public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string, type?: string }, callback?: (err: any, data?: Device) => any);
+    public update(options: { name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string, type?: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
         return asyncStyle(done => {
             this._api.updateDevice({
                 id:this.id,
@@ -188,7 +191,8 @@ export class Device {
                 serialNumber:        options.serialNumber,
                 trustClass:          options.trustClass,
                 trustLevel:          options.trustLevel,
-                vendorId:            options.vendorId
+                vendorId:            options.vendorId,
+                type:                options.type
             }, done);
         }, callback);
     }
