@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -135,6 +135,12 @@ export class DevicesApi extends EventEmitter {
                 if (fn) {
                     fn(decodeBase64(notification.payload, notification.ct));
                 }
+
+                this.emit(DevicesApi.EVENT_NOTIFICATION, {
+                    id: notification.ep,
+                    path: notification.path,
+                    payload: decodeBase64(notification.payload, notification.ct)
+                });
             });
         }
 
