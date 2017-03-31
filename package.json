@@ -15,6 +15,7 @@
     "node": ">=4.7.0"
   },
   "scripts": {
+    "start": "node examples/proxy/server.js",
     "gulp": "gulp"
   },
   "devDependencies": {
