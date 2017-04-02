@@ -1,6 +1,6 @@
 /**
- * mbed Cloud Connect CA REST API (R1.2)
- * mbed Cloud Connect CA REST API allows services to get device credentials.
+ * Connect CA API
+ * Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
  *
  * OpenAPI spec version: 3
  * 
@@ -20,42 +20,20 @@
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
 
-export interface Body {
+export interface DeveloperCertificateRequestData {
     /**
-     * Name of the developer certificate, must be unique.
+     * The name of the developer certificate, must be unique.
      */
     "name": string;
     /**
-     * Description for the developer certificate.
+     * A description for the developer certificate.
      */
     "description"?: string;
 }
 
-export interface InlineResponse200 {
+export interface DeveloperCertificateResponseData {
     /**
-     * Bootstrap server URI to which the client needs to connect to.
-     */
-    "server_uri"?: string;
-    /**
-     * PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
-     */
-    "server_certificate"?: string;
-}
-
-export interface InlineResponse2001 {
-    /**
-     * LWM2M server URI to which the client needs to connect to.
-     */
-    "server_uri"?: string;
-    /**
-     * PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
-     */
-    "server_certificate"?: string;
-}
-
-export interface InlineResponse201 {
-    /**
-     * Content of the security.c file that will be flashed into the device to provide the security credentials
+     * The content of the `security.c` file that is flashed into the device to provide the security credentials
      */
     "security_file_content"?: string;
     /**
@@ -63,33 +41,72 @@ export interface InlineResponse201 {
      */
     "description"?: string;
     /**
-     * PEM format X.509 developer certificate.
+     * The name of the developer certificate.
+     */
+    "name"?: string;
+    /**
+     * The PEM format X.509 developer certificate.
      */
     "developer_certificate"?: string;
     /**
-     * URI to which the client needs to connect to.
+     * The URI to which the client needs to connect to.
      */
     "server_uri"?: string;
     /**
-     * account to which the developer certificate belongs
+     * Creation UTC time RFC3339.
      */
-    "account_id"?: string;
+    "created_at"?: string;
     /**
-     * PEM format developer private key associated to the certificate.
+     * Entity name, always `trusted-cert`.
+     */
+    "object"?: string;
+    /**
+     * The PEM format developer private key associated to the certificate.
      */
     "developer_private_key"?: string;
     /**
-     * PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
+     * The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
      */
     "server_certificate"?: string;
     /**
-     * mUUID that uniquely identifies the developer certificate.
+     * API resource entity version.
+     */
+    "etag"?: string;
+    /**
+     * The mUUID that uniquely identifies the developer certificate.
      */
     "id"?: string;
     /**
-     * Name of the developer certificate.
+     * The account to which the developer certificate belongs.
      */
-    "name"?: string;
+    "account_id"?: string;
+}
+
+export interface ServerCredentialsResponseData {
+    /**
+     * The server URI to which the client needs to connect to.
+     */
+    "server_uri"?: string;
+    /**
+     * Creation UTC time RFC3339.
+     */
+    "created_at"?: string;
+    /**
+     * The entity name, always `server-credentials`.
+     */
+    "object"?: string;
+    /**
+     * The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
+     */
+    "server_certificate"?: string;
+    /**
+     * API resource entity version.
+     */
+    "etag"?: string;
+    /**
+     * The mUUID that uniquely identifies the entity.
+     */
+    "id"?: string;
 }
 
 /**
@@ -103,7 +120,7 @@ export class DeveloperCertificateApi extends ApiBase {
      * @param id A unique identifier for the developer certificate. 
      * @param authorization Bearer {Access Token}. 
      */
-    v3DeveloperCertificatesIdGet (id: string, authorization: string, callback?: (error:any, data?:InlineResponse201, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3DeveloperCertificatesIdGet (id: string, authorization: string, callback?: (error:any, data?:DeveloperCertificateResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -139,11 +156,11 @@ export class DeveloperCertificateApi extends ApiBase {
     }
     /** 
      * Create a new developer certificate to connect to the bootstrap server.
-     * This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:   - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account 
+     * This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:    - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account. 
      * @param authorization Bearer {Access Token}. 
      * @param body 
      */
-    v3DeveloperCertificatesPost (authorization: string, body: Body, callback?: (error:any, data?:InlineResponse201, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3DeveloperCertificatesPost (authorization: string, body: DeveloperCertificateRequestData, callback?: (error:any, data?:DeveloperCertificateResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -191,7 +208,7 @@ export class ExternalAPIApi extends ApiBase {
      * @param id A unique identifier for the developer certificate. 
      * @param authorization Bearer {Access Token}. 
      */
-    v3DeveloperCertificatesIdGet (id: string, authorization: string, callback?: (error:any, data?:InlineResponse201, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3DeveloperCertificatesIdGet (id: string, authorization: string, callback?: (error:any, data?:DeveloperCertificateResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -227,11 +244,11 @@ export class ExternalAPIApi extends ApiBase {
     }
     /** 
      * Create a new developer certificate to connect to the bootstrap server.
-     * This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:   - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account 
+     * This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:    - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account. 
      * @param authorization Bearer {Access Token}. 
      * @param body 
      */
-    v3DeveloperCertificatesPost (authorization: string, body: Body, callback?: (error:any, data?:InlineResponse201, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3DeveloperCertificatesPost (authorization: string, body: DeveloperCertificateRequestData, callback?: (error:any, data?:DeveloperCertificateResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -268,10 +285,10 @@ export class ExternalAPIApi extends ApiBase {
     }
     /** 
      * Fetch bootstrap server credentials.
-     * This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server. 
+     * This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
      * @param authorization Bearer {Access Token}. 
      */
-    v3ServerCredentialsBootstrapGet (authorization: string, callback?: (error:any, data?:InlineResponse200, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3ServerCredentialsBootstrapGet (authorization: string, callback?: (error:any, data?:ServerCredentialsResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -300,10 +317,10 @@ export class ExternalAPIApi extends ApiBase {
     }
     /** 
      * Fetch LWM2M server credentials.
-     * This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server. 
+     * This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
      * @param authorization Bearer {Access Token}. 
      */
-    v3ServerCredentialsLwm2mGet (authorization: string, callback?: (error:any, data?:InlineResponse2001, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3ServerCredentialsLwm2mGet (authorization: string, callback?: (error:any, data?:ServerCredentialsResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -339,10 +356,10 @@ export class ServerCredentialsApi extends ApiBase {
 
     /** 
      * Fetch bootstrap server credentials.
-     * This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server. 
+     * This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
      * @param authorization Bearer {Access Token}. 
      */
-    v3ServerCredentialsBootstrapGet (authorization: string, callback?: (error:any, data?:InlineResponse200, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3ServerCredentialsBootstrapGet (authorization: string, callback?: (error:any, data?:ServerCredentialsResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -371,10 +388,10 @@ export class ServerCredentialsApi extends ApiBase {
     }
     /** 
      * Fetch LWM2M server credentials.
-     * This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server. 
+     * This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
      * @param authorization Bearer {Access Token}. 
      */
-    v3ServerCredentialsLwm2mGet (authorization: string, callback?: (error:any, data?:InlineResponse2001, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3ServerCredentialsLwm2mGet (authorization: string, callback?: (error:any, data?:ServerCredentialsResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {

@@ -1,6 +1,6 @@
 /**
- * mbed Cloud Connect REST API
- * mbed Cloud Connect REST API allows web applications to communicate with devices.
+ * Connect API
+ * mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
  *
  * OpenAPI spec version: 2
  * 
@@ -37,11 +37,11 @@ export interface AsyncIDResponse {
      */
     "payload"?: string;
     /**
-     * Determines how long this value will be valid in cache, in seconds. 0 means that value won't be stored in cache.
+     * Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
      */
     "max-age"?: string;
     /**
-     * Optional error message, describing error.
+     * Optional error message, describing the error.
      */
     "error"?: string;
     /**
@@ -60,7 +60,7 @@ export interface Endpoint {
      */
     "status"?: string;
     /**
-     * Determines whether the device is in queue mode. <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. 
+     * Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in Queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when  the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. 
      */
     "q"?: boolean;
     /**
@@ -75,43 +75,47 @@ export interface Endpoint {
 
 export interface EndpointData {
     /**
-     * Queue mode (default value is false)
+     * Queue mode (default value is false).
      */
     "q"?: boolean;
     /**
-     * Endpoint type
+     * Endpoint type.
      */
     "ept"?: string;
     /**
-     * Endpoint name
+     * In case of a self-provided endpoint name that is used to initiate the device registration, mbed Cloud provides a new device name to be used from that point on. The new mbed-Cloud-provided name is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The names can then be mapped accordingly. mbed Cloud saves the original endpoint name for future device registrations so there is no need to do the mapping again. 
+     */
+    "original-ep"?: string;
+    "resources"?: Array<ResourcesData>;
+    /**
+     * Endpoint name.
      */
     "ep"?: string;
-    "resources"?: Array<ResourcesData>;
 }
 
 export interface NotificationData {
     /**
-     * Timestamp
+     * Timestamp.
      */
     "timestamp"?: string;
     /**
-     * Base64 encoded payload
+     * Base64 encoded payload.
      */
     "payload"?: string;
     /**
-     * URI path
+     * URI path.
      */
     "path"?: string;
     /**
-     * Max age
+     * Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
      */
     "max-age"?: string;
     /**
-     * Endpoint name
+     * Endpoint name.
      */
     "ep"?: string;
     /**
-     * Content type
+     * Content type.
      */
     "ct"?: string;
 }
@@ -136,15 +140,15 @@ export interface PresubscriptionArray extends Array<Presubscription> {
 
 export interface Resource {
     /**
-     * Resource's type
+     * Resource type.
      */
     "rt"?: string;
     /**
-     * The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the LWM2M specification: http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry 
+     * The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the [LWM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry). 
      */
     "type"?: string;
     /**
-     * Resource's url.
+     * The URL of the resource.
      */
     "uri"?: string;
     /**
@@ -158,34 +162,34 @@ export interface ResourcePath {
 
 export interface ResourcesData {
     /**
-     * Resource's URI path
+     * Resource's URI path.
      */
     "path"?: string;
     /**
-     * Resource type
+     * Resource type.
      */
     "rf"?: string;
     /**
-     * Content type
+     * Content type.
      */
     "ct"?: string;
     /**
-     * Whether the resource is observable or not (true/false)
+     * Whether the resource is observable or not (true/false).
      */
     "obs"?: boolean;
     /**
-     * Interface description
+     * Interface description.
      */
     "if"?: string;
 }
 
 export interface Webhook {
     /**
-     * The URL to which the notifications must be sent. We recommend that you serve this URL over HTTPS.
+     * The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.
      */
     "url"?: string;
     /**
-     * Headers (key/value) that must be sent with the request. Optional.
+     * Headers (key/value) that are sent with the notification. Optional.
      */
     "headers"?: any;
 }
@@ -220,7 +224,7 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      * Check callback URL
-     * Shows the current callback URL if exists.
+     * Shows the current callback URL if it exists.
      */
     v2NotificationCallbackGet (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
@@ -280,7 +284,7 @@ export class EndpointsApi extends ApiBase {
         }, callback);
     }
     /** 
-     * List all endpoints
+     * List endpoints. The number of endpoints is currently limited to 200.
      * Endpoints are physical devices running mbed Cloud Client. 
      * @param type Filter endpoints by endpoint-type.
      */
@@ -315,8 +319,8 @@ export class NotificationsApi extends ApiBase {
 
     /** 
      * Register a callback URL
-     * Register a URL to which the server should deliver notifications of the subscribed resource changes. To get notifications pushed you need to also place the subscriptions.  Notifications are delivered as PUT messages to the HTTP server defined by the client with a subscription server message. The given URL should be accessible and respond to the PUT request with response code of 200 or 204. mbed Cloud Connect tests the callback URL with empty payload when the URL is registered. For more information on callback notification, see NotificationData.  **Note**: Only one callback URL per access-key can be active. If you register a new URL when another one is already active, the old URL is replaced by the new. 
-     * @param webhook A json object that contains the URL to which notifications need to be sent, and the optional headers. 
+     * Register a URL to which the server should deliver notifications of the subscribed resource changes. To get notifications pushed you need to also place the subscriptions.  Notifications are delivered as PUT messages to the HTTP server defined by the client with a subscription server message.  The given URL should be accessible and respond to the PUT request with response code of 200 or 204. mbed Cloud Connect  tests the callback URL with an empty payload when the URL is registered. For more information on callback notification, see [NotificationData](api-references#notificationdata).  **Note**: Only one callback URL per an API key can be active. If you register a new URL while another one is already active,  it replaces the active one. There can be only one notification channel at a time. If the Long Poll notification is already present  you need to delete it before setting the callback URL.  **Expiration of a callback URL:**   A callback can expire when mbed DS cannot deliver a notification due to a connection timeout or  error response (4xx or 5xx). After each delivery failure, mbed DS sets an exponential back off time and makes a retry attempt  after that. The first retry delay is 1 second, then 2s, 4s, 8s, ..., 2min, 2min. The maximum retry delay is 2 minutes.  The callback URL will be removed if all retries fail withing 60 minutes. 
+     * @param webhook A json object that contains the optional headers and the URL to which the notifications need to be sent. 
      */
     v2NotificationCallbackPut (webhook: Webhook, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "webhook" is set
@@ -346,8 +350,31 @@ export class NotificationsApi extends ApiBase {
         }, callback);
     }
     /** 
+     * Delete notification Long Poll channel
+     * To delete a notification Long Poll channel. This is required to change the channel from Long Poll to a callback. 
+     */
+    v2NotificationPullDelete (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v2/notification/pull',
+            method: 'DELETE',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
      * Get notifications using Long Poll
-     * In this case, notifications are delivered through HTTP long-poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  **Note:** If it is not possible to have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, to reduce network traffic and to increase performance we recommend that you use callback URLs (webhooks) whenever possible. 
+     * In this case, notifications are delivered through HTTP long-poll requests. The HTTP request is kept open  until an event notification or a batch of event notifications are delivered to the client or the request times out  (response code 204). In both cases, the client should open a new polling connection after the previous one closes.  You must have a persistent connection (Connection keep-alive header in the request) to avoid excess  TLS handshakes.  **Note:** If it is not possible to have a public facing callback URL, for example when developing on your local machine,  you can use Long Polling to check for new messages. However, to reduce network traffic and to increase performance  we recommend that you use callback URLs (webhooks) whenever possible. There can be only one notification channel at a time.  If the callback URL notification channel is already present you need to delete it before creating a Long Poll channel. 
      */
     v2NotificationPullGet (callback?: (error:any, data?:NotificationMessage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
@@ -377,10 +404,10 @@ export class ResourcesApi extends ApiBase {
 
     /** 
      * Delete a resource
-     * A request to delete a resource must be handled by both mbed Cloud Client and mbed Cloud Connect. The resource is not deleted from mbed Cloud Connect until the delete is handled by mbed Cloud Client.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
+     * A request to delete a resource must be handled by both mbed Cloud Client and mbed Cloud Connect. The resource is not deleted from mbed Cloud Connect until the delete  is handled by mbed Cloud Client.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint-name must be an exact match. You cannot use wildcards here. 
-     * @param resourcePath Resource&#39;s url. 
-     * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+     * @param resourcePath The URL of the resource. 
+     * @param noResp **Non-confirmable requests**   All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP non-confirmable request to the device.  Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code  204 No Content. If the underlying protocol does not support non-confirmable requests,  or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
     v2EndpointsEndpointNameResourcePathDelete (endpointName: string, resourcePath: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "endpointName" is set
@@ -420,11 +447,11 @@ export class ResourcesApi extends ApiBase {
     }
     /** 
      * Read from a resource
-     * Requests the resource value and when the response is available, a json AsycResponse object (AsyncIDResponse object) is received in the notification channel. Note that you can also receive notifications when a resource changes. The preferred way to get resource values is to use subscribe and callback methods.  All resource APIs are asynchronous. Note that these APIs will only respond if the device is turned on and connected to mbed Cloud Connect. 
+     * Requests the resource value and when the response is available, a json AsycResponse  object (AsyncIDResponse object) is received in the notification channel. Note that you can also  receive notifications when a resource changes. The preferred way to get resource values is to use subscribe  and callback methods.  All resource APIs are asynchronous. These APIs will only respond  if the device is turned on and connected to mbed Cloud Connect. 
      * @param endpointName Unique identifier for the endpoint. Note that the endpoint name needs to be an exact match. You cannot use wildcards here. 
-     * @param resourcePath Resource&#39;s url. 
+     * @param resourcePath The URL of the resource. 
      * @param cacheOnly If true, the response comes only from the cache. Default: false. 
-     * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If a request is made with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+     * @param noResp **Non-confirmable requests**   All resource APIs have the parameter noResp. If a request is made with noResp&#x3D;true, mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  409 Conflict. 
      */
     v2EndpointsEndpointNameResourcePathGet (endpointName: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "endpointName" is set
@@ -467,11 +494,11 @@ export class ResourcesApi extends ApiBase {
     }
     /** 
      * Execute a function on a resource
-     * With this API, you can execute a function on an existing resource.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
+     * With this API, you can execute a function on an existing resource.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint-name must be an exact match. You cannot use wildcards here. 
-     * @param resourcePath Resource&#39;s url.
+     * @param resourcePath The URL of the resource.
      * @param resourceFunction This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client. 
-     * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+     * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device.  Such requests are not guaranteed to arrive in the device,  and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code  204 No Content. If the underlying protocol does not support non-confirmable requests,  or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
     v2EndpointsEndpointNameResourcePathPost (endpointName: string, resourcePath: string, resourceFunction?: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "endpointName" is set
@@ -512,11 +539,11 @@ export class ResourcesApi extends ApiBase {
     }
     /** 
      * Write to a resource
-     * With this API, you can write new values to existing resources, or create new resources on the device. The resource-path does not have to exist - it can be created by the call.  All resource APIs are asynchronous. Note that these APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
+     * With this API, you can write new values to existing resources, or create new  resources on the device. The resource-path does not have to exist - it can be  created by the call.  This API can also be used to transfer files to the device. mbed Cloud Connect  LWM2M server implements the Option 1 from RFC7959. The maximum block size is 1024 bytes.  The block size versus transferred file size is something to note in low quality networks.  The customer application needs to know what type of file is transferred (for example txt)  and the payload can be encrypted by the customer.   All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
-     * @param resourcePath Resource&#39;s url.
-     * @param resourceValue Value to be set to the resource. (Check accceptable content-types) 
-     * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
+     * @param resourcePath Resource URL.
+     * @param resourceValue The value to be set to the resource. (Check accceptable content-types) 
+     * @param noResp **Non-confirmable requests**   All resource APIs have the parameter noResp. If you make a request with noResp&#x3D;true, mbed Cloud Connect makes a CoAP non-confirmable request to the device.  Such requests are not guaranteed to arrive in the device,  and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code  204 No Content. If the underlying protocol does not support non-confirmable requests,  or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
     v2EndpointsEndpointNameResourcePathPut (endpointName: string, resourcePath: string, resourceValue: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "endpointName" is set
@@ -658,7 +685,7 @@ export class SubscriptionsApi extends ApiBase {
      * Remove a subscription
      * To remove an existing subscription from a resource path. 
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
-     * @param resourcePath Resource&#39;s url. 
+     * @param resourcePath The URL of the resource. 
      */
     v2SubscriptionsEndpointNameResourcePathDelete (endpointName: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "endpointName" is set
@@ -696,7 +723,7 @@ export class SubscriptionsApi extends ApiBase {
     /** 
      * Read subscription status
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
-     * @param resourcePath Resource&#39;s url. 
+     * @param resourcePath The URL of the resource. 
      */
     v2SubscriptionsEndpointNameResourcePathGet (endpointName: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "endpointName" is set
@@ -733,9 +760,9 @@ export class SubscriptionsApi extends ApiBase {
     }
     /** 
      * Subscribe to a resource path
-     * The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated solution-dependent logic. The OMA LWM2M resource model including objects, object instances, resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device to provide value change notifications to mbed Cloud Connect service. An application needs to call a /notification/callback method to get mbed Cloud Connect to push a notification of the resource changes. You can also use /subscriptions to set a pre-subscription. 
+     * The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LWM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to mbed Cloud Connect service. An application needs to call a /notification/callback method to get mbed Cloud Connect to push a notification of the resource changes.  You can also use /subscriptions to set a pre-subscription. 
      * @param endpointName A unique identifier for the endpoint. Note that the endpoint name must be an exact match. You cannot use wildcards here. 
-     * @param resourcePath Resource&#39;s URL. 
+     * @param resourcePath The URL of the resource. 
      */
     v2SubscriptionsEndpointNameResourcePathPut (endpointName: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "endpointName" is set
@@ -772,7 +799,7 @@ export class SubscriptionsApi extends ApiBase {
     }
     /** 
      * Get pre-subscriptions
-     * You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure as described above. If there are no pre-subscribed resources, it returns with an empty array. 
+     * You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure  as described above. If there are no pre-subscribed resources, it returns with an empty array. 
      */
     v2SubscriptionsGet (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
@@ -795,7 +822,7 @@ export class SubscriptionsApi extends ApiBase {
     }
     /** 
      * Set pre-subscriptions
-     * Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers and its name, type and registered resources match the pre-subscription data, mbed Cloud Connect sends subscription requests to the device automatically. The pattern may include the endpoint name (optionally having an \\* character at the end), endpoint type, a list of resources or expressions with an \\* character at the end. The pre-subscription concerns all the endpoints that are already registered and the server sends subscription requests to the devices immediately when the patterns are set. There is only one pre-subscribe array, so changing the pre-subscription data removes all the previous subscriptions. To remove the pre-subscription data, put an empty array as a rule. 
+     * Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its name, type and registered resources match the pre-subscription data, mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint name  (optionally having an \\* character at the end), endpoint type, a list of resources or expressions  with an \\* character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  &#x60;&#x60;&#x60; Example payload: [  {    endpoint-name: \&quot;node-001\&quot;,    resource-path: [\&quot;/dev\&quot;]  },  {    endpoint-type: \&quot;Light\&quot;,    resource-path: [\&quot;/sen/_*\&quot;]  },  {    endpoint-name: \&quot;node*\&quot;  },  {    endpoint-type: \&quot;Sensor\&quot;  },  {     resource-path: [\&quot;/dev/temp\&quot;,\&quot;/dev/hum\&quot;]  } ] &#x60;&#x60;&#x60; 
      * @param presubsription Array of pre-subscriptions.
      */
     v2SubscriptionsPut (presubsription: PresubscriptionArray, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
