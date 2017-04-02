@@ -18,8 +18,8 @@
 import { asyncStyle, mapListResponse, encodeAttributes } from "../common/functions";
 import { ConnectionOptions, CallbackFn, ListOptions, ListResponse } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { Adapter } from "./adapter";
-import { DeviceLog } from "./deviceLog";
+import { DeviceLogAdapter } from "./models/deviceLogAdapter";
+import { DeviceLog } from "./models/deviceLog";
 
 /**
  * ## Logging API
@@ -86,7 +86,7 @@ export class LoggingApi {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {
-                    return Adapter.map(log);
+                    return DeviceLogAdapter.map(log);
                 });
 
                 done(null, mapListResponse<DeviceLog>(data, list));
@@ -110,7 +110,7 @@ export class LoggingApi {
         return asyncStyle(done => {
             this._endpoints.catalog.deviceLogRetrieve(id, (error, data) => {
                 if (error) return done(error);
-                let log = Adapter.map(data);
+                let log = DeviceLogAdapter.map(data);
                 done(null, log);
             });
         }, callback);

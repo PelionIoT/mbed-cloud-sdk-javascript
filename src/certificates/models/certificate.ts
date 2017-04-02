@@ -15,10 +15,10 @@
 * limitations under the License.
 */
 
-import { asyncStyle } from "../common/functions";
-import { CallbackFn } from "../common/interfaces";
-import { CertificateObject } from "./types";
-import { CertificatesApi } from "./index";
+import { asyncStyle } from "../../common/functions";
+import { CallbackFn } from "../../common/interfaces";
+import { CertificateObject } from "../types";
+import { CertificatesApi } from "../index";
 
 /*
  * Certificate

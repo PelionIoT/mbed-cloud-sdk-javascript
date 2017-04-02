@@ -20,7 +20,7 @@ export type CertificateTypeEnum = "developer" | "lwm2m" | "bootstrap";
 /**
  * This object represents a developer certificate
  */
-export interface DeveloperCertificateCreateObject {
+export interface AddDeveloperCertificateObject {
     /**
      * Certificate name
      */
@@ -34,7 +34,7 @@ export interface DeveloperCertificateCreateObject {
 /**
  * This object represents a certificate
  */
-export interface CertificateObject extends DeveloperCertificateCreateObject {
+export interface CertificateObject extends AddDeveloperCertificateObject {
     /**
      * Certificate type
      */
@@ -48,7 +48,7 @@ export interface CertificateObject extends DeveloperCertificateCreateObject {
 /**
  * This object represents a certificate
  */
-export interface CertificateCreateObject extends CertificateObject {
+export interface AddCertificateObject extends CertificateObject {
     /**
      * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
      */
@@ -58,7 +58,7 @@ export interface CertificateCreateObject extends CertificateObject {
 /**
  * This object represents a certificate
  */
-export interface CertificateUpdateObject extends CertificateCreateObject {
+export interface UpdateCertificateObject extends AddCertificateObject {
     /**
      * Certificate ID
      */

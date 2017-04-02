@@ -15,23 +15,23 @@
 * limitations under the License.
 */
 
-import { CertificatesApi } from "./index";
+import { CertificatesApi } from "..//index";
 import { Certificate } from "./certificate";
-import { CertificateCreateObject, DeveloperCertificateCreateObject } from "./types";
+import { AddCertificateObject, AddDeveloperCertificateObject } from "../types";
 import {
     TrustedCertificateReq as iamCertificateRequest,
     TrustedCertificateResp as iamCertificate
-} from "../_api/iam";
+} from "../../_api/iam";
 import {
     DeveloperCertificateRequestData as caCertificateRequest,
     ServerCredentialsResponseData as serverResponse,
     DeveloperCertificateResponseData as developerResponse
-} from "../_api/connector_ca";
+} from "../../_api/connector_ca";
 
 /*
- * Adapter
+ * Certificate Adapter
  */
-export class Adapter {
+export class CertificateAdapter {
 
     static map(from: iamCertificate, api: CertificatesApi): Certificate {
         let certificate = new Certificate(api);
@@ -67,7 +67,7 @@ export class Adapter {
         return base;
     }
 
-    static reverseIamMap(from: CertificateCreateObject): iamCertificateRequest {
+    static reverseMap(from: AddCertificateObject): iamCertificateRequest {
         return {
             cert_data:      from.certificateData,
             name:           from.name,
@@ -77,7 +77,7 @@ export class Adapter {
         };
     }
 
-    static reverseCaMap(from: DeveloperCertificateCreateObject): caCertificateRequest {
+    static reverseDeveloperMap(from: AddDeveloperCertificateObject): caCertificateRequest {
         return {
             name:           from.name,
             description:    from.description

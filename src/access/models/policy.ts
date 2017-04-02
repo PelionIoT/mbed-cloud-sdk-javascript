@@ -15,19 +15,25 @@
 * limitations under the License.
 */
 
-import { ConnectionOptions } from "../common/interfaces";
-import {
-    DeveloperApi,
-    AccountAdminApi
-} from "../_api/iam";
-
-export class Endpoints {
-
-    developer: DeveloperApi;
-    admin: AccountAdminApi;
-
-    constructor(options: ConnectionOptions) {
-        this.developer = new DeveloperApi(options.apiKey, options.host);
-        this.admin = new AccountAdminApi(options.apiKey, options.host);
-    }
+/*
+ * Policy
+ * This object represents a feature policy. Either the feature or the resource must be specified.
+ */
+export class Policy {
+    /**
+     * Comma separated list of actions, empty string represents all actions.
+     */
+    "action"?: string;
+    /**
+     * Resource that is protected by this policy.
+     */
+    "resource"?: string;
+    /**
+     * Feature name corresponding to this policy.
+     */
+    "feature"?: string;
+    /**
+     * True or false controlling whether an action is allowed or not.
+     */
+    "allow"?: boolean;
 }

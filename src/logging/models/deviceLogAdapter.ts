@@ -16,12 +16,12 @@
 */
 
 import { DeviceLog } from "./deviceLog";
-import { DeviceLogData as apiDeviceLog } from "../_api/device_catalog";
+import { DeviceLogData as apiDeviceLog } from "../../_api/device_catalog";
 
 /*
- * Adapter
+ * Device Log Adapter
  */
-export class Adapter {
+export class DeviceLogAdapter {
 
     static map(from: apiDeviceLog): DeviceLog {
         let deviceLog = new DeviceLog();
