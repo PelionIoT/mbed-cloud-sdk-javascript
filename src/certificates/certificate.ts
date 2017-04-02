@@ -16,109 +16,83 @@
 */
 
 import { asyncStyle } from "../common/functions";
-import { CertificateType, CertificateTypeEnum, DeveloperCertificateRequest, CertificateRequest } from "./types";
-import {
-    TrustedCertificateReq as iamCertificateRequest,
-    TrustedCertificateResp as iamCertificate
-} from "../_api/iam";
-import {
-    Body as caCertificateRequest,
-    InlineResponse200 as bootstrapResponse,
-    InlineResponse201 as developerResponse,
-    InlineResponse2001 as lwm2mResponse
-} from "../_api/connector_ca";
+import { CallbackFn } from "../common/interfaces";
+import { CertificateObject } from "./types";
 import { CertificatesApi } from "./index";
 
 /*
  * Certificate
  */
 export class Certificate {
+    /**
+     * Entity ID.
+     */
+    id: string;
+    /**
+     * The UUID of the account.
+     */
+    accountId: string;
+    /**
+     * Subject of the certificate.
+     */
+    subject: string;
+    /**
+     * Expiration time in UTC formatted as RFC3339.
+     */
+    validity: string;
+    /**
+     * Issuer of the certificate.
+     */
+    issuer: string;    
+    /**
+     * Creation UTC time RFC3339.
+     */
+    createdAt?: string;
+    /**
+     * Bootstrap server URI to which the client needs to connect to.
+     */
+    serverUri?: string;
+    /**
+     * PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
+     */
+    serverCertificate?: string;
+    /**
+     * Content of the security.c file that will be flashed into the device to provide the security credentials
+     */
+    headerFile?: string;
+    /**
+     * PEM format X.509 developer certificate.
+     */
+    developerCertificate?: string;
+    /**
+     * PEM format developer private key associated to the certificate.
+     */
+    developerPrivateKey?: string;
 
-    constructor(options: CertificateType, private _api?: CertificatesApi) {
-        for(var key in options) {
-            this[key] = options[key];
-        }
-    }
-
-    static map(from: iamCertificate, api: CertificatesApi): Certificate {
-        let type:CertificateType = {
-            accountId:    from.account_id,
-            createdAt:    from.created_at,
-            data:         from.cert_data,
-            id:           from.id,
-            issuer:       from.issuer,
-            name:         from.name,
-            type:         from.device_execution_mode === 1 ? "developer" : from.service,
-            subject:      from.subject,
-            validity:     from.validity
-        };
-
-        return new Certificate(type, api);
-    }
-
-    static mapExtension(base: Certificate, extension: bootstrapResponse | lwm2mResponse): Certificate {
-        base.serverUri = extension.server_uri;
-        base.serverCertificate = extension.server_certificate;
-
-        return base;
-    }
-
-    static mapDeveloperExtension(base: Certificate, extension: developerResponse): Certificate {
-        base.serverUri = extension.server_uri;
-        base.serverCertificate = extension.server_certificate;
-        base.headerFile = extension.security_file_content;
-        base.developerCertificate = extension.developer_certificate;
-        base.developerPrivateKey = extension.developer_private_key;
-
-        return base;
-    }
-
-    static reverseIamMap(from: CertificateRequest): iamCertificateRequest {
-        return {
-            cert_data:      from.certificateData,
-            name:           from.name,
-            service:        from.type === "developer" ? "bootstrap" : from.type,
-            signature:      from.signature,
-            description:    from.description
-        };
-    }
-
-    static reverseCaMap(from: DeveloperCertificateRequest): caCertificateRequest {
-        return {
-            name:           from.name,
-            description:    from.description
-        };
+    constructor(private _api: CertificatesApi) {
     }
 
     /**
      * Updates the certificate
-     * @param options.name Certificate name
-     * @param options.description Certificate description
-     * @param options.type Certificate type
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
+     * @param signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
      * @returns Promise containing certificate
      */
-    public update(options: { name: string, description: string, type: CertificateTypeEnum, certificateData: string, signature: string }): Promise<Certificate>;
+    public update(signature: string): Promise<Certificate>;
     /**
      * Updates the certificate
-     * @param options.name Certificate name
-     * @param options.description Certificate description
-     * @param options.type Certificate type
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
+     * @param signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public update(options: { name: string, description: string, type: CertificateTypeEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
-    public update(options: { name: string, description: string, type: CertificateTypeEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
+    public update(signature: string, callback: CallbackFn<Certificate>);
+    public update(signature: string, callback?: CallbackFn<Certificate>): Promise<Certificate> {
         return asyncStyle(done => {
             this._api.updateCertificate({
                 id:                 this.id,
-                name:               options.name,
-                description:        options.description,
-                type:               options.type,
-                certificateData:    options.certificateData,
-                signature:          options.signature
+                signature:          signature,
+                type:               this.type,
+                certificateData:    this.certificateData,
+                name:               this.name,
+                description:        this.description
             }, done);
         }, callback);
     }
@@ -132,11 +106,11 @@ export class Certificate {
      * Delete the certificate
      * @param callback A function that is passed any error
      */
-    public delete(callback?: (err: any, data?: void) => any);
-    public delete(callback?: (err: any, data?: void) => any): Promise<void> {
+    public delete(callback?: CallbackFn<void>);
+    public delete(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._api.deleteCertificate(this, done);
+            this._api.deleteCertificate(this.id, done);
         }, callback);
     }
 }
-export interface Certificate extends CertificateType {}
+export interface Certificate extends CertificateObject {}

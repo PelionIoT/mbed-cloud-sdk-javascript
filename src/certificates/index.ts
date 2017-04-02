@@ -18,7 +18,8 @@
 import { asyncStyle, mapListResponse, encodeInclude } from "../common/functions";
 import { ConnectionOptions, CallbackFn, ListOptions, ListResponse } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { CertificateTypeEnum, CertificateRequest, DeveloperCertificateRequest } from "./types";
+import { Adapter } from "./adapter";
+import { DeveloperCertificateCreateObject, CertificateCreateObject, CertificateUpdateObject } from "./types";
 import { Certificate } from "./certificate";
 import { TrustedCertificateResp as iamCertificate } from "../_api/iam";
 
@@ -62,27 +63,27 @@ export class CertificatesApi {
 
     private extendCertificate(iamCert: iamCertificate, done: Function) {
 
-        let certificate = Certificate.map(iamCert, this);
+        let certificate = Adapter.map(iamCert, this);
 
         switch (certificate.type) {
             case "developer":
                 this._endpoints.developer.v3DeveloperCertificatesIdGet(certificate.id, "", (error, data) => {
                     if (error) return done(error);
-                    Certificate.mapDeveloperExtension(certificate, data);
+                    Adapter.mapDeveloperExtension(certificate, data);
                 });
                 break;
 
             case "bootstrap":
                 this._endpoints.server.v3ServerCredentialsBootstrapGet("", (error, data) => {
                     if (error) return done(error);
-                    Certificate.mapExtension(certificate, data);
+                    Adapter.mapExtension(certificate, data);
                 });
                 break;
 
             case "lwm2m":
                 this._endpoints.server.v3ServerCredentialsLwm2mGet("", (error, data) => {
                     if (error) return done(error);
-                    Certificate.mapExtension(certificate, data);
+                    Adapter.mapExtension(certificate, data);
                 });
                 break;
         }
@@ -101,8 +102,8 @@ export class CertificatesApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listCertificates(options?: ListOptions, callback?: (err: any, data?: ListResponse<Certificate>) => any);
-    public listCertificates(options?: any, callback?: (err: any, data?: ListResponse<Certificate>) => any): Promise<ListResponse<Certificate>> {
+    public listCertificates(options?: ListOptions, callback?: CallbackFn<ListResponse<Certificate>>);
+    public listCertificates(options?: ListOptions, callback?: CallbackFn<ListResponse<Certificate>>): Promise<ListResponse<Certificate>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -119,7 +120,7 @@ export class CertificatesApi {
                 if (error) return done(error);
 
                 var certificates = data.data.map(certificate => {
-                    return Certificate.map(certificate, this);
+                    return Adapter.map(certificate, this);
                 });
                 done(null, mapListResponse(data, certificates));
             });
@@ -128,19 +129,19 @@ export class CertificatesApi {
 
     /**
      * Get details of a certificate
-     * @param options.id The certificate ID
+     * @param id The certificate ID
      * @returns Promise containing the certificate
      */
-    public getCertificate(options: { id: string }): Promise<Certificate>;
+    public getCertificate(id: string): Promise<Certificate>;
     /**
      * Get details of a certificate
-     * @param options.id The certificate ID
+     * @param id The certificate ID
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public getCertificate(options: { id: string }, callback: CallbackFn<Certificate>);
-    public getCertificate(options: { id: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
+    public getCertificate(id: string, callback: CallbackFn<Certificate>);
+    public getCertificate(id: string, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
         return asyncStyle(done => {
-            this._endpoints.admin.getCertificate(options.id, (error, data) => {
+            this._endpoints.admin.getCertificate(id, (error, data) => {
                 if (error) return done(error);
                 this.extendCertificate(data, done);
             });
@@ -149,49 +150,49 @@ export class CertificatesApi {
 
     /**
      * Adds a generated developer certificate
-     * @param options Certificate request
+     * @param certificate Certificate request
      * @returns Promise containing certificate
      */
-    public addCertificate(options: DeveloperCertificateRequest): Promise<Certificate>;
+    public addCertificate(certificate: DeveloperCertificateCreateObject): Promise<Certificate>;
     /**
      * Adds a generated developer certificate
-     * @param options Certificate request
+     * @param certificate Certificate request
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public addCertificate(options: DeveloperCertificateRequest, callback: CallbackFn<Certificate>): void;
+    public addCertificate(certificate: DeveloperCertificateCreateObject, callback: CallbackFn<Certificate>): void;
     /**
      * Adds a certificate
-     * @param options Certificate request
+     * @param certificate Certificate request
      * @returns Promise containing certificate
      */
-    public addCertificate(options: CertificateRequest): Promise<Certificate>;
+    public addCertificate(certificate: CertificateCreateObject): Promise<Certificate>;
     /**
      * Adds a certificate
-     * @param options Certificate request
+     * @param certificate Certificate request
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public addCertificate(options: CertificateRequest, callback: CallbackFn<Certificate>): void;
-    public addCertificate(options: DeveloperCertificateRequest | CertificateRequest, callback?: CallbackFn<Certificate>): Promise<Certificate> {
+    public addCertificate(certificate: CertificateCreateObject, callback: CallbackFn<Certificate>): void;
+    public addCertificate(certificate: DeveloperCertificateCreateObject | CertificateCreateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
         return asyncStyle(done => {
 
-            function isCert(cert: DeveloperCertificateRequest | CertificateRequest): cert is CertificateRequest {
-                return (<CertificateRequest>cert).type !== undefined;
+            function isCert(cert: DeveloperCertificateCreateObject | CertificateCreateObject): cert is CertificateCreateObject {
+                return (<CertificateCreateObject>cert).type !== undefined;
             }
 
-            if (isCert(options)) {
-                this._endpoints.admin.addCertificate(Certificate.reverseIamMap(options), (error, data) => {
+            if (isCert(certificate)) {
+                this._endpoints.admin.addCertificate(Adapter.reverseIamMap(certificate), (error, data) => {
                     if (error) return done(error);
                     this.extendCertificate(data, done);
                 });                
             } else {
-                this._endpoints.developer.v3DeveloperCertificatesPost("", Certificate.reverseCaMap(options), (error, caData) => {
+                this._endpoints.developer.v3DeveloperCertificatesPost("", Adapter.reverseCaMap(certificate), (error, caData) => {
                     if (error) return done(error);
 
                     this._endpoints.admin.getCertificate(caData.id, (error, data) => {
                         if (error) return done(error);
     
-                        let certificate = Certificate.map(data, this);
-                        Certificate.mapDeveloperExtension(certificate, caData);
+                        let certificate = Adapter.map(data, this);
+                        Adapter.mapDeveloperExtension(certificate, caData);
 
                         done(null, certificate);
                     });                    
@@ -202,29 +203,19 @@ export class CertificatesApi {
 
     /**
      * Updates a certificate
-     * @param options.id The certificate ID
-     * @param options.name Certificate name
-     * @param options.description Certificate description
-     * @param options.type Certificate type
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
+     * @param certificate Certificate data
      * @returns Promise containing certificate
      */
-    public updateCertificate(options: { id: string, name: string, description: string, type: CertificateTypeEnum, certificateData: string, signature: string }): Promise<Certificate>;
+    public updateCertificate(certificate: CertificateUpdateObject): Promise<Certificate>;
     /**
      * Updates a certificate
-     * @param options.id The certificate ID
-     * @param options.name Certificate name
-     * @param options.description Certificate description
-     * @param options.type Certificate type
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
+     * @param certificate Certificate data
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public updateCertificate(options: { id: string, name: string, description: string, type: CertificateTypeEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
-    public updateCertificate(options: { id: string, name: string, description: string, type: CertificateTypeEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
+    public updateCertificate(certificate: CertificateUpdateObject, callback: CallbackFn<Certificate>);
+    public updateCertificate(certificate: CertificateUpdateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
         return asyncStyle(done => {
-            this._endpoints.admin.updateCertificate(options.id, Certificate.reverseIamMap(options), (error, data) => {
+            this._endpoints.admin.updateCertificate(certificate.id, Adapter.reverseIamMap(certificate), (error, data) => {
                 if (error) return done(error);
                 this.extendCertificate(data, done);
             });
@@ -233,19 +224,19 @@ export class CertificatesApi {
 
     /**
      * Deletes a certificate
-     * @param options.id The certificate ID
+     * @param id The certificate ID
      * @returns Promise containing any error
      */
-    public deleteCertificate(options: { id: string }): Promise<void>;
+    public deleteCertificate(id: string): Promise<void>;
     /**
      * Deletes a certificate
-     * @param options.id The certificate ID
+     * @param id The certificate ID
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteCertificate(options: { id: string }, callback: (err: any, data?: void) => any);
-    public deleteCertificate(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
+    public deleteCertificate(id: string, callback: CallbackFn<void>);
+    public deleteCertificate(id: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.admin.deleteCertificate(options.id, (error, data) => {
+            this._endpoints.admin.deleteCertificate(id, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
