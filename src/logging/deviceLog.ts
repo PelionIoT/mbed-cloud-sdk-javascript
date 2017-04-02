@@ -15,34 +15,49 @@
 * limitations under the License.
 */
 
-import { DeviceLogType } from "./types";
-import { DeviceLogSerializerData as apiDeviceLogType } from "../_api/device_catalog";
-
 /*
  * Device Log
  */
 export class DeviceLog {
 
-    constructor(options: DeviceLogType) {
-        for(var key in options) {
-            this[key] = options[key];
-        }
-    }
-
-    static map(from: apiDeviceLogType): DeviceLog {
-        let type = {
-            changes:                 from.changes,
-            data:                    from.data,
-            eventDate:               from.date_time,
-            description:             from.description,
-            deviceId:                from.device_id,
-            logId:                   from.device_log_id,
-            eventType:               from.event_type,
-            eventTypeDescription:    from.event_type_description,
-            stateChanged:            from.state_change
-        };
-
-        return new DeviceLog(type);
-    }
+    /**
+     * ID of the event
+     */
+    id: string;
+    /**
+     * Date and time of the event
+     */
+    eventDate: Date;
+    /**
+     * Whether the event changed state
+     */
+    stateChanged?: boolean;
+    /**
+     * Description of the event
+     */
+    description?: string;
+    /**
+     * Changes made
+     */
+    changes?: string;
+    /**
+     * Description of the event type
+     */
+    eventTypeDescription?: string;
+    /**
+     * ID of the event log entry
+     */
+    logId?: string;
+    /**
+     * Type of the event
+     */
+    eventType?: string;
+    /**
+     * Data pertaining to the event
+     */
+    data?: string;
+    /**
+     * Device ID related to the event
+     */
+    deviceId?: string;
 }
-export interface DeviceLog extends DeviceLogType {}
