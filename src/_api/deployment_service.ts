@@ -20,88 +20,8 @@
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
 
-export type CampaignDeviceMetadataSerializerDeploymentStateEnum = "pending" | "updated_device_catalog" | "updated_connector_channel" | "deployed" | "manifestremoved";
-export interface CampaignDeviceMetadataSerializer {
-    /**
-     * The description of the object
-     */
-    "description": string;
-    /**
-     * The update campaign to which this device belongs
-     */
-    "campaign": string;
-    /**
-     * The time the object was created
-     */
-    "created_at": Date;
-    /**
-     * The API resource entity
-     */
-    "object": string;
-    /**
-     * The time the object was updated
-     */
-    "updated_at": Date;
-    /**
-     * The ID of the channel used to communicated with the device
-     */
-    "mechanism": string;
-    /**
-     * The name of the object
-     */
-    "name": string;
-    /**
-     * The entity instance signature
-     */
-    "etag": Date;
-    /**
-     * The address of the Connector to use
-     */
-    "mechanism_url": string;
-    /**
-     * The state of the deployment
-     */
-    "deployment_state": CampaignDeviceMetadataSerializerDeploymentStateEnum;
-    /**
-     * The ID of the metadata concerning this device/campaign
-     */
-    "id": string;
-    /**
-     * The ID of the device to deploy
-     */
-    "device_id": string;
-}
-
-export interface UpdateCampaignPage {
-    /**
-     * API Resource name
-     */
-    "object"?: string;
-    /**
-     * Whether there are more results to display
-     */
-    "has_more"?: boolean;
-    /**
-     * Total number of records
-     */
-    "total_count"?: number;
-    /**
-     * Entity id for fetch after it
-     */
-    "after"?: string;
-    /**
-     * The number of results to return
-     */
-    "limit"?: number;
-    "data"?: Array<UpdateCampaignSerializer>;
-    /**
-     * Order of returned records
-     */
-    "order"?: string;
-}
-
-export type UpdateCampaignSerializerStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
-export interface UpdateCampaignSerializer {
+export type UpdateCampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export interface UpdateCampaign {
     /**
      * An optional description of the campaign
      */
@@ -109,7 +29,7 @@ export interface UpdateCampaignSerializer {
     /**
      * The state of the campaign
      */
-    "state": UpdateCampaignSerializerStateEnum;
+    "state": UpdateCampaignStateEnum;
     /**
      * The updating IAM user ID
      */
@@ -138,11 +58,11 @@ export interface UpdateCampaignSerializer {
     /**
      * The timestamp at which update campaign scheduled to start
      */
-    "when"?: Date;
+    "when": Date;
     /**
      * The timestamp when the update campaign finished
      */
-    "finished"?: Date;
+    "finished": Date;
     /**
      * The entity instance signature
      */
@@ -166,102 +86,18 @@ export interface UpdateCampaignSerializer {
     "name": string;
 }
 
-export type UpdateCampaignStatusSerializerStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
-export interface UpdateCampaignStatusSerializer {
-    "direct_devices": number;
-    "connector_devices": number;
-    /**
-     * An optional description of the campaign
-     */
-    "description": string;
-    /**
-     * The state of the campaign
-     */
-    "state": UpdateCampaignStatusSerializerStateEnum;
-    /**
-     * The updating IAM user ID
-     */
-    "updating_user_id": string;
-    /**
-     * The time the object was created
-     */
-    "created_at": Date;
-    "total_devices": number;
-    "campaigndevicemetadata_set": Array<CampaignDeviceMetadataSerializer>;
-    /**
-     * DEPRECATED: The ID of the campaign
-     */
-    "campaign_id": string;
-    "deployed_devices": number;
-    /**
-     * The time the object was updated
-     */
-    "updated_at": Date;
-    /**
-     * The timestamp at which campaign is scheduled to start
-     */
-    "when"?: Date;
-    /**
-     * The timestamp when the update campaign finished
-     */
-    "finished"?: Date;
-    "root_manifest_url": string;
-    /**
-     * The gateway client API key
-     */
-    "updating_api_key": string;
-    /**
-     * The updating account ID
-     */
-    "updating_account_id": string;
-    /**
-     * The filter for the devices the campaign will target
-     */
-    "device_filter": string;
-    /**
-     * A name for this campaign
-     */
-    "name": string;
+export interface UpdateCampaignPage {
+    "object": string;
+    "has_more": boolean;
+    "total_count": number;
+    "after": string;
+    "limit": number;
+    "data": Array<UpdateCampaign>;
+    "order": string;
 }
 
-export type WriteCampaignDeviceMetadataSerializerDeploymentStateEnum = "pending" | "updated_device_catalog" | "updated_connector_channel" | "deployed" | "manifestremoved";
-export interface WriteCampaignDeviceMetadataSerializer {
-    /**
-     * The description of the object
-     */
-    "description"?: string;
-    /**
-     * The update campaign to which this device belongs
-     */
-    "campaign": string;
-    /**
-     * The API resource entity
-     */
-    "object"?: string;
-    /**
-     * The ID of the channel used to communicated with the device
-     */
-    "mechanism": string;
-    /**
-     * The name of the object
-     */
-    "name": string;
-    /**
-     * The address of the Connector to use
-     */
-    "mechanism_url"?: string;
-    /**
-     * The state of the deployment
-     */
-    "deployment_state"?: WriteCampaignDeviceMetadataSerializerDeploymentStateEnum;
-    /**
-     * The ID of the device to deploy
-     */
-    "device_id": string;
-}
-
-export type WriteUpdateCampaignSerializerStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
-export interface WriteUpdateCampaignSerializer {
+export type WriteUpdateCampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export interface WriteUpdateCampaign {
     /**
      * A name for this campaign
      */
@@ -269,7 +105,7 @@ export interface WriteUpdateCampaignSerializer {
     /**
      * The state of the campaign
      */
-    "state"?: WriteUpdateCampaignSerializerStateEnum;
+    "state"?: WriteUpdateCampaignStateEnum;
     /**
      * The updating IAM user ID
      */
@@ -302,11 +138,18 @@ export interface WriteUpdateCampaignSerializer {
     /**
      * The filter for the devices the campaign will target
      */
-    "device_filter"?: string;
+    "device_filter": string;
     /**
      * An optional description of the campaign
      */
     "description"?: string;
+}
+
+export interface WriteUpdateCampaignPage {
+    "limit": number;
+    "after": string;
+    "data": Array<UpdateCampaign>;
+    "order": string;
 }
 
 /**
@@ -315,143 +158,32 @@ export interface WriteUpdateCampaignSerializer {
 export class DefaultApi extends ApiBase {
 
     /** 
-     * &lt;p&gt;Reads the deploy_info.json file and returns the Build and Git ID to the caller.&lt;/p&gt; &lt;p&gt;Will return a 500 error if the file is missing, cannot be parsed or the keys are missing.&lt;/p&gt;
-     */
-    deployInfoGET (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/ds_deploy_info',
-            method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Create update campaign&lt;/p&gt;
-     * @param body Update campaign object to create
-     */
-    updateCampaignCreate (body: WriteUpdateCampaignSerializer, callback?: (error:any, data?:UpdateCampaignSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'updateCampaignCreate'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/update-campaigns/',
-            method: 'POST',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-            body: body,
-        }, callback);
-    }
-    /** 
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Delete update campaign&lt;/p&gt;
-     * @param campaignId The ID of the update campaign
-     */
-    updateCampaignDestroy (campaignId: string, callback?: (error:any, data?:UpdateCampaignSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "campaignId" is set
-        if (campaignId === null || campaignId === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'campaignId' missing when calling 'updateCampaignDestroy'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
-            method: 'DELETE',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;List all update campaigns&lt;/p&gt;
-     * @param limit 
-     * @param order 
-     * @param after 
-     * @param filter 
-     * @param include 
-     */
-    updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (filter !== undefined) {
-            queryParameters['filter'] = filter;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/update-campaigns/',
-            method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign fields&lt;/p&gt;
+     * @param deviceFilter The filter for the devices the campaign will target
+     * @param name A name for this campaign
      * @param campaignId DEPRECATED: The ID of the campaign
      * @param description An optional description of the campaign
-     * @param deviceFilter The filter for the devices the campaign will target
      * @param finished The timestamp when the update campaign finished
-     * @param name A name for this campaign
      * @param object The API resource entity
      * @param rootManifestId 
      * @param state The state of the campaign
      * @param when The timestamp at which update campaign scheduled to start
      */
-    updateCampaignPartialUpdate (campaignId?: string, description?: string, deviceFilter?: string, finished?: Date, name?: string, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: (error:any, data?:UpdateCampaignSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignCreate (deviceFilter: string, name: string, campaignId?: string, description?: string, finished?: Date, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceFilter" is set
+        if (deviceFilter === null || deviceFilter === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'deviceFilter' missing when calling 'updateCampaignCreate'."));
+            }
+            return;
+        }
+        // verify required parameter "name" is set
+        if (name === null || name === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'name' missing when calling 'updateCampaignCreate'."));
+            }
+            return;
+        }
 
         let headerParams: any = {};
 
@@ -497,7 +229,250 @@ export class DefaultApi extends ApiBase {
 
 
         return this.request({
-            url: '/v3/update-campaigns/{campaign_id}/',
+            url: '/v3/update-campaigns/',
+            method: 'POST',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Delete update campaign&lt;/p&gt;
+     * @param campaignId The ID of the update campaign
+     * @param rootManifestId 
+     * @param updatingRequestId 
+     * @param finished 
+     * @param finishedGte 
+     * @param finishedLte 
+     * @param createdAt 
+     * @param createdAtGte 
+     * @param createdAtLte 
+     * @param when 
+     * @param whenGte 
+     * @param whenLte 
+     * @param updatingIpAddress 
+     * @param etag 
+     * @param etagGte 
+     * @param etagLte 
+     * @param object 
+     * @param state 
+     * @param name 
+     * @param updatedAt 
+     * @param updatedAtGte 
+     * @param updatedAtLte 
+     * @param deviceFilter 
+     * @param campaigndevicemetadata 
+     * @param description 
+     * @param attempts 
+     */
+    updateCampaignDestroy (campaignId: string, rootManifestId?: string, updatingRequestId?: string, finished?: string, finishedGte?: string, finishedLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, when?: string, whenGte?: string, whenLte?: string, updatingIpAddress?: string, etag?: string, etagGte?: string, etagLte?: string, object?: string, state?: string, name?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, deviceFilter?: string, campaigndevicemetadata?: string, description?: string, attempts?: string, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'campaignId' missing when calling 'updateCampaignDestroy'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+        if (rootManifestId !== undefined) {
+            queryParameters['root_manifest_id'] = rootManifestId;
+        }
+        if (updatingRequestId !== undefined) {
+            queryParameters['updating_request_id'] = updatingRequestId;
+        }
+        if (finished !== undefined) {
+            queryParameters['finished'] = finished;
+        }
+        if (finishedGte !== undefined) {
+            queryParameters['finished__gte'] = finishedGte;
+        }
+        if (finishedLte !== undefined) {
+            queryParameters['finished__lte'] = finishedLte;
+        }
+        if (createdAt !== undefined) {
+            queryParameters['created_at'] = createdAt;
+        }
+        if (createdAtGte !== undefined) {
+            queryParameters['created_at__gte'] = createdAtGte;
+        }
+        if (createdAtLte !== undefined) {
+            queryParameters['created_at__lte'] = createdAtLte;
+        }
+        if (when !== undefined) {
+            queryParameters['when'] = when;
+        }
+        if (whenGte !== undefined) {
+            queryParameters['when__gte'] = whenGte;
+        }
+        if (whenLte !== undefined) {
+            queryParameters['when__lte'] = whenLte;
+        }
+        if (updatingIpAddress !== undefined) {
+            queryParameters['updating_ip_address'] = updatingIpAddress;
+        }
+        if (etag !== undefined) {
+            queryParameters['etag'] = etag;
+        }
+        if (etagGte !== undefined) {
+            queryParameters['etag__gte'] = etagGte;
+        }
+        if (etagLte !== undefined) {
+            queryParameters['etag__lte'] = etagLte;
+        }
+        if (object !== undefined) {
+            queryParameters['object'] = object;
+        }
+        if (state !== undefined) {
+            queryParameters['state'] = state;
+        }
+        if (name !== undefined) {
+            queryParameters['name'] = name;
+        }
+        if (updatedAt !== undefined) {
+            queryParameters['updated_at'] = updatedAt;
+        }
+        if (updatedAtGte !== undefined) {
+            queryParameters['updated_at__gte'] = updatedAtGte;
+        }
+        if (updatedAtLte !== undefined) {
+            queryParameters['updated_at__lte'] = updatedAtLte;
+        }
+        if (deviceFilter !== undefined) {
+            queryParameters['device_filter'] = deviceFilter;
+        }
+        if (campaigndevicemetadata !== undefined) {
+            queryParameters['campaigndevicemetadata'] = campaigndevicemetadata;
+        }
+        if (description !== undefined) {
+            queryParameters['description'] = description;
+        }
+        if (attempts !== undefined) {
+            queryParameters['attempts'] = attempts;
+        }
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
+            method: 'DELETE',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;List all update campaigns.&lt;/p&gt; &lt;h4 id&#x3D;\&quot;filtering\&quot;&gt;Filtering:&lt;/h4&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;{URL encoded query string}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The query string is made up of key/value pairs separated by ampersands. So for a query of &lt;code&gt;key1&#x3D;value1&amp;amp;key2&#x3D;value2&amp;amp;key3&#x3D;value3&lt;/code&gt; this would be encoded as follows:&lt;/p&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The examples below show the queries in &lt;em&gt;unencoded&lt;/em&gt; form.&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-campaign-properties-all-properties-are-filterable\&quot;&gt;By campaign properties (all properties are filterable):&lt;/h5&gt; &lt;p&gt;For example: &lt;code&gt;state&#x3D;[draft|scheduled|devicefectch|devicecopy|devicecopycomplete|publishing|deploying|deployed|manifestremoved|expired]&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;root_manifest_id&#x3D;43217771234242e594ddb433816c498a&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-date-time-fields\&quot;&gt;On date-time fields:&lt;/h5&gt; &lt;p&gt;Date-time fields should be specified in UTC RFC3339 format &lt;code&gt;YYYY-MM-DDThh:mm:ss.msZ&lt;/code&gt;. There are three permitted variations:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Date-time filtering supports three operators:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;equality&lt;/li&gt; &lt;li&gt;greater than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__gte&lt;/code&gt;&lt;/li&gt; &lt;li&gt;less than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__lte&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Lower and upper limits to a date-time range may be specified by including both the &lt;code&gt;__gte&lt;/code&gt; and &lt;code&gt;__lte&lt;/code&gt; forms in the filter.&lt;/p&gt; &lt;p&gt;&lt;code&gt;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&lt;/code&gt;&lt;/p&gt; &lt;h4 id&#x3D;\&quot;multi-field-example\&quot;&gt;Multi-field example&lt;/h4&gt; &lt;p&gt;&lt;code&gt;state&#x3D;deployed&amp;amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&lt;/code&gt;&lt;/p&gt; &lt;p&gt;Encoded: &lt;code&gt;?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&lt;/code&gt;&lt;/p&gt;
+     * @param limit how many objects to retrieve in the page
+     * @param order ASC or DESC
+     * @param after the ID of the the item after which to retrieve the next page
+     * @param filter URL encoded query string parameter to filter returned data
+     */
+    updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, callback?: (error:any, data?:UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (filter !== undefined) {
+            queryParameters['filter'] = filter;
+        }
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/update-campaigns/',
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign fields&lt;/p&gt;
+     * @param campaignId 
+     * @param campaignId2 DEPRECATED: The ID of the campaign
+     * @param description An optional description of the campaign
+     * @param deviceFilter The filter for the devices the campaign will target
+     * @param finished The timestamp when the update campaign finished
+     * @param name A name for this campaign
+     * @param object The API resource entity
+     * @param rootManifestId 
+     * @param state The state of the campaign
+     * @param when The timestamp at which update campaign scheduled to start
+     */
+    updateCampaignPartialUpdate (campaignId: string, campaignId2?: string, description?: string, deviceFilter?: string, finished?: Date, name?: string, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'campaignId' missing when calling 'updateCampaignPartialUpdate'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+        if (campaignId2 !== undefined) {
+            formParams['campaign_id'] = campaignId2;
+        }
+
+        if (description !== undefined) {
+            formParams['description'] = description;
+        }
+
+        if (deviceFilter !== undefined) {
+            formParams['device_filter'] = deviceFilter;
+        }
+
+        if (finished !== undefined) {
+            formParams['finished'] = finished;
+        }
+
+        if (name !== undefined) {
+            formParams['name'] = name;
+        }
+
+        if (object !== undefined) {
+            formParams['object'] = object;
+        }
+
+        if (rootManifestId !== undefined) {
+            formParams['root_manifest_id'] = rootManifestId;
+        }
+
+        if (state !== undefined) {
+            formParams['state'] = state;
+        }
+
+        if (when !== undefined) {
+            formParams['when'] = when;
+        }
+
+
+        return this.request({
+            url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'PATCH',
             headers: headerParams,
             query: queryParameters,
@@ -510,7 +485,7 @@ export class DefaultApi extends ApiBase {
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Retrieve campaign&lt;/p&gt;
      * @param campaignId The ID of the campaign
      */
-    updateCampaignRetrieve (campaignId: string, callback?: (error:any, data?:UpdateCampaignSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignRetrieve (campaignId: string, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -537,41 +512,19 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Show the status of an update campaign&lt;/p&gt;
-     * @param campaignId The ID of the update campaign
-     */
-    updateCampaignStatus (campaignId: string, callback?: (error:any, data?:UpdateCampaignStatusSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "campaignId" is set
-        if (campaignId === null || campaignId === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'campaignId' missing when calling 'updateCampaignStatus'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/update-campaigns/{campaign_id}/status/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
-            method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign&lt;/p&gt;
-     * @param campaignId Campaign ID to update
-     * @param body Update campaign object to create
+     * @param campaignId 
+     * @param deviceFilter The filter for the devices the campaign will target
+     * @param name A name for this campaign
+     * @param campaignId2 DEPRECATED: The ID of the campaign
+     * @param description An optional description of the campaign
+     * @param finished The timestamp when the update campaign finished
+     * @param object The API resource entity
+     * @param rootManifestId 
+     * @param state The state of the campaign
+     * @param when The timestamp at which update campaign scheduled to start
      */
-    updateCampaignUpdate (campaignId: string, body: WriteUpdateCampaignSerializer, callback?: (error:any, data?:UpdateCampaignSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignUpdate (campaignId: string, deviceFilter: string, name: string, campaignId2?: string, description?: string, finished?: Date, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -579,10 +532,17 @@ export class DefaultApi extends ApiBase {
             }
             return;
         }
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
+        // verify required parameter "deviceFilter" is set
+        if (deviceFilter === null || deviceFilter === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'updateCampaignUpdate'."));
+                callback(new Error("Required parameter 'deviceFilter' missing when calling 'updateCampaignUpdate'."));
+            }
+            return;
+        }
+        // verify required parameter "name" is set
+        if (name === null || name === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'name' missing when calling 'updateCampaignUpdate'."));
             }
             return;
         }
@@ -593,6 +553,42 @@ export class DefaultApi extends ApiBase {
 
         let useFormData = false;
         let formParams: any = {};
+        if (campaignId2 !== undefined) {
+            formParams['campaign_id'] = campaignId2;
+        }
+
+        if (description !== undefined) {
+            formParams['description'] = description;
+        }
+
+        if (deviceFilter !== undefined) {
+            formParams['device_filter'] = deviceFilter;
+        }
+
+        if (finished !== undefined) {
+            formParams['finished'] = finished;
+        }
+
+        if (name !== undefined) {
+            formParams['name'] = name;
+        }
+
+        if (object !== undefined) {
+            formParams['object'] = object;
+        }
+
+        if (rootManifestId !== undefined) {
+            formParams['root_manifest_id'] = rootManifestId;
+        }
+
+        if (state !== undefined) {
+            formParams['state'] = state;
+        }
+
+        if (when !== undefined) {
+            formParams['when'] = when;
+        }
+
 
         return this.request({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
@@ -602,7 +598,6 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
-            body: body,
         }, callback);
     }
 }
