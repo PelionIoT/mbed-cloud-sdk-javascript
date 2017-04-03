@@ -33,38 +33,44 @@ import {
  */
 export class CertificateAdapter {
 
-    static map(from: iamCertificate, api: CertificatesApi): Certificate {
-        let certificate = new Certificate(api);
-
-        certificate.id                 = from.id;
-        certificate.name               = from.name;
-        certificate.description        = from.description;
-        certificate.type               = from.device_execution_mode === 1 ? "developer" : from.service;
-        certificate.accountId          = from.account_id;
-        certificate.certificateData    = from.cert_data;
-        certificate.createdAt          = from.created_at;
-        certificate.issuer             = from.issuer;
-        certificate.subject            = from.subject;
-        certificate.validity           = from.validity;
-
-        return certificate;
+    private static map(from: iamCertificate): Partial<Certificate> {
+        return {
+            id                 : from.id,
+            name               : from.name,
+            description        : from.description,
+            type               : from.device_execution_mode === 1 ? "developer" : from.service,
+            accountId          : from.account_id,
+            certificateData    : from.cert_data,
+            createdAt          : from.created_at,
+            issuer             : from.issuer,
+            subject            : from.subject,
+            validity           : from.validity
+        };
     }
 
-    static mapExtension(base: Certificate, extension: serverResponse): Certificate {
-        base.serverUri = extension.server_uri;
-        base.serverCertificate = extension.server_certificate;
-
-        return base;
+    static mapCertificate(from: iamCertificate, api: CertificatesApi): Certificate {
+        return new Certificate(api, CertificateAdapter.map(from));
     }
 
-    static mapDeveloperExtension(base: Certificate, extension: developerResponse): Certificate {
-        base.serverUri = extension.server_uri;
-        base.serverCertificate = extension.server_certificate;
-        base.headerFile = extension.security_file_content;
-        base.developerCertificate = extension.developer_certificate;
-        base.developerPrivateKey = extension.developer_private_key;
+    static mapServerCertificate(from: iamCertificate, api: CertificatesApi, extension: serverResponse): Certificate {
+        let partial: any = CertificateAdapter.map(from);
 
-        return base;
+        partial.serverUri = extension.server_uri;
+        partial.serverCertificate = extension.server_certificate;
+
+        return new Certificate(api, partial);
+    }
+
+    static mapDeveloperCertificate(from: iamCertificate, api: CertificatesApi, extension: developerResponse): Certificate {
+        let partial: any = CertificateAdapter.map(from);
+
+        partial.serverUri = extension.server_uri;
+        partial.serverCertificate = extension.server_certificate;
+        partial.headerFile = extension.security_file_content;
+        partial.developerCertificate = extension.developer_certificate;
+        partial.developerPrivateKey = extension.developer_private_key;
+
+        return new Certificate(api, partial);
     }
 
     static reverseMap(from: AddCertificateObject): iamCertificateRequest {

@@ -27,49 +27,52 @@ export class Certificate {
     /**
      * Entity ID.
      */
-    id: string;
+    readonly id: string;
     /**
      * The UUID of the account.
      */
-    accountId: string;
+    readonly accountId: string;
     /**
      * Subject of the certificate.
      */
-    subject: string;
+    readonly subject: string;
     /**
      * Expiration time in UTC formatted as RFC3339.
      */
-    validity: string;
+    readonly validity: string;
     /**
      * Issuer of the certificate.
      */
-    issuer: string;    
+    readonly issuer: string;
     /**
      * Creation UTC time RFC3339.
      */
-    createdAt?: string;
+    readonly createdAt?: string;
     /**
      * Bootstrap server URI to which the client needs to connect to.
      */
-    serverUri?: string;
+    readonly serverUri?: string;
     /**
      * PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
      */
-    serverCertificate?: string;
+    readonly serverCertificate?: string;
     /**
      * Content of the security.c file that will be flashed into the device to provide the security credentials
      */
-    headerFile?: string;
+    readonly headerFile?: string;
     /**
      * PEM format X.509 developer certificate.
      */
-    developerCertificate?: string;
+    readonly developerCertificate?: string;
     /**
      * PEM format developer private key associated to the certificate.
      */
-    developerPrivateKey?: string;
+    readonly developerPrivateKey?: string;
 
-    constructor(private _api: CertificatesApi) {
+    constructor(private _api: CertificatesApi, init?: Partial<Certificate>) {
+        for(var key in init) {
+            this[key] = init[key];
+        }
     }
 
     /**

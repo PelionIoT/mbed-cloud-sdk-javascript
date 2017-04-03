@@ -30,19 +30,17 @@ import { ApiKey } from "./apiKey";
 export class ApiKeyAdapter {
 
     static map(from: apiApiKey, api: AccessApi): ApiKey {
-        let apiKey = new ApiKey(api);
-
-        apiKey.name = from.name;
-        apiKey.owner = from.owner;
-        apiKey.groups = from.groups;
-        apiKey.id = from.id;
-        apiKey.key = from.key;
-        apiKey.status = from.status;
-        apiKey.createdAt = from.created_at;
-        apiKey.creationTime = from.creation_time;
-        apiKey.lastLoginTime = from.last_login_time;
-
-        return apiKey;
+        return new ApiKey(api, {
+            name             : from.name,
+            owner            : from.owner,
+            groups           : from.groups,
+            id               : from.id,
+            key              : from.key,
+            status           : from.status,
+            createdAt        : from.created_at,
+            creationTime     : from.creation_time,
+            lastLoginTime    : from.last_login_time
+        });
     }
 
     static addMap(from: AddApiKeyObject): apiApiKeyAdd {

@@ -28,29 +28,32 @@ export class ApiKey {
     /**
      * A list of group IDs this API key belongs to.
      */
-    groups?: string[];
+    readonly groups?: string[];
     /**
      * The status of the API key.
      */
-    status?: ApiKeyStatusEnum;
+    readonly status?: ApiKeyStatusEnum;
     /**
      * The API key.
      */
-    key: string;
+    readonly key: string;
     /**
      * Creation UTC time RFC3339.
      */
-    createdAt?: string;
+    readonly createdAt?: string;
     /**
      * The timestamp of the API key creation in the storage, in milliseconds.
      */
-    creationTime?: number;
+    readonly creationTime?: number;
     /**
      * The timestamp of the latest API key usage, in milliseconds.
      */
-    lastLoginTime?: number;
+    readonly lastLoginTime?: number;
 
-    constructor(private _api?: AccessApi) {
+    constructor(private _api?: AccessApi, init?: Partial<ApiKey>) {
+        for(var key in init) {
+            this[key] = init[key];
+        }
     }
 
     /**

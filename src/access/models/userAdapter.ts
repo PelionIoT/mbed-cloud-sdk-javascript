@@ -30,28 +30,25 @@ import { User } from "./user";
 export class UserAdapter {
 
     static map(from: apiUser, api: AccessApi): User {
-
-        let user = new User(api);
-
-        user.fullName               = from.full_name;
-        user.username               = from.username;
-        user.password               = from.password;
-        user.email                  = from.email;
-        user.phoneNumber            = from.phone_number;
-        user.address                = from.address;
-        user.termsAccepted          = from.is_gtc_accepted;
-        user.marketingAccepted      = from.is_marketing_accepted;
-        user.groups                 = from.groups;
-        user.id                     = from.id;
-        user.status                 = from.status;
-        user.accountId              = from.account_id;
-        user.emailVerified          = from.email_verified;
-        user.createdAt              = from.created_at;
-        user.creationTime           = from.creation_time;
-        user.passwordChangedTime    = from.password_changed_time;
-        user.lastLoginTime          = from.last_login_time;
-
-        return user;
+        return new User(api, {
+            fullName               : from.full_name,
+            username               : from.username,
+            password               : from.password,
+            email                  : from.email,
+            phoneNumber            : from.phone_number,
+            address                : from.address,
+            termsAccepted          : from.is_gtc_accepted,
+            marketingAccepted      : from.is_marketing_accepted,
+            groups                 : from.groups,
+            id                     : from.id,
+            status                 : from.status,
+            accountId              : from.account_id,
+            emailVerified          : from.email_verified,
+            createdAt              : from.created_at,
+            creationTime           : from.creation_time,
+            passwordChangedTime    : from.password_changed_time,
+            lastLoginTime          : from.last_login_time
+        });
     }
 
     static addMap(from: AddUserObject): apiUserAdd {

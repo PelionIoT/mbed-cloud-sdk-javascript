@@ -63,27 +63,27 @@ export class CertificatesApi {
 
     private extendCertificate(iamCert: iamCertificate, done: Function) {
 
-        let certificate = CertificateAdapter.map(iamCert, this);
+        let certificate:Certificate = null;
 
         switch (certificate.type) {
             case "developer":
                 this._endpoints.developer.v3DeveloperCertificatesIdGet(certificate.id, "", (error, data) => {
                     if (error) return done(error);
-                    CertificateAdapter.mapDeveloperExtension(certificate, data);
+                    certificate = CertificateAdapter.mapDeveloperCertificate(iamCert, this, data);
                 });
                 break;
 
             case "bootstrap":
                 this._endpoints.server.v3ServerCredentialsBootstrapGet("", (error, data) => {
                     if (error) return done(error);
-                    CertificateAdapter.mapExtension(certificate, data);
+                    certificate = CertificateAdapter.mapServerCertificate(iamCert, this, data);
                 });
                 break;
 
             case "lwm2m":
                 this._endpoints.server.v3ServerCredentialsLwm2mGet("", (error, data) => {
                     if (error) return done(error);
-                    CertificateAdapter.mapExtension(certificate, data);
+                    certificate = CertificateAdapter.mapServerCertificate(iamCert, this, data);
                 });
                 break;
         }
@@ -120,7 +120,7 @@ export class CertificatesApi {
                 if (error) return done(error);
 
                 var certificates = data.data.map(certificate => {
-                    return CertificateAdapter.map(certificate, this);
+                    return CertificateAdapter.mapCertificate(certificate, this);
                 });
                 done(null, mapListResponse(data, certificates));
             });
@@ -191,9 +191,7 @@ export class CertificatesApi {
                     this._endpoints.admin.getCertificate(caData.id, (error, data) => {
                         if (error) return done(error);
     
-                        let certificate = CertificateAdapter.map(data, this);
-                        CertificateAdapter.mapDeveloperExtension(certificate, caData);
-
+                        let certificate = CertificateAdapter.mapDeveloperCertificate(data, this, caData);
                         done(null, certificate);
                     });                    
                 });

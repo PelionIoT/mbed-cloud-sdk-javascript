@@ -23,41 +23,47 @@ export class DeviceLog {
     /**
      * ID of the event
      */
-    id: string;
+    readonly id: string;
     /**
      * Date and time of the event
      */
-    eventDate: Date;
+    readonly eventDate: Date;
     /**
      * Whether the event changed state
      */
-    stateChanged?: boolean;
+    readonly stateChanged?: boolean;
     /**
      * Description of the event
      */
-    description?: string;
+    readonly description?: string;
     /**
      * Changes made
      */
-    changes?: string;
+    readonly changes?: string;
     /**
      * Description of the event type
      */
-    eventTypeDescription?: string;
+    readonly eventTypeDescription?: string;
     /**
      * ID of the event log entry
      */
-    logId?: string;
+    readonly logId?: string;
     /**
      * Type of the event
      */
-    eventType?: string;
+    readonly eventType?: string;
     /**
      * Data pertaining to the event
      */
-    data?: string;
+    readonly data?: string;
     /**
      * Device ID related to the event
      */
-    deviceId?: string;
+    readonly deviceId?: string;
+
+    constructor(init?: Partial<DeviceLog>) {
+        for(var key in init) {
+            this[key] = init[key];
+        }
+    }
 }

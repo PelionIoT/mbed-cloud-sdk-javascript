@@ -30,41 +30,44 @@ export class User {
     /**
      * A list of group IDs this user belongs to.
      */
-    groups?: string[];
+    readonly groups?: string[];
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
      */
-    username: string;
+    readonly username: string;
     /**
      * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
      */
-    status: UserStatusEnum;
+    readonly status: UserStatusEnum;
     /**
      * The UUID of the account.
      */
-    accountId: string;
+    readonly accountId: string;
     /**
      * A flag indicating whether the user's email address has been verified or not.
      */
-    emailVerified?: boolean;
+    readonly emailVerified?: boolean;
     /**
      * Creation UTC time RFC3339.
      */
-    createdAt?: string;
+    readonly createdAt?: string;
     /**
      * A timestamp of the user creation in the storage, in milliseconds.
      */
-    creationTime?: number;
+    readonly creationTime?: number;
     /**
      * A timestamp of the latest change of the user password, in milliseconds.
      */
-    passwordChangedTime?: number;
+    readonly passwordChangedTime?: number;
     /**
      * A timestamp of the latest login of the user, in milliseconds.
      */
-    lastLoginTime?: number;
+    readonly lastLoginTime?: number;
 
-    constructor(private _api?: AccessApi) {
+    constructor(private _api?: AccessApi, init?: Partial<User>) {
+        for(var key in init) {
+            this[key] = init[key];
+        }
     }
 
     /**

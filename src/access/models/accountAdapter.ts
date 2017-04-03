@@ -28,34 +28,32 @@ import { Account } from "./account";
  */
 export class AccountAdapter {
     static map(from: apiAccount, api: AccessApi): Account {
-        let account = new Account(api);
-
-        //account.parentId           = from.parent_id;
-        //account.subAccounts        = from.sub_accounts;
-        account.displayName            = from.display_name;
-        account.aliases                = from.aliases;
-        account.company                = from.company;
-        account.contact                = from.contact;
-        account.email                  = from.email;
-        account.phoneNumber            = from.phone_number;
-        account.addressLine1           = from.address_line1;
-        account.addressLine2           = from.address_line2;
-        account.city                   = from.city;
-        account.state                  = from.state;
-        account.postcode               = from.postal_code;
-        account.country                = from.country;
-        account.id                     = from.id;
-        account.status                 = from.status;
-        account.tier                   = from.tier;
-        account.limits                 = from.limits;
-        account.policies               = from.policies;
-        account.provisioningAllowed    = from.is_provisioning_allowed;
-        account.createdAt              = from.created_at;
-        account.upgradedAt             = from.upgraded_at;
-        account.reason                 = from.reason;
-        account.templateId             = from.template_id;
-
-        return account;
+        return new Account(api, {
+            //parentId               : from.parent_id,
+            //subAccounts            : from.sub_accounts,
+            displayName            : from.display_name,
+            aliases                : from.aliases,
+            company                : from.company,
+            contact                : from.contact,
+            email                  : from.email,
+            phoneNumber            : from.phone_number,
+            addressLine1           : from.address_line1,
+            addressLine2           : from.address_line2,
+            city                   : from.city,
+            state                  : from.state,
+            postcode               : from.postal_code,
+            country                : from.country,
+            id                     : from.id,
+            status                 : from.status,
+            tier                   : from.tier,
+            limits                 : from.limits,
+            policies               : from.policies,
+            provisioningAllowed    : from.is_provisioning_allowed,
+            createdAt              : from.created_at,
+            upgradedAt             : from.upgraded_at,
+            reason                 : from.reason,
+            templateId             : from.template_id
+        });
     }
 
     static reverseMap(from: UpdateAccountObject): apiAccountRequest {

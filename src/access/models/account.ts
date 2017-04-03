@@ -36,49 +36,52 @@ export class Account {
     /**
      * Account ID.
      */
-    id: string;
+    readonly id: string;
     /**
      * An array of aliases.
      */
-    aliases: string[];
+    readonly aliases: string[];
     /**
      * The status of the account.
      */
-    status: AccountStatusEnum;
+    readonly status: AccountStatusEnum;
     /**
      * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
      */
-    tier: string;
+    readonly tier: string;
     /**
      * List of limits as key-value pairs if requested.
      */
-    limits?: { [key: string]: string; };
+    readonly limits?: { [key: string]: string; };
     /**
      * List of policies if requested.
      */
-    policies?: Array<Policy>;
+    readonly policies?: Array<Policy>;
     /**
      * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
      */
-    provisioningAllowed: boolean;
+    readonly provisioningAllowed: boolean;
     /**
      * Creation UTC time RFC3339.
      */
-    createdAt?: string;
+    readonly createdAt?: string;
     /**
      * Time when upgraded to commercial account in UTC format RFC3339.
      */
-    upgradedAt?: string;
+    readonly upgradedAt?: string;
     /**
      * A reason note for updating the status of the account
      */
-    reason?: string;
+    readonly reason?: string;
     /**
      * Account template ID.
      */
-    templateId?: string;
+    readonly templateId?: string;
 
-    constructor(private _api?: AccessApi) {
+    constructor(private _api?: AccessApi, init?: Partial<Account>) {
+        for(var key in init) {
+            this[key] = init[key];
+        }
     }
 
     /**

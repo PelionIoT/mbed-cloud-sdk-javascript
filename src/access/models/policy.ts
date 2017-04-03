@@ -23,17 +23,17 @@ export class Policy {
     /**
      * Comma separated list of actions, empty string represents all actions.
      */
-    "action"?: string;
+    action?: string;
     /**
      * Resource that is protected by this policy.
      */
-    "resource"?: string;
+    resource?: string;
     /**
      * Feature name corresponding to this policy.
      */
-    "feature"?: string;
+    feature?: string;
     /**
      * True or false controlling whether an action is allowed or not.
      */
-    "allow"?: boolean;
+    allow?: boolean;
 }
