@@ -199,7 +199,7 @@ export class DefaultApi extends ApiBase {
      * @param datafileChecksum 
      * @param name2 
      */
-    firmwareImageCreate (datafile: string, name: string, description?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, updatingIpAddress?: string, etag?: string, etagGte?: string, etagLte?: string, updatingRequestId?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description2?: string, object?: string, imageId?: string, datafileChecksum?: string, name2?: string, callback?: (error:any, data?:FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareImageCreate (datafile: any, name: string, description?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, updatingIpAddress?: string, etag?: string, etagGte?: string, etagLte?: string, updatingRequestId?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description2?: string, object?: string, imageId?: string, datafileChecksum?: string, name2?: string, callback?: (error:any, data?:FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "datafile" is set
         if (datafile === null || datafile === undefined) {
             if (callback) {
@@ -272,6 +272,7 @@ export class DefaultApi extends ApiBase {
         if (datafile !== undefined) {
             formParams['datafile'] = datafile;
         }
+        useFormData = true;
 
         if (description !== undefined) {
             formParams['description'] = description;
@@ -540,7 +541,7 @@ export class DefaultApi extends ApiBase {
      * @param datafileChecksum 
      * @param name2 
      */
-    firmwareManifestCreate (datafile: string, name: string, description?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, etag?: string, etagGte?: string, etagLte?: string, updatingIpAddress?: string, manifestId?: string, updatingRequestId?: string, description2?: string, timestamp?: string, timestampGte?: string, timestampLte?: string, object?: string, deviceClass?: string, datafileChecksum?: string, name2?: string, callback?: (error:any, data?:FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareManifestCreate (datafile: any, name: string, description?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, etag?: string, etagGte?: string, etagLte?: string, updatingIpAddress?: string, manifestId?: string, updatingRequestId?: string, description2?: string, timestamp?: string, timestampGte?: string, timestampLte?: string, object?: string, deviceClass?: string, datafileChecksum?: string, name2?: string, callback?: (error:any, data?:FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "datafile" is set
         if (datafile === null || datafile === undefined) {
             if (callback) {
@@ -625,6 +626,7 @@ export class DefaultApi extends ApiBase {
         if (datafile !== undefined) {
             formParams['datafile'] = datafile;
         }
+        useFormData = true;
 
         if (description !== undefined) {
             formParams['description'] = description;
