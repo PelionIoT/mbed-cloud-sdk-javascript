@@ -100,7 +100,7 @@ export interface WriteDeviceQuery {
 
 export interface WriteDeviceQueryPage {
     "limit": number;
-    "after": string;
+    "after"?: string;
     "data": Array<DeviceQuery>;
     "order": string;
 }
@@ -112,24 +112,13 @@ export class DefaultApi extends ApiBase {
 
     /** 
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Create device query&lt;/p&gt;
-     * @param name The name of the query
-     * @param query The device query
-     * @param description The description of the object
-     * @param object The API resource entity
-     * @param queryId DEPRECATED: The ID of the query
+     * @param device 
      */
-    deviceQueryCreate (name: string, query: string, description?: string, object?: string, queryId?: string, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "name" is set
-        if (name === null || name === undefined) {
+    deviceQueryCreate (device: DeviceQuery, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "device" is set
+        if (device === null || device === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'name' missing when calling 'deviceQueryCreate'."));
-            }
-            return;
-        }
-        // verify required parameter "query" is set
-        if (query === null || query === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'query' missing when calling 'deviceQueryCreate'."));
+                callback(new Error("Required parameter 'device' missing when calling 'deviceQueryCreate'."));
             }
             return;
         }
@@ -140,26 +129,6 @@ export class DefaultApi extends ApiBase {
 
         let useFormData = false;
         let formParams: any = {};
-        if (description !== undefined) {
-            formParams['description'] = description;
-        }
-
-        if (name !== undefined) {
-            formParams['name'] = name;
-        }
-
-        if (object !== undefined) {
-            formParams['object'] = object;
-        }
-
-        if (query !== undefined) {
-            formParams['query'] = query;
-        }
-
-        if (queryId !== undefined) {
-            formParams['query_id'] = queryId;
-        }
-
 
         return this.request({
             url: '/v3/device-queries/',
@@ -169,6 +138,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
+            body: device,
         }, callback);
     }
     /** 
@@ -207,8 +177,24 @@ export class DefaultApi extends ApiBase {
      * @param order ASC or DESC
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
+     * @param include Comma separated list of data fields to return. Currently supported: total_count
+     * @param createdAt 
+     * @param createdAtGte 
+     * @param createdAtLte 
+     * @param description 
+     * @param etag 
+     * @param etagAtGte 
+     * @param etagAtLte 
+     * @param id 
+     * @param name 
+     * @param object 
+     * @param query 
+     * @param queryId 
+     * @param updatedAt 
+     * @param updatedAtGte 
+     * @param updatedAtLte 
      */
-    deviceQueryList (limit?: number, order?: string, after?: string, filter?: string, callback?: (error:any, data?:DeviceQueryPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceQueryList (limit?: number, order?: string, after?: string, filter?: string, include?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description?: string, etag?: string, etagAtGte?: string, etagAtLte?: string, id?: string, name?: string, object?: string, query?: string, queryId?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, callback?: (error:any, data?:DeviceQueryPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -224,6 +210,54 @@ export class DefaultApi extends ApiBase {
         }
         if (filter !== undefined) {
             queryParameters['filter'] = filter;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+        if (createdAt !== undefined) {
+            queryParameters['created_at'] = createdAt;
+        }
+        if (createdAtGte !== undefined) {
+            queryParameters['created_at__gte'] = createdAtGte;
+        }
+        if (createdAtLte !== undefined) {
+            queryParameters['created_at__lte'] = createdAtLte;
+        }
+        if (description !== undefined) {
+            queryParameters['description'] = description;
+        }
+        if (etag !== undefined) {
+            queryParameters['etag'] = etag;
+        }
+        if (etagAtGte !== undefined) {
+            queryParameters['etag_at__gte'] = etagAtGte;
+        }
+        if (etagAtLte !== undefined) {
+            queryParameters['etag_at__lte'] = etagAtLte;
+        }
+        if (id !== undefined) {
+            queryParameters['id'] = id;
+        }
+        if (name !== undefined) {
+            queryParameters['name'] = name;
+        }
+        if (object !== undefined) {
+            queryParameters['object'] = object;
+        }
+        if (query !== undefined) {
+            queryParameters['query'] = query;
+        }
+        if (queryId !== undefined) {
+            queryParameters['query_id'] = queryId;
+        }
+        if (updatedAt !== undefined) {
+            queryParameters['updated_at'] = updatedAt;
+        }
+        if (updatedAtGte !== undefined) {
+            queryParameters['updated_at__gte'] = updatedAtGte;
+        }
+        if (updatedAtLte !== undefined) {
+            queryParameters['updated_at__lte'] = updatedAtLte;
         }
 
         let useFormData = false;
@@ -242,17 +276,20 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Update device query fields&lt;/p&gt;
      * @param queryId 
-     * @param description The description of the object
-     * @param name The name of the query
-     * @param object The API resource entity
-     * @param query The device query
-     * @param queryId2 DEPRECATED: The ID of the query
+     * @param deviceQuery 
      */
-    deviceQueryPartialUpdate (queryId: string, description?: string, name?: string, object?: string, query?: string, queryId2?: string, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceQueryPartialUpdate (queryId: string, deviceQuery: DeviceQuery, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "queryId" is set
         if (queryId === null || queryId === undefined) {
             if (callback) {
                 callback(new Error("Required parameter 'queryId' missing when calling 'deviceQueryPartialUpdate'."));
+            }
+            return;
+        }
+        // verify required parameter "deviceQuery" is set
+        if (deviceQuery === null || deviceQuery === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'deviceQuery' missing when calling 'deviceQueryPartialUpdate'."));
             }
             return;
         }
@@ -263,26 +300,6 @@ export class DefaultApi extends ApiBase {
 
         let useFormData = false;
         let formParams: any = {};
-        if (description !== undefined) {
-            formParams['description'] = description;
-        }
-
-        if (name !== undefined) {
-            formParams['name'] = name;
-        }
-
-        if (object !== undefined) {
-            formParams['object'] = object;
-        }
-
-        if (query !== undefined) {
-            formParams['query'] = query;
-        }
-
-        if (queryId2 !== undefined) {
-            formParams['query_id'] = queryId2;
-        }
-
 
         return this.request({
             url: '/v3/device-queries/{query_id}/'.replace('{' + 'query_id' + '}', String(queryId)),
@@ -292,6 +309,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
+            body: deviceQuery,
         }, callback);
     }
     /** 

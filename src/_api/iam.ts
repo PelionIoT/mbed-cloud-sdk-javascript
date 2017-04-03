@@ -3,8 +3,8 @@
 // Tracks base typescript-fetch mustache 01/02/17
 // ===============================================
 /**
- * IAM Identities REST API
- * REST API to manage accounts, groups, users and API keys
+ * Account Management API
+ * API for managing accounts, users, creating API keys, uploading trusted certificates
  *
  * OpenAPI spec version: v3
  * 
@@ -621,13 +621,13 @@ export interface UpdatedResponse {
  */
 export interface UserInfoReq {
     /**
-     * Phone number.
-     */
-    "phone_number"?: string;
-    /**
      * A username containing alphanumerical letters and -,._@+= characters.
      */
     "username"?: string;
+    /**
+     * Phone number.
+     */
+    "phone_number"?: string;
     /**
      * A list of IDs of the groups this user belongs to.
      */
@@ -781,13 +781,13 @@ export interface UserInfoRespList {
  */
 export interface UserUpdateReq {
     /**
-     * Phone number.
-     */
-    "phone_number"?: string;
-    /**
      * A username containing alphanumerical letters and -,._@+= characters.
      */
     "username"?: string;
+    /**
+     * Phone number.
+     */
+    "phone_number"?: string;
     /**
      * A flag indicating that receiving marketing information has been accepted.
      */

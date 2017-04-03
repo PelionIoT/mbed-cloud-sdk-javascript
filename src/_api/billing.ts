@@ -434,10 +434,10 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      * Active devices per account
-     * Get active devices for an account with specified from and to timestamp
+     * Get active devices for an account with specified from and to timestamp. Can be used to fetch active device data for a single month (full or partial) (for example: between 01.04.2017 00:00:00.000Z (inclusive) - 01.05.2017 00:00:00.000Z (exclusive) or between 15.04.2017 15:00:00.000Z (inclusive) - 15.04.2017 16:00.00.000Z (exclusive)).
      * @param account account id
-     * @param from in epoch millis, inclusive
-     * @param to in epoch millis, exclusive
+     * @param from in epoch milliseconds, inclusive.
+     * @param to in epoch milliseconds, exclusive. Must be greater than &#39;from&#39; parameter and be on the same calendar month as &#39;from&#39; parameter (can be also the absolute beginning of the next month as this parameter is exclusive).
      */
     v1ActivedevicesGet (account: string, from: number, to: number, callback?: (error:any, data?:Array<ActiveDevice>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "account" is set
