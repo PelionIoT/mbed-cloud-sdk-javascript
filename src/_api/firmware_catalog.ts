@@ -388,8 +388,9 @@ export class DefaultApi extends ApiBase {
      * @param order ASC or DESC
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
+     * @param include Comma separated list of data fields to return. Currently supported: total_count
      */
-    firmwareImageList (limit?: number, order?: string, after?: string, filter?: string, callback?: (error:any, data?:FirmwareImagePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareImageList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:FirmwareImagePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -405,6 +406,9 @@ export class DefaultApi extends ApiBase {
         }
         if (filter !== undefined) {
             queryParameters['filter'] = filter;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
         }
 
         let useFormData = false;
@@ -753,8 +757,9 @@ export class DefaultApi extends ApiBase {
      * @param order ASC or DESC
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
+     * @param include Comma separated list of data fields to return. Currently supported: total_count
      */
-    firmwareManifestList (limit?: number, order?: string, after?: string, filter?: string, callback?: (error:any, data?:FirmwareManifestPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareManifestList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:FirmwareManifestPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -770,6 +775,9 @@ export class DefaultApi extends ApiBase {
         }
         if (filter !== undefined) {
             queryParameters['filter'] = filter;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
         }
 
         let useFormData = false;
