@@ -22,10 +22,6 @@ import { ApiBase } from "../common/apiBase";
 
 export interface FirmwareImage {
     /**
-     * The binary file of firmware image
-     */
-    "datafile": string;
-    /**
      * The description of the object
      */
     "description": string;
@@ -74,7 +70,6 @@ export interface FirmwareImagePage {
 }
 
 export interface FirmwareManifest {
-    "datafile": string;
     /**
      * DEPRECATED: The ID of the firmware manifest
      */
@@ -99,10 +94,6 @@ export interface FirmwareManifest {
      * The time the object was updated
      */
     "updated_at": Date;
-    /**
-     * The contents of the manifest
-     */
-    "manifest_contents": string;
     /**
      * The entity instance signature
      */
@@ -133,10 +124,6 @@ export interface FirmwareManifestPage {
 
 export interface WriteFirmwareImage {
     /**
-     * The binary file of firmware image
-     */
-    "datafile": string;
-    /**
      * The description of the object
      */
     "description"?: string;
@@ -154,7 +141,6 @@ export interface WriteFirmwareImagePage {
 }
 
 export interface WriteFirmwareManifest {
-    "datafile": string;
     /**
      * The description of the object
      */
