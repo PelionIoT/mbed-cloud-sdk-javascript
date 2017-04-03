@@ -102,7 +102,7 @@ export interface FirmwareManifest {
     /**
      * The contents of the manifest
      */
-    "manifest_contents": string;
+    "manifest_contents": any;
     /**
      * The entity instance signature
      */
