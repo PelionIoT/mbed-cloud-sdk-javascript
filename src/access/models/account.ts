@@ -20,6 +20,7 @@ import { CallbackFn } from "../../common/interfaces";
 import { UpdateAccountObject, AccountStatusEnum } from "../types";
 import { AccessApi } from "../index";
 import { Policy } from "./policy";
+import { Group } from "./group";
 
 /*
  * Account
@@ -82,6 +83,30 @@ export class Account {
         for(var key in init) {
             this[key] = init[key];
         }
+    }
+
+    /**
+     * List the groups for this account
+     * @returns Promise containing groups
+     */
+    public listGroups(): Promise<Array<Group>>;
+    /**
+     * List the groups for this account
+     * @param callback A function that is passed the return arguments (error, groups)
+     */
+    public listGroups(callback: CallbackFn<Array<Group>>);
+    public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
+        return asyncStyle(done => {
+            this._api.listGroups((error, groups) => {
+                if (error) return done(error);
+
+                let accountGroups = groups.filter(group => {
+                    return group.accountId === this.id;
+                });
+
+                done(null, accountGroups);
+            });
+        }, callback);
     }
 
     /**

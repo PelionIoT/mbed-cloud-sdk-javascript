@@ -21,6 +21,7 @@ import { ListOptions } from "../../common/interfaces";
 import { UpdateUserObject, UserStatusEnum } from "../types";
 import { AccessApi } from "../index";
 import { ApiKey } from "./apiKey";
+import { Group } from "./group";
 
 /*
  * User
@@ -93,6 +94,30 @@ export class User {
                 termsAccepted:        this.termsAccepted,
                 marketingAccepted:    this.marketingAccepted
             }, done);
+        }, callback);
+    }
+
+    /**
+     * List the groups this user belongs to
+     * @returns Promise containing groups
+     */
+    public listGroups(): Promise<Array<Group>>;
+    /**
+     * List the groups this user belongs to
+     * @param callback A function that is passed the return arguments (error, groups)
+     */
+    public listGroups(callback: CallbackFn<Array<Group>>);
+    public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
+        return asyncStyle(done => {
+            this._api.listGroups((error, groups) => {
+                if (error) return done(error);
+
+                let userGroups = groups.filter(group => {
+                    return this.groups.indexOf(group.id) > -1;
+                });
+
+                done(null, userGroups);
+            });
         }, callback);
     }
 

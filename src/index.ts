@@ -23,6 +23,7 @@ export { StatisticsApi } from "./statistics";
 //export { UpdateApi } from "./update";
 
 /*
+check errors (401, 404) are correctly handled and brought back into error response
 extract maps to adapter
 move all object functions to use "this"
 replace all single value calls with value instead of object (#21)
@@ -38,13 +39,3 @@ replace all single value calls with value instead of object (#21)
 // Add DeviceSubscriptions models?? <-perhaps after examples
 
 // remove noexplicitany?
-
-/*
-addSubjectsToGroup
-getUsersOfGroup
-removeUsersFromGroup
-getAllGroups
-getApiKeysOfGroup
-getGroupSummary
-removeApiKeysFromGroup
-*/

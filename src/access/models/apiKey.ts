@@ -19,6 +19,8 @@ import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { UpdateApiKeyObject, ApiKeyStatusEnum } from "../types";
 import { AccessApi } from "../index";
+import { User } from "./user";
+import { Group } from "./group";
 
 /*
  * API Key
@@ -54,6 +56,47 @@ export class ApiKey {
         for(var key in init) {
             this[key] = init[key];
         }
+    }
+
+    /**
+     * List the groups this API key belongs to
+     * @returns Promise containing groups
+     */
+    public listGroups(): Promise<Array<Group>>;
+    /**
+     * List the groups this API key belongs to
+     * @param callback A function that is passed the return arguments (error, groups)
+     */
+    public listGroups(callback: CallbackFn<Array<Group>>);
+    public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
+        return asyncStyle(done => {
+            this._api.listGroups((error, groups) => {
+                if (error) return done(error);
+
+                let keyGroups = groups.filter(group => {
+                    return this.groups.indexOf(group.id) > -1;
+                });
+
+                done(null, keyGroups);
+            });
+        }, callback);
+    }
+
+    /**
+     * Get details of the key owner
+     * @returns Promise containing the user
+     */
+    public getOwner(): Promise<User>;
+    /**
+     * Get details of the key owner
+     * @param callback A function that is passed the return arguments (error, user)
+     */
+    public getOwner(callback: CallbackFn<User>);
+    public getOwner(callback?: CallbackFn<User>): Promise<User> {
+        return asyncStyle(done => {
+            if (!this.owner) return done(null, null);
+            this._api.getUser(this.owner, done);
+        }, callback);
     }
 
     /**

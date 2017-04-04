@@ -25,6 +25,8 @@ import { ApiKey } from "./models/apiKey";
 import { ApiKeyAdapter } from "./models/apiKeyAdapter";
 import { User } from "./models/user";
 import { UserAdapter } from "./models/userAdapter";
+import { Group } from "./models/group";
+import { GroupAdapter } from "./models/groupAdapter";
 
 /**
  * ## Access API
@@ -350,6 +352,133 @@ export class AccessApi {
             this._endpoints.admin.deleteUser(id, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
+            });
+        }, callback);
+    }
+
+    /**
+     * List groups
+     * @param options filter options
+     * @returns Promise of listResponse
+     */
+    public listGroups(options?: ListOptions): Promise<ListResponse<Group>>;
+    /**
+     * List groups
+     * @param options filter options
+     * @param callback A function that is passed the arguments (error, listResponse)
+     */
+    public listGroups(options?: ListOptions, callback?: CallbackFn<ListResponse<Group>>);
+    public listGroups(options?: any, callback?: CallbackFn<ListResponse<Group>>): Promise<ListResponse<Group>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        let { limit, after, order, include } = options as ListOptions;
+
+        return asyncStyle(done => {
+            this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), (error, data) => {
+                if (error) return done(error);
+
+                let groups = data.data.map(group => {
+                    return GroupAdapter.map(group, this);
+                });
+
+                done(null, mapListResponse(data, groups));
+            });
+        }, callback);
+    }
+
+    /**
+     * Get details of a group
+     * @param id The group ID
+     * @returns Promise containing the group
+     */
+    public getGroup(id: string): Promise<Group>;
+    /**
+     * Get details of a group
+     * @param id The group ID
+     * @param callback A function that is passed the arguments (error, group)
+     */
+    public getGroup(id: string, callback: CallbackFn<Group>);
+    public getGroup(id: string, callback?: CallbackFn<Group>): Promise<Group> {
+        return asyncStyle(done => {
+            this._endpoints.developer.getGroupSummary(id, (error, data) => {
+                if (error) return done(error);
+                done(null, GroupAdapter.map(data, this));
+            });
+        }, callback);
+    }
+
+    /**
+     * List users of a group
+     * @param id The group ID
+     * @param options filter options
+     * @returns Promise of listResponse
+     */
+    public listGroupUsers(id: string, options?: ListOptions): Promise<ListResponse<User>>;
+    /**
+     * List users of a group
+     * @param id The group ID
+     * @param options filter options
+     * @param callback A function that is passed the arguments (error, listResponse)
+     */
+    public listGroupUsers(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>);
+    public listGroupUsers(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        let { limit, after, order, include } = options as ListOptions;
+
+        return asyncStyle(done => {
+            this._endpoints.admin.getUsersOfGroup(id, limit, after, order, encodeInclude(include), (error, data) => {
+                if (error) return done(error);
+
+                let users = data.data.map(user => {
+                    return UserAdapter.map(user, this);
+                });
+
+                done(null, mapListResponse(data, users));
+            });
+        }, callback);
+    }
+
+    /**
+     * List API keys of a group
+     * @param id The group ID
+     * @param options filter options
+     * @returns Promise of listResponse
+     */
+    public listGroupApiKeys(id: string, options?: ListOptions): Promise<ListResponse<ApiKey>>;
+    /**
+     * List API keys of a group
+     * @param id The group ID
+     * @param options filter options
+     * @param callback A function that is passed the arguments (error, listResponse)
+     */
+    public listGroupApiKeys(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
+    public listGroupApiKeys(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        let { limit, after, order, include } = options as ListOptions;
+
+        return asyncStyle(done => {
+            this._endpoints.developer.getApiKeysOfGroup(id, limit, after, order, encodeInclude(include), (error, data) => {
+                if (error) return done(error);
+
+                let users = data.data.map(user => {
+                    return ApiKeyAdapter.map(user, this);
+                });
+
+                done(null, mapListResponse(data, users));
             });
         }, callback);
     }
