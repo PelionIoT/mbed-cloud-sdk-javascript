@@ -20,7 +20,7 @@
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
 
-export type DeviceDataDeployedStateEnum = "Development" | "Deployment";
+export type DeviceDataDeployedStateEnum = "development" | "production";
 export interface DeviceData {
     "bootstrap_expiration_date"?: Date;
     "bootstrapped_timestamp"?: Date;
