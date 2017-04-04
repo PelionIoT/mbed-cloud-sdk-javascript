@@ -15,25 +15,19 @@
 * limitations under the License.
 */
 
+import { FeaturePolicy as apiPolicy } from "../../_api/iam";
+import { Policy } from "./policy";
+
 /*
- * Policy
- * This object represents a feature policy. Either the feature or the resource must be specified.
+ * Policy Adapter
  */
-export class Policy {
-    /**
-     * Comma separated list of actions, empty string represents all actions.
-     */
-    action?: string;
-    /**
-     * Resource that is protected by this policy.
-     */
-    resource?: string;
-    /**
-     * Feature name corresponding to this policy.
-     */
-    feature?: string;
-    /**
-     * True or false controlling whether an action is allowed or not.
-     */
-    allow?: boolean;
+export class PolicyAdapter {
+    static map(from: apiPolicy): Policy {
+        return new Policy({
+            action:      from.action,
+            allow:       from.allow,
+            feature:     from.feature,
+            resource:    from.resource
+        });
+    }
 }

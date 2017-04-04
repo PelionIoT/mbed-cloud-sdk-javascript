@@ -81,9 +81,9 @@ export class StatisticsApi {
 
             let include = MetricAdapter.mapIncludes(options.include);
             let interval = MetricAdapter.mapTimePeriod(options.interval);
-            let start = "";
-            let end = "";
-            let period = "";
+            let start = null;
+            let end = null;
+            let period = null;
 
             if (isPeriod(options)) {
                 period = MetricAdapter.mapTimePeriod(options.period);
@@ -92,7 +92,7 @@ export class StatisticsApi {
                 end = options.end.toISOString();
             }
 
-            this._endpoints.account.v3MetricsGet(include, start, end, period, interval, "", (error, data) => {
+            this._endpoints.account.v3MetricsGet(include, interval, "", start, end, period, (error, data) => {
                 if (error) return done(error);
 
                 let list = data.map(metric => {
@@ -125,9 +125,9 @@ export class StatisticsApi {
 
             let include = MetricAdapter.mapIncludes(options.include);
             let interval = MetricAdapter.mapTimePeriod(options.interval);
-            let start = "";
-            let end = "";
-            let period = "";
+            let start = null;
+            let end = null;
+            let period = null;
 
             if (isPeriod(options)) {
                 period = MetricAdapter.mapTimePeriod(options.period);
@@ -136,7 +136,7 @@ export class StatisticsApi {
                 end = options.end.toISOString();
             }
 
-            this._endpoints.statistics.v3MetricsGet(include, start, end, period, interval, "", (error, data) => {
+            this._endpoints.statistics.v3MetricsGet(include, interval, "", start, end, period, (error, data) => {
                 if (error) return done(error);
 
                 let list = data.map(metric => {

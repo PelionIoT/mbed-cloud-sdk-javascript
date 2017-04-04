@@ -22,12 +22,18 @@ import {
 import { UpdateAccountObject } from "../types";
 import { AccessApi } from "../index";
 import { Account } from "./account";
+import { PolicyAdapter } from "./policyAdapter";
 
 /*
  * Account Adapter
  */
 export class AccountAdapter {
     static map(from: apiAccount, api: AccessApi): Account {
+
+        let policies = from.policies.map(policy => {
+            return PolicyAdapter.map(policy);
+        });
+
         return new Account(api, {
             //parentId               : from.parent_id,
             //subAccounts            : from.sub_accounts,
@@ -47,7 +53,7 @@ export class AccountAdapter {
             status                 : from.status,
             tier                   : from.tier,
             limits                 : from.limits,
-            policies               : from.policies,
+            policies               : policies,
             provisioningAllowed    : from.is_provisioning_allowed,
             createdAt              : from.created_at,
             upgradedAt             : from.upgraded_at,

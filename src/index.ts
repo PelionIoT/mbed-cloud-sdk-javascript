@@ -22,20 +22,35 @@ export { LoggingApi } from "./logging";
 export { StatisticsApi } from "./statistics";
 //export { UpdateApi } from "./update";
 
-/*
-check errors (401, 404) are correctly handled and brought back into error response
-extract maps to adapter
-move all object functions to use "this"
-replace all single value calls with value instead of object (#21)
-*/
-
+// PORTING
+// port devices to 1.2
+// port update to 1.2
+// replace all single value calls with value instead of object (#21)
 // design structure of filter request object
-// add policies and subAccounts to iam.accounttype
-// add listPolicies and listSubAccounts to User
+// check proxy passes all errors properly
+
+// TESTING
+// get all tests passing
+// build/release/deploy(docs|npm) system
+
+// EXAMPLES
+// check: device-logs
+// check: webhook
+// check: device-management
+// check: long-polling
+// check: query-management
+// update: certificate
+// add: statistics (node to dump or web to visualize)
+// add: subscriptions (node)
+// add: users/keys management (node)
+// add: update (web)
+
+// OTHER
 // document includeExpired and type on listCertificates()
-// update certificate example
-
-// Fix issues - 
-// Add DeviceSubscriptions models?? <-perhaps after examples
-
 // remove noexplicitany?
+// Add DeviceSubscriptions models?? <-perhaps after examples
+// check errors (401, 404) are correctly handled and brought back into error response
+// check top=level error handling (#26)
+// check other github issues
+// doc improvements
+// expose request ID

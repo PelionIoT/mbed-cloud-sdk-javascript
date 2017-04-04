@@ -45,10 +45,6 @@ export class DeviceLog {
      */
     readonly eventTypeDescription?: string;
     /**
-     * ID of the event log entry
-     */
-    readonly logId?: string;
-    /**
      * Type of the event
      */
     readonly eventType?: string;
@@ -56,10 +52,6 @@ export class DeviceLog {
      * Data pertaining to the event
      */
     readonly data?: string;
-    /**
-     * Device ID related to the event
-     */
-    readonly deviceId?: string;
 
     constructor(init?: Partial<DeviceLog>) {
         for(var key in init) {

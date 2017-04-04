@@ -20,20 +20,27 @@
  * This object represents a feature policy. Either the feature or the resource must be specified.
  */
 export class Policy {
+
     /**
      * Comma separated list of actions, empty string represents all actions.
      */
-    action?: string;
+    readonly action?: string;
     /**
      * Resource that is protected by this policy.
      */
-    resource?: string;
+    readonly resource?: string;
     /**
      * Feature name corresponding to this policy.
      */
-    feature?: string;
+    readonly feature?: string;
     /**
      * True or false controlling whether an action is allowed or not.
      */
-    allow?: boolean;
+    readonly allow?: boolean;
+
+    constructor(init?: Partial<Policy>) {
+        for(var key in init) {
+            this[key] = init[key];
+        }
+    }
 }
