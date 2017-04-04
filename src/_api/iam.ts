@@ -671,7 +671,7 @@ export interface UserInfoResp {
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
      */
-    "username": string;
+    "username"?: string;
     /**
      * A list of IDs of the groups this user belongs to.
      */
