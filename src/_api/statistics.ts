@@ -101,38 +101,17 @@ export class AccountApi extends ApiBase {
      * Provides account-specific statistics for other cloud services.
      * This REST API is used to get account-specific statistics.
      * @param include A comma-separated list of requested metrics. Supported values are:  - &#x60;transactions&#x60; - &#x60;bootstraps_successful&#x60; - &#x60;bootstraps_failed&#x60; - &#x60;bootstraps_pending&#x60; - &#x60;device_server_rest_api_success&#x60; - &#x60;device_server_rest_api_error&#x60; 
+     * @param interval Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d. 
+     * @param authorization Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics. 
      * @param start UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified. 
      * @param end UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified. 
      * @param period Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified. 
-     * @param interval Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d. 
-     * @param authorization Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics. 
      */
-    v3MetricsGet (include: string, start: string, end: string, period: string, interval: string, authorization: string, callback?: (error:any, data?:SuccessfulResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3MetricsGet (include: string, interval: string, authorization: string, start?: string, end?: string, period?: string, callback?: (error:any, data?:SuccessfulResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "include" is set
         if (include === null || include === undefined) {
             if (callback) {
                 callback(new Error("Required parameter 'include' missing when calling 'v3MetricsGet'."));
-            }
-            return;
-        }
-        // verify required parameter "start" is set
-        if (start === null || start === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'start' missing when calling 'v3MetricsGet'."));
-            }
-            return;
-        }
-        // verify required parameter "end" is set
-        if (end === null || end === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'end' missing when calling 'v3MetricsGet'."));
-            }
-            return;
-        }
-        // verify required parameter "period" is set
-        if (period === null || period === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'period' missing when calling 'v3MetricsGet'."));
             }
             return;
         }
@@ -195,38 +174,17 @@ export class StatisticsApi extends ApiBase {
      * Provides account-specific statistics for other cloud services.
      * This REST API is used to get account-specific statistics.
      * @param include A comma-separated list of requested metrics. Supported values are:  - &#x60;transactions&#x60; - &#x60;bootstraps_successful&#x60; - &#x60;bootstraps_failed&#x60; - &#x60;bootstraps_pending&#x60; - &#x60;device_server_rest_api_success&#x60; - &#x60;device_server_rest_api_error&#x60; 
+     * @param interval Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d. 
+     * @param authorization Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics. 
      * @param start UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207. The parameter is not mandatory, if the period is specified. 
      * @param end UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z/2017-02-07T09:20:56.990Z/2017/20170207.The parameter is not mandatory, if the period is specified. 
      * @param period Period. Fetch the data for the period in days, weeks or hours. Sample values: 2h, 3w, 4d. The parameter is not mandatory, if the start and end time are specified. 
-     * @param interval Group data by this interval in days, weeks or hours. Sample values: 2h, 3w, 4d. 
-     * @param authorization Bearer {Access Token}. A valid API Gateway access token. The token is validated and the associated account identifier is used to retrieve account-specific statistics. 
      */
-    v3MetricsGet (include: string, start: string, end: string, period: string, interval: string, authorization: string, callback?: (error:any, data?:SuccessfulResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3MetricsGet (include: string, interval: string, authorization: string, start?: string, end?: string, period?: string, callback?: (error:any, data?:SuccessfulResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "include" is set
         if (include === null || include === undefined) {
             if (callback) {
                 callback(new Error("Required parameter 'include' missing when calling 'v3MetricsGet'."));
-            }
-            return;
-        }
-        // verify required parameter "start" is set
-        if (start === null || start === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'start' missing when calling 'v3MetricsGet'."));
-            }
-            return;
-        }
-        // verify required parameter "end" is set
-        if (end === null || end === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'end' missing when calling 'v3MetricsGet'."));
-            }
-            return;
-        }
-        // verify required parameter "period" is set
-        if (period === null || period === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'period' missing when calling 'v3MetricsGet'."));
             }
             return;
         }
