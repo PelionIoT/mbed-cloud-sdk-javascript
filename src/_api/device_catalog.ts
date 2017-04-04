@@ -28,6 +28,7 @@ export interface DeviceData {
     "updated_at"?: Date;
     "mechanism"?: string;
     "device_class"?: string;
+    "id"?: string;
     "description"?: string;
     "endpoint_name"?: string;
     "auto_update"?: boolean;
@@ -45,13 +46,37 @@ export interface DeviceData {
     "deployment"?: string;
     "mechanism_url"?: string;
     "trust_level"?: number;
-    "device_id"?: string;
     "name"?: string;
     "device_key"?: string;
     "created_at"?: Date;
     "manifest"?: string;
     "attestation_method"?: number;
     "ca_id"?: string;
+}
+
+export type DeviceDataRequestDeployedStateEnum = "development" | "production";
+export interface DeviceDataRequest {
+    "manifest_timestamp"?: Date;
+    "vendor_id"?: string;
+    "description"?: string;
+    "deployed_state"?: DeviceDataRequestDeployedStateEnum;
+    "firmware_checksum"?: string;
+    "auto_update"?: boolean;
+    "mechanism"?: string;
+    "device_class"?: string;
+    "trust_level"?: number;
+    "custom_attributes"?: any;
+    "manifest"?: string;
+    "trust_class"?: number;
+    "device_key"?: string;
+    "state"?: string;
+    "attestation_method"?: number;
+    "ca_id"?: string;
+    "deployment"?: string;
+    "mechanism_url"?: string;
+    "serial_number"?: string;
+    "endpoint_name"?: string;
+    "name"?: string;
 }
 
 export interface DeviceLogData {
@@ -61,10 +86,9 @@ export interface DeviceLogData {
     "changes"?: any;
     "event_type_description"?: string;
     "device_log_id"?: string;
-    "event_type"?: string;
     "data"?: any;
     "id"?: string;
-    "device_id"?: string;
+    "event_type"?: string;
 }
 
 export interface DeviceLogPage {
@@ -87,186 +111,6 @@ export interface DevicePage {
     "order"?: string;
 }
 
-export type DeviceSerializerMechanismEnum = "connector" | "direct";
-export type DeviceSerializerStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered";
-export type DeviceSerializerDeployedStateEnum = "development" | "production";
-export interface DeviceSerializer {
-    /**
-     * Timestamp of manifest creation. Used in manifest version checks.
-     */
-    "bootstrapped_timestamp": Date;
-    /**
-     * The time the object was updated
-     */
-    "updated_at": Date;
-    /**
-     * Up to 5 custom JSON attributes
-     */
-    "custom_attributes": string;
-    /**
-     * The device class
-     */
-    "device_class": string;
-    /**
-     * The ID of the device
-     */
-    "id": string;
-    /**
-     * The description of the object
-     */
-    "description": string;
-    /**
-     * Mark this device for auto firmware update
-     */
-    "auto_update": boolean;
-    /**
-     * The ID of the channel used to communicate with the device
-     */
-    "mechanism": DeviceSerializerMechanismEnum;
-    /**
-     * The current state of the device
-     */
-    "state": DeviceSerializerStateEnum;
-    /**
-     * The entity instance signature
-     */
-    "etag": Date;
-    /**
-     * The key used to provision the device
-     */
-    "provision_key": string;
-    /**
-     * The serial number of the device
-     */
-    "serial_number": string;
-    /**
-     * The device vendor ID
-     */
-    "vendor_id": string;
-    /**
-     * The owning IAM account ID
-     */
-    "account_id": string;
-    /**
-     * The state of the device's deployment
-     */
-    "deployed_state": DeviceSerializerDeployedStateEnum;
-    /**
-     * The API resource entity
-     */
-    "object": string;
-    /**
-     * The device trust class
-     */
-    "trust_class": number;
-    /**
-     * The last deployment used on the device
-     */
-    "deployment": string;
-    /**
-     * The address of the connector to use
-     */
-    "mechanism_url": string;
-    /**
-     * The device trust level
-     */
-    "trust_level": number;
-    /**
-     * DEPRECATED: The ID of the device
-     */
-    "device_id": string;
-    /**
-     * The name of the object
-     */
-    "name": string;
-    /**
-     * The time the object was created
-     */
-    "created_at": Date;
-    /**
-     * URL for the current device manifest
-     */
-    "manifest": string;
-}
-
-export type WriteDeviceSerializerDeployedStateEnum = "development" | "production";
-export type WriteDeviceSerializerStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered";
-export type WriteDeviceSerializerMechanismEnum = "connector" | "direct";
-export interface WriteDeviceSerializer {
-    /**
-     * The device vendor ID
-     */
-    "vendor_id"?: string;
-    /**
-     * The API resource entity
-     */
-    "object"?: string;
-    /**
-     * The description of the object
-     */
-    "description"?: string;
-    /**
-     * The state of the device's deployment
-     */
-    "deployed_state"?: WriteDeviceSerializerDeployedStateEnum;
-    /**
-     * Mark this device for auto firmware update
-     */
-    "auto_update"?: boolean;
-    /**
-     * The name of the object
-     */
-    "name"?: string;
-    /**
-     * The last deployment used on the device
-     */
-    "deployment"?: string;
-    /**
-     * Up to 5 custom JSON attributes
-     */
-    "custom_attributes"?: string;
-    /**
-     * URL for the current device manifest
-     */
-    "manifest"?: string;
-    /**
-     * The device trust class
-     */
-    "trust_class"?: number;
-    /**
-     * The key used to provision the device
-     */
-    "provision_key": string;
-    /**
-     * The current state of the device
-     */
-    "state"?: WriteDeviceSerializerStateEnum;
-    /**
-     * The ID of the channel used to communicate with the device
-     */
-    "mechanism": WriteDeviceSerializerMechanismEnum;
-    /**
-     * The device class
-     */
-    "device_class"?: string;
-    /**
-     * The address of the connector to use
-     */
-    "mechanism_url"?: string;
-    /**
-     * The serial number of the device
-     */
-    "serial_number"?: string;
-    /**
-     * The device trust level
-     */
-    "trust_level"?: number;
-    /**
-     * DEPRECATED: The ID of the device
-     */
-    "device_id"?: string;
-}
-
 /**
  * DefaultApi
  */
@@ -276,7 +120,7 @@ export class DefaultApi extends ApiBase {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Create device&lt;/p&gt;
      * @param device 
      */
-    deviceCreate (device: DeviceData, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceCreate (device: DeviceDataRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "device" is set
         if (device === null || device === undefined) {
             if (callback) {
@@ -305,13 +149,13 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Delete device&lt;/p&gt;
-     * @param deviceId 
+     * @param id 
      */
-    deviceDestroy (deviceId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "deviceId" is set
-        if (deviceId === null || deviceId === undefined) {
+    deviceDestroy (id: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "id" is set
+        if (id === null || id === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'deviceDestroy'."));
+                callback(new Error("Required parameter 'id' missing when calling 'deviceDestroy'."));
             }
             return;
         }
@@ -324,7 +168,7 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/devices/{device_id}/'.replace('{' + 'device_id' + '}', String(deviceId)),
+            url: '/v3/devices/{id}/'.replace('{' + 'id' + '}', String(id)),
             method: 'DELETE',
             headers: headerParams,
             query: queryParameters,
@@ -362,7 +206,7 @@ export class DefaultApi extends ApiBase {
      * @param deployment 
      * @param description 
      * @param deviceClass 
-     * @param deviceId 
+     * @param id 
      * @param endpointName 
      * @param etag 
      * @param etagLte 
@@ -385,7 +229,7 @@ export class DefaultApi extends ApiBase {
      * @param updatedAtGte 
      * @param vendorId 
      */
-    deviceList (caId: string, deviceKey: string, limit?: number, order?: string, after?: string, filter?: string, include?: string, accountId?: string, attestationMethod?: number, autoUpdate?: boolean, bootstrapExpirationDate?: string, bootstrapExpirationDateLte?: string, bootstrapExpirationDateGte?: string, bootstrappedTimestamp?: string, bootstrappedTimestampLte?: string, bootstrappedTimestampGte?: string, connectorExpirationDate?: string, connectorExpirationDateLte?: string, connectorExpirationDateGte?: string, createdAt?: string, createdAtLte?: string, createdAtGte?: string, customAttributes?: string, deployedState?: string, deployment?: string, description?: string, deviceClass?: string, deviceId?: string, endpointName?: string, etag?: string, etagLte?: string, etagGte?: string, firmwareChecksum?: string, manifest?: string, manifestTimestamp?: string, manifestTimestampLte?: string, manifestTimestampGte?: string, mechanism?: string, mechanismUrl?: string, name?: string, object?: string, serialNumber?: string, state?: string, trustClass?: string, trustLevel?: string, updatedAt?: string, updatedAtLte?: string, updatedAtGte?: string, vendorId?: string, callback?: (error:any, data?:DevicePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceList (caId: string, deviceKey: string, limit?: number, order?: string, after?: string, filter?: string, include?: string, accountId?: string, attestationMethod?: number, autoUpdate?: boolean, bootstrapExpirationDate?: string, bootstrapExpirationDateLte?: string, bootstrapExpirationDateGte?: string, bootstrappedTimestamp?: string, bootstrappedTimestampLte?: string, bootstrappedTimestampGte?: string, connectorExpirationDate?: string, connectorExpirationDateLte?: string, connectorExpirationDateGte?: string, createdAt?: string, createdAtLte?: string, createdAtGte?: string, customAttributes?: string, deployedState?: string, deployment?: string, description?: string, deviceClass?: string, id?: string, endpointName?: string, etag?: string, etagLte?: string, etagGte?: string, firmwareChecksum?: string, manifest?: string, manifestTimestamp?: string, manifestTimestampLte?: string, manifestTimestampGte?: string, mechanism?: string, mechanismUrl?: string, name?: string, object?: string, serialNumber?: string, state?: string, trustClass?: string, trustLevel?: string, updatedAt?: string, updatedAtLte?: string, updatedAtGte?: string, vendorId?: string, callback?: (error:any, data?:DevicePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "caId" is set
         if (caId === null || caId === undefined) {
             if (callback) {
@@ -482,8 +326,8 @@ export class DefaultApi extends ApiBase {
         if (deviceClass !== undefined) {
             queryParameters['device_class'] = deviceClass;
         }
-        if (deviceId !== undefined) {
-            queryParameters['device_id'] = deviceId;
+        if (id !== undefined) {
+            queryParameters['id'] = id;
         }
         if (deviceKey !== undefined) {
             queryParameters['device_key'] = deviceKey;
@@ -566,7 +410,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;List all device logs.&lt;/p&gt; &lt;h4 id&#x3D;\&quot;filtering\&quot;&gt;Filtering:&lt;/h4&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;{URL encoded query string}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The query string is made up of key/value pairs separated by ampersands. So for a query of &lt;code&gt;key1&#x3D;value1&amp;amp;key2&#x3D;value2&amp;amp;key3&#x3D;value3&lt;/code&gt; this would be encoded as follows:&lt;/p&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The examples below show the queries in &lt;em&gt;unencoded&lt;/em&gt; form.&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-device95id\&quot;&gt;By device_id:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;device_id&#x3D;{id}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-state-change\&quot;&gt;By state change:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;state_change&#x3D;[True|False]&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-event-type\&quot;&gt;By event type:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;event_type&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-date-time-fields\&quot;&gt;On date-time fields:&lt;/h5&gt; &lt;p&gt;Date-time fields should be specified in UTC RFC3339 format &lt;code&gt;YYYY-MM-DDThh:mm:ss.msZ&lt;/code&gt;. There are three permitted variations:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Date-time filtering supports three operators:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;equality&lt;/li&gt; &lt;li&gt;greater than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__gte&lt;/code&gt;&lt;/li&gt; &lt;li&gt;less than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__lte&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Lower and upper limits to a date-time range may be specified by including both the &lt;code&gt;__gte&lt;/code&gt; and &lt;code&gt;__lte&lt;/code&gt; forms in the filter.&lt;/p&gt; &lt;p&gt;&lt;code&gt;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-device-custom-attributes\&quot;&gt;On device custom attributes:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;device__custom_attributes__{param}&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__custom_attributes__tag&#x3D;TAG1&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-device-attributes\&quot;&gt;By Device attributes:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;device__deployed_state&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__device_class&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__name&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;h4 id&#x3D;\&quot;multi-field-example\&quot;&gt;Multi-field example&lt;/h4&gt; &lt;p&gt;&lt;code&gt;device_id&#x3D;0158d38771f70000000000010010038c&amp;amp;state_change&#x3D;True&amp;amp;date_time__gte&#x3D;2016-11-30T16:25:12.1234Z&lt;/code&gt;&lt;/p&gt; &lt;p&gt;Encoded: &lt;code&gt;?filter&#x3D;device_id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z&lt;/code&gt;&lt;/p&gt;
+     * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;List all device logs.&lt;/p&gt; &lt;h4 id&#x3D;\&quot;filtering\&quot;&gt;Filtering:&lt;/h4&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;{URL encoded query string}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The query string is made up of key/value pairs separated by ampersands. So for a query of &lt;code&gt;key1&#x3D;value1&amp;amp;key2&#x3D;value2&amp;amp;key3&#x3D;value3&lt;/code&gt; this would be encoded as follows:&lt;/p&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The examples below show the queries in &lt;em&gt;unencoded&lt;/em&gt; form.&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-device95id\&quot;&gt;By id:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;id&#x3D;{id}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-state-change\&quot;&gt;By state change:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;state_change&#x3D;[True|False]&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-event-type\&quot;&gt;By event type:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;event_type&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-date-time-fields\&quot;&gt;On date-time fields:&lt;/h5&gt; &lt;p&gt;Date-time fields should be specified in UTC RFC3339 format &lt;code&gt;YYYY-MM-DDThh:mm:ss.msZ&lt;/code&gt;. There are three permitted variations:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Date-time filtering supports three operators:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;equality&lt;/li&gt; &lt;li&gt;greater than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__gte&lt;/code&gt;&lt;/li&gt; &lt;li&gt;less than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__lte&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Lower and upper limits to a date-time range may be specified by including both the &lt;code&gt;__gte&lt;/code&gt; and &lt;code&gt;__lte&lt;/code&gt; forms in the filter.&lt;/p&gt; &lt;p&gt;&lt;code&gt;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-device-custom-attributes\&quot;&gt;On device custom attributes:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;device__custom_attributes__{param}&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__custom_attributes__tag&#x3D;TAG1&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-device-attributes\&quot;&gt;By Device attributes:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;device__deployed_state&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__device_class&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__name&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;h4 id&#x3D;\&quot;multi-field-example\&quot;&gt;Multi-field example&lt;/h4&gt; &lt;p&gt;&lt;code&gt;id&#x3D;0158d38771f70000000000010010038c&amp;amp;state_change&#x3D;True&amp;amp;date_time__gte&#x3D;2016-11-30T16:25:12.1234Z&lt;/code&gt;&lt;/p&gt; &lt;p&gt;Encoded: &lt;code&gt;?filter&#x3D;id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z&lt;/code&gt;&lt;/p&gt;
      * @param limit how many objects to retrieve in the page
      * @param order ASC or DESC
      * @param after the ID of the the item after which to retrieve the next page
@@ -639,14 +483,14 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device fields&lt;/p&gt;
-     * @param deviceId The ID of the device
+     * @param id The ID of the device
      * @param device 
      */
-    devicePartialUpdate (deviceId: string, device: DeviceData, callback?: (error:any, data?:DeviceSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "deviceId" is set
-        if (deviceId === null || deviceId === undefined) {
+    devicePartialUpdate (id: string, device: DeviceDataRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "id" is set
+        if (id === null || id === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'devicePartialUpdate'."));
+                callback(new Error("Required parameter 'id' missing when calling 'devicePartialUpdate'."));
             }
             return;
         }
@@ -666,7 +510,7 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/devices/{device_id}/'.replace('{' + 'device_id' + '}', String(deviceId)),
+            url: '/v3/devices/{id}/'.replace('{' + 'id' + '}', String(id)),
             method: 'PATCH',
             headers: headerParams,
             query: queryParameters,
@@ -678,13 +522,13 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device.&lt;/p&gt;
-     * @param deviceId 
+     * @param id 
      */
-    deviceRetrieve (deviceId: string, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "deviceId" is set
-        if (deviceId === null || deviceId === undefined) {
+    deviceRetrieve (id: string, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "id" is set
+        if (id === null || id === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'deviceRetrieve'."));
+                callback(new Error("Required parameter 'id' missing when calling 'deviceRetrieve'."));
             }
             return;
         }
@@ -697,7 +541,7 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/devices/{device_id}/'.replace('{' + 'device_id' + '}', String(deviceId)),
+            url: '/v3/devices/{id}/'.replace('{' + 'id' + '}', String(id)),
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -708,14 +552,14 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device.&lt;/p&gt;
-     * @param deviceId The ID of the device
+     * @param id The ID of the device
      * @param device 
      */
-    deviceUpdate (deviceId: string, device: DeviceData, callback?: (error:any, data?:DeviceSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "deviceId" is set
-        if (deviceId === null || deviceId === undefined) {
+    deviceUpdate (id: string, device: DeviceDataRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "id" is set
+        if (id === null || id === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'deviceUpdate'."));
+                callback(new Error("Required parameter 'id' missing when calling 'deviceUpdate'."));
             }
             return;
         }
@@ -735,7 +579,7 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v3/devices/{device_id}/'.replace('{' + 'device_id' + '}', String(deviceId)),
+            url: '/v3/devices/{id}/'.replace('{' + 'id' + '}', String(id)),
             method: 'PUT',
             headers: headerParams,
             query: queryParameters,
