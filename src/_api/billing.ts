@@ -592,7 +592,7 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      * Billing report
-     * Generate billing report for all accounts.
+     * Generate billing report for all commercial accounts.
      * @param month year and month
      * @param format report format
      */

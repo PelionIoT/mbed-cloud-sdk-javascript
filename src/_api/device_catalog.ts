@@ -274,8 +274,16 @@ export class DefaultApi extends ApiBase {
 
     /** 
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Create device&lt;/p&gt;
+     * @param device 
      */
-    deviceCreate (callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceCreate (device: DeviceData, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "device" is set
+        if (device === null || device === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'device' missing when calling 'deviceCreate'."));
+            }
+            return;
+        }
 
         let headerParams: any = {};
 
@@ -292,6 +300,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
+            body: device,
         }, callback);
     }
     /** 
@@ -330,8 +339,53 @@ export class DefaultApi extends ApiBase {
      * @param order ASC or DESC
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
+     * @param include Comma separated list of data fields to return. Currently supported: total_count
+     * @param accountId 
+     * @param attestationMethod 
+     * @param autoUpdate 
+     * @param bootstrapExpirationDate 
+     * @param bootstrapExpirationDateLte 
+     * @param bootstrapExpirationDateGte 
+     * @param bootstrappedTimestamp 
+     * @param bootstrappedTimestampLte 
+     * @param bootstrappedTimestampGte 
+     * @param caId 
+     * @param connectorExpirationDate 
+     * @param connectorExpirationDateLte 
+     * @param connectorExpirationDateGte 
+     * @param createdAt 
+     * @param createdAtLte 
+     * @param createdAtGte 
+     * @param customAttributes 
+     * @param deployedState 
+     * @param deployment 
+     * @param description 
+     * @param deviceClass 
+     * @param deviceId 
+     * @param deviceKey 
+     * @param endpointName 
+     * @param etag 
+     * @param etagLte 
+     * @param etagGte 
+     * @param firmwareChecksum 
+     * @param manifest 
+     * @param manifestTimestamp 
+     * @param manifestTimestampLte 
+     * @param manifestTimestampGte 
+     * @param mechanism 
+     * @param mechanismUrl 
+     * @param name 
+     * @param object 
+     * @param serialNumber 
+     * @param state 
+     * @param trustClass 
+     * @param trustLevel 
+     * @param updatedAt 
+     * @param updatedAtLte 
+     * @param updatedAtGte 
+     * @param vendorId 
      */
-    deviceList (limit?: number, order?: string, after?: string, filter?: string, callback?: (error:any, data?:DevicePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceList (limit?: number, order?: string, after?: string, filter?: string, include?: string, accountId?: string, attestationMethod?: number, autoUpdate?: boolean, bootstrapExpirationDate?: string, bootstrapExpirationDateLte?: string, bootstrapExpirationDateGte?: string, bootstrappedTimestamp?: string, bootstrappedTimestampLte?: string, bootstrappedTimestampGte?: string, caId?: string, connectorExpirationDate?: string, connectorExpirationDateLte?: string, connectorExpirationDateGte?: string, createdAt?: string, createdAtLte?: string, createdAtGte?: string, customAttributes?: string, deployedState?: string, deployment?: string, description?: string, deviceClass?: string, deviceId?: string, deviceKey?: string, endpointName?: string, etag?: string, etagLte?: string, etagGte?: string, firmwareChecksum?: string, manifest?: string, manifestTimestamp?: string, manifestTimestampLte?: string, manifestTimestampGte?: string, mechanism?: string, mechanismUrl?: string, name?: string, object?: string, serialNumber?: string, state?: string, trustClass?: string, trustLevel?: string, updatedAt?: string, updatedAtLte?: string, updatedAtGte?: string, vendorId?: string, callback?: (error:any, data?:DevicePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -347,6 +401,141 @@ export class DefaultApi extends ApiBase {
         }
         if (filter !== undefined) {
             queryParameters['filter'] = filter;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+        if (accountId !== undefined) {
+            queryParameters['account_id'] = accountId;
+        }
+        if (attestationMethod !== undefined) {
+            queryParameters['attestation_method'] = attestationMethod;
+        }
+        if (autoUpdate !== undefined) {
+            queryParameters['auto_update'] = autoUpdate;
+        }
+        if (bootstrapExpirationDate !== undefined) {
+            queryParameters['bootstrap_expiration_date'] = bootstrapExpirationDate;
+        }
+        if (bootstrapExpirationDateLte !== undefined) {
+            queryParameters['bootstrap_expiration_date__lte'] = bootstrapExpirationDateLte;
+        }
+        if (bootstrapExpirationDateGte !== undefined) {
+            queryParameters['bootstrap_expiration_date__gte'] = bootstrapExpirationDateGte;
+        }
+        if (bootstrappedTimestamp !== undefined) {
+            queryParameters['bootstrapped_timestamp'] = bootstrappedTimestamp;
+        }
+        if (bootstrappedTimestampLte !== undefined) {
+            queryParameters['bootstrapped_timestamp__lte'] = bootstrappedTimestampLte;
+        }
+        if (bootstrappedTimestampGte !== undefined) {
+            queryParameters['bootstrapped_timestamp__gte'] = bootstrappedTimestampGte;
+        }
+        if (caId !== undefined) {
+            queryParameters['ca_id'] = caId;
+        }
+        if (connectorExpirationDate !== undefined) {
+            queryParameters['connector_expiration_date'] = connectorExpirationDate;
+        }
+        if (connectorExpirationDateLte !== undefined) {
+            queryParameters['connector_expiration_date__lte'] = connectorExpirationDateLte;
+        }
+        if (connectorExpirationDateGte !== undefined) {
+            queryParameters['connector_expiration_date__gte'] = connectorExpirationDateGte;
+        }
+        if (createdAt !== undefined) {
+            queryParameters['created_at'] = createdAt;
+        }
+        if (createdAtLte !== undefined) {
+            queryParameters['created_at__lte'] = createdAtLte;
+        }
+        if (createdAtGte !== undefined) {
+            queryParameters['created_at__gte'] = createdAtGte;
+        }
+        if (customAttributes !== undefined) {
+            queryParameters['custom_attributes'] = customAttributes;
+        }
+        if (deployedState !== undefined) {
+            queryParameters['deployed_state'] = deployedState;
+        }
+        if (deployment !== undefined) {
+            queryParameters['deployment'] = deployment;
+        }
+        if (description !== undefined) {
+            queryParameters['description'] = description;
+        }
+        if (deviceClass !== undefined) {
+            queryParameters['device_class'] = deviceClass;
+        }
+        if (deviceId !== undefined) {
+            queryParameters['device_id'] = deviceId;
+        }
+        if (deviceKey !== undefined) {
+            queryParameters['device_key'] = deviceKey;
+        }
+        if (endpointName !== undefined) {
+            queryParameters['endpoint_name'] = endpointName;
+        }
+        if (etag !== undefined) {
+            queryParameters['etag'] = etag;
+        }
+        if (etagLte !== undefined) {
+            queryParameters['etag__lte'] = etagLte;
+        }
+        if (etagGte !== undefined) {
+            queryParameters['etag__gte'] = etagGte;
+        }
+        if (firmwareChecksum !== undefined) {
+            queryParameters['firmware_checksum'] = firmwareChecksum;
+        }
+        if (manifest !== undefined) {
+            queryParameters['manifest'] = manifest;
+        }
+        if (manifestTimestamp !== undefined) {
+            queryParameters['manifest_timestamp'] = manifestTimestamp;
+        }
+        if (manifestTimestampLte !== undefined) {
+            queryParameters['manifest_timestamp__lte'] = manifestTimestampLte;
+        }
+        if (manifestTimestampGte !== undefined) {
+            queryParameters['manifest_timestamp__gte'] = manifestTimestampGte;
+        }
+        if (mechanism !== undefined) {
+            queryParameters['mechanism'] = mechanism;
+        }
+        if (mechanismUrl !== undefined) {
+            queryParameters['mechanism_url'] = mechanismUrl;
+        }
+        if (name !== undefined) {
+            queryParameters['name'] = name;
+        }
+        if (object !== undefined) {
+            queryParameters['object'] = object;
+        }
+        if (serialNumber !== undefined) {
+            queryParameters['serial_number'] = serialNumber;
+        }
+        if (state !== undefined) {
+            queryParameters['state'] = state;
+        }
+        if (trustClass !== undefined) {
+            queryParameters['trust_class'] = trustClass;
+        }
+        if (trustLevel !== undefined) {
+            queryParameters['trust_level'] = trustLevel;
+        }
+        if (updatedAt !== undefined) {
+            queryParameters['updated_at'] = updatedAt;
+        }
+        if (updatedAtLte !== undefined) {
+            queryParameters['updated_at__lte'] = updatedAtLte;
+        }
+        if (updatedAtGte !== undefined) {
+            queryParameters['updated_at__gte'] = updatedAtGte;
+        }
+        if (vendorId !== undefined) {
+            queryParameters['vendor_id'] = vendorId;
         }
 
         let useFormData = false;
@@ -368,8 +557,9 @@ export class DefaultApi extends ApiBase {
      * @param order ASC or DESC
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
+     * @param include Comma separated list of data fields to return. Currently supported: total_count
      */
-    deviceLogList (limit?: number, order?: string, after?: string, filter?: string, callback?: (error:any, data?:DeviceLogPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceLogList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:DeviceLogPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -385,6 +575,9 @@ export class DefaultApi extends ApiBase {
         }
         if (filter !== undefined) {
             queryParameters['filter'] = filter;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
         }
 
         let useFormData = false;
@@ -433,26 +626,20 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device fields&lt;/p&gt;
      * @param deviceId The ID of the device
-     * @param autoUpdate Mark this device for auto firmware update
-     * @param customAttributes Up to 5 custom JSON attributes
-     * @param deployment The last deployment used on the device
-     * @param description The description of the object
-     * @param deviceClass The device class
-     * @param manifest URL for the current device manifest
-     * @param mechanism The ID of the channel used to communicate with the device
-     * @param mechanismUrl The address of the connector to use
-     * @param name The name of the object
-     * @param object The API resource entity
-     * @param provisionKey The key used to provision the device
-     * @param serialNumber The serial number of the device
-     * @param state The current state of the device
-     * @param vendorId The device vendor ID
+     * @param device 
      */
-    devicePartialUpdate (deviceId: string, autoUpdate?: boolean, customAttributes?: string, deployment?: string, description?: string, deviceClass?: string, manifest?: string, mechanism?: string, mechanismUrl?: string, name?: string, object?: string, provisionKey?: string, serialNumber?: string, state?: string, vendorId?: string, callback?: (error:any, data?:DeviceSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    devicePartialUpdate (deviceId: string, device: DeviceData, callback?: (error:any, data?:DeviceSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
                 callback(new Error("Required parameter 'deviceId' missing when calling 'devicePartialUpdate'."));
+            }
+            return;
+        }
+        // verify required parameter "device" is set
+        if (device === null || device === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'device' missing when calling 'devicePartialUpdate'."));
             }
             return;
         }
@@ -463,62 +650,6 @@ export class DefaultApi extends ApiBase {
 
         let useFormData = false;
         let formParams: any = {};
-        if (autoUpdate !== undefined) {
-            formParams['auto_update'] = autoUpdate;
-        }
-
-        if (customAttributes !== undefined) {
-            formParams['custom_attributes'] = customAttributes;
-        }
-
-        if (deployment !== undefined) {
-            formParams['deployment'] = deployment;
-        }
-
-        if (description !== undefined) {
-            formParams['description'] = description;
-        }
-
-        if (deviceClass !== undefined) {
-            formParams['device_class'] = deviceClass;
-        }
-
-        if (manifest !== undefined) {
-            formParams['manifest'] = manifest;
-        }
-
-        if (mechanism !== undefined) {
-            formParams['mechanism'] = mechanism;
-        }
-
-        if (mechanismUrl !== undefined) {
-            formParams['mechanism_url'] = mechanismUrl;
-        }
-
-        if (name !== undefined) {
-            formParams['name'] = name;
-        }
-
-        if (object !== undefined) {
-            formParams['object'] = object;
-        }
-
-        if (provisionKey !== undefined) {
-            formParams['provision_key'] = provisionKey;
-        }
-
-        if (serialNumber !== undefined) {
-            formParams['serial_number'] = serialNumber;
-        }
-
-        if (state !== undefined) {
-            formParams['state'] = state;
-        }
-
-        if (vendorId !== undefined) {
-            formParams['vendor_id'] = vendorId;
-        }
-
 
         return this.request({
             url: '/v3/devices/{device_id}/'.replace('{' + 'device_id' + '}', String(deviceId)),
@@ -528,6 +659,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
+            body: device,
         }, callback);
     }
     /** 
@@ -563,22 +695,9 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device.&lt;/p&gt;
      * @param deviceId The ID of the device
-     * @param mechanism The ID of the channel used to communicate with the device
-     * @param provisionKey The key used to provision the device
-     * @param autoUpdate Mark this device for auto firmware update
-     * @param customAttributes Up to 5 custom JSON attributes
-     * @param deployment The last deployment used on the device
-     * @param description The description of the object
-     * @param deviceClass The device class
-     * @param manifest URL for the current device manifest
-     * @param mechanismUrl The address of the connector to use
-     * @param name The name of the object
-     * @param object The API resource entity
-     * @param serialNumber The serial number of the device
-     * @param state The current state of the device
-     * @param vendorId The device vendor ID
+     * @param device 
      */
-    deviceUpdate (deviceId: string, mechanism: string, provisionKey: string, autoUpdate?: boolean, customAttributes?: string, deployment?: string, description?: string, deviceClass?: string, manifest?: string, mechanismUrl?: string, name?: string, object?: string, serialNumber?: string, state?: string, vendorId?: string, callback?: (error:any, data?:DeviceSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceUpdate (deviceId: string, device: DeviceData, callback?: (error:any, data?:DeviceSerializer, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -586,17 +705,10 @@ export class DefaultApi extends ApiBase {
             }
             return;
         }
-        // verify required parameter "mechanism" is set
-        if (mechanism === null || mechanism === undefined) {
+        // verify required parameter "device" is set
+        if (device === null || device === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'mechanism' missing when calling 'deviceUpdate'."));
-            }
-            return;
-        }
-        // verify required parameter "provisionKey" is set
-        if (provisionKey === null || provisionKey === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'provisionKey' missing when calling 'deviceUpdate'."));
+                callback(new Error("Required parameter 'device' missing when calling 'deviceUpdate'."));
             }
             return;
         }
@@ -607,62 +719,6 @@ export class DefaultApi extends ApiBase {
 
         let useFormData = false;
         let formParams: any = {};
-        if (autoUpdate !== undefined) {
-            formParams['auto_update'] = autoUpdate;
-        }
-
-        if (customAttributes !== undefined) {
-            formParams['custom_attributes'] = customAttributes;
-        }
-
-        if (deployment !== undefined) {
-            formParams['deployment'] = deployment;
-        }
-
-        if (description !== undefined) {
-            formParams['description'] = description;
-        }
-
-        if (deviceClass !== undefined) {
-            formParams['device_class'] = deviceClass;
-        }
-
-        if (manifest !== undefined) {
-            formParams['manifest'] = manifest;
-        }
-
-        if (mechanism !== undefined) {
-            formParams['mechanism'] = mechanism;
-        }
-
-        if (mechanismUrl !== undefined) {
-            formParams['mechanism_url'] = mechanismUrl;
-        }
-
-        if (name !== undefined) {
-            formParams['name'] = name;
-        }
-
-        if (object !== undefined) {
-            formParams['object'] = object;
-        }
-
-        if (provisionKey !== undefined) {
-            formParams['provision_key'] = provisionKey;
-        }
-
-        if (serialNumber !== undefined) {
-            formParams['serial_number'] = serialNumber;
-        }
-
-        if (state !== undefined) {
-            formParams['state'] = state;
-        }
-
-        if (vendorId !== undefined) {
-            formParams['vendor_id'] = vendorId;
-        }
-
 
         return this.request({
             url: '/v3/devices/{device_id}/'.replace('{' + 'device_id' + '}', String(deviceId)),
@@ -672,6 +728,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
+            body: device,
         }, callback);
     }
 }
