@@ -42,7 +42,7 @@ gulp.task("doc", function() {
         excludeExternals: true,
         excludePrivate: true,
         hideGenerator: true,
-        toc: "DevicesApi,AccessApi,CertificatesApi,LoggingApi,UpdateApi,ConnectionOptions"
+        toc: "DevicesApi,AccessApi,CertificatesApi,LoggingApi,UpdateApi,StatisticsApi,ConnectionOptions"
     }))
     .on("error", handleError);
 });

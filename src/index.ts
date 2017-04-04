@@ -17,17 +17,34 @@
 
 export { AccessApi } from "./access";
 export { CertificatesApi } from "./certificates";
-export { DevicesApi } from "./devices";
+//export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
-export { UpdateApi } from "./update";
+export { StatisticsApi } from "./statistics";
+//export { UpdateApi } from "./update";
 
+/*
+extract maps to adapter
+move all object functions to use "this"
+replace all single value calls with value instead of object (#21)
+*/
+
+// design structure of filter request object
 // add policies and subAccounts to iam.accounttype
 // add listPolicies and listSubAccounts to User
 // document includeExpired and type on listCertificates()
 // update certificate example
 
-// work out how new filters work __eq, etc.
-// strongly type all add/update objects?
-// add typed callbackfn?
-// Fix issues - replace all single value calls with value instead of object (#21)
+// Fix issues - 
 // Add DeviceSubscriptions models?? <-perhaps after examples
+
+// remove noexplicitany?
+
+/*
+addSubjectsToGroup
+getUsersOfGroup
+removeUsersFromGroup
+getAllGroups
+getApiKeysOfGroup
+getGroupSummary
+removeApiKeysFromGroup
+*/
