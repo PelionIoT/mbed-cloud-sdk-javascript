@@ -20,37 +20,6 @@
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
 
-export interface Data {
-    /**
-     * Number of failed device server REST API requests the account has used.
-     */
-    "device_server_rest_api_error"?: number;
-    /**
-     * Number of failed bootstraps the account has used.
-     */
-    "bootstraps_failed"?: number;
-    /**
-     * Number of transaction events from devices linked to the account.
-     */
-    "transactions"?: number;
-    /**
-     * UTC time in RFC3339 format
-     */
-    "timestamp"?: string;
-    /**
-     * Number of successful device server REST API requests the account has used.
-     */
-    "device_server_rest_api_success"?: number;
-    /**
-     * Number of pending bootstraps the account has used.
-     */
-    "bootstraps_pending"?: number;
-    /**
-     * Number of successful bootstraps the account has used.
-     */
-    "bootstraps_successful"?: number;
-}
-
 export interface ErrorResponse {
     /**
      * HTTP response code.
@@ -89,7 +58,39 @@ export interface Field {
 export interface FieldsArray extends Array<Field> {
 }
 
-export interface SuccessfulResponse extends Array<Data> {
+export interface Metric {
+    /**
+     * Number of failed device server REST API requests the account has used.
+     */
+    "device_server_rest_api_error"?: number;
+    /**
+     * Number of failed bootstraps the account has used.
+     */
+    "bootstraps_failed"?: number;
+    /**
+     * Number of transaction events from devices linked to the account.
+     */
+    "transactions"?: number;
+    /**
+     * UTC time in RFC3339 format
+     */
+    "timestamp"?: string;
+    /**
+     * Number of successful device server REST API requests the account has used.
+     */
+    "device_server_rest_api_success"?: number;
+    /**
+     * Number of pending bootstraps the account has used.
+     */
+    "bootstraps_pending"?: number;
+    /**
+     * Number of successful bootstraps the account has used.
+     */
+    "bootstraps_successful"?: number;
+}
+
+export interface SuccessfulResponse {
+    "data"?: Array<Metric>;
 }
 
 /**
