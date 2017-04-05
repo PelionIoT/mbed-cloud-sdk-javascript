@@ -64,13 +64,13 @@ export interface FirmwareImage {
 }
 
 export interface FirmwareImagePage {
-    "object": string;
-    "has_more": boolean;
-    "total_count": number;
-    "after": string;
-    "limit": number;
-    "data": Array<FirmwareImage>;
-    "order": string;
+    "object"?: string;
+    "has_more"?: boolean;
+    "total_count"?: number;
+    "after"?: string;
+    "limit"?: number;
+    "data"?: Array<FirmwareImage>;
+    "order"?: string;
 }
 
 export interface FirmwareManifest {
