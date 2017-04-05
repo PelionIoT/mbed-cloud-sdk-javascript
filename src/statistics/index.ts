@@ -95,7 +95,7 @@ export class StatisticsApi {
             this._endpoints.account.v3MetricsGet(include, interval, "", start, end, period, (error, data) => {
                 if (error) return done(error);
 
-                let list = data.map(metric => {
+                let list = data.data.map(metric => {
                     return MetricAdapter.map(metric);
                 });
 
@@ -139,7 +139,7 @@ export class StatisticsApi {
             this._endpoints.statistics.v3MetricsGet(include, interval, "", start, end, period, (error, data) => {
                 if (error) return done(error);
 
-                let list = data.map(metric => {
+                let list = data.data.map(metric => {
                     return MetricAdapter.map(metric);
                 });
 

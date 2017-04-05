@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { Data as apiMetric } from "../../_api/statistics";
+import { Metric as apiMetric } from "../../_api/statistics";
 import { TimePeriod } from "../types";
 import { Metric } from "./metric";
 
