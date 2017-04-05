@@ -146,10 +146,10 @@ export interface WriteUpdateCampaign {
 }
 
 export interface WriteUpdateCampaignPage {
-    "limit": number;
-    "after": string;
-    "data": Array<UpdateCampaign>;
-    "order": string;
+    "limit"?: number;
+    "after"?: string;
+    "data"?: Array<UpdateCampaign>;
+    "order"?: string;
 }
 
 /**

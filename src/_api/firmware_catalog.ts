@@ -42,10 +42,6 @@ export interface FirmwareImage {
      */
     "updated_at": Date;
     /**
-     * DEPRECATED: The ID of the firmware image
-     */
-    "image_id": string;
-    /**
      * The entity instance signature
      */
     "etag": Date;
@@ -75,10 +71,6 @@ export interface FirmwareImagePage {
 
 export interface FirmwareManifest {
     "datafile": string;
-    /**
-     * DEPRECATED: The ID of the firmware manifest
-     */
-    "manifest_id": string;
     /**
      * The description of the object
      */
@@ -122,52 +114,11 @@ export interface FirmwareManifest {
 }
 
 export interface FirmwareManifestPage {
-    "object"?: string;
-    "has_more"?: boolean;
-    "total_count"?: number;
-    "after"?: string;
-    "limit"?: number;
-    "data"?: Array<FirmwareManifest>;
-    "order"?: string;
-}
-
-export interface WriteFirmwareImage {
-    /**
-     * The binary file of firmware image
-     */
-    "datafile": string;
-    /**
-     * The description of the object
-     */
-    "description"?: string;
-    /**
-     * The name of the object
-     */
-    "name": string;
-}
-
-export interface WriteFirmwareImagePage {
-    "limit": number;
+    "object": string;
+    "has_more": boolean;
+    "total_count": number;
     "after": string;
-    "data": Array<FirmwareImage>;
-    "order": string;
-}
-
-export interface WriteFirmwareManifest {
-    "datafile": string;
-    /**
-     * The description of the object
-     */
-    "description"?: string;
-    /**
-     * The name of the object
-     */
-    "name": string;
-}
-
-export interface WriteFirmwareManifestPage {
     "limit": number;
-    "after": string;
     "data": Array<FirmwareManifest>;
     "order": string;
 }
@@ -182,24 +133,8 @@ export class DefaultApi extends ApiBase {
      * @param datafile The firmware image file to upload
      * @param name The name of the object
      * @param description The description of the object
-     * @param updatedAt 
-     * @param updatedAtGte 
-     * @param updatedAtLte 
-     * @param updatingIpAddress 
-     * @param etag 
-     * @param etagGte 
-     * @param etagLte 
-     * @param updatingRequestId 
-     * @param createdAt 
-     * @param createdAtGte 
-     * @param createdAtLte 
-     * @param description2 
-     * @param object 
-     * @param imageId 
-     * @param datafileChecksum 
-     * @param name2 
      */
-    firmwareImageCreate (datafile: any, name: string, description?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, updatingIpAddress?: string, etag?: string, etagGte?: string, etagLte?: string, updatingRequestId?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description2?: string, object?: string, imageId?: string, datafileChecksum?: string, name2?: string, callback?: (error:any, data?:FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareImageCreate (datafile: any, name: string, description?: string, callback?: (error:any, data?:FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "datafile" is set
         if (datafile === null || datafile === undefined) {
             if (callback) {
@@ -218,54 +153,6 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-        if (updatedAtGte !== undefined) {
-            queryParameters['updated_at__gte'] = updatedAtGte;
-        }
-        if (updatedAtLte !== undefined) {
-            queryParameters['updated_at__lte'] = updatedAtLte;
-        }
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
-        }
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-        if (etagGte !== undefined) {
-            queryParameters['etag__gte'] = etagGte;
-        }
-        if (etagLte !== undefined) {
-            queryParameters['etag__lte'] = etagLte;
-        }
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
-        }
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-        if (createdAtGte !== undefined) {
-            queryParameters['created_at__gte'] = createdAtGte;
-        }
-        if (createdAtLte !== undefined) {
-            queryParameters['created_at__lte'] = createdAtLte;
-        }
-        if (description2 !== undefined) {
-            queryParameters['description'] = description2;
-        }
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-        if (imageId !== undefined) {
-            queryParameters['image_id'] = imageId;
-        }
-        if (datafileChecksum !== undefined) {
-            queryParameters['datafile_checksum'] = datafileChecksum;
-        }
-        if (name2 !== undefined) {
-            queryParameters['name'] = name2;
-        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -296,23 +183,8 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;Delete firmware image&lt;/p&gt;
      * @param imageId The ID of the firmware image
-     * @param updatedAt 
-     * @param updatedAtGte 
-     * @param updatedAtLte 
-     * @param updatingIpAddress 
-     * @param etag 
-     * @param etagGte 
-     * @param etagLte 
-     * @param updatingRequestId 
-     * @param createdAt 
-     * @param createdAtGte 
-     * @param createdAtLte 
-     * @param description 
-     * @param object 
-     * @param datafileChecksum 
-     * @param name 
      */
-    firmwareImageDestroy (imageId: number, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, updatingIpAddress?: string, etag?: string, etagGte?: string, etagLte?: string, updatingRequestId?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description?: string, object?: string, datafileChecksum?: string, name?: string, callback?: (error:any, data?:FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareImageDestroy (imageId: number, callback?: (error:any, data?:FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "imageId" is set
         if (imageId === null || imageId === undefined) {
             if (callback) {
@@ -324,51 +196,6 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-        if (updatedAtGte !== undefined) {
-            queryParameters['updated_at__gte'] = updatedAtGte;
-        }
-        if (updatedAtLte !== undefined) {
-            queryParameters['updated_at__lte'] = updatedAtLte;
-        }
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
-        }
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-        if (etagGte !== undefined) {
-            queryParameters['etag__gte'] = etagGte;
-        }
-        if (etagLte !== undefined) {
-            queryParameters['etag__lte'] = etagLte;
-        }
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
-        }
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-        if (createdAtGte !== undefined) {
-            queryParameters['created_at__gte'] = createdAtGte;
-        }
-        if (createdAtLte !== undefined) {
-            queryParameters['created_at__lte'] = createdAtLte;
-        }
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-        if (datafileChecksum !== undefined) {
-            queryParameters['datafile_checksum'] = datafileChecksum;
-        }
-        if (name !== undefined) {
-            queryParameters['name'] = name;
-        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -390,8 +217,21 @@ export class DefaultApi extends ApiBase {
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
      * @param include Comma separated list of data fields to return. Currently supported: total_count
+     * @param updatedAt 
+     * @param updatedAtGte 
+     * @param updatedAtLte 
+     * @param etag 
+     * @param etagGte 
+     * @param etagLte 
+     * @param createdAt 
+     * @param createdAtGte 
+     * @param createdAtLte 
+     * @param description 
+     * @param object 
+     * @param datafileChecksum 
+     * @param name 
      */
-    firmwareImageList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:FirmwareImagePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareImageList (limit?: number, order?: string, after?: string, filter?: string, include?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, etag?: string, etagGte?: string, etagLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description?: string, object?: string, datafileChecksum?: string, name?: string, callback?: (error:any, data?:FirmwareImagePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -411,51 +251,6 @@ export class DefaultApi extends ApiBase {
         if (include !== undefined) {
             queryParameters['include'] = include;
         }
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/firmware-images/',
-            method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;Retrieve firmware image&lt;/p&gt;
-     * @param imageId The ID of the firmware image
-     * @param updatedAt 
-     * @param updatedAtGte 
-     * @param updatedAtLte 
-     * @param updatingIpAddress 
-     * @param etag 
-     * @param etagGte 
-     * @param etagLte 
-     * @param updatingRequestId 
-     * @param createdAt 
-     * @param createdAtGte 
-     * @param createdAtLte 
-     * @param description 
-     * @param object 
-     * @param datafileChecksum 
-     * @param name 
-     */
-    firmwareImageRetrieve (imageId: number, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, updatingIpAddress?: string, etag?: string, etagGte?: string, etagLte?: string, updatingRequestId?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description?: string, object?: string, datafileChecksum?: string, name?: string, callback?: (error:any, data?:FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "imageId" is set
-        if (imageId === null || imageId === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'imageId' missing when calling 'firmwareImageRetrieve'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
         if (updatedAt !== undefined) {
             queryParameters['updated_at'] = updatedAt;
         }
@@ -465,9 +260,6 @@ export class DefaultApi extends ApiBase {
         if (updatedAtLte !== undefined) {
             queryParameters['updated_at__lte'] = updatedAtLte;
         }
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
-        }
         if (etag !== undefined) {
             queryParameters['etag'] = etag;
         }
@@ -476,9 +268,6 @@ export class DefaultApi extends ApiBase {
         }
         if (etagLte !== undefined) {
             queryParameters['etag__lte'] = etagLte;
-        }
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
         }
         if (createdAt !== undefined) {
             queryParameters['created_at'] = createdAt;
@@ -506,6 +295,36 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
+            url: '/v3/firmware-images/',
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * &lt;p&gt;The APIs for creating and manipulating firmware images.  &lt;/p&gt; &lt;p&gt;Retrieve firmware image&lt;/p&gt;
+     * @param imageId The ID of the firmware image
+     */
+    firmwareImageRetrieve (imageId: number, callback?: (error:any, data?:FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "imageId" is set
+        if (imageId === null || imageId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'imageId' missing when calling 'firmwareImageRetrieve'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
             url: '/v3/firmware-images/{image_id}/'.replace('{' + 'image_id' + '}', String(imageId)),
             method: 'GET',
             headers: headerParams,
@@ -520,28 +339,8 @@ export class DefaultApi extends ApiBase {
      * @param datafile The manifest file to create
      * @param name The name of the object
      * @param description The description of the object
-     * @param updatedAt 
-     * @param updatedAtGte 
-     * @param updatedAtLte 
-     * @param createdAt 
-     * @param createdAtGte 
-     * @param createdAtLte 
-     * @param etag 
-     * @param etagGte 
-     * @param etagLte 
-     * @param updatingIpAddress 
-     * @param manifestId 
-     * @param updatingRequestId 
-     * @param description2 
-     * @param timestamp 
-     * @param timestampGte 
-     * @param timestampLte 
-     * @param object 
-     * @param deviceClass 
-     * @param datafileChecksum 
-     * @param name2 
      */
-    firmwareManifestCreate (datafile: any, name: string, description?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, etag?: string, etagGte?: string, etagLte?: string, updatingIpAddress?: string, manifestId?: string, updatingRequestId?: string, description2?: string, timestamp?: string, timestampGte?: string, timestampLte?: string, object?: string, deviceClass?: string, datafileChecksum?: string, name2?: string, callback?: (error:any, data?:FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareManifestCreate (datafile: any, name: string, description?: string, callback?: (error:any, data?:FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "datafile" is set
         if (datafile === null || datafile === undefined) {
             if (callback) {
@@ -560,66 +359,6 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-        if (updatedAtGte !== undefined) {
-            queryParameters['updated_at__gte'] = updatedAtGte;
-        }
-        if (updatedAtLte !== undefined) {
-            queryParameters['updated_at__lte'] = updatedAtLte;
-        }
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-        if (createdAtGte !== undefined) {
-            queryParameters['created_at__gte'] = createdAtGte;
-        }
-        if (createdAtLte !== undefined) {
-            queryParameters['created_at__lte'] = createdAtLte;
-        }
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-        if (etagGte !== undefined) {
-            queryParameters['etag__gte'] = etagGte;
-        }
-        if (etagLte !== undefined) {
-            queryParameters['etag__lte'] = etagLte;
-        }
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
-        }
-        if (manifestId !== undefined) {
-            queryParameters['manifest_id'] = manifestId;
-        }
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
-        }
-        if (description2 !== undefined) {
-            queryParameters['description'] = description2;
-        }
-        if (timestamp !== undefined) {
-            queryParameters['timestamp'] = timestamp;
-        }
-        if (timestampGte !== undefined) {
-            queryParameters['timestamp__gte'] = timestampGte;
-        }
-        if (timestampLte !== undefined) {
-            queryParameters['timestamp__lte'] = timestampLte;
-        }
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-        if (deviceClass !== undefined) {
-            queryParameters['device_class'] = deviceClass;
-        }
-        if (datafileChecksum !== undefined) {
-            queryParameters['datafile_checksum'] = datafileChecksum;
-        }
-        if (name2 !== undefined) {
-            queryParameters['name'] = name2;
-        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -650,27 +389,8 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Delete firmware manifest&lt;/p&gt;
      * @param manifestId The ID of the firmware manifest
-     * @param updatedAt 
-     * @param updatedAtGte 
-     * @param updatedAtLte 
-     * @param createdAt 
-     * @param createdAtGte 
-     * @param createdAtLte 
-     * @param etag 
-     * @param etagGte 
-     * @param etagLte 
-     * @param updatingIpAddress 
-     * @param updatingRequestId 
-     * @param description 
-     * @param timestamp 
-     * @param timestampGte 
-     * @param timestampLte 
-     * @param object 
-     * @param deviceClass 
-     * @param datafileChecksum 
-     * @param name 
      */
-    firmwareManifestDestroy (manifestId: number, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, etag?: string, etagGte?: string, etagLte?: string, updatingIpAddress?: string, updatingRequestId?: string, description?: string, timestamp?: string, timestampGte?: string, timestampLte?: string, object?: string, deviceClass?: string, datafileChecksum?: string, name?: string, callback?: (error:any, data?:FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareManifestDestroy (manifestId: number, callback?: (error:any, data?:FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "manifestId" is set
         if (manifestId === null || manifestId === undefined) {
             if (callback) {
@@ -682,63 +402,6 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-        if (updatedAtGte !== undefined) {
-            queryParameters['updated_at__gte'] = updatedAtGte;
-        }
-        if (updatedAtLte !== undefined) {
-            queryParameters['updated_at__lte'] = updatedAtLte;
-        }
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-        if (createdAtGte !== undefined) {
-            queryParameters['created_at__gte'] = createdAtGte;
-        }
-        if (createdAtLte !== undefined) {
-            queryParameters['created_at__lte'] = createdAtLte;
-        }
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-        if (etagGte !== undefined) {
-            queryParameters['etag__gte'] = etagGte;
-        }
-        if (etagLte !== undefined) {
-            queryParameters['etag__lte'] = etagLte;
-        }
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
-        }
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
-        }
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-        if (timestamp !== undefined) {
-            queryParameters['timestamp'] = timestamp;
-        }
-        if (timestampGte !== undefined) {
-            queryParameters['timestamp__gte'] = timestampGte;
-        }
-        if (timestampLte !== undefined) {
-            queryParameters['timestamp__lte'] = timestampLte;
-        }
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-        if (deviceClass !== undefined) {
-            queryParameters['device_class'] = deviceClass;
-        }
-        if (datafileChecksum !== undefined) {
-            queryParameters['datafile_checksum'] = datafileChecksum;
-        }
-        if (name !== undefined) {
-            queryParameters['name'] = name;
-        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -760,8 +423,27 @@ export class DefaultApi extends ApiBase {
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
      * @param include Comma separated list of data fields to return. Currently supported: total_count
+     * @param updatedAt 
+     * @param updatedAtGte 
+     * @param updatedAtLte 
+     * @param createdAt 
+     * @param createdAtGte 
+     * @param createdAtLte 
+     * @param etag 
+     * @param etagGte 
+     * @param etagLte 
+     * @param manifestId 
+     * @param updatingRequestId 
+     * @param description 
+     * @param timestamp 
+     * @param timestampGte 
+     * @param timestampLte 
+     * @param object 
+     * @param deviceClass 
+     * @param datafileChecksum 
+     * @param name 
      */
-    firmwareManifestList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:FirmwareManifestPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareManifestList (limit?: number, order?: string, after?: string, filter?: string, include?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, etag?: string, etagGte?: string, etagLte?: string, manifestId?: string, updatingRequestId?: string, description?: string, timestamp?: string, timestampGte?: string, timestampLte?: string, object?: string, deviceClass?: string, datafileChecksum?: string, name?: string, callback?: (error:any, data?:FirmwareManifestPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -781,55 +463,6 @@ export class DefaultApi extends ApiBase {
         if (include !== undefined) {
             queryParameters['include'] = include;
         }
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v3/firmware-manifests/',
-            method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Retrieve firmware manifest&lt;/p&gt;
-     * @param manifestId The ID of the firmware manifest
-     * @param updatedAt 
-     * @param updatedAtGte 
-     * @param updatedAtLte 
-     * @param createdAt 
-     * @param createdAtGte 
-     * @param createdAtLte 
-     * @param etag 
-     * @param etagGte 
-     * @param etagLte 
-     * @param updatingIpAddress 
-     * @param updatingRequestId 
-     * @param description 
-     * @param timestamp 
-     * @param timestampGte 
-     * @param timestampLte 
-     * @param object 
-     * @param deviceClass 
-     * @param datafileChecksum 
-     * @param name 
-     */
-    firmwareManifestRetrieve (manifestId: number, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, etag?: string, etagGte?: string, etagLte?: string, updatingIpAddress?: string, updatingRequestId?: string, description?: string, timestamp?: string, timestampGte?: string, timestampLte?: string, object?: string, deviceClass?: string, datafileChecksum?: string, name?: string, callback?: (error:any, data?:FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "manifestId" is set
-        if (manifestId === null || manifestId === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'manifestId' missing when calling 'firmwareManifestRetrieve'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
         if (updatedAt !== undefined) {
             queryParameters['updated_at'] = updatedAt;
         }
@@ -857,8 +490,8 @@ export class DefaultApi extends ApiBase {
         if (etagLte !== undefined) {
             queryParameters['etag__lte'] = etagLte;
         }
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
+        if (manifestId !== undefined) {
+            queryParameters['manifest_id'] = manifestId;
         }
         if (updatingRequestId !== undefined) {
             queryParameters['updating_request_id'] = updatingRequestId;
@@ -887,6 +520,36 @@ export class DefaultApi extends ApiBase {
         if (name !== undefined) {
             queryParameters['name'] = name;
         }
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v3/firmware-manifests/',
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Retrieve firmware manifest&lt;/p&gt;
+     * @param manifestId The ID of the firmware manifest
+     */
+    firmwareManifestRetrieve (manifestId: number, callback?: (error:any, data?:FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "manifestId" is set
+        if (manifestId === null || manifestId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'manifestId' missing when calling 'firmwareManifestRetrieve'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
 
         let useFormData = false;
         let formParams: any = {};
