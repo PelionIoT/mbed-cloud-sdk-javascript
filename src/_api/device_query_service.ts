@@ -20,12 +20,6 @@
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
 
-export interface Body {
-    "query": string;
-    "description"?: string;
-    "name": string;
-}
-
 export interface DeviceQuery {
     /**
      * The description of the object
@@ -47,10 +41,6 @@ export interface DeviceQuery {
      * The entity instance signature
      */
     "etag": Date;
-    /**
-     * DEPRECATED: The ID of the query
-     */
-    "query_id": string;
     /**
      * The device query
      */
@@ -75,19 +65,11 @@ export interface DeviceQueryPage {
     "order": string;
 }
 
-export interface WriteDeviceQuery {
+export interface DeviceQueryPatchRequest {
     /**
      * The device query
      */
-    "query": string;
-    /**
-     * The API resource entity
-     */
-    "object"?: string;
-    /**
-     * DEPRECATED: The ID of the query
-     */
-    "query_id"?: string;
+    "query"?: string;
     /**
      * The description of the object
      */
@@ -95,14 +77,22 @@ export interface WriteDeviceQuery {
     /**
      * The name of the query
      */
-    "name": string;
+    "name"?: string;
 }
 
-export interface WriteDeviceQueryPage {
-    "limit": number;
-    "after"?: string;
-    "data": Array<DeviceQuery>;
-    "order": string;
+export interface DeviceQueryPutRequest {
+    /**
+     * The device query
+     */
+    "query": string;
+    /**
+     * The description of the object
+     */
+    "description": string;
+    /**
+     * The name of the query
+     */
+    "name": string;
 }
 
 /**
@@ -145,7 +135,7 @@ export class DefaultApi extends ApiBase {
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Delete device query&lt;/p&gt;
      * @param queryId 
      */
-    deviceQueryDestroy (queryId: string, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceQueryDestroy (queryId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "queryId" is set
         if (queryId === null || queryId === undefined) {
             if (callback) {
@@ -189,12 +179,11 @@ export class DefaultApi extends ApiBase {
      * @param name 
      * @param object 
      * @param query 
-     * @param queryId 
      * @param updatedAt 
      * @param updatedAtGte 
      * @param updatedAtLte 
      */
-    deviceQueryList (limit?: number, order?: string, after?: string, filter?: string, include?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description?: string, etag?: string, etagAtGte?: string, etagAtLte?: string, id?: string, name?: string, object?: string, query?: string, queryId?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, callback?: (error:any, data?:DeviceQueryPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceQueryList (limit?: number, order?: string, after?: string, filter?: string, include?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description?: string, etag?: string, etagAtGte?: string, etagAtLte?: string, id?: string, name?: string, object?: string, query?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, callback?: (error:any, data?:DeviceQueryPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -247,9 +236,6 @@ export class DefaultApi extends ApiBase {
         if (query !== undefined) {
             queryParameters['query'] = query;
         }
-        if (queryId !== undefined) {
-            queryParameters['query_id'] = queryId;
-        }
         if (updatedAt !== undefined) {
             queryParameters['updated_at'] = updatedAt;
         }
@@ -278,7 +264,7 @@ export class DefaultApi extends ApiBase {
      * @param queryId 
      * @param deviceQuery 
      */
-    deviceQueryPartialUpdate (queryId: string, deviceQuery: DeviceQuery, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceQueryPartialUpdate (queryId: string, deviceQuery: DeviceQueryPatchRequest, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "queryId" is set
         if (queryId === null || queryId === undefined) {
             if (callback) {
@@ -347,7 +333,7 @@ export class DefaultApi extends ApiBase {
      * @param queryId 
      * @param body Device query update object
      */
-    deviceQueryUpdate (queryId: string, body: Body, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceQueryUpdate (queryId: string, body: DeviceQueryPutRequest, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "queryId" is set
         if (queryId === null || queryId === undefined) {
             if (callback) {
