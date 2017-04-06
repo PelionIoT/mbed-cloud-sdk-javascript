@@ -144,7 +144,7 @@ export class DefaultApi extends ApiBase {
      * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Create device&lt;/p&gt;
      * @param device 
      */
-    deviceCreate (device: DeviceDataWriteRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceCreate (device: DeviceDataPostRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "device" is set
         if (device === null || device === undefined) {
             if (callback) {
@@ -565,7 +565,7 @@ export class DefaultApi extends ApiBase {
      * @param id The ID of the device
      * @param device 
      */
-    deviceUpdate (id: string, device: DeviceDataWriteRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceUpdate (id: string, device: DeviceDataPutRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
