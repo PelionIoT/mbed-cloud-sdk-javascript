@@ -72,13 +72,13 @@ export interface UpdateCampaign {
 }
 
 export interface UpdateCampaignPage {
-    "object": string;
-    "has_more": boolean;
-    "total_count": number;
-    "after": string;
-    "limit": number;
-    "data": Array<UpdateCampaign>;
-    "order": string;
+    "object"?: string;
+    "has_more"?: boolean;
+    "total_count"?: number;
+    "after"?: string;
+    "limit"?: number;
+    "data"?: Array<UpdateCampaign>;
+    "order"?: string;
 }
 
 export type UpdateCampaignRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
