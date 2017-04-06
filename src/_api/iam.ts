@@ -138,35 +138,35 @@ export interface AccountInfo {
  */
 export interface AccountUpdateReq {
     /**
-     * Postal address line 2.
+     * Postal address line 2, not longer than 100 characters.
      */
     "address_line2"?: string;
     /**
-     * The city part of the postal address.
+     * The city part of the postal address, not longer than 100 characters.
      */
     "city"?: string;
     /**
-     * Postal address line 1.
+     * Postal address line 1, not longer than 100 characters.
      */
     "address_line1"?: string;
     /**
-     * The display name for the account.
+     * The display name for the account, not longer than 100 characters.
      */
     "display_name"?: string;
     /**
-     * The country part of the postal address.
+     * The country part of the postal address, not longer than 100 characters.
      */
     "country"?: string;
     /**
-     * The name of the company.
+     * The name of the company, not longer than 100 characters.
      */
     "company"?: string;
     /**
-     * The state part of the postal address.
+     * The state part of the postal address, not longer than 100 characters.
      */
     "state"?: string;
     /**
-     * The name of the contact person for this account.
+     * The name of the contact person for this account, not longer than 100 characters.
      */
     "contact"?: string;
     /**
@@ -200,7 +200,7 @@ export interface ApiKeyInfoReq {
      */
     "owner"?: string;
     /**
-     * The display name for the API key.
+     * The display name for the API key, not longer than 100 characters.
      */
     "name": string;
     /**
@@ -304,7 +304,7 @@ export interface ApiKeyUpdateReq {
      */
     "owner"?: string;
     /**
-     * The display name for the API key.
+     * The display name for the API key, not longer than 100 characters.
      */
     "name": string;
 }
@@ -477,7 +477,7 @@ export interface TrustedCertificateReq {
      */
     "cert_data": string;
     /**
-     * Certificate name.
+     * Certificate name, not longer than 100 characters.
      */
     "name": string;
     /**
@@ -485,7 +485,7 @@ export interface TrustedCertificateReq {
      */
     "service": TrustedCertificateReqServiceEnum;
     /**
-     * Human readable description of this certificate.
+     * Human readable description of this certificate, not longer than 500 characters.
      */
     "description"?: string;
 }
@@ -625,7 +625,7 @@ export interface UserInfoReq {
      */
     "username"?: string;
     /**
-     * Phone number.
+     * Phone number, not longer than 100 characters.
      */
     "phone_number"?: string;
     /**
@@ -641,11 +641,11 @@ export interface UserInfoReq {
      */
     "is_marketing_accepted"?: boolean;
     /**
-     * The full name of the user.
+     * The full name of the user, not longer than 100 characters.
      */
     "full_name"?: string;
     /**
-     * Address.
+     * Address, not longer than 100 characters.
      */
     "address"?: string;
     /**
@@ -653,7 +653,7 @@ export interface UserInfoReq {
      */
     "password"?: string;
     /**
-     * The email address.
+     * The email address, not longer than 100 characters.
      */
     "email": string;
 }
@@ -785,7 +785,7 @@ export interface UserUpdateReq {
      */
     "username"?: string;
     /**
-     * Phone number.
+     * Phone number, not longer than 100 characters.
      */
     "phone_number"?: string;
     /**
@@ -797,11 +797,11 @@ export interface UserUpdateReq {
      */
     "is_gtc_accepted"?: boolean;
     /**
-     * The full name of the user.
+     * The full name of the user, not longer than 100 characters.
      */
     "full_name"?: string;
     /**
-     * Address.
+     * Address, not longer than 100 characters.
      */
     "address"?: string;
     /**
@@ -809,7 +809,7 @@ export interface UserUpdateReq {
      */
     "password"?: string;
     /**
-     * The email address.
+     * The email address, not longer than 100 characters.
      */
     "email": string;
 }

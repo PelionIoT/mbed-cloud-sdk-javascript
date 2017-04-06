@@ -44,10 +44,6 @@ export interface UpdateCampaign {
      */
     "state": UpdateCampaignStateEnum;
     /**
-     * The time the object was updated
-     */
-    "updated_at": string;
-    /**
      * The timestamp when the update campaign finished
      */
     "finished": string;
@@ -81,8 +77,8 @@ export interface UpdateCampaignPage {
     "order"?: string;
 }
 
-export type UpdateCampaignRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
-export interface UpdateCampaignRequest {
+export type UpdateCampaignPatchRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export interface UpdateCampaignPatchRequest {
     /**
      * An optional description of the campaign
      */
@@ -91,15 +87,73 @@ export interface UpdateCampaignRequest {
      * The timestamp at which update campaign scheduled to start
      */
     "when"?: string;
+    /**
+     * The API resource entity
+     */
+    "object"?: string;
     "root_manifest_id"?: string;
     /**
      * The state of the campaign
      */
-    "state"?: UpdateCampaignRequestStateEnum;
+    "state"?: UpdateCampaignPatchRequestStateEnum;
     /**
-     * The timestamp when the update campaign finished
+     * The filter for the devices the campaign will target
      */
-    "finished"?: string;
+    "device_filter"?: string;
+    /**
+     * A name for this campaign
+     */
+    "name"?: string;
+}
+
+export type UpdateCampaignPostRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export interface UpdateCampaignPostRequest {
+    /**
+     * An optional description of the campaign
+     */
+    "description"?: string;
+    /**
+     * The timestamp at which update campaign scheduled to start
+     */
+    "when"?: string;
+    /**
+     * The API resource entity
+     */
+    "object"?: string;
+    "root_manifest_id"?: string;
+    /**
+     * The state of the campaign
+     */
+    "state"?: UpdateCampaignPostRequestStateEnum;
+    /**
+     * The filter for the devices the campaign will target
+     */
+    "device_filter": string;
+    /**
+     * A name for this campaign
+     */
+    "name": string;
+}
+
+export type UpdateCampaignPutRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export interface UpdateCampaignPutRequest {
+    /**
+     * An optional description of the campaign
+     */
+    "description": string;
+    /**
+     * The timestamp at which update campaign scheduled to start
+     */
+    "when": string;
+    /**
+     * The API resource entity
+     */
+    "object": string;
+    "root_manifest_id": string;
+    /**
+     * The state of the campaign
+     */
+    "state": UpdateCampaignPutRequestStateEnum;
     /**
      * The filter for the devices the campaign will target
      */
@@ -119,7 +173,7 @@ export class DefaultApi extends ApiBase {
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Create update campaign&lt;/p&gt;
      * @param update Campaign Update campaign
      */
-    updateCampaignCreate (update Campaign: UpdateCampaignRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignCreate (update Campaign: UpdateCampaignPostRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "update Campaign" is set
         if (update Campaign === null || update Campaign === undefined) {
             if (callback) {
@@ -188,6 +242,12 @@ export class DefaultApi extends ApiBase {
      * @param createdAtGte 
      * @param description 
      * @param deviceFilter 
+     * @param etag 
+     * @param etagLte 
+     * @param etagGte 
+     * @param finished 
+     * @param finishedLte 
+     * @param finishedGte 
      * @param id 
      * @param name 
      * @param object 
@@ -197,14 +257,11 @@ export class DefaultApi extends ApiBase {
      * @param startedAtLte 
      * @param statedAtGte 
      * @param state 
-     * @param updatedAt 
-     * @param updatedAtLte 
-     * @param updatedAtGte 
      * @param when 
      * @param whenLte 
      * @param whenGte 
      */
-    updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, createdAt?: string, createdAtLte?: string, createdAtGte?: string, description?: string, deviceFilter?: string, id?: string, name?: string, object?: string, rootManifestId?: string, rootManifestUrl?: string, startedAt?: string, startedAtLte?: string, statedAtGte?: string, state?: string, updatedAt?: string, updatedAtLte?: string, updatedAtGte?: string, when?: string, whenLte?: string, whenGte?: string, callback?: (error:any, data?:UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, createdAt?: string, createdAtLte?: string, createdAtGte?: string, description?: string, deviceFilter?: string, etag?: string, etagLte?: string, etagGte?: string, finished?: string, finishedLte?: string, finishedGte?: string, id?: string, name?: string, object?: string, rootManifestId?: string, rootManifestUrl?: string, startedAt?: string, startedAtLte?: string, statedAtGte?: string, state?: string, when?: string, whenLte?: string, whenGte?: string, callback?: (error:any, data?:UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -239,6 +296,24 @@ export class DefaultApi extends ApiBase {
         if (deviceFilter !== undefined) {
             queryParameters['device_filter'] = deviceFilter;
         }
+        if (etag !== undefined) {
+            queryParameters['etag'] = etag;
+        }
+        if (etagLte !== undefined) {
+            queryParameters['etag__lte'] = etagLte;
+        }
+        if (etagGte !== undefined) {
+            queryParameters['etag__gte'] = etagGte;
+        }
+        if (finished !== undefined) {
+            queryParameters['finished'] = finished;
+        }
+        if (finishedLte !== undefined) {
+            queryParameters['finished__lte'] = finishedLte;
+        }
+        if (finishedGte !== undefined) {
+            queryParameters['finished__gte'] = finishedGte;
+        }
         if (id !== undefined) {
             queryParameters['id'] = id;
         }
@@ -265,15 +340,6 @@ export class DefaultApi extends ApiBase {
         }
         if (state !== undefined) {
             queryParameters['state'] = state;
-        }
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-        if (updatedAtLte !== undefined) {
-            queryParameters['updated_at__lte'] = updatedAtLte;
-        }
-        if (updatedAtGte !== undefined) {
-            queryParameters['updated_at_gte'] = updatedAtGte;
         }
         if (when !== undefined) {
             queryParameters['when'] = when;
@@ -303,7 +369,7 @@ export class DefaultApi extends ApiBase {
      * @param campaignId 
      * @param update Campaign Update campaign
      */
-    updateCampaignPartialUpdate (campaignId: string, update Campaign: UpdateCampaignRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignPartialUpdate (campaignId: string, update Campaign: UpdateCampaignPatchRequest, callback?: (error:any, data?:UpdateCampaignPatchRequest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -372,7 +438,7 @@ export class DefaultApi extends ApiBase {
      * @param campaignId 
      * @param update Campaign Update campaign
      */
-    updateCampaignUpdate (campaignId: string, update Campaign: UpdateCampaignRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignUpdate (campaignId: string, update Campaign: UpdateCampaignPutRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
