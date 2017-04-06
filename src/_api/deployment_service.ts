@@ -29,7 +29,7 @@ export interface UpdateCampaign {
     /**
      * The timestamp at which update campaign scheduled to start
      */
-    "when": string;
+    "when"?: string;
     /**
      * The time the object was created
      */
@@ -46,13 +46,13 @@ export interface UpdateCampaign {
     /**
      * The timestamp when the update campaign finished
      */
-    "finished": string;
+    "finished"?: string;
     /**
      * The entity instance signature
      */
     "etag": string;
     "root_manifest_url": string;
-    "started_at": Date;
+    "started_at"?: Date;
     /**
      * The ID of the campaign
      */
