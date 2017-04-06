@@ -32,6 +32,7 @@ export interface DeviceData {
     "description"?: string;
     "endpoint_name"?: string;
     "auto_update"?: boolean;
+    "device_execution_mode"?: number;
     "custom_attributes"?: any;
     "state"?: string;
     "etag"?: Date;
@@ -50,56 +51,56 @@ export interface DeviceData {
     "device_key"?: string;
     "created_at"?: Date;
     "manifest"?: string;
-    "attestation_method"?: number;
     "ca_id"?: string;
 }
 
-export type DeviceDataPatchRequestDeployedStateEnum = "development" | "production";
 export interface DeviceDataPatchRequest {
-    "manifest_timestamp"?: Date;
-    "vendor_id"?: string;
     "description"?: string;
-    "deployed_state"?: DeviceDataPatchRequestDeployedStateEnum;
-    "firmware_checksum"?: string;
-    "auto_update"?: boolean;
-    "mechanism"?: string;
-    "device_class"?: string;
-    "trust_level"?: number;
-    "custom_attributes"?: any;
-    "manifest"?: string;
-    "trust_class"?: number;
-    "device_key"?: string;
-    "state"?: string;
-    "ca_id"?: string;
-    "deployment"?: string;
-    "mechanism_url"?: string;
-    "serial_number"?: string;
     "endpoint_name"?: string;
+    "auto_update"?: boolean;
+    "object"?: string;
+    "custom_attributes"?: any;
+    "device_key"?: string;
+    "ca_id"?: string;
     "name"?: string;
 }
 
-export type DeviceDataWriteRequestDeployedStateEnum = "development" | "production";
-export interface DeviceDataWriteRequest {
-    "manifest_timestamp": Date;
-    "vendor_id": string;
-    "description": string;
-    "deployed_state": DeviceDataWriteRequestDeployedStateEnum;
-    "firmware_checksum": string;
-    "auto_update": boolean;
-    "mechanism": string;
-    "device_class": string;
-    "trust_level": number;
-    "custom_attributes": any;
-    "manifest": string;
-    "trust_class": number;
+export type DeviceDataPostRequestDeployedStateEnum = "development" | "production";
+export interface DeviceDataPostRequest {
+    "bootstrap_expiration_date"?: Date;
+    "bootstrapped_timestamp"?: Date;
+    "connector_expiration_date"?: Date;
+    "mechanism"?: string;
+    "device_class"?: string;
+    "endpoint_name"?: string;
+    "auto_update"?: boolean;
+    "device_execution_mode"?: number;
+    "custom_attributes"?: any;
+    "state"?: string;
+    "serial_number"?: string;
+    "firmware_checksum"?: string;
+    "vendor_id"?: string;
+    "description"?: string;
+    "deployed_state"?: DeviceDataPostRequestDeployedStateEnum;
+    "object"?: string;
+    "deployment"?: string;
+    "mechanism_url"?: string;
+    "trust_level"?: number;
+    "name"?: string;
     "device_key": string;
-    "state": string;
+    "manifest"?: string;
     "ca_id": string;
-    "deployment": string;
-    "mechanism_url": string;
-    "serial_number": string;
-    "endpoint_name": string;
-    "name": string;
+}
+
+export interface DeviceDataPutRequest {
+    "description"?: string;
+    "endpoint_name"?: string;
+    "auto_update"?: boolean;
+    "object"?: string;
+    "custom_attributes"?: any;
+    "device_key": string;
+    "ca_id": string;
+    "name"?: string;
 }
 
 export interface DeviceLogData {
