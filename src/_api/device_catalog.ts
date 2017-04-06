@@ -20,13 +20,15 @@
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
 
+export type DeviceDataMechanismEnum = "connector" | "direct";
+export type DeviceDataStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 export type DeviceDataDeployedStateEnum = "development" | "production";
 export interface DeviceData {
     "bootstrap_expiration_date"?: Date;
     "bootstrapped_timestamp"?: Date;
     "connector_expiration_date"?: Date;
     "updated_at"?: Date;
-    "mechanism"?: string;
+    "mechanism"?: DeviceDataMechanismEnum;
     "device_class"?: string;
     "id"?: string;
     "description"?: string;
@@ -34,7 +36,7 @@ export interface DeviceData {
     "auto_update"?: boolean;
     "device_execution_mode"?: number;
     "custom_attributes"?: any;
-    "state"?: string;
+    "state"?: DeviceDataStateEnum;
     "etag"?: Date;
     "serial_number"?: string;
     "firmware_checksum"?: string;
@@ -65,18 +67,20 @@ export interface DeviceDataPatchRequest {
     "name"?: string;
 }
 
+export type DeviceDataPostRequestMechanismEnum = "connector" | "direct";
+export type DeviceDataPostRequestStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 export type DeviceDataPostRequestDeployedStateEnum = "development" | "production";
 export interface DeviceDataPostRequest {
     "bootstrap_expiration_date"?: Date;
     "bootstrapped_timestamp"?: Date;
     "connector_expiration_date"?: Date;
-    "mechanism"?: string;
+    "mechanism"?: DeviceDataPostRequestMechanismEnum;
     "device_class"?: string;
     "endpoint_name"?: string;
     "auto_update"?: boolean;
     "device_execution_mode"?: number;
     "custom_attributes"?: any;
-    "state"?: string;
+    "state"?: DeviceDataPostRequestStateEnum;
     "serial_number"?: string;
     "firmware_checksum"?: string;
     "vendor_id"?: string;
