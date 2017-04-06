@@ -27,51 +27,36 @@ export interface UpdateCampaign {
      */
     "description": string;
     /**
-     * The state of the campaign
+     * The timestamp at which update campaign scheduled to start
      */
-    "state": UpdateCampaignStateEnum;
-    /**
-     * The updating IAM user ID
-     */
-    "updating_user_id": string;
+    "when": string;
     /**
      * The time the object was created
      */
-    "created_at": Date;
+    "created_at": string;
     /**
      * The API resource entity
      */
     "object": string;
     "root_manifest_id": string;
     /**
-     * DEPRECATED: The ID of the campaign
+     * The state of the campaign
      */
-    "campaign_id": string;
-    /**
-     * The updating account ID
-     */
-    "updating_account_id": string;
+    "state": UpdateCampaignStateEnum;
     /**
      * The time the object was updated
      */
-    "updated_at": Date;
-    /**
-     * The timestamp at which update campaign scheduled to start
-     */
-    "when": Date;
+    "updated_at": string;
     /**
      * The timestamp when the update campaign finished
      */
-    "finished": Date;
+    "finished": string;
     /**
      * The entity instance signature
      */
-    "etag": Date;
+    "etag": string;
     "root_manifest_url": string;
-    /**
-     * The gateway client API key
-     */
-    "updating_api_key": string;
+    "started_at": Date;
     /**
      * The ID of the campaign
      */
@@ -96,60 +81,33 @@ export interface UpdateCampaignPage {
     "order": string;
 }
 
-export type WriteUpdateCampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
-export interface WriteUpdateCampaign {
+export type UpdateCampaignRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export interface UpdateCampaignRequest {
     /**
-     * A name for this campaign
+     * An optional description of the campaign
      */
-    "name": string;
-    /**
-     * The state of the campaign
-     */
-    "state"?: WriteUpdateCampaignStateEnum;
-    /**
-     * The updating IAM user ID
-     */
-    "updating_user_id"?: string;
-    /**
-     * The API resource entity
-     */
-    "object"?: string;
-    "root_manifest_id"?: string;
-    /**
-     * DEPRECATED: The ID of the campaign
-     */
-    "campaign_id"?: string;
-    /**
-     * The gateway client API key
-     */
-    "updating_api_key"?: string;
+    "description"?: string;
     /**
      * The timestamp at which update campaign scheduled to start
      */
-    "when"?: Date;
+    "when"?: string;
+    "root_manifest_id"?: string;
+    /**
+     * The state of the campaign
+     */
+    "state"?: UpdateCampaignRequestStateEnum;
     /**
      * The timestamp when the update campaign finished
      */
-    "finished"?: Date;
-    /**
-     * The updating account ID
-     */
-    "updating_account_id"?: string;
+    "finished"?: string;
     /**
      * The filter for the devices the campaign will target
      */
     "device_filter": string;
     /**
-     * An optional description of the campaign
+     * A name for this campaign
      */
-    "description"?: string;
-}
-
-export interface WriteUpdateCampaignPage {
-    "limit"?: number;
-    "after"?: string;
-    "data"?: Array<UpdateCampaign>;
-    "order"?: string;
+    "name": string;
 }
 
 /**
@@ -159,28 +117,13 @@ export class DefaultApi extends ApiBase {
 
     /** 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Create update campaign&lt;/p&gt;
-     * @param deviceFilter The filter for the devices the campaign will target
-     * @param name A name for this campaign
-     * @param campaignId DEPRECATED: The ID of the campaign
-     * @param description An optional description of the campaign
-     * @param finished The timestamp when the update campaign finished
-     * @param object The API resource entity
-     * @param rootManifestId 
-     * @param state The state of the campaign
-     * @param when The timestamp at which update campaign scheduled to start
+     * @param update Campaign Update campaign
      */
-    updateCampaignCreate (deviceFilter: string, name: string, campaignId?: string, description?: string, finished?: Date, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "deviceFilter" is set
-        if (deviceFilter === null || deviceFilter === undefined) {
+    updateCampaignCreate (update Campaign: UpdateCampaignRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "update Campaign" is set
+        if (update Campaign === null || update Campaign === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceFilter' missing when calling 'updateCampaignCreate'."));
-            }
-            return;
-        }
-        // verify required parameter "name" is set
-        if (name === null || name === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'name' missing when calling 'updateCampaignCreate'."));
+                callback(new Error("Required parameter 'update Campaign' missing when calling 'updateCampaignCreate'."));
             }
             return;
         }
@@ -191,42 +134,6 @@ export class DefaultApi extends ApiBase {
 
         let useFormData = false;
         let formParams: any = {};
-        if (campaignId !== undefined) {
-            formParams['campaign_id'] = campaignId;
-        }
-
-        if (description !== undefined) {
-            formParams['description'] = description;
-        }
-
-        if (deviceFilter !== undefined) {
-            formParams['device_filter'] = deviceFilter;
-        }
-
-        if (finished !== undefined) {
-            formParams['finished'] = finished;
-        }
-
-        if (name !== undefined) {
-            formParams['name'] = name;
-        }
-
-        if (object !== undefined) {
-            formParams['object'] = object;
-        }
-
-        if (rootManifestId !== undefined) {
-            formParams['root_manifest_id'] = rootManifestId;
-        }
-
-        if (state !== undefined) {
-            formParams['state'] = state;
-        }
-
-        if (when !== undefined) {
-            formParams['when'] = when;
-        }
-
 
         return this.request({
             url: '/v3/update-campaigns/',
@@ -236,38 +143,14 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
+            body: update Campaign,
         }, callback);
     }
     /** 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Delete update campaign&lt;/p&gt;
      * @param campaignId The ID of the update campaign
-     * @param rootManifestId 
-     * @param updatingRequestId 
-     * @param finished 
-     * @param finishedGte 
-     * @param finishedLte 
-     * @param createdAt 
-     * @param createdAtGte 
-     * @param createdAtLte 
-     * @param when 
-     * @param whenGte 
-     * @param whenLte 
-     * @param updatingIpAddress 
-     * @param etag 
-     * @param etagGte 
-     * @param etagLte 
-     * @param object 
-     * @param state 
-     * @param name 
-     * @param updatedAt 
-     * @param updatedAtGte 
-     * @param updatedAtLte 
-     * @param deviceFilter 
-     * @param campaigndevicemetadata 
-     * @param description 
-     * @param attempts 
      */
-    updateCampaignDestroy (campaignId: string, rootManifestId?: string, updatingRequestId?: string, finished?: string, finishedGte?: string, finishedLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, when?: string, whenGte?: string, whenLte?: string, updatingIpAddress?: string, etag?: string, etagGte?: string, etagLte?: string, object?: string, state?: string, name?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, deviceFilter?: string, campaigndevicemetadata?: string, description?: string, attempts?: string, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignDestroy (campaignId: string, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -279,81 +162,6 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (rootManifestId !== undefined) {
-            queryParameters['root_manifest_id'] = rootManifestId;
-        }
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
-        }
-        if (finished !== undefined) {
-            queryParameters['finished'] = finished;
-        }
-        if (finishedGte !== undefined) {
-            queryParameters['finished__gte'] = finishedGte;
-        }
-        if (finishedLte !== undefined) {
-            queryParameters['finished__lte'] = finishedLte;
-        }
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-        if (createdAtGte !== undefined) {
-            queryParameters['created_at__gte'] = createdAtGte;
-        }
-        if (createdAtLte !== undefined) {
-            queryParameters['created_at__lte'] = createdAtLte;
-        }
-        if (when !== undefined) {
-            queryParameters['when'] = when;
-        }
-        if (whenGte !== undefined) {
-            queryParameters['when__gte'] = whenGte;
-        }
-        if (whenLte !== undefined) {
-            queryParameters['when__lte'] = whenLte;
-        }
-        if (updatingIpAddress !== undefined) {
-            queryParameters['updating_ip_address'] = updatingIpAddress;
-        }
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-        if (etagGte !== undefined) {
-            queryParameters['etag__gte'] = etagGte;
-        }
-        if (etagLte !== undefined) {
-            queryParameters['etag__lte'] = etagLte;
-        }
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-        if (state !== undefined) {
-            queryParameters['state'] = state;
-        }
-        if (name !== undefined) {
-            queryParameters['name'] = name;
-        }
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-        if (updatedAtGte !== undefined) {
-            queryParameters['updated_at__gte'] = updatedAtGte;
-        }
-        if (updatedAtLte !== undefined) {
-            queryParameters['updated_at__lte'] = updatedAtLte;
-        }
-        if (deviceFilter !== undefined) {
-            queryParameters['device_filter'] = deviceFilter;
-        }
-        if (campaigndevicemetadata !== undefined) {
-            queryParameters['campaigndevicemetadata'] = campaigndevicemetadata;
-        }
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-        if (attempts !== undefined) {
-            queryParameters['attempts'] = attempts;
-        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -374,8 +182,29 @@ export class DefaultApi extends ApiBase {
      * @param order ASC or DESC
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
+     * @param include Comma separated list of data fields to return. Currently supported: total_count
+     * @param createdAt 
+     * @param createdAtLte 
+     * @param createdAtGte 
+     * @param description 
+     * @param deviceFilter 
+     * @param id 
+     * @param name 
+     * @param object 
+     * @param rootManifestId 
+     * @param rootManifestUrl 
+     * @param startedAt 
+     * @param startedAtLte 
+     * @param statedAtGte 
+     * @param state 
+     * @param updatedAt 
+     * @param updatedAtLte 
+     * @param updatedAtGte 
+     * @param when 
+     * @param whenLte 
+     * @param whenGte 
      */
-    updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, callback?: (error:any, data?:UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, createdAt?: string, createdAtLte?: string, createdAtGte?: string, description?: string, deviceFilter?: string, id?: string, name?: string, object?: string, rootManifestId?: string, rootManifestUrl?: string, startedAt?: string, startedAtLte?: string, statedAtGte?: string, state?: string, updatedAt?: string, updatedAtLte?: string, updatedAtGte?: string, when?: string, whenLte?: string, whenGte?: string, callback?: (error:any, data?:UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -391,6 +220,69 @@ export class DefaultApi extends ApiBase {
         }
         if (filter !== undefined) {
             queryParameters['filter'] = filter;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+        if (createdAt !== undefined) {
+            queryParameters['created_at'] = createdAt;
+        }
+        if (createdAtLte !== undefined) {
+            queryParameters['created_at__lte'] = createdAtLte;
+        }
+        if (createdAtGte !== undefined) {
+            queryParameters['created_at__gte'] = createdAtGte;
+        }
+        if (description !== undefined) {
+            queryParameters['description'] = description;
+        }
+        if (deviceFilter !== undefined) {
+            queryParameters['device_filter'] = deviceFilter;
+        }
+        if (id !== undefined) {
+            queryParameters['id'] = id;
+        }
+        if (name !== undefined) {
+            queryParameters['name'] = name;
+        }
+        if (object !== undefined) {
+            queryParameters['object'] = object;
+        }
+        if (rootManifestId !== undefined) {
+            queryParameters['root_manifest_id'] = rootManifestId;
+        }
+        if (rootManifestUrl !== undefined) {
+            queryParameters['root_manifest_url'] = rootManifestUrl;
+        }
+        if (startedAt !== undefined) {
+            queryParameters['started_at'] = startedAt;
+        }
+        if (startedAtLte !== undefined) {
+            queryParameters['started_at__lte'] = startedAtLte;
+        }
+        if (statedAtGte !== undefined) {
+            queryParameters['stated_at__gte'] = statedAtGte;
+        }
+        if (state !== undefined) {
+            queryParameters['state'] = state;
+        }
+        if (updatedAt !== undefined) {
+            queryParameters['updated_at'] = updatedAt;
+        }
+        if (updatedAtLte !== undefined) {
+            queryParameters['updated_at__lte'] = updatedAtLte;
+        }
+        if (updatedAtGte !== undefined) {
+            queryParameters['updated_at_gte'] = updatedAtGte;
+        }
+        if (when !== undefined) {
+            queryParameters['when'] = when;
+        }
+        if (whenLte !== undefined) {
+            queryParameters['when__lte'] = whenLte;
+        }
+        if (whenGte !== undefined) {
+            queryParameters['when_gte'] = whenGte;
         }
 
         let useFormData = false;
@@ -409,21 +301,20 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign fields&lt;/p&gt;
      * @param campaignId 
-     * @param campaignId2 DEPRECATED: The ID of the campaign
-     * @param description An optional description of the campaign
-     * @param deviceFilter The filter for the devices the campaign will target
-     * @param finished The timestamp when the update campaign finished
-     * @param name A name for this campaign
-     * @param object The API resource entity
-     * @param rootManifestId 
-     * @param state The state of the campaign
-     * @param when The timestamp at which update campaign scheduled to start
+     * @param update Campaign Update campaign
      */
-    updateCampaignPartialUpdate (campaignId: string, campaignId2?: string, description?: string, deviceFilter?: string, finished?: Date, name?: string, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignPartialUpdate (campaignId: string, update Campaign: UpdateCampaignRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
                 callback(new Error("Required parameter 'campaignId' missing when calling 'updateCampaignPartialUpdate'."));
+            }
+            return;
+        }
+        // verify required parameter "update Campaign" is set
+        if (update Campaign === null || update Campaign === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'update Campaign' missing when calling 'updateCampaignPartialUpdate'."));
             }
             return;
         }
@@ -434,42 +325,6 @@ export class DefaultApi extends ApiBase {
 
         let useFormData = false;
         let formParams: any = {};
-        if (campaignId2 !== undefined) {
-            formParams['campaign_id'] = campaignId2;
-        }
-
-        if (description !== undefined) {
-            formParams['description'] = description;
-        }
-
-        if (deviceFilter !== undefined) {
-            formParams['device_filter'] = deviceFilter;
-        }
-
-        if (finished !== undefined) {
-            formParams['finished'] = finished;
-        }
-
-        if (name !== undefined) {
-            formParams['name'] = name;
-        }
-
-        if (object !== undefined) {
-            formParams['object'] = object;
-        }
-
-        if (rootManifestId !== undefined) {
-            formParams['root_manifest_id'] = rootManifestId;
-        }
-
-        if (state !== undefined) {
-            formParams['state'] = state;
-        }
-
-        if (when !== undefined) {
-            formParams['when'] = when;
-        }
-
 
         return this.request({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
@@ -479,6 +334,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
+            body: update Campaign,
         }, callback);
     }
     /** 
@@ -514,17 +370,9 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign&lt;/p&gt;
      * @param campaignId 
-     * @param deviceFilter The filter for the devices the campaign will target
-     * @param name A name for this campaign
-     * @param campaignId2 DEPRECATED: The ID of the campaign
-     * @param description An optional description of the campaign
-     * @param finished The timestamp when the update campaign finished
-     * @param object The API resource entity
-     * @param rootManifestId 
-     * @param state The state of the campaign
-     * @param when The timestamp at which update campaign scheduled to start
+     * @param update Campaign Update campaign
      */
-    updateCampaignUpdate (campaignId: string, deviceFilter: string, name: string, campaignId2?: string, description?: string, finished?: Date, object?: string, rootManifestId?: string, state?: string, when?: Date, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignUpdate (campaignId: string, update Campaign: UpdateCampaignRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -532,17 +380,10 @@ export class DefaultApi extends ApiBase {
             }
             return;
         }
-        // verify required parameter "deviceFilter" is set
-        if (deviceFilter === null || deviceFilter === undefined) {
+        // verify required parameter "update Campaign" is set
+        if (update Campaign === null || update Campaign === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceFilter' missing when calling 'updateCampaignUpdate'."));
-            }
-            return;
-        }
-        // verify required parameter "name" is set
-        if (name === null || name === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'name' missing when calling 'updateCampaignUpdate'."));
+                callback(new Error("Required parameter 'update Campaign' missing when calling 'updateCampaignUpdate'."));
             }
             return;
         }
@@ -553,42 +394,6 @@ export class DefaultApi extends ApiBase {
 
         let useFormData = false;
         let formParams: any = {};
-        if (campaignId2 !== undefined) {
-            formParams['campaign_id'] = campaignId2;
-        }
-
-        if (description !== undefined) {
-            formParams['description'] = description;
-        }
-
-        if (deviceFilter !== undefined) {
-            formParams['device_filter'] = deviceFilter;
-        }
-
-        if (finished !== undefined) {
-            formParams['finished'] = finished;
-        }
-
-        if (name !== undefined) {
-            formParams['name'] = name;
-        }
-
-        if (object !== undefined) {
-            formParams['object'] = object;
-        }
-
-        if (rootManifestId !== undefined) {
-            formParams['root_manifest_id'] = rootManifestId;
-        }
-
-        if (state !== undefined) {
-            formParams['state'] = state;
-        }
-
-        if (when !== undefined) {
-            formParams['when'] = when;
-        }
-
 
         return this.request({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
@@ -598,6 +403,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
+            body: update Campaign,
         }, callback);
     }
 }
