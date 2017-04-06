@@ -30,7 +30,7 @@ import { ApiKey } from "./apiKey";
 export class ApiKeyAdapter {
 
     static map(from: apiApiKey, api: AccessApi): ApiKey {
-        return new ApiKey(api, {
+        return new ApiKey({
             name             : from.name,
             owner            : from.owner,
             groups           : from.groups,
@@ -40,7 +40,7 @@ export class ApiKeyAdapter {
             createdAt        : from.created_at,
             creationTime     : from.creation_time,
             lastLoginTime    : from.last_login_time
-        });
+        }, api);
     }
 
     static addMap(from: AddApiKeyObject): apiApiKeyAdd {

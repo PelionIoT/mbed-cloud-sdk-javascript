@@ -52,7 +52,7 @@ export class ApiKey {
      */
     readonly lastLoginTime?: number;
 
-    constructor(private _api?: AccessApi, init?: Partial<ApiKey>) {
+    constructor(init: Partial<ApiKey>, private _api?: AccessApi) {
         for(var key in init) {
             this[key] = init[key];
         }
@@ -113,11 +113,7 @@ export class ApiKey {
     public update(callback: CallbackFn<ApiKey>);
     public update(callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
         return asyncStyle(done => {
-            this._api.updateApiKey({
-                id:       this.id,
-                name:     this.name,
-                owner:    this.owner
-            }, done);
+            this._api.updateApiKey(this, done);
         }, callback);
     }
 

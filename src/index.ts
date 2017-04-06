@@ -17,17 +17,16 @@
 
 export { AccessApi } from "./access";
 export { CertificatesApi } from "./certificates";
-//export { DevicesApi } from "./devices";
+export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
 export { StatisticsApi } from "./statistics";
 //export { UpdateApi } from "./update";
 
 // PORTING
-// port devices to 1.2
 // port update to 1.2
-// replace all single value calls with value instead of object (#21)
-// design structure of filter request object
+// design structure of filter request object - all the crap on listDevices
 // check proxy passes all errors properly
+// get devicesapi.notify working with events
 
 // TESTING
 // get all tests passing

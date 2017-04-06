@@ -30,7 +30,7 @@ import { User } from "./user";
 export class UserAdapter {
 
     static map(from: apiUser, api: AccessApi): User {
-        return new User(api, {
+        return new User({
             fullName               : from.full_name,
             username               : from.username,
             password               : from.password,
@@ -48,7 +48,7 @@ export class UserAdapter {
             creationTime           : from.creation_time,
             passwordChangedTime    : from.password_changed_time,
             lastLoginTime          : from.last_login_time
-        });
+        }, api);
     }
 
     static addMap(from: AddUserObject): apiUserAdd {

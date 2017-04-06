@@ -69,7 +69,7 @@ export class Certificate {
      */
     readonly developerPrivateKey?: string;
 
-    constructor(private _api: CertificatesApi, init?: Partial<Certificate>) {
+    constructor(init: Partial<Certificate>, private _api?: CertificatesApi) {
         for(var key in init) {
             this[key] = init[key];
         }

@@ -34,7 +34,7 @@ export class AccountAdapter {
             return PolicyAdapter.map(policy);
         });
 
-        return new Account(api, {
+        return new Account({
             //parentId               : from.parent_id,
             //subAccounts            : from.sub_accounts,
             displayName            : from.display_name,
@@ -59,7 +59,7 @@ export class AccountAdapter {
             upgradedAt             : from.upgraded_at,
             reason                 : from.reason,
             templateId             : from.template_id
-        });
+        }, api);
     }
 
     static reverseMap(from: UpdateAccountObject): apiAccountRequest {

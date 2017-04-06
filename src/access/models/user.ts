@@ -65,7 +65,7 @@ export class User {
      */
     readonly lastLoginTime?: number;
 
-    constructor(private _api?: AccessApi, init?: Partial<User>) {
+    constructor(init: Partial<User>, private _api?: AccessApi) {
         for(var key in init) {
             this[key] = init[key];
         }
@@ -83,17 +83,7 @@ export class User {
     public update(callback: CallbackFn<User>);
     public update(callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
-            this._api.updateUser({
-                id:                   this.id,
-                fullName:             this.fullName,
-                username:             this.username,
-                password:             this.password,
-                email:                this.email,
-                phoneNumber:          this.phoneNumber,
-                address:              this.address,
-                termsAccepted:        this.termsAccepted,
-                marketingAccepted:    this.marketingAccepted
-            }, done);
+            this._api.updateUser(this, done);
         }, callback);
     }
 

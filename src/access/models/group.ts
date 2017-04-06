@@ -59,7 +59,7 @@ export class Group {
      */
     readonly lastUpdateTime?: number;
 
-    constructor(private _api?: AccessApi, init?: Partial<Group>) {
+    constructor(init: Partial<Group>, private _api?: AccessApi) {
         for(var key in init) {
             this[key] = init[key];
         }

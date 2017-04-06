@@ -106,7 +106,7 @@ export function encodeFilter(from: { attributes?: { [key: string]: string }, cus
 
     if (custom) {
         if (filter) filter += "&";
-        filter +=custom;
+        filter += custom;
     }
 
     return filter;

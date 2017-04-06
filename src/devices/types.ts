@@ -15,108 +15,36 @@
 * limitations under the License.
 */
 
-import { ListOptions } from "../common/interfaces";
+import { ListOptions, CallbackFn } from "../common/interfaces";
 
-export interface DevicesApiType {
+export interface NotificationObject {
     /**
-     * Whether async callbacks are handled by the API.
-     * Long polling will set this automatically, but it can also be used alongside the `notify` function with webhooks
+     * Notifications
      */
-    handleNotifications: boolean;
+    notifications?: any[];
+    /**
+     * New device registration notifications
+     */
+    registrations?: any[];
+    /**
+     * Device registration update notifications
+     */
+    "reg-updates"?: any[];
+    /**
+     * Device deregistration notifications
+     */
+    "de-registrations"?: any[];
+    /**
+     * Device registration expiry notifications
+     */
+    "registrations-expired"?: any[];
+    /**
+     * Asynchronous resoonse notifications
+     */
+    "async-responses"?: any[];
 }
 
-export type MechanismEnum = "connector" | "direct";
-export type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered";
-export type DeploymentEnum = "development" | "production";
-
-export interface DeviceType {
-    /**
-     * The key used to provision the device
-     */
-    provisionKey?: string;
-    /**
-     * The ID of the channel used to communicate with the device
-     */
-    mechanism?: MechanismEnum;
-    /**
-     * The current state of the device
-     */
-    state?: DeviceStateEnum;
-    /**
-     * The state of the device's deployment
-     */
-    deployedState?: DeploymentEnum;
-    /**
-     * The ID of the device
-     */
-    id?: string;
-    /**
-     * The name of the device
-     */
-    name?: string;
-    /**
-     * The description of the device
-     */
-    description?: string;
-    /**
-     * The time the device was bootstrapped
-     */
-    bootstrappedTimestamp?: string;
-    /**
-     * The time the device was updated
-     */
-    updatedAt?: Date;
-    /**
-     * Up to 5 custom JSON attributes
-     */
-    customAttributes?: { [key: string]: string; };
-    /**
-     * The device class
-     */
-    deviceClass?: string;
-    /**
-     * Mark this device for auto firmware update
-     */
-    autoUpdate?: boolean;
-    /**
-     * The serial number of the device
-     */
-    serialNumber?: string;
-    /**
-     * The device vendor ID
-     */
-    vendorId?: string;
-    /**
-     * The owning IAM account ID
-     */
-    accountId?: string;
-    /**
-     * The device trust level
-     */
-    trustLevel?: number;
-    /**
-     * The device trust class
-     */
-    trustClass?: number;
-    /**
-     * The last deployment used on the device
-     */
-    deployment?: string;
-    /**
-     * The address of the connector to use
-     */
-    mechanismUrl?: string;
-    /**
-     * The time the device was created
-     */
-    createdAt?: Date;
-    /**
-     * URL for the current device manifest
-     */
-    manifest?: string;
-}
-
-export interface DeviceEventType {
+export interface DeviceEvent<T> {
     /**
      * The ID of the device
      */
@@ -132,82 +60,48 @@ export interface DeviceEventType {
     /**
      * The resources of the device
      */
-    resources?: ResourceType[];
+    resources?: Array<T>;
 }
 
-export interface ResourceType {
+export interface AsyncResponse {
     /**
-     * Whether you can subscribe to changes for this resource
+     * Asynchronous response unique ID.
      */
-    observable: boolean;
+    id?: string;
     /**
-     * Resource's type
+     * HTTP status code, for example 200 for OK.
      */
-    type: string;
+    status?: number;
     /**
-     * The content type of the resource
+     * Content type
      */
-    contentType: string;
+    ct?: string;
     /**
-     * Resource's url
+     * Requested data, base64 encoded.
      */
-    path: string;
+    payload?: string;
     /**
-     * Related device ID
+     * Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
      */
-    deviceId?: string;
+    "max-age"?: string;
+    /**
+     * Optional error message, describing the error.
+     */
+    error?: string;
 }
 
-export interface QueryType {
+export interface NotificationOptions {
     /**
-     * The ID of the query
+     * A polling interval in milliseconds
      */
-    id: string;
+    interval?: number;
     /**
-     * The name of the query
+     * A function that is passed any asyncronous responses
      */
-    name?: string;
-    /**
-     * The attributes of the query
-     */
-    attributes?: { [key: string]: string };
-    /**
-     * The custom attributes of the query
-     */
-    customAttributes?: { [key: string]: string };
-    /**
-     * The description of the query
-     */
-    description?: string;
-    /**
-     * The time the query was created
-     */
-    createdAt?: Date;
-    /**
-     * The time the query was updated
-     */
-    updatedAt?: Date;
+    requestCallback?: CallbackFn<Array<AsyncResponse>>;
 }
 
-export interface QueryOptions extends ListOptions {
-    /**
-     * The custom attributes of the query
-     */
-    customAttributes?: { [key: string]: string };
-}
-
-export interface WebhookType {
-    /**
-     * The URL to which the notifications must be sent
-     */
-    url?: string;
-    /**
-     * Headers (key/value) that must be sent with the request
-     */
-    headers?: { [key: string]: string; };
-}
-
-export interface PresubscriptionType {
+export interface PresubscriptionObject {
     /*
      * The device id (optionally having an * character at the end)
      */
@@ -220,4 +114,161 @@ export interface PresubscriptionType {
      * A list of resources to subscribe to. Allows wildcards to subscribe to multiple resources at once
      */
     resourcePaths?: string[];
+}
+
+export type MechanismEnum = "connector" | "direct";
+export type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
+export type DeviceDeploymentEnum = "development" | "production";
+
+export interface DeviceObject {
+    /**
+     * ID of the issuer of the certificate
+     */
+    certificateIssuerID?: string;
+    /**
+     * Fingerprint of the device certificate
+     */
+    certificateFingerprint?: string;
+    /**
+     * The name of the device
+     */
+    name?: string;
+    /**
+     * The alias of the device
+     */
+    alias?: string;
+    /**
+     * The description of the device
+     */
+    description?: string;
+    /**
+     * Mark this device for auto firmware update
+     */
+    autoUpdate?: boolean;
+    /**
+     * Up to 5 custom JSON attributes
+     */
+    customAttributes?: { [key: string]: string; };
+}
+
+export interface AddDeviceObject extends DeviceObject {
+    /**
+     * ID of the issuer of the certificate
+     */
+    certificateIssuerID: string;
+    /**
+     * Fingerprint of the device certificate
+     */
+    certificateFingerprint: string;
+    /**
+     * The current state of the device
+     */
+    state?: DeviceStateEnum;
+    /**
+     * The state of the device's deployment
+     */
+    deployedState?: DeviceDeploymentEnum;
+    /**
+     * The device class
+     */
+    deviceClass?: string;
+    /**
+     * The device class
+     */
+    deviceExecutionMode?: number;
+    /**
+     * The serial number of the device
+     */
+    serialNumber?: string;
+    /**
+     * The device vendor ID
+     */
+    vendorId?: string;
+    /**
+     * Expiration date of the certificate used to connect to connector server
+     */
+    connectorCertificateExpiration?: Date;
+    /**
+     * Expiration date of the certificate used to connect to bootstrap server
+     */
+    bootstrapCertificateExpiration?: Date;
+    /**
+     * The time the device was bootstrapped
+     */
+    bootstrappedTimestamp?: Date;
+    /**
+     * The ID of the channel used to communicate with the device
+     */
+    mechanism?: MechanismEnum;
+    /**
+     * The address of the connector to use
+     */
+    mechanismUrl?: string;
+    /**
+     * URL for the current device manifest
+     */
+    manifestUrl?: string;
+    /**
+     * The SHA256 checksum of the current firmware image
+     */
+    firmwareChecksum?: string;
+    /**
+     * The last deployment used on the device
+     */
+    lastDeployment?: string;
+    /**
+     * The device trust level
+     */
+    trustLevel?: number;
+}
+
+export interface UpdateDeviceObject extends DeviceObject {
+    /**
+     * The ID of the device
+     */
+    id: string;
+}
+
+export interface QueryObject {
+    /**
+     * The name of the query
+     */
+    name?: string;
+    /**
+     * The description of the query
+     */
+    description?: string;
+    /**
+     * The attributes of the query
+     */
+    attributes?: { [key: string]: string };
+    /**
+     * The custom attributes of the query
+     */
+    customAttributes?: { [key: string]: string };
+}
+
+export interface UpdateQueryObject extends QueryObject {
+    /**
+     * The ID of the query
+     */
+    id: string;
+}
+
+export interface AddQueryObject extends QueryObject {
+    /**
+     * The name of the query
+     */
+    name: string;
+    /**
+     * The description of the query
+     */
+    description: string;
+}
+
+export interface QueryOptions extends ListOptions {
+    /**
+     * The custom attributes of the query
+     */
+    customAttributes?: { [key: string]: string };
 }

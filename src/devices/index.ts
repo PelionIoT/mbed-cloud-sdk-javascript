@@ -18,16 +18,21 @@
 import superagent = require("superagent");
 import { EventEmitter } from "events";
 import { asyncStyle, decodeBase64, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
-import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
+import { ConnectionOptions, ListResponse, CallbackFn } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { DevicesApiType, DeviceType, DeviceEventType, QueryOptions, WebhookType, PresubscriptionType, MechanismEnum } from "./types";
-import { Device } from "./device";
-import { Resource } from "./resource";
-import { Query } from "./query";
-import { Webhook } from "./webhook";
-import { Presubscription } from "./presubscription";
+import { NotificationObject, NotificationOptions, PresubscriptionObject, AddDeviceObject, UpdateDeviceObject, DeviceEvent, QueryOptions, AddQueryObject, UpdateQueryObject } from "./types";
+import { Webhook } from "./models/webhook";
+import { WebhookAdapter } from "./models/webhookAdapter";
+import { PresubscriptionAdapter } from "./models/presubscriptionAdapter";
+import { Device } from "./models/device";
+import { DeviceAdapter } from "./models/deviceAdapter";
+import { Resource } from "./models/resource";
+import { ResourceAdapter } from "./models/resourceAdapter";
+import { Query } from "./models/query";
+import { QueryAdapter } from "./models/queryAdapter";
 
 const DEFAULT_POLLING_INTERVAL = 500;
+const ASYNC_KEY = "async-response-id";
 
 /**
  * ## Devices API
@@ -58,11 +63,16 @@ const DEFAULT_POLLING_INTERVAL = 500;
  */
 export class DevicesApi extends EventEmitter {
 
-    private readonly asyncKey = "async-response-id";
     private _endpoints: Endpoints;
     private _pollRequest: superagent.SuperAgentRequest;
     private _asyncFns: { [key: string]: Function; } = {};
     private _notifyFns: { [key: string]: Function; } = {};
+
+    /**
+     * Whether async callbacks are handled by the API.
+     * Long polling will set this automatically, but it can also be used alongside the `notify` function with webhooks
+     */
+    handleNotifications: boolean;
 
     /**
      * Resource notification event
@@ -106,15 +116,15 @@ export class DevicesApi extends EventEmitter {
      * Allows a notification to be injected into the notifications system
      * `handleNotifications` needs to be set to true for this to work with web hook async responses
      * @param data The notification data to inject
-     */
-    public notify(data: any) {
+    */
+    public notify(notification: NotificationObject) {
 
-        function mapDevice(from): DeviceEventType {
-            let device:DeviceEventType = {
+        function mapDevice(from): DeviceEvent<Resource> {
+            let device:DeviceEvent<Resource> = {
                 id:           from.ep,
                 type:         from.ept,
                 queueMode:    from.q,
-                resources:    from.resources.map(function(resource) {
+                resources:    from.resources.map(resource => {
                     return {
                         observable:     resource.obs,
                         type:           resource.rf,
@@ -127,8 +137,8 @@ export class DevicesApi extends EventEmitter {
             return device;
         }
 
-        if (data["notifications"]) {
-            data["notifications"].forEach(notification => {
+        if (notification["notifications"]) {
+            notification["notifications"].forEach(notification => {
                 var path = notification.ep + notification.path;
                 var fn = this._notifyFns[path];
 
@@ -138,32 +148,32 @@ export class DevicesApi extends EventEmitter {
             });
         }
 
-        if (data["registrations"]) {
-            data["registrations"].forEach(device => {
+        if (notification["registrations"]) {
+            notification["registrations"].forEach(device => {
                 this.emit(DevicesApi.EVENT_REGISTRATION, mapDevice(device));
             });
         }
 
-        if (data["reg-updates"]) {
-            data["reg-updates"].forEach(device => {
+        if (notification["reg-updates"]) {
+            notification["reg-updates"].forEach(device => {
                 this.emit(DevicesApi.EVENT_REREGISTRATION, mapDevice(device));
             });
         }
 
-        if (data["de-registrations"]) {
-            data["de-registrations"].forEach(deviceId => {
+        if (notification["de-registrations"]) {
+            notification["de-registrations"].forEach(deviceId => {
                 this.emit(DevicesApi.EVENT_DEREGISTRATION, deviceId);
             });
         }
 
-        if (data["registrations-expired"]) {
-            data["registrations-expired"].forEach(deviceId => {
+        if (notification["registrations-expired"]) {
+            notification["registrations-expired"].forEach(deviceId => {
                 this.emit(DevicesApi.EVENT_EXPIRED, deviceId);
             });
         }
 
-        if (data["async-responses"]) {
-            data["async-responses"].forEach(response => {
+        if (notification["async-responses"]) {
+            notification["async-responses"].forEach(response => {
                 var asyncID = response.id;
                 var fn = this._asyncFns[asyncID];
                 if (fn) {
@@ -180,19 +190,17 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Begins long polling constantly for notifications
-     * @param options.interval A polling interval in milliseconds
-     * @param options.requestCallback A function that is passed async responses
+     * @param options notification options
      * @returns Promise containing any error
      */
-    public startNotifications(options?: { interval?: number, requestCallback?: (err: any, data?: any) => any }): Promise<void>;
+    public startNotifications(options?: NotificationOptions): Promise<void>;
     /**
      * Begins long polling constantly for notifications
-     * @param options.interval A polling interval in milliseconds
-     * @param options.requestCallback A function that is passed async responses
+     * @param options notification options
      * @param callback A function that is passed any error
      */
-    public startNotifications(options?: { interval?: number, requestCallback?: (err: any, data?: any) => any }, callback?: (err: any, data?: void) => any);
-    public startNotifications(options?: any, callback?: (err: any, data?: void) => any): Promise<void> {
+    public startNotifications(options?: NotificationOptions, callback?: CallbackFn<void>);
+    public startNotifications(options?: any, callback?: CallbackFn<void>): Promise<void> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -205,9 +213,9 @@ export class DevicesApi extends EventEmitter {
 
                 if (!this.handleNotifications) return;
 
-                this.notify(data);
+                this._notify(data);
 
-                if (requestCallback) requestCallback(error, data);
+                if (requestCallback && data["async-responses"]) requestCallback(error, data["async-responses"]);
 
                 if (error) {
                     this.handleNotifications = false;
@@ -235,8 +243,8 @@ export class DevicesApi extends EventEmitter {
      * Stops long polling for notifications
      * @param callback A function that is passed any error
      */
-    public stopNotifications(callback?: (err: any, data?: void) => any);
-    public stopNotifications(callback?: (err: any, data?: void) => any): Promise<void> {
+    public stopNotifications(callback: CallbackFn<void>);
+    public stopNotifications(callback?: CallbackFn<void>): Promise<void> {
         if (this._pollRequest) {
             this._pollRequest.abort();
             this._pollRequest = null;
@@ -258,8 +266,8 @@ export class DevicesApi extends EventEmitter {
      * Gets the current webhook data
      * @param callback A function that is passed the arguments (error, webhook)
      */
-    public getWebhook(callback: (err: any, data?: Webhook) => any);
-    public getWebhook(callback?: (err: any, data?: Webhook) => any): Promise<Webhook> {
+    public getWebhook(callback: CallbackFn<Webhook>);
+    public getWebhook(callback?: CallbackFn<Webhook>): Promise<Webhook> {
         return asyncStyle(done => {
             this._endpoints.webhooks.v2NotificationCallbackGet((error, data) => {
 
@@ -271,7 +279,7 @@ export class DevicesApi extends EventEmitter {
                     return done(error);
                 }
 
-                let webhook = Webhook.map(data, this);
+                let webhook = WebhookAdapter.map(data);
                 done(null, webhook);
             });
         }, callback);
@@ -279,21 +287,32 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Updates the webhook
-     * @param options webhook details
+     * @param url The URL to which the notifications must be sent
+     * @param headers Any headers (key/value) that must be sent with the request
      * @returns Promise containing any error
      */
-    public updateWebhook(options: WebhookType): Promise<void>;
+    public updateWebhook(url: string, headers?: { [key: string]: string; }): Promise<void>;
     /**
      * Updates the webhook
-     * @param options webhook details
+     * @param url The URL to which the notifications must be sent
+     * @param headers Any headers (key/value) that must be sent with the request
      * @param callback A function that is passed any error
      */
-    public updateWebhook(options: WebhookType, callback?: (err: any, data?: void) => any);
-    public updateWebhook(options: WebhookType, callback?: (err: any, data?: void) => any): Promise<void> {
+    public updateWebhook(url: string, headers?: { [key: string]: string; }, callback?: CallbackFn<void>);
+    public updateWebhook(url: string, headers?: any, callback?: CallbackFn<void>): Promise<void> {
+        headers = headers || {};
+        if (typeof headers === "function") {
+            callback = headers;
+            headers = {};
+        }
+
         return asyncStyle(done => {
-            this._endpoints.notifications.v2NotificationCallbackPut(Webhook.reverseMap(options), (error, data) => {
+            this._endpoints.notifications.v2NotificationCallbackPut({
+                url: url,
+                headers: headers
+            }, error => {
                 if (error) return done(error);
-                done(null, data);
+                done(null, null);
             });
         }, callback);
     }
@@ -307,12 +326,12 @@ export class DevicesApi extends EventEmitter {
      * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
      * @param callback A function that is passed any error
      */
-    public deleteWebhook(callback?: (err: any, data?: void) => any);
-    public deleteWebhook(callback?: (err: any, data?: void) => any): Promise<void> {
+    public deleteWebhook(callback: CallbackFn<void>);
+    public deleteWebhook(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.webhooks.v2NotificationCallbackDelete((error, data) => {
+            this._endpoints.webhooks.v2NotificationCallbackDelete(error => {
                 if (error) return done(error);
-                done(null, data);
+                done(null, null);
             });
         }, callback);
     }
@@ -321,18 +340,18 @@ export class DevicesApi extends EventEmitter {
      * Gets pre-subscription data
      * @returns Promise containing data
      */
-    public getPresubscription(): Promise<Presubscription[]>;
+    public getPresubscription(): Promise<Array<PresubscriptionObject>>;
     /**
      * Gets pre-subscription data
      * @param callback A function that is passed (error, data)
      */
-    public getPresubscription(callback?: (err: any, data?: Presubscription[]) => any);
-    public getPresubscription(callback?: (err: any, data?: Presubscription[]) => any): Promise<Presubscription[]> {
+    public getPresubscription(callback: CallbackFn<Array<PresubscriptionObject>>);
+    public getPresubscription(callback?: CallbackFn<Array<PresubscriptionObject>>): Promise<Array<PresubscriptionObject>> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsGet((error, data) => {
                 if (error) return done(error);
 
-                let presubs = data.map(Presubscription.map);
+                let presubs = data.map(PresubscriptionAdapter.map);
                 done(null, presubs);
             });
         }, callback);
@@ -340,22 +359,22 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
-     * @param options.data The pre-subscription data
+     * @param subscriptions The pre-subscription data array
      * @returns Promise containing any error
      */
-    public updatePresubscription(options: PresubscriptionType[]): Promise<void>;
+    public updatePresubscription(subscriptions: Array<PresubscriptionObject>): Promise<void>;
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
-     * @param options.data The pre-subscription data
+     * @param subscriptions The pre-subscription data array
      * @param callback A function that is passed any error
      */
-    public updatePresubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any);
-    public updatePresubscription(options: PresubscriptionType[], callback?: (err: any, data?: void) => any): Promise<void> {
-        let presubs = options.map(Presubscription.reverseMap);
+    public updatePresubscription(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>);
+    public updatePresubscription(subscriptions: Array<PresubscriptionObject>, callback?: CallbackFn<void>): Promise<void> {
+        let presubs = subscriptions.map(PresubscriptionAdapter.reverseMap);
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsPut(presubs, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsPut(presubs, error => {
                 if (error) return done(error);
-                done(null, data);
+                done(null, null);
             });
         }, callback);
     }
@@ -369,12 +388,12 @@ export class DevicesApi extends EventEmitter {
      * Deletes pre-subscription data
      * @param callback A function that is passed any error
      */
-    public deletePresubscription(callback?: (err: any, data?: void) => any);
-    public deletePresubscription(callback?: (err: any, data?: void) => any): Promise<void> {
+    public deletePresubscription(callback: CallbackFn<void>);
+    public deletePresubscription(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsPut([], (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsPut([], error => {
                 if (error) return done(error);
-                done(null, data);
+                done(null, null);
             });
         }, callback);
     }
@@ -388,12 +407,12 @@ export class DevicesApi extends EventEmitter {
      * Removes all subscriptions
      * @param callback A function that is passed any error
      */
-    public deleteSubscriptions(callback?: (err: any, data?: void) => any);
-    public deleteSubscriptions(callback?: (err: any, data?: void) => any): Promise<void> {
+    public deleteSubscriptions(callback: CallbackFn<void>);
+    public deleteSubscriptions(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsDelete((error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsDelete(error => {
                 if (error) return done(error);
-                done(null, data);
+                done(null, null);
             });
         }, callback);
     }
@@ -409,8 +428,8 @@ export class DevicesApi extends EventEmitter {
      * @param options list options
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listDevices(options?: QueryOptions, callback?: (err: any, data?: ListResponse<Device>) => any);
-    public listDevices(options?: any, callback?: (err: any, data?: ListResponse<Device>) => any): Promise<ListResponse<Device>> {
+    public listDevices(options?: QueryOptions, callback?: CallbackFn<ListResponse<Device>>);
+    public listDevices(options?: any, callback?: CallbackFn<ListResponse<Device>>): Promise<ListResponse<Device>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -418,14 +437,19 @@ export class DevicesApi extends EventEmitter {
         }
 
         let { limit, after, order, include } = options as QueryOptions;
-        let filter = encodeFilter(options, Query.CUSTOM_PREFIX);
+        let filter = encodeFilter(options, QueryAdapter.CUSTOM_PREFIX);
 
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceList(limit, order, after, filter, encodeInclude(include), (error, data) => {
+            this._endpoints.catalog.deviceList(limit, order, after, filter, encodeInclude(include),
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, (error, data) => {
                 if (error) return done(error);
 
                 let devices = data.data.map(device => {
-                    return Device.map(device, this);
+                    return DeviceAdapter.map(device, this);
                 });
                 let response = mapListResponse<Device>(data, devices);
 
@@ -436,30 +460,29 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * List connected devices
-     * @param options.type Filter devices by device type
+     * @param type Filter devices by device type
      * @returns Promise of connected devices
      */
-    public listConnectedDevices(options?: { type?: string }): Promise<ListResponse<Device>>;
+    public listConnectedDevices(type?: string): Promise<ListResponse<Device>>;
     /**
      * List connected devices
      * @param options.type Filter devices by device type
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listConnectedDevices(options?: { type?: string }, callback?: (err: any, data?: ListResponse<Device>) => any);
-    public listConnectedDevices(options?: any, callback?: (err: any, data?: ListResponse<Device>) => any): Promise<ListResponse<Device>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
+    public listConnectedDevices(type?: string, callback?: CallbackFn<ListResponse<Device>>);
+    public listConnectedDevices(type?: any, callback?: CallbackFn<ListResponse<Device>>): Promise<ListResponse<Device>> {
+        if (typeof type === "function") {
+            callback = type;
+            type = null;
         }
-        let { type } = options;
+
         return asyncStyle(done => {
             this._endpoints.endpoints.v2EndpointsGet(type, (error, data) => {
                 if (error) return done(error);
 
                 let response:ListResponse<Device> = {
                     data: data.map(device => {
-                        return Device.map({
+                        return DeviceAdapter.map({
                             id: device.name
                         }, this)
                     })
@@ -472,22 +495,22 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Gets details of a device
-     * @param options.id Device ID
+     * @param id Device ID
      * @returns Promise of device
      */
-    public getDevice(options: { id: string }): Promise<Device>;
+    public getDevice(id: string): Promise<Device>;
     /**
      * Gets details of a device
-     * @param options.id ID of device to get details for
+     * @param id Device ID
      * @param callback A function that is passed the arguments (error, device)
      */
-    public getDevice(options: { id: string }, callback: (err: any, data?: Device) => any);
-    public getDevice(options: { id: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
+    public getDevice(id: string, callback: CallbackFn<Device>);
+    public getDevice(id: string, callback?: CallbackFn<Device>): Promise<Device> {
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceRetrieve(options.id, (error, data) => {
+            this._endpoints.catalog.deviceRetrieve(id, (error, data) => {
                 if (error) return done(error);
 
-                let device = Device.map(data, this);
+                let device = DeviceAdapter.map(data, this);
                 done(null, device);
             });
         }, callback);
@@ -495,78 +518,43 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Add a device
-     * @param options Device details
+     * @param device Device details
      * @returns Promise of device
      */
-    public addDevice(options: DeviceType): Promise<Device>;
+    public addDevice(device: AddDeviceObject): Promise<Device>;
     /**
      * Add a device
-     * @param options Device details
+     * @param device Device details
      * @param callback A function that is passed the arguments (error, device)
      */
-    public addDevice(options: DeviceType, callback?: (err: any, data?: Device) => any);
-    public addDevice(options: DeviceType, callback?: (err: any, data?: Device) => any): Promise<Device> {
-        let { mechanism, provisionKey, accountId, autoUpdate, bootstrappedTimestamp, createdAt, customAttributes,
-              deployedState, deployment, description, deviceClass, id, manifest, mechanismUrl, name,
-              serialNumber, state, trustClass, trustLevel, updatedAt, vendorId } = options;
+    public addDevice(device: AddDeviceObject, callback: CallbackFn<Device>);
+    public addDevice(device: AddDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceCreate(
-              mechanism, provisionKey, accountId, autoUpdate, bootstrappedTimestamp, createdAt, customAttributes,
-              deployedState, deployment, description, deviceClass, null, null, id, manifest, mechanismUrl, name,
-              null, serialNumber, state, trustClass, trustLevel, updatedAt, vendorId, (error, data) => {
+            this._endpoints.catalog.deviceCreate(DeviceAdapter.addMap(device), (error, data) => {
                 if (error) return done(error);
-                done(null, Device.map(data, this));
+                done(null, DeviceAdapter.map(data, this));
             });
         }, callback);
     }
 
     /**
      * Update a device
-     * @param options.id The ID of the device
-     * @param options.name The name of the device
-     * @param options.description The description of the device
-     * @param options.customAttributes Up to 5 custom JSON attributes
-     * @param options.deviceClass The device class
-     * @param options.accountId The owning IAM account ID
-     * @param options.autoUpdate Mark this device for auto firmware update
-     * @param options.vendorId The device vendor ID
-     * @param options.manifest URL for the current device manifest
-     * @param options.trustClass The device trust class
-     * @param options.trustLevel The device trust level
-     * @param options.provisionKey The key used to provision the device
-     * @param options.mechanism The ID of the channel used to communicate with the device
-     * @param options.mechanismUrl The address of the connector to use
-     * @param options.serialNumber The serial number of the device
+     * @param device Device details
      * @returns Promise of device
      */
-    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }): Promise<Device>;
+    public updateDevice(device: UpdateDeviceObject): Promise<Device>;
     /**
      * Update a device
-     * @param options.id The ID of the device
-     * @param options.name The name of the device
-     * @param options.description The description of the device
-     * @param options.customAttributes Up to 5 custom JSON attributes
-     * @param options.deviceClass The device class
-     * @param options.accountId The owning IAM account ID
-     * @param options.autoUpdate Mark this device for auto firmware update
-     * @param options.vendorId The device vendor ID
-     * @param options.manifest URL for the current device manifest
-     * @param options.trustClass The device trust class
-     * @param options.trustLevel The device trust level
-     * @param options.provisionKey The key used to provision the device
-     * @param options.mechanism The ID of the channel used to communicate with the device
-     * @param options.mechanismUrl The address of the connector to use
-     * @param options.serialNumber The serial number of the device
+     * @param device Device details
      * @param callback A function that is passed the arguments (error, device)
      */
-    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any);
-    public updateDevice(options: { id: string, name?: string, description?: string, customAttributes?: { [key: string]: string; }, deviceClass?: string, accountId?: string, autoUpdate?: boolean, vendorId?: string, manifest?: string, trustClass?: number, trustLevel?: number, provisionKey?: string, mechanism?: MechanismEnum, mechanismUrl?: string, serialNumber?: string }, callback?: (err: any, data?: Device) => any): Promise<Device> {
+    public updateDevice(device: UpdateDeviceObject, callback: CallbackFn<Device>);
+    public updateDevice(device: UpdateDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
         return asyncStyle(done => {
-            let apiDevice = Device.reverseMap(options);
-            this._endpoints.catalog.deviceUpdate(options.id, apiDevice, (error, data) => {
+            this._endpoints.catalog.devicePartialUpdate(device.id, DeviceAdapter.updateMap(device), (error, data) => {
                 if (error) return done(error);
 
-                let device = Device.map(data, this);
+                let device = DeviceAdapter.map(data, this);
                 done(null, device);
             });
         }, callback);
@@ -574,23 +562,17 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Delete a device
-     * @param options.id Device ID
+     * @param id Device ID
      * @returns Promise containing any error
      */
-    public deleteDevice(options: { id: string }): Promise<void>;
+    public deleteDevice(id: string): Promise<void>;
     /**
      * Delete a device
-     * @param options.id Device ID
+     * @param id Device ID
      * @param callback A function that is passed any error
      */
-    public deleteDevice(options: { id: string }, callback?: (err: any, data?: void) => any);
-    public deleteDevice(options?:any, callback?: (err: any, data?: void) => any): Promise<void> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
-        let { id } = options;
+    public deleteDevice(id: string, callback: CallbackFn<void>);
+    public deleteDevice(id: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.catalog.deviceDestroy(id, (error) => {
                 if (error) return done(error);
@@ -601,19 +583,19 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * List a device's subscriptions
-     * @param options.id Device ID
+     * @param id Device ID
      * @returns Promise containing the subscriptions
      */
-    public listDeviceSubscriptions(options: { id: string }): Promise<any>;
+    public listDeviceSubscriptions(id: string): Promise<any>;
     /**
      * List a device's subscriptions
-     * @param options.id Device ID
+     * @param id Device ID
      * @param callback A function that is passed (error, subscriptions)
      */
-    public listDeviceSubscriptions(options: { id: string }, callback: (err: any, data?: any) => any);
-    public listDeviceSubscriptions(options: { id: string }, callback?: (err: any, data?: any) => any): Promise<any> {
+    public listDeviceSubscriptions(id: string, callback: CallbackFn<any>);
+    public listDeviceSubscriptions(id: string, callback?: CallbackFn<any>): Promise<any> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsEndpointNameGet(options.id, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsEndpointNameGet(id, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -622,44 +604,44 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Removes a device's subscriptions
-     * @param options.id Device ID
+     * @param id Device ID
      * @returns Promise containing any error
      */
-    public deleteDeviceSubscriptions(options: { id: string }): Promise<void>;
+    public deleteDeviceSubscriptions(id: string): Promise<void>;
     /**
      * Removes a device's subscriptions
-     * @param options.id Device ID
+     * @param id Device ID
      * @param callback A function that is passed any error
      */
-    public deleteDeviceSubscriptions(options: { id: string }, callback: (err: any, data?: void) => any);
-    public deleteDeviceSubscriptions(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
+    public deleteDeviceSubscriptions(id: string, callback: CallbackFn<void>);
+    public deleteDeviceSubscriptions(id: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsEndpointNameDelete(options.id, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsEndpointNameDelete(id, error => {
                 if (error) return done(error);
-                done(null, data);
+                done(null, null);
             });
         }, callback);
     }
 
     /**
      * List device's resources
-     * @param options.id Device ID
+     * @param id Device ID
      * @returns Promise of device resources
      */
-    public listDeviceResources(options: { id: string }): Promise<Resource[]>;
+    public listDeviceResources(id: string): Promise<Array<Resource>>;
     /**
      * List device's resources
-     * @param options.id Device ID
+     * @param id Device ID
      * @param callback A function that is passed the arguments (error, resources)
      */
-    public listDeviceResources(options: { id: string }, callback: (err: any, data?: Resource[]) => any);
-    public listDeviceResources(options: { id: string }, callback?: (err: any, data?: Resource[]) => any): Promise<Resource[]> {
+    public listDeviceResources(id: string, callback: CallbackFn<Array<Resource>>);
+    public listDeviceResources(id: string, callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
         return asyncStyle(done => {
-            this._endpoints.endpoints.v2EndpointsEndpointNameGet(options.id, (error, data) => {
+            this._endpoints.endpoints.v2EndpointsEndpointNameGet(id, (error, data) => {
                 if (error) return done(error);
 
                 var resources = data.map(resource => {
-                    return Resource.map(resource, options.id, this);
+                    return ResourceAdapter.map(resource, id, this);
                 });
                 done(null, resources);
             });
@@ -668,55 +650,66 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Deletes a resource
-     * @param options.id Device ID
-     * @param options.path Path of the resource to delete
-     * @param options.noResponse Whether to make a non-confirmable request to the device
+     * @param id Device ID
+     * @param path Path of the resource to delete
+     * @param noResponse Whether to make a non-confirmable request to the device
      * @returns Promise containing any error
      */
-    public deleteDeviceResource(options: { id: string, path: string, noResponse?: boolean }): Promise<string>;
+    public deleteDeviceResource(id: string, path: string, noResponse?: boolean): Promise<string>;
     /**
      * Deletes a resource
-     * @param options.id Device ID
-     * @param options.path Path of the resource to delete
-     * @param options.noResponse Whether to make a non-confirmable request to the device
+     * @param id Device ID
+     * @param path Path of the resource to delete
+     * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    public deleteDeviceResource(options: { id: string, path: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
-    public deleteDeviceResource(options: { id: string, path: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
-        let { id, path, noResponse } = options;
+    public deleteDeviceResource(id: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public deleteDeviceResource(id: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
         return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsEndpointNameResourcePathDelete(id, path, noResponse, (error, data) => {
                 if (error) return done(error);
-                done(null, data[this.asyncKey]);
+                done(null, data[ASYNC_KEY]);
             });
         }, callback);
     }
 
     /**
      * Gets the value of a resource
-     * @param options.id Device ID
-     * @param options.path Resource path
-     * @param options.cacheOnly If true, the response will come only from the cache
-     * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
+     * @param id Device ID
+     * @param path Resource path
+     * @param cacheOnly If true, the response will come only from the cache
+     * @param noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
      */
-    public getResourceValue(options: { id: string, path: string, cacheOnly?: boolean, noResponse?: boolean }): Promise<string>;
+    public getResourceValue(id: string, path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string>;
     /**
      * Gets the value of a resource
-     * @param options.id Device ID
-     * @param options.path Resource path
-     * @param options.cacheOnly If true, the response will come only from the cache
-     * @param options.noResponse If true, If true, mbed Device Connector will not wait for a response
+     * @param id Device ID
+     * @param path Resource path
+     * @param cacheOnly If true, the response will come only from the cache
+     * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    public getResourceValue(options: { id: string, path: string, cacheOnly?: boolean, noResponse?: boolean }, callback: (err: any, data?: string) => any);
-    public getResourceValue(options: { id: string, path: string, cacheOnly?: boolean, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
-        let { id, path, cacheOnly, noResponse } = options;
+    public getResourceValue(id: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>);
+    public getResourceValue(id: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+        if (typeof cacheOnly === "function") {
+            callback = cacheOnly;
+            cacheOnly = false;
+            noResponse = false;
+        }
         return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsEndpointNameResourcePathGet(id, path, cacheOnly, noResponse, (error, data) => {
                 if (error) return done(error);
 
-                var asyncID = data[this.asyncKey];
+                var asyncID = data[ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
@@ -729,29 +722,32 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Sets the value of a resource
-     * @param options.id Device ID
-     * @param options.path Resource path
-     * @param options.value The value of the resource
-     * @param options.noResponse If true, mbed Device Connector will not wait for a response
+     * @param id Device ID
+     * @param path Resource path
+     * @param value The value of the resource
+     * @param noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise containing any error
      */
-    public setResourceValue(options: { id: string, path: string, value: string, noResponse?: boolean }): Promise<string>;
+    public setResourceValue(id: string, path: string, value: string, noResponse?: boolean): Promise<string>;
     /**
      * Sets the value of a resource
-     * @param options.id Device ID
-     * @param options.path Resource path
-     * @param options.value The value of the resource
-     * @param options.noResponse If true, mbed Device Connector will not wait for a response
+     * @param id Device ID
+     * @param path Resource path
+     * @param value The value of the resource
+     * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
-    public setResourceValue(options: { id: string, path: string, value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
-    public setResourceValue(options: { id: string, path: string, value: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
-        let { id, path, value, noResponse } = options;
+    public setResourceValue(id: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public setResourceValue(id: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
         return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsEndpointNameResourcePathPut(id, path.substr(1), value, noResponse, (error, data) => {
                 if (error) return done(error);
 
-                var asyncID = data[this.asyncKey];
+                var asyncID = data[ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
@@ -764,29 +760,37 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Execute a function on a resource
-     * @param options.id Device ID
-     * @param options.path Resource path
-     * @param options.fn The function to trigger
-     * @param options.noResponse If true, mbed Device Connector will not wait for a response
+     * @param id Device ID
+     * @param path Resource path
+     * @param functionName The function to trigger
+     * @param noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise containing any error
      */
-    public executeResource(options: { id: string, path: string, fn?: string, noResponse?: boolean }): Promise<string>;
+    public executeResource(id: string, path: string, functionName?: string, noResponse?: boolean): Promise<string>;
     /**
      * Execute a function on a resource
-     * @param options.id Device ID
-     * @param options.path Resource path
-     * @param options.fn The function to trigger
-     * @param options.noResponse If true, mbed Device Connector will not wait for a response
+     * @param id Device ID
+     * @param path Resource path
+     * @param functionName The function to trigger
+     * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
-    public executeResource(options: { id: string, path: string, fn?: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any);
-    public executeResource(options: { id: string, path: string, fn?: string, noResponse?: boolean }, callback?: (err: any, data?: string) => any): Promise<string> {
-        let { id, path, fn, noResponse } = options;
+    public executeResource(id: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public executeResource(id: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+        if (typeof functionName === "function") {
+            callback = functionName;
+            functionName = null;
+            noResponse = false;
+        }
         return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsEndpointNameResourcePathPost(id, path, fn, noResponse, (error, data) => {
+            this._endpoints.resources.v2EndpointsEndpointNameResourcePathPost(id, path, functionName, noResponse, (error, data) => {
                 if (error) return done(error);
 
-                var asyncID = data[this.asyncKey];
+                var asyncID = data[ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
@@ -799,20 +803,19 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Gets the status of a resource's subscription
-     * @param options.id Device ID
-     * @param options.path Resource path
+     * @param id Device ID
+     * @param path Resource path
      * @returns Promise containing resource subscription status
      */
-    public getResourceSubscription(options: { id: string, path: string }): Promise<boolean>;
+    public getResourceSubscription(id: string, path: string): Promise<boolean>;
     /**
      * Gets the status of a resource's subscription
-     * @param options.id Device ID
-     * @param options.path Resource path
+     * @param id Device ID
+     * @param path Resource path
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
      */
-    public getResourceSubscription(options: { id: string, path: string }, callback: (err: any, data?: boolean) => any);
-    public getResourceSubscription(options: { id: string, path: string }, callback?: (err: any, data?: boolean) => any): Promise<boolean> {
-        let { id, path } = options;
+    public getResourceSubscription(id: string, path: string, callback: CallbackFn<boolean>);
+    public getResourceSubscription(id: string, path: string, callback?: CallbackFn<boolean>): Promise<boolean> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathGet(id, path, (error, data) => {
                 if (error) return done(error);
@@ -823,32 +826,31 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Subscribe to a resource
-     * @param options.id Device ID
-     * @param options.path Resource path
-     * @param options.fn Function to call with notification
+     * @param id Device ID
+     * @param path Resource path
+     * @param notifyFn Function to call with notification
      * @returns Promise containing any error
      */
-    public addResourceSubscription(options: { id: string, path: string, fn?: Function }): Promise<void>;
+    public addResourceSubscription(id: string, path: string, notifyFn?: Function): Promise<void>;
     /**
      * Subscribe to a resource
-     * @param options.id Device ID
-     * @param options.path Resource path
-     * @param options.fn Function to call with notification
+     * @param id Device ID
+     * @param path Resource path
+     * @param notifyFn Function to call with notification
      * @param callback A function that is passed any error
      */
-    public addResourceSubscription(options: { id: string, path: string, fn?: Function }, callback?: (err: any, data?: void) => any);
-    public addResourceSubscription(options: { id: string, path: string, fn?: Function }, callback?: (err: any, data?: void) => any): Promise<void> {
-        let { id, path, fn } = options;
+    public addResourceSubscription(id: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function);
+    public addResourceSubscription(id: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathPut(id, path, (error, data) => {
                 if (error) return done(error);
 
-                if (fn) {
+                if (notifyFn) {
                     // Record the function at this path for notifications
-                    this._notifyFns[id + path] = fn;
+                    this._notifyFns[id + path] = notifyFn;
                 }
 
-                var asyncID = data[this.asyncKey];
+                var asyncID = data[ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
@@ -861,20 +863,19 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Deletes a resource's subscription
-     * @param options.id Device ID
-     * @param options.path Resource path
+     * @param id Device ID
+     * @param path Resource path
      * @returns Promise containing any error
      */
-    public deleteResourceSubscription(options: { id: string, path: string }): Promise<void>;
+    public deleteResourceSubscription(id: string, path: string): Promise<void>;
     /**
      * Deletes a resource's subscription
-     * @param options.id Device ID
-     * @param options.path Resource path
+     * @param id Device ID
+     * @param path Resource path
      * @param callback A function that is passed any error
      */
-    public deleteResourceSubscription(options: { id: string, path: string }, callback?: (err: any, data?: void) => any);
-    public deleteResourceSubscription(options: { id: string, path: string }, callback?: (err: any, data?: void) => any): Promise<void> {
-        let { id, path } = options;
+    public deleteResourceSubscription(id: string, path: string, callback: CallbackFn<void>);
+    public deleteResourceSubscription(id: string, path: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathDelete(id, path, (error, data) => {
                 if (error) return done(error);
@@ -882,7 +883,7 @@ export class DevicesApi extends EventEmitter {
                 // no-one is listening :(
                 delete this._notifyFns[id + path];
 
-                var asyncID = data[this.asyncKey];
+                var asyncID = data[ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
@@ -899,27 +900,32 @@ export class DevicesApi extends EventEmitter {
      * @param callback A function containing a list response
      * @returns Promise containing a list response
      */
-    public listQueries(options?: ListOptions): Promise<ListResponse<Query>>;
+    public listQueries(options?: QueryOptions): Promise<ListResponse<Query>>;
     /**
      * List queries
      * @param options list options
      * @param callback A function containing a list response
      * @returns Promise containing a list response
      */
-    public listQueries(options?: ListOptions, callback?: (err: any, data?: ListResponse<Query>) => any);
-    public listQueries(options?:any, callback?: (err: any, data?: ListResponse<Query>) => any): Promise<ListResponse<Query>> {
+    public listQueries(options?: QueryOptions, callback?: CallbackFn<ListResponse<Query>>);
+    public listQueries(options?:any, callback?: CallbackFn<ListResponse<Query>>): Promise<ListResponse<Query>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include } = options as ListOptions;
+
+        let { limit, order, after, include } = options as QueryOptions;
+        let filter = encodeFilter(options, QueryAdapter.CUSTOM_PREFIX);
+
         return asyncStyle(done => {
-            this._endpoints.query.deviceQueryList(limit, order, after, encodeInclude(include), (error, data) => {
+            this._endpoints.query.deviceQueryList(limit, order, after, filter, encodeInclude(include),
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, (error, data) => {
                 if (error) return done(error);
 
                 let queries = data.data.map(query => {
-                    return Query.map(query, this);
+                    return QueryAdapter.map(query, this);
                 });
                 let response = mapListResponse(data, queries);
 
@@ -930,25 +936,24 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Get a query
-     * @param options.is query ID
+     * @param id query ID
      * @param callback A function that is passed the arguments (error, query)
      * @returns Promise of query
      */
-    public getQuery(options: { id: string }): Promise<Query>;
+    public getQuery(id: string): Promise<Query>;
     /**
      * Get a query
-     * @param options.is query ID
+     * @param id query ID
      * @param callback A function that is passed the arguments (error, query)
      * @returns Promise of query
      */
-    public getQuery(options: { id: string }, callback?: (err: any, data?: Query) => any);
-    public getQuery(options: { id: string }, callback?: (err: any, data?: Query) => any): Promise<Query> {
-        let { id } = options;
+    public getQuery(id: string, callback: CallbackFn<Query>);
+    public getQuery(id: string, callback?: CallbackFn<Query>): Promise<Query> {
         return asyncStyle(done => {
             this._endpoints.query.deviceQueryRetrieve(id, (error, data) => {
                 if (error) return done(error);
 
-                let query = Query.map(data, this);
+                let query = QueryAdapter.map(data, this);
                 done(null, query);
             });
         }, callback);
@@ -956,30 +961,22 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Add a query
-     * @param options.name The name of the query
-     * @param options.description The description of the query
-     * @param options.attributes The attributes of the query
-     * @param options.customAttributes The custom attributes of the query
+     * @param query The query
      * @returns Promise of query
      */
-    public addQuery(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }): Promise<Query>;
+    public addQuery(query: AddQueryObject): Promise<Query>;
     /**
      * Add a query
-     * @param options.name The name of the query
-     * @param options.description The description of the query
-     * @param options.attributes The attributes of the query
-     * @param options.customAttributes The custom attributes of the query
+     * @param query The query
      * @param callback A function that is passed the arguments (error, query)
      */
-    public addQuery(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any);
-    public addQuery(options: { name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any): Promise<Query> {
-        let apiQuery = Query.reverseMap(options);
-        let { name, description, query } = apiQuery;
+    public addQuery(query: AddQueryObject, callback: CallbackFn<Query>);
+    public addQuery(query: AddQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
         return asyncStyle(done => {
-            this._endpoints.query.deviceQueryCreate(name, query, description, null, null, (error, data) => {
+            this._endpoints.query.deviceQueryCreate(QueryAdapter.addMap(query), (error, data) => {
                 if (error) return done(error);
 
-                let query = Query.map(data, this);
+                let query = QueryAdapter.map(data, this);
                 done(null, query);
             });
         }, callback);
@@ -987,64 +984,41 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Update a query
-     * @param options.id The ID of the query
-     * @param options.name The name of the query
-     * @param options.description The description of the query
-     * @param options.attributes The attributes of the query
-     * @param options.customAttributes The custom attributes of the query
+     * @param query The query to update
      * @returns Promise of query
      */
-    public updateQuery(options: { id: string, name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }): Promise<Query>;
+    public updateQuery(query: UpdateQueryObject): Promise<Query>;
     /**
      * Update a query
-     * @param options.id The ID of the query
-     * @param options.name The name of the query
-     * @param options.description The description of the query
-     * @param options.attributes The attributes of the query
-     * @param options.customAttributes The custom attributes of the query
+     * @param query The query to update
      * @param callback A function that is passed the arguments (error, query)
      */
-    public updateQuery(options: { id: string, name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any);
-    public updateQuery(options: { id: string, name: string, description?: string, attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, callback?: (err: any, data?: Query) => any): Promise<Query> {
-        let apiQuery = Query.reverseMap(options);
+    public updateQuery(query: UpdateQueryObject, callback: CallbackFn<Query>);
+    public updateQuery(query: UpdateQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
+        // Partial update
+        return asyncStyle(done => {
+            this._endpoints.query.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), (error, data) => {
+                if (error) return done(error);
 
-        if (apiQuery.name && apiQuery.query) {
-            // Full update
-            return asyncStyle(done => {
-                this._endpoints.query.deviceQueryUpdate(options.id, apiQuery, (error, data) => {
-                    if (error) return done(error);
-
-                    let query = Query.map(data, this);
-                    done(null, query);
-                });
-            }, callback);
-        } else {
-            // Partial update
-            return asyncStyle(done => {
-                this._endpoints.query.deviceQueryPartialUpdate(options.id, apiQuery.description, apiQuery.name, null, apiQuery.query, null, (error, data) => {
-                    if (error) return done(error);
-
-                    let query = Query.map(data, this);
-                    done(null, query);
-                });
-            }, callback);
-        }
+                let query = QueryAdapter.map(data, this);
+                done(null, query);
+            });
+        }, callback);
     }
 
     /**
      * Delete a query
-     * @param options.id query ID
+     * @param id query ID
      * @returns Promise containing any error
      */
-    public deleteQuery(options: { id: string }): Promise<void>;
+    public deleteQuery(id: string): Promise<void>;
     /**
      * Delete a query
-     * @param options.id query ID
+     * @param id query ID
      * @param callback A function that is passed any error
      */
-    public deleteQuery(options: { id: string }, callback?: (err: any, data?: void) => any);
-    public deleteQuery(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
-        let { id } = options;
+    public deleteQuery(id: string, callback: CallbackFn<void>);
+    public deleteQuery(id: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.query.deviceQueryDestroy(id, (error) => {
                 if (error) return done(error);
@@ -1053,4 +1027,3 @@ export class DevicesApi extends EventEmitter {
         }, callback);
     }
 }
-export interface DevicesApi extends DevicesApiType {}

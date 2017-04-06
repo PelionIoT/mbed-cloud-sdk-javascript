@@ -70,13 +70,13 @@ export class AccessApi {
      * Get details of account associated with current API key
      * @returns Promise of account
      */
-    public getAccountDetails(): Promise<Account>;
+    public getAccount(): Promise<Account>;
     /**
      * Get details of account associated with current API key
      * @param callback A function that is passed the return arguments (error, account)
      */
-    public getAccountDetails(callback: CallbackFn<Account>);
-    public getAccountDetails(callback?: CallbackFn<Account>): Promise<Account> {
+    public getAccount(callback: CallbackFn<Account>);
+    public getAccount(callback?: CallbackFn<Account>): Promise<Account> {
         return asyncStyle(done => {
             this._endpoints.developer.getMyAccountInfo("limits, policies", (error, data) => {
                 if (error) return done(error);
@@ -90,14 +90,14 @@ export class AccessApi {
      * @param account The account object to update
      * @returns Promise of account
      */
-    public updateAccountDetails(account: UpdateAccountObject): Promise<Account>;
+    public updateAccount(account: UpdateAccountObject): Promise<Account>;
     /**
      * Update details of account associated with current API key
      * @param account The account object to update
      * @param callback A function that is passed the return arguments (error, account)
      */
-    public updateAccountDetails(account: UpdateAccountObject, callback?: CallbackFn<Account>);
-    public updateAccountDetails(account: UpdateAccountObject, callback?: CallbackFn<Account>): Promise<Account> {
+    public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>);
+    public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>): Promise<Account> {
         return asyncStyle(done => {
             this._endpoints.admin.updateMyAccount(AccountAdapter.reverseMap(account), (error, data) => {
                 if (error) return done(error);

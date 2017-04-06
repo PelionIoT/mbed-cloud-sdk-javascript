@@ -20,7 +20,6 @@ import { CallbackFn } from "../../common/interfaces";
 import { UpdateAccountObject, AccountStatusEnum } from "../types";
 import { AccessApi } from "../index";
 import { Policy } from "./policy";
-import { Group } from "./group";
 
 /*
  * Account
@@ -79,34 +78,10 @@ export class Account {
      */
     readonly templateId?: string;
 
-    constructor(private _api?: AccessApi, init?: Partial<Account>) {
+    constructor(init: Partial<Account>, private _api?: AccessApi) {
         for(var key in init) {
             this[key] = init[key];
         }
-    }
-
-    /**
-     * List the groups for this account
-     * @returns Promise containing groups
-     */
-    public listGroups(): Promise<Array<Group>>;
-    /**
-     * List the groups for this account
-     * @param callback A function that is passed the return arguments (error, groups)
-     */
-    public listGroups(callback: CallbackFn<Array<Group>>);
-    public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
-        return asyncStyle(done => {
-            this._api.listGroups((error, groups) => {
-                if (error) return done(error);
-
-                let accountGroups = groups.filter(group => {
-                    return group.accountId === this.id;
-                });
-
-                done(null, accountGroups);
-            });
-        }, callback);
     }
 
     /**
@@ -121,20 +96,7 @@ export class Account {
     public update(callback: CallbackFn<Account>);
     public update(callback?: CallbackFn<Account>): Promise<Account> {
         return asyncStyle(done => {
-            this._api.updateAccountDetails({
-                displayName:     this.displayName,
-                aliases:         this.aliases,
-                company:         this.company,
-                contact:         this.contact,
-                email:           this.email,
-                phoneNumber:     this.phoneNumber,
-                addressLine1:    this.addressLine1,
-                addressLine2:    this.addressLine2,
-                city:            this.city,
-                state:           this.state,
-                postcode:        this.postcode,
-                country:         this.country
-            }, done);
+            this._api.updateAccount(this, done);
         }, callback);
     }
 }

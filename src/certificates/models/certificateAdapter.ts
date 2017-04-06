@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { CertificatesApi } from "..//index";
+import { CertificatesApi } from "../index";
 import { Certificate } from "./certificate";
 import { AddCertificateObject, AddDeveloperCertificateObject } from "../types";
 import {
@@ -49,7 +49,7 @@ export class CertificateAdapter {
     }
 
     static mapCertificate(from: iamCertificate, api: CertificatesApi): Certificate {
-        return new Certificate(api, CertificateAdapter.map(from));
+        return new Certificate(CertificateAdapter.map(from), api);
     }
 
     static mapServerCertificate(from: iamCertificate, api: CertificatesApi, extension: serverResponse): Certificate {
@@ -58,7 +58,7 @@ export class CertificateAdapter {
         partial.serverUri = extension.server_uri;
         partial.serverCertificate = extension.server_certificate;
 
-        return new Certificate(api, partial);
+        return new Certificate(partial, api);
     }
 
     static mapDeveloperCertificate(from: iamCertificate, api: CertificatesApi, extension: developerResponse): Certificate {
@@ -70,7 +70,7 @@ export class CertificateAdapter {
         partial.developerCertificate = extension.developer_certificate;
         partial.developerPrivateKey = extension.developer_private_key;
 
-        return new Certificate(api, partial);
+        return new Certificate(partial, api);
     }
 
     static reverseMap(from: AddCertificateObject): iamCertificateRequest {

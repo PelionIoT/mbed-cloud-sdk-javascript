@@ -15,24 +15,22 @@
 * limitations under the License.
 */
 
-import { GroupSummary as apiGroup } from "../../_api/iam";
-import { AccessApi } from "../index";
-import { Group } from "./group";
+import { Resource as apiResource } from "../../_api/mds";
+import { DevicesApi } from "../index";
+import { Resource } from "./resource";
 
-/*
- * Group Adapter
+/**
+ * Resource Adapter
  */
-export class GroupAdapter {
-    static map(from: apiGroup, api: AccessApi): Group {
-        return new Group({
-            id:                from.id,
-            accountId:         from.accountID,
-            name:              from.name,
-            userCount:         from.userCount,
-            apiKeyCount:       from.apiKeyCount,
-            createdAt:         from.created_at,
-            creationTime:      from.creationTime,
-            lastUpdateTime:    from.lastUpdateTime
+export class ResourceAdapter {
+
+    static map(from: apiResource, deviceId: string, api: DevicesApi): Resource {
+        return new Resource({
+            contentType:    from.type,
+            observable:     from.obs,
+            type:           from.rt,
+            path:           from.uri,
+            deviceId:       deviceId
         }, api);
     }
 }

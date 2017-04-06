@@ -15,31 +15,23 @@
 * limitations under the License.
 */
 
-import { PresubscriptionType } from "./types";
-import { Presubscription as apiPresubscription } from "../_api/mds";
+import { PresubscriptionObject as Presubscription } from "../types";
+import { Presubscription as apiPresubscription } from "../../_api/mds";
 
 /*
- * Presubscription
+ * Presubscription Adapter
  */
-export class Presubscription {
-
-    constructor(options: PresubscriptionType) {
-        for(var key in options) {
-            this[key] = options[key];
-        }
-    }
+export class PresubscriptionAdapter {
 
     static map(from: apiPresubscription): Presubscription {
-        let type:PresubscriptionType = {
+        return {
             id:               from["endpoint-name"],
             type:             from["endpoint-type"],
             resourcePaths:    from["resource-path"] as string[]
         };
-
-        return new Presubscription(type);
     }
 
-    static reverseMap(from: PresubscriptionType): apiPresubscription {
+    static reverseMap(from: Presubscription): apiPresubscription {
         return {
             "endpoint-name": from.id,
             "endpoint-type": from.type,
@@ -47,4 +39,3 @@ export class Presubscription {
         };
     }
 }
-export interface Presubscription extends PresubscriptionType {}
