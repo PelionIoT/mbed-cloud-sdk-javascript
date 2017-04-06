@@ -1,6 +1,7 @@
 var http = require('http');
 var express = require('express');
 var mbedSDK = require('../lib/');
+var mapping = require("./mapping");
 var functions = require('../lib/common/functions');
 
 var port = 5000;
@@ -44,6 +45,8 @@ app.get("/:module/:method", (req, res, next) => {
         var jsonString = '{"' + decodeURI(args).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}';
         args = JSON.parse(jsonString);
     } catch(e) {}
+
+    args = mapping(module, method, args);
 
     console.log(`${line}Calling '${method}' on '${module}'...`);
     if (args) {
