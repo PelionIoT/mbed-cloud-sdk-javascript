@@ -114,13 +114,13 @@ export interface FirmwareManifest {
 }
 
 export interface FirmwareManifestPage {
-    "object": string;
-    "has_more": boolean;
-    "total_count": number;
-    "after": string;
-    "limit": number;
-    "data": Array<FirmwareManifest>;
-    "order": string;
+    "object"?: string;
+    "has_more"?: boolean;
+    "total_count"?: number;
+    "after"?: string;
+    "limit"?: number;
+    "data"?: Array<FirmwareManifest>;
+    "order"?: string;
 }
 
 /**
