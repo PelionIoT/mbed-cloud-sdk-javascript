@@ -54,12 +54,12 @@ export interface DeviceData {
     "ca_id"?: string;
 }
 
-export type DeviceDataRequestDeployedStateEnum = "development" | "production";
-export interface DeviceDataRequest {
+export type DeviceDataPatchRequestDeployedStateEnum = "development" | "production";
+export interface DeviceDataPatchRequest {
     "manifest_timestamp"?: Date;
     "vendor_id"?: string;
     "description"?: string;
-    "deployed_state"?: DeviceDataRequestDeployedStateEnum;
+    "deployed_state"?: DeviceDataPatchRequestDeployedStateEnum;
     "firmware_checksum"?: string;
     "auto_update"?: boolean;
     "mechanism"?: string;
@@ -70,13 +70,36 @@ export interface DeviceDataRequest {
     "trust_class"?: number;
     "device_key"?: string;
     "state"?: string;
-    "attestation_method"?: number;
     "ca_id"?: string;
     "deployment"?: string;
     "mechanism_url"?: string;
     "serial_number"?: string;
     "endpoint_name"?: string;
     "name"?: string;
+}
+
+export type DeviceDataPutRequestDeployedStateEnum = "development" | "production";
+export interface DeviceDataPutRequest {
+    "manifest_timestamp": Date;
+    "vendor_id": string;
+    "description": string;
+    "deployed_state": DeviceDataPutRequestDeployedStateEnum;
+    "firmware_checksum": string;
+    "auto_update": boolean;
+    "mechanism": string;
+    "device_class": string;
+    "trust_level": number;
+    "custom_attributes": any;
+    "manifest": string;
+    "trust_class": number;
+    "device_key": string;
+    "state": string;
+    "ca_id": string;
+    "deployment": string;
+    "mechanism_url": string;
+    "serial_number": string;
+    "endpoint_name": string;
+    "name": string;
 }
 
 export interface DeviceLogData {
@@ -472,7 +495,7 @@ export class DefaultApi extends ApiBase {
      * @param id The ID of the device
      * @param device 
      */
-    devicePartialUpdate (id: string, device: DeviceDataRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    devicePartialUpdate (id: string, device: DeviceDataPatchRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -541,7 +564,7 @@ export class DefaultApi extends ApiBase {
      * @param id The ID of the device
      * @param device 
      */
-    deviceUpdate (id: string, device: DeviceDataRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceUpdate (id: string, device: DeviceDataPutRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
