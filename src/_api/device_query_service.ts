@@ -80,7 +80,7 @@ export interface DeviceQueryPatchRequest {
     "name"?: string;
 }
 
-export interface DeviceQueryPutRequest {
+export interface DeviceQueryPostPutRequest {
     /**
      * The device query
      */
@@ -104,7 +104,7 @@ export class DefaultApi extends ApiBase {
      * &lt;p&gt;The APIs for creating and manipulating device queries.  &lt;/p&gt; &lt;p&gt;Create device query&lt;/p&gt;
      * @param device 
      */
-    deviceQueryCreate (device: DeviceQuery, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceQueryCreate (device: DeviceQueryPostPutRequest, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "device" is set
         if (device === null || device === undefined) {
             if (callback) {
@@ -333,7 +333,7 @@ export class DefaultApi extends ApiBase {
      * @param queryId 
      * @param body Device query update object
      */
-    deviceQueryUpdate (queryId: string, body: DeviceQueryPutRequest, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceQueryUpdate (queryId: string, body: DeviceQueryPostPutRequest, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "queryId" is set
         if (queryId === null || queryId === undefined) {
             if (callback) {
