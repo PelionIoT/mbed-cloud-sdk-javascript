@@ -15,10 +15,10 @@
 * limitations under the License.
 */
 
-import { ListResponse } from "./interfaces";
+import { ListResponse, CallbackFn } from "./interfaces";
 
 // Inspired by https://github.com/sonnyp/polygoat
-export function asyncStyle<T>(asyncFn: (done: (error: any, response?: T) => any) => void, callbackFn?: (error: any, response: T) => any): Promise<T> {
+export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn?: CallbackFn<T>): Promise<T> {
     if (callbackFn) asyncFn(callbackFn)
     else {
         return new Promise((resolve, reject) => {
@@ -59,7 +59,7 @@ export function snakeToCamel(snake) {
 
 export function camelToSnake(camel) {
     return camel.replace(/([A-Z]+)/g, function(match) {
-        return "-" + match.toLowerCase();
+        return "_" + match.toLowerCase();
     });
 }
 
@@ -106,7 +106,7 @@ export function encodeFilter(from: { attributes?: { [key: string]: string }, cus
 
     if (custom) {
         if (filter) filter += "&";
-        filter +=custom;
+        filter += custom;
     }
 
     return filter;

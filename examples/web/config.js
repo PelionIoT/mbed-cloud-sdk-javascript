@@ -22,9 +22,26 @@
     else root.config = factory(root);
 }(this, function(root) {
 
+	var cookieKey = "mbedCloudKey";
+	var cookieHost = "mbedCloudHost";
 	var queryKey = "apiKey";
 	var queryHost = "host";
 
+	// Parse cookies
+	function parseCookies() {
+		var cookies = {};
+		var cookie = root.cookie || (root.document ? root.document.cookie || "" : "");
+		var cookieArray = cookie.split("; ");
+
+		for (var i = 0; i < cookieArray.length; i++ ) {
+			var parts = cookieArray[i].split("=");
+			cookies[parts[0]] = parts[1];
+		}
+
+		return cookies;
+	}
+
+	// Parse query string
 	function parseQueryString() {
 		if (!root.location) return {};
 
@@ -47,7 +64,12 @@
 		host: "https://api.mbedcloud.com"
 	};
 
-	//Overwrite with any query variables
+	// Overwrite with any cookie variables
+	var cookies = parseCookies();
+	if (cookies[cookieKey]) config.apiKey = cookies[cookieKey];
+	if (cookies[cookieHost]) config.host = cookies[cookieHost];
+
+	// Overwrite with any query variables
 	var args = parseQueryString();
 	if (args[queryKey]) config.apiKey = args[queryKey];
 	if (args[queryHost]) config.host = args[queryHost];

@@ -15,127 +15,58 @@
 * limitations under the License.
 */
 
-export interface FirmwareImageType {
-    /**
-     * The binary file of firmware image
-     */
-    datafile: string;
-    /**
-     * The description of the object
-     */
-    description: string;
-    /**
-     * The time the object was created
-     */
-    createdAt: Date;
-    /**
-     * The time the object was updated
-     */
-    updatedAt: Date;
-    /**
-     * Checksum generated for the datafile
-     */
-    datafileChecksum: string;
-    /**
-     * The ID of the firmware image
-     */
-    id: string;
+export interface AddFirmwareImageObject {
     /**
      * The name of the object
      */
     name: string;
-}
-
-export interface FirmwareManifestType {
-    /**
-     * The file of the manifest
-     */
-    datafile: string;
     /**
      * The description of the object
      */
     description?: string;
     /**
-     * The version of the firmware manifest (as a timestamp)
+     * The binary file of firmware image
      */
-    timestamp?: Date;
-    /**
-     * The time the object was created
-     */
-    createdAt?: Date;
-    /**
-     * The time the object was updated
-     */
-    updatedAt?: Date;
-    /**
-     * The contents of the manifest
-     */
-    manifestContents?: any;
-    /**
-     * The class of device
-     */
-    deviceClass?: string;
-    /**
-     * The ID of the firmware manifest
-     */
-    id?: string;
+    datafile: string;
+}
+
+export interface AddFirmwareManifestObject {
     /**
      * The name of the object
      */
-    name?: string;
+    name: string;
+    /**
+     * The description of the object
+     */
+    description?: string;
+    /**
+     * The file of the manifest
+     */
+    datafile: string;
 }
 
 export type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
-
-export interface CampaignType {
+export interface CampaignObject {
+    /**
+     * A name for this campaign
+     */
+    name?: string;
     /**
      * An optional description of the campaign
      */
-    description: string;
+    description?: string;
+    /**
+     * ID of the manifest to use for update
+     */
+    manifestId?: string;
     /**
      * The state of the campaign
      */
-    state: CampaignStateEnum;
-    /**
-     * The updating IAM user ID
-     */
-    userId: string;
-    /**
-     * The time the object was created
-     */
-    createdAt: Date;
-    /**
-     * ???
-     */
-    manifestId: string;
-    /**
-     * The updating account ID
-     */
-    accountId: string;
-    /**
-     * The time the object was updated
-     */
-    updatedAt: Date;
+    state?: CampaignStateEnum;
     /**
      * The timestamp at which update campaign scheduled to start
      */
-    startDate?: Date;
-    /**
-     * The timestamp when the update campaign finished
-     */
-    finishDate?: Date;
-    /**
-     * ???
-     */
-    manifestUrl: string;
-    /**
-     * The gateway client API key
-     */
-    apiKey: string;
-    /**
-     * The ID of the campaign
-     */
-    id: string;
+    scheduledStart?: Date;
     /**
      * The attributes of the filter
      */
@@ -144,61 +75,22 @@ export interface CampaignType {
      * The custom attributes of the filter
      */
     customAttributes?: { [key: string]: string };
+}
+
+export interface AddCampaignObject extends CampaignObject{
     /**
      * A name for this campaign
      */
     name: string;
+    /**
+     * The attributes of the filter
+     */
+    attributes: { [key: string]: string };
 }
 
-export interface CampaignStateType extends CampaignType {
-    directDevices: number;
-    connectorDevices: number;
-    deployedDevices: number;
-    totalDevices: number;
-    deviceStates?: DeviceStateType[];
-}
-
-export type DeviceStateEnum = "pending" | "updated_device_catalog" | "updated_connector_channel" | "deployed" | "manifestremoved";
-
-export interface DeviceStateType {
+export interface UpdateCampaignObject extends CampaignObject{
     /**
-     * The description of the object
-     */
-    description: string;
-    /**
-     * The update campaign to which this device belongs
-     */
-    campaign: string;
-    /**
-     * The time the object was created
-     */
-    createdAt: Date;
-    /**
-     * The time the object was updated
-     */
-    updatedAt: Date;
-    /**
-     * The ID of the channel used to communicated with the device
-     */
-    mechanism: string;
-    /**
-     * The name of the object
-     */
-    name: string;
-    /**
-     * The address of the Connector to use
-     */
-    mechanismUrl: string;
-    /**
-     * The state of the deployment
-     */
-    state: DeviceStateEnum;
-    /**
-     * The ID of the metadata concerning this device/campaign
+     * The ID of the campaign
      */
     id: string;
-    /**
-     * The ID of the device to deploy
-     */
-    deviceId: string;
 }

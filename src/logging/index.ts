@@ -15,10 +15,11 @@
 * limitations under the License.
 */
 
-import { asyncStyle, mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
-import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
+import { asyncStyle, mapListResponse, encodeAttributes, encodeInclude } from "../common/functions";
+import { ConnectionOptions, CallbackFn, ListOptions, ListResponse } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { DeviceLog } from "./deviceLog";
+import { DeviceLogAdapter } from "./models/deviceLogAdapter";
+import { DeviceLog } from "./models/deviceLog";
 
 /**
  * ## Logging API
@@ -38,7 +39,7 @@ import { DeviceLog } from "./deviceLog";
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ * <script src="<mbed-cloud-sdk>/bundles/logging.min.js"></script>
  *
  * <script>
  *     var logging = new mbed.LoggingApi({
@@ -69,8 +70,8 @@ export class LoggingApi {
      * @param options filter options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listDeviceLogs(options?: ListOptions, callback?: (err: any, data?: ListResponse<DeviceLog>) => any);
-    public listDeviceLogs(options?:any, callback?: (err: any, data?: ListResponse<DeviceLog>) => any): Promise<ListResponse<DeviceLog>> {
+    public listDeviceLogs(options?: ListOptions, callback?: CallbackFn<ListResponse<DeviceLog>>);
+    public listDeviceLogs(options?:any, callback?: CallbackFn<ListResponse<DeviceLog>>): Promise<ListResponse<DeviceLog>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -85,7 +86,7 @@ export class LoggingApi {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {
-                    return DeviceLog.map(log);
+                    return DeviceLogAdapter.map(log);
                 });
 
                 done(null, mapListResponse<DeviceLog>(data, list));
@@ -95,22 +96,21 @@ export class LoggingApi {
 
     /**
      * Get a single device log
-     * @param options.id device log ID
+     * @param id device log ID
      * @returns Promise of device log
      */
-    public getDeviceLog(options: { id: string }): Promise<DeviceLog>;
+    public getDeviceLog(id: string): Promise<DeviceLog>;
     /**
      * Get a single device log
-     * @param options.id device log ID
+     * @param id device log ID
      * @param callback A function that is passed the return arguments (error, device log)
      */
-    public getDeviceLog(options: { id: string }, callback: (err: any, data?: DeviceLog) => any);
-    public getDeviceLog(options: { id: string }, callback?: (err: any, data?: DeviceLog) => any): Promise<DeviceLog> {
-        let { id } = options;
+    public getDeviceLog(id: string, callback: CallbackFn<DeviceLog>);
+    public getDeviceLog(id: string, callback?: CallbackFn<DeviceLog>): Promise<DeviceLog> {
         return asyncStyle(done => {
             this._endpoints.catalog.deviceLogRetrieve(id, (error, data) => {
                 if (error) return done(error);
-                let log = DeviceLog.map(data);
+                let log = DeviceLogAdapter.map(data);
                 done(null, log);
             });
         }, callback);

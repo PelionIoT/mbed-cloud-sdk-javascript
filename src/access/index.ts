@@ -15,15 +15,18 @@
 * limitations under the License.
 */
 
-import { asyncStyle, mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
-import { ConnectionOptions, ListOptions, ListResponse } from "../common/interfaces";
-import { CertificateServiceEnum } from "./types";
+import { asyncStyle, mapListResponse, encodeInclude } from "../common/functions";
+import { ConnectionOptions, CallbackFn, ListOptions, ListResponse } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { Account } from "./account";
-import { Certificate } from "./certificate";
-import { User } from "./user";
-import { ApiKey } from "./apiKey";
-import { Group } from "./group";
+import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject } from "./types";
+import { Account } from "./models/account";
+import { AccountAdapter } from "./models/accountAdapter"
+import { ApiKey } from "./models/apiKey";
+import { ApiKeyAdapter } from "./models/apiKeyAdapter";
+import { User } from "./models/user";
+import { UserAdapter } from "./models/userAdapter";
+import { Group } from "./models/group";
+import { GroupAdapter } from "./models/groupAdapter";
 
 /**
  * ## Access API
@@ -43,7 +46,7 @@ import { Group } from "./group";
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ * <script src="<mbed-cloud-sdk>/bundles/access.min.js"></script>
  *
  * <script>
  *     var access = new mbed.AccessApi({
@@ -67,63 +70,38 @@ export class AccessApi {
      * Get details of account associated with current API key
      * @returns Promise of account
      */
-    public getAccountDetails(): Promise<Account>;
+    public getAccount(): Promise<Account>;
     /**
      * Get details of account associated with current API key
      * @param callback A function that is passed the return arguments (error, account)
      */
-    public getAccountDetails(callback: (err: any, data?: Account) => any);
-    public getAccountDetails(callback?: (err: any, data?: Account) => any): Promise<Account> {
+    public getAccount(callback: CallbackFn<Account>);
+    public getAccount(callback?: CallbackFn<Account>): Promise<Account> {
         return asyncStyle(done => {
-            this._endpoints.developer.getMyAccountInfo("limits", (error, data) => {
+            this._endpoints.developer.getMyAccountInfo("limits, policies", (error, data) => {
                 if (error) return done(error);
-                done(null, Account.map(data, this));
+                done(null, AccountAdapter.map(data, this));
             });
         }, callback);
     }
 
     /**
      * Update details of account associated with current API key
-     * @param options.displayName The display name for the account
-     * @param options.parentId The ID of the parent account, if it has any
-     * @param options.aliases An array of aliases
-     * @param options.company The name of the company
-     * @param options.contact The name of the contact person for this account
-     * @param options.email The company email address for this account
-     * @param options.phoneNumber The phone number of the company
-     * @param options.addressLine1 Postal address line 1
-     * @param options.addressLine2 Postal address line 2
-     * @param options.city The city part of the postal address
-     * @param options.state The state part of the postal address
-     * @param options.postcode The postal code part of the postal address
-     * @param options.country The country part of the postal address
+     * @param account The account object to update
      * @returns Promise of account
      */
-    public updateAccountDetails(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }): Promise<Account>;
+    public updateAccount(account: UpdateAccountObject): Promise<Account>;
     /**
      * Update details of account associated with current API key
-     * @param options.displayName The display name for the account
-     * @param options.parentId The ID of the parent account, if it has any
-     * @param options.aliases An array of aliases
-     * @param options.company The name of the company
-     * @param options.contact The name of the contact person for this account
-     * @param options.email The company email address for this account
-     * @param options.phoneNumber The phone number of the company
-     * @param options.addressLine1 Postal address line 1
-     * @param options.addressLine2 Postal address line 2
-     * @param options.city The city part of the postal address
-     * @param options.state The state part of the postal address
-     * @param options.postcode The postal code part of the postal address
-     * @param options.country The country part of the postal address
+     * @param account The account object to update
      * @param callback A function that is passed the return arguments (error, account)
      */
-    public updateAccountDetails(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }, callback?: (err: any, data?: Account) => any);
-    public updateAccountDetails(options: { displayName?: string, parentId?: string, aliases?: string[], company?: string, contact?: string, email?: string, phoneNumber?: string, addressLine1?: string, addressLine2?: string, city?: string, state?: string, postcode?: string, country?: string }, callback?: (err: any, data?: Account) => any): Promise<Account> {
-        let account = Account.reverseMap(options);
+    public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>);
+    public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>): Promise<Account> {
         return asyncStyle(done => {
-            this._endpoints.admin.updateMyAccount(account, (error, data) => {
+            this._endpoints.admin.updateMyAccount(AccountAdapter.reverseMap(account), (error, data) => {
                 if (error) return done(error);
-                done(null, Account.map(data, this));
+                done(null, AccountAdapter.map(data, this));
             });
         }, callback);
     }
@@ -135,12 +113,12 @@ export class AccessApi {
      */
     public listApiKeys(options?: ListOptions): Promise<ListResponse<ApiKey>>;
     /**
-     * List certificates
+     * List API keys
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listApiKeys(options?: ListOptions, callback?: (err: any, data?: ListResponse<ApiKey>) => any);
-    public listApiKeys(options?: any, callback?: (err: any, data?: ListResponse<ApiKey>) => any): Promise<ListResponse<ApiKey>> {
+    public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
+    public listApiKeys(options?: any, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -149,14 +127,13 @@ export class AccessApi {
 
         let { limit, after, order, include, attributes } = options as ListOptions;
         let owner = attributes ? attributes["owner"] : null;
-        let filter = encodeAttributes(attributes);
 
         return asyncStyle(done => {
-            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), filter, owner, (error, data) => {
+            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), owner, (error, data) => {
                 if (error) return done(error);
 
                 var keys = data.data.map(key => {
-                    return ApiKey.map(key, this);
+                    return ApiKeyAdapter.map(key, this);
                 });
                 done(null, mapListResponse(data, keys));
             });
@@ -165,32 +142,31 @@ export class AccessApi {
 
     /**
      * Get details of an API key
-     * @param options.id The API key ID (if not specified, returns current API key)
+     * @param id The API key ID (if not specified, returns current API key)
      * @returns Promise containing the API key
      */
-    public getApiKey(options?: { id?: string }): Promise<ApiKey>;
+    public getApiKey(id?: string): Promise<ApiKey>;
     /**
      * Get details of an API key
-     * @param options.id The API key ID (if not specified, returns current API key)
+     * @param id The API key ID (if not specified, returns current API key)
      * @param callback A function that is passed the return arguments (error, API key)
      */
-    public getApiKey(options?: { id?: string }, callback?: (err: any, data?: ApiKey) => any);
-    public getApiKey(options?: any, callback?: (err: any, data?: ApiKey) => any): Promise<ApiKey> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
+    public getApiKey(id?: string, callback?: CallbackFn<ApiKey>);
+    public getApiKey(id?: any, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
+        if (typeof id === "function") {
+            callback = id;
+            id = null;
         }
         return asyncStyle(done => {
-            if (options.id) {
-                this._endpoints.developer.getApiKey(options.id, (error, data) => {
+            if (id) {
+                this._endpoints.developer.getApiKey(id, (error, data) => {
                     if (error) return done(error);
-                    done(null, ApiKey.map(data, this));
+                    done(null, ApiKeyAdapter.map(data, this));
                 });
             } else {
                 this._endpoints.developer.getMyApiKey((error, data) => {
                     if (error) return done(error);
-                    done(null, ApiKey.map(data, this));
+                    done(null, ApiKeyAdapter.map(data, this));
                 });
             }
         }, callback);
@@ -198,26 +174,22 @@ export class AccessApi {
 
     /**
      * Adds an API key
-     * @param options.name The display name for the API key
-     * @param options.owner The owner of this API key
-     * @param options.groups A list of group IDs this API key belongs to
+     * @param apiKey The API key to add
      * @returns Promise containing API key
      */
-    public addApiKey(options: { name: string, owner?: string, groups?: string[] }): Promise<ApiKey>;
+    public addApiKey(apiKey: AddApiKeyObject): Promise<ApiKey>;
     /**
      * Adds an API key
-     * @param options.name The display name for the API key
-     * @param options.owner The owner of this API key
-     * @param options.groups A list of group IDs this API key belongs to
+     * @param apiKey The API key to add
      * @param callback A function that is passed the return arguments (error, API key)
      */
-    public addApiKey(options: { name: string, owner?: string, groups?: string[] }, callback: (err: any, data?: ApiKey) => any);
-    public addApiKey(options: { name: string, owner?: string, groups?: string[] }, callback?: (err: any, data?: ApiKey) => any): Promise<ApiKey> {
+    public addApiKey(apiKey: AddApiKeyObject, callback: CallbackFn<ApiKey>);
+    public addApiKey(apiKey: AddApiKeyObject, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
         return asyncStyle(done => {
-            this._endpoints.developer.createApiKey(options, (error, data) => {
+            this._endpoints.developer.createApiKey(ApiKeyAdapter.addMap(apiKey), (error, data) => {
                 if (error) return done(error);
 
-                let key = ApiKey.map(data, this);
+                let key = ApiKeyAdapter.map(data, this);
                 done(null, key);
             });
         }, callback);
@@ -225,183 +197,40 @@ export class AccessApi {
 
     /**
      * Updates an API key
-     * @param options.id The API key ID (if not specified, updates current API key)
-     * @param options.name The display name for the API key
-     * @param options.owner The owner of this API key
+     * @param apiKey The API key to add
      * @returns Promise containing API key
      */
-    public updateApiKey(options: { id?: string, name: string, owner?: string }): Promise<ApiKey>;
+    public updateApiKey(apiKey: UpdateApiKeyObject): Promise<ApiKey>;
     /**
      * Updates an API key
-     * @param options.id The API key ID (if not specified, updates current API key)
-     * @param options.name The display name for the API key
-     * @param options.owner The owner of this API key
+     * @param apiKey The API key to add
      * @param callback A function that is passed the return arguments (error, API key)
      */
-    public updateApiKey(options: { id?: string, name: string, owner?: string }, callback: (err: any, data?: ApiKey) => any);
-    public updateApiKey(options: { id?: string, name: string, owner?: string }, callback?: (err: any, data?: ApiKey) => any): Promise<ApiKey> {
+    public updateApiKey(apiKey: UpdateApiKeyObject, callback: CallbackFn<ApiKey>);
+    public updateApiKey(apiKey: UpdateApiKeyObject, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
         return asyncStyle(done => {
-            if (options.id) {
-                this._endpoints.developer.updateApiKey(options.id, options, (error, data) => {
-                    if (error) return done(error);
-                    done(null, ApiKey.map(data, this));
-                });
-            } else {
-                this._endpoints.developer.updateMyApiKey(options, (error, data) => {
-                    if (error) return done(error);
-                    done(null, ApiKey.map(data, this));
-                });
-            }
+            this._endpoints.developer.updateApiKey(apiKey.id, ApiKeyAdapter.updateMap(apiKey), (error, data) => {
+                if (error) return done(error);
+                done(null, ApiKeyAdapter.map(data, this));
+            });
         }, callback);
     }
 
     /**
      * Deletes an API key
-     * @param options.id The API key ID
+     * @param id The API key ID
      * @returns Promise containing any error
      */
-    public deleteApiKey(options: { id: string }): Promise<void>;
+    public deleteApiKey(id: string): Promise<void>;
     /**
      * Deletes an API key
-     * @param options.id The API key ID
+     * @param id The API key ID
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteApiKey(options: { id: string }, callback: (err: any, data?: void) => any);
-    public deleteApiKey(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
+    public deleteApiKey(id: string, callback: CallbackFn<void>);
+    public deleteApiKey(id: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.developer.deleteApiKey(options.id, (error, data) => {
-                if (error) return done(error);
-                done(null, data);
-            });
-        }, callback);
-    }
-
-    /**
-     * List certificates
-     * @param options filter options
-     * @returns Promise of listResponse
-     */
-    public listCertificates(options?: ListOptions): Promise<ListResponse<Certificate>>;
-    /**
-     * List certificates
-     * @param options filter options
-     * @param callback A function that is passed the arguments (error, listResponse)
-     */
-    public listCertificates(options?: ListOptions, callback?: (err: any, data?: ListResponse<Certificate>) => any);
-    public listCertificates(options?: any, callback?: (err: any, data?: ListResponse<Certificate>) => any): Promise<ListResponse<Certificate>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
-
-        let { limit, after, order, include, attributes } = options as ListOptions;
-        let filter = encodeAttributes(attributes);
-
-        return asyncStyle(done => {
-            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), filter, (error, data) => {
-                if (error) return done(error);
-
-                var certificates = data.data.map(certificate => {
-                    return Certificate.map(certificate, this);
-                });
-                done(null, mapListResponse(data, certificates));
-            });
-        }, callback);
-    }
-
-    /**
-     * Get details of a certificate
-     * @param options.id The certificate ID
-     * @returns Promise containing the certificate
-     */
-    public getCertificate(options: { id: string }): Promise<Certificate>;
-    /**
-     * Get details of a certificate
-     * @param options.id The certificate ID
-     * @param callback A function that is passed the return arguments (error, certificate)
-     */
-    public getCertificate(options: { id: string }, callback: (err: any, data?: Certificate) => any);
-    public getCertificate(options: { id: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return asyncStyle(done => {
-            this._endpoints.admin.getCertificate(options.id, (error, data) => {
-                if (error) return done(error);
-                done(null, Certificate.map(data, this));
-            });
-        }, callback);
-    }
-
-    /**
-     * Adds a certificate
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @returns Promise containing certificate
-     */
-    public addCertificate(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }): Promise<Certificate>;
-    /**
-     * Adds a certificate
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @param callback A function that is passed the return arguments (error, certificate)
-     */
-    public addCertificate(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
-    public addCertificate(options: { name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return asyncStyle(done => {
-            this._endpoints.admin.addCertificate(Certificate.reverseMap(options), (error, data) => {
-                if (error) return done(error);
-                done(null, Certificate.map(data, this));
-            });
-        }, callback);
-    }
-
-    /**
-     * Updates a certificate
-     * @param options.id The certificate ID
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @returns Promise containing certificate
-     */
-    public updateCertificate(options: { id: string, name: string, service: CertificateServiceEnum, certificateData: string, signature: string }): Promise<Certificate>;
-    /**
-     * Updates a certificate
-     * @param options.id The certificate ID
-     * @param options.name Certificate name
-     * @param options.service Service name where the certificate must be used
-     * @param options.certificateData X509.v3 CA certificate in PEM or base64 encoded DER format
-     * @param options.signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     * @param callback A function that is passed the return arguments (error, certificate)
-     */
-    public updateCertificate(options: { id: string, name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback: (err: any, data?: Certificate) => any);
-    public updateCertificate(options: { id: string, name: string, service: CertificateServiceEnum, certificateData: string, signature: string }, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return asyncStyle(done => {
-            this._endpoints.admin.updateCertificate(options.id, Certificate.reverseMap(options), (error, data) => {
-                if (error) return done(error);
-                done(null, Certificate.map(data, this));
-            });
-        }, callback);
-    }
-
-    /**
-     * Deletes a certificate
-     * @param options.id The certificate ID
-     * @returns Promise containing any error
-     */
-    public deleteCertificate(options: { id: string }): Promise<void>;
-    /**
-     * Deletes a certificate
-     * @param options.id The certificate ID
-     * @param callback A function that is passed the return arguments (error, void)
-     */
-    public deleteCertificate(options: { id: string }, callback: (err: any, data?: void) => any);
-    public deleteCertificate(options: { id: string }, callback?: (err: any, data?: void) => any): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.admin.deleteCertificate(options.id, (error, data) => {
+            this._endpoints.developer.deleteApiKey(id, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -419,8 +248,8 @@ export class AccessApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listUsers(options?: ListOptions, callback?: (err: any, data?: ListResponse<User>) => any);
-    public listUsers(options?: any, callback?: (err: any, data?: ListResponse<User>) => any): Promise<ListResponse<User>> {
+    public listUsers(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>);
+    public listUsers(options?: any, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -428,14 +257,14 @@ export class AccessApi {
         }
 
         let { limit, after, order, include, attributes } = options as ListOptions;
-        let filter = encodeAttributes(attributes);
+        let status = attributes ? attributes["status"] : null;
 
         return asyncStyle(done => {
-            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), filter, (error, data) => {
+            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), status, (error, data) => {
                 if (error) return done(error);
 
                 let users = data.data.map(user => {
-                    return User.map(user, this);
+                    return UserAdapter.map(user, this);
                 });
 
                 done(null, mapListResponse(data, users));
@@ -445,124 +274,82 @@ export class AccessApi {
 
     /**
      * Get details of a user
-     * @param options.id The user ID
+     * @param id The user ID
      * @returns Promise containing the user
      */
-    public getUser(options: { id: string }): Promise<User>;
+    public getUser(id: string): Promise<User>;
     /**
      * Get details of a user
-     * @param options.id The user ID
+     * @param id The user ID
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public getUser(options: { id: string }, callback: (err: any, data?: User) => any);
-    public getUser(options: { id: string }, callback?: (err: any, data?: User) => any): Promise<User> {
+    public getUser(id: string, callback: CallbackFn<User>);
+    public getUser(id: string, callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
-            this._endpoints.admin.getUser(options.id, (error, data) => {
+            this._endpoints.admin.getUser(id, (error, data) => {
                 if (error) return done(error);
-                done(null, User.map(data, this));
+                done(null, UserAdapter.map(data, this));
             });
         }, callback);
     }
 
     /**
      * Adds a user
-     * @param options.username A username containing alphanumerical letters and -,._@+= characters
-     * @param options.phoneNumber Phone number
-     * @param options.marketingAccepted A flag indicating that receiving marketing information has been accepted
-     * @param options.termsAccepted A flag indicating that the General Terms and Conditions has been accepted
-     * @param options.fullName The full name of the user
-     * @param options.address Address
-     * @param options.password The password when creating a new user. It will will generated when not present in the request
-     * @param options.email The email address
-     * @param options. A list of IDs of the groups this user belongs to
+     * @param user User to add
      * @returns Promise containing user
      */
-    public addUser(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
-        fullName?: string, address?: string, password?: string, email: string, groups?: string[] }): Promise<User>;
+    public addUser(user: AddUserObject): Promise<User>;
     /**
      * Adds a user
-     * @param options.username A username containing alphanumerical letters and -,._@+= characters
-     * @param options.phoneNumber Phone number
-     * @param options.marketingAccepted A flag indicating that receiving marketing information has been accepted
-     * @param options.termsAccepted A flag indicating that the General Terms and Conditions has been accepted
-     * @param options.fullName The full name of the user
-     * @param options.address Address
-     * @param options.password The password when creating a new user. It will will generated when not present in the request
-     * @param options.email The email address
-     * @param options. A list of IDs of the groups this user belongs to
+     * @param user User to add
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public addUser(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
-        fullName?: string, address?: string, password?: string, email: string, groups?: string[] }, callback: (err: any, data?: User) => any);
-    public addUser(options: { username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
-        fullName?: string, address?: string, password?: string, email: string, groups?: string[] }, callback?: (err: any, data?: User) => any): Promise<User> {
+    public addUser(user: AddUserObject, callback: CallbackFn<User>);
+    public addUser(user: AddUserObject, callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
-            let apiUser = User.reverseMap(options);
-            this._endpoints.admin.createUser(apiUser, "create", (error, data) => {
+            this._endpoints.admin.createUser(UserAdapter.addMap(user), "create", (error, data) => {
                 if (error) return done(error);
-                done(null, User.map(data, this));
+                done(null, UserAdapter.map(data, this));
             });
         }, callback);
     }
 
     /**
      * Updates a user
-     * @param options.id User ID
-     * @param options.username A username containing alphanumerical letters and -,._@+= characters
-     * @param options.phoneNumber Phone number
-     * @param options.marketingAccepted A flag indicating that receiving marketing information has been accepted
-     * @param options.termsAccepted A flag indicating that the General Terms and Conditions has been accepted
-     * @param options.fullName The full name of the user
-     * @param options.address Address
-     * @param options.password The password when creating a new user. It will will generated when not present in the request
-     * @param options.email The email address
+     * @param user User to update
      * @returns Promise containing user
      */
-    public updateUser(options: { id: string, username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
-        fullName?: string, address?: string, password?: string, email: string }): Promise<User>;
+    public updateUser(user: UpdateUserObject): Promise<User>;
     /**
      * Updates a user
-     * @param options.id User ID
-     * @param options.username A username containing alphanumerical letters and -,._@+= characters
-     * @param options.phoneNumber Phone number
-     * @param options.marketingAccepted A flag indicating that receiving marketing information has been accepted
-     * @param options.termsAccepted A flag indicating that the General Terms and Conditions has been accepted
-     * @param options.fullName The full name of the user
-     * @param options.address Address
-     * @param options.password The password when creating a new user. It will will generated when not present in the request
-     * @param options.email The email address
+     * @param user User to update
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public updateUser(options: { id: string, username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
-        fullName?: string, address?: string, password?: string, email: string }, callback: (err: any, data?: User) => any);
-    public updateUser(options: { id: string, username: string, phoneNumber?: string, marketingAccepted?: boolean, termsAccepted?: boolean,
-        fullName?: string, address?: string, password?: string, email: string }, callback?: (err: any, data?: User) => any): Promise<User> {
+    public updateUser(user: UpdateUserObject, callback: CallbackFn<User>);
+    public updateUser(user: UpdateUserObject, callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
-            let apiUser = User.reverseMap(options);
-            this._endpoints.admin.updateUser(options.id, apiUser, (error, data) => {
+            this._endpoints.admin.updateUser(user.id, UserAdapter.updateMap(user), (error, data) => {
                 if (error) return done(error);
-                done(null, User.map(data, this));
+                done(null, UserAdapter.map(data, this));
             });
         }, callback);
     }
 
     /**
      * Deletes a user
-     * @param options.id The user ID
-     * @param options.force A flag indicating that the user is forced to be deleted
+     * @param id The user ID
      * @returns Promise containing any error
      */
-    public deleteUser(options: { id: string, force?:string }): Promise<void>;
+    public deleteUser(id: string): Promise<void>;
     /**
      * Deletes a user
-     * @param options.id The user ID
-     * @param options.force A flag indicating that the user is forced to be deleted
+     * @param id The user ID
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteUser(options: { id: string, force?:string }, callback: (err: any, data?: void) => any);
-    public deleteUser(options: { id: string, force?:string }, callback?: (err: any, data?: void) => any): Promise<void> {
+    public deleteUser(id: string, callback: CallbackFn<void>);
+    public deleteUser(id: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.admin.deleteUser(options.id, options.force, (error, data) => {
+            this._endpoints.admin.deleteUser(id, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -580,8 +367,8 @@ export class AccessApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listGroups(options?: ListOptions, callback?: (err: any, data?: ListResponse<Group>) => any);
-    public listGroups(options?: any, callback?: (err: any, data?: ListResponse<Group>) => any): Promise<ListResponse<Group>> {
+    public listGroups(options?: ListOptions, callback?: CallbackFn<ListResponse<Group>>);
+    public listGroups(options?: any, callback?: CallbackFn<ListResponse<Group>>): Promise<ListResponse<Group>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -594,11 +381,104 @@ export class AccessApi {
             this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
-                let groups = data.data.map(user => {
-                    return Group.map(user);
+                let groups = data.data.map(group => {
+                    return GroupAdapter.map(group, this);
                 });
 
                 done(null, mapListResponse(data, groups));
+            });
+        }, callback);
+    }
+
+    /**
+     * Get details of a group
+     * @param id The group ID
+     * @returns Promise containing the group
+     */
+    public getGroup(id: string): Promise<Group>;
+    /**
+     * Get details of a group
+     * @param id The group ID
+     * @param callback A function that is passed the arguments (error, group)
+     */
+    public getGroup(id: string, callback: CallbackFn<Group>);
+    public getGroup(id: string, callback?: CallbackFn<Group>): Promise<Group> {
+        return asyncStyle(done => {
+            this._endpoints.developer.getGroupSummary(id, (error, data) => {
+                if (error) return done(error);
+                done(null, GroupAdapter.map(data, this));
+            });
+        }, callback);
+    }
+
+    /**
+     * List users of a group
+     * @param id The group ID
+     * @param options filter options
+     * @returns Promise of listResponse
+     */
+    public listGroupUsers(id: string, options?: ListOptions): Promise<ListResponse<User>>;
+    /**
+     * List users of a group
+     * @param id The group ID
+     * @param options filter options
+     * @param callback A function that is passed the arguments (error, listResponse)
+     */
+    public listGroupUsers(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>);
+    public listGroupUsers(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        let { limit, after, order, include } = options as ListOptions;
+
+        return asyncStyle(done => {
+            this._endpoints.admin.getUsersOfGroup(id, limit, after, order, encodeInclude(include), (error, data) => {
+                if (error) return done(error);
+
+                let users = data.data.map(user => {
+                    return UserAdapter.map(user, this);
+                });
+
+                done(null, mapListResponse(data, users));
+            });
+        }, callback);
+    }
+
+    /**
+     * List API keys of a group
+     * @param id The group ID
+     * @param options filter options
+     * @returns Promise of listResponse
+     */
+    public listGroupApiKeys(id: string, options?: ListOptions): Promise<ListResponse<ApiKey>>;
+    /**
+     * List API keys of a group
+     * @param id The group ID
+     * @param options filter options
+     * @param callback A function that is passed the arguments (error, listResponse)
+     */
+    public listGroupApiKeys(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
+    public listGroupApiKeys(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        let { limit, after, order, include } = options as ListOptions;
+
+        return asyncStyle(done => {
+            this._endpoints.developer.getApiKeysOfGroup(id, limit, after, order, encodeInclude(include), (error, data) => {
+                if (error) return done(error);
+
+                let users = data.data.map(user => {
+                    return ApiKeyAdapter.map(user, this);
+                });
+
+                done(null, mapListResponse(data, users));
             });
         }, callback);
     }

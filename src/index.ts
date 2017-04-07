@@ -16,26 +16,40 @@
 */
 
 export { AccessApi } from "./access";
-export { DevelopmentApi } from "./development";
+export { CertificatesApi } from "./certificates";
 export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
+export { StatisticsApi } from "./statistics";
 export { UpdateApi } from "./update";
 
-// Fix issues - replace all single value calls with value instead of object (#21)
-// Add "getting your API Key"" instructions to readme and make a more long-winded "getting started" mini guide:)
-// Add DeviceSubscriptions models?? <-perhaps after examples
-// add links to examples from inline code
+// TESTING
+// get all tests passing
+// build/release/deploy(docs|npm) system
 
-/**
- * Root Access API:
- * ----------------
- * Available, not implemented
- * access.activateUser
- * access.applyPasswordRecovery
- * access.getInvitedUser
- * access.getSelfEnrollingUser
- * access.registerAccount
- * access.requestPasswordRecovery
- * access.signup
- * access.verifySelfEnrollment
- */
+// PORTING
+// design structure of filter request object - all the crap on listDevices
+// check proxy passes all errors properly
+// get devicesapi.notify working with events
+// remove _api from any object being returned
+
+// EXAMPLES
+// check: device-logs
+// check: webhook
+// check: device-management
+// check: long-polling
+// check: query-management
+// update: certificate
+// add: statistics (node to dump or web to visualize)
+// add: subscriptions (node)
+// add: users/keys management (node)
+// add: update (web)
+
+// OTHER
+// document includeExpired and type on listCertificates()
+// remove noexplicitany?
+// Add DeviceSubscriptions models?? <-perhaps after examples
+// check errors (401, 404) are correctly handled and brought back into error response
+// check top=level error handling (#26)
+// check other github issues
+// doc improvements
+// expose request ID

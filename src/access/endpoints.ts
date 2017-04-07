@@ -17,19 +17,16 @@
 
 import { ConnectionOptions } from "../common/interfaces";
 import {
-    DefaultApi as AccessApi,
     DeveloperApi,
     AccountAdminApi
 } from "../_api/iam";
 
 export class Endpoints {
 
-    access: AccessApi;
     developer: DeveloperApi;
     admin: AccountAdminApi;
 
     constructor(options: ConnectionOptions) {
-        this.access = new AccessApi(options.apiKey, options.host);
         this.developer = new DeveloperApi(options.apiKey, options.host);
         this.admin = new AccountAdminApi(options.apiKey, options.host);
     }

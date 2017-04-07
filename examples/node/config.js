@@ -22,7 +22,6 @@ var commandHost = "host";
 
 // Parse command line arguments
 function parseCommandLine() {
-
 	var commands = process.argv.slice(2);
 	var args = {};
 
@@ -51,7 +50,7 @@ var config = {
 if (process.env[envVarKey]) config.apiKey = process.env[envVarKey];
 if (process.env[envVarHost]) config.host = process.env[envVarHost];
 
-//Overwrite with any commandline variables
+// Overwrite with any commandline variables
 var args = parseCommandLine();
 if (args[commandKey]) config.apiKey = args[commandKey];
 if (args[commandHost]) config.host = args[commandHost];
