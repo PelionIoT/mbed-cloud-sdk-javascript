@@ -621,25 +621,21 @@ export interface UpdatedResponse {
  */
 export interface UserInfoReq {
     /**
-     * A username containing alphanumerical letters and -,._@+= characters.
-     */
-    "username"?: string;
-    /**
-     * Phone number, not longer than 100 characters.
-     */
-    "phone_number"?: string;
-    /**
      * A list of IDs of the groups this user belongs to.
      */
     "groups"?: Array<string>;
     /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
+     * A username containing alphanumerical letters and -,._@+= characters.
      */
-    "is_gtc_accepted"?: boolean;
+    "username"?: string;
     /**
      * A flag indicating that receiving marketing information has been accepted.
      */
     "is_marketing_accepted"?: boolean;
+    /**
+     * A flag indicating that the General Terms and Conditions has been accepted.
+     */
+    "is_gtc_accepted"?: boolean;
     /**
      * The full name of the user, not longer than 100 characters.
      */
@@ -652,6 +648,10 @@ export interface UserInfoReq {
      * The password when creating a new user. It will will generated when not present in the request.
      */
     "password"?: string;
+    /**
+     * Phone number, not longer than 100 characters.
+     */
+    "phone_number"?: string;
     /**
      * The email address, not longer than 100 characters.
      */
