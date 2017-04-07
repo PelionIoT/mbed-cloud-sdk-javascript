@@ -369,7 +369,7 @@ export class DefaultApi extends ApiBase {
      * @param campaignId 
      * @param campaign Update campaign
      */
-    updateCampaignPartialUpdate (campaignId: string, campaign: UpdateCampaignPatchRequest, callback?: (error:any, data?:UpdateCampaignPatchRequest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignPartialUpdate (campaignId: string, campaign: UpdateCampaignPatchRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
