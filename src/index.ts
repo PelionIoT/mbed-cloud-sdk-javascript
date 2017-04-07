@@ -20,17 +20,17 @@ export { CertificatesApi } from "./certificates";
 export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
 export { StatisticsApi } from "./statistics";
-//export { UpdateApi } from "./update";
-
-// PORTING
-// port update to 1.2
-// design structure of filter request object - all the crap on listDevices
-// check proxy passes all errors properly
-// get devicesapi.notify working with events
+export { UpdateApi } from "./update";
 
 // TESTING
 // get all tests passing
 // build/release/deploy(docs|npm) system
+
+// PORTING
+// design structure of filter request object - all the crap on listDevices
+// check proxy passes all errors properly
+// get devicesapi.notify working with events
+// remove _api from any object being returned
 
 // EXAMPLES
 // check: device-logs

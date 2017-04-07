@@ -59,7 +59,7 @@ export function snakeToCamel(snake) {
 
 export function camelToSnake(camel) {
     return camel.replace(/([A-Z]+)/g, function(match) {
-        return "-" + match.toLowerCase();
+        return "_" + match.toLowerCase();
     });
 }
 

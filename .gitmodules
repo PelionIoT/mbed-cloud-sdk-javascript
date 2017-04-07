@@ -1,0 +1,4 @@
+[submodule "tests/testrunner"]
+	path = tests/testrunner
+	url = git@github.com:ARMmbed/mbed-cloud-sdk-testrunner.git
+	branch = master
