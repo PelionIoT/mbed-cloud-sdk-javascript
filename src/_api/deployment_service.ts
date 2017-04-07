@@ -367,9 +367,9 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign fields&lt;/p&gt;
      * @param campaignId 
-     * @param update Campaign Update campaign
+     * @param campaign Update campaign
      */
-    updateCampaignPartialUpdate (campaignId: string, update Campaign: UpdateCampaignPatchRequest, callback?: (error:any, data?:UpdateCampaignPatchRequest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignPartialUpdate (campaignId: string, campaign: UpdateCampaignPatchRequest, callback?: (error:any, data?:UpdateCampaignPatchRequest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -377,10 +377,10 @@ export class DefaultApi extends ApiBase {
             }
             return;
         }
-        // verify required parameter "update Campaign" is set
-        if (update Campaign === null || update Campaign === undefined) {
+        // verify required parameter "campaign" is set
+        if (campaign === null || campaign === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'update Campaign' missing when calling 'updateCampaignPartialUpdate'."));
+                callback(new Error("Required parameter 'campaign' missing when calling 'updateCampaignPartialUpdate'."));
             }
             return;
         }
@@ -400,7 +400,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
-            body: update Campaign,
+            body: campaign,
         }, callback);
     }
     /** 
@@ -436,9 +436,9 @@ export class DefaultApi extends ApiBase {
     /** 
      * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign&lt;/p&gt;
      * @param campaignId 
-     * @param update Campaign Update campaign
+     * @param campaign Update campaign
      */
-    updateCampaignUpdate (campaignId: string, update Campaign: UpdateCampaignPutRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignUpdate (campaignId: string, campaign: UpdateCampaignPutRequest, callback?: (error:any, data?:UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -446,10 +446,10 @@ export class DefaultApi extends ApiBase {
             }
             return;
         }
-        // verify required parameter "update Campaign" is set
-        if (update Campaign === null || update Campaign === undefined) {
+        // verify required parameter "campaign" is set
+        if (campaign === null || campaign === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'update Campaign' missing when calling 'updateCampaignUpdate'."));
+                callback(new Error("Required parameter 'campaign' missing when calling 'updateCampaignUpdate'."));
             }
             return;
         }
@@ -469,7 +469,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             formParams: formParams,
             json: true,
-            body: update Campaign,
+            body: campaign,
         }, callback);
     }
 }
