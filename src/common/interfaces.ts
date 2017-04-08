@@ -82,5 +82,5 @@ export interface ListResponse<T> {
     /**
     * Devices
     */
-    data?: T[];
+    data?: Array<T>;
 }

@@ -63,7 +63,7 @@ export function camelToSnake(camel) {
     });
 }
 
-export function mapListResponse<T>(from: any, data:T[]): ListResponse<T> {
+export function mapListResponse<T>(from: any, data:Array<T>): ListResponse<T> {
     let to: ListResponse<T> = {};
 
     to.after         = from.after;
