@@ -53,9 +53,9 @@ export interface ListOptions {
      */
     include?: IncludeEnum[];
     /**
-     * The filter attributes of the filter
+     * The filter
      */
-    attributes?: { [key: string]: string };
+    filter?: { [key: string]: string };
 }
 
 export interface ListResponse<T> {

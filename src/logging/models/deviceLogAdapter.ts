@@ -25,14 +25,15 @@ export class DeviceLogAdapter {
 
     static map(from: apiDeviceLog): DeviceLog {
         return new DeviceLog({
-            id:                      from.device_log_id,
+            id:                      from.id || from.device_log_id,
             eventDate:               from.date_time,
             stateChanged:            from.state_change,
             description:             from.description,
             changes:                 from.changes,
             eventTypeDescription:    from.event_type_description,
             eventType:               from.event_type,
-            data:                    from.data
+            data:                    from.data,
+            deviceId:                from.device_id
         });
     }
 }

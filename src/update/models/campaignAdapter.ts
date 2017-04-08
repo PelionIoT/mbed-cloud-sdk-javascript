@@ -15,7 +15,6 @@
 * limitations under the License.
 */
 
-import { encodeFilter, decodeAttributes } from "../../common/functions";
 import {
     UpdateCampaign as apiCampaign,
     UpdateCampaignPostRequest as apiCampaignAdd,
@@ -30,13 +29,9 @@ import { Campaign } from "./campaign";
  */
 export class CampaignAdapter {
 
-    static readonly CUSTOM_PREFIX = "custom_attributes__";
-
     static map(from: apiCampaign, api: UpdateApi): Campaign {
-        let attributes = decodeAttributes(from.device_filter, CampaignAdapter.CUSTOM_PREFIX);
         return new Campaign({
-            attributes:          attributes.noMatch,
-            customAttributes:    attributes.match,
+            deviceFilter:        from.device_filter,
             createdAt:           from.created_at ? new Date(from.created_at) : null,
             description:         from.description,
             finishDate:          from.finished ? new Date(from.finished) : null,
@@ -53,22 +48,22 @@ export class CampaignAdapter {
     static addMap(from: AddCampaignObject): apiCampaignAdd {
         return {
             description:         from.description,
-            device_filter:       encodeFilter(from, CampaignAdapter.CUSTOM_PREFIX),
+            device_filter:       from.deviceFilter,
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,
-            when:                from.scheduledStart.toISOString()
+            when:                from.scheduledStart ? from.scheduledStart.toISOString() : null
         };
     }
 
     static updateMap(from: UpdateCampaignObject): apiCampaignUpdate {
         return {
             description:         from.description,
-            device_filter:       encodeFilter(from, CampaignAdapter.CUSTOM_PREFIX),
+            device_filter:       from.deviceFilter,
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,
-            when:                from.scheduledStart.toISOString()
+            when:                from.scheduledStart ? from.scheduledStart.toISOString() : null
         };
     }
 }

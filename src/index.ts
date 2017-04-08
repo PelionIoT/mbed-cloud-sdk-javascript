@@ -23,14 +23,16 @@ export { StatisticsApi } from "./statistics";
 export { UpdateApi } from "./update";
 
 // TESTING
-// get all tests passing
-// build/release/deploy(docs|npm) system
+// build/test/release(github branch)/deploy(docs|npm?)/tag system
 
 // PORTING
+// check errors (401, 404) are correctly handled and brought back into error response
+// check top=level error handling (#26)
+// check other github issues
 // design structure of filter request object - all the crap on listDevices
-// check proxy passes all errors properly
 // get devicesapi.notify working with events
-// remove _api from any object being returned
+// check proxy passes all errors properly
+// remove _api from any object being returned?
 
 // EXAMPLES
 // check: device-logs
@@ -48,8 +50,5 @@ export { UpdateApi } from "./update";
 // document includeExpired and type on listCertificates()
 // remove noexplicitany?
 // Add DeviceSubscriptions models?? <-perhaps after examples
-// check errors (401, 404) are correctly handled and brought back into error response
-// check top=level error handling (#26)
-// check other github issues
 // doc improvements
 // expose request ID

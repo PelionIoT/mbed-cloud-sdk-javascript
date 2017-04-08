@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { asyncStyle, mapListResponse, encodeInclude, encodeAttributes } from "../common/functions";
+import { asyncStyle, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
 import { ConnectionOptions, ListOptions, ListResponse, CallbackFn } from "../common/interfaces";
 import { AddFirmwareImageObject, AddFirmwareManifestObject, AddCampaignObject, UpdateCampaignObject } from "./types";
 import { Endpoints } from "./endpoints";
@@ -82,10 +82,9 @@ export class UpdateApi {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include } = options as ListOptions;
-        let filter = encodeAttributes(options);
+        let { limit, order, after, include, filter } = options as ListOptions;
         return asyncStyle(done => {
-            this._endpoints.firmware.firmwareImageList(limit, order, after, filter, encodeInclude(include),
+            this._endpoints.firmware.firmwareImageList(limit, order, after, encodeFilter(filter), encodeInclude(include),
                 null, null, null, null, null, null, null, null, null, null,
                 null, null, null, (error, data) => {
                 if (error) return done(error);
@@ -180,10 +179,9 @@ export class UpdateApi {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include } = options as ListOptions;
-        let filter = encodeAttributes(options);
+        let { limit, order, after, include, filter } = options as ListOptions;
         return asyncStyle(done => {
-            this._endpoints.firmware.firmwareManifestList(limit, order, after, filter, encodeInclude(include),
+            this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeFilter(filter), encodeInclude(include),
                 null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null, (error, data) => {
                 if (error) return done(error);
@@ -278,10 +276,9 @@ export class UpdateApi {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include } = options as ListOptions;
-        let filter = encodeAttributes(options);
+        let { limit, order, after, include, filter } = options as ListOptions;
         return asyncStyle(done => {
-            this._endpoints.deployment.updateCampaignList(limit, order, after, filter, encodeInclude(include),
+            this._endpoints.deployment.updateCampaignList(limit, order, after, encodeFilter(filter), encodeInclude(include),
                 null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null, null,
                 null, null, null, (error, data) => {

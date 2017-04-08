@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { asyncStyle, mapListResponse, encodeAttributes, encodeInclude } from "../common/functions";
+import { asyncStyle, mapListResponse, encodeFilter, encodeInclude } from "../common/functions";
 import { ConnectionOptions, CallbackFn, ListOptions, ListResponse } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
 import { DeviceLogAdapter } from "./models/deviceLogAdapter";
@@ -78,11 +78,9 @@ export class LoggingApi {
             options = {};
         }
 
-        let { limit, order, after, attributes, include } = options as ListOptions;
-        let filter = encodeAttributes(attributes);
-
+        let { limit, order, after, include, filter } = options as ListOptions;
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceLogList(limit, order, after, filter, encodeInclude(include), (error, data) => {
+            this._endpoints.catalog.deviceLogList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {

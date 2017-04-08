@@ -110,8 +110,8 @@ export class CertificatesApi {
             options = {};
         }
 
-        let { limit, after, order, include, attributes } = options as ListOptions;
-        let type = attributes ? attributes["type"] : "developer";
+        let { limit, after, order, include, filter } = options as ListOptions;
+        let type = filter ? filter["type"] : "developer";
         let serviceEq = type === "developer" ? "bootstrap" : type;
         let executionMode = type === "developer" ? 1 : 0;
 

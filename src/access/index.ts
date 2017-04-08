@@ -125,8 +125,8 @@ export class AccessApi {
             options = {};
         }
 
-        let { limit, after, order, include, attributes } = options as ListOptions;
-        let owner = attributes ? attributes["owner"] : null;
+        let { limit, after, order, include, filter } = options as ListOptions;
+        let owner = filter ? filter["owner"] : null;
 
         return asyncStyle(done => {
             this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), owner, (error, data) => {
@@ -256,8 +256,8 @@ export class AccessApi {
             options = {};
         }
 
-        let { limit, after, order, include, attributes } = options as ListOptions;
-        let status = attributes ? attributes["status"] : null;
+        let { limit, after, order, include, filter } = options as ListOptions;
+        let status = filter ? filter["status"] : null;
 
         return asyncStyle(done => {
             this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), status, (error, data) => {
