@@ -114,9 +114,10 @@ export interface DeviceLogData {
     "changes"?: any;
     "event_type_description"?: string;
     "device_log_id"?: string;
+    "event_type"?: string;
     "data"?: any;
     "id"?: string;
-    "event_type"?: string;
+    "device_id"?: string;
 }
 
 export interface DeviceLogPage {
