@@ -1,13 +1,12 @@
 var http = require('http');
 var express = require('express');
-var mbedSDK = require('../lib/');
+var mbedCloudSDK = require('../lib/');
 var mapping = require("./mapping");
-var functions = require('../lib/common/functions');
 
 var port = 5000;
 var envVarKey = "MBED_CLOUD_API_KEY";
 var envVarHost = "MBED_CLOUD_HOST";
-var line = "------------------------------------------\n";
+var line = "---------------------------------------------------------\n";
 
 
 // Environment configuration
@@ -22,13 +21,32 @@ if (!config.apiKey) {
 }
 
 var modules = {
-    AccessApi: new mbedSDK.AccessApi(config),
-    LoggingApi: new mbedSDK.LoggingApi(config),
-    CertificatesApi: new mbedSDK.CertificatesApi(config)
+    AccessApi: new mbedCloudSDK.AccessApi(config),
+    CertificatesApi: new mbedCloudSDK.CertificatesApi(config),
+    DevicesApi: new mbedCloudSDK.DevicesApi(config),
+    LoggingApi: new mbedCloudSDK.LoggingApi(config),
+    StatisticsApi: new mbedCloudSDK.StatisticsApi(config),
+    UpdateApi: new mbedCloudSDK.UpdateApi(config)
 }
 
 var app = express();
+app.get("/_init", (req, res, next) => {
+    res.send({});
+});
+
+function sendError(res, error) {
+    var statusCode = error.status || 500;
+    var message = error.toString() || error;
+
+    console.log(`\t${statusCode}: ${message}`);
+    res.status(statusCode).send({
+        message: message
+    });
+}
+
 app.get("/:module/:method", (req, res, next) => {
+
+    console.log(`\turl: http://localhost:${port}${req.url}`);
 
     // Module
     var module = req.params["module"];
@@ -36,27 +54,30 @@ app.get("/:module/:method", (req, res, next) => {
     module = `${module}Api`;
 
     // Method
-    var method = req.params["method"];
-    method = functions.snakeToCamel(method);
+    var method = mapping.mapMethod(module, req.params["method"]);
 
-    // Args
-    var args = req.query["args"] || null;
-    try {
-        var jsonString = '{"' + decodeURI(args).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}';
-        args = JSON.parse(jsonString);
-    } catch(e) {}
-
-    args = mapping(module, method, args);
-
-    console.log(`${line}Calling '${method}' on '${module}'...`);
-    if (args) {
-        console.log("using args:", args, "...");
+    if (!modules[module] || !modules[module][method]) {
+        return sendError(res, `'${method}' not found on '${module}'`);
     }
 
-    modules[module][method](args, result => {
-        console.log(`done`);
-        res.send(result);
+    // Args
+    var args = mapping.mapArgs(module, method, req.query["args"]);
+
+    console.log(`\tCalling '${method}' on '${module}'`);
+    if (args.length) {
+        console.log("\tusing args:", args);
+    }
+
+    args.push((error, result) => {
+        if (error) {
+            return sendError(res, error);
+        }
+        result = mapping.mapResult(module, method, result);
+        res.json(result);
     });
+
+    // Call
+    modules[module][method].apply(modules[module], args);
 });
 
 // Start server
