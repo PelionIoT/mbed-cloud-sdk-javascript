@@ -30,7 +30,7 @@ test:
 
 deployment:
   staging:
-    branch: circle-changes
+    branch: master
     commands:
       - echo Syncing $SDK_NAME to S3...
       - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://$SDK_NAME
