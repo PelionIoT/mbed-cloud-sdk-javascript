@@ -14,7 +14,7 @@ checkout:
   post:
     - git config --global user.name "Circle CI"
     - git config --global user.email build@circleci.com
-    - git submodule update --remote --force
+    - git submodule update --init --remote --force
 
 dependencies:
   post:
