@@ -18,9 +18,9 @@
 import superagent = require("superagent");
 import { EventEmitter } from "events";
 import { asyncStyle, decodeBase64, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
-import { ConnectionOptions, ListResponse, CallbackFn } from "../common/interfaces";
+import { ConnectionOptions, ListResponse, CallbackFn, ListOptions } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { NotificationObject, NotificationOptions, PresubscriptionObject, AddDeviceObject, UpdateDeviceObject, DeviceEvent, QueryOptions, AddQueryObject, UpdateQueryObject } from "./types";
+import { NotificationObject, NotificationOptions, PresubscriptionObject, AddDeviceObject, UpdateDeviceObject, DeviceEvent, AddQueryObject, UpdateQueryObject } from "./types";
 import { Webhook } from "./models/webhook";
 import { WebhookAdapter } from "./models/webhookAdapter";
 import { PresubscriptionAdapter } from "./models/presubscriptionAdapter";
@@ -213,7 +213,7 @@ export class DevicesApi extends EventEmitter {
 
                 if (!this.handleNotifications) return;
 
-                this._notify(data);
+                this.notify(data);
 
                 if (requestCallback && data["async-responses"]) requestCallback(error, data["async-responses"]);
 
@@ -337,16 +337,16 @@ export class DevicesApi extends EventEmitter {
     }
 
     /**
-     * Gets pre-subscription data
-     * @returns Promise containing data
+     * Gets a list of pre-subscription data
+     * @returns Promise containing pre-subscriptions
      */
-    public getPresubscription(): Promise<Array<PresubscriptionObject>>;
+    public listPresubscriptions(): Promise<Array<PresubscriptionObject>>;
     /**
-     * Gets pre-subscription data
-     * @param callback A function that is passed (error, data)
+     * Gets a list of pre-subscription data
+     * @param callback A function that is passed (error, pre-subscriptions)
      */
-    public getPresubscription(callback: CallbackFn<Array<PresubscriptionObject>>);
-    public getPresubscription(callback?: CallbackFn<Array<PresubscriptionObject>>): Promise<Array<PresubscriptionObject>> {
+    public listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>);
+    public listPresubscriptions(callback?: CallbackFn<Array<PresubscriptionObject>>): Promise<Array<PresubscriptionObject>> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsGet((error, data) => {
                 if (error) return done(error);
@@ -362,14 +362,14 @@ export class DevicesApi extends EventEmitter {
      * @param subscriptions The pre-subscription data array
      * @returns Promise containing any error
      */
-    public updatePresubscription(subscriptions: Array<PresubscriptionObject>): Promise<void>;
+    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>): Promise<void>;
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
      * @param subscriptions The pre-subscription data array
      * @param callback A function that is passed any error
      */
-    public updatePresubscription(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>);
-    public updatePresubscription(subscriptions: Array<PresubscriptionObject>, callback?: CallbackFn<void>): Promise<void> {
+    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>);
+    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback?: CallbackFn<void>): Promise<void> {
         let presubs = subscriptions.map(PresubscriptionAdapter.reverseMap);
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsPut(presubs, error => {
@@ -383,13 +383,13 @@ export class DevicesApi extends EventEmitter {
      * Deletes pre-subscription data
      * @returns Promise containing any error
      */
-    public deletePresubscription(): Promise<void>;
+    public deletePresubscriptions(): Promise<void>;
     /**
      * Deletes pre-subscription data
      * @param callback A function that is passed any error
      */
-    public deletePresubscription(callback: CallbackFn<void>);
-    public deletePresubscription(callback?: CallbackFn<void>): Promise<void> {
+    public deletePresubscriptions(callback: CallbackFn<void>);
+    public deletePresubscriptions(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsPut([], error => {
                 if (error) return done(error);
@@ -422,13 +422,13 @@ export class DevicesApi extends EventEmitter {
      * @param options list options
      * @returns Promise of devices
      */
-    public listDevices(options?: QueryOptions): Promise<ListResponse<Device>>;
+    public listDevices(options?: ListOptions): Promise<ListResponse<Device>>;
     /**
      * Gets a list of devices
      * @param options list options
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listDevices(options?: QueryOptions, callback?: CallbackFn<ListResponse<Device>>);
+    public listDevices(options?: ListOptions, callback?: CallbackFn<ListResponse<Device>>);
     public listDevices(options?: any, callback?: CallbackFn<ListResponse<Device>>): Promise<ListResponse<Device>> {
         options = options || {};
         if (typeof options === "function") {
@@ -436,11 +436,9 @@ export class DevicesApi extends EventEmitter {
             options = {};
         }
 
-        let { limit, after, order, include } = options as QueryOptions;
-        let filter = encodeFilter(options, QueryAdapter.CUSTOM_PREFIX);
-
+        let { limit, after, order, include, filter } = options;
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceList(limit, order, after, filter, encodeInclude(include),
+            this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter), encodeInclude(include),
                 null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null, null,
@@ -900,14 +898,14 @@ export class DevicesApi extends EventEmitter {
      * @param callback A function containing a list response
      * @returns Promise containing a list response
      */
-    public listQueries(options?: QueryOptions): Promise<ListResponse<Query>>;
+    public listQueries(options?: ListOptions): Promise<ListResponse<Query>>;
     /**
      * List queries
      * @param options list options
      * @param callback A function containing a list response
      * @returns Promise containing a list response
      */
-    public listQueries(options?: QueryOptions, callback?: CallbackFn<ListResponse<Query>>);
+    public listQueries(options?: ListOptions, callback?: CallbackFn<ListResponse<Query>>);
     public listQueries(options?:any, callback?: CallbackFn<ListResponse<Query>>): Promise<ListResponse<Query>> {
         options = options || {};
         if (typeof options === "function") {
@@ -915,11 +913,9 @@ export class DevicesApi extends EventEmitter {
             options = {};
         }
 
-        let { limit, order, after, include } = options as QueryOptions;
-        let filter = encodeFilter(options, QueryAdapter.CUSTOM_PREFIX);
-
+        let { limit, order, after, include, filter } = options;
         return asyncStyle(done => {
-            this._endpoints.query.deviceQueryList(limit, order, after, filter, encodeInclude(include),
+            this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter), encodeInclude(include),
                 null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, (error, data) => {
                 if (error) return done(error);

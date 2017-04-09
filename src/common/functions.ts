@@ -63,7 +63,7 @@ export function camelToSnake(camel) {
     });
 }
 
-export function mapListResponse<T>(from: any, data:T[]): ListResponse<T> {
+export function mapListResponse<T>(from: any, data:Array<T>): ListResponse<T> {
     let to: ListResponse<T> = {};
 
     to.after         = from.after;
@@ -76,7 +76,7 @@ export function mapListResponse<T>(from: any, data:T[]): ListResponse<T> {
     return to;
 }
 
-export function encodeAttributes(from: { [key: string]: string }, prefix: string = ""): string {
+export function encodeFilter(from: { [key: string]: string }, prefix: string = ""): string {
     if (!from) return "";
 
     return Object.keys(from).map(key => {
@@ -84,7 +84,19 @@ export function encodeAttributes(from: { [key: string]: string }, prefix: string
     }).join("&");
 }
 
-export function decodeAttributes(from: string, prefix: string = ""): { match: { [key: string]: string }, noMatch: { [key: string]: string } } {
+export function encodeCustomFilter(from: { filter?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, customPrefix: string): string {
+    let filter = encodeFilter(from.filter);
+    let custom = encodeFilter(from.customAttributes, customPrefix);
+
+    if (custom) {
+        if (filter) filter += "&";
+        filter += custom;
+    }
+
+    return filter;
+}
+
+export function decodeCustomFilter(from: string, prefix: string = ""): { match: { [key: string]: string }, noMatch: { [key: string]: string } } {
     let to = { match: {}, noMatch: {} };
     let re = new RegExp(`^(${prefix})?(.+)=(.+)$`);
 
@@ -98,16 +110,4 @@ export function decodeAttributes(from: string, prefix: string = ""): { match: { 
     });
 
     return to;
-}
-
-export function encodeFilter(from: { attributes?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, customPrefix: string): string {
-    let filter = encodeAttributes(from.attributes);
-    let custom = encodeAttributes(from.customAttributes, customPrefix);
-
-    if (custom) {
-        if (filter) filter += "&";
-        filter += custom;
-    }
-
-    return filter;
 }

@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { ListOptions, CallbackFn } from "../common/interfaces";
+import { CallbackFn } from "../common/interfaces";
 
 export interface NotificationObject {
     /**
@@ -124,7 +124,7 @@ export interface DeviceObject {
     /**
      * ID of the issuer of the certificate
      */
-    certificateIssuerID?: string;
+    certificateIssuerId?: string;
     /**
      * Fingerprint of the device certificate
      */
@@ -155,7 +155,7 @@ export interface AddDeviceObject extends DeviceObject {
     /**
      * ID of the issuer of the certificate
      */
-    certificateIssuerID: string;
+    certificateIssuerId: string;
     /**
      * Fingerprint of the device certificate
      */
@@ -239,9 +239,9 @@ export interface QueryObject {
      */
     description?: string;
     /**
-     * The attributes of the query
+     * The query
      */
-    attributes?: { [key: string]: string };
+    query?: { [key: string]: string };
     /**
      * The custom attributes of the query
      */
@@ -264,11 +264,4 @@ export interface AddQueryObject extends QueryObject {
      * The description of the query
      */
     description: string;
-}
-
-export interface QueryOptions extends ListOptions {
-    /**
-     * The custom attributes of the query
-     */
-    customAttributes?: { [key: string]: string };
 }

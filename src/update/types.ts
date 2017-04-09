@@ -52,6 +52,10 @@ export interface CampaignObject {
      */
     name?: string;
     /**
+     * The device filter to use
+     */
+    deviceFilter?: string;
+    /**
      * An optional description of the campaign
      */
     description?: string;
@@ -67,14 +71,6 @@ export interface CampaignObject {
      * The timestamp at which update campaign scheduled to start
      */
     scheduledStart?: Date;
-    /**
-     * The attributes of the filter
-     */
-    attributes?: { [key: string]: string };
-    /**
-     * The custom attributes of the filter
-     */
-    customAttributes?: { [key: string]: string };
 }
 
 export interface AddCampaignObject extends CampaignObject{
@@ -83,9 +79,9 @@ export interface AddCampaignObject extends CampaignObject{
      */
     name: string;
     /**
-     * The attributes of the filter
+     * The device filter to use
      */
-    attributes: { [key: string]: string };
+    deviceFilter: string;
 }
 
 export interface UpdateCampaignObject extends CampaignObject{
