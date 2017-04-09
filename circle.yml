@@ -37,7 +37,7 @@ deployment:
       - echo Syncing $SDK_NAME to $SDK_BRANCH on GitHub...
       - git checkout $SDK_BRANCH
       - git add -f bundles/ lib/ types/
-      - git commit -m "Automatic Deployment"
+      - git commit --allow-empty -m "Automatic Deployment"
       - git push
   release:
     branch: /release-.*/
