@@ -120,11 +120,9 @@
                     // Update value
                     button.addEventListener("click", function() {
                         var value = window.prompt("Enter the new resource value", valueCell.innerHTML);
-                        if (!name) return;
+                        if (!value) return;
 
-                        resource.setValue({
-                            value: value
-                        }, function(err) {
+                        resource.setValue(value, function(err) {
                             resource.getValue(updateValue);
                         });
                     });

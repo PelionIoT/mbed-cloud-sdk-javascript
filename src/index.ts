@@ -24,6 +24,7 @@ export { UpdateApi } from "./update";
 
 // TESTING
 // build/test/release(github branch)/deploy(docs|npm?)/tag system
+// make testrunner builds trigger SDK builds
 
 // PORTING
 // check errors (401, 404) are correctly handled and brought back into error response
