@@ -5,13 +5,39 @@ general:
 machine:
   node:
     version: 4.7.0
+  environment:
+    SDK_NAME: mbed-cloud-sdk-javascript
+    SDK_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
+    SDK_BRANCH: build
+
+checkout:
+  post:
+    - git config --global user.name "Circle CI"
+    - git config --global user.email build@circleci.com
+    - git submodule update --remote --force
+
+dependencies:
+  post:
+    - npm run gulp
 
 test:
   override:
-    - npm run gulp
+    - npm test
 
 deployment:
-  production:
-    branch: master
+  staging:
+    branch: circle-changes
     commands:
-      - if [[ -n $AWS_ACCESS_KEY_ID && -n $AWS_SECRET_ACCESS_KEY && -n $AWS_DEFAULT_REGION ]] ; then aws s3 sync --delete --cache-control max-age=3600 docs/ s3://mbed-cloud-sdk-javascript; fi
+      - echo Syncing $SDK_NAME to S3...
+      - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://$SDK_NAME
+      - echo Syncing $SDK_NAME to $SDK_BRANCH on GitHub...
+      - git checkout $SDK_BRANCH
+      - git add bundles/ lib/ types/
+      - git commit -m "Automatic Deployment"
+      - git push
+  release:
+    branch: /release-.*/
+    commands:
+      - echo Tagging $SDK_NAME in GitHub...
+      - git tag ${SDK_TAG}
+      - git push --tags
