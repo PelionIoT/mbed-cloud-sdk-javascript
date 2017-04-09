@@ -15,6 +15,7 @@ checkout:
     - git config --global user.name "Circle CI"
     - git config --global user.email build@circleci.com
     - git submodule update --init --remote --force
+    - pip install -r tests/testrunner/requirements.txt
 
 dependencies:
   post:
