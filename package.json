@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "node examples/proxy/server.js",
-    "test": "tests/run.sh",
+    "test": "node tests/server.js",
     "gulp": "gulp"
   },
   "devDependencies": {
