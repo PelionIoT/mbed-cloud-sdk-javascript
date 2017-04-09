@@ -36,7 +36,7 @@ deployment:
       - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://$SDK_NAME
       - echo Syncing $SDK_NAME to $SDK_BRANCH on GitHub...
       - git checkout $SDK_BRANCH
-      - git add bundles/ lib/ types/
+      - git add -f bundles/ lib/ types/
       - git commit -m "Automatic Deployment"
       - git push
   release:
