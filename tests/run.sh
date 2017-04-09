@@ -1,7 +1,8 @@
 #!/bin/bash
-set -e
 
+set -e
 cd "${0%/*}"
+
 node server.js &
 pid=$!
 
@@ -10,4 +11,4 @@ function finish {
 }
 trap finish EXIT
 
-./testrunner/bin/trunner -s http://localhost:5000
+python testrunner/bin/trunner -s http://localhost:5000
