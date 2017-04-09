@@ -16,7 +16,8 @@ checkout:
     - git config --global user.email build@circleci.com
     - git submodule update --init --remote --force
     - pip install -r tests/testrunner/requirements.txt
-    - python tests/testrunner/setup.py install
+    - python setup.py install:
+        pwd: tests/testrunner
 
 dependencies:
   post:
@@ -24,7 +25,8 @@ dependencies:
 
 test:
   override:
-    - npm test
+    - bash run.sh:
+        pwd: tests
 
 deployment:
   staging:
