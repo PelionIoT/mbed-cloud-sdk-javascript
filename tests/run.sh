@@ -9,4 +9,5 @@ function finish {
 }
 trap finish EXIT
 
+sleep 1
 python testrunner/bin/trunner -s http://localhost:5000
