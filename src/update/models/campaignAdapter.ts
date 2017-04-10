@@ -34,14 +34,14 @@ export class CampaignAdapter {
             deviceFilter:        from.device_filter,
             createdAt:           from.created_at ? new Date(from.created_at) : null,
             description:         from.description,
-            finishDate:          from.finished ? new Date(from.finished) : null,
+            finishedAt:          from.finished ? new Date(from.finished) : null,
             id:                  from.id,
             manifestId:          from.root_manifest_id,
             manifestUrl:         from.root_manifest_url,
             name:                from.name,
-            startDate:           from.started_at,
+            startedAt:           from.started_at,
             state:               from.state,
-            scheduledStart:      from.when ? new Date(from.when) : null,
+            scheduledAt:         from.when ? new Date(from.when) : null,
         }, api);
     }
 
@@ -52,7 +52,7 @@ export class CampaignAdapter {
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,
-            when:                from.scheduledStart ? from.scheduledStart.toISOString() : null
+            when:                from.scheduledAt ? from.scheduledAt.toISOString() : null
         };
     }
 
@@ -63,7 +63,7 @@ export class CampaignAdapter {
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,
-            when:                from.scheduledStart ? from.scheduledStart.toISOString() : null
+            when:                from.scheduledAt ? from.scheduledAt.toISOString() : null
         };
     }
 }

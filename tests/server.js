@@ -36,7 +36,11 @@ app.get("/_init", (req, res, next) => {
 
 function sendError(res, error) {
     var statusCode = error.status || 500;
-    var message = error.toString() || error;
+    var message;
+    if (!error.response) message = error.toString();
+    else if (!error.response.error) message = error.response.toString();
+    else if (!error.response.error.text) message = error.response.error.toString();
+    else message = error.response.error.text.toString();
 
     console.log(`\t${statusCode}: ${message}`);
     res.status(statusCode).send({

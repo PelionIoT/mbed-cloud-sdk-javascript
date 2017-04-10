@@ -36,7 +36,7 @@ export class QueryAdapter {
         let attributes = decodeCustomFilter(from.query, CUSTOM_PREFIX);
 
         return new Query({
-            query:               attributes.noMatch,
+            filter:              attributes.noMatch,
             customAttributes:    attributes.match,
             createdAt:           from.created_at,
             description:         from.description,

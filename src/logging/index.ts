@@ -94,19 +94,19 @@ export class LoggingApi {
 
     /**
      * Get a single device log
-     * @param id device log ID
+     * @param deviceLogId device log ID
      * @returns Promise of device log
      */
-    public getDeviceLog(id: string): Promise<DeviceLog>;
+    public getDeviceLog(deviceLogId: string): Promise<DeviceLog>;
     /**
      * Get a single device log
-     * @param id device log ID
+     * @param deviceLogId device log ID
      * @param callback A function that is passed the return arguments (error, device log)
      */
-    public getDeviceLog(id: string, callback: CallbackFn<DeviceLog>);
-    public getDeviceLog(id: string, callback?: CallbackFn<DeviceLog>): Promise<DeviceLog> {
+    public getDeviceLog(deviceLogId: string, callback: CallbackFn<DeviceLog>);
+    public getDeviceLog(deviceLogId: string, callback?: CallbackFn<DeviceLog>): Promise<DeviceLog> {
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceLogRetrieve(id, (error, data) => {
+            this._endpoints.catalog.deviceLogRetrieve(deviceLogId, (error, data) => {
                 if (error) return done(error);
                 let log = DeviceLogAdapter.map(data);
                 done(null, log);

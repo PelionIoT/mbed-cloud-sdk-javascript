@@ -62,33 +62,17 @@ export class CertificatesApi {
     }
 
     private extendCertificate(iamCert: iamCertificate, done: Function) {
+        var dataFn = "";
+        if (iamCert.service === "bootstrap") dataFn = "v3ServerCredentialsBootstrapGet";
+        if (iamCert.service === "lwm2m") dataFn = "v3ServerCredentialsLwm2mGet";
 
-        let certificate:Certificate = null;
-
-        switch (certificate.type) {
-            case "developer":
-                this._endpoints.developer.v3DeveloperCertificatesIdGet(certificate.id, "", (error, data) => {
-                    if (error) return done(error);
-                    certificate = CertificateAdapter.mapDeveloperCertificate(iamCert, this, data);
-                });
-                break;
-
-            case "bootstrap":
-                this._endpoints.server.v3ServerCredentialsBootstrapGet("", (error, data) => {
-                    if (error) return done(error);
-                    certificate = CertificateAdapter.mapServerCertificate(iamCert, this, data);
-                });
-                break;
-
-            case "lwm2m":
-                this._endpoints.server.v3ServerCredentialsLwm2mGet("", (error, data) => {
-                    if (error) return done(error);
-                    certificate = CertificateAdapter.mapServerCertificate(iamCert, this, data);
-                });
-                break;
+        if (dataFn) {
+            this._endpoints.server[dataFn]("", (error, data) => {
+                if (error) return done(error);
+                var certificate = CertificateAdapter.mapServerCertificate(iamCert, this, data);
+                done(null, certificate);
+            });
         }
-
-        done(null, certificate);
     }
 
     /**
@@ -129,19 +113,19 @@ export class CertificatesApi {
 
     /**
      * Get details of a certificate
-     * @param id The certificate ID
+     * @param certificateId The certificate ID
      * @returns Promise containing the certificate
      */
-    public getCertificate(id: string): Promise<Certificate>;
+    public getCertificate(certificateId: string): Promise<Certificate>;
     /**
      * Get details of a certificate
-     * @param id The certificate ID
+     * @param certificateId The certificate ID
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public getCertificate(id: string, callback: CallbackFn<Certificate>);
-    public getCertificate(id: string, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
+    public getCertificate(certificateId: string, callback: CallbackFn<Certificate>);
+    public getCertificate(certificateId: string, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
         return asyncStyle(done => {
-            this._endpoints.admin.getCertificate(id, (error, data) => {
+            this._endpoints.admin.getCertificate(certificateId, (error, data) => {
                 if (error) return done(error);
                 this.extendCertificate(data, done);
             });
@@ -176,7 +160,7 @@ export class CertificatesApi {
         return asyncStyle(done => {
 
             function isCert(cert: AddDeveloperCertificateObject | AddCertificateObject): cert is AddCertificateObject {
-                return (<AddCertificateObject>cert).type !== undefined;
+                return (<AddCertificateObject>cert).type !== undefined && (<AddCertificateObject>cert).type !== "developer";
             }
 
             if (isCert(certificate)) {
@@ -222,19 +206,19 @@ export class CertificatesApi {
 
     /**
      * Deletes a certificate
-     * @param id The certificate ID
+     * @param certificateId The certificate ID
      * @returns Promise containing any error
      */
-    public deleteCertificate(id: string): Promise<void>;
+    public deleteCertificate(certificateId: string): Promise<void>;
     /**
      * Deletes a certificate
-     * @param id The certificate ID
+     * @param certificateId The certificate ID
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteCertificate(id: string, callback: CallbackFn<void>);
-    public deleteCertificate(id: string, callback?: CallbackFn<void>): Promise<void> {
+    public deleteCertificate(certificateId: string, callback: CallbackFn<void>);
+    public deleteCertificate(certificateId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.admin.deleteCertificate(id, (error, data) => {
+            this._endpoints.admin.deleteCertificate(certificateId, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });

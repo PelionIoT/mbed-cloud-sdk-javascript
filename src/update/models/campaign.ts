@@ -44,11 +44,11 @@ export class Campaign {
     /**
      * The timestamp at which update campaign scheduled to start
      */
-    readonly startDate?: Date;
+    readonly startedAt?: Date;
     /**
      * The timestamp when the update campaign finished
      */
-    readonly finishDate?: Date;
+    readonly finishedAt?: Date;
 
     constructor(init?: Partial<Campaign>, private _api?: UpdateApi) {
         for(var key in init) {

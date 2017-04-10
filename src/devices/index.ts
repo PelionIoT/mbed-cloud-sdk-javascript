@@ -493,19 +493,19 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Gets details of a device
-     * @param id Device ID
+     * @param deviceId Device ID
      * @returns Promise of device
      */
-    public getDevice(id: string): Promise<Device>;
+    public getDevice(deviceId: string): Promise<Device>;
     /**
      * Gets details of a device
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param callback A function that is passed the arguments (error, device)
      */
-    public getDevice(id: string, callback: CallbackFn<Device>);
-    public getDevice(id: string, callback?: CallbackFn<Device>): Promise<Device> {
+    public getDevice(deviceId: string, callback: CallbackFn<Device>);
+    public getDevice(deviceId: string, callback?: CallbackFn<Device>): Promise<Device> {
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceRetrieve(id, (error, data) => {
+            this._endpoints.catalog.deviceRetrieve(deviceId, (error, data) => {
                 if (error) return done(error);
 
                 let device = DeviceAdapter.map(data, this);
@@ -560,19 +560,19 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Delete a device
-     * @param id Device ID
+     * @param deviceId Device ID
      * @returns Promise containing any error
      */
-    public deleteDevice(id: string): Promise<void>;
+    public deleteDevice(deviceId: string): Promise<void>;
     /**
      * Delete a device
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param callback A function that is passed any error
      */
-    public deleteDevice(id: string, callback: CallbackFn<void>);
-    public deleteDevice(id: string, callback?: CallbackFn<void>): Promise<void> {
+    public deleteDevice(deviceId: string, callback: CallbackFn<void>);
+    public deleteDevice(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceDestroy(id, (error) => {
+            this._endpoints.catalog.deviceDestroy(deviceId, (error) => {
                 if (error) return done(error);
                 done(null, null);
             });
@@ -581,19 +581,19 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * List a device's subscriptions
-     * @param id Device ID
+     * @param deviceId Device ID
      * @returns Promise containing the subscriptions
      */
-    public listDeviceSubscriptions(id: string): Promise<any>;
+    public listDeviceSubscriptions(deviceId: string): Promise<any>;
     /**
      * List a device's subscriptions
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param callback A function that is passed (error, subscriptions)
      */
-    public listDeviceSubscriptions(id: string, callback: CallbackFn<any>);
-    public listDeviceSubscriptions(id: string, callback?: CallbackFn<any>): Promise<any> {
+    public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<any>);
+    public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<any>): Promise<any> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsEndpointNameGet(id, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsEndpointNameGet(deviceId, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -602,19 +602,19 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Removes a device's subscriptions
-     * @param id Device ID
+     * @param deviceId Device ID
      * @returns Promise containing any error
      */
-    public deleteDeviceSubscriptions(id: string): Promise<void>;
+    public deleteDeviceSubscriptions(deviceId: string): Promise<void>;
     /**
      * Removes a device's subscriptions
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param callback A function that is passed any error
      */
-    public deleteDeviceSubscriptions(id: string, callback: CallbackFn<void>);
-    public deleteDeviceSubscriptions(id: string, callback?: CallbackFn<void>): Promise<void> {
+    public deleteDeviceSubscriptions(deviceId: string, callback: CallbackFn<void>);
+    public deleteDeviceSubscriptions(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsEndpointNameDelete(id, error => {
+            this._endpoints.subscriptions.v2SubscriptionsEndpointNameDelete(deviceId, error => {
                 if (error) return done(error);
                 done(null, null);
             });
@@ -623,23 +623,23 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * List device's resources
-     * @param id Device ID
+     * @param deviceId Device ID
      * @returns Promise of device resources
      */
-    public listDeviceResources(id: string): Promise<Array<Resource>>;
+    public listResources(deviceId: string): Promise<Array<Resource>>;
     /**
      * List device's resources
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param callback A function that is passed the arguments (error, resources)
      */
-    public listDeviceResources(id: string, callback: CallbackFn<Array<Resource>>);
-    public listDeviceResources(id: string, callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
+    public listResources(deviceId: string, callback: CallbackFn<Array<Resource>>);
+    public listResources(deviceId: string, callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
         return asyncStyle(done => {
-            this._endpoints.endpoints.v2EndpointsEndpointNameGet(id, (error, data) => {
+            this._endpoints.endpoints.v2EndpointsEndpointNameGet(deviceId, (error, data) => {
                 if (error) return done(error);
 
                 var resources = data.map(resource => {
-                    return ResourceAdapter.map(resource, id, this);
+                    return ResourceAdapter.map(resource, deviceId, this);
                 });
                 done(null, resources);
             });
@@ -648,27 +648,27 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Deletes a resource
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
      * @returns Promise containing any error
      */
-    public deleteDeviceResource(id: string, path: string, noResponse?: boolean): Promise<string>;
+    public deleteResource(deviceId: string, path: string, noResponse?: boolean): Promise<string>;
     /**
      * Deletes a resource
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    public deleteDeviceResource(id: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>);
-    public deleteDeviceResource(id: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
         }
         return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsEndpointNameResourcePathDelete(id, path, noResponse, (error, data) => {
+            this._endpoints.resources.v2EndpointsEndpointNameResourcePathDelete(deviceId, path, noResponse, (error, data) => {
                 if (error) return done(error);
                 done(null, data[ASYNC_KEY]);
             });
@@ -677,23 +677,23 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Gets the value of a resource
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
      */
-    public getResourceValue(id: string, path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string>;
+    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string>;
     /**
      * Gets the value of a resource
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    public getResourceValue(id: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>);
-    public getResourceValue(id: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>);
+    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
@@ -704,7 +704,7 @@ export class DevicesApi extends EventEmitter {
             noResponse = false;
         }
         return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsEndpointNameResourcePathGet(id, path, cacheOnly, noResponse, (error, data) => {
+            this._endpoints.resources.v2EndpointsEndpointNameResourcePathGet(deviceId, path, cacheOnly, noResponse, (error, data) => {
                 if (error) return done(error);
 
                 var asyncID = data[ASYNC_KEY];
@@ -720,29 +720,29 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Sets the value of a resource
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @param value The value of the resource
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise containing any error
      */
-    public setResourceValue(id: string, path: string, value: string, noResponse?: boolean): Promise<string>;
+    public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean): Promise<string>;
     /**
      * Sets the value of a resource
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @param value The value of the resource
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
-    public setResourceValue(id: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>);
-    public setResourceValue(id: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
         }
         return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsEndpointNameResourcePathPut(id, path.substr(1), value, noResponse, (error, data) => {
+            this._endpoints.resources.v2EndpointsEndpointNameResourcePathPut(deviceId, path.substr(1), value, noResponse, (error, data) => {
                 if (error) return done(error);
 
                 var asyncID = data[ASYNC_KEY];
@@ -758,23 +758,23 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Execute a function on a resource
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise containing any error
      */
-    public executeResource(id: string, path: string, functionName?: string, noResponse?: boolean): Promise<string>;
+    public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean): Promise<string>;
     /**
      * Execute a function on a resource
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
-    public executeResource(id: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>);
-    public executeResource(id: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
@@ -785,7 +785,7 @@ export class DevicesApi extends EventEmitter {
             noResponse = false;
         }
         return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsEndpointNameResourcePathPost(id, path, functionName, noResponse, (error, data) => {
+            this._endpoints.resources.v2EndpointsEndpointNameResourcePathPost(deviceId, path, functionName, noResponse, (error, data) => {
                 if (error) return done(error);
 
                 var asyncID = data[ASYNC_KEY];
@@ -801,21 +801,21 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Gets the status of a resource's subscription
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @returns Promise containing resource subscription status
      */
-    public getResourceSubscription(id: string, path: string): Promise<boolean>;
+    public getResourceSubscription(deviceId: string, path: string): Promise<boolean>;
     /**
      * Gets the status of a resource's subscription
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
      */
-    public getResourceSubscription(id: string, path: string, callback: CallbackFn<boolean>);
-    public getResourceSubscription(id: string, path: string, callback?: CallbackFn<boolean>): Promise<boolean> {
+    public getResourceSubscription(deviceId: string, path: string, callback: CallbackFn<boolean>);
+    public getResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<boolean>): Promise<boolean> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathGet(id, path, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathGet(deviceId, path, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -824,28 +824,28 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Subscribe to a resource
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @param notifyFn Function to call with notification
      * @returns Promise containing any error
      */
-    public addResourceSubscription(id: string, path: string, notifyFn?: Function): Promise<void>;
+    public addResourceSubscription(deviceId: string, path: string, notifyFn?: Function): Promise<void>;
     /**
      * Subscribe to a resource
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @param notifyFn Function to call with notification
      * @param callback A function that is passed any error
      */
-    public addResourceSubscription(id: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function);
-    public addResourceSubscription(id: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function): Promise<void> {
+    public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function);
+    public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathPut(id, path, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathPut(deviceId, path, (error, data) => {
                 if (error) return done(error);
 
                 if (notifyFn) {
                     // Record the function at this path for notifications
-                    this._notifyFns[id + path] = notifyFn;
+                    this._notifyFns[deviceId + path] = notifyFn;
                 }
 
                 var asyncID = data[ASYNC_KEY];
@@ -861,25 +861,25 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Deletes a resource's subscription
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @returns Promise containing any error
      */
-    public deleteResourceSubscription(id: string, path: string): Promise<void>;
+    public deleteResourceSubscription(deviceId: string, path: string): Promise<void>;
     /**
      * Deletes a resource's subscription
-     * @param id Device ID
+     * @param deviceId Device ID
      * @param path Resource path
      * @param callback A function that is passed any error
      */
-    public deleteResourceSubscription(id: string, path: string, callback: CallbackFn<void>);
-    public deleteResourceSubscription(id: string, path: string, callback?: CallbackFn<void>): Promise<void> {
+    public deleteResourceSubscription(deviceId: string, path: string, callback: CallbackFn<void>);
+    public deleteResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathDelete(id, path, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsEndpointNameResourcePathDelete(deviceId, path, (error, data) => {
                 if (error) return done(error);
 
                 // no-one is listening :(
-                delete this._notifyFns[id + path];
+                delete this._notifyFns[deviceId + path];
 
                 var asyncID = data[ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
@@ -932,21 +932,21 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Get a query
-     * @param id query ID
+     * @param queryId query ID
      * @param callback A function that is passed the arguments (error, query)
      * @returns Promise of query
      */
-    public getQuery(id: string): Promise<Query>;
+    public getQuery(queryId: string): Promise<Query>;
     /**
      * Get a query
-     * @param id query ID
+     * @param queryId query ID
      * @param callback A function that is passed the arguments (error, query)
      * @returns Promise of query
      */
-    public getQuery(id: string, callback: CallbackFn<Query>);
-    public getQuery(id: string, callback?: CallbackFn<Query>): Promise<Query> {
+    public getQuery(queryId: string, callback: CallbackFn<Query>);
+    public getQuery(queryId: string, callback?: CallbackFn<Query>): Promise<Query> {
         return asyncStyle(done => {
-            this._endpoints.query.deviceQueryRetrieve(id, (error, data) => {
+            this._endpoints.query.deviceQueryRetrieve(queryId, (error, data) => {
                 if (error) return done(error);
 
                 let query = QueryAdapter.map(data, this);
@@ -1004,19 +1004,19 @@ export class DevicesApi extends EventEmitter {
 
     /**
      * Delete a query
-     * @param id query ID
+     * @param queryId query ID
      * @returns Promise containing any error
      */
-    public deleteQuery(id: string): Promise<void>;
+    public deleteQuery(queryId: string): Promise<void>;
     /**
      * Delete a query
-     * @param id query ID
+     * @param queryId query ID
      * @param callback A function that is passed any error
      */
-    public deleteQuery(id: string, callback: CallbackFn<void>);
-    public deleteQuery(id: string, callback?: CallbackFn<void>): Promise<void> {
+    public deleteQuery(queryId: string, callback: CallbackFn<void>);
+    public deleteQuery(queryId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.query.deviceQueryDestroy(id, (error) => {
+            this._endpoints.query.deviceQueryDestroy(queryId, (error) => {
                 if (error) return done(error);
                 done(null, null);
             });

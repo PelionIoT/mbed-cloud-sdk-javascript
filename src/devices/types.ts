@@ -105,11 +105,11 @@ export interface PresubscriptionObject {
     /*
      * The device id (optionally having an * character at the end)
      */
-    id?: string;
+    deviceId?: string;
     /*
      * The device type
      */
-    type?: string;
+    deviceType?: string;
     /*
      * A list of resources to subscribe to. Allows wildcards to subscribe to multiple resources at once
      */
@@ -239,9 +239,9 @@ export interface QueryObject {
      */
     description?: string;
     /**
-     * The query
+     * The query filter
      */
-    query?: { [key: string]: string };
+    filter?: { [key: string]: string };
     /**
      * The custom attributes of the query
      */
