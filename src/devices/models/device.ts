@@ -69,7 +69,7 @@ export class Device {
     public listResources(callback: CallbackFn<Array<Resource>>);
     public listResources(callback?: CallbackFn<Array<Resource>>): Promise<Resource[]> {
         return asyncStyle(done => {
-            this._api.listDeviceResources(this.id, done);
+            this._api.listResources(this.id, done);
         }, callback);
     }
 

@@ -2,15 +2,18 @@ var functions = require('../lib/common/functions');
 
 var objectFns = [
 	"addApiKey",
+	"updateApiKey",
 	"addUser",
 	"updateUser",
+	"listDevices",
 	"addDevice",
 	"updateDevice",
 	"addQuery",
 	"updateQuery",
 	"addCampaign",
 	"updateCampaign",
-	"listDevices",
+	"addCertificate",
+	"updateCertificate",
 	"listDeviceLogs",
 	"getMetrics"
 ];
@@ -28,13 +31,13 @@ var mapping = {
 		},
 		getResourceValue: args => {
 			return {
-				0: args.id,
+				0: args.deviceId,
 				1: args.resourcePath
 			}
 		},
 		setResourceValue: args => {
 			return {
-				0: args.id,
+				0: args.deviceId,
 				1: args.resourcePath,
 				2: args.resourceValue
 			}
@@ -42,7 +45,7 @@ var mapping = {
 		updatePresubscriptions: args => {
 			return {
 				presubs: [{
-					id: args.deviceId,
+					deviceId: args.deviceId,
 					resourcePaths: [args.resourcePath]
 				}]
 			}
@@ -111,6 +114,11 @@ exports.mapArgs = (module, method, query) => {
 
 	// Create any add/update objects
 	if (objectFns.indexOf(method) > -1) {
+		var match = method.match(/([A-Z]{1}.*)$/);
+		if (match) {
+			var idField = match[1][0].toLowerCase() + match[1].slice(1) + "Id";
+			if (args[idField]) args.id = args[idField];
+		}
 		args = {
 			obj: args
 		};

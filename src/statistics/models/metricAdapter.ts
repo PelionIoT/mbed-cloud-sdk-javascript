@@ -28,13 +28,13 @@ export class MetricAdapter {
 
     static map(from: apiMetric): Metric {
         return new Metric({
-			timestamp: from.timestamp ? new Date(from.timestamp) : null,
-			transactions: from.transactions,
-			successfulDeviceRegistrations: from.bootstraps_successful,
-			pendingDeviceRegistrations: from.bootstraps_pending,
-			failedDeviceRegistrations: from.bootstraps_failed,
-			successfulApiCalls: from.device_server_rest_api_success,
-			failedApiCalls: from.device_server_rest_api_error
+			timestamp:                        from.timestamp ? new Date(from.timestamp) : null,
+			transactions:                     from.transactions,
+			successfulDeviceRegistrations:    from.bootstraps_successful,
+			pendingDeviceRegistrations:       from.bootstraps_pending,
+			failedDeviceRegistrations:        from.bootstraps_failed,
+			successfulApiCalls:               from.device_server_rest_api_success,
+			failedApiCalls:                   from.device_server_rest_api_error
         });
     }
 

@@ -47,11 +47,11 @@ export class DeviceLog {
     /**
      * Description of the event type
      */
-    readonly eventTypeDescription?: string;
+    readonly typeDescription?: string;
     /**
      * Type of the event
      */
-    readonly eventType?: string;
+    readonly type?: string;
     /**
      * Data pertaining to the event
      */

@@ -70,7 +70,7 @@ export interface CampaignObject {
     /**
      * The timestamp at which update campaign scheduled to start
      */
-    scheduledStart?: Date;
+    scheduledAt?: Date;
 }
 
 export interface AddCampaignObject extends CampaignObject{

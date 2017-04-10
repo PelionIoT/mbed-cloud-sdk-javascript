@@ -25,16 +25,16 @@ export class PresubscriptionAdapter {
 
     static map(from: apiPresubscription): Presubscription {
         return {
-            id:               from["endpoint-name"],
-            type:             from["endpoint-type"],
+            deviceId:         from["endpoint-name"],
+            deviceType:       from["endpoint-type"],
             resourcePaths:    from["resource-path"] as string[]
         };
     }
 
     static reverseMap(from: Presubscription): apiPresubscription {
         return {
-            "endpoint-name": from.id,
-            "endpoint-type": from.type,
+            "endpoint-name": from.deviceId,
+            "endpoint-type": from.deviceType,
             "resource-path": from.resourcePaths
         };
     }

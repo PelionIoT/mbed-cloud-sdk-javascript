@@ -142,24 +142,24 @@ export class AccessApi {
 
     /**
      * Get details of an API key
-     * @param id The API key ID (if not specified, returns current API key)
+     * @param apiKeyId The API key ID (if not specified, returns current API key)
      * @returns Promise containing the API key
      */
-    public getApiKey(id?: string): Promise<ApiKey>;
+    public getApiKey(apiKeyId?: string): Promise<ApiKey>;
     /**
      * Get details of an API key
-     * @param id The API key ID (if not specified, returns current API key)
+     * @param apiKeyId The API key ID (if not specified, returns current API key)
      * @param callback A function that is passed the return arguments (error, API key)
      */
-    public getApiKey(id?: string, callback?: CallbackFn<ApiKey>);
-    public getApiKey(id?: any, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
-        if (typeof id === "function") {
-            callback = id;
-            id = null;
+    public getApiKey(apiKeyId?: string, callback?: CallbackFn<ApiKey>);
+    public getApiKey(apiKeyId?: any, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
+        if (typeof apiKeyId === "function") {
+            callback = apiKeyId;
+            apiKeyId = null;
         }
         return asyncStyle(done => {
-            if (id) {
-                this._endpoints.developer.getApiKey(id, (error, data) => {
+            if (apiKeyId) {
+                this._endpoints.developer.getApiKey(apiKeyId, (error, data) => {
                     if (error) return done(error);
                     done(null, ApiKeyAdapter.map(data, this));
                 });
@@ -218,19 +218,19 @@ export class AccessApi {
 
     /**
      * Deletes an API key
-     * @param id The API key ID
+     * @param apiKeyId The API key ID
      * @returns Promise containing any error
      */
-    public deleteApiKey(id: string): Promise<void>;
+    public deleteApiKey(apiKeyId: string): Promise<void>;
     /**
      * Deletes an API key
-     * @param id The API key ID
+     * @param apiKeyId The API key ID
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteApiKey(id: string, callback: CallbackFn<void>);
-    public deleteApiKey(id: string, callback?: CallbackFn<void>): Promise<void> {
+    public deleteApiKey(apiKeyId: string, callback: CallbackFn<void>);
+    public deleteApiKey(apiKeyId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.developer.deleteApiKey(id, (error, data) => {
+            this._endpoints.developer.deleteApiKey(apiKeyId, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -274,19 +274,19 @@ export class AccessApi {
 
     /**
      * Get details of a user
-     * @param id The user ID
+     * @param userId The user ID
      * @returns Promise containing the user
      */
-    public getUser(id: string): Promise<User>;
+    public getUser(userId: string): Promise<User>;
     /**
      * Get details of a user
-     * @param id The user ID
+     * @param userId The user ID
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public getUser(id: string, callback: CallbackFn<User>);
-    public getUser(id: string, callback?: CallbackFn<User>): Promise<User> {
+    public getUser(userId: string, callback: CallbackFn<User>);
+    public getUser(userId: string, callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
-            this._endpoints.admin.getUser(id, (error, data) => {
+            this._endpoints.admin.getUser(userId, (error, data) => {
                 if (error) return done(error);
                 done(null, UserAdapter.map(data, this));
             });
@@ -337,19 +337,19 @@ export class AccessApi {
 
     /**
      * Deletes a user
-     * @param id The user ID
+     * @param userId The user ID
      * @returns Promise containing any error
      */
-    public deleteUser(id: string): Promise<void>;
+    public deleteUser(userId: string): Promise<void>;
     /**
      * Deletes a user
-     * @param id The user ID
+     * @param userId The user ID
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteUser(id: string, callback: CallbackFn<void>);
-    public deleteUser(id: string, callback?: CallbackFn<void>): Promise<void> {
+    public deleteUser(userId: string, callback: CallbackFn<void>);
+    public deleteUser(userId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.admin.deleteUser(id, (error, data) => {
+            this._endpoints.admin.deleteUser(userId, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -392,19 +392,19 @@ export class AccessApi {
 
     /**
      * Get details of a group
-     * @param id The group ID
+     * @param groupId The group ID
      * @returns Promise containing the group
      */
-    public getGroup(id: string): Promise<Group>;
+    public getGroup(groupId: string): Promise<Group>;
     /**
      * Get details of a group
-     * @param id The group ID
+     * @param groupId The group ID
      * @param callback A function that is passed the arguments (error, group)
      */
-    public getGroup(id: string, callback: CallbackFn<Group>);
-    public getGroup(id: string, callback?: CallbackFn<Group>): Promise<Group> {
+    public getGroup(groupId: string, callback: CallbackFn<Group>);
+    public getGroup(groupId: string, callback?: CallbackFn<Group>): Promise<Group> {
         return asyncStyle(done => {
-            this._endpoints.developer.getGroupSummary(id, (error, data) => {
+            this._endpoints.developer.getGroupSummary(groupId, (error, data) => {
                 if (error) return done(error);
                 done(null, GroupAdapter.map(data, this));
             });
@@ -413,19 +413,19 @@ export class AccessApi {
 
     /**
      * List users of a group
-     * @param id The group ID
+     * @param groupId The group ID
      * @param options filter options
      * @returns Promise of listResponse
      */
-    public listGroupUsers(id: string, options?: ListOptions): Promise<ListResponse<User>>;
+    public listGroupUsers(groupId: string, options?: ListOptions): Promise<ListResponse<User>>;
     /**
      * List users of a group
-     * @param id The group ID
+     * @param groupId The group ID
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listGroupUsers(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>);
-    public listGroupUsers(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
+    public listGroupUsers(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>);
+    public listGroupUsers(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -435,7 +435,7 @@ export class AccessApi {
         let { limit, after, order, include } = options as ListOptions;
 
         return asyncStyle(done => {
-            this._endpoints.admin.getUsersOfGroup(id, limit, after, order, encodeInclude(include), (error, data) => {
+            this._endpoints.admin.getUsersOfGroup(groupId, limit, after, order, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let users = data.data.map(user => {
@@ -449,19 +449,19 @@ export class AccessApi {
 
     /**
      * List API keys of a group
-     * @param id The group ID
+     * @param groupId The group ID
      * @param options filter options
      * @returns Promise of listResponse
      */
-    public listGroupApiKeys(id: string, options?: ListOptions): Promise<ListResponse<ApiKey>>;
+    public listGroupApiKeys(groupId: string, options?: ListOptions): Promise<ListResponse<ApiKey>>;
     /**
      * List API keys of a group
-     * @param id The group ID
+     * @param groupId The group ID
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listGroupApiKeys(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
-    public listGroupApiKeys(id: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
+    public listGroupApiKeys(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
+    public listGroupApiKeys(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -471,7 +471,7 @@ export class AccessApi {
         let { limit, after, order, include } = options as ListOptions;
 
         return asyncStyle(done => {
-            this._endpoints.developer.getApiKeysOfGroup(id, limit, after, order, encodeInclude(include), (error, data) => {
+            this._endpoints.developer.getApiKeysOfGroup(groupId, limit, after, order, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let users = data.data.map(user => {

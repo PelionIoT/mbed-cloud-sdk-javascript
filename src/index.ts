@@ -22,18 +22,16 @@ export { LoggingApi } from "./logging";
 export { StatisticsApi } from "./statistics";
 export { UpdateApi } from "./update";
 
-// TESTING
-// build/test/release(github branch)/deploy(docs|npm?)/tag system
-// make testrunner builds trigger SDK builds
-
-// PORTING
+// ERRORS
 // check errors (401, 404) are correctly handled and brought back into error response
-// check top=level error handling (#26)
+// check proxy works and passes all errors properly
+// check top=level error handling (#26) and handling of failed calls (incorrect keys, etc.)
+// Add own error type structure>
+
+// doc improvements
 // check other github issues
 // design structure of filter request object - all the crap on listDevices
 // get devicesapi.notify working with events
-// check proxy passes all errors properly
-// remove _api from any object being returned?
 
 // EXAMPLES
 // check: device-logs
@@ -51,5 +49,4 @@ export { UpdateApi } from "./update";
 // document includeExpired and type on listCertificates()
 // remove noexplicitany?
 // Add DeviceSubscriptions models?? <-perhaps after examples
-// doc improvements
 // expose request ID

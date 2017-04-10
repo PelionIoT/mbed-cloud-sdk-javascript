@@ -205,7 +205,7 @@ export class Resource extends EventEmitter {
     public delete(noResponse?: boolean, callback?: CallbackFn<string>);
     public delete(noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
-            this._api.deleteDeviceResource(this.deviceId, this.path, noResponse, done);
+            this._api.deleteResource(this.deviceId, this.path, noResponse, done);
         }, callback);
     }
 }

@@ -29,6 +29,10 @@ export interface AddDeveloperCertificateObject {
      * Certificate description
      */
     description?: string;
+    /**
+     * Certificate type
+     */
+    type?: CertificateTypeEnum;
 }
 
 /**
