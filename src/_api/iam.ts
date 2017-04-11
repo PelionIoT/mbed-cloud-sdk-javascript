@@ -170,7 +170,7 @@ export interface AccountUpdateReq {
      */
     "contact"?: string;
     /**
-     * The postal code part of the postal address.
+     * The postal code part of the postal address, not longer than 100 characters.
      */
     "postal_code"?: string;
     /**
@@ -178,15 +178,15 @@ export interface AccountUpdateReq {
      */
     "parentID"?: string;
     /**
-     * The phone number of the company.
+     * The phone number of the company, not longer than 100 characters.
      */
     "phone_number"?: string;
     /**
-     * The company email address for this account.
+     * The company email address for this account, not longer than 100 characters.
      */
     "email"?: string;
     /**
-     * An array of aliases.
+     * An array of aliases, not more than 10.
      */
     "aliases"?: Array<string>;
 }
@@ -507,7 +507,7 @@ export interface TrustedCertificateResp {
     /**
      * Device execution mode where 1 means a developer certificate.
      */
-    "device_execution_mode": number;
+    "device_execution_mode"?: number;
     /**
      * Creation UTC time RFC3339.
      */
@@ -621,21 +621,25 @@ export interface UpdatedResponse {
  */
 export interface UserInfoReq {
     /**
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "username"?: string;
+    /**
+     * Phone number, not longer than 100 characters.
+     */
+    "phone_number"?: string;
+    /**
      * A list of IDs of the groups this user belongs to.
      */
     "groups"?: Array<string>;
     /**
-     * A username containing alphanumerical letters and -,._@+= characters.
+     * A flag indicating that the General Terms and Conditions has been accepted.
      */
-    "username"?: string;
+    "is_gtc_accepted"?: boolean;
     /**
      * A flag indicating that receiving marketing information has been accepted.
      */
     "is_marketing_accepted"?: boolean;
-    /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
-     */
-    "is_gtc_accepted"?: boolean;
     /**
      * The full name of the user, not longer than 100 characters.
      */
@@ -648,10 +652,6 @@ export interface UserInfoReq {
      * The password when creating a new user. It will will generated when not present in the request.
      */
     "password"?: string;
-    /**
-     * Phone number, not longer than 100 characters.
-     */
-    "phone_number"?: string;
     /**
      * The email address, not longer than 100 characters.
      */
@@ -781,7 +781,7 @@ export interface UserInfoRespList {
  */
 export interface UserUpdateReq {
     /**
-     * A username containing alphanumerical letters and -,._@+= characters.
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
      */
     "username"?: string;
     /**
