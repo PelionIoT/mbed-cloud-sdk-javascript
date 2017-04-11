@@ -35,9 +35,11 @@ deployment:
       - echo Syncing $SDK_NAME to S3...
       - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://$SDK_NAME
       - echo Syncing $SDK_NAME to $SDK_BRANCH on GitHub...
+      - TMP_FOLDER="$(mktemp -d)"
+      - cp -r bundles lib types $TMP_FOLDER
       - git checkout $SDK_BRANCH
-      - git add -f bundles/ lib/ types/
-      - git commit --allow-empty -m "Automatic Deployment"
+      - cp -r $TMP_FOLDER/* ./
+      - git commit --allow-empty -a -m "Automatic Deployment"
       - git push
   release:
     branch: /release-.*/
