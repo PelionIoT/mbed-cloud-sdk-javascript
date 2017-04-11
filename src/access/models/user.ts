@@ -115,13 +115,13 @@ export class User {
      * List the API keys for this user
      * @returns Promise containing API keys
      */
-    public listApiKeys(options?: ListOptions): Promise<ApiKey[]>;
+    public listApiKeys(options?: ListOptions): Promise<Array<ApiKey>>;
     /**
      * List the API keys for this user
      * @param callback A function that is passed the return arguments (error, API keys)
      */
-    public listApiKeys(options?: ListOptions, callback?: CallbackFn<ApiKey[]>);
-    public listApiKeys(options?: any, callback?: CallbackFn<ApiKey[]>): Promise<ApiKey[]> {
+    public listApiKeys(options?: ListOptions, callback?: CallbackFn<Array<ApiKey>>);
+    public listApiKeys(options?: any, callback?: CallbackFn<Array<ApiKey>>): Promise<Array<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;

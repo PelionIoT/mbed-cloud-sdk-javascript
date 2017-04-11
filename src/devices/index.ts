@@ -119,6 +119,9 @@ export class DevicesApi extends EventEmitter {
     */
     public notify(notification: NotificationObject) {
 
+        // Notification can be null
+        if (!notification) return;
+
         function mapDevice(from): DeviceEvent<Resource> {
             let device:DeviceEvent<Resource> = {
                 id:           from.ep,
@@ -139,12 +142,16 @@ export class DevicesApi extends EventEmitter {
 
         if (notification["notifications"]) {
             notification["notifications"].forEach(notification => {
+                var body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
                 var path = notification.ep + notification.path;
                 var fn = this._notifyFns[path];
+                if (fn) fn(body);
 
-                if (fn) {
-                    fn(decodeBase64(notification.payload, notification.ct));
-                }
+                this.emit(DevicesApi.EVENT_NOTIFICATION, {
+                    id: notification.ep,
+                    path: notification.path,
+                    payload: body
+                });
             });
         }
 
