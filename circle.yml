@@ -9,6 +9,7 @@ machine:
     SDK_NAME: mbed-cloud-sdk-javascript
     SDK_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
     SDK_BRANCH: build
+    SDK_TMP: /tmp/tmp.${SDK_NAME}
 
 checkout:
   post:
@@ -35,10 +36,10 @@ deployment:
       - echo Syncing $SDK_NAME to S3...
       - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://$SDK_NAME
       - echo Syncing $SDK_NAME to $SDK_BRANCH on GitHub...
-      - TMP_FOLDER="$(mktemp -d)"
-      - cp -r bundles lib types $TMP_FOLDER
+      - mkdir $SDK_TMP
+      - cp -r bundles lib types $SDK_TMP
       - git checkout $SDK_BRANCH
-      - cp -r $TMP_FOLDER/* ./
+      - cp -r $SDK_TMP/* ./
       - git commit --allow-empty -a -m "Automatic Deployment"
       - git push
   release:
