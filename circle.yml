@@ -40,7 +40,8 @@ deployment:
       - cp -r bundles lib types $SDK_TMP
       - git checkout $SDK_BRANCH
       - cp -r $SDK_TMP/* ./
-      - git commit --allow-empty -a -m "Automatic Deployment"
+      - git add --force --all
+      - git commit --allow-empty --message "Automatic Deployment"
       - git push
   release:
     branch: /release-.*/
