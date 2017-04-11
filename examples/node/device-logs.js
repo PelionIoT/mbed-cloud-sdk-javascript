@@ -34,6 +34,7 @@ function ensureDirectory(directory) {
 }
 
 function listLogs(after) {
+
     logging.listDeviceLogs({
         limit: 50,
         after: after
@@ -48,7 +49,7 @@ function listLogs(after) {
 
         	var fileName = path.format({
 				dir: logDir,
-				base: deviceLog.logId + '.json'
+				base: deviceLog.id + '.json'
 			});
 
 			var data = JSON.stringify(deviceLog, null, '\t');
@@ -58,7 +59,7 @@ function listLogs(after) {
         });
         if (response.hasMore) {
             var lastLog = response.data.slice(-1).pop();
-            listLogs(lastLog.logId);
+            listLogs(lastLog.id);
         }
     });
 }

@@ -119,12 +119,12 @@
 
                     // Edit query
                     editBtn.addEventListener("click", function() {
-                        var state = window.prompt("Enter a new state for the query filter", query.attributes.state || "registered");
+                        var state = window.prompt("Enter a new state for the query filter", query.filter.state || "registered");
                         if (!state) return;
 
                         devices.updateQuery({
                             id: query.id,
-                            attributes: { state: state }
+                            filter: { state: state }
                         });
                     });
 

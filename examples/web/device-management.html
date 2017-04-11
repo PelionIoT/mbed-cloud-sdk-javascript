@@ -88,11 +88,10 @@
                         if (name) {
                             devices.updateDevice({
                                 id: device.id,
-                                mechanism: device.mechanism,
-                                provisionKey: device.provisionKey,
                                 name: name
                             }, function(err) {
-                                location.reload()
+                                if (err) alert(err);
+                                else location.reload()
                             });
                         }
                     });
@@ -119,8 +118,8 @@
             if (!name) return;
 
             devices.addDevice({
-                mechanism: "connector",
-                provisionKey: "dummy-key-" + new Date().getTime(),
+                certificateIssuerId: "connector",
+                certificateFingerprint: "dummy-key-" + new Date().getTime(),
                 name: name
             }, function(err) {
                 location.reload()
