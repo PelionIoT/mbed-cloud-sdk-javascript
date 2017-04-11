@@ -180,7 +180,8 @@ export class DevicesApi extends EventEmitter {
                     if (response.status >= 400) {
                         fn(response.error || response.status, null);
                     } else {
-                        fn(null, decodeBase64(response.payload, response.ct));
+                        var body = response.payload ? decodeBase64(response.payload, response.ct) : null;
+                        fn(null, body);
                     }
                     delete this._asyncFns[asyncID];
                 }
