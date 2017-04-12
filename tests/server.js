@@ -6,7 +6,7 @@ var mapping = require("./mapping");
 var port = 5000;
 var envVarKey = "MBED_CLOUD_API_KEY";
 var envVarHost = "MBED_CLOUD_HOST";
-var line = "---------------------------------------------------------\n";
+var logPrefix = "  \x1b[34mtest-server\x1b[0m ";
 
 
 // Environment configuration
@@ -42,7 +42,7 @@ function sendError(res, error) {
     else if (!error.response.error.text) message = error.response.error.toString();
     else message = error.response.error.text.toString();
 
-    console.log(`\t${statusCode}: ${message}`);
+    console.log(`${logPrefix}${statusCode}: ${message}`);
     res.status(statusCode).send({
         message: message
     });
@@ -50,7 +50,7 @@ function sendError(res, error) {
 
 app.get("/:module/:method", (req, res, next) => {
 
-    console.log(`\turl: http://localhost:${port}${req.url}`);
+    console.log(`${logPrefix}http://localhost:${port}${req.url}`);
 
     // Module
     var module = req.params["module"];
@@ -67,9 +67,9 @@ app.get("/:module/:method", (req, res, next) => {
     // Args
     var args = mapping.mapArgs(module, method, req.query["args"]);
 
-    console.log(`\tCalling '${method}' on '${module}'`);
+    console.log(`${logPrefix}Calling '${method}' on '${module}'`);
     if (args.length) {
-        console.log("\tusing args:", args);
+        console.log(`${logPrefix}using args:`, args);
     }
 
     args.push((error, result) => {

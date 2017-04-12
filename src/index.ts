@@ -22,31 +22,12 @@ export { LoggingApi } from "./logging";
 export { StatisticsApi } from "./statistics";
 export { UpdateApi } from "./update";
 
-// ERRORS
-// check errors (401, 404) are correctly handled and brought back into error response
-// check proxy works and passes all errors properly
-// check top=level error handling (#26) and handling of failed calls (incorrect keys, etc.)
-// Add own error type structure>
+// fix listConnectedDevices to return all or match mDS (#27, #31)
 
-// doc improvements
-// check other github issues
-// design structure of filter request object - all the crap on listDevices
-// get devicesapi.notify working with events
-
-// EXAMPLES
-// check: device-logs
 // check: webhook
 // check: device-management
-// check: long-polling
 // check: query-management
 // update: certificate
-// add: statistics (node to dump or web to visualize)
-// add: subscriptions (node)
-// add: users/keys management (node)
-// add: update (web)
 
-// OTHER
-// document includeExpired and type on listCertificates()
-// remove noexplicitany?
-// Add DeviceSubscriptions models?? <-perhaps after examples
-// expose request ID
+// get devicesapi.notify working with events
+// segfault (#34)

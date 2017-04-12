@@ -20,15 +20,7 @@ var objectFns = [
 
 var mapping = {
 	DevicesApi: {
-		listDevices: args => {
-			if (args.filter) args.filter = JSON.parse(args.filter);
-			return args;
-		},
-		addQuery: args => {
-			if (args.query) args.query = JSON.parse(args.query);
-			if (args.customAttributes) args.customAttributes = JSON.parse(args.customAttributes);
-			return args;
-		},
+		// Args to re-order
 		getResourceValue: args => {
 			return {
 				0: args.deviceId,
@@ -40,14 +32,6 @@ var mapping = {
 				0: args.deviceId,
 				1: args.resourcePath,
 				2: args.resourceValue
-			}
-		},
-		updatePresubscriptions: args => {
-			return {
-				presubs: [{
-					deviceId: args.deviceId,
-					resourcePaths: [args.resourcePath]
-				}]
 			}
 		},
 		addResourceSubscription: args => {
@@ -85,27 +69,32 @@ exports.mapArgs = (module, method, query) => {
 	if (!query) return [];
 	var args = {};
 
-	// Transform query to json
-    try {
-    	query = query
-			.replace(/"/g, '\\"')
+	try {
+		// Transform query to json string
+		query = query
 			.replace(/&/g, '","')
-			.replace(/=/g, '":"')
+			.replace(/=/g, '":"');
 
-        args = JSON.parse(`{"${query}"}`, (key, value) => {
-        	if (key === "") return value;
-        	return decodeURIComponent(value).replace("+", "");
-        });
-    } catch(e) {
-    	console.log(e);
-        return [];
-    }    
+		query = `{"${decodeURIComponent(query)}"}`;
 
-    // Camel-case the args
-    args = Object.keys(args).reduce((reducer, key) => {
-    	reducer[functions.snakeToCamel(key)] = args[key];
-    	return reducer;
-    }, {});
+		query = query
+			.replace(/\]"/g, ']')
+			.replace(/"\[/g, '[')
+			.replace(/\}"/g, '}')
+			.replace(/"\{/g, '{')
+			.replace(/\+/g, ' ');
+
+		// Use a reviver to camel-case the JSON
+		args = JSON.parse(query, function(key, value) {
+			if (key === "") return value;
+			var snakey = functions.snakeToCamel(key);
+			if (snakey === key) return value;
+			this[snakey] = value;
+		});
+	} catch(e) {
+		console.log(e);
+		return [];
+	}
 
 	// Any function specific mapping
 	if (mapping[module] && mapping[module][method]) {

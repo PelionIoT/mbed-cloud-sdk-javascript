@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+export DEBUG=superagent
 
 node server.js &
 pid=$!
