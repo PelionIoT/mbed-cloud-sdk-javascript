@@ -36,6 +36,7 @@ deployment:
       - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://$SDK_NAME
       - echo Syncing $SDK_NAME to $SDK_BRANCH on GitHub...
       - git checkout $SDK_BRANCH
+      - rm -rf node_modules
       - git add --force --all
       - git commit --allow-empty --message "Automatic Deployment"
       - git push
