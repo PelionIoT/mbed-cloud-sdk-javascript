@@ -19,7 +19,7 @@ import { GroupSummary as apiGroup } from "../../_api/iam";
 import { AccessApi } from "../index";
 import { Group } from "./group";
 
-/*
+/**
  * Group Adapter
  */
 export class GroupAdapter {

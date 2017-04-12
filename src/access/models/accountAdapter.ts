@@ -24,7 +24,7 @@ import { AccessApi } from "../index";
 import { Account } from "./account";
 import { PolicyAdapter } from "./policyAdapter";
 
-/*
+/**
  * Account Adapter
  */
 export class AccountAdapter {

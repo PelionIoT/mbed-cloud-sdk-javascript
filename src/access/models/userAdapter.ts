@@ -24,7 +24,7 @@ import { AddUserObject, UpdateUserObject } from "../types";
 import { AccessApi } from "../index";
 import { User } from "./user";
 
-/*
+/**
  * User Adapter
  */
 export class UserAdapter {

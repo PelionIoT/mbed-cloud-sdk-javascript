@@ -19,7 +19,7 @@ import { FirmwareManifest as apiFirmwareManifest } from "../../_api/firmware_cat
 import { UpdateApi } from "../index";
 import { FirmwareManifest } from "./firmwareManifest";
 
-/*
+/**
  * Firmware Manifest Adapter
  */
 export class FirmwareManifestAdapter {

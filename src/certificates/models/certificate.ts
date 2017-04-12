@@ -20,7 +20,7 @@ import { CallbackFn } from "../../common/interfaces";
 import { CertificateObject } from "../types";
 import { CertificatesApi } from "../index";
 
-/*
+/**
  * Certificate
  */
 export class Certificate {

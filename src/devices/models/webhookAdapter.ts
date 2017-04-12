@@ -18,7 +18,7 @@
 import { Webhook as apiWebhook } from "../../_api/mds";
 import { Webhook } from "./webhook";
 
-/*
+/**
  * Webhook Adapter
  */
 export class WebhookAdapter {

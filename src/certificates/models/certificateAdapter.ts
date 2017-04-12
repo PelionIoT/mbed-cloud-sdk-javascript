@@ -28,7 +28,7 @@ import {
     DeveloperCertificateResponseData as developerResponse
 } from "../../_api/connector_ca";
 
-/*
+/**
  * Certificate Adapter
  */
 export class CertificateAdapter {

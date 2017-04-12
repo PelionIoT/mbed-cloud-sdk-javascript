@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-/*
+/**
  * Policy
  * This object represents a feature policy. Either the feature or the resource must be specified.
  */

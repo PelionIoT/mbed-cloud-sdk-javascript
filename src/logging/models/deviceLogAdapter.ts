@@ -18,7 +18,7 @@
 import { DeviceLog } from "./deviceLog";
 import { DeviceLogData as apiDeviceLog } from "../../_api/device_catalog";
 
-/*
+/**
  * Device Log Adapter
  */
 export class DeviceLogAdapter {

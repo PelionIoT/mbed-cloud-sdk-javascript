@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-/*
+/**
  * Webhook
  */
 export class Webhook {

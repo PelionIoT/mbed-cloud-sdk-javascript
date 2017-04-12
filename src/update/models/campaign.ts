@@ -20,7 +20,7 @@ import { CallbackFn } from "../../common/interfaces";
 import { AddCampaignObject, CampaignStateEnum } from "../types";
 import { UpdateApi } from "../index";
 
-/*
+/**
  * Campaign
  */
 export class Campaign {

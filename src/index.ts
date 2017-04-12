@@ -22,12 +22,7 @@ export { LoggingApi } from "./logging";
 export { StatisticsApi } from "./statistics";
 export { UpdateApi } from "./update";
 
-// get devicesapi.notify working with events
-// fix typedoc missing comments
-
+// update: certificate
 // check: webhook
 // check: device-management
 // check: query-management
-// update: certificate
-
-// segfault (#34)

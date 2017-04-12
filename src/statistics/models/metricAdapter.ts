@@ -21,7 +21,7 @@ import { Metric } from "./metric";
 
 const DEFAULT_TIME_PERIOD = "1d";
 
-/*
+/**
  * Metric Adapter
  */
 export class MetricAdapter {

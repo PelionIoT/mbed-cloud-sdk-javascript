@@ -24,7 +24,7 @@ import { AddCampaignObject, UpdateCampaignObject } from "../types";
 import { UpdateApi } from "../index";
 import { Campaign } from "./campaign";
 
-/*
+/**
  * Campaign Adapter
  */
 export class CampaignAdapter {

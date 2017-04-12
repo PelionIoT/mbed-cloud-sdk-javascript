@@ -20,7 +20,7 @@ import { CallbackFn } from "../../common/interfaces";
 import { AddFirmwareImageObject } from "../types";
 import { UpdateApi } from "../index";
 
-/*
+/**
  * Firmware Image
  */
 export class FirmwareImage {

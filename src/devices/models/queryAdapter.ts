@@ -27,7 +27,7 @@ import { Query } from "./query";
 
 const CUSTOM_PREFIX = "custom_attributes__";
 
-/*
+/**
  * Query Adapter
  */
 export class QueryAdapter {

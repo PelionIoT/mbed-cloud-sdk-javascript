@@ -22,7 +22,7 @@ import { AccessApi } from "../index";
 import { User } from "./user";
 import { Group } from "./group";
 
-/*
+/**
  * API Key
  */
 export class ApiKey {

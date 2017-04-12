@@ -24,7 +24,7 @@ import { AddApiKeyObject, UpdateApiKeyObject } from "../types";
 import { AccessApi } from "../index";
 import { ApiKey } from "./apiKey";
 
-/*
+/**
  * API Key Adapter
  */
 export class ApiKeyAdapter {

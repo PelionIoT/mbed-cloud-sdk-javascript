@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-/*
+/**
  * Metric
  */
 export class Metric {

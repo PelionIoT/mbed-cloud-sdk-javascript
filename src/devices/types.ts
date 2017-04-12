@@ -98,21 +98,21 @@ export interface NotificationOptions {
      */
     interval?: number;
     /**
-     * A function that is passed any asyncronous responses
+     * A function that is passed any asynchronous responses
      */
     requestCallback?: CallbackFn<Array<AsyncResponse>>;
 }
 
 export interface PresubscriptionObject {
-    /*
+    /**
      * The device id (optionally having an * character at the end)
      */
     deviceId?: string;
-    /*
+    /**
      * The device type
      */
     deviceType?: string;
-    /*
+    /**
      * A list of resources to subscribe to. Allows wildcards to subscribe to multiple resources at once
      */
     resourcePaths?: string[];

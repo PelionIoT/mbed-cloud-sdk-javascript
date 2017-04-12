@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-/*
+/**
  * Device Log
  */
 export class DeviceLog {

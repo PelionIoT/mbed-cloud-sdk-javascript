@@ -21,7 +21,7 @@ import { UpdateAccountObject, AccountStatusEnum } from "../types";
 import { AccessApi } from "../index";
 import { Policy } from "./policy";
 
-/*
+/**
  * Account
  */
 export class Account {

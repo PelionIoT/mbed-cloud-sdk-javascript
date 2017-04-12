@@ -20,7 +20,7 @@ import { asyncStyle } from "../../common/functions";
 import { AddQueryObject } from "../types";
 import { DevicesApi } from "../index";
 
-/*
+/**
  * Query
  */
 export class Query {

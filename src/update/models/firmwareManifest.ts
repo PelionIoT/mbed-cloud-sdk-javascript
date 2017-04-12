@@ -20,7 +20,7 @@ import { CallbackFn } from "../../common/interfaces";
 import { AddFirmwareManifestObject } from "../types";
 import { UpdateApi } from "../index";
 
-/*
+/**
  * Firmware Manifest
  */
 export class FirmwareManifest {

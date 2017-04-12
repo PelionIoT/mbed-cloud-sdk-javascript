@@ -19,7 +19,7 @@ import { FirmwareImage as apiFirmwareImage } from "../../_api/firmware_catalog";
 import { UpdateApi } from "../index";
 import { FirmwareImage } from "./firmwareImage";
 
-/*
+/**
  * Firmware Image Adapter
  */
 export class FirmwareImageAdapter {
