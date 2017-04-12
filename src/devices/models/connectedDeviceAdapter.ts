@@ -15,19 +15,22 @@
 * limitations under the License.
 */
 
-export { AccessApi } from "./access";
-export { CertificatesApi } from "./certificates";
-export { DevicesApi } from "./devices";
-export { LoggingApi } from "./logging";
-export { StatisticsApi } from "./statistics";
-export { UpdateApi } from "./update";
+import {
+    Endpoint as apiConnectedDevice
+} from "../../_api/mds";
+import { ConnectedDevice } from "./connectedDevice";
 
-// get devicesapi.notify working with events
-// fix typedoc missing comments
+/**
+ * Connected Device Adapter
+ */
+export class ConnectedDeviceAdapter {
 
-// check: webhook
-// check: device-management
-// check: query-management
-// update: certificate
-
-// segfault (#34)
+    static map(from: apiConnectedDevice): ConnectedDevice {
+        return new ConnectedDevice({
+            id:           from.name,
+            type:         from.type,
+            state:        (from.status && from.status.toLowerCase() === "active") ? "active" : "stale",
+            queueMode:    from.q
+        });
+    }
+}

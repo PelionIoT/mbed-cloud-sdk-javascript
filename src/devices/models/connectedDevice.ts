@@ -15,19 +15,33 @@
 * limitations under the License.
 */
 
-export { AccessApi } from "./access";
-export { CertificatesApi } from "./certificates";
-export { DevicesApi } from "./devices";
-export { LoggingApi } from "./logging";
-export { StatisticsApi } from "./statistics";
-export { UpdateApi } from "./update";
+import { ConnectedDeviceStateEnum } from "../types";
 
-// get devicesapi.notify working with events
-// fix typedoc missing comments
+/**
+ * Connected Device
+ */
+export class ConnectedDevice {
 
-// check: webhook
-// check: device-management
-// check: query-management
-// update: certificate
+    /**
+     * The ID of the device
+     */
+    readonly id: string;
+    /**
+     * Possible values ACTIVE, STALE.
+     */
+    readonly state?: ConnectedDeviceStateEnum;
+    /**
+     * Determines whether the device is in queue mode.
+     */
+    readonly queueMode?: boolean;
+    /**
+     * Type of endpoint. (Free text)
+     */
+    readonly type?: string;
 
-// segfault (#34)
+    constructor(init?: Partial<ConnectedDevice>) {
+        for(var key in init) {
+            this[key] = init[key];
+        }
+    }
+}

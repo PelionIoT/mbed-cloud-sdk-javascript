@@ -17,6 +17,8 @@
 
 import { CallbackFn } from "../common/interfaces";
 
+export type ConnectedDeviceStateEnum = "active" | "stale";
+
 export interface NotificationObject {
     /**
      * Notifications

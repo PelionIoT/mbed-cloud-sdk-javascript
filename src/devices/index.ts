@@ -20,7 +20,7 @@ import { EventEmitter } from "events";
 import { asyncStyle, decodeBase64, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
 import { ConnectionOptions, ListResponse, CallbackFn, ListOptions } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { NotificationObject, NotificationOptions, PresubscriptionObject, AddDeviceObject, UpdateDeviceObject, DeviceEvent, AddQueryObject, UpdateQueryObject } from "./types";
+import { NotificationObject, NotificationOptions, PresubscriptionObject, AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject } from "./types";
 import { Webhook } from "./models/webhook";
 import { WebhookAdapter } from "./models/webhookAdapter";
 import { PresubscriptionAdapter } from "./models/presubscriptionAdapter";
@@ -30,6 +30,9 @@ import { Resource } from "./models/resource";
 import { ResourceAdapter } from "./models/resourceAdapter";
 import { Query } from "./models/query";
 import { QueryAdapter } from "./models/queryAdapter";
+import { ConnectedDevice } from "./models/connectedDevice";
+import { ConnectedDeviceAdapter } from "./models/connectedDeviceAdapter";
+import { DeviceEventAdapter } from "./models/deviceEventAdapter";
 
 const DEFAULT_POLLING_INTERVAL = 500;
 const ASYNC_KEY = "async-response-id";
@@ -122,24 +125,6 @@ export class DevicesApi extends EventEmitter {
         // Notification can be null
         if (!notification) return;
 
-        function mapDevice(from): DeviceEvent<Resource> {
-            let device:DeviceEvent<Resource> = {
-                id:           from.ep,
-                type:         from.ept,
-                queueMode:    from.q,
-                resources:    from.resources.map(resource => {
-                    return {
-                        observable:     resource.obs,
-                        type:           resource.rf,
-                        contentType:    resource.ct,
-                        path:           resource.path
-                    };
-                })
-            };
-
-            return device;
-        }
-
         if (notification["notifications"]) {
             notification["notifications"].forEach(notification => {
                 var body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
@@ -157,13 +142,13 @@ export class DevicesApi extends EventEmitter {
 
         if (notification["registrations"]) {
             notification["registrations"].forEach(device => {
-                this.emit(DevicesApi.EVENT_REGISTRATION, mapDevice(device));
+                this.emit(DevicesApi.EVENT_REGISTRATION, DeviceEventAdapter.map(device, this));
             });
         }
 
         if (notification["reg-updates"]) {
             notification["reg-updates"].forEach(device => {
-                this.emit(DevicesApi.EVENT_REREGISTRATION, mapDevice(device));
+                this.emit(DevicesApi.EVENT_REREGISTRATION, DeviceEventAdapter.map(device, this));
             });
         }
 
@@ -469,14 +454,14 @@ export class DevicesApi extends EventEmitter {
      * @param type Filter devices by device type
      * @returns Promise of connected devices
      */
-    public listConnectedDevices(type?: string): Promise<ListResponse<Device>>;
+    public listConnectedDevices(type?: string): Promise<Array<ConnectedDevice>>;
     /**
      * List connected devices
      * @param options.type Filter devices by device type
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listConnectedDevices(type?: string, callback?: CallbackFn<ListResponse<Device>>);
-    public listConnectedDevices(type?: any, callback?: CallbackFn<ListResponse<Device>>): Promise<ListResponse<Device>> {
+    public listConnectedDevices(type?: string, callback?: CallbackFn<Array<ConnectedDevice>>);
+    public listConnectedDevices(type?: any, callback?: CallbackFn<Array<ConnectedDevice>>): Promise<Array<ConnectedDevice>> {
         if (typeof type === "function") {
             callback = type;
             type = null;
@@ -486,15 +471,8 @@ export class DevicesApi extends EventEmitter {
             this._endpoints.endpoints.v2EndpointsGet(type, (error, data) => {
                 if (error) return done(error);
 
-                let response:ListResponse<Device> = {
-                    data: data.map(device => {
-                        return DeviceAdapter.map({
-                            id: device.name
-                        }, this)
-                    })
-                };
-
-                done(null, response);
+                let devices = data.map(ConnectedDeviceAdapter.map);
+                done(null, devices);
             });
         }, callback);
     }
