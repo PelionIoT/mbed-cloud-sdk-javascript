@@ -50,9 +50,7 @@
         var deviceId = "";
         function getDevice(completeFn) {
             if (deviceId) {
-                devices.getDevice({
-                    id: deviceId
-                }, function(err, device) {
+                devices.getDevice(deviceId, function(err, device) {
                     if (!err) completeFn(device);
                 });
                 return;

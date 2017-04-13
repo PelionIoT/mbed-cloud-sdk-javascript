@@ -133,7 +133,7 @@ export class UpdateApi {
     public addFirmwareImage(image: AddFirmwareImageObject, callback: CallbackFn<FirmwareImage>);
     public addFirmwareImage(image: AddFirmwareImageObject, callback?: CallbackFn<FirmwareImage>): Promise<FirmwareImage> {
         return asyncStyle(done => {
-            this._endpoints.firmware.firmwareImageCreate(image.datafile, image.name, image.description, (error, data) => {
+            this._endpoints.firmware.firmwareImageCreate(image.dataFile, image.name, image.description, (error, data) => {
                 if (error) return done(error);
                 done(null, FirmwareImageAdapter.map(data, this));
             });
@@ -230,7 +230,7 @@ export class UpdateApi {
     public addFirmwareManifest(manifest: AddFirmwareManifestObject, callback: CallbackFn<FirmwareManifest>);
     public addFirmwareManifest(manifest: AddFirmwareManifestObject, callback?: CallbackFn<FirmwareManifest>): Promise<FirmwareManifest> {
         return asyncStyle(done => {
-            this._endpoints.firmware.firmwareManifestCreate(manifest.datafile, manifest.name, manifest.description, (error, data) => {
+            this._endpoints.firmware.firmwareManifestCreate(manifest.dataFile, manifest.name, manifest.description, (error, data) => {
                 if (error) return done(error);
                 done(null, FirmwareManifestAdapter.map(data, this));
             });

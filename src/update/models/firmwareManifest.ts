@@ -17,7 +17,7 @@
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { AddFirmwareManifestObject } from "../types";
+import { FirmwareManifestObject } from "../types";
 import { UpdateApi } from "../index";
 
 /**
@@ -29,6 +29,10 @@ export class FirmwareManifest {
      * The ID of the firmware manifest
      */
     readonly id: string;
+    /**
+     * The URL of the firmware manifest
+     */
+    readonly url: string;
     /**
      * The class of device
      */
@@ -72,4 +76,4 @@ export class FirmwareManifest {
         }, callback);
     }
 }
-export interface FirmwareManifest extends AddFirmwareManifestObject {}
+export interface FirmwareManifest extends FirmwareManifestObject {}

@@ -26,13 +26,13 @@ export class FirmwareImageAdapter {
 
     static map(from: apiFirmwareImage, api: UpdateApi): FirmwareImage {
         return new FirmwareImage({
-        	createdAt: 			from.created_at,
-        	datafile: 			from.datafile,
-        	datafileChecksum:	from.datafile_checksum,
-        	description:		from.description,
-        	id:					from.id,
-        	name:				from.name,
-        	updatedAt:			from.updated_at
+            createdAt: 			from.created_at,
+            url: 			    from.datafile,
+            datafileChecksum:	from.datafile_checksum,
+            description:		from.description,
+            id:					from.id,
+            name:				from.name,
+            updatedAt:			from.updated_at
         }, api);
     }
 }

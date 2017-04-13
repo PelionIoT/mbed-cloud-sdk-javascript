@@ -8,7 +8,6 @@ var envVarKey = "MBED_CLOUD_API_KEY";
 var envVarHost = "MBED_CLOUD_HOST";
 var logPrefix = "  \x1b[34mtestserver\x1b[0m ";
 
-
 // Environment configuration
 var config = {
     apiKey: process.env[envVarKey],

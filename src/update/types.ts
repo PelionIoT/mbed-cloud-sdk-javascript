@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-export interface AddFirmwareImageObject {
+export interface FirmwareImageObject {
     /**
      * The name of the object
      */
@@ -24,13 +24,16 @@ export interface AddFirmwareImageObject {
      * The description of the object
      */
     description?: string;
+}
+
+export interface AddFirmwareImageObject extends FirmwareImageObject {
     /**
      * The binary file of firmware image
      */
-    datafile: string;
+    dataFile: string;
 }
 
-export interface AddFirmwareManifestObject {
+export interface FirmwareManifestObject {
     /**
      * The name of the object
      */
@@ -39,10 +42,13 @@ export interface AddFirmwareManifestObject {
      * The description of the object
      */
     description?: string;
+}
+
+export interface AddFirmwareManifestObject extends FirmwareManifestObject {
     /**
-     * The file of the manifest
+     * The binary file of the manifest
      */
-    datafile: string;
+    dataFile: string;
 }
 
 export type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";

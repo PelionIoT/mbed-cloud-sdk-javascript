@@ -17,7 +17,7 @@
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { AddFirmwareImageObject } from "../types";
+import { FirmwareImageObject } from "../types";
 import { UpdateApi } from "../index";
 
 /**
@@ -29,6 +29,10 @@ export class FirmwareImage {
      * The ID of the firmware image
      */
     readonly id: string;
+    /**
+     * The URL of the firmware image
+     */
+    readonly url: string;
     /**
      * Checksum generated for the datafile
      */
@@ -64,4 +68,4 @@ export class FirmwareImage {
         }, callback);
     }
 }
-export interface FirmwareImage extends AddFirmwareImageObject {}
+export interface FirmwareImage extends FirmwareImageObject {}

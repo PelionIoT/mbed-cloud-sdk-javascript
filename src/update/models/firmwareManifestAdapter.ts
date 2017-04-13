@@ -26,8 +26,8 @@ export class FirmwareManifestAdapter {
 
     static map(from: apiFirmwareManifest, api: UpdateApi): FirmwareManifest {
         return new FirmwareManifest({
-        	createdAt:           from.created_at,
-            datafile:            from.datafile,
+            createdAt:           from.created_at,
+            url:                 from.datafile,
             description:         from.description,
             deviceClass:         from.device_class,
             id:                  from.id,

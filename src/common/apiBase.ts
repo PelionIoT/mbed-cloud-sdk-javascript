@@ -71,6 +71,7 @@ export class ApiBase {
                 request.send(ApiBase.normalizeParams(options.formParams));
             }
         } else if (options.body) {
+            //console.log(options.body);
             request.send(options.body);
         }
 
