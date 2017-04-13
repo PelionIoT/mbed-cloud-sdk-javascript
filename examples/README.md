@@ -113,8 +113,12 @@ __Note:__ Your API Key will be publicly visible in your web application. When cr
 
 * __Device Query Management__ [query-management.html](web/query-management.html)
 
-  This example allows mangement and running of device queries, paging the results.
+  This example allows management and running of device queries, paging the results.
 
 * __Update Management__ [update-management.html](web/update-management.html)
 
-  This example allows mangement of update campaigns, firmware images and manifests.
+  This example allows management of update campaigns, firmware images and manifests.
+
+* __Statistics__ [statistics.html](web/statistics.html)
+
+  This example renders statistics.

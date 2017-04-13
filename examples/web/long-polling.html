@@ -59,7 +59,7 @@
             }
 
             devices.listConnectedDevices(function(err, response) {
-                if (!err) completeFn(response.data[0]);
+                if (!err) completeFn(response[0]);
             });
         }
 
@@ -123,7 +123,8 @@
                         if (!value) return;
 
                         resource.setValue(value, function(err) {
-                            resource.getValue(updateValue);
+                            if (err) alert("This resource may not support writing");
+                            else resource.getValue(updateValue);
                         });
                     });
                 });

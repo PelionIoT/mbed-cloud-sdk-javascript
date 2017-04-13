@@ -322,8 +322,7 @@ export class DevicesApi extends EventEmitter {
     public deleteWebhook(callback: CallbackFn<void>);
     public deleteWebhook(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.webhooks.v2NotificationCallbackDelete(error => {
-                if (error) return done(error);
+            this._endpoints.webhooks.v2NotificationCallbackDelete(() => {
                 done(null, null);
             });
         }, callback);

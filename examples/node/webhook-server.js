@@ -22,7 +22,7 @@ var express = require('express');
 var mbed = require('../../lib/');
 var config = require('./config');
 
-var url = "http://0535834a.ngrok.io";
+var url = "http://4bf8c2e4.ngrok.io";
 var port = 3002;
 
 var devices = new mbed.DevicesApi(config);
@@ -46,7 +46,6 @@ app.put("/", (req, res, next) => {
     });
 
 	res.sendStatus(200);
-	next();
 });
 
 // Start server
@@ -59,15 +58,15 @@ devices.getWebhook((err, webhook) => {
     if (!webhook) console.log("No webhook currently registered");
     else console.log(`Webhook currently set to ${webhook.url}`);
 
-    devices.updateWebhook({
-        url: url
-    }, err => {
-        if (err) {
-            console.log(`${err} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
-            return;
-        }
-        console.log(`Webhook now set to ${url}`);
-        listDevices();
+    devices.deleteWebhook(() => {
+        devices.updateWebhook(url, err => {
+            if (err) {
+                console.log(`${err} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
+                return;
+            }
+            console.log(`Webhook now set to ${url}`);
+            listDevices();
+        });
     });
 });
 
@@ -80,10 +79,10 @@ function listDevices() {
             resources.forEach(resource => {
                 resource.getValue()
                 .then(value => {
-                    console.log(`\t└${resource.path}\t\t- ${value}`);
+                    console.log(`\t└\x1b[1m${resource.path}\x1b[0m: ${value}`);
                 })
                 .catch(err => {
-                    console.log(`\t└${resource.path}\t\t- Error: ${err}`);
+                    console.log(`\t└\x1b[1m${resource.path}\x1b[0m: Error: ${err}`);
                 });
             });
         });
@@ -103,6 +102,6 @@ function getDevice(completeFn) {
 
     devices.listConnectedDevices()
     .then(response => {
-        completeFn(response.data[0]);
+        completeFn(response[0]);
     });
 }

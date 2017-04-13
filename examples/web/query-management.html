@@ -88,7 +88,7 @@
                             include: ["totalCount"],
                             order: "ASC",
                             limit: 100,
-                            attributes: query.attributes,
+                            filter: query.filter,
                             customAttributes: query.customAttributes,
                         }, function(err, response) {
                             response.data.forEach(function(device) {
@@ -113,7 +113,8 @@
                             id: query.id,
                             name: name
                         }, function(err) {
-                            location.reload()
+                            if (err) alert(err);
+                            else location.reload()
                         });
                     });
 
@@ -125,16 +126,18 @@
                         devices.updateQuery({
                             id: query.id,
                             filter: { state: state }
+                        }, function(err) {
+                            if (err) alert(err);
+                            else location.reload();
                         });
                     });
 
                     // Delete query
                     deleteBtn.addEventListener("click", function() {
                         if (confirm("Are you sure you want to delete query:\n" + (query.name || query.id))) {
-                            devices.deleteQuery({
-                                id: query.id
-                            }, function(err) {
-                                location.reload()
+                            query.delete(function(err) {
+                                if (err) alert(err);
+                                else location.reload()
                             });
                         }
                     });
@@ -156,9 +159,10 @@
 
             devices.addQuery({
                 name: name,
-                attributes: { state: state }
+                filter: { state: state }
             }, function(err) {
-                location.reload()
+                if (err) alert(err);
+                else location.reload()
             });
         });
 
