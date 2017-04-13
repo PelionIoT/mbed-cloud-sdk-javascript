@@ -471,7 +471,9 @@ export class DevicesApi extends EventEmitter {
             this._endpoints.endpoints.v2EndpointsGet(type, (error, data) => {
                 if (error) return done(error);
 
-                let devices = data.map(ConnectedDeviceAdapter.map);
+                let devices = data.map(device => {
+                    return ConnectedDeviceAdapter.map(device, this);
+                });
                 done(null, devices);
             });
         }, callback);

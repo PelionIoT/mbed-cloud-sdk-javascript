@@ -21,8 +21,3 @@ export { DevicesApi } from "./devices";
 export { LoggingApi } from "./logging";
 export { StatisticsApi } from "./statistics";
 export { UpdateApi } from "./update";
-
-// update: certificate
-// check: webhook
-// check: device-management
-// check: query-management
