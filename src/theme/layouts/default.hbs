@@ -23,18 +23,19 @@
 
 <div class="container container-main">
     <div class="content-wrap">
-    	{{#if model.readme}}
-        	<div class="tsd-panel tsd-typography">
-            	{{#markdown}}{{{model.readme}}}{{/markdown}}
-        	</div>
-		{{else}}
-        	{{{contents}}}
+        {{#if model.readme}}
+            <div class="tsd-panel tsd-typography">
+                {{#markdown}}{{{model.readme}}}{{/markdown}}
+            </div>
         {{/if}}
+
+        {{{contents}}}
         {{> footer}}
     </div>
 </div>
 
 <div class="overlay"></div>
+
 <script src="{{relativeURL "assets/js/main.js"}}"></script>
 <script>if (location.protocol == 'file:') document.write('<script src="{{relativeURL "assets/js/search.js"}}"><' + '/script>');</script>
 
