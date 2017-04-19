@@ -22,9 +22,9 @@ import { ApiBase } from "../common/apiBase";
 
 export interface DeviceQuery {
     /**
-     * The description of the object
+     * The name of the query
      */
-    "description": string;
+    "name": string;
     /**
      * The time the object was created
      */
@@ -49,10 +49,6 @@ export interface DeviceQuery {
      * The ID of the query
      */
     "id": string;
-    /**
-     * The name of the query
-     */
-    "name": string;
 }
 
 export interface DeviceQueryPage {
@@ -71,10 +67,6 @@ export interface DeviceQueryPatchRequest {
      */
     "query"?: string;
     /**
-     * The description of the object
-     */
-    "description"?: string;
-    /**
      * The name of the query
      */
     "name"?: string;
@@ -85,10 +77,6 @@ export interface DeviceQueryPostPutRequest {
      * The device query
      */
     "query": string;
-    /**
-     * The description of the object
-     */
-    "description": string;
     /**
      * The name of the query
      */
@@ -168,22 +156,8 @@ export class DefaultApi extends ApiBase {
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
      * @param include Comma separated list of data fields to return. Currently supported: total_count
-     * @param createdAt 
-     * @param createdAtGte 
-     * @param createdAtLte 
-     * @param description 
-     * @param etag 
-     * @param etagAtGte 
-     * @param etagAtLte 
-     * @param id 
-     * @param name 
-     * @param object 
-     * @param query 
-     * @param updatedAt 
-     * @param updatedAtGte 
-     * @param updatedAtLte 
      */
-    deviceQueryList (limit?: number, order?: string, after?: string, filter?: string, include?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description?: string, etag?: string, etagAtGte?: string, etagAtLte?: string, id?: string, name?: string, object?: string, query?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, callback?: (error:any, data?:DeviceQueryPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    deviceQueryList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:DeviceQueryPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -202,48 +176,6 @@ export class DefaultApi extends ApiBase {
         }
         if (include !== undefined) {
             queryParameters['include'] = include;
-        }
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-        if (createdAtGte !== undefined) {
-            queryParameters['created_at__gte'] = createdAtGte;
-        }
-        if (createdAtLte !== undefined) {
-            queryParameters['created_at__lte'] = createdAtLte;
-        }
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-        if (etagAtGte !== undefined) {
-            queryParameters['etag_at__gte'] = etagAtGte;
-        }
-        if (etagAtLte !== undefined) {
-            queryParameters['etag_at__lte'] = etagAtLte;
-        }
-        if (id !== undefined) {
-            queryParameters['id'] = id;
-        }
-        if (name !== undefined) {
-            queryParameters['name'] = name;
-        }
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-        if (query !== undefined) {
-            queryParameters['query'] = query;
-        }
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-        if (updatedAtGte !== undefined) {
-            queryParameters['updated_at__gte'] = updatedAtGte;
-        }
-        if (updatedAtLte !== undefined) {
-            queryParameters['updated_at__lte'] = updatedAtLte;
         }
 
         let useFormData = false;

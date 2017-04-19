@@ -231,37 +231,14 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;List all update campaigns.&lt;/p&gt; &lt;h4 id&#x3D;\&quot;filtering\&quot;&gt;Filtering:&lt;/h4&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;{URL encoded query string}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The query string is made up of key/value pairs separated by ampersands. So for a query of &lt;code&gt;key1&#x3D;value1&amp;amp;key2&#x3D;value2&amp;amp;key3&#x3D;value3&lt;/code&gt; this would be encoded as follows:&lt;/p&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The examples below show the queries in &lt;em&gt;unencoded&lt;/em&gt; form.&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-campaign-properties-all-properties-are-filterable\&quot;&gt;By campaign properties (all properties are filterable):&lt;/h5&gt; &lt;p&gt;For example: &lt;code&gt;state&#x3D;[draft|scheduled|devicefectch|devicecopy|devicecopycomplete|publishing|deploying|deployed|manifestremoved|expired]&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;root_manifest_id&#x3D;43217771234242e594ddb433816c498a&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-date-time-fields\&quot;&gt;On date-time fields:&lt;/h5&gt; &lt;p&gt;Date-time fields should be specified in UTC RFC3339 format &lt;code&gt;YYYY-MM-DDThh:mm:ss.msZ&lt;/code&gt;. There are three permitted variations:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Date-time filtering supports three operators:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;equality&lt;/li&gt; &lt;li&gt;greater than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__gte&lt;/code&gt;&lt;/li&gt; &lt;li&gt;less than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__lte&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Lower and upper limits to a date-time range may be specified by including both the &lt;code&gt;__gte&lt;/code&gt; and &lt;code&gt;__lte&lt;/code&gt; forms in the filter.&lt;/p&gt; &lt;p&gt;&lt;code&gt;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&lt;/code&gt;&lt;/p&gt; &lt;h4 id&#x3D;\&quot;multi-field-example\&quot;&gt;Multi-field example&lt;/h4&gt; &lt;p&gt;&lt;code&gt;state&#x3D;deployed&amp;amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&lt;/code&gt;&lt;/p&gt; &lt;p&gt;Encoded: &lt;code&gt;?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&lt;/code&gt;&lt;/p&gt;
+     * The APIs for creating and manipulating update campaigns.
      * @param limit how many objects to retrieve in the page
      * @param order ASC or DESC
      * @param after the ID of the the item after which to retrieve the next page
-     * @param filter URL encoded query string parameter to filter returned data
+     * @param filter URL encoded query string parameter to filter returned data. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;List all update campaigns.&lt;/p&gt; &lt;h4 id&#x3D;\&quot;filtering\&quot;&gt;Filtering:&lt;/h4&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;{URL encoded query string}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The query string is made up of key/value pairs separated by ampersands. So for a query of &lt;code&gt;key1&#x3D;value1&amp;amp;key2&#x3D;value2&amp;amp;key3&#x3D;value3&lt;/code&gt; this would be encoded as follows:&lt;/p&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The examples below show the queries in &lt;em&gt;unencoded&lt;/em&gt; form.&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-campaign-properties-all-properties-are-filterable\&quot;&gt;By campaign properties (all properties are filterable):&lt;/h5&gt; &lt;p&gt;For example: &lt;code&gt;state&#x3D;[draft|scheduled|devicefectch|devicecopy|devicecopycomplete|publishing|deploying|deployed|manifestremoved|expired]&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;root_manifest_id&#x3D;43217771234242e594ddb433816c498a&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-date-time-fields\&quot;&gt;On date-time fields:&lt;/h5&gt; &lt;p&gt;Date-time fields should be specified in UTC RFC3339 format &lt;code&gt;YYYY-MM-DDThh:mm:ss.msZ&lt;/code&gt;. There are three permitted variations:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Date-time filtering supports three operators:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;equality&lt;/li&gt; &lt;li&gt;greater than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__gte&lt;/code&gt;&lt;/li&gt; &lt;li&gt;less than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__lte&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Lower and upper limits to a date-time range may be specified by including both the &lt;code&gt;__gte&lt;/code&gt; and &lt;code&gt;__lte&lt;/code&gt; forms in the filter.&lt;/p&gt; &lt;p&gt;&lt;code&gt;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&lt;/code&gt;&lt;/p&gt; &lt;h4 id&#x3D;\&quot;multi-field-example\&quot;&gt;Multi-field example&lt;/h4&gt; &lt;p&gt;&lt;code&gt;state&#x3D;deployed&amp;amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&lt;/code&gt;&lt;/p&gt; &lt;p&gt;Encoded: &lt;code&gt;?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&lt;/code&gt;&lt;/p&gt;
      * @param include Comma separated list of data fields to return. Currently supported: total_count
-     * @param createdAt 
-     * @param createdAtLte 
-     * @param createdAtGte 
-     * @param description 
-     * @param deviceFilter 
-     * @param etag 
-     * @param etagLte 
-     * @param etagGte 
-     * @param finished 
-     * @param finishedLte 
-     * @param finishedGte 
-     * @param id 
-     * @param name 
-     * @param object 
-     * @param rootManifestId 
-     * @param rootManifestUrl 
-     * @param startedAt 
-     * @param startedAtLte 
-     * @param statedAtGte 
-     * @param state 
-     * @param when 
-     * @param whenLte 
-     * @param whenGte 
      */
-    updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, createdAt?: string, createdAtLte?: string, createdAtGte?: string, description?: string, deviceFilter?: string, etag?: string, etagLte?: string, etagGte?: string, finished?: string, finishedLte?: string, finishedGte?: string, id?: string, name?: string, object?: string, rootManifestId?: string, rootManifestUrl?: string, startedAt?: string, startedAtLte?: string, statedAtGte?: string, state?: string, when?: string, whenLte?: string, whenGte?: string, callback?: (error:any, data?:UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCampaignList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -280,75 +257,6 @@ export class DefaultApi extends ApiBase {
         }
         if (include !== undefined) {
             queryParameters['include'] = include;
-        }
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-        if (createdAtLte !== undefined) {
-            queryParameters['created_at__lte'] = createdAtLte;
-        }
-        if (createdAtGte !== undefined) {
-            queryParameters['created_at__gte'] = createdAtGte;
-        }
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-        if (deviceFilter !== undefined) {
-            queryParameters['device_filter'] = deviceFilter;
-        }
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-        if (etagLte !== undefined) {
-            queryParameters['etag__lte'] = etagLte;
-        }
-        if (etagGte !== undefined) {
-            queryParameters['etag__gte'] = etagGte;
-        }
-        if (finished !== undefined) {
-            queryParameters['finished'] = finished;
-        }
-        if (finishedLte !== undefined) {
-            queryParameters['finished__lte'] = finishedLte;
-        }
-        if (finishedGte !== undefined) {
-            queryParameters['finished__gte'] = finishedGte;
-        }
-        if (id !== undefined) {
-            queryParameters['id'] = id;
-        }
-        if (name !== undefined) {
-            queryParameters['name'] = name;
-        }
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-        if (rootManifestId !== undefined) {
-            queryParameters['root_manifest_id'] = rootManifestId;
-        }
-        if (rootManifestUrl !== undefined) {
-            queryParameters['root_manifest_url'] = rootManifestUrl;
-        }
-        if (startedAt !== undefined) {
-            queryParameters['started_at'] = startedAt;
-        }
-        if (startedAtLte !== undefined) {
-            queryParameters['started_at__lte'] = startedAtLte;
-        }
-        if (statedAtGte !== undefined) {
-            queryParameters['stated_at__gte'] = statedAtGte;
-        }
-        if (state !== undefined) {
-            queryParameters['state'] = state;
-        }
-        if (when !== undefined) {
-            queryParameters['when'] = when;
-        }
-        if (whenLte !== undefined) {
-            queryParameters['when__lte'] = whenLte;
-        }
-        if (whenGte !== undefined) {
-            queryParameters['when_gte'] = whenGte;
         }
 
         let useFormData = false;
