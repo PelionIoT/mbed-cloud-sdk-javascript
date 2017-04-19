@@ -217,21 +217,8 @@ export class DefaultApi extends ApiBase {
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
      * @param include Comma separated list of data fields to return. Currently supported: total_count
-     * @param updatedAt 
-     * @param updatedAtGte 
-     * @param updatedAtLte 
-     * @param etag 
-     * @param etagGte 
-     * @param etagLte 
-     * @param createdAt 
-     * @param createdAtGte 
-     * @param createdAtLte 
-     * @param description 
-     * @param object 
-     * @param datafileChecksum 
-     * @param name 
      */
-    firmwareImageList (limit?: number, order?: string, after?: string, filter?: string, include?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, etag?: string, etagGte?: string, etagLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, description?: string, object?: string, datafileChecksum?: string, name?: string, callback?: (error:any, data?:FirmwareImagePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareImageList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:FirmwareImagePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -250,45 +237,6 @@ export class DefaultApi extends ApiBase {
         }
         if (include !== undefined) {
             queryParameters['include'] = include;
-        }
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-        if (updatedAtGte !== undefined) {
-            queryParameters['updated_at__gte'] = updatedAtGte;
-        }
-        if (updatedAtLte !== undefined) {
-            queryParameters['updated_at__lte'] = updatedAtLte;
-        }
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-        if (etagGte !== undefined) {
-            queryParameters['etag__gte'] = etagGte;
-        }
-        if (etagLte !== undefined) {
-            queryParameters['etag__lte'] = etagLte;
-        }
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-        if (createdAtGte !== undefined) {
-            queryParameters['created_at__gte'] = createdAtGte;
-        }
-        if (createdAtLte !== undefined) {
-            queryParameters['created_at__lte'] = createdAtLte;
-        }
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-        if (datafileChecksum !== undefined) {
-            queryParameters['datafile_checksum'] = datafileChecksum;
-        }
-        if (name !== undefined) {
-            queryParameters['name'] = name;
         }
 
         let useFormData = false;
@@ -336,7 +284,7 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      * &lt;p&gt;The APIs for creating and manipulating firmware manifests.  &lt;/p&gt; &lt;p&gt;Create firmware manifest&lt;/p&gt;
-     * @param datafile The manifest file to create
+     * @param datafile The manifest file to create. The size of the file is account specific and enforced by the api gateway
      * @param name The name of the object
      * @param description The description of the object
      */
@@ -423,27 +371,8 @@ export class DefaultApi extends ApiBase {
      * @param after the ID of the the item after which to retrieve the next page
      * @param filter URL encoded query string parameter to filter returned data
      * @param include Comma separated list of data fields to return. Currently supported: total_count
-     * @param updatedAt 
-     * @param updatedAtGte 
-     * @param updatedAtLte 
-     * @param createdAt 
-     * @param createdAtGte 
-     * @param createdAtLte 
-     * @param etag 
-     * @param etagGte 
-     * @param etagLte 
-     * @param manifestId 
-     * @param updatingRequestId 
-     * @param description 
-     * @param timestamp 
-     * @param timestampGte 
-     * @param timestampLte 
-     * @param object 
-     * @param deviceClass 
-     * @param datafileChecksum 
-     * @param name 
      */
-    firmwareManifestList (limit?: number, order?: string, after?: string, filter?: string, include?: string, updatedAt?: string, updatedAtGte?: string, updatedAtLte?: string, createdAt?: string, createdAtGte?: string, createdAtLte?: string, etag?: string, etagGte?: string, etagLte?: string, manifestId?: string, updatingRequestId?: string, description?: string, timestamp?: string, timestampGte?: string, timestampLte?: string, object?: string, deviceClass?: string, datafileChecksum?: string, name?: string, callback?: (error:any, data?:FirmwareManifestPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareManifestList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:FirmwareManifestPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -462,63 +391,6 @@ export class DefaultApi extends ApiBase {
         }
         if (include !== undefined) {
             queryParameters['include'] = include;
-        }
-        if (updatedAt !== undefined) {
-            queryParameters['updated_at'] = updatedAt;
-        }
-        if (updatedAtGte !== undefined) {
-            queryParameters['updated_at__gte'] = updatedAtGte;
-        }
-        if (updatedAtLte !== undefined) {
-            queryParameters['updated_at__lte'] = updatedAtLte;
-        }
-        if (createdAt !== undefined) {
-            queryParameters['created_at'] = createdAt;
-        }
-        if (createdAtGte !== undefined) {
-            queryParameters['created_at__gte'] = createdAtGte;
-        }
-        if (createdAtLte !== undefined) {
-            queryParameters['created_at__lte'] = createdAtLte;
-        }
-        if (etag !== undefined) {
-            queryParameters['etag'] = etag;
-        }
-        if (etagGte !== undefined) {
-            queryParameters['etag__gte'] = etagGte;
-        }
-        if (etagLte !== undefined) {
-            queryParameters['etag__lte'] = etagLte;
-        }
-        if (manifestId !== undefined) {
-            queryParameters['manifest_id'] = manifestId;
-        }
-        if (updatingRequestId !== undefined) {
-            queryParameters['updating_request_id'] = updatingRequestId;
-        }
-        if (description !== undefined) {
-            queryParameters['description'] = description;
-        }
-        if (timestamp !== undefined) {
-            queryParameters['timestamp'] = timestamp;
-        }
-        if (timestampGte !== undefined) {
-            queryParameters['timestamp__gte'] = timestampGte;
-        }
-        if (timestampLte !== undefined) {
-            queryParameters['timestamp__lte'] = timestampLte;
-        }
-        if (object !== undefined) {
-            queryParameters['object'] = object;
-        }
-        if (deviceClass !== undefined) {
-            queryParameters['device_class'] = deviceClass;
-        }
-        if (datafileChecksum !== undefined) {
-            queryParameters['datafile_checksum'] = datafileChecksum;
-        }
-        if (name !== undefined) {
-            queryParameters['name'] = name;
         }
 
         let useFormData = false;

@@ -74,7 +74,6 @@ export interface AccountInfo {
      * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
      */
     "is_provisioning_allowed": boolean;
-    "creationTimeMillis"?: number;
     /**
      * The company email address for this account.
      */
@@ -174,10 +173,6 @@ export interface AccountUpdateReq {
      */
     "postal_code"?: string;
     /**
-     * The ID of the parent account, if it has any.
-     */
-    "parentID"?: string;
-    /**
      * The phone number of the company, not longer than 100 characters.
      */
     "phone_number"?: string;
@@ -239,7 +234,6 @@ export interface ApiKeyInfoResp {
      * The timestamp of the API key creation in the storage, in milliseconds.
      */
     "creation_time"?: number;
-    "creationTimeMillis"?: number;
     /**
      * API resource entity version.
      */
@@ -401,7 +395,6 @@ export interface GroupSummary {
      * API resource entity version.
      */
     "etag": string;
-    "creationTimeMillis"?: number;
     /**
      * The number of users in this group.
      */
@@ -532,7 +525,6 @@ export interface TrustedCertificateResp {
      * Expiration time in UTC formatted as RFC3339.
      */
     "validity": string;
-    "creationTimeMillis"?: number;
     /**
      * Issuer of the certificate.
      */
@@ -720,7 +712,6 @@ export interface UserInfoResp {
      * Address.
      */
     "address"?: string;
-    "creationTimeMillis"?: number;
     /**
      * A timestamp of the user creation in the storage, in milliseconds.
      */

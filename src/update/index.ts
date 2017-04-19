@@ -84,9 +84,7 @@ export class UpdateApi {
         }
         let { limit, order, after, include, filter } = options as ListOptions;
         return asyncStyle(done => {
-            this._endpoints.firmware.firmwareImageList(limit, order, after, encodeFilter(filter), encodeInclude(include),
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, (error, data) => {
+            this._endpoints.firmware.firmwareImageList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(image => {
@@ -181,9 +179,7 @@ export class UpdateApi {
         }
         let { limit, order, after, include, filter } = options as ListOptions;
         return asyncStyle(done => {
-            this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeFilter(filter), encodeInclude(include),
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, (error, data) => {
+            this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {
@@ -278,10 +274,7 @@ export class UpdateApi {
         }
         let { limit, order, after, include, filter } = options as ListOptions;
         return asyncStyle(done => {
-            this._endpoints.deployment.updateCampaignList(limit, order, after, encodeFilter(filter), encodeInclude(include),
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, (error, data) => {
+            this._endpoints.deployment.updateCampaignList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {
