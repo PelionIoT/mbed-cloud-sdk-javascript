@@ -39,7 +39,6 @@ export class QueryAdapter {
             filter:              attributes.noMatch,
             customAttributes:    attributes.match,
             createdAt:           from.created_at,
-            description:         from.description,
             id:                  from.id,
             name:                from.name,
             updatedAt:           from.updated_at,
@@ -48,7 +47,6 @@ export class QueryAdapter {
 
     static addMap(from: AddQueryObject): apiQueryAdd {
         return {
-            description:    from.description,
             name:           from.name,
             query:          encodeCustomFilter(from, CUSTOM_PREFIX)
         };
@@ -56,7 +54,6 @@ export class QueryAdapter {
 
     static updateMap(from: UpdateQueryObject): apiQueryUpdate {
         return {
-            description:    from.description,
             name:           from.name,
             query:          encodeCustomFilter(from, CUSTOM_PREFIX)
         };

@@ -237,10 +237,6 @@ export interface QueryObject {
      */
     name?: string;
     /**
-     * The description of the query
-     */
-    description?: string;
-    /**
      * The query filter
      */
     filter?: { [key: string]: string };

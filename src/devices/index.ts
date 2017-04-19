@@ -430,12 +430,7 @@ export class DevicesApi extends EventEmitter {
 
         let { limit, after, order, include, filter } = options;
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter), encodeInclude(include),
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, (error, data) => {
+            this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let devices = data.data.map(device => {
@@ -902,9 +897,7 @@ export class DevicesApi extends EventEmitter {
 
         let { limit, order, after, include, filter } = options;
         return asyncStyle(done => {
-            this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter), encodeInclude(include),
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, (error, data) => {
+            this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let queries = data.data.map(query => {
