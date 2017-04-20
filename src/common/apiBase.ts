@@ -73,6 +73,13 @@ export class ApiBase {
             }
         } else if (options.body) {
             body = options.body;
+            if (options.json && body === Object(body)) {
+                body = Object.keys(body).reduce((val, key) => {
+                    if(body[key] !== null && body[key] !== undefined) val[key] = body[key];
+                    return val;
+                }, {});
+            }
+
             request.send(body);
         }
 
