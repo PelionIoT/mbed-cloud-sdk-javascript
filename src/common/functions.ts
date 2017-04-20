@@ -93,7 +93,7 @@ export function encodeCustomFilter(from: { filter?: { [key: string]: string }, c
         filter += custom;
     }
 
-    return filter;
+    return filter || null;
 }
 
 export function decodeCustomFilter(from: string, prefix: string = ""): { match: { [key: string]: string }, noMatch: { [key: string]: string } } {
