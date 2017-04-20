@@ -17,7 +17,7 @@
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn, ListOptions, ListResponse } from "../../common/interfaces";
-import { AccessApi } from "../index";
+import { AccountManagementApi } from "../index";
 import { User } from "./user";
 import { ApiKey } from "./apiKey";
 
@@ -59,7 +59,7 @@ export class Group {
      */
     readonly lastUpdateTime?: number;
 
-    constructor(init: Partial<Group>, private _api?: AccessApi) {
+    constructor(init: Partial<Group>, private _api?: AccountManagementApi) {
         for(var key in init) {
             this[key] = init[key];
         }

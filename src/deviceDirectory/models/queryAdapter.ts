@@ -21,7 +21,7 @@ import {
     DeviceQueryPostPutRequest as apiQueryAdd,
     DeviceQueryPatchRequest as apiQueryUpdate
 } from "../../_api/device_query_service";
-import { DevicesApi } from "../index";
+import { DeviceDirectoryApi } from "../index";
 import { AddQueryObject, UpdateQueryObject } from "../types";
 import { Query } from "./query";
 
@@ -32,7 +32,7 @@ const CUSTOM_PREFIX = "custom_attributes__";
  */
 export class QueryAdapter {
 
-    static map(from: apiQuery, api: DevicesApi): Query {
+    static map(from: apiQuery, api: DeviceDirectoryApi): Query {
         let attributes = decodeCustomFilter(from.query, CUSTOM_PREFIX);
 
         return new Query({

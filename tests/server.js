@@ -6,7 +6,7 @@ var mapping = require("./mapping");
 var port = 5000;
 var envVarKey = "MBED_CLOUD_API_KEY";
 var envVarHost = "MBED_CLOUD_HOST";
-var logPrefix = "  \x1b[34mtestserver\x1b[0m ";
+var logPrefix = "  \x1b[1m\x1b[34mtestserver\x1b[0m ";
 
 // Environment configuration
 var config = {
@@ -20,11 +20,10 @@ if (!config.apiKey) {
 }
 
 var modules = {
-    AccessApi: new mbedCloudSDK.AccessApi(config),
+    AccountManagementApi: new mbedCloudSDK.AccountManagementApi(config),
     CertificatesApi: new mbedCloudSDK.CertificatesApi(config),
-    DevicesApi: new mbedCloudSDK.DevicesApi(config),
-    LoggingApi: new mbedCloudSDK.LoggingApi(config),
-    StatisticsApi: new mbedCloudSDK.StatisticsApi(config),
+    ConnectApi: new mbedCloudSDK.ConnectApi(config),
+    DeviceDirectoryApi: new mbedCloudSDK.DeviceDirectoryApi(config),
     UpdateApi: new mbedCloudSDK.UpdateApi(config)
 }
 
@@ -52,9 +51,7 @@ app.get("/:module/:method", (req, res, next) => {
     console.log(`${logPrefix}http://localhost:${port}${req.url}`);
 
     // Module
-    var module = req.params["module"];
-    module = module[0].toUpperCase() + module.slice(1);
-    module = `${module}Api`;
+    var module = mapping.mapModule(req.params["module"]);
 
     // Method
     var method = mapping.mapMethod(module, req.params["method"]);

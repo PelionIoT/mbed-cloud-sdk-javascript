@@ -15,9 +15,8 @@
 * limitations under the License.
 */
 
-export { AccessApi } from "./access";
+export { AccountManagementApi } from "./accountManagement";
 export { CertificatesApi } from "./certificates";
-export { DevicesApi } from "./devices";
-export { LoggingApi } from "./logging";
-export { StatisticsApi } from "./statistics";
+export { ConnectApi } from "./connect";
+export { DeviceDirectoryApi } from "./deviceDirectory";
 export { UpdateApi } from "./update";

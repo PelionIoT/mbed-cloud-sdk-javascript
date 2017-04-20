@@ -19,7 +19,7 @@ var objectFns = [
 ];
 
 var mapping = {
-	DevicesApi: {
+	ConnectApi: {
 		// Args to re-order
 		getResourceValue: args => {
 			return {
@@ -39,9 +39,7 @@ var mapping = {
 				0: args.deviceId,
 				1: args.resourcePath
 			};
-		}
-	},
-	StatisticsApi: {
+		},
 		getMetrics: args => {
 			function parse(input) {
 				var units = ["hours", "days", "weeks", "months", "years"];
@@ -145,4 +143,12 @@ exports.mapMethod = (module, method) => {
 
 	// Camel-case the method
 	return functions.snakeToCamel(method);
+}
+
+exports.mapModule = (module) => {
+	// Camel-case the method
+	module = functions.snakeToCamel(module);
+
+	module = module[0].toUpperCase() + module.slice(1);
+	return `${module}Api`;
 }

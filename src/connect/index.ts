@@ -17,28 +17,27 @@
 
 import superagent = require("superagent");
 import { EventEmitter } from "events";
-import { asyncStyle, decodeBase64, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
-import { ConnectionOptions, ListResponse, CallbackFn, ListOptions } from "../common/interfaces";
+import { asyncStyle, decodeBase64 } from "../common/functions";
+import { ConnectionOptions, CallbackFn } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { NotificationObject, NotificationOptions, PresubscriptionObject, AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject } from "./types";
+import { NotificationObject, NotificationOptions, PresubscriptionObject } from "./types";
 import { Webhook } from "./models/webhook";
 import { WebhookAdapter } from "./models/webhookAdapter";
 import { PresubscriptionAdapter } from "./models/presubscriptionAdapter";
-import { Device } from "./models/device";
-import { DeviceAdapter } from "./models/deviceAdapter";
 import { Resource } from "./models/resource";
 import { ResourceAdapter } from "./models/resourceAdapter";
-import { Query } from "./models/query";
-import { QueryAdapter } from "./models/queryAdapter";
 import { ConnectedDevice } from "./models/connectedDevice";
 import { ConnectedDeviceAdapter } from "./models/connectedDeviceAdapter";
 import { DeviceEventAdapter } from "./models/deviceEventAdapter";
+import { MetricsStartEndOptions, MetricsPeriodOptions } from "./types";
+import { Metric } from "./models/metric";
+import { MetricAdapter } from "./models/metricAdapter";
 
 const DEFAULT_POLLING_INTERVAL = 500;
 const ASYNC_KEY = "async-response-id";
 
 /**
- * ## Devices API
+ * ## Connect API
  *
  * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
  *
@@ -55,16 +54,16 @@ const ASYNC_KEY = "async-response-id";
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+ * <script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
  *
  * <script>
- *     var devices = new mbed.DevicesApi({
+ *     var devices = new mbed.ConnectApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>
  * ```
  */
-export class DevicesApi extends EventEmitter {
+export class ConnectApi extends EventEmitter {
 
     private _endpoints: Endpoints;
     private _pollRequest: superagent.SuperAgentRequest;
@@ -132,7 +131,7 @@ export class DevicesApi extends EventEmitter {
                 var fn = this._notifyFns[path];
                 if (fn) fn(body);
 
-                this.emit(DevicesApi.EVENT_NOTIFICATION, {
+                this.emit(ConnectApi.EVENT_NOTIFICATION, {
                     id: notification.ep,
                     path: notification.path,
                     payload: body
@@ -142,25 +141,25 @@ export class DevicesApi extends EventEmitter {
 
         if (notification["registrations"]) {
             notification["registrations"].forEach(device => {
-                this.emit(DevicesApi.EVENT_REGISTRATION, DeviceEventAdapter.map(device, this));
+                this.emit(ConnectApi.EVENT_REGISTRATION, DeviceEventAdapter.map(device, this));
             });
         }
 
         if (notification["reg-updates"]) {
             notification["reg-updates"].forEach(device => {
-                this.emit(DevicesApi.EVENT_REREGISTRATION, DeviceEventAdapter.map(device, this));
+                this.emit(ConnectApi.EVENT_REREGISTRATION, DeviceEventAdapter.map(device, this));
             });
         }
 
         if (notification["de-registrations"]) {
             notification["de-registrations"].forEach(deviceId => {
-                this.emit(DevicesApi.EVENT_DEREGISTRATION, deviceId);
+                this.emit(ConnectApi.EVENT_DEREGISTRATION, deviceId);
             });
         }
 
         if (notification["registrations-expired"]) {
             notification["registrations-expired"].forEach(deviceId => {
-                this.emit(DevicesApi.EVENT_EXPIRED, deviceId);
+                this.emit(ConnectApi.EVENT_EXPIRED, deviceId);
             });
         }
 
@@ -300,12 +299,14 @@ export class DevicesApi extends EventEmitter {
         }
 
         return asyncStyle(done => {
-            this._endpoints.notifications.v2NotificationCallbackPut({
-                url: url,
-                headers: headers
-            }, error => {
-                if (error) return done(error);
-                done(null, null);
+            this.deleteWebhook(() => {
+                this._endpoints.notifications.v2NotificationCallbackPut({
+                    url: url,
+                    headers: headers
+                }, error => {
+                    if (error) return done(error);
+                    done(null, null);
+                });
             });
         }, callback);
     }
@@ -410,40 +411,6 @@ export class DevicesApi extends EventEmitter {
     }
 
     /**
-     * Gets a list of devices
-     * @param options list options
-     * @returns Promise of devices
-     */
-    public listDevices(options?: ListOptions): Promise<ListResponse<Device>>;
-    /**
-     * Gets a list of devices
-     * @param options list options
-     * @param callback A function that is passed the arguments (error, devices)
-     */
-    public listDevices(options?: ListOptions, callback?: CallbackFn<ListResponse<Device>>);
-    public listDevices(options?: any, callback?: CallbackFn<ListResponse<Device>>): Promise<ListResponse<Device>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
-
-        let { limit, after, order, include, filter } = options;
-        return asyncStyle(done => {
-            this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let devices = data.data.map(device => {
-                    return DeviceAdapter.map(device, this);
-                });
-                let response = mapListResponse<Device>(data, devices);
-
-                done(null, response);
-            });
-        }, callback);
-    }
-
-    /**
      * List connected devices
      * @param type Filter devices by device type
      * @returns Promise of connected devices
@@ -469,94 +436,6 @@ export class DevicesApi extends EventEmitter {
                     return ConnectedDeviceAdapter.map(device, this);
                 });
                 done(null, devices);
-            });
-        }, callback);
-    }
-
-    /**
-     * Gets details of a device
-     * @param deviceId Device ID
-     * @returns Promise of device
-     */
-    public getDevice(deviceId: string): Promise<Device>;
-    /**
-     * Gets details of a device
-     * @param deviceId Device ID
-     * @param callback A function that is passed the arguments (error, device)
-     */
-    public getDevice(deviceId: string, callback: CallbackFn<Device>);
-    public getDevice(deviceId: string, callback?: CallbackFn<Device>): Promise<Device> {
-        return asyncStyle(done => {
-            this._endpoints.catalog.deviceRetrieve(deviceId, (error, data) => {
-                if (error) return done(error);
-
-                let device = DeviceAdapter.map(data, this);
-                done(null, device);
-            });
-        }, callback);
-    }
-
-    /**
-     * Add a device
-     * @param device Device details
-     * @returns Promise of device
-     */
-    public addDevice(device: AddDeviceObject): Promise<Device>;
-    /**
-     * Add a device
-     * @param device Device details
-     * @param callback A function that is passed the arguments (error, device)
-     */
-    public addDevice(device: AddDeviceObject, callback: CallbackFn<Device>);
-    public addDevice(device: AddDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
-        return asyncStyle(done => {
-            this._endpoints.catalog.deviceCreate(DeviceAdapter.addMap(device), (error, data) => {
-                if (error) return done(error);
-                done(null, DeviceAdapter.map(data, this));
-            });
-        }, callback);
-    }
-
-    /**
-     * Update a device
-     * @param device Device details
-     * @returns Promise of device
-     */
-    public updateDevice(device: UpdateDeviceObject): Promise<Device>;
-    /**
-     * Update a device
-     * @param device Device details
-     * @param callback A function that is passed the arguments (error, device)
-     */
-    public updateDevice(device: UpdateDeviceObject, callback: CallbackFn<Device>);
-    public updateDevice(device: UpdateDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
-        return asyncStyle(done => {
-            this._endpoints.catalog.devicePartialUpdate(device.id, DeviceAdapter.updateMap(device), (error, data) => {
-                if (error) return done(error);
-
-                let device = DeviceAdapter.map(data, this);
-                done(null, device);
-            });
-        }, callback);
-    }
-
-    /**
-     * Delete a device
-     * @param deviceId Device ID
-     * @returns Promise containing any error
-     */
-    public deleteDevice(deviceId: string): Promise<void>;
-    /**
-     * Delete a device
-     * @param deviceId Device ID
-     * @param callback A function that is passed any error
-     */
-    public deleteDevice(deviceId: string, callback: CallbackFn<void>);
-    public deleteDevice(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.catalog.deviceDestroy(deviceId, (error) => {
-                if (error) return done(error);
-                done(null, null);
             });
         }, callback);
     }
@@ -875,130 +754,89 @@ export class DevicesApi extends EventEmitter {
     }
 
     /**
-     * List queries
-     * @param options list options
-     * @param callback A function containing a list response
-     * @returns Promise containing a list response
+     * Get account-specific metrics
+     * @param options metrics options
+     * @returns Promise of metrics
      */
-    public listQueries(options?: ListOptions): Promise<ListResponse<Query>>;
+    public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions): Promise<Array<Metric>>;
     /**
-     * List queries
-     * @param options list options
-     * @param callback A function containing a list response
-     * @returns Promise containing a list response
+     * Get account-specific metrics
+     * @param options metrics options
+     * @param callback A function that is passed the return arguments (error, metrics)
      */
-    public listQueries(options?: ListOptions, callback?: CallbackFn<ListResponse<Query>>);
-    public listQueries(options?:any, callback?: CallbackFn<ListResponse<Query>>): Promise<ListResponse<Query>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
-
-        let { limit, order, after, include, filter } = options;
+    public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback: CallbackFn<Array<Metric>>);
+    public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
         return asyncStyle(done => {
-            this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
+
+            function isPeriod(options: MetricsStartEndOptions | MetricsPeriodOptions): options is MetricsPeriodOptions {
+                return (<MetricsPeriodOptions>options).period !== undefined;
+            }
+
+            let include = MetricAdapter.mapIncludes(options.include);
+            let interval = MetricAdapter.mapTimePeriod(options.interval);
+            let start = null;
+            let end = null;
+            let period = null;
+
+            if (isPeriod(options)) {
+                period = MetricAdapter.mapTimePeriod(options.period);
+            } else {
+                start = options.start.toISOString();
+                end = options.end.toISOString();
+            }
+
+            this._endpoints.account.v3MetricsGet(include, interval, "", start, end, period, (error, data) => {
                 if (error) return done(error);
 
-                let queries = data.data.map(query => {
-                    return QueryAdapter.map(query, this);
+                let list = data.data.map(metric => {
+                    return MetricAdapter.map(metric);
                 });
-                let response = mapListResponse(data, queries);
 
-                done(null, response);
+                done(null, list);
             });
         }, callback);
     }
 
     /**
-     * Get a query
-     * @param queryId query ID
-     * @param callback A function that is passed the arguments (error, query)
-     * @returns Promise of query
+     * Get metrics
+     * @param options metrics options
+     * @returns Promise of metrics
      */
-    public getQuery(queryId: string): Promise<Query>;
+    public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions): Promise<Array<Metric>>;
     /**
-     * Get a query
-     * @param queryId query ID
-     * @param callback A function that is passed the arguments (error, query)
-     * @returns Promise of query
+     * Get metrics
+     * @param options metrics options
+     * @param callback A function that is passed the return arguments (error, metrics)
      */
-    public getQuery(queryId: string, callback: CallbackFn<Query>);
-    public getQuery(queryId: string, callback?: CallbackFn<Query>): Promise<Query> {
+    public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback: CallbackFn<Array<Metric>>);
+    public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
         return asyncStyle(done => {
-            this._endpoints.query.deviceQueryRetrieve(queryId, (error, data) => {
+
+            function isPeriod(options: MetricsStartEndOptions | MetricsPeriodOptions): options is MetricsPeriodOptions {
+                return (<MetricsPeriodOptions>options).period !== undefined;
+            }
+
+            let include = MetricAdapter.mapIncludes(options.include);
+            let interval = MetricAdapter.mapTimePeriod(options.interval);
+            let start = null;
+            let end = null;
+            let period = null;
+
+            if (isPeriod(options)) {
+                period = MetricAdapter.mapTimePeriod(options.period);
+            } else {
+                start = options.start.toISOString();
+                end = options.end.toISOString();
+            }
+
+            this._endpoints.statistics.v3MetricsGet(include, interval, "", start, end, period, (error, data) => {
                 if (error) return done(error);
 
-                let query = QueryAdapter.map(data, this);
-                done(null, query);
-            });
-        }, callback);
-    }
+                let list = data.data.map(metric => {
+                    return MetricAdapter.map(metric);
+                });
 
-    /**
-     * Add a query
-     * @param query The query
-     * @returns Promise of query
-     */
-    public addQuery(query: AddQueryObject): Promise<Query>;
-    /**
-     * Add a query
-     * @param query The query
-     * @param callback A function that is passed the arguments (error, query)
-     */
-    public addQuery(query: AddQueryObject, callback: CallbackFn<Query>);
-    public addQuery(query: AddQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
-        return asyncStyle(done => {
-            this._endpoints.query.deviceQueryCreate(QueryAdapter.addMap(query), (error, data) => {
-                if (error) return done(error);
-
-                let query = QueryAdapter.map(data, this);
-                done(null, query);
-            });
-        }, callback);
-    }
-
-    /**
-     * Update a query
-     * @param query The query to update
-     * @returns Promise of query
-     */
-    public updateQuery(query: UpdateQueryObject): Promise<Query>;
-    /**
-     * Update a query
-     * @param query The query to update
-     * @param callback A function that is passed the arguments (error, query)
-     */
-    public updateQuery(query: UpdateQueryObject, callback: CallbackFn<Query>);
-    public updateQuery(query: UpdateQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
-        // Partial update
-        return asyncStyle(done => {
-            this._endpoints.query.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), (error, data) => {
-                if (error) return done(error);
-
-                let query = QueryAdapter.map(data, this);
-                done(null, query);
-            });
-        }, callback);
-    }
-
-    /**
-     * Delete a query
-     * @param queryId query ID
-     * @returns Promise containing any error
-     */
-    public deleteQuery(queryId: string): Promise<void>;
-    /**
-     * Delete a query
-     * @param queryId query ID
-     * @param callback A function that is passed any error
-     */
-    public deleteQuery(queryId: string, callback: CallbackFn<void>);
-    public deleteQuery(queryId: string, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.query.deviceQueryDestroy(queryId, (error) => {
-                if (error) return done(error);
-                done(null, null);
+                done(null, list);
             });
         }, callback);
     }

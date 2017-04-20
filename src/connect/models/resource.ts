@@ -18,7 +18,7 @@
 import { EventEmitter } from "events";
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
-import { DevicesApi } from "../index";
+import { ConnectApi } from "../index";
 
 /**
  * Resource
@@ -52,7 +52,7 @@ export class Resource extends EventEmitter {
      */
     static EVENT_NOTIFICATION: string = "notification";
 
-    constructor(init?: Partial<Resource>, private _api?: DevicesApi) {
+    constructor(init?: Partial<Resource>, private _api?: ConnectApi) {
         super();
         for(var key in init) {
             this[key] = init[key];

@@ -21,7 +21,7 @@ import {
     ApiKeyInfoResp as apiApiKey
 } from "../../_api/iam";
 import { AddApiKeyObject, UpdateApiKeyObject } from "../types";
-import { AccessApi } from "../index";
+import { AccountManagementApi } from "../index";
 import { ApiKey } from "./apiKey";
 
 /**
@@ -29,7 +29,7 @@ import { ApiKey } from "./apiKey";
  */
 export class ApiKeyAdapter {
 
-    static map(from: apiApiKey, api: AccessApi): ApiKey {
+    static map(from: apiApiKey, api: AccountManagementApi): ApiKey {
         return new ApiKey({
             name             : from.name,
             owner            : from.owner,

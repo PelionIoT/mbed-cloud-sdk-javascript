@@ -26,14 +26,14 @@
     <link rel="stylesheet" href="style.css">
 
     <script src="config.js"></script>
-    <script src="../../bundles/statistics.min.js"></script>
+    <script src="../../bundles/connect.min.js"></script>
 </head>
 <body>
     <h3>Statistics</h3>
 
     <script>
-        var stats = new window.mbedCloudSDK.StatisticsApi(window.config);
-        stats.getAccountMetrics({
+        var connect = new window.mbedCloudSDK.ConnectApi(window.config);
+        connect.getAccountMetrics({
             period: {
                 unit: "week",
                 duration: 3

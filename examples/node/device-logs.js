@@ -22,7 +22,7 @@ var mbed = require('../../lib/');
 var config = require('./config');
 
 var logDir = "logs";
-var logging = new mbed.LoggingApi(config);
+var devices = new mbed.DeviceDirectoryApi(config);
 
 function ensureDirectory(directory) {
     var dirName = path.dirname(directory);
@@ -35,7 +35,7 @@ function ensureDirectory(directory) {
 
 function listLogs(after) {
 
-    logging.listDeviceLogs({
+    devices.listDeviceLogs({
         limit: 50,
         after: after
     }, (err, response) => {

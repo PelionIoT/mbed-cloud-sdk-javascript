@@ -20,7 +20,7 @@ import {
     ResourcesData as apiResourceEvent
 } from "../../_api/mds";
 import { DeviceEvent } from "../types";
-import { DevicesApi } from "../index";
+import { ConnectApi } from "../index";
 import { Resource } from "./resource";
 
 /**
@@ -28,7 +28,7 @@ import { Resource } from "./resource";
  */
 export class DeviceEventAdapter {
 
-    static mapResource(from: apiResourceEvent, deviceId: string, api: DevicesApi): Resource {
+    static mapResource(from: apiResourceEvent, deviceId: string, api: ConnectApi): Resource {
         return new Resource({
         	contentType:    from.ct,
             observable:     from.obs,
@@ -38,7 +38,7 @@ export class DeviceEventAdapter {
         }, api);
 	}
 
-    static map(from: apiDeviceEvent, api: DevicesApi): DeviceEvent<Resource> {
+    static map(from: apiDeviceEvent, api: ConnectApi): DeviceEvent<Resource> {
     	let resources = from.resources.map(resource => {
     		return DeviceEventAdapter.mapResource(resource, from.ep, api);
     	});

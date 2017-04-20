@@ -20,7 +20,7 @@ import {
     DeviceDataPostRequest as apiDeviceAdd,
     DeviceDataPatchRequest as apiDeviceUpdate
 } from "../../_api/device_catalog";
-import { DevicesApi } from "../index";
+import { DeviceDirectoryApi } from "../index";
 import { AddDeviceObject, UpdateDeviceObject } from "../types";
 import { Device } from "./device";
 
@@ -29,7 +29,7 @@ import { Device } from "./device";
  */
 export class DeviceAdapter {
 
-    static map(from: apiDevice, api: DevicesApi): Device {
+    static map(from: apiDevice, api: DeviceDirectoryApi): Device {
         return new Device({
             accountId:                         from.account_id,
             autoUpdate:                        from.auto_update,

@@ -18,7 +18,7 @@
 <head>
     <title>Query Management</title>
     <script src="config.js"></script>
-    <script src="../../bundles/devices.min.js"></script>
+    <script src="../../bundles/device-directory.min.js"></script>
 </head>
 <body>
     <div id="results"></div>
@@ -31,7 +31,7 @@
             resultsEl.innerText += message + "\n";
         }
 
-        var devices = new window.mbedCloudSDK.DevicesApi(window.config);
+        var devices = new window.mbedCloudSDK.DeviceDirectoryApi(window.config);
 
 // UPDATE_MGMT
 // list manifest
