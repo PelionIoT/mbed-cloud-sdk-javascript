@@ -299,12 +299,14 @@ export class ConnectApi extends EventEmitter {
         }
 
         return asyncStyle(done => {
-            this._endpoints.notifications.v2NotificationCallbackPut({
-                url: url,
-                headers: headers
-            }, error => {
-                if (error) return done(error);
-                done(null, null);
+            this.deleteWebhook(() => {
+                this._endpoints.notifications.v2NotificationCallbackPut({
+                    url: url,
+                    headers: headers
+                }, error => {
+                    if (error) return done(error);
+                    done(null, null);
+                });
             });
         }, callback);
     }
