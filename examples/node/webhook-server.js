@@ -25,11 +25,11 @@ var config = require('./config');
 var url = "http://4bf8c2e4.ngrok.io";
 var port = 3002;
 
-var devices = new mbed.DevicesApi(config);
+var connect = new mbed.ConnectApi(config);
 var app = express();
 
 // Set system to await notifications for callbacks instead of emitting asyncIds
-devices.handleNotifications = true;
+connect.handleNotifications = true;
 
 // Listen for PUTs at the root URL
 app.put("/", (req, res, next) => {
@@ -40,9 +40,9 @@ app.put("/", (req, res, next) => {
     });
 
     req.on('end', function() {
-        // Parse data into JSON and inject into devices notification system
+        // Parse data into JSON and inject into connect notification system
         data = JSON.parse(data);
-        devices.notify(data);
+        connect.notify(data);
     });
 
 	res.sendStatus(200);
@@ -54,19 +54,17 @@ http.createServer(app).listen(port, () => {
 });
 
 // Set up webhook
-devices.getWebhook((err, webhook) => {
+connect.getWebhook((err, webhook) => {
     if (!webhook) console.log("No webhook currently registered");
     else console.log(`Webhook currently set to ${webhook.url}`);
 
-    devices.deleteWebhook(() => {
-        devices.updateWebhook(url, err => {
-            if (err) {
-                console.log(`${err} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
-                return;
-            }
-            console.log(`Webhook now set to ${url}`);
-            listDevices();
-        });
+    connect.updateWebhook(url, err => {
+        if (err) {
+            console.log(`${err} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
+            return;
+        }
+        console.log(`Webhook now set to ${url}`);
+        listDevices();
     });
 });
 
@@ -93,14 +91,14 @@ function listDevices() {
 var deviceId = "";
 function getDevice(completeFn) {
     if (deviceId) {
-        devices.getDevice({
+        connect.getDevice({
             id: deviceId
         })
         .then(completeFn);
         return;
     }
 
-    devices.listConnectedDevices()
+    connect.listConnectedDevices()
     .then(response => {
         completeFn(response[0]);
     });

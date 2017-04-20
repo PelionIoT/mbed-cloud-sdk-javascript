@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="style.css">
 
     <script src="config.js"></script>
-    <script src="../../bundles/devices.min.js"></script>
+    <script src="../../bundles/connect.min.js"></script>
 </head>
 <body>
     <h3 id="header"></h3>
@@ -44,32 +44,32 @@
         var headerEl = document.getElementById("header");
         var resourcesEl = document.getElementById("resources");
 
-        var devices = new window.mbedCloudSDK.DevicesApi(window.config);
+        var connect = new window.mbedCloudSDK.ConnectApi(window.config);
 
         // Get specified device or first device
         var deviceId = "";
         function getDevice(completeFn) {
             if (deviceId) {
-                devices.getDevice(deviceId, function(err, device) {
+                connect.getDevice(deviceId, function(err, device) {
                     if (!err) completeFn(device);
                 });
                 return;
             }
 
-            devices.listConnectedDevices(function(err, response) {
+            connect.listConnectedDevices(function(err, response) {
                 if (!err) completeFn(response[0]);
             });
         }
 
         // Clear any webhook
         function clearWebhook(completeFn) {
-            devices.getWebhook(function(err, webhook) {
+            connect.getWebhook(function(err, webhook) {
                 if (!webhook) {
                     completeFn();
                     return;
                 }
 
-                devices.deleteWebhook(completeFn);
+                connect.deleteWebhook(completeFn);
             });
         }
 
@@ -83,11 +83,11 @@
 
         // Long polling
         clearWebhook(function() {
-            devices.startNotifications();
+            connect.startNotifications();
         });
 
         window.addEventListener("unload", function() {
-            devices.stopNotifications();
+            connect.stopNotifications();
         });
 
         getDevice(function(device) {
