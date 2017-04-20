@@ -6,7 +6,7 @@ var mapping = require("./mapping");
 var port = 5000;
 var envVarKey = "MBED_CLOUD_API_KEY";
 var envVarHost = "MBED_CLOUD_HOST";
-var logPrefix = "  \x1b[34mtestserver\x1b[0m ";
+var logPrefix = "  \x1b[1m\x1b[34mtestserver\x1b[0m ";
 
 // Environment configuration
 var config = {

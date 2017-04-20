@@ -52,6 +52,7 @@ export class ApiBase {
             request.accept("application/json");
         }
 
+        var body = null;
         if (Object.keys(options.formParams).length > 0) {
             if (options.useFormData) {
                 request.type("multipart/form-data");
@@ -71,8 +72,8 @@ export class ApiBase {
                 request.send(ApiBase.normalizeParams(options.formParams));
             }
         } else if (options.body) {
-            //console.log(options.body);
-            request.send(options.body);
+            body = options.body;
+            request.send(body);
         }
 
         request.end(function(error, response) {
@@ -86,6 +87,11 @@ export class ApiBase {
                 callback(error, data, response);
             }
         });
+
+        if (body && process && process.env && process.env.DEBUG === "superagent") {
+            process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m BODY ");
+            console.log(body);
+        }
 
         return request;
     }
