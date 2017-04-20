@@ -16,7 +16,7 @@
 */
 
 import { Resource as apiResource } from "../../_api/mds";
-import { DevicesApi } from "../index";
+import { ConnectApi } from "../index";
 import { Resource } from "./resource";
 
 /**
@@ -24,7 +24,7 @@ import { Resource } from "./resource";
  */
 export class ResourceAdapter {
 
-    static map(from: apiResource, deviceId: string, api: DevicesApi): Resource {
+    static map(from: apiResource, deviceId: string, api: ConnectApi): Resource {
         return new Resource({
             contentType:    from.type,
             observable:     from.obs,

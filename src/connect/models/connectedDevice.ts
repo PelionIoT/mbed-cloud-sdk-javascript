@@ -18,7 +18,7 @@
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
 import { ConnectedDeviceStateEnum } from "../types";
-import { DevicesApi } from "../index";
+import { ConnectApi } from "../index";
 import { Resource } from "./resource";
 
 /**
@@ -43,7 +43,7 @@ export class ConnectedDevice {
      */
     readonly type?: string;
 
-    constructor(init?: Partial<ConnectedDevice>, private _api?: DevicesApi) {
+    constructor(init?: Partial<ConnectedDevice>, private _api?: ConnectApi) {
         for(var key in init) {
             this[key] = init[key];
         }

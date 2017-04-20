@@ -18,7 +18,7 @@
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { UpdateAccountObject, AccountStatusEnum } from "../types";
-import { AccessApi } from "../index";
+import { AccountManagementApi } from "../index";
 import { Policy } from "./policy";
 
 /**
@@ -78,7 +78,7 @@ export class Account {
      */
     readonly templateId?: string;
 
-    constructor(init: Partial<Account>, private _api?: AccessApi) {
+    constructor(init: Partial<Account>, private _api?: AccountManagementApi) {
         for(var key in init) {
             this[key] = init[key];
         }

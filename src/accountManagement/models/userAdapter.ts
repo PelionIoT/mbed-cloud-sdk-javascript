@@ -21,7 +21,7 @@ import {
     UserInfoResp as apiUser
 } from "../../_api/iam";
 import { AddUserObject, UpdateUserObject } from "../types";
-import { AccessApi } from "../index";
+import { AccountManagementApi } from "../index";
 import { User } from "./user";
 
 /**
@@ -29,7 +29,7 @@ import { User } from "./user";
  */
 export class UserAdapter {
 
-    static map(from: apiUser, api: AccessApi): User {
+    static map(from: apiUser, api: AccountManagementApi): User {
         return new User({
             fullName               : from.full_name,
             username               : from.username,

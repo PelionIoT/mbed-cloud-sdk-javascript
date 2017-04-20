@@ -19,7 +19,7 @@ import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { ListOptions } from "../../common/interfaces";
 import { UpdateUserObject, UserStatusEnum } from "../types";
-import { AccessApi } from "../index";
+import { AccountManagementApi } from "../index";
 import { ApiKey } from "./apiKey";
 import { Group } from "./group";
 
@@ -65,7 +65,7 @@ export class User {
      */
     readonly lastLoginTime?: number;
 
-    constructor(init: Partial<User>, private _api?: AccessApi) {
+    constructor(init: Partial<User>, private _api?: AccountManagementApi) {
         for(var key in init) {
             this[key] = init[key];
         }

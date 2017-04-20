@@ -18,7 +18,7 @@
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
 import { AddQueryObject } from "../types";
-import { DevicesApi } from "../index";
+import { DeviceDirectoryApi } from "../index";
 
 /**
  * Query
@@ -38,7 +38,7 @@ export class Query {
      */
     readonly updatedAt?: Date;
 
-    constructor(init?: Partial<Query>, private _api?: DevicesApi) {
+    constructor(init?: Partial<Query>, private _api?: DeviceDirectoryApi) {
         for(var key in init) {
             this[key] = init[key];
         }

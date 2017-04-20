@@ -16,14 +16,14 @@
 */
 
 import { GroupSummary as apiGroup } from "../../_api/iam";
-import { AccessApi } from "../index";
+import { AccountManagementApi } from "../index";
 import { Group } from "./group";
 
 /**
  * Group Adapter
  */
 export class GroupAdapter {
-    static map(from: apiGroup, api: AccessApi): Group {
+    static map(from: apiGroup, api: AccountManagementApi): Group {
         return new Group({
             id:                from.id,
             accountId:         from.accountID,

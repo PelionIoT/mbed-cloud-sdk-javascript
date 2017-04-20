@@ -15,16 +15,23 @@
 * limitations under the License.
 */
 
-import { ConnectionOptions } from "../common/interfaces";
-import { AccountApi, StatisticsApi } from "../_api/statistics";
+import {
+    Endpoint as apiConnectedDevice
+} from "../../_api/mds";
+import { ConnectApi } from "../index";
+import { ConnectedDevice } from "./connectedDevice";
 
-export class Endpoints {
+/**
+ * Connected Device Adapter
+ */
+export class ConnectedDeviceAdapter {
 
-    account: AccountApi;
-    statistics: StatisticsApi;
-
-    constructor(options: ConnectionOptions) {
-        this.account = new AccountApi(options.apiKey, options.host);
-        this.statistics = new StatisticsApi(options.apiKey, options.host);
+    static map(from: apiConnectedDevice, api: ConnectApi): ConnectedDevice {
+        return new ConnectedDevice({
+            id:           from.name,
+            type:         from.type,
+            state:        (from.status && from.status.toLowerCase() === "active") ? "active" : "stale",
+            queueMode:    from.q
+        }, api);
     }
 }

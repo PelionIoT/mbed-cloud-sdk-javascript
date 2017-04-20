@@ -20,7 +20,7 @@ import {
     AccountInfo as apiAccount
 } from "../../_api/iam";
 import { UpdateAccountObject } from "../types";
-import { AccessApi } from "../index";
+import { AccountManagementApi } from "../index";
 import { Account } from "./account";
 import { PolicyAdapter } from "./policyAdapter";
 
@@ -28,7 +28,7 @@ import { PolicyAdapter } from "./policyAdapter";
  * Account Adapter
  */
 export class AccountAdapter {
-    static map(from: apiAccount, api: AccessApi): Account {
+    static map(from: apiAccount, api: AccountManagementApi): Account {
 
         let policies = from.policies.map(policy => {
             return PolicyAdapter.map(policy);
