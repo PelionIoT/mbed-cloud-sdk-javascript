@@ -44,7 +44,7 @@ import { DeviceLogAdapter } from "./models/deviceLogAdapter";
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/deviceDirectory.min.js"></script>
+ * <script src="<mbed-cloud-sdk>/bundles/device-directory.min.js"></script>
  *
  * <script>
  *     var devices = new mbed.DeviceDirectoryApi({

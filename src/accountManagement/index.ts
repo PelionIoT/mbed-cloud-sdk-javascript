@@ -46,7 +46,7 @@ import { GroupAdapter } from "./models/groupAdapter";
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/accountManagement.min.js"></script>
+ * <script src="<mbed-cloud-sdk>/bundles/account-management.min.js"></script>
  *
  * <script>
  *     var access = new mbed.AccountManagementApi({
