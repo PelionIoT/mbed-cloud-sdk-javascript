@@ -56,7 +56,6 @@ gulp.task("typescript", function() {
         noUnusedLocals: true,
         declaration: true,
         noUnusedParameters: true
-        //noImplicitAny: true
     };
 
     return merge([
@@ -78,6 +77,9 @@ gulp.task("browserify", ["typescript"], function() {
     .pipe(tap(function(file) {
         var name = path.dirname(file.relative);
         if (name === ".") name = "index";
+        name = name.replace(/([A-Z]+)/g, function(match) {
+            return "-" + match.toLowerCase();
+        });
         name += ".min" + path.extname(file.relative)
         console.log("Creating", bundleDir + "/" + name);
 
