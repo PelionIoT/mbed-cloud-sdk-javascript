@@ -48,7 +48,7 @@ function sendError(res, error) {
 
 app.get("/:module/:method", (req, res, next) => {
 
-    console.log(`${logPrefix}http://localhost:${port}${req.url}`);
+    console.log(`${logPrefix}TEST http://localhost:${port}${req.url} at ${new Date().toISOString()}`);
 
     // Module
     var module = mapping.mapModule(req.params["module"]);
@@ -63,9 +63,9 @@ app.get("/:module/:method", (req, res, next) => {
     // Args
     var args = mapping.mapArgs(module, method, req.query["args"]);
 
-    console.log(`${logPrefix}Calling '${method}' on '${module}'`);
+    console.log(`${logPrefix}CALLING '${method}' on '${module}'`);
     if (args.length) {
-        console.log(`${logPrefix}using args:`, args);
+        console.log(`${logPrefix}USING`, args);
     }
 
     args.push((error, result) => {
