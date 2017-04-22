@@ -38,7 +38,7 @@ import { GroupAdapter } from "./models/groupAdapter";
  * ```JavaScript
  * var mbed = require("mbed-cloud-sdk");
  *
- * var access = new mbed.AccessApi({
+ * var accounts = new mbed.AccountManagementApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
@@ -49,7 +49,7 @@ import { GroupAdapter } from "./models/groupAdapter";
  * <script src="<mbed-cloud-sdk>/bundles/account-management.min.js"></script>
  *
  * <script>
- *     var access = new mbed.AccountManagementApi({
+ *     var accounts = new mbed.AccountManagementApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>

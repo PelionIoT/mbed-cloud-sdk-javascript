@@ -46,7 +46,7 @@ const ASYNC_KEY = "async-response-id";
  * ```JavaScript
  * var mbed = require("mbed-cloud-sdk");
  *
- * var devices = new mbed.DevicesApi({
+ * var connect = new mbed.ConnectApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
@@ -57,7 +57,7 @@ const ASYNC_KEY = "async-response-id";
  * <script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
  *
  * <script>
- *     var devices = new mbed.ConnectApi({
+ *     var connect = new mbed.ConnectApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>

@@ -36,7 +36,7 @@ import { DeviceLogAdapter } from "./models/deviceLogAdapter";
  * ```JavaScript
  * var mbed = require("mbed-cloud-sdk");
  *
- * var devices = new mbed.DevicesApi({
+ * var devices = new mbed.DeviceDirectoryApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
