@@ -530,7 +530,7 @@ export interface TrustedCertificateResp {
      */
     "issuer": string;
     /**
-     * X509.v3 trusted certificate in PEM or base64 encoded DER format.
+     * X509.v3 trusted certificate in base64 encoded DER format.
      */
     "cert_data": string;
     /**
@@ -613,13 +613,13 @@ export interface UpdatedResponse {
  */
 export interface UserInfoReq {
     /**
-     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-     */
-    "username"?: string;
-    /**
      * Phone number, not longer than 100 characters.
      */
     "phone_number"?: string;
+    /**
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "username"?: string;
     /**
      * A list of IDs of the groups this user belongs to.
      */
@@ -629,13 +629,13 @@ export interface UserInfoReq {
      */
     "is_gtc_accepted"?: boolean;
     /**
-     * A flag indicating that receiving marketing information has been accepted.
-     */
-    "is_marketing_accepted"?: boolean;
-    /**
      * The full name of the user, not longer than 100 characters.
      */
     "full_name"?: string;
+    /**
+     * A flag indicating that receiving marketing information has been accepted.
+     */
+    "is_marketing_accepted"?: boolean;
     /**
      * Address, not longer than 100 characters.
      */
@@ -772,13 +772,13 @@ export interface UserInfoRespList {
  */
 export interface UserUpdateReq {
     /**
-     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-     */
-    "username"?: string;
-    /**
      * Phone number, not longer than 100 characters.
      */
     "phone_number"?: string;
+    /**
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "username"?: string;
     /**
      * A flag indicating that receiving marketing information has been accepted.
      */

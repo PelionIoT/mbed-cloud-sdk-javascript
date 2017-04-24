@@ -146,7 +146,7 @@ export interface DevicePage {
 export class DefaultApi extends ApiBase {
 
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Create device&lt;/p&gt;
+     * Create device
      * @param device 
      */
     deviceCreate (device: DeviceDataPostRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -177,7 +177,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Delete device&lt;/p&gt;
+     * Delete device
      * @param id 
      */
     deviceDestroy (id: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -207,11 +207,11 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;List all update devices.&lt;/p&gt; &lt;h4 id&#x3D;\&quot;filtering\&quot;&gt;Filtering:&lt;/h4&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;{URL encoded query string}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The query string is made up of key/value pairs separated by ampersands. So for a query of &lt;code&gt;key1&#x3D;value1&amp;amp;key2&#x3D;value2&amp;amp;key3&#x3D;value3&lt;/code&gt; this would be encoded as follows:&lt;/p&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The examples below show the queries in &lt;em&gt;unencoded&lt;/em&gt; form.&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-device-properties-all-properties-are-filterable\&quot;&gt;By device properties (all properties are filterable):&lt;/h5&gt; &lt;p&gt;&lt;code&gt;state&#x3D;[unenrolled|cloud_enrolling|bootstrapped|registered]&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device_class&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-date-time-fields\&quot;&gt;On date-time fields:&lt;/h5&gt; &lt;p&gt;Date-time fields should be specified in UTC RFC3339 format &lt;code&gt;YYYY-MM-DDThh:mm:ss.msZ&lt;/code&gt;. There are three permitted variations:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Date-time filtering supports three operators:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;equality&lt;/li&gt; &lt;li&gt;greater than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__gte&lt;/code&gt;&lt;/li&gt; &lt;li&gt;less than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__lte&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Lower and upper limits to a date-time range may be specified by including both the &lt;code&gt;__gte&lt;/code&gt; and &lt;code&gt;__lte&lt;/code&gt; forms in the filter.&lt;/p&gt; &lt;p&gt;&lt;code&gt;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-device-custom-attributes\&quot;&gt;On device custom attributes:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;custom_attributes__{param}&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;custom_attributes__tag&#x3D;TAG1&lt;/code&gt;&lt;/p&gt; &lt;h4 id&#x3D;\&quot;multi-field-example\&quot;&gt;Multi-field example&lt;/h4&gt; &lt;p&gt;&lt;code&gt;state&#x3D;bootstrapped&amp;amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&lt;/code&gt;&lt;/p&gt; &lt;p&gt;Encoded: &lt;code&gt;?filter&#x3D;state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&lt;/code&gt;&lt;/p&gt;
-     * @param limit how many objects to retrieve in the page
+     * List all devices.
+     * @param limit How many objects to retrieve in the page.
      * @param order ASC or DESC
-     * @param after the ID of the the item after which to retrieve the next page
-     * @param filter URL encoded query string parameter to filter returned data
+     * @param after The ID of the the item after which to retrieve the next page.
+     * @param filter &lt;p&gt;URL encoded query string parameter to filter returned data.&lt;/p&gt; &lt;h4 id&#x3D;\&quot;filtering\&quot;&gt;Filtering:&lt;/h4&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;{URL encoded query string}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The query string is made up of key/value pairs separated by ampersands. So for a query of &lt;code&gt;key1&#x3D;value1&amp;amp;key2&#x3D;value2&amp;amp;key3&#x3D;value3&lt;/code&gt; this would be encoded as follows:&lt;/p&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The examples below show the queries in &lt;em&gt;unencoded&lt;/em&gt; form.&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-device-properties-all-properties-are-filterable\&quot;&gt;By device properties (all properties are filterable):&lt;/h5&gt; &lt;p&gt;&lt;code&gt;state&#x3D;[unenrolled|cloud_enrolling|bootstrapped|registered]&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device_class&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-date-time-fields\&quot;&gt;On date-time fields:&lt;/h5&gt; &lt;p&gt;Date-time fields should be specified in UTC RFC3339 format &lt;code&gt;YYYY-MM-DDThh:mm:ss.msZ&lt;/code&gt;. There are three permitted variations:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Date-time filtering supports three operators:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;equality&lt;/li&gt; &lt;li&gt;greater than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__gte&lt;/code&gt;&lt;/li&gt; &lt;li&gt;less than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__lte&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Lower and upper limits to a date-time range may be specified by including both the &lt;code&gt;__gte&lt;/code&gt; and &lt;code&gt;__lte&lt;/code&gt; forms in the filter.&lt;/p&gt; &lt;p&gt;&lt;code&gt;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-device-custom-attributes\&quot;&gt;On device custom attributes:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;custom_attributes__{param}&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;custom_attributes__tag&#x3D;TAG1&lt;/code&gt;&lt;/p&gt; &lt;h4 id&#x3D;\&quot;multi-field-example\&quot;&gt;Multi-field example&lt;/h4&gt; &lt;p&gt;&lt;code&gt;state&#x3D;bootstrapped&amp;amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&lt;/code&gt;&lt;/p&gt; &lt;p&gt;Encoded: &lt;code&gt;?filter&#x3D;state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&lt;/code&gt;&lt;/p&gt;
      * @param include Comma separated list of data fields to return. Currently supported: total_count
      */
     deviceList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:DevicePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -249,11 +249,11 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;List all device logs.&lt;/p&gt; &lt;h4 id&#x3D;\&quot;filtering\&quot;&gt;Filtering:&lt;/h4&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;{URL encoded query string}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The query string is made up of key/value pairs separated by ampersands. So for a query of &lt;code&gt;key1&#x3D;value1&amp;amp;key2&#x3D;value2&amp;amp;key3&#x3D;value3&lt;/code&gt; this would be encoded as follows:&lt;/p&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The examples below show the queries in &lt;em&gt;unencoded&lt;/em&gt; form.&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-device95id\&quot;&gt;By id:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;id&#x3D;{id}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-state-change\&quot;&gt;By state change:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;state_change&#x3D;[True|False]&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-event-type\&quot;&gt;By event type:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;event_type&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-date-time-fields\&quot;&gt;On date-time fields:&lt;/h5&gt; &lt;p&gt;Date-time fields should be specified in UTC RFC3339 format &lt;code&gt;YYYY-MM-DDThh:mm:ss.msZ&lt;/code&gt;. There are three permitted variations:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Date-time filtering supports three operators:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;equality&lt;/li&gt; &lt;li&gt;greater than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__gte&lt;/code&gt;&lt;/li&gt; &lt;li&gt;less than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__lte&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Lower and upper limits to a date-time range may be specified by including both the &lt;code&gt;__gte&lt;/code&gt; and &lt;code&gt;__lte&lt;/code&gt; forms in the filter.&lt;/p&gt; &lt;p&gt;&lt;code&gt;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-device-custom-attributes\&quot;&gt;On device custom attributes:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;device__custom_attributes__{param}&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__custom_attributes__tag&#x3D;TAG1&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-device-attributes\&quot;&gt;By Device attributes:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;device__deployed_state&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__device_class&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__name&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;h4 id&#x3D;\&quot;multi-field-example\&quot;&gt;Multi-field example&lt;/h4&gt; &lt;p&gt;&lt;code&gt;id&#x3D;0158d38771f70000000000010010038c&amp;amp;state_change&#x3D;True&amp;amp;date_time__gte&#x3D;2016-11-30T16:25:12.1234Z&lt;/code&gt;&lt;/p&gt; &lt;p&gt;Encoded: &lt;code&gt;?filter&#x3D;id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z&lt;/code&gt;&lt;/p&gt;
-     * @param limit how many objects to retrieve in the page
+     * List all device logs.
+     * @param limit How many objects to retrieve in the page.
      * @param order ASC or DESC
-     * @param after the ID of the the item after which to retrieve the next page
-     * @param filter URL encoded query string parameter to filter returned data
+     * @param after The ID of the the item after which to retrieve the next page.
+     * @param filter &lt;p&gt;URL encoded query string parameter to filter returned data.&lt;/p&gt; &lt;h4 id&#x3D;\&quot;filtering\&quot;&gt;Filtering:&lt;/h4&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;{URL encoded query string}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The query string is made up of key/value pairs separated by ampersands. So for a query of &lt;code&gt;key1&#x3D;value1&amp;amp;key2&#x3D;value2&amp;amp;key3&#x3D;value3&lt;/code&gt; this would be encoded as follows:&lt;/p&gt; &lt;p&gt;&lt;code&gt;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&lt;/code&gt;&lt;/p&gt; &lt;p&gt;The examples below show the queries in &lt;em&gt;unencoded&lt;/em&gt; form.&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-device95id\&quot;&gt;By id:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;id&#x3D;{id}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-state-change\&quot;&gt;By state change:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;state_change&#x3D;[True|False]&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-event-type\&quot;&gt;By event type:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;event_type&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-date-time-fields\&quot;&gt;On date-time fields:&lt;/h5&gt; &lt;p&gt;Date-time fields should be specified in UTC RFC3339 format &lt;code&gt;YYYY-MM-DDThh:mm:ss.msZ&lt;/code&gt;. There are three permitted variations:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z&lt;/li&gt; &lt;li&gt;UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Date-time filtering supports three operators:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;equality&lt;/li&gt; &lt;li&gt;greater than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__gte&lt;/code&gt;&lt;/li&gt; &lt;li&gt;less than or equal to &amp;ndash; field name suffixed with &lt;code&gt;__lte&lt;/code&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Lower and upper limits to a date-time range may be specified by including both the &lt;code&gt;__gte&lt;/code&gt; and &lt;code&gt;__lte&lt;/code&gt; forms in the filter.&lt;/p&gt; &lt;p&gt;&lt;code&gt;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;on-device-custom-attributes\&quot;&gt;On device custom attributes:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;device__custom_attributes__{param}&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__custom_attributes__tag&#x3D;TAG1&lt;/code&gt;&lt;/p&gt; &lt;h5 id&#x3D;\&quot;by-device-attributes\&quot;&gt;By Device attributes:&lt;/h5&gt; &lt;p&gt;&lt;code&gt;device__deployed_state&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__device_class&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;p&gt;&lt;code&gt;device__name&#x3D;{value}&lt;/code&gt;&lt;/p&gt; &lt;h4 id&#x3D;\&quot;multi-field-example\&quot;&gt;Multi-field example&lt;/h4&gt; &lt;p&gt;&lt;code&gt;id&#x3D;0158d38771f70000000000010010038c&amp;amp;state_change&#x3D;True&amp;amp;date_time__gte&#x3D;2016-11-30T16:25:12.1234Z&lt;/code&gt;&lt;/p&gt; &lt;p&gt;Encoded: &lt;code&gt;?filter&#x3D;id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z&lt;/code&gt;&lt;/p&gt;
      * @param include Comma separated list of data fields to return. Currently supported: total_count
      */
     deviceLogList (limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error:any, data?:DeviceLogPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -291,7 +291,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device log.&lt;/p&gt;
+     * Retrieve device log
      * @param deviceLogId 
      */
     deviceLogRetrieve (deviceLogId: string, callback?: (error:any, data?:DeviceLogData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -321,8 +321,8 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device fields&lt;/p&gt;
-     * @param id The ID of the device
+     * Update device fields
+     * @param id The ID of the device.
      * @param device 
      */
     devicePartialUpdate (id: string, device: DeviceDataPatchRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -360,7 +360,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Retrieve device.&lt;/p&gt;
+     * Retrieve device
      * @param id 
      */
     deviceRetrieve (id: string, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -390,8 +390,8 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * &lt;p&gt;The APIs for creating and manipulating devices.  &lt;/p&gt; &lt;p&gt;Update device.&lt;/p&gt;
-     * @param id The ID of the device
+     * Update device
+     * @param id The ID of the device.
      * @param device 
      */
     deviceUpdate (id: string, device: DeviceDataPutRequest, callback?: (error:any, data?:DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {

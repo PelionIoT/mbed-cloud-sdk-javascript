@@ -279,7 +279,7 @@ export interface Metrics {
     "vertx.http.clients.iam.post-requests": MetricTimer;
     "vertx.http.servers.open-websockets": MetricCounter;
     "vertx.http.servers.other-requests": MetricTimer;
-    "vertx.pools.worker.vert.x-worker-thread.in-use": MetricCounter;
+    "http.handler.report-activedevices.timer": MetricTimer;
     "jvm.mem.heap.usage": MetricGauge;
     "jvm.mem.non-heap.committed": MetricGauge;
     "jvm.mem.pools.Compressed-Class-Space.usage": MetricGauge;
@@ -320,6 +320,7 @@ export interface Metrics {
     "persistent-store-ds.pool.PendingConnections": MetricGauge;
     "jvm.mem.pools.PS-Old-Gen.used": MetricGauge;
     "jvm.mem.pools.Metaspace.usage": MetricGauge;
+    "vertx.pools.worker.vert.x-worker-thread.in-use": MetricCounter;
     "persistence.select.time-series": MetricTimer;
     "jvm.mem.pools.Metaspace.committed": MetricGauge;
     "vertx.eventbus.messages.delivered": MetricMeter;
@@ -582,6 +583,51 @@ export class DefaultApi extends ApiBase {
 
         return this.request({
             url: '/v1/metrics',
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Active devices per account in reporting
+     * Get active devices for a commercial account with specified month.
+     * @param account account id
+     * @param month year and month
+     */
+    v1ReportActivedevicesGet (account: string, month: string, callback?: (error:any, data?:Array<ActiveDevice>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "account" is set
+        if (account === null || account === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'account' missing when calling 'v1ReportActivedevicesGet'."));
+            }
+            return;
+        }
+        // verify required parameter "month" is set
+        if (month === null || month === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'month' missing when calling 'v1ReportActivedevicesGet'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+        if (account !== undefined) {
+            queryParameters['account'] = account;
+        }
+        if (month !== undefined) {
+            queryParameters['month'] = month;
+        }
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v1/report/activedevices',
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
