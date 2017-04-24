@@ -1,6 +1,9 @@
 general:
   artifacts:
     - "docs"
+  branches:
+    ignore:
+      - build
 
 machine:
   node:
