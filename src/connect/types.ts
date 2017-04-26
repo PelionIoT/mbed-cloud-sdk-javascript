@@ -119,7 +119,7 @@ export interface PresubscriptionObject {
 }
 
 export type IncludeEnum = "transactions" | "successfulDeviceRegistrations" | "pendingDeviceRegistrations" | "failedDeviceRegistrations" | "successfulApiCalls" | "failedApiCalls";
-export type UnitType = "hours" | "days" | "weeks";
+export type UnitType = "minutes" | "hours" | "days" | "weeks";
 
 export interface TimePeriod {
     /**
