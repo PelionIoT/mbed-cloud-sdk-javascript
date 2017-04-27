@@ -15,15 +15,13 @@
 * limitations under the License.
 */
 
-const DEFAULT_HOST = "http://api.mbedcloud.com";
-
 import superagent = require('superagent');
 
 export class ApiBase {
 
     private apiKey = "";
 
-    constructor(apiKey: string, private host: string = DEFAULT_HOST) {
+    constructor(apiKey: string, private host: string = "http://api.mbedcloud.com") {
         if (apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${apiKey}`;
         this.apiKey = apiKey;
     }
