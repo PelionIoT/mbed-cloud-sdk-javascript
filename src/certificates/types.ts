@@ -15,6 +15,8 @@
 * limitations under the License.
 */
 
+import { ListOptions } from "../common/interfaces";
+
 export type CertificateTypeEnum = "developer" | "lwm2m" | "bootstrap";
 
 /**
@@ -67,4 +69,14 @@ export interface UpdateCertificateObject extends AddCertificateObject {
      * Certificate ID
      */
     id: string;
+}
+
+/**
+ * Options to use when listing certificates
+ */
+export interface CertificateListOptions extends ListOptions {
+    /**
+     * Certificate type filter
+     */
+    type?: CertificateTypeEnum;
 }

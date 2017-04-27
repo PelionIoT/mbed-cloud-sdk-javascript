@@ -16,15 +16,16 @@
 */
 
 import { asyncStyle, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
-import { ConnectionOptions, ListOptions, ListResponse, CallbackFn } from "../common/interfaces";
-import { AddFirmwareImageObject, AddFirmwareManifestObject, AddCampaignObject, UpdateCampaignObject } from "./types";
-import { Endpoints } from "./endpoints";
+import { ConnectionOptions, ListResponse, CallbackFn } from "../common/interfaces";
+import { AddFirmwareImageObject, AddFirmwareManifestObject, AddCampaignObject, UpdateCampaignObject, FirmwareImageListOptions, FirmwareManifestListOptions, CampaignListOptions } from "./types";
 import { FirmwareImage } from "./models/firmwareImage";
 import { FirmwareImageAdapter } from "./models/firmwareImageAdapter";
 import { FirmwareManifest } from "./models/firmwareManifest";
 import { FirmwareManifestAdapter } from "./models/firmwareManifestAdapter";
 import { Campaign } from "./models/campaign";
 import { CampaignAdapter } from "./models/campaignAdapter";
+import { Endpoints } from "./endpoints";
+import { Filters } from "./filters";
 
 /**
  * ## Update API
@@ -69,22 +70,22 @@ export class UpdateApi {
      * @param options list options
      * @returns Promise of listResponse
      */
-    public listFirmwareImages(options?: ListOptions): Promise<ListResponse<FirmwareImage>>;
+    public listFirmwareImages(options?: FirmwareImageListOptions): Promise<ListResponse<FirmwareImage>>;
     /**
      * List firmware images
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listFirmwareImages(options?: ListOptions, callback?: CallbackFn<ListResponse<FirmwareImage>>);
+    public listFirmwareImages(options?: FirmwareImageListOptions, callback?: CallbackFn<ListResponse<FirmwareImage>>);
     public listFirmwareImages(options?: any, callback?: CallbackFn<ListResponse<FirmwareImage>>): Promise<ListResponse<FirmwareImage>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include, filter } = options as ListOptions;
+        let { limit, order, after, include, filter } = options as FirmwareImageListOptions;
         return asyncStyle(done => {
-            this._endpoints.firmware.firmwareImageList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
+            this._endpoints.firmware.firmwareImageList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(image => {
@@ -164,22 +165,22 @@ export class UpdateApi {
      * @param options list options
      * @returns Promise of listResponse
      */
-    public listFirmwareManifests(options?: ListOptions): Promise<ListResponse<FirmwareManifest>>;
+    public listFirmwareManifests(options?: FirmwareManifestListOptions): Promise<ListResponse<FirmwareManifest>>;
     /**
      * List manifests
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listFirmwareManifests(options?: ListOptions, callback?: CallbackFn<ListResponse<FirmwareManifest>>);
+    public listFirmwareManifests(options?: FirmwareManifestListOptions, callback?: CallbackFn<ListResponse<FirmwareManifest>>);
     public listFirmwareManifests(options?: any, callback?: CallbackFn<ListResponse<FirmwareManifest>>): Promise<ListResponse<FirmwareManifest>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include, filter } = options as ListOptions;
+        let { limit, order, after, include, filter } = options as FirmwareManifestListOptions;
         return asyncStyle(done => {
-            this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
+            this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {
@@ -259,22 +260,22 @@ export class UpdateApi {
      * @param options list options
      * @returns Promise of listResponse
      */
-    public listCampaigns(options?: ListOptions): Promise<ListResponse<Campaign>>;
+    public listCampaigns(options?: CampaignListOptions): Promise<ListResponse<Campaign>>;
     /**
      * List update campaigns
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listCampaigns(options?: ListOptions, callback?: CallbackFn<ListResponse<Campaign>>);
+    public listCampaigns(options?: CampaignListOptions, callback?: CallbackFn<ListResponse<Campaign>>);
     public listCampaigns(options?: any, callback?: CallbackFn<ListResponse<Campaign>>): Promise<ListResponse<Campaign>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include, filter } = options as ListOptions;
+        let { limit, order, after, include, filter } = options as CampaignListOptions;
         return asyncStyle(done => {
-            this._endpoints.deployment.updateCampaignList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
+            this._endpoints.deployment.updateCampaignList(limit, order, after, encodeFilter(filter, Filters.CAMPAIGN_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {

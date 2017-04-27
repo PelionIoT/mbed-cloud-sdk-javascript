@@ -16,10 +16,10 @@
 */
 
 import { asyncStyle, mapListResponse, encodeInclude } from "../common/functions";
-import { ConnectionOptions, CallbackFn, ListOptions, ListResponse } from "../common/interfaces";
+import { ConnectionOptions, CallbackFn, ListResponse } from "../common/interfaces";
 import { TrustedCertificateResp as iamCertificate } from "../_api/iam";
 import { Endpoints } from "./endpoints";
-import { AddDeveloperCertificateObject, AddCertificateObject, UpdateCertificateObject } from "./types";
+import { AddDeveloperCertificateObject, AddCertificateObject, UpdateCertificateObject, CertificateListOptions } from "./types";
 import { Certificate } from "./models/certificate";
 import { CertificateAdapter } from "./models/certificateAdapter";
 
@@ -80,22 +80,21 @@ export class CertificatesApi {
      * @param options filter options
      * @returns Promise of listResponse
      */
-    public listCertificates(options?: ListOptions): Promise<ListResponse<Certificate>>;
+    public listCertificates(options?: CertificateListOptions): Promise<ListResponse<Certificate>>;
     /**
      * List certificates
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listCertificates(options?: ListOptions, callback?: CallbackFn<ListResponse<Certificate>>);
-    public listCertificates(options?: ListOptions, callback?: CallbackFn<ListResponse<Certificate>>): Promise<ListResponse<Certificate>> {
+    public listCertificates(options?: CertificateListOptions, callback?: CallbackFn<ListResponse<Certificate>>);
+    public listCertificates(options?: CertificateListOptions, callback?: CallbackFn<ListResponse<Certificate>>): Promise<ListResponse<Certificate>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
 
-        let { limit, after, order, include, filter } = options as ListOptions;
-        let type = filter ? filter["type"] : null;
+        let { limit, after, order, include, type } = options as CertificateListOptions;
         let serviceEq = type === "developer" ? "bootstrap" : type;
         let executionMode = type === "developer" ? 1 : null;
 

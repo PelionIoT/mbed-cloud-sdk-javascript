@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { ListResponse, CallbackFn } from "./interfaces";
+import { ListResponse, CallbackFn, ComparisonObject } from "./interfaces";
 
 // Inspired by https://github.com/sonnyp/polygoat
 export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn?: CallbackFn<T>): Promise<T> {
@@ -76,38 +76,79 @@ export function mapListResponse<T>(from: any, data:Array<T>): ListResponse<T> {
     return to;
 }
 
-export function encodeFilter(from: { [key: string]: string }, prefix: string = ""): string {
-    if (!from) return "";
+export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, map: { from: string[], to: string[] }, nested: string[] = []): string {
+    if (!filter) return "";
 
-    return Object.keys(from).map(key => {
-        return `${prefix}${key}=${from[key]}`;
+    function encode(filter, name, operator, prefix: string = "") {
+        let value = filter[name][operator];
+        if (value instanceof Date) value = value.toISOString();
+        if (typeof value === "boolean") value = value.toString();
+
+        if (prefix) {
+            prefix = camelToSnake(prefix);
+            prefix = `${prefix}__`;
+        }
+        else {
+            // Don't encode nested names
+            let index = map.from.indexOf(name);
+            name = (index > -1) ? map.to[index] : camelToSnake(name);
+        }
+
+        let suffix = operator.replace("$", "");
+        if (suffix === "ne") suffix = "neq";
+        if (suffix === "eq") suffix = ""; // Needs to removed when implemented properly in APIs
+        if (suffix) suffix = `__${suffix}`;
+
+        return `${prefix}${name}${suffix}=${value}`;
+    }
+
+    return Object.keys(filter).map(key => {
+        return Object.keys(filter[key]).map(operator => {
+            if (nested.indexOf(key) > -1) {
+                return Object.keys(filter[key][operator]).map(sub => {
+                    return encode(filter[key], operator, sub, key);
+                }).join("&");
+            }
+            return encode(filter, key, operator);
+        }).join("&");
     }).join("&");
 }
 
-export function encodeCustomFilter(from: { filter?: { [key: string]: string }, customAttributes?: { [key: string]: string } }, customPrefix: string): string {
-    let filter = encodeFilter(from.filter);
-    let custom = encodeFilter(from.customAttributes, customPrefix);
+export function decodeFilter(from: string, map: { from: string[], to: string[] }, nested: string[] = []): { [key: string]: ComparisonObject<any> } {
+    let filter:{ [key: string]: ComparisonObject<any> } = {};
 
-    if (custom) {
-        if (filter) filter += "&";
-        filter += custom;
+    function decodeName(name: string): string {
+        let index = map.to.indexOf(name);
+        return (index > -1) ? map.from[index] : snakeToCamel(name);
     }
 
-    return filter || null;
-}
-
-export function decodeCustomFilter(from: string, prefix: string = ""): { match: { [key: string]: string }, noMatch: { [key: string]: string } } {
-    let to = { match: {}, noMatch: {} };
-    let re = new RegExp(`^(${prefix})?(.+)=(.+)$`);
+    function addOperator(comparisonObject: {}, operator: string, value: string) {
+        if (!operator) operator = "eq"; // Needs to removed when implemented properly in APIs
+        if (operator === "neq") operator = "ne";
+        operator = `$${operator}`;
+        comparisonObject[operator] = value;
+    }
 
     from = decodeURIComponent(from);
     from.split("&").forEach(attrib => {
-        let match = attrib.match(re);
+        let match = attrib.match(/^(.+)=(.+)$/);
         if (match) {
-            if (match[1]) to.match[match[2]] = match[3];
-            else to.noMatch[match[2]] = match[3];
+            let value = match[2];
+            let bits = match[1].split("__");
+
+            let name = decodeName(bits[0]);
+            if (!filter[name]) filter[name] = {};
+
+            if (nested.indexOf(name) > -1) {
+                let nestedName = bits[1]; // Don't decode nested names
+                if (!filter[name][nestedName]) filter[name][nestedName] = {};
+                addOperator(filter[name][nestedName], bits[2], value);
+                return;
+            }
+
+            addOperator(filter[name], bits[1], value);
         }
     });
 
-    return to;
+    return filter;
 }

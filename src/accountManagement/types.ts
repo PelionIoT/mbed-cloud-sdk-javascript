@@ -15,6 +15,8 @@
 * limitations under the License.
 */
 
+import { ListOptions } from "../common/interfaces";
+
 export type AccountStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
 /**
  * This object represents an account in requests and responses.
@@ -136,4 +138,24 @@ export interface UpdateUserObject extends AddUserObject {
      * The UUID of the user.
      */
     id: string;
+}
+
+/**
+ * Options to use when listing api keys
+ */
+export interface ApiKeyListOptions extends ListOptions {
+    /**
+     * Owner name filter
+     */
+    owner?: string;
+}
+
+/**
+ * Options to use when listing users
+ */
+export interface UserListOptions extends ListOptions {
+    /**
+     * User status filter
+     */
+    status?: UserStatusEnum;
 }

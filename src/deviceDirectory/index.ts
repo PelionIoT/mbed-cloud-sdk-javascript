@@ -16,15 +16,16 @@
 */
 
 import { asyncStyle, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
-import { ConnectionOptions, ListResponse, CallbackFn, ListOptions } from "../common/interfaces";
-import { Endpoints } from "./endpoints";
-import { AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject } from "./types";
+import { ConnectionOptions, ListResponse, CallbackFn } from "../common/interfaces";
+import { AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject, DeviceListOptions, QueryListOptions, DeviceLogListOptions } from "./types";
 import { Device } from "./models/device";
 import { DeviceAdapter } from "./models/deviceAdapter";
 import { Query } from "./models/query";
 import { QueryAdapter } from "./models/queryAdapter";
 import { DeviceLog } from "./models/deviceLog";
 import { DeviceLogAdapter } from "./models/deviceLogAdapter";
+import { Endpoints } from "./endpoints";
+import { Filters } from "./filters";
 
 /**
  * ## Device Directory API
@@ -69,13 +70,13 @@ export class DeviceDirectoryApi {
      * @param options list options
      * @returns Promise of devices
      */
-    public listDevices(options?: ListOptions): Promise<ListResponse<Device>>;
+    public listDevices(options?: DeviceListOptions): Promise<ListResponse<Device>>;
     /**
      * Gets a list of devices
      * @param options list options
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listDevices(options?: ListOptions, callback?: CallbackFn<ListResponse<Device>>);
+    public listDevices(options?: DeviceListOptions, callback?: CallbackFn<ListResponse<Device>>);
     public listDevices(options?: any, callback?: CallbackFn<ListResponse<Device>>): Promise<ListResponse<Device>> {
         options = options || {};
         if (typeof options === "function") {
@@ -85,7 +86,7 @@ export class DeviceDirectoryApi {
 
         let { limit, after, order, include, filter } = options;
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
+            this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let devices = data.data.map(device => {
@@ -192,14 +193,14 @@ export class DeviceDirectoryApi {
      * @param callback A function containing a list response
      * @returns Promise containing a list response
      */
-    public listQueries(options?: ListOptions): Promise<ListResponse<Query>>;
+    public listQueries(options?: QueryListOptions): Promise<ListResponse<Query>>;
     /**
      * List queries
      * @param options list options
      * @param callback A function containing a list response
      * @returns Promise containing a list response
      */
-    public listQueries(options?: ListOptions, callback?: CallbackFn<ListResponse<Query>>);
+    public listQueries(options?: QueryListOptions, callback?: CallbackFn<ListResponse<Query>>);
     public listQueries(options?:any, callback?: CallbackFn<ListResponse<Query>>): Promise<ListResponse<Query>> {
         options = options || {};
         if (typeof options === "function") {
@@ -209,7 +210,7 @@ export class DeviceDirectoryApi {
 
         let { limit, order, after, include, filter } = options;
         return asyncStyle(done => {
-            this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
+            this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let queries = data.data.map(query => {
@@ -320,13 +321,13 @@ export class DeviceDirectoryApi {
      * @param options filter options
      * @returns Promise of listResponse
      */
-    public listDeviceLogs(options?: ListOptions): Promise<ListResponse<DeviceLog>>;
+    public listDeviceLogs(options?: DeviceLogListOptions): Promise<ListResponse<DeviceLog>>;
     /**
      * List device logs
      * @param options filter options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listDeviceLogs(options?: ListOptions, callback?: CallbackFn<ListResponse<DeviceLog>>);
+    public listDeviceLogs(options?: DeviceLogListOptions, callback?: CallbackFn<ListResponse<DeviceLog>>);
     public listDeviceLogs(options?:any, callback?: CallbackFn<ListResponse<DeviceLog>>): Promise<ListResponse<DeviceLog>> {
         options = options || {};
         if (typeof options === "function") {
@@ -334,9 +335,9 @@ export class DeviceDirectoryApi {
             options = {};
         }
 
-        let { limit, order, after, include, filter } = options as ListOptions;
+        let { limit, order, after, include, filter } = options as DeviceLogListOptions;
         return asyncStyle(done => {
-            this._endpoints.catalog.deviceLogList(limit, order, after, encodeFilter(filter), encodeInclude(include), (error, data) => {
+            this._endpoints.catalog.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_LOG_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
                 let list = data.data.map(log => {
