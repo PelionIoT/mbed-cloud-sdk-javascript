@@ -26,10 +26,7 @@ export interface UpdateCampaign {
      * An optional description of the campaign.
      */
     "description": string;
-    /**
-     * The timestamp at which update campaign scheduled to start.
-     */
-    "when"?: string;
+    "root_manifest_id": string;
     /**
      * The time the object was created.
      */
@@ -38,7 +35,10 @@ export interface UpdateCampaign {
      * The API resource entity.
      */
     "object": string;
-    "root_manifest_id": string;
+    /**
+     * The timestamp at which update campaign scheduled to start.
+     */
+    "when"?: string;
     /**
      * The state of the campaign.
      */
@@ -83,15 +83,15 @@ export interface UpdateCampaignPatchRequest {
      * An optional description of the campaign.
      */
     "description"?: string;
-    /**
-     * The timestamp at which update campaign scheduled to start.
-     */
-    "when"?: string;
+    "root_manifest_id"?: string;
     /**
      * The API resource entity.
      */
     "object"?: string;
-    "root_manifest_id"?: string;
+    /**
+     * The timestamp at which update campaign scheduled to start.
+     */
+    "when"?: string;
     /**
      * The state of the campaign.
      */
@@ -112,15 +112,15 @@ export interface UpdateCampaignPostRequest {
      * An optional description of the campaign.
      */
     "description"?: string;
-    /**
-     * The timestamp at which update campaign scheduled to start.
-     */
-    "when"?: string;
+    "root_manifest_id"?: string;
     /**
      * The API resource entity.
      */
     "object"?: string;
-    "root_manifest_id"?: string;
+    /**
+     * The timestamp at which update campaign scheduled to start.
+     */
+    "when"?: string;
     /**
      * The state of the campaign.
      */
@@ -141,15 +141,15 @@ export interface UpdateCampaignPutRequest {
      * An optional description of the campaign.
      */
     "description": string;
-    /**
-     * The timestamp at which update campaign scheduled to start.
-     */
-    "when": string;
+    "root_manifest_id": string;
     /**
      * The API resource entity.
      */
     "object": string;
-    "root_manifest_id": string;
+    /**
+     * The timestamp at which update campaign scheduled to start.
+     */
+    "when": string;
     /**
      * The state of the campaign.
      */

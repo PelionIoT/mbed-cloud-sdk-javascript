@@ -31,7 +31,7 @@ export interface DeviceData {
     "mechanism"?: DeviceDataMechanismEnum;
     "device_class"?: string;
     "id"?: string;
-    "description"?: string;
+    "account_id"?: string;
     "endpoint_name"?: string;
     "auto_update"?: boolean;
     "device_execution_mode"?: number;
@@ -42,7 +42,7 @@ export interface DeviceData {
     "firmware_checksum"?: string;
     "manifest_timestamp"?: Date;
     "vendor_id"?: string;
-    "account_id"?: string;
+    "description"?: string;
     "deployed_state"?: DeviceDataDeployedStateEnum;
     "object"?: string;
     "trust_class"?: number;

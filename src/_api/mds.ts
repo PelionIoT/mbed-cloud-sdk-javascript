@@ -256,6 +256,37 @@ export class DefaultApi extends ApiBase {
 export class EndpointsApi extends ApiBase {
 
     /** 
+     * List the resources on an endpoint
+     * The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
+     * @param deviceId A unique mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
+     */
+    v2EndpointsDeviceIdGet (deviceId: string, callback?: (error:any, data?:Array<Resource>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceId" is set
+        if (deviceId === null || deviceId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'deviceId' missing when calling 'v2EndpointsDeviceIdGet'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v2/endpoints/{device-id}'.replace('{' + 'device-id' + '}', String(deviceId)),
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
      * List endpoints. The number of endpoints is currently limited to 200.
      * Endpoints are physical devices running mbed Cloud Client. 
      * @param type Filter endpoints by endpoint-type.
@@ -274,37 +305,6 @@ export class EndpointsApi extends ApiBase {
 
         return this.request({
             url: '/v2/endpoints',
-            method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * List the resources on an endpoint
-     * The list of resources is cached by mbed Cloud Connect, so this call does not create a message to the device. 
-     * @param id A unique mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
-     */
-    v2EndpointsIdGet (id: string, callback?: (error:any, data?:Array<Resource>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v2EndpointsIdGet'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v2/endpoints/{id}'.replace('{' + 'id' + '}', String(id)),
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -408,22 +408,22 @@ export class ResourcesApi extends ApiBase {
     /** 
      * Delete a resource
      * A request to delete a resource must be handled by both mbed Cloud Client and mbed Cloud Connect. The resource is not deleted from mbed Cloud Connect until the delete is handled by mbed Cloud Client.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
-     * @param id A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+     * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
      * @param resourcePath The URL of the resource. 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    v2EndpointsIdResourcePathDelete (id: string, resourcePath: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
+    v2EndpointsDeviceIdResourcePathDelete (deviceId: string, resourcePath: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceId" is set
+        if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v2EndpointsIdResourcePathDelete'."));
+                callback(new Error("Required parameter 'deviceId' missing when calling 'v2EndpointsDeviceIdResourcePathDelete'."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsIdResourcePathDelete'."));
+                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsDeviceIdResourcePathDelete'."));
             }
             return;
         }
@@ -439,7 +439,7 @@ export class ResourcesApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v2/endpoints/{id}/{resourcePath}'.replace('{' + 'id' + '}', String(id)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
+            url: '/v2/endpoints/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'DELETE',
             headers: headerParams,
             query: queryParameters,
@@ -451,23 +451,23 @@ export class ResourcesApi extends ApiBase {
     /** 
      * Read from a resource
      * Requests the resource value and when the response is available, a json AsycResponse  object (AsyncIDResponse object) is received in the notification channel. Note that you can also  receive notifications when a resource changes. The preferred way to get resource values is to use subscribe  and callback methods.  All resource APIs are asynchronous. These APIs will only respond  if the device is turned on and connected to mbed Cloud Connect. 
-     * @param id Unique mbed Cloud device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
+     * @param deviceId Unique mbed Cloud device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
      * @param resourcePath The URL of the resource. 
      * @param cacheOnly If true, the response comes only from the cache. Default: false. 
      * @param noResp **Non-confirmable requests**   All resource APIs have the parameter &#x60;noResp&#x60;. If a request is made with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  409 Conflict. 
      */
-    v2EndpointsIdResourcePathGet (id: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
+    v2EndpointsDeviceIdResourcePathGet (deviceId: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceId" is set
+        if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v2EndpointsIdResourcePathGet'."));
+                callback(new Error("Required parameter 'deviceId' missing when calling 'v2EndpointsDeviceIdResourcePathGet'."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsIdResourcePathGet'."));
+                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsDeviceIdResourcePathGet'."));
             }
             return;
         }
@@ -486,7 +486,7 @@ export class ResourcesApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v2/endpoints/{id}/{resourcePath}'.replace('{' + 'id' + '}', String(id)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
+            url: '/v2/endpoints/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -498,23 +498,23 @@ export class ResourcesApi extends ApiBase {
     /** 
      * Execute a function on a resource
      * With this API, you can execute a function on an existing resource.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
-     * @param id A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+     * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
      * @param resourcePath The URL of the resource.
      * @param resourceFunction This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client. 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    v2EndpointsIdResourcePathPost (id: string, resourcePath: string, resourceFunction?: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
+    v2EndpointsDeviceIdResourcePathPost (deviceId: string, resourcePath: string, resourceFunction?: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceId" is set
+        if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v2EndpointsIdResourcePathPost'."));
+                callback(new Error("Required parameter 'deviceId' missing when calling 'v2EndpointsDeviceIdResourcePathPost'."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsIdResourcePathPost'."));
+                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsDeviceIdResourcePathPost'."));
             }
             return;
         }
@@ -530,7 +530,7 @@ export class ResourcesApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v2/endpoints/{id}/{resourcePath}'.replace('{' + 'id' + '}', String(id)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
+            url: '/v2/endpoints/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'POST',
             headers: headerParams,
             query: queryParameters,
@@ -543,30 +543,30 @@ export class ResourcesApi extends ApiBase {
     /** 
      * Write to a resource
      * With this API, you can write new values to existing resources, or create new  resources on the device. The resource-path does not have to exist - it can be  created by the call. The maximum length of resource-path is 255 characters.  This API can also be used to transfer files to the device. mbed Cloud Connect LWM2M server implements the Option 1 from RFC7959. The maximum block size is 1024 bytes. The block size versus transferred file size is something to note in low quality networks. The customer application needs to know what type of file is transferred (for example txt) and the payload can be encrypted by the customer. The maximum size of payload is 1048576 bytes.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to mbed Cloud Connect. 
-     * @param id A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+     * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
      * @param resourcePath Resource URL.
      * @param resourceValue The value to be set to the resource. (Check accceptable content-types) 
      * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
      */
-    v2EndpointsIdResourcePathPut (id: string, resourcePath: string, resourceValue: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
+    v2EndpointsDeviceIdResourcePathPut (deviceId: string, resourcePath: string, resourceValue: string, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceId" is set
+        if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v2EndpointsIdResourcePathPut'."));
+                callback(new Error("Required parameter 'deviceId' missing when calling 'v2EndpointsDeviceIdResourcePathPut'."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsIdResourcePathPut'."));
+                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsDeviceIdResourcePathPut'."));
             }
             return;
         }
         // verify required parameter "resourceValue" is set
         if (resourceValue === null || resourceValue === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourceValue' missing when calling 'v2EndpointsIdResourcePathPut'."));
+                callback(new Error("Required parameter 'resourceValue' missing when calling 'v2EndpointsDeviceIdResourcePathPut'."));
             }
             return;
         }
@@ -582,7 +582,7 @@ export class ResourcesApi extends ApiBase {
         let formParams: any = {};
 
         return this.request({
-            url: '/v2/endpoints/{id}/{resourcePath}'.replace('{' + 'id' + '}', String(id)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
+            url: '/v2/endpoints/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'PUT',
             headers: headerParams,
             query: queryParameters,
@@ -623,6 +623,184 @@ export class SubscriptionsApi extends ApiBase {
         }, callback);
     }
     /** 
+     * Delete subscriptions from an endpoint
+     * Deletes all resource subscriptions in a single endpoint.
+     * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+     */
+    v2SubscriptionsDeviceIdDelete (deviceId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceId" is set
+        if (deviceId === null || deviceId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'deviceId' missing when calling 'v2SubscriptionsDeviceIdDelete'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v2/subscriptions/{device-id}'.replace('{' + 'device-id' + '}', String(deviceId)),
+            method: 'DELETE',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Read endpoints subscriptions
+     * Lists all subscribed resources from a single endpoint.
+     * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
+     */
+    v2SubscriptionsDeviceIdGet (deviceId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceId" is set
+        if (deviceId === null || deviceId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'deviceId' missing when calling 'v2SubscriptionsDeviceIdGet'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v2/subscriptions/{device-id}'.replace('{' + 'device-id' + '}', String(deviceId)),
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Remove a subscription
+     * To remove an existing subscription from a resource path. 
+     * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+     * @param resourcePath The URL of the resource. 
+     */
+    v2SubscriptionsDeviceIdResourcePathDelete (deviceId: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceId" is set
+        if (deviceId === null || deviceId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'deviceId' missing when calling 'v2SubscriptionsDeviceIdResourcePathDelete'."));
+            }
+            return;
+        }
+        // verify required parameter "resourcePath" is set
+        if (resourcePath === null || resourcePath === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2SubscriptionsDeviceIdResourcePathDelete'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
+            method: 'DELETE',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Read subscription status
+     * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+     * @param resourcePath The URL of the resource. 
+     */
+    v2SubscriptionsDeviceIdResourcePathGet (deviceId: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceId" is set
+        if (deviceId === null || deviceId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'deviceId' missing when calling 'v2SubscriptionsDeviceIdResourcePathGet'."));
+            }
+            return;
+        }
+        // verify required parameter "resourcePath" is set
+        if (resourcePath === null || resourcePath === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2SubscriptionsDeviceIdResourcePathGet'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Subscribe to a resource path
+     * The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LWM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to mbed Cloud Connect service. An application needs to call a &#x60;/notification/callback&#x60; method to get mbed Cloud Connect to push a notification of the resource changes.  You can also use &#x60;/subscriptions&#x60; to set a pre-subscription. 
+     * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+     * @param resourcePath The URL of the resource. 
+     */
+    v2SubscriptionsDeviceIdResourcePathPut (deviceId: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "deviceId" is set
+        if (deviceId === null || deviceId === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'deviceId' missing when calling 'v2SubscriptionsDeviceIdResourcePathPut'."));
+            }
+            return;
+        }
+        // verify required parameter "resourcePath" is set
+        if (resourcePath === null || resourcePath === undefined) {
+            if (callback) {
+                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2SubscriptionsDeviceIdResourcePathPut'."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request({
+            url: '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
+            method: 'PUT',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
      * Get pre-subscriptions
      * You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure  as described above. If there are no pre-subscribed resources, it returns with an empty array. 
      */
@@ -638,184 +816,6 @@ export class SubscriptionsApi extends ApiBase {
         return this.request({
             url: '/v2/subscriptions',
             method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * Delete subscriptions from an endpoint
-     * Deletes all resource subscriptions in a single endpoint.
-     * @param id A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
-     */
-    v2SubscriptionsIdDelete (id: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v2SubscriptionsIdDelete'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v2/subscriptions/{id}'.replace('{' + 'id' + '}', String(id)),
-            method: 'DELETE',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * Read endpoints subscriptions
-     * Lists all subscribed resources from a single endpoint.
-     * @param id A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
-     */
-    v2SubscriptionsIdGet (id: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v2SubscriptionsIdGet'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v2/subscriptions/{id}'.replace('{' + 'id' + '}', String(id)),
-            method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * Remove a subscription
-     * To remove an existing subscription from a resource path. 
-     * @param id A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
-     * @param resourcePath The URL of the resource. 
-     */
-    v2SubscriptionsIdResourcePathDelete (id: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v2SubscriptionsIdResourcePathDelete'."));
-            }
-            return;
-        }
-        // verify required parameter "resourcePath" is set
-        if (resourcePath === null || resourcePath === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2SubscriptionsIdResourcePathDelete'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v2/subscriptions/{id}/{resourcePath}'.replace('{' + 'id' + '}', String(id)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
-            method: 'DELETE',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * Read subscription status
-     * @param id A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
-     * @param resourcePath The URL of the resource. 
-     */
-    v2SubscriptionsIdResourcePathGet (id: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v2SubscriptionsIdResourcePathGet'."));
-            }
-            return;
-        }
-        // verify required parameter "resourcePath" is set
-        if (resourcePath === null || resourcePath === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2SubscriptionsIdResourcePathGet'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v2/subscriptions/{id}/{resourcePath}'.replace('{' + 'id' + '}', String(id)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
-            method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * Subscribe to a resource path
-     * The mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated  solution-dependent logic. The OMA LWM2M resource model including objects, object instances,  resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device  to provide value change notifications to mbed Cloud Connect service. An application needs to call a &#x60;/notification/callback&#x60; method to get mbed Cloud Connect to push a notification of the resource changes.  You can also use &#x60;/subscriptions&#x60; to set a pre-subscription. 
-     * @param id A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
-     * @param resourcePath The URL of the resource. 
-     */
-    v2SubscriptionsIdResourcePathPut (id: string, resourcePath: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v2SubscriptionsIdResourcePathPut'."));
-            }
-            return;
-        }
-        // verify required parameter "resourcePath" is set
-        if (resourcePath === null || resourcePath === undefined) {
-            if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2SubscriptionsIdResourcePathPut'."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request({
-            url: '/v2/subscriptions/{id}/{resourcePath}'.replace('{' + 'id' + '}', String(id)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
-            method: 'PUT',
             headers: headerParams,
             query: queryParameters,
             useFormData: useFormData,
