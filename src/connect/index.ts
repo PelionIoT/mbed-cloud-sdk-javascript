@@ -453,7 +453,7 @@ export class ConnectApi extends EventEmitter {
     public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<any>);
     public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<any>): Promise<any> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsIdGet(deviceId, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdGet(deviceId, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -474,7 +474,7 @@ export class ConnectApi extends EventEmitter {
     public deleteDeviceSubscriptions(deviceId: string, callback: CallbackFn<void>);
     public deleteDeviceSubscriptions(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsIdDelete(deviceId, error => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdDelete(deviceId, error => {
                 if (error) return done(error);
                 done(null, null);
             });
@@ -495,7 +495,7 @@ export class ConnectApi extends EventEmitter {
     public listResources(deviceId: string, callback: CallbackFn<Array<Resource>>);
     public listResources(deviceId: string, callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
         return asyncStyle(done => {
-            this._endpoints.endpoints.v2EndpointsIdGet(deviceId, (error, data) => {
+            this._endpoints.endpoints.v2EndpointsDeviceIdGet(deviceId, (error, data) => {
                 if (error) return done(error);
 
                 var resources = data.map(resource => {
@@ -528,7 +528,7 @@ export class ConnectApi extends EventEmitter {
             noResponse = false;
         }
         return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsIdResourcePathDelete(deviceId, path, noResponse, (error, data) => {
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathDelete(deviceId, path, noResponse, (error, data) => {
                 if (error) return done(error);
                 done(null, data[this.ASYNC_KEY]);
             });
@@ -564,7 +564,7 @@ export class ConnectApi extends EventEmitter {
             noResponse = false;
         }
         return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsIdResourcePathGet(deviceId, path, cacheOnly, noResponse, (error, data) => {
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, path, cacheOnly, noResponse, (error, data) => {
                 if (error) return done(error);
 
                 var asyncID = data[this.ASYNC_KEY];
@@ -602,7 +602,7 @@ export class ConnectApi extends EventEmitter {
             noResponse = false;
         }
         return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsIdResourcePathPut(deviceId, path.substr(1), value, noResponse, (error, data) => {
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, path.substr(1), value, noResponse, (error, data) => {
                 if (error) return done(error);
 
                 var asyncID = data[this.ASYNC_KEY];
@@ -645,7 +645,7 @@ export class ConnectApi extends EventEmitter {
             noResponse = false;
         }
         return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsIdResourcePathPost(deviceId, path, functionName, noResponse, (error, data) => {
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, path, functionName, noResponse, (error, data) => {
                 if (error) return done(error);
 
                 var asyncID = data[this.ASYNC_KEY];
@@ -675,7 +675,7 @@ export class ConnectApi extends EventEmitter {
     public getResourceSubscription(deviceId: string, path: string, callback: CallbackFn<boolean>);
     public getResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<boolean>): Promise<boolean> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsIdResourcePathGet(deviceId, path, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathGet(deviceId, path, (error, data) => {
                 if (error) return done(error);
                 done(null, data);
             });
@@ -700,7 +700,7 @@ export class ConnectApi extends EventEmitter {
     public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function);
     public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsIdResourcePathPut(deviceId, path, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, path, (error, data) => {
                 if (error) return done(error);
 
                 if (notifyFn) {
@@ -735,7 +735,7 @@ export class ConnectApi extends EventEmitter {
     public deleteResourceSubscription(deviceId: string, path: string, callback: CallbackFn<void>);
     public deleteResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsIdResourcePathDelete(deviceId, path, (error, data) => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, path, (error, data) => {
                 if (error) return done(error);
 
                 // no-one is listening :(

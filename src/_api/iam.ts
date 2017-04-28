@@ -462,21 +462,21 @@ export interface SubjectList {
 export type TrustedCertificateReqServiceEnum = "lwm2m" | "bootstrap";
 export interface TrustedCertificateReq {
     /**
+     * Service name where the certificate must be used.
+     */
+    "service": TrustedCertificateReqServiceEnum;
+    /**
      * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
      */
     "signature": string;
-    /**
-     * X509.v3 trusted certificate in PEM or base64 encoded DER format.
-     */
-    "cert_data": string;
     /**
      * Certificate name, not longer than 100 characters.
      */
     "name": string;
     /**
-     * Service name where the certificate must be used.
+     * X509.v3 trusted certificate in PEM format.
      */
-    "service": TrustedCertificateReqServiceEnum;
+    "certificate": string;
     /**
      * Human readable description of this certificate, not longer than 500 characters.
      */
@@ -490,13 +490,17 @@ export type TrustedCertificateRespServiceEnum = "lwm2m" | "bootstrap";
 export type TrustedCertificateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface TrustedCertificateResp {
     /**
+     * Service name where the certificate is to be used.
+     */
+    "service": TrustedCertificateRespServiceEnum;
+    /**
      * Human readable description of this certificate.
      */
     "description"?: string;
     /**
-     * Service name where the certificate is to be used.
+     * X509.v3 trusted certificate in PEM format.
      */
-    "service": TrustedCertificateRespServiceEnum;
+    "certificate": string;
     /**
      * Device execution mode where 1 means a developer certificate.
      */
@@ -529,10 +533,6 @@ export interface TrustedCertificateResp {
      * Issuer of the certificate.
      */
     "issuer": string;
-    /**
-     * X509.v3 trusted certificate in PEM or base64 encoded DER format.
-     */
-    "cert_data": string;
     /**
      * Entity ID.
      */
@@ -613,13 +613,13 @@ export interface UpdatedResponse {
  */
 export interface UserInfoReq {
     /**
-     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-     */
-    "username"?: string;
-    /**
      * Phone number, not longer than 100 characters.
      */
     "phone_number"?: string;
+    /**
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "username"?: string;
     /**
      * A list of IDs of the groups this user belongs to.
      */
@@ -629,13 +629,13 @@ export interface UserInfoReq {
      */
     "is_gtc_accepted"?: boolean;
     /**
-     * A flag indicating that receiving marketing information has been accepted.
-     */
-    "is_marketing_accepted"?: boolean;
-    /**
      * The full name of the user, not longer than 100 characters.
      */
     "full_name"?: string;
+    /**
+     * A flag indicating that receiving marketing information has been accepted.
+     */
+    "is_marketing_accepted"?: boolean;
     /**
      * Address, not longer than 100 characters.
      */
@@ -772,13 +772,13 @@ export interface UserInfoRespList {
  */
 export interface UserUpdateReq {
     /**
-     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-     */
-    "username"?: string;
-    /**
      * Phone number, not longer than 100 characters.
      */
     "phone_number"?: string;
+    /**
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "username"?: string;
     /**
      * A flag indicating that receiving marketing information has been accepted.
      */
@@ -884,7 +884,7 @@ export class AccountAdminApi extends ApiBase {
     }
     /** 
      * Create a new user.
-     * An endpoint for creating a new user.
+     * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
      * @param body A user object with attributes.
      * @param action Action, either &#39;create&#39; or &#39;invite&#39;.
      */
