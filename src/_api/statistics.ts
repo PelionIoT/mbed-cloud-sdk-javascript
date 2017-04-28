@@ -19,6 +19,7 @@
 
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
+import { SDKError } from "../common/sdkError";
 
 export interface ErrorResponse {
     /**
@@ -124,21 +125,21 @@ export class AccountApi extends ApiBase {
         // verify required parameter "include" is set
         if (include === null || include === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'include' missing when calling 'v3MetricsGet'."));
+                callback(new SDKError("Required parameter 'include' missing."));
             }
             return;
         }
         // verify required parameter "interval" is set
         if (interval === null || interval === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'interval' missing when calling 'v3MetricsGet'."));
+                callback(new SDKError("Required parameter 'interval' missing."));
             }
             return;
         }
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'authorization' missing when calling 'v3MetricsGet'."));
+                callback(new SDKError("Required parameter 'authorization' missing."));
             }
             return;
         }
@@ -197,21 +198,21 @@ export class StatisticsApi extends ApiBase {
         // verify required parameter "include" is set
         if (include === null || include === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'include' missing when calling 'v3MetricsGet'."));
+                callback(new SDKError("Required parameter 'include' missing."));
             }
             return;
         }
         // verify required parameter "interval" is set
         if (interval === null || interval === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'interval' missing when calling 'v3MetricsGet'."));
+                callback(new SDKError("Required parameter 'interval' missing."));
             }
             return;
         }
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'authorization' missing when calling 'v3MetricsGet'."));
+                callback(new SDKError("Required parameter 'authorization' missing."));
             }
             return;
         }

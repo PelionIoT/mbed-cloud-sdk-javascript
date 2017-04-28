@@ -19,6 +19,7 @@
 
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
+import { SDKError } from "../common/sdkError";
 
 export interface AsyncID {
     /**
@@ -264,7 +265,7 @@ export class EndpointsApi extends ApiBase {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'v2EndpointsDeviceIdGet'."));
+                callback(new SDKError("Required parameter 'deviceId' missing."));
             }
             return;
         }
@@ -329,7 +330,7 @@ export class NotificationsApi extends ApiBase {
         // verify required parameter "webhook" is set
         if (webhook === null || webhook === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'webhook' missing when calling 'v2NotificationCallbackPut'."));
+                callback(new SDKError("Required parameter 'webhook' missing."));
             }
             return;
         }
@@ -416,14 +417,14 @@ export class ResourcesApi extends ApiBase {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'v2EndpointsDeviceIdResourcePathDelete'."));
+                callback(new SDKError("Required parameter 'deviceId' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsDeviceIdResourcePathDelete'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
@@ -460,14 +461,14 @@ export class ResourcesApi extends ApiBase {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'v2EndpointsDeviceIdResourcePathGet'."));
+                callback(new SDKError("Required parameter 'deviceId' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsDeviceIdResourcePathGet'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
@@ -507,14 +508,14 @@ export class ResourcesApi extends ApiBase {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'v2EndpointsDeviceIdResourcePathPost'."));
+                callback(new SDKError("Required parameter 'deviceId' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsDeviceIdResourcePathPost'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
@@ -552,21 +553,21 @@ export class ResourcesApi extends ApiBase {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'v2EndpointsDeviceIdResourcePathPut'."));
+                callback(new SDKError("Required parameter 'deviceId' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2EndpointsDeviceIdResourcePathPut'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
         // verify required parameter "resourceValue" is set
         if (resourceValue === null || resourceValue === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourceValue' missing when calling 'v2EndpointsDeviceIdResourcePathPut'."));
+                callback(new SDKError("Required parameter 'resourceValue' missing."));
             }
             return;
         }
@@ -631,7 +632,7 @@ export class SubscriptionsApi extends ApiBase {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'v2SubscriptionsDeviceIdDelete'."));
+                callback(new SDKError("Required parameter 'deviceId' missing."));
             }
             return;
         }
@@ -662,7 +663,7 @@ export class SubscriptionsApi extends ApiBase {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'v2SubscriptionsDeviceIdGet'."));
+                callback(new SDKError("Required parameter 'deviceId' missing."));
             }
             return;
         }
@@ -694,14 +695,14 @@ export class SubscriptionsApi extends ApiBase {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'v2SubscriptionsDeviceIdResourcePathDelete'."));
+                callback(new SDKError("Required parameter 'deviceId' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2SubscriptionsDeviceIdResourcePathDelete'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
@@ -732,14 +733,14 @@ export class SubscriptionsApi extends ApiBase {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'v2SubscriptionsDeviceIdResourcePathGet'."));
+                callback(new SDKError("Required parameter 'deviceId' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2SubscriptionsDeviceIdResourcePathGet'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
@@ -771,14 +772,14 @@ export class SubscriptionsApi extends ApiBase {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'deviceId' missing when calling 'v2SubscriptionsDeviceIdResourcePathPut'."));
+                callback(new SDKError("Required parameter 'deviceId' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v2SubscriptionsDeviceIdResourcePathPut'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
@@ -832,7 +833,7 @@ export class SubscriptionsApi extends ApiBase {
         // verify required parameter "presubsription" is set
         if (presubsription === null || presubsription === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'presubsription' missing when calling 'v2SubscriptionsPut'."));
+                callback(new SDKError("Required parameter 'presubsription' missing."));
             }
             return;
         }

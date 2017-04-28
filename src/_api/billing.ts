@@ -19,6 +19,7 @@
 
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
+import { SDKError } from "../common/sdkError";
 
 export interface Account {
     "phone_number"?: string;
@@ -445,21 +446,21 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "account" is set
         if (account === null || account === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'account' missing when calling 'v1ActivedevicesGet'."));
+                callback(new SDKError("Required parameter 'account' missing."));
             }
             return;
         }
         // verify required parameter "from" is set
         if (from === null || from === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'from' missing when calling 'v1ActivedevicesGet'."));
+                callback(new SDKError("Required parameter 'from' missing."));
             }
             return;
         }
         // verify required parameter "to" is set
         if (to === null || to === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'to' missing when calling 'v1ActivedevicesGet'."));
+                callback(new SDKError("Required parameter 'to' missing."));
             }
             return;
         }
@@ -500,14 +501,14 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "account" is set
         if (account === null || account === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'account' missing when calling 'v1ImportsActivedevicesGet'."));
+                callback(new SDKError("Required parameter 'account' missing."));
             }
             return;
         }
         // verify required parameter "importId" is set
         if (importId === null || importId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'importId' missing when calling 'v1ImportsActivedevicesGet'."));
+                callback(new SDKError("Required parameter 'importId' missing."));
             }
             return;
         }
@@ -544,7 +545,7 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "account" is set
         if (account === null || account === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'account' missing when calling 'v1ImportsGet'."));
+                callback(new SDKError("Required parameter 'account' missing."));
             }
             return;
         }
@@ -602,14 +603,14 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "account" is set
         if (account === null || account === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'account' missing when calling 'v1ReportActivedevicesGet'."));
+                callback(new SDKError("Required parameter 'account' missing."));
             }
             return;
         }
         // verify required parameter "month" is set
         if (month === null || month === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'month' missing when calling 'v1ReportActivedevicesGet'."));
+                callback(new SDKError("Required parameter 'month' missing."));
             }
             return;
         }
@@ -647,7 +648,7 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "month" is set
         if (month === null || month === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'month' missing when calling 'v1ReportGet'."));
+                callback(new SDKError("Required parameter 'month' missing."));
             }
             return;
         }
@@ -708,7 +709,7 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "month" is set
         if (month === null || month === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'month' missing when calling 'v1StatsGet'."));
+                callback(new SDKError("Required parameter 'month' missing."));
             }
             return;
         }

@@ -19,6 +19,7 @@
 
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
+import { SDKError } from "../common/sdkError";
 
 /**
  * ResourcesApi
@@ -37,14 +38,14 @@ export class ResourcesApi extends ApiBase {
         // verify required parameter "endpointName" is set
         if (endpointName === null || endpointName === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'endpointName' missing when calling 'v3DevicesDeviceIdCachedResourcesResourcePathDelete'."));
+                callback(new SDKError("Required parameter 'endpointName' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v3DevicesDeviceIdCachedResourcesResourcePathDelete'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
@@ -84,14 +85,14 @@ export class ResourcesApi extends ApiBase {
         // verify required parameter "endpointName" is set
         if (endpointName === null || endpointName === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'endpointName' missing when calling 'v3DevicesDeviceIdCachedResourcesResourcePathGet'."));
+                callback(new SDKError("Required parameter 'endpointName' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v3DevicesDeviceIdCachedResourcesResourcePathGet'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
@@ -132,14 +133,14 @@ export class ResourcesApi extends ApiBase {
         // verify required parameter "endpointName" is set
         if (endpointName === null || endpointName === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'endpointName' missing when calling 'v3DevicesDeviceIdCachedResourcesResourcePathPost'."));
+                callback(new SDKError("Required parameter 'endpointName' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v3DevicesDeviceIdCachedResourcesResourcePathPost'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
@@ -180,21 +181,21 @@ export class ResourcesApi extends ApiBase {
         // verify required parameter "endpointName" is set
         if (endpointName === null || endpointName === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'endpointName' missing when calling 'v3DevicesDeviceIdCachedResourcesResourcePathPut'."));
+                callback(new SDKError("Required parameter 'endpointName' missing."));
             }
             return;
         }
         // verify required parameter "resourcePath" is set
         if (resourcePath === null || resourcePath === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourcePath' missing when calling 'v3DevicesDeviceIdCachedResourcesResourcePathPut'."));
+                callback(new SDKError("Required parameter 'resourcePath' missing."));
             }
             return;
         }
         // verify required parameter "resourceValue" is set
         if (resourceValue === null || resourceValue === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'resourceValue' missing when calling 'v3DevicesDeviceIdCachedResourcesResourcePathPut'."));
+                callback(new SDKError("Required parameter 'resourceValue' missing."));
             }
             return;
         }
