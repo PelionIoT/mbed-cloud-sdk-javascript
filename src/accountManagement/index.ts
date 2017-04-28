@@ -119,13 +119,13 @@ export class AccountManagementApi {
      */
     public listApiKeys(options?: ApiKeyListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
     public listApiKeys(options?: any, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
-        return asyncStyle(done => {
-            options = options || {};
-            if (typeof options === "function") {
-                callback = options;
-                options = {};
-            }
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
 
+        return asyncStyle(done => {
             let { limit, after, order, include, owner } = options as ApiKeyListOptions;
 
             this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), owner, (error, data) => {
@@ -152,11 +152,12 @@ export class AccountManagementApi {
      */
     public getApiKey(apiKeyId?: string, callback?: CallbackFn<ApiKey>);
     public getApiKey(apiKeyId?: any, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
+        if (typeof apiKeyId === "function") {
+            callback = apiKeyId;
+            apiKeyId = null;
+        }
+
         return asyncStyle(done => {
-            if (typeof apiKeyId === "function") {
-                callback = apiKeyId;
-                apiKeyId = null;
-            }
             if (apiKeyId) {
                 this._endpoints.developer.getApiKey(apiKeyId, (error, data) => {
                     if (error) return done(error);
@@ -249,13 +250,13 @@ export class AccountManagementApi {
      */
     public listUsers(options?: UserListOptions, callback?: CallbackFn<ListResponse<User>>);
     public listUsers(options?: any, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
-        return asyncStyle(done => {
-            options = options || {};
-            if (typeof options === "function") {
-                callback = options;
-                options = {};
-            }
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
 
+        return asyncStyle(done => {
             let { limit, after, order, include, status } = options as UserListOptions;
 
             this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), status, (error, data) => {
@@ -367,13 +368,13 @@ export class AccountManagementApi {
      */
     public listGroups(options?: ListOptions, callback?: CallbackFn<ListResponse<Group>>);
     public listGroups(options?: any, callback?: CallbackFn<ListResponse<Group>>): Promise<ListResponse<Group>> {
-        return asyncStyle(done => {
-            options = options || {};
-            if (typeof options === "function") {
-                callback = options;
-                options = {};
-            }
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
 
+        return asyncStyle(done => {
             let { limit, after, order, include } = options as ListOptions;
 
             this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), (error, data) => {
@@ -424,13 +425,13 @@ export class AccountManagementApi {
      */
     public listGroupUsers(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>);
     public listGroupUsers(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
-        return asyncStyle(done => {
-            options = options || {};
-            if (typeof options === "function") {
-                callback = options;
-                options = {};
-            }
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
 
+        return asyncStyle(done => {
             let { limit, after, order, include } = options as ListOptions;
 
             this._endpoints.admin.getUsersOfGroup(groupId, limit, after, order, encodeInclude(include), (error, data) => {
@@ -460,13 +461,13 @@ export class AccountManagementApi {
      */
     public listGroupApiKeys(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
     public listGroupApiKeys(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
-        return asyncStyle(done => {
-            options = options || {};
-            if (typeof options === "function") {
-                callback = options;
-                options = {};
-            }
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
 
+        return asyncStyle(done => {
             let { limit, after, order, include } = options as ListOptions;
 
             this._endpoints.developer.getApiKeysOfGroup(groupId, limit, after, order, encodeInclude(include), (error, data) => {

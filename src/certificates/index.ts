@@ -88,13 +88,13 @@ export class CertificatesApi {
      */
     public listCertificates(options?: CertificateListOptions, callback?: CallbackFn<ListResponse<Certificate>>);
     public listCertificates(options?: CertificateListOptions, callback?: CallbackFn<ListResponse<Certificate>>): Promise<ListResponse<Certificate>> {
-        return asyncStyle(done => {
-            options = options || {};
-            if (typeof options === "function") {
-                callback = options;
-                options = {};
-            }
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
 
+        return asyncStyle(done => {
             let { limit, after, order, include, type } = options as CertificateListOptions;
             let serviceEq = type === "developer" ? "bootstrap" : type;
             let executionMode = type === "developer" ? 1 : null;

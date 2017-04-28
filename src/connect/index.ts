@@ -192,12 +192,13 @@ export class ConnectApi extends EventEmitter {
      */
     public startNotifications(options?: NotificationOptions, callback?: CallbackFn<void>);
     public startNotifications(options?: any, callback?: CallbackFn<void>): Promise<void> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
         return asyncStyle(done => {
-            options = options || {};
-            if (typeof options === "function") {
-                callback = options;
-                options = {};
-            }
             let { interval, requestCallback } = options;
 
             function poll() {
@@ -291,13 +292,13 @@ export class ConnectApi extends EventEmitter {
      */
     public updateWebhook(url: string, headers?: { [key: string]: string; }, callback?: CallbackFn<void>);
     public updateWebhook(url: string, headers?: any, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            headers = headers || {};
-            if (typeof headers === "function") {
-                callback = headers;
-                headers = {};
-            }
+        headers = headers || {};
+        if (typeof headers === "function") {
+            callback = headers;
+            headers = {};
+        }
 
+        return asyncStyle(done => {
             this.deleteWebhook(() => {
                 this._endpoints.notifications.v2NotificationCallbackPut({
                     url: url,
@@ -423,12 +424,12 @@ export class ConnectApi extends EventEmitter {
      */
     public listConnectedDevices(type?: string, callback?: CallbackFn<Array<ConnectedDevice>>);
     public listConnectedDevices(type?: any, callback?: CallbackFn<Array<ConnectedDevice>>): Promise<Array<ConnectedDevice>> {
-        return asyncStyle(done => {
-            if (typeof type === "function") {
-                callback = type;
-                type = null;
-            }
+        if (typeof type === "function") {
+            callback = type;
+            type = null;
+        }
 
+        return asyncStyle(done => {
             this._endpoints.endpoints.v2EndpointsGet(type, (error, data) => {
                 if (error) return done(error);
 
@@ -524,12 +525,12 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>);
     public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
-        return asyncStyle(done => {
-            if (typeof noResponse === "function") {
-                callback = noResponse;
-                noResponse = false;
-            }
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
 
+        return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathDelete(deviceId, path, noResponse, (error, data) => {
                 if (error) return done(error);
                 done(null, data[this.ASYNC_KEY]);
@@ -556,17 +557,17 @@ export class ConnectApi extends EventEmitter {
      */
     public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>);
     public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
-        return asyncStyle(done => {
-            if (typeof noResponse === "function") {
-                callback = noResponse;
-                noResponse = false;
-            }
-            if (typeof cacheOnly === "function") {
-                callback = cacheOnly;
-                cacheOnly = false;
-                noResponse = false;
-            }
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+        if (typeof cacheOnly === "function") {
+            callback = cacheOnly;
+            cacheOnly = false;
+            noResponse = false;
+        }
 
+        return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, path, cacheOnly, noResponse, (error, data) => {
                 if (error) return done(error);
 
@@ -600,12 +601,12 @@ export class ConnectApi extends EventEmitter {
      */
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>);
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
-        return asyncStyle(done => {
-            if (typeof noResponse === "function") {
-                callback = noResponse;
-                noResponse = false;
-            }
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
 
+        return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, path.substr(1), value, noResponse, (error, data) => {
                 if (error) return done(error);
 
@@ -639,17 +640,17 @@ export class ConnectApi extends EventEmitter {
      */
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>);
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
-        return asyncStyle(done => {
-            if (typeof noResponse === "function") {
-                callback = noResponse;
-                noResponse = false;
-            }
-            if (typeof functionName === "function") {
-                callback = functionName;
-                functionName = null;
-                noResponse = false;
-            }
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+        if (typeof functionName === "function") {
+            callback = functionName;
+            functionName = null;
+            noResponse = false;
+        }
 
+        return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, path, functionName, noResponse, (error, data) => {
                 if (error) return done(error);
 
