@@ -33,9 +33,6 @@ import { MetricsStartEndOptions, MetricsPeriodOptions } from "./types";
 import { Metric } from "./models/metric";
 import { MetricAdapter } from "./models/metricAdapter";
 
-const DEFAULT_POLLING_INTERVAL = 500;
-const ASYNC_KEY = "async-response-id";
-
 /**
  * ## Connect API
  *
@@ -64,6 +61,8 @@ const ASYNC_KEY = "async-response-id";
  * ```
  */
 export class ConnectApi extends EventEmitter {
+
+    private readonly ASYNC_KEY = "async-response-id";
 
     private _endpoints: Endpoints;
     private _pollRequest: superagent.SuperAgentRequest;
@@ -214,7 +213,7 @@ export class ConnectApi extends EventEmitter {
                     return;
                 }
 
-                setTimeout(poll.bind(this), interval || DEFAULT_POLLING_INTERVAL);
+                setTimeout(poll.bind(this), interval || 500);
             });
         }
 
@@ -531,7 +530,7 @@ export class ConnectApi extends EventEmitter {
         return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsIdResourcePathDelete(deviceId, path, noResponse, (error, data) => {
                 if (error) return done(error);
-                done(null, data[ASYNC_KEY]);
+                done(null, data[this.ASYNC_KEY]);
             });
         }, callback);
     }
@@ -568,7 +567,7 @@ export class ConnectApi extends EventEmitter {
             this._endpoints.resources.v2EndpointsIdResourcePathGet(deviceId, path, cacheOnly, noResponse, (error, data) => {
                 if (error) return done(error);
 
-                var asyncID = data[ASYNC_KEY];
+                var asyncID = data[this.ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
@@ -606,7 +605,7 @@ export class ConnectApi extends EventEmitter {
             this._endpoints.resources.v2EndpointsIdResourcePathPut(deviceId, path.substr(1), value, noResponse, (error, data) => {
                 if (error) return done(error);
 
-                var asyncID = data[ASYNC_KEY];
+                var asyncID = data[this.ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
@@ -649,7 +648,7 @@ export class ConnectApi extends EventEmitter {
             this._endpoints.resources.v2EndpointsIdResourcePathPost(deviceId, path, functionName, noResponse, (error, data) => {
                 if (error) return done(error);
 
-                var asyncID = data[ASYNC_KEY];
+                var asyncID = data[this.ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
@@ -709,7 +708,7 @@ export class ConnectApi extends EventEmitter {
                     this._notifyFns[deviceId + path] = notifyFn;
                 }
 
-                var asyncID = data[ASYNC_KEY];
+                var asyncID = data[this.ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;
@@ -742,7 +741,7 @@ export class ConnectApi extends EventEmitter {
                 // no-one is listening :(
                 delete this._notifyFns[deviceId + path];
 
-                var asyncID = data[ASYNC_KEY];
+                var asyncID = data[this.ASYNC_KEY];
                 if (this.handleNotifications && asyncID) {
                     this._asyncFns[asyncID] = done;
                     return;

@@ -18,7 +18,7 @@
 import { asyncStyle, mapListResponse, encodeInclude } from "../common/functions";
 import { ConnectionOptions, CallbackFn, ListOptions, ListResponse } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject } from "./types";
+import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions } from "./types";
 import { Account } from "./models/account";
 import { AccountAdapter } from "./models/accountAdapter"
 import { ApiKey } from "./models/apiKey";
@@ -111,13 +111,13 @@ export class AccountManagementApi {
      * @param options filter options
      * @returns Promise of listResponse
      */
-    public listApiKeys(options?: ListOptions): Promise<ListResponse<ApiKey>>;
+    public listApiKeys(options?: ApiKeyListOptions): Promise<ListResponse<ApiKey>>;
     /**
      * List API keys
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
+    public listApiKeys(options?: ApiKeyListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
     public listApiKeys(options?: any, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {
@@ -125,8 +125,7 @@ export class AccountManagementApi {
             options = {};
         }
 
-        let { limit, after, order, include, filter } = options as ListOptions;
-        let owner = filter ? filter["owner"] : null;
+        let { limit, after, order, include, owner } = options as ApiKeyListOptions;
 
         return asyncStyle(done => {
             this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), owner, (error, data) => {
@@ -242,13 +241,13 @@ export class AccountManagementApi {
      * @param options filter options
      * @returns Promise of listResponse
      */
-    public listUsers(options?: ListOptions): Promise<ListResponse<User>>;
+    public listUsers(options?: UserListOptions): Promise<ListResponse<User>>;
     /**
      * List users
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listUsers(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>);
+    public listUsers(options?: UserListOptions, callback?: CallbackFn<ListResponse<User>>);
     public listUsers(options?: any, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
         options = options || {};
         if (typeof options === "function") {
@@ -256,8 +255,7 @@ export class AccountManagementApi {
             options = {};
         }
 
-        let { limit, after, order, include, filter } = options as ListOptions;
-        let status = filter ? filter["status"] : null;
+        let { limit, after, order, include, status } = options as UserListOptions;
 
         return asyncStyle(done => {
             this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), status, (error, data) => {

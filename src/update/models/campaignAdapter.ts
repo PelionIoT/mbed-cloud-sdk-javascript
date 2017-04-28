@@ -15,11 +15,13 @@
 * limitations under the License.
 */
 
+import { encodeFilter, decodeFilter } from "../../common/functions";
 import {
     UpdateCampaign as apiCampaign,
     UpdateCampaignPostRequest as apiCampaignAdd,
     UpdateCampaignPatchRequest as apiCampaignUpdate
 } from "../../_api/deployment_service";
+import { Filters } from "../../deviceDirectory/filters";
 import { AddCampaignObject, UpdateCampaignObject } from "../types";
 import { UpdateApi } from "../index";
 import { Campaign } from "./campaign";
@@ -31,7 +33,7 @@ export class CampaignAdapter {
 
     static map(from: apiCampaign, api: UpdateApi): Campaign {
         return new Campaign({
-            deviceFilter:        from.device_filter,
+            deviceFilter:        decodeFilter(from.device_filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS),
             createdAt:           from.created_at ? new Date(from.created_at) : null,
             description:         from.description,
             finishedAt:          from.finished ? new Date(from.finished) : null,
@@ -48,7 +50,7 @@ export class CampaignAdapter {
     static addMap(from: AddCampaignObject): apiCampaignAdd {
         return {
             description:         from.description,
-            device_filter:       from.deviceFilter,
+            device_filter:       encodeFilter(from.deviceFilter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS),
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,
@@ -59,7 +61,7 @@ export class CampaignAdapter {
     static updateMap(from: UpdateCampaignObject): apiCampaignUpdate {
         return {
             description:         from.description,
-            device_filter:       from.deviceFilter,
+            device_filter:       encodeFilter(from.deviceFilter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS),
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,

@@ -19,12 +19,12 @@ import { Metric as apiMetric } from "../../_api/statistics";
 import { TimePeriod } from "../types";
 import { Metric } from "./metric";
 
-const DEFAULT_TIME_PERIOD = "1d";
-
 /**
  * Metric Adapter
  */
 export class MetricAdapter {
+
+    private static readonly DEFAULT_TIME_PERIOD = "1d";
 
     static map(from: apiMetric): Metric {
         return new Metric({
@@ -69,8 +69,8 @@ export class MetricAdapter {
     }
 
     static mapTimePeriod(from?: TimePeriod): string {
-    	if (!from) return DEFAULT_TIME_PERIOD;
-    	let unit = from.unit[0];
-    	return `${from.duration}${unit}`;
+        if (!from) return MetricAdapter.DEFAULT_TIME_PERIOD;
+        let unit = from.unit[0];
+        return `${from.duration}${unit}`;
     }
 }
