@@ -16,16 +16,26 @@
 */
 
 import { ListResponse, CallbackFn, ComparisonObject } from "./interfaces";
+import { SDKError } from "./sdkError";
 
 // Inspired by https://github.com/sonnyp/polygoat
 export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn?: CallbackFn<T>): Promise<T> {
-    if (callbackFn) asyncFn(callbackFn)
-    else {
+    if (callbackFn) {
+        try {
+            asyncFn(callbackFn)
+        } catch(error) {
+            callbackFn(new SDKError(error.message, error));
+        }
+    } else {
         return new Promise((resolve, reject) => {
-            asyncFn((error, response) => {
-                if (error) reject(error);
-                else resolve(response);
-            });
+            try {
+                asyncFn((error: SDKError, response: T) => {
+                    if (error) reject(error);
+                    else resolve(response);
+                });
+            } catch(error) {
+                reject(new SDKError(error.message, error));
+            }
         });
     }
 }

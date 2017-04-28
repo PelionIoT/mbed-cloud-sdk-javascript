@@ -122,17 +122,17 @@ export class User {
      */
     public listApiKeys(options?: ListOptions, callback?: CallbackFn<Array<ApiKey>>);
     public listApiKeys(options?: any, callback?: CallbackFn<Array<ApiKey>>): Promise<Array<ApiKey>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
-
-        let attributes = options.attributes || {};
-        attributes["owner"] = this.id;
-        options.attributes = attributes;
-
         return asyncStyle(done => {
+            options = options || {};
+            if (typeof options === "function") {
+                callback = options;
+                options = {};
+            }
+
+            let attributes = options.attributes || {};
+            attributes["owner"] = this.id;
+            options.attributes = attributes;
+
             this._api.listApiKeys(options, done);
         }, callback);
     }

@@ -78,14 +78,15 @@ export class DeviceDirectoryApi {
      */
     public listDevices(options?: DeviceListOptions, callback?: CallbackFn<ListResponse<Device>>);
     public listDevices(options?: any, callback?: CallbackFn<ListResponse<Device>>): Promise<ListResponse<Device>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
-
-        let { limit, after, order, include, filter } = options;
         return asyncStyle(done => {
+            options = options || {};
+            if (typeof options === "function") {
+                callback = options;
+                options = {};
+            }
+
+            let { limit, after, order, include, filter } = options;
+
             this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -202,14 +203,15 @@ export class DeviceDirectoryApi {
      */
     public listQueries(options?: QueryListOptions, callback?: CallbackFn<ListResponse<Query>>);
     public listQueries(options?:any, callback?: CallbackFn<ListResponse<Query>>): Promise<ListResponse<Query>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
-
-        let { limit, order, after, include, filter } = options;
         return asyncStyle(done => {
+            options = options || {};
+            if (typeof options === "function") {
+                callback = options;
+                options = {};
+            }
+
+            let { limit, order, after, include, filter } = options;
+
             this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -284,7 +286,6 @@ export class DeviceDirectoryApi {
      */
     public updateQuery(query: UpdateQueryObject, callback: CallbackFn<Query>);
     public updateQuery(query: UpdateQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
-        // Partial update
         return asyncStyle(done => {
             this._endpoints.query.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), (error, data) => {
                 if (error) return done(error);
@@ -329,14 +330,15 @@ export class DeviceDirectoryApi {
      */
     public listDeviceLogs(options?: DeviceLogListOptions, callback?: CallbackFn<ListResponse<DeviceLog>>);
     public listDeviceLogs(options?:any, callback?: CallbackFn<ListResponse<DeviceLog>>): Promise<ListResponse<DeviceLog>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
-
-        let { limit, order, after, include, filter } = options as DeviceLogListOptions;
         return asyncStyle(done => {
+            options = options || {};
+            if (typeof options === "function") {
+                callback = options;
+                options = {};
+            }
+
+            let { limit, order, after, include, filter } = options as DeviceLogListOptions;
+
             this._endpoints.catalog.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_LOG_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 

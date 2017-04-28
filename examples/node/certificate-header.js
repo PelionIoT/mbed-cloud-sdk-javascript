@@ -44,7 +44,7 @@ function checkCertificate(successFn) {
     }, (error, certs) => {
 
         if (error) {
-            console.log(error);
+            console.log(error.message);
             return;
         }
 
@@ -63,7 +63,7 @@ function checkCertificate(successFn) {
                     certificate.delete(error => {
 
                         if (error) {
-                            console.log(error);
+                            console.log(error.message);
                             return;
                         }
 
@@ -84,7 +84,7 @@ checkCertificate(() => {
     }, (error, certificate) => {
 
         if (error) {
-            console.log(error);
+            console.log(error.message);
             return;
         }
 

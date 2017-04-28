@@ -15,6 +15,8 @@
 * limitations under the License.
 */
 
+import { SDKError } from "./sdkError";
+
 export interface ConnectionOptions {
     /**
      * API Key for your mbed Cloud account
@@ -27,7 +29,7 @@ export interface ConnectionOptions {
 }
 
 export interface CallbackFn<T> {
-    (err: any, data?: T): any;
+    (error: SDKError, data?: T): any;
 }
 
 /**

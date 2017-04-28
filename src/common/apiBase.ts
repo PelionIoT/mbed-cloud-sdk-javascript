@@ -16,13 +16,14 @@
 */
 
 import superagent = require('superagent');
+import { SDKError } from "./sdkError";
 
 export class ApiBase {
 
     private apiKey = "";
 
-    constructor(apiKey: string, private host: string = "http://api.mbedcloud.com") {
-        if (apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${apiKey}`;
+    constructor(apiKey?: string, private host: string = "http://api.mbedcloud.com") {
+        if (apiKey && apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${apiKey}`;
         this.apiKey = apiKey;
     }
 
@@ -89,7 +90,23 @@ export class ApiBase {
                     data = response.body || response.text;
                 }
 
-                callback(error, data, response);
+                var sdkError = null;
+                if (error) {
+                    var message = error.message;
+                    var innerError = error;
+                    var details = "";
+
+                    if (response) {
+                        if (response.error) message = response.error.message;
+                        if (response.body && response.body.message) message = response.body.message;
+                        innerError = response.error || error;
+                        details = response.body;
+                    }
+
+                    sdkError = new SDKError(message, innerError, details, error.status);
+                }
+
+                callback(sdkError, data, response);
             }
         });
 

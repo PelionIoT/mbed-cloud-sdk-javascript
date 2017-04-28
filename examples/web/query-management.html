@@ -67,7 +67,7 @@
                 order: "DESC",
                 after: after,
                 limit: 10
-            }, function(err, response) {
+            }, function(error, response) {
                 response.data.forEach(function(query) {
 
                     // Build UI
@@ -89,7 +89,7 @@
                             order: "ASC",
                             limit: 100,
                             filter: query.filter,
-                        }, function(err, response) {
+                        }, function(error, response) {
                             response.data.forEach(function(device) {
 
                                 // Build UI
@@ -111,8 +111,8 @@
                         devices.updateQuery({
                             id: query.id,
                             name: name
-                        }, function(err) {
-                            if (err) alert(err);
+                        }, function(error) {
+                            if (error) alert(error.message);
                             else location.reload()
                         });
                     });
@@ -127,8 +127,8 @@
                             filter: {
                                 state: { $eq: state }
                             }
-                        }, function(err) {
-                            if (err) alert(err);
+                        }, function(error) {
+                            if (error) alert(error.message);
                             else location.reload();
                         });
                     });
@@ -136,8 +136,8 @@
                     // Delete query
                     deleteBtn.addEventListener("click", function() {
                         if (confirm("Are you sure you want to delete query:\n" + (query.name || query.id))) {
-                            query.delete(function(err) {
-                                if (err) alert(err);
+                            query.delete(function(error) {
+                                if (error) alert(error.message);
                                 else location.reload()
                             });
                         }
@@ -163,8 +163,8 @@
                 filter: {
                     state: { $eq: state }
                 }
-            }, function(err) {
-                if (err) alert(err);
+            }, function(error) {
+                if (error) alert(error.message);
                 else location.reload()
             });
         });

@@ -25,14 +25,7 @@ import { Policy } from "./policy";
  * Account
  */
 export class Account {
-    /**
-     * List of sub accounts.
-     */
-//    subAccounts?: Array<Account>;
-    /**
-     * The ID of the parent account, if it has any.
-     */
-//    parentId?: string;
+
     /**
      * Account ID.
      */
