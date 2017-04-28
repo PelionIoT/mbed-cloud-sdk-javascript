@@ -54,13 +54,13 @@ http.createServer(app).listen(port, () => {
 });
 
 // Set up webhook
-connect.getWebhook((err, webhook) => {
+connect.getWebhook((error, webhook) => {
     if (!webhook) console.log("No webhook currently registered");
     else console.log(`Webhook currently set to ${webhook.url}`);
 
-    connect.updateWebhook(url, err => {
-        if (err) {
-            console.log(`${err} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
+    connect.updateWebhook(url, error => {
+        if (error) {
+            console.log(`${error.message} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
             return;
         }
         console.log(`Webhook now set to ${url}`);
@@ -79,8 +79,8 @@ function listDevices() {
                 .then(value => {
                     console.log(`\t└\x1b[1m${resource.path}\x1b[0m: ${value}`);
                 })
-                .catch(err => {
-                    console.log(`\t└\x1b[1m${resource.path}\x1b[0m: Error: ${err}`);
+                .catch(error => {
+                    console.log(`\t└\x1b[1m${resource.path}\x1b[0m: Error: ${error.message}`);
                 });
             });
         });

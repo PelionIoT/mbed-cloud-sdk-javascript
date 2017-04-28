@@ -50,20 +50,23 @@
         var deviceId = "";
         function getDevice(completeFn) {
             if (deviceId) {
-                connect.getDevice(deviceId, function(err, device) {
-                    if (!err) completeFn(device);
+                connect.getDevice(deviceId, function(error, device) {
+                    if (!error) completeFn(device);
                 });
                 return;
             }
 
-            connect.listConnectedDevices(function(err, response) {
-                if (!err) completeFn(response[0]);
+            connect.listConnectedDevices(function(error, response) {
+                if (!error) {
+                    if (response.length == 0) headerEl.innerText = "No Devices Found";
+                    else completeFn(response[0]);
+                }
             });
         }
 
         // Clear any webhook
         function clearWebhook(completeFn) {
-            connect.getWebhook(function(err, webhook) {
+            connect.getWebhook(function(error, webhook) {
                 if (!webhook) {
                     completeFn();
                     return;
@@ -93,7 +96,7 @@
         getDevice(function(device) {
             headerEl.innerText = "Device: " + (device.name || device.id);
 
-            device.listResources(function(err, resources) {
+            device.listResources(function(error, resources) {
                 resources.forEach(function(resource) {
 
                     // Build UI
@@ -103,8 +106,8 @@
                     var buttonCell = buildElement("td", null, row);
                     var button = buildElement("button", "edit...", buttonCell);
 
-                    function updateValue(err, value) {
-                        valueCell.innerHTML = err ? `Error: ${err}` : value;
+                    function updateValue(error, value) {
+                        valueCell.innerHTML = error ? `Error: ${error.message}` : value;
                         valueCell.classList.remove("flash");
                         void valueCell.offsetWidth;
                         valueCell.classList.add("flash");
@@ -120,8 +123,8 @@
                         var value = window.prompt("Enter the new resource value", valueCell.innerHTML);
                         if (!value) return;
 
-                        resource.setValue(value, function(err) {
-                            if (err) alert("This resource may not support writing");
+                        resource.setValue(value, function(error) {
+                            if (error) alert("This resource may not support writing");
                             else resource.getValue(updateValue);
                         });
                     });

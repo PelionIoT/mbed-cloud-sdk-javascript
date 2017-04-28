@@ -125,9 +125,9 @@ export class AccountManagementApi {
             options = {};
         }
 
-        let { limit, after, order, include, owner } = options as ApiKeyListOptions;
-
         return asyncStyle(done => {
+            let { limit, after, order, include, owner } = options as ApiKeyListOptions;
+
             this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), owner, (error, data) => {
                 if (error) return done(error);
 
@@ -156,6 +156,7 @@ export class AccountManagementApi {
             callback = apiKeyId;
             apiKeyId = null;
         }
+
         return asyncStyle(done => {
             if (apiKeyId) {
                 this._endpoints.developer.getApiKey(apiKeyId, (error, data) => {
@@ -255,9 +256,9 @@ export class AccountManagementApi {
             options = {};
         }
 
-        let { limit, after, order, include, status } = options as UserListOptions;
-
         return asyncStyle(done => {
+            let { limit, after, order, include, status } = options as UserListOptions;
+
             this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), status, (error, data) => {
                 if (error) return done(error);
 
@@ -373,9 +374,9 @@ export class AccountManagementApi {
             options = {};
         }
 
-        let { limit, after, order, include } = options as ListOptions;
-
         return asyncStyle(done => {
+            let { limit, after, order, include } = options as ListOptions;
+
             this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -430,9 +431,9 @@ export class AccountManagementApi {
             options = {};
         }
 
-        let { limit, after, order, include } = options as ListOptions;
-
         return asyncStyle(done => {
+            let { limit, after, order, include } = options as ListOptions;
+
             this._endpoints.admin.getUsersOfGroup(groupId, limit, after, order, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -466,9 +467,9 @@ export class AccountManagementApi {
             options = {};
         }
 
-        let { limit, after, order, include } = options as ListOptions;
-
         return asyncStyle(done => {
+            let { limit, after, order, include } = options as ListOptions;
+
             this._endpoints.developer.getApiKeysOfGroup(groupId, limit, after, order, encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 

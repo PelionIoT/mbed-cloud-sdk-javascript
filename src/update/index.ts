@@ -83,8 +83,10 @@ export class UpdateApi {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include, filter } = options as FirmwareImageListOptions;
+
         return asyncStyle(done => {
+            let { limit, order, after, include, filter } = options as FirmwareImageListOptions;
+
             this._endpoints.firmware.firmwareImageList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -178,8 +180,10 @@ export class UpdateApi {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include, filter } = options as FirmwareManifestListOptions;
+
         return asyncStyle(done => {
+            let { limit, order, after, include, filter } = options as FirmwareManifestListOptions;
+
             this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -273,8 +277,10 @@ export class UpdateApi {
             callback = options;
             options = {};
         }
-        let { limit, order, after, include, filter } = options as CampaignListOptions;
+
         return asyncStyle(done => {
+            let { limit, order, after, include, filter } = options as CampaignListOptions;
+
             this._endpoints.deployment.updateCampaignList(limit, order, after, encodeFilter(filter, Filters.CAMPAIGN_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 

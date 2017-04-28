@@ -38,10 +38,10 @@ function listLogs(after) {
     devices.listDeviceLogs({
         limit: 50,
         after: after
-    }, (err, response) => {
+    }, (error, response) => {
 
-        if (err) {
-            console.log(err);
+        if (error) {
+            console.log(error.message);
             return;
         }
 

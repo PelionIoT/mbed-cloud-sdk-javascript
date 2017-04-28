@@ -128,11 +128,11 @@ export class User {
             options = {};
         }
 
-        let attributes = options.attributes || {};
-        attributes["owner"] = this.id;
-        options.attributes = attributes;
-
         return asyncStyle(done => {
+            let attributes = options.attributes || {};
+            attributes["owner"] = this.id;
+            options.attributes = attributes;
+
             this._api.listApiKeys(options, done);
         }, callback);
     }
