@@ -19,6 +19,7 @@
 
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
+import { SDKError } from "../common/sdkError";
 
 export interface DeveloperCertificateRequestData {
     /**
@@ -124,14 +125,14 @@ export class DeveloperCertificateApi extends ApiBase {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v3DeveloperCertificatesIdGet'."));
+                callback(new SDKError("Required parameter 'id' missing."));
             }
             return;
         }
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'authorization' missing when calling 'v3DeveloperCertificatesIdGet'."));
+                callback(new SDKError("Required parameter 'authorization' missing."));
             }
             return;
         }
@@ -164,14 +165,14 @@ export class DeveloperCertificateApi extends ApiBase {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'authorization' missing when calling 'v3DeveloperCertificatesPost'."));
+                callback(new SDKError("Required parameter 'authorization' missing."));
             }
             return;
         }
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'v3DeveloperCertificatesPost'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -212,14 +213,14 @@ export class ExternalAPIApi extends ApiBase {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'id' missing when calling 'v3DeveloperCertificatesIdGet'."));
+                callback(new SDKError("Required parameter 'id' missing."));
             }
             return;
         }
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'authorization' missing when calling 'v3DeveloperCertificatesIdGet'."));
+                callback(new SDKError("Required parameter 'authorization' missing."));
             }
             return;
         }
@@ -252,14 +253,14 @@ export class ExternalAPIApi extends ApiBase {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'authorization' missing when calling 'v3DeveloperCertificatesPost'."));
+                callback(new SDKError("Required parameter 'authorization' missing."));
             }
             return;
         }
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'v3DeveloperCertificatesPost'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -292,7 +293,7 @@ export class ExternalAPIApi extends ApiBase {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'authorization' missing when calling 'v3ServerCredentialsBootstrapGet'."));
+                callback(new SDKError("Required parameter 'authorization' missing."));
             }
             return;
         }
@@ -324,7 +325,7 @@ export class ExternalAPIApi extends ApiBase {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'authorization' missing when calling 'v3ServerCredentialsLwm2mGet'."));
+                callback(new SDKError("Required parameter 'authorization' missing."));
             }
             return;
         }
@@ -363,7 +364,7 @@ export class ServerCredentialsApi extends ApiBase {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'authorization' missing when calling 'v3ServerCredentialsBootstrapGet'."));
+                callback(new SDKError("Required parameter 'authorization' missing."));
             }
             return;
         }
@@ -395,7 +396,7 @@ export class ServerCredentialsApi extends ApiBase {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'authorization' missing when calling 'v3ServerCredentialsLwm2mGet'."));
+                callback(new SDKError("Required parameter 'authorization' missing."));
             }
             return;
         }

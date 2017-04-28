@@ -19,6 +19,7 @@
 
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
+import { SDKError } from "../common/sdkError";
 
 /**
  * This object represents an account in requests and responses.
@@ -819,7 +820,7 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'addCertificate'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -852,14 +853,14 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'addSubjectsToGroup'."));
+                callback(new SDKError("Required parameter 'groupID' missing."));
             }
             return;
         }
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'addSubjectsToGroup'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -892,7 +893,7 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'createUser'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -927,7 +928,7 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "certId" is set
         if (certId === null || certId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'certId' missing when calling 'deleteCertificate'."));
+                callback(new SDKError("Required parameter 'certId' missing."));
             }
             return;
         }
@@ -958,7 +959,7 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "userId" is set
         if (userId === null || userId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'userId' missing when calling 'deleteUser'."));
+                callback(new SDKError("Required parameter 'userId' missing."));
             }
             return;
         }
@@ -1083,7 +1084,7 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "certId" is set
         if (certId === null || certId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'certId' missing when calling 'getCertificate'."));
+                callback(new SDKError("Required parameter 'certId' missing."));
             }
             return;
         }
@@ -1114,7 +1115,7 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "userId" is set
         if (userId === null || userId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'userId' missing when calling 'getUser'."));
+                callback(new SDKError("Required parameter 'userId' missing."));
             }
             return;
         }
@@ -1149,7 +1150,7 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'getUsersOfGroup'."));
+                callback(new SDKError("Required parameter 'groupID' missing."));
             }
             return;
         }
@@ -1193,14 +1194,14 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'removeUsersFromGroup'."));
+                callback(new SDKError("Required parameter 'groupID' missing."));
             }
             return;
         }
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'removeUsersFromGroup'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -1233,14 +1234,14 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "certId" is set
         if (certId === null || certId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'certId' missing when calling 'updateCertificate'."));
+                callback(new SDKError("Required parameter 'certId' missing."));
             }
             return;
         }
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'updateCertificate'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -1272,7 +1273,7 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'updateMyAccount'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -1305,14 +1306,14 @@ export class AccountAdminApi extends ApiBase {
         // verify required parameter "userId" is set
         if (userId === null || userId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'userId' missing when calling 'updateUser'."));
+                callback(new SDKError("Required parameter 'userId' missing."));
             }
             return;
         }
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'updateUser'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -1351,7 +1352,7 @@ export class DeveloperApi extends ApiBase {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'createApiKey'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -1383,7 +1384,7 @@ export class DeveloperApi extends ApiBase {
         // verify required parameter "apiKey" is set
         if (apiKey === null || apiKey === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'apiKey' missing when calling 'deleteApiKey'."));
+                callback(new SDKError("Required parameter 'apiKey' missing."));
             }
             return;
         }
@@ -1496,7 +1497,7 @@ export class DeveloperApi extends ApiBase {
         // verify required parameter "apiKey" is set
         if (apiKey === null || apiKey === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'apiKey' missing when calling 'getApiKey'."));
+                callback(new SDKError("Required parameter 'apiKey' missing."));
             }
             return;
         }
@@ -1531,7 +1532,7 @@ export class DeveloperApi extends ApiBase {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'getApiKeysOfGroup'."));
+                callback(new SDKError("Required parameter 'groupID' missing."));
             }
             return;
         }
@@ -1574,7 +1575,7 @@ export class DeveloperApi extends ApiBase {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'getGroupSummary'."));
+                callback(new SDKError("Required parameter 'groupID' missing."));
             }
             return;
         }
@@ -1679,14 +1680,14 @@ export class DeveloperApi extends ApiBase {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'groupID' missing when calling 'removeApiKeysFromGroup'."));
+                callback(new SDKError("Required parameter 'groupID' missing."));
             }
             return;
         }
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'removeApiKeysFromGroup'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -1719,14 +1720,14 @@ export class DeveloperApi extends ApiBase {
         // verify required parameter "apiKey" is set
         if (apiKey === null || apiKey === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'apiKey' missing when calling 'updateApiKey'."));
+                callback(new SDKError("Required parameter 'apiKey' missing."));
             }
             return;
         }
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'updateApiKey'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -1758,7 +1759,7 @@ export class DeveloperApi extends ApiBase {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'updateMyApiKey'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }
@@ -1790,7 +1791,7 @@ export class DeveloperApi extends ApiBase {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'body' missing when calling 'updateMyUser'."));
+                callback(new SDKError("Required parameter 'body' missing."));
             }
             return;
         }

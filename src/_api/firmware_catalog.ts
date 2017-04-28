@@ -19,6 +19,7 @@
 
 import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
+import { SDKError } from "../common/sdkError";
 
 export interface FirmwareImage {
     /**
@@ -138,14 +139,14 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "datafile" is set
         if (datafile === null || datafile === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'datafile' missing when calling 'firmwareImageCreate'."));
+                callback(new SDKError("Required parameter 'datafile' missing."));
             }
             return;
         }
         // verify required parameter "name" is set
         if (name === null || name === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'name' missing when calling 'firmwareImageCreate'."));
+                callback(new SDKError("Required parameter 'name' missing."));
             }
             return;
         }
@@ -188,7 +189,7 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "imageId" is set
         if (imageId === null || imageId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'imageId' missing when calling 'firmwareImageDestroy'."));
+                callback(new SDKError("Required parameter 'imageId' missing."));
             }
             return;
         }
@@ -260,7 +261,7 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "imageId" is set
         if (imageId === null || imageId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'imageId' missing when calling 'firmwareImageRetrieve'."));
+                callback(new SDKError("Required parameter 'imageId' missing."));
             }
             return;
         }
@@ -292,14 +293,14 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "datafile" is set
         if (datafile === null || datafile === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'datafile' missing when calling 'firmwareManifestCreate'."));
+                callback(new SDKError("Required parameter 'datafile' missing."));
             }
             return;
         }
         // verify required parameter "name" is set
         if (name === null || name === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'name' missing when calling 'firmwareManifestCreate'."));
+                callback(new SDKError("Required parameter 'name' missing."));
             }
             return;
         }
@@ -342,7 +343,7 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "manifestId" is set
         if (manifestId === null || manifestId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'manifestId' missing when calling 'firmwareManifestDestroy'."));
+                callback(new SDKError("Required parameter 'manifestId' missing."));
             }
             return;
         }
@@ -414,7 +415,7 @@ export class DefaultApi extends ApiBase {
         // verify required parameter "manifestId" is set
         if (manifestId === null || manifestId === undefined) {
             if (callback) {
-                callback(new Error("Required parameter 'manifestId' missing when calling 'firmwareManifestRetrieve'."));
+                callback(new SDKError("Required parameter 'manifestId' missing."));
             }
             return;
         }
