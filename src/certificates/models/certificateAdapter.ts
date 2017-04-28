@@ -40,7 +40,7 @@ export class CertificateAdapter {
             description        : from.description,
             type               : from.device_execution_mode === 1 ? "developer" : from.service,
             accountId          : from.account_id,
-            certificateData    : from.cert_data,
+            certificateData    : from.certificate,
             createdAt          : from.created_at,
             issuer             : from.issuer,
             subject            : from.subject,
@@ -75,7 +75,7 @@ export class CertificateAdapter {
 
     static reverseMap(from: AddCertificateObject): iamCertificateRequest {
         return {
-            cert_data:      from.certificateData,
+            certificate:    from.certificateData,
             name:           from.name,
             service:        from.type === "developer" ? "bootstrap" : from.type,
             signature:      from.signature,
