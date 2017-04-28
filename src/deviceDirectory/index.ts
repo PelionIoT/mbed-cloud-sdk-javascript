@@ -84,8 +84,9 @@ export class DeviceDirectoryApi {
             options = {};
         }
 
-        let { limit, after, order, include, filter } = options;
         return asyncStyle(done => {
+            let { limit, after, order, include, filter } = options;
+
             this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -208,8 +209,9 @@ export class DeviceDirectoryApi {
             options = {};
         }
 
-        let { limit, order, after, include, filter } = options;
         return asyncStyle(done => {
+            let { limit, order, after, include, filter } = options;
+
             this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 
@@ -284,7 +286,6 @@ export class DeviceDirectoryApi {
      */
     public updateQuery(query: UpdateQueryObject, callback: CallbackFn<Query>);
     public updateQuery(query: UpdateQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
-        // Partial update
         return asyncStyle(done => {
             this._endpoints.query.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), (error, data) => {
                 if (error) return done(error);
@@ -335,8 +336,9 @@ export class DeviceDirectoryApi {
             options = {};
         }
 
-        let { limit, order, after, include, filter } = options as DeviceLogListOptions;
         return asyncStyle(done => {
+            let { limit, order, after, include, filter } = options as DeviceLogListOptions;
+
             this._endpoints.catalog.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_LOG_FILTER_MAP), encodeInclude(include), (error, data) => {
                 if (error) return done(error);
 

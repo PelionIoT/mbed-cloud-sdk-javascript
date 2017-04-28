@@ -197,30 +197,31 @@ export class ConnectApi extends EventEmitter {
             callback = options;
             options = {};
         }
-        let { interval, requestCallback } = options;
-
-        function poll() {
-            this._pollRequest = this._endpoints.notifications.v2NotificationPullGet((error, data) => {
-
-                if (!this.handleNotifications) return;
-
-                this.notify(data);
-
-                if (requestCallback && data["async-responses"]) requestCallback(error, data["async-responses"]);
-
-                if (error) {
-                    this.handleNotifications = false;
-                    return;
-                }
-
-                setTimeout(poll.bind(this), interval || 500);
-            });
-        }
-
-        poll.call(this);
-        this.handleNotifications = true;
 
         return asyncStyle(done => {
+            let { interval, requestCallback } = options;
+
+            function poll() {
+                this._pollRequest = this._endpoints.notifications.v2NotificationPullGet((error, data) => {
+
+                    if (!this.handleNotifications) return;
+
+                    this.notify(data);
+
+                    if (requestCallback && data["async-responses"]) requestCallback(error, data["async-responses"]);
+
+                    if (error) {
+                        this.handleNotifications = false;
+                        return;
+                    }
+
+                    setTimeout(poll.bind(this), interval || 500);
+                });
+            }
+
+            poll.call(this);
+            this.handleNotifications = true;
+
             done(null, null);
         }, callback);
     }
@@ -236,14 +237,14 @@ export class ConnectApi extends EventEmitter {
      */
     public stopNotifications(callback: CallbackFn<void>);
     public stopNotifications(callback?: CallbackFn<void>): Promise<void> {
-        if (this._pollRequest) {
-            this._pollRequest.abort();
-            this._pollRequest = null;
-        }
-
-        this.handleNotifications = false;
-
         return asyncStyle(done => {
+            if (this._pollRequest) {
+                this._pollRequest.abort();
+                this._pollRequest = null;
+            }
+
+            this.handleNotifications = false;
+
             done(null, null);
         }, callback);
     }
@@ -362,8 +363,9 @@ export class ConnectApi extends EventEmitter {
      */
     public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>);
     public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback?: CallbackFn<void>): Promise<void> {
-        let presubs = subscriptions.map(PresubscriptionAdapter.reverseMap);
         return asyncStyle(done => {
+            let presubs = subscriptions.map(PresubscriptionAdapter.reverseMap);
+
             this._endpoints.subscriptions.v2SubscriptionsPut(presubs, error => {
                 if (error) return done(error);
                 done(null, null);
@@ -527,6 +529,7 @@ export class ConnectApi extends EventEmitter {
             callback = noResponse;
             noResponse = false;
         }
+
         return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathDelete(deviceId, path, noResponse, (error, data) => {
                 if (error) return done(error);
@@ -563,6 +566,7 @@ export class ConnectApi extends EventEmitter {
             cacheOnly = false;
             noResponse = false;
         }
+
         return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, path, cacheOnly, noResponse, (error, data) => {
                 if (error) return done(error);
@@ -601,6 +605,7 @@ export class ConnectApi extends EventEmitter {
             callback = noResponse;
             noResponse = false;
         }
+
         return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, path.substr(1), value, noResponse, (error, data) => {
                 if (error) return done(error);
@@ -644,6 +649,7 @@ export class ConnectApi extends EventEmitter {
             functionName = null;
             noResponse = false;
         }
+
         return asyncStyle(done => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, path, functionName, noResponse, (error, data) => {
                 if (error) return done(error);
