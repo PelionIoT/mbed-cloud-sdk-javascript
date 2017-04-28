@@ -89,7 +89,6 @@
                             order: "ASC",
                             limit: 100,
                             filter: query.filter,
-                            customAttributes: query.customAttributes,
                         }, function(err, response) {
                             response.data.forEach(function(device) {
 
@@ -120,12 +119,14 @@
 
                     // Edit query
                     editBtn.addEventListener("click", function() {
-                        var state = window.prompt("Enter a new state for the query filter", query.filter.state || "registered");
+                        var state = window.prompt("Enter a new state for the query filter", query.filter.state.$eq || "registered");
                         if (!state) return;
 
                         devices.updateQuery({
                             id: query.id,
-                            filter: { state: state }
+                            filter: {
+                                state: { $eq: state }
+                            }
                         }, function(err) {
                             if (err) alert(err);
                             else location.reload();
@@ -159,7 +160,9 @@
 
             devices.addQuery({
                 name: name,
-                filter: { state: state }
+                filter: {
+                    state: { $eq: state }
+                }
             }, function(err) {
                 if (err) alert(err);
                 else location.reload()

@@ -15,17 +15,16 @@
 * limitations under the License.
 */
 
-import { encodeCustomFilter, decodeCustomFilter } from "../../common/functions";
+import { encodeFilter, decodeFilter } from "../../common/functions";
 import {
     DeviceQuery as apiQuery,
     DeviceQueryPostPutRequest as apiQueryAdd,
     DeviceQueryPatchRequest as apiQueryUpdate
 } from "../../_api/device_query_service";
 import { DeviceDirectoryApi } from "../index";
+import { Filters } from "../filters";
 import { AddQueryObject, UpdateQueryObject } from "../types";
 import { Query } from "./query";
-
-const CUSTOM_PREFIX = "custom_attributes__";
 
 /**
  * Query Adapter
@@ -33,11 +32,8 @@ const CUSTOM_PREFIX = "custom_attributes__";
 export class QueryAdapter {
 
     static map(from: apiQuery, api: DeviceDirectoryApi): Query {
-        let attributes = decodeCustomFilter(from.query, CUSTOM_PREFIX);
-
         return new Query({
-            filter:              attributes.noMatch,
-            customAttributes:    attributes.match,
+            filter:              decodeFilter(from.query, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS),
             createdAt:           from.created_at,
             id:                  from.id,
             name:                from.name,
@@ -48,14 +44,14 @@ export class QueryAdapter {
     static addMap(from: AddQueryObject): apiQueryAdd {
         return {
             name:           from.name,
-            query:          encodeCustomFilter(from, CUSTOM_PREFIX)
+            query:          encodeFilter(from.filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null
         };
     }
 
     static updateMap(from: UpdateQueryObject): apiQueryUpdate {
         return {
             name:           from.name,
-            query:          encodeCustomFilter(from, CUSTOM_PREFIX)
+            query:          encodeFilter(from.filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null
         };
     }
 }
