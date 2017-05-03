@@ -5,3 +5,4 @@ tests
 .gitmodules
 circle.yml
 gulpfile.js
+DEVELOPMENT.md
