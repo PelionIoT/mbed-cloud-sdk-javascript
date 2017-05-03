@@ -79,4 +79,8 @@ export interface CertificateListOptions extends ListOptions {
      * Certificate type filter
      */
     type?: CertificateTypeEnum;
+    /**
+     * Expire filter in days
+     */
+    expires?: number;
 }

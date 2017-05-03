@@ -95,11 +95,11 @@ export class CertificatesApi {
         }
 
         return asyncStyle(done => {
-            let { limit, after, order, include, type } = options as CertificateListOptions;
+            let { limit, after, order, include, type, expires } = options as CertificateListOptions;
             let serviceEq = type === "developer" ? "bootstrap" : type;
             let executionMode = type === "developer" ? 1 : null;
 
-            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, null, executionMode, (error, data) => {
+            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, expires, executionMode, (error, data) => {
                 if (error) return done(error);
 
                 var certificates = data.data.map(certificate => {
