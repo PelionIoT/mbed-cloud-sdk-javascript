@@ -65,7 +65,7 @@ export class Device {
      * Update the device
      * @param callback A function that is passed the arguments (error, device)
      */
-    public update(callback: CallbackFn<Device>);
+    public update(callback: CallbackFn<Device>): void;
     public update(callback?: CallbackFn<Device>): Promise<Device> {
         return asyncStyle(done => {
             this._api.updateDevice(this, done);
@@ -81,7 +81,7 @@ export class Device {
      * Deletes a device
      * @param callback A function that is passed any error
      */
-    public delete(callback: CallbackFn<void>);
+    public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._api.deleteDevice(this.id, done);

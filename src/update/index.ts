@@ -76,7 +76,7 @@ export class UpdateApi {
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listFirmwareImages(options?: FirmwareImageListOptions, callback?: CallbackFn<ListResponse<FirmwareImage>>);
+    public listFirmwareImages(options?: FirmwareImageListOptions, callback?: CallbackFn<ListResponse<FirmwareImage>>): void;
     public listFirmwareImages(options?: any, callback?: CallbackFn<ListResponse<FirmwareImage>>): Promise<ListResponse<FirmwareImage>> {
         options = options || {};
         if (typeof options === "function") {
@@ -110,7 +110,7 @@ export class UpdateApi {
      * @param firmwareImageId The firmware image ID
      * @param callback A function that is passed the return arguments (error, firmware image)
      */
-    public getFirmwareImage(firmwareImageId: number, callback: CallbackFn<FirmwareImage>);
+    public getFirmwareImage(firmwareImageId: number, callback: CallbackFn<FirmwareImage>): void;
     public getFirmwareImage(firmwareImageId: number, callback?: CallbackFn<FirmwareImage>): Promise<FirmwareImage> {
         return asyncStyle(done => {
             this._endpoints.firmware.firmwareImageRetrieve(firmwareImageId, (error, data) => {
@@ -131,7 +131,7 @@ export class UpdateApi {
      * @param image The image to add
      * @param callback A function that is passed the return arguments (error, firmware image)
      */
-    public addFirmwareImage(image: AddFirmwareImageObject, callback: CallbackFn<FirmwareImage>);
+    public addFirmwareImage(image: AddFirmwareImageObject, callback: CallbackFn<FirmwareImage>): void;
     public addFirmwareImage(image: AddFirmwareImageObject, callback?: CallbackFn<FirmwareImage>): Promise<FirmwareImage> {
         return asyncStyle(done => {
             this._endpoints.firmware.firmwareImageCreate(image.dataFile, image.name, image.description, (error, data) => {
@@ -152,7 +152,7 @@ export class UpdateApi {
      * @param firmwareImageId The ID of the firmware image to delete
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteFirmwareImage(firmwareImageId: number, callback: CallbackFn<void>);
+    public deleteFirmwareImage(firmwareImageId: number, callback: CallbackFn<void>): void;
     public deleteFirmwareImage(firmwareImageId: number, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.firmware.firmwareImageDestroy(firmwareImageId, (error) => {
@@ -173,7 +173,7 @@ export class UpdateApi {
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listFirmwareManifests(options?: FirmwareManifestListOptions, callback?: CallbackFn<ListResponse<FirmwareManifest>>);
+    public listFirmwareManifests(options?: FirmwareManifestListOptions, callback?: CallbackFn<ListResponse<FirmwareManifest>>): void;
     public listFirmwareManifests(options?: any, callback?: CallbackFn<ListResponse<FirmwareManifest>>): Promise<ListResponse<FirmwareManifest>> {
         options = options || {};
         if (typeof options === "function") {
@@ -207,7 +207,7 @@ export class UpdateApi {
      * @param firmwareManifestId The firmware manifest ID
      * @param callback A function that is passed the return arguments (error, firmware manifest)
      */
-    public getFirmwareManifest(firmwareManifestId: number, callback: CallbackFn<FirmwareManifest>);
+    public getFirmwareManifest(firmwareManifestId: number, callback: CallbackFn<FirmwareManifest>): void;
     public getFirmwareManifest(firmwareManifestId: number, callback?: CallbackFn<FirmwareManifest>): Promise<FirmwareManifest> {
         return asyncStyle(done => {
             this._endpoints.firmware.firmwareManifestRetrieve(firmwareManifestId, (error, data) => {
@@ -228,7 +228,7 @@ export class UpdateApi {
      * @param manifest The manifest to add
      * @param callback A function that is passed the return arguments (error, firmware manifest)
      */
-    public addFirmwareManifest(manifest: AddFirmwareManifestObject, callback: CallbackFn<FirmwareManifest>);
+    public addFirmwareManifest(manifest: AddFirmwareManifestObject, callback: CallbackFn<FirmwareManifest>): void;
     public addFirmwareManifest(manifest: AddFirmwareManifestObject, callback?: CallbackFn<FirmwareManifest>): Promise<FirmwareManifest> {
         return asyncStyle(done => {
             this._endpoints.firmware.firmwareManifestCreate(manifest.dataFile, manifest.name, manifest.description, (error, data) => {
@@ -249,7 +249,7 @@ export class UpdateApi {
      * @param firmwareManifestId The ID of the firmware manifest to delete
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteFirmwareManifest(firmwareManifestId: number, callback: CallbackFn<void>);
+    public deleteFirmwareManifest(firmwareManifestId: number, callback: CallbackFn<void>): void;
     public deleteFirmwareManifest(firmwareManifestId: number, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.firmware.firmwareManifestDestroy(firmwareManifestId, (error) => {
@@ -270,7 +270,7 @@ export class UpdateApi {
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listCampaigns(options?: CampaignListOptions, callback?: CallbackFn<ListResponse<Campaign>>);
+    public listCampaigns(options?: CampaignListOptions, callback?: CallbackFn<ListResponse<Campaign>>): void;
     public listCampaigns(options?: any, callback?: CallbackFn<ListResponse<Campaign>>): Promise<ListResponse<Campaign>> {
         options = options || {};
         if (typeof options === "function") {
@@ -304,7 +304,7 @@ export class UpdateApi {
      * @param campaignId The update campaign ID
      * @param callback A function that is passed the return arguments (error, update campaign)
      */
-    public getCampaign(campaignId: string, callback: CallbackFn<Campaign>);
+    public getCampaign(campaignId: string, callback: CallbackFn<Campaign>): void;
     public getCampaign(campaignId: string, callback?: CallbackFn<Campaign>): Promise<Campaign> {
         return asyncStyle(done => {
             this._endpoints.deployment.updateCampaignRetrieve(campaignId, (error, data) => {
@@ -325,7 +325,7 @@ export class UpdateApi {
      * @param campaign The campaign to add
      * @param callback A function that is passed the return arguments (error, update campaign)
      */
-    public addCampaign(campaign: AddCampaignObject, callback: CallbackFn<Campaign>);
+    public addCampaign(campaign: AddCampaignObject, callback: CallbackFn<Campaign>): void;
     public addCampaign(campaign: AddCampaignObject, callback?: CallbackFn<Campaign>): Promise<Campaign> {
         return asyncStyle(done => {
             this._endpoints.deployment.updateCampaignCreate(CampaignAdapter.addMap(campaign), (error, data) => {
@@ -346,7 +346,7 @@ export class UpdateApi {
      * @param campaign The campaign to update
      * @param callback A function that is passed the arguments (error, campaign)
      */
-    public updateCampaign(campaign: UpdateCampaignObject, callback: CallbackFn<Campaign>);
+    public updateCampaign(campaign: UpdateCampaignObject, callback: CallbackFn<Campaign>): void;
     public updateCampaign(campaign: UpdateCampaignObject, callback?: CallbackFn<Campaign>): Promise<Campaign> {
         return asyncStyle(done => {
             this._endpoints.deployment.updateCampaignPartialUpdate(campaign.id, CampaignAdapter.updateMap(campaign), (error, data) => {
@@ -369,7 +369,7 @@ export class UpdateApi {
      * @param campaignId The ID of the update campaign to delete
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteCampaign(campaignId: string, callback: CallbackFn<void>);
+    public deleteCampaign(campaignId: string, callback: CallbackFn<void>): void;
     public deleteCampaign(campaignId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.deployment.updateCampaignDestroy(campaignId, (error) => {
@@ -390,7 +390,7 @@ export class UpdateApi {
      * @param campaignId The ID of the update campaign
      * @param callback A function that is passed the return arguments (error, campaign)
      */
-    public startCampaign(campaignId: string, callback: CallbackFn<Campaign>);
+    public startCampaign(campaignId: string, callback: CallbackFn<Campaign>): void;
     public startCampaign(campaignId: string, callback?: CallbackFn<Campaign>): Promise<Campaign> {
         return asyncStyle(done => {
             this.updateCampaign({
@@ -414,7 +414,7 @@ export class UpdateApi {
      * @param campaignId The ID of the update campaign
      * @param callback A function that is passed the return arguments (error, campaign)
      */
-    public stopCampaign(campaignId: string, callback: CallbackFn<Campaign>);
+    public stopCampaign(campaignId: string, callback: CallbackFn<Campaign>): void;
     public stopCampaign(campaignId: string, callback?: CallbackFn<Campaign>): Promise<Campaign> {
         return asyncStyle(done => {
             this.updateCampaign({

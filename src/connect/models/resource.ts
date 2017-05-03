@@ -92,7 +92,7 @@ export class Resource extends EventEmitter {
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>);
+    public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.getResourceValue(this.deviceId, this.path, cacheOnly, noResponse, done);
@@ -112,7 +112,7 @@ export class Resource extends EventEmitter {
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
-    public setValue(value: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public setValue(value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public setValue(value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.setResourceValue(this.deviceId, this.path, value, noResponse, done);
@@ -132,7 +132,7 @@ export class Resource extends EventEmitter {
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
-    public execute(functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public execute(functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public execute(functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.executeResource(this.deviceId, this.path, functionName, noResponse, done);
@@ -148,7 +148,7 @@ export class Resource extends EventEmitter {
      * Gets the status of a resource's subscription
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
      */
-    public getSubscription(callback: CallbackFn<boolean>);
+    public getSubscription(callback: CallbackFn<boolean>): void;
     public getSubscription(callback?: CallbackFn<boolean>): Promise<boolean> {
         return asyncStyle(done => {
             if (!this.observable) return done(null, false);
@@ -167,7 +167,7 @@ export class Resource extends EventEmitter {
      * @param notifyFn Function to call with notification
      * @param callback A function that is passed any error
      */
-    private addSubscription(notifyFn?: Function, callback?: CallbackFn<void>);
+    private addSubscription(notifyFn?: Function, callback?: CallbackFn<void>): void;
     private addSubscription(notifyFn?: Function, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             if (!this.observable) return done(null, null);
@@ -184,7 +184,7 @@ export class Resource extends EventEmitter {
      * Deletes a resource's subscription
      * @param callback A function that is passed any error
      */
-    private deleteSubscription(callback: CallbackFn<void>);
+    private deleteSubscription(callback: CallbackFn<void>): void;
     private deleteSubscription(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._api.deleteResourceSubscription(this.deviceId, this.path, done);
@@ -202,7 +202,7 @@ export class Resource extends EventEmitter {
      * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    public delete(noResponse?: boolean, callback?: CallbackFn<string>);
+    public delete(noResponse?: boolean, callback?: CallbackFn<string>): void;
     public delete(noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.deleteResource(this.deviceId, this.path, noResponse, done);

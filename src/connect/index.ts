@@ -190,7 +190,7 @@ export class ConnectApi extends EventEmitter {
      * @param options notification options
      * @param callback A function that is passed any error
      */
-    public startNotifications(options?: NotificationOptions, callback?: CallbackFn<void>);
+    public startNotifications(options?: NotificationOptions, callback?: CallbackFn<void>): void;
     public startNotifications(options?: any, callback?: CallbackFn<void>): Promise<void> {
         options = options || {};
         if (typeof options === "function") {
@@ -235,7 +235,7 @@ export class ConnectApi extends EventEmitter {
      * Stops long polling for notifications
      * @param callback A function that is passed any error
      */
-    public stopNotifications(callback: CallbackFn<void>);
+    public stopNotifications(callback: CallbackFn<void>): void;
     public stopNotifications(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             if (this._pollRequest) {
@@ -258,7 +258,7 @@ export class ConnectApi extends EventEmitter {
      * Gets the current webhook data
      * @param callback A function that is passed the arguments (error, webhook)
      */
-    public getWebhook(callback: CallbackFn<Webhook>);
+    public getWebhook(callback: CallbackFn<Webhook>): void;
     public getWebhook(callback?: CallbackFn<Webhook>): Promise<Webhook> {
         return asyncStyle(done => {
             this._endpoints.webhooks.v2NotificationCallbackGet((error, data) => {
@@ -290,7 +290,7 @@ export class ConnectApi extends EventEmitter {
      * @param headers Any headers (key/value) that must be sent with the request
      * @param callback A function that is passed any error
      */
-    public updateWebhook(url: string, headers?: { [key: string]: string; }, callback?: CallbackFn<void>);
+    public updateWebhook(url: string, headers?: { [key: string]: string; }, callback?: CallbackFn<void>): void;
     public updateWebhook(url: string, headers?: any, callback?: CallbackFn<void>): Promise<void> {
         headers = headers || {};
         if (typeof headers === "function") {
@@ -320,7 +320,7 @@ export class ConnectApi extends EventEmitter {
      * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
      * @param callback A function that is passed any error
      */
-    public deleteWebhook(callback: CallbackFn<void>);
+    public deleteWebhook(callback: CallbackFn<void>): void;
     public deleteWebhook(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.webhooks.v2NotificationCallbackDelete(() => {
@@ -338,7 +338,7 @@ export class ConnectApi extends EventEmitter {
      * Gets a list of pre-subscription data
      * @param callback A function that is passed (error, pre-subscriptions)
      */
-    public listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>);
+    public listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>): void;
     public listPresubscriptions(callback?: CallbackFn<Array<PresubscriptionObject>>): Promise<Array<PresubscriptionObject>> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsGet((error, data) => {
@@ -361,7 +361,7 @@ export class ConnectApi extends EventEmitter {
      * @param subscriptions The pre-subscription data array
      * @param callback A function that is passed any error
      */
-    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>);
+    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>): void;
     public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             let presubs = subscriptions.map(PresubscriptionAdapter.reverseMap);
@@ -382,7 +382,7 @@ export class ConnectApi extends EventEmitter {
      * Deletes pre-subscription data
      * @param callback A function that is passed any error
      */
-    public deletePresubscriptions(callback: CallbackFn<void>);
+    public deletePresubscriptions(callback: CallbackFn<void>): void;
     public deletePresubscriptions(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsPut([], error => {
@@ -401,7 +401,7 @@ export class ConnectApi extends EventEmitter {
      * Removes all subscriptions
      * @param callback A function that is passed any error
      */
-    public deleteSubscriptions(callback: CallbackFn<void>);
+    public deleteSubscriptions(callback: CallbackFn<void>): void;
     public deleteSubscriptions(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsDelete(error => {
@@ -422,7 +422,7 @@ export class ConnectApi extends EventEmitter {
      * @param options.type Filter devices by device type
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listConnectedDevices(type?: string, callback?: CallbackFn<Array<ConnectedDevice>>);
+    public listConnectedDevices(type?: string, callback?: CallbackFn<Array<ConnectedDevice>>): void;
     public listConnectedDevices(type?: any, callback?: CallbackFn<Array<ConnectedDevice>>): Promise<Array<ConnectedDevice>> {
         if (typeof type === "function") {
             callback = type;
@@ -452,7 +452,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param callback A function that is passed (error, subscriptions)
      */
-    public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<any>);
+    public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<any>): void;
     public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<any>): Promise<any> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdGet(deviceId, (error, data) => {
@@ -473,7 +473,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param callback A function that is passed any error
      */
-    public deleteDeviceSubscriptions(deviceId: string, callback: CallbackFn<void>);
+    public deleteDeviceSubscriptions(deviceId: string, callback: CallbackFn<void>): void;
     public deleteDeviceSubscriptions(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdDelete(deviceId, error => {
@@ -494,7 +494,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param callback A function that is passed the arguments (error, resources)
      */
-    public listResources(deviceId: string, callback: CallbackFn<Array<Resource>>);
+    public listResources(deviceId: string, callback: CallbackFn<Array<Resource>>): void;
     public listResources(deviceId: string, callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
         return asyncStyle(done => {
             this._endpoints.endpoints.v2EndpointsDeviceIdGet(deviceId, (error, data) => {
@@ -523,7 +523,7 @@ export class ConnectApi extends EventEmitter {
      * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         if (typeof noResponse === "function") {
             callback = noResponse;
@@ -555,7 +555,7 @@ export class ConnectApi extends EventEmitter {
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>);
+    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         if (typeof noResponse === "function") {
             callback = noResponse;
@@ -599,7 +599,7 @@ export class ConnectApi extends EventEmitter {
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
-    public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         if (typeof noResponse === "function") {
             callback = noResponse;
@@ -638,7 +638,7 @@ export class ConnectApi extends EventEmitter {
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed any error
      */
-    public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         if (typeof noResponse === "function") {
             callback = noResponse;
@@ -678,7 +678,7 @@ export class ConnectApi extends EventEmitter {
      * @param path Resource path
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
      */
-    public getResourceSubscription(deviceId: string, path: string, callback: CallbackFn<boolean>);
+    public getResourceSubscription(deviceId: string, path: string, callback: CallbackFn<boolean>): void;
     public getResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<boolean>): Promise<boolean> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathGet(deviceId, path, (error, data) => {
@@ -703,7 +703,7 @@ export class ConnectApi extends EventEmitter {
      * @param notifyFn Function to call with notification
      * @param callback A function that is passed any error
      */
-    public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function);
+    public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function): void;
     public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, path, (error, data) => {
@@ -738,7 +738,7 @@ export class ConnectApi extends EventEmitter {
      * @param path Resource path
      * @param callback A function that is passed any error
      */
-    public deleteResourceSubscription(deviceId: string, path: string, callback: CallbackFn<void>);
+    public deleteResourceSubscription(deviceId: string, path: string, callback: CallbackFn<void>): void;
     public deleteResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, path, (error, data) => {
@@ -769,7 +769,7 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
-    public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback: CallbackFn<Array<Metric>>);
+    public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback: CallbackFn<Array<Metric>>): void;
     public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
         return asyncStyle(done => {
 
@@ -813,7 +813,7 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
-    public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback: CallbackFn<Array<Metric>>);
+    public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback: CallbackFn<Array<Metric>>): void;
     public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
         return asyncStyle(done => {
 

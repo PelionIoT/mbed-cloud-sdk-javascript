@@ -80,7 +80,7 @@ export class User {
      * Updates the user
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public update(callback: CallbackFn<User>);
+    public update(callback: CallbackFn<User>): void;
     public update(callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
             this._api.updateUser(this, done);
@@ -96,7 +96,7 @@ export class User {
      * List the groups this user belongs to
      * @param callback A function that is passed the return arguments (error, groups)
      */
-    public listGroups(callback: CallbackFn<Array<Group>>);
+    public listGroups(callback: CallbackFn<Array<Group>>): void;
     public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
         return asyncStyle(done => {
             this._api.listGroups((error, groups) => {
@@ -120,7 +120,7 @@ export class User {
      * List the API keys for this user
      * @param callback A function that is passed the return arguments (error, API keys)
      */
-    public listApiKeys(options?: ListOptions, callback?: CallbackFn<Array<ApiKey>>);
+    public listApiKeys(options?: ListOptions, callback?: CallbackFn<Array<ApiKey>>): void;
     public listApiKeys(options?: any, callback?: CallbackFn<Array<ApiKey>>): Promise<Array<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {
@@ -146,7 +146,7 @@ export class User {
      * Delete the user
      * @param callback A function that is passed any error
      */
-    public delete(callback: CallbackFn<void>);
+    public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._api.deleteUser(this.id, done);
