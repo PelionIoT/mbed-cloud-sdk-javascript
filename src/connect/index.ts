@@ -43,7 +43,7 @@ import { MetricAdapter } from "./models/metricAdapter";
  * ```JavaScript
  * var mbed = require("mbed-cloud-sdk");
  *
- * var connect = new mbed.ConnectApi({
+ * var connectApi = new mbed.ConnectApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
@@ -54,7 +54,7 @@ import { MetricAdapter } from "./models/metricAdapter";
  * <script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
  *
  * <script>
- *     var connect = new mbed.ConnectApi({
+ *     var connectApi = new mbed.ConnectApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>
@@ -114,8 +114,29 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Allows a notification to be injected into the notifications system
-     * `handleNotifications` needs to be set to true for this to work with web hook async responses
+     * Allows a notification to be injected into the notifications system.<br>
+     * `handleNotifications` needs to be set to true for this to work with web hook async responses.
+     *
+     * Example: (The following pushes a notification to the event emitter, which can be read back by using the `.on` function.
+     * Note that the payload is encoded in Base64)
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * var payload = "Q2hhbmdlIG1lIQ==";
+     * 
+     * var notification = {notifications: [{ep: deviceID, path: resourceURI, payload: payload}]};
+     * connectApi.notify(notification);
+     *
+     * connectApi.on(mbed.ConnectApi.EVENT_NOTIFICATION, function(notification) {
+     *      // Do something with the notification
+     *      console.log(notification);
+     * });
+     * ```
+     * Console log:
+     * ```json
+     * { id: '015bb66a92a30000000000010010006d', path: '3200/0/5500', payload: 'Change me!'}
+     * ```
+     *
      * @param data The notification data to inject
     */
     public notify(notification: NotificationObject) {
@@ -180,13 +201,33 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Begins long polling constantly for notifications
+     * Begins long polling constantly for notifications<p>
+     * If an external callback is not setup (using update_webhook), then calling this function is mandatory.
+     *
+     * Example:
+     * ```JavaScript
+     * var promise = connectApi.startNotifications();
+     * promise.then(function() {
+     *      console.log('mbed Cloud SDK listening for notifications');
+     * }, console.error);
+     * ```
+     *
      * @param options notification options
      * @returns Promise containing any error
      */
     public startNotifications(options?: NotificationOptions): Promise<void>;
     /**
-     * Begins long polling constantly for notifications
+     * Begins long polling constantly for notifications<p>
+     * If an external callback is not setup (using update_webhook), then calling this function is mandatory.
+     *
+     * Example:
+     * ```JavaScript
+     * connectApi.startNotifications(function (error) {
+     *      if (error) throw error;
+     *      console.log('mbed Cloud SDK listening for notifications');
+     * });
+     * ```
+     *
      * @param options notification options
      * @param callback A function that is passed any error
      */
@@ -228,11 +269,29 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Stops long polling for notifications
+     *
+     * Example:
+     * ```JavaScript
+     * var promise = connectApi.stopNotifications();
+     * promise.then(function () {
+     *      console.log('mbed Cloud SDK stopped listening for notifications');
+     * }, console.error);
+     * ```
+     *
      * @returns Promise containing any error
      */
     public stopNotifications(): Promise<void>;
     /**
      * Stops long polling for notifications
+     *
+     * Example:
+     * ```JavaScript
+     * connectApi.stopNotifications(function (error) {
+     *      if (error) throw error;
+     *      console.log('mbed Cloud SDK stopped listening for notifications');
+     * });
+     * ```
+     *
      * @param callback A function that is passed any error
      */
     public stopNotifications(callback: CallbackFn<void>);
@@ -250,12 +309,30 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Gets the current webhook data
+     * Get the current callback URL if it exists
+     *
+     * Example:
+     * ```JavaScript
+     * var promise = connectApi.getWebhook();
+     * promise.then(function (webhook) {
+     *      // Utilize webhook here
+     * }, console.error);
+     * ```
+     *
      * @returns Promise containing the webhhok data
      */
     public getWebhook(): Promise<Webhook>;
     /**
-     * Gets the current webhook data
+     * Get the current callback URL if it exists
+     *
+     * Example:
+     * ```JavaScript
+     * connectApi.getWebhook(function (error, webhook) {
+     *      if (error) throw error;
+     *      // Utilize webook here
+     * });
+     * ```
+     * 
      * @param callback A function that is passed the arguments (error, webhook)
      */
     public getWebhook(callback: CallbackFn<Webhook>);
@@ -278,14 +355,33 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Updates the webhook
+     * Register new webhook for incoming subscriptions.<p>
+     * If a webhook is already set, this will do an overwrite.
+     *
+     * Example:
+     * ```JavaScript
+     * var url = "http://localhost:8080";
+     * var promise = connectApi.updateWebhook(url);
+     * promise.then(null, console.error);
+     * ```
+     *
      * @param url The URL to which the notifications must be sent
      * @param headers Any headers (key/value) that must be sent with the request
      * @returns Promise containing any error
      */
     public updateWebhook(url: string, headers?: { [key: string]: string; }): Promise<void>;
     /**
-     * Updates the webhook
+     * Register new webhook for incoming subscriptions.<p>
+     * If a webhook is already set, this will do an overwrite.
+     *
+     * Example:
+     * ```JavaScript
+     * var url = "http://localhost:8080";
+     * connectApi.updateWebhook(url, function (error) {
+     *      if (error) throw error;
+     * });
+     * ```
+     *
      * @param url The URL to which the notifications must be sent
      * @param headers Any headers (key/value) that must be sent with the request
      * @param callback A function that is passed any error
@@ -312,12 +408,31 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
+     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)<p>
+     * If no webhook is registered, an exception (404) will be raised.<br>
+     * Note that every registered subscription will be deleted as part of deregistering a webhook.
+     *
+     * Example:
+     * ```JavaScript
+     * var promise = connectApi.deleteWebhook();
+     * promise.then(null, console.error);
+     * ```
+     *
      * @returns Promise containing any error
      */
     public deleteWebhook(): Promise<void>;
     /**
-     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
+     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)<p>
+     * If no webhook is registered, an exception (404) will be raised.<br>
+     * Note that every registered subscription will be deleted as part of deregistering a webhook.
+     *
+     * Example:
+     * ```JavaScript
+     * connectApi.deleteWebhook(function (error) {
+     *      // Error handling code here
+     * });
+     * ```
+     *
      * @param callback A function that is passed any error
      */
     public deleteWebhook(callback: CallbackFn<void>);
@@ -331,11 +446,29 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Gets a list of pre-subscription data
+     *
+     * Example:
+     * ```JavaScript
+     * var promise = connectApi.listPresubscriptions();
+     * promise.then(function (presubscriptions) {
+     *      // Utilize presubscriptions here
+     * }, console.error);
+     * ```
+     *
      * @returns Promise containing pre-subscriptions
      */
     public listPresubscriptions(): Promise<Array<PresubscriptionObject>>;
     /**
      * Gets a list of pre-subscription data
+     *
+     * Example:
+     * ```JavaScript
+     * connectApi.listPresubscriptions(function (error, presubscriptions) {
+     *      if (error) throw error;
+     *      // Utilize presubscriptions here
+     * });
+     * ```
+     *
      * @param callback A function that is passed (error, pre-subscriptions)
      */
     public listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>);
@@ -352,12 +485,31 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var subscriptions = [{deviceId: deviceID}];
+     * var promise = connectApi.updatePresubscriptions(subscriptions);
+     * promise.then(null, console.error);
+     * ```
+     *
      * @param subscriptions The pre-subscription data array
      * @returns Promise containing any error
      */
     public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>): Promise<void>;
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var subscriptions = [{deviceId: deviceID}];
+     * connectApi.updatePresubscriptions(subscriptions, function (error) {
+     *      if (error) throw error;
+     * });
+     * ```
+     *
      * @param subscriptions The pre-subscription data array
      * @param callback A function that is passed any error
      */
@@ -375,11 +527,26 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Deletes pre-subscription data
+     *
+     * Example:
+     * ```JavaScript
+     * var promise = connectApi.deletePresubscriptions();
+     * promise.then(null, console.error);
+     * ```
+     *
      * @returns Promise containing any error
      */
     public deletePresubscriptions(): Promise<void>;
     /**
      * Deletes pre-subscription data
+     *
+     * Example:
+     * ```JavaScript
+     * connectApi.deletePresubscriptions(function (error) {
+     *      if (error) throw error;
+     * });
+     * ```
+     *
      * @param callback A function that is passed any error
      */
     public deletePresubscriptions(callback: CallbackFn<void>);
@@ -394,11 +561,26 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Removes all subscriptions
+     *
+     * Example:
+     * ```JavaScript
+     * var promise = connectApi.deleteSubscriptions();
+     * promise.then(null, console.error);
+     * ```
+     *
      * @returns Promise containing any error
      */
     public deleteSubscriptions(): Promise<void>;
     /**
      * Removes all subscriptions
+     *
+     * Example:
+     * ```JavaScript
+     * connectApi.deleteSubscriptions(function (error) {
+     *      if (error) throw error;
+     * });
+     * ```
+     *
      * @param callback A function that is passed any error
      */
     public deleteSubscriptions(callback: CallbackFn<void>);
@@ -413,12 +595,33 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * List connected devices
+     *
+     * Example: (The following filters all connected devices to those with custom device type `QuickstartDevice`):
+     * ```JavaScript
+     * var promise = connectApi.listConnectedDevices("QuickstartDevice");
+     * promise.then(function (devices) {
+     *      // Utilize devices here
+     * }, console.error);
+     * ```
+     *
      * @param type Filter devices by device type
      * @returns Promise of connected devices
      */
     public listConnectedDevices(type?: string): Promise<Array<ConnectedDevice>>;
     /**
      * List connected devices
+     *
+     * Example: (The following filters all connected devices to those with custom device type `QuickstartDevice`):
+     * ```JavaScript
+     * connectApi.listConnectedDevices("QuickstartDevice", function (error, devices) {
+     *      if (error) throw error;
+     *      for (var device in devices.data) {
+     *          // Utilize each device
+     *          console.log(devices.data[device]);
+     *      }
+     * });
+     * ```
+     *
      * @param options.type Filter devices by device type
      * @param callback A function that is passed the arguments (error, devices)
      */
@@ -443,12 +646,32 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * List a device's subscriptions
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var promise = connectApi.listDeviceSubscriptions(deviceID);
+     * promise.then(function (subscriptions) {
+     *      // Utilize subscriptions here
+     * }, console.error);
+     * ```
+     *
      * @param deviceId Device ID
      * @returns Promise containing the subscriptions
      */
     public listDeviceSubscriptions(deviceId: string): Promise<any>;
     /**
      * List a device's subscriptions
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * connectApi.listPresubscriptions(deviceID, function (error, subscriptions) {
+     *      if (error) throw error;
+     *      // Utilize subscriptions here
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @param callback A function that is passed (error, subscriptions)
      */
@@ -464,12 +687,29 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Removes a device's subscriptions
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var promise = connectApi.deleteDeviceSubscriptions(deviceID);
+     * promise.then(null, console.error);
+     * ```
+     *
      * @param deviceId Device ID
      * @returns Promise containing any error
      */
     public deleteDeviceSubscriptions(deviceId: string): Promise<void>;
     /**
      * Removes a device's subscriptions
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * connectApi.deleteDeviceSubscriptions(deviceID, function (error) {
+     *      if (error) throw error;
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @param callback A function that is passed any error
      */
@@ -484,13 +724,39 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * List device's resources
+     * List all resources registered to a connected device.
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var promise = connectApi.listResources(deviceID);
+     * promise.then(function (resources) {
+     *      for (var resource in resources) {
+     *          // Utilize resource here
+     *          console.log(resources[resource]);
+     *      }
+     * }, console.error);
+     * ```
+     *
      * @param deviceId Device ID
      * @returns Promise of device resources
      */
     public listResources(deviceId: string): Promise<Array<Resource>>;
     /**
-     * List device's resources
+     * List all resources registered to a connected device.
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * connectApi.listResources(deviceID, function (error, resources) {
+     *      if (error) throw error;
+     *      for (var resource in resources) {
+     *          // Utilize resource here
+     *          console.log(resources[resource]);
+     *      }
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @param callback A function that is passed the arguments (error, resources)
      */
@@ -510,6 +776,17 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Deletes a resource
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * var promise = connectApi.deleteResource(deviceID, resourceURI);
+     * promise.then(function (response) {
+     *      // Utilize response here
+     * }, console.error);
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
@@ -518,6 +795,17 @@ export class ConnectApi extends EventEmitter {
     public deleteResource(deviceId: string, path: string, noResponse?: boolean): Promise<string>;
     /**
      * Deletes a resource
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * connectApi.deleteResource(deviceID, resourceURI, function (error, response) {
+     *      if (error) throw error;
+     *      // Utilize response here
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
@@ -539,7 +827,18 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Gets the value of a resource
+     * Get a resource value for a given device and resource path
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * var promise = connectApi.getResourceValue(deviceID, resourceURI);
+     * promise.then(function (data) {
+     *      // Utilize data here
+     * }, console.error);
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Resource path
      * @param cacheOnly If true, the response will come only from the cache
@@ -548,7 +847,18 @@ export class ConnectApi extends EventEmitter {
      */
     public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string>;
     /**
-     * Gets the value of a resource
+     * Get a resource value for a given device and resource path
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5501";
+     * connectApi.getResourceValue(deviceID, resourceURI, function (error, value) {
+     *      if (error) throw error;
+     *      // Utilize value here
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Resource path
      * @param cacheOnly If true, the response will come only from the cache
@@ -583,7 +893,19 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Sets the value of a resource
+     * Sets the resource value for a given resource path, on a specified device.
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * var payload = "ChangeMe!";
+     * var promise = connectApi.setResourceValue(deviceID, resourceURI, payload);
+     * promise.then(function (response) {
+     *      // Utilize response here
+     * }, console.error);
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Resource path
      * @param value The value of the resource
@@ -592,7 +914,19 @@ export class ConnectApi extends EventEmitter {
      */
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean): Promise<string>;
     /**
-     * Sets the value of a resource
+     * Sets the resource value for a given resource path, on a specified device.
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * var payload = "Change me!";
+     * connectApi.setResourceValue(deviceID, resourceURI, payload, function (error, response) {
+     *      if (error) throw error;
+     *      // Utilize response here
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Resource path
      * @param value The value of the resource
@@ -623,6 +957,17 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Execute a function on a resource
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * var promise = connectApi.executeResource(deviceID, resourceURI);
+     * promise.then(function (response) {
+     *      // Utilize response here
+     * }, console.error);
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Resource path
      * @param functionName The function to trigger
@@ -632,6 +977,17 @@ export class ConnectApi extends EventEmitter {
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean): Promise<string>;
     /**
      * Execute a function on a resource
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * connectApi.executeResource(deviceID, resourceURI, function (error, response) {
+     *      if (error) throw error;
+     *      // Utilize response here
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Resource path
      * @param functionName The function to trigger
@@ -667,6 +1023,17 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Gets the status of a resource's subscription
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * var promise = connectApi.getResourceSubscription(deviceID, resourceURI);
+     * promise.then(function (res_exists) {
+     *      // Utilize res_exists here
+     * }, console.error);
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Resource path
      * @returns Promise containing resource subscription status
@@ -674,6 +1041,17 @@ export class ConnectApi extends EventEmitter {
     public getResourceSubscription(deviceId: string, path: string): Promise<boolean>;
     /**
      * Gets the status of a resource's subscription
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * connectApi.getResourceSubscription(deviceID, resourceURI, function (error, res_exists) {
+     *      if (error) throw error;
+     *      // Utilize res_exists here
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Resource path
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
@@ -689,19 +1067,45 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Subscribe to a resource
+     * Subscribe to resource updates.<p>
+     * When called on valid device and resource path a subscription is setup so that any update on the resource path value triggers a new element on the FIFO queue.
+     *
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * var promise = connectApi.addResourceSubscription(deviceID, resourceURI, function calllback(data) {
+     *      // Utilize data here - which is the updated value in resourceURI
+     * });
+     * promise.then(null, console.error);
+     * ```
+     *
+     * @param deviceId Device ID of the device to subscribe on
+     * @param path Resource path on the device to observe
+     * @param notifyFn Function to call when the notification occurs
+     * @param callback A function that is passed on any error
+     */
+    public addResourceSubscription(deviceId: string, path: string, notifyFn?: Function): Promise<void>;
+    /**
+     * Subscribe to resource updates.<p>
+     * When called on valid device and resource path a subscription is setup so that any update on the resource path value triggers a new element on the FIFO queue.
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * connectApi.addResourceSubscription(deviceID, resourceURI, function callback(data) {
+     *      // Utilize data here - which is the updated value in resourceURI
+     * }, function (error) {
+     *      if (error) throw error;
+     * });
+     * ```
+     * 
      * @param deviceId Device ID
      * @param path Resource path
      * @param notifyFn Function to call with notification
      * @returns Promise containing any error
-     */
-    public addResourceSubscription(deviceId: string, path: string, notifyFn?: Function): Promise<void>;
-    /**
-     * Subscribe to a resource
-     * @param deviceId Device ID
-     * @param path Resource path
-     * @param notifyFn Function to call with notification
-     * @param callback A function that is passed any error
      */
     public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function);
     public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function): Promise<void> {
@@ -726,17 +1130,40 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Deletes a resource's subscription
-     * @param deviceId Device ID
-     * @param path Resource path
-     * @returns Promise containing any error
-     */
-    public deleteResourceSubscription(deviceId: string, path: string): Promise<void>;
-    /**
-     * Deletes a resource's subscription
+     * Unsubscribe to resource updates.<p>
+     * If deviceId or path is None, we remove every subscripton for them. I.e. calling this method without arguments removes all subscriptions, 
+     * but calling it with only deviceId removes subscriptions for all resources on the given device.
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * var promise = connectApi.deleteResourceSubscription(deviceID, resourceURI);
+     * promise.then(null, console.error);
+     * ```
+     *
      * @param deviceId Device ID
      * @param path Resource path
      * @param callback A function that is passed any error
+     */
+    public deleteResourceSubscription(deviceId: string, path: string): Promise<void>;
+    /**
+     * Unsubscribe to resource updates.<p>
+     * If deviceId or path is None, we remove every subscripton for them. I.e. calling this method without arguments removes all subscriptions, 
+     * but calling it with only deviceId removes subscriptions for all resources on the given device.
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceID = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * connectApi.deleteResourceSubscription(deviceID, resourceURI, function (error) {
+     *      if (error) throw error;
+     * });
+     * ```
+     * 
+     * @param deviceId Device ID
+     * @param path Resource path
+     * @returns Promise containing any error
      */
     public deleteResourceSubscription(deviceId: string, path: string, callback: CallbackFn<void>);
     public deleteResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>): Promise<void> {
@@ -760,12 +1187,38 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Get account-specific metrics
+     *
+     * Example: (The following will retrieve metrics regarding pending and failed device registrations in the last day)
+     * ```JavaScript
+     * var today = new Date();
+     * var yesterday = new Date();
+     * yesterday.setDate(yesterday.getDate() - 1);
+     * var options = {start: yesterday, end: today, include: ["pendingDeviceRegistrations", "failedDeviceRegistrations"]};
+     * var promise = connectApi.getAccountMetrics(options);
+     * promise.then(function (metrics) {
+     *      // Utilize metrics here
+     * }, console.error);
+     * ```
+     *
      * @param options metrics options
      * @returns Promise of metrics
      */
     public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions): Promise<Array<Metric>>;
     /**
      * Get account-specific metrics
+     *
+     * Example: (The following will retrieve metrics regarding pending and failed device registrations in the last day)
+     * ```JavaScript
+     * var today = new Date();
+     * var yesterday = new Date();
+     * yesterday.setDate(yesterday.getDate() - 1);
+     * var options = {start: yesterday, end: today, include: ["pendingDeviceRegistrations", "failedDeviceRegistrations"]};
+     * connectApi.getAccountMetrics(options, function (error, metrics) {
+     *      if (error) throw error;
+     *      // Handle metrics here
+     * });
+     * ```
+     *
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
@@ -804,12 +1257,38 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Get metrics
+     *
+     * Example: (The following will retrieve metrics regarding pending and failed device registrations in the last day)
+     * ```JavaScript
+     * var today = new Date();
+     * var yesterday = new Date();
+     * yesterday.setDate(yesterday.getDate() - 1);
+     * var options = {start: yesterday, end: today, include: ["pendingDeviceRegistrations", "failedDeviceRegistrations"]};
+     * var promise = connectApi.getMetrics(options);
+     * promise.then(function (metrics) {
+     *      // Utilize metrics here
+     * }, console.error);
+     * ```
+     *
      * @param options metrics options
      * @returns Promise of metrics
      */
     public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions): Promise<Array<Metric>>;
     /**
      * Get metrics
+     *
+     * Example: (The following will retrieve metrics regarding pending and failed device registrations in the last day)
+     * ```JavaScript
+     * var today = new Date();
+     * var yesterday = new Date();
+     * yesterday.setDate(yesterday.getDate() - 1);
+     * var options = {start: yesterday, end: today, include: ["pendingDeviceRegistrations", "failedDeviceRegistrations"]};
+     * connectApi.getMetrics(options, function (error, metrics) {
+     *      if (error) throw error;
+     *      // Handle metrics here
+     * });
+     * ```
+     *
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
