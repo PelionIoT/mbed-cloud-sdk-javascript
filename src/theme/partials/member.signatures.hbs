@@ -1,13 +1,11 @@
-<ul class="tsd-signatures {{cssClasses}}">
-    {{#each signatures}}
-        <li class="tsd-signature tsd-kind-icon">{{> member.signature.title }}</li>
-    {{/each}}
-</ul>
+{{#each signatures}}
+	<ul class="tsd-signatures {{../cssClasses}}">
+		<li class="tsd-signature tsd-kind-icon">{{> member.signature.title }}</li>
+	</ul>
 
-<ul class="tsd-descriptions">
-    {{#each signatures}}
-        <li class="tsd-description">
-            {{> member.signature.body }}
-        </li>
-    {{/each}}
-</ul>
+	<ul class="tsd-descriptions">
+		<li class="tsd-description">
+			{{> member.signature.body }}
+		</li>
+	</ul>
+{{/each}}
