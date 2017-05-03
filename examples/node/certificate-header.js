@@ -19,13 +19,13 @@ var fs = require('fs');
 var path = require('path');
 var readline = require('readline');
 
-var mbed = require('../../lib/');
+var mbedCloudSDK = require('../../lib/');
 var config = require('./config');
 
 var outputFile = "header.h";
 var certificateName = "test-certificate";
 
-var certificates = new mbed.CertificatesApi(config);
+var certificates = new mbedCloudSDK.CertificatesApi(config);
 
 function ensureDirectory(directory) {
     var dirName = path.dirname(directory);

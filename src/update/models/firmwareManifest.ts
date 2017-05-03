@@ -69,7 +69,7 @@ export class FirmwareManifest {
      * Delete the firmware manifest
      * @param callback A function that is passed any error
      */
-    public delete(callback: CallbackFn<void>);
+    public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._api.deleteFirmwareManifest(parseInt(this.id), done);

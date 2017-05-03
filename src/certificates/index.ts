@@ -31,9 +31,9 @@ import { CertificateAdapter } from "./models/certificateAdapter";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var mbed = require("mbed-cloud-sdk");
+ * var mbedCloudSDK = require("mbed-cloud-sdk");
  *
- * var certificates = new mbed.CertificatesApi({
+ * var certificates = new mbedCloudSDK.CertificatesApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
@@ -44,7 +44,7 @@ import { CertificateAdapter } from "./models/certificateAdapter";
  * <script src="<mbed-cloud-sdk>/bundles/certificates.min.js"></script>
  *
  * <script>
- *     var certificates = new mbed.CertificatesApi({
+ *     var certificates = new mbedCloudSDK.CertificatesApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>
@@ -86,7 +86,7 @@ export class CertificatesApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listCertificates(options?: CertificateListOptions, callback?: CallbackFn<ListResponse<Certificate>>);
+    public listCertificates(options?: CertificateListOptions, callback?: CallbackFn<ListResponse<Certificate>>): void;
     public listCertificates(options?: CertificateListOptions, callback?: CallbackFn<ListResponse<Certificate>>): Promise<ListResponse<Certificate>> {
         options = options || {};
         if (typeof options === "function") {
@@ -95,11 +95,11 @@ export class CertificatesApi {
         }
 
         return asyncStyle(done => {
-            let { limit, after, order, include, type } = options as CertificateListOptions;
+            let { limit, after, order, include, type, expires } = options as CertificateListOptions;
             let serviceEq = type === "developer" ? "bootstrap" : type;
             let executionMode = type === "developer" ? 1 : null;
 
-            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, null, executionMode, (error, data) => {
+            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, expires, executionMode, (error, data) => {
                 if (error) return done(error);
 
                 var certificates = data.data.map(certificate => {
@@ -121,7 +121,7 @@ export class CertificatesApi {
      * @param certificateId The certificate ID
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public getCertificate(certificateId: string, callback: CallbackFn<Certificate>);
+    public getCertificate(certificateId: string, callback: CallbackFn<Certificate>): void;
     public getCertificate(certificateId: string, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
         return asyncStyle(done => {
             this._endpoints.admin.getCertificate(certificateId, (error, data) => {
@@ -193,7 +193,7 @@ export class CertificatesApi {
      * @param certificate Certificate data
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public updateCertificate(certificate: UpdateCertificateObject, callback: CallbackFn<Certificate>);
+    public updateCertificate(certificate: UpdateCertificateObject, callback: CallbackFn<Certificate>): void;
     public updateCertificate(certificate: UpdateCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
         return asyncStyle(done => {
             this._endpoints.admin.updateCertificate(certificate.id, CertificateAdapter.reverseMap(certificate), (error, data) => {
@@ -214,7 +214,7 @@ export class CertificatesApi {
      * @param certificateId The certificate ID
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteCertificate(certificateId: string, callback: CallbackFn<void>);
+    public deleteCertificate(certificateId: string, callback: CallbackFn<void>): void;
     public deleteCertificate(certificateId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.admin.deleteCertificate(certificateId, (error, data) => {

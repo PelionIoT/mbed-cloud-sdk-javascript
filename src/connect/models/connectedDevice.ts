@@ -58,7 +58,7 @@ export class ConnectedDevice {
      * List device's resources
      * @param callback A function that is passed the arguments (error, resources)
      */
-    public listResources(callback: CallbackFn<Array<Resource>>);
+    public listResources(callback: CallbackFn<Array<Resource>>): void;
     public listResources(callback?: CallbackFn<Array<Resource>>): Promise<Resource[]> {
         return asyncStyle(done => {
             this._api.listResources(this.id, done);
@@ -74,7 +74,7 @@ export class ConnectedDevice {
      * List a device's subscriptions
      * @param callback A function that is passed (error, subscriptions)
      */
-    public listSubscriptions(callback: CallbackFn<any>);
+    public listSubscriptions(callback: CallbackFn<any>): void;
     public listSubscriptions(callback?: CallbackFn<any>): Promise<any> {
         return asyncStyle(done => {
             this._api.listDeviceSubscriptions(this.id, done);
@@ -90,7 +90,7 @@ export class ConnectedDevice {
      * Removes a device's subscriptions
      * @param callback A function that is passed any error
      */
-    public deleteSubscriptions(callback: CallbackFn<void>);
+    public deleteSubscriptions(callback: CallbackFn<void>): void;
     public deleteSubscriptions(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._api.deleteDeviceSubscriptions(this.id, done);

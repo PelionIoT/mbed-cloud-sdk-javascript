@@ -35,9 +35,9 @@ import { Filters } from "./filters";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var mbed = require("mbed-cloud-sdk");
+ * var mbedCloudSDK = require("mbed-cloud-sdk");
  *
- * var devices = new mbed.DeviceDirectoryApi({
+ * var devices = new mbedCloudSDK.DeviceDirectoryApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
@@ -48,7 +48,7 @@ import { Filters } from "./filters";
  * <script src="<mbed-cloud-sdk>/bundles/device-directory.min.js"></script>
  *
  * <script>
- *     var devices = new mbed.DeviceDirectoryApi({
+ *     var devices = new mbedCloudSDK.DeviceDirectoryApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>
@@ -76,7 +76,7 @@ export class DeviceDirectoryApi {
      * @param options list options
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listDevices(options?: DeviceListOptions, callback?: CallbackFn<ListResponse<Device>>);
+    public listDevices(options?: DeviceListOptions, callback?: CallbackFn<ListResponse<Device>>): void;
     public listDevices(options?: any, callback?: CallbackFn<ListResponse<Device>>): Promise<ListResponse<Device>> {
         options = options || {};
         if (typeof options === "function") {
@@ -111,7 +111,7 @@ export class DeviceDirectoryApi {
      * @param deviceId Device ID
      * @param callback A function that is passed the arguments (error, device)
      */
-    public getDevice(deviceId: string, callback: CallbackFn<Device>);
+    public getDevice(deviceId: string, callback: CallbackFn<Device>): void;
     public getDevice(deviceId: string, callback?: CallbackFn<Device>): Promise<Device> {
         return asyncStyle(done => {
             this._endpoints.catalog.deviceRetrieve(deviceId, (error, data) => {
@@ -134,7 +134,7 @@ export class DeviceDirectoryApi {
      * @param device Device details
      * @param callback A function that is passed the arguments (error, device)
      */
-    public addDevice(device: AddDeviceObject, callback: CallbackFn<Device>);
+    public addDevice(device: AddDeviceObject, callback: CallbackFn<Device>): void;
     public addDevice(device: AddDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
         return asyncStyle(done => {
             this._endpoints.catalog.deviceCreate(DeviceAdapter.addMap(device), (error, data) => {
@@ -155,7 +155,7 @@ export class DeviceDirectoryApi {
      * @param device Device details
      * @param callback A function that is passed the arguments (error, device)
      */
-    public updateDevice(device: UpdateDeviceObject, callback: CallbackFn<Device>);
+    public updateDevice(device: UpdateDeviceObject, callback: CallbackFn<Device>): void;
     public updateDevice(device: UpdateDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
         return asyncStyle(done => {
             this._endpoints.catalog.devicePartialUpdate(device.id, DeviceAdapter.updateMap(device), (error, data) => {
@@ -178,7 +178,7 @@ export class DeviceDirectoryApi {
      * @param deviceId Device ID
      * @param callback A function that is passed any error
      */
-    public deleteDevice(deviceId: string, callback: CallbackFn<void>);
+    public deleteDevice(deviceId: string, callback: CallbackFn<void>): void;
     public deleteDevice(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.catalog.deviceDestroy(deviceId, (error) => {
@@ -201,7 +201,7 @@ export class DeviceDirectoryApi {
      * @param callback A function containing a list response
      * @returns Promise containing a list response
      */
-    public listQueries(options?: QueryListOptions, callback?: CallbackFn<ListResponse<Query>>);
+    public listQueries(options?: QueryListOptions, callback?: CallbackFn<ListResponse<Query>>): void;
     public listQueries(options?:any, callback?: CallbackFn<ListResponse<Query>>): Promise<ListResponse<Query>> {
         options = options || {};
         if (typeof options === "function") {
@@ -238,7 +238,7 @@ export class DeviceDirectoryApi {
      * @param callback A function that is passed the arguments (error, query)
      * @returns Promise of query
      */
-    public getQuery(queryId: string, callback: CallbackFn<Query>);
+    public getQuery(queryId: string, callback: CallbackFn<Query>): void;
     public getQuery(queryId: string, callback?: CallbackFn<Query>): Promise<Query> {
         return asyncStyle(done => {
             this._endpoints.query.deviceQueryRetrieve(queryId, (error, data) => {
@@ -261,7 +261,7 @@ export class DeviceDirectoryApi {
      * @param query The query
      * @param callback A function that is passed the arguments (error, query)
      */
-    public addQuery(query: AddQueryObject, callback: CallbackFn<Query>);
+    public addQuery(query: AddQueryObject, callback: CallbackFn<Query>): void;
     public addQuery(query: AddQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
         return asyncStyle(done => {
             this._endpoints.query.deviceQueryCreate(QueryAdapter.addMap(query), (error, data) => {
@@ -284,7 +284,7 @@ export class DeviceDirectoryApi {
      * @param query The query to update
      * @param callback A function that is passed the arguments (error, query)
      */
-    public updateQuery(query: UpdateQueryObject, callback: CallbackFn<Query>);
+    public updateQuery(query: UpdateQueryObject, callback: CallbackFn<Query>): void;
     public updateQuery(query: UpdateQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
         return asyncStyle(done => {
             this._endpoints.query.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), (error, data) => {
@@ -307,7 +307,7 @@ export class DeviceDirectoryApi {
      * @param queryId query ID
      * @param callback A function that is passed any error
      */
-    public deleteQuery(queryId: string, callback: CallbackFn<void>);
+    public deleteQuery(queryId: string, callback: CallbackFn<void>): void;
     public deleteQuery(queryId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.query.deviceQueryDestroy(queryId, (error) => {
@@ -328,7 +328,7 @@ export class DeviceDirectoryApi {
      * @param options filter options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listDeviceLogs(options?: DeviceLogListOptions, callback?: CallbackFn<ListResponse<DeviceLog>>);
+    public listDeviceLogs(options?: DeviceLogListOptions, callback?: CallbackFn<ListResponse<DeviceLog>>): void;
     public listDeviceLogs(options?:any, callback?: CallbackFn<ListResponse<DeviceLog>>): Promise<ListResponse<DeviceLog>> {
         options = options || {};
         if (typeof options === "function") {
@@ -362,7 +362,7 @@ export class DeviceDirectoryApi {
      * @param deviceLogId device log ID
      * @param callback A function that is passed the return arguments (error, device log)
      */
-    public getDeviceLog(deviceLogId: string, callback: CallbackFn<DeviceLog>);
+    public getDeviceLog(deviceLogId: string, callback: CallbackFn<DeviceLog>): void;
     public getDeviceLog(deviceLogId: string, callback?: CallbackFn<DeviceLog>): Promise<DeviceLog> {
         return asyncStyle(done => {
             this._endpoints.catalog.deviceLogRetrieve(deviceLogId, (error, data) => {

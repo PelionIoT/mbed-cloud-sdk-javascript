@@ -36,9 +36,9 @@ import { GroupAdapter } from "./models/groupAdapter";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var mbed = require("mbed-cloud-sdk");
+ * var mbedCloudSDK = require("mbed-cloud-sdk");
  *
- * var accounts = new mbed.AccountManagementApi({
+ * var accounts = new mbedCloudSDK.AccountManagementApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
@@ -49,7 +49,7 @@ import { GroupAdapter } from "./models/groupAdapter";
  * <script src="<mbed-cloud-sdk>/bundles/account-management.min.js"></script>
  *
  * <script>
- *     var accounts = new mbed.AccountManagementApi({
+ *     var accounts = new mbedCloudSDK.AccountManagementApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>
@@ -75,7 +75,7 @@ export class AccountManagementApi {
      * Get details of account associated with current API key
      * @param callback A function that is passed the return arguments (error, account)
      */
-    public getAccount(callback: CallbackFn<Account>);
+    public getAccount(callback: CallbackFn<Account>): void;
     public getAccount(callback?: CallbackFn<Account>): Promise<Account> {
         return asyncStyle(done => {
             this._endpoints.developer.getMyAccountInfo("limits, policies", (error, data) => {
@@ -96,7 +96,7 @@ export class AccountManagementApi {
      * @param account The account object to update
      * @param callback A function that is passed the return arguments (error, account)
      */
-    public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>);
+    public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>): void;
     public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>): Promise<Account> {
         return asyncStyle(done => {
             this._endpoints.admin.updateMyAccount(AccountAdapter.reverseMap(account), (error, data) => {
@@ -117,7 +117,7 @@ export class AccountManagementApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listApiKeys(options?: ApiKeyListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
+    public listApiKeys(options?: ApiKeyListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): void;
     public listApiKeys(options?: any, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {
@@ -150,7 +150,7 @@ export class AccountManagementApi {
      * @param apiKeyId The API key ID (if not specified, returns current API key)
      * @param callback A function that is passed the return arguments (error, API key)
      */
-    public getApiKey(apiKeyId?: string, callback?: CallbackFn<ApiKey>);
+    public getApiKey(apiKeyId?: string, callback?: CallbackFn<ApiKey>): void;
     public getApiKey(apiKeyId?: any, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
         if (typeof apiKeyId === "function") {
             callback = apiKeyId;
@@ -183,7 +183,7 @@ export class AccountManagementApi {
      * @param apiKey The API key to add
      * @param callback A function that is passed the return arguments (error, API key)
      */
-    public addApiKey(apiKey: AddApiKeyObject, callback: CallbackFn<ApiKey>);
+    public addApiKey(apiKey: AddApiKeyObject, callback: CallbackFn<ApiKey>): void;
     public addApiKey(apiKey: AddApiKeyObject, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
         return asyncStyle(done => {
             this._endpoints.developer.createApiKey(ApiKeyAdapter.addMap(apiKey), (error, data) => {
@@ -206,7 +206,7 @@ export class AccountManagementApi {
      * @param apiKey The API key to add
      * @param callback A function that is passed the return arguments (error, API key)
      */
-    public updateApiKey(apiKey: UpdateApiKeyObject, callback: CallbackFn<ApiKey>);
+    public updateApiKey(apiKey: UpdateApiKeyObject, callback: CallbackFn<ApiKey>): void;
     public updateApiKey(apiKey: UpdateApiKeyObject, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
         return asyncStyle(done => {
             this._endpoints.developer.updateApiKey(apiKey.id, ApiKeyAdapter.updateMap(apiKey), (error, data) => {
@@ -227,7 +227,7 @@ export class AccountManagementApi {
      * @param apiKeyId The API key ID
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteApiKey(apiKeyId: string, callback: CallbackFn<void>);
+    public deleteApiKey(apiKeyId: string, callback: CallbackFn<void>): void;
     public deleteApiKey(apiKeyId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.developer.deleteApiKey(apiKeyId, (error, data) => {
@@ -248,7 +248,7 @@ export class AccountManagementApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listUsers(options?: UserListOptions, callback?: CallbackFn<ListResponse<User>>);
+    public listUsers(options?: UserListOptions, callback?: CallbackFn<ListResponse<User>>): void;
     public listUsers(options?: any, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
         options = options || {};
         if (typeof options === "function") {
@@ -282,7 +282,7 @@ export class AccountManagementApi {
      * @param userId The user ID
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public getUser(userId: string, callback: CallbackFn<User>);
+    public getUser(userId: string, callback: CallbackFn<User>): void;
     public getUser(userId: string, callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
             this._endpoints.admin.getUser(userId, (error, data) => {
@@ -303,7 +303,7 @@ export class AccountManagementApi {
      * @param user User to add
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public addUser(user: AddUserObject, callback: CallbackFn<User>);
+    public addUser(user: AddUserObject, callback: CallbackFn<User>): void;
     public addUser(user: AddUserObject, callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
             this._endpoints.admin.createUser(UserAdapter.addMap(user), "create", (error, data) => {
@@ -324,7 +324,7 @@ export class AccountManagementApi {
      * @param user User to update
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public updateUser(user: UpdateUserObject, callback: CallbackFn<User>);
+    public updateUser(user: UpdateUserObject, callback: CallbackFn<User>): void;
     public updateUser(user: UpdateUserObject, callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
             this._endpoints.admin.updateUser(user.id, UserAdapter.updateMap(user), (error, data) => {
@@ -345,7 +345,7 @@ export class AccountManagementApi {
      * @param userId The user ID
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteUser(userId: string, callback: CallbackFn<void>);
+    public deleteUser(userId: string, callback: CallbackFn<void>): void;
     public deleteUser(userId: string, callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._endpoints.admin.deleteUser(userId, (error, data) => {
@@ -366,7 +366,7 @@ export class AccountManagementApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listGroups(options?: ListOptions, callback?: CallbackFn<ListResponse<Group>>);
+    public listGroups(options?: ListOptions, callback?: CallbackFn<ListResponse<Group>>): void;
     public listGroups(options?: any, callback?: CallbackFn<ListResponse<Group>>): Promise<ListResponse<Group>> {
         options = options || {};
         if (typeof options === "function") {
@@ -400,7 +400,7 @@ export class AccountManagementApi {
      * @param groupId The group ID
      * @param callback A function that is passed the arguments (error, group)
      */
-    public getGroup(groupId: string, callback: CallbackFn<Group>);
+    public getGroup(groupId: string, callback: CallbackFn<Group>): void;
     public getGroup(groupId: string, callback?: CallbackFn<Group>): Promise<Group> {
         return asyncStyle(done => {
             this._endpoints.developer.getGroupSummary(groupId, (error, data) => {
@@ -423,7 +423,7 @@ export class AccountManagementApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listGroupUsers(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>);
+    public listGroupUsers(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): void;
     public listGroupUsers(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
         options = options || {};
         if (typeof options === "function") {
@@ -459,7 +459,7 @@ export class AccountManagementApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listGroupApiKeys(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
+    public listGroupApiKeys(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): void;
     public listGroupApiKeys(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {

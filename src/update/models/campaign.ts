@@ -65,7 +65,7 @@ export class Campaign {
      * Update the campaign
      * @param callback A function that is passed the arguments (error, campaign)
      */
-    public update(callback: CallbackFn<Campaign>);
+    public update(callback: CallbackFn<Campaign>): void;
     public update(callback?: CallbackFn<Campaign>): Promise<Campaign> {
         return asyncStyle(done => {
             this._api.updateCampaign(this, done);
@@ -81,7 +81,7 @@ export class Campaign {
      * Start the campaign
      * @param callback A function that is passed the return arguments (error, campaign)
      */
-    public start(callback: CallbackFn<Campaign>);
+    public start(callback: CallbackFn<Campaign>): void;
     public start(callback?: CallbackFn<Campaign>): Promise<Campaign> {
         return asyncStyle(done => {
             this._api.startCampaign(this.id, done);
@@ -97,7 +97,7 @@ export class Campaign {
      * Stop the campaign
      * @param callback A function that is passed the return arguments (error, campaign)
      */
-    public stop(callback: CallbackFn<Campaign>);
+    public stop(callback: CallbackFn<Campaign>): void;
     public stop(callback?: CallbackFn<Campaign>): Promise<Campaign> {
         return asyncStyle(done => {
             this._api.stopCampaign(this.id, done);
@@ -113,7 +113,7 @@ export class Campaign {
      * Delete the campaign
      * @param callback A function that is passed any error
      */
-    public delete(callback: CallbackFn<void>);
+    public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._api.deleteCampaign(this.id, done);
