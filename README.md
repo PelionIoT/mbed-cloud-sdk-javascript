@@ -6,25 +6,36 @@ The mbed Cloud SDK gives developers access to the full mbed Cloud suite using Ja
 
 ## Prerequisites
 
-[Node.js > v4.7.0](https://nodejs.org) which includes `npm`.
+[Node.js > v4.7.0](https://nodejs.org), which includes `npm`.
 
 ## Installation
 
-The SDK is distributed using npm, simply install the package into your project:
+The SDK is distributed using npm. To install the package in your project:
 
 ```bash
-$ npm install ARMmbed/mbed-cloud-sdk-javascript
+$ npm install ARMmbed/mbed-cloud-sdk-javascript#build
 ```
 
-## Documentation
+`/node_modules/mbed-cloud-sdk` now contains:
 
-See full [documentation and API reference here](http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/).
+* `bundles` - minified browser scripts. 
+* `lib` - Node.js modules. 
+* `examples` - contains all examples.
 
-Please refer to the [examples](./examples/) folder for some node and web examples.
+## Documentation and examples
+
+See the full [documentation and API reference here](http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/).
+
+Please refer to the examples folder for some node and web examples.
 
 ### Usage in Node.js (CommonJS modules)
 
-Simply `require` this module and create a new instance of the API you want to use. For example, to list all connected devices:
+To use the SDK in Node.js:
+
+1. `require` this module.
+1. Create a new instance of the API you want to use. 
+
+For example, to list all connected devices:
 
 ```JavaScript
 var mbed = require("mbed-cloud-sdk");
@@ -41,11 +52,11 @@ deviceApi.listConnectedDevices()
 });
 ```
 
-### Usage in Browser (RequireJS / AMD modules, Vanilla JS / SPAs)
+### Usage in browser (RequireJS/AMD modules, Vanilla JS/SPAs)
 
-The bundled files in [bundles](./bundles/) are standalone modules following the [UMD](https://github.com/umdjs/umd) specification so should be usable without any further installation or modification.
+The files in the bundles folder are standalone modules following the [UMD](https://github.com/umdjs/umd) specification, so should be usable without any further installation or modification.
 
-Include the JavaScript bundle you need on your page from the [bundles](./bundles/) directory, e.g.:
+Include the JavaScript bundle you need on your page from the bundles folder. For example:
 
 ```html
 <script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
@@ -73,8 +84,7 @@ You can also use all bundles by including `index.min.js`:
 <script src="<mbed-cloud-sdk>/bundles/index.min.js"></script>
 ```
 
-__Note:__ mbed Cloud is protected with [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) which restricts cross-origin calls from unknown domains. Until your production server domain has been whitelisted for mbed Cloud and during development, you may disable CORS support in your browser using [command line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi).
-
+__Note:__ mbed Cloud is protected with [cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS), which restricts cross-origin calls from unknown domains. Until your production server domain has been whitelisted for mbed Cloud, and during development, you may disable CORS support in your browser using [command line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi).
 ## Development
 
 ### Installing
