@@ -35,9 +35,9 @@ import { Filters } from "./filters";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var mbed = require("mbed-cloud-sdk");
+ * var mbedCloudSDK = require("mbed-cloud-sdk");
  *
- * var update = new mbed.UpdateApi({
+ * var update = new mbedCloudSDK.UpdateApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
@@ -48,7 +48,7 @@ import { Filters } from "./filters";
  * <script src="<mbed-cloud-sdk>/bundles/update.min.js"></script>
  *
  * <script>
- *     var update = new mbed.UpdateApi({
+ *     var update = new mbedCloudSDK.UpdateApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>

@@ -31,9 +31,9 @@ import { CertificateAdapter } from "./models/certificateAdapter";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var mbed = require("mbed-cloud-sdk");
+ * var mbedCloudSDK = require("mbed-cloud-sdk");
  *
- * var certificates = new mbed.CertificatesApi({
+ * var certificates = new mbedCloudSDK.CertificatesApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
@@ -44,7 +44,7 @@ import { CertificateAdapter } from "./models/certificateAdapter";
  * <script src="<mbed-cloud-sdk>/bundles/certificates.min.js"></script>
  *
  * <script>
- *     var certificates = new mbed.CertificatesApi({
+ *     var certificates = new mbedCloudSDK.CertificatesApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>

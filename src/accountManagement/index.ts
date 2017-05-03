@@ -36,9 +36,9 @@ import { GroupAdapter } from "./models/groupAdapter";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var mbed = require("mbed-cloud-sdk");
+ * var mbedCloudSDK = require("mbed-cloud-sdk");
  *
- * var accounts = new mbed.AccountManagementApi({
+ * var accounts = new mbedCloudSDK.AccountManagementApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
@@ -49,7 +49,7 @@ import { GroupAdapter } from "./models/groupAdapter";
  * <script src="<mbed-cloud-sdk>/bundles/account-management.min.js"></script>
  *
  * <script>
- *     var accounts = new mbed.AccountManagementApi({
+ *     var accounts = new mbedCloudSDK.AccountManagementApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>

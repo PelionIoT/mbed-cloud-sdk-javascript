@@ -18,11 +18,11 @@
 var fs = require('fs');
 var path = require('path');
 
-var mbed = require('../../lib/');
+var mbedCloudSDK = require('../../lib/');
 var config = require('./config');
 
 var logDir = "logs";
-var devices = new mbed.DeviceDirectoryApi(config);
+var devices = new mbedCloudSDK.DeviceDirectoryApi(config);
 
 function ensureDirectory(directory) {
     var dirName = path.dirname(directory);

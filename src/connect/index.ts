@@ -41,9 +41,9 @@ import { MetricAdapter } from "./models/metricAdapter";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var mbed = require("mbed-cloud-sdk");
+ * var mbedCloudSDK = require("mbed-cloud-sdk");
  *
- * var connect = new mbed.ConnectApi({
+ * var connect = new mbedCloudSDK.ConnectApi({
  *     apiKey: "<mbed Cloud API Key>"
  * });
  * ```
@@ -54,7 +54,7 @@ import { MetricAdapter } from "./models/metricAdapter";
  * <script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
  *
  * <script>
- *     var connect = new mbed.ConnectApi({
+ *     var connect = new mbedCloudSDK.ConnectApi({
  *         apiKey: "<mbed Cloud API Key>"
  *     });
  * </script>

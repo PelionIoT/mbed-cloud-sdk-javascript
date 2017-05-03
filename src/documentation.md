@@ -36,13 +36,13 @@ To use the SDK in Node.js:
 For example, to list all connected devices:
 
 ```JavaScript
-var mbed = require("mbed-cloud-sdk");
+var mbedCloudSDK = require("mbed-cloud-sdk");
 
-var deviceApi = new mbed.DevicesApi({
+var connect = new mbedCloudSDK.ConnectApi({
 	apiKey: "<mbed Cloud API Key>"
 });
 
-deviceApi.listConnectedDevices()
+connect.listConnectedDevices()
 .then(response => {
 	response.data.forEach(device => {
 		console.log(device.id);
@@ -57,17 +57,17 @@ The files in the bundles folder are standalone modules following the [UMD](https
 Include the JavaScript bundle you need on your page from the bundles folder. For example:
 
 ```html
-<script src="<mbed-cloud-sdk>/bundles/devices.min.js"></script>
+<script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
 ```
 
 If using VanillaJS, the bundles are then accessible through the global `mbedCloudSDK` namespace. For example, to list all connected devices:
 
 ```javascript
-var deviceApi = new window.mbedCloudSDK.DevicesApi({
+var connect = new mbedCloudSDK.ConnectApi({
 	apiKey: "<mbed Cloud API Key>"
 });
 
-deviceApi.listConnectedDevices(function(error, response) {
+connect.listConnectedDevices(function(error, response) {
 	response.data.forEach(function(device) {
 		console.log(device.id);
 	});
