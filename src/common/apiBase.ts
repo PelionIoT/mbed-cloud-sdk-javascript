@@ -22,7 +22,7 @@ export class ApiBase {
 
     private apiKey = "";
 
-    constructor(apiKey?: string, private host: string = "http://api.mbedcloud.com") {
+    constructor(apiKey?: string, private host: string = "https://api.us-east-1.mbedcloud.com") {
         if (apiKey && apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${apiKey}`;
         this.apiKey = apiKey;
     }

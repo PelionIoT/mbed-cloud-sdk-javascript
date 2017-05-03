@@ -61,7 +61,7 @@
 	// Default configuration
 	var config = {
 		apiKey: "<mbed Cloud API Key>",
-		host: "https://api.mbedcloud.com"
+		host: "https://api.us-east-1.mbedcloud.com"
 	};
 
 	// Overwrite with any cookie variables
