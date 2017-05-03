@@ -59,6 +59,16 @@ import { MetricAdapter } from "./models/metricAdapter";
  *     });
  * </script>
  * ```
+ *
+ * ### Notification channels
+ *
+ * Some methods on connected device resources (e.g. `resource.getValue()`) and most events (e.g. `resource.on("notification")`) require a notification channel to be set up before they will work.
+ *
+ * There are two options for setting up a notification channel:
+ *  * Register a callback server or _webhook_ using `updateWebhook()`
+ *  * Use long-polling by using `startNotifications()`
+ *
+ * The `webhook` and `long-polling` examples show how this can be done.
  */
 export class ConnectApi extends EventEmitter {
 
@@ -540,6 +550,8 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Gets the value of a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param deviceId Device ID
      * @param path Resource path
      * @param cacheOnly If true, the response will come only from the cache
@@ -549,6 +561,8 @@ export class ConnectApi extends EventEmitter {
     public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string>;
     /**
      * Gets the value of a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param deviceId Device ID
      * @param path Resource path
      * @param cacheOnly If true, the response will come only from the cache
@@ -584,20 +598,24 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Sets the value of a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param deviceId Device ID
      * @param path Resource path
      * @param value The value of the resource
      * @param noResponse If true, mbed Device Connector will not wait for a response
-     * @returns Promise containing any error
+     * @returns Promise containing an asyncId when there isn't a notification channel
      */
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean): Promise<string>;
     /**
      * Sets the value of a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param deviceId Device ID
      * @param path Resource path
      * @param value The value of the resource
      * @param noResponse If true, mbed Device Connector will not wait for a response
-     * @param callback A function that is passed any error
+     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
@@ -623,20 +641,24 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Execute a function on a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param deviceId Device ID
      * @param path Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, mbed Device Connector will not wait for a response
-     * @returns Promise containing any error
+     * @returns Promise containing an asyncId when there isn't a notification channel
      */
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean): Promise<string>;
     /**
      * Execute a function on a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param deviceId Device ID
      * @param path Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, mbed Device Connector will not wait for a response
-     * @param callback A function that is passed any error
+     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
@@ -690,21 +712,25 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Subscribe to a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param deviceId Device ID
      * @param path Resource path
      * @param notifyFn Function to call with notification
-     * @returns Promise containing any error
+     * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(deviceId: string, path: string, notifyFn?: Function): Promise<void>;
+    public addResourceSubscription(deviceId: string, path: string, notifyFn?: Function): Promise<string>;
     /**
      * Subscribe to a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param deviceId Device ID
      * @param path Resource path
      * @param notifyFn Function to call with notification
-     * @param callback A function that is passed any error
+     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function): void;
-    public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>, notifyFn?: Function): Promise<void> {
+    public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>, notifyFn?: Function): void;
+    public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>, notifyFn?: Function): Promise<string> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, path, (error, data) => {
                 if (error) return done(error);
@@ -727,19 +753,23 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Deletes a resource's subscription
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param deviceId Device ID
      * @param path Resource path
-     * @returns Promise containing any error
+     * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public deleteResourceSubscription(deviceId: string, path: string): Promise<void>;
+    public deleteResourceSubscription(deviceId: string, path: string): Promise<string>;
     /**
      * Deletes a resource's subscription
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param deviceId Device ID
      * @param path Resource path
-     * @param callback A function that is passed any error
+     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public deleteResourceSubscription(deviceId: string, path: string, callback: CallbackFn<void>): void;
-    public deleteResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<void>): Promise<void> {
+    public deleteResourceSubscription(deviceId: string, path: string, callback: CallbackFn<string>): void;
+    public deleteResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, path, (error, data) => {
                 if (error) return done(error);
