@@ -43,21 +43,26 @@
 		    border-color: #CCCCCC;
 		}
 
-		/* Page */
-		body {
-		    text-align: center;
-		}
-
-		h1, h2, h3, h4, h5, h6 {
-		    border-bottom: 1px solid #efefef;
-		}
+        /* Page */
+        body {
+            text-align: center;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            border-bottom: 1px solid #efefef;
+        }
+        .key {
+            width: 300px;
+        }
     </style>
 </head>
 <body>
 <form method="post">
-	<label for="name">Key:</label>
-	<input id="name" name="key" value="" />
-	<input type="submit" />
+    <h3>mbed Cloud SDK Proxy</h3>
+    <label for="key">Please enter your mbed Cloud SDK API Key:</label>
+    <textarea type="textarea" id="key" name="key" class="key"></textarea>
+    <div>
+        <input type="submit" value="Log in" />
+    </div>
 </form>
 </body>
 </html>
