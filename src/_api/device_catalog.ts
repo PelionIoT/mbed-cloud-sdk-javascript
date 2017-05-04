@@ -3,8 +3,8 @@
 // Tracks base typescript-fetch mustache 01/02/17
 // ===============================================
 /**
- * Device Catalog API
- * This is the API Documentation for the mbed device catalog update service.
+ * Device Directory API
+ * This is the API Documentation for the mbed device directory update service.
  *
  * OpenAPI spec version: 0.1
  * 
