@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { asyncStyle, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
+import { apiWrapper, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
 import { ConnectionOptions, ListResponse, CallbackFn } from "../common/interfaces";
 import { AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject, DeviceListOptions, QueryListOptions, DeviceLogListOptions } from "./types";
 import { Device } from "./models/device";
@@ -84,19 +84,15 @@ export class DeviceDirectoryApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, after, order, include, filter } = options;
-
-            this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS), encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let devices = data.data.map(device => {
-                    return DeviceAdapter.map(device, this);
-                });
-                let response = mapListResponse<Device>(data, devices);
-
-                done(null, response);
+            this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS), encodeInclude(include), resultsFn);
+        }, (data, done) => {
+            let devices = data.data.map(device => {
+                return DeviceAdapter.map(device, this);
             });
+
+            done(null, mapListResponse<Device>(data, devices));
         }, callback);
     }
 
@@ -113,13 +109,11 @@ export class DeviceDirectoryApi {
      */
     public getDevice(deviceId: string, callback: CallbackFn<Device>): void;
     public getDevice(deviceId: string, callback?: CallbackFn<Device>): Promise<Device> {
-        return asyncStyle(done => {
-            this._endpoints.catalog.deviceRetrieve(deviceId, (error, data) => {
-                if (error) return done(error);
-
-                let device = DeviceAdapter.map(data, this);
-                done(null, device);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.catalog.deviceRetrieve(deviceId, resultsFn);
+        }, (data, done) => {
+            let device = DeviceAdapter.map(data, this);
+            done(null, device);
         }, callback);
     }
 
@@ -136,11 +130,11 @@ export class DeviceDirectoryApi {
      */
     public addDevice(device: AddDeviceObject, callback: CallbackFn<Device>): void;
     public addDevice(device: AddDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
-        return asyncStyle(done => {
-            this._endpoints.catalog.deviceCreate(DeviceAdapter.addMap(device), (error, data) => {
-                if (error) return done(error);
-                done(null, DeviceAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.catalog.deviceCreate(DeviceAdapter.addMap(device), resultsFn);
+        }, (data, done) => {
+            let device = DeviceAdapter.map(data, this);
+            done(null, device);
         }, callback);
     }
 
@@ -157,13 +151,11 @@ export class DeviceDirectoryApi {
      */
     public updateDevice(device: UpdateDeviceObject, callback: CallbackFn<Device>): void;
     public updateDevice(device: UpdateDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
-        return asyncStyle(done => {
-            this._endpoints.catalog.devicePartialUpdate(device.id, DeviceAdapter.updateMap(device), (error, data) => {
-                if (error) return done(error);
-
-                let device = DeviceAdapter.map(data, this);
-                done(null, device);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.catalog.devicePartialUpdate(device.id, DeviceAdapter.updateMap(device), resultsFn);
+        }, (data, done) => {
+            let device = DeviceAdapter.map(data, this);
+            done(null, device);
         }, callback);
     }
 
@@ -180,11 +172,10 @@ export class DeviceDirectoryApi {
      */
     public deleteDevice(deviceId: string, callback: CallbackFn<void>): void;
     public deleteDevice(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.catalog.deviceDestroy(deviceId, (error) => {
-                if (error) return done(error);
-                done(null, null);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.catalog.deviceDestroy(deviceId, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -209,19 +200,19 @@ export class DeviceDirectoryApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, order, after, include, filter } = options;
-
-            this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let queries = data.data.map(query => {
+            this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
+        }, (data, done) => {
+            let queries: Query[];
+            if (data.data && data.data.length) {
+                queries = data.data.map(query => {
                     return QueryAdapter.map(query, this);
                 });
-                let response = mapListResponse(data, queries);
+            }
 
-                done(null, response);
-            });
+            let response = mapListResponse(data, queries);
+            done(null, response);
         }, callback);
     }
 
@@ -240,13 +231,11 @@ export class DeviceDirectoryApi {
      */
     public getQuery(queryId: string, callback: CallbackFn<Query>): void;
     public getQuery(queryId: string, callback?: CallbackFn<Query>): Promise<Query> {
-        return asyncStyle(done => {
-            this._endpoints.query.deviceQueryRetrieve(queryId, (error, data) => {
-                if (error) return done(error);
-
-                let query = QueryAdapter.map(data, this);
-                done(null, query);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.query.deviceQueryRetrieve(queryId, resultsFn);
+        }, (data, done) => {
+            let query = QueryAdapter.map(data, this);
+            done(null, query);
         }, callback);
     }
 
@@ -263,13 +252,11 @@ export class DeviceDirectoryApi {
      */
     public addQuery(query: AddQueryObject, callback: CallbackFn<Query>): void;
     public addQuery(query: AddQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
-        return asyncStyle(done => {
-            this._endpoints.query.deviceQueryCreate(QueryAdapter.addMap(query), (error, data) => {
-                if (error) return done(error);
-
-                let query = QueryAdapter.map(data, this);
-                done(null, query);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.query.deviceQueryCreate(QueryAdapter.addMap(query), resultsFn);
+        }, (data, done) => {
+            let query = QueryAdapter.map(data, this);
+            done(null, query);
         }, callback);
     }
 
@@ -286,13 +273,11 @@ export class DeviceDirectoryApi {
      */
     public updateQuery(query: UpdateQueryObject, callback: CallbackFn<Query>): void;
     public updateQuery(query: UpdateQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
-        return asyncStyle(done => {
-            this._endpoints.query.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), (error, data) => {
-                if (error) return done(error);
-
-                let query = QueryAdapter.map(data, this);
-                done(null, query);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.query.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), resultsFn);
+        }, (data, done) => {
+            let query = QueryAdapter.map(data, this);
+            done(null, query);
         }, callback);
     }
 
@@ -309,11 +294,10 @@ export class DeviceDirectoryApi {
      */
     public deleteQuery(queryId: string, callback: CallbackFn<void>): void;
     public deleteQuery(queryId: string, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.query.deviceQueryDestroy(queryId, (error) => {
-                if (error) return done(error);
-                done(null, null);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.query.deviceQueryDestroy(queryId, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -336,18 +320,18 @@ export class DeviceDirectoryApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, order, after, include, filter } = options as DeviceLogListOptions;
-
-            this._endpoints.catalog.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_LOG_FILTER_MAP), encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let list = data.data.map(log => {
-                    return DeviceLogAdapter.map(log);
+            this._endpoints.catalog.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_LOG_FILTER_MAP), encodeInclude(include), resultsFn);
+        }, (data, done) => {
+            let list: DeviceLog[];
+            if (data.data && data.data.length) {
+                list = data.data.map(log => {
+                return DeviceLogAdapter.map(log);
                 });
+            }
 
-                done(null, mapListResponse<DeviceLog>(data, list));
-            });
+            done(null, mapListResponse<DeviceLog>(data, list));
         }, callback);
     }
 
@@ -364,12 +348,11 @@ export class DeviceDirectoryApi {
      */
     public getDeviceLog(deviceLogId: string, callback: CallbackFn<DeviceLog>): void;
     public getDeviceLog(deviceLogId: string, callback?: CallbackFn<DeviceLog>): Promise<DeviceLog> {
-        return asyncStyle(done => {
-            this._endpoints.catalog.deviceLogRetrieve(deviceLogId, (error, data) => {
-                if (error) return done(error);
-                let log = DeviceLogAdapter.map(data);
-                done(null, log);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.catalog.deviceLogRetrieve(deviceLogId, resultsFn);
+        }, (data, done) => {
+            let log = DeviceLogAdapter.map(data);
+            done(null, log);
         }, callback);
     }
 }

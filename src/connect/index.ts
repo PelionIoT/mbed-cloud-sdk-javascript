@@ -17,7 +17,7 @@
 
 import superagent = require("superagent");
 import { EventEmitter } from "events";
-import { asyncStyle, decodeBase64 } from "../common/functions";
+import { asyncStyle, apiWrapper, decodeBase64 } from "../common/functions";
 import { ConnectionOptions, CallbackFn } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
 import { NotificationObject, NotificationOptions, PresubscriptionObject } from "./types";
@@ -506,13 +506,11 @@ export class ConnectApi extends EventEmitter {
      */
     public listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>): void;
     public listPresubscriptions(callback?: CallbackFn<Array<PresubscriptionObject>>): Promise<Array<PresubscriptionObject>> {
-        return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsGet((error, data) => {
-                if (error) return done(error);
-
-                let presubs = data.map(PresubscriptionAdapter.map);
-                done(null, presubs);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.subscriptions.v2SubscriptionsGet(resultsFn);
+        }, (data, done) => {
+            let presubs = data.map(PresubscriptionAdapter.map);
+            done(null, presubs);
         }, callback);
     }
 
@@ -550,13 +548,11 @@ export class ConnectApi extends EventEmitter {
      */
     public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>): void;
     public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let presubs = subscriptions.map(PresubscriptionAdapter.reverseMap);
-
-            this._endpoints.subscriptions.v2SubscriptionsPut(presubs, error => {
-                if (error) return done(error);
-                done(null, null);
-            });
+            this._endpoints.subscriptions.v2SubscriptionsPut(presubs, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -588,11 +584,10 @@ export class ConnectApi extends EventEmitter {
      */
     public deletePresubscriptions(callback: CallbackFn<void>): void;
     public deletePresubscriptions(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsPut([], error => {
-                if (error) return done(error);
-                done(null, null);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.subscriptions.v2SubscriptionsPut([], resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -624,11 +619,10 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteSubscriptions(callback: CallbackFn<void>): void;
     public deleteSubscriptions(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsDelete(error => {
-                if (error) return done(error);
-                done(null, null);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.subscriptions.v2SubscriptionsDelete(resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -671,15 +665,14 @@ export class ConnectApi extends EventEmitter {
             type = null;
         }
 
-        return asyncStyle(done => {
-            this._endpoints.endpoints.v2EndpointsGet(type, (error, data) => {
-                if (error) return done(error);
-
-                let devices = data.map(device => {
-                    return ConnectedDeviceAdapter.map(device, this);
-                });
-                done(null, devices);
+        return apiWrapper(resultsFn => {
+            this._endpoints.endpoints.v2EndpointsGet(type, resultsFn);
+        }, (data, done) => {
+            let devices = data.map(device => {
+                return ConnectedDeviceAdapter.map(device, this);
             });
+
+            done(null, devices);
         }, callback);
     }
 
@@ -719,11 +712,10 @@ export class ConnectApi extends EventEmitter {
      */
     public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<any>): void;
     public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<any>): Promise<any> {
-        return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdGet(deviceId, (error, data) => {
-                if (error) return done(error);
-                done(null, data);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdGet(deviceId, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -759,11 +751,10 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteDeviceSubscriptions(deviceId: string, callback: CallbackFn<void>): void;
     public deleteDeviceSubscriptions(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdDelete(deviceId, error => {
-                if (error) return done(error);
-                done(null, null);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdDelete(deviceId, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -809,15 +800,14 @@ export class ConnectApi extends EventEmitter {
      */
     public listResources(deviceId: string, callback: CallbackFn<Array<Resource>>): void;
     public listResources(deviceId: string, callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
-        return asyncStyle(done => {
-            this._endpoints.endpoints.v2EndpointsDeviceIdGet(deviceId, (error, data) => {
-                if (error) return done(error);
-
-                var resources = data.map(resource => {
-                    return ResourceAdapter.map(resource, deviceId, this);
-                });
-                done(null, resources);
+        return apiWrapper(resultsFn => {
+            this._endpoints.endpoints.v2EndpointsDeviceIdGet(deviceId, resultsFn);
+        }, (data, done) => {
+            var resources = data.map(resource => {
+                return ResourceAdapter.map(resource, deviceId, this);
             });
+
+            done(null, resources);
         }, callback);
     }
 
@@ -868,11 +858,10 @@ export class ConnectApi extends EventEmitter {
             noResponse = false;
         }
 
-        return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathDelete(deviceId, path, noResponse, (error, data) => {
-                if (error) return done(error);
-                done(null, data[this.ASYNC_KEY]);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathDelete(deviceId, path, noResponse, resultsFn);
+        }, (data, done) => {
+            done(null, data[this.ASYNC_KEY]);
         }, callback);
     }
 
@@ -934,18 +923,16 @@ export class ConnectApi extends EventEmitter {
             noResponse = false;
         }
 
-        return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, path, cacheOnly, noResponse, (error, data) => {
-                if (error) return done(error);
+        return apiWrapper(resultsFn => {
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, path, cacheOnly, noResponse, resultsFn);
+        }, (data, done) => {
+            var asyncID = data[this.ASYNC_KEY];
+            if (this.handleNotifications && asyncID) {
+                this._asyncFns[asyncID] = done;
+                return;
+            }
 
-                var asyncID = data[this.ASYNC_KEY];
-                if (this.handleNotifications && asyncID) {
-                    this._asyncFns[asyncID] = done;
-                    return;
-                }
-
-                done(null, asyncID);
-            });
+            done(null, asyncID);
         }, callback);
     }
 
@@ -1004,18 +991,16 @@ export class ConnectApi extends EventEmitter {
             noResponse = false;
         }
 
-        return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, path.substr(1), value, noResponse, (error, data) => {
-                if (error) return done(error);
+        return apiWrapper(resultsFn => {
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, path.substr(1), value, noResponse, resultsFn);
+        }, (data, done) => {
+            var asyncID = data[this.ASYNC_KEY];
+            if (this.handleNotifications && asyncID) {
+                this._asyncFns[asyncID] = done;
+                return;
+            }
 
-                var asyncID = data[this.ASYNC_KEY];
-                if (this.handleNotifications && asyncID) {
-                    this._asyncFns[asyncID] = done;
-                    return;
-                }
-
-                done(null, asyncID);
-            });
+            done(null, asyncID);
         }, callback);
     }
 
@@ -1077,18 +1062,16 @@ export class ConnectApi extends EventEmitter {
             noResponse = false;
         }
 
-        return asyncStyle(done => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, path, functionName, noResponse, (error, data) => {
-                if (error) return done(error);
+        return apiWrapper(resultsFn => {
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, path, functionName, noResponse, resultsFn);
+        }, (data, done) => {
+            var asyncID = data[this.ASYNC_KEY];
+            if (this.handleNotifications && asyncID) {
+                this._asyncFns[asyncID] = done;
+                return;
+            }
 
-                var asyncID = data[this.ASYNC_KEY];
-                if (this.handleNotifications && asyncID) {
-                    this._asyncFns[asyncID] = done;
-                    return;
-                }
-
-                done(null, asyncID);
-            });
+            done(null, asyncID);
         }, callback);
     }
 
@@ -1132,11 +1115,10 @@ export class ConnectApi extends EventEmitter {
      */
     public getResourceSubscription(deviceId: string, path: string, callback: CallbackFn<boolean>): void;
     public getResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<boolean>): Promise<boolean> {
-        return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathGet(deviceId, path, (error, data) => {
-                if (error) return done(error);
-                done(null, data);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathGet(deviceId, path, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -1190,23 +1172,21 @@ export class ConnectApi extends EventEmitter {
      */
     public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>, notifyFn?: Function): void;
     public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>, notifyFn?: Function): Promise<string> {
-        return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, path, (error, data) => {
-                if (error) return done(error);
+        return apiWrapper(resultsFn => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, path, resultsFn);
+        }, (data, done) => {
+            if (notifyFn) {
+                // Record the function at this path for notifications
+                this._notifyFns[deviceId + path] = notifyFn;
+            }
 
-                if (notifyFn) {
-                    // Record the function at this path for notifications
-                    this._notifyFns[deviceId + path] = notifyFn;
-                }
+            var asyncID = data[this.ASYNC_KEY];
+            if (this.handleNotifications && asyncID) {
+                this._asyncFns[asyncID] = done;
+                return;
+            }
 
-                var asyncID = data[this.ASYNC_KEY];
-                if (this.handleNotifications && asyncID) {
-                    this._asyncFns[asyncID] = done;
-                    return;
-                }
-
-                done(null, asyncID);
-            });
+            done(null, asyncID);
         }, callback);
     }
 
@@ -1254,21 +1234,19 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteResourceSubscription(deviceId: string, path: string, callback: CallbackFn<string>): void;
     public deleteResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>): Promise<string> {
-        return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, path, (error, data) => {
-                if (error) return done(error);
+        return apiWrapper(resultsFn => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, path, resultsFn);
+        }, (data, done) => {
+            // no-one is listening :(
+            delete this._notifyFns[deviceId + path];
 
-                // no-one is listening :(
-                delete this._notifyFns[deviceId + path];
+            var asyncID = data[this.ASYNC_KEY];
+            if (this.handleNotifications && asyncID) {
+                this._asyncFns[asyncID] = done;
+                return;
+            }
 
-                var asyncID = data[this.ASYNC_KEY];
-                if (this.handleNotifications && asyncID) {
-                    this._asyncFns[asyncID] = done;
-                    return;
-                }
-
-                done(null, asyncID);
-            });
+            done(null, asyncID);
         }, callback);
     }
 
@@ -1314,8 +1292,7 @@ export class ConnectApi extends EventEmitter {
      */
     public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback: CallbackFn<Array<Metric>>): void;
     public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
-        return asyncStyle(done => {
-
+        return apiWrapper(resultsFn => {
             function isPeriod(options: MetricsStartEndOptions | MetricsPeriodOptions): options is MetricsPeriodOptions {
                 return (<MetricsPeriodOptions>options).period !== undefined;
             }
@@ -1333,15 +1310,17 @@ export class ConnectApi extends EventEmitter {
                 end = options.end.toISOString();
             }
 
-            this._endpoints.account.v3MetricsGet(include, interval, "", start, end, period, (error, data) => {
-                if (error) return done(error);
+            this._endpoints.account.v3MetricsGet(include, interval, "", start, end, period, resultsFn);
+        }, (data, done) => {
+            let list: Metric[];
 
-                let list = data.data.map(metric => {
+            if (data.data && data.data.length) {
+                list = data.data.map(metric => {
                     return MetricAdapter.map(metric);
                 });
+            }
 
-                done(null, list);
-            });
+            done(null, list);
         }, callback);
     }
 
@@ -1387,8 +1366,7 @@ export class ConnectApi extends EventEmitter {
      */
     public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback: CallbackFn<Array<Metric>>): void;
     public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
-        return asyncStyle(done => {
-
+        return apiWrapper(resultsFn => {
             function isPeriod(options: MetricsStartEndOptions | MetricsPeriodOptions): options is MetricsPeriodOptions {
                 return (<MetricsPeriodOptions>options).period !== undefined;
             }
@@ -1406,15 +1384,17 @@ export class ConnectApi extends EventEmitter {
                 end = options.end.toISOString();
             }
 
-            this._endpoints.statistics.v3MetricsGet(include, interval, "", start, end, period, (error, data) => {
-                if (error) return done(error);
+            this._endpoints.statistics.v3MetricsGet(include, interval, "", start, end, period, resultsFn);
+        }, (data, done) => {
+            let list: Metric[];
 
-                let list = data.data.map(metric => {
+            if (data.data && data.data.length) {
+                list = data.data.map(metric => {
                     return MetricAdapter.map(metric);
                 });
+            }
 
-                done(null, list);
-            });
+            done(null, list);
         }, callback);
     }
 }

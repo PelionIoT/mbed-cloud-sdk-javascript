@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { asyncStyle, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
+import { apiWrapper, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
 import { ConnectionOptions, ListResponse, CallbackFn } from "../common/interfaces";
 import { AddFirmwareImageObject, AddFirmwareManifestObject, AddCampaignObject, UpdateCampaignObject, FirmwareImageListOptions, FirmwareManifestListOptions, CampaignListOptions } from "./types";
 import { FirmwareImage } from "./models/firmwareImage";
@@ -84,18 +84,18 @@ export class UpdateApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, order, after, include, filter } = options as FirmwareImageListOptions;
-
-            this._endpoints.firmware.firmwareImageList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let list = data.data.map(image => {
+            this._endpoints.firmware.firmwareImageList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
+        }, (data, done) => {
+            let list: FirmwareImage[];
+            if (data.data && data.data.length) {
+                list = data.data.map(image => {
                     return FirmwareImageAdapter.map(image, this);
                 });
+            }
 
-                done(null, mapListResponse<FirmwareImage>(data, list));
-            });
+            done(null, mapListResponse(data, list));
         }, callback);
     }
 
@@ -112,11 +112,10 @@ export class UpdateApi {
      */
     public getFirmwareImage(firmwareImageId: number, callback: CallbackFn<FirmwareImage>): void;
     public getFirmwareImage(firmwareImageId: number, callback?: CallbackFn<FirmwareImage>): Promise<FirmwareImage> {
-        return asyncStyle(done => {
-            this._endpoints.firmware.firmwareImageRetrieve(firmwareImageId, (error, data) => {
-                if (error) return done(error);
-                done(null, FirmwareImageAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.firmware.firmwareImageRetrieve(firmwareImageId, resultsFn);
+        }, (data, done) => {
+            done(null, FirmwareImageAdapter.map(data, this));
         }, callback);
     }
 
@@ -133,11 +132,10 @@ export class UpdateApi {
      */
     public addFirmwareImage(image: AddFirmwareImageObject, callback: CallbackFn<FirmwareImage>): void;
     public addFirmwareImage(image: AddFirmwareImageObject, callback?: CallbackFn<FirmwareImage>): Promise<FirmwareImage> {
-        return asyncStyle(done => {
-            this._endpoints.firmware.firmwareImageCreate(image.dataFile, image.name, image.description, (error, data) => {
-                if (error) return done(error);
-                done(null, FirmwareImageAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.firmware.firmwareImageCreate(image.dataFile, image.name, image.description, resultsFn);
+        }, (data, done) => {
+            done(null, FirmwareImageAdapter.map(data, this));
         }, callback);
     }
 
@@ -154,11 +152,10 @@ export class UpdateApi {
      */
     public deleteFirmwareImage(firmwareImageId: number, callback: CallbackFn<void>): void;
     public deleteFirmwareImage(firmwareImageId: number, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.firmware.firmwareImageDestroy(firmwareImageId, (error) => {
-                if (error) return done(error);
-                done(null, null);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.firmware.firmwareImageDestroy(firmwareImageId, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -181,18 +178,18 @@ export class UpdateApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, order, after, include, filter } = options as FirmwareManifestListOptions;
-
-            this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let list = data.data.map(log => {
+            this._endpoints.firmware.firmwareManifestList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
+        }, (data, done) => {
+            let list: FirmwareManifest[];
+            if (data.data && data.data.length) {
+                list = data.data.map(log => {
                     return FirmwareManifestAdapter.map(log, this);
                 });
+            }
 
-                done(null, mapListResponse<FirmwareManifest>(data, list));
-            });
+            done(null, mapListResponse(data, list));
         }, callback);
     }
 
@@ -209,11 +206,10 @@ export class UpdateApi {
      */
     public getFirmwareManifest(firmwareManifestId: number, callback: CallbackFn<FirmwareManifest>): void;
     public getFirmwareManifest(firmwareManifestId: number, callback?: CallbackFn<FirmwareManifest>): Promise<FirmwareManifest> {
-        return asyncStyle(done => {
-            this._endpoints.firmware.firmwareManifestRetrieve(firmwareManifestId, (error, data) => {
-                if (error) return done(error);
-                done(null, FirmwareManifestAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.firmware.firmwareManifestRetrieve(firmwareManifestId, resultsFn);
+        }, (data, done) => {
+            done(null, FirmwareManifestAdapter.map(data, this));
         }, callback);
     }
 
@@ -230,11 +226,10 @@ export class UpdateApi {
      */
     public addFirmwareManifest(manifest: AddFirmwareManifestObject, callback: CallbackFn<FirmwareManifest>): void;
     public addFirmwareManifest(manifest: AddFirmwareManifestObject, callback?: CallbackFn<FirmwareManifest>): Promise<FirmwareManifest> {
-        return asyncStyle(done => {
-            this._endpoints.firmware.firmwareManifestCreate(manifest.dataFile, manifest.name, manifest.description, (error, data) => {
-                if (error) return done(error);
-                done(null, FirmwareManifestAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.firmware.firmwareManifestCreate(manifest.dataFile, manifest.name, manifest.description, resultsFn);
+        }, (data, done) => {
+            done(null, FirmwareManifestAdapter.map(data, this));
         }, callback);
     }
 
@@ -251,11 +246,10 @@ export class UpdateApi {
      */
     public deleteFirmwareManifest(firmwareManifestId: number, callback: CallbackFn<void>): void;
     public deleteFirmwareManifest(firmwareManifestId: number, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.firmware.firmwareManifestDestroy(firmwareManifestId, (error) => {
-                if (error) return done(error);
-                done(null, null);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.firmware.firmwareManifestDestroy(firmwareManifestId, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -278,18 +272,18 @@ export class UpdateApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, order, after, include, filter } = options as CampaignListOptions;
-
-            this._endpoints.deployment.updateCampaignList(limit, order, after, encodeFilter(filter, Filters.CAMPAIGN_FILTER_MAP), encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let list = data.data.map(log => {
+            this._endpoints.deployment.updateCampaignList(limit, order, after, encodeFilter(filter, Filters.CAMPAIGN_FILTER_MAP), encodeInclude(include), resultsFn);
+        }, (data, done) => {
+            let list: Campaign[];
+            if (data.data && data.data.length) {
+                list = data.data.map(log => {
                     return CampaignAdapter.map(log, this);
                 });
+            }
 
-                done(null, mapListResponse<Campaign>(data, list));
-            });
+            done(null, mapListResponse(data, list));
         }, callback);
     }
 
@@ -306,11 +300,10 @@ export class UpdateApi {
      */
     public getCampaign(campaignId: string, callback: CallbackFn<Campaign>): void;
     public getCampaign(campaignId: string, callback?: CallbackFn<Campaign>): Promise<Campaign> {
-        return asyncStyle(done => {
-            this._endpoints.deployment.updateCampaignRetrieve(campaignId, (error, data) => {
-                if (error) return done(error);
-                done(null, CampaignAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.deployment.updateCampaignRetrieve(campaignId, resultsFn);
+        }, (data, done) => {
+            done(null, CampaignAdapter.map(data, this));
         }, callback);
     }
 
@@ -327,11 +320,10 @@ export class UpdateApi {
      */
     public addCampaign(campaign: AddCampaignObject, callback: CallbackFn<Campaign>): void;
     public addCampaign(campaign: AddCampaignObject, callback?: CallbackFn<Campaign>): Promise<Campaign> {
-        return asyncStyle(done => {
-            this._endpoints.deployment.updateCampaignCreate(CampaignAdapter.addMap(campaign), (error, data) => {
-                if (error) return done(error);
-                done(null, CampaignAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.deployment.updateCampaignCreate(CampaignAdapter.addMap(campaign), resultsFn);
+        }, (data, done) => {
+            done(null, CampaignAdapter.map(data, this));
         }, callback);
     }
 
@@ -348,13 +340,11 @@ export class UpdateApi {
      */
     public updateCampaign(campaign: UpdateCampaignObject, callback: CallbackFn<Campaign>): void;
     public updateCampaign(campaign: UpdateCampaignObject, callback?: CallbackFn<Campaign>): Promise<Campaign> {
-        return asyncStyle(done => {
-            this._endpoints.deployment.updateCampaignPartialUpdate(campaign.id, CampaignAdapter.updateMap(campaign), (error, data) => {
-                if (error) return done(error);
-
-                let response = CampaignAdapter.map(data, this);
-                done(null, response);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.deployment.updateCampaignPartialUpdate(campaign.id, CampaignAdapter.updateMap(campaign), resultsFn);
+        }, (data, done) => {
+            let response = CampaignAdapter.map(data, this);
+            done(null, response);
         }, callback);
     }
 
@@ -371,11 +361,10 @@ export class UpdateApi {
      */
     public deleteCampaign(campaignId: string, callback: CallbackFn<void>): void;
     public deleteCampaign(campaignId: string, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.deployment.updateCampaignDestroy(campaignId, (error) => {
-                if (error) return done(error);
-                done(null, null);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.deployment.updateCampaignDestroy(campaignId, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -392,14 +381,13 @@ export class UpdateApi {
      */
     public startCampaign(campaignId: string, callback: CallbackFn<Campaign>): void;
     public startCampaign(campaignId: string, callback?: CallbackFn<Campaign>): Promise<Campaign> {
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             this.updateCampaign({
                 id: campaignId,
                 state: "scheduled"
-            }, (error, data) => {
-                if (error) return done(error);
-                done(null, data);
-            });
+            }, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -416,14 +404,13 @@ export class UpdateApi {
      */
     public stopCampaign(campaignId: string, callback: CallbackFn<Campaign>): void;
     public stopCampaign(campaignId: string, callback?: CallbackFn<Campaign>): Promise<Campaign> {
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             this.updateCampaign({
                 id: campaignId,
                 state: "draft"
-            }, (error, data) => {
-                if (error) return done(error);
-                done(null, data);
-            });
+            }, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 }

@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { asyncStyle } from "../../common/functions";
+import { asyncStyle, apiWrapper } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { ListOptions } from "../../common/interfaces";
 import { UpdateUserObject, UserStatusEnum } from "../types";
@@ -98,16 +98,17 @@ export class User {
      */
     public listGroups(callback: CallbackFn<Array<Group>>): void;
     public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
-        return asyncStyle(done => {
-            this._api.listGroups((error, groups) => {
-                if (error) return done(error);
-
-                let userGroups = groups.filter(group => {
+        return apiWrapper(resultsFn => {
+            this._api.listGroups(resultsFn);
+        }, (data, done) => {
+            let groups = [];
+            if (data.data && data.data.length) {
+                groups = data.data.filter(group => {
                     return this.groups.indexOf(group.id) > -1;
                 });
+            }
 
-                done(null, userGroups);
-            });
+            done(null, groups);
         }, callback);
     }
 

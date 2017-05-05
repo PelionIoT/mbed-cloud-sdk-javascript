@@ -19,6 +19,7 @@ import { ListResponse, CallbackFn, ComparisonObject } from "./interfaces";
 import { SDKError } from "./sdkError";
 
 // Inspired by https://github.com/sonnyp/polygoat
+// If a callback is passed, use that after running the passed function, otherwise return a promise chain
 export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn?: CallbackFn<T>): Promise<T> {
     if (callbackFn) {
         try {
@@ -38,6 +39,32 @@ export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn
             }
         });
     }
+}
+
+// Wrap our functions to allow error catching
+// Wraps an api function call and optionally a data transformation function to allow a single point for trapping errors
+export function apiWrapper<T>(apiFn: (resultsFn: (error: any, data: any) => void) => void, transformFn?: (data: any, resultsFn: (error: SDKError, result: T) => void) => void, callbackFn?: CallbackFn<T>): Promise<T> {
+    // Use async style
+    return asyncStyle(done => {
+        try {
+            // Call the api function
+            apiFn((error, data) => {
+                if (error) return done(error);
+                if (!transformFn) return done(null, data);
+
+                try {
+                    // Call the transformation function
+                    transformFn(data, done);
+                } catch(error) {
+                    // Catch any errors when transforming the returned data
+                    done(new SDKError(error.message, error));
+                }
+            });
+        } catch(error) {
+            // Catch any errors when running api calls
+            done(new SDKError(error.message, error));
+        }
+    }, callbackFn);
 }
 
 export function decodeBase64(payload, contentType) {
