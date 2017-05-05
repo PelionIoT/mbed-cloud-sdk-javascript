@@ -274,7 +274,6 @@ export interface QueryObject {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustClass?: ComparisonObject<string>;
         trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
@@ -342,7 +341,6 @@ export interface DeviceListOptions extends ListOptions {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustClass?: ComparisonObject<string>;
         trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;

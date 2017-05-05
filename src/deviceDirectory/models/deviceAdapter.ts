@@ -47,7 +47,6 @@ export class DeviceAdapter {
             name:                              from.name,
             serialNumber:                      from.serial_number,
             state:                             from.state,
-            trustClass:                        from.trust_class,
             trustLevel:                        from.trust_level,
             updatedAt:                         from.updated_at,
             vendorId:                          from.vendor_id,

@@ -53,7 +53,7 @@ export interface AddFirmwareManifestObject extends FirmwareManifestObject {
     dataFile: string;
 }
 
-export type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export interface CampaignObject {
     /**
      * A name for this campaign
@@ -113,7 +113,6 @@ export interface CampaignObject {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustClass?: ComparisonObject<string>;
         trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
