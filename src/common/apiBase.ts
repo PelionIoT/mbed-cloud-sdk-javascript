@@ -104,10 +104,6 @@ export class ApiBase {
                 var data = null;
                 if (response && !sdkError) {
                     data = response.body || response.text;
-
-                    if (data.object && data.object === "error") {
-                        sdkError = new SDKError(data.message, null, data, data.code);
-                    }
                 }
 
                 callback(sdkError, data, response);

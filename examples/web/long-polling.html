@@ -57,10 +57,10 @@
             }
 
             connect.listConnectedDevices(function(error, response) {
-                if (!error) {
-                    if (response.length == 0) headerEl.innerText = "No Devices Found";
-                    else completeFn(response[0]);
-                }
+                if (error) return alert(error.message);
+
+                if (response.length == 0) headerEl.innerText = "No Devices Found";
+                else completeFn(response[0]);
             });
         }
 

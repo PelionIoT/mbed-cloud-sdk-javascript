@@ -94,6 +94,15 @@
                         }, function(error, response) {
                             if (error) return alert(error.message);
 
+                            if (response.data.length === 0) {
+                                var value = "No devices found";
+                                var devicesRow = queriesEl.insertRow(queryRow.rowIndex);
+                                buildElement("td", "&nbsp;", devicesRow);
+                                var deviceCell = buildElement("td", value, devicesRow);
+                                devicesRows.push(devicesRow);
+                                deviceCell.colSpan = "2"
+                            }
+
                             response.data.forEach(function(device) {
 
                                 // Build UI
@@ -123,7 +132,7 @@
 
                     // Edit query
                     editBtn.addEventListener("click", function() {
-                        var state = window.prompt("Enter a new state for the query filter", query.filter.state.$eq || "bootstrapped");
+                        var state = window.prompt("Enter a new state for the filter (unenrolled, cloud_enrolling, bootstrapped, registered, deregistered)", query.filter.state.$eq || "bootstrapped");
                         if (!state) return;
 
                         devices.updateQuery({
@@ -159,7 +168,7 @@
             var name = window.prompt("Enter a name for the query", "myQuery");
             if (!name) return;
 
-            var state = window.prompt("Enter a state to filter on", "bootstrapped");
+            var state = window.prompt("Enter a state to filter on (unenrolled, cloud_enrolling, bootstrapped, registered, deregistered)", "bootstrapped");
             if (!state) return;
 
             devices.addQuery({
