@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { asyncStyle, mapListResponse, encodeInclude } from "../common/functions";
+import { apiWrapper, mapListResponse, encodeInclude } from "../common/functions";
 import { ConnectionOptions, CallbackFn, ListOptions, ListResponse } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
 import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions } from "./types";
@@ -77,11 +77,10 @@ export class AccountManagementApi {
      */
     public getAccount(callback: CallbackFn<Account>): void;
     public getAccount(callback?: CallbackFn<Account>): Promise<Account> {
-        return asyncStyle(done => {
-            this._endpoints.developer.getMyAccountInfo("limits, policies", (error, data) => {
-                if (error) return done(error);
-                done(null, AccountAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.developer.getMyAccountInfo("limits, policies", resultsFn);
+        }, (data, done) => {
+            done(null, AccountAdapter.map(data, this));
         }, callback);
     }
 
@@ -98,11 +97,10 @@ export class AccountManagementApi {
      */
     public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>): void;
     public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>): Promise<Account> {
-        return asyncStyle(done => {
-            this._endpoints.admin.updateMyAccount(AccountAdapter.reverseMap(account), (error, data) => {
-                if (error) return done(error);
-                done(null, AccountAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.admin.updateMyAccount(AccountAdapter.reverseMap(account), resultsFn);
+        }, (data, done) => {
+            done(null, AccountAdapter.map(data, this));
         }, callback);
     }
 
@@ -125,17 +123,18 @@ export class AccountManagementApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, after, order, include, owner } = options as ApiKeyListOptions;
-
-            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), owner, (error, data) => {
-                if (error) return done(error);
-
-                var keys = data.data.map(key => {
+            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), owner, resultsFn);
+        }, (data, done) => {
+            let keys: ApiKey[];
+            if (data && data.data && data.data.length) {
+                keys = data.data.map(key => {
                     return ApiKeyAdapter.map(key, this);
                 });
-                done(null, mapListResponse(data, keys));
-            });
+            }
+
+            done(null, mapListResponse(data, keys));
         }, callback);
     }
 
@@ -157,18 +156,11 @@ export class AccountManagementApi {
             apiKeyId = null;
         }
 
-        return asyncStyle(done => {
-            if (apiKeyId) {
-                this._endpoints.developer.getApiKey(apiKeyId, (error, data) => {
-                    if (error) return done(error);
-                    done(null, ApiKeyAdapter.map(data, this));
-                });
-            } else {
-                this._endpoints.developer.getMyApiKey((error, data) => {
-                    if (error) return done(error);
-                    done(null, ApiKeyAdapter.map(data, this));
-                });
-            }
+        return apiWrapper(resultsFn => {
+            if (apiKeyId) this._endpoints.developer.getApiKey(apiKeyId, resultsFn);
+            else this._endpoints.developer.getMyApiKey(resultsFn);
+        }, (data, done) => {
+            done(null, ApiKeyAdapter.map(data, this));
         }, callback);
     }
 
@@ -185,13 +177,10 @@ export class AccountManagementApi {
      */
     public addApiKey(apiKey: AddApiKeyObject, callback: CallbackFn<ApiKey>): void;
     public addApiKey(apiKey: AddApiKeyObject, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
-        return asyncStyle(done => {
-            this._endpoints.developer.createApiKey(ApiKeyAdapter.addMap(apiKey), (error, data) => {
-                if (error) return done(error);
-
-                let key = ApiKeyAdapter.map(data, this);
-                done(null, key);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.developer.createApiKey(ApiKeyAdapter.addMap(apiKey), resultsFn);
+        }, (data, done) => {
+            done(null, ApiKeyAdapter.map(data, this));
         }, callback);
     }
 
@@ -208,11 +197,10 @@ export class AccountManagementApi {
      */
     public updateApiKey(apiKey: UpdateApiKeyObject, callback: CallbackFn<ApiKey>): void;
     public updateApiKey(apiKey: UpdateApiKeyObject, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
-        return asyncStyle(done => {
-            this._endpoints.developer.updateApiKey(apiKey.id, ApiKeyAdapter.updateMap(apiKey), (error, data) => {
-                if (error) return done(error);
-                done(null, ApiKeyAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.developer.updateApiKey(apiKey.id, ApiKeyAdapter.updateMap(apiKey), resultsFn);
+        }, (data, done) => {
+            done(null, ApiKeyAdapter.map(data, this));
         }, callback);
     }
 
@@ -229,11 +217,10 @@ export class AccountManagementApi {
      */
     public deleteApiKey(apiKeyId: string, callback: CallbackFn<void>): void;
     public deleteApiKey(apiKeyId: string, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.developer.deleteApiKey(apiKeyId, (error, data) => {
-                if (error) return done(error);
-                done(null, data);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.developer.deleteApiKey(apiKeyId, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -256,18 +243,18 @@ export class AccountManagementApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, after, order, include, status } = options as UserListOptions;
-
-            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), status, (error, data) => {
-                if (error) return done(error);
-
-                let users = data.data.map(user => {
+            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), status, resultsFn);
+        }, (data, done) => {
+            let users: User[];
+            if (data.data && data.data.length) {
+                users = data.data.map(user => {
                     return UserAdapter.map(user, this);
                 });
+            }
 
-                done(null, mapListResponse(data, users));
-            });
+            done(null, mapListResponse(data, users));
         }, callback);
     }
 
@@ -284,11 +271,10 @@ export class AccountManagementApi {
      */
     public getUser(userId: string, callback: CallbackFn<User>): void;
     public getUser(userId: string, callback?: CallbackFn<User>): Promise<User> {
-        return asyncStyle(done => {
-            this._endpoints.admin.getUser(userId, (error, data) => {
-                if (error) return done(error);
-                done(null, UserAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.admin.getUser(userId, resultsFn);
+        }, (data, done) => {
+            done(null, UserAdapter.map(data, this));
         }, callback);
     }
 
@@ -305,11 +291,10 @@ export class AccountManagementApi {
      */
     public addUser(user: AddUserObject, callback: CallbackFn<User>): void;
     public addUser(user: AddUserObject, callback?: CallbackFn<User>): Promise<User> {
-        return asyncStyle(done => {
-            this._endpoints.admin.createUser(UserAdapter.addMap(user), "create", (error, data) => {
-                if (error) return done(error);
-                done(null, UserAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.admin.createUser(UserAdapter.addMap(user), "create", resultsFn);
+        }, (data, done) => {
+            done(null, UserAdapter.map(data, this));
         }, callback);
     }
 
@@ -326,11 +311,10 @@ export class AccountManagementApi {
      */
     public updateUser(user: UpdateUserObject, callback: CallbackFn<User>): void;
     public updateUser(user: UpdateUserObject, callback?: CallbackFn<User>): Promise<User> {
-        return asyncStyle(done => {
-            this._endpoints.admin.updateUser(user.id, UserAdapter.updateMap(user), (error, data) => {
-                if (error) return done(error);
-                done(null, UserAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.admin.updateUser(user.id, UserAdapter.updateMap(user), resultsFn);
+        }, (data, done) => {
+            done(null, UserAdapter.map(data, this));
         }, callback);
     }
 
@@ -347,11 +331,10 @@ export class AccountManagementApi {
      */
     public deleteUser(userId: string, callback: CallbackFn<void>): void;
     public deleteUser(userId: string, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            this._endpoints.admin.deleteUser(userId, (error, data) => {
-                if (error) return done(error);
-                done(null, data);
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.admin.deleteUser(userId, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -374,18 +357,18 @@ export class AccountManagementApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, after, order, include } = options as ListOptions;
-
-            this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let groups = data.data.map(group => {
+            this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), resultsFn);
+        }, (data, done) => {
+            let groups: Group[];
+            if (data.data && data.data.length) {
+                groups = data.data.map(group => {
                     return GroupAdapter.map(group, this);
                 });
+            }
 
-                done(null, mapListResponse(data, groups));
-            });
+            done(null, mapListResponse(data, groups));
         }, callback);
     }
 
@@ -402,11 +385,10 @@ export class AccountManagementApi {
      */
     public getGroup(groupId: string, callback: CallbackFn<Group>): void;
     public getGroup(groupId: string, callback?: CallbackFn<Group>): Promise<Group> {
-        return asyncStyle(done => {
-            this._endpoints.developer.getGroupSummary(groupId, (error, data) => {
-                if (error) return done(error);
-                done(null, GroupAdapter.map(data, this));
-            });
+        return apiWrapper(resultsFn => {
+            this._endpoints.developer.getGroupSummary(groupId, resultsFn);
+        }, (data, done) => {
+            done(null, GroupAdapter.map(data, this));
         }, callback);
     }
 
@@ -431,18 +413,18 @@ export class AccountManagementApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, after, order, include } = options as ListOptions;
-
-            this._endpoints.admin.getUsersOfGroup(groupId, limit, after, order, encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let users = data.data.map(user => {
+            this._endpoints.admin.getUsersOfGroup(groupId, limit, after, order, encodeInclude(include), resultsFn);
+        }, (data, done) => {
+            let users: User[];
+            if (data.data && data.data.length) {
+                users = data.data.map(user => {
                     return UserAdapter.map(user, this);
                 });
+            }
 
-                done(null, mapListResponse(data, users));
-            });
+            done(null, mapListResponse(data, users));
         }, callback);
     }
 
@@ -467,18 +449,18 @@ export class AccountManagementApi {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return apiWrapper(resultsFn => {
             let { limit, after, order, include } = options as ListOptions;
-
-            this._endpoints.developer.getApiKeysOfGroup(groupId, limit, after, order, encodeInclude(include), (error, data) => {
-                if (error) return done(error);
-
-                let users = data.data.map(user => {
-                    return ApiKeyAdapter.map(user, this);
+            this._endpoints.developer.getApiKeysOfGroup(groupId, limit, after, order, encodeInclude(include), resultsFn);
+        }, (data, done) => {
+            let keys: ApiKey[];
+            if (data.data && data.data.length) {
+                keys = data.data.map(key => {
+                    return ApiKeyAdapter.map(key, this);
                 });
+            }
 
-                done(null, mapListResponse(data, users));
-            });
+            done(null, mapListResponse(data, keys));
         }, callback);
     }
 }

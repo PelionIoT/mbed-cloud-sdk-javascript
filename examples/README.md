@@ -2,11 +2,13 @@
 
 These examples are designed to give developers a headstart with developing with the mbed Cloud JavaScript SDK.
 
-They can be used as basis for a solution or simply to understand how a feature is used.
+They can be used as a basis for a solution or simply to understand how a feature is used.
 
 Refer to the [Node.js](#node.js) section for command-line or server-based examples written using [Node.js](https://nodejs.org).
 
 Refer to the [Web](#web) section for examples of using the JavaScript browser bundles in a [single page web application](https://en.wikipedia.org/wiki/Single-page_application).
+
+The [Proxy](#proxy) section describes how a thin server can be used to inject an API key into a browser-based application, keeping the API key secret.
 
 ## Node.js
 
@@ -82,7 +84,7 @@ __Note:__ mbed Cloud is protected with [Cross-origin resource sharing](https://e
 
 ### API Keys
 
-These examples utilise a [config.js](web/config.js) file which can read an API Key (and optionally a host) from the query string or from the file itself.
+These examples utilise a [config.js](web/config.js) file which can read an API Key (and optionally a host) from a cookie, the query string or from the file itself.
 
 To use the query string, pass your API key to the page being run. e.g.:
 
@@ -98,7 +100,7 @@ https://www.yourserver.com/<example.html>?apiKey=<mbed Cloud API Key>
 
 You can also simply edit the [config.js](web/config.js) file and add your key.
 
-__Note:__ Your API Key will be publicly visible in your web application. When creating single page web applications, use this method only during development or with a read-only key with access to public data. An intermediate server to handle requests is recommended for production.
+__Warning:__ Your API Key will be publicly visible in your web application. When creating single page web applications, use this method only during development or with a read-only key with access to public data. An intermediate server to handle requests is recommended for production. This can be done by injecting the API key on the fly (see [Proxy](#proxy)).
 
 ### Examples
 
@@ -122,3 +124,17 @@ __Note:__ Your API Key will be publicly visible in your web application. When cr
 * __Statistics__ [statistics.html](web/statistics.html)
 
   This example renders statistics.
+
+## Proxy
+
+The [proxy folder](proxy/) contains a sample project showing how API calls to mbed Cloud can be proxied to allow injection of an API key header. This enables the production of a single-page web application using the minified JavaScript bundles _without_ the API key being used being visible to the client.
+
+To start the proxy server, run the npm start command from the root of the project:
+
+```bash
+> npm start
+```
+
+An express server should now be running at [http://localhost:8080](http://localhost:8080) which allows you to `log in` with your API key. This is simply stored as a cookie and injected into the headers of subsequent API calls.
+
+Once you are `logged in`, you should have access to running each of the web examples without having to explictly set the API key in the config file.

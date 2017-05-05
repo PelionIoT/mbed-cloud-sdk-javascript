@@ -84,6 +84,10 @@ app.use(apiPath, (req, res, next) => {
         Object.keys(response.headers).forEach(header => {
             res.set(header, response.headers[header]);
         });
+
+        res.statusCode = response.statusCode;
+        res.statusMessage = response.statusMessage;
+
         response.pipe(res, {
             end: true
         });

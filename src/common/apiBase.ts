@@ -84,11 +84,6 @@ export class ApiBase {
 
         request.end(function(error, response) {
             if (callback) {
-                var data = null;
-
-                if (response && !error) {
-                    data = response.body || response.text;
-                }
 
                 var sdkError = null;
                 if (error) {
@@ -104,6 +99,11 @@ export class ApiBase {
                     }
 
                     sdkError = new SDKError(message, innerError, details, error.status);
+                }
+
+                var data = null;
+                if (response && !sdkError) {
+                    data = response.body || response.text;
                 }
 
                 callback(sdkError, data, response);
