@@ -7,6 +7,10 @@
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ARMmbed/mbed-cloud-sdk-javascript.git"
+  },
   "keywords": [
     "mbed",
     "SDK"
@@ -33,7 +37,7 @@
     "gulp-typescript": "^3.1.4",
     "gulp-uglify": "^2.0.1",
     "merge2": "^1.0.3",
-    "typedoc": "thegecko/typedoc#release",
+    "typedoc": "^0.6.0",
     "typescript": "^2.1.5"
   },
   "dependencies": {

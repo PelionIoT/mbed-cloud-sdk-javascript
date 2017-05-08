@@ -70,13 +70,17 @@ export class ApiBase {
                 request.type("application/x-www-form-urlencoded");
                 request.send(ApiBase.normalizeParams(options.formParams));
             }
-        } else if (options.body) {
+        } else if(options.body) {
+
             body = options.body;
-            if (options.json && body === Object(body)) {
-                body = Object.keys(body).reduce((val, key) => {
-                    if(body[key] !== null && body[key] !== undefined) val[key] = body[key];
-                    return val;
-                }, {});
+
+            if (options.json) {
+                if (body.constructor === {}.constructor) {
+                    body = Object.keys(body).reduce((val, key) => {
+                        if(body[key] !== null && body[key] !== undefined) val[key] = body[key];
+                        return val;
+                    }, {});
+                }
             }
 
             request.send(body);
