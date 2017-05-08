@@ -25,46 +25,156 @@ export type DeviceDataMechanismEnum = "connector" | "direct";
 export type DeviceDataStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 export type DeviceDataDeployedStateEnum = "development" | "production";
 export interface DeviceData {
+    /**
+     * Expiration date of the certificate used to connect to bootstrap server.
+     */
     "bootstrap_expiration_date"?: Date;
+    /**
+     * Timestamp of when the device was bootstrapped.
+     */
     "bootstrapped_timestamp"?: Date;
+    /**
+     * Expiration date of the certificate used to connect to connector server.
+     */
     "connector_expiration_date"?: Date;
+    /**
+     * The time the object was updated.
+     */
     "updated_at"?: Date;
+    /**
+     * The ID of the channel used to communicate with the device.
+     */
     "mechanism"?: DeviceDataMechanismEnum;
+    /**
+     * The device class.
+     */
     "device_class"?: string;
+    /**
+     * The ID of the device.
+     */
     "id"?: string;
+    /**
+     * The owning IAM account ID.
+     */
     "account_id"?: string;
+    /**
+     * The endpoint name given to the device.
+     */
     "endpoint_name"?: string;
+    /**
+     * Mark this device for auto firmware update.
+     */
     "auto_update"?: boolean;
+    /**
+     * Defines the type of certificate used.
+     */
     "device_execution_mode"?: number;
+    /**
+     * Up to 5 custom JSON attributes
+     */
     "custom_attributes"?: any;
+    /**
+     * The current state of the device.
+     */
     "state"?: DeviceDataStateEnum;
+    /**
+     * The entity instance signature.
+     */
     "etag"?: Date;
+    /**
+     * The serial number of the device.
+     */
     "serial_number"?: string;
+    /**
+     * The SHA256 checksum of the current firmware image.
+     */
     "firmware_checksum"?: string;
+    /**
+     * The timestamp of the current manifest version.
+     */
     "manifest_timestamp"?: Date;
+    /**
+     * The device vendor ID.
+     */
     "vendor_id"?: string;
+    /**
+     * The description of the object.
+     */
     "description"?: string;
+    /**
+     * DEPRECATED The state of the device's deployment.
+     */
     "deployed_state"?: DeviceDataDeployedStateEnum;
+    /**
+     * The API resource entity.
+     */
     "object"?: string;
-    "trust_class"?: number;
+    /**
+     * DEPRECATED The last deployment used on the device.
+     */
     "deployment"?: string;
+    /**
+     * The address of the connector to use.
+     */
     "mechanism_url"?: string;
+    /**
+     * The device trust level.
+     */
     "trust_level"?: number;
+    /**
+     * The name of the object.
+     */
     "name"?: string;
+    /**
+     * Fingerprint of the device certificate.
+     */
     "device_key"?: string;
+    /**
+     * The time the object was created.
+     */
     "created_at"?: Date;
+    /**
+     * DEPRECATED The URL for the current device manifest.
+     */
     "manifest"?: string;
+    /**
+     * ID of the issuer of the certificate.
+     */
     "ca_id"?: string;
 }
 
 export interface DeviceDataPatchRequest {
+    /**
+     * The description of the object.
+     */
     "description"?: string;
+    /**
+     * The endpoint name given to the device.
+     */
     "endpoint_name"?: string;
+    /**
+     * Mark this device for auto firmware update.
+     */
     "auto_update"?: boolean;
+    /**
+     * The API resource entity.
+     */
     "object"?: string;
+    /**
+     * Up to 5 custom JSON attributes
+     */
     "custom_attributes"?: any;
+    /**
+     * Fingerprint of the device certificate.
+     */
     "device_key"?: string;
+    /**
+     * ID of the issuer of the certificate.
+     */
     "ca_id"?: string;
+    /**
+     * The name of the object.
+     */
     "name"?: string;
 }
 
@@ -72,39 +182,132 @@ export type DeviceDataPostRequestMechanismEnum = "connector" | "direct";
 export type DeviceDataPostRequestStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 export type DeviceDataPostRequestDeployedStateEnum = "development" | "production";
 export interface DeviceDataPostRequest {
+    /**
+     * Expiration date of the certificate used to connect to bootstrap server.
+     */
     "bootstrap_expiration_date"?: Date;
+    /**
+     * Timestamp of when the device was bootstrapped.
+     */
     "bootstrapped_timestamp"?: Date;
+    /**
+     * Expiration date of the certificate used to connect to connector server.
+     */
     "connector_expiration_date"?: Date;
+    /**
+     * The ID of the channel used to communicate with the device.
+     */
     "mechanism"?: DeviceDataPostRequestMechanismEnum;
+    /**
+     * The device class.
+     */
     "device_class"?: string;
+    /**
+     * The endpoint name given to the device.
+     */
     "endpoint_name"?: string;
+    /**
+     * Mark this device for auto firmware update.
+     */
     "auto_update"?: boolean;
+    /**
+     * Defines the type of certificate used.
+     */
     "device_execution_mode"?: number;
+    /**
+     * Up to 5 custom JSON attributes
+     */
     "custom_attributes"?: any;
+    /**
+     * The current state of the device.
+     */
     "state"?: DeviceDataPostRequestStateEnum;
+    /**
+     * The serial number of the device.
+     */
     "serial_number"?: string;
+    /**
+     * The SHA256 checksum of the current firmware image.
+     */
     "firmware_checksum"?: string;
+    /**
+     * The device vendor ID.
+     */
     "vendor_id"?: string;
+    /**
+     * The description of the object.
+     */
     "description"?: string;
+    /**
+     * DEPRECATED The state of the device's deployment.
+     */
     "deployed_state"?: DeviceDataPostRequestDeployedStateEnum;
+    /**
+     * The API resource entity.
+     */
     "object"?: string;
+    /**
+     * DEPRECATED The last deployment used on the device.
+     */
     "deployment"?: string;
+    /**
+     * The address of the connector to use.
+     */
     "mechanism_url"?: string;
+    /**
+     * The device trust level.
+     */
     "trust_level"?: number;
+    /**
+     * The name of the object.
+     */
     "name"?: string;
+    /**
+     * Fingerprint of the device certificate.
+     */
     "device_key": string;
+    /**
+     * DEPRECATED The URL for the current device manifest.
+     */
     "manifest"?: string;
+    /**
+     * ID of the issuer of the certificate.
+     */
     "ca_id": string;
 }
 
 export interface DeviceDataPutRequest {
+    /**
+     * The description of the object.
+     */
     "description"?: string;
+    /**
+     * The endpoint name given to the device.
+     */
     "endpoint_name"?: string;
+    /**
+     * Mark this device for auto firmware update.
+     */
     "auto_update"?: boolean;
+    /**
+     * The API resource entity.
+     */
     "object"?: string;
+    /**
+     * Up to 5 custom JSON attributes
+     */
     "custom_attributes"?: any;
+    /**
+     * Fingerprint of the device certificate.
+     */
     "device_key": string;
+    /**
+     * ID of the issuer of the certificate.
+     */
     "ca_id": string;
+    /**
+     * The name of the object.
+     */
     "name"?: string;
 }
 

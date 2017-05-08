@@ -42,10 +42,6 @@ export class Device {
      */
     readonly updatedAt?: Date;
     /**
-     * The device trust class
-     */
-    readonly trustClass?: number;
-    /**
      * The timestamp of the current manifest version
      */
     readonly manifestTimestamp?: Date;
