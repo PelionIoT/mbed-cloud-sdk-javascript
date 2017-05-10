@@ -90,7 +90,7 @@ export interface DeviceQueryPostPutRequest {
 export class DefaultApi extends ApiBase {
 
     /** 
-     * Create device query
+     * Create device query.
      * @param device 
      */
     deviceQueryCreate (device: DeviceQueryPostPutRequest, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -121,7 +121,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Delete device query
+     * Delete device query.
      * @param queryId 
      */
     deviceQueryDestroy (queryId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -193,7 +193,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Update device query fields
+     * Update device query fields.
      * @param queryId 
      * @param deviceQuery 
      */
@@ -232,7 +232,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Retrieve device query
+     * Retrieve device query.
      * @param queryId 
      */
     deviceQueryRetrieve (queryId: string, callback?: (error:any, data?:DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -262,7 +262,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Update device query
+     * Update device query.
      * @param queryId 
      * @param body Device query update object.
      */
