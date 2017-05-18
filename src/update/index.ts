@@ -120,13 +120,81 @@ export class UpdateApi {
     }
 
     /**
-     * Adds a firmware image
+     * Adds a firmware image, returning a Promise
+     *
+     * Example (Node.js):
+     * ```JavaScript
+     * var fs = require("fs");
+     * ...
+     * update.addFirmwareImage({
+     *     name: "<FirmwareImage name>",
+     *     dataFile: fs.createReadStream("<FirmwareImage file path>")
+     * })
+     * .then(image => {
+     *     console.log(image.url);
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * Example (browser):
+     * ```JavaScript
+     * <input type="file" id="file">
+     * ...
+     * document.getElementById("file").addEventListener("change", event => {
+     *     let file = event.target.files[0];
+     *
+     *     updateApi.addFirmwareImage({
+     *         name: file.name,
+     *         dataFile: file
+     *     })
+     *     .then(image => {
+     *         alert(image.url);
+     *     })
+     *     .catch(error => {
+     *         console.log(error);
+     *     });
+     * });
+     * ```
+     *
      * @param image The image to add
      * @returns Promise containing firmware image
      */
     public addFirmwareImage(image: AddFirmwareImageObject): Promise<FirmwareImage>;
     /**
-     * Adds a firmware image
+     * Adds a firmware image, using a callback function
+     *
+     * Example (Node.js):
+     * ```JavaScript
+     * var fs = require("fs");
+     * ...
+     * update.addFirmwareImage({
+     *     name: "<FirmwareImage name>",
+     *     dataFile: fs.createReadStream("<FirmwareImage file path>")
+     * }, function(error, image) {
+     *     if (error) return console.log(error);
+     *     console.log(image.url);
+     * });
+     * ```
+     *
+     * Example (browser):
+     * ```JavaScript
+     * <input type="file" id="file">
+     * ...
+     * document.getElementById("file").addEventListener("change", function(event) {
+     *     var file = event.target.files[0];
+     *
+     *     updateApi.addFirmwareImage({
+     *         name: file.name,
+     *         dataFile: file
+     *     }, function(error, image) {
+     *         if (error) return console.log(error);
+     *         console.log(image.url);
+     *     });
+     * });
+     * ```
+     *
      * @param image The image to add
      * @param callback A function that is passed the return arguments (error, firmware image)
      */
@@ -214,13 +282,81 @@ export class UpdateApi {
     }
 
     /**
-     * Adds a firmware manifest
+     * Adds a firmware manifest, returning a Promise
+     *
+     * Example (Node.js):
+     * ```JavaScript
+     * var fs = require("fs");
+     * ...
+     * update.addFirmwareManifest({
+     *     name: "<FirmwareManifest name>",
+     *     dataFile: fs.createReadStream("<FirmwareManifest file path>")
+     * })
+     * .then(manifest => {
+     *     console.log(manifest.url);
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * Example (browser):
+     * ```JavaScript
+     * <input type="file" id="file">
+     * ...
+     * document.getElementById("file").addEventListener("change", event => {
+     *     let file = event.target.files[0];
+     *
+     *     updateApi.addFirmwareManifest({
+     *         name: file.name,
+     *         dataFile: file
+     *     })
+     *     .then(manifest => {
+     *         alert(manifest.url);
+     *     })
+     *     .catch(error => {
+     *         console.log(error);
+     *     });
+     * });
+     * ```
+     *
      * @param manifest The manifest to add
      * @returns Promise containing firmware manifest
      */
     public addFirmwareManifest(manifest: AddFirmwareManifestObject): Promise<FirmwareManifest>;
     /**
-     * Adds a firmware manifest
+     * Adds a firmware manifest, using a callback function
+     *
+     * Example (Node.js):
+     * ```JavaScript
+     * var fs = require("fs");
+     * ...
+     * update.addFirmwareManifest({
+     *     name: "<FirmwareManifest name>",
+     *     dataFile: fs.createReadStream("<FirmwareManifest file path>")
+     * }, function(error, manifest) {
+     *     if (error) return console.log(error);
+     *     console.log(manifest.url);
+     * });
+     * ```
+     *
+     * Example (browser):
+     * ```JavaScript
+     * <input type="file" id="file">
+     * ...
+     * document.getElementById("file").addEventListener("change", function(event) {
+     *     var file = event.target.files[0];
+     *
+     *     updateApi.addFirmwareManifest({
+     *         name: file.name,
+     *         dataFile: file
+     *     }, function(error, manifest) {
+     *         if (error) return console.log(error);
+     *         console.log(manifest.url);
+     *     });
+     * });
+     * ```
+     *
      * @param manifest The manifest to add
      * @param callback A function that is passed the return arguments (error, firmware manifest)
      */
