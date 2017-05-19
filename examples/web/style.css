@@ -31,7 +31,8 @@ textarea {
 
 button,
 input[type="button"],
-input[type="submit"] {
+input[type="submit"],
+.button {
     color: #FFF;
     background-color: #33C3F0;
     border-color: #33C3F0;
@@ -40,9 +41,11 @@ input[type="submit"] {
 button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover,
+.button:hover,
 button:focus,
 input[type="button"]:focus,
-input[type="submit"]:focus {
+input[type="submit"]:focus,
+.button:focus {
     color: #FFF;
     background-color: #1EAEDB;
     border-color: #1EAEDB;
@@ -76,6 +79,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 table {
+    max-width: 80%;
     margin: 10px auto;
 }
 

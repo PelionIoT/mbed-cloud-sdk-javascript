@@ -212,14 +212,14 @@ export class UpdateApi {
      * @param firmwareImageId The ID of the firmware image to delete
      * @returns Promise containing any error
      */
-    public deleteFirmwareImage(firmwareImageId: number): Promise<void>;
+    public deleteFirmwareImage(firmwareImageId: string): Promise<void>;
     /**
      * Deletes a firmware image
      * @param firmwareImageId The ID of the firmware image to delete
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteFirmwareImage(firmwareImageId: number, callback: CallbackFn<void>): void;
-    public deleteFirmwareImage(firmwareImageId: number, callback?: CallbackFn<void>): Promise<void> {
+    public deleteFirmwareImage(firmwareImageId: string, callback: CallbackFn<void>): void;
+    public deleteFirmwareImage(firmwareImageId: string, callback?: CallbackFn<void>): Promise<void> {
         return apiWrapper(resultsFn => {
             this._endpoints.firmware.firmwareImageDestroy(firmwareImageId, resultsFn);
         }, (data, done) => {
@@ -374,14 +374,14 @@ export class UpdateApi {
      * @param firmwareManifestId The ID of the firmware manifest to delete
      * @returns Promise containing any error
      */
-    public deleteFirmwareManifest(firmwareManifestId: number): Promise<void>;
+    public deleteFirmwareManifest(firmwareManifestId: string): Promise<void>;
     /**
      * Deletes a firmware manifest
      * @param firmwareManifestId The ID of the firmware manifest to delete
      * @param callback A function that is passed the return arguments (error, void)
      */
-    public deleteFirmwareManifest(firmwareManifestId: number, callback: CallbackFn<void>): void;
-    public deleteFirmwareManifest(firmwareManifestId: number, callback?: CallbackFn<void>): Promise<void> {
+    public deleteFirmwareManifest(firmwareManifestId: string, callback: CallbackFn<void>): void;
+    public deleteFirmwareManifest(firmwareManifestId: string, callback?: CallbackFn<void>): Promise<void> {
         return apiWrapper(resultsFn => {
             this._endpoints.firmware.firmwareManifestDestroy(firmwareManifestId, resultsFn);
         }, (data, done) => {
