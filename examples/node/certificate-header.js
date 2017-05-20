@@ -15,17 +15,22 @@
 * limitations under the License.
 */
 
-var fs = require('fs');
-var path = require('path');
-var readline = require('readline');
+var fs = require("fs");
+var path = require("path");
+var readline = require("readline");
 
-var mbedCloudSDK = require('../../lib/');
-var config = require('./config');
+var mbedCloudSDK = require("../../index");
+var config = require("./config");
 
 var outputFile = "header.h";
 var certificateName = "test-certificate";
 
 var certificates = new mbedCloudSDK.CertificatesApi(config);
+
+function logError(error) {
+    console.log(error.message || error);
+    process.exit();
+}
 
 function ensureDirectory(directory) {
     var dirName = path.dirname(directory);
@@ -36,60 +41,49 @@ function ensureDirectory(directory) {
     fs.mkdirSync(directory);
 }
 
-function checkCertificate(successFn) {
-    certificates.listCertificates({
+function checkCertificate() {
+    return certificates.listCertificates({
         filter: {
             type: "developer"
         }
-    }, (error, certs) => {
-
-        if (error) {
-            console.log(error.message);
-            return;
-        }
-
+    })
+    .then(certs => {
         var certificate = certs.data.find(cert => {
             return cert.name === certificateName;
         });
 
         if (certificate) {
-            var rl = readline.createInterface({
-                input: process.stdin,
-                output: process.stdout
+            return new Promise((resolve, reject) => {
+                var rl = readline.createInterface({
+                    input: process.stdin,
+                    output: process.stdout
+                });
+
+                rl.question("Developer certificate already exists, overwrite? [y/N] ", answer => {
+                    rl.close();
+                    if (answer === "y") {
+                        return certificate.delete()
+                        .then(() => {
+                            resolve();
+                        });
+                    } else {
+                        reject();
+                    }
+                });
             });
-
-            rl.question("Developer certificate already exists, overwrite? [y/N] ", function(answer) {
-                if (answer === "y") {
-                    certificate.delete(error => {
-
-                        if (error) {
-                            console.log(error.message);
-                            return;
-                        }
-
-                        successFn();
-                    });
-                }
-                rl.close();
-            });
-            return;
         }
-        successFn();
     });
 }
 
-checkCertificate(() => {
-    certificates.addCertificate({
+checkCertificate()
+.then(() => {
+    return certificates.addCertificate({
         name: certificateName
-    }, (error, certificate) => {
-
-        if (error) {
-            console.log(error.message);
-            return;
-        }
-
-        ensureDirectory(path.dirname(outputFile));
-        fs.writeFileSync(outputFile, certificate.headerFile);
-        console.log(`Header file written to ${outputFile}`);
     });
-});
+})
+.then(certificate => {
+    ensureDirectory(path.dirname(outputFile));
+    fs.writeFileSync(outputFile, certificate.headerFile);
+    console.log(`Header file written to ${outputFile}`);
+})
+.catch(logError);

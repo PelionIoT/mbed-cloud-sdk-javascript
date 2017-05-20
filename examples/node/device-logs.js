@@ -15,14 +15,19 @@
 * limitations under the License.
 */
 
-var fs = require('fs');
-var path = require('path');
+var fs = require("fs");
+var path = require("path");
 
-var mbedCloudSDK = require('../../lib/');
-var config = require('./config');
+var mbedCloudSDK = require("../../index");
+var config = require("./config");
 
 var logDir = "logs";
 var devices = new mbedCloudSDK.DeviceDirectoryApi(config);
+
+function logError(error) {
+    console.log(error.message || error);
+    process.exit();
+}
 
 function ensureDirectory(directory) {
     var dirName = path.dirname(directory);
@@ -35,33 +40,28 @@ function ensureDirectory(directory) {
 
 function listLogs(after) {
 
-    devices.listDeviceLogs({
+    return devices.listDeviceLogs({
         limit: 50,
         after: after
-    }, (error, response) => {
-
-        if (error) {
-            console.log(error.message);
-            return;
-        }
-
+    })
+    .then(response => {
         response.data.forEach(deviceLog => {
-
         	var fileName = path.format({
 				dir: logDir,
-				base: deviceLog.id + '.json'
+				base: `${deviceLog.id}.json`
 			});
 
-			var data = JSON.stringify(deviceLog, null, '\t');
+			var data = JSON.stringify(deviceLog, null, "\t");
 
         	fs.writeFileSync(fileName, data);
-        	console.log("Saved " + fileName);
+            console.log(`Saved ${fileName}`);
         });
         if (response.hasMore) {
             var lastLog = response.data.slice(-1).pop();
-            listLogs(lastLog.id);
+            return listLogs(lastLog.id);
         }
-    });
+    })
+    .catch(logError);
 }
 
 ensureDirectory(logDir);

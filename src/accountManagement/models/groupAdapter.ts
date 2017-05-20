@@ -28,8 +28,8 @@ export class GroupAdapter {
             id:                from.id,
             accountId:         from.accountID,
             name:              from.name,
-            userCount:         from.userCount,
-            apiKeyCount:       from.apiKeyCount,
+            userCount:         from.user_count,
+            apiKeyCount:       from.apikey_count,
             createdAt:         from.created_at,
             creationTime:      from.creationTime,
             lastUpdateTime:    from.lastUpdateTime
