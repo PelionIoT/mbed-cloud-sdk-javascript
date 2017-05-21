@@ -32,6 +32,8 @@ var app = express();
 
 // Cookies!
 function getApiKey(req) {
+    if (!req.headers.cookie) return null;
+
     var cookieArray = req.headers.cookie.split("; ");
     for (var i = 0; i < cookieArray.length; i++) {
         var parts = cookieArray[i].split("=");
