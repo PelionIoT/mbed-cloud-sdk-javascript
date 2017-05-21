@@ -71,11 +71,11 @@ function listDevices() {
 app.put("/", (req, res, next) => {
 
     var data = "";
-    req.on("data", function(chunk) {
+    req.on("data", chunk => {
         data += chunk;
     });
 
-    req.on("end", function() {
+    req.on("end", () => {
         // Parse data into JSON and inject into connect notification system
         data = JSON.parse(data);
         connect.notify(data);
