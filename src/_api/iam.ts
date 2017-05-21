@@ -369,6 +369,10 @@ export interface Field {
 export type GroupSummaryObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface GroupSummary {
     /**
+     * The number of API keys in this group.
+     */
+    "apikey-count": number;
+    /**
      * The name of the group.
      */
     "name": string;
@@ -376,10 +380,6 @@ export interface GroupSummary {
      * A timestamp of the latest group update, in milliseconds.
      */
     "lastUpdateTime"?: number;
-    /**
-     * The number of API keys in this group.
-     */
-    "apiKeyCount": number;
     /**
      * Creation UTC time RFC3339.
      */
@@ -393,13 +393,13 @@ export interface GroupSummary {
      */
     "creationTime"?: number;
     /**
+     * The number of users in this group.
+     */
+    "user-count": number;
+    /**
      * API resource entity version.
      */
     "etag": string;
-    /**
-     * The number of users in this group.
-     */
-    "userCount": number;
     /**
      * The UUID of the group.
      */

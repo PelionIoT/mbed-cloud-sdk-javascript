@@ -185,7 +185,7 @@ export class DefaultApi extends ApiBase {
      * Delete firmware image.
      * @param imageId The ID of the firmware image.
      */
-    firmwareImageDestroy (imageId: number, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareImageDestroy (imageId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "imageId" is set
         if (imageId === null || imageId === undefined) {
             if (callback) {
@@ -257,7 +257,7 @@ export class DefaultApi extends ApiBase {
      * Retrieve firmware image.
      * @param imageId The ID of the firmware image.
      */
-    firmwareImageRetrieve (imageId: number, callback?: (error:any, data?:FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareImageRetrieve (imageId: string, callback?: (error:any, data?:FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "imageId" is set
         if (imageId === null || imageId === undefined) {
             if (callback) {
@@ -339,7 +339,7 @@ export class DefaultApi extends ApiBase {
      * Delete firmware manifest.
      * @param manifestId The ID of the firmware manifest.
      */
-    firmwareManifestDestroy (manifestId: number, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareManifestDestroy (manifestId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "manifestId" is set
         if (manifestId === null || manifestId === undefined) {
             if (callback) {
@@ -411,7 +411,7 @@ export class DefaultApi extends ApiBase {
      * Retrieve firmware manifest.
      * @param manifestId The ID of the firmware manifest.
      */
-    firmwareManifestRetrieve (manifestId: number, callback?: (error:any, data?:FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    firmwareManifestRetrieve (manifestId: string, callback?: (error:any, data?:FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "manifestId" is set
         if (manifestId === null || manifestId === undefined) {
             if (callback) {
