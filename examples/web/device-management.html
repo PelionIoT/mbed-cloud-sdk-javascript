@@ -62,10 +62,10 @@
         var devices = new mbedCloudSDK.DeviceDirectoryApi(window.config);
 
         // Dom element builder
-        function buildElement(type, value, parent) {
+        function buildElement(type, parent, value) {
             var element = document.createElement(type);
-            if (value) element.innerHTML = value;
             if (parent) parent.appendChild(element);
+            if (value) element.innerHTML = value;
             return element;
         }
 
@@ -83,12 +83,12 @@
 
                     // Build UI
                     var row = devicesEl.insertRow();
-                    buildElement("td", device.name, row);
-                    buildElement("td", device.alias, row);
-                    buildElement("td", device.state, row);
-                    var buttonCell = buildElement("td", null, row);
-                    var renameBtn = buildElement("button", "rename...", buttonCell);
-                    var deleteBtn = buildElement("button", "delete", buttonCell);
+                    buildElement("td", row, device.name);
+                    buildElement("td", row, device.alias);
+                    buildElement("td", row, device.state);
+                    var buttonCell = buildElement("td", row);
+                    var renameBtn = buildElement("button", buttonCell, "rename...");
+                    var deleteBtn = buildElement("button", buttonCell, "delete");
 
                     // Rename device
                     renameBtn.addEventListener("click", function() {

@@ -74,10 +74,10 @@
         var devices = new mbedCloudSDK.DeviceDirectoryApi(window.config);
 
         // Dom element builder
-        function buildElement(type, value, parent, attributes) {
+        function buildElement(type, parent, value) {
             var element = document.createElement(type);
-            if (value) element.innerHTML = value;
             if (parent) parent.appendChild(element);
+            if (value) element.innerHTML = value;
             return element;
         }
 
@@ -95,12 +95,12 @@
 
                     // Build UI
                     var queryRow = queriesEl.insertRow();
-                    buildElement("td", query.name, queryRow);
-                    buildElement("td", new Date(query.createdAt).toUTCString(), queryRow);
-                    var buttonCell = buildElement("td", null, queryRow);
-                    var runBtn = buildElement("button", "run", buttonCell);
-                    var renameBtn = buildElement("button", "rename...", buttonCell);
-                    var deleteBtn = buildElement("button", "delete", buttonCell);
+                    buildElement("td", queryRow, query.name);
+                    buildElement("td", queryRow, new Date(query.createdAt).toUTCString());
+                    var buttonCell = buildElement("td", queryRow);
+                    var runBtn = buildElement("button", buttonCell, "run");
+                    var renameBtn = buildElement("button", buttonCell, "rename...");
+                    var deleteBtn = buildElement("button", buttonCell, "delete");
                     var devicesRows = [];
 
                     // Run query
@@ -117,8 +117,8 @@
                             if (response.data.length === 0) {
                                 var value = "No devices found";
                                 var devicesRow = queriesEl.insertRow(queryRow.rowIndex);
-                                buildElement("td", "&nbsp;", devicesRow);
-                                var deviceCell = buildElement("td", value, devicesRow);
+                                buildElement("td", devicesRow, "&nbsp;");
+                                var deviceCell = buildElement("td", devicesRow, value);
                                 devicesRows.push(devicesRow);
                                 deviceCell.colSpan = "2"
                             }
@@ -128,8 +128,8 @@
                                 // Build UI
                                 var value = "└&nbsp;" + device.id + "&nbsp;-&nbsp;" + device.state;
                                 var devicesRow = queriesEl.insertRow(queryRow.rowIndex);
-                                buildElement("td", "&nbsp;", devicesRow);
-                                var deviceCell = buildElement("td", value, devicesRow);
+                                buildElement("td", devicesRow, "&nbsp;");
+                                var deviceCell = buildElement("td", devicesRow, value);
                                 devicesRows.push(devicesRow);
                                 deviceCell.colSpan = "2"
                             });

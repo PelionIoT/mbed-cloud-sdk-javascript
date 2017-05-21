@@ -73,10 +73,10 @@
         var queries = {};
 
         // Dom element builder
-        function buildElement(type, value, parent) {
+        function buildElement(type, parent, value) {
             var element = document.createElement(type);
-            if (value) element.innerHTML = value;
             if (parent) parent.appendChild(element);
+            if (value) element.innerHTML = value;
             return element;
         }
 
@@ -93,11 +93,11 @@
                 response.data.forEach(function(campaign) {
                     // Build UI
                     var row = campaignsEl.insertRow();
-                    buildElement("td", campaign.name, row);
-                    buildElement("td", campaign.state, row);
-                    var buttonCell = buildElement("td", null, row);
-                    var startStopBtn = buildElement("button", campaign.state === "draft" ? "start" : "stop", buttonCell);
-                    var deleteBtn = buildElement("button", "delete", buttonCell);
+                    buildElement("td", row, campaign.name);
+                    buildElement("td", row, campaign.state);
+                    var buttonCell = buildElement("td", row);
+                    var startStopBtn = buildElement("button", buttonCell, campaign.state === "draft" ? "start" : "stop");
+                    var deleteBtn = buildElement("button", buttonCell, "delete");
 
                     // Start or stop campaign
                     startStopBtn.addEventListener("click", function() {
@@ -143,7 +143,7 @@
                     queries[query.id] = query;
                     
                     // Build UI
-                    var option = buildElement("option", query.name, queriesEl);
+                    var option = buildElement("option", queriesEl, query.name);
                     option.value = query.id;
                 });
 
@@ -155,7 +155,7 @@
                     response.data.forEach(function(manifest) {
 
                         // Build UI
-                        var option = buildElement("option", manifest.name, manifestsEl);
+                        var option = buildElement("option", manifestsEl, manifest.name);
                         option.value = manifest.id;
                     });
 

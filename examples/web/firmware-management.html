@@ -80,10 +80,10 @@
         var update = new mbedCloudSDK.UpdateApi(window.config);
 
         // Dom element builder
-        function buildElement(type, value, parent) {
+        function buildElement(type, parent, value) {
             var element = document.createElement(type);
-            if (value) element.innerHTML = value;
             if (parent) parent.appendChild(element);
+            if (value) element.innerHTML = value;
             return element;
         }
 
@@ -101,10 +101,10 @@
 
                     // Build UI
                     var row = listImagesEl.insertRow();
-                    buildElement("td", image.name, row);
-                    buildElement("td", image.url, row);
-                    var buttonCell = buildElement("td", null, row);
-                    var deleteBtn = buildElement("button", "delete", buttonCell);
+                    buildElement("td", row, image.name);
+                    buildElement("td", row, image.url);
+                    var buttonCell = buildElement("td", row);
+                    var deleteBtn = buildElement("button", buttonCell, "delete");
 
                     // Delete image
                     deleteBtn.addEventListener("click", function() {
@@ -137,10 +137,10 @@
 
                     // Build UI
                     var row = listManifestsEl.insertRow();
-                    buildElement("td", manifest.name, row);
-                    buildElement("td", manifest.url, row);
-                    var buttonCell = buildElement("td", null, row);
-                    var deleteBtn = buildElement("button", "delete", buttonCell);
+                    buildElement("td", row, manifest.name);
+                    buildElement("td", row, manifest.url);
+                    var buttonCell = buildElement("td", row);
+                    var deleteBtn = buildElement("button", buttonCell, "delete");
 
                     // Delete manifest
                     deleteBtn.addEventListener("click", function() {
