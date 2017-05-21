@@ -104,14 +104,14 @@ export class UpdateApi {
      * @param firmwareImageId The firmware image ID
      * @returns Promise containing the firmware image
      */
-    public getFirmwareImage(firmwareImageId: number): Promise<FirmwareImage>;
+    public getFirmwareImage(firmwareImageId: string): Promise<FirmwareImage>;
     /**
      * Get details of a firmware image
      * @param firmwareImageId The firmware image ID
      * @param callback A function that is passed the return arguments (error, firmware image)
      */
-    public getFirmwareImage(firmwareImageId: number, callback: CallbackFn<FirmwareImage>): void;
-    public getFirmwareImage(firmwareImageId: number, callback?: CallbackFn<FirmwareImage>): Promise<FirmwareImage> {
+    public getFirmwareImage(firmwareImageId: string, callback: CallbackFn<FirmwareImage>): void;
+    public getFirmwareImage(firmwareImageId: string, callback?: CallbackFn<FirmwareImage>): Promise<FirmwareImage> {
         return apiWrapper(resultsFn => {
             this._endpoints.firmware.firmwareImageRetrieve(firmwareImageId, resultsFn);
         }, (data, done) => {
@@ -266,14 +266,14 @@ export class UpdateApi {
      * @param firmwareManifestId The firmware manifest ID
      * @returns Promise containing the firmware manifest
      */
-    public getFirmwareManifest(firmwareManifestId: number): Promise<FirmwareManifest>;
+    public getFirmwareManifest(firmwareManifestId: string): Promise<FirmwareManifest>;
     /**
      * Get details of a firmware manifest
      * @param firmwareManifestId The firmware manifest ID
      * @param callback A function that is passed the return arguments (error, firmware manifest)
      */
-    public getFirmwareManifest(firmwareManifestId: number, callback: CallbackFn<FirmwareManifest>): void;
-    public getFirmwareManifest(firmwareManifestId: number, callback?: CallbackFn<FirmwareManifest>): Promise<FirmwareManifest> {
+    public getFirmwareManifest(firmwareManifestId: string, callback: CallbackFn<FirmwareManifest>): void;
+    public getFirmwareManifest(firmwareManifestId: string, callback?: CallbackFn<FirmwareManifest>): Promise<FirmwareManifest> {
         return apiWrapper(resultsFn => {
             this._endpoints.firmware.firmwareManifestRetrieve(firmwareManifestId, resultsFn);
         }, (data, done) => {
