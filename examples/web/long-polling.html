@@ -14,6 +14,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,10 +78,10 @@
         }
 
         // Dom element builder
-        function buildElement(type, value, parent) {
+        function buildElement(type, parent, value) {
             var element = document.createElement(type);
-            if (value) element.innerHTML = value;
             if (parent) parent.appendChild(element);
+            if (value) element.innerHTML = value;
             return element;
         }
 
@@ -101,10 +102,10 @@
 
                     // Build UI
                     var row = resourcesEl.insertRow(0);
-                    buildElement("td", resource.path, row);
-                    var valueCell = buildElement("td", "Loading...", row);
-                    var buttonCell = buildElement("td", null, row);
-                    var button = buildElement("button", "edit...", buttonCell);
+                    buildElement("td", row, resource.path);
+                    var valueCell = buildElement("td", row, "Loading...");
+                    var buttonCell = buildElement("td", row);
+                    var button = buildElement("button", buttonCell, "edit...");
 
                     function updateValue(error, value) {
                         valueCell.innerHTML = error ? `Error: ${error.message}` : value;

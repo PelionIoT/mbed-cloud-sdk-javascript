@@ -5,7 +5,7 @@
   "homepage": "https://www.mbed.com",
   "author": "Rob Moran <rob.moran@arm.com>",
   "license": "Apache-2.0",
-  "main": "./lib/index.js",
+  "main": "./index.js",
   "types": "./types/index.d.ts",
   "repository": {
     "type": "git",

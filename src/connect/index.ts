@@ -363,7 +363,7 @@ export class ConnectApi extends EventEmitter {
             this._endpoints.webhooks.v2NotificationCallbackGet((error, data) => {
 
                 if (error) {
-                    if (error.status === 404) {
+                    if (error.code === 404) {
                         // No webhook
                         return done(null, null);
                     }

@@ -17,7 +17,7 @@ The [Proxy](#proxy) section describes how a thin server can be used to inject an
 To run the Node examples, simply execute them using node:
 
 ```bash
-$ node <example.js>
+$ node <path to example.js>
 ```
 
 ### API Keys
@@ -33,13 +33,13 @@ $ export MBED_CLOUD_API_KEY=<mbed Cloud API Key>
 To use a command line switch, pass your API key to the program being run. e.g.:
 
 ```bash
-$ node <example.js> <mbed Cloud API Key>
+$ node <path to example.js> <mbed Cloud API Key>
 ```
 
 or:
 
 ```bash
-$ node <example.js> --apiKey=<mbed Cloud API Key>
+$ node <path to example.js> --apiKey=<mbed Cloud API Key>
 ```
 
 You can also simply edit the [config.js](node/config.js) file and add your key.
@@ -64,23 +64,19 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
   This example creates a basic webhook server which registers for callbacks from mbed Cloud and receives asynchronous notifications.
   Using the callbacks, the device/resource tree of connected devices is recursed, outputting the value for each resource.
 
-* __Subscription Management__ [subscription-management.js](node/subscription-management.js)
+* __User, Key and Group Listing__ [users-keys-groups.js](node/users-keys-groups.js)
 
-  This example is a command line interface which allows management of resource subscriptions and pre-subscriptions.
-
-* __User & Key Management__ [user-key-management.js](node/user-key-management.js)
-
-  This example is a command line interface to manage users of mbed Cloud and their API keys.
+  This example is a command line interface to list users, keys and groups of mbed Cloud.
 
 ## Web
 
 ### Usage
 
-The web bundles support the [Universal Module Definition](https://github.com/umdjs/umd) specification and as such can be loaded using [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) module loaders such as [RequireJS](http://requirejs.org/), [CommonJS](https://en.wikipedia.org/wiki/CommonJS) module loaders such as Node or by using [browser globals](http://vanilla-js.com/).
+The web bundles support the [Universal Module Definition](https://github.com/umdjs/umd) specification and as such can be loaded using [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) module loaders such as [RequireJS](http://requirejs.org/), [CommonJS](https://en.wikipedia.org/wiki/CommonJS) module loaders such as Node.js or by using [browser globals](http://vanilla-js.com/).
 
 The examples don't use a module loader, so each bundle is available as a browser global under the `mbedCloudSDK` namespace. To run an example, simply open it in a browser once a valid API key has been added.
 
-__Note:__ mbed Cloud is protected with [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) which restricts cross-origin calls from unknown domains. Until your production server domain has been whitelisted for mbed Cloud and during development, you may disable CORS support in your browser using [command line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi).
+__Note:__ mbed Cloud is protected with [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) which restricts cross-origin calls from unknown domains. The domain `localhost` has been whitelisted for mbed Cloud to enable local development, but until your production server domain has been whitelisted, you may disable CORS support in your browser using [command line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi). This is only a concern for pure in-browser support.
 
 ### API Keys
 
@@ -100,7 +96,7 @@ https://www.yourserver.com/<example.html>?apiKey=<mbed Cloud API Key>
 
 You can also simply edit the [config.js](web/config.js) file and add your key.
 
-__Warning:__ Your API Key will be publicly visible in your web application. When creating single page web applications, use this method only during development or with a read-only key with access to public data. An intermediate server to handle requests is recommended for production. This can be done by injecting the API key on the fly (see [Proxy](#proxy)).
+__Warning:__ Your API Key will be publicly visible in your web application when creating single page web applications, use this method only during development or with a read-only key with access to public data. An intermediate server to handle requests is recommended for production. This can be done by injecting the API key on the fly (see [Proxy](#proxy)).
 
 ### Examples
 
@@ -115,19 +111,23 @@ __Warning:__ Your API Key will be publicly visible in your web application. When
 
 * __Device Query Management__ [query-management.html](web/query-management.html)
 
-  This example allows management and running of device queries, paging the results.
+  This example allows management and running of device queries.
 
-* __Update Management__ [update-management.html](web/update-management.html)
+* __Firmware Management__ [firmware-management.html](web/firmware-management.html)
 
-  This example allows management of update campaigns, firmware images and manifests.
+  This example allows management of firmware images and firmware manifests for use in update campaigns.
 
-* __Statistics__ [statistics.html](web/statistics.html)
+* __Campaign Management__ [campaign-management.html](web/campaign-management.html)
 
-  This example renders statistics.
+  This example allows creation of update campaigns with the ability to start and stop them.
+
+* __Metrics__ [metrics.html](web/metrics.html)
+
+  This example renders usage metrics over a specified period.
 
 ## Proxy
 
-The [proxy folder](proxy/) contains a sample project showing how API calls to mbed Cloud can be proxied to allow injection of an API key header. This enables the production of a single-page web application using the minified JavaScript bundles _without_ the API key being used being visible to the client.
+The [proxy folder](proxy/) contains a sample project showing how API calls to mbed Cloud can be proxied to allow injection of an API key header. This enables the production of a single-page web application using the minified JavaScript bundles _without_ the API key in use being visible to the client.
 
 To start the proxy server, run the npm start command from the root of the project:
 

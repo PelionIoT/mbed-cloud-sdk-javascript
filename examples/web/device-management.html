@@ -14,6 +14,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,13 +32,18 @@
 <body>
     <h3>Devices</h3>
 
-    <button id="add">add device...</button>
+    <form>
+        <div class="row">
+            <label for="name">Device name</label>
+            <input id="name" type="text" class="u-full-width" value="myDevice" />
+        </div>
+    </form>
+    <button id="add">add device</button>
 
     <table>
         <thead><tr>
-            <th>Device</th>
             <th>Name</th>
-            <th>Created</th>
+            <th>Alias</th>
             <th>State</th>
             <th style="text-align: center;">Actions</th>
         </tr></thead>
@@ -47,18 +53,19 @@
     <button id="more">load more</button>
 
     <script>
-        var devicesEl = document.getElementById("devices");
+        var nameEl = document.getElementById("name");
         var addEl = document.getElementById("add");
+        var devicesEl = document.getElementById("devices");
         var moreEl = document.getElementById("more");
         var lastId;
 
         var devices = new mbedCloudSDK.DeviceDirectoryApi(window.config);
 
         // Dom element builder
-        function buildElement(type, value, parent) {
+        function buildElement(type, parent, value) {
             var element = document.createElement(type);
-            if (value) element.innerHTML = value;
             if (parent) parent.appendChild(element);
+            if (value) element.innerHTML = value;
             return element;
         }
 
@@ -76,13 +83,12 @@
 
                     // Build UI
                     var row = devicesEl.insertRow();
-                    buildElement("td", device.id, row);
-                    buildElement("td", device.name, row);
-                    buildElement("td", new Date(device.createdAt).toUTCString(), row);
-                    buildElement("td", device.state, row);
-                    var buttonCell = buildElement("td", null, row);
-                    var renameBtn = buildElement("button", "rename...", buttonCell);
-                    var deleteBtn = buildElement("button", "delete", buttonCell);
+                    buildElement("td", row, device.name);
+                    buildElement("td", row, device.alias);
+                    buildElement("td", row, device.state);
+                    var buttonCell = buildElement("td", row);
+                    var renameBtn = buildElement("button", buttonCell, "rename...");
+                    var deleteBtn = buildElement("button", buttonCell, "delete");
 
                     // Rename device
                     renameBtn.addEventListener("click", function() {
@@ -117,13 +123,10 @@
 
         // Add new device
         addEl.addEventListener("click", function() {
-            var name = window.prompt("Enter a name for the device", "myDevice");
-            if (!name) return;
-
             devices.addDevice({
                 certificateIssuerId: "connector",
                 certificateFingerprint: "dummy-key-" + new Date().getTime(),
-                name: name
+                name: nameEl.value
             }, function(error) {
                 if (error) alert(error.message);
                 else location.reload()

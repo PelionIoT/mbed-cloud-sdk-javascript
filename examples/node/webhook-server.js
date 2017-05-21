@@ -15,14 +15,15 @@
 * limitations under the License.
 */
 
-var fs = require('fs');
-var http = require('http');
-var express = require('express');
+var fs = require("fs");
+var http = require("http");
+var express = require("express");
 
-var mbedCloudSDK = require('../../lib/');
-var config = require('./config');
+var mbedCloudSDK = require("../../index");
+var config = require("./config");
 
-var url = "http://4bf8c2e4.ngrok.io";
+// ngrok http 3002
+var url = "http://fa0a2825.ngrok.io";
 var port = 3002;
 
 var connect = new mbedCloudSDK.ConnectApi(config);
@@ -31,21 +32,56 @@ var app = express();
 // Set system to await notifications for callbacks instead of emitting asyncIds
 connect.handleNotifications = true;
 
+// Get specified device or first device
+var deviceId = "";
+function getDevice(completeFn) {
+    if (deviceId) {
+        return connect.getDevice({
+            id: deviceId
+        });
+    }
+
+    return connect.listConnectedDevices()
+    .then(response => {
+        return response[0];
+    });
+}
+
+// Get device, it's resources and values
+function listDevices() {
+    return getDevice()
+    .then(device => {
+        console.log(`Device: ${device.name || device.id}`);
+        return device.listResources();
+    })
+    .then(resources => {
+        resources.forEach(resource => {
+            resource.getValue()
+            .then(value => {
+                console.log(`\t└\x1b[1m${resource.path}\x1b[0m: ${value}`);
+            })
+            .catch(error => {
+                console.log(`\t└\x1b[1m${resource.path}\x1b[0m: Error: ${error.message}`);
+            });
+        });
+    });
+}
+
 // Listen for PUTs at the root URL
 app.put("/", (req, res, next) => {
 
     var data = "";
-    req.on('data', function(chunk) {
+    req.on("data", chunk => {
         data += chunk;
     });
 
-    req.on('end', function() {
+    req.on("end", () => {
         // Parse data into JSON and inject into connect notification system
         data = JSON.parse(data);
         connect.notify(data);
     });
 
-	res.sendStatus(200);
+    res.sendStatus(200);
 });
 
 // Start server
@@ -54,52 +90,18 @@ http.createServer(app).listen(port, () => {
 });
 
 // Set up webhook
-connect.getWebhook((error, webhook) => {
+connect.getWebhook()
+.then(webhook => {
     if (!webhook) console.log("No webhook currently registered");
     else console.log(`Webhook currently set to ${webhook.url}`);
 
-    connect.updateWebhook(url, error => {
-        if (error) {
-            console.log(`${error.message} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
-            return;
-        }
-        console.log(`Webhook now set to ${url}`);
-        listDevices();
-    });
+    return connect.updateWebhook(url);
+})
+.then(() => {
+    console.log(`Webhook now set to ${url}`);
+    listDevices();
+})
+.catch(error => {
+    console.log(`${error.message} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
+    process.exit();
 });
-
-// Get device, it's resources and values
-function listDevices() {
-    getDevice(device => {
-        console.log("Device: " + (device.name || device.id));
-        device.listResources()
-        .then(resources => {
-            resources.forEach(resource => {
-                resource.getValue()
-                .then(value => {
-                    console.log(`\t└\x1b[1m${resource.path}\x1b[0m: ${value}`);
-                })
-                .catch(error => {
-                    console.log(`\t└\x1b[1m${resource.path}\x1b[0m: Error: ${error.message}`);
-                });
-            });
-        });
-    });
-}
-
-// Get specified device or first device
-var deviceId = "";
-function getDevice(completeFn) {
-    if (deviceId) {
-        connect.getDevice({
-            id: deviceId
-        })
-        .then(completeFn);
-        return;
-    }
-
-    connect.listConnectedDevices()
-    .then(response => {
-        completeFn(response[0]);
-    });
-}

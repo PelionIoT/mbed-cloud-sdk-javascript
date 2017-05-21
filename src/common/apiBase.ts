@@ -47,14 +47,12 @@ export class ApiBase {
         request.timeout(60000);
 
         if (options.json) {
-            request.type("application/json");
             request.accept("application/json");
         }
 
         var body = null;
         if (Object.keys(options.formParams).length > 0) {
             if (options.useFormData) {
-                request.type("multipart/form-data");
                 let formParams = ApiBase.normalizeParams(options.formParams);
                 for (var key in formParams) {
                     if (formParams.hasOwnProperty(key)) {
@@ -75,6 +73,8 @@ export class ApiBase {
             body = options.body;
 
             if (options.json) {
+                request.type("application/json");
+
                 if (body.constructor === {}.constructor) {
                     body = Object.keys(body).reduce((val, key) => {
                         if(body[key] !== null && body[key] !== undefined) val[key] = body[key];

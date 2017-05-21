@@ -32,7 +32,7 @@ export interface AddFirmwareImageObject extends FirmwareImageObject {
     /**
      * The binary file of firmware image
      */
-    dataFile: string;
+    dataFile: ReadableStream | File | Blob;
 }
 
 export interface FirmwareManifestObject {
@@ -50,7 +50,7 @@ export interface AddFirmwareManifestObject extends FirmwareManifestObject {
     /**
      * The binary file of the manifest
      */
-    dataFile: string;
+    dataFile: ReadableStream | File | Blob;
 }
 
 export type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
