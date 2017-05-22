@@ -369,6 +369,10 @@ export interface Field {
 export type GroupSummaryObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface GroupSummary {
     /**
+     * A timestamp of the latest group update, in milliseconds.
+     */
+    "last_update_time"?: number;
+    /**
      * The number of users in this group.
      */
     "user_count": number;
@@ -376,10 +380,6 @@ export interface GroupSummary {
      * The name of the group.
      */
     "name": string;
-    /**
-     * A timestamp of the latest group update, in milliseconds.
-     */
-    "lastUpdateTime"?: number;
     /**
      * Creation UTC time RFC3339.
      */
@@ -391,7 +391,7 @@ export interface GroupSummary {
     /**
      * A timestamp of the group creation in the storage, in milliseconds.
      */
-    "creationTime"?: number;
+    "creation_time"?: number;
     /**
      * API resource entity version.
      */
@@ -407,7 +407,7 @@ export interface GroupSummary {
     /**
      * The UUID of the account this group belongs to.
      */
-    "accountID": string;
+    "account_id": string;
 }
 
 export type GroupSummaryListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
