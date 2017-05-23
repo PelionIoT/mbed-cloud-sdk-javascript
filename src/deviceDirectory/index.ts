@@ -17,13 +17,13 @@
 
 import { apiWrapper, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
 import { ConnectionOptions, ListResponse, CallbackFn } from "../common/interfaces";
-import { AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject, DeviceListOptions, QueryListOptions, DeviceLogListOptions } from "./types";
+import { AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject, DeviceListOptions, QueryListOptions, DeviceEventListOptions } from "./types";
 import { Device } from "./models/device";
 import { DeviceAdapter } from "./models/deviceAdapter";
 import { Query } from "./models/query";
 import { QueryAdapter } from "./models/queryAdapter";
-import { DeviceLog } from "./models/deviceLog";
-import { DeviceLogAdapter } from "./models/deviceLogAdapter";
+import { DeviceEvent } from "./models/deviceEvent";
+import { DeviceEventAdapter } from "./models/deviceEventAdapter";
 import { Endpoints } from "./endpoints";
 import { Filters } from "./filters";
 
@@ -302,18 +302,18 @@ export class DeviceDirectoryApi {
     }
 
     /**
-     * List device logs
+     * List device events
      * @param options filter options
      * @returns Promise of listResponse
      */
-    public listDeviceLogs(options?: DeviceLogListOptions): Promise<ListResponse<DeviceLog>>;
+    public listDeviceEvents(options?: DeviceEventListOptions): Promise<ListResponse<DeviceEvent>>;
     /**
-     * List device logs
+     * List device events
      * @param options filter options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listDeviceLogs(options?: DeviceLogListOptions, callback?: CallbackFn<ListResponse<DeviceLog>>): void;
-    public listDeviceLogs(options?:any, callback?: CallbackFn<ListResponse<DeviceLog>>): Promise<ListResponse<DeviceLog>> {
+    public listDeviceEvents(options?: DeviceEventListOptions, callback?: CallbackFn<ListResponse<DeviceEvent>>): void;
+    public listDeviceEvents(options?:any, callback?: CallbackFn<ListResponse<DeviceEvent>>): Promise<ListResponse<DeviceEvent>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -321,38 +321,38 @@ export class DeviceDirectoryApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, order, after, include, filter } = options as DeviceLogListOptions;
-            this._endpoints.catalog.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_LOG_FILTER_MAP), encodeInclude(include), resultsFn);
+            let { limit, order, after, include, filter } = options as DeviceEventListOptions;
+            this._endpoints.catalog.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_EVENT_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let list: DeviceLog[];
+            let list: DeviceEvent[];
             if (data.data && data.data.length) {
-                list = data.data.map(log => {
-                return DeviceLogAdapter.map(log);
+                list = data.data.map(event => {
+                return DeviceEventAdapter.map(event);
                 });
             }
 
-            done(null, mapListResponse<DeviceLog>(data, list));
+            done(null, mapListResponse<DeviceEvent>(data, list));
         }, callback);
     }
 
     /**
-     * Get a single device log
-     * @param deviceLogId device log ID
-     * @returns Promise of device log
+     * Get a single device event
+     * @param deviceEventId device event ID
+     * @returns Promise of device event
      */
-    public getDeviceLog(deviceLogId: string): Promise<DeviceLog>;
+    public getDeviceEvent(deviceEventId: string): Promise<DeviceEvent>;
     /**
-     * Get a single device log
-     * @param deviceLogId device log ID
-     * @param callback A function that is passed the return arguments (error, device log)
+     * Get a single device event
+     * @param deviceEventId device event ID
+     * @param callback A function that is passed the return arguments (error, device event)
      */
-    public getDeviceLog(deviceLogId: string, callback: CallbackFn<DeviceLog>): void;
-    public getDeviceLog(deviceLogId: string, callback?: CallbackFn<DeviceLog>): Promise<DeviceLog> {
+    public getDeviceEvent(deviceEventId: string, callback: CallbackFn<DeviceEvent>): void;
+    public getDeviceEvent(deviceEventId: string, callback?: CallbackFn<DeviceEvent>): Promise<DeviceEvent> {
         return apiWrapper(resultsFn => {
-            this._endpoints.catalog.deviceLogRetrieve(deviceLogId, resultsFn);
+            this._endpoints.catalog.deviceLogRetrieve(deviceEventId, resultsFn);
         }, (data, done) => {
-            let log = DeviceLogAdapter.map(data);
-            done(null, log);
+            let event = DeviceEventAdapter.map(data);
+            done(null, event);
         }, callback);
     }
 }

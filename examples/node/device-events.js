@@ -21,7 +21,7 @@ var path = require("path");
 var mbedCloudSDK = require("../../index");
 var config = require("./config");
 
-var logDir = "logs";
+var eventDir = "events";
 var devices = new mbedCloudSDK.DeviceDirectoryApi(config);
 
 function logError(error) {
@@ -38,31 +38,31 @@ function ensureDirectory(directory) {
     fs.mkdirSync(directory);
 }
 
-function listLogs(after) {
+function listEvents(after) {
 
-    return devices.listDeviceLogs({
+    return devices.listDeviceEvents({
         limit: 50,
         after: after
     })
     .then(response => {
-        response.data.forEach(deviceLog => {
+        response.data.forEach(deviceEvent => {
         	var fileName = path.format({
-				dir: logDir,
-				base: `${deviceLog.id}.json`
+				dir: eventDir,
+				base: `${deviceEvent.id}.json`
 			});
 
-			var data = JSON.stringify(deviceLog, null, "\t");
+			var data = JSON.stringify(deviceEvent, null, "\t");
 
         	fs.writeFileSync(fileName, data);
             console.log(`Saved ${fileName}`);
         });
         if (response.hasMore) {
-            var lastLog = response.data.slice(-1).pop();
-            return listLogs(lastLog.id);
+            var lastEvent = response.data.slice(-1).pop();
+            return listEvents(lastEvent.id);
         }
     })
     .catch(logError);
 }
 
-ensureDirectory(logDir);
-listLogs();
+ensureDirectory(eventDir);
+listEvents();

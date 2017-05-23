@@ -50,9 +50,9 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
 
 ### Examples
 
-* __Get Device Logs__ [device-logs.js](node/device-logs.js)
+* __Get Device Events__ [device-events.js](node/device-events.js)
 
-  This example pages all device logs in mbed Cloud and exports them to local files in [JSON](http://www.json.org/) format.
+  This example pages all device events in mbed Cloud and exports them to local files in [JSON](http://www.json.org/) format.
 
 * __Developer Certificate Header__ [certificate-header.js](node/certificate-header.js)
 

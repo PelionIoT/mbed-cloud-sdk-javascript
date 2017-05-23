@@ -15,16 +15,16 @@
 * limitations under the License.
 */
 
-import { DeviceLog } from "./deviceLog";
-import { DeviceLogData as apiDeviceLog } from "../../_api/device_catalog";
+import { DeviceEvent } from "./deviceEvent";
+import { DeviceLogData as apiDeviceEvent } from "../../_api/device_catalog";
 
 /**
- * Device Log Adapter
+ * Device Event Adapter
  */
-export class DeviceLogAdapter {
+export class DeviceEventAdapter {
 
-    static map(from: apiDeviceLog): DeviceLog {
-        return new DeviceLog({
+    static map(from: apiDeviceEvent): DeviceEvent {
+        return new DeviceEvent({
             id:                      from.id,
             eventDate:               from.date_time,
             stateChanged:            from.state_change,

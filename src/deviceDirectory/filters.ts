@@ -40,7 +40,7 @@ export class Filters {
         ]
     };
 
-    static readonly DEVICE_LOG_FILTER_MAP = {
+    static readonly DEVICE_EVENT_FILTER_MAP = {
         from: [
             "eventDate",
             "type"
