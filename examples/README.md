@@ -1,16 +1,16 @@
 # mbed Cloud SDK Examples
 
-These examples are designed to give developers a headstart with developing with the mbed Cloud JavaScript SDK.
+These examples are designed to give developers a headstart with developing with the mbed Cloud SDK for JavaScript.
 
 They can be used as a basis for a solution or simply to understand how a feature is used.
 
-Refer to the [Node.js](#node.js) section for command-line or server-based examples written using [Node.js](https://nodejs.org).
+Refer to the [Node.js](#node-js) section for command-line or server-based examples written using [Node.js](https://nodejs.org).
 
 Refer to the [Web](#web) section for examples of using the JavaScript browser bundles in a [single page web application](https://en.wikipedia.org/wiki/Single-page_application).
 
 The [Proxy](#proxy) section describes how a thin server can be used to inject an API key into a browser-based application, keeping the API key secret.
 
-## Node.js
+## Node js
 
 ### Usage
 
@@ -63,6 +63,8 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
 
   This example creates a basic webhook server which registers for callbacks from mbed Cloud and receives asynchronous notifications.
   Using the callbacks, the device/resource tree of connected devices is recursed, outputting the value for each resource.
+
+  __Note:__ This example requires the `express` server to be installed. Please do this by running `$ npm install express` in the `node_modules/mbed-cloud-sdk` directory.
 
 * __User, Key and Group Listing__ [users-keys-groups.js](node/users-keys-groups.js)
 
