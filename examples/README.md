@@ -64,7 +64,7 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
   This example creates a basic webhook server which registers for callbacks from mbed Cloud and receives asynchronous notifications.
   Using the callbacks, the device/resource tree of connected devices is recursed, outputting the value for each resource.
 
-  __Note:__ This example requires the `express` server to be installed. Please do this by running `$ npm install express` in the `node_modules/mbed-cloud-sdk` directory.
+  __Note:__ This example requires the `express` server to be installed. Please do this by running `$ npm install express`.
 
 * __User, Key and Group Listing__ [users-keys-groups.js](node/users-keys-groups.js)
 
@@ -130,6 +130,8 @@ __Warning:__ Your API Key will be publicly visible in your web application when 
 ## Proxy
 
 The [proxy folder](proxy/) contains a sample project showing how API calls to mbed Cloud can be proxied to allow injection of an API key header. This enables the production of a single-page web application using the minified JavaScript bundles _without_ the API key in use being visible to the client.
+
+__Note:__ The proxy requires the `express` server to be installed. Please do this by running `$ npm install express`.
 
 To start the proxy server, run the npm start command from the root of the project:
 

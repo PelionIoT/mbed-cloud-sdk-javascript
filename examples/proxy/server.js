@@ -18,7 +18,14 @@
 var path = require("path");
 var http = require("http");
 var https = require("https");
-var express = require("express");
+try {
+    var express = require("express");
+} catch(e) {}
+
+if (!express) {
+    console.log("The proxy requires the 'express' server. Please install it by running 'npm install express'");
+    process.exit();
+}
 
 var port = 8080;
 var mbedHost = "api.mbedcloud.com";

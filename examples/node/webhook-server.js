@@ -17,7 +17,14 @@
 
 var fs = require("fs");
 var http = require("http");
-var express = require("express");
+try {
+    var express = require("express");
+} catch(e) {}
+
+if (!express) {
+    console.log("This example requires the 'express' server. Please install it by running 'npm install express'");
+    process.exit();
+}
 
 var mbedCloudSDK = require("../../index");
 var config = require("./config");
