@@ -372,11 +372,11 @@ export interface QueryListOptions extends ListOptions {
 }
 
 /**
- * Options to use when listing device logs
+ * Options to use when listing device events
  */
-export interface DeviceLogListOptions extends ListOptions {
+export interface DeviceEventListOptions extends ListOptions {
     /**
-     * The device log filter
+     * The device event filter
      *
      * Constructed like so:
      *  ```JavaScript
