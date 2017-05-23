@@ -26,13 +26,13 @@ export class GroupAdapter {
     static map(from: apiGroup, api: AccountManagementApi): Group {
         return new Group({
             id:                from.id,
-            accountId:         from.accountID,
+            accountId:         from.account_id,
             name:              from.name,
             userCount:         from.user_count,
             apiKeyCount:       from.apikey_count,
             createdAt:         from.created_at,
-            creationTime:      from.creationTime,
-            lastUpdateTime:    from.lastUpdateTime
+            creationTime:      from.creation_time,
+            lastUpdateTime:    from.last_update_time
         }, api);
     }
 }
