@@ -11,7 +11,8 @@ var ts          = require("gulp-typescript");
 var uglify      = require("gulp-uglify");
 
 var name = "mbed Cloud SDK for JavaScript";
-var bundleName = "mbedCloudSDK";
+var namespace = "mbedCloudSDK";
+var docsToc = "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,UpdateApi,ConnectionOptions";
 
 var srcDir = "src";
 var docsDir = "docs";
@@ -25,10 +26,12 @@ function handleError() {
     else process.exit(1);
 }
 
+// Clear built directories
 gulp.task("clean", function() {
     return del([nodeDir, typesDir, bundleDir]);
 });
 
+// Create documentation
 gulp.task("doc", function() {
     return gulp.src([srcDir + "/**/*.ts", "!" + srcDir + "/_api/**"])
     .pipe(typedoc({
@@ -42,11 +45,12 @@ gulp.task("doc", function() {
         excludeExternals: true,
         excludePrivate: true,
         hideGenerator: true,
-        toc: "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,UpdateApi,ConnectionOptions"
+        toc: docsToc
     }))
     .on("error", handleError);
 });
 
+// Build TypeScript source into CommonJS Node modules
 gulp.task("typescript", function() {
     var options = {
         target: "es5",
@@ -70,26 +74,40 @@ gulp.task("typescript", function() {
     ]);
 });
 
+function getBundleName(file) {
+    var name = path.dirname(file.relative);
+    if (name === ".") return namespace;
+    return `${namespace}.${name.charAt(0).toUpperCase()}${name.slice(1)}Api`;
+}
+
+function getBundleFile(file) {
+    var name = path.dirname(file.relative);
+    if (name === ".") name = "index";
+
+    name = name.replace(/([A-Z]+)/g, function(match) {
+        return `-${match.toLowerCase()}`;
+    });
+
+    return `${name}.min${path.extname(file.relative)}`;
+}
+
+// Build CommonJS modules into browser bundles
 gulp.task("browserify", ["typescript"], function() {
     return gulp.src(nodeDir + "/**/index.js", {
         read: false
     })
     .pipe(tap(function(file) {
-        var name = path.dirname(file.relative);
-        if (name === ".") name = "index";
-        name = name.replace(/([A-Z]+)/g, function(match) {
-            return "-" + match.toLowerCase();
-        });
-        name += ".min" + path.extname(file.relative)
-        console.log("Creating", bundleDir + "/" + name);
+        var bundleName = getBundleName(file);
+        var bundleFile = getBundleFile(file);
 
+        console.log(`Creating ${bundleName} in ${bundleDir}/${bundleFile}`);
         file.contents = browserify(file.path, {
             standalone: bundleName
         })
         .ignore("buffer")
         .bundle()
         .on("error", handleError);
-        file.path = path.join(file.base, name);
+        file.path = path.join(file.base, bundleFile);
     }))
     .pipe(buffer())
     .pipe(sourcemaps.init({
@@ -104,9 +122,9 @@ gulp.task("browserify", ["typescript"], function() {
     .pipe(gulp.dest(bundleDir));
 });
 
-gulp.task("default", ["clean", "doc", "browserify"]);
-
 gulp.task("watch", ["default"], function() {
     watching = true;
     gulp.watch(srcDir + "/**/*.*", ["default"]);
 });
+
+gulp.task("default", ["clean", "doc", "browserify"]);

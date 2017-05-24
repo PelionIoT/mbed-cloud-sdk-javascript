@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -20,7 +20,7 @@ import {
     ResourcesData as apiResourceEvent
 } from "../../_api/mds";
 import { DeviceEvent } from "../types";
-import { ConnectApi } from "../index";
+import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
 
 /**

@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -18,7 +18,7 @@
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { CertificateObject } from "../types";
-import { CertificatesApi } from "../index";
+import { CertificatesApi } from "../certificatesApi";
 
 /**
  * Certificate

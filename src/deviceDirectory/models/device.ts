@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -18,7 +18,7 @@
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
 import { AddDeviceObject } from "../types";
-import { DeviceDirectoryApi } from "../index";
+import { DeviceDirectoryApi } from "../deviceDirectoryApi";
 
 /**
  * Device

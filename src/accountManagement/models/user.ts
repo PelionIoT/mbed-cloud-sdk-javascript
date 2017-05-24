@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -19,7 +19,7 @@ import { asyncStyle, apiWrapper } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { ListOptions } from "../../common/interfaces";
 import { UpdateUserObject, UserStatusEnum } from "../types";
-import { AccountManagementApi } from "../index";
+import { AccountManagementApi } from "../accountManagementApi";
 import { ApiKey } from "./apiKey";
 import { Group } from "./group";
 

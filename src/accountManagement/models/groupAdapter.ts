@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -16,7 +16,7 @@
 */
 
 import { GroupSummary as apiGroup } from "../../_api/iam";
-import { AccountManagementApi } from "../index";
+import { AccountManagementApi } from "../accountManagementApi";
 import { Group } from "./group";
 
 /**

@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -18,7 +18,7 @@
 import {
     Endpoint as apiConnectedDevice
 } from "../../_api/mds";
-import { ConnectApi } from "../index";
+import { ConnectApi } from "../connectApi";
 import { ConnectedDevice } from "./connectedDevice";
 
 /**

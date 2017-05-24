@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -20,7 +20,7 @@ import {
     DeviceDataPostRequest as apiDeviceAdd,
     DeviceDataPatchRequest as apiDeviceUpdate
 } from "../../_api/device_catalog";
-import { DeviceDirectoryApi } from "../index";
+import { DeviceDirectoryApi } from "../deviceDirectoryApi";
 import { AddDeviceObject, UpdateDeviceObject } from "../types";
 import { Device } from "./device";
 

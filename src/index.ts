@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -15,8 +15,8 @@
 * limitations under the License.
 */
 
-export { AccountManagementApi } from "./accountManagement";
-export { CertificatesApi } from "./certificates";
-export { ConnectApi } from "./connect";
-export { DeviceDirectoryApi } from "./deviceDirectory";
-export { UpdateApi } from "./update";
+export { AccountManagementApi } from "./accountManagement/accountManagementApi";
+export { CertificatesApi } from "./certificates/certificatesApi";
+export { ConnectApi } from "./connect/connectApi";
+export { DeviceDirectoryApi } from "./deviceDirectory/deviceDirectoryApi";
+export { UpdateApi } from "./update/updateApi";
