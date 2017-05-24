@@ -55,19 +55,21 @@ function listUsers() {
     console.log("\nUsers\n-----");
     return access.listUsers()
     .then(users => {
-        return users.data.reduce((promise, user) => {
-            return promise
-            .then(() => {
-                return user.listGroups();
-            })
+        var promises = users.data.map(user => {
+            return user.listGroups()
             .then(groups => {
                 groups = groups.map(group => {
                     return group.name;
                 }).join(", ");
 
-                console.log(`${user.fullName} [${groups}]`);
+                return `${user.fullName} [${groups}]`;
             });
-        }, Promise.resolve());
+        });
+
+        return Promise.all(promises)
+        .then(users => {
+            console.log(users.join("\n"));
+        })
     });
 }
 
