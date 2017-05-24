@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -23,7 +23,7 @@ import {
 } from "../../_api/deployment_service";
 import { Filters } from "../../deviceDirectory/filters";
 import { AddCampaignObject, UpdateCampaignObject } from "../types";
-import { UpdateApi } from "../index";
+import { UpdateApi } from "../updateApi";
 import { Campaign } from "./campaign";
 
 /**

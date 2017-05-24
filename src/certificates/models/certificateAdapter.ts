@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { CertificatesApi } from "../index";
+import { CertificatesApi } from "../certificatesApi";
 import { Certificate } from "./certificate";
 import { AddCertificateObject, AddDeveloperCertificateObject } from "../types";
 import {

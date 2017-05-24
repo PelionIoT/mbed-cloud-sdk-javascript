@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -18,7 +18,7 @@
 import { EventEmitter } from "events";
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
-import { ConnectApi } from "../index";
+import { ConnectApi } from "../connectApi";
 
 /**
  * Resource

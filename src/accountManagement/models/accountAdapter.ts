@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -20,7 +20,7 @@ import {
     AccountInfo as apiAccount
 } from "../../_api/iam";
 import { UpdateAccountObject } from "../types";
-import { AccountManagementApi } from "../index";
+import { AccountManagementApi } from "../accountManagementApi";
 import { Account } from "./account";
 import { PolicyAdapter } from "./policyAdapter";
 

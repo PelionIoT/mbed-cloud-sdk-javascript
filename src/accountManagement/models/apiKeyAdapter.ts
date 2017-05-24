@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -21,7 +21,7 @@ import {
     ApiKeyInfoResp as apiApiKey
 } from "../../_api/iam";
 import { AddApiKeyObject, UpdateApiKeyObject } from "../types";
-import { AccountManagementApi } from "../index";
+import { AccountManagementApi } from "../accountManagementApi";
 import { ApiKey } from "./apiKey";
 
 /**
