@@ -42,9 +42,9 @@ export interface DeviceData {
      */
     "updated_at"?: Date;
     /**
-     * The ID of the channel used to communicate with the device.
+     * ID of the issuer of the certificate.
      */
-    "mechanism"?: DeviceDataMechanismEnum;
+    "ca_id"?: string;
     /**
      * The device class.
      */
@@ -66,13 +66,17 @@ export interface DeviceData {
      */
     "auto_update"?: boolean;
     /**
+     * The endpoint_name of the host gateway, if appropriate.
+     */
+    "host_gateway"?: string;
+    /**
      * Defines the type of certificate used.
      */
     "device_execution_mode"?: number;
     /**
-     * Up to 5 custom JSON attributes
+     * The ID of the channel used to communicate with the device.
      */
-    "custom_attributes"?: any;
+    "mechanism"?: DeviceDataMechanismEnum;
     /**
      * The current state of the device.
      */
@@ -110,6 +114,10 @@ export interface DeviceData {
      */
     "object"?: string;
     /**
+     * The endpoint type of the device - e.g. if the device is a gateway.
+     */
+    "endpoint_type"?: string;
+    /**
      * DEPRECATED The last deployment used on the device.
      */
     "deployment"?: string;
@@ -138,9 +146,9 @@ export interface DeviceData {
      */
     "manifest"?: string;
     /**
-     * ID of the issuer of the certificate.
+     * Up to 5 custom JSON attributes
      */
-    "ca_id"?: string;
+    "custom_attributes"?: any;
 }
 
 export interface DeviceDataPatchRequest {
