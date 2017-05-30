@@ -142,11 +142,11 @@ export interface AccountUpdateReq {
      */
     "address_line2"?: string;
     /**
-     * The city part of the postal address, not longer than 100 characters.
+     * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
      */
     "city"?: string;
     /**
-     * Postal address line 1, not longer than 100 characters.
+     * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
      */
     "address_line1"?: string;
     /**
@@ -154,11 +154,11 @@ export interface AccountUpdateReq {
      */
     "display_name"?: string;
     /**
-     * The country part of the postal address, not longer than 100 characters.
+     * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
      */
     "country"?: string;
     /**
-     * The name of the company, not longer than 100 characters.
+     * The name of the company, not longer than 100 characters. Required for commercial accounts only.
      */
     "company"?: string;
     /**
@@ -166,7 +166,7 @@ export interface AccountUpdateReq {
      */
     "state"?: string;
     /**
-     * The name of the contact person for this account, not longer than 100 characters.
+     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
      */
     "contact"?: string;
     /**
@@ -178,7 +178,7 @@ export interface AccountUpdateReq {
      */
     "phone_number"?: string;
     /**
-     * The company email address for this account, not longer than 100 characters.
+     * The company email address for this account, not longer than 100 characters. Required for commercial accounts only.
      */
     "email"?: string;
     /**
@@ -460,8 +460,21 @@ export interface SubjectList {
 /**
  * This object represents a trusted certificate in requests.
  */
+export type TrustedCertificateReqStatusEnum = "ACTIVE" | "INACTIVE";
 export type TrustedCertificateReqServiceEnum = "lwm2m" | "bootstrap";
 export interface TrustedCertificateReq {
+    /**
+     * Status of the certificate.
+     */
+    "status"?: TrustedCertificateReqStatusEnum;
+    /**
+     * X509.v3 trusted certificate in PEM format.
+     */
+    "certificate": string;
+    /**
+     * Certificate name, not longer than 100 characters.
+     */
+    "name": string;
     /**
      * Service name where the certificate must be used.
      */
@@ -470,14 +483,6 @@ export interface TrustedCertificateReq {
      * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
      */
     "signature": string;
-    /**
-     * Certificate name, not longer than 100 characters.
-     */
-    "name": string;
-    /**
-     * X509.v3 trusted certificate in PEM format.
-     */
-    "certificate": string;
     /**
      * Human readable description of this certificate, not longer than 500 characters.
      */
@@ -488,12 +493,17 @@ export interface TrustedCertificateReq {
  * This object represents a trusted certificate in responses.
  */
 export type TrustedCertificateRespServiceEnum = "lwm2m" | "bootstrap";
+export type TrustedCertificateRespStatusEnum = "ACTIVE" | "INACTIVE";
 export type TrustedCertificateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface TrustedCertificateResp {
     /**
      * Service name where the certificate is to be used.
      */
     "service": TrustedCertificateRespServiceEnum;
+    /**
+     * Status of the certificate.
+     */
+    "status"?: TrustedCertificateRespStatusEnum;
     /**
      * Human readable description of this certificate.
      */
@@ -502,6 +512,10 @@ export interface TrustedCertificateResp {
      * X509.v3 trusted certificate in PEM format.
      */
     "certificate": string;
+    /**
+     * Issuer of the certificate.
+     */
+    "issuer": string;
     /**
      * Device execution mode where 1 means a developer certificate.
      */
@@ -531,9 +545,9 @@ export interface TrustedCertificateResp {
      */
     "validity": string;
     /**
-     * Issuer of the certificate.
+     * The UUID of the owner.
      */
-    "issuer": string;
+    "owner_id"?: string;
     /**
      * Entity ID.
      */
@@ -646,7 +660,7 @@ export interface UserInfoReq {
      */
     "password"?: string;
     /**
-     * The email address, not longer than 100 characters.
+     * The email address, not longer than 254 characters.
      */
     "email": string;
 }
@@ -801,7 +815,7 @@ export interface UserUpdateReq {
      */
     "password"?: string;
     /**
-     * The email address, not longer than 100 characters.
+     * The email address, not longer than 254 characters.
      */
     "email": string;
 }
