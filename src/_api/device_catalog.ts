@@ -54,7 +54,7 @@ export interface DeviceData {
      */
     "id"?: string;
     /**
-     * The owning IAM account ID.
+     * The ID of the associated account.
      */
     "account_id"?: string;
     /**
