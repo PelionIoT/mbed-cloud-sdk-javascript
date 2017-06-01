@@ -68,11 +68,34 @@ export class AccountManagementApi {
 
     /**
      * Get details of account associated with current API key
+     *
+     * Example:
+     * ```JavaScript
+     * accounts.getAccount()
+     * .then(account => {
+     *     console.log("Account ID: " + account.id);
+     *     // Utilize account here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @returns Promise of account
      */
     public getAccount(): Promise<Account>;
     /**
      * Get details of account associated with current API key
+     *
+     * Example:
+     * ```JavaScript
+     * accounts.getAccount(function(error, account) {
+     *     if (error) throw error;
+     *     console.log("Account ID: " + account.id);
+     *     // Utilize account here
+     * });
+     * ```
+     *
      * @param callback A function that is passed the return arguments (error, account)
      */
     public getAccount(callback: CallbackFn<Account>): void;
@@ -86,12 +109,35 @@ export class AccountManagementApi {
 
     /**
      * Update details of account associated with current API key
+     *
+     * Example:
+     * ```JavaScript
+     * accountUpdate = {state: 'Texas', city: 'Austin', country: 'USA'};
+     * accounts.updateAccount(accountUpdate)
+     * .then(account => {
+     *     // Utilize account here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param account The account object to update
      * @returns Promise of account
      */
     public updateAccount(account: UpdateAccountObject): Promise<Account>;
     /**
      * Update details of account associated with current API key
+     *
+     * Example:
+     * ```JavaScript
+     * accountUpdate = {state: 'Texas', city: 'Austin', country: 'USA'};
+     * accounts.updateAccount(accountUpdate, function(error, account) {
+     *     if (error) throw error;
+     *     // Utilize account here
+     * });
+     * ```
+     *
      * @param account The account object to update
      * @param callback A function that is passed the return arguments (error, account)
      */
@@ -106,12 +152,37 @@ export class AccountManagementApi {
 
     /**
      * List API keys
+     *
+     * Example:
+     * ```JavaScript
+     * // Filter finds API keys that are owned by the specified user ID
+     * var filter = {owner: '015c3c46514802420a010b1000000000'};
+     * accounts.listApiKeys(filter)
+     * .then(keys => {
+     *     // Utilize keys here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options filter options
      * @returns Promise of listResponse
      */
     public listApiKeys(options?: ApiKeyListOptions): Promise<ListResponse<ApiKey>>;
     /**
      * List API keys
+     *
+     * Example:
+     * ```JavaScript
+     * // Filter finds API keys that are owned by the specified user ID
+     * var filter = {owner: '015c3c46514802420a010b1000000000'};
+     * accounts.listApiKeys(filter, function(error, keys) {
+     *     if (error) throw error;
+     *     // Utilize keys here
+     * });
+     * ```
+     *
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
@@ -140,12 +211,35 @@ export class AccountManagementApi {
 
     /**
      * Get details of an API key
+     *
+     * Example:
+     * ```JavaScript
+     * accounts.getApiKey()
+     * .then(key => {
+     *     console.log('Current user ID: ' + key.owner);
+     *     // Utilize key here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param apiKeyId The API key ID (if not specified, returns current API key)
      * @returns Promise containing the API key
      */
     public getApiKey(apiKeyId?: string): Promise<ApiKey>;
     /**
      * Get details of an API key
+     *
+     * Example:
+     * ```JavaScript
+     * accounts.getApiKey(function(error, key) {
+     *     if (error) throw error;
+     *     console.log('Current user ID: ' + key.owner);
+     *     // Utilize key here
+     * });
+     * ```
+     *
      * @param apiKeyId The API key ID (if not specified, returns current API key)
      * @param callback A function that is passed the return arguments (error, API key)
      */
@@ -166,12 +260,37 @@ export class AccountManagementApi {
 
     /**
      * Adds an API key
+     *
+     * Example:
+     * ```JavaScript
+     * var params = {name: 'auto_generated_key'};
+     * accounts.addApiKey(params)
+     * .then(keyResult => {
+     *     var key = keyResult.key;
+     *     console.log('Save this signature as you only get it once: ' + key);
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param apiKey The API key to add
      * @returns Promise containing API key
      */
     public addApiKey(apiKey: AddApiKeyObject): Promise<ApiKey>;
     /**
      * Adds an API key
+     *
+     * Example:
+     * ```JavaScript
+     * var params = {name: 'auto_generated_key'};
+     * accounts.addApiKey(params, function(error, key) {
+     *     if (error) throw error;
+     *     var key = keyResult.key;
+     *     console.log('Save this signature as you only get it once: ' + key);
+     * });
+     * ```
+     *
      * @param apiKey The API key to add
      * @param callback A function that is passed the return arguments (error, API key)
      */
@@ -186,12 +305,35 @@ export class AccountManagementApi {
 
     /**
      * Updates an API key
+     *
+     * Example:
+     * ```JavaScript
+     * var update = {id: '015c65119ed102420a01041200000000', name: 'new API name'};
+     * accounts.updateApiKey(update)
+     * .then(key => {
+     *     // Utilize key here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param apiKey The API key to add
      * @returns Promise containing API key
      */
     public updateApiKey(apiKey: UpdateApiKeyObject): Promise<ApiKey>;
     /**
      * Updates an API key
+     *
+     * Example:
+     * ```JavaScript
+     * var update = {id: '015c65119ed102420a01041200000000', name: 'new API name'};
+     * accounts.updateApiKey(updatefunction(error, key) {
+     *     if (error) throw error;
+     *     // Utilize key here
+     * });
+     * ```
+     *
      * @param apiKey The API key to add
      * @param callback A function that is passed the return arguments (error, API key)
      */
@@ -206,12 +348,31 @@ export class AccountManagementApi {
 
     /**
      * Deletes an API key
+     *
+     * Example:
+     * ```JavaScript
+     * var keyId = '015c65119ed102420a01041200000000';
+     * accounts.deleteApiKey(keyId)
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param apiKeyId The API key ID
      * @returns Promise containing any error
      */
     public deleteApiKey(apiKeyId: string): Promise<void>;
     /**
      * Deletes an API key
+     *
+     * Example:
+     * ```JavaScript
+     * var keyId = '015c65119ed102420a01041200000000';
+     * accounts.deleteApiKey(keyId, function(error) {
+     *     if (error) throw error;
+     * });
+     * ```
+     *
      * @param apiKeyId The API key ID
      * @param callback A function that is passed the return arguments (error, void)
      */
@@ -226,12 +387,35 @@ export class AccountManagementApi {
 
     /**
      * List users
+     *
+     * Example:
+     * ```JavaScript
+     * var filter = {limit: 10, status: 'ACTIVE'};
+     * accounts.listUsers(filter)
+     * .then(users => {
+     *     // Utilize users here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options filter options
      * @returns Promise of listResponse
      */
     public listUsers(options?: UserListOptions): Promise<ListResponse<User>>;
     /**
      * List users
+     *
+     * Example:
+     * ```JavaScript
+     * var filter = {limit: 10, status: 'ACTIVE'};
+     * accounts.listUsers(filter, function(error, users) {
+     *     if (error) throw error;
+     *     // Utilize users here
+     * });
+     * ```
+     *
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
@@ -260,12 +444,35 @@ export class AccountManagementApi {
 
     /**
      * Get details of a user
+     *
+     * Example:
+     * ```JavaScript
+     * var userId = '015c3c46514802420a010b1000000000';
+     * accounts.getUser(userId)
+     * .then(user => {
+     *     // Utilize user here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param userId The user ID
      * @returns Promise containing the user
      */
     public getUser(userId: string): Promise<User>;
     /**
      * Get details of a user
+     *
+     * Example:
+     * ```JavaScript
+     * var userId = '015c3c46514802420a010b1000000000';
+     * accounts.getUser(userId, function(error, user) {
+     *     if (error) throw error;
+     *     // Utilize user here
+     * });
+     * ```
+     *
      * @param userId The user ID
      * @param callback A function that is passed the return arguments (error, user)
      */
@@ -280,12 +487,35 @@ export class AccountManagementApi {
 
     /**
      * Adds a user
+     *
+     * Example:
+     * ```JavaScript
+     * var userDetails = {email: 'user@email.com', fullName: 'First Last', username: 'user123'};
+     * accounts.addUser(userDetails)
+     * .then(user => {
+     *     // Utilize user here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param user User to add
      * @returns Promise containing user
      */
     public addUser(user: AddUserObject): Promise<User>;
     /**
      * Adds a user
+     *
+     * Example:
+     * ```JavaScript
+     * var userDetails = {email: 'user@email.com', fullName: 'First Last', username: 'user123'};
+     * accounts.addUser(userDetails, function(error, user) {
+     *     if (error) throw error;
+     *     // Utilize user here
+     * });
+     * ```
+     *
      * @param user User to add
      * @param callback A function that is passed the return arguments (error, user)
      */
@@ -300,12 +530,35 @@ export class AccountManagementApi {
 
     /**
      * Updates a user
+     *
+     * Example:
+     * ```JavaScript
+     * var userDetails = {id: '015c3c46514802420a010b1000000000', fullName: 'First Last', username: 'user123'}
+     * accounts.updateUser(userDetails)
+     * .then(user => {
+     *     // Utilize user here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param user User to update
      * @returns Promise containing user
      */
     public updateUser(user: UpdateUserObject): Promise<User>;
     /**
      * Updates a user
+     *
+     * Example:
+     * ```JavaScript
+     * var userDetails = {id: '015c3c46514802420a010b1000000000', fullName: 'First Last', username: 'user123'}
+     * accounts.updateUser(userDetails, function(error, user) {
+     *     if (error) throw error;
+     *     // Utilize user here
+     * });
+     * ```
+     *
      * @param user User to update
      * @param callback A function that is passed the return arguments (error, user)
      */
@@ -320,12 +573,31 @@ export class AccountManagementApi {
 
     /**
      * Deletes a user
+     *
+     * Example:
+     * ```JavaScript
+     * var userId = '015c3c46514802420a010b1000000000';
+     * accounts.deleteUser(userId)
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param userId The user ID
      * @returns Promise containing any error
      */
     public deleteUser(userId: string): Promise<void>;
     /**
      * Deletes a user
+     *
+     * Example:
+     * ```JavaScript
+     * var userId = '015c3c46514802420a010b1000000000';
+     * accounts.deleteUser(userId, function(error) {
+     *     if (error) throw error;
+     * });
+     * ```
+     *
      * @param userId The user ID
      * @param callback A function that is passed the return arguments (error, void)
      */
@@ -340,12 +612,35 @@ export class AccountManagementApi {
 
     /**
      * List groups
+     *
+     * Example:
+     * ```JavaScript
+     * var filter = {limit: 5};
+     * accounts.listGroups(filter)
+     * .then(groups => {
+     *     // Utilize groups here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options filter options
      * @returns Promise of listResponse
      */
     public listGroups(options?: ListOptions): Promise<ListResponse<Group>>;
     /**
      * List groups
+     *
+     * Example:
+     * ```JavaScript
+     * var filter = {limit: 5};
+     * accounts.listGroups(filter, function(error, groups) {
+     *     if (error) throw error;
+     *     // Utilize groups here
+     * });
+     * ```
+     *
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
@@ -374,12 +669,35 @@ export class AccountManagementApi {
 
     /**
      * Get details of a group
+     *
+     * Example:
+     * ```JavaScript
+     * var groupId = '015b5c9279ee02420a01041200000000';
+     * accounts.getGroup(groupId)
+     * .then(group => {
+     *     // Utilize group here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param groupId The group ID
      * @returns Promise containing the group
      */
     public getGroup(groupId: string): Promise<Group>;
     /**
      * Get details of a group
+     *
+     * Example:
+     * ```JavaScript
+     * var groupId = '015b5c9279ee02420a01041200000000';
+     * accounts.getGroup(groupId, function(error, group) {
+     *     if (error) throw error;
+     *     // Utilize group here
+     * });
+     * ```
+     *
      * @param groupId The group ID
      * @param callback A function that is passed the arguments (error, group)
      */
@@ -394,6 +712,20 @@ export class AccountManagementApi {
 
     /**
      * List users of a group
+     *
+     * Example:
+     * ```JavaScript
+     * var filter = {limit: 10};
+     * var groupId = '015b5c9279ee02420a01041200000000';
+     * accounts.listGroupUsers(groupId, filter)
+     * .then(users => {
+     *     // Utilize users here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param groupId The group ID
      * @param options filter options
      * @returns Promise of listResponse
@@ -401,6 +733,17 @@ export class AccountManagementApi {
     public listGroupUsers(groupId: string, options?: ListOptions): Promise<ListResponse<User>>;
     /**
      * List users of a group
+     *
+     * Example:
+     * ```JavaScript
+     * var filter = {limit: 10};
+     * var groupId = '015b5c9279ee02420a01041200000000';
+     * accounts.listGroupUsers(groupId, filter, function(error, users) {
+     *     if (error) throw error;
+     *     // Utilize users here
+     * });
+     * ```
+     *
      * @param groupId The group ID
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
@@ -430,6 +773,20 @@ export class AccountManagementApi {
 
     /**
      * List API keys of a group
+     *
+     * Example:
+     * ```JavaScript
+     * var filter = {limit: 5};
+     * var groupId = '015b5c9279ee02420a01041200000000';
+     * accounts.listGroupApiKeys(groupId, filter)
+     * .then(keys => {
+     *     // Utilize keys here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param groupId The group ID
      * @param options filter options
      * @returns Promise of listResponse
@@ -437,6 +794,17 @@ export class AccountManagementApi {
     public listGroupApiKeys(groupId: string, options?: ListOptions): Promise<ListResponse<ApiKey>>;
     /**
      * List API keys of a group
+     *
+     * Example:
+     * ```JavaScript
+     * var filter = {limit: 5};
+     * var groupId = '015b5c9279ee02420a01041200000000';
+     * accounts.listGroupApiKeys(groupId, filter, function(error, keys) {
+     *     if (error) throw error;
+     *     // Utilize keys here
+     * });
+     * ```
+     *
      * @param groupId The group ID
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
