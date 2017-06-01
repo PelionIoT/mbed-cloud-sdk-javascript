@@ -78,12 +78,35 @@ export class CertificatesApi {
 
     /**
      * List certificates
+     *
+     * Example:
+     * ```JavaScript
+     * var options = {limit: 5, type: 'bootstrap', order: 'ASC'};
+     * certificates.listCertificates(options)
+     * .then(certificates => {
+     *     // Utilize certificates here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options filter options
      * @returns Promise of listResponse
      */
     public listCertificates(options?: CertificateListOptions): Promise<ListResponse<Certificate>>;
     /**
      * List certificates
+     *
+     * Example:
+     * ```JavaScript
+     * var options = {limit: 5, type: 'bootstrap', order: 'ASC'};
+     * certificates.listCertificates(options, function(error, certificates) {
+     *     if (error) throw error;
+     *     // Utilize certificates here
+     * });
+     * ```
+     *
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
@@ -115,12 +138,35 @@ export class CertificatesApi {
 
     /**
      * Get details of a certificate
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015c64f76a7b02420a01230a00000000';
+     * certificates.getCertificate(id)
+     * .then(certificate => {
+     *     // Utilize certificate here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param certificateId The certificate ID
      * @returns Promise containing the certificate
      */
     public getCertificate(certificateId: string): Promise<Certificate>;
     /**
      * Get details of a certificate
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015c64f76a7b02420a01230a00000000';
+     * certificates.getCertificate(id, function(error, certificate) {
+     *     if (error) throw error;
+     *     // Utilize certificate here
+     * });
+     * ```
+     *
      * @param certificateId The certificate ID
      * @param callback A function that is passed the return arguments (error, certificate)
      */
@@ -135,24 +181,76 @@ export class CertificatesApi {
 
     /**
      * Adds a generated developer certificate
+     *
+     * Example:
+     * ```JavaScript
+     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer'};
+     * certificates.addCertificate(certificate)
+     * .then(certificate => {
+     *     // Utilize certificate here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param certificate Certificate request
      * @returns Promise containing certificate
      */
     public addCertificate(certificate: AddDeveloperCertificateObject): Promise<Certificate>;
     /**
      * Adds a generated developer certificate
+     *
+     * Example:
+     * ```JavaScript
+     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer'};
+     * certificates.addCertificate(certificate, function(error, certificate) {
+     *     if (error) throw error;
+     *     // Utilize certificate here
+     * });
+     * ```
+     *
      * @param certificate Certificate request
      * @param callback A function that is passed the return arguments (error, certificate)
      */
     public addCertificate(certificate: AddDeveloperCertificateObject, callback: CallbackFn<Certificate>): void;
     /**
      * Adds a certificate
+     *
+     * Example:
+     * ```JavaScript
+     * // Signature is a Base64 encoded signature of the account ID hashed with SHA256
+     * var signature = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+     * var certificateData = '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----';
+     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer', signature: signature, certificateData: certificateData};
+     * certificates.addCertificate(certificate)
+     * .then(certificate => {
+     *     // Utilize certificate here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param certificate Certificate request
      * @returns Promise containing certificate
      */
     public addCertificate(certificate: AddCertificateObject): Promise<Certificate>;
     /**
      * Adds a certificate
+     *
+     * Example:
+     * ```JavaScript
+     * // Signature is a Base64 encoded signature of the account ID hashed with SHA256
+     * var signature = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+     * var certificateData = '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----';
+     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer', signature: signature, certificateData: certificateData};
+     * certificates.addCertificate(certificate, function(error, certificate) {
+     *     if (error) throw error;
+     *     // Utilize certificate here
+     * });
+     * ```
+     *
      * @param certificate Certificate request
      * @param callback A function that is passed the return arguments (error, certificate)
      */
@@ -181,12 +279,41 @@ export class CertificatesApi {
 
     /**
      * Updates a certificate
+     *
+     * Example:
+     * ```JavaScript
+     * // Signature is a Base64 encoded signature of the account ID hashed with SHA256
+     * var signature = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+     * var certificateData = '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----';
+     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer', signature: signature, certificateData: certificateData};
+     * certificates.updateCertificate(certificate)
+     * .then(certificate => {
+     *     // Utilize certificate here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param certificate Certificate data
      * @returns Promise containing certificate
      */
     public updateCertificate(certificate: UpdateCertificateObject): Promise<Certificate>;
     /**
      * Updates a certificate
+     *
+     * Example:
+     * ```JavaScript
+     * // Signature is a Base64 encoded signature of the account ID hashed with SHA256
+     * var signature = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+     * var certificateData = '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----';
+     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer', signature: signature, certificateData: certificateData};
+     * certificates.updateCertificate(certificate, function(error, certificate) {
+     *     if (error) throw error;
+     *     // Utilize certificate here
+     * });
+     * ```
+     *
      * @param certificate Certificate data
      * @param callback A function that is passed the return arguments (error, certificate)
      */
@@ -201,12 +328,31 @@ export class CertificatesApi {
 
     /**
      * Deletes a certificate
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015c64f76a7b02420a01230a00000000';
+     * certificates.deleteCertificate(id)
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param certificateId The certificate ID
      * @returns Promise containing any error
      */
     public deleteCertificate(certificateId: string): Promise<void>;
     /**
      * Deletes a certificate
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015c64f76a7b02420a01230a00000000';
+     * certificates.deleteCertificate(id, function(error) {
+     *     if (error) throw error;
+     * });
+     * ```
+     *
      * @param certificateId The certificate ID
      * @param callback A function that is passed the return arguments (error, void)
      */
