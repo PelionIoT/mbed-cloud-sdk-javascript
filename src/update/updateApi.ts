@@ -67,12 +67,43 @@ export class UpdateApi {
 
     /**
      * List firmware images
+     *
+     * Example:
+     * ```JavaScript
+     * var options = {limit: 5, filter: {
+     *     name: { $eq: "blinky" },
+     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     * }};
+     * update.listFirmwareImages(options)
+     * .then(firmwareimages => {
+     *     // Utilize firmwareimages here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options list options
      * @returns Promise of listResponse
      */
     public listFirmwareImages(options?: FirmwareImageListOptions): Promise<ListResponse<FirmwareImage>>;
     /**
      * List firmware images
+     *
+     * Example:
+     * ```JavaScript
+     * var options = {limit: 5, filter: {
+     *     name: { $eq: "blinky" },
+     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     * }};
+     * update.listFirmwareImages(options, function(error, firmwareimages) {
+     *     if (error) throw error;
+     *     // Utilize firmwareimages here
+     * });
+     * ```
+     *
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
@@ -101,12 +132,35 @@ export class UpdateApi {
 
     /**
      * Get details of a firmware image
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf5f4f04000000000001001003d5';
+     * update.getFirmwareImage(id)
+     * .then(firmwareimage => {
+     *     // Utilize firmwareimage here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param firmwareImageId The firmware image ID
      * @returns Promise containing the firmware image
      */
     public getFirmwareImage(firmwareImageId: string): Promise<FirmwareImage>;
     /**
      * Get details of a firmware image
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf5f4f04000000000001001003d5';
+     * update.getFirmwareImage(id, function(error, firmwareimage) {
+     *     if (error) throw error;
+     *     // Utilize firmwareimage here
+     * });
+     * ```
+     *
      * @param firmwareImageId The firmware image ID
      * @param callback A function that is passed the return arguments (error, firmware image)
      */
@@ -209,12 +263,31 @@ export class UpdateApi {
 
     /**
      * Deletes a firmware image
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf5f4f04000000000001001003d5';
+     * update.deleteFirmwareImage(id)
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param firmwareImageId The ID of the firmware image to delete
      * @returns Promise containing any error
      */
     public deleteFirmwareImage(firmwareImageId: string): Promise<void>;
     /**
      * Deletes a firmware image
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf5f4f04000000000001001003d5';
+     * update.deleteFirmwareImage(id, function(error) {
+     *     if (error) throw error;
+     * });
+     * ```
+     *
      * @param firmwareImageId The ID of the firmware image to delete
      * @param callback A function that is passed the return arguments (error, void)
      */
@@ -229,12 +302,46 @@ export class UpdateApi {
 
     /**
      * List firmware manifests
+     *
+     * Example:
+     * ```JavaScript
+     * var options = {limit: 5, filter: {
+     *     name: { $eq: "blinky" },
+     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     * }};
+     * update.listFirmwareManifests(options)
+     * .then(firmwaremanifests => {
+     *     // Utilize firmwaremanifests here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options list options
      * @returns Promise of listResponse
      */
     public listFirmwareManifests(options?: FirmwareManifestListOptions): Promise<ListResponse<FirmwareManifest>>;
     /**
      * List manifests
+     *
+     * Example:
+     * ```JavaScript
+     * var options = {limit: 5, filter: {
+     *     name: { $eq: "blinky" },
+     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     * }};
+     * update.listFirmwareManifests(options)
+     * .then(firmwaremanifests => {
+     *     // Utilize firmwaremanifests here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
@@ -263,12 +370,35 @@ export class UpdateApi {
 
     /**
      * Get details of a firmware manifest
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf60323d000000000001001003dd';
+     * update.getFirmwareManifest(id)
+     * .then(firmwaremanifest => {
+     *     // Utilize firmwaremanifest here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param firmwareManifestId The firmware manifest ID
      * @returns Promise containing the firmware manifest
      */
     public getFirmwareManifest(firmwareManifestId: string): Promise<FirmwareManifest>;
     /**
      * Get details of a firmware manifest
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf60323d000000000001001003dd';
+     * update.getFirmwareManifest(id, function(error, firmwaremanifest) {
+     *     if (error) throw error;
+     *     // Utilize firmwaremanifest here
+     * });
+     * ```
+     *
      * @param firmwareManifestId The firmware manifest ID
      * @param callback A function that is passed the return arguments (error, firmware manifest)
      */
@@ -371,12 +501,31 @@ export class UpdateApi {
 
     /**
      * Deletes a firmware manifest
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf60323d000000000001001003dd';
+     * update.deleteFirmwareManifest(id)
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param firmwareManifestId The ID of the firmware manifest to delete
      * @returns Promise containing any error
      */
     public deleteFirmwareManifest(firmwareManifestId: string): Promise<void>;
     /**
      * Deletes a firmware manifest
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf60323d000000000001001003dd';
+     * update.deleteFirmwareManifest(id, function(error) {
+     *     if (error) throw error;
+     * });
+     * ```
+     *
      * @param firmwareManifestId The ID of the firmware manifest to delete
      * @param callback A function that is passed the return arguments (error, void)
      */
@@ -391,12 +540,43 @@ export class UpdateApi {
 
     /**
      * List update campaigns
+     *
+     * Example:
+     * ```JavaScript
+     * var options = {limit: 5, filter: {
+     *     name: { $eq: "blinky" },
+     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     * }};
+     * update.listCampaigns(options)
+     * .then(campaigns => {
+     *     // Utilize campaigns here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options list options
      * @returns Promise of listResponse
      */
     public listCampaigns(options?: CampaignListOptions): Promise<ListResponse<Campaign>>;
     /**
      * List update campaigns
+     *
+     * Example:
+     * ```JavaScript
+     * var options = {limit: 5, filter: {
+     *     name: { $eq: "blinky" },
+     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     * }};
+     * update.listCampaigns(options, function(error, campaigns) {
+     *     if (error) throw error;
+     *     // Utilize campaigns here
+     * });
+     * ```
+     *
      * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
@@ -425,12 +605,35 @@ export class UpdateApi {
 
     /**
      * Get details of an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf607c250000000000010010003d';
+     * update.getCampaign(id)
+     * .then(campaign => {
+     *     // Utilize campaign here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param campaignId The update campaign ID
      * @returns Promise containing the update campaign
      */
     public getCampaign(campaignId: string): Promise<Campaign>;
     /**
      * Get details of an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf607c250000000000010010003d';
+     * update.getCampaign(id, function(error, campaign) {
+     *     if (error) throw error;
+     *     // Utilize campaign here
+     * });
+     * ```
+     *
      * @param campaignId The update campaign ID
      * @param callback A function that is passed the return arguments (error, update campaign)
      */
@@ -445,12 +648,51 @@ export class UpdateApi {
 
     /**
      * Adds an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var campaign = {name: 'testCampaign',  deviceFilter: {
+     *     state: { $eq: "bootstrapped" },
+     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     customAttributes: {
+     *         attr1: { $eq: "custom_value_1" },
+     *         attr2: { $eq: "custom_value_1" },
+     *     }
+     * }};
+     * update.addCampaign(campaign)
+     * .then(campaign => {
+     *     // Utilize campaign here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param campaign The campaign to add
      * @returns Promise containing update campaign
      */
     public addCampaign(campaign: AddCampaignObject): Promise<Campaign>;
     /**
      * Adds an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var campaign = {name: 'testCampaign',  deviceFilter: {
+     *     state: { $eq: "bootstrapped" },
+     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     customAttributes: {
+     *         attr1: { $eq: "custom_value_1" },
+     *         attr2: { $eq: "custom_value_1" },
+     *     }
+     * }};
+     * update.addCampaign(campaign, function(error, campaign) {
+     *     if (error) throw error;
+     *     // Utilize campaign here
+     * });
+     * ```
+     *
      * @param campaign The campaign to add
      * @param callback A function that is passed the return arguments (error, update campaign)
      */
@@ -465,12 +707,51 @@ export class UpdateApi {
 
     /**
      * Update an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var campaign = {name: 'testCampaign', id: '015baf607c250000000000010010003d', deviceFilter: {
+     *     state: { $eq: "bootstrapped" },
+     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     customAttributes: {
+     *         attr1: { $eq: "custom_value_1" },
+     *         attr2: { $eq: "custom_value_1" },
+     *     }
+     * }};
+     * update.updateCampaign(campaign)
+     * .then(campaign => {
+     *     // Utilize campaign here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param campaign The campaign to update
      * @returns Promise of campaign
      */
     public updateCampaign(campaign: UpdateCampaignObject): Promise<Campaign>;
     /**
      * Update an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var campaign = {name: 'testCampaign', id: '015baf607c250000000000010010003d', deviceFilter: {
+     *     state: { $eq: "bootstrapped" },
+     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *     customAttributes: {
+     *         attr1: { $eq: "custom_value_1" },
+     *         attr2: { $eq: "custom_value_1" },
+     *     }
+     * }};
+     * update.updateCampaign(campaign, function(error, campaign) {
+     *     if (error) throw error;
+     *     // Utilize campaign here
+     * });
+     * ```
+     *
      * @param campaign The campaign to update
      * @param callback A function that is passed the arguments (error, campaign)
      */
@@ -486,12 +767,31 @@ export class UpdateApi {
 
     /**
      * Deletes an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf607c250000000000010010003d';
+     * update.deleteCampaign(id)
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param campaignId The ID of the update campaign to delete
      * @returns Promise containing any error
      */
     public deleteCampaign(campaignId: string): Promise<void>;
     /**
      * Deletes an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf607c250000000000010010003d';
+     * update.deleteCampaign(id, function(error) {
+     *     if (error) throw error;
+     * });
+     * ```
+     *
      * @param campaignId The ID of the update campaign to delete
      * @param callback A function that is passed the return arguments (error, void)
      */
@@ -506,12 +806,35 @@ export class UpdateApi {
 
     /**
      * Start an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf607c250000000000010010003d';
+     * update.startCampaign(id)
+     * .then(data => {
+     *     // Utilize data here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param campaignId The ID of the update campaign
      * @returns Promise containing campaign
      */
     public startCampaign(campaignId: string): Promise<Campaign>;
     /**
      * Start an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf607c250000000000010010003d';
+     * update.startCampaign(id, function(error, data) {
+     *     if (error) throw error;
+     *     // Utilize data here
+     * });
+     * ```
+     *
      * @param campaignId The ID of the update campaign
      * @param callback A function that is passed the return arguments (error, campaign)
      */
@@ -529,12 +852,35 @@ export class UpdateApi {
 
     /**
      * Stop an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf607c250000000000010010003d';
+     * update.stopCampaign(id)
+     * .then(data => {
+     *     // Utilize data here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param campaignId The ID of the update campaign
      * @returns Promise containing campaign
      */
     public stopCampaign(campaignId: string): Promise<Campaign>;
     /**
      * Stop an update campaign
+     *
+     * Example:
+     * ```JavaScript
+     * var id = '015baf607c250000000000010010003d';
+     * update.stopCampaign(id, function(error, data) {
+     *     if (error) throw error;
+     *     // Utilize data here
+     * });
+     * ```
+     *
      * @param campaignId The ID of the update campaign
      * @param callback A function that is passed the return arguments (error, campaign)
      */
