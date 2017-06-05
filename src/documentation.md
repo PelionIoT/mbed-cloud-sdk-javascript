@@ -43,8 +43,8 @@ var connect = new mbedCloudSDK.ConnectApi({
 });
 
 connect.listConnectedDevices()
-.then(response => {
-	response.data.forEach(device => {
+.then(devices => {
+	devices.forEach(device => {
 		console.log(device.id);
 	});
 });
@@ -67,8 +67,8 @@ var connect = new mbedCloudSDK.ConnectApi({
 	apiKey: "<mbed Cloud API Key>"
 });
 
-connect.listConnectedDevices(function(error, response) {
-	response.data.forEach(function(device) {
+connect.listConnectedDevices(function(error, devices) {
+	devices.forEach(function(device) {
 		console.log(device.id);
 	});
 });
