@@ -70,12 +70,14 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var options = {limit: 5, filter: {
-     *     name: { $eq: "blinky" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * }};
-     * update.listFirmwareImages(options)
+     * update.listFirmwareImages({
+     *     limit: 5,
+     *     filter: {
+     *         name: { $eq: "blinky" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
      * .then(firmwareimages => {
      *     // Utilize firmwareimages here
      * })
@@ -93,12 +95,14 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var options = {limit: 5, filter: {
-     *     name: { $eq: "blinky" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * }};
-     * update.listFirmwareImages(options, function(error, firmwareimages) {
+     * update.listFirmwareImages({
+     *     limit: 5,
+     *     filter: {
+     *         name: { $eq: "blinky" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     * }},     
+     * function(error, firmwareimages) {
      *     if (error) throw error;
      *     // Utilize firmwareimages here
      * });
@@ -135,8 +139,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf5f4f04000000000001001003d5';
-     * update.getFirmwareImage(id)
+     * update.getFirmwareImage('015baf5f4f04000000000001001003d5')
      * .then(firmwareimage => {
      *     // Utilize firmwareimage here
      * })
@@ -154,8 +157,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf5f4f04000000000001001003d5';
-     * update.getFirmwareImage(id, function(error, firmwareimage) {
+     * update.getFirmwareImage('015baf5f4f04000000000001001003d5', function(error, firmwareimage) {
      *     if (error) throw error;
      *     // Utilize firmwareimage here
      * });
@@ -266,8 +268,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf5f4f04000000000001001003d5';
-     * update.deleteFirmwareImage(id)
+     * update.deleteFirmwareImage('015baf5f4f04000000000001001003d5')
      * .catch(error => {
      *     console.log(error);
      * });
@@ -282,8 +283,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf5f4f04000000000001001003d5';
-     * update.deleteFirmwareImage(id, function(error) {
+     * update.deleteFirmwareImage('015baf5f4f04000000000001001003d5', function(error) {
      *     if (error) throw error;
      * });
      * ```
@@ -305,12 +305,14 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var options = {limit: 5, filter: {
-     *     name: { $eq: "blinky" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * }};
-     * update.listFirmwareManifests(options)
+     * update.listFirmwareManifests({
+     *     limit: 5,
+     *     filter: {
+     *         name: { $eq: "blinky" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
      * .then(firmwaremanifests => {
      *     // Utilize firmwaremanifests here
      * })
@@ -328,18 +330,17 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var options = {limit: 5, filter: {
-     *     name: { $eq: "blinky" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * }};
-     * update.listFirmwareManifests(options)
-     * .then(firmwaremanifests => {
+     * update.listFirmwareManifests({
+     *     limit: 5,
+     *     filter: {
+     *         name: { $eq: "blinky" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, firmwaremanifests) {
+     *     if (error) throw error;
      *     // Utilize firmwaremanifests here
-     * })
-     * .catch(error => {
-     *     console.log(error);
-     * });
+     * }
      * ```
      *
      * @param options list options
@@ -373,8 +374,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf60323d000000000001001003dd';
-     * update.getFirmwareManifest(id)
+     * update.getFirmwareManifest('015baf60323d000000000001001003dd')
      * .then(firmwaremanifest => {
      *     // Utilize firmwaremanifest here
      * })
@@ -392,8 +392,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf60323d000000000001001003dd';
-     * update.getFirmwareManifest(id, function(error, firmwaremanifest) {
+     * update.getFirmwareManifest('015baf60323d000000000001001003dd', function(error, firmwaremanifest) {
      *     if (error) throw error;
      *     // Utilize firmwaremanifest here
      * });
@@ -504,8 +503,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf60323d000000000001001003dd';
-     * update.deleteFirmwareManifest(id)
+     * update.deleteFirmwareManifest('015baf60323d000000000001001003dd')
      * .catch(error => {
      *     console.log(error);
      * });
@@ -520,8 +518,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf60323d000000000001001003dd';
-     * update.deleteFirmwareManifest(id, function(error) {
+     * update.deleteFirmwareManifest('015baf60323d000000000001001003dd', function(error) {
      *     if (error) throw error;
      * });
      * ```
@@ -543,12 +540,14 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var options = {limit: 5, filter: {
-     *     name: { $eq: "blinky" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * }};
-     * update.listCampaigns(options)
+     * update.listCampaigns({
+     *     limit: 5,
+     *     filter: {
+     *         name: { $eq: "blinky" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
      * .then(campaigns => {
      *     // Utilize campaigns here
      * })
@@ -566,12 +565,14 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var options = {limit: 5, filter: {
-     *     name: { $eq: "blinky" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * }};
-     * update.listCampaigns(options, function(error, campaigns) {
+     * update.listCampaigns({
+     *     limit: 5,
+     *     filter: {
+     *         name: { $eq: "blinky" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, campaigns) {
      *     if (error) throw error;
      *     // Utilize campaigns here
      * });
@@ -608,8 +609,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf607c250000000000010010003d';
-     * update.getCampaign(id)
+     * update.getCampaign('015baf607c250000000000010010003d')
      * .then(campaign => {
      *     // Utilize campaign here
      * })
@@ -627,8 +627,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf607c250000000000010010003d';
-     * update.getCampaign(id, function(error, campaign) {
+     * update.getCampaign('015baf607c250000000000010010003d', function(error, campaign) {
      *     if (error) throw error;
      *     // Utilize campaign here
      * });
@@ -651,16 +650,18 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var campaign = {name: 'testCampaign',  deviceFilter: {
-     *     state: { $eq: "bootstrapped" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     customAttributes: {
-     *         attr1: { $eq: "custom_value_1" },
-     *         attr2: { $eq: "custom_value_1" },
+     * update.addCampaign({
+     *     name: 'testCampaign',
+     *     deviceFilter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         customAttributes: {
+     *             attr1: { $eq: "custom_value_1" },
+     *             attr2: { $eq: "custom_value_1" },
+     *         }
      *     }
-     * }};
-     * update.addCampaign(campaign)
+     * })
      * .then(campaign => {
      *     // Utilize campaign here
      * })
@@ -678,16 +679,18 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var campaign = {name: 'testCampaign',  deviceFilter: {
-     *     state: { $eq: "bootstrapped" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     customAttributes: {
-     *         attr1: { $eq: "custom_value_1" },
-     *         attr2: { $eq: "custom_value_1" },
+     * update.addCampaign({
+     *     name: 'testCampaign',
+     *     deviceFilter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         customAttributes: {
+     *             attr1: { $eq: "custom_value_1" },
+     *             attr2: { $eq: "custom_value_1" },
+     *         }
      *     }
-     * }};
-     * update.addCampaign(campaign, function(error, campaign) {
+     * }, function(error, campaign) {
      *     if (error) throw error;
      *     // Utilize campaign here
      * });
@@ -710,16 +713,19 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var campaign = {name: 'testCampaign', id: '015baf607c250000000000010010003d', deviceFilter: {
-     *     state: { $eq: "bootstrapped" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     customAttributes: {
-     *         attr1: { $eq: "custom_value_1" },
-     *         attr2: { $eq: "custom_value_1" },
+     * update.updateCampaign({
+     *     name: 'testCampaign',
+     *     id: '015baf607c250000000000010010003d',
+     *     deviceFilter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         customAttributes: {
+     *             attr1: { $eq: "custom_value_1" },
+     *             attr2: { $eq: "custom_value_1" },
+     *         }
      *     }
-     * }};
-     * update.updateCampaign(campaign)
+     * })
      * .then(campaign => {
      *     // Utilize campaign here
      * })
@@ -737,16 +743,19 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var campaign = {name: 'testCampaign', id: '015baf607c250000000000010010003d', deviceFilter: {
-     *     state: { $eq: "bootstrapped" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     customAttributes: {
-     *         attr1: { $eq: "custom_value_1" },
-     *         attr2: { $eq: "custom_value_1" },
+     * update.updateCampaign({
+     *     name: 'testCampaign',
+     *     id: '015baf607c250000000000010010003d',
+     *     deviceFilter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         customAttributes: {
+     *             attr1: { $eq: "custom_value_1" },
+     *             attr2: { $eq: "custom_value_1" },
+     *         }
      *     }
-     * }};
-     * update.updateCampaign(campaign, function(error, campaign) {
+     * }, function(error, campaign) {
      *     if (error) throw error;
      *     // Utilize campaign here
      * });
@@ -770,8 +779,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf607c250000000000010010003d';
-     * update.deleteCampaign(id)
+     * update.deleteCampaign('015baf607c250000000000010010003d')
      * .catch(error => {
      *     console.log(error);
      * });
@@ -786,8 +794,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf607c250000000000010010003d';
-     * update.deleteCampaign(id, function(error) {
+     * update.deleteCampaign('015baf607c250000000000010010003d', function(error) {
      *     if (error) throw error;
      * });
      * ```
@@ -809,8 +816,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf607c250000000000010010003d';
-     * update.startCampaign(id)
+     * update.startCampaign('015baf607c250000000000010010003d')
      * .then(data => {
      *     // Utilize data here
      * })
@@ -828,8 +834,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf607c250000000000010010003d';
-     * update.startCampaign(id, function(error, data) {
+     * update.startCampaign('015baf607c250000000000010010003d', function(error, data) {
      *     if (error) throw error;
      *     // Utilize data here
      * });
@@ -855,8 +860,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf607c250000000000010010003d';
-     * update.stopCampaign(id)
+     * update.stopCampaign('015baf607c250000000000010010003d')
      * .then(data => {
      *     // Utilize data here
      * })
@@ -874,8 +878,7 @@ export class UpdateApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015baf607c250000000000010010003d';
-     * update.stopCampaign(id, function(error, data) {
+     * update.stopCampaign('015baf607c250000000000010010003d', function(error, data) {
      *     if (error) throw error;
      *     // Utilize data here
      * });

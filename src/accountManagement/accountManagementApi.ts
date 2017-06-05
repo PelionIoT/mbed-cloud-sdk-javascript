@@ -112,8 +112,11 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * accountUpdate = {state: 'Texas', city: 'Austin', country: 'USA'};
-     * accounts.updateAccount(accountUpdate)
+     * accounts.updateAccount({
+     *    state: 'Texas',
+     *    city: 'Austin',
+     *    country: 'USA'
+     * })
      * .then(account => {
      *     // Utilize account here
      * })
@@ -131,8 +134,11 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * accountUpdate = {state: 'Texas', city: 'Austin', country: 'USA'};
-     * accounts.updateAccount(accountUpdate, function(error, account) {
+     * accounts.updateAccount({
+     *     state: 'Texas',
+     *     city: 'Austin',
+     *     country: 'USA'
+     * }, function(error, account) {
      *     if (error) throw error;
      *     // Utilize account here
      * });
@@ -156,8 +162,7 @@ export class AccountManagementApi {
      * Example:
      * ```JavaScript
      * // Filter finds API keys that are owned by the specified user ID
-     * var filter = {owner: '015c3c46514802420a010b1000000000'};
-     * accounts.listApiKeys(filter)
+     * accounts.listApiKeys({owner: '015c3c46514802420a010b1000000000'})
      * .then(keys => {
      *     // Utilize keys here
      * })
@@ -176,8 +181,7 @@ export class AccountManagementApi {
      * Example:
      * ```JavaScript
      * // Filter finds API keys that are owned by the specified user ID
-     * var filter = {owner: '015c3c46514802420a010b1000000000'};
-     * accounts.listApiKeys(filter, function(error, keys) {
+     * accounts.listApiKeys({owner: '015c3c46514802420a010b1000000000'}, function(error, keys) {
      *     if (error) throw error;
      *     // Utilize keys here
      * });
@@ -263,8 +267,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var params = {name: 'auto_generated_key'};
-     * accounts.addApiKey(params)
+     * accounts.addApiKey({name: 'auto_generated_key'})
      * .then(keyResult => {
      *     var key = keyResult.key;
      *     console.log('Save this signature as you only get it once: ' + key);
@@ -283,8 +286,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var params = {name: 'auto_generated_key'};
-     * accounts.addApiKey(params, function(error, key) {
+     * accounts.addApiKey({name: 'auto_generated_key'}, function(error, key) {
      *     if (error) throw error;
      *     var key = keyResult.key;
      *     console.log('Save this signature as you only get it once: ' + key);
@@ -308,8 +310,10 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var update = {id: '015c65119ed102420a01041200000000', name: 'new API name'};
-     * accounts.updateApiKey(update)
+     * accounts.updateApiKey({
+     *     id: '015c65119ed102420a01041200000000',
+     *     name: 'new API name'
+     * })
      * .then(key => {
      *     // Utilize key here
      * })
@@ -327,8 +331,10 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var update = {id: '015c65119ed102420a01041200000000', name: 'new API name'};
-     * accounts.updateApiKey(updatefunction(error, key) {
+     * accounts.updateApiKey({
+     *     id: '015c65119ed102420a01041200000000',
+     *     name: 'new API name'
+     * }, updatefunction(error, key) {
      *     if (error) throw error;
      *     // Utilize key here
      * });
@@ -351,8 +357,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var keyId = '015c65119ed102420a01041200000000';
-     * accounts.deleteApiKey(keyId)
+     * accounts.deleteApiKey('015c65119ed102420a01041200000000')
      * .catch(error => {
      *     console.log(error);
      * });
@@ -367,8 +372,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var keyId = '015c65119ed102420a01041200000000';
-     * accounts.deleteApiKey(keyId, function(error) {
+     * accounts.deleteApiKey('015c65119ed102420a01041200000000', function(error) {
      *     if (error) throw error;
      * });
      * ```
@@ -390,8 +394,10 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {limit: 10, status: 'ACTIVE'};
-     * accounts.listUsers(filter)
+     * accounts.listUsers({
+     *     limit: 10,
+     *     status: 'ACTIVE'
+     * })
      * .then(users => {
      *     // Utilize users here
      * })
@@ -409,8 +415,10 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {limit: 10, status: 'ACTIVE'};
-     * accounts.listUsers(filter, function(error, users) {
+     * accounts.listUsers({
+     *     limit: 10,
+     *     status: 'ACTIVE'
+     * }, function(error, users) {
      *     if (error) throw error;
      *     // Utilize users here
      * });
@@ -447,8 +455,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var userId = '015c3c46514802420a010b1000000000';
-     * accounts.getUser(userId)
+     * accounts.getUser('015c3c46514802420a010b1000000000')
      * .then(user => {
      *     // Utilize user here
      * })
@@ -466,8 +473,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var userId = '015c3c46514802420a010b1000000000';
-     * accounts.getUser(userId, function(error, user) {
+     * accounts.getUser('015c3c46514802420a010b1000000000', function(error, user) {
      *     if (error) throw error;
      *     // Utilize user here
      * });
@@ -490,8 +496,11 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var userDetails = {email: 'user@email.com', fullName: 'First Last', username: 'user123'};
-     * accounts.addUser(userDetails)
+     * accounts.addUser({
+     *     email: 'user@email.com',
+     *     fullName: 'First Last',
+     *     username: 'user123'
+     * })
      * .then(user => {
      *     // Utilize user here
      * })
@@ -509,8 +518,11 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var userDetails = {email: 'user@email.com', fullName: 'First Last', username: 'user123'};
-     * accounts.addUser(userDetails, function(error, user) {
+     * accounts.addUser({
+     *     email: 'user@email.com',
+     *     fullName: 'First Last',
+     *     username: 'user123'
+     * }, function(error, user) {
      *     if (error) throw error;
      *     // Utilize user here
      * });
@@ -533,8 +545,11 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var userDetails = {id: '015c3c46514802420a010b1000000000', fullName: 'First Last', username: 'user123'}
-     * accounts.updateUser(userDetails)
+     * accounts.updateUser({
+     *     id: '015c3c46514802420a010b1000000000',
+     *     fullName: 'First Last',
+     *     username: 'user123'
+     * })
      * .then(user => {
      *     // Utilize user here
      * })
@@ -552,8 +567,11 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var userDetails = {id: '015c3c46514802420a010b1000000000', fullName: 'First Last', username: 'user123'}
-     * accounts.updateUser(userDetails, function(error, user) {
+     * accounts.updateUser({
+     *     id: '015c3c46514802420a010b1000000000',
+     *     fullName: 'First Last',
+     *     username: 'user123'
+     * }, function(error, user) {
      *     if (error) throw error;
      *     // Utilize user here
      * });
@@ -576,8 +594,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var userId = '015c3c46514802420a010b1000000000';
-     * accounts.deleteUser(userId)
+     * accounts.deleteUser('015c3c46514802420a010b1000000000')
      * .catch(error => {
      *     console.log(error);
      * });
@@ -592,8 +609,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var userId = '015c3c46514802420a010b1000000000';
-     * accounts.deleteUser(userId, function(error) {
+     * accounts.deleteUser('015c3c46514802420a010b1000000000', function(error) {
      *     if (error) throw error;
      * });
      * ```
@@ -615,8 +631,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {limit: 5};
-     * accounts.listGroups(filter)
+     * accounts.listGroups({limit: 5})
      * .then(groups => {
      *     // Utilize groups here
      * })
@@ -634,8 +649,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {limit: 5};
-     * accounts.listGroups(filter, function(error, groups) {
+     * accounts.listGroups({limit: 5}, function(error, groups) {
      *     if (error) throw error;
      *     // Utilize groups here
      * });
@@ -672,8 +686,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var groupId = '015b5c9279ee02420a01041200000000';
-     * accounts.getGroup(groupId)
+     * accounts.getGroup('015b5c9279ee02420a01041200000000')
      * .then(group => {
      *     // Utilize group here
      * })
@@ -691,8 +704,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var groupId = '015b5c9279ee02420a01041200000000';
-     * accounts.getGroup(groupId, function(error, group) {
+     * accounts.getGroup('015b5c9279ee02420a01041200000000', function(error, group) {
      *     if (error) throw error;
      *     // Utilize group here
      * });
@@ -715,9 +727,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {limit: 10};
-     * var groupId = '015b5c9279ee02420a01041200000000';
-     * accounts.listGroupUsers(groupId, filter)
+     * accounts.listGroupUsers({limit: 10}, '015b5c9279ee02420a01041200000000')
      * .then(users => {
      *     // Utilize users here
      * })
@@ -736,9 +746,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {limit: 10};
-     * var groupId = '015b5c9279ee02420a01041200000000';
-     * accounts.listGroupUsers(groupId, filter, function(error, users) {
+     * accounts.listGroupUsers({limit: 10}, '015b5c9279ee02420a01041200000000', function(error, users) {
      *     if (error) throw error;
      *     // Utilize users here
      * });
@@ -776,9 +784,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {limit: 5};
-     * var groupId = '015b5c9279ee02420a01041200000000';
-     * accounts.listGroupApiKeys(groupId, filter)
+     * accounts.listGroupApiKeys({limit: 10}, '015b5c9279ee02420a01041200000000')
      * .then(keys => {
      *     // Utilize keys here
      * })
@@ -797,9 +803,7 @@ export class AccountManagementApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {limit: 5};
-     * var groupId = '015b5c9279ee02420a01041200000000';
-     * accounts.listGroupApiKeys(groupId, filter, function(error, keys) {
+     * accounts.listGroupApiKeys({limit: 10}, '015b5c9279ee02420a01041200000000', function(error, keys) {
      *     if (error) throw error;
      *     // Utilize keys here
      * });

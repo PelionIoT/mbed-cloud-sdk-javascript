@@ -70,12 +70,13 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var options = { filter: {
-     *     state: { $eq: "bootstrapped" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * }};
-     * devices.listDevices(options)
+     * devices.listDevices({
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
      * .then(devices => {
      *     // Utilize devices here
      * })
@@ -93,12 +94,13 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var options = { filter: {
-     *     state: { $eq: "bootstrapped" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * }};
-     * devices.listDevices(options, function(error, devices) {
+     * devices.listDevices({
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, devices) {
      *     if (error) throw error;
      *     // Utilize devices here
      * });
@@ -132,8 +134,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c5ed320c0000000000001001000f0';
-     * devices.getDevice(id)
+     * devices.getDevice('015c5ed320c0000000000001001000f0')
      * .then(device => {
      *     // Utilize device here
      * })
@@ -151,8 +152,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c5ed320c0000000000001001000f0';
-     * devices.getDevice(id, function(error, device) {
+     * devices.getDevice('015c5ed320c0000000000001001000f0', function(error, device) {
      *     if (error) throw error;
      *     // Utilize device here
      * });
@@ -176,10 +176,11 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var fingerprint: '07:7A:EB:67:37:42:4D:11:5C:3E:99:07:1E:EB:44:...';
-     * var issuerId: '015c3c457b2002420a01041603c00000';
-     * var deviceSettings = {certificateFingerprint: fingerprint, issuerId: certificateIssuerId, name: 'newDeviceName'};
-     * devices.addDevice(deviceSettings)
+     * devices.addDevice({
+     *     certificateFingerprint: '07:7A:EB:67:37:42:4D:11:5C:3E:99:07:1E:EB:44:...',
+     *     certificateIssuerId: '015c3c457b2002420a01041603c00000',
+     *     name: 'newDeviceName'
+     * })
      * .then(device => {
      *     // Utilize device here
      * })
@@ -197,10 +198,11 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var fingerprint: '07:7A:EB:67:37:42:4D:11:5C:3E:99:07:1E:EB:44:...';
-     * var issuerId: '015c3c457b2002420a01041603c00000';
-     * var deviceSettings = {certificateFingerprint: fingerprint, issuerId: certificateIssuerId, name: 'newDeviceName'};
-     * devices.addDevice(deviceSettings, function(error, device) {
+     * devices.addDevice({
+     *     certificateFingerprint: '07:7A:EB:67:37:42:4D:11:5C:3E:99:07:1E:EB:44:...',
+     *     certificateIssuerId: '015c3c457b2002420a01041603c00000',
+     *     name: 'newDeviceName'
+     * }, function(error, device) {
      *     if (error) throw error;
      *     // Utilize device here
      * });
@@ -224,12 +226,15 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript=
-     * var id = '015c5ed320c0000000000001001000f0';
-     * var description = 'Updated description';
-     * var name = 'Updated name';
-     * var customAttributes = {attr1: 'Use json structure', attr2: 'Can use 5 entries in the JSON struct'};
-     * var deviceSettings = {id: id, name: name, description: description, customAttributes: customAttributes};
-     * devices.updateDevice(deviceSettings)
+     * devices.updateDevice({
+     *     id: '015c5ed320c0000000000001001000f0',
+     *     name: 'Updated name',
+     *     description: 'Updated description',
+     *     customAttributes: {
+     *         attr1: 'Use json structure',
+     *         attr2: 'Can use 5 entries in the JSON struct'
+     *     }
+     * })
      * .then(device => {
      *     // Utilize device here
      * })
@@ -247,12 +252,15 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c5ed320c0000000000001001000f0';
-     * var description = 'Updated description';
-     * var name = 'Updated name';
-     * var customAttributes = {attr1: 'Use json structure', attr2: 'Can use 5 entries in the JSON struct'};
-     * var deviceSettings = {id: id, name: name, description: description, customAttributes: customAttributes};
-     * devices.updateDevice(deviceSettings, function(error, device) {
+     * devices.updateDevice({
+     *     id: '015c5ed320c0000000000001001000f0',
+     *     name: 'Updated name',
+     *     description: 'Updated description',
+     *     customAttributes: {
+     *         attr1: 'Use json structure',
+     *         attr2: 'Can use 5 entries in the JSON struct'
+     *     }
+     * }, function(error, device) {
      *     if (error) throw error;
      *     // Utilize device here
      * });
@@ -276,8 +284,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c5ed320c0000000000001001000f0';
-     * devices.deleteDevice(id)
+     * devices.deleteDevice('015c5ed320c0000000000001001000f0')
      * .catch(error => {
      *     console.log(error);
      * });
@@ -292,8 +299,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c5ed320c0000000000001001000f0';
-     * devices.deleteDevice(id, function(error) {
+     * devices.deleteDevice('015c5ed320c0000000000001001000f0', function(error) {
      *     if (error) throw error;
      * });
      * ```
@@ -315,8 +321,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var options = {limit: 5};
-     * devices.listQueries(options)
+     * devices.listQueries({limit: 5})
      * .then(queries => {
      *     // Utilize queries here
      * })
@@ -335,8 +340,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var options = {limit: 5};
-     * devices.listQueries(options, function(error, queries) {
+     * devices.listQueries({limit: 5}, function(error, queries) {
      *     if (error) throw error;
      *     // Utilize queries here
      * });
@@ -375,8 +379,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c45eb321700000000000100100155';
-     * devices.getQuery(id)
+     * devices.getQuery('015c45eb321700000000000100100155')
      * .then(query => {
      *     // Utilize query here
      * })
@@ -395,8 +398,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c45eb321700000000000100100155';
-     * devices.getQuery(id, function(error, query) {
+     * devices.getQuery('015c45eb321700000000000100100155', function(error, query) {
      *     if (error) throw error;
      *     // Utilize query here
      * });
@@ -421,13 +423,15 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {
-     *     state: { $eq: "bootstrapped" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * };
-     * var queryDefinition = {name: 'TestFilter', description: 'Description here', filter: filter};
-     * devices.addQuery(queryDefinition)
+     * devices.addQuery({
+     *     name: 'TestFilter',
+     *     description: 'Description here',
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
      * .then(query => {
      *     // Utilize query here
      * })
@@ -445,13 +449,15 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {
-     *     state: { $eq: "bootstrapped" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * };
-     * var queryDefinition = {name: 'TestFilter', description: 'Description here', filter: filter};
-     * devices.addQuery(queryDefinition, function(error, query) {
+     * devices.addQuery({
+     *     name: 'TestFilter',
+     *     description: 'Description here',
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, query) {
      *     if (error) throw error;
      *     // Utilize query here
      * });
@@ -475,13 +481,15 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {
-     *     state: { $eq: "bootstrapped" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * };
-     * var queryDefinition = {name: 'TestFilter', id: '015c45eb321700000000000100100155', filter: filter};
-     * devices.updateQuery(queryDefinition)
+     * devices.updateQuery({
+     *     name: 'TestFilter',
+     *     id: '015c45eb321700000000000100100155',
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
      * .then(query => {
      *     // Utilize query here
      * })
@@ -499,13 +507,15 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {
-     *     state: { $eq: "bootstrapped" },
-     *     createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
-     *     updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * };
-     * var queryDefinition = {name: 'TestFilter', id: '015c45eb321700000000000100100155', filter: filter};
-     * devices.updateQuery(queryDefinition, function(error, query) {
+     * devices.updateQuery({
+     *     name: 'TestFilter',
+     *     id: '015c45eb321700000000000100100155',
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, query) {
      *     if (error) throw error;
      *     // Utilize query here
      * });
@@ -529,8 +539,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c45eb321700000000000100100155';
-     * devices.deleteQuery(id)
+     * devices.deleteQuery('015c45eb321700000000000100100155')
      * .catch(error => {
      *     console.log(error);
      * });
@@ -545,8 +554,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c45eb321700000000000100100155';
-     * devices.deleteQuery(id, function(error) {
+     * devices.deleteQuery('015c45eb321700000000000100100155', function(error) {
      *     if (error) throw error;
      * });
      * ```
@@ -568,12 +576,13 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {
-     *     deviceId: { $eq: "015c45eb321700000000000100100155" },
-     *     eventDate: { $gte: new Date("01-01-2016"), $lte: new Date("01-01-2018") }
-     * };
-     * var options = {limit: 50, filter: filter};
-     * devices.listDeviceEvents(options)
+     * devices.listDeviceEvents({
+     *     limit: 50,
+     *     filter: {
+     *         deviceId: { $eq: "015c45eb321700000000000100100155" },
+     *         eventDate: { $gte: new Date("01-01-2016"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
      * .then(deviceevents => {
      *     // Utilize deviceevents here
      * })
@@ -591,12 +600,13 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var filter = {
-     *     deviceId: { $eq: "015c45eb321700000000000100100155" },
-     *     eventDate: { $gte: new Date("01-01-2016"), $lte: new Date("01-01-2018") }
-     * };
-     * var options = {limit: 50, filter: filter};
-     * devices.listDeviceEvents(options, function(error, deviceevents) {
+     * devices.listDeviceEvents({
+     *     limit: 50,
+     *     filter: {
+     *         deviceId: { $eq: "015c45eb321700000000000100100155" },
+     *         eventDate: { $gte: new Date("01-01-2016"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, deviceevents) {
      *     if (error) throw error;
      *     // Utilize deviceevents here
      * });
@@ -633,8 +643,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c45eb321700000000000100100155';
-     * devices.getDeviceEvent(id)
+     * devices.getDeviceEvent('015c45eb321700000000000100100155')
      * .then(deviceevent => {
      *     // Utilize deviceevent here
      * })
@@ -652,8 +661,7 @@ export class DeviceDirectoryApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c45eb321700000000000100100155';
-     * devices.getDeviceEvent(id, function(error, deviceevent) {
+     * devices.getDeviceEvent('015c45eb321700000000000100100155', function(error, deviceevent) {
      *     if (error) throw error;
      *     // Utilize deviceevent here
      * });

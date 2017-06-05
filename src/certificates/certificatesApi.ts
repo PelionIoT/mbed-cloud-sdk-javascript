@@ -81,8 +81,11 @@ export class CertificatesApi {
      *
      * Example:
      * ```JavaScript
-     * var options = {limit: 5, type: 'bootstrap', order: 'ASC'};
-     * certificates.listCertificates(options)
+     * certificates.listCertificates({
+     *     limit: 5,
+     *     type: 'bootstrap',
+     *     order: 'ASC'
+     * })
      * .then(certificates => {
      *     // Utilize certificates here
      * })
@@ -100,8 +103,11 @@ export class CertificatesApi {
      *
      * Example:
      * ```JavaScript
-     * var options = {limit: 5, type: 'bootstrap', order: 'ASC'};
-     * certificates.listCertificates(options, function(error, certificates) {
+     * certificates.listCertificates({
+     *     limit: 5,
+     *     type: 'bootstrap',
+     *     order: 'ASC'
+     * }, function(error, certificates) {
      *     if (error) throw error;
      *     // Utilize certificates here
      * });
@@ -141,8 +147,7 @@ export class CertificatesApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c64f76a7b02420a01230a00000000';
-     * certificates.getCertificate(id)
+     * certificates.getCertificate('015c64f76a7b02420a01230a00000000')
      * .then(certificate => {
      *     // Utilize certificate here
      * })
@@ -160,8 +165,7 @@ export class CertificatesApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c64f76a7b02420a01230a00000000';
-     * certificates.getCertificate(id, function(error, certificate) {
+     * certificates.getCertificate('015c64f76a7b02420a01230a00000000', function(error, certificate) {
      *     if (error) throw error;
      *     // Utilize certificate here
      * });
@@ -184,8 +188,11 @@ export class CertificatesApi {
      *
      * Example:
      * ```JavaScript
-     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer'};
-     * certificates.addCertificate(certificate)
+     * certificates.addCertificate({
+     *     name: 'CertName',
+     *     description: 'SDK generated cert',
+     *     type: 'developer'
+     * })
      * .then(certificate => {
      *     // Utilize certificate here
      * })
@@ -203,8 +210,11 @@ export class CertificatesApi {
      *
      * Example:
      * ```JavaScript
-     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer'};
-     * certificates.addCertificate(certificate, function(error, certificate) {
+     * certificates.addCertificate({
+     *     name: 'CertName',
+     *     description: 'SDK generated cert',
+     *     type: 'developer'
+     * }, function(error, certificate) {
      *     if (error) throw error;
      *     // Utilize certificate here
      * });
@@ -220,10 +230,13 @@ export class CertificatesApi {
      * Example:
      * ```JavaScript
      * // Signature is a Base64 encoded signature of the account ID hashed with SHA256
-     * var signature = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-     * var certificateData = '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----';
-     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer', signature: signature, certificateData: certificateData};
-     * certificates.addCertificate(certificate)
+     * certificates.addCertificate({
+     *     name: 'CertName',
+     *     description: 'SDK generated cert',
+     *     type: 'developer',
+     *     signature: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+     *     certificateData: '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'
+     * })
      * .then(certificate => {
      *     // Utilize certificate here
      * })
@@ -242,10 +255,13 @@ export class CertificatesApi {
      * Example:
      * ```JavaScript
      * // Signature is a Base64 encoded signature of the account ID hashed with SHA256
-     * var signature = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-     * var certificateData = '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----';
-     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer', signature: signature, certificateData: certificateData};
-     * certificates.addCertificate(certificate, function(error, certificate) {
+     * certificates.addCertificate({
+     *     name: 'CertName',
+     *     description: 'SDK generated cert',
+     *     type: 'developer',
+     *     signature: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+     *     certificateData: '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'
+     * }, function(error, certificate) {
      *     if (error) throw error;
      *     // Utilize certificate here
      * });
@@ -283,10 +299,13 @@ export class CertificatesApi {
      * Example:
      * ```JavaScript
      * // Signature is a Base64 encoded signature of the account ID hashed with SHA256
-     * var signature = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-     * var certificateData = '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----';
-     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer', signature: signature, certificateData: certificateData};
-     * certificates.updateCertificate(certificate)
+     * certificates.updateCertificate({
+     *     name: 'CertName',
+     *     description: 'SDK generated cert',
+     *     type: 'developer',
+     *     signature: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+     *     certificateData: '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'
+     * })
      * .then(certificate => {
      *     // Utilize certificate here
      * })
@@ -305,10 +324,13 @@ export class CertificatesApi {
      * Example:
      * ```JavaScript
      * // Signature is a Base64 encoded signature of the account ID hashed with SHA256
-     * var signature = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-     * var certificateData = '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----';
-     * certificate = {name: 'CertName', description: 'SDK generated cert', type: 'developer', signature: signature, certificateData: certificateData};
-     * certificates.updateCertificate(certificate, function(error, certificate) {
+     * certificates.updateCertificate({
+     *     name: 'CertName',
+     *     description: 'SDK generated cert',
+     *     type: 'developer',
+     *     signature: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+     *     certificateData: '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'
+     * }, function(error, certificate) {
      *     if (error) throw error;
      *     // Utilize certificate here
      * });
@@ -331,8 +353,7 @@ export class CertificatesApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c64f76a7b02420a01230a00000000';
-     * certificates.deleteCertificate(id)
+     * certificates.deleteCertificate('015c64f76a7b02420a01230a00000000')
      * .catch(error => {
      *     console.log(error);
      * });
@@ -347,8 +368,7 @@ export class CertificatesApi {
      *
      * Example:
      * ```JavaScript
-     * var id = '015c64f76a7b02420a01230a00000000';
-     * certificates.deleteCertificate(id, function(error) {
+     * certificates.deleteCertificate('015c64f76a7b02420a01230a00000000', function(error) {
      *     if (error) throw error;
      * });
      * ```
