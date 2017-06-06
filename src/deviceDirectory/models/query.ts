@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -18,7 +18,7 @@
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
 import { AddQueryObject } from "../types";
-import { DeviceDirectoryApi } from "../index";
+import { DeviceDirectoryApi } from "../deviceDirectoryApi";
 
 /**
  * Query
@@ -53,7 +53,7 @@ export class Query {
      * Update the query
      * @param callback A function that is passed the arguments (error, query)
      */
-    public update(callback: CallbackFn<Query>);
+    public update(callback: CallbackFn<Query>): void;
     public update(callback?: CallbackFn<Query>): Promise<Query> {
         return asyncStyle(done => {
             this._api.updateQuery(this, done);
@@ -69,7 +69,7 @@ export class Query {
      * Delete the query
      * @param callback A function that is passed any error
      */
-    public delete(callback: CallbackFn<void>);
+    public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._api.deleteQuery(this.id, done);

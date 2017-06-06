@@ -14,6 +14,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +32,25 @@
 <body>
     <h3>Queries</h3>
 
-    <button id="add">add query...</button>
+    <form>
+        <div class="row">
+            <div class="six columns">
+                <label for="name">Query name</label>
+                <input id="name" type="text" class="u-full-width" value="myQuery" />
+            </div>
+            <div class="six columns">
+                <label for="state">Device state</label>
+                <select id="state" class="u-full-width">
+                    <option>unenrolled</option>
+                    <option>cloud_enrolling</option>
+                    <option selected>bootstrapped</option>
+                    <option>registered</option>
+                    <option>deregistered</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <button id="add">add query</button>
 
     <table>
         <thead><tr>
@@ -45,18 +64,20 @@
     <button id="more">load more</button>
 
     <script>
-        var queriesEl = document.getElementById("queries");
+        var nameEl = document.getElementById("name");
+        var stateEl = document.getElementById("state");
         var addEl = document.getElementById("add");
+        var queriesEl = document.getElementById("queries");
         var moreEl = document.getElementById("more");
         var lastId;
 
-        var devices = new window.mbedCloudSDK.DeviceDirectoryApi(window.config);
+        var devices = new mbedCloudSDK.DeviceDirectoryApi(window.config);
 
         // Dom element builder
-        function buildElement(type, value, parent, attributes) {
+        function buildElement(type, parent, value) {
             var element = document.createElement(type);
-            if (value) element.innerHTML = value;
             if (parent) parent.appendChild(element);
+            if (value) element.innerHTML = value;
             return element;
         }
 
@@ -68,17 +89,18 @@
                 after: after,
                 limit: 10
             }, function(error, response) {
+                if (error) return alert(error.message);
+
                 response.data.forEach(function(query) {
 
                     // Build UI
                     var queryRow = queriesEl.insertRow();
-                    buildElement("td", query.name, queryRow);
-                    buildElement("td", new Date(query.createdAt).toUTCString(), queryRow);
-                    var buttonCell = buildElement("td", null, queryRow);
-                    var runBtn = buildElement("button", "run", buttonCell);
-                    var renameBtn = buildElement("button", "rename...", buttonCell);
-                    var editBtn = buildElement("button", "edit...", buttonCell);
-                    var deleteBtn = buildElement("button", "delete", buttonCell);
+                    buildElement("td", queryRow, query.name);
+                    buildElement("td", queryRow, new Date(query.createdAt).toUTCString());
+                    var buttonCell = buildElement("td", queryRow);
+                    var runBtn = buildElement("button", buttonCell, "run");
+                    var renameBtn = buildElement("button", buttonCell, "rename...");
+                    var deleteBtn = buildElement("button", buttonCell, "delete");
                     var devicesRows = [];
 
                     // Run query
@@ -90,13 +112,24 @@
                             limit: 100,
                             filter: query.filter,
                         }, function(error, response) {
+                            if (error) return alert(error.message);
+
+                            if (response.data.length === 0) {
+                                var value = "No devices found";
+                                var devicesRow = queriesEl.insertRow(queryRow.rowIndex);
+                                buildElement("td", devicesRow, "&nbsp;");
+                                var deviceCell = buildElement("td", devicesRow, value);
+                                devicesRows.push(devicesRow);
+                                deviceCell.colSpan = "2"
+                            }
+
                             response.data.forEach(function(device) {
 
                                 // Build UI
                                 var value = "└&nbsp;" + device.id + "&nbsp;-&nbsp;" + device.state;
                                 var devicesRow = queriesEl.insertRow(queryRow.rowIndex);
-                                buildElement("td", "&nbsp;", devicesRow);
-                                var deviceCell = buildElement("td", value, devicesRow);
+                                buildElement("td", devicesRow, "&nbsp;");
+                                var deviceCell = buildElement("td", devicesRow, value);
                                 devicesRows.push(devicesRow);
                                 deviceCell.colSpan = "2"
                             });
@@ -114,22 +147,6 @@
                         }, function(error) {
                             if (error) alert(error.message);
                             else location.reload()
-                        });
-                    });
-
-                    // Edit query
-                    editBtn.addEventListener("click", function() {
-                        var state = window.prompt("Enter a new state for the query filter", query.filter.state.$eq || "registered");
-                        if (!state) return;
-
-                        devices.updateQuery({
-                            id: query.id,
-                            filter: {
-                                state: { $eq: state }
-                            }
-                        }, function(error) {
-                            if (error) alert(error.message);
-                            else location.reload();
                         });
                     });
 
@@ -152,16 +169,10 @@
 
         // Add new query
         addEl.addEventListener("click", function() {
-            var name = window.prompt("Enter a name for the query", "myQuery");
-            if (!name) return;
-
-            var state = window.prompt("Enter a state to filter on", "registered");
-            if (!state) return;
-
             devices.addQuery({
-                name: name,
+                name: nameEl.value,
                 filter: {
-                    state: { $eq: state }
+                    state: { $eq: stateEl.value }
                 }
             }, function(error) {
                 if (error) alert(error.message);

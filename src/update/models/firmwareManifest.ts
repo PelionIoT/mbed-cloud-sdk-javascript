@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -18,7 +18,7 @@
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { FirmwareManifestObject } from "../types";
-import { UpdateApi } from "../index";
+import { UpdateApi } from "../updateApi";
 
 /**
  * Firmware Manifest
@@ -69,10 +69,10 @@ export class FirmwareManifest {
      * Delete the firmware manifest
      * @param callback A function that is passed any error
      */
-    public delete(callback: CallbackFn<void>);
+    public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._api.deleteFirmwareManifest(parseInt(this.id), done);
+            this._api.deleteFirmwareManifest(this.id, done);
         }, callback);
     }
 }

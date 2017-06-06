@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -274,7 +274,6 @@ export interface QueryObject {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustClass?: ComparisonObject<string>;
         trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
@@ -342,7 +341,6 @@ export interface DeviceListOptions extends ListOptions {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustClass?: ComparisonObject<string>;
         trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
@@ -374,11 +372,11 @@ export interface QueryListOptions extends ListOptions {
 }
 
 /**
- * Options to use when listing device logs
+ * Options to use when listing device events
  */
-export interface DeviceLogListOptions extends ListOptions {
+export interface DeviceEventListOptions extends ListOptions {
     /**
-     * The device log filter
+     * The device event filter
      *
      * Constructed like so:
      *  ```JavaScript

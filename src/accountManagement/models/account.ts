@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -18,7 +18,7 @@
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { UpdateAccountObject, AccountStatusEnum } from "../types";
-import { AccountManagementApi } from "../index";
+import { AccountManagementApi } from "../accountManagementApi";
 import { Policy } from "./policy";
 
 /**
@@ -86,7 +86,7 @@ export class Account {
      * Update details of the account
      * @param callback A function that is passed the return arguments (error, account)
      */
-    public update(callback: CallbackFn<Account>);
+    public update(callback: CallbackFn<Account>): void;
     public update(callback?: CallbackFn<Account>): Promise<Account> {
         return asyncStyle(done => {
             this._api.updateAccount(this, done);

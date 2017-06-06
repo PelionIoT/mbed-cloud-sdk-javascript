@@ -15,14 +15,4 @@
 * limitations under the License.
 */
 
-- pre subscriptions
- - device subscrion mgmt
-// SUBSCRIPTION_MGMT
-// device.listsubscriptions
-// resource.getSubscription
-// resource.addSubscription
-// Devices.deleteSubscriptions()
-// device.deletesubscriptions
-// resource.deleteSubscription
-// getPresubscription
-// updatePresubscription
+module.exports = require("./lib/index");

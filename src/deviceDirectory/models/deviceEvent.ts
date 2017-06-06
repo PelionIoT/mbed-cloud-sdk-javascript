@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -16,9 +16,9 @@
 */
 
 /**
- * Device Log
+ * Device Event
  */
-export class DeviceLog {
+export class DeviceEvent {
 
     /**
      * ID of the event
@@ -57,7 +57,7 @@ export class DeviceLog {
      */
     readonly data?: {};
 
-    constructor(init?: Partial<DeviceLog>) {
+    constructor(init?: Partial<DeviceEvent>) {
         for(var key in init) {
             this[key] = init[key];
         }

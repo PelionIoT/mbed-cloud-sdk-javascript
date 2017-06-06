@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -18,7 +18,7 @@
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { CertificateObject } from "../types";
-import { CertificatesApi } from "../index";
+import { CertificatesApi } from "../certificatesApi";
 
 /**
  * Certificate
@@ -86,7 +86,7 @@ export class Certificate {
      * @param signature Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public update(signature: string, callback: CallbackFn<Certificate>);
+    public update(signature: string, callback: CallbackFn<Certificate>): void;
     public update(signature: string, callback?: CallbackFn<Certificate>): Promise<Certificate> {
         return asyncStyle(done => {
             this._api.updateCertificate({
@@ -109,7 +109,7 @@ export class Certificate {
      * Delete the certificate
      * @param callback A function that is passed any error
      */
-    public delete(callback?: CallbackFn<void>);
+    public delete(callback?: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._api.deleteCertificate(this.id, done);

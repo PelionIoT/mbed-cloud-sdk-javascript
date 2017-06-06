@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -32,7 +32,7 @@ export interface AddFirmwareImageObject extends FirmwareImageObject {
     /**
      * The binary file of firmware image
      */
-    dataFile: string;
+    dataFile: ReadableStream | File | Blob;
 }
 
 export interface FirmwareManifestObject {
@@ -50,10 +50,10 @@ export interface AddFirmwareManifestObject extends FirmwareManifestObject {
     /**
      * The binary file of the manifest
      */
-    dataFile: string;
+    dataFile: ReadableStream | File | Blob;
 }
 
-export type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "devicecopycomplete" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export interface CampaignObject {
     /**
      * A name for this campaign
@@ -113,7 +113,6 @@ export interface CampaignObject {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustClass?: ComparisonObject<string>;
         trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;

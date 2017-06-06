@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -15,10 +15,10 @@
 * limitations under the License.
 */
 
-import { asyncStyle } from "../../common/functions";
+import { asyncStyle, apiWrapper } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { UpdateApiKeyObject, ApiKeyStatusEnum } from "../types";
-import { AccountManagementApi } from "../index";
+import { AccountManagementApi } from "../accountManagementApi";
 import { User } from "./user";
 import { Group } from "./group";
 
@@ -67,18 +67,19 @@ export class ApiKey {
      * List the groups this API key belongs to
      * @param callback A function that is passed the return arguments (error, groups)
      */
-    public listGroups(callback: CallbackFn<Array<Group>>);
+    public listGroups(callback: CallbackFn<Array<Group>>): void;
     public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
-        return asyncStyle(done => {
-            this._api.listGroups((error, groups) => {
-                if (error) return done(error);
-
-                let keyGroups = groups.filter(group => {
+        return apiWrapper(resultsFn => {
+            this._api.listGroups(resultsFn);
+        }, (data, done) => {
+            let groups = [];
+            if (data.data && data.data.length) {
+                groups = data.data.filter(group => {
                     return this.groups.indexOf(group.id) > -1;
                 });
+            }
 
-                done(null, keyGroups);
-            });
+            done(null, groups);
         }, callback);
     }
 
@@ -91,7 +92,7 @@ export class ApiKey {
      * Get details of the key owner
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public getOwner(callback: CallbackFn<User>);
+    public getOwner(callback: CallbackFn<User>): void;
     public getOwner(callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
             if (!this.owner) return done(null, null);
@@ -110,7 +111,7 @@ export class ApiKey {
      * @param options.owner The owner of this API key
      * @param callback A function that is passed the return arguments (error, API key)
      */
-    public update(callback: CallbackFn<ApiKey>);
+    public update(callback: CallbackFn<ApiKey>): void;
     public update(callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
         return asyncStyle(done => {
             this._api.updateApiKey(this, done);
@@ -126,7 +127,7 @@ export class ApiKey {
      * Delete the API key
      * @param callback A function that is passed any error
      */
-    public delete(callback: CallbackFn<void>);
+    public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
             this._api.deleteApiKey(this.id, done);

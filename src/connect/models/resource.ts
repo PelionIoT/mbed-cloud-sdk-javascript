@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -18,7 +18,7 @@
 import { EventEmitter } from "events";
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
-import { ConnectApi } from "../index";
+import { ConnectApi } from "../connectApi";
 
 /**
  * Resource
@@ -81,6 +81,8 @@ export class Resource extends EventEmitter {
 
     /**
      * Gets the value of a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
@@ -88,11 +90,13 @@ export class Resource extends EventEmitter {
     public getValue(cacheOnly?: boolean, noResponse?: boolean): Promise<string>;
     /**
      * Gets the value of a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>);
+    public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.getResourceValue(this.deviceId, this.path, cacheOnly, noResponse, done);
@@ -101,18 +105,22 @@ export class Resource extends EventEmitter {
 
     /**
      * Sets the value of a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param value The value of the resource
      * @param noResponse If true, mbed Device Connector will not wait for a response
-     * @returns Promise containing any error
+     * @returns Promise containing an asyncId when there isn't a notification channel
      */
     public setValue(value: string, noResponse?: boolean): Promise<string>;
     /**
      * Sets the value of a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param value The value of the resource
      * @param noResponse If true, mbed Device Connector will not wait for a response
-     * @param callback A function that is passed any error
+     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public setValue(value: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public setValue(value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public setValue(value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.setResourceValue(this.deviceId, this.path, value, noResponse, done);
@@ -121,18 +129,22 @@ export class Resource extends EventEmitter {
 
     /**
      * Execute a function on a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param functionName The function to trigger
      * @param noResponse If true, mbed Device Connector will not wait for a response
-     * @returns Promise containing any error
+     * @returns Promise containing an asyncId when there isn't a notification channel
      */
     public execute(functionName?: string, noResponse?: boolean): Promise<string>;
     /**
      * Execute a function on a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param functionName The function to trigger
      * @param noResponse If true, mbed Device Connector will not wait for a response
-     * @param callback A function that is passed any error
+     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public execute(functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>);
+    public execute(functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public execute(functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.executeResource(this.deviceId, this.path, functionName, noResponse, done);
@@ -148,7 +160,7 @@ export class Resource extends EventEmitter {
      * Gets the status of a resource's subscription
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
      */
-    public getSubscription(callback: CallbackFn<boolean>);
+    public getSubscription(callback: CallbackFn<boolean>): void;
     public getSubscription(callback?: CallbackFn<boolean>): Promise<boolean> {
         return asyncStyle(done => {
             if (!this.observable) return done(null, false);
@@ -158,17 +170,21 @@ export class Resource extends EventEmitter {
 
     /**
      * Subscribe to a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param notifyFn Function to call with notification
-     * @returns Promise containing any error
+     * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    private addSubscription(notifyFn?: Function): Promise<void>;
+    private addSubscription(notifyFn?: Function): Promise<string>;
     /**
      * Subscribe to a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
      * @param notifyFn Function to call with notification
-     * @param callback A function that is passed any error
+     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    private addSubscription(notifyFn?: Function, callback?: CallbackFn<void>);
-    private addSubscription(notifyFn?: Function, callback?: CallbackFn<void>): Promise<void> {
+    private addSubscription(notifyFn?: Function, callback?: CallbackFn<string>): void;
+    private addSubscription(notifyFn?: Function, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             if (!this.observable) return done(null, null);
             this._api.addResourceSubscription(this.deviceId, this.path, done, notifyFn);
@@ -177,15 +193,19 @@ export class Resource extends EventEmitter {
 
     /**
      * Deletes a resource's subscription
-     * @returns Promise containing any error
+     *
+     * __Note:__ This method requires a notification channel to be set up
+     * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    private deleteSubscription(): Promise<void>;
+    private deleteSubscription(): Promise<string>;
     /**
      * Deletes a resource's subscription
-     * @param callback A function that is passed any error
+     *
+     * __Note:__ This method requires a notification channel to be set up
+     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    private deleteSubscription(callback: CallbackFn<void>);
-    private deleteSubscription(callback?: CallbackFn<void>): Promise<void> {
+    private deleteSubscription(callback: CallbackFn<string>): void;
+    private deleteSubscription(callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.deleteResourceSubscription(this.deviceId, this.path, done);
         }, callback);
@@ -202,7 +222,7 @@ export class Resource extends EventEmitter {
      * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    public delete(noResponse?: boolean, callback?: CallbackFn<string>);
+    public delete(noResponse?: boolean, callback?: CallbackFn<string>): void;
     public delete(noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.deleteResource(this.deviceId, this.path, noResponse, done);

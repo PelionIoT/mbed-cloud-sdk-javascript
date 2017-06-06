@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -16,7 +16,7 @@
 */
 
 import { FirmwareImage as apiFirmwareImage } from "../../_api/firmware_catalog";
-import { UpdateApi } from "../index";
+import { UpdateApi } from "../updateApi";
 import { FirmwareImage } from "./firmwareImage";
 
 /**

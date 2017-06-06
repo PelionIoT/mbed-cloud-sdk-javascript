@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -47,14 +47,12 @@ export class ApiBase {
         request.timeout(60000);
 
         if (options.json) {
-            request.type("application/json");
             request.accept("application/json");
         }
 
         var body = null;
         if (Object.keys(options.formParams).length > 0) {
             if (options.useFormData) {
-                request.type("multipart/form-data");
                 let formParams = ApiBase.normalizeParams(options.formParams);
                 for (var key in formParams) {
                     if (formParams.hasOwnProperty(key)) {
@@ -70,13 +68,19 @@ export class ApiBase {
                 request.type("application/x-www-form-urlencoded");
                 request.send(ApiBase.normalizeParams(options.formParams));
             }
-        } else if (options.body) {
+        } else if(options.body) {
+
             body = options.body;
-            if (options.json && body === Object(body)) {
-                body = Object.keys(body).reduce((val, key) => {
-                    if(body[key] !== null && body[key] !== undefined) val[key] = body[key];
-                    return val;
-                }, {});
+
+            if (options.json) {
+                request.type("application/json");
+
+                if (body.constructor === {}.constructor) {
+                    body = Object.keys(body).reduce((val, key) => {
+                        if(body[key] !== null && body[key] !== undefined) val[key] = body[key];
+                        return val;
+                    }, {});
+                }
             }
 
             request.send(body);
@@ -84,11 +88,6 @@ export class ApiBase {
 
         request.end(function(error, response) {
             if (callback) {
-                var data = null;
-
-                if (response && !error) {
-                    data = response.body || response.text;
-                }
 
                 var sdkError = null;
                 if (error) {
@@ -104,6 +103,11 @@ export class ApiBase {
                     }
 
                     sdkError = new SDKError(message, innerError, details, error.status);
+                }
+
+                var data = null;
+                if (response && !sdkError) {
+                    data = response.body || response.text;
                 }
 
                 callback(sdkError, data, response);

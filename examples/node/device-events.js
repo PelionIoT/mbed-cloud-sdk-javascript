@@ -15,14 +15,19 @@
 * limitations under the License.
 */
 
-var fs = require('fs');
-var path = require('path');
+var fs = require("fs");
+var path = require("path");
 
-var mbed = require('../../lib/');
-var config = require('./config');
+var mbedCloudSDK = require("../../index");
+var config = require("./config");
 
-var logDir = "logs";
-var devices = new mbed.DeviceDirectoryApi(config);
+var eventDir = "events";
+var devices = new mbedCloudSDK.DeviceDirectoryApi(config);
+
+function logError(error) {
+    console.log(error.message || error);
+    process.exit();
+}
 
 function ensureDirectory(directory) {
     var dirName = path.dirname(directory);
@@ -33,36 +38,31 @@ function ensureDirectory(directory) {
     fs.mkdirSync(directory);
 }
 
-function listLogs(after) {
+function listEvents(after) {
 
-    devices.listDeviceLogs({
+    return devices.listDeviceEvents({
         limit: 50,
         after: after
-    }, (error, response) => {
-
-        if (error) {
-            console.log(error.message);
-            return;
-        }
-
-        response.data.forEach(deviceLog => {
-
+    })
+    .then(response => {
+        response.data.forEach(deviceEvent => {
         	var fileName = path.format({
-				dir: logDir,
-				base: deviceLog.id + '.json'
+				dir: eventDir,
+				base: `${deviceEvent.id}.json`
 			});
 
-			var data = JSON.stringify(deviceLog, null, '\t');
+			var data = JSON.stringify(deviceEvent, null, "\t");
 
         	fs.writeFileSync(fileName, data);
-        	console.log("Saved " + fileName);
+            console.log(`Saved ${fileName}`);
         });
         if (response.hasMore) {
-            var lastLog = response.data.slice(-1).pop();
-            listLogs(lastLog.id);
+            var lastEvent = response.data.slice(-1).pop();
+            return listEvents(lastEvent.id);
         }
-    });
+    })
+    .catch(logError);
 }
 
-ensureDirectory(logDir);
-listLogs();
+ensureDirectory(eventDir);
+listEvents();

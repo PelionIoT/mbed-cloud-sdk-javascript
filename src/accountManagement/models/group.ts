@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -17,7 +17,7 @@
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn, ListOptions, ListResponse } from "../../common/interfaces";
-import { AccountManagementApi } from "../index";
+import { AccountManagementApi } from "../accountManagementApi";
 import { User } from "./user";
 import { ApiKey } from "./apiKey";
 
@@ -76,7 +76,7 @@ export class Group {
      * @param options filter options 
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listUsers(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>);
+    public listUsers(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): void;
     public listUsers(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
         return asyncStyle(done => {
             this._api.listGroupUsers(this.id, options, done);
@@ -94,7 +94,7 @@ export class Group {
      * @param options filter options 
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>);
+    public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): void;
     public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
         return asyncStyle(done => {
             this._api.listGroupApiKeys(this.id, options, done);

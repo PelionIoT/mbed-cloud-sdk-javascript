@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -23,7 +23,7 @@ import {
 } from "../../_api/deployment_service";
 import { Filters } from "../../deviceDirectory/filters";
 import { AddCampaignObject, UpdateCampaignObject } from "../types";
-import { UpdateApi } from "../index";
+import { UpdateApi } from "../updateApi";
 import { Campaign } from "./campaign";
 
 /**
@@ -50,7 +50,7 @@ export class CampaignAdapter {
     static addMap(from: AddCampaignObject): apiCampaignAdd {
         return {
             description:         from.description,
-            device_filter:       encodeFilter(from.deviceFilter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS),
+            device_filter:       encodeFilter(from.deviceFilter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null,
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,
@@ -61,7 +61,7 @@ export class CampaignAdapter {
     static updateMap(from: UpdateCampaignObject): apiCampaignUpdate {
         return {
             description:         from.description,
-            device_filter:       encodeFilter(from.deviceFilter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS),
+            device_filter:       encodeFilter(from.deviceFilter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null,
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,

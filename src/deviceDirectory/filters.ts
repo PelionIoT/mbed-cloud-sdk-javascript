@@ -1,4 +1,4 @@
-/* 
+/*
 * mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
@@ -40,7 +40,7 @@ export class Filters {
         ]
     };
 
-    static readonly DEVICE_LOG_FILTER_MAP = {
+    static readonly DEVICE_EVENT_FILTER_MAP = {
         from: [
             "eventDate",
             "type"
