@@ -68,6 +68,10 @@ export class Certificate {
      * PEM format developer private key associated to the certificate.
      */
     readonly developerPrivateKey?: string;
+    /**
+     * The UUID of the certificate owner (user or ApiKey)
+     */
+    readonly ownerId?: string;
 
     constructor(init: Partial<Certificate>, private _api?: CertificatesApi) {
         for(var key in init) {
@@ -93,6 +97,7 @@ export class Certificate {
                 id:                 this.id,
                 signature:          signature,
                 type:               this.type,
+                status:             this.status,
                 certificateData:    this.certificateData,
                 name:               this.name,
                 description:        this.description
