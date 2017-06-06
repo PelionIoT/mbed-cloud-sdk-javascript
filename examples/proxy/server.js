@@ -28,7 +28,7 @@ if (!express) {
 }
 
 var port = 8080;
-var mbedHost = "api.mbedcloud.com";
+var mbedHost = "api.us-east-1.mbedcloud.com";
 var cookieKey = "mbedCloudKey";
 var cookieHost = "mbedCloudHost";
 var apiPath = "/api";
