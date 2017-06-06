@@ -193,9 +193,48 @@ export interface AddQueryObject extends QueryObject {
      */
     name: string;
     /**
-     * The description of the query
+     * The device filter
+     *
+     * Constructed like so:
+     *  ```JavaScript
+     *  filter: {
+     *    state: { $eq: "bootstrapped" },
+     *    createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *    updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *    customAttributes: {
+     *      <custom_name_1>: { $eq: "custom_value_1" },
+     *      <custom_name_2>: { $ne: "custom_value_2" }
+     *    }
+     *  }
+     *  ```
      */
-    description: string;
+    filter: {
+        accountId?: ComparisonObject<string>;
+        autoUpdate?: ComparisonObject<boolean>;
+        bootstrapCertificateExpiration?: ComparisonObject<Date>;
+        bootstrappedTimestamp?: ComparisonObject<Date>;
+        certificateIssuerId?: ComparisonObject<string>;
+        connectorCertificateExpiration?: ComparisonObject<Date>;
+        createdAt?: ComparisonObject<Date>;
+        deployedState?: ComparisonObject<string>;
+        lastDeployment?: ComparisonObject<Date>;
+        description?: ComparisonObject<string>;
+        deviceClass?: ComparisonObject<string>;
+        certificateFingerprint?: ComparisonObject<string>;
+        alias?: ComparisonObject<string>;
+        firmwareChecksum?: ComparisonObject<string>;
+        manifestUrl?: ComparisonObject<string>;
+        manifestTimestamp?: ComparisonObject<Date>;
+        mechanism?: ComparisonObject<string>;
+        mechanismUrl?: ComparisonObject<string>;
+        name?: ComparisonObject<string>;
+        serialNumber?: ComparisonObject<string>;
+        state?: ComparisonObject<string>;
+        trustLevel?: ComparisonObject<string>;
+        updatedAt?: ComparisonObject<Date>;
+        vendorId?: ComparisonObject<string>;
+        customAttributes?: { [key: string]: ComparisonObject<string> };
+    }
 }
 
 /**
