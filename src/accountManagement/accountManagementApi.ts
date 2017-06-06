@@ -15,8 +15,9 @@
 * limitations under the License.
 */
 
-import { apiWrapper, mapListResponse, encodeInclude } from "../common/functions";
-import { ConnectionOptions, CallbackFn, ListOptions, ListResponse } from "../common/interfaces";
+import { apiWrapper, encodeInclude } from "../common/functions";
+import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
+import { ListResponse } from "../common/listResponse";
 import { Endpoints } from "./endpoints";
 import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions } from "./types";
 import { Account } from "./models/account";
@@ -209,7 +210,7 @@ export class AccountManagementApi {
                 });
             }
 
-            done(null, mapListResponse(data, keys));
+            done(null, new ListResponse(data, keys));
         }, callback);
     }
 
@@ -446,7 +447,7 @@ export class AccountManagementApi {
                 });
             }
 
-            done(null, mapListResponse(data, users));
+            done(null, new ListResponse(data, users));
         }, callback);
     }
 
@@ -677,7 +678,7 @@ export class AccountManagementApi {
                 });
             }
 
-            done(null, mapListResponse(data, groups));
+            done(null, new ListResponse(data, groups));
         }, callback);
     }
 
@@ -775,7 +776,7 @@ export class AccountManagementApi {
                 });
             }
 
-            done(null, mapListResponse(data, users));
+            done(null, new ListResponse(data, users));
         }, callback);
     }
 
@@ -832,7 +833,7 @@ export class AccountManagementApi {
                 });
             }
 
-            done(null, mapListResponse(data, keys));
+            done(null, new ListResponse(data, keys));
         }, callback);
     }
 }

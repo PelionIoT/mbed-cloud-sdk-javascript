@@ -64,33 +64,6 @@ export interface ListOptions {
     include?: IncludeEnum[];
 }
 
-export interface ListResponse<T> {
-    /**
-     * Whether there are more results to display
-     */
-    hasMore?: boolean;
-    /**
-     * Total number of records
-     */
-    totalCount?: number;
-    /**
-     * Entity id for fetch after it
-     */
-    after?: string;
-    /**
-     * The number of results to return
-     */
-    limit?: number;
-    /**
-     * Order of returned records
-     */
-    order?: OrderEnum;
-    /**
-     * Devices
-     */
-    data?: Array<T>;
-}
-
 /**
  * Operators inspired by [MongoDB](https://docs.mongodb.com/manual/reference/operator/query-comparison/)
  */
