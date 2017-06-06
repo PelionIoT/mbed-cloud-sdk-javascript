@@ -805,7 +805,7 @@ export class SubscriptionsApi extends ApiBase {
      * Get pre-subscriptions
      * You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure  as described above. If there are no pre-subscribed resources, it returns with an empty array. 
      */
-    v2SubscriptionsGet (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v2SubscriptionsGet (callback?: (error:any, data?:PresubscriptionArray, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
