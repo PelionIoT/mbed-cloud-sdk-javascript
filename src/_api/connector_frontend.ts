@@ -81,7 +81,7 @@ export class ResourcesApi extends ApiBase {
      * @param cacheOnly Decides if the response comes only from the cache or from the device. Default value is false.
      * @param pri Priority message. Adds traffic-class for outgoing IPv6 message (only UDP). Network should this header and  Accepted values are AF11, AF12, AF13, AF21, AF22, AF23, AF31, AF32, AF33, AF41, AF42, AF43, VA, EF, CS0, CS1, CS2,CS3, CS4, CS5, CS6, CS7 and DF. Numeric values [0 - 7 ] are interpreted as matching to the corresponding CS value. This is an optional field. 
      */
-    v3DevicesDeviceIdCachedResourcesResourcePathGet (endpointName: string, resourcePath: string, cacheOnly?: boolean, pri?: string, callback?: (error:any, data?:string, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3DevicesDeviceIdCachedResourcesResourcePathGet (endpointName: string, resourcePath: string, cacheOnly?: boolean, pri?: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "endpointName" is set
         if (endpointName === null || endpointName === undefined) {
             if (callback) {
