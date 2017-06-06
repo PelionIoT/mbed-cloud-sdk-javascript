@@ -67,12 +67,45 @@ export class DeviceDirectoryApi {
 
     /**
      * Gets a list of devices
+     *
+     * Example:
+     * ```JavaScript
+     * devices.listDevices({
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
+     * .then(devices => {
+     *     // Utilize devices here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options list options
      * @returns Promise of devices
      */
     public listDevices(options?: DeviceListOptions): Promise<ListResponse<Device>>;
     /**
      * Gets a list of devices
+     *
+     * Example:
+     * ```JavaScript
+     * devices.listDevices({
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, devices) {
+     *     if (error) throw error;
+     *     // Utilize devices here
+     * });
+     * ```
+     *
      * @param options list options
      * @param callback A function that is passed the arguments (error, devices)
      */
@@ -98,12 +131,33 @@ export class DeviceDirectoryApi {
 
     /**
      * Gets details of a device
+     *
+     * Example:
+     * ```JavaScript
+     * devices.getDevice('015c5ed320c0000000000001001000f0')
+     * .then(device => {
+     *     // Utilize device here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @returns Promise of device
      */
     public getDevice(deviceId: string): Promise<Device>;
     /**
      * Gets details of a device
+     *
+     * Example:
+     * ```JavaScript
+     * devices.getDevice('015c5ed320c0000000000001001000f0', function(error, device) {
+     *     if (error) throw error;
+     *     // Utilize device here
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @param callback A function that is passed the arguments (error, device)
      */
@@ -119,12 +173,41 @@ export class DeviceDirectoryApi {
 
     /**
      * Add a device
+     *
+     * Example:
+     * ```JavaScript
+     * devices.addDevice({
+     *     certificateFingerprint: '07:7A:EB:67:37:42:4D:11:5C:3E:99:07:1E:EB:44:...',
+     *     certificateIssuerId: '015c3c457b2002420a01041603c00000',
+     *     name: 'newDeviceName'
+     * })
+     * .then(device => {
+     *     // Utilize device here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param device Device details
      * @returns Promise of device
      */
     public addDevice(device: AddDeviceObject): Promise<Device>;
     /**
      * Add a device
+     *
+     * Example:
+     * ```JavaScript
+     * devices.addDevice({
+     *     certificateFingerprint: '07:7A:EB:67:37:42:4D:11:5C:3E:99:07:1E:EB:44:...',
+     *     certificateIssuerId: '015c3c457b2002420a01041603c00000',
+     *     name: 'newDeviceName'
+     * }, function(error, device) {
+     *     if (error) throw error;
+     *     // Utilize device here
+     * });
+     * ```
+     *
      * @param device Device details
      * @param callback A function that is passed the arguments (error, device)
      */
@@ -140,12 +223,49 @@ export class DeviceDirectoryApi {
 
     /**
      * Update a device
+     *
+     * Example:
+     * ```JavaScript=
+     * devices.updateDevice({
+     *     id: '015c5ed320c0000000000001001000f0',
+     *     name: 'Updated name',
+     *     description: 'Updated description',
+     *     customAttributes: {
+     *         attr1: 'Use json structure',
+     *         attr2: 'Can use 5 entries in the JSON struct'
+     *     }
+     * })
+     * .then(device => {
+     *     // Utilize device here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param device Device details
      * @returns Promise of device
      */
     public updateDevice(device: UpdateDeviceObject): Promise<Device>;
     /**
      * Update a device
+     *
+     * Example:
+     * ```JavaScript
+     * devices.updateDevice({
+     *     id: '015c5ed320c0000000000001001000f0',
+     *     name: 'Updated name',
+     *     description: 'Updated description',
+     *     customAttributes: {
+     *         attr1: 'Use json structure',
+     *         attr2: 'Can use 5 entries in the JSON struct'
+     *     }
+     * }, function(error, device) {
+     *     if (error) throw error;
+     *     // Utilize device here
+     * });
+     * ```
+     *
      * @param device Device details
      * @param callback A function that is passed the arguments (error, device)
      */
@@ -161,12 +281,29 @@ export class DeviceDirectoryApi {
 
     /**
      * Delete a device
+     *
+     * Example:
+     * ```JavaScript
+     * devices.deleteDevice('015c5ed320c0000000000001001000f0')
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @returns Promise containing any error
      */
     public deleteDevice(deviceId: string): Promise<void>;
     /**
      * Delete a device
+     *
+     * Example:
+     * ```JavaScript
+     * devices.deleteDevice('015c5ed320c0000000000001001000f0', function(error) {
+     *     if (error) throw error;
+     * });
+     * ```
+     *
      * @param deviceId Device ID
      * @param callback A function that is passed any error
      */
@@ -181,6 +318,18 @@ export class DeviceDirectoryApi {
 
     /**
      * List queries
+     *
+     * Example:
+     * ```JavaScript
+     * devices.listQueries({limit: 5})
+     * .then(queries => {
+     *     // Utilize queries here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options list options
      * @param callback A function containing a list response
      * @returns Promise containing a list response
@@ -188,6 +337,15 @@ export class DeviceDirectoryApi {
     public listQueries(options?: QueryListOptions): Promise<ListResponse<Query>>;
     /**
      * List queries
+     *
+     * Example:
+     * ```JavaScript
+     * devices.listQueries({limit: 5}, function(error, queries) {
+     *     if (error) throw error;
+     *     // Utilize queries here
+     * });
+     * ```
+     *
      * @param options list options
      * @param callback A function containing a list response
      * @returns Promise containing a list response
@@ -218,6 +376,18 @@ export class DeviceDirectoryApi {
 
     /**
      * Get a query
+     *
+     * Example:
+     * ```JavaScript
+     * devices.getQuery('015c45eb321700000000000100100155')
+     * .then(query => {
+     *     // Utilize query here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param queryId query ID
      * @param callback A function that is passed the arguments (error, query)
      * @returns Promise of query
@@ -225,6 +395,15 @@ export class DeviceDirectoryApi {
     public getQuery(queryId: string): Promise<Query>;
     /**
      * Get a query
+     *
+     * Example:
+     * ```JavaScript
+     * devices.getQuery('015c45eb321700000000000100100155', function(error, query) {
+     *     if (error) throw error;
+     *     // Utilize query here
+     * });
+     * ```
+     *
      * @param queryId query ID
      * @param callback A function that is passed the arguments (error, query)
      * @returns Promise of query
@@ -241,12 +420,49 @@ export class DeviceDirectoryApi {
 
     /**
      * Add a query
+     *
+     * Example:
+     * ```JavaScript
+     * devices.addQuery({
+     *     name: 'TestFilter',
+     *     description: 'Description here',
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
+     * .then(query => {
+     *     // Utilize query here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param query The query
      * @returns Promise of query
      */
     public addQuery(query: AddQueryObject): Promise<Query>;
     /**
      * Add a query
+     *
+     * Example:
+     * ```JavaScript
+     * devices.addQuery({
+     *     name: 'TestFilter',
+     *     description: 'Description here',
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, query) {
+     *     if (error) throw error;
+     *     // Utilize query here
+     * });
+     * ```
+     *
      * @param query The query
      * @param callback A function that is passed the arguments (error, query)
      */
@@ -262,12 +478,49 @@ export class DeviceDirectoryApi {
 
     /**
      * Update a query
+     *
+     * Example:
+     * ```JavaScript
+     * devices.updateQuery({
+     *     name: 'TestFilter',
+     *     id: '015c45eb321700000000000100100155',
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
+     * .then(query => {
+     *     // Utilize query here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param query The query to update
      * @returns Promise of query
      */
     public updateQuery(query: UpdateQueryObject): Promise<Query>;
     /**
      * Update a query
+     *
+     * Example:
+     * ```JavaScript
+     * devices.updateQuery({
+     *     name: 'TestFilter',
+     *     id: '015c45eb321700000000000100100155',
+     *     filter: {
+     *         state: { $eq: "bootstrapped" },
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, query) {
+     *     if (error) throw error;
+     *     // Utilize query here
+     * });
+     * ```
+     *
      * @param query The query to update
      * @param callback A function that is passed the arguments (error, query)
      */
@@ -283,12 +536,29 @@ export class DeviceDirectoryApi {
 
     /**
      * Delete a query
+     *
+     * Example:
+     * ```JavaScript
+     * devices.deleteQuery('015c45eb321700000000000100100155')
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param queryId query ID
      * @returns Promise containing any error
      */
     public deleteQuery(queryId: string): Promise<void>;
     /**
      * Delete a query
+     *
+     * Example:
+     * ```JavaScript
+     * devices.deleteQuery('015c45eb321700000000000100100155', function(error) {
+     *     if (error) throw error;
+     * });
+     * ```
+     *
      * @param queryId query ID
      * @param callback A function that is passed any error
      */
@@ -303,12 +573,45 @@ export class DeviceDirectoryApi {
 
     /**
      * List device events
+     *
+     * Example:
+     * ```JavaScript
+     * devices.listDeviceEvents({
+     *     limit: 50,
+     *     filter: {
+     *         deviceId: { $eq: "015c45eb321700000000000100100155" },
+     *         eventDate: { $gte: new Date("01-01-2016"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
+     * .then(deviceevents => {
+     *     // Utilize deviceevents here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param options filter options
      * @returns Promise of listResponse
      */
     public listDeviceEvents(options?: DeviceEventListOptions): Promise<ListResponse<DeviceEvent>>;
     /**
      * List device events
+     *
+     * Example:
+     * ```JavaScript
+     * devices.listDeviceEvents({
+     *     limit: 50,
+     *     filter: {
+     *         deviceId: { $eq: "015c45eb321700000000000100100155" },
+     *         eventDate: { $gte: new Date("01-01-2016"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, deviceevents) {
+     *     if (error) throw error;
+     *     // Utilize deviceevents here
+     * });
+     * ```
+     *
      * @param options filter options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
@@ -337,12 +640,33 @@ export class DeviceDirectoryApi {
 
     /**
      * Get a single device event
+     *
+     * Example:
+     * ```JavaScript
+     * devices.getDeviceEvent('015c45eb321700000000000100100155')
+     * .then(deviceevent => {
+     *     // Utilize deviceevent here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
      * @param deviceEventId device event ID
      * @returns Promise of device event
      */
     public getDeviceEvent(deviceEventId: string): Promise<DeviceEvent>;
     /**
      * Get a single device event
+     *
+     * Example:
+     * ```JavaScript
+     * devices.getDeviceEvent('015c45eb321700000000000100100155', function(error, deviceevent) {
+     *     if (error) throw error;
+     *     // Utilize deviceevent here
+     * });
+     * ```
+     *
      * @param deviceEventId device event ID
      * @param callback A function that is passed the return arguments (error, device event)
      */
