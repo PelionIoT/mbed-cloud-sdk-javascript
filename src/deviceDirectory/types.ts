@@ -19,7 +19,6 @@ import { ListOptions, ComparisonObject } from "../common/interfaces";
 
 export type MechanismEnum = "connector" | "direct";
 export type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
-export type DeviceDeploymentEnum = "development" | "production";
 
 export interface DeviceObject {
     /**
@@ -66,10 +65,6 @@ export interface AddDeviceObject extends DeviceObject {
      */
     state?: DeviceStateEnum;
     /**
-     * The state of the device's deployment
-     */
-    deployedState?: DeviceDeploymentEnum;
-    /**
      * The device class
      */
     deviceClass?: string;
@@ -106,17 +101,9 @@ export interface AddDeviceObject extends DeviceObject {
      */
     mechanismUrl?: string;
     /**
-     * URL for the current device manifest
-     */
-    manifestUrl?: string;
-    /**
      * The SHA256 checksum of the current firmware image
      */
     firmwareChecksum?: string;
-    /**
-     * The last deployment used on the device
-     */
-    lastDeployment?: string;
     /**
      * The device trust level
      */
