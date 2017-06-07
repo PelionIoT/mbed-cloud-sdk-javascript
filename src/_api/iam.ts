@@ -915,7 +915,9 @@ export class AccountAdminApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['action'] = action;
+        if (action !== undefined) {
+            queryParameters['action'] = action;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -1009,13 +1011,27 @@ export class AccountAdminApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['limit'] = limit;
-        queryParameters['after'] = after;
-        queryParameters['order'] = order;
-        queryParameters['include'] = include;
-        queryParameters['service__eq'] = serviceEq;
-        queryParameters['expire__eq'] = expireEq;
-        queryParameters['device_execution_mode__eq'] = deviceExecutionModeEq;
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+        if (serviceEq !== undefined) {
+            queryParameters['service__eq'] = serviceEq;
+        }
+        if (expireEq !== undefined) {
+            queryParameters['expire__eq'] = expireEq;
+        }
+        if (deviceExecutionModeEq !== undefined) {
+            queryParameters['device_execution_mode__eq'] = deviceExecutionModeEq;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -1044,11 +1060,21 @@ export class AccountAdminApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['limit'] = limit;
-        queryParameters['after'] = after;
-        queryParameters['order'] = order;
-        queryParameters['include'] = include;
-        queryParameters['status__eq'] = statusEq;
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+        if (statusEq !== undefined) {
+            queryParameters['status__eq'] = statusEq;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -1146,10 +1172,18 @@ export class AccountAdminApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['limit'] = limit;
-        queryParameters['after'] = after;
-        queryParameters['order'] = order;
-        queryParameters['include'] = include;
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -1400,11 +1434,21 @@ export class DeveloperApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['limit'] = limit;
-        queryParameters['after'] = after;
-        queryParameters['order'] = order;
-        queryParameters['include'] = include;
-        queryParameters['owner__eq'] = ownerEq;
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+        if (ownerEq !== undefined) {
+            queryParameters['owner__eq'] = ownerEq;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -1432,10 +1476,18 @@ export class DeveloperApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['limit'] = limit;
-        queryParameters['after'] = after;
-        queryParameters['order'] = order;
-        queryParameters['include'] = include;
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -1502,10 +1554,18 @@ export class DeveloperApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['limit'] = limit;
-        queryParameters['after'] = after;
-        queryParameters['order'] = order;
-        queryParameters['include'] = include;
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -1561,7 +1621,9 @@ export class DeveloperApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['include'] = include;
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
 
         let useFormData = false;
         let formParams: any = {};

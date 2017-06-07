@@ -430,11 +430,21 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['limit'] = limit;
-        queryParameters['order'] = order;
-        queryParameters['after'] = after;
-        queryParameters['filter'] = filter;
-        queryParameters['include'] = include;
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (filter !== undefined) {
+            queryParameters['filter'] = filter;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -492,11 +502,21 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['limit'] = limit;
-        queryParameters['order'] = order;
-        queryParameters['after'] = after;
-        queryParameters['filter'] = filter;
-        queryParameters['include'] = include;
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (filter !== undefined) {
+            queryParameters['filter'] = filter;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -524,11 +544,21 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['limit'] = limit;
-        queryParameters['order'] = order;
-        queryParameters['after'] = after;
-        queryParameters['filter'] = filter;
-        queryParameters['include'] = include;
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (filter !== undefined) {
+            queryParameters['filter'] = filter;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
 
         let useFormData = false;
         let formParams: any = {};

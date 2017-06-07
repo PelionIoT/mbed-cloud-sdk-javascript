@@ -53,8 +53,12 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['noResp'] = noResp;
-        queryParameters['pri'] = pri;
+        if (noResp !== undefined) {
+            queryParameters['noResp'] = noResp;
+        }
+        if (pri !== undefined) {
+            queryParameters['pri'] = pri;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -96,8 +100,12 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['cacheOnly'] = cacheOnly;
-        queryParameters['pri'] = pri;
+        if (cacheOnly !== undefined) {
+            queryParameters['cacheOnly'] = cacheOnly;
+        }
+        if (pri !== undefined) {
+            queryParameters['pri'] = pri;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -140,8 +148,12 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['noResp'] = noResp;
-        queryParameters['pri'] = pri;
+        if (noResp !== undefined) {
+            queryParameters['noResp'] = noResp;
+        }
+        if (pri !== undefined) {
+            queryParameters['pri'] = pri;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -191,7 +203,9 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['pri'] = pri;
+        if (pri !== undefined) {
+            queryParameters['pri'] = pri;
+        }
 
         let useFormData = false;
         let formParams: any = {};

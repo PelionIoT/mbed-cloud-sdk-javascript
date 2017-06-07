@@ -468,9 +468,15 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['account'] = account;
-        queryParameters['from'] = from;
-        queryParameters['to'] = to;
+        if (account !== undefined) {
+            queryParameters['account'] = account;
+        }
+        if (from !== undefined) {
+            queryParameters['from'] = from;
+        }
+        if (to !== undefined) {
+            queryParameters['to'] = to;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -510,8 +516,12 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['account'] = account;
-        queryParameters['import_id'] = importId;
+        if (account !== undefined) {
+            queryParameters['account'] = account;
+        }
+        if (importId !== undefined) {
+            queryParameters['import_id'] = importId;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -543,7 +553,9 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['account'] = account;
+        if (account !== undefined) {
+            queryParameters['account'] = account;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -606,8 +618,12 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['account'] = account;
-        queryParameters['month'] = month;
+        if (account !== undefined) {
+            queryParameters['account'] = account;
+        }
+        if (month !== undefined) {
+            queryParameters['month'] = month;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -640,8 +656,12 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['month'] = month;
-        queryParameters['format'] = format;
+        if (month !== undefined) {
+            queryParameters['month'] = month;
+        }
+        if (format !== undefined) {
+            queryParameters['format'] = format;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -697,8 +717,12 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        queryParameters['month'] = month;
-        queryParameters['account'] = account;
+        if (month !== undefined) {
+            queryParameters['month'] = month;
+        }
+        if (account !== undefined) {
+            queryParameters['account'] = account;
+        }
 
         let useFormData = false;
         let formParams: any = {};

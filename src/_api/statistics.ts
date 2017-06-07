@@ -148,11 +148,21 @@ export class AccountApi extends ApiBase {
         headerParams['Authorization'] = authorization;
 
         let queryParameters: any = {};
-        queryParameters['include'] = include;
-        queryParameters['start'] = start;
-        queryParameters['end'] = end;
-        queryParameters['period'] = period;
-        queryParameters['interval'] = interval;
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+        if (start !== undefined) {
+            queryParameters['start'] = start;
+        }
+        if (end !== undefined) {
+            queryParameters['end'] = end;
+        }
+        if (period !== undefined) {
+            queryParameters['period'] = period;
+        }
+        if (interval !== undefined) {
+            queryParameters['interval'] = interval;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -211,11 +221,21 @@ export class StatisticsApi extends ApiBase {
         headerParams['Authorization'] = authorization;
 
         let queryParameters: any = {};
-        queryParameters['include'] = include;
-        queryParameters['start'] = start;
-        queryParameters['end'] = end;
-        queryParameters['period'] = period;
-        queryParameters['interval'] = interval;
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+        if (start !== undefined) {
+            queryParameters['start'] = start;
+        }
+        if (end !== undefined) {
+            queryParameters['end'] = end;
+        }
+        if (period !== undefined) {
+            queryParameters['period'] = period;
+        }
+        if (interval !== undefined) {
+            queryParameters['interval'] = interval;
+        }
 
         let useFormData = false;
         let formParams: any = {};
