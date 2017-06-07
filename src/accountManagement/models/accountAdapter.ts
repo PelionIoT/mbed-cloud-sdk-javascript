@@ -30,9 +30,13 @@ import { PolicyAdapter } from "./policyAdapter";
 export class AccountAdapter {
     static map(from: apiAccount, api: AccountManagementApi): Account {
 
-        let policies = from.policies.map(policy => {
-            return PolicyAdapter.map(policy);
-        });
+        let policies = [];
+
+        if (from.policies) {
+            policies = from.policies.map(policy => {
+                return PolicyAdapter.map(policy);
+            });
+        }
 
         return new Account({
             //parentId               : from.parent_id,

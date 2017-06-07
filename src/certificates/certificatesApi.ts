@@ -15,8 +15,9 @@
 * limitations under the License.
 */
 
-import { apiWrapper, mapListResponse, encodeInclude } from "../common/functions";
-import { ConnectionOptions, CallbackFn, ListResponse } from "../common/interfaces";
+import { apiWrapper, encodeInclude } from "../common/functions";
+import { ConnectionOptions, CallbackFn } from "../common/interfaces";
+import { ListResponse } from "../common/listResponse";
 import { TrustedCertificateResp as iamCertificate } from "../_api/iam";
 import { Endpoints } from "./endpoints";
 import { AddDeveloperCertificateObject, AddCertificateObject, UpdateCertificateObject, CertificateListOptions } from "./types";
@@ -138,7 +139,7 @@ export class CertificatesApi {
                 });
             }
 
-            done(null, mapListResponse(data, certificates));
+            done(null, new ListResponse(data, certificates));
         }, callback);
     }
 

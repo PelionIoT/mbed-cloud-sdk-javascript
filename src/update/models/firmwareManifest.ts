@@ -17,7 +17,7 @@
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { FirmwareManifestObject } from "../types";
+import { FirmwareManifestObject, ManifestContents } from "../types";
 import { UpdateApi } from "../updateApi";
 
 /**
@@ -40,7 +40,7 @@ export class FirmwareManifest {
     /**
      * The contents of the manifest
      */
-    readonly manifestContents: any;
+    readonly contents: ManifestContents;
     /**
      * The time the object was created
      */

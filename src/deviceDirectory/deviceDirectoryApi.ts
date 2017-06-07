@@ -15,8 +15,9 @@
 * limitations under the License.
 */
 
-import { apiWrapper, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
-import { ConnectionOptions, ListResponse, CallbackFn } from "../common/interfaces";
+import { apiWrapper, encodeInclude, encodeFilter } from "../common/functions";
+import { ConnectionOptions, CallbackFn } from "../common/interfaces";
+import { ListResponse } from "../common/listResponse";
 import { AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject, DeviceListOptions, QueryListOptions, DeviceEventListOptions } from "./types";
 import { Device } from "./models/device";
 import { DeviceAdapter } from "./models/deviceAdapter";
@@ -125,7 +126,7 @@ export class DeviceDirectoryApi {
                 return DeviceAdapter.map(device, this);
             });
 
-            done(null, mapListResponse<Device>(data, devices));
+            done(null, new ListResponse<Device>(data, devices));
         }, callback);
     }
 
@@ -369,7 +370,7 @@ export class DeviceDirectoryApi {
                 });
             }
 
-            let response = mapListResponse(data, queries);
+            let response = new ListResponse(data, queries);
             done(null, response);
         }, callback);
     }
@@ -634,7 +635,7 @@ export class DeviceDirectoryApi {
                 });
             }
 
-            done(null, mapListResponse<DeviceEvent>(data, list));
+            done(null, new ListResponse<DeviceEvent>(data, list));
         }, callback);
     }
 

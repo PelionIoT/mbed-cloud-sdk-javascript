@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { ListResponse, CallbackFn, ComparisonObject } from "./interfaces";
+import { CallbackFn, ComparisonObject } from "./interfaces";
 import { SDKError } from "./sdkError";
 
 // Inspired by https://github.com/sonnyp/polygoat
@@ -98,19 +98,6 @@ export function camelToSnake(camel) {
     return camel.replace(/([A-Z]+)/g, function(match) {
         return "_" + match.toLowerCase();
     });
-}
-
-export function mapListResponse<T>(from: any, data:Array<T>): ListResponse<T> {
-    let to: ListResponse<T> = {};
-
-    to.after         = from.after;
-    to.hasMore       = from.has_more;
-    to.limit         = from.limit;
-    to.order         = from.order;
-    to.totalCount    = from.total_count;
-    to.data          = data
-
-    return to;
 }
 
 export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, map: { from: string[], to: string[] }, nested: string[] = []): string {
