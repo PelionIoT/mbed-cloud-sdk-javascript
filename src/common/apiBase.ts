@@ -27,15 +27,6 @@ export class ApiBase {
     constructor(apiKey?: string, private host: string = "https://api.us-east-1.mbedcloud.com") {
         if (apiKey && apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${apiKey}`;
         this.apiKey = apiKey;
-
-        // Inject JSON parser
-        superagent.parse["application/json"] = function(json) {
-            return JSON.parse(json, (_key, value) => {
-                // Check for date
-                if (DATE_REGEX.test(value)) return new Date(value);
-                return value;
-            });
-        };
     }
 
     protected request<T>(options: { url: string, method: string, headers: {}, query: {}, useFormData: boolean, formParams: {}, json?: boolean, body?: any }, callback?:Function): superagent.SuperAgentRequest {
@@ -117,8 +108,17 @@ export class ApiBase {
                 }
 
                 var data:T = null;
+
                 if (response && !sdkError) {
                     data = response.body || response.text;
+                }
+
+                if (options.json && typeof data === "object") {
+                    data = JSON.parse(JSON.stringify(data), (_key, value) => {
+                        // Check for date
+                        if (DATE_REGEX.test(value)) return new Date(value);
+                        return value;
+                    });
                 }
 
                 callback(sdkError, data, response);
