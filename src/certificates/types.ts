@@ -18,6 +18,7 @@
 import { ListOptions } from "../common/interfaces";
 
 export type CertificateTypeEnum = "developer" | "lwm2m" | "bootstrap";
+export type CertificateStatusEnum = "ACTIVE" | "INACTIVE";
 
 /**
  * This object represents a developer certificate
@@ -35,6 +36,10 @@ export interface AddDeveloperCertificateObject {
      * Certificate type
      */
     type?: CertificateTypeEnum;
+    /**
+     * Status of the certificate
+     */
+    status?: CertificateStatusEnum;
 }
 
 /**

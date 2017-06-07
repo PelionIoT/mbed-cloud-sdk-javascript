@@ -130,6 +130,7 @@ export class ConnectApi extends EventEmitter {
      *
      * Example: (The following pushes a notification to the event emitter, which can be read back by using the `.on` function.
      * Note that the payload is encoded in Base64)
+     *
      * ```JavaScript
      * var deviceID = "015bb66a92a30000000000010010006d";
      * var resourceURI = "3200/0/5500";
@@ -1131,11 +1132,11 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
      * var resourceURI = "3200/0/5500";
-     * connect.addResourceSubscription(deviceId, resourceURI, function calllback(data) {
+     * connect.addResourceSubscription(deviceId, resourceURI, function(data) {
      *     // Utilize data here - which is the updated value in resourceURI
      * })
-     * .then(response => {
-     *     // Utilize response here
+     * .then(asyncId => {
+     *     // Utilize asyncId here
      * })
      * .catch(error => {
      *     console.log(error);
@@ -1157,11 +1158,11 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
      * var resourceURI = "3200/0/5500";
-     * connect.addResourceSubscription(deviceId, resourceURI, function callback(data) {
-     *      // Utilize data here - which is the updated value in resourceURI
-     * }, function(error, response) {
+     * connect.addResourceSubscription(deviceId, resourceURI, function(error, asyncId) {
      *     if (error) throw error;
-     *     // Utilize response here
+     *     // Utilize asyncId here
+     * }, function(data) {
+     *      // Utilize data here - which is the updated value in resourceURI
      * });
      * ```
      *

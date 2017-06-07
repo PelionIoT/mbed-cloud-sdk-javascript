@@ -15,8 +15,9 @@
 * limitations under the License.
 */
 
-import { apiWrapper, mapListResponse, encodeInclude, encodeFilter } from "../common/functions";
-import { ConnectionOptions, ListResponse, CallbackFn } from "../common/interfaces";
+import { apiWrapper, encodeInclude, encodeFilter } from "../common/functions";
+import { ConnectionOptions, CallbackFn } from "../common/interfaces";
+import { ListResponse } from "../common/listResponse";
 import { AddFirmwareImageObject, AddFirmwareManifestObject, AddCampaignObject, UpdateCampaignObject, FirmwareImageListOptions, FirmwareManifestListOptions, CampaignListOptions } from "./types";
 import { FirmwareImage } from "./models/firmwareImage";
 import { FirmwareImageAdapter } from "./models/firmwareImageAdapter";
@@ -130,7 +131,7 @@ export class UpdateApi {
                 });
             }
 
-            done(null, mapListResponse(data, list));
+            done(null, new ListResponse(data, list));
         }, callback);
     }
 
@@ -365,7 +366,7 @@ export class UpdateApi {
                 });
             }
 
-            done(null, mapListResponse(data, list));
+            done(null, new ListResponse(data, list));
         }, callback);
     }
 
@@ -600,7 +601,7 @@ export class UpdateApi {
                 });
             }
 
-            done(null, mapListResponse(data, list));
+            done(null, new ListResponse(data, list));
         }, callback);
     }
 

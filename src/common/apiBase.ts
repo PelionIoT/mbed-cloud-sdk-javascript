@@ -18,6 +18,8 @@
 import superagent = require('superagent');
 import { SDKError } from "./sdkError";
 
+const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
+
 export class ApiBase {
 
     private apiKey = "";
@@ -27,7 +29,7 @@ export class ApiBase {
         this.apiKey = apiKey;
     }
 
-    protected request(options: { url: string, method: string, headers: {}, query: {}, useFormData: boolean, formParams: {}, json?: boolean, body?: any }, callback?:Function): superagent.SuperAgentRequest {
+    protected request<T>(options: { url: string, method: string, headers: {}, query: {}, useFormData: boolean, formParams: {}, json?: boolean, body?: any }, callback?:Function): superagent.SuperAgentRequest {
 
         // Normalize slashes in url
         let url = options.url.replace(/([:])?\/+/g, function($0, $1) {
@@ -105,9 +107,18 @@ export class ApiBase {
                     sdkError = new SDKError(message, innerError, details, error.status);
                 }
 
-                var data = null;
+                var data:T = null;
+
                 if (response && !sdkError) {
                     data = response.body || response.text;
+                }
+
+                if (options.json && typeof data === "object") {
+                    data = JSON.parse(JSON.stringify(data), (_key, value) => {
+                        // Check for date
+                        if (DATE_REGEX.test(value)) return new Date(value);
+                        return value;
+                    });
                 }
 
                 callback(sdkError, data, response);

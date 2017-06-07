@@ -2,7 +2,7 @@
 
 The mbed Cloud SDK provides a simplified interface to the mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to JavaScript developers.
 
-## Prerequisites
+## Prerequisite
 
 [Node.js > v4.7.0](https://nodejs.org), which includes `npm`.
 
@@ -16,15 +16,15 @@ $ npm install ARMmbed/mbed-cloud-sdk-javascript#build
 
 `/node_modules/mbed-cloud-sdk` now contains:
 
-* `bundles` - minified browser scripts. 
-* `lib` - Node.js modules. 
+* `bundles` - minified browser scripts.
+* `lib` - Node.js modules.
 * `examples` - contains all examples.
 
-## API Keys
+## API keys
 
-Before using the SDK, you will need to obtain an API key for use with mbed Cloud.
+Before using the SDK, you need to obtain an API key for use with mbed Cloud.
 
-This can be generated through the mbed Cloud management console.
+You can generate this through the mbed Cloud management console.
 
 ## Usage in Node.js (CommonJS modules)
 
@@ -52,7 +52,7 @@ connect.listConnectedDevices()
 
 ## Usage in browser (RequireJS/AMD modules, Vanilla JS/SPAs)
 
-The files in the bundles folder are standalone modules following the [UMD](https://github.com/umdjs/umd) specification, so should be usable without any further installation or modification.
+The files in the bundles folder are standalone modules following the [UMD](https://github.com/umdjs/umd) specification, so you should be able to use them without any further installation or modification.
 
 Include the JavaScript bundle you need on your page from the bundles folder. For example:
 
@@ -60,7 +60,7 @@ Include the JavaScript bundle you need on your page from the bundles folder. For
 <script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
 ```
 
-If using VanillaJS, the bundles are then accessible through the global `mbedCloudSDK` namespace. For example, to list all connected devices:
+If you are using VanillaJS, the bundles are then accessible through the global `mbedCloudSDK` namespace. For example, to list all connected devices:
 
 ```javascript
 var connect = new mbedCloudSDK.ConnectApi({
@@ -74,7 +74,7 @@ connect.listConnectedDevices(function(error, devices) {
 });
 ```
 
-Otherwise, the bundles should be loadable using an AMD framework such as [RequireJS](http://requirejs.org/).
+Otherwise, you should be able to load the bundles by using an AMD framework such as [RequireJS](http://requirejs.org/).
 
 You can also use all bundles by including `index.min.js`:
 
@@ -82,9 +82,9 @@ You can also use all bundles by including `index.min.js`:
 <script src="<mbed-cloud-sdk>/bundles/index.min.js"></script>
 ```
 
-__Warning:__ It is not advisable to embed your API key into distributed code such as client-side web pages. For production scenarios, developers may want to consider using Node.JS for all API calls or to proxy client-side code requests to inject the API key. An example proxy server can be found in the `examples` folder.
+__Warning:__ It is not advisable to embed your API key into distributed code such as client-side web pages. For production scenarios, developers may want to consider using Node.js for all API calls or to proxy client-side code requests to inject the API key. You can find an example proxy server in the `examples` folder.
 
-__Note:__ mbed Cloud is protected with [cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS), which restricts cross-origin calls from unknown domains. Until your production server domain has been whitelisted for mbed Cloud, you may disable CORS support in your browser using [command line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi). This is only an issue if using the SDKs client-side, however the `localhost` domain is already whitelisted to allow local development.
+__Note:__ [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) protects mbed Cloud. CORS restricts cross-origin calls from unknown domains. Until you have whitelisted your production server domain for mbed Cloud, you may disable CORS support in your browser using [command-line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi). This is only an issue if you are using the SDK's client side; however, the `localhost` domain is already whitelisted to allow local development.
 
 ## Examples
 
