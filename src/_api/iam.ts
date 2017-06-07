@@ -98,7 +98,7 @@ export interface AccountInfo {
     /**
      * Time when upgraded to commercial account in UTC format RFC3339.
      */
-    "upgraded_at"?: string;
+    "upgraded_at"?: Date;
     /**
      * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
      */
@@ -118,7 +118,7 @@ export interface AccountInfo {
     /**
      * Creation UTC time RFC3339.
      */
-    "created_at"?: string;
+    "created_at"?: Date;
     /**
      * The name of the contact person for this account.
      */
@@ -226,7 +226,7 @@ export interface ApiKeyInfoResp {
     /**
      * Creation UTC time RFC3339.
      */
-    "created_at"?: string;
+    "created_at"?: Date;
     /**
      * Entity name: always 'api-key'
      */
@@ -383,7 +383,7 @@ export interface GroupSummary {
     /**
      * Creation UTC time RFC3339.
      */
-    "created_at"?: string;
+    "created_at"?: Date;
     /**
      * Entity name: always 'group'
      */
@@ -523,7 +523,7 @@ export interface TrustedCertificateResp {
     /**
      * Creation UTC time RFC3339.
      */
-    "created_at"?: string;
+    "created_at"?: Date;
     /**
      * Entity name: always 'trusted-cert'
      */
@@ -543,7 +543,7 @@ export interface TrustedCertificateResp {
     /**
      * Expiration time in UTC formatted as RFC3339.
      */
-    "validity": string;
+    "validity": Date;
     /**
      * The UUID of the owner.
      */
@@ -694,7 +694,7 @@ export interface UserInfoResp {
     /**
      * Creation UTC time RFC3339.
      */
-    "created_at"?: string;
+    "created_at"?: Date;
     /**
      * Entity name: always 'user'
      */
