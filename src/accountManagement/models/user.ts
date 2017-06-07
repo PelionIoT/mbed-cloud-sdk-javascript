@@ -16,8 +16,7 @@
 */
 
 import { asyncStyle, apiWrapper } from "../../common/functions";
-import { CallbackFn } from "../../common/interfaces";
-import { ListOptions } from "../../common/interfaces";
+import { CallbackFn, ListOptions } from "../../common/interfaces";
 import { UpdateUserObject, UserStatusEnum } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
 import { ApiKey } from "./apiKey";

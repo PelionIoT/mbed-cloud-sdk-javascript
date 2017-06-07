@@ -15,7 +15,11 @@
 * limitations under the License.
 */
 
-import { FirmwareManifest as apiFirmwareManifest } from "../../_api/firmware_catalog";
+import {
+    FirmwareManifest as apiFirmwareManifest,
+    ManifestContents as apiManifestContents
+} from "../../_api/firmware_catalog";
+import { ManifestContents } from "../types";
 import { UpdateApi } from "../updateApi";
 import { FirmwareManifest } from "./firmwareManifest";
 
@@ -24,6 +28,54 @@ import { FirmwareManifest } from "./firmwareManifest";
  */
 export class FirmwareManifestAdapter {
 
+    static mapContents(from: apiManifestContents): ManifestContents {
+        if (!from) return {};
+
+        let contents:Partial<ManifestContents> = {
+            classId:                     from.classId,
+            vendorId:                    from.vendorId,
+            version:                     from.manifestVersion,
+            description:                 from.description,
+            nonce:                       from.nonce,
+            createdAt:                   from.timestamp ? new Date(from.timestamp * 1000) : null,
+            encryptionMode:              null,
+            applyImmediately:            from.applyImmediately,
+            deviceId:                    from.deviceId,
+            payloadFormat:               null,
+            payloadStorageIdentifier:    null,
+            payloadHash:                 null,
+            payloadUri:                  null,
+            payloadSize:                 null
+        };
+
+        if (from.encryptionMode && from.encryptionMode.enum) {
+            contents.encryptionMode = from.encryptionMode.enum === 1 ? "none-ecc-secp256r1-sha256"
+                : from.encryptionMode.enum === 2 ? "aes-128-ctr-ecc-secp256r1-sha256"
+                : from.encryptionMode.enum === 3 ? "none-none-sha256"
+                : null;
+        }
+
+        if (from.payload) {
+            contents.payloadStorageIdentifier = from.payload.storageIdentifier;
+
+            if (from.payload.format && from.payload.format.enum) {
+                contents.payloadFormat = from.payload.format.enum === 1 ? "raw-binary"
+                    : from.payload.format.enum === 2 ? "cbor"
+                    : from.payload.format.enum === 3 ? "hex-location-length-data"
+                    : from.payload.format.enum === 4 ? "elf"
+                    : null;
+            }
+
+            if (from.payload.reference) {
+                contents.payloadHash = from.payload.reference.hash;
+                contents.payloadUri = from.payload.reference.uri;
+                contents.payloadSize = from.payload.reference.size;
+            }
+        }
+
+        return contents;
+    }
+
     static map(from: apiFirmwareManifest, api: UpdateApi): FirmwareManifest {
         return new FirmwareManifest({
             createdAt:           from.created_at,
@@ -31,7 +83,7 @@ export class FirmwareManifestAdapter {
             description:         from.description,
             deviceClass:         from.device_class,
             id:                  from.id,
-            manifestContents:    from.manifest_contents,
+            contents:            FirmwareManifestAdapter.mapContents(from.manifest_contents),
             name:                from.name,
             timestamp:           from.timestamp,
             updatedAt:           from.updated_at

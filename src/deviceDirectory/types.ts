@@ -15,112 +15,10 @@
 * limitations under the License.
 */
 
-import { CallbackFn, ListOptions, ComparisonObject } from "../common/interfaces";
-
-export type ConnectedDeviceStateEnum = "active" | "stale";
-
-export interface NotificationObject {
-    /**
-     * Notifications
-     */
-    notifications?: any[];
-    /**
-     * New device registration notifications
-     */
-    registrations?: any[];
-    /**
-     * Device registration update notifications
-     */
-    "reg-updates"?: any[];
-    /**
-     * Device deregistration notifications
-     */
-    "de-registrations"?: any[];
-    /**
-     * Device registration expiry notifications
-     */
-    "registrations-expired"?: any[];
-    /**
-     * Asynchronous resoonse notifications
-     */
-    "async-responses"?: any[];
-}
-
-export interface DeviceEvent<T> {
-    /**
-     * The ID of the device
-     */
-    id?: string;
-    /**
-     * The type of the device
-     */
-    type?: string;
-    /**
-     * The queue mode of the device
-     */
-    queueMode?: boolean;
-    /**
-     * The resources of the device
-     */
-    resources?: Array<T>;
-}
-
-export interface AsyncResponse {
-    /**
-     * Asynchronous response unique ID.
-     */
-    id?: string;
-    /**
-     * HTTP status code, for example 200 for OK.
-     */
-    status?: number;
-    /**
-     * Content type
-     */
-    ct?: string;
-    /**
-     * Requested data, base64 encoded.
-     */
-    payload?: string;
-    /**
-     * Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
-     */
-    "max-age"?: string;
-    /**
-     * Optional error message, describing the error.
-     */
-    error?: string;
-}
-
-export interface NotificationOptions {
-    /**
-     * A polling interval in milliseconds
-     */
-    interval?: number;
-    /**
-     * A function that is passed any asynchronous responses
-     */
-    requestCallback?: CallbackFn<Array<AsyncResponse>>;
-}
-
-export interface PresubscriptionObject {
-    /**
-     * The device id (optionally having an * character at the end)
-     */
-    deviceId?: string;
-    /**
-     * The device type
-     */
-    deviceType?: string;
-    /**
-     * A list of resources to subscribe to. Allows wildcards to subscribe to multiple resources at once
-     */
-    resourcePaths?: string[];
-}
+import { ListOptions, ComparisonObject } from "../common/interfaces";
 
 export type MechanismEnum = "connector" | "direct";
 export type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
-export type DeviceDeploymentEnum = "development" | "production";
 
 export interface DeviceObject {
     /**
@@ -167,10 +65,6 @@ export interface AddDeviceObject extends DeviceObject {
      */
     state?: DeviceStateEnum;
     /**
-     * The state of the device's deployment
-     */
-    deployedState?: DeviceDeploymentEnum;
-    /**
      * The device class
      */
     deviceClass?: string;
@@ -207,17 +101,9 @@ export interface AddDeviceObject extends DeviceObject {
      */
     mechanismUrl?: string;
     /**
-     * URL for the current device manifest
-     */
-    manifestUrl?: string;
-    /**
      * The SHA256 checksum of the current firmware image
      */
     firmwareChecksum?: string;
-    /**
-     * The last deployment used on the device
-     */
-    lastDeployment?: string;
     /**
      * The device trust level
      */
@@ -294,9 +180,48 @@ export interface AddQueryObject extends QueryObject {
      */
     name: string;
     /**
-     * The description of the query
+     * The device filter
+     *
+     * Constructed like so:
+     *  ```JavaScript
+     *  filter: {
+     *    state: { $eq: "bootstrapped" },
+     *    createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *    updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *    customAttributes: {
+     *      <custom_name_1>: { $eq: "custom_value_1" },
+     *      <custom_name_2>: { $ne: "custom_value_2" }
+     *    }
+     *  }
+     *  ```
      */
-    description: string;
+    filter: {
+        accountId?: ComparisonObject<string>;
+        autoUpdate?: ComparisonObject<boolean>;
+        bootstrapCertificateExpiration?: ComparisonObject<Date>;
+        bootstrappedTimestamp?: ComparisonObject<Date>;
+        certificateIssuerId?: ComparisonObject<string>;
+        connectorCertificateExpiration?: ComparisonObject<Date>;
+        createdAt?: ComparisonObject<Date>;
+        deployedState?: ComparisonObject<string>;
+        lastDeployment?: ComparisonObject<Date>;
+        description?: ComparisonObject<string>;
+        deviceClass?: ComparisonObject<string>;
+        certificateFingerprint?: ComparisonObject<string>;
+        alias?: ComparisonObject<string>;
+        firmwareChecksum?: ComparisonObject<string>;
+        manifestUrl?: ComparisonObject<string>;
+        manifestTimestamp?: ComparisonObject<Date>;
+        mechanism?: ComparisonObject<string>;
+        mechanismUrl?: ComparisonObject<string>;
+        name?: ComparisonObject<string>;
+        serialNumber?: ComparisonObject<string>;
+        state?: ComparisonObject<string>;
+        trustLevel?: ComparisonObject<string>;
+        updatedAt?: ComparisonObject<Date>;
+        vendorId?: ComparisonObject<string>;
+        customAttributes?: { [key: string]: ComparisonObject<string> };
+    }
 }
 
 /**

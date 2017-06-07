@@ -39,12 +39,14 @@ export class CertificateAdapter {
             name               : from.name,
             description        : from.description,
             type               : from.device_execution_mode === 1 ? "developer" : from.service,
+            status             : from.status,
             accountId          : from.account_id,
             certificateData    : from.certificate,
             createdAt          : from.created_at,
             issuer             : from.issuer,
             subject            : from.subject,
-            validity           : from.validity
+            validity           : from.validity,
+            ownerId            : from.owner_id
         };
     }
 
@@ -78,6 +80,7 @@ export class CertificateAdapter {
             certificate:    from.certificateData,
             name:           from.name,
             service:        from.type === "developer" ? "bootstrap" : from.type,
+            status:         from.status,
             signature:      from.signature,
             description:    from.description
         };
