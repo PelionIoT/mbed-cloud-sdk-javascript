@@ -190,7 +190,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdateCampaign>({
             url: '/v3/update-campaigns/',
             method: 'POST',
             headers: headerParams,
@@ -221,7 +221,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'DELETE',
             headers: headerParams,
@@ -263,7 +263,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdateCampaignPage>({
             url: '/v3/update-campaigns/',
             method: 'GET',
             headers: headerParams,
@@ -301,7 +301,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdateCampaign>({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'PATCH',
             headers: headerParams,
@@ -332,7 +332,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdateCampaign>({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'GET',
             headers: headerParams,
@@ -370,7 +370,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdateCampaign>({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'PUT',
             headers: headerParams,

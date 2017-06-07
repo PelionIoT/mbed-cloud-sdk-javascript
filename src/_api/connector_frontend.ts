@@ -63,7 +63,7 @@ export class ResourcesApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{' + 'endpointName' + '}', String(endpointName)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'DELETE',
             headers: headerParams,
@@ -110,7 +110,7 @@ export class ResourcesApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{' + 'endpointName' + '}', String(endpointName)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'GET',
             headers: headerParams,
@@ -158,7 +158,7 @@ export class ResourcesApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{' + 'endpointName' + '}', String(endpointName)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'POST',
             headers: headerParams,
@@ -210,7 +210,7 @@ export class ResourcesApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{' + 'endpointName' + '}', String(endpointName)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'PUT',
             headers: headerParams,

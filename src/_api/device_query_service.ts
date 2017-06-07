@@ -109,7 +109,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceQuery>({
             url: '/v3/device-queries/',
             method: 'POST',
             headers: headerParams,
@@ -140,7 +140,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/device-queries/{query_id}/'.replace('{' + 'query_id' + '}', String(queryId)),
             method: 'DELETE',
             headers: headerParams,
@@ -182,7 +182,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceQueryPage>({
             url: '/v3/device-queries/',
             method: 'GET',
             headers: headerParams,
@@ -220,7 +220,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceQuery>({
             url: '/v3/device-queries/{query_id}/'.replace('{' + 'query_id' + '}', String(queryId)),
             method: 'PATCH',
             headers: headerParams,
@@ -251,7 +251,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceQuery>({
             url: '/v3/device-queries/{query_id}/'.replace('{' + 'query_id' + '}', String(queryId)),
             method: 'GET',
             headers: headerParams,
@@ -289,7 +289,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceQuery>({
             url: '/v3/device-queries/{query_id}/'.replace('{' + 'query_id' + '}', String(queryId)),
             method: 'PUT',
             headers: headerParams,

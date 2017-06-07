@@ -376,7 +376,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceData>({
             url: '/v3/devices/',
             method: 'POST',
             headers: headerParams,
@@ -407,7 +407,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/devices/{id}/'.replace('{' + 'id' + '}', String(id)),
             method: 'DELETE',
             headers: headerParams,
@@ -449,7 +449,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceEventPage>({
             url: '/v3/device-events/',
             method: 'GET',
             headers: headerParams,
@@ -479,7 +479,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceEventData>({
             url: '/v3/device-events/{device_event_id}/'.replace('{' + 'device_event_id' + '}', String(deviceEventId)),
             method: 'GET',
             headers: headerParams,
@@ -521,7 +521,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DevicePage>({
             url: '/v3/devices/',
             method: 'GET',
             headers: headerParams,
@@ -563,7 +563,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceEventPage>({
             url: '/v3/devicelog/',
             method: 'GET',
             headers: headerParams,
@@ -593,7 +593,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceEventData>({
             url: '/v3/devicelog/{device_event_id}/'.replace('{' + 'device_event_id' + '}', String(deviceEventId)),
             method: 'GET',
             headers: headerParams,
@@ -631,7 +631,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceData>({
             url: '/v3/devices/{id}/'.replace('{' + 'id' + '}', String(id)),
             method: 'PATCH',
             headers: headerParams,
@@ -662,7 +662,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceData>({
             url: '/v3/devices/{id}/'.replace('{' + 'id' + '}', String(id)),
             method: 'GET',
             headers: headerParams,
@@ -700,7 +700,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceData>({
             url: '/v3/devices/{id}/'.replace('{' + 'id' + '}', String(id)),
             method: 'PUT',
             headers: headerParams,

@@ -243,7 +243,7 @@ export class DefaultApi extends ApiBase {
         }
 
 
-        return this.request({
+        return this.request<FirmwareImage>({
             url: '/v3/firmware-images/',
             method: 'POST',
             headers: headerParams,
@@ -273,7 +273,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/firmware-images/{image_id}/'.replace('{' + 'image_id' + '}', String(imageId)),
             method: 'DELETE',
             headers: headerParams,
@@ -315,7 +315,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<FirmwareImagePage>({
             url: '/v3/firmware-images/',
             method: 'GET',
             headers: headerParams,
@@ -345,7 +345,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<FirmwareImage>({
             url: '/v3/firmware-images/{image_id}/'.replace('{' + 'image_id' + '}', String(imageId)),
             method: 'GET',
             headers: headerParams,
@@ -397,7 +397,7 @@ export class DefaultApi extends ApiBase {
         }
 
 
-        return this.request({
+        return this.request<FirmwareManifest>({
             url: '/v3/firmware-manifests/',
             method: 'POST',
             headers: headerParams,
@@ -427,7 +427,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/firmware-manifests/{manifest_id}/'.replace('{' + 'manifest_id' + '}', String(manifestId)),
             method: 'DELETE',
             headers: headerParams,
@@ -469,7 +469,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<FirmwareManifestPage>({
             url: '/v3/firmware-manifests/',
             method: 'GET',
             headers: headerParams,
@@ -499,7 +499,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<FirmwareManifest>({
             url: '/v3/firmware-manifests/{manifest_id}/'.replace('{' + 'manifest_id' + '}', String(manifestId)),
             method: 'GET',
             headers: headerParams,

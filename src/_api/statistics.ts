@@ -167,7 +167,7 @@ export class AccountApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<SuccessfulResponse>({
             url: '/v3/metrics',
             method: 'GET',
             headers: headerParams,
@@ -240,7 +240,7 @@ export class StatisticsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<SuccessfulResponse>({
             url: '/v3/metrics',
             method: 'GET',
             headers: headerParams,
