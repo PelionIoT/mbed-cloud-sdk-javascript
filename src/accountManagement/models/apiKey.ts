@@ -40,9 +40,9 @@ export class ApiKey {
      */
     readonly key: string;
     /**
-     * Creation UTC time RFC3339.
+     * Creation time
      */
-    readonly createdAt?: string;
+    readonly createdAt?: Date;
     /**
      * The timestamp of the API key creation in the storage, in milliseconds.
      */

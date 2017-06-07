@@ -55,13 +55,13 @@ export class Account {
      */
     readonly provisioningAllowed: boolean;
     /**
-     * Creation UTC time RFC3339.
+     * Creation time.
      */
-    readonly createdAt?: string;
+    readonly createdAt?: Date;
     /**
-     * Time when upgraded to commercial account in UTC format RFC3339.
+     * Time when upgraded to commercial account
      */
-    readonly upgradedAt?: string;
+    readonly upgradedAt?: Date;
     /**
      * A reason note for updating the status of the account
      */

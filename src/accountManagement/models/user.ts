@@ -48,9 +48,9 @@ export class User {
      */
     readonly emailVerified?: boolean;
     /**
-     * Creation UTC time RFC3339.
+     * Creation time.
      */
-    readonly createdAt?: string;
+    readonly createdAt?: Date;
     /**
      * A timestamp of the user creation in the storage, in milliseconds.
      */

@@ -37,17 +37,17 @@ export class Certificate {
      */
     readonly subject: string;
     /**
-     * Expiration time in UTC formatted as RFC3339.
+     * Expiration Date.
      */
-    readonly validity: string;
+    readonly validity: Date;
     /**
      * Issuer of the certificate.
      */
     readonly issuer: string;
     /**
-     * Creation UTC time RFC3339.
+     * Creation time.
      */
-    readonly createdAt?: string;
+    readonly createdAt?: Date;
     /**
      * Bootstrap server URI to which the client needs to connect to.
      */

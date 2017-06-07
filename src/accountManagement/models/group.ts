@@ -48,9 +48,9 @@ export class Group {
      */
     readonly apiKeyCount: number;
     /**
-     * Creation UTC time RFC3339.
+     * Creation time.
      */
-    readonly createdAt?: string;
+    readonly createdAt?: Date;
     /**
      * A timestamp of the group creation in the storage, in milliseconds.
      */
