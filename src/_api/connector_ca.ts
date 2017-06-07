@@ -145,7 +145,7 @@ export class DeveloperCertificateApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeveloperCertificateResponseData>({
             url: '/v3/developer-certificates/{id}'.replace('{' + 'id' + '}', String(id)),
             method: 'GET',
             headers: headerParams,
@@ -185,7 +185,7 @@ export class DeveloperCertificateApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeveloperCertificateResponseData>({
             url: '/v3/developer-certificates',
             method: 'POST',
             headers: headerParams,
@@ -233,7 +233,7 @@ export class ExternalAPIApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeveloperCertificateResponseData>({
             url: '/v3/developer-certificates/{id}'.replace('{' + 'id' + '}', String(id)),
             method: 'GET',
             headers: headerParams,
@@ -273,7 +273,7 @@ export class ExternalAPIApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeveloperCertificateResponseData>({
             url: '/v3/developer-certificates',
             method: 'POST',
             headers: headerParams,
@@ -306,7 +306,7 @@ export class ExternalAPIApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ServerCredentialsResponseData>({
             url: '/v3/server-credentials/bootstrap',
             method: 'GET',
             headers: headerParams,
@@ -338,7 +338,7 @@ export class ExternalAPIApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ServerCredentialsResponseData>({
             url: '/v3/server-credentials/lwm2m',
             method: 'GET',
             headers: headerParams,
@@ -377,7 +377,7 @@ export class ServerCredentialsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ServerCredentialsResponseData>({
             url: '/v3/server-credentials/bootstrap',
             method: 'GET',
             headers: headerParams,
@@ -409,7 +409,7 @@ export class ServerCredentialsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ServerCredentialsResponseData>({
             url: '/v3/server-credentials/lwm2m',
             method: 'GET',
             headers: headerParams,

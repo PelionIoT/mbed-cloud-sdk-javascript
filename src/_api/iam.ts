@@ -846,7 +846,7 @@ export class AccountAdminApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<TrustedCertificateResp>({
             url: '/v3/trusted-certificates',
             method: 'POST',
             headers: headerParams,
@@ -886,7 +886,7 @@ export class AccountAdminApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdatedResponse>({
             url: '/v3/policy-groups/{groupID}'.replace('{' + 'groupID' + '}', String(groupID)),
             method: 'POST',
             headers: headerParams,
@@ -915,14 +915,12 @@ export class AccountAdminApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (action !== undefined) {
-            queryParameters['action'] = action;
-        }
+        queryParameters['action'] = action;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UserInfoResp>({
             url: '/v3/users',
             method: 'POST',
             headers: headerParams,
@@ -954,7 +952,7 @@ export class AccountAdminApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
             method: 'DELETE',
             headers: headerParams,
@@ -985,7 +983,7 @@ export class AccountAdminApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/users/{user-id}'.replace('{' + 'user-id' + '}', String(userId)),
             method: 'DELETE',
             headers: headerParams,
@@ -1011,32 +1009,18 @@ export class AccountAdminApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
-        if (serviceEq !== undefined) {
-            queryParameters['service__eq'] = serviceEq;
-        }
-        if (expireEq !== undefined) {
-            queryParameters['expire__eq'] = expireEq;
-        }
-        if (deviceExecutionModeEq !== undefined) {
-            queryParameters['device_execution_mode__eq'] = deviceExecutionModeEq;
-        }
+        queryParameters['limit'] = limit;
+        queryParameters['after'] = after;
+        queryParameters['order'] = order;
+        queryParameters['include'] = include;
+        queryParameters['service__eq'] = serviceEq;
+        queryParameters['expire__eq'] = expireEq;
+        queryParameters['device_execution_mode__eq'] = deviceExecutionModeEq;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<TrustedCertificateRespList>({
             url: '/v3/trusted-certificates',
             method: 'GET',
             headers: headerParams,
@@ -1060,26 +1044,16 @@ export class AccountAdminApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
-        if (statusEq !== undefined) {
-            queryParameters['status__eq'] = statusEq;
-        }
+        queryParameters['limit'] = limit;
+        queryParameters['after'] = after;
+        queryParameters['order'] = order;
+        queryParameters['include'] = include;
+        queryParameters['status__eq'] = statusEq;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UserInfoRespList>({
             url: '/v3/users',
             method: 'GET',
             headers: headerParams,
@@ -1110,7 +1084,7 @@ export class AccountAdminApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<TrustedCertificateResp>({
             url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
             method: 'GET',
             headers: headerParams,
@@ -1141,7 +1115,7 @@ export class AccountAdminApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UserInfoResp>({
             url: '/v3/users/{user-id}'.replace('{' + 'user-id' + '}', String(userId)),
             method: 'GET',
             headers: headerParams,
@@ -1172,23 +1146,15 @@ export class AccountAdminApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
+        queryParameters['limit'] = limit;
+        queryParameters['after'] = after;
+        queryParameters['order'] = order;
+        queryParameters['include'] = include;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UserInfoRespList>({
             url: '/v3/policy-groups/{groupID}/users'.replace('{' + 'groupID' + '}', String(groupID)),
             method: 'GET',
             headers: headerParams,
@@ -1227,7 +1193,7 @@ export class AccountAdminApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdatedResponse>({
             url: '/v3/policy-groups/{groupID}/users'.replace('{' + 'groupID' + '}', String(groupID)),
             method: 'DELETE',
             headers: headerParams,
@@ -1267,7 +1233,7 @@ export class AccountAdminApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<TrustedCertificateResp>({
             url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
             method: 'PUT',
             headers: headerParams,
@@ -1299,7 +1265,7 @@ export class AccountAdminApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<AccountInfo>({
             url: '/v3/accounts/me',
             method: 'PUT',
             headers: headerParams,
@@ -1339,7 +1305,7 @@ export class AccountAdminApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UserInfoResp>({
             url: '/v3/users/{user-id}'.replace('{' + 'user-id' + '}', String(userId)),
             method: 'PUT',
             headers: headerParams,
@@ -1378,7 +1344,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ApiKeyInfoResp>({
             url: '/v3/api-keys',
             method: 'POST',
             headers: headerParams,
@@ -1410,7 +1376,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/api-keys/{apiKey}'.replace('{' + 'apiKey' + '}', String(apiKey)),
             method: 'DELETE',
             headers: headerParams,
@@ -1434,26 +1400,16 @@ export class DeveloperApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
-        if (ownerEq !== undefined) {
-            queryParameters['owner__eq'] = ownerEq;
-        }
+        queryParameters['limit'] = limit;
+        queryParameters['after'] = after;
+        queryParameters['order'] = order;
+        queryParameters['include'] = include;
+        queryParameters['owner__eq'] = ownerEq;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ApiKeyInfoRespList>({
             url: '/v3/api-keys',
             method: 'GET',
             headers: headerParams,
@@ -1476,23 +1432,15 @@ export class DeveloperApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
+        queryParameters['limit'] = limit;
+        queryParameters['after'] = after;
+        queryParameters['order'] = order;
+        queryParameters['include'] = include;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<GroupSummaryList>({
             url: '/v3/policy-groups',
             method: 'GET',
             headers: headerParams,
@@ -1523,7 +1471,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ApiKeyInfoResp>({
             url: '/v3/api-keys/{apiKey}'.replace('{' + 'apiKey' + '}', String(apiKey)),
             method: 'GET',
             headers: headerParams,
@@ -1554,23 +1502,15 @@ export class DeveloperApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
+        queryParameters['limit'] = limit;
+        queryParameters['after'] = after;
+        queryParameters['order'] = order;
+        queryParameters['include'] = include;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ApiKeyInfoRespList>({
             url: '/v3/policy-groups/{groupID}/api-keys'.replace('{' + 'groupID' + '}', String(groupID)),
             method: 'GET',
             headers: headerParams,
@@ -1601,7 +1541,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<GroupSummary>({
             url: '/v3/policy-groups/{groupID}'.replace('{' + 'groupID' + '}', String(groupID)),
             method: 'GET',
             headers: headerParams,
@@ -1621,14 +1561,12 @@ export class DeveloperApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
+        queryParameters['include'] = include;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<AccountInfo>({
             url: '/v3/accounts/me',
             method: 'GET',
             headers: headerParams,
@@ -1651,7 +1589,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ApiKeyInfoResp>({
             url: '/v3/api-keys/me',
             method: 'GET',
             headers: headerParams,
@@ -1674,7 +1612,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UserInfoResp>({
             url: '/v3/users/me',
             method: 'GET',
             headers: headerParams,
@@ -1713,7 +1651,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdatedResponse>({
             url: '/v3/policy-groups/{groupID}/api-keys'.replace('{' + 'groupID' + '}', String(groupID)),
             method: 'DELETE',
             headers: headerParams,
@@ -1753,7 +1691,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ApiKeyInfoResp>({
             url: '/v3/api-keys/{apiKey}'.replace('{' + 'apiKey' + '}', String(apiKey)),
             method: 'PUT',
             headers: headerParams,
@@ -1785,7 +1723,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<ApiKeyInfoResp>({
             url: '/v3/api-keys/me',
             method: 'PUT',
             headers: headerParams,
@@ -1817,7 +1755,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UserInfoResp>({
             url: '/v3/users/me',
             method: 'PUT',
             headers: headerParams,

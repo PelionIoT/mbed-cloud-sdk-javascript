@@ -190,7 +190,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdateCampaign>({
             url: '/v3/update-campaigns/',
             method: 'POST',
             headers: headerParams,
@@ -221,7 +221,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'DELETE',
             headers: headerParams,
@@ -244,26 +244,16 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (filter !== undefined) {
-            queryParameters['filter'] = filter;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
+        queryParameters['limit'] = limit;
+        queryParameters['order'] = order;
+        queryParameters['after'] = after;
+        queryParameters['filter'] = filter;
+        queryParameters['include'] = include;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdateCampaignPage>({
             url: '/v3/update-campaigns/',
             method: 'GET',
             headers: headerParams,
@@ -301,7 +291,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdateCampaign>({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'PATCH',
             headers: headerParams,
@@ -332,7 +322,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdateCampaign>({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'GET',
             headers: headerParams,
@@ -370,7 +360,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<UpdateCampaign>({
             url: '/v3/update-campaigns/{campaign_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'PUT',
             headers: headerParams,

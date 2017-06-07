@@ -109,7 +109,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceQuery>({
             url: '/v3/device-queries/',
             method: 'POST',
             headers: headerParams,
@@ -140,7 +140,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/device-queries/{query_id}/'.replace('{' + 'query_id' + '}', String(queryId)),
             method: 'DELETE',
             headers: headerParams,
@@ -163,26 +163,16 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (filter !== undefined) {
-            queryParameters['filter'] = filter;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
+        queryParameters['limit'] = limit;
+        queryParameters['order'] = order;
+        queryParameters['after'] = after;
+        queryParameters['filter'] = filter;
+        queryParameters['include'] = include;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceQueryPage>({
             url: '/v3/device-queries/',
             method: 'GET',
             headers: headerParams,
@@ -220,7 +210,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceQuery>({
             url: '/v3/device-queries/{query_id}/'.replace('{' + 'query_id' + '}', String(queryId)),
             method: 'PATCH',
             headers: headerParams,
@@ -251,7 +241,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceQuery>({
             url: '/v3/device-queries/{query_id}/'.replace('{' + 'query_id' + '}', String(queryId)),
             method: 'GET',
             headers: headerParams,
@@ -289,7 +279,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<DeviceQuery>({
             url: '/v3/device-queries/{query_id}/'.replace('{' + 'query_id' + '}', String(queryId)),
             method: 'PUT',
             headers: headerParams,

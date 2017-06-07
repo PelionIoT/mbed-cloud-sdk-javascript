@@ -216,7 +216,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v2/notification/callback',
             method: 'DELETE',
             headers: headerParams,
@@ -239,7 +239,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Webhook>({
             url: '/v2/notification/callback',
             method: 'GET',
             headers: headerParams,
@@ -277,7 +277,7 @@ export class EndpointsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Array<Resource>>({
             url: '/v2/endpoints/{device-id}'.replace('{' + 'device-id' + '}', String(deviceId)),
             method: 'GET',
             headers: headerParams,
@@ -297,14 +297,12 @@ export class EndpointsApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (type !== undefined) {
-            queryParameters['type'] = type;
-        }
+        queryParameters['type'] = type;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Array<Endpoint>>({
             url: '/v2/endpoints',
             method: 'GET',
             headers: headerParams,
@@ -342,7 +340,7 @@ export class NotificationsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v2/notification/callback',
             method: 'PUT',
             headers: headerParams,
@@ -366,7 +364,7 @@ export class NotificationsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v2/notification/pull',
             method: 'DELETE',
             headers: headerParams,
@@ -389,7 +387,7 @@ export class NotificationsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<NotificationMessage>({
             url: '/v2/notification/pull',
             method: 'GET',
             headers: headerParams,
@@ -432,14 +430,12 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (noResp !== undefined) {
-            queryParameters['noResp'] = noResp;
-        }
+        queryParameters['noResp'] = noResp;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<AsyncID>({
             url: '/v2/endpoints/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'DELETE',
             headers: headerParams,
@@ -476,17 +472,13 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (cacheOnly !== undefined) {
-            queryParameters['cacheOnly'] = cacheOnly;
-        }
-        if (noResp !== undefined) {
-            queryParameters['noResp'] = noResp;
-        }
+        queryParameters['cacheOnly'] = cacheOnly;
+        queryParameters['noResp'] = noResp;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<AsyncID>({
             url: '/v2/endpoints/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'GET',
             headers: headerParams,
@@ -523,14 +515,12 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (noResp !== undefined) {
-            queryParameters['noResp'] = noResp;
-        }
+        queryParameters['noResp'] = noResp;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<AsyncID>({
             url: '/v2/endpoints/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'POST',
             headers: headerParams,
@@ -575,14 +565,12 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (noResp !== undefined) {
-            queryParameters['noResp'] = noResp;
-        }
+        queryParameters['noResp'] = noResp;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<AsyncID>({
             url: '/v2/endpoints/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'PUT',
             headers: headerParams,
@@ -613,7 +601,7 @@ export class SubscriptionsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v2/subscriptions',
             method: 'DELETE',
             headers: headerParams,
@@ -644,7 +632,7 @@ export class SubscriptionsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v2/subscriptions/{device-id}'.replace('{' + 'device-id' + '}', String(deviceId)),
             method: 'DELETE',
             headers: headerParams,
@@ -675,7 +663,7 @@ export class SubscriptionsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v2/subscriptions/{device-id}'.replace('{' + 'device-id' + '}', String(deviceId)),
             method: 'GET',
             headers: headerParams,
@@ -714,7 +702,7 @@ export class SubscriptionsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'DELETE',
             headers: headerParams,
@@ -752,7 +740,7 @@ export class SubscriptionsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'GET',
             headers: headerParams,
@@ -791,7 +779,7 @@ export class SubscriptionsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v2/subscriptions/{device-id}/{resourcePath}'.replace('{' + 'device-id' + '}', String(deviceId)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'PUT',
             headers: headerParams,
@@ -814,7 +802,7 @@ export class SubscriptionsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<PresubscriptionArray>({
             url: '/v2/subscriptions',
             method: 'GET',
             headers: headerParams,
@@ -845,7 +833,7 @@ export class SubscriptionsApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v2/subscriptions',
             method: 'PUT',
             headers: headerParams,

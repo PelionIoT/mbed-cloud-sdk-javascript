@@ -53,17 +53,13 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (noResp !== undefined) {
-            queryParameters['noResp'] = noResp;
-        }
-        if (pri !== undefined) {
-            queryParameters['pri'] = pri;
-        }
+        queryParameters['noResp'] = noResp;
+        queryParameters['pri'] = pri;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{' + 'endpointName' + '}', String(endpointName)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'DELETE',
             headers: headerParams,
@@ -100,17 +96,13 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (cacheOnly !== undefined) {
-            queryParameters['cacheOnly'] = cacheOnly;
-        }
-        if (pri !== undefined) {
-            queryParameters['pri'] = pri;
-        }
+        queryParameters['cacheOnly'] = cacheOnly;
+        queryParameters['pri'] = pri;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{' + 'endpointName' + '}', String(endpointName)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'GET',
             headers: headerParams,
@@ -148,17 +140,13 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (noResp !== undefined) {
-            queryParameters['noResp'] = noResp;
-        }
-        if (pri !== undefined) {
-            queryParameters['pri'] = pri;
-        }
+        queryParameters['noResp'] = noResp;
+        queryParameters['pri'] = pri;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{' + 'endpointName' + '}', String(endpointName)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'POST',
             headers: headerParams,
@@ -203,14 +191,12 @@ export class ResourcesApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (pri !== undefined) {
-            queryParameters['pri'] = pri;
-        }
+        queryParameters['pri'] = pri;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<null>({
             url: '/v3/devices/{deviceId}/cached-resources/{resourcePath}'.replace('{' + 'endpointName' + '}', String(endpointName)).replace('{' + 'resourcePath' + '}', String(resourcePath)),
             method: 'PUT',
             headers: headerParams,

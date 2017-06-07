@@ -148,26 +148,16 @@ export class AccountApi extends ApiBase {
         headerParams['Authorization'] = authorization;
 
         let queryParameters: any = {};
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
-        if (start !== undefined) {
-            queryParameters['start'] = start;
-        }
-        if (end !== undefined) {
-            queryParameters['end'] = end;
-        }
-        if (period !== undefined) {
-            queryParameters['period'] = period;
-        }
-        if (interval !== undefined) {
-            queryParameters['interval'] = interval;
-        }
+        queryParameters['include'] = include;
+        queryParameters['start'] = start;
+        queryParameters['end'] = end;
+        queryParameters['period'] = period;
+        queryParameters['interval'] = interval;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<SuccessfulResponse>({
             url: '/v3/metrics',
             method: 'GET',
             headers: headerParams,
@@ -221,26 +211,16 @@ export class StatisticsApi extends ApiBase {
         headerParams['Authorization'] = authorization;
 
         let queryParameters: any = {};
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
-        if (start !== undefined) {
-            queryParameters['start'] = start;
-        }
-        if (end !== undefined) {
-            queryParameters['end'] = end;
-        }
-        if (period !== undefined) {
-            queryParameters['period'] = period;
-        }
-        if (interval !== undefined) {
-            queryParameters['interval'] = interval;
-        }
+        queryParameters['include'] = include;
+        queryParameters['start'] = start;
+        queryParameters['end'] = end;
+        queryParameters['period'] = period;
+        queryParameters['interval'] = interval;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<SuccessfulResponse>({
             url: '/v3/metrics',
             method: 'GET',
             headers: headerParams,

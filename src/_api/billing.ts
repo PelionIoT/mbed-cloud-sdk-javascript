@@ -379,7 +379,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<BuildInfo>({
             url: '/public/v1/build',
             method: 'GET',
             headers: headerParams,
@@ -402,7 +402,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Health>({
             url: '/public/v1/health',
             method: 'GET',
             headers: headerParams,
@@ -425,7 +425,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Array<string>>({
             url: '/v1/accounts',
             method: 'GET',
             headers: headerParams,
@@ -468,20 +468,14 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (account !== undefined) {
-            queryParameters['account'] = account;
-        }
-        if (from !== undefined) {
-            queryParameters['from'] = from;
-        }
-        if (to !== undefined) {
-            queryParameters['to'] = to;
-        }
+        queryParameters['account'] = account;
+        queryParameters['from'] = from;
+        queryParameters['to'] = to;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Array<ActiveDevice>>({
             url: '/v1/activedevices',
             method: 'GET',
             headers: headerParams,
@@ -516,17 +510,13 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (account !== undefined) {
-            queryParameters['account'] = account;
-        }
-        if (importId !== undefined) {
-            queryParameters['import_id'] = importId;
-        }
+        queryParameters['account'] = account;
+        queryParameters['import_id'] = importId;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Array<string>>({
             url: '/v1/imports/activedevices',
             method: 'GET',
             headers: headerParams,
@@ -553,14 +543,12 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (account !== undefined) {
-            queryParameters['account'] = account;
-        }
+        queryParameters['account'] = account;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Array<ImportLog>>({
             url: '/v1/imports',
             method: 'GET',
             headers: headerParams,
@@ -583,7 +571,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Metrics>({
             url: '/v1/metrics',
             method: 'GET',
             headers: headerParams,
@@ -618,17 +606,13 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (account !== undefined) {
-            queryParameters['account'] = account;
-        }
-        if (month !== undefined) {
-            queryParameters['month'] = month;
-        }
+        queryParameters['account'] = account;
+        queryParameters['month'] = month;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Array<ActiveDevice>>({
             url: '/v1/report/activedevices',
             method: 'GET',
             headers: headerParams,
@@ -656,17 +640,13 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (month !== undefined) {
-            queryParameters['month'] = month;
-        }
-        if (format !== undefined) {
-            queryParameters['format'] = format;
-        }
+        queryParameters['month'] = month;
+        queryParameters['format'] = format;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Report>({
             url: '/v1/report',
             method: 'GET',
             headers: headerParams,
@@ -689,7 +669,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Array<Service>>({
             url: '/v1/services',
             method: 'GET',
             headers: headerParams,
@@ -717,17 +697,13 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
-        if (month !== undefined) {
-            queryParameters['month'] = month;
-        }
-        if (account !== undefined) {
-            queryParameters['account'] = account;
-        }
+        queryParameters['month'] = month;
+        queryParameters['account'] = account;
 
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Array<AccountBillingData>>({
             url: '/v1/stats',
             method: 'GET',
             headers: headerParams,
@@ -750,7 +726,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request({
+        return this.request<Array<ServiceTimeSeries>>({
             url: '/v1/timeseries',
             method: 'GET',
             headers: headerParams,
