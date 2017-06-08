@@ -123,6 +123,14 @@ export class ConnectApi extends EventEmitter {
         this._endpoints = new Endpoints(options);
     }
 
+    private normalizePath(path?: string): string {
+        if (path && path.charAt(0) === "/") {
+            return path.substr(1);
+        }
+
+        return path;
+    }
+
     /**
      * Allows a notification to be injected into the notifications system
      *
@@ -159,7 +167,7 @@ export class ConnectApi extends EventEmitter {
         if (notification["notifications"]) {
             notification["notifications"].forEach(notification => {
                 var body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
-                var path = notification.ep + notification.path;
+                var path = `${notification.ep}${notification.path}`;
                 var fn = this._notifyFns[path];
                 if (fn) fn(body);
 
@@ -854,6 +862,8 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+        path = this.normalizePath(path);
+
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
@@ -914,6 +924,8 @@ export class ConnectApi extends EventEmitter {
      */
     public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+        path = this.normalizePath(path);
+
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
@@ -987,13 +999,15 @@ export class ConnectApi extends EventEmitter {
      */
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+        path = this.normalizePath(path);
+
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
         }
 
         return apiWrapper(resultsFn => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, path.substr(1), value, noResponse, resultsFn);
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, path, value, noResponse, resultsFn);
         }, (data, done) => {
             var asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
@@ -1053,6 +1067,8 @@ export class ConnectApi extends EventEmitter {
      */
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+        path = this.normalizePath(path);
+
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
@@ -1116,6 +1132,8 @@ export class ConnectApi extends EventEmitter {
      */
     public getResourceSubscription(deviceId: string, path: string, callback: CallbackFn<boolean>): void;
     public getResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<boolean>): Promise<boolean> {
+        path = this.normalizePath(path);
+
         return apiWrapper(resultsFn => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathGet(deviceId, path, resultsFn);
         }, (data, done) => {
@@ -1173,12 +1191,14 @@ export class ConnectApi extends EventEmitter {
      */
     public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>, notifyFn?: Function): void;
     public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>, notifyFn?: Function): Promise<string> {
+        path = this.normalizePath(path);
+
         return apiWrapper(resultsFn => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, path, resultsFn);
         }, (data, done) => {
             if (notifyFn) {
                 // Record the function at this path for notifications
-                this._notifyFns[deviceId + path] = notifyFn;
+                this._notifyFns[`${deviceId}/${path}`] = notifyFn;
             }
 
             var asyncID = data[this.ASYNC_KEY];
@@ -1235,11 +1255,13 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteResourceSubscription(deviceId: string, path: string, callback: CallbackFn<string>): void;
     public deleteResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>): Promise<string> {
+        path = this.normalizePath(path);
+
         return apiWrapper(resultsFn => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, path, resultsFn);
         }, (data, done) => {
             // no-one is listening :(
-            delete this._notifyFns[deviceId + path];
+            delete this._notifyFns[`${deviceId}/${path}`];
 
             var asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
