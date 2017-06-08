@@ -165,6 +165,10 @@ export interface DeviceDataPatchRequest {
      */
     "auto_update"?: boolean;
     /**
+     * The endpoint_name of the host gateway, if appropriate.
+     */
+    "host_gateway"?: string;
+    /**
      * The API resource entity.
      */
     "object"?: string;
@@ -219,6 +223,10 @@ export interface DeviceDataPostRequest {
      */
     "auto_update"?: boolean;
     /**
+     * The endpoint_name of the host gateway, if appropriate.
+     */
+    "host_gateway"?: string;
+    /**
      * Defines the type of certificate used.
      */
     "device_execution_mode"?: number;
@@ -254,6 +262,10 @@ export interface DeviceDataPostRequest {
      * The API resource entity.
      */
     "object"?: string;
+    /**
+     * The endpoint type of the device - e.g. if the device is a gateway.
+     */
+    "endpoint_type"?: string;
     /**
      * DEPRECATED The last deployment used on the device.
      */
@@ -297,6 +309,10 @@ export interface DeviceDataPutRequest {
      * Mark this device for auto firmware update.
      */
     "auto_update"?: boolean;
+    /**
+     * The endpoint_name of the host gateway, if appropriate.
+     */
+    "host_gateway"?: string;
     /**
      * The API resource entity.
      */
