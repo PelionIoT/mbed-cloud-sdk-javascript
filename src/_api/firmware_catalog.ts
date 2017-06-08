@@ -131,7 +131,7 @@ export interface ManifestContents {
      */
     "vendorId"?: string;
     /**
-     * A short description of the update.
+     * The version of the manifest format being used.
      */
     "manifestVersion"?: number;
     /**
