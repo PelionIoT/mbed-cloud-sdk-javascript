@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { apiWrapper, encodeInclude } from "../common/functions";
+import { apiWrapper, encodeInclude, extractFilter } from "../common/functions";
 import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { Endpoints } from "./endpoints";
@@ -200,8 +200,8 @@ export class AccountManagementApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, after, order, include, owner } = options as ApiKeyListOptions;
-            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), owner, resultsFn);
+            let { limit, after, order, include, filter } = options as ApiKeyListOptions;
+            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), extractFilter(filter, "owner"), resultsFn);
         }, (data, done) => {
             let keys: ApiKey[];
             if (data && data.data && data.data.length) {
@@ -437,8 +437,8 @@ export class AccountManagementApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, after, order, include, status } = options as UserListOptions;
-            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), status, resultsFn);
+            let { limit, after, order, include, filter } = options as UserListOptions;
+            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), extractFilter(filter, "status"), resultsFn);
         }, (data, done) => {
             let users: User[];
             if (data.data && data.data.length) {

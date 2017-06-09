@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { ListOptions } from "../common/interfaces";
+import { ListOptions, ComparisonObject } from "../common/interfaces";
 
 export type CertificateTypeEnum = "developer" | "lwm2m" | "bootstrap";
 export type CertificateStatusEnum = "ACTIVE" | "INACTIVE";
@@ -81,11 +81,23 @@ export interface UpdateCertificateObject extends AddCertificateObject {
  */
 export interface CertificateListOptions extends ListOptions {
     /**
-     * Certificate type filter
+     * The certificate filter
+     *
+     * Constructed like so:
+     *  ```JavaScript
+     *  filter: {
+     *    type: { $eq: "developer" }
+     *  }
+     *  ```
      */
-    type?: CertificateTypeEnum;
-    /**
-     * Expire filter in days
-     */
-    expires?: number;
+    filter?: {
+        /**
+         * Certificate type filter
+         */
+        type: ComparisonObject<CertificateTypeEnum>;
+        /**
+         * Expire filter in days
+         */
+        expires: ComparisonObject<number>;
+    }
 }

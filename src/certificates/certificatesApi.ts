@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { apiWrapper, encodeInclude } from "../common/functions";
+import { apiWrapper, encodeInclude, extractFilter } from "../common/functions";
 import { ConnectionOptions, CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { TrustedCertificateResp as iamCertificate } from "../_api/iam";
@@ -126,11 +126,12 @@ export class CertificatesApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, after, order, include, type, expires } = options as CertificateListOptions;
+            let { limit, after, order, include, filter } = options as CertificateListOptions;
+            let type = extractFilter(filter, "type");
             let serviceEq = type === "developer" ? "bootstrap" : type;
             let executionMode = type === "developer" ? 1 : null;
 
-            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, expires, executionMode, resultsFn);
+            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, extractFilter(filter, "expires"), executionMode, resultsFn);
         }, (data, done) => {
             let certificates: Certificate[];
             if (data.data && data.data.length) {

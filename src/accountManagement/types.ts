@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { ListOptions } from "../common/interfaces";
+import { ListOptions, ComparisonObject } from "../common/interfaces";
 
 export type AccountStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
 /**
@@ -145,9 +145,21 @@ export interface UpdateUserObject extends AddUserObject {
  */
 export interface ApiKeyListOptions extends ListOptions {
     /**
-     * Owner name filter
+     * The api key filter
+     *
+     * Constructed like so:
+     *  ```JavaScript
+     *  filter: {
+     *    owner: { $eq: "1234" }
+     *  }
+     *  ```
      */
-    owner?: string;
+    filter?: {
+        /**
+         * Owner name filter
+         */
+        owner: ComparisonObject<string>;
+    }
 }
 
 /**
@@ -155,7 +167,19 @@ export interface ApiKeyListOptions extends ListOptions {
  */
 export interface UserListOptions extends ListOptions {
     /**
-     * User status filter
+     * The user filter
+     *
+     * Constructed like so:
+     *  ```JavaScript
+     *  filter: {
+     *    status: { $eq: "INVITED" }
+     *  }
+     *  ```
      */
-    status?: UserStatusEnum;
+    filter?: {
+        /**
+         * User status filter
+         */
+        status: ComparisonObject<UserStatusEnum>;
+    }
 }

@@ -77,7 +77,9 @@ export function decodeBase64(payload, contentType) {
     }
 
     if (contentType && contentType.indexOf("json") > -1) {
-        result = JSON.parse(result);
+        try {
+            result = JSON.parse(result);
+        } catch(e) {}
     }
 
     return result;
@@ -100,11 +102,19 @@ export function camelToSnake(camel) {
     });
 }
 
+export function extractFilter(filter: { [key: string]: ComparisonObject<any> }, name: string, defaultValue:any = null): any {
+    if (filter && filter[name]) {
+        if (filter[name].constructor !== {}.constructor) return filter[name];
+        if (filter[name].$eq) return filter[name].$eq;
+    }
+
+    return defaultValue;
+}
+
 export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, map: { from: string[], to: string[] }, nested: string[] = []): string {
     if (!filter) return "";
 
-    function encode(filter, name, operator, prefix: string = "") {
-        let value = filter[name][operator];
+    function encode(name, operator, value, prefix: string = "") {
         if (value instanceof Date) value = value.toISOString();
         if (typeof value === "boolean") value = value.toString();
 
@@ -127,13 +137,19 @@ export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, m
     }
 
     return Object.keys(filter).map(key => {
+        // Support bare { key: value }
+        if (filter[key].constructor !== {}.constructor) return encode(key, "", filter[key]);
+
         return Object.keys(filter[key]).map(operator => {
             if (nested.indexOf(key) > -1) {
+                // Support bare { key: value }
+                if (filter[key][operator].constructor !== {}.constructor) return encode(operator, "", filter[key][operator], key);
+
                 return Object.keys(filter[key][operator]).map(sub => {
-                    return encode(filter[key], operator, sub, key);
+                    return encode(operator, sub, filter[key][operator][sub], key);
                 }).join("&");
             }
-            return encode(filter, key, operator);
+            return encode(key, operator, filter[key][operator]);
         }).join("&");
     }).join("&");
 }

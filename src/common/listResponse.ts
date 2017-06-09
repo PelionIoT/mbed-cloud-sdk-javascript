@@ -44,14 +44,14 @@ export class ListResponse<T> {
     /**
      * Devices
      */
-    readonly data?: Array<T>;
+    readonly data: Array<T>;
 
-    constructor(from: any, data:Array<T>) {
+    constructor(from: any, data?:Array<T>) {
         this.after         = from.after;
         this.hasMore       = from.has_more;
         this.limit         = from.limit;
         this.order         = from.order;
         this.totalCount    = from.total_count;
-        this.data          = data;
+        this.data          = data || [];
     }
 }
