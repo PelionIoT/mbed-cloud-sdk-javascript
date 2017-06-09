@@ -102,6 +102,15 @@ export function camelToSnake(camel) {
     });
 }
 
+export function extractFilter(filter: { [key: string]: ComparisonObject<any> }, name: string, defaultValue:any = null): any {
+    if (filter && filter[name]) {
+        if (filter[name].constructor !== {}.constructor) return filter[name];
+        if (filter[name].$eq) return filter[name].$eq;
+    }
+
+    return defaultValue;
+}
+
 export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, map: { from: string[], to: string[] }, nested: string[] = []): string {
     if (!filter) return "";
 
