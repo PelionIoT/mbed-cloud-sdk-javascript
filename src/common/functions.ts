@@ -77,7 +77,9 @@ export function decodeBase64(payload, contentType) {
     }
 
     if (contentType && contentType.indexOf("json") > -1) {
-        result = JSON.parse(result);
+        try {
+            result = JSON.parse(result);
+        } catch(e) {}
     }
 
     return result;
