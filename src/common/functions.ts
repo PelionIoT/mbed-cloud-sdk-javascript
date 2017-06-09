@@ -114,8 +114,7 @@ export function extractFilter(filter: { [key: string]: ComparisonObject<any> }, 
 export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, map: { from: string[], to: string[] }, nested: string[] = []): string {
     if (!filter) return "";
 
-    function encode(filter, name, operator, prefix: string = "") {
-        let value = filter[name][operator];
+    function encode(name, operator, value, prefix: string = "") {
         if (value instanceof Date) value = value.toISOString();
         if (typeof value === "boolean") value = value.toString();
 
@@ -138,13 +137,19 @@ export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, m
     }
 
     return Object.keys(filter).map(key => {
+        // Support bare { key: value }
+        if (filter[key].constructor !== {}.constructor) return encode(key, "", filter[key]);
+
         return Object.keys(filter[key]).map(operator => {
             if (nested.indexOf(key) > -1) {
+                // Support bare { key: value }
+                if (filter[key][operator].constructor !== {}.constructor) return encode(operator, "", filter[key][operator], key);
+
                 return Object.keys(filter[key][operator]).map(sub => {
-                    return encode(filter[key], operator, sub, key);
+                    return encode(operator, sub, filter[key][operator][sub], key);
                 }).join("&");
             }
-            return encode(filter, key, operator);
+            return encode(key, operator, filter[key][operator]);
         }).join("&");
     }).join("&");
 }
