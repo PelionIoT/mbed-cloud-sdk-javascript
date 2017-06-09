@@ -17,6 +17,7 @@
 
 import { asyncStyle, apiWrapper } from "../../common/functions";
 import { CallbackFn, ListOptions } from "../../common/interfaces";
+import { ListResponse } from "../../common/listResponse";
 import { UpdateUserObject, UserStatusEnum } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
 import { ApiKey } from "./apiKey";
@@ -115,13 +116,13 @@ export class User {
      * List the API keys for this user
      * @returns Promise containing API keys
      */
-    public listApiKeys(options?: ListOptions): Promise<Array<ApiKey>>;
+    public listApiKeys(options?: ListOptions): Promise<ListResponse<ApiKey>>;
     /**
      * List the API keys for this user
      * @param callback A function that is passed the return arguments (error, API keys)
      */
-    public listApiKeys(options?: ListOptions, callback?: CallbackFn<Array<ApiKey>>): void;
-    public listApiKeys(options?: any, callback?: CallbackFn<Array<ApiKey>>): Promise<Array<ApiKey>> {
+    public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): void;
+    public listApiKeys(options?: any, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
