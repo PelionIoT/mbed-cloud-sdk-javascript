@@ -84,7 +84,7 @@ export interface AddApiKeyObject {
     /**
      * The owner of this API key, who is the creator by default.
      */
-    owner?: string;
+    ownerId?: string;
 }
 
 export interface UpdateApiKeyObject extends AddApiKeyObject {
@@ -150,15 +150,15 @@ export interface ApiKeyListOptions extends ListOptions {
      * Constructed like so:
      *  ```JavaScript
      *  filter: {
-     *    owner: { $eq: "1234" }
+     *    ownerId: { $eq: "1234" }
      *  }
      *  ```
      */
     filter?: {
         /**
-         * Owner name filter
+         * Owner filter
          */
-        owner: ComparisonObject<string>;
+        ownerId: ComparisonObject<string>;
     }
 }
 

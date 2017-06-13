@@ -54,7 +54,9 @@ export class DeviceAdapter {
             connectorCertificateExpiration:    from.connector_expiration_date,
             deviceExecutionMode:               from.device_execution_mode,
             firmwareChecksum:                  from.firmware_checksum,
-            manifestTimestamp:                 from.manifest_timestamp
+            manifestTimestamp:                 from.manifest_timestamp,
+            hostGateway:                       from.host_gateway,
+            deviceType:                        from.endpoint_type
         }, api);
     }
 
@@ -78,7 +80,9 @@ export class DeviceAdapter {
             device_key:                   from.certificateFingerprint,
             endpoint_name:                from.alias,
             firmware_checksum:            from.firmwareChecksum,
-            state:                        from.state
+            state:                        from.state,
+            host_gateway:                 from.hostGateway,
+            endpoint_type:                from.deviceType
         };
     }
 
@@ -91,6 +95,7 @@ export class DeviceAdapter {
             ca_id:                        from.certificateIssuerId,
             device_key:                   from.certificateFingerprint,
             endpoint_name:                from.alias,
+            host_gateway:                 from.hostGateway
         };
     }
 }

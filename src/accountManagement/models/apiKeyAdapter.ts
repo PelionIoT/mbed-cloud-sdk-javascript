@@ -32,7 +32,7 @@ export class ApiKeyAdapter {
     static map(from: apiApiKey, api: AccountManagementApi): ApiKey {
         return new ApiKey({
             name             : from.name,
-            owner            : from.owner,
+            ownerId          : from.owner,
             groups           : from.groups,
             id               : from.id,
             key              : from.key,
@@ -46,14 +46,14 @@ export class ApiKeyAdapter {
     static addMap(from: AddApiKeyObject): apiApiKeyAdd {
         return {
             name:      from.name,
-            owner:     from.owner,
+            owner:     from.ownerId,
         };
     }
 
     static updateMap(from: UpdateApiKeyObject): apiApiKeyUpdate {
         return {
             name:      from.name,
-            owner:     from.owner,
+            owner:     from.ownerId,
         };
     }
 }

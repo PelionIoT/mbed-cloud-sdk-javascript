@@ -163,7 +163,11 @@ export class AccountManagementApi {
      * Example:
      * ```JavaScript
      * // Filter finds API keys that are owned by the specified user ID
-     * accounts.listApiKeys({owner: '015c3c46514802420a010b1000000000'})
+     * accounts.listApiKeys({
+     *     filter: {
+     *         ownerId: { $eq: '015c3c46514802420a010b1000000000' }
+     *     }
+     * })
      * .then(keys => {
      *     // Utilize keys here
      * })
@@ -182,7 +186,11 @@ export class AccountManagementApi {
      * Example:
      * ```JavaScript
      * // Filter finds API keys that are owned by the specified user ID
-     * accounts.listApiKeys({owner: '015c3c46514802420a010b1000000000'}, function(error, keys) {
+     * accounts.listApiKeys({
+     *     filter: {
+     *         ownerId: { $eq: '015c3c46514802420a010b1000000000' }
+     *     }
+     * }, function(error, keys) {
      *     if (error) throw error;
      *     // Utilize keys here
      * });
@@ -201,7 +209,7 @@ export class AccountManagementApi {
 
         return apiWrapper(resultsFn => {
             let { limit, after, order, include, filter } = options as ApiKeyListOptions;
-            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), extractFilter(filter, "owner"), resultsFn);
+            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), extractFilter(filter, "ownerId"), resultsFn);
         }, (data, done) => {
             let keys: ApiKey[];
             if (data && data.data && data.data.length) {
@@ -221,7 +229,7 @@ export class AccountManagementApi {
      * ```JavaScript
      * accounts.getApiKey()
      * .then(key => {
-     *     console.log('Current user ID: ' + key.owner);
+     *     console.log('Current user ID: ' + key.ownerId);
      *     // Utilize key here
      * })
      * .catch(error => {
@@ -240,7 +248,7 @@ export class AccountManagementApi {
      * ```JavaScript
      * accounts.getApiKey(function(error, key) {
      *     if (error) throw error;
-     *     console.log('Current user ID: ' + key.owner);
+     *     console.log('Current user ID: ' + key.ownerId);
      *     // Utilize key here
      * });
      * ```
@@ -397,7 +405,9 @@ export class AccountManagementApi {
      * ```JavaScript
      * accounts.listUsers({
      *     limit: 10,
-     *     status: 'ACTIVE'
+     *     filter: {
+     *         status: { $eq: 'ACTIVE' }
+     *     }
      * })
      * .then(users => {
      *     // Utilize users here
@@ -418,7 +428,9 @@ export class AccountManagementApi {
      * ```JavaScript
      * accounts.listUsers({
      *     limit: 10,
-     *     status: 'ACTIVE'
+     *     filter: {
+     *         status: { $eq: 'ACTIVE' }
+     *     }
      * }, function(error, users) {
      *     if (error) throw error;
      *     // Utilize users here
