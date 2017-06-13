@@ -99,5 +99,9 @@ export interface CertificateListOptions extends ListOptions {
          * Expire filter in days
          */
         expires: ComparisonObject<number>;
+        /**
+         * Owner filter
+         */
+        ownerId: ComparisonObject<string>;
     }
 }

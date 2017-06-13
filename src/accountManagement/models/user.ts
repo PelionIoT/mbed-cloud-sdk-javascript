@@ -130,9 +130,9 @@ export class User {
         }
 
         return asyncStyle(done => {
-            let attributes = options.attributes || {};
-            attributes["owner"] = this.id;
-            options.attributes = attributes;
+            options.filter = {
+                ownerId: { $eq: this.id }
+            };
 
             this._api.listApiKeys(options, done);
         }, callback);

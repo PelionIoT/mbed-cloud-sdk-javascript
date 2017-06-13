@@ -84,8 +84,10 @@ export class CertificatesApi {
      * ```JavaScript
      * certificates.listCertificates({
      *     limit: 5,
-     *     type: 'bootstrap',
-     *     order: 'ASC'
+     *     order: 'ASC',
+     *     filter: {
+     *         type: { $eq: 'bootstrap' }
+     *     }
      * })
      * .then(certificates => {
      *     // Utilize certificates here
@@ -106,8 +108,10 @@ export class CertificatesApi {
      * ```JavaScript
      * certificates.listCertificates({
      *     limit: 5,
-     *     type: 'bootstrap',
-     *     order: 'ASC'
+     *     order: 'ASC',
+     *     filter: {
+     *         type: { $eq: 'bootstrap' }
+     *     }
      * }, function(error, certificates) {
      *     if (error) throw error;
      *     // Utilize certificates here
@@ -131,7 +135,7 @@ export class CertificatesApi {
             let serviceEq = type === "developer" ? "bootstrap" : type;
             let executionMode = type === "developer" ? 1 : null;
 
-            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, extractFilter(filter, "expires"), executionMode, resultsFn);
+            this._endpoints.admin.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, extractFilter(filter, "expires"), executionMode, extractFilter(filter, "ownerId"), resultsFn);
         }, (data, done) => {
             let certificates: Certificate[];
             if (data.data && data.data.length) {

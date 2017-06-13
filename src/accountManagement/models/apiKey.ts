@@ -95,8 +95,8 @@ export class ApiKey {
     public getOwner(callback: CallbackFn<User>): void;
     public getOwner(callback?: CallbackFn<User>): Promise<User> {
         return asyncStyle(done => {
-            if (!this.owner) return done(null, null);
-            this._api.getUser(this.owner, done);
+            if (!this.ownerId) return done(null, null);
+            this._api.getUser(this.ownerId, done);
         }, callback);
     }
 
@@ -107,8 +107,6 @@ export class ApiKey {
     public update(): Promise<ApiKey>;
     /**
      * Updates an API key
-     * @param options.name The display name for the API key
-     * @param options.owner The owner of this API key
      * @param callback A function that is passed the return arguments (error, API key)
      */
     public update(callback: CallbackFn<ApiKey>): void;
