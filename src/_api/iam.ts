@@ -1005,8 +1005,9 @@ export class AccountAdminApi extends ApiBase {
      * @param serviceEq Service filter, either lwm2m or bootstrap
      * @param expireEq Expire filter in days
      * @param deviceExecutionModeEq Device execution mode, as 1 for developer certificates or as another natural integer value
+     * @param ownerEq Owner ID filter
      */
-    getAllCertificates (limit?: number, after?: string, order?: string, include?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, callback?: (error:any, data?:TrustedCertificateRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    getAllCertificates (limit?: number, after?: string, order?: string, include?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, ownerEq?: string, callback?: (error:any, data?:TrustedCertificateRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -1031,6 +1032,9 @@ export class AccountAdminApi extends ApiBase {
         }
         if (deviceExecutionModeEq !== undefined) {
             queryParameters['device_execution_mode__eq'] = deviceExecutionModeEq;
+        }
+        if (ownerEq !== undefined) {
+            queryParameters['owner__eq'] = ownerEq;
         }
 
         let useFormData = false;
