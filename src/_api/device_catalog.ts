@@ -181,6 +181,10 @@ export interface DeviceDataPatchRequest {
      */
     "device_key"?: string;
     /**
+     * The endpoint type of the device - e.g. if the device is a gateway.
+     */
+    "endpoint_type"?: string;
+    /**
      * ID of the issuer of the certificate.
      */
     "ca_id"?: string;
@@ -325,6 +329,10 @@ export interface DeviceDataPutRequest {
      * Fingerprint of the device certificate.
      */
     "device_key": string;
+    /**
+     * The endpoint type of the device - e.g. if the device is a gateway.
+     */
+    "endpoint_type"?: string;
     /**
      * ID of the issuer of the certificate.
      */
