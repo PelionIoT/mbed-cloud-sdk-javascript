@@ -1,3 +1,4 @@
+var fs = require("fs");
 var functions = require('../lib/common/functions');
 
 var objectFns = [
@@ -15,7 +16,9 @@ var objectFns = [
 	"addCertificate",
 	"updateCertificate",
 	"listDeviceLogs",
-	"getMetrics"
+	"getMetrics",
+	"addFirmwareManifest",
+	"addFirmwareImage"
 ];
 
 var mapping = {
@@ -59,6 +62,16 @@ var mapping = {
 				interval: parse(args.interval),
 				period: parse(args.period)
 			};
+		}
+	},
+	UpdateApi: {
+		addFirmwareManifest: args => {
+			args.dataFile = fs.createReadStream(args.datafile);
+			return args;
+		},
+		addFirmwareImage: args => {
+			args.dataFile = fs.createReadStream(args.datafile);
+			return args;
 		}
 	}
 };
