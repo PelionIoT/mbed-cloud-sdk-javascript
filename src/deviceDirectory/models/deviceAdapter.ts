@@ -95,7 +95,8 @@ export class DeviceAdapter {
             ca_id:                        from.certificateIssuerId,
             device_key:                   from.certificateFingerprint,
             endpoint_name:                from.alias,
-            host_gateway:                 from.hostGateway
+            host_gateway:                 from.hostGateway,
+            endpoint_type:                from.deviceType
         };
     }
 }

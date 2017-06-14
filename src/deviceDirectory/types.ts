@@ -46,6 +46,10 @@ export interface DeviceObject {
      */
     autoUpdate?: boolean;
     /**
+     * The type of the device - e.g. if the device is a gateway.
+     */
+    deviceType?: string;
+    /**
      * The device name of the host gateway, if appropriate.
      */
     hostGateway?: string;
@@ -112,10 +116,6 @@ export interface AddDeviceObject extends DeviceObject {
      * The device trust level
      */
     trustLevel?: number;
-    /**
-     * The type of the device - e.g. if the device is a gateway.
-     */
-    deviceType?: string;
 }
 
 export interface UpdateDeviceObject extends DeviceObject {
