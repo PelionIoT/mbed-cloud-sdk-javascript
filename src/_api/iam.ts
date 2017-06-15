@@ -182,7 +182,7 @@ export interface AccountUpdateReq {
      */
     "email"?: string;
     /**
-     * An array of aliases, not more than 10.
+     * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
      */
     "aliases"?: Array<string>;
 }
