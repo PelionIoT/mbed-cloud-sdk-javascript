@@ -87,7 +87,7 @@ export class Resource extends EventEmitter {
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
      */
-    public getValue(cacheOnly?: boolean, noResponse?: boolean): Promise<string>;
+    public getValue(cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | { [key: string]: string | number }>;
     /**
      * Gets the value of a resource
      *
@@ -96,8 +96,8 @@ export class Resource extends EventEmitter {
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
+    public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
         return asyncStyle(done => {
             this._api.getResourceValue(this.deviceId, this.path, cacheOnly, noResponse, done);
         }, callback);

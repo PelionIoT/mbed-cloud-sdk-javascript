@@ -19,6 +19,7 @@ import superagent = require("superagent");
 import { EventEmitter } from "events";
 import { asyncStyle, apiWrapper, decodeBase64 } from "../common/functions";
 import { ConnectionOptions, CallbackFn } from "../common/interfaces";
+import { SDKError } from "../common/sdkError";
 import { Endpoints } from "./endpoints";
 import { NotificationObject, NotificationOptions, PresubscriptionObject } from "./types";
 import { Webhook } from "./models/webhook";
@@ -209,7 +210,8 @@ export class ConnectApi extends EventEmitter {
                 var fn = this._asyncFns[asyncID];
                 if (fn) {
                     if (response.status >= 400) {
-                        fn(response.error || response.status, null);
+                        var error = new SDKError(response.error || response.status);
+                        fn(error, null);
                     } else {
                         var body = response.payload ? decodeBase64(response.payload, response.ct) : null;
                         fn(null, body);
@@ -900,7 +902,7 @@ export class ConnectApi extends EventEmitter {
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
      */
-    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string>;
+    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | { [key: string]: string | number }>;
     /**
      * Gets the value of a resource
      *
@@ -922,8 +924,8 @@ export class ConnectApi extends EventEmitter {
      * @param noResponse If true, mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
+    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
         path = this.normalizePath(path);
 
         if (typeof noResponse === "function") {
