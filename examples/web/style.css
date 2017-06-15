@@ -99,6 +99,10 @@ table {
     margin: 10px auto;
 }
 
+.pre {
+    white-space: pre;
+}
+
 /* Flash */
 .flash {
     animation-name: flash-animation;

@@ -17,6 +17,7 @@
 
 import { CallbackFn, ComparisonObject } from "./interfaces";
 import { SDKError } from "./sdkError";
+import { decodeTlv } from "./tlvDecoder";
 
 // Inspired by https://github.com/sonnyp/polygoat
 // If a callback is passed, use that after running the passed function, otherwise return a promise chain
@@ -70,16 +71,25 @@ export function apiWrapper<T>(apiFn: (resultsFn: (error: any, data: any) => void
 export function decodeBase64(payload, contentType) {
     var result = "";
 
+    // Decode Base64
     if (typeof atob === "function") {
         result = atob(payload);
     } else {
         result = new Buffer(payload, "base64").toString("utf8");
     }
 
-    if (contentType && contentType.indexOf("json") > -1) {
-        try {
-            result = JSON.parse(result);
-        } catch(e) {}
+    if (contentType) {
+        if (contentType.indexOf("json") > -1) {
+            // Decode json
+            try {
+                return JSON.parse(result);
+            } catch(e) {}
+        } else if (contentType.indexOf("lwm2m+tlv") > -1) {
+            // Decode tlv
+            try {
+                return decodeTlv(result);
+            } catch(e) {}
+        }
     }
 
     return result;
