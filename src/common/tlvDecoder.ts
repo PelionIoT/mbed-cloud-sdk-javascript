@@ -34,11 +34,11 @@ const lengthType = {
     OTR_BYTE: parseInt('00000000', 2)  //Length is in bits 2-0
 };
 
-function findIdLength(byte) {
+function findIdLength(byte): number {
     return (byte & idLengthMask) === idLengthMask ? 2 : 1;
 }
 
-function findValueLength(byte) {
+function findValueLength(byte): number {
     if ((byte & lengthTypeMask) === lengthType.ONE_BYTE ) {
         return 1;
     } else if ((byte & lengthTypeMask) === lengthType.TWO_BYTE) {
@@ -46,34 +46,32 @@ function findValueLength(byte) {
     } else if ((byte & lengthTypeMask) === lengthType.TRE_BYTE) {
         return 3;
     } else {
-        return ( byte & lengthMask );
+        return (byte & lengthMask);
     }
 }
 
-export function decodeTlv(value: string) {
-    let bytes = value.split("").map(char => {
-        return char.charCodeAt(0);
-    });
+function decode(bytes, result: {}={}, path: string="") {
+    if (!bytes || bytes.length < 1) {
+        return result;
+    }
 
-    return decode(bytes);
-}
+    let byte = bytes[0];
+    let type = byte & typeMask;
+    let idLength = findIdLength(byte);
+    let length = findValueLength(byte);
 
-function decode(bytes, obj={}, path="") {
-    if (!bytes || bytes.length < 1) { return; }
-    const byte = bytes[0];
-    const type = byte & typeMask;
+    let getString = (b) => {
+        return String.fromCharCode(b);
+    };
 
-    const idLength = findIdLength(byte);
-    const length = findValueLength(byte);
-    const getString = (b)=>{ return String.fromCharCode(b); };
-    const combineBytes = (acc, cur, idx, arr) => {
+    let combineBytes = (acc, cur, idx, arr) => {
         let step = arr.length - idx - 1;
         return acc + (cur << (8 * step));
     };
 
     let offset = 1;
 
-    const id = bytes.slice(offset, offset + idLength).reduce(combineBytes, 0);
+    let id = bytes.slice(offset, offset + idLength).reduce(combineBytes, 0);
     offset = offset + idLength;
 
     let valueLength = length;
@@ -85,19 +83,27 @@ function decode(bytes, obj={}, path="") {
 
     if (type === types.MULT_RESOURCE ) {
         //Go into multiple resources
-        decode(bytes.slice(offset, offset + valueLength), obj, `${path}/${id}`);
+        decode(bytes.slice(offset, offset + valueLength), result, `${path}/${id}`);
     } else {
-        const valueBytes = bytes.slice(offset, offset + valueLength);
+        let valueBytes = bytes.slice(offset, offset + valueLength);
         let hasZero = valueBytes.some(b => {
-            return b ===0;
+            return b === 0;
         });
 
-        const value = hasZero ? valueBytes.reduce(combineBytes, 0) : valueBytes.map(getString).join('');
-//        const valueInt = valueBytes.reduce(combineBytes, 0);
-        obj[`${path}/${id}`] =  value
+        let value = hasZero ? valueBytes.reduce(combineBytes, 0) : valueBytes.map(getString).join('');
+        result[`${path}/${id}`] =  value
     }
 
     offset = offset + valueLength;
-    decode(bytes.slice(offset), obj, path);
-    return obj;
+    decode(bytes.slice(offset), result, path);
+
+    return result;
 };
+
+export function decodeTlv(value: string): string | number | { [key: string]: string | number } {
+    let bytes = value.split("").map(char => {
+        return char.charCodeAt(0);
+    });
+
+    return decode(bytes);
+}
