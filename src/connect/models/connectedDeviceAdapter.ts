@@ -30,7 +30,6 @@ export class ConnectedDeviceAdapter {
         return new ConnectedDevice({
             id:           from.name,
             type:         from.type,
-            state:        (from.status && from.status.toLowerCase() === "active") ? "active" : "stale",
             queueMode:    from.q
         }, api);
     }

@@ -17,7 +17,6 @@
 
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
-import { ConnectedDeviceStateEnum } from "../types";
 import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
 
@@ -30,10 +29,6 @@ export class ConnectedDevice {
      * The ID of the device
      */
     readonly id: string;
-    /**
-     * Possible values ACTIVE, STALE.
-     */
-    readonly state?: ConnectedDeviceStateEnum;
     /**
      * Determines whether the device is in queue mode.
      */

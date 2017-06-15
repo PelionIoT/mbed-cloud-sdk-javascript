@@ -21,8 +21,6 @@ export class Filters {
 
     static readonly DEVICE_FILTER_MAP = {
         from: [
-            "lastDeployment",
-            "manifestUrl",
             "alias",
             "bootstrapCertificateExpiration",
             "certificateFingerprint",
@@ -30,8 +28,6 @@ export class Filters {
             "connectorCertificateExpiration"
         ],
         to: [
-            "deployment",
-            "manifest",
             "endpoint_name",
             "bootstrap_expiration_date",
             "device_key",
