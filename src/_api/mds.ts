@@ -57,7 +57,7 @@ export interface AsyncIDResponse {
 
 export interface Endpoint {
     /**
-     * Possible values ACTIVE, STALE.
+     * Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
      */
     "status"?: string;
     /**
