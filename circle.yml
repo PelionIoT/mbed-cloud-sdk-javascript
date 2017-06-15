@@ -20,7 +20,7 @@ checkout:
     - git config --global user.email monty-bot@arm.com
     - git submodule update --init --remote --force
     - pip install -r tests/testrunner/requirements.txt
-    - python setup.py install:
+    - python setup.py develop:
         pwd: tests/testrunner
 
 dependencies:
