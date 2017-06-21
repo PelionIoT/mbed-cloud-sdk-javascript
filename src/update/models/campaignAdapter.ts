@@ -20,7 +20,7 @@ import {
     UpdateCampaign as apiCampaign,
     UpdateCampaignPostRequest as apiCampaignAdd,
     UpdateCampaignPatchRequest as apiCampaignUpdate
-} from "../../_api/deployment_service";
+} from "../../_api/update_service";
 import { Filters } from "../../deviceDirectory/filters";
 import { AddCampaignObject, UpdateCampaignObject } from "../types";
 import { UpdateApi } from "../updateApi";
