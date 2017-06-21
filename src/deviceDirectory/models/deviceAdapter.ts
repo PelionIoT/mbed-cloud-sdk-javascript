@@ -32,7 +32,6 @@ export class DeviceAdapter {
     static map(from: apiDevice, api: DeviceDirectoryApi): Device {
         return new Device({
             accountId:                         from.account_id,
-            autoUpdate:                        from.auto_update,
             bootstrappedTimestamp:             from.bootstrapped_timestamp,
             createdAt:                         from.created_at,
             customAttributes:                  from.custom_attributes,
@@ -63,7 +62,6 @@ export class DeviceAdapter {
     static addMap(from: AddDeviceObject): apiDeviceAdd {
         return {
             name:                         from.name,
-            auto_update:                  from.autoUpdate,
             vendor_id:                    from.vendorId,
             custom_attributes:            from.customAttributes,
             mechanism:                    from.mechanism,
@@ -89,7 +87,6 @@ export class DeviceAdapter {
     static updateMap(from: UpdateDeviceObject): apiDeviceUpdate {
         return {
             name:                         from.name,
-            auto_update:                  from.autoUpdate,
             custom_attributes:            from.customAttributes,
             description:                  from.description,
             ca_id:                        from.certificateIssuerId,

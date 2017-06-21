@@ -154,7 +154,6 @@ export interface CampaignObject {
      */
     deviceFilter?: {
         accountId?: ComparisonObject<string>;
-        autoUpdate?: ComparisonObject<boolean>;
         bootstrapCertificateExpiration?: ComparisonObject<Date>;
         bootstrappedTimestamp?: ComparisonObject<Date>;
         certificateIssuerId?: ComparisonObject<string>;
