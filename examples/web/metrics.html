@@ -1,4 +1,4 @@
-<!--
+Ï<!--
  mbed Cloud JavaScript SDK
  Copyright ARM Limited 2017
 
@@ -143,8 +143,8 @@
             }
         }
 
-        function getMetrics() {
-            connect.getMetrics({
+        function listMetrics() {
+            connect.listMetrics({
                 period: {
                     unit: "days",
                     duration: daysEl.value
@@ -160,10 +160,10 @@
 
         // Change period
         daysEl.addEventListener("change", function() {
-            getMetrics();
+            listMetrics();
         });
 
-        getMetrics();
+        listMetrics();
     </script>
 </body>
 </html>

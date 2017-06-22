@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { CallbackFn } from "../common/interfaces";
+import { ListOptions, CallbackFn } from "../common/interfaces";
 
 export interface NotificationObject {
     /**
@@ -130,18 +130,14 @@ export interface TimePeriod {
     duration: number;
 }
 
-export interface MetricsOptions {
-    /**
-     * List of requested metrics
-     */
-    include?: IncludeEnum[];
+export interface MetricsListOptions extends ListOptions {
     /**
      * Group data by this interval, defaults to 1 day
      */
     interval?: TimePeriod;
 }
 
-export interface MetricsStartEndOptions extends MetricsOptions {
+export interface MetricsStartEndListOptions extends MetricsListOptions {
     /**
      * Start date
      */
@@ -152,7 +148,7 @@ export interface MetricsStartEndOptions extends MetricsOptions {
     end: Date;
 }
 
-export interface MetricsPeriodOptions extends MetricsOptions {
+export interface MetricsPeriodListOptions extends MetricsListOptions {
     /**
      * Fetch data for this period until now
      */

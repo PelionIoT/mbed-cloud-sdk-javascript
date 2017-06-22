@@ -30,7 +30,7 @@ import { ResourceAdapter } from "./models/resourceAdapter";
 import { ConnectedDevice } from "./models/connectedDevice";
 import { ConnectedDeviceAdapter } from "./models/connectedDeviceAdapter";
 import { DeviceEventAdapter } from "./models/deviceEventAdapter";
-import { MetricsStartEndOptions, MetricsPeriodOptions } from "./types";
+import { MetricsListOptions, MetricsStartEndListOptions, MetricsPeriodListOptions } from "./types";
 import { Metric } from "./models/metric";
 import { MetricAdapter } from "./models/metricAdapter";
 
@@ -1276,7 +1276,7 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Get account-specific metrics
+     * List metrics
      *
      * Example: (The following will retrieve metrics regarding pending and failed device registrations in the last day)
      * ```JavaScript
@@ -1284,7 +1284,7 @@ export class ConnectApi extends EventEmitter {
      * var yesterday = new Date();
      * yesterday.setDate(yesterday.getDate() - 1);
      * var options = {start: yesterday, end: today, include: ["pendingDeviceRegistrations", "failedDeviceRegistrations"]};
-     * connect.getAccountMetrics(options)
+     * connect.listMetrics(options)
      * .then(metrics => {
      *     // Utilize metrics here
      * })
@@ -1296,9 +1296,9 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @returns Promise of metrics
      */
-    public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions): Promise<Array<Metric>>;
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<Array<Metric>>;
     /**
-     * Get account-specific metrics
+     * List metrics
      *
      * Example: (The following will retrieve metrics regarding pending and failed device registrations in the last day)
      * ```JavaScript
@@ -1306,7 +1306,7 @@ export class ConnectApi extends EventEmitter {
      * var yesterday = new Date();
      * yesterday.setDate(yesterday.getDate() - 1);
      * var options = {start: yesterday, end: today, include: ["pendingDeviceRegistrations", "failedDeviceRegistrations"]};
-     * connect.getAccountMetrics(options, function(error, metrics) {
+     * connect.listMetrics(options, function(error, metrics) {
      *     if (error) throw error;
      *     // Utilize metrics here
      * });
@@ -1315,15 +1315,15 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
-    public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback: CallbackFn<Array<Metric>>): void;
-    public getAccountMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<Array<Metric>>): void;
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
         return apiWrapper(resultsFn => {
-            function isPeriod(options: MetricsStartEndOptions | MetricsPeriodOptions): options is MetricsPeriodOptions {
-                return (<MetricsPeriodOptions>options).period !== undefined;
+            function isPeriod(options: MetricsStartEndListOptions | MetricsPeriodListOptions): options is MetricsPeriodListOptions {
+                return (<MetricsPeriodListOptions>options).period !== undefined;
             }
 
-            let include = MetricAdapter.mapIncludes(options.include);
-            let interval = MetricAdapter.mapTimePeriod(options.interval);
+            let { limit, after, order, include, interval } = options as MetricsListOptions;
+
             let start = null;
             let end = null;
             let period = null;
@@ -1335,81 +1335,7 @@ export class ConnectApi extends EventEmitter {
                 end = options.end.toISOString();
             }
 
-            this._endpoints.account.v3MetricsGet(include, interval, "", start, end, period, resultsFn);
-        }, (data, done) => {
-            let list: Metric[];
-
-            if (data.data && data.data.length) {
-                list = data.data.map(metric => {
-                    return MetricAdapter.map(metric);
-                });
-            }
-
-            done(null, list);
-        }, callback);
-    }
-
-    /**
-     * Get metrics
-     *
-     * Example: (The following will retrieve metrics regarding pending and failed device registrations in the last day)
-     * ```JavaScript
-     * var today = new Date();
-     * var yesterday = new Date();
-     * yesterday.setDate(yesterday.getDate() - 1);
-     * var options = {start: yesterday, end: today, include: ["pendingDeviceRegistrations", "failedDeviceRegistrations"]};
-     * connect.getMetrics(options)
-     * .then(metrics => {
-     *     // Utilize metrics here
-     * })
-     * .catch(error => {
-     *     console.log(error);
-     * });
-     * ```
-     *
-     * @param options metrics options
-     * @returns Promise of metrics
-     */
-    public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions): Promise<Array<Metric>>;
-    /**
-     * Get metrics
-     *
-     * Example: (The following will retrieve metrics regarding pending and failed device registrations in the last day)
-     * ```JavaScript
-     * var today = new Date();
-     * var yesterday = new Date();
-     * yesterday.setDate(yesterday.getDate() - 1);
-     * var options = {start: yesterday, end: today, include: ["pendingDeviceRegistrations", "failedDeviceRegistrations"]};
-     * connect.getMetrics(options, function(error, metrics) {
-     *     if (error) throw error;
-     *     // Utilize metrics here
-     * });
-     * ```
-     *
-     * @param options metrics options
-     * @param callback A function that is passed the return arguments (error, metrics)
-     */
-    public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback: CallbackFn<Array<Metric>>): void;
-    public getMetrics(options: MetricsStartEndOptions | MetricsPeriodOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
-        return apiWrapper(resultsFn => {
-            function isPeriod(options: MetricsStartEndOptions | MetricsPeriodOptions): options is MetricsPeriodOptions {
-                return (<MetricsPeriodOptions>options).period !== undefined;
-            }
-
-            let include = MetricAdapter.mapIncludes(options.include);
-            let interval = MetricAdapter.mapTimePeriod(options.interval);
-            let start = null;
-            let end = null;
-            let period = null;
-
-            if (isPeriod(options)) {
-                period = MetricAdapter.mapTimePeriod(options.period);
-            } else {
-                start = options.start.toISOString();
-                end = options.end.toISOString();
-            }
-
-            this._endpoints.statistics.v3MetricsGet(include, interval, "", start, end, period, resultsFn);
+            this._endpoints.statistics.v3MetricsGet(MetricAdapter.mapIncludes(include), MetricAdapter.mapTimePeriod(interval), "", start, end, period, limit, after, order, resultsFn);
         }, (data, done) => {
             let list: Metric[];
 
