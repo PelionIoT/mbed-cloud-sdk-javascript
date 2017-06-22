@@ -16,33 +16,13 @@
 */
 
 import { ConnectionOptions } from "../common/interfaces";
-import {
-    DefaultApi as WebhookApi,
-    EndpointsApi,
-    NotificationsApi,
-    ResourcesApi,
-    SubscriptionsApi
-} from "../_api/mds";
-import { DefaultApi as CatalogApi } from "../_api/device_catalog";
-import { DefaultApi as QueryApi } from "../_api/device_query_service";
+import { DefaultApi as DirectoryApi } from "../_api/device_directory";
 
 export class Endpoints {
 
-    webhooks: WebhookApi;
-    endpoints: EndpointsApi;
-    notifications: NotificationsApi;
-    resources: ResourcesApi;
-    subscriptions: SubscriptionsApi;
-    catalog: CatalogApi;
-    query: QueryApi;
+    directory: DirectoryApi;
 
     constructor(options: ConnectionOptions) {
-        this.webhooks = new WebhookApi(options.apiKey, options.host);
-        this.endpoints = new EndpointsApi(options.apiKey, options.host);
-        this.notifications = new NotificationsApi(options.apiKey, options.host);
-        this.resources = new ResourcesApi(options.apiKey, options.host);
-        this.subscriptions = new SubscriptionsApi(options.apiKey, options.host);
-        this.catalog = new CatalogApi(options.apiKey, options.host);
-        this.query = new QueryApi(options.apiKey, options.host);
+        this.directory = new DirectoryApi(options.apiKey, options.host);
     }
 }

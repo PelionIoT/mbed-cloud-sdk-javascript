@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { FirmwareImage as apiFirmwareImage } from "../../_api/firmware_catalog";
+import { FirmwareImage as apiFirmwareImage } from "../../_api/update_service";
 import { UpdateApi } from "../updateApi";
 import { FirmwareImage } from "./firmwareImage";
 

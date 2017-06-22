@@ -18,7 +18,7 @@
 import {
     FirmwareManifest as apiFirmwareManifest,
     ManifestContents as apiManifestContents
-} from "../../_api/firmware_catalog";
+} from "../../_api/update_service";
 import { ManifestContents } from "../types";
 import { UpdateApi } from "../updateApi";
 import { FirmwareManifest } from "./firmwareManifest";

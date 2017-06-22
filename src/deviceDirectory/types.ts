@@ -42,10 +42,6 @@ export interface DeviceObject {
      */
     description?: string;
     /**
-     * Mark this device for auto firmware update
-     */
-    autoUpdate?: boolean;
-    /**
      * The type of the device - e.g. if the device is a gateway.
      */
     deviceType?: string;
@@ -148,7 +144,6 @@ export interface QueryObject {
      */
     filter?: {
         accountId?: ComparisonObject<string>;
-        autoUpdate?: ComparisonObject<boolean>;
         bootstrapCertificateExpiration?: ComparisonObject<Date>;
         bootstrappedTimestamp?: ComparisonObject<Date>;
         certificateIssuerId?: ComparisonObject<string>;
@@ -202,7 +197,6 @@ export interface AddQueryObject extends QueryObject {
      */
     filter: {
         accountId?: ComparisonObject<string>;
-        autoUpdate?: ComparisonObject<boolean>;
         bootstrapCertificateExpiration?: ComparisonObject<Date>;
         bootstrappedTimestamp?: ComparisonObject<Date>;
         certificateIssuerId?: ComparisonObject<string>;
@@ -248,7 +242,6 @@ export interface DeviceListOptions extends ListOptions {
      */
     filter?: {
         accountId?: ComparisonObject<string>;
-        autoUpdate?: ComparisonObject<boolean>;
         bootstrapCertificateExpiration?: ComparisonObject<Date>;
         bootstrappedTimestamp?: ComparisonObject<Date>;
         certificateIssuerId?: ComparisonObject<string>;

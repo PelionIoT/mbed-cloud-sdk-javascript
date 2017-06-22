@@ -20,7 +20,7 @@ import {
     DeviceQuery as apiQuery,
     DeviceQueryPostPutRequest as apiQueryAdd,
     DeviceQueryPatchRequest as apiQueryUpdate
-} from "../../_api/device_query_service";
+} from "../../_api/device_directory";
 import { DeviceDirectoryApi } from "../deviceDirectoryApi";
 import { Filters } from "../filters";
 import { AddQueryObject, UpdateQueryObject } from "../types";

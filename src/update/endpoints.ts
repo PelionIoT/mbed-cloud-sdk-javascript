@@ -16,16 +16,13 @@
 */
 
 import { ConnectionOptions } from "../common/interfaces";
-import { DefaultApi as FirmwareAPI } from "../_api/firmware_catalog";
-import { DefaultApi as DeploymentAPI } from "../_api/deployment_service";
+import { DefaultApi as UpdateApi } from "../_api/update_service";
 
 export class Endpoints {
 
-    firmware: FirmwareAPI;
-    deployment: DeploymentAPI;
+    update: UpdateApi;
 
     constructor(options: ConnectionOptions) {
-        this.firmware = new FirmwareAPI(options.apiKey, options.host);
-        this.deployment = new DeploymentAPI(options.apiKey, options.host);
+        this.update = new UpdateApi(options.apiKey, options.host);
     }
 }

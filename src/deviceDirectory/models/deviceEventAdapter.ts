@@ -16,7 +16,7 @@
 */
 
 import { DeviceEvent } from "./deviceEvent";
-import { DeviceEventData as apiDeviceEvent } from "../../_api/device_catalog";
+import { DeviceEventData as apiDeviceEvent } from "../../_api/device_directory";
 
 /**
  * Device Event Adapter

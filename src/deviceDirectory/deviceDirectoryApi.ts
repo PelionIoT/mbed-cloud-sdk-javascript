@@ -120,7 +120,7 @@ export class DeviceDirectoryApi {
 
         return apiWrapper(resultsFn => {
             let { limit, after, order, include, filter } = options;
-            this._endpoints.catalog.deviceList(limit, order, after, encodeFilter(filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS), encodeInclude(include), resultsFn);
+            this._endpoints.directory.deviceList(limit, order, after, encodeFilter(filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS), encodeInclude(include), resultsFn);
         }, (data, done) => {
             let devices = data.data.map(device => {
                 return DeviceAdapter.map(device, this);
@@ -165,7 +165,7 @@ export class DeviceDirectoryApi {
     public getDevice(deviceId: string, callback: CallbackFn<Device>): void;
     public getDevice(deviceId: string, callback?: CallbackFn<Device>): Promise<Device> {
         return apiWrapper(resultsFn => {
-            this._endpoints.catalog.deviceRetrieve(deviceId, resultsFn);
+            this._endpoints.directory.deviceRetrieve(deviceId, resultsFn);
         }, (data, done) => {
             let device = DeviceAdapter.map(data, this);
             done(null, device);
@@ -215,7 +215,7 @@ export class DeviceDirectoryApi {
     public addDevice(device: AddDeviceObject, callback: CallbackFn<Device>): void;
     public addDevice(device: AddDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
         return apiWrapper(resultsFn => {
-            this._endpoints.catalog.deviceCreate(DeviceAdapter.addMap(device), resultsFn);
+            this._endpoints.directory.deviceCreate(DeviceAdapter.addMap(device), resultsFn);
         }, (data, done) => {
             let device = DeviceAdapter.map(data, this);
             done(null, device);
@@ -273,7 +273,7 @@ export class DeviceDirectoryApi {
     public updateDevice(device: UpdateDeviceObject, callback: CallbackFn<Device>): void;
     public updateDevice(device: UpdateDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
         return apiWrapper(resultsFn => {
-            this._endpoints.catalog.devicePartialUpdate(device.id, DeviceAdapter.updateMap(device), resultsFn);
+            this._endpoints.directory.devicePartialUpdate(device.id, DeviceAdapter.updateMap(device), resultsFn);
         }, (data, done) => {
             let device = DeviceAdapter.map(data, this);
             done(null, device);
@@ -311,7 +311,7 @@ export class DeviceDirectoryApi {
     public deleteDevice(deviceId: string, callback: CallbackFn<void>): void;
     public deleteDevice(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
         return apiWrapper(resultsFn => {
-            this._endpoints.catalog.deviceDestroy(deviceId, resultsFn);
+            this._endpoints.directory.deviceDestroy(deviceId, resultsFn);
         }, (data, done) => {
             done(null, data);
         }, callback);
@@ -361,7 +361,7 @@ export class DeviceDirectoryApi {
 
         return apiWrapper(resultsFn => {
             let { limit, order, after, include, filter } = options;
-            this._endpoints.query.deviceQueryList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
+            this._endpoints.directory.deviceQueryList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
             let queries: Query[];
             if (data.data && data.data.length) {
@@ -412,7 +412,7 @@ export class DeviceDirectoryApi {
     public getQuery(queryId: string, callback: CallbackFn<Query>): void;
     public getQuery(queryId: string, callback?: CallbackFn<Query>): Promise<Query> {
         return apiWrapper(resultsFn => {
-            this._endpoints.query.deviceQueryRetrieve(queryId, resultsFn);
+            this._endpoints.directory.deviceQueryRetrieve(queryId, resultsFn);
         }, (data, done) => {
             let query = QueryAdapter.map(data, this);
             done(null, query);
@@ -470,7 +470,7 @@ export class DeviceDirectoryApi {
     public addQuery(query: AddQueryObject, callback: CallbackFn<Query>): void;
     public addQuery(query: AddQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
         return apiWrapper(resultsFn => {
-            this._endpoints.query.deviceQueryCreate(QueryAdapter.addMap(query), resultsFn);
+            this._endpoints.directory.deviceQueryCreate(QueryAdapter.addMap(query), resultsFn);
         }, (data, done) => {
             let query = QueryAdapter.map(data, this);
             done(null, query);
@@ -528,7 +528,7 @@ export class DeviceDirectoryApi {
     public updateQuery(query: UpdateQueryObject, callback: CallbackFn<Query>): void;
     public updateQuery(query: UpdateQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
         return apiWrapper(resultsFn => {
-            this._endpoints.query.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), resultsFn);
+            this._endpoints.directory.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), resultsFn);
         }, (data, done) => {
             let query = QueryAdapter.map(data, this);
             done(null, query);
@@ -566,7 +566,7 @@ export class DeviceDirectoryApi {
     public deleteQuery(queryId: string, callback: CallbackFn<void>): void;
     public deleteQuery(queryId: string, callback?: CallbackFn<void>): Promise<void> {
         return apiWrapper(resultsFn => {
-            this._endpoints.query.deviceQueryDestroy(queryId, resultsFn);
+            this._endpoints.directory.deviceQueryDestroy(queryId, resultsFn);
         }, (data, done) => {
             done(null, data);
         }, callback);
@@ -626,7 +626,7 @@ export class DeviceDirectoryApi {
 
         return apiWrapper(resultsFn => {
             let { limit, order, after, include, filter } = options as DeviceEventListOptions;
-            this._endpoints.catalog.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_EVENT_FILTER_MAP), encodeInclude(include), resultsFn);
+            this._endpoints.directory.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_EVENT_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
             let list: DeviceEvent[];
             if (data.data && data.data.length) {
@@ -674,7 +674,7 @@ export class DeviceDirectoryApi {
     public getDeviceEvent(deviceEventId: string, callback: CallbackFn<DeviceEvent>): void;
     public getDeviceEvent(deviceEventId: string, callback?: CallbackFn<DeviceEvent>): Promise<DeviceEvent> {
         return apiWrapper(resultsFn => {
-            this._endpoints.catalog.deviceLogRetrieve(deviceEventId, resultsFn);
+            this._endpoints.directory.deviceLogRetrieve(deviceEventId, resultsFn);
         }, (data, done) => {
             let event = DeviceEventAdapter.map(data);
             done(null, event);

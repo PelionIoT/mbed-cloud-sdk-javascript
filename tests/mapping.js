@@ -16,7 +16,7 @@ var objectFns = [
 	"addCertificate",
 	"updateCertificate",
 	"listDeviceLogs",
-	"getMetrics",
+	"listMetrics",
 	"addFirmwareManifest",
 	"addFirmwareImage"
 ];
@@ -43,7 +43,7 @@ var mapping = {
 				1: args.resourcePath
 			};
 		},
-		getMetrics: args => {
+		listMetrics: args => {
 			function parse(input) {
 				var units = ["hours", "days", "weeks", "months", "years"];
 				var match = input.match(/^(.*)([hdwmy]{1})$/);

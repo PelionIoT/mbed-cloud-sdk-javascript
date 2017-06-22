@@ -16,21 +16,26 @@
 */
 
 import { ConnectionOptions } from "../common/interfaces";
-import { AccountAdminApi } from "../_api/iam";
 import {
-	DeveloperCertificateApi as DeveloperApi,
-	ServerCredentialsApi as ServerApi
+    AccountAdminApi as AdminApi,
+    DeveloperApi as AccountDeveloperApi
+} from "../_api/iam";
+import {
+    ServerCredentialsApi as ServerApi,
+    DeveloperCertificateApi as CertDeveloperApi
 } from "../_api/connector_ca";
 
 export class Endpoints {
 
-    developer: DeveloperApi;
+    certDeveloper: CertDeveloperApi;
+    accountDeveloper: AccountDeveloperApi;
     server: ServerApi;
-    admin: AccountAdminApi;
+    admin: AdminApi;
 
     constructor(options: ConnectionOptions) {
-        this.developer = new DeveloperApi(options.apiKey, options.host);
+        this.certDeveloper = new CertDeveloperApi(options.apiKey, options.host);
+        this.accountDeveloper = new AccountDeveloperApi(options.apiKey, options.host);
         this.server = new ServerApi(options.apiKey, options.host);
-        this.admin = new AccountAdminApi(options.apiKey, options.host);
+        this.admin = new AdminApi(options.apiKey, options.host);
     }
 }
