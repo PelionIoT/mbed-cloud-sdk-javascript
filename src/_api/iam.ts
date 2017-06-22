@@ -934,37 +934,6 @@ export class AccountAdminApi extends ApiBase {
         }, callback);
     }
     /** 
-     * Delete a trusted certificate by ID.
-     * An endpoint for deleting a trusted certificate.
-     * @param certId The ID of the trusted certificate to be deleted.
-     */
-    deleteCertificate (certId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "certId" is set
-        if (certId === null || certId === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'certId' missing."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request<null>({
-            url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
-            method: 'DELETE',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
      * Delete a user.
      * An endpoint for deleting a user.
      * @param userId The ID of the user to be deleted.
@@ -988,61 +957,6 @@ export class AccountAdminApi extends ApiBase {
         return this.request<null>({
             url: '/v3/users/{user-id}'.replace('{' + 'user-id' + '}', String(userId)),
             method: 'DELETE',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * Get all trusted certificates.
-     * An endpoint for retrieving trusted certificates in an array.
-     * @param limit The number of results to return (2-1000), default is 50.
-     * @param after The entity ID to fetch after the given one.
-     * @param order The order of the records, ASC or DESC; by default ASC
-     * @param include Comma separated additional data to return. Currently supported: total_count
-     * @param serviceEq Service filter, either lwm2m or bootstrap
-     * @param expireEq Expire filter in days
-     * @param deviceExecutionModeEq Device execution mode, as 1 for developer certificates or as another natural integer value
-     * @param ownerEq Owner ID filter
-     */
-    getAllCertificates (limit?: number, after?: string, order?: string, include?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, ownerEq?: string, callback?: (error:any, data?:TrustedCertificateRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters['limit'] = limit;
-        }
-        if (after !== undefined) {
-            queryParameters['after'] = after;
-        }
-        if (order !== undefined) {
-            queryParameters['order'] = order;
-        }
-        if (include !== undefined) {
-            queryParameters['include'] = include;
-        }
-        if (serviceEq !== undefined) {
-            queryParameters['service__eq'] = serviceEq;
-        }
-        if (expireEq !== undefined) {
-            queryParameters['expire__eq'] = expireEq;
-        }
-        if (deviceExecutionModeEq !== undefined) {
-            queryParameters['device_execution_mode__eq'] = deviceExecutionModeEq;
-        }
-        if (ownerEq !== undefined) {
-            queryParameters['owner__eq'] = ownerEq;
-        }
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request<TrustedCertificateRespList>({
-            url: '/v3/trusted-certificates',
-            method: 'GET',
             headers: headerParams,
             query: queryParameters,
             useFormData: useFormData,
@@ -1085,37 +999,6 @@ export class AccountAdminApi extends ApiBase {
 
         return this.request<UserInfoRespList>({
             url: '/v3/users',
-            method: 'GET',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-        }, callback);
-    }
-    /** 
-     * Get trusted certificate by ID.
-     * An endpoint for retrieving a trusted certificate by ID.
-     * @param certId The ID or name of the trusted certificate to be retrieved.
-     */
-    getCertificate (certId: string, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "certId" is set
-        if (certId === null || certId === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'certId' missing."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request<TrustedCertificateResp>({
-            url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -1234,46 +1117,6 @@ export class AccountAdminApi extends ApiBase {
         return this.request<UpdatedResponse>({
             url: '/v3/policy-groups/{groupID}/users'.replace('{' + 'groupID' + '}', String(groupID)),
             method: 'DELETE',
-            headers: headerParams,
-            query: queryParameters,
-            useFormData: useFormData,
-            formParams: formParams,
-            json: true,
-            body: body,
-        }, callback);
-    }
-    /** 
-     * Update trusted certificate.
-     * An endpoint for updating existing trusted certificates.
-     * @param certId The ID of the trusted certificate to be updated.
-     * @param body A trusted certificate object with attributes.
-     */
-    updateCertificate (certId: string, body: TrustedCertificateReq, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        // verify required parameter "certId" is set
-        if (certId === null || certId === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'certId' missing."));
-            }
-            return;
-        }
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'body' missing."));
-            }
-            return;
-        }
-
-        let headerParams: any = {};
-
-        let queryParameters: any = {};
-
-        let useFormData = false;
-        let formParams: any = {};
-
-        return this.request<TrustedCertificateResp>({
-            url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
-            method: 'PUT',
             headers: headerParams,
             query: queryParameters,
             useFormData: useFormData,
@@ -1425,6 +1268,37 @@ export class DeveloperApi extends ApiBase {
         }, callback);
     }
     /** 
+     * Delete a trusted certificate by ID.
+     * An endpoint for deleting a trusted certificate.
+     * @param certId The ID of the trusted certificate to be deleted.
+     */
+    deleteCertificate (certId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "certId" is set
+        if (certId === null || certId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'certId' missing."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<null>({
+            url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
+            method: 'DELETE',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
      * Get all API keys
      * An endpoint for retrieving API keys in an array, optionally filtered by the owner.
      * @param limit The number of results to return (2-1000), default is 50.
@@ -1459,6 +1333,61 @@ export class DeveloperApi extends ApiBase {
 
         return this.request<ApiKeyInfoRespList>({
             url: '/v3/api-keys',
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Get all trusted certificates.
+     * An endpoint for retrieving trusted certificates in an array.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     * @param serviceEq Service filter, either lwm2m or bootstrap
+     * @param expireEq Expire filter in days
+     * @param deviceExecutionModeEq Device execution mode, as 1 for developer certificates or as another natural integer value
+     * @param ownerEq Owner ID filter
+     */
+    getAllCertificates (limit?: number, after?: string, order?: string, include?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, ownerEq?: string, callback?: (error:any, data?:TrustedCertificateRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+        if (serviceEq !== undefined) {
+            queryParameters['service__eq'] = serviceEq;
+        }
+        if (expireEq !== undefined) {
+            queryParameters['expire__eq'] = expireEq;
+        }
+        if (deviceExecutionModeEq !== undefined) {
+            queryParameters['device_execution_mode__eq'] = deviceExecutionModeEq;
+        }
+        if (ownerEq !== undefined) {
+            queryParameters['owner__eq'] = ownerEq;
+        }
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<TrustedCertificateRespList>({
+            url: '/v3/trusted-certificates',
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -1576,6 +1505,37 @@ export class DeveloperApi extends ApiBase {
 
         return this.request<ApiKeyInfoRespList>({
             url: '/v3/policy-groups/{groupID}/api-keys'.replace('{' + 'groupID' + '}', String(groupID)),
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Get trusted certificate by ID.
+     * An endpoint for retrieving a trusted certificate by ID.
+     * @param certId The ID or name of the trusted certificate to be retrieved.
+     */
+    getCertificate (certId: string, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "certId" is set
+        if (certId === null || certId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'certId' missing."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<TrustedCertificateResp>({
+            url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -1759,6 +1719,46 @@ export class DeveloperApi extends ApiBase {
 
         return this.request<ApiKeyInfoResp>({
             url: '/v3/api-keys/{apiKey}'.replace('{' + 'apiKey' + '}', String(apiKey)),
+            method: 'PUT',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+            body: body,
+        }, callback);
+    }
+    /** 
+     * Update trusted certificate.
+     * An endpoint for updating existing trusted certificates.
+     * @param certId The ID of the trusted certificate to be updated.
+     * @param body A trusted certificate object with attributes.
+     */
+    updateCertificate (certId: string, body: TrustedCertificateReq, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "certId" is set
+        if (certId === null || certId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'certId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<TrustedCertificateResp>({
+            url: '/v3/trusted-certificates/{cert-id}'.replace('{' + 'cert-id' + '}', String(certId)),
             method: 'PUT',
             headers: headerParams,
             query: queryParameters,
