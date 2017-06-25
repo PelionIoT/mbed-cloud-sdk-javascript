@@ -73,7 +73,7 @@ export interface Metric {
      */
     "transactions"?: number;
     /**
-     * UTC time in RFC3339 format
+     * UTC time in RFC3339 format.
      */
     "timestamp"?: string;
     /**
@@ -84,6 +84,10 @@ export interface Metric {
      * Number of pending bootstraps the account has used.
      */
     "bootstraps_pending"?: number;
+    /**
+     * Number of successful device server REST API requests the account has used.
+     */
+    "device_server_rest_api_success"?: number;
     /**
      * Number of failed handshakes the account has used.
      */
@@ -97,20 +101,17 @@ export interface Metric {
      */
     "bootstraps_successful"?: number;
     /**
-     * Number of successful device server REST API requests the account has used.
+     * unique metric ID.
      */
-    "device_server_rest_api_success"?: number;
+    "id"?: string;
 }
 
 export interface SuccessfulResponse {
     /**
-     * continuation_token included in the request or null.
-     */
-    "after"?: string;
-    /**
-     * true when there are more results to fetch using the included continuation_token.
+     * Indicates whether there are more results for you to fetch in the next page.
      */
     "has_more"?: boolean;
+    "data"?: Array<Metric>;
     /**
      * API resource name.
      */
@@ -120,10 +121,9 @@ export interface SuccessfulResponse {
      */
     "limit"?: number;
     /**
-     * token to use in after request parameter to fetch more results.
+     * metric ID included in the request or null.
      */
-    "continuation_token"?: string;
-    "data"?: Array<Metric>;
+    "after"?: string;
 }
 
 /**
@@ -140,9 +140,9 @@ export class AccountApi extends ApiBase {
      * @param start UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year (365 days). The parameter is not mandatory, if the period is specified. 
      * @param end UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year ( 365 days ). The parameter is not mandatory, if the period is specified. 
      * @param period Period. Fetch the data for the period in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The parameter is not mandatory, if the start and end time are specified. The maximum period cannot exceed more than one year ( 365 days ) and so the allowed ranges are 5m - 525600m / 1h - 8760h / 1d - 365d / 1w - 53w. 
-     * @param limit Limit the number of results returned. Default value is 50, minimum value is 2 and maximum value is 1000. 
-     * @param after The continuous_token included in the previous response to retrieve the next page of results. 
-     * @param order The order to sort the results. Default value is ASC. Allowed values are ASC / DESC. 
+     * @param limit The number of results to return. Default value is 50, minimum value is 2 and maximum value is 1000. 
+     * @param after The metric ID after which to start fetching. 
+     * @param order The order of the records to return. Available values are ASC and DESC. The default value is ASC. 
      */
     v3MetricsGet (include: string, interval: string, authorization: string, start?: string, end?: string, period?: string, limit?: number, after?: string, order?: string, callback?: (error:any, data?:SuccessfulResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "include" is set
@@ -225,9 +225,9 @@ export class StatisticsApi extends ApiBase {
      * @param start UTC time/year/date in RFC3339 format. Fetch the data with timestamp greater than or equal to this value. Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year (365 days). The parameter is not mandatory, if the period is specified. 
      * @param end UTC time/year/date in RFC3339 format. Fetch the data with timestamp less than this value.Sample values: 20170207T092056990Z / 2017-02-07T09:20:56.990Z / 2017 / 20170207. The maximum time between start and end parameters cannot exceed more than one year ( 365 days ). The parameter is not mandatory, if the period is specified. 
      * @param period Period. Fetch the data for the period in minutes, hours, days or weeks. Sample values: 5m, 2h, 3d, 4w. The parameter is not mandatory, if the start and end time are specified. The maximum period cannot exceed more than one year ( 365 days ) and so the allowed ranges are 5m - 525600m / 1h - 8760h / 1d - 365d / 1w - 53w. 
-     * @param limit Limit the number of results returned. Default value is 50, minimum value is 2 and maximum value is 1000. 
-     * @param after The continuous_token included in the previous response to retrieve the next page of results. 
-     * @param order The order to sort the results. Default value is ASC. Allowed values are ASC / DESC. 
+     * @param limit The number of results to return. Default value is 50, minimum value is 2 and maximum value is 1000. 
+     * @param after The metric ID after which to start fetching. 
+     * @param order The order of the records to return. Available values are ASC and DESC. The default value is ASC. 
      */
     v3MetricsGet (include: string, interval: string, authorization: string, start?: string, end?: string, period?: string, limit?: number, after?: string, order?: string, callback?: (error:any, data?:SuccessfulResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "include" is set
