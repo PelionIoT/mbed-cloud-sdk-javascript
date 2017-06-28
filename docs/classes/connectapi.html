@@ -1,0 +1,2552 @@
+<!doctype html>
+<html class="minimal no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ConnectApi | mbed Cloud SDK for JavaScript</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">mbed Cloud SDK for JavaScript</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<nav class="tsd-navigation secondary">
+	<ul>
+		<li class="current tsd-kind-class">
+			<a href="connectapi.html" class="tsd-kind-icon">Connect<wbr>Api</a>
+			<ul>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class">
+					<a href="connectapi.html#constructor" class="tsd-kind-icon">constructor</a>
+				</li>
+				<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-static">
+					<a href="connectapi.html#event_deregistration" class="tsd-kind-icon">EVENT_<wbr>DEREGISTRATION</a>
+				</li>
+				<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-static">
+					<a href="connectapi.html#event_expired" class="tsd-kind-icon">EVENT_<wbr>EXPIRED</a>
+				</li>
+				<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-static">
+					<a href="connectapi.html#event_notification" class="tsd-kind-icon">EVENT_<wbr>NOTIFICATION</a>
+				</li>
+				<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-static">
+					<a href="connectapi.html#event_registration" class="tsd-kind-icon">EVENT_<wbr>REGISTRATION</a>
+				</li>
+				<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-static">
+					<a href="connectapi.html#event_reregistration" class="tsd-kind-icon">EVENT_<wbr>REREGISTRATION</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="connectapi.html#handlenotifications" class="tsd-kind-icon">handle<wbr>Notifications</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a href="connectapi.html#defaultmaxlisteners" class="tsd-kind-icon">default<wbr>Max<wbr>Listeners</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#addresourcesubscription" class="tsd-kind-icon">add<wbr>Resource<wbr>Subscription</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#deletedevicesubscriptions" class="tsd-kind-icon">delete<wbr>Device<wbr>Subscriptions</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#deletepresubscriptions" class="tsd-kind-icon">delete<wbr>Presubscriptions</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#deleteresource" class="tsd-kind-icon">delete<wbr>Resource</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#deleteresourcesubscription" class="tsd-kind-icon">delete<wbr>Resource<wbr>Subscription</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#deletesubscriptions" class="tsd-kind-icon">delete<wbr>Subscriptions</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#deletewebhook" class="tsd-kind-icon">delete<wbr>Webhook</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#emit" class="tsd-kind-icon">emit</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#eventnames" class="tsd-kind-icon">event<wbr>Names</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#executeresource" class="tsd-kind-icon">execute<wbr>Resource</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#getmaxlisteners" class="tsd-kind-icon">get<wbr>Max<wbr>Listeners</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#getresourcesubscription" class="tsd-kind-icon">get<wbr>Resource<wbr>Subscription</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#getresourcevalue" class="tsd-kind-icon">get<wbr>Resource<wbr>Value</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#getwebhook" class="tsd-kind-icon">get<wbr>Webhook</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#listconnecteddevices" class="tsd-kind-icon">list<wbr>Connected<wbr>Devices</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#listdevicesubscriptions" class="tsd-kind-icon">list<wbr>Device<wbr>Subscriptions</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#listmetrics" class="tsd-kind-icon">list<wbr>Metrics</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#listpresubscriptions" class="tsd-kind-icon">list<wbr>Presubscriptions</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#listresources" class="tsd-kind-icon">list<wbr>Resources</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#listenercount" class="tsd-kind-icon">listener<wbr>Count</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#listeners" class="tsd-kind-icon">listeners</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#notify" class="tsd-kind-icon">notify</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#on" class="tsd-kind-icon">on</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#once" class="tsd-kind-icon">once</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#prependlistener" class="tsd-kind-icon">prepend<wbr>Listener</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#prependoncelistener" class="tsd-kind-icon">prepend<wbr>Once<wbr>Listener</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a href="connectapi.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#setresourcevalue" class="tsd-kind-icon">set<wbr>Resource<wbr>Value</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#startnotifications" class="tsd-kind-icon">start<wbr>Notifications</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#stopnotifications" class="tsd-kind-icon">stop<wbr>Notifications</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#updatepresubscriptions" class="tsd-kind-icon">update<wbr>Presubscriptions</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#updatewebhook" class="tsd-kind-icon">update<wbr>Webhook</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a href="connectapi.html#listenercount-1" class="tsd-kind-icon">listener<wbr>Count</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+<div class="container container-main">
+	<div class="content-wrap">
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<h2 id="connect-api">Connect API</h2>
+				</div>
+				<p>This API is initialized with <a href="../interfaces/connectionoptions.html">ConnectionOptions</a>.</p>
+				<p>To create an instance of this API in <a href="https://nodejs.org">Node.js</a>:</p>
+				<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> mbedCloudSDK = <span class="hljs-built_in">require</span>(<span class="hljs-string">"mbed-cloud-sdk"</span>);
+
+<span class="hljs-keyword">var</span> connect = <span class="hljs-keyword">new</span> mbedCloudSDK.ConnectApi({
+    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">"&lt;mbed Cloud API Key&gt;"</span>
+});
+</code></pre>
+				<p>To create an instance of this API in the browser:</p>
+				<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"&lt;mbed-cloud-sdk&gt;/bundles/connect.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+    <span class="hljs-keyword">var</span> connect = <span class="hljs-keyword">new</span> mbedCloudSDK.ConnectApi({
+        apiKey: <span class="hljs-string">"&lt;mbed Cloud API Key&gt;"</span>
+    });
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+				<h3 id="notification-channels">Notification channels</h3>
+				<p>Some methods on connected device resources (e.g. <code>resource.getValue()</code>) and most events (e.g. <code>resource.on(&quot;notification&quot;)</code>) require a notification channel to be set up before they will work.</p>
+				<p>There are two options for setting up a notification channel:</p>
+				<ul>
+					<li>Register a callback server or <em>webhook</em> using <code>updateWebhook()</code></li>
+					<li>Use long-polling by using <code>startNotifications()</code></li>
+				</ul>
+				<p>The <code>webhook</code> and <code>long-polling</code> examples show how this can be done.</p>
+			</div>
+		</section>
+		<section class="tsd-panel tsd-hierarchy">
+			<h3>Hierarchy</h3>
+			<ul class="tsd-hierarchy">
+				<li>
+					<span class="tsd-signature-type">EventEmitter</span>
+					<ul class="tsd-hierarchy">
+						<li>
+							<span class="target">ConnectApi</span>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+		<section class="tsd-panel-group tsd-index-group">
+			<h2>Index</h2>
+			<section class="tsd-panel tsd-index-panel">
+				<div class="tsd-index-content">
+					<section class="tsd-index-section ">
+						<h3>Constructors</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="connectapi.html#constructor" class="tsd-kind-icon">constructor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Events</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-event tsd-parent-kind-class tsd-is-static"><a href="connectapi.html#event_deregistration" class="tsd-kind-icon">EVENT_<wbr>DEREGISTRATION</a></li>
+							<li class="tsd-kind-event tsd-parent-kind-class tsd-is-static"><a href="connectapi.html#event_expired" class="tsd-kind-icon">EVENT_<wbr>EXPIRED</a></li>
+							<li class="tsd-kind-event tsd-parent-kind-class tsd-is-static"><a href="connectapi.html#event_notification" class="tsd-kind-icon">EVENT_<wbr>NOTIFICATION</a></li>
+							<li class="tsd-kind-event tsd-parent-kind-class tsd-is-static"><a href="connectapi.html#event_registration" class="tsd-kind-icon">EVENT_<wbr>REGISTRATION</a></li>
+							<li class="tsd-kind-event tsd-parent-kind-class tsd-is-static"><a href="connectapi.html#event_reregistration" class="tsd-kind-icon">EVENT_<wbr>REREGISTRATION</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Properties</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="connectapi.html#handlenotifications" class="tsd-kind-icon">handle<wbr>Notifications</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="connectapi.html#defaultmaxlisteners" class="tsd-kind-icon">default<wbr>Max<wbr>Listeners</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Methods</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#addresourcesubscription" class="tsd-kind-icon">add<wbr>Resource<wbr>Subscription</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deletedevicesubscriptions" class="tsd-kind-icon">delete<wbr>Device<wbr>Subscriptions</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deletepresubscriptions" class="tsd-kind-icon">delete<wbr>Presubscriptions</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deleteresource" class="tsd-kind-icon">delete<wbr>Resource</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deleteresourcesubscription" class="tsd-kind-icon">delete<wbr>Resource<wbr>Subscription</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deletesubscriptions" class="tsd-kind-icon">delete<wbr>Subscriptions</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deletewebhook" class="tsd-kind-icon">delete<wbr>Webhook</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#emit" class="tsd-kind-icon">emit</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#eventnames" class="tsd-kind-icon">event<wbr>Names</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#executeresource" class="tsd-kind-icon">execute<wbr>Resource</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#getmaxlisteners" class="tsd-kind-icon">get<wbr>Max<wbr>Listeners</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#getresourcesubscription" class="tsd-kind-icon">get<wbr>Resource<wbr>Subscription</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#getresourcevalue" class="tsd-kind-icon">get<wbr>Resource<wbr>Value</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#getwebhook" class="tsd-kind-icon">get<wbr>Webhook</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#listconnecteddevices" class="tsd-kind-icon">list<wbr>Connected<wbr>Devices</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#listdevicesubscriptions" class="tsd-kind-icon">list<wbr>Device<wbr>Subscriptions</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#listmetrics" class="tsd-kind-icon">list<wbr>Metrics</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#listpresubscriptions" class="tsd-kind-icon">list<wbr>Presubscriptions</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#listresources" class="tsd-kind-icon">list<wbr>Resources</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#listenercount" class="tsd-kind-icon">listener<wbr>Count</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#listeners" class="tsd-kind-icon">listeners</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#notify" class="tsd-kind-icon">notify</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#on" class="tsd-kind-icon">on</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#once" class="tsd-kind-icon">once</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#prependlistener" class="tsd-kind-icon">prepend<wbr>Listener</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#prependoncelistener" class="tsd-kind-icon">prepend<wbr>Once<wbr>Listener</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#setresourcevalue" class="tsd-kind-icon">set<wbr>Resource<wbr>Value</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#startnotifications" class="tsd-kind-icon">start<wbr>Notifications</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#stopnotifications" class="tsd-kind-icon">stop<wbr>Notifications</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#updatepresubscriptions" class="tsd-kind-icon">update<wbr>Presubscriptions</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#updatewebhook" class="tsd-kind-icon">update<wbr>Webhook</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="connectapi.html#listenercount-1" class="tsd-kind-icon">listener<wbr>Count</a></li>
+						</ul>
+					</section>
+				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Constructors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<a name="constructor" class="tsd-anchor"></a>
+				<h3>constructor</h3>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Connect<wbr>Api<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/connectionoptions.html" class="tsd-signature-type">ConnectionOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="connectapi.html" class="tsd-signature-type">ConnectApi</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>options: <a href="../interfaces/connectionoptions.html" class="tsd-signature-type">ConnectionOptions</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>connection objects</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="connectapi.html" class="tsd-signature-type">ConnectApi</a></h4>
+					</li>
+				</ul>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Events</h2>
+			<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-static">
+				<a name="event_deregistration" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> EVENT_<wbr>DEREGISTRATION</h3>
+				<div class="tsd-signature tsd-kind-icon">EVENT_<wbr>DEREGISTRATION<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;deregistration&quot;</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>List of devices that were removed in a controlled manner</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-static">
+				<a name="event_expired" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> EVENT_<wbr>EXPIRED</h3>
+				<div class="tsd-signature tsd-kind-icon">EVENT_<wbr>EXPIRED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;expired&quot;</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>List of devices that were removed because the registration has expired</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-static">
+				<a name="event_notification" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> EVENT_<wbr>NOTIFICATION</h3>
+				<div class="tsd-signature tsd-kind-icon">EVENT_<wbr>NOTIFICATION<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;notification&quot;</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Resource notification event</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-static">
+				<a name="event_registration" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> EVENT_<wbr>REGISTRATION</h3>
+				<div class="tsd-signature tsd-kind-icon">EVENT_<wbr>REGISTRATION<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;registration&quot;</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>List of new devices that have registered (with resources)</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-static">
+				<a name="event_reregistration" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> EVENT_<wbr>REREGISTRATION</h3>
+				<div class="tsd-signature tsd-kind-icon">EVENT_<wbr>REREGISTRATION<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;reregistration&quot;</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>List of devices that have updated registration</p>
+					</div>
+				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="handlenotifications" class="tsd-anchor"></a>
+				<h3>handle<wbr>Notifications</h3>
+				<div class="tsd-signature tsd-kind-icon">handle<wbr>Notifications<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Whether async callbacks are handled by the API.
+						Long polling will set this automatically, but it can also be used alongside the <code>notify</code> function with webhooks</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+				<a name="defaultmaxlisteners" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> default<wbr>Max<wbr>Listeners</h3>
+				<div class="tsd-signature tsd-kind-icon">default<wbr>Max<wbr>Listeners<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<p>Inherited from EventEmitter.defaultMaxListeners</p>
+				</aside>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="addlistener" class="tsd-anchor"></a>
+				<h3>add<wbr>Listener</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">add<wbr>Listener<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.addListener</p>
+							<p>Overrides EventEmitter.addListener</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>event: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+							<li>
+								<h5>listener: <span class="tsd-signature-type">Function</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="addresourcesubscription" class="tsd-anchor"></a>
+				<h3>add<wbr>Resource<wbr>Subscription</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">add<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, notifyFn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Subscribe to a resource</p>
+							</div>
+							<p><strong>Note:</strong> This method requires a notification channel to be set up</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.addResourceSubscription(deviceId, resourceURI, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-comment">// Utilize data here - which is the updated value in resourceURI</span>
+})
+.then(<span class="hljs-function"><span class="hljs-params">asyncId</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize asyncId here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> notifyFn: <span class="tsd-signature-type">Function</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Function to call with notification</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing an asyncId when there isn&#39;t a notification channel</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">add<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>, notifyFn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Subscribe to a resource</p>
+							</div>
+							<p><strong>Note:</strong> This method requires a notification channel to be set up</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.addResourceSubscription(deviceId, resourceURI, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, asyncId</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize asyncId here</span>
+}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+     <span class="hljs-comment">// Utilize data here - which is the updated value in resourceURI</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, value) where value is an asyncId when there isn&#39;t a notification channel</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> notifyFn: <span class="tsd-signature-type">Function</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Function to call with notification</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="deletedevicesubscriptions" class="tsd-anchor"></a>
+				<h3>delete<wbr>Device<wbr>Subscriptions</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Device<wbr>Subscriptions<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Removes a device&#39;s subscriptions</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+connect.deleteDeviceSubscriptions(deviceId)
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing any error</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Device<wbr>Subscriptions<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Removes a device&#39;s subscriptions</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+connect.deleteDeviceSubscriptions(deviceId, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="deletepresubscriptions" class="tsd-anchor"></a>
+				<h3>delete<wbr>Presubscriptions</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Deletes pre-subscription data</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.deletePresubscriptions()
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing any error</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Deletes pre-subscription data</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.deletePresubscriptions(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="deleteresource" class="tsd-anchor"></a>
+				<h3>delete<wbr>Resource</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Deletes a resource</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.deleteResource(deviceId, resourceURI)
+.then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize response here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Path of the resource to delete</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Whether to make a non-confirmable request to the device</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing any error</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Deletes a resource</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.deleteResource(deviceId, resourceURI, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, response</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize response here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Path of the resource to delete</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Whether to make a non-confirmable request to the device</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="deleteresourcesubscription" class="tsd-anchor"></a>
+				<h3>delete<wbr>Resource<wbr>Subscription</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Deletes a resource&#39;s subscription</p>
+							</div>
+							<p><strong>Note:</strong> This method requires a notification channel to be set up</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.deleteResourceSubscription(deviceId, resourceURI)
+.then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize response here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing an asyncId when there isn&#39;t a notification channel</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Deletes a resource&#39;s subscription</p>
+							</div>
+							<p><strong>Note:</strong> This method requires a notification channel to be set up</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.deleteResourceSubscription(deviceId, resourceURI, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, response</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize response here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, value) where value is an asyncId when there isn&#39;t a notification channel</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="deletesubscriptions" class="tsd-anchor"></a>
+				<h3>delete<wbr>Subscriptions</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Subscriptions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Removes all subscriptions</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.deleteSubscriptions()
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing any error</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Subscriptions<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Removes all subscriptions</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.deleteSubscriptions(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="deletewebhook" class="tsd-anchor"></a>
+				<h3>delete<wbr>Webhook</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Webhook<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)</p>
+							</div>
+							<p>If no webhook is registered, an exception (404) will be raised.</p>
+							<p>Note that every registered subscription will be deleted as part of deregistering a webhook.</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.deleteWebhook()
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing any error</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Webhook<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)</p>
+							</div>
+							<p>If no webhook is registered, an exception (404) will be raised.</p>
+							<p>Note that every registered subscription will be deleted as part of deregistering a webhook.</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.deleteWebhook(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="emit" class="tsd-anchor"></a>
+				<h3>emit</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">emit<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.emit</p>
+							<p>Overrides EventEmitter.emit</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>event: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any[]</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="eventnames" class="tsd-anchor"></a>
+				<h3>event<wbr>Names</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">event<wbr>Names<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(string | symbol)[]</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.eventNames</p>
+							<p>Overrides EventEmitter.eventNames</p>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(string | symbol)[]</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="executeresource" class="tsd-anchor"></a>
+				<h3>execute<wbr>Resource</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">execute<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, functionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Execute a function on a resource</p>
+							</div>
+							<p><strong>Note:</strong> This method requires a notification channel to be set up</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.executeResource(deviceId, resourceURI)
+.then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize response here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> functionName: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The function to trigger</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>If true, mbed Device Connector will not wait for a response</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing an asyncId when there isn&#39;t a notification channel</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">execute<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, functionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Execute a function on a resource</p>
+							</div>
+							<p><strong>Note:</strong> This method requires a notification channel to be set up</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.executeResource(deviceId, resourceURI, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, response</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize response here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> functionName: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The function to trigger</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>If true, mbed Device Connector will not wait for a response</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, value) where value is an asyncId when there isn&#39;t a notification channel</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="getmaxlisteners" class="tsd-anchor"></a>
+				<h3>get<wbr>Max<wbr>Listeners</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Max<wbr>Listeners<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.getMaxListeners</p>
+							<p>Overrides EventEmitter.getMaxListeners</p>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="getresourcesubscription" class="tsd-anchor"></a>
+				<h3>get<wbr>Resource<wbr>Subscription</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets the status of a resource&#39;s subscription</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.getResourceSubscription(deviceId, resourceURI)
+.then(<span class="hljs-function"><span class="hljs-params">res_exists</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize res_exists here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing resource subscription status</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets the status of a resource&#39;s subscription</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.getResourceSubscription(deviceId, resourceURI, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, res_exists</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize res_exists here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed (error, subscribed) where subscribed is true or false</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="getresourcevalue" class="tsd-anchor"></a>
+				<h3>get<wbr>Resource<wbr>Value</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cacheOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets the value of a resource</p>
+							</div>
+							<p><strong>Note:</strong> This method requires a notification channel to be set up</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.getResourceValue(deviceId, resourceURI)
+.then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize data here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> cacheOnly: <span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>If true, the response will come only from the cache</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>If true, mbed Device Connector will not wait for a response</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise of resource value when handling notifications or an asyncId</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cacheOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets the value of a resource</p>
+							</div>
+							<p><strong>Note:</strong> This method requires a notification channel to be set up</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+connect.getResourceValue(deviceId, resourceURI, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, data</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize data here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> cacheOnly: <span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>If true, the response will come only from the cache</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>If true, mbed Device Connector will not wait for a response</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="getwebhook" class="tsd-anchor"></a>
+				<h3>get<wbr>Webhook</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Webhook<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="webhook.html" class="tsd-signature-type">Webhook</a><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Get the current callback URL if it exists</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.getWebhook()
+.then(<span class="hljs-function"><span class="hljs-params">webhook</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize webhook here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="webhook.html" class="tsd-signature-type">Webhook</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing the webhhok data</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Webhook<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><a href="webhook.html" class="tsd-signature-type">Webhook</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Get the current callback URL if it exists</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.getWebhook(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, webhook</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize webhook here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><a href="webhook.html" class="tsd-signature-type">Webhook</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, webhook)</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="listconnecteddevices" class="tsd-anchor"></a>
+				<h3>list<wbr>Connected<wbr>Devices</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>List connected devices</p>
+							</div>
+							<p>Example: (The following filters all connected devices to those with custom device type <code>QuickstartDevice</code>):</p>
+							<pre><code class="lang-JavaScript">connect.listConnectedDevices(<span class="hljs-string">"QuickstartDevice"</span>)
+.then(<span class="hljs-function"><span class="hljs-params">devices</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize devices here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Filter devices by device type</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise of connected devices</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>List connected devices</p>
+							</div>
+							<p>Example: (The following filters all connected devices to those with custom device type <code>QuickstartDevice</code>):</p>
+							<pre><code class="lang-JavaScript">connect.listConnectedDevices(<span class="hljs-string">"QuickstartDevice"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, devices</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize devices here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, devices)</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="listdevicesubscriptions" class="tsd-anchor"></a>
+				<h3>list<wbr>Device<wbr>Subscriptions</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Device<wbr>Subscriptions<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>List a device&#39;s subscriptions</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+connect.listDeviceSubscriptions(deviceId)
+.then(<span class="hljs-function"><span class="hljs-params">subscriptions</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize subscriptions here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing the subscriptions</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Device<wbr>Subscriptions<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>List a device&#39;s subscriptions</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+connect.listDeviceSubscriptions(deviceId, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, subscriptions</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize subscriptions here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed (error, subscriptions)</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="listmetrics" class="tsd-anchor"></a>
+				<h3>list<wbr>Metrics</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Metrics<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>List metrics</p>
+							</div>
+							<p>Example: (The following will retrieve metrics regarding pending and failed device registrations in the last day)</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> today = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+<span class="hljs-keyword">var</span> yesterday = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+yesterday.setDate(yesterday.getDate() - <span class="hljs-number">1</span>);
+<span class="hljs-keyword">var</span> options = {<span class="hljs-attr">start</span>: yesterday, <span class="hljs-attr">end</span>: today, <span class="hljs-attr">include</span>: [<span class="hljs-string">"pendingDeviceRegistrations"</span>, <span class="hljs-string">"failedDeviceRegistrations"</span>]};
+connect.listMetrics(options)
+.then(<span class="hljs-function"><span class="hljs-params">metrics</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize metrics here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>options: <a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>metrics options</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise of metrics</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Metrics<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a>, callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>List metrics</p>
+							</div>
+							<p>Example: (The following will retrieve metrics regarding pending and failed device registrations in the last day)</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> today = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+<span class="hljs-keyword">var</span> yesterday = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+yesterday.setDate(yesterday.getDate() - <span class="hljs-number">1</span>);
+<span class="hljs-keyword">var</span> options = {<span class="hljs-attr">start</span>: yesterday, <span class="hljs-attr">end</span>: today, <span class="hljs-attr">include</span>: [<span class="hljs-string">"pendingDeviceRegistrations"</span>, <span class="hljs-string">"failedDeviceRegistrations"</span>]};
+connect.listMetrics(options, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, metrics</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize metrics here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>options: <a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>metrics options</p>
+								</div>
+							</li>
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the return arguments (error, metrics)</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="listpresubscriptions" class="tsd-anchor"></a>
+				<h3>list<wbr>Presubscriptions</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets a list of pre-subscription data</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.listPresubscriptions()
+.then(<span class="hljs-function"><span class="hljs-params">presubscriptions</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize presubscriptions here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing pre-subscriptions</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets a list of pre-subscription data</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.listPresubscriptions(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, presubscriptions</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize presubscriptions here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed (error, pre-subscriptions)</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="listresources" class="tsd-anchor"></a>
+				<h3>list<wbr>Resources</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Resources<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>List device&#39;s resources</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+connect.listResources(deviceId)
+.then(<span class="hljs-function"><span class="hljs-params">resources</span> =&gt;</span> {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> resource <span class="hljs-keyword">in</span> resources) {
+        <span class="hljs-comment">// Utilize resource here</span>
+        <span class="hljs-built_in">console</span>.log(resources[resource]);
+    }
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise of device resources</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Resources<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>List device&#39;s resources</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+connect.listResources(deviceId, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, resources</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> resource <span class="hljs-keyword">in</span> resources) {
+        <span class="hljs-comment">// Utilize resource here</span>
+        <span class="hljs-built_in">console</span>.log(resources[resource]);
+    }
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, resources)</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="listenercount" class="tsd-anchor"></a>
+				<h3>listener<wbr>Count</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">listener<wbr>Count<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.listenerCount</p>
+							<p>Overrides EventEmitter.listenerCount</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>type: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="listeners" class="tsd-anchor"></a>
+				<h3>listeners</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">listeners<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function[]</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.listeners</p>
+							<p>Overrides EventEmitter.listeners</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>event: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Function[]</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="notify" class="tsd-anchor"></a>
+				<h3>notify</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">notify<span class="tsd-signature-symbol">(</span>notification<span class="tsd-signature-symbol">: </span><a href="../interfaces/notificationobject.html" class="tsd-signature-type">NotificationObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Allows a notification to be injected into the notifications system</p>
+							</div>
+							<p><code>handleNotifications</code> needs to be set to true for this to work with web hook async responses</p>
+							<p>Example: (The following pushes a notification to the event emitter, which can be read back by using the <code>.on</code> function.
+							Note that the payload is encoded in Base64)</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceID = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+<span class="hljs-keyword">var</span> payload = <span class="hljs-string">"Q2hhbmdlIG1lIQ=="</span>;
+
+<span class="hljs-keyword">var</span> notification = {<span class="hljs-attr">notifications</span>: [{<span class="hljs-attr">ep</span>: deviceID, <span class="hljs-attr">path</span>: resourceURI, <span class="hljs-attr">payload</span>: payload}]};
+connectApi.notify(notification);
+
+connectApi.on(mbed.ConnectApi.EVENT_NOTIFICATION, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">notification</span>) </span>{
+    <span class="hljs-comment">// Do something with the notification</span>
+    <span class="hljs-built_in">console</span>.log(notification);
+});
+</code></pre>
+							<p>Console log:</p>
+							<pre><code class="lang-json">{ id: &#39;015bb66a92a30000000000010010006d&#39;, path: &#39;3200/0/5500&#39;, payload: &#39;Change me!&#39;}
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>notification: <a href="../interfaces/notificationobject.html" class="tsd-signature-type">NotificationObject</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="on" class="tsd-anchor"></a>
+				<h3>on</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.on</p>
+							<p>Overrides EventEmitter.on</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>event: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+							<li>
+								<h5>listener: <span class="tsd-signature-type">Function</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="once" class="tsd-anchor"></a>
+				<h3>once</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">once<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.once</p>
+							<p>Overrides EventEmitter.once</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>event: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+							<li>
+								<h5>listener: <span class="tsd-signature-type">Function</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="prependlistener" class="tsd-anchor"></a>
+				<h3>prepend<wbr>Listener</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">prepend<wbr>Listener<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.prependListener</p>
+							<p>Overrides EventEmitter.prependListener</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>event: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+							<li>
+								<h5>listener: <span class="tsd-signature-type">Function</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="prependoncelistener" class="tsd-anchor"></a>
+				<h3>prepend<wbr>Once<wbr>Listener</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">prepend<wbr>Once<wbr>Listener<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.prependOnceListener</p>
+							<p>Overrides EventEmitter.prependOnceListener</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>event: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+							<li>
+								<h5>listener: <span class="tsd-signature-type">Function</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="removealllisteners" class="tsd-anchor"></a>
+				<h3>remove<wbr>All<wbr>Listeners</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">remove<wbr>All<wbr>Listeners<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.removeAllListeners</p>
+							<p>Overrides EventEmitter.removeAllListeners</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> event: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="removelistener" class="tsd-anchor"></a>
+				<h3>remove<wbr>Listener</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">remove<wbr>Listener<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.removeListener</p>
+							<p>Overrides EventEmitter.removeListener</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>event: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+							<li>
+								<h5>listener: <span class="tsd-signature-type">Function</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<a name="setmaxlisteners" class="tsd-anchor"></a>
+				<h3>set<wbr>Max<wbr>Listeners</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Max<wbr>Listeners<span class="tsd-signature-symbol">(</span>n<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.setMaxListeners</p>
+							<p>Overrides EventEmitter.setMaxListeners</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>n: <span class="tsd-signature-type">number</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="setresourcevalue" class="tsd-anchor"></a>
+				<h3>set<wbr>Resource<wbr>Value</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Sets the value of a resource</p>
+							</div>
+							<p><strong>Note:</strong> This method requires a notification channel to be set up</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+<span class="hljs-keyword">var</span> payload = <span class="hljs-string">"ChangeMe!"</span>;
+connect.setResourceValue(deviceId, resourceURI, payload)
+.then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize response here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+							<li>
+								<h5>value: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The value of the resource</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>If true, mbed Device Connector will not wait for a response</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing an asyncId when there isn&#39;t a notification channel</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Sets the value of a resource</p>
+							</div>
+							<p><strong>Note:</strong> This method requires a notification channel to be set up</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
+<span class="hljs-keyword">var</span> payload = <span class="hljs-string">"ChangeMe!"</span>;
+connect.setResourceValue(deviceId, resourceURI, payload, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, response</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize response here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Device ID</p>
+								</div>
+							</li>
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Resource path</p>
+								</div>
+							</li>
+							<li>
+								<h5>value: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The value of the resource</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>If true, mbed Device Connector will not wait for a response</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, value) where value is an asyncId when there isn&#39;t a notification channel</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="startnotifications" class="tsd-anchor"></a>
+				<h3>start<wbr>Notifications</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">start<wbr>Notifications<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/notificationoptions.html" class="tsd-signature-type">NotificationOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Begins long polling constantly for notifications</p>
+							</div>
+							<p>If an external callback is not setup (using update_webhook), then calling this function is mandatory.</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.startNotifications()
+.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mbed Cloud SDK listening for notifications'</span>);
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/notificationoptions.html" class="tsd-signature-type">NotificationOptions</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>notification options</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing any error</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">start<wbr>Notifications<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/notificationoptions.html" class="tsd-signature-type">NotificationOptions</a>, callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Begins long polling constantly for notifications</p>
+							</div>
+							<p>If an external callback is not setup (using update_webhook), then calling this function is mandatory.</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.startNotifications(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(error);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mbed Cloud SDK listening for notifications'</span>);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/notificationoptions.html" class="tsd-signature-type">NotificationOptions</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>notification options</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="stopnotifications" class="tsd-anchor"></a>
+				<h3>stop<wbr>Notifications</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">stop<wbr>Notifications<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Stops long polling for notifications</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.stopNotifications()
+.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mbed Cloud SDK stopped listening for notifications'</span>);
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing any error</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">stop<wbr>Notifications<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Stops long polling for notifications</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.stopNotifications(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mbed Cloud SDK stopped listening for notifications'</span>);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="updatepresubscriptions" class="tsd-anchor"></a>
+				<h3>update<wbr>Presubscriptions</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">update<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span>subscriptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceID = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> subscriptions = [{<span class="hljs-attr">deviceId</span>: deviceID}];
+connect.updatePresubscriptions(subscriptions)
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>subscriptions: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The pre-subscription data array</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing any error</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">update<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span>subscriptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span>, callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed</p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceID = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
+<span class="hljs-keyword">var</span> subscriptions = [{<span class="hljs-attr">deviceId</span>: deviceID}];
+connect.updatePresubscriptions(subscriptions, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>subscriptions: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The pre-subscription data array</p>
+								</div>
+							</li>
+							<li>
+								<h5>callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="updatewebhook" class="tsd-anchor"></a>
+				<h3>update<wbr>Webhook</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">update<wbr>Webhook<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, headers<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Register new webhook for incoming subscriptions.</p>
+							</div>
+							<p>If a webhook is already set, this will do an overwrite.</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.updateWebhook(url)
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>url: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The URL to which the notifications must be sent</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> headers: <span class="tsd-signature-type">object</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Any headers (key/value) that must be sent with the request</p>
+								</div>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-index-signature">
+										<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise containing any error</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">update<wbr>Webhook<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, headers<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Register new webhook for incoming subscriptions.</p>
+							</div>
+							<p>If a webhook is already set, this will do an overwrite.</p>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.updateWebhook(url, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>url: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The URL to which the notifications must be sent</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> headers: <span class="tsd-signature-type">object</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Any headers (key/value) that must be sent with the request</p>
+								</div>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-index-signature">
+										<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../interfaces/callbackfn.html" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+				<a name="listenercount-1" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> listener<wbr>Count</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">listener<wbr>Count<span class="tsd-signature-symbol">(</span>emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span>, event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from EventEmitter.listenerCount</p>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EventEmitter</span></h5>
+							</li>
+							<li>
+								<h5>event: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+					</li>
+				</ul>
+			</section>
+		</section>
+		<footer>
+			<div class="container">
+				<h2>Legend</h2>
+				<div class="tsd-legend-group">
+					<ul class="tsd-legend">
+						<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+						<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+						<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+						<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+						<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+						<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+						<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+						<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+						<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+						<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+						<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+						<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+						<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+						<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+						<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+						<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+						<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+						<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+						<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+	</div>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
