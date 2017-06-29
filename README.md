@@ -24,6 +24,6 @@ $ npm install ARMmbed/mbed-cloud-sdk-javascript#1.2.0-alpha
 
 ## Documentation and examples
 
-See the full documentation and API reference at [https://cloud.mbed.com/](https://cloud.mbed.com/).
+See the full documentation and API reference at [https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-javascript/](https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-javascript/).
 
 Please refer to the examples folder for some node and web examples.
