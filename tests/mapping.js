@@ -7,16 +7,20 @@ var objectFns = [
 	"addUser",
 	"updateUser",
 	"listDevices",
+	"listUsers",
 	"addDevice",
 	"updateDevice",
 	"addQuery",
 	"updateQuery",
 	"addCampaign",
+	"updateAccount",
 	"updateCampaign",
 	"addCertificate",
 	"updateCertificate",
 	"listDeviceLogs",
 	"listMetrics",
+	"listCertificates",
+	"listApiKeys",
 	"addFirmwareManifest",
 	"addFirmwareImage"
 ];
@@ -114,11 +118,13 @@ exports.mapArgs = (module, method, query) => {
 
 	// Create any add/update objects
 	if (objectFns.indexOf(method) > -1) {
+		// Remove this when "id" is used in the tests
 		var match = method.match(/([A-Z]{1}.*)$/);
 		if (match) {
 			var idField = match[1][0].toLowerCase() + match[1].slice(1) + "Id";
 			if (args[idField]) args.id = args[idField];
 		}
+		// Keep this, though
 		args = {
 			obj: args
 		};
