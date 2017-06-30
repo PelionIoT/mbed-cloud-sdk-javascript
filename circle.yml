@@ -1,7 +1,7 @@
 general:
   artifacts:
-    - docs
-    - ~/test_results
+    - ~/docs
+    - ~/tests
   branches:
     ignore:
       - build
@@ -13,7 +13,8 @@ machine:
     SDK_NAME: ${CIRCLE_PROJECT_REPONAME}
     SDK_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
     SDK_BRANCH: build
-    SDK_TEST_RESULTS: ${HOME}/test_results
+    SDK_DOCS: ${HOME}/docs
+    SDK_TESTS: ${HOME}/tests
     SDK_TMP: /tmp/tmp.${SDK_NAME}
 
 checkout:
@@ -28,14 +29,16 @@ checkout:
 dependencies:
   post:
     - npm run gulp
+    - mkdir ${SDK_DOCS}
+    - cp -r docs/* ${SDK_DOCS}/
 
 test:
   pre:
     - npm install -g ansi-html-stream
   override:
-    - mkdir ${SDK_TEST_RESULTS}
-    - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${SDK_TEST_RESULTS}/index.html:
-    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${SDK_TEST_RESULTS}/index.html:
+    - mkdir ${SDK_TESTS}
+    - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${SDK_TESTS}/index.html:
+    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${SDK_TESTS}/index.html:
         pwd: tests
 
 deployment:
