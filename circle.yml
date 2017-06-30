@@ -1,6 +1,7 @@
 general:
   artifacts:
     - "docs"
+    - "tests"
   branches:
     ignore:
       - build
@@ -28,8 +29,12 @@ dependencies:
     - npm run gulp
 
 test:
+  pre:
+    - npm install -g ansi-html-stream
   override:
-    - bash run.sh:
+    - echo "<h1>$SDK_NAME ${SDK_TAG} Test Results</h1>" > results.html:
+        pwd: tests
+    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> results.html:
         pwd: tests
 
 deployment:
