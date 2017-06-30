@@ -1,7 +1,6 @@
 general:
   artifacts:
     - "docs"
-    - "tests"
   branches:
     ignore:
       - build
@@ -10,7 +9,7 @@ machine:
   node:
     version: 4.7.0
   environment:
-    SDK_NAME: mbed-cloud-sdk-javascript
+    SDK_NAME: ${CIRCLE_PROJECT_REPONAME}
     SDK_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
     SDK_BRANCH: build
     SDK_TMP: /tmp/tmp.${SDK_NAME}
@@ -32,9 +31,8 @@ test:
   pre:
     - npm install -g ansi-html-stream
   override:
-    - echo "<h1>$SDK_NAME ${SDK_TAG} Test Results</h1>" > results.html:
-        pwd: tests
-    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> results.html:
+    - echo "<h1>${SDK_NAME} ${CIRCLE_BUILD_NUM} Test Results</h1>" > ${CIRCLE_ARTIFACTS}/results/index.html:
+    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${CIRCLE_ARTIFACTS}/results/index.html:
         pwd: tests
 
 deployment:
