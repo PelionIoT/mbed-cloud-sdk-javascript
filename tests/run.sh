@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
+
 export DEBUG=superagent
+export DEBUG_COLORS=true
 
 node server.js &
 pid=$!
@@ -11,4 +13,4 @@ function finish {
 trap finish EXIT
 
 sleep 1
-python testrunner/bin/trunner -s http://localhost:5000
+python -u testrunner/bin/trunner -s http://localhost:5000

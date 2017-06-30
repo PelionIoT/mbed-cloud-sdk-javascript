@@ -1,5 +1,10 @@
 # mbed Cloud SDK for JavaScript
 
+[![Circle CI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript.svg?style=shield&circle-token=62ef40035b1b5442234a44ad7e74199ea582f3f4)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript/)
+
+[![Builds](https://img.shields.io/badge/sdk-builds-blue.svg)](http://armmbed.github.io/mbed-cloud-sdk-javascript/builds/)
+[![Docs](https://img.shields.io/badge/sdk-documentation-blue.svg)](http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/)
+
 ## Prerequisites
 
 [Node.js > v4.7.0](https://nodejs.org), which includes `npm`.
@@ -27,7 +32,3 @@ To continually watch for changes, use the gulp `watch` task:
 ```bash
 > npm run gulp watch
 ```
-
-## Documentation
-
-The latest documentation built from this repository can be [found on S3](http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/).
