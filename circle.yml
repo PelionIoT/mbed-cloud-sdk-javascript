@@ -31,8 +31,8 @@ test:
   pre:
     - npm install -g ansi-html-stream
   override:
-    - echo "<h1>${SDK_NAME} ${CIRCLE_BUILD_NUM} Test Results</h1>" > ${CIRCLE_ARTIFACTS}/results/index.html:
-    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${CIRCLE_ARTIFACTS}/results/index.html:
+    - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${CIRCLE_ARTIFACTS}/results.html:
+    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${CIRCLE_ARTIFACTS}/results.html:
         pwd: tests
 
 deployment:
