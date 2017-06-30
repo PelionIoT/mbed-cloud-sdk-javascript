@@ -28,7 +28,7 @@
 
 	<% _.each(builds, function(build) { %>
 		<li class="item">
-			<% if (build.failed || !build.has_artifacts) { %>
+			<% if (build.failed) { %>
 				<a title="CircleCI Build" href="<%- build.build_url %>">
 			<% } else { %>
 				<a title="Test Results" href="<%- getArtifactUrl(build, 'results') %>">
@@ -54,12 +54,14 @@
 			<div class="links">
 				<a title="CircleCI Build" href="<%- build.build_url %>">
 					<img class="logo circleci" src="images/circleci.svg" /></a>
-				<a title="Documentation" href="<%- getArtifactUrl(build, 'docs') %>">
-					<img class="logo docs" src="images/docs.svg" /></a>
 				<a title="Github Commit" href="<%- build.vcs_url %>/commit/<%- build.vcs_revision %>">
 					<img class="logo github" src="images/github.svg" /></a>
-				<a title="Test Results" href="<%- getArtifactUrl(build, 'results') %>">
-					<img class="logo tests" src="images/tests.svg" /></a>
+				<% if (build.has_artifacts) { %>
+					<a title="Documentation" href="<%- getArtifactUrl(build, 'docs') %>">
+						<img class="logo docs" src="images/docs.svg" /></a>
+					<a title="Test Results" href="<%- getArtifactUrl(build, 'results') %>">
+						<img class="logo tests" src="images/tests.svg" /></a>
+				<% } %>
 			</div>
 		</li>
 	<% }); %>
