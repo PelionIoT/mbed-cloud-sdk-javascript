@@ -13,8 +13,8 @@ machine:
     SDK_NAME: ${CIRCLE_PROJECT_REPONAME}
     SDK_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
     SDK_BRANCH: build
+    SDK_TEST_RESULTS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/test_results
     SDK_TMP: /tmp/tmp.${SDK_NAME}
-    SDK_TEST_RESULTS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/results
 
 checkout:
   post:
