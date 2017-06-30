@@ -1,6 +1,7 @@
 general:
   artifacts:
     - "docs"
+    - "results"
   branches:
     ignore:
       - build
@@ -13,6 +14,7 @@ machine:
     SDK_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
     SDK_BRANCH: build
     SDK_TMP: /tmp/tmp.${SDK_NAME}
+    SDK_TEST_RESULTS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/results
 
 checkout:
   post:
@@ -31,8 +33,9 @@ test:
   pre:
     - npm install -g ansi-html-stream
   override:
-    - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${CIRCLE_ARTIFACTS}/results.html:
-    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${CIRCLE_ARTIFACTS}/results.html:
+    - mkdir ${SDK_TEST_RESULTS}
+    - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${SDK_TEST_RESULTS}/index.html:
+    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${SDK_TEST_RESULTS}/index.html:
         pwd: tests
 
 deployment:
