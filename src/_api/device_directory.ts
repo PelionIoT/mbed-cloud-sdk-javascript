@@ -30,11 +30,11 @@ export interface DeviceData {
      */
     "bootstrap_expiration_date"?: Date;
     /**
-     * Timestamp of when the device was bootstrapped.
+     * Timestamp of when the device last went through the bootstrap process.
      */
     "bootstrapped_timestamp"?: Date;
     /**
-     * Expiration date of the certificate used to connect to connector server.
+     * Expiration date of the certificate used to connect to the lwm2m server.
      */
     "connector_expiration_date"?: Date;
     /**
@@ -46,11 +46,11 @@ export interface DeviceData {
      */
     "ca_id"?: string;
     /**
-     * The device class.
+     * An id representing the model and hardware revision of the device.
      */
     "device_class"?: string;
     /**
-     * The ID of the device.
+     * The id of the device. The device id is used to manage a device across all mbed cloud apis.
      */
     "id"?: string;
     /**
@@ -102,7 +102,7 @@ export interface DeviceData {
      */
     "vendor_id"?: string;
     /**
-     * The description of the object.
+     * The description of the device.
      */
     "description"?: string;
     /**
@@ -130,7 +130,7 @@ export interface DeviceData {
      */
     "trust_level"?: number;
     /**
-     * The name of the object.
+     * The name of the device.
      */
     "name"?: string;
     /**
@@ -138,7 +138,7 @@ export interface DeviceData {
      */
     "device_key"?: string;
     /**
-     * The time the object was created.
+     * Timestamp of when the device was created in the device directory.
      */
     "created_at"?: Date;
     /**
@@ -153,7 +153,7 @@ export interface DeviceData {
 
 export interface DeviceDataPatchRequest {
     /**
-     * The description of the object.
+     * The description of the device.
      */
     "description"?: string;
     /**
@@ -189,7 +189,7 @@ export interface DeviceDataPatchRequest {
      */
     "ca_id"?: string;
     /**
-     * The name of the object.
+     * The name of the device.
      */
     "name"?: string;
 }
@@ -203,11 +203,11 @@ export interface DeviceDataPostRequest {
      */
     "bootstrap_expiration_date"?: Date;
     /**
-     * Timestamp of when the device was bootstrapped.
+     * Timestamp of when the device last went through the bootstrap process.
      */
     "bootstrapped_timestamp"?: Date;
     /**
-     * Expiration date of the certificate used to connect to connector server.
+     * Expiration date of the certificate used to connect to the lwm2m server.
      */
     "connector_expiration_date"?: Date;
     /**
@@ -215,7 +215,7 @@ export interface DeviceDataPostRequest {
      */
     "mechanism"?: DeviceDataPostRequestMechanismEnum;
     /**
-     * The device class.
+     * An id representing the model and hardware revision of the device.
      */
     "device_class"?: string;
     /**
@@ -255,7 +255,7 @@ export interface DeviceDataPostRequest {
      */
     "vendor_id"?: string;
     /**
-     * The description of the object.
+     * The description of the device.
      */
     "description"?: string;
     /**
@@ -283,7 +283,7 @@ export interface DeviceDataPostRequest {
      */
     "trust_level"?: number;
     /**
-     * The name of the object.
+     * The name of the device.
      */
     "name"?: string;
     /**
@@ -302,7 +302,7 @@ export interface DeviceDataPostRequest {
 
 export interface DeviceDataPutRequest {
     /**
-     * The description of the object.
+     * The description of the device.
      */
     "description"?: string;
     /**
@@ -338,7 +338,7 @@ export interface DeviceDataPutRequest {
      */
     "ca_id": string;
     /**
-     * The name of the object.
+     * The name of the device.
      */
     "name"?: string;
 }
@@ -381,7 +381,7 @@ export interface DeviceQuery {
      */
     "name": string;
     /**
-     * The time the object was created.
+     * Timestamp of when the device was created in the device directory.
      */
     "created_at": Date;
     /**
