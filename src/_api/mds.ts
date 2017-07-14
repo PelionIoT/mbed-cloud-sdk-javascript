@@ -170,7 +170,7 @@ export interface ResourcesData {
      */
     "path"?: string;
     /**
-     * Resource type.
+     * Resource type [created by Client side application](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#the-create-operation). For example \"speed_sensor\"
      */
     "rf"?: string;
     /**
@@ -288,8 +288,8 @@ export class EndpointsApi extends ApiBase {
         }, callback);
     }
     /** 
-     * List endpoints. The number of endpoints is currently limited to 200.
-     * Endpoints are physical devices running mbed Cloud Client. 
+     * List registered endpoints. The number of endpoints is currently limited to 200.
+     * Endpoints are physical devices having valid registration to mbed Cloud Connect. All devices despite the registration status can be requested from Device Directory API [&#39;/v3/devices/ ](/docs/v1.2/api-references/device-directory-api.html#v3-devices) 
      * @param type Filter endpoints by endpoint-type.
      */
     v2EndpointsGet (type?: string, callback?: (error:any, data?:Array<Endpoint>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -451,10 +451,10 @@ export class ResourcesApi extends ApiBase {
     }
     /** 
      * Read from a resource
-     * Requests the resource value and when the response is available, a json AsyncResponse  object (AsyncIDResponse object) is received in the notification channel. Make sure that you have notification channel available.  If there is no notification channel, the response cannot be forwarded but the request is still made.  **Note:** You can also receive notifications when a resource changes. The preferred way to get resource values is to use subscribe and callback methods.  All resource APIs are asynchronous. These APIs only respond if the device is turned on and connected to mbed Cloud Connect. 
+     * Requests the resource value and when the response is available, a json AsyncIDResponse object is received in the notification channel. The preferred way to get resource values is to use [subscribe](/docs/v1.2/api-references/connect-api.html#v2-subscriptions-device-id-resourcepath) and [callback](/docs/v1.2/api-references/connect-api.html#v2-notification-callback) methods.  All resource APIs are asynchronous. These APIs only respond if the device is turned on and connected to mbed Cloud Connect. 
      * @param deviceId Unique mbed Cloud device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
      * @param resourcePath The URL of the resource. 
-     * @param cacheOnly If true, the response comes only from the cache. Default: false. 
+     * @param cacheOnly If true, the response comes only from the cache. Default: false. mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#use-mbed-cloud-client-data-types) defined in the client side. 
      * @param noResp **Non-confirmable requests**   All resource APIs have the parameter &#x60;noResp&#x60;. If a request is made with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  409 Conflict. 
      */
     v2EndpointsDeviceIdResourcePathGet (deviceId: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error:any, data?:AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
