@@ -30,7 +30,7 @@ export interface AsyncID {
 
 export interface AsyncIDResponse {
     /**
-     * HTTP status code, for example 200 for OK.
+     * Asynchronous response status code for a device operation related to a proxy request or manual subscription.
      */
     "status"?: number;
     /**
