@@ -96,14 +96,6 @@ export interface EndpointData {
 
 export interface NotificationData {
     /**
-     * Timestamp.
-     */
-    "timestamp"?: string;
-    /**
-     * Base64 encoded payload.
-     */
-    "payload"?: string;
-    /**
      * URI path.
      */
     "path"?: string;
@@ -111,6 +103,10 @@ export interface NotificationData {
      * Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
      */
     "max-age"?: string;
+    /**
+     * Base64 encoded payload.
+     */
+    "payload"?: string;
     /**
      * mbed Cloud Device ID.
      */
