@@ -137,7 +137,7 @@ export interface ManifestContents {
     /**
      * The version of the manifest format being used.
      */
-    "manifestVersion"?: number;
+    "manifestVersion"?: string;
     /**
      * A short description of the update.
      */
