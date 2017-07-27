@@ -18,7 +18,7 @@ checkout:
   post:
     - git config --global user.name monty-bot
     - git config --global user.email monty-bot@arm.com
-    - git submodule update --init --remote --force
+    - git clone https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
     - pip install -r tests/testrunner/requirements.txt
     - python setup.py develop:
         pwd: tests/testrunner
