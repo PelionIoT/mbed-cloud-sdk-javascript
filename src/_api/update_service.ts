@@ -98,10 +98,6 @@ export interface FirmwareManifest {
      */
     "etag": Date;
     /**
-     * The format version of the manifest.
-     */
-    "version": string;
-    /**
      * The class of device.
      */
     "device_class": string;
@@ -127,9 +123,9 @@ export interface FirmwareManifestPage {
 
 export interface ManifestContents {
     /**
-     * A 128-bit random field
+     * Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
      */
-    "nonce"?: string;
+    "classId"?: string;
     /**
      * Hex representation of the 128-bit RFC4122 GUID that represents the vendor.
      */
@@ -137,51 +133,29 @@ export interface ManifestContents {
     /**
      * The version of the manifest format being used.
      */
-    "manifestVersion"?: string;
+    "manifestVersion"?: number;
     /**
      * A short description of the update.
      */
     "description"?: string;
-    "payloadInfo"?: ManifestContentsPayloadInfo;
-    "digestAlgorithm"?: ManifestContentsDigestAlgorithm;
-    "text"?: Array<ManifestContentsText>;
+    /**
+     * A 128-bit random field
+     */
+    "nonce"?: string;
+    /**
+     * The time the manifest was created. The timestamp is stored as Unix time.
+     */
+    "timestamp"?: number;
     "encryptionMode"?: ManifestContentsEncryptionMode;
     /**
      * A flag that indicates that the update described by the manifest should be applied as soon as possible.
      */
     "applyImmediately"?: boolean;
-    "directives"?: Array<ManifestContentsDirectives>;
     /**
      * Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Each device has a single, unique device ID.
      */
     "deviceId"?: string;
-    /**
-     * The time the manifest was created. The timestamp is stored as Unix time.
-     */
-    "timestamp"?: number;
-    /**
-     * Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
-     */
-    "classId"?: string;
-    "dependenices"?: Array<ManifestContentsPayloadInfoPayloadReference>;
-    "conditions"?: Array<ManifestContentsConditions>;
     "payload"?: ManifestContentsPayload;
-    "aliases"?: Array<ManifestContentsPayloadInfoPayloadReference>;
-}
-
-export interface ManifestContentsConditions {
-    "type"?: string;
-    "value"?: ManifestContentsValue;
-}
-
-export interface ManifestContentsDigestAlgorithm {
-    "parameters"?: string;
-    "algorithm"?: string;
-}
-
-export interface ManifestContentsDirectives {
-    "type"?: string;
-    "rule"?: ManifestContentsRule;
 }
 
 export interface ManifestContentsEncryptionMode {
@@ -207,35 +181,6 @@ export interface ManifestContentsPayloadFormat {
     "enum"?: number;
 }
 
-export interface ManifestContentsPayloadInfo {
-    "size"?: number;
-    "storageIdentifier"?: string;
-    "payload"?: ManifestContentsPayloadInfoPayload;
-    "encryptionInfo"?: ManifestContentsPayloadInfoEncryptionInfo;
-    "format"?: ManifestContentsPayloadInfoFormat;
-}
-
-export interface ManifestContentsPayloadInfoEncryptionInfo {
-    "encryptedPayloadHash"?: string;
-    "config"?: string;
-    "mode"?: string;
-}
-
-export interface ManifestContentsPayloadInfoFormat {
-    "enum"?: string;
-    "objectId"?: string;
-}
-
-export interface ManifestContentsPayloadInfoPayload {
-    "integrated"?: string;
-    "reference"?: ManifestContentsPayloadInfoPayloadReference;
-}
-
-export interface ManifestContentsPayloadInfoPayloadReference {
-    "hash"?: string;
-    "uri"?: string;
-}
-
 export interface ManifestContentsPayloadReference {
     /**
      * Hex representation of the SHA-256 hash of the payload
@@ -249,22 +194,6 @@ export interface ManifestContentsPayloadReference {
      * Size of the payload in bytes
      */
     "size"?: number;
-}
-
-export interface ManifestContentsRule {
-    "int"?: number;
-    "raw"?: string;
-    "bool"?: boolean;
-}
-
-export interface ManifestContentsText {
-    "type"?: string;
-    "value"?: string;
-}
-
-export interface ManifestContentsValue {
-    "int"?: number;
-    "raw"?: string;
 }
 
 export type UpdateCampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
