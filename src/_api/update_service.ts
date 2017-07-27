@@ -130,20 +130,42 @@ export interface ManifestContents {
      * A 128-bit random field
      */
     "nonce"?: string;
-    "payloadInfo"?: ManifestContentsPayloadInfo;
+    /**
+     * Hex representation of the 128-bit RFC4122 GUID that represents the vendor.
+     */
+    "vendorId"?: string;
     /**
      * The version of the manifest format being used.
      */
     "manifestVersion"?: string;
+    /**
+     * A short description of the update.
+     */
+    "description"?: string;
+    "payloadInfo"?: ManifestContentsPayloadInfo;
     "digestAlgorithm"?: ManifestContentsDigestAlgorithm;
     "text"?: Array<ManifestContentsText>;
+    "encryptionMode"?: ManifestContentsEncryptionMode;
+    /**
+     * A flag that indicates that the update described by the manifest should be applied as soon as possible.
+     */
+    "applyImmediately"?: boolean;
     "directives"?: Array<ManifestContentsDirectives>;
+    /**
+     * Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Each device has a single, unique device ID.
+     */
+    "deviceId"?: string;
     /**
      * The time the manifest was created. The timestamp is stored as Unix time.
      */
     "timestamp"?: number;
+    /**
+     * Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
+     */
+    "classId"?: string;
     "dependenices"?: Array<ManifestContentsPayloadInfoPayloadReference>;
     "conditions"?: Array<ManifestContentsConditions>;
+    "payload"?: ManifestContentsPayload;
     "aliases"?: Array<ManifestContentsPayloadInfoPayloadReference>;
 }
 
@@ -160,6 +182,29 @@ export interface ManifestContentsDigestAlgorithm {
 export interface ManifestContentsDirectives {
     "type"?: string;
     "rule"?: ManifestContentsRule;
+}
+
+export interface ManifestContentsEncryptionMode {
+    /**
+     * The encryption mode describing the kind of hashing, signing and, encryption in use. The following modes are available: 1: none-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. No payload encryption is used. 2: aes-128-ctr-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. The payload is encrypted with AES-128 in CTR-mode. 3: none-none-sha256: SHA-256 hashing. No signature is used. No payload encryption is used. This mode is not recommended except over existing, trusted connections.         
+     */
+    "enum"?: number;
+}
+
+export interface ManifestContentsPayload {
+    "format"?: ManifestContentsPayloadFormat;
+    "reference"?: ManifestContentsPayloadReference;
+    /**
+     * An identifier for where the payload is to be located.
+     */
+    "storageIdentifier"?: string;
+}
+
+export interface ManifestContentsPayloadFormat {
+    /**
+     * Format of the payload. Can be: 1: raw-binary 2: cbor 3: hex-location-length-data 4: elf 
+     */
+    "enum"?: number;
 }
 
 export interface ManifestContentsPayloadInfo {
@@ -189,6 +234,21 @@ export interface ManifestContentsPayloadInfoPayload {
 export interface ManifestContentsPayloadInfoPayloadReference {
     "hash"?: string;
     "uri"?: string;
+}
+
+export interface ManifestContentsPayloadReference {
+    /**
+     * Hex representation of the SHA-256 hash of the payload
+     */
+    "hash"?: string;
+    /**
+     * The URI of the payload.
+     */
+    "uri"?: string;
+    /**
+     * Size of the payload in bytes
+     */
+    "size"?: number;
 }
 
 export interface ManifestContentsRule {
