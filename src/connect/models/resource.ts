@@ -187,7 +187,7 @@ export class Resource extends EventEmitter {
     private addSubscription(notifyFn?: Function, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             if (!this.observable) return done(null, null);
-            this._api.addResourceSubscription(this.deviceId, this.path, done, notifyFn);
+            this._api.addResourceSubscription(this.deviceId, this.path, notifyFn, done);
         }, callback);
     }
 
