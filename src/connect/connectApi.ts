@@ -1152,7 +1152,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
      * var resourceURI = "3200/0/5500";
-     * connect.addResourceSubscription(deviceId, resourceURI, function(data) {
+     * connect.addResourceSubscription(deviceId, resourceURI, data => {
      *     // Utilize data here - which is the updated value in resourceURI
      * })
      * .then(asyncId => {
@@ -1178,11 +1178,11 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
      * var resourceURI = "3200/0/5500";
-     * connect.addResourceSubscription(deviceId, resourceURI, function(error, asyncId) {
+     * connect.addResourceSubscription(deviceId, resourceURI, function(data) {
+     *      // Utilize data here - which is the updated value in resourceURI
+     * }, function(error, asyncId) {
      *     if (error) throw error;
      *     // Utilize asyncId here
-     * }, function(data) {
-     *      // Utilize data here - which is the updated value in resourceURI
      * });
      * ```
      *
@@ -1191,8 +1191,8 @@ export class ConnectApi extends EventEmitter {
      * @param notifyFn Function to call with notification
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>, notifyFn?: Function): void;
-    public addResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>, notifyFn?: Function): Promise<string> {
+    public addResourceSubscription(deviceId: string, path: string, notifyFn?: Function, callback?: CallbackFn<string>): void;
+    public addResourceSubscription(deviceId: string, path: string, notifyFn?: Function, callback?: CallbackFn<string>): Promise<string> {
         path = this.normalizePath(path);
 
         return apiWrapper(resultsFn => {
