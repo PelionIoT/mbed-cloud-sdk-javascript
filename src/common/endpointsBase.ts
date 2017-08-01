@@ -15,21 +15,17 @@
 * limitations under the License.
 */
 
-import { ConnectionOptions } from "../common/interfaces";
-import { EndpointsBase } from "../common/endpointsBase";
-import {
-    DeveloperApi,
-    AccountAdminApi
-} from "../_api/iam";
+import { ApiMeta } from "./apiMeta";
 
-export class Endpoints extends EndpointsBase {
+export class EndpointsBase {
 
-    developer: DeveloperApi;
-    admin: AccountAdminApi;
+    private lastMeta: ApiMeta;
 
-    constructor(options: ConnectionOptions) {
-        super();
-        this.developer = new DeveloperApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.admin = new AccountAdminApi(options.apiKey, options.host, this.responseHandler.bind(this));
+    protected responseHandler(response: any) {
+    	this.lastMeta = new ApiMeta(response.statusCode, response.headers, response.body, response.req);
+    }
+
+    public getLastMeta() : ApiMeta {
+    	return this.lastMeta;
     }
 }

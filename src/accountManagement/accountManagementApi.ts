@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { apiWrapper, encodeInclude, extractFilter } from "../common/functions";
+import { asyncStyle, apiWrapper, encodeInclude, extractFilter } from "../common/functions";
 import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { Endpoints } from "./endpoints";
@@ -28,6 +28,7 @@ import { User } from "./models/user";
 import { UserAdapter } from "./models/userAdapter";
 import { Group } from "./models/group";
 import { GroupAdapter } from "./models/groupAdapter";
+import { ApiMeta } from "../common/apiMeta";
 
 /**
  * ## Account Management API
@@ -846,6 +847,22 @@ export class AccountManagementApi {
             }
 
             done(null, new ListResponse(data, keys));
+        }, callback);
+    }
+
+    /**
+     * Get meta data for the last mbed Cloud API call
+     * @returns Promise of meta data
+     */
+    public getLastApiMeta(): Promise<ApiMeta>;
+    /**
+     * Get meta data for the last mbed Cloud API call
+     * @param callback A function that is passed the arguments (error, meta data)
+     */
+    public getLastApiMeta(callback: CallbackFn<ApiMeta>): void;
+    public getLastApiMeta(callback?: CallbackFn<ApiMeta>): Promise<ApiMeta> {
+        return asyncStyle(done => {
+            done(null, this._endpoints.getLastMeta());
         }, callback);
     }
 }

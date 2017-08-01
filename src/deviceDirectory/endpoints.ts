@@ -17,12 +17,14 @@
 
 import { ConnectionOptions } from "../common/interfaces";
 import { DefaultApi as DirectoryApi } from "../_api/device_directory";
+import { EndpointsBase } from "../common/endpointsBase";
 
-export class Endpoints {
+export class Endpoints extends EndpointsBase {
 
     directory: DirectoryApi;
 
     constructor(options: ConnectionOptions) {
-        this.directory = new DirectoryApi(options.apiKey, options.host);
+        super();
+        this.directory = new DirectoryApi(options.apiKey, options.host, this.responseHandler.bind(this));
     }
 }

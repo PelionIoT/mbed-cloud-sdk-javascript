@@ -17,12 +17,14 @@
 
 import { ConnectionOptions } from "../common/interfaces";
 import { DefaultApi as UpdateApi } from "../_api/update_service";
+import { EndpointsBase } from "../common/endpointsBase";
 
-export class Endpoints {
+export class Endpoints extends EndpointsBase {
 
     update: UpdateApi;
 
     constructor(options: ConnectionOptions) {
-        this.update = new UpdateApi(options.apiKey, options.host);
+        super();
+        this.update = new UpdateApi(options.apiKey, options.host, this.responseHandler.bind(this));
     }
 }

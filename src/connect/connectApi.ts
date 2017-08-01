@@ -33,6 +33,7 @@ import { DeviceEventAdapter } from "./models/deviceEventAdapter";
 import { MetricsListOptions, MetricsStartEndListOptions, MetricsPeriodListOptions } from "./types";
 import { Metric } from "./models/metric";
 import { MetricAdapter } from "./models/metricAdapter";
+import { ApiMeta } from "../common/apiMeta";
 
 /**
  * ## Connect API
@@ -1346,6 +1347,22 @@ export class ConnectApi extends EventEmitter {
             }
 
             done(null, list);
+        }, callback);
+    }
+
+    /**
+     * Get meta data for the last mbed Cloud API call
+     * @returns Promise of meta data
+     */
+    public getLastApiMeta(): Promise<ApiMeta>;
+    /**
+     * Get meta data for the last mbed Cloud API call
+     * @param callback A function that is passed the arguments (error, meta data)
+     */
+    public getLastApiMeta(callback: CallbackFn<ApiMeta>): void;
+    public getLastApiMeta(callback?: CallbackFn<ApiMeta>): Promise<ApiMeta> {
+        return asyncStyle(done => {
+            done(null, this._endpoints.getLastMeta());
         }, callback);
     }
 }

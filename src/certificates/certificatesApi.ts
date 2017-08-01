@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { apiWrapper, encodeInclude, extractFilter } from "../common/functions";
+import { asyncStyle, apiWrapper, encodeInclude, extractFilter } from "../common/functions";
 import { ConnectionOptions, CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { TrustedCertificateResp as iamCertificate } from "../_api/iam";
@@ -23,6 +23,7 @@ import { Endpoints } from "./endpoints";
 import { AddDeveloperCertificateObject, AddCertificateObject, UpdateCertificateObject, CertificateListOptions } from "./types";
 import { Certificate } from "./models/certificate";
 import { CertificateAdapter } from "./models/certificateAdapter";
+import { ApiMeta } from "../common/apiMeta";
 
 /**
  * ## Certificates API
@@ -388,6 +389,22 @@ export class CertificatesApi {
             this._endpoints.accountDeveloper.deleteCertificate(certificateId, resultsFn);
         }, (data, done) => {
             done(null, data);
+        }, callback);
+    }
+
+    /**
+     * Get meta data for the last mbed Cloud API call
+     * @returns Promise of meta data
+     */
+    public getLastApiMeta(): Promise<ApiMeta>;
+    /**
+     * Get meta data for the last mbed Cloud API call
+     * @param callback A function that is passed the arguments (error, meta data)
+     */
+    public getLastApiMeta(callback: CallbackFn<ApiMeta>): void;
+    public getLastApiMeta(callback?: CallbackFn<ApiMeta>): Promise<ApiMeta> {
+        return asyncStyle(done => {
+            done(null, this._endpoints.getLastMeta());
         }, callback);
     }
 }

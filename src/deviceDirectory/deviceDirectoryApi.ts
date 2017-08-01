@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { apiWrapper, encodeInclude, encodeFilter } from "../common/functions";
+import { asyncStyle, apiWrapper, encodeInclude, encodeFilter } from "../common/functions";
 import { ConnectionOptions, CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject, DeviceListOptions, QueryListOptions, DeviceEventListOptions } from "./types";
@@ -27,6 +27,7 @@ import { DeviceEvent } from "./models/deviceEvent";
 import { DeviceEventAdapter } from "./models/deviceEventAdapter";
 import { Endpoints } from "./endpoints";
 import { Filters } from "./filters";
+import { ApiMeta } from "../common/apiMeta";
 
 /**
  * ## Device Directory API
@@ -678,6 +679,22 @@ export class DeviceDirectoryApi {
         }, (data, done) => {
             let event = DeviceEventAdapter.map(data);
             done(null, event);
+        }, callback);
+    }
+
+    /**
+     * Get meta data for the last mbed Cloud API call
+     * @returns Promise of meta data
+     */
+    public getLastApiMeta(): Promise<ApiMeta>;
+    /**
+     * Get meta data for the last mbed Cloud API call
+     * @param callback A function that is passed the arguments (error, meta data)
+     */
+    public getLastApiMeta(callback: CallbackFn<ApiMeta>): void;
+    public getLastApiMeta(callback?: CallbackFn<ApiMeta>): Promise<ApiMeta> {
+        return asyncStyle(done => {
+            done(null, this._endpoints.getLastMeta());
         }, callback);
     }
 }
