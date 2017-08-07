@@ -973,7 +973,7 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      */
-    v3CampaignDeviceMetadataGet (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3CampaignDeviceMetadataGet (callback?: (error:any, data?:CampaignDeviceMetadataPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -982,7 +982,7 @@ export class DefaultApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request<null>({
+        return this.request<CampaignDeviceMetadataPage>({
             url: '/v3/campaign-device-metadata',
             method: 'GET',
             headers: headerParams,
