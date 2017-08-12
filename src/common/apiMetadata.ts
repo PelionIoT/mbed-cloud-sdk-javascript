@@ -18,7 +18,7 @@
 /**
  * Api meta data
  */
-export class ApiMeta {
+export class ApiMetadata {
 
     /**
      * URL of the API request
@@ -34,6 +34,16 @@ export class ApiMeta {
      * HTTP Status code of the API response
      */
     readonly statusCode?: number;
+
+    /**
+     * Date of the API response
+     */
+    readonly date?: Date;
+
+    /**
+     * Headers in the API response
+     */
+    readonly headers?: { [key: string]: string };
 
     /**
      * Request ID of the transaction
@@ -54,6 +64,8 @@ export class ApiMeta {
         this.statusCode = statusCode;
 
     	if (headers) {
+            this.headers = headers;
+            this.date = headers["date"] ? new Date(headers["date"]) : new Date();
     		this.requestId = headers["x-request-id"];
     	}
 

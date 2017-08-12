@@ -15,17 +15,17 @@
 * limitations under the License.
 */
 
-import { ApiMeta } from "./apiMeta";
+import { ApiMetadata } from "./apiMetadata";
 
 export class EndpointsBase {
 
-    private lastMeta: ApiMeta;
+    private lastMeta: ApiMetadata;
 
     protected responseHandler(response: any) {
-    	this.lastMeta = new ApiMeta(response.statusCode, response.headers, response.body, response.req);
+        this.lastMeta = new ApiMetadata(response.statusCode, response.headers, response.body, response.request || response.req);
     }
 
-    public getLastMeta() : ApiMeta {
+    public getLastMeta() : ApiMetadata {
     	return this.lastMeta;
     }
 }

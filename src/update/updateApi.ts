@@ -27,7 +27,7 @@ import { Campaign } from "./models/campaign";
 import { CampaignAdapter } from "./models/campaignAdapter";
 import { Endpoints } from "./endpoints";
 import { Filters } from "./filters";
-import { ApiMeta } from "../common/apiMeta";
+import { ApiMetadata } from "../common/apiMetadata";
 
 /**
  * ## Update API
@@ -905,13 +905,13 @@ export class UpdateApi {
      * Get meta data for the last mbed Cloud API call
      * @returns Promise of meta data
      */
-    public getLastApiMeta(): Promise<ApiMeta>;
+    public getLastApiMetadata(): Promise<ApiMetadata>;
     /**
      * Get meta data for the last mbed Cloud API call
      * @param callback A function that is passed the arguments (error, meta data)
      */
-    public getLastApiMeta(callback: CallbackFn<ApiMeta>): void;
-    public getLastApiMeta(callback?: CallbackFn<ApiMeta>): Promise<ApiMeta> {
+    public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;
+    public getLastApiMetadata(callback?: CallbackFn<ApiMetadata>): Promise<ApiMetadata> {
         return asyncStyle(done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
