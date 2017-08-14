@@ -24,7 +24,7 @@ export class ApiBase {
 
     private apiKey = "";
 
-    constructor(apiKey?: string, private host: string = "https://api.us-east-1.mbedcloud.com") {
+    constructor(apiKey?: string, private host: string = "https://api.us-east-1.mbedcloud.com", private responseHandler: Function = null) {
         if (apiKey && apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${apiKey}`;
         this.apiKey = apiKey;
     }
@@ -88,7 +88,12 @@ export class ApiBase {
             request.send(body);
         }
 
-        request.end(function(error, response) {
+        request.end((error, response) => {
+
+            if (this.responseHandler) {
+                this.responseHandler(response);
+            }
+
             if (callback) {
 
                 var sdkError = null;
