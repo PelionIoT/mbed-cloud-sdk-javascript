@@ -63,20 +63,20 @@ export class ApiMetadata {
     constructor(statusCode?: number, headers?: {}, body?: { [key:string]: string }, request?: { [key:string]: string }) {
         this.statusCode = statusCode;
 
-    	if (headers) {
+        if (headers) {
             this.headers = headers;
             this.date = headers["date"] ? new Date(headers["date"]) : new Date();
-    		this.requestId = headers["x-request-id"];
-    	}
+            this.requestId = headers["x-request-id"];
+        }
 
-    	if (body) {
-    		this.object = body.object;
+        if (body) {
+            this.object = body.object;
             this.etag = body.etag;
-    	}
+        }
 
-    	if (request) {
-    		this.method = request.method;
-    		this.url = request.url;
-    	}
+        if (request) {
+            this.method = request.method;
+            this.url = request.url;
+        }
     }
 }
