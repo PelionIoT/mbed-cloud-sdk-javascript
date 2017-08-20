@@ -21,6 +21,84 @@ import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
+export interface CampaignDeviceMetadata {
+    /**
+     * Description of the record
+     */
+    "description"?: string;
+    /**
+     * The id of the campaign the device is in
+     */
+    "campaign"?: string;
+    /**
+     * This time the record was created in the database
+     */
+    "created_at"?: Date;
+    /**
+     * Entity name: always 'update-campaign-device-metadata'
+     */
+    "object"?: string;
+    /**
+     * This time this record was modified in the database format: date-time
+     */
+    "updated_at"?: Date;
+    /**
+     * The mechanism used to deliver the firmware (connector or direct)
+     */
+    "mechanism"?: string;
+    /**
+     * The name of the record
+     */
+    "name"?: string;
+    /**
+     * API resource entity version.
+     */
+    "etag"?: string;
+    /**
+     * The url of cloud connect used
+     */
+    "mechanism_url"?: string;
+    /**
+     * The state of the update campaign on the device
+     */
+    "deployment_state"?: string;
+    /**
+     * The id of the metadata record
+     */
+    "id"?: string;
+    /**
+     * The id of the device
+     */
+    "device_id"?: string;
+}
+
+export interface CampaignDeviceMetadataPage {
+    /**
+     * The entity ID to fetch after the given one.
+     */
+    "after"?: string;
+    /**
+     * Flag indicating whether there is more results.
+     */
+    "has_more"?: boolean;
+    /**
+     * The total number or records, if requested. It might be returned also for small lists.
+     */
+    "total_count"?: number;
+    /**
+     * Entity name: always ‘list’
+     */
+    "object"?: string;
+    /**
+     * The number of results to return, (range: 2-1000), or equals to total_count
+     */
+    "limit"?: number;
+    /**
+     * A list of entities
+     */
+    "data"?: Array<CampaignDeviceMetadata>;
+}
+
 export interface FirmwareImage {
     /**
      * The binary file of firmware image.
@@ -139,7 +217,7 @@ export interface ManifestContents {
      */
     "description"?: string;
     /**
-     * A 128-bit random field
+     * A 128-bit random field. This is provided by the manifest tool to ensure that the signing algorithm is safe from timing side-channel attacks.
      */
     "nonce"?: string;
     /**
@@ -169,7 +247,7 @@ export interface ManifestContentsPayload {
     "format"?: ManifestContentsPayloadFormat;
     "reference"?: ManifestContentsPayloadReference;
     /**
-     * An identifier for where the payload is to be located.
+     * An identifier for where the payload is to be located. This identifier indicates where the image should be placed on the device. For example, when an IoT device contains multiple microcontrollers (MCUs) and the decision needs to be made to which MCU to send which firmware image.
      */
     "storageIdentifier"?: string;
 }
@@ -201,16 +279,16 @@ export interface UpdateCampaign {
     /**
      * An optional description of the campaign.
      */
-    "description": string;
-    "root_manifest_id": string;
+    "description"?: string;
+    "root_manifest_id"?: string;
     /**
      * The time the object was created.
      */
-    "created_at": string;
+    "created_at"?: string;
     /**
      * The API resource entity.
      */
-    "object": string;
+    "object"?: string;
     /**
      * The timestamp at which update campaign scheduled to start.
      */
@@ -218,7 +296,7 @@ export interface UpdateCampaign {
     /**
      * The state of the campaign.
      */
-    "state": UpdateCampaignStateEnum;
+    "state"?: UpdateCampaignStateEnum;
     /**
      * The timestamp when the update campaign finished.
      */
@@ -226,21 +304,21 @@ export interface UpdateCampaign {
     /**
      * The entity instance signature.
      */
-    "etag": string;
-    "root_manifest_url": string;
+    "etag"?: string;
+    "root_manifest_url"?: string;
     "started_at"?: Date;
     /**
      * The ID of the campaign.
      */
-    "id": string;
+    "id"?: string;
     /**
      * The filter for the devices the campaign will target.
      */
-    "device_filter": string;
+    "device_filter"?: string;
     /**
      * A name for this campaign.
      */
-    "name": string;
+    "name"?: string;
 }
 
 export interface UpdateCampaignPage {
@@ -862,6 +940,56 @@ export class DefaultApi extends ApiBase {
             formParams: formParams,
             json: true,
             body: campaign,
+        }, callback);
+    }
+    /** 
+     * @param campaignDeviceMetadataId The id of the campaign device metadata
+     */
+    v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet (campaignDeviceMetadataId: string, callback?: (error:any, data?:CampaignDeviceMetadata, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "campaignDeviceMetadataId" is set
+        if (campaignDeviceMetadataId === null || campaignDeviceMetadataId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignDeviceMetadataId' missing."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<CampaignDeviceMetadata>({
+            url: '/v3/campaign-device-metadata/{campaign_device_metadata_id}'.replace('{' + 'campaign_device_metadata_id' + '}', String(campaignDeviceMetadataId)),
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     */
+    v3CampaignDeviceMetadataGet (callback?: (error:any, data?:CampaignDeviceMetadataPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<CampaignDeviceMetadataPage>({
+            url: '/v3/campaign-device-metadata',
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
         }, callback);
     }
 }
