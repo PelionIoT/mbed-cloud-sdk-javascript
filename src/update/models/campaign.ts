@@ -17,7 +17,7 @@
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { AddCampaignObject, CampaignStateEnum } from "../types";
+import { UpdateCampaignObject } from "../types";
 import { UpdateApi } from "../updateApi";
 
 /**
@@ -30,13 +30,9 @@ export class Campaign {
      */
     readonly id: string;
     /**
-     * The state of the campaign
-     */
-    readonly state: CampaignStateEnum;
-    /**
      * URl of the manifest used
      */
-    readonly manifestUrl: string;
+    readonly manifestUrl?: string;
     /**
      * The time the object was created
      */
@@ -120,4 +116,4 @@ export class Campaign {
         }, callback);
     }
 }
-export interface Campaign extends AddCampaignObject {}
+export interface Campaign extends UpdateCampaignObject {}
