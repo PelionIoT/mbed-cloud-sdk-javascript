@@ -22,7 +22,7 @@ export class Webhook {
     /**
      * The URL to which the notifications must be sent
      */
-    readonly url?: string;
+    readonly url: string;
     /**
      * Headers (key/value) that must be sent with the request
      */
