@@ -17,6 +17,7 @@
 
 import { ConnectionOptions } from "../common/interfaces";
 import { AccountApi, StatisticsApi } from "../_api/statistics";
+import { EndpointsBase } from "../common/endpointsBase";
 import {
     DefaultApi as WebhookApi,
     EndpointsApi,
@@ -25,7 +26,7 @@ import {
     SubscriptionsApi
 } from "../_api/mds";
 
-export class Endpoints {
+export class Endpoints extends EndpointsBase {
 
     webhooks: WebhookApi;
     endpoints: EndpointsApi;
@@ -36,12 +37,13 @@ export class Endpoints {
     statistics: StatisticsApi;
 
     constructor(options: ConnectionOptions) {
-        this.webhooks = new WebhookApi(options.apiKey, options.host);
-        this.endpoints = new EndpointsApi(options.apiKey, options.host);
-        this.notifications = new NotificationsApi(options.apiKey, options.host);
-        this.resources = new ResourcesApi(options.apiKey, options.host);
-        this.subscriptions = new SubscriptionsApi(options.apiKey, options.host);
-        this.account = new AccountApi(options.apiKey, options.host);
-        this.statistics = new StatisticsApi(options.apiKey, options.host);
+        super();
+        this.webhooks = new WebhookApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.endpoints = new EndpointsApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.notifications = new NotificationsApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.resources = new ResourcesApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.subscriptions = new SubscriptionsApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.account = new AccountApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.statistics = new StatisticsApi(options.apiKey, options.host, this.responseHandler.bind(this));
     }
 }

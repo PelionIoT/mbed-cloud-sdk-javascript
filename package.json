@@ -5,8 +5,11 @@
   "homepage": "https://www.mbed.com",
   "author": "Rob Moran <rob.moran@arm.com>",
   "license": "Apache-2.0",
-  "main": "./index.js",
   "types": "./types/index.d.ts",
+  "main": "./index.js",
+  "browser": {
+    "./index.js": "./bundles/index.min.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/ARMmbed/mbed-cloud-sdk-javascript.git"
