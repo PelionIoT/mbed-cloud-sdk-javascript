@@ -1,5 +1,5 @@
 /*
-* mbed Cloud JavaScript SDK
+* Mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");

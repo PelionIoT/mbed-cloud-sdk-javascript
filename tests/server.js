@@ -1,6 +1,6 @@
 var http = require('http');
 var express = require('express');
-var mbedCloudSDK = require('../lib/');
+var MbedCloudSDK = require('../lib/');
 var mapping = require("./mapping");
 
 var port = 5000;
@@ -20,11 +20,11 @@ if (!config.apiKey) {
 }
 
 var modules = {
-    AccountManagementApi: new mbedCloudSDK.AccountManagementApi(config),
-    CertificatesApi: new mbedCloudSDK.CertificatesApi(config),
-    ConnectApi: new mbedCloudSDK.ConnectApi(config),
-    DeviceDirectoryApi: new mbedCloudSDK.DeviceDirectoryApi(config),
-    UpdateApi: new mbedCloudSDK.UpdateApi(config)
+    AccountManagementApi: new MbedCloudSDK.AccountManagementApi(config),
+    CertificatesApi: new MbedCloudSDK.CertificatesApi(config),
+    ConnectApi: new MbedCloudSDK.ConnectApi(config),
+    DeviceDirectoryApi: new MbedCloudSDK.DeviceDirectoryApi(config),
+    UpdateApi: new MbedCloudSDK.UpdateApi(config)
 }
 
 var app = express();

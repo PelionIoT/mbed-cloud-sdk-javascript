@@ -1,5 +1,5 @@
 /*
-* mbed Cloud JavaScript SDK
+* Mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -84,7 +84,7 @@ export class Resource extends EventEmitter {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
      */
     public getValue(cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | { [key: string]: string | number }>;
@@ -93,7 +93,7 @@ export class Resource extends EventEmitter {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
     public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
@@ -108,7 +108,7 @@ export class Resource extends EventEmitter {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param value The value of the resource
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
     public setValue(value: string, noResponse?: boolean): Promise<string>;
@@ -117,7 +117,7 @@ export class Resource extends EventEmitter {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param value The value of the resource
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public setValue(value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
@@ -132,7 +132,7 @@ export class Resource extends EventEmitter {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param functionName The function to trigger
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
     public execute(functionName?: string, noResponse?: boolean): Promise<string>;
@@ -141,7 +141,7 @@ export class Resource extends EventEmitter {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param functionName The function to trigger
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public execute(functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;

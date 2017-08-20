@@ -1,5 +1,5 @@
 /*
-* mbed Cloud JavaScript SDK
+* Mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,14 +26,14 @@ if (!express) {
     process.exit();
 }
 
-var mbedCloudSDK = require("../../index");
+var MbedCloudSDK = require("../../index");
 var config = require("./config");
 
 // ngrok http 3002
 var url = "http://fa0a2825.ngrok.io";
 var port = 3002;
 
-var connect = new mbedCloudSDK.ConnectApi(config);
+var connect = new MbedCloudSDK.ConnectApi(config);
 var app = express();
 
 // Set system to await notifications for callbacks instead of emitting asyncIds

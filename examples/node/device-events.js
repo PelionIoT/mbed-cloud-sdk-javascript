@@ -1,5 +1,5 @@
 /*
-* mbed Cloud JavaScript SDK
+* Mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,11 +18,11 @@
 var fs = require("fs");
 var path = require("path");
 
-var mbedCloudSDK = require("../../index");
+var MbedCloudSDK = require("../../index");
 var config = require("./config");
 
 var eventDir = "events";
-var devices = new mbedCloudSDK.DeviceDirectoryApi(config);
+var devices = new MbedCloudSDK.DeviceDirectoryApi(config);
 
 function logError(error) {
     console.log(error.message || error);

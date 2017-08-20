@@ -1,5 +1,5 @@
 /*
-* mbed Cloud JavaScript SDK
+* Mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +22,8 @@
     else root.config = factory(root);
 }(this, function(root) {
 
-	var cookieKey = "mbedCloudKey";
-	var cookieHost = "mbedCloudHost";
+	var cookieKey = "MbedCloudKey";
+	var cookieHost = "MbedCloudHost";
 	var queryKey = "apiKey";
 	var queryHost = "host";
 
@@ -60,7 +60,7 @@
 
 	// Default configuration
 	var config = {
-		apiKey: "<mbed Cloud API Key>",
+		apiKey: "<Mbed Cloud API Key>",
 		host: "https://api.us-east-1.mbedcloud.com"
 	};
 

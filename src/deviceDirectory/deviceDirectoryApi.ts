@@ -1,5 +1,5 @@
 /*
-* mbed Cloud JavaScript SDK
+* Mbed Cloud JavaScript SDK
 * Copyright ARM Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,10 +37,10 @@ import { ApiMetadata } from "../common/apiMetadata";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var mbedCloudSDK = require("mbed-cloud-sdk");
+ * var MbedCloudSDK = require("mbed-cloud-sdk");
  *
- * var devices = new mbedCloudSDK.DeviceDirectoryApi({
- *     apiKey: "<mbed Cloud API Key>"
+ * var devices = new MbedCloudSDK.DeviceDirectoryApi({
+ *     apiKey: "<Mbed Cloud API Key>"
  * });
  * ```
  *
@@ -50,8 +50,8 @@ import { ApiMetadata } from "../common/apiMetadata";
  * <script src="<mbed-cloud-sdk>/bundles/device-directory.min.js"></script>
  *
  * <script>
- *     var devices = new mbedCloudSDK.DeviceDirectoryApi({
- *         apiKey: "<mbed Cloud API Key>"
+ *     var devices = new MbedCloudSDK.DeviceDirectoryApi({
+ *         apiKey: "<Mbed Cloud API Key>"
  *     });
  * </script>
  * ```
@@ -683,12 +683,12 @@ export class DeviceDirectoryApi {
     }
 
     /**
-     * Get meta data for the last mbed Cloud API call
+     * Get meta data for the last Mbed Cloud API call
      * @returns Promise of meta data
      */
     public getLastApiMetadata(): Promise<ApiMetadata>;
     /**
-     * Get meta data for the last mbed Cloud API call
+     * Get meta data for the last Mbed Cloud API call
      * @param callback A function that is passed the arguments (error, meta data)
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;

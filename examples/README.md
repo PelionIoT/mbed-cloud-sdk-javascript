@@ -1,6 +1,6 @@
-# mbed Cloud SDK Examples
+# Mbed Cloud SDK Examples
 
-These examples are designed to give developers a headstart with developing with the mbed Cloud SDK for JavaScript.
+These examples are designed to give developers a headstart with developing with the Mbed Cloud SDK for JavaScript.
 
 They can be used as a basis for a solution or simply to understand how a feature is used.
 
@@ -27,19 +27,19 @@ These examples utilise a [config.js](node/config.js) file which can read an API 
 To use environment variables, set the varaible `MBED_CLOUD_API_KEY` prior to running the application. e.g.:
 
 ```bash
-$ export MBED_CLOUD_API_KEY=<mbed Cloud API Key>
+$ export MBED_CLOUD_API_KEY=<Mbed Cloud API Key>
 ```
 
 To use a command line switch, pass your API key to the program being run. e.g.:
 
 ```bash
-$ node <path to example.js> <mbed Cloud API Key>
+$ node <path to example.js> <Mbed Cloud API Key>
 ```
 
 or:
 
 ```bash
-$ node <path to example.js> --apiKey=<mbed Cloud API Key>
+$ node <path to example.js> --apiKey=<Mbed Cloud API Key>
 ```
 
 You can also simply edit the [config.js](node/config.js) file and add your key.
@@ -52,23 +52,23 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
 
 * __Get Device Events__ [device-events.js](node/device-events.js)
 
-  This example pages all device events in mbed Cloud and exports them to local files in [JSON](http://www.json.org/) format.
+  This example pages all device events in Mbed Cloud and exports them to local files in [JSON](http://www.json.org/) format.
 
 * __Developer Certificate Header__ [certificate-header.js](node/certificate-header.js)
 
   This example creates (or overwrites) a developer certificate.
-  This is then used to create a local `C` header file for connecting a device to mbed Cloud Connect.
+  This is then used to create a local `C` header file for connecting a device to Mbed Cloud Connect.
 
 * __Webhook Server__ [webhook-server.js](node/webhook-server.js)
 
-  This example creates a basic webhook server which registers for callbacks from mbed Cloud and receives asynchronous notifications.
+  This example creates a basic webhook server which registers for callbacks from Mbed Cloud and receives asynchronous notifications.
   Using the callbacks, the device/resource tree of connected devices is recursed, outputting the value for each resource.
 
   __Note:__ This example requires the `express` server to be installed. Please do this by running `$ npm install express`.
 
 * __User, Key and Group Listing__ [users-keys-groups.js](node/users-keys-groups.js)
 
-  This example is a command line interface to list users, keys and groups of mbed Cloud.
+  This example is a command line interface to list users, keys and groups of Mbed Cloud.
 
 ## Web
 
@@ -76,9 +76,9 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
 
 The web bundles support the [Universal Module Definition](https://github.com/umdjs/umd) specification and as such can be loaded using [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) module loaders such as [RequireJS](http://requirejs.org/), [CommonJS](https://en.wikipedia.org/wiki/CommonJS) module loaders such as Node.js or by using [browser globals](http://vanilla-js.com/).
 
-The examples don't use a module loader, so each bundle is available as a browser global under the `mbedCloudSDK` namespace. To run an example, simply open it in a browser once a valid API key has been added.
+The examples don't use a module loader, so each bundle is available as a browser global under the `MbedCloudSDK` namespace. To run an example, simply open it in a browser once a valid API key has been added.
 
-__Note:__ mbed Cloud is protected with [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) which restricts cross-origin calls from unknown domains. The domain `localhost` has been whitelisted for mbed Cloud to enable local development, but until your production server domain has been whitelisted, you may disable CORS support in your browser using [command line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi). This is only a concern for pure in-browser support.
+__Note:__ Mbed Cloud is protected with [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) which restricts cross-origin calls from unknown domains. The domain `localhost` has been whitelisted for Mbed Cloud to enable local development, but until your production server domain has been whitelisted, you may disable CORS support in your browser using [command line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi). This is only a concern for pure in-browser support.
 
 ### API Keys
 
@@ -87,13 +87,13 @@ These examples utilise a [config.js](web/config.js) file which can read an API K
 To use the query string, pass your API key to the page being run. e.g.:
 
 ```
-https://www.yourserver.com/<example.html>?<mbed Cloud API Key>
+https://www.yourserver.com/<example.html>?<Mbed Cloud API Key>
 ```
 
 or:
 
 ```
-https://www.yourserver.com/<example.html>?apiKey=<mbed Cloud API Key>
+https://www.yourserver.com/<example.html>?apiKey=<Mbed Cloud API Key>
 ```
 
 You can also simply edit the [config.js](web/config.js) file and add your key.
@@ -104,7 +104,7 @@ __Warning:__ Your API Key will be publicly visible in your web application when 
 
 * __Long Polling__ [long-polling.html](web/long-polling.html)
 
-  This example uses long polling to register for callbacks from mbed Cloud and receives asynchronous notifications.
+  This example uses long polling to register for callbacks from Mbed Cloud and receives asynchronous notifications.
   Using the callbacks, the device/resource tree of connected devices is recursed, outputting the value for each resource.
 
 * __Device Management__ [device-management.html](web/device-management.html)
@@ -129,7 +129,7 @@ __Warning:__ Your API Key will be publicly visible in your web application when 
 
 ## Proxy
 
-The [proxy folder](proxy/) contains a sample project showing how API calls to mbed Cloud can be proxied to allow injection of an API key header. This enables the production of a single-page web application using the minified JavaScript bundles _without_ the API key in use being visible to the client.
+The [proxy folder](proxy/) contains a sample project showing how API calls to Mbed Cloud can be proxied to allow injection of an API key header. This enables the production of a single-page web application using the minified JavaScript bundles _without_ the API key in use being visible to the client.
 
 __Note:__ The proxy requires the `express` server to be installed. Please do this by running `$ npm install express`.
 
