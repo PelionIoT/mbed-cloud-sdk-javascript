@@ -955,9 +955,17 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
+     * @param campaignId The ID of the update campaign
      * @param campaignDeviceMetadataId The id of the campaign device metadata
      */
-    v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet (campaignDeviceMetadataId: string, callback?: (error:any, data?:CampaignDeviceMetadata, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet (campaignId: string, campaignDeviceMetadataId: string, callback?: (error:any, data?:CampaignDeviceMetadata, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
         // verify required parameter "campaignDeviceMetadataId" is set
         if (campaignDeviceMetadataId === null || campaignDeviceMetadataId === undefined) {
             if (callback) {
@@ -974,7 +982,7 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request<CampaignDeviceMetadata>({
-            url: '/v3/campaign-device-metadata/{campaign_device_metadata_id}'.replace('{' + 'campaign_device_metadata_id' + '}', String(campaignDeviceMetadataId)),
+            url: '/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)).replace('{' + 'campaign_device_metadata_id' + '}', String(campaignDeviceMetadataId)),
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -984,8 +992,16 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
+     * @param campaignId The ID of the update campaign
      */
-    v3CampaignDeviceMetadataGet (callback?: (error:any, data?:CampaignDeviceMetadataPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet (campaignId: string, callback?: (error:any, data?:CampaignDeviceMetadataPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
 
         let headerParams: any = {};
 
@@ -995,7 +1011,7 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request<CampaignDeviceMetadataPage>({
-            url: '/v3/campaign-device-metadata',
+            url: '/v3/update-campaigns/{campaign_id}/campaign-device-metadata/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
