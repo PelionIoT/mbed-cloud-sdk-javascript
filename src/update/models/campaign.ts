@@ -19,6 +19,8 @@ import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { UpdateCampaignObject } from "../types";
 import { UpdateApi } from "../updateApi";
+import { ListResponse } from "../../common/listResponse";
+import { DeviceState } from "./deviceState";
 
 /**
  * Campaign
@@ -97,6 +99,22 @@ export class Campaign {
     public stop(callback?: CallbackFn<Campaign>): Promise<Campaign> {
         return asyncStyle(done => {
             this._api.stopCampaign(this.id, done);
+        }, callback);
+    }
+
+    /**
+     * List campaign device state
+     * @returns Promise of listResponse
+     */
+    public listDeviceState(): Promise<ListResponse<DeviceState>>;
+    /**
+     * List campaign device state
+     * @param callback A function that is passed the return arguments (error, listResponse)
+     */
+    public listDeviceState(callback?: CallbackFn<ListResponse<DeviceState>>): void;
+    public listDeviceState(callback?: CallbackFn<ListResponse<DeviceState>>): Promise<ListResponse<DeviceState>> {
+        return asyncStyle(done => {
+            this._api.listCampaignDeviceState(this.id, done);
         }, callback);
     }
 

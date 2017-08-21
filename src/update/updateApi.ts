@@ -25,6 +25,8 @@ import { FirmwareManifest } from "./models/firmwareManifest";
 import { FirmwareManifestAdapter } from "./models/firmwareManifestAdapter";
 import { Campaign } from "./models/campaign";
 import { CampaignAdapter } from "./models/campaignAdapter";
+import { DeviceState } from "./models/deviceState";
+import { DeviceStateAdapter } from "./models/deviceStateAdapter";
 import { Endpoints } from "./endpoints";
 import { Filters } from "./filters";
 import { ApiMetadata } from "../common/apiMetadata";
@@ -898,6 +900,45 @@ export class UpdateApi {
             }, resultsFn);
         }, (data, done) => {
             done(null, data);
+        }, callback);
+    }
+
+    /**
+     * List campaign device state
+     *
+     * Example:
+     * ```JavaScript
+     * ...
+     * ```
+     *
+     * @param campaignId The ID of the update campaign
+     * @returns Promise of listResponse
+     */
+    public listCampaignDeviceState(campaignId: string): Promise<ListResponse<DeviceState>>;
+    /**
+     * List campaign device state
+     *
+     * Example:
+     * ```JavaScript
+     * ...
+     * ```
+     *
+     * @param campaignId The ID of the update campaign
+     * @param callback A function that is passed the return arguments (error, listResponse)
+     */
+    public listCampaignDeviceState(campaignId: string, callback?: CallbackFn<ListResponse<DeviceState>>): void;
+    public listCampaignDeviceState(campaignId: string, callback?: CallbackFn<ListResponse<DeviceState>>): Promise<ListResponse<DeviceState>> {
+        return apiWrapper(resultsFn => {
+            this._endpoints.update.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, resultsFn);
+        }, (data, done) => {
+            let list: DeviceState[];
+            if (data.data && data.data.length) {
+                list = data.data.map(state => {
+                    return DeviceStateAdapter.map(state);
+                });
+            }
+
+            done(null, new ListResponse(data, list));
         }, callback);
     }
 
