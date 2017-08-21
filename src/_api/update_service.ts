@@ -129,6 +129,10 @@ export interface FirmwareImage {
      */
     "datafile_checksum": string;
     /**
+     * Size of the datafile (in bytes).
+     */
+    "datafile_size"?: number;
+    /**
      * The ID of the firmware image.
      */
     "id": string;
@@ -179,6 +183,14 @@ export interface FirmwareManifest {
      * The class of device.
      */
     "device_class": string;
+    /**
+     * Checksum generated for the datafile.
+     */
+    "datafile_checksum"?: string;
+    /**
+     * Size of the datafile (in bytes).
+     */
+    "datafile_size"?: number;
     /**
      * The ID of the firmware manifest.
      */
@@ -238,7 +250,7 @@ export interface ManifestContents {
 
 export interface ManifestContentsEncryptionMode {
     /**
-     * The encryption mode describing the kind of hashing, signing and, encryption in use. The following modes are available: 1: none-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. No payload encryption is used. 2: aes-128-ctr-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. The payload is encrypted with AES-128 in CTR-mode. 3: none-none-sha256: SHA-256 hashing. No signature is used. No payload encryption is used. This mode is not recommended except over existing, trusted connections.         
+     * The encryption mode describing the kind of hashing, signing and, encryption in use. The following modes are available: 1: none-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. No payload encryption is used. 2: aes-128-ctr-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. The payload is encrypted with AES-128 in CTR-mode. 3: none-none-sha256: SHA-256 hashing. No signature is used. No payload encryption is used. This mode is not recommended except over existing, trusted connections. 
      */
     "enum"?: number;
 }
@@ -943,9 +955,17 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
+     * @param campaignId The ID of the update campaign
      * @param campaignDeviceMetadataId The id of the campaign device metadata
      */
-    v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet (campaignDeviceMetadataId: string, callback?: (error:any, data?:CampaignDeviceMetadata, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet (campaignId: string, campaignDeviceMetadataId: string, callback?: (error:any, data?:CampaignDeviceMetadata, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
         // verify required parameter "campaignDeviceMetadataId" is set
         if (campaignDeviceMetadataId === null || campaignDeviceMetadataId === undefined) {
             if (callback) {
@@ -962,7 +982,7 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request<CampaignDeviceMetadata>({
-            url: '/v3/campaign-device-metadata/{campaign_device_metadata_id}'.replace('{' + 'campaign_device_metadata_id' + '}', String(campaignDeviceMetadataId)),
+            url: '/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/'.replace('{' + 'campaign_id' + '}', String(campaignId)).replace('{' + 'campaign_device_metadata_id' + '}', String(campaignDeviceMetadataId)),
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
@@ -972,8 +992,16 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /** 
+     * @param campaignId The ID of the update campaign
      */
-    v3CampaignDeviceMetadataGet (callback?: (error:any, data?:CampaignDeviceMetadataPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet (campaignId: string, callback?: (error:any, data?:CampaignDeviceMetadataPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
 
         let headerParams: any = {};
 
@@ -983,7 +1011,7 @@ export class DefaultApi extends ApiBase {
         let formParams: any = {};
 
         return this.request<CampaignDeviceMetadataPage>({
-            url: '/v3/campaign-device-metadata',
+            url: '/v3/update-campaigns/{campaign_id}/campaign-device-metadata/'.replace('{' + 'campaign_id' + '}', String(campaignId)),
             method: 'GET',
             headers: headerParams,
             query: queryParameters,
