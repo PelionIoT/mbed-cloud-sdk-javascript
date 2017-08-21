@@ -80,6 +80,8 @@ export class FirmwareManifestAdapter {
         return new FirmwareManifest({
             createdAt:           from.created_at,
             url:                 from.datafile,
+            datafileChecksum:    from.datafile_checksum,
+            datafileSize:        from.datafile_size,
             description:         from.description,
             deviceClass:         from.device_class,
             id:                  from.id,

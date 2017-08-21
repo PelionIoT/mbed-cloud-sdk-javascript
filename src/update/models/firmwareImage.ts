@@ -38,6 +38,10 @@ export class FirmwareImage {
      */
     readonly datafileChecksum: string;
     /**
+     * Size of the datafile (in bytes)
+     */
+    readonly datafileSize?: number;
+    /**
      * The time the object was created
      */
     readonly createdAt: Date;
