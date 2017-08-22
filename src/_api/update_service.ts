@@ -21,6 +21,7 @@ import superagent = require('superagent');
 import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
+export type CampaignDeviceMetadataDeploymentStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved";
 export interface CampaignDeviceMetadata {
     /**
      * Description of the record
@@ -59,9 +60,9 @@ export interface CampaignDeviceMetadata {
      */
     "mechanism_url"?: string;
     /**
-     * The state of the update campaign on the device
+     * The state of the update campaign on the device.
      */
-    "deployment_state"?: string;
+    "deployment_state"?: CampaignDeviceMetadataDeploymentStateEnum;
     /**
      * The id of the metadata record
      */
@@ -993,8 +994,12 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      * @param campaignId The ID of the update campaign
+     * @param limit How many objects to retrieve in the page.
+     * @param order ASC or DESC
+     * @param after The ID of the the item after which to retrieve the next page.
+     * @param include Comma separated list of data fields to return. Currently supported: total_count
      */
-    v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet (campaignId: string, callback?: (error:any, data?:CampaignDeviceMetadataPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet (campaignId: string, limit?: number, order?: string, after?: string, include?: string, callback?: (error:any, data?:CampaignDeviceMetadataPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -1006,6 +1011,18 @@ export class DefaultApi extends ApiBase {
         let headerParams: any = {};
 
         let queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (order !== undefined) {
+            queryParameters['order'] = order;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
 
         let useFormData = false;
         let formParams: any = {};
