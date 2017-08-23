@@ -313,7 +313,7 @@ export interface UpdateCampaign {
     /**
      * The time the object was created.
      */
-    "created_at"?: string;
+    "created_at"?: Date;
     /**
      * The API resource entity.
      */
@@ -329,7 +329,7 @@ export interface UpdateCampaign {
     /**
      * The timestamp when the update campaign finished.
      */
-    "finished"?: string;
+    "finished"?: Date;
     /**
      * The entity instance signature.
      */
