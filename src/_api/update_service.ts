@@ -73,6 +73,7 @@ export interface CampaignDeviceMetadata {
     "device_id"?: string;
 }
 
+export type CampaignDeviceMetadataPageOrderEnum = "ASC" | "DESC";
 export interface CampaignDeviceMetadataPage {
     /**
      * The entity ID to fetch after the given one.
@@ -98,6 +99,10 @@ export interface CampaignDeviceMetadataPage {
      * A list of entities
      */
     "data"?: Array<CampaignDeviceMetadata>;
+    /**
+     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     */
+    "order"?: CampaignDeviceMetadataPageOrderEnum;
 }
 
 export interface FirmwareImage {
@@ -143,6 +148,7 @@ export interface FirmwareImage {
     "name": string;
 }
 
+export type FirmwareImagePageOrderEnum = "ASC" | "DESC";
 export interface FirmwareImagePage {
     "object"?: string;
     "has_more"?: boolean;
@@ -150,7 +156,10 @@ export interface FirmwareImagePage {
     "after"?: string;
     "limit"?: number;
     "data"?: Array<FirmwareImage>;
-    "order"?: string;
+    /**
+     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     */
+    "order"?: FirmwareImagePageOrderEnum;
 }
 
 export interface FirmwareManifest {
@@ -205,6 +214,7 @@ export interface FirmwareManifest {
     "name": string;
 }
 
+export type FirmwareManifestPageOrderEnum = "ASC" | "DESC";
 export interface FirmwareManifestPage {
     "object"?: string;
     "has_more"?: boolean;
@@ -212,7 +222,10 @@ export interface FirmwareManifestPage {
     "after"?: string;
     "limit"?: number;
     "data"?: Array<FirmwareManifest>;
-    "order"?: string;
+    /**
+     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     */
+    "order"?: FirmwareManifestPageOrderEnum;
 }
 
 export interface ManifestContents {
@@ -337,6 +350,7 @@ export interface UpdateCampaign {
     "name"?: string;
 }
 
+export type UpdateCampaignPageOrderEnum = "ASC" | "DESC";
 export interface UpdateCampaignPage {
     "object"?: string;
     "has_more"?: boolean;
@@ -344,7 +358,10 @@ export interface UpdateCampaignPage {
     "after"?: string;
     "limit"?: number;
     "data"?: Array<UpdateCampaign>;
-    "order"?: string;
+    /**
+     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     */
+    "order"?: UpdateCampaignPageOrderEnum;
 }
 
 export type UpdateCampaignPatchRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
