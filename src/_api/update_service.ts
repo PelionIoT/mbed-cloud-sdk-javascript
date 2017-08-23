@@ -102,7 +102,7 @@ export interface CampaignDeviceMetadataPage {
 
 export interface FirmwareImage {
     /**
-     * The binary file of firmware image.
+     * The url to binary file of firmware image.
      */
     "datafile": string;
     /**
@@ -154,6 +154,9 @@ export interface FirmwareImagePage {
 }
 
 export interface FirmwareManifest {
+    /**
+     * The url to binary file of firmware manifest.
+     */
     "datafile": string;
     /**
      * The description of the object.
