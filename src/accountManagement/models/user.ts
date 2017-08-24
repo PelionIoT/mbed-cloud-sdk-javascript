@@ -22,6 +22,7 @@ import { UpdateUserObject, UserStatusEnum } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
 import { ApiKey } from "./apiKey";
 import { Group } from "./group";
+import { LoginHistory } from "./loginHistory";
 
 /**
  * User
@@ -61,9 +62,17 @@ export class User {
      */
     readonly passwordChangedTime?: number;
     /**
+     * Whether two factor authentication has been enabled for this user
+     */
+    readonly twoFactorAuthentication?: boolean;
+    /**
      * A timestamp of the latest login of the user, in milliseconds.
      */
     readonly lastLoginTime?: number;
+    /**
+     * History of logins for this user;
+     */
+    readonly loginHistory?: LoginHistory[];
 
     constructor(init: Partial<User>, private _api?: AccountManagementApi) {
         for(var key in init) {
