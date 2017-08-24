@@ -16,9 +16,11 @@
 */
 
 import { asyncStyle } from "../../common/functions";
-import { CallbackFn } from "../../common/interfaces";
-import { AddCampaignObject, CampaignStateEnum } from "../types";
+import { CallbackFn, ListOptions } from "../../common/interfaces";
+import { UpdateCampaignObject } from "../types";
 import { UpdateApi } from "../updateApi";
+import { ListResponse } from "../../common/listResponse";
+import { CampaignDeviceState } from "./campaignDeviceState";
 
 /**
  * Campaign
@@ -30,13 +32,9 @@ export class Campaign {
      */
     readonly id: string;
     /**
-     * The state of the campaign
-     */
-    readonly state: CampaignStateEnum;
-    /**
      * URl of the manifest used
      */
-    readonly manifestUrl: string;
+    readonly manifestUrl?: string;
     /**
      * The time the object was created
      */
@@ -105,6 +103,24 @@ export class Campaign {
     }
 
     /**
+     * List campaign device states
+     * @param options list options
+     * @returns Promise of listResponse
+     */
+    public listDeviceStates(options?: ListOptions): Promise<ListResponse<CampaignDeviceState>>;
+    /**
+     * List campaign device states
+     * @param options list options
+     * @param callback A function that is passed the return arguments (error, listResponse)
+     */
+    public listDeviceStates(options?: ListOptions, callback?: CallbackFn<ListResponse<CampaignDeviceState>>): void;
+    public listDeviceStates(options?: ListOptions, callback?: CallbackFn<ListResponse<CampaignDeviceState>>): Promise<ListResponse<CampaignDeviceState>> {
+        return asyncStyle(done => {
+            this._api.listCampaignDeviceStates(this.id, options, done);
+        }, callback);
+    }
+
+    /**
      * Delete the campaign
      * @returns Promise containing any error
      */
@@ -120,4 +136,4 @@ export class Campaign {
         }, callback);
     }
 }
-export interface Campaign extends AddCampaignObject {}
+export interface Campaign extends UpdateCampaignObject {}
