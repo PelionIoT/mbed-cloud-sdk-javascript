@@ -77,7 +77,7 @@ function checkCertificate() {
 
 checkCertificate()
 .then(() => {
-    return certificates.addCertificate({
+    return certificates.addDeveloperCertificate({
         name: certificateName
     });
 })

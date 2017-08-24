@@ -195,7 +195,7 @@ export class CertificatesApi {
      *
      * Example:
      * ```JavaScript
-     * certificates.addCertificate({
+     * certificates.addDeveloperCertificate({
      *     name: 'CertName',
      *     description: 'SDK generated cert',
      *     type: 'developer'
@@ -211,13 +211,13 @@ export class CertificatesApi {
      * @param certificate Certificate request
      * @returns Promise containing certificate
      */
-    public addCertificate(certificate: AddDeveloperCertificateObject): Promise<Certificate>;
+    public addDeveloperCertificate(certificate: AddDeveloperCertificateObject): Promise<Certificate>;
     /**
      * Adds a generated developer certificate
      *
      * Example:
      * ```JavaScript
-     * certificates.addCertificate({
+     * certificates.addDeveloperCertificate({
      *     name: 'CertName',
      *     description: 'SDK generated cert',
      *     type: 'developer'
@@ -230,7 +230,20 @@ export class CertificatesApi {
      * @param certificate Certificate request
      * @param callback A function that is passed the return arguments (error, certificate)
      */
-    public addCertificate(certificate: AddDeveloperCertificateObject, callback: CallbackFn<Certificate>): void;
+    public addDeveloperCertificate(certificate: AddDeveloperCertificateObject, callback: CallbackFn<Certificate>): void;
+    public addDeveloperCertificate(certificate: AddDeveloperCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
+        return apiWrapper(resultsFn => {
+            this._endpoints.certDeveloper.v3DeveloperCertificatesPost("", CertificateAdapter.reverseDeveloperMap(certificate), resultsFn);
+        }, (data, done) => {
+            this._endpoints.accountDeveloper.getCertificate(data.id, (error, certData) => {
+                if (error) return done(error, null);
+
+                let certificate = CertificateAdapter.mapDeveloperCertificate(certData, this, data);
+                done(null, certificate);
+            });
+        }, callback);
+    }
+
     /**
      * Adds a certificate
      *
@@ -278,25 +291,11 @@ export class CertificatesApi {
      * @param callback A function that is passed the return arguments (error, certificate)
      */
     public addCertificate(certificate: AddCertificateObject, callback: CallbackFn<Certificate>): void;
-    public addCertificate(certificate: AddDeveloperCertificateObject | AddCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
-
-        function isCert(cert: AddDeveloperCertificateObject | AddCertificateObject): cert is AddCertificateObject {
-            return (<AddCertificateObject>cert).type !== undefined && (<AddCertificateObject>cert).type !== "developer";
-        }
-
+    public addCertificate(certificate: AddCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
         return apiWrapper(resultsFn => {
-            if (isCert(certificate)) this._endpoints.admin.addCertificate(CertificateAdapter.reverseMap(certificate), resultsFn);
-            else this._endpoints.certDeveloper.v3DeveloperCertificatesPost("", CertificateAdapter.reverseDeveloperMap(certificate), resultsFn);
+            this._endpoints.admin.addCertificate(CertificateAdapter.reverseMap(certificate), resultsFn);
         }, (data, done) => {
-            if (isCert(certificate)) this.extendCertificate(data, done);
-            else {
-                this._endpoints.accountDeveloper.getCertificate(data.id, (error, certData) => {
-                    if (error) return done(error, null);
-
-                    let certificate = CertificateAdapter.mapDeveloperCertificate(certData, this, data);
-                    done(null, certificate);
-                });
-            }
+            this.extendCertificate(data, done);
         }, callback);
     }
 
