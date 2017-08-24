@@ -34,9 +34,9 @@ export class CampaignAdapter {
     static map(from: apiCampaign, api: UpdateApi): Campaign {
         return new Campaign({
             deviceFilter:        decodeFilter(from.device_filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS),
-            createdAt:           from.created_at ? new Date(from.created_at) : null,
+            createdAt:           from.created_at,
             description:         from.description,
-            finishedAt:          from.finished ? new Date(from.finished) : null,
+            finishedAt:          from.finished,
             id:                  from.id,
             manifestId:          from.root_manifest_id,
             manifestUrl:         from.root_manifest_url,
