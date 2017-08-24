@@ -1,6 +1,6 @@
 /*
 * Mbed Cloud JavaScript SDK
-* Copyright ARM Limited 2017
+* Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -68,9 +68,9 @@ import { ApiMetadata } from "../common/apiMetadata";
  *
  * There are two options for setting up a notification channel:
  *  * Register a callback server or _webhook_ using `updateWebhook()`
- *  * Use long-polling by using `startNotifications()`
+ *  * Use pull notifications by using `startNotifications()`
  *
- * The `webhook` and `long-polling` examples show how this can be done.
+ * The `webhook` and `pull-notifications` examples show how this can be done.
  */
 export class ConnectApi extends EventEmitter {
 
@@ -83,7 +83,7 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Whether async callbacks are handled by the API.
-     * Long polling will set this automatically, but it can also be used alongside the `notify` function with webhooks
+     * Pull notifications will set this automatically, but it can also be used alongside the `notify` function with webhooks
      */
     handleNotifications: boolean;
 
@@ -224,7 +224,7 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Begins long polling constantly for notifications
+     * Begins pull notifications
      *
      * If an external callback is not setup (using update_webhook), then calling this function is mandatory.
      *
@@ -244,7 +244,7 @@ export class ConnectApi extends EventEmitter {
      */
     public startNotifications(options?: NotificationOptions): Promise<void>;
     /**
-     * Begins long polling constantly for notifications
+     * Begins pull notifications
      *
      * If an external callback is not setup (using update_webhook), then calling this function is mandatory.
      *
@@ -296,7 +296,7 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Stops long polling for notifications
+     * Stops pull notifications
      *
      * Example:
      * ```JavaScript
@@ -313,7 +313,7 @@ export class ConnectApi extends EventEmitter {
      */
     public stopNotifications(): Promise<void>;
     /**
-     * Stops long polling for notifications
+     * Stops pull notifications
      *
      * Example:
      * ```JavaScript

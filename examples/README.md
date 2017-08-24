@@ -102,9 +102,9 @@ __Warning:__ Your API Key will be publicly visible in your web application when 
 
 ### Examples
 
-* __Long Polling__ [long-polling.html](web/long-polling.html)
+* __Pull Notifications__ [pull-notifications.html](web/pull-notifications.html)
 
-  This example uses long polling to register for callbacks from Mbed Cloud and receives asynchronous notifications.
+  This example registers for callbacks from Mbed Cloud and receives asynchronous notifications.
   Using the callbacks, the device/resource tree of connected devices is recursed, outputting the value for each resource.
 
 * __Device Management__ [device-management.html](web/device-management.html)
