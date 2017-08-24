@@ -90,31 +90,30 @@ export class ApiBase {
 
         request.end((error, response) => {
 
+            var sdkError = null;
+            if (error) {
+                var message = error.message;
+                var innerError = error;
+                var details = "";
+
+                if (response) {
+                    if (response.error) message = response.error.message;
+                    if (response.body && response.body.message) {
+                        message = response.body.message;
+                        if (message.error) message = message.error;
+                    }
+                    innerError = response.error || error;
+                    details = response.body;
+                }
+
+                sdkError = new SDKError(message, innerError, details, error.status);
+            }
+
             if (this.responseHandler) {
-                this.responseHandler(error, response);
+                this.responseHandler(sdkError, response);
             }
 
             if (callback) {
-
-                var sdkError = null;
-                if (error) {
-                    var message = error.message;
-                    var innerError = error;
-                    var details = "";
-
-                    if (response) {
-                        if (response.error) message = response.error.message;
-                        if (response.body && response.body.message) {
-                            message = response.body.message;
-                            if (message.error) message = message.error;
-                        }
-                        innerError = response.error || error;
-                        details = response.body;
-                    }
-
-                    sdkError = new SDKError(message, innerError, details, error.status);
-                }
-
                 var data:T = null;
 
                 if (response && !sdkError) {

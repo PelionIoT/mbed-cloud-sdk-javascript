@@ -16,19 +16,34 @@
 */
 
 import { ApiMetadata } from "./apiMetadata";
+import { SDKError } from "./sdkError";
 
 export class EndpointsBase {
 
     private lastMeta: ApiMetadata;
 
-    protected responseHandler(error: any, response: any) {
-        if (response) {
-            this.lastMeta = new ApiMetadata(response.statusCode, response.headers, response.body, response.request || response.req);
-        } else if (error) {
-            this.lastMeta = new ApiMetadata(error.status, null, null, error);
-        } else {
-            this.lastMeta = null;
+    protected responseHandler(error: SDKError, response: any) {
+
+        let statusCode = null;
+        let errorMessage = null;
+        let headers = null;
+        let body = null;
+        let request = null;
+
+        if (error) {
+            statusCode = error.code;
+            errorMessage = error.message;
+            request = error.innerError;
         }
+
+        if (response) {
+            statusCode = response.statusCode;
+            headers = response.headers;
+            body = response.body;
+            request = response.request || response.req;
+        }
+
+        this.lastMeta = new ApiMetadata(statusCode, errorMessage, headers, body, request);
     }
 
     public getLastMeta() : ApiMetadata {
