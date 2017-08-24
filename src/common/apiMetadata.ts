@@ -60,8 +60,14 @@ export class ApiMetadata {
      */
     readonly etag?: string;
 
-    constructor(statusCode?: number, headers?: {}, body?: { [key:string]: string }, request?: { [key:string]: string }) {
+    /**
+     * Any error message returned
+     */
+    readonly errorMessage?: string;
+
+    constructor(statusCode?: number, errorMessage?: string, headers?: {}, body?: { [key:string]: string }, request?: { [key:string]: string }) {
         this.statusCode = statusCode;
+        this.errorMessage = errorMessage;
 
         if (headers) {
             this.headers = headers;

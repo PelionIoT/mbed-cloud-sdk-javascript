@@ -23,6 +23,7 @@ import {
 import { AddUserObject, UpdateUserObject } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
 import { User } from "./user";
+import { LoginHistoryAdapter } from "./loginHistoryAdapter";
 
 /**
  * User Adapter
@@ -30,6 +31,15 @@ import { User } from "./user";
 export class UserAdapter {
 
     static map(from: apiUser, api: AccountManagementApi): User {
+
+        let logins = [];
+
+        if (from.login_history) {
+            logins = from.login_history.map(login => {
+                return LoginHistoryAdapter.map(login);
+            });
+        }
+
         return new User({
             fullName               : from.full_name,
             username               : from.username,
@@ -47,7 +57,9 @@ export class UserAdapter {
             createdAt              : from.created_at,
             creationTime           : from.creation_time,
             passwordChangedTime    : from.password_changed_time,
-            lastLoginTime          : from.last_login_time
+            twoFactorAuthentication: from.is_totp_enabled,
+            lastLoginTime          : from.last_login_time,
+            loginHistory           : logins
         }, api);
     }
 
