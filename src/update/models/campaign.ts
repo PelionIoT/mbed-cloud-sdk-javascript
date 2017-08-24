@@ -40,7 +40,7 @@ export class Campaign {
     /**
      * The time the object was created
      */
-    readonly createdAt: Date;
+    readonly createdAt?: Date;
     /**
      * The timestamp at which update campaign scheduled to start
      */
