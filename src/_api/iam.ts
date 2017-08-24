@@ -28,6 +28,10 @@ export type AccountInfoStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUS
 export type AccountInfoObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface AccountInfo {
     /**
+     * Account end market.
+     */
+    "end_market": string;
+    /**
      * The status of the account.
      */
     "status": AccountInfoStatusEnum;
@@ -120,6 +124,10 @@ export interface AccountInfo {
      */
     "created_at"?: Date;
     /**
+     * The reference token expiration time in minutes for this account.
+     */
+    "idle_timeout"?: string;
+    /**
      * The name of the contact person for this account.
      */
     "contact"?: string;
@@ -162,6 +170,10 @@ export interface AccountUpdateReq {
      */
     "company"?: string;
     /**
+     * The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
+     */
+    "idle_timeout"?: string;
+    /**
      * The state part of the postal address, not longer than 100 characters.
      */
     "state"?: string;
@@ -173,6 +185,10 @@ export interface AccountUpdateReq {
      * The postal code part of the postal address, not longer than 100 characters.
      */
     "postal_code"?: string;
+    /**
+     * The end market for this account, not longer than 100 characters.
+     */
+    "end_market"?: string;
     /**
      * The phone number of the company, not longer than 100 characters.
      */
@@ -308,7 +324,7 @@ export interface ApiKeyUpdateReq {
  * This object represents an error message.
  */
 export type ErrorResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type ErrorResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
+export type ErrorResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 export interface ErrorResponse {
     /**
      * Response code.
@@ -441,6 +457,109 @@ export interface GroupSummaryList {
      * The order of the records to return. Available values: ASC, DESC; by default ASC.
      */
     "order"?: GroupSummaryListOrderEnum;
+}
+
+export interface LoginHistory {
+    "date"?: string;
+    "userAgent"?: string;
+    "ipAddress"?: string;
+    "success"?: boolean;
+}
+
+/**
+ * This object represents user details.
+ */
+export type MyUserInfoRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type MyUserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export interface MyUserInfoResp {
+    /**
+     * A username containing alphanumerical letters and -,._@+= characters.
+     */
+    "username"?: string;
+    /**
+     * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+     */
+    "login_history"?: Array<LoginHistory>;
+    /**
+     * A timestamp of the user creation in the storage, in milliseconds.
+     */
+    "creation_time"?: number;
+    /**
+     * The full name of the user.
+     */
+    "full_name"?: string;
+    /**
+     * The UUID of the user.
+     */
+    "id": string;
+    /**
+     * A timestamp of the latest login of the user, in milliseconds.
+     */
+    "last_login_time"?: number;
+    /**
+     * A flag indicating that the General Terms and Conditions has been accepted.
+     */
+    "is_gtc_accepted"?: boolean;
+    /**
+     * API resource entity version.
+     */
+    "etag": string;
+    /**
+     * A flag indicating that receiving marketing information has been accepted.
+     */
+    "is_marketing_accepted"?: boolean;
+    /**
+     * Phone number.
+     */
+    "phone_number"?: string;
+    /**
+     * The email address.
+     */
+    "email": string;
+    /**
+     * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+     */
+    "status": MyUserInfoRespStatusEnum;
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
+    /**
+     * A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.
+     */
+    "totp_scratch_codes"?: Array<string>;
+    /**
+     * Entity name: always 'user'
+     */
+    "object": MyUserInfoRespObjectEnum;
+    /**
+     * A list of IDs of the groups this user belongs to.
+     */
+    "groups"?: Array<string>;
+    /**
+     * Address.
+     */
+    "address"?: string;
+    /**
+     * The password when creating a new user. It will will generated when not present in the request.
+     */
+    "password"?: string;
+    /**
+     * A flag indicating whether the user's email address has been verified or not.
+     */
+    "email_verified"?: boolean;
+    /**
+     * Creation UTC time RFC3339.
+     */
+    "created_at"?: Date;
+    /**
+     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     */
+    "is_totp_enabled"?: boolean;
+    /**
+     * A timestamp of the latest change of the user password, in milliseconds.
+     */
+    "password_changed_time"?: number;
 }
 
 /**
@@ -712,6 +831,14 @@ export interface UserInfoResp {
      */
     "email": string;
     /**
+     * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+     */
+    "login_history"?: Array<LoginHistory>;
+    /**
+     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     */
+    "is_totp_enabled"?: boolean;
+    /**
      * A flag indicating that receiving marketing information has been accepted.
      */
     "is_marketing_accepted"?: boolean;
@@ -803,6 +930,14 @@ export interface UserUpdateReq {
      */
     "is_gtc_accepted"?: boolean;
     /**
+     * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
+     */
+    "is_totp_enabled"?: boolean;
+    /**
+     * The status of the user.
+     */
+    "status"?: string;
+    /**
      * The full name of the user, not longer than 100 characters.
      */
     "full_name"?: string;
@@ -818,6 +953,106 @@ export interface UserUpdateReq {
      * The email address, not longer than 254 characters.
      */
     "email": string;
+}
+
+/**
+ * This object represents a user update response.
+ */
+export type UserUpdateRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type UserUpdateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export interface UserUpdateResp {
+    /**
+     * A username containing alphanumerical letters and -,._@+= characters.
+     */
+    "username"?: string;
+    /**
+     * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+     */
+    "login_history"?: Array<LoginHistory>;
+    /**
+     * A timestamp of the user creation in the storage, in milliseconds.
+     */
+    "creation_time"?: number;
+    /**
+     * The full name of the user.
+     */
+    "full_name"?: string;
+    /**
+     * The UUID of the user.
+     */
+    "id": string;
+    /**
+     * A timestamp of the latest login of the user, in milliseconds.
+     */
+    "last_login_time"?: number;
+    /**
+     * A flag indicating that the General Terms and Conditions has been accepted.
+     */
+    "is_gtc_accepted"?: boolean;
+    /**
+     * API resource entity version.
+     */
+    "etag": string;
+    /**
+     * A flag indicating that receiving marketing information has been accepted.
+     */
+    "is_marketing_accepted"?: boolean;
+    /**
+     * Phone number.
+     */
+    "phone_number"?: string;
+    /**
+     * The email address.
+     */
+    "email": string;
+    /**
+     * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+     */
+    "status": UserUpdateRespStatusEnum;
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
+    /**
+     * A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.
+     */
+    "totp_scratch_codes"?: Array<string>;
+    /**
+     * Entity name: always 'user'
+     */
+    "object": UserUpdateRespObjectEnum;
+    /**
+     * A list of IDs of the groups this user belongs to.
+     */
+    "groups"?: Array<string>;
+    /**
+     * Address.
+     */
+    "address"?: string;
+    /**
+     * Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled.
+     */
+    "totp_secret"?: string;
+    /**
+     * The password when creating a new user. It will will generated when not present in the request.
+     */
+    "password"?: string;
+    /**
+     * A flag indicating whether the user's email address has been verified or not.
+     */
+    "email_verified"?: boolean;
+    /**
+     * Creation UTC time RFC3339.
+     */
+    "created_at"?: Date;
+    /**
+     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     */
+    "is_totp_enabled"?: boolean;
+    /**
+     * A timestamp of the latest change of the user password, in milliseconds.
+     */
+    "password_changed_time"?: number;
 }
 
 /**
@@ -1629,7 +1864,7 @@ export class DeveloperApi extends ApiBase {
      * Details of the current user.
      * An endpoint for retrieving the details of the logged in user.
      */
-    getMyUser (callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    getMyUser (callback?: (error:any, data?:MyUserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
@@ -1638,7 +1873,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request<UserInfoResp>({
+        return this.request<MyUserInfoResp>({
             url: '/v3/users/me',
             method: 'GET',
             headers: headerParams,
@@ -1805,7 +2040,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for updating the details of the logged in user.
      * @param body New attributes for the logged in user.
      */
-    updateMyUser (body: UserUpdateReq, callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateMyUser (body: UserUpdateReq, callback?: (error:any, data?:UserUpdateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
@@ -1821,7 +2056,7 @@ export class DeveloperApi extends ApiBase {
         let useFormData = false;
         let formParams: any = {};
 
-        return this.request<UserInfoResp>({
+        return this.request<UserUpdateResp>({
             url: '/v3/users/me',
             method: 'PUT',
             headers: headerParams,
