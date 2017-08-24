@@ -1,6 +1,6 @@
 /*
 * Mbed Cloud JavaScript SDK
-* Copyright ARM Limited 2017
+* Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -21,11 +21,17 @@ export class EndpointsBase {
 
     private lastMeta: ApiMetadata;
 
-    protected responseHandler(response: any) {
-        this.lastMeta = new ApiMetadata(response.statusCode, response.headers, response.body, response.request || response.req);
+    protected responseHandler(error: any, response: any) {
+        if (response) {
+            this.lastMeta = new ApiMetadata(response.statusCode, response.headers, response.body, response.request || response.req);
+        } else if (error) {
+            this.lastMeta = new ApiMetadata(error.status, null, null, error);
+        } else {
+            this.lastMeta = null;
+        }
     }
 
     public getLastMeta() : ApiMetadata {
-    	return this.lastMeta;
+        return this.lastMeta;
     }
 }

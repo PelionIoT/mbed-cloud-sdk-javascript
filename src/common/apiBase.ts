@@ -1,6 +1,6 @@
 /*
 * Mbed Cloud JavaScript SDK
-* Copyright ARM Limited 2017
+* Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -91,7 +91,7 @@ export class ApiBase {
         request.end((error, response) => {
 
             if (this.responseHandler) {
-                this.responseHandler(response);
+                this.responseHandler(error, response);
             }
 
             if (callback) {
@@ -104,7 +104,10 @@ export class ApiBase {
 
                     if (response) {
                         if (response.error) message = response.error.message;
-                        if (response.body && response.body.message) message = response.body.message;
+                        if (response.body && response.body.message) {
+                            message = response.body.message;
+                            if (message.error) message = message.error;
+                        }
                         innerError = response.error || error;
                         details = response.body;
                     }

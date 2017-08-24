@@ -115,7 +115,7 @@ gulp.task("browserify", ["typescript"], function() {
     }))
     .pipe(uglify({
         preserveComments: function(node, comment) {
-            return comment.value.includes("Copyright ARM");
+            return comment.value.includes("Copyright Arm");
         }
     }))
     .pipe(sourcemaps.write('./'))
