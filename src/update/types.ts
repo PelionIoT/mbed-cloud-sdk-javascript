@@ -115,6 +115,8 @@ export interface ManifestContents {
 }
 
 export type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export type CampaignDeviceStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved";
+
 export interface CampaignObject {
     /**
      * A name for this campaign

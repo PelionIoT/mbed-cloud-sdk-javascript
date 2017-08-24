@@ -16,15 +16,15 @@
 */
 
 import { CampaignDeviceMetadata as apiDeviceState } from "../../_api/update_service";
-import { DeviceState } from "./deviceState";
+import { CampaignDeviceState } from "./campaignDeviceState";
 
 /**
- * Device State Adapter
+ * Campaign Device State Adapter
  */
-export class DeviceStateAdapter {
+export class CampaignDeviceStateAdapter {
 
-    static map(from: apiDeviceState): DeviceState {
-        return new DeviceState({
+    static map(from: apiDeviceState): CampaignDeviceState {
+        return new CampaignDeviceState({
             id:             from.id,
             deviceId:       from.device_id,
             campaignId:     from.campaign,

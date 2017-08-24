@@ -15,12 +15,12 @@
 * limitations under the License.
 */
 
-//import { CampaignStateEnum } from "../types";
+import { CampaignDeviceStateEnum } from "../types";
 
 /**
- * Device State
+ * Campaign Device State
  */
-export class DeviceState {
+export class CampaignDeviceState {
 
     /**
      * The id of the metadata record
@@ -37,7 +37,7 @@ export class DeviceState {
     /**
      * The state of the update campaign on the device
      */
-    readonly state?: string;//CampaignStateEnum;
+    readonly state?: CampaignDeviceStateEnum;
     /**
      * The name of the device
      */
@@ -63,7 +63,7 @@ export class DeviceState {
      */
     readonly mechanismUrl?: string;
 
-    constructor(init?: Partial<DeviceState>) {
+    constructor(init?: Partial<CampaignDeviceState>) {
         for(var key in init) {
             this[key] = init[key];
         }

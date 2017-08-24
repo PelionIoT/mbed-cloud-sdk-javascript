@@ -16,7 +16,7 @@
 */
 
 import { asyncStyle, apiWrapper, encodeInclude, encodeFilter } from "../common/functions";
-import { ConnectionOptions, CallbackFn } from "../common/interfaces";
+import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { AddFirmwareImageObject, AddFirmwareManifestObject, AddCampaignObject, UpdateCampaignObject, FirmwareImageListOptions, FirmwareManifestListOptions, CampaignListOptions } from "./types";
 import { FirmwareImage } from "./models/firmwareImage";
@@ -25,8 +25,8 @@ import { FirmwareManifest } from "./models/firmwareManifest";
 import { FirmwareManifestAdapter } from "./models/firmwareManifestAdapter";
 import { Campaign } from "./models/campaign";
 import { CampaignAdapter } from "./models/campaignAdapter";
-import { DeviceState } from "./models/deviceState";
-import { DeviceStateAdapter } from "./models/deviceStateAdapter";
+import { CampaignDeviceState } from "./models/campaignDeviceState";
+import { CampaignDeviceStateAdapter } from "./models/campaignDeviceStateAdapter";
 import { Endpoints } from "./endpoints";
 import { Filters } from "./filters";
 import { ApiMetadata } from "../common/apiMetadata";
@@ -904,37 +904,59 @@ export class UpdateApi {
     }
 
     /**
-     * List campaign device state
+     * List campaign device states
      *
      * Example:
      * ```JavaScript
-     * ...
+     * update.listCampaignDeviceStates('015baf607c250000000000010010003d', {
+     *     limit: 5,
+     * })
+     * .then(devicestates => {
+     *     // Utilize devicestates here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
      * ```
      *
      * @param campaignId The ID of the update campaign
+     * @param options list options
      * @returns Promise of listResponse
      */
-    public listCampaignDeviceState(campaignId: string): Promise<ListResponse<DeviceState>>;
+    public listCampaignDeviceStates(campaignId: string, options?: ListOptions): Promise<ListResponse<CampaignDeviceState>>;
     /**
-     * List campaign device state
+     * List campaign device states
      *
      * Example:
      * ```JavaScript
-     * ...
+     * update.listCampaignDeviceStates('015baf607c250000000000010010003d', {
+     *     limit: 5,
+     * }, function(error, devicestates) {
+     *     if (error) throw error;
+     *     // Utilize devicestates here
+     * });
      * ```
      *
      * @param campaignId The ID of the update campaign
+     * @param options list options
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
-    public listCampaignDeviceState(campaignId: string, callback?: CallbackFn<ListResponse<DeviceState>>): void;
-    public listCampaignDeviceState(campaignId: string, callback?: CallbackFn<ListResponse<DeviceState>>): Promise<ListResponse<DeviceState>> {
+    public listCampaignDeviceStates(campaignId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<CampaignDeviceState>>): void;
+    public listCampaignDeviceStates(campaignId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<CampaignDeviceState>>): Promise<ListResponse<CampaignDeviceState>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
         return apiWrapper(resultsFn => {
-            this._endpoints.update.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, resultsFn);
+            let { limit, order, after, include } = options;
+            this._endpoints.update.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let list: DeviceState[];
+            let list: CampaignDeviceState[];
             if (data.data && data.data.length) {
                 list = data.data.map(state => {
-                    return DeviceStateAdapter.map(state);
+                    return CampaignDeviceStateAdapter.map(state);
                 });
             }
 
