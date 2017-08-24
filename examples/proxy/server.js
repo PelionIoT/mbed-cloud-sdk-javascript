@@ -1,6 +1,6 @@
 /*
-* mbed Cloud JavaScript SDK
-* Copyright ARM Limited 2017
+* Mbed Cloud JavaScript SDK
+* Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ if (!express) {
 
 var port = 8080;
 var mbedHost = "api.us-east-1.mbedcloud.com";
-var cookieKey = "mbedCloudKey";
-var cookieHost = "mbedCloudHost";
+var cookieKey = "cloudKey";
+var cookieHost = "cloudHost";
 var apiPath = "/api";
 var loginPath = "/login";
 var formKey = "key";
@@ -49,8 +49,12 @@ function getApiKey(req) {
     return null;
 }
 function setApiKey(res, value) {
-    var cookie = `${cookieKey}=${value}; ${cookieHost}=${apiPath}`;
-    res.setHeader("Set-Cookie", cookie);
+    res.cookie(cookieHost, apiPath, {
+        encode: function(value) { return value; }
+    });
+    res.cookie(cookieKey, value, {
+        encode: function(value) { return value; }
+    });
 }
 
 // Login

@@ -1,6 +1,6 @@
 /*
-* mbed Cloud JavaScript SDK
-* Copyright ARM Limited 2017
+* Mbed Cloud JavaScript SDK
+* Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@ export interface UpdateAccountObject {
 
 export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
 /**
- * This object represents an API key in mbed Cloud.
+ * This object represents an API key in Mbed Cloud.
  */
 export interface AddApiKeyObject {
     /**
@@ -96,7 +96,7 @@ export interface UpdateApiKeyObject extends AddApiKeyObject {
 
 export type UserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
 /**
- * This object represents a user in mbed Cloud.
+ * This object represents a user in Mbed Cloud.
  */
 export interface AddUserObject {
     /**

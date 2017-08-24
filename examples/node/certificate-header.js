@@ -1,6 +1,6 @@
 /*
-* mbed Cloud JavaScript SDK
-* Copyright ARM Limited 2017
+* Mbed Cloud JavaScript SDK
+* Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@ var fs = require("fs");
 var path = require("path");
 var readline = require("readline");
 
-var mbedCloudSDK = require("../../index");
+var MbedCloudSDK = require("../../index");
 var config = require("./config");
 
 var outputFile = "header.h";
 var certificateName = "test-certificate";
 
-var certificates = new mbedCloudSDK.CertificatesApi(config);
+var certificates = new MbedCloudSDK.CertificatesApi(config);
 
 function logError(error) {
     console.log(error.message || error);

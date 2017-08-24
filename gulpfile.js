@@ -10,8 +10,8 @@ var typedoc     = require("gulp-typedoc");
 var ts          = require("gulp-typescript");
 var uglify      = require("gulp-uglify");
 
-var name = "mbed Cloud SDK for JavaScript";
-var namespace = "mbedCloudSDK";
+var name = "Mbed Cloud SDK for JavaScript";
+var namespace = "MbedCloudSDK";
 var docsToc = "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,UpdateApi,ConnectionOptions";
 
 var srcDir = "src";
@@ -115,7 +115,7 @@ gulp.task("browserify", ["typescript"], function() {
     }))
     .pipe(uglify({
         preserveComments: function(node, comment) {
-            return comment.value.includes("Copyright ARM");
+            return comment.value.includes("Copyright Arm");
         }
     }))
     .pipe(sourcemaps.write('./'))

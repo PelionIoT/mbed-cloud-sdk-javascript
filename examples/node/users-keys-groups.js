@@ -1,6 +1,6 @@
 /*
-* mbed Cloud JavaScript SDK
-* Copyright ARM Limited 2017
+* Mbed Cloud JavaScript SDK
+* Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
 * limitations under the License.
 */
 
-var mbedCloudSDK = require("../../index");
+var MbedCloudSDK = require("../../index");
 var config = require("./config");
 
-var access = new mbedCloudSDK.AccountManagementApi(config);
+var access = new MbedCloudSDK.AccountManagementApi(config);
 
 var options = [
     {

@@ -1,6 +1,6 @@
 /*
-* mbed Cloud JavaScript SDK
-* Copyright ARM Limited 2017
+* Mbed Cloud JavaScript SDK
+* Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -43,10 +43,10 @@ import { ApiMetadata } from "../common/apiMetadata";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var mbedCloudSDK = require("mbed-cloud-sdk");
+ * var MbedCloudSDK = require("mbed-cloud-sdk");
  *
- * var connect = new mbedCloudSDK.ConnectApi({
- *     apiKey: "<mbed Cloud API Key>"
+ * var connect = new MbedCloudSDK.ConnectApi({
+ *     apiKey: "<Mbed Cloud API Key>"
  * });
  * ```
  *
@@ -56,8 +56,8 @@ import { ApiMetadata } from "../common/apiMetadata";
  * <script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
  *
  * <script>
- *     var connect = new mbedCloudSDK.ConnectApi({
- *         apiKey: "<mbed Cloud API Key>"
+ *     var connect = new MbedCloudSDK.ConnectApi({
+ *         apiKey: "<Mbed Cloud API Key>"
  *     });
  * </script>
  * ```
@@ -68,9 +68,9 @@ import { ApiMetadata } from "../common/apiMetadata";
  *
  * There are two options for setting up a notification channel:
  *  * Register a callback server or _webhook_ using `updateWebhook()`
- *  * Use long-polling by using `startNotifications()`
+ *  * Use pull notifications by using `startNotifications()`
  *
- * The `webhook` and `long-polling` examples show how this can be done.
+ * The `webhook` and `pull-notifications` examples show how this can be done.
  */
 export class ConnectApi extends EventEmitter {
 
@@ -83,7 +83,7 @@ export class ConnectApi extends EventEmitter {
 
     /**
      * Whether async callbacks are handled by the API.
-     * Long polling will set this automatically, but it can also be used alongside the `notify` function with webhooks
+     * Pull notifications will set this automatically, but it can also be used alongside the `notify` function with webhooks
      */
     handleNotifications: boolean;
 
@@ -224,7 +224,7 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Begins long polling constantly for notifications
+     * Begins pull notifications
      *
      * If an external callback is not setup (using update_webhook), then calling this function is mandatory.
      *
@@ -232,7 +232,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * connect.startNotifications()
      * .then(() => {
-     *     console.log('mbed Cloud SDK listening for notifications');
+     *     console.log('Mbed Cloud SDK listening for notifications');
      * })
      * .catch(error => {
      *     console.log(error);
@@ -244,7 +244,7 @@ export class ConnectApi extends EventEmitter {
      */
     public startNotifications(options?: NotificationOptions): Promise<void>;
     /**
-     * Begins long polling constantly for notifications
+     * Begins pull notifications
      *
      * If an external callback is not setup (using update_webhook), then calling this function is mandatory.
      *
@@ -252,7 +252,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * connect.startNotifications(function(error) {
      *     if (error) return console.log(error);
-     *     console.log('mbed Cloud SDK listening for notifications');
+     *     console.log('Mbed Cloud SDK listening for notifications');
      * });
      * ```
      *
@@ -296,13 +296,13 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Stops long polling for notifications
+     * Stops pull notifications
      *
      * Example:
      * ```JavaScript
      * connect.stopNotifications()
      * .then(() => {
-     *     console.log('mbed Cloud SDK stopped listening for notifications');
+     *     console.log('Mbed Cloud SDK stopped listening for notifications');
      * })
      * .catch(error => {
      *     console.log(error);
@@ -313,13 +313,13 @@ export class ConnectApi extends EventEmitter {
      */
     public stopNotifications(): Promise<void>;
     /**
-     * Stops long polling for notifications
+     * Stops pull notifications
      *
      * Example:
      * ```JavaScript
      * connect.stopNotifications(function(error) {
      *     if (error) throw error;
-     *     console.log('mbed Cloud SDK stopped listening for notifications');
+     *     console.log('Mbed Cloud SDK stopped listening for notifications');
      * });
      * ```
      *
@@ -444,7 +444,7 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
+     * Deletes the callback data (effectively stopping Mbed Cloud Connect from putting notifications)
      *
      * If no webhook is registered, an exception (404) will be raised.
      *
@@ -462,7 +462,7 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteWebhook(): Promise<void>;
     /**
-     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
+     * Deletes the callback data (effectively stopping Mbed Cloud Connect from putting notifications)
      *
      * If no webhook is registered, an exception (404) will be raised.
      *
@@ -900,7 +900,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param path Resource path
      * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
      */
     public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | { [key: string]: string | number }>;
@@ -922,7 +922,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param path Resource path
      * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
     public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
@@ -974,7 +974,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param path Resource path
      * @param value The value of the resource
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean): Promise<string>;
@@ -997,7 +997,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param path Resource path
      * @param value The value of the resource
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
@@ -1043,7 +1043,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param path Resource path
      * @param functionName The function to trigger
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean): Promise<string>;
@@ -1065,7 +1065,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param path Resource path
      * @param functionName The function to trigger
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
@@ -1351,12 +1351,12 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Get meta data for the last mbed Cloud API call
+     * Get meta data for the last Mbed Cloud API call
      * @returns Promise of meta data
      */
     public getLastApiMetadata(): Promise<ApiMetadata>;
     /**
-     * Get meta data for the last mbed Cloud API call
+     * Get meta data for the last Mbed Cloud API call
      * @param callback A function that is passed the arguments (error, meta data)
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;

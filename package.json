@@ -1,7 +1,7 @@
 {
   "name": "mbed-cloud-sdk",
   "version": "1.2.0",
-  "description": "mbed Cloud JavaScript SDK",
+  "description": "Mbed Cloud JavaScript SDK",
   "homepage": "https://www.mbed.com",
   "author": "Rob Moran <rob.moran@arm.com>",
   "license": "Apache-2.0",
@@ -15,7 +15,7 @@
     "url": "git://github.com/ARMmbed/mbed-cloud-sdk-javascript.git"
   },
   "keywords": [
-    "mbed",
+    "Mbed",
     "SDK"
   ],
   "engines": {

@@ -1,6 +1,6 @@
 /*
-* mbed Cloud JavaScript SDK
-* Copyright ARM Limited 2017
+* Mbed Cloud JavaScript SDK
+* Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -98,7 +98,7 @@ export class ConnectedDevice {
      * __Note:__ This method requires a notification channel to be set up
      * @param path Resource path
      * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
      */
     public getResourceValue(path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | { [key: string]: string | number }>;
@@ -108,7 +108,7 @@ export class ConnectedDevice {
      * __Note:__ This method requires a notification channel to be set up
      * @param path Resource path
      * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
     public getResourceValue(path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
@@ -124,7 +124,7 @@ export class ConnectedDevice {
      * __Note:__ This method requires a notification channel to be set up
      * @param path Resource path
      * @param value The value of the resource
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
     public setResourceValue(path: string, value: string, noResponse?: boolean): Promise<string>;
@@ -134,7 +134,7 @@ export class ConnectedDevice {
      * __Note:__ This method requires a notification channel to be set up
      * @param path Resource path
      * @param value The value of the resource
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public setResourceValue(path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
@@ -150,7 +150,7 @@ export class ConnectedDevice {
      * __Note:__ This method requires a notification channel to be set up
      * @param path Resource path
      * @param functionName The function to trigger
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
     public executeResource(path: string, functionName?: string, noResponse?: boolean): Promise<string>;
@@ -160,7 +160,7 @@ export class ConnectedDevice {
      * __Note:__ This method requires a notification channel to be set up
      * @param path Resource path
      * @param functionName The function to trigger
-     * @param noResponse If true, mbed Device Connector will not wait for a response
+     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public executeResource(path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;

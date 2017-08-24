@@ -1,6 +1,6 @@
 /*
-* mbed Cloud JavaScript SDK
-* Copyright ARM Limited 2017
+* Mbed Cloud JavaScript SDK
+* Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ import { SDKError } from "./sdkError";
 
 export interface ConnectionOptions {
     /**
-     * API Key for your mbed Cloud account
+     * API Key for your Mbed Cloud account
      */
     apiKey: string;
     /**
-     * URL for mbed Cloud API
+     * URL for Mbed Cloud API
      */
     host?: string;
 }
