@@ -16,6 +16,7 @@ var objectFns = [
 	"updateAccount",
 	"updateCampaign",
 	"addCertificate",
+	"addDeveloperCertificate",
 	"updateCertificate",
 	"listDeviceLogs",
 	"listMetrics",
