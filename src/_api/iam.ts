@@ -460,10 +460,22 @@ export interface GroupSummaryList {
 }
 
 export interface LoginHistory {
-    "date"?: string;
-    "userAgent"?: string;
-    "ipAddress"?: string;
-    "success"?: boolean;
+    /**
+     * UTC time RFC3339 for this login attempt.
+     */
+    "date": Date;
+    /**
+     * IP address of the client.
+     */
+    "ip_address": string;
+    /**
+     * User Agent header from the login request.
+     */
+    "user_agent": string;
+    /**
+     * Flag indicating whether login attempt was successful or not.
+     */
+    "success": boolean;
 }
 
 /**
