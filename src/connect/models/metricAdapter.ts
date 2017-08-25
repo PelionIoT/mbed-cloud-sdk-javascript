@@ -43,33 +43,41 @@ export class MetricAdapter {
     }
 
     static mapIncludes(from?: string[]): string {
-    	let includes = [];
-    	let metricNames = [
-    		"transactions",
-    		"successfulDeviceRegistrations",
-    		"pendingDeviceRegistrations",
-    		"failedDeviceRegistrations",
-    		"successfulApiCalls",
-    		"failedApiCalls"
-    	];
-    	let apiNames = [
-    		"transactions",
-    		"bootstraps_successful",
-    		"bootstraps_pending",
-    		"bootstraps_failed",
-    		"device_server_rest_api_success",
-    		"device_server_rest_api_error"
-    	];
+        let includes = [];
 
-    	if (from) {
-	    	from.forEach(include => {
-		    	let index = metricNames.indexOf(include);
-		    	if (index >=0 ) includes.push(apiNames[index]);
-	    	});
-	    }
+        let metricNames = [
+            "transactions",
+            "registrations",
+            "registrationUpdates",
+            "deregistrations",
+            "successfulBootstraps",
+            "pendingBootstraps",
+            "failedBootstraps",
+            "successfulApiCalls",
+            "failedApiCalls"
+        ];
 
-    	if (includes.length == 0) includes = apiNames;
-    	return includes.join(",");
+        let apiNames = [
+            "transactions",
+            "full_registrations",
+            "registration_updates",
+            "deregistrations",
+            "bootstraps_successful",
+            "bootstraps_pending",
+            "bootstraps_failed",
+            "device_server_rest_api_success",
+            "device_server_rest_api_error"
+        ];
+
+        if (from) {
+            from.forEach(include => {
+                let index = metricNames.indexOf(include);
+                if (index >=0 ) includes.push(apiNames[index]);
+            });
+        }
+
+        if (includes.length == 0) includes = apiNames;
+        return includes.join(",");
     }
 
     static mapTimePeriod(from?: TimePeriod): string {
