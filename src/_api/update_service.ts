@@ -4,7 +4,7 @@
 // ===============================================
 /**
  * Update Service API
- * This is the API Documentation for the mbed deployment service which is part of the update service.
+ * This is the API documentation for the Mbed deployment service, which is part of the update service.
  *
  * OpenAPI spec version: 3
  * 
@@ -24,15 +24,15 @@ import { SDKError } from "../common/sdkError";
 export type CampaignDeviceMetadataDeploymentStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved";
 export interface CampaignDeviceMetadata {
     /**
-     * Description of the record
+     * Description
      */
     "description"?: string;
     /**
-     * The id of the campaign the device is in
+     * The ID of the campaign the device is in
      */
     "campaign"?: string;
     /**
-     * This time the record was created in the database
+     * The time the campaign was created
      */
     "created_at"?: Date;
     /**
@@ -52,23 +52,23 @@ export interface CampaignDeviceMetadata {
      */
     "name"?: string;
     /**
-     * API resource entity version.
+     * API resource entity version
      */
     "etag"?: string;
     /**
-     * The url of cloud connect used
+     * The URL of cloud connect used
      */
     "mechanism_url"?: string;
     /**
-     * The state of the update campaign on the device.
+     * The state of the update campaign on the device
      */
     "deployment_state"?: CampaignDeviceMetadataDeploymentStateEnum;
     /**
-     * The id of the metadata record
+     * The ID of the metadata record
      */
     "id"?: string;
     /**
-     * The id of the device
+     * The ID of the device
      */
     "device_id"?: string;
 }
@@ -977,7 +977,7 @@ export class DefaultApi extends ApiBase {
     }
     /** 
      * @param campaignId The ID of the update campaign
-     * @param campaignDeviceMetadataId The id of the campaign device metadata
+     * @param campaignDeviceMetadataId The ID of the campaign device metadata
      */
     v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet (campaignId: string, campaignDeviceMetadataId: string, callback?: (error:any, data?:CampaignDeviceMetadata, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
