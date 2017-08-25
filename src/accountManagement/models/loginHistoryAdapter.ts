@@ -24,9 +24,9 @@ import { LoginHistory } from "./loginHistory";
 export class LoginHistoryAdapter {
     static map(from: apiLoginHistory): LoginHistory {
         return new LoginHistory({
-            date:       from.date ? new Date(from.date) : null,
-            userAgent:  from.userAgent,
-            ipAddress:  from.ipAddress,
+            date:       from.date,
+            userAgent:  from.user_agent,
+            ipAddress:  from.ip_address,
             success:    from.success
         });
     }
