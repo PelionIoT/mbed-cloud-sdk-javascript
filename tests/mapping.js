@@ -16,6 +16,7 @@ var objectFns = [
 	"updateAccount",
 	"updateCampaign",
 	"addCertificate",
+	"addDeveloperCertificate",
 	"updateCertificate",
 	"listDeviceLogs",
 	"listMetrics",
@@ -88,7 +89,8 @@ exports.mapArgs = (module, method, query) => {
 		// Transform query to json string
 		query = query
 			.replace(/&/g, '","')
-			.replace(/=/g, '":"');
+			.replace(/=/g, '":"')
+			.replace(/\+/g, ' ');
 
 		query = `{"${decodeURIComponent(query)}"}`;
 
@@ -97,7 +99,7 @@ exports.mapArgs = (module, method, query) => {
 			.replace(/"\[/g, '[')
 			.replace(/\}"/g, '}')
 			.replace(/"\{/g, '{')
-			.replace(/\+/g, ' ');
+			.replace(/\n/g, '\\n');
 
 		// Use a reviver to camel-case the JSON
 		args = JSON.parse(query, function(key, value) {
@@ -106,6 +108,7 @@ exports.mapArgs = (module, method, query) => {
 			if (snakey === key) return value;
 			this[snakey] = value;
 		});
+
 	} catch(e) {
 		console.log(e);
 		return [];
