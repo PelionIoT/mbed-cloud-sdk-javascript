@@ -45,7 +45,8 @@ var mapping = {
 		addResourceSubscription: args => {
 			return {
 				0: args.deviceId,
-				1: args.resourcePath
+				1: args.resourcePath,
+				2: null
 			};
 		},
 		listMetrics: args => {

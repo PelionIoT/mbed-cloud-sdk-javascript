@@ -1,7 +1,9 @@
 .vscode
 .DS_Store
+test
 node_modules
 bundles
 docs
 lib
 types
+package-lock.json
