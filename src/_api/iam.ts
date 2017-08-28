@@ -1937,7 +1937,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Update API key details.
-     * An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for updating API key details.
      * @param apiKey The ID of the API key to be updated.
      * @param body New API key attributes to be stored.
      */
