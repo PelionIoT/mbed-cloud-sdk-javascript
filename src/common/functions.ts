@@ -78,18 +78,34 @@ export function decodeBase64(payload, contentType) {
         result = new Buffer(payload, "base64").toString("utf8");
     }
 
+    // According to the swagger, content types can be:
+    // text/plain
+    // application/xml
+    // application/octet-stream
+    // application/exi
+    // application/json
+    // application/link-format
+    // application/senml+json
+    // application/nanoservice-tlv
+    // application/vnd.oma.lwm2m+text
+    // application/vnd.oma.lwm2m+opaq
+    // application/vnd.oma.lwm2m+tlv
+    // application/vnd.oma.lwm2m+json
     if (contentType) {
-        if (contentType.indexOf("json") > -1) {
-            // Decode json
-            try {
-                return JSON.parse(result);
-            } catch(e) {}
-        } else if (contentType.indexOf("lwm2m+tlv") > -1) {
+        if (contentType.indexOf("tlv") > -1) {
             // Decode tlv
             try {
                 return decodeTlv(result);
             } catch(e) {}
         }
+        /*
+        else if (contentType.indexOf("json") > -1) {
+            // Decode json
+            try {
+                return JSON.parse(result);
+            } catch(e) {}
+        }
+        */
     }
 
     return result;
