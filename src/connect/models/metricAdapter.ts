@@ -28,48 +28,62 @@ export class MetricAdapter {
 
     static map(from: apiMetric): Metric {
         return new Metric({
-            id:                               from.id,
-            timestamp:                        from.timestamp ? new Date(from.timestamp) : null,
-            transactions:                     from.transactions,
-            successfulDeviceRegistrations:    from.bootstraps_successful,
-            pendingDeviceRegistrations:       from.bootstraps_pending,
-            failedDeviceRegistrations:        from.bootstraps_failed,
-            successfulApiCalls:               from.device_server_rest_api_success,
-            failedApiCalls:                   from.device_server_rest_api_error,
-            successfulHandshakes:             from.handshakes_successful,
-            failedHandshakes:                 from.handshakes_failed,
-            registeredDevices:                from.registered_devices
+            id:                     from.id,
+            timestamp:              from.timestamp ? new Date(from.timestamp) : null,
+            transactions:           from.transactions,
+            successfulApiCalls:     from.device_server_rest_api_success,
+            failedApiCalls:         from.device_server_rest_api_error,
+            successfulHandshakes:   from.handshakes_successful,
+            pendingBootstraps:      from.bootstraps_pending,
+            successfulBootstraps:   from.bootstraps_successful,
+            failedBootstraps:       from.bootstraps_failed,
+            registrations:          from.full_registrations,
+            updatedRegistrations:   from.registration_updates,
+            expiredRegistrations:   from.expired_registrations,
+            deletedRegistrations:   from.deleted_registrations
         });
     }
 
     static mapIncludes(from?: string[]): string {
-    	let includes = [];
-    	let metricNames = [
-    		"transactions",
-    		"successfulDeviceRegistrations",
-    		"pendingDeviceRegistrations",
-    		"failedDeviceRegistrations",
-    		"successfulApiCalls",
-    		"failedApiCalls"
-    	];
-    	let apiNames = [
-    		"transactions",
-    		"bootstraps_successful",
-    		"bootstraps_pending",
-    		"bootstraps_failed",
-    		"device_server_rest_api_success",
-    		"device_server_rest_api_error"
-    	];
+        let includes = [];
 
-    	if (from) {
-	    	from.forEach(include => {
-		    	let index = metricNames.indexOf(include);
-		    	if (index >=0 ) includes.push(apiNames[index]);
-	    	});
-	    }
+        let metricNames = [
+            "transactions",
+            "successfulApiCalls",
+            "failedApiCalls",
+            "successfulHandshakes",
+            "pendingBootstraps",
+            "successfulBootstraps",
+            "failedBootstraps",
+            "registrations",
+            "updatedRegistrations",
+            "expiredRegistrations",
+            "deletedRegistrations"
+        ];
 
-    	if (includes.length == 0) includes = apiNames;
-    	return includes.join(",");
+        let apiNames = [
+            "transactions",
+            "device_server_rest_api_success",
+            "device_server_rest_api_error",
+            "handshakes_successful",
+            "bootstraps_pending",
+            "bootstraps_successful",
+            "bootstraps_failed",
+            "full_registrations",
+            "registration_updates",
+            "expired_registrations",
+            "deleted_registrations"
+        ];
+
+        if (from) {
+            from.forEach(include => {
+                let index = metricNames.indexOf(include);
+                if (index >=0 ) includes.push(apiNames[index]);
+            });
+        }
+
+        if (includes.length == 0) includes = apiNames;
+        return includes.join(",");
     }
 
     static mapTimePeriod(from?: TimePeriod): string {

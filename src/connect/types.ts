@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { ListOptions, CallbackFn } from "../common/interfaces";
+import { OrderEnum, CallbackFn } from "../common/interfaces";
 
 export interface NotificationObject {
     /**
@@ -116,7 +116,7 @@ export interface PresubscriptionObject {
     resourcePaths?: string[];
 }
 
-export type IncludeEnum = "transactions" | "successfulDeviceRegistrations" | "pendingDeviceRegistrations" | "failedDeviceRegistrations" | "successfulApiCalls" | "failedApiCalls";
+export type MetricsIncludeEnum = "transactions" | "successfulApiCalls" | "failedApiCalls" | "successfulHandshakes" | "pendingBootstraps" | "successfulBootstraps" | "failedBootstraps" | "registrations" | "updatedRegistrations" | "expiredRegistrations" | "deletedRegistrations";
 export type UnitType = "minutes" | "hours" | "days" | "weeks";
 
 export interface TimePeriod {
@@ -130,7 +130,23 @@ export interface TimePeriod {
     duration: number;
 }
 
-export interface MetricsListOptions extends ListOptions {
+export interface MetricsListOptions {
+    /**
+     * how many objects to retrieve in the page
+     */
+    limit?: number;
+    /**
+     * ASC or DESC
+     */
+    order?: OrderEnum;
+    /**
+     * the ID of the the item after which to retrieve the next page
+     */
+    after?: string;
+    /**
+     * Optional metrics fields to include
+     */
+    include?: MetricsIncludeEnum[];
     /**
      * Group data by this interval, defaults to 1 day
      */

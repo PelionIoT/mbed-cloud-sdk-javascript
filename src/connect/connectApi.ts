@@ -1284,7 +1284,7 @@ export class ConnectApi extends EventEmitter {
      * var today = new Date();
      * var yesterday = new Date();
      * yesterday.setDate(yesterday.getDate() - 1);
-     * var options = {start: yesterday, end: today, include: ["pendingDeviceRegistrations", "failedDeviceRegistrations"]};
+     * var options = {start: yesterday, end: today, include: ["pendingBootstraps", "failedBootstraps"]};
      * connect.listMetrics(options)
      * .then(metrics => {
      *     // Utilize metrics here
@@ -1306,7 +1306,7 @@ export class ConnectApi extends EventEmitter {
      * var today = new Date();
      * var yesterday = new Date();
      * yesterday.setDate(yesterday.getDate() - 1);
-     * var options = {start: yesterday, end: today, include: ["pendingDeviceRegistrations", "failedDeviceRegistrations"]};
+     * var options = {start: yesterday, end: today, include: ["pendingBootstraps", "failedBootstraps"]};
      * connect.listMetrics(options, function(error, metrics) {
      *     if (error) throw error;
      *     // Utilize metrics here
