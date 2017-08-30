@@ -348,7 +348,7 @@ export class CertificatesApi {
     public updateCertificate(certificate: UpdateCertificateObject, callback: CallbackFn<Certificate>): void;
     public updateCertificate(certificate: UpdateCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
         return apiWrapper(resultsFn => {
-            this._endpoints.accountDeveloper.updateCertificate(certificate.id, CertificateAdapter.reverseMap(certificate), resultsFn);
+            this._endpoints.accountDeveloper.updateCertificate(certificate.id, CertificateAdapter.reverseUpdateMap(certificate), resultsFn);
         }, (data, done) => {
             this.extendCertificate(data, done);
         }, callback);

@@ -17,7 +17,7 @@
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { CertificateObject } from "../types";
+import { AddDeveloperCertificateObject, CertificateTypeEnum, CertificateStatusEnum } from "../types";
 import { CertificatesApi } from "../certificatesApi";
 
 /**
@@ -28,6 +28,18 @@ export class Certificate {
      * Entity ID.
      */
     readonly id: string;
+    /**
+     * Certificate type
+     */
+    readonly type: CertificateTypeEnum;
+    /**
+     * Status of the certificate
+     */
+    readonly status?: CertificateStatusEnum;
+    /**
+     * X509.v3 CA certificate in PEM or base64 encoded DER format
+     */
+    readonly certificateData: string;
     /**
      * The UUID of the account.
      */
@@ -49,6 +61,10 @@ export class Certificate {
      */
     readonly createdAt?: Date;
     /**
+     * The UUID of the certificate owner (user or ApiKey)
+     */
+    readonly ownerId?: string;
+    /**
      * Bootstrap server URI to which the client needs to connect to.
      */
     readonly serverUri?: string;
@@ -68,10 +84,6 @@ export class Certificate {
      * PEM format developer private key associated to the certificate.
      */
     readonly developerPrivateKey?: string;
-    /**
-     * The UUID of the certificate owner (user or ApiKey)
-     */
-    readonly ownerId?: string;
 
     constructor(init: Partial<Certificate>, private _api?: CertificatesApi) {
         for(var key in init) {
@@ -121,4 +133,4 @@ export class Certificate {
         }, callback);
     }
 }
-export interface Certificate extends CertificateObject {}
+export interface Certificate extends AddDeveloperCertificateObject {}

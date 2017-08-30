@@ -32,10 +32,24 @@ export interface AddDeveloperCertificateObject {
      * Certificate description
      */
     description?: string;
+}
+
+/**
+ * This object represents a certificate
+ */
+export interface AddCertificateObject extends AddDeveloperCertificateObject {
     /**
      * Certificate type
      */
-    type?: CertificateTypeEnum;
+    type: CertificateTypeEnum;
+    /**
+     * X509.v3 CA certificate in PEM or base64 encoded DER format
+     */
+    certificateData: string;
+    /**
+     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
+     */
+    signature: string;
     /**
      * Status of the certificate
      */
@@ -45,35 +59,35 @@ export interface AddDeveloperCertificateObject {
 /**
  * This object represents a certificate
  */
-export interface CertificateObject extends AddDeveloperCertificateObject {
-    /**
-     * Certificate type
-     */
-    type: CertificateTypeEnum;
-    /**
-     * X509.v3 CA certificate in PEM or base64 encoded DER format
-     */
-    certificateData: string;
-}
-
-/**
- * This object represents a certificate
- */
-export interface AddCertificateObject extends CertificateObject {
-    /**
-     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
-     */
-    signature: string;
-}
-
-/**
- * This object represents a certificate
- */
-export interface UpdateCertificateObject extends AddCertificateObject {
+export interface UpdateCertificateObject {
     /**
      * Certificate ID
      */
     id: string;
+    /**
+     * Certificate name
+     */
+    name?: string,
+    /**
+     * Certificate description
+     */
+    description?: string;
+    /**
+     * Certificate type
+     */
+    type?: CertificateTypeEnum;
+    /**
+     * X509.v3 CA certificate in PEM or base64 encoded DER format
+     */
+    certificateData?: string;
+    /**
+     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256
+     */
+    signature?: string;
+    /**
+     * Status of the certificate
+     */
+    status?: CertificateStatusEnum;
 }
 
 /**
