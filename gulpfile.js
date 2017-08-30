@@ -2,6 +2,7 @@ var path        = require("path");
 var browserify  = require("browserify");
 var del         = require("del");
 var merge       = require('merge2');
+var tslint      = require("tslint");
 var gulp        = require("gulp");
 var buffer      = require("gulp-buffer");
 var sourcemaps  = require('gulp-sourcemaps');
@@ -9,6 +10,7 @@ var tap         = require("gulp-tap");
 var typedoc     = require("gulp-typedoc");
 var ts          = require("gulp-typescript");
 var uglify      = require("gulp-uglify");
+var gulpTslint  = require("gulp-tslint");
 
 var name = "Mbed Cloud SDK for JavaScript";
 var namespace = "MbedCloudSDK";
@@ -29,6 +31,20 @@ function handleError() {
 // Clear built directories
 gulp.task("clean", function() {
     return del([nodeDir, typesDir, bundleDir]);
+});
+
+// Lint the source
+gulp.task("lint", function() {
+    var program = tslint.Linter.createProgram();
+
+    gulp.src([srcDir + "/**/*.ts", "!" + srcDir + "/_api/**"])
+    .pipe(gulpTslint({
+        program: program,
+        formatter: "stylish"
+    }))
+    .pipe(gulpTslint.report({
+        emitError: false
+    }))
 });
 
 // Create documentation
@@ -127,4 +143,4 @@ gulp.task("watch", ["default"], function() {
     gulp.watch(srcDir + "/**/*.*", ["default"]);
 });
 
-gulp.task("default", ["clean", "doc", "browserify"]);
+gulp.task("default", ["clean", "lint", "doc", "browserify"]);

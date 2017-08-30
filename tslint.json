@@ -1,0 +1,21 @@
+{
+    "extends": [
+        "tslint:recommended",
+        "tslint-eslint-rules"
+    ],
+    "rules": {
+        "array-bracket-spacing": [true, "always"],
+        "block-spacing": [true, "always"],
+        "brace-style": [true, "1tbs", { "allowSingleLine": true }],
+        "eofline": true,
+        "linebreak-style": [true, "LF"],
+        "no-console": [true],
+        "no-trailing-whitespace": [true],
+        "no-unused-variable": [true],
+        "object-curly-spacing": [true, "always"],
+        "semicolon": [true, "always"],
+        "ter-indent": [true, 4],
+        "ter-no-irregular-whitespace": [true],
+        "triple-equals": [true]
+    }
+}
