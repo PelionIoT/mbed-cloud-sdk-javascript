@@ -723,6 +723,38 @@ export interface TrustedCertificateRespList {
 }
 
 /**
+ * This object represents a trusted certificate in requests.
+ */
+export type TrustedCertificateUpdateReqStatusEnum = "ACTIVE" | "INACTIVE";
+export type TrustedCertificateUpdateReqServiceEnum = "lwm2m" | "bootstrap";
+export interface TrustedCertificateUpdateReq {
+    /**
+     * Status of the certificate.
+     */
+    "status"?: TrustedCertificateUpdateReqStatusEnum;
+    /**
+     * X509.v3 trusted certificate in PEM format.
+     */
+    "certificate"?: string;
+    /**
+     * Certificate name, not longer than 100 characters.
+     */
+    "name"?: string;
+    /**
+     * Service name where the certificate must be used.
+     */
+    "service"?: TrustedCertificateUpdateReqServiceEnum;
+    /**
+     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
+     */
+    "signature"?: string;
+    /**
+     * Human readable description of this certificate, not longer than 500 characters.
+     */
+    "description"?: string;
+}
+
+/**
  * This object represents a response to an update request.
  */
 export type UpdatedResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
@@ -1981,7 +2013,7 @@ export class DeveloperApi extends ApiBase {
      * @param certId The ID of the trusted certificate to be updated.
      * @param body A trusted certificate object with attributes.
      */
-    updateCertificate (certId: string, body: TrustedCertificateReq, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    updateCertificate (certId: string, body: TrustedCertificateUpdateReq, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "certId" is set
         if (certId === null || certId === undefined) {
             if (callback) {
