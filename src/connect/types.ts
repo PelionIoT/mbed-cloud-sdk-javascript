@@ -116,7 +116,7 @@ export interface PresubscriptionObject {
     resourcePaths?: string[];
 }
 
-export type MetricsIncludeEnum = "transactions" | "registrations" | "registrationUpdates" | "deregistrations" | "successfulBootstraps" | "pendingBootstraps" | "failedBootstraps" | "successfulApiCalls" | "failedApiCalls";
+export type MetricsIncludeEnum = "transactions" | "successfulApiCalls" | "failedApiCalls" | "successfulHandshakes" | "pendingBootstraps" | "successfulBootstraps" | "failedBootstraps" | "registrations" | "updatedRegistrations" | "expiredRegistrations" | "deletedRegistrations";
 export type UnitType = "minutes" | "hours" | "days" | "weeks";
 
 export interface TimePeriod {
