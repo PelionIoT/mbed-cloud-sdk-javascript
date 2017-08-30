@@ -17,9 +17,10 @@
 
 import { CertificatesApi } from "../certificatesApi";
 import { Certificate } from "./certificate";
-import { AddCertificateObject, AddDeveloperCertificateObject } from "../types";
+import { AddCertificateObject, AddDeveloperCertificateObject, UpdateCertificateObject } from "../types";
 import {
     TrustedCertificateReq as iamCertificateRequest,
+    TrustedCertificateUpdateReq as iamCertificateUpdate,
     TrustedCertificateResp as iamCertificate
 } from "../../_api/iam";
 import {
@@ -76,6 +77,17 @@ export class CertificateAdapter {
     }
 
     static reverseMap(from: AddCertificateObject): iamCertificateRequest {
+        return {
+            certificate:    from.certificateData,
+            name:           from.name,
+            service:        from.type === "developer" ? "bootstrap" : from.type,
+            status:         from.status,
+            signature:      from.signature,
+            description:    from.description
+        };
+    }
+
+    static reverseUpdateMap(from: UpdateCertificateObject): iamCertificateUpdate {
         return {
             certificate:    from.certificateData,
             name:           from.name,
