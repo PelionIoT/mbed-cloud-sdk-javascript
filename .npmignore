@@ -5,3 +5,4 @@ tests
 circle.yml
 gulpfile.js
 DEVELOPMENT.md
+tslint.json
