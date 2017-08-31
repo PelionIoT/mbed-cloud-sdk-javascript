@@ -16,6 +16,17 @@
         "semicolon": [true, "always"],
         "ter-indent": [true, 4],
         "ter-no-irregular-whitespace": [true],
-        "triple-equals": [true]
+        "triple-equals": [true],
+        "variable-name": [true, "allow-leading-underscore"],
+        "trailing-comma": [true, "never"],
+        "ordered-imports": [true, { "import-sources-order": "any", "named-imports-order": "any" }],
+        "interface-name": [true, "never-prefix"],
+        "arrow-parens": [true, "ban-single-arg-parens"],
+        "curly": [true, "ignore-same-line"],
+        "max-line-length": [false],
+        "no-bitwise": false,
+        "no-empty-interface": false,
+        "object-literal-sort-keys": false,
+        "object-literal-shorthand": false
     }
 }

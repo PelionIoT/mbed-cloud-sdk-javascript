@@ -28,10 +28,10 @@ import { FirmwareManifest } from "./firmwareManifest";
  */
 export class FirmwareManifestAdapter {
 
-    static mapContents(from: apiManifestContents): ManifestContents {
+    public static mapContents(from: apiManifestContents): ManifestContents {
         if (!from) return {};
 
-        let contents:Partial<ManifestContents> = {
+        const contents: Partial<ManifestContents> = {
             classId:                     from.classId,
             vendorId:                    from.vendorId,
             version:                     from.manifestVersion,
@@ -76,7 +76,7 @@ export class FirmwareManifestAdapter {
         return contents;
     }
 
-    static map(from: apiFirmwareManifest, api: UpdateApi): FirmwareManifest {
+    public static map(from: apiFirmwareManifest, api: UpdateApi): FirmwareManifest {
         return new FirmwareManifest({
             createdAt:           from.created_at,
             url:                 from.datafile,

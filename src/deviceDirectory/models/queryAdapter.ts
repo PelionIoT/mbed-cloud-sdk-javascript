@@ -31,7 +31,7 @@ import { Query } from "./query";
  */
 export class QueryAdapter {
 
-    static map(from: apiQuery, api: DeviceDirectoryApi): Query {
+    public static map(from: apiQuery, api: DeviceDirectoryApi): Query {
         return new Query({
             filter:              decodeFilter(from.query, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS),
             createdAt:           from.created_at,
@@ -41,14 +41,14 @@ export class QueryAdapter {
         }, api);
     }
 
-    static addMap(from: AddQueryObject): apiQueryAdd {
+    public static addMap(from: AddQueryObject): apiQueryAdd {
         return {
             name:           from.name,
             query:          encodeFilter(from.filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null
         };
     }
 
-    static updateMap(from: UpdateQueryObject): apiQueryUpdate {
+    public static updateMap(from: UpdateQueryObject): apiQueryUpdate {
         return {
             name:           from.name,
             query:          encodeFilter(from.filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null

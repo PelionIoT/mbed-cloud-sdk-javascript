@@ -31,7 +31,7 @@ import { Campaign } from "./campaign";
  */
 export class CampaignAdapter {
 
-    static map(from: apiCampaign, api: UpdateApi): Campaign {
+    public static map(from: apiCampaign, api: UpdateApi): Campaign {
         return new Campaign({
             deviceFilter:        decodeFilter(from.device_filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS),
             createdAt:           from.created_at,
@@ -47,7 +47,7 @@ export class CampaignAdapter {
         }, api);
     }
 
-    static addMap(from: AddCampaignObject): apiCampaignAdd {
+    public static addMap(from: AddCampaignObject): apiCampaignAdd {
         return {
             description:         from.description,
             device_filter:       encodeFilter(from.deviceFilter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null,
@@ -58,7 +58,7 @@ export class CampaignAdapter {
         };
     }
 
-    static updateMap(from: UpdateCampaignObject): apiCampaignUpdate {
+    public static updateMap(from: UpdateCampaignObject): apiCampaignUpdate {
         return {
             description:         from.description,
             device_filter:       encodeFilter(from.deviceFilter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null,

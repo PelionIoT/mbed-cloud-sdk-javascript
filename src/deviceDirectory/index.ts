@@ -15,4 +15,5 @@
 * limitations under the License.
 */
 
-module.exports = require("./deviceDirectoryApi").DeviceDirectoryApi;
+import api = require("./deviceDirectoryApi");
+module.exports = api.DeviceDirectoryApi;

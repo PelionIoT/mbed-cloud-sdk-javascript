@@ -23,55 +23,55 @@ export class ApiMetadata {
     /**
      * URL of the API request
      */
-    readonly url?: string;
+    public readonly url?: string;
 
     /**
      * Method of the API request
      */
-    readonly method?: string;
+    public readonly method?: string;
 
     /**
      * HTTP Status code of the API response
      */
-    readonly statusCode?: number;
+    public readonly statusCode?: number;
 
     /**
      * Date of the API response
      */
-    readonly date?: Date;
+    public readonly date?: Date;
 
     /**
      * Headers in the API response
      */
-    readonly headers?: { [key: string]: string };
+    public readonly headers?: { [key: string]: string };
 
     /**
      * Request ID of the transaction
      */
-    readonly requestId?: string;
+    public readonly requestId?: string;
 
     /**
      * Object type of the returned data
      */
-    readonly object?: string;
+    public readonly object?: string;
 
     /**
      * etag of the returned data
      */
-    readonly etag?: string;
+    public readonly etag?: string;
 
     /**
      * Any error message returned
      */
-    readonly errorMessage?: string;
+    public readonly errorMessage?: string;
 
-    constructor(statusCode?: number, errorMessage?: string, headers?: {}, body?: { [key:string]: string }, request?: { [key:string]: string }) {
+    constructor(statusCode?: number, errorMessage?: string, headers?: { [key: string]: string }, body?: { [key: string]: string }, request?: { [key: string]: string }) {
         this.statusCode = statusCode;
         this.errorMessage = errorMessage;
 
         if (headers) {
             this.headers = headers;
-            this.date = headers["date"] ? new Date(headers["date"]) : new Date();
+            this.date = headers.date ? new Date(headers.date) : new Date();
             this.requestId = headers["x-request-id"];
         }
 

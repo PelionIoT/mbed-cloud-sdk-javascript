@@ -28,9 +28,7 @@ export interface ConnectionOptions {
     host?: string;
 }
 
-export interface CallbackFn<T> {
-    (error: SDKError, data?: T): any;
-}
+export type CallbackFn<T> = (error: SDKError, data?: T) => any;
 
 /**
  * Possible optional fields to request when listing
@@ -67,7 +65,7 @@ export interface ListOptions {
 /**
  * Operators inspired by [MongoDB](https://docs.mongodb.com/manual/reference/operator/query-comparison/)
  */
-export type ComparisonObject<T> = {
+export interface ComparisonObject<T> {
     /**
      * Equal to
      */
@@ -84,4 +82,4 @@ export type ComparisonObject<T> = {
      * Less than or equal to
      */
     $lte?: T;
-};
+}

@@ -21,7 +21,7 @@ import { ListResponse } from "../common/listResponse";
 import { Endpoints } from "./endpoints";
 import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions } from "./types";
 import { Account } from "./models/account";
-import { AccountAdapter } from "./models/accountAdapter"
+import { AccountAdapter } from "./models/accountAdapter";
 import { ApiKey } from "./models/apiKey";
 import { ApiKeyAdapter } from "./models/apiKeyAdapter";
 import { User } from "./models/user";
@@ -62,8 +62,8 @@ export class AccountManagementApi {
     private _endpoints: Endpoints;
 
     /**
-    * @param options connection options
-    */
+     * @param options connection options
+     */
     constructor(options: ConnectionOptions) {
         this._endpoints = new Endpoints(options);
     }
@@ -209,7 +209,7 @@ export class AccountManagementApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, after, order, include, filter } = options as ApiKeyListOptions;
+            const { limit, after, order, include, filter } = options as ApiKeyListOptions;
             this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), extractFilter(filter, "ownerId"), resultsFn);
         }, (data, done) => {
             let keys: ApiKey[];
@@ -450,7 +450,7 @@ export class AccountManagementApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, after, order, include, filter } = options as UserListOptions;
+            const { limit, after, order, include, filter } = options as UserListOptions;
             this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), extractFilter(filter, "status"), resultsFn);
         }, (data, done) => {
             let users: User[];
@@ -681,7 +681,7 @@ export class AccountManagementApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, after, order, include } = options as ListOptions;
+            const { limit, after, order, include } = options as ListOptions;
             this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), resultsFn);
         }, (data, done) => {
             let groups: Group[];
@@ -779,7 +779,7 @@ export class AccountManagementApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, after, order, include } = options as ListOptions;
+            const { limit, after, order, include } = options as ListOptions;
             this._endpoints.admin.getUsersOfGroup(groupId, limit, after, order, encodeInclude(include), resultsFn);
         }, (data, done) => {
             let users: User[];
@@ -836,7 +836,7 @@ export class AccountManagementApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, after, order, include } = options as ListOptions;
+            const { limit, after, order, include } = options as ListOptions;
             this._endpoints.developer.getApiKeysOfGroup(groupId, limit, after, order, encodeInclude(include), resultsFn);
         }, (data, done) => {
             let keys: ApiKey[];

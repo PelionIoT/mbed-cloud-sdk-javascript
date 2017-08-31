@@ -164,7 +164,7 @@ export interface QueryObject {
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
         customAttributes?: { [key: string]: ComparisonObject<string> };
-    }
+    };
 }
 
 export interface UpdateQueryObject extends QueryObject {
@@ -217,7 +217,7 @@ export interface AddQueryObject extends QueryObject {
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
         customAttributes?: { [key: string]: ComparisonObject<string> };
-    }
+    };
 }
 
 /**
@@ -262,7 +262,7 @@ export interface DeviceListOptions extends ListOptions {
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
         customAttributes?: { [key: string]: ComparisonObject<string> };
-    }
+    };
 }
 
 /**
@@ -285,7 +285,7 @@ export interface QueryListOptions extends ListOptions {
         name?: ComparisonObject<string>;
         createdAt?: ComparisonObject<Date>;
         updatedAt?: ComparisonObject<Date>;
-    }
+    };
 }
 
 /**
@@ -307,5 +307,5 @@ export interface DeviceEventListOptions extends ListOptions {
         type?: ComparisonObject<string>;
         deviceId?: ComparisonObject<string>;
         eventDate?: ComparisonObject<Date>;
-    }
+    };
 }

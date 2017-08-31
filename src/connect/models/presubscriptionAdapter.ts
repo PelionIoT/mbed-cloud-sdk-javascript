@@ -23,7 +23,7 @@ import { Presubscription as apiPresubscription } from "../../_api/mds";
  */
 export class PresubscriptionAdapter {
 
-    static map(from: apiPresubscription): Presubscription {
+    public static map(from: apiPresubscription): Presubscription {
         return {
             deviceId:         from["endpoint-name"],
             deviceType:       from["endpoint-type"],
@@ -31,7 +31,7 @@ export class PresubscriptionAdapter {
         };
     }
 
-    static reverseMap(from: Presubscription): apiPresubscription {
+    public static reverseMap(from: Presubscription): apiPresubscription {
         return {
             "endpoint-name": from.deviceId,
             "endpoint-type": from.deviceType,

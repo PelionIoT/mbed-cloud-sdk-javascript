@@ -23,7 +23,7 @@ import { CampaignDeviceState } from "./campaignDeviceState";
  */
 export class CampaignDeviceStateAdapter {
 
-    static map(from: apiDeviceState): CampaignDeviceState {
+    public static map(from: apiDeviceState): CampaignDeviceState {
         return new CampaignDeviceState({
             id:             from.id,
             deviceId:       from.device_id,

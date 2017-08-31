@@ -24,9 +24,7 @@ import { Metric } from "./metric";
  */
 export class MetricAdapter {
 
-    private static readonly DEFAULT_TIME_PERIOD = "1d";
-
-    static map(from: apiMetric): Metric {
+    public static map(from: apiMetric): Metric {
         return new Metric({
             id:                     from.id,
             timestamp:              from.timestamp ? new Date(from.timestamp) : null,
@@ -44,10 +42,10 @@ export class MetricAdapter {
         });
     }
 
-    static mapIncludes(from?: string[]): string {
+    public static mapIncludes(from?: string[]): string {
         let includes = [];
 
-        let metricNames = [
+        const metricNames = [
             "transactions",
             "successfulApiCalls",
             "failedApiCalls",
@@ -61,7 +59,7 @@ export class MetricAdapter {
             "deletedRegistrations"
         ];
 
-        let apiNames = [
+        const apiNames = [
             "transactions",
             "device_server_rest_api_success",
             "device_server_rest_api_error",
@@ -77,18 +75,20 @@ export class MetricAdapter {
 
         if (from) {
             from.forEach(include => {
-                let index = metricNames.indexOf(include);
-                if (index >=0 ) includes.push(apiNames[index]);
+                const index = metricNames.indexOf(include);
+                if (index >= 0 ) includes.push(apiNames[index]);
             });
         }
 
-        if (includes.length == 0) includes = apiNames;
+        if (includes.length === 0) includes = apiNames;
         return includes.join(",");
     }
 
-    static mapTimePeriod(from?: TimePeriod): string {
+    public static mapTimePeriod(from?: TimePeriod): string {
         if (!from) return MetricAdapter.DEFAULT_TIME_PERIOD;
-        let unit = from.unit[0];
+        const unit = from.unit[0];
         return `${from.duration}${unit}`;
     }
+
+    private static readonly DEFAULT_TIME_PERIOD = "1d";
 }

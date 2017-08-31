@@ -32,51 +32,53 @@ export class User {
     /**
      * A list of group IDs this user belongs to.
      */
-    readonly groups?: string[];
+    public readonly groups?: string[];
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
      */
-    readonly username: string;
+    public readonly username: string;
     /**
      * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
      */
-    readonly status: UserStatusEnum;
+    public readonly status: UserStatusEnum;
     /**
      * The UUID of the account.
      */
-    readonly accountId: string;
+    public readonly accountId: string;
     /**
      * A flag indicating whether the user's email address has been verified or not.
      */
-    readonly emailVerified?: boolean;
+    public readonly emailVerified?: boolean;
     /**
      * Creation time.
      */
-    readonly createdAt?: Date;
+    public readonly createdAt?: Date;
     /**
      * A timestamp of the user creation in the storage, in milliseconds.
      */
-    readonly creationTime?: number;
+    public readonly creationTime?: number;
     /**
      * A timestamp of the latest change of the user password, in milliseconds.
      */
-    readonly passwordChangedTime?: number;
+    public readonly passwordChangedTime?: number;
     /**
      * Whether two factor authentication has been enabled for this user
      */
-    readonly twoFactorAuthentication?: boolean;
+    public readonly twoFactorAuthentication?: boolean;
     /**
      * A timestamp of the latest login of the user, in milliseconds.
      */
-    readonly lastLoginTime?: number;
+    public readonly lastLoginTime?: number;
     /**
      * History of logins for this user;
      */
-    readonly loginHistory?: LoginHistory[];
+    public readonly loginHistory?: LoginHistory[];
 
     constructor(init: Partial<User>, private _api?: AccountManagementApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 
@@ -100,13 +102,13 @@ export class User {
      * List the groups this user belongs to
      * @returns Promise containing groups
      */
-    public listGroups(): Promise<Array<Group>>;
+    public listGroups(): Promise<Group[]>;
     /**
      * List the groups this user belongs to
      * @param callback A function that is passed the return arguments (error, groups)
      */
-    public listGroups(callback: CallbackFn<Array<Group>>): void;
-    public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
+    public listGroups(callback: CallbackFn<Group[]>): void;
+    public listGroups(callback?: CallbackFn<Group[]>): Promise<Group[]> {
         return apiWrapper(resultsFn => {
             this._api.listGroups(resultsFn);
         }, (data, done) => {

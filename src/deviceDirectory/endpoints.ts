@@ -21,7 +21,7 @@ import { EndpointsBase } from "../common/endpointsBase";
 
 export class Endpoints extends EndpointsBase {
 
-    directory: DirectoryApi;
+    public directory: DirectoryApi;
 
     constructor(options: ConnectionOptions) {
         super();

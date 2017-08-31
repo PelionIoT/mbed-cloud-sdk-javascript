@@ -120,10 +120,10 @@ export class DeviceDirectoryApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, after, order, include, filter } = options;
+            const { limit, after, order, include, filter } = options;
             this._endpoints.directory.deviceList(limit, order, after, encodeFilter(filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS), encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let devices = data.data.map(device => {
+            const devices = data.data.map(device => {
                 return DeviceAdapter.map(device, this);
             });
 
@@ -168,7 +168,7 @@ export class DeviceDirectoryApi {
         return apiWrapper(resultsFn => {
             this._endpoints.directory.deviceRetrieve(deviceId, resultsFn);
         }, (data, done) => {
-            let device = DeviceAdapter.map(data, this);
+            const device = DeviceAdapter.map(data, this);
             done(null, device);
         }, callback);
     }
@@ -218,8 +218,8 @@ export class DeviceDirectoryApi {
         return apiWrapper(resultsFn => {
             this._endpoints.directory.deviceCreate(DeviceAdapter.addMap(device), resultsFn);
         }, (data, done) => {
-            let device = DeviceAdapter.map(data, this);
-            done(null, device);
+            const result = DeviceAdapter.map(data, this);
+            done(null, result);
         }, callback);
     }
 
@@ -276,8 +276,8 @@ export class DeviceDirectoryApi {
         return apiWrapper(resultsFn => {
             this._endpoints.directory.devicePartialUpdate(device.id, DeviceAdapter.updateMap(device), resultsFn);
         }, (data, done) => {
-            let device = DeviceAdapter.map(data, this);
-            done(null, device);
+            const result = DeviceAdapter.map(data, this);
+            done(null, result);
         }, callback);
     }
 
@@ -353,7 +353,7 @@ export class DeviceDirectoryApi {
      * @returns Promise containing a list response
      */
     public listQueries(options?: QueryListOptions, callback?: CallbackFn<ListResponse<Query>>): void;
-    public listQueries(options?:any, callback?: CallbackFn<ListResponse<Query>>): Promise<ListResponse<Query>> {
+    public listQueries(options?: any, callback?: CallbackFn<ListResponse<Query>>): Promise<ListResponse<Query>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -361,7 +361,7 @@ export class DeviceDirectoryApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, order, after, include, filter } = options;
+            const { limit, order, after, include, filter } = options;
             this._endpoints.directory.deviceQueryList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
             let queries: Query[];
@@ -371,7 +371,7 @@ export class DeviceDirectoryApi {
                 });
             }
 
-            let response = new ListResponse(data, queries);
+            const response = new ListResponse(data, queries);
             done(null, response);
         }, callback);
     }
@@ -415,7 +415,7 @@ export class DeviceDirectoryApi {
         return apiWrapper(resultsFn => {
             this._endpoints.directory.deviceQueryRetrieve(queryId, resultsFn);
         }, (data, done) => {
-            let query = QueryAdapter.map(data, this);
+            const query = QueryAdapter.map(data, this);
             done(null, query);
         }, callback);
     }
@@ -473,8 +473,8 @@ export class DeviceDirectoryApi {
         return apiWrapper(resultsFn => {
             this._endpoints.directory.deviceQueryCreate(QueryAdapter.addMap(query), resultsFn);
         }, (data, done) => {
-            let query = QueryAdapter.map(data, this);
-            done(null, query);
+            const result = QueryAdapter.map(data, this);
+            done(null, result);
         }, callback);
     }
 
@@ -531,8 +531,8 @@ export class DeviceDirectoryApi {
         return apiWrapper(resultsFn => {
             this._endpoints.directory.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), resultsFn);
         }, (data, done) => {
-            let query = QueryAdapter.map(data, this);
-            done(null, query);
+            const result = QueryAdapter.map(data, this);
+            done(null, result);
         }, callback);
     }
 
@@ -618,7 +618,7 @@ export class DeviceDirectoryApi {
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
     public listDeviceEvents(options?: DeviceEventListOptions, callback?: CallbackFn<ListResponse<DeviceEvent>>): void;
-    public listDeviceEvents(options?:any, callback?: CallbackFn<ListResponse<DeviceEvent>>): Promise<ListResponse<DeviceEvent>> {
+    public listDeviceEvents(options?: any, callback?: CallbackFn<ListResponse<DeviceEvent>>): Promise<ListResponse<DeviceEvent>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -626,13 +626,13 @@ export class DeviceDirectoryApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, order, after, include, filter } = options as DeviceEventListOptions;
+            const { limit, order, after, include, filter } = options as DeviceEventListOptions;
             this._endpoints.directory.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_EVENT_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
             let list: DeviceEvent[];
             if (data.data && data.data.length) {
                 list = data.data.map(event => {
-                return DeviceEventAdapter.map(event);
+                    return DeviceEventAdapter.map(event);
                 });
             }
 
@@ -677,7 +677,7 @@ export class DeviceDirectoryApi {
         return apiWrapper(resultsFn => {
             this._endpoints.directory.deviceLogRetrieve(deviceEventId, resultsFn);
         }, (data, done) => {
-            let event = DeviceEventAdapter.map(data);
+            const event = DeviceEventAdapter.map(data);
             done(null, event);
         }, callback);
     }

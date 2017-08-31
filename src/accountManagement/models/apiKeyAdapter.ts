@@ -29,7 +29,7 @@ import { ApiKey } from "./apiKey";
  */
 export class ApiKeyAdapter {
 
-    static map(from: apiApiKey, api: AccountManagementApi): ApiKey {
+    public static map(from: apiApiKey, api: AccountManagementApi): ApiKey {
         return new ApiKey({
             name             : from.name,
             ownerId          : from.owner,
@@ -43,14 +43,14 @@ export class ApiKeyAdapter {
         }, api);
     }
 
-    static addMap(from: AddApiKeyObject): apiApiKeyAdd {
+    public static addMap(from: AddApiKeyObject): apiApiKeyAdd {
         return {
             name:      from.name,
             owner:     from.ownerId,
         };
     }
 
-    static updateMap(from: UpdateApiKeyObject): apiApiKeyUpdate {
+    public static updateMap(from: UpdateApiKeyObject): apiApiKeyUpdate {
         return {
             name:      from.name,
             owner:     from.ownerId,

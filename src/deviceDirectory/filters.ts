@@ -17,9 +17,9 @@
 
 export class Filters {
 
-    static readonly NESTED_FILTERS = ["customAttributes"];
+    public static readonly NESTED_FILTERS = [ "customAttributes" ];
 
-    static readonly DEVICE_FILTER_MAP = {
+    public static readonly DEVICE_FILTER_MAP = {
         from: [
             "alias",
             "bootstrapCertificateExpiration",
@@ -36,7 +36,7 @@ export class Filters {
         ]
     };
 
-    static readonly DEVICE_EVENT_FILTER_MAP = {
+    public static readonly DEVICE_EVENT_FILTER_MAP = {
         from: [
             "eventDate",
             "type"
@@ -47,7 +47,7 @@ export class Filters {
         ]
     };
 
-    static readonly EMPTY_FILTER_MAP = {
+    public static readonly EMPTY_FILTER_MAP = {
         from: [],
         to: []
     };

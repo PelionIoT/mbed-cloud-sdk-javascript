@@ -28,7 +28,7 @@ import { PolicyAdapter } from "./policyAdapter";
  * Account Adapter
  */
 export class AccountAdapter {
-    static map(from: apiAccount, api: AccountManagementApi): Account {
+    public static map(from: apiAccount, api: AccountManagementApi): Account {
 
         let policies = [];
 
@@ -39,8 +39,8 @@ export class AccountAdapter {
         }
 
         return new Account({
-            //parentId               : from.parent_id,
-            //subAccounts            : from.sub_accounts,
+            // parentId               : from.parent_id,
+            // subAccounts            : from.sub_accounts,
             displayName            : from.display_name,
             aliases                : from.aliases,
             company                : from.company,
@@ -66,7 +66,7 @@ export class AccountAdapter {
         }, api);
     }
 
-    static reverseMap(from: UpdateAccountObject): apiAccountRequest {
+    public static reverseMap(from: UpdateAccountObject): apiAccountRequest {
         return {
             display_name:     from.displayName,
             aliases:          from.aliases,

@@ -34,6 +34,60 @@ import {
  */
 export class CertificateAdapter {
 
+    public static mapCertificate(from: iamCertificate, api: CertificatesApi): Certificate {
+        return new Certificate(CertificateAdapter.map(from), api);
+    }
+
+    public static mapServerCertificate(from: iamCertificate, api: CertificatesApi, extension: serverResponse): Certificate {
+        const partial: any = CertificateAdapter.map(from);
+
+        partial.serverUri = extension.server_uri;
+        partial.serverCertificate = extension.server_certificate;
+
+        return new Certificate(partial, api);
+    }
+
+    public static mapDeveloperCertificate(from: iamCertificate, api: CertificatesApi, extension: developerResponse): Certificate {
+        const partial: any = CertificateAdapter.map(from);
+
+        partial.serverUri = extension.server_uri;
+        partial.serverCertificate = extension.server_certificate;
+        partial.headerFile = extension.security_file_content;
+        partial.developerCertificate = extension.developer_certificate;
+        partial.developerPrivateKey = extension.developer_private_key;
+
+        return new Certificate(partial, api);
+    }
+
+    public static reverseMap(from: AddCertificateObject): iamCertificateRequest {
+        return {
+            certificate:    from.certificateData,
+            name:           from.name,
+            service:        from.type === "developer" ? "bootstrap" : from.type,
+            status:         from.status,
+            signature:      from.signature,
+            description:    from.description
+        };
+    }
+
+    public static reverseUpdateMap(from: UpdateCertificateObject): iamCertificateUpdate {
+        return {
+            certificate:    from.certificateData,
+            name:           from.name,
+            service:        from.type === "developer" ? "bootstrap" : from.type,
+            status:         from.status,
+            signature:      from.signature,
+            description:    from.description
+        };
+    }
+
+    public static reverseDeveloperMap(from: AddDeveloperCertificateObject): caCertificateRequest {
+        return {
+            name:           from.name,
+            description:    from.description
+        };
+    }
+
     private static map(from: iamCertificate): Partial<Certificate> {
         return {
             id                 : from.id,
@@ -48,60 +102,6 @@ export class CertificateAdapter {
             subject            : from.subject,
             validity           : from.validity,
             ownerId            : from.owner_id
-        };
-    }
-
-    static mapCertificate(from: iamCertificate, api: CertificatesApi): Certificate {
-        return new Certificate(CertificateAdapter.map(from), api);
-    }
-
-    static mapServerCertificate(from: iamCertificate, api: CertificatesApi, extension: serverResponse): Certificate {
-        let partial: any = CertificateAdapter.map(from);
-
-        partial.serverUri = extension.server_uri;
-        partial.serverCertificate = extension.server_certificate;
-
-        return new Certificate(partial, api);
-    }
-
-    static mapDeveloperCertificate(from: iamCertificate, api: CertificatesApi, extension: developerResponse): Certificate {
-        let partial: any = CertificateAdapter.map(from);
-
-        partial.serverUri = extension.server_uri;
-        partial.serverCertificate = extension.server_certificate;
-        partial.headerFile = extension.security_file_content;
-        partial.developerCertificate = extension.developer_certificate;
-        partial.developerPrivateKey = extension.developer_private_key;
-
-        return new Certificate(partial, api);
-    }
-
-    static reverseMap(from: AddCertificateObject): iamCertificateRequest {
-        return {
-            certificate:    from.certificateData,
-            name:           from.name,
-            service:        from.type === "developer" ? "bootstrap" : from.type,
-            status:         from.status,
-            signature:      from.signature,
-            description:    from.description
-        };
-    }
-
-    static reverseUpdateMap(from: UpdateCertificateObject): iamCertificateUpdate {
-        return {
-            certificate:    from.certificateData,
-            name:           from.name,
-            service:        from.type === "developer" ? "bootstrap" : from.type,
-            status:         from.status,
-            signature:      from.signature,
-            description:    from.description
-        };
-    }
-
-    static reverseDeveloperMap(from: AddDeveloperCertificateObject): caCertificateRequest {
-        return {
-            name:           from.name,
-            description:    from.description
         };
     }
 }

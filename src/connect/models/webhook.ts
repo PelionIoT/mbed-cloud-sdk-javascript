@@ -22,15 +22,17 @@ export class Webhook {
     /**
      * The URL to which the notifications must be sent
      */
-    readonly url: string;
+    public readonly url: string;
     /**
      * Headers (key/value) that must be sent with the request
      */
-    readonly headers?: { [key: string]: string; };
+    public readonly headers?: { [key: string]: string; };
 
     constructor(init?: Partial<Webhook>) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 }

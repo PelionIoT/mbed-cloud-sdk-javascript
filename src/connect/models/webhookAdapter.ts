@@ -23,7 +23,7 @@ import { Webhook } from "./webhook";
  */
 export class WebhookAdapter {
 
-    static map(from: apiWebhook): Webhook {
+    public static map(from: apiWebhook): Webhook {
         return new Webhook({
             url:        from.url,
             headers:    from.headers

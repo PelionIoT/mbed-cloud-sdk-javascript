@@ -23,23 +23,25 @@ export class LoginHistory {
     /**
      * Date of login
      */
-    readonly date?: Date;
+    public readonly date?: Date;
     /**
      * User agent used for login
      */
-    readonly userAgent?: string;
+    public readonly userAgent?: string;
     /**
      * IP Address login from
      */
-    readonly ipAddress?: string;
+    public readonly ipAddress?: string;
     /**
      * Whether login was successful
      */
-    readonly success?: boolean;
+    public readonly success?: boolean;
 
     constructor(init: Partial<LoginHistory>) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 }

@@ -28,43 +28,45 @@ export class FirmwareManifest {
     /**
      * The ID of the firmware manifest
      */
-    readonly id: string;
+    public readonly id: string;
     /**
      * The URL of the firmware manifest
      */
-    readonly url: string;
+    public readonly url: string;
     /**
      * Checksum generated for the datafile
      */
-    readonly datafileChecksum?: string;
+    public readonly datafileChecksum?: string;
     /**
      * Size of the datafile (in bytes)
      */
-    readonly datafileSize?: number;
+    public readonly datafileSize?: number;
     /**
      * The class of device
      */
-    readonly deviceClass?: string;
+    public readonly deviceClass?: string;
     /**
      * The contents of the manifest
      */
-    readonly contents: ManifestContents;
+    public readonly contents: ManifestContents;
     /**
      * The time the object was created
      */
-    readonly createdAt: Date;
+    public readonly createdAt: Date;
     /**
      * The time the object was updated
      */
-    readonly updatedAt: Date;
+    public readonly updatedAt: Date;
     /**
      * The version of the firmware manifest (as a timestamp)
      */
-    readonly timestamp: Date;
+    public readonly timestamp: Date;
 
     constructor(init?: Partial<FirmwareManifest>, private _api?: UpdateApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 

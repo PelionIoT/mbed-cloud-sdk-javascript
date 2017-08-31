@@ -63,8 +63,8 @@ export class UpdateApi {
     private _endpoints: Endpoints;
 
     /**
-    * @param options connection options
-    */
+     * @param options connection options
+     */
     constructor(options: ConnectionOptions) {
         this._endpoints = new Endpoints(options);
     }
@@ -105,7 +105,7 @@ export class UpdateApi {
      *         name: { $eq: "blinky" },
      *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
      *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
-     * }},     
+     * }},
      * function(error, firmwareimages) {
      *     if (error) throw error;
      *     // Utilize firmwareimages here
@@ -124,7 +124,7 @@ export class UpdateApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, order, after, include, filter } = options as FirmwareImageListOptions;
+            const { limit, order, after, include, filter } = options as FirmwareImageListOptions;
             this._endpoints.update.firmwareImageList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
             let list: FirmwareImage[];
@@ -359,7 +359,7 @@ export class UpdateApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, order, after, include, filter } = options as FirmwareManifestListOptions;
+            const { limit, order, after, include, filter } = options as FirmwareManifestListOptions;
             this._endpoints.update.firmwareManifestList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
             let list: FirmwareManifest[];
@@ -594,7 +594,7 @@ export class UpdateApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, order, after, include, filter } = options as CampaignListOptions;
+            const { limit, order, after, include, filter } = options as CampaignListOptions;
             this._endpoints.update.updateCampaignList(limit, order, after, encodeFilter(filter, Filters.CAMPAIGN_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
             let list: Campaign[];
@@ -773,7 +773,7 @@ export class UpdateApi {
         return apiWrapper(resultsFn => {
             this._endpoints.update.updateCampaignPartialUpdate(campaign.id, CampaignAdapter.updateMap(campaign), resultsFn);
         }, (data, done) => {
-            let response = CampaignAdapter.map(data, this);
+            const response = CampaignAdapter.map(data, this);
             done(null, response);
         }, callback);
     }
@@ -950,7 +950,7 @@ export class UpdateApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, order, after, include } = options;
+            const { limit, order, after, include } = options;
             this._endpoints.update.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, encodeInclude(include), resultsFn);
         }, (data, done) => {
             let list: CampaignDeviceState[];

@@ -22,7 +22,7 @@ import { LoginHistory } from "./loginHistory";
  * Login History Adapter
  */
 export class LoginHistoryAdapter {
-    static map(from: apiLoginHistory): LoginHistory {
+    public static map(from: apiLoginHistory): LoginHistory {
         return new LoginHistory({
             date:       from.date,
             userAgent:  from.user_agent,

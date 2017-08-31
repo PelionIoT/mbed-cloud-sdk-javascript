@@ -21,7 +21,7 @@ import { EndpointsBase } from "../common/endpointsBase";
 
 export class Endpoints extends EndpointsBase {
 
-    update: UpdateApi;
+    public update: UpdateApi;
 
     constructor(options: ConnectionOptions) {
         super();

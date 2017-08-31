@@ -24,8 +24,8 @@ import {
 
 export class Endpoints extends EndpointsBase {
 
-    developer: DeveloperApi;
-    admin: AccountAdminApi;
+    public developer: DeveloperApi;
+    public admin: AccountAdminApi;
 
     constructor(options: ConnectionOptions) {
         super();

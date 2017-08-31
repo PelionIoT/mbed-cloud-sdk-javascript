@@ -24,7 +24,7 @@ import { FirmwareImage } from "./firmwareImage";
  */
 export class FirmwareImageAdapter {
 
-    static map(from: apiFirmwareImage, api: UpdateApi): FirmwareImage {
+    public static map(from: apiFirmwareImage, api: UpdateApi): FirmwareImage {
         return new FirmwareImage({
             createdAt:          from.created_at,
             url:                from.datafile,

@@ -159,7 +159,7 @@ export interface ApiKeyListOptions extends ListOptions {
          * Owner filter
          */
         ownerId: ComparisonObject<string>;
-    }
+    };
 }
 
 /**
@@ -181,5 +181,5 @@ export interface UserListOptions extends ListOptions {
          * User status filter
          */
         status: ComparisonObject<UserStatusEnum>;
-    }
+    };
 }
