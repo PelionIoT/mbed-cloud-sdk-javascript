@@ -28,6 +28,11 @@ function handleError() {
     else process.exit(1);
 }
 
+// Set watching
+gulp.task("setWatch", function() {
+    watching = true;
+});
+
 // Clear built directories
 gulp.task("clean", function() {
     return del([nodeDir, typesDir, bundleDir]);
@@ -43,7 +48,7 @@ gulp.task("lint", function() {
         formatter: "stylish"
     }))
     .pipe(gulpTslint.report({
-        emitError: false
+        emitError: !watching
     }))
 });
 
@@ -138,8 +143,7 @@ gulp.task("browserify", ["typescript"], function() {
     .pipe(gulp.dest(bundleDir));
 });
 
-gulp.task("watch", ["default"], function() {
-    watching = true;
+gulp.task("watch", ["setWatch", "default"], function() {
     gulp.watch(srcDir + "/**/*.*", ["default"]);
 });
 
