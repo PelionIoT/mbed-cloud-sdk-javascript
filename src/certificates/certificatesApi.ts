@@ -63,6 +63,21 @@ export class CertificatesApi {
         this._endpoints = new Endpoints(options);
     }
 
+    private extendCertificate(iamCert: iamCertificate, done: (error: any, certificate: any) => any) {
+        let dataFn = null;
+        if (iamCert.service === "bootstrap") dataFn = this._endpoints.server.v3ServerCredentialsBootstrapGet;
+        if (iamCert.service === "lwm2m") dataFn = this._endpoints.server.v3ServerCredentialsLwm2mGet;
+
+        if (dataFn) {
+            dataFn.call(this._endpoints.server, "", (error, data) => {
+                if (error) return done(error, null);
+
+                const certificate = CertificateAdapter.mapServerCertificate(iamCert, this, data);
+                done(null, certificate);
+            });
+        }
+    }
+
     /**
      * List certificates
      *
@@ -390,20 +405,5 @@ export class CertificatesApi {
         return asyncStyle(done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
-    }
-
-    private extendCertificate(iamCert: iamCertificate, done: (error: any, certificate: any) => any) {
-        let dataFn = null;
-        if (iamCert.service === "bootstrap") dataFn = this._endpoints.server.v3ServerCredentialsBootstrapGet;
-        if (iamCert.service === "lwm2m") dataFn = this._endpoints.server.v3ServerCredentialsLwm2mGet;
-
-        if (dataFn) {
-            dataFn.call(this._endpoints.server, "", (error, data) => {
-                if (error) return done(error, null);
-
-                const certificate = CertificateAdapter.mapServerCertificate(iamCert, this, data);
-                done(null, certificate);
-            });
-        }
     }
 }

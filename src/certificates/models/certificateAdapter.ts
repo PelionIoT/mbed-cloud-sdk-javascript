@@ -34,6 +34,23 @@ import {
  */
 export class CertificateAdapter {
 
+    private static map(from: iamCertificate): Partial<Certificate> {
+        return {
+            id                 : from.id,
+            name               : from.name,
+            description        : from.description,
+            type               : from.device_execution_mode === 1 ? "developer" : from.service,
+            status             : from.status,
+            accountId          : from.account_id,
+            certificateData    : from.certificate,
+            createdAt          : from.created_at,
+            issuer             : from.issuer,
+            subject            : from.subject,
+            validity           : from.validity,
+            ownerId            : from.owner_id
+        };
+    }
+
     public static mapCertificate(from: iamCertificate, api: CertificatesApi): Certificate {
         return new Certificate(CertificateAdapter.map(from), api);
     }
@@ -85,23 +102,6 @@ export class CertificateAdapter {
         return {
             name:           from.name,
             description:    from.description
-        };
-    }
-
-    private static map(from: iamCertificate): Partial<Certificate> {
-        return {
-            id                 : from.id,
-            name               : from.name,
-            description        : from.description,
-            type               : from.device_execution_mode === 1 ? "developer" : from.service,
-            status             : from.status,
-            accountId          : from.account_id,
-            certificateData    : from.certificate,
-            createdAt          : from.created_at,
-            issuer             : from.issuer,
-            subject            : from.subject,
-            validity           : from.validity,
-            ownerId            : from.owner_id
         };
     }
 }

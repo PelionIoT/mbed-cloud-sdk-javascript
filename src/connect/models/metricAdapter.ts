@@ -24,6 +24,8 @@ import { Metric } from "./metric";
  */
 export class MetricAdapter {
 
+    private static readonly DEFAULT_TIME_PERIOD = "1d";
+
     public static map(from: apiMetric): Metric {
         return new Metric({
             id:                     from.id,
@@ -89,6 +91,4 @@ export class MetricAdapter {
         const unit = from.unit[0];
         return `${from.duration}${unit}`;
     }
-
-    private static readonly DEFAULT_TIME_PERIOD = "1d";
 }

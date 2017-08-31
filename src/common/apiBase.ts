@@ -22,6 +22,13 @@ const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:
 
 export class ApiBase {
 
+    private apiKey = "";
+
+    constructor(apiKey?: string, private host: string = "https://api.us-east-1.mbedcloud.com", private responseHandler: (sdkError: SDKError, response: superagent.Response) => any = null) {
+        if (apiKey && apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${apiKey}`;
+        this.apiKey = apiKey;
+    }
+
     /**
      * Normalizes parameter values:
      * <ul>
@@ -96,13 +103,6 @@ export class ApiBase {
         }
 
         return param.toString();
-    }
-
-    private apiKey = "";
-
-    constructor(apiKey?: string, private host: string = "https://api.us-east-1.mbedcloud.com", private responseHandler: (sdkError: SDKError, response: superagent.Response) => any = null) {
-        if (apiKey && apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${apiKey}`;
-        this.apiKey = apiKey;
     }
 
     protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, useFormData: boolean, formParams: {}, json?: boolean, body?: any }, callback?: (sdkError: SDKError, data: T, response: superagent.Response) => any): superagent.SuperAgentRequest {

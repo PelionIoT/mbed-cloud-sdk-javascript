@@ -22,10 +22,6 @@ export class EndpointsBase {
 
     private lastMeta: ApiMetadata;
 
-    public getLastMeta(): ApiMetadata {
-        return this.lastMeta;
-    }
-
     protected responseHandler(error: SDKError, response: any) {
 
         let statusCode = null;
@@ -48,5 +44,9 @@ export class EndpointsBase {
         }
 
         this.lastMeta = new ApiMetadata(statusCode, errorMessage, headers, body, request);
+    }
+
+    public getLastMeta(): ApiMetadata {
+        return this.lastMeta;
     }
 }

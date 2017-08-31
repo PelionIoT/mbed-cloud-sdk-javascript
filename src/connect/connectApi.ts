@@ -104,12 +104,6 @@ export class ConnectApi extends EventEmitter {
      */
     public static EVENT_EXPIRED: string = "expired";
 
-    /**
-     * Whether async callbacks are handled by the API.
-     * Pull notifications will set this automatically, but it can also be used alongside the `notify` function with webhooks
-     */
-    public handleNotifications: boolean;
-
     private readonly ASYNC_KEY = "async-response-id";
 
     private _endpoints: Endpoints;
@@ -118,11 +112,25 @@ export class ConnectApi extends EventEmitter {
     private _notifyFns: { [key: string]: (data: any) => any; } = {};
 
     /**
+     * Whether async callbacks are handled by the API.
+     * Pull notifications will set this automatically, but it can also be used alongside the `notify` function with webhooks
+     */
+    public handleNotifications: boolean;
+
+    /**
      * @param options connection objects
      */
     constructor(options: ConnectionOptions) {
         super();
         this._endpoints = new Endpoints(options);
+    }
+
+    private normalizePath(path?: string): string {
+        if (path && path.charAt(0) === "/") {
+            return path.substr(1);
+        }
+
+        return path;
     }
 
     /**
@@ -1356,13 +1364,5 @@ export class ConnectApi extends EventEmitter {
         return asyncStyle(done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
-    }
-
-    private normalizePath(path?: string): string {
-        if (path && path.charAt(0) === "/") {
-            return path.substr(1);
-        }
-
-        return path;
     }
 }
