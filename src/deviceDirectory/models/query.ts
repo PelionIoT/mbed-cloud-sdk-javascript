@@ -28,19 +28,21 @@ export class Query {
     /**
      * The ID of the query
      */
-    readonly id: string;
+    public readonly id: string;
     /**
      * The time the query was created
      */
-    readonly createdAt?: Date;
+    public readonly createdAt?: Date;
     /**
      * The time the query was updated
      */
-    readonly updatedAt?: Date;
+    public readonly updatedAt?: Date;
 
     constructor(init?: Partial<Query>, private _api?: DeviceDirectoryApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 

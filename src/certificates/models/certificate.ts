@@ -27,67 +27,69 @@ export class Certificate {
     /**
      * Entity ID.
      */
-    readonly id: string;
+    public readonly id: string;
     /**
      * Certificate type
      */
-    readonly type: CertificateTypeEnum;
+    public readonly type: CertificateTypeEnum;
     /**
      * Status of the certificate
      */
-    readonly status?: CertificateStatusEnum;
+    public readonly status?: CertificateStatusEnum;
     /**
      * X509.v3 CA certificate in PEM or base64 encoded DER format
      */
-    readonly certificateData: string;
+    public readonly certificateData: string;
     /**
      * The UUID of the account.
      */
-    readonly accountId: string;
+    public readonly accountId: string;
     /**
      * Subject of the certificate.
      */
-    readonly subject: string;
+    public readonly subject: string;
     /**
      * Expiration Date.
      */
-    readonly validity: Date;
+    public readonly validity: Date;
     /**
      * Issuer of the certificate.
      */
-    readonly issuer: string;
+    public readonly issuer: string;
     /**
      * Creation time.
      */
-    readonly createdAt?: Date;
+    public readonly createdAt?: Date;
     /**
      * The UUID of the certificate owner (user or ApiKey)
      */
-    readonly ownerId?: string;
+    public readonly ownerId?: string;
     /**
      * Bootstrap server URI to which the client needs to connect to.
      */
-    readonly serverUri?: string;
+    public readonly serverUri?: string;
     /**
      * PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
      */
-    readonly serverCertificate?: string;
+    public readonly serverCertificate?: string;
     /**
      * Content of the security.c file that will be flashed into the device to provide the security credentials
      */
-    readonly headerFile?: string;
+    public readonly headerFile?: string;
     /**
      * PEM format X.509 developer certificate.
      */
-    readonly developerCertificate?: string;
+    public readonly developerCertificate?: string;
     /**
      * PEM format developer private key associated to the certificate.
      */
-    readonly developerPrivateKey?: string;
+    public readonly developerPrivateKey?: string;
 
     constructor(init: Partial<Certificate>, private _api?: CertificatesApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 

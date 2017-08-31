@@ -179,17 +179,17 @@ export interface CampaignObject {
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
         customAttributes?: { [key: string]: ComparisonObject<string> };
-    }
+    };
 }
 
-export interface AddCampaignObject extends CampaignObject{
+export interface AddCampaignObject extends CampaignObject {
     /**
      * A name for this campaign
      */
     name: string;
 }
 
-export interface UpdateCampaignObject extends CampaignObject{
+export interface UpdateCampaignObject extends CampaignObject {
     /**
      * The ID of the campaign
      */
@@ -217,7 +217,7 @@ export interface FirmwareImageListOptions extends ListOptions {
         createdAt?: ComparisonObject<Date>;
         updatedAt?: ComparisonObject<Date>;
         datafileChecksum?: ComparisonObject<string>;
-    }
+    };
 }
 
 /**
@@ -241,7 +241,7 @@ export interface FirmwareManifestListOptions extends ListOptions {
         timestamp: ComparisonObject<Date>;
         createdAt: ComparisonObject<Date>;
         updatedAt: ComparisonObject<Date>;
-    }
+    };
 }
 
 /**
@@ -268,5 +268,5 @@ export interface CampaignListOptions extends ListOptions {
         scheduledAt: ComparisonObject<Date>;
         createdAt: ComparisonObject<Date>;
         finishedAt: ComparisonObject<Date>;
-    }
+    };
 }

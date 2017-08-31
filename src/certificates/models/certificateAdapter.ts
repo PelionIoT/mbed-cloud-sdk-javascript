@@ -51,12 +51,12 @@ export class CertificateAdapter {
         };
     }
 
-    static mapCertificate(from: iamCertificate, api: CertificatesApi): Certificate {
+    public static mapCertificate(from: iamCertificate, api: CertificatesApi): Certificate {
         return new Certificate(CertificateAdapter.map(from), api);
     }
 
-    static mapServerCertificate(from: iamCertificate, api: CertificatesApi, extension: serverResponse): Certificate {
-        let partial: any = CertificateAdapter.map(from);
+    public static mapServerCertificate(from: iamCertificate, api: CertificatesApi, extension: serverResponse): Certificate {
+        const partial: any = CertificateAdapter.map(from);
 
         partial.serverUri = extension.server_uri;
         partial.serverCertificate = extension.server_certificate;
@@ -64,8 +64,8 @@ export class CertificateAdapter {
         return new Certificate(partial, api);
     }
 
-    static mapDeveloperCertificate(from: iamCertificate, api: CertificatesApi, extension: developerResponse): Certificate {
-        let partial: any = CertificateAdapter.map(from);
+    public static mapDeveloperCertificate(from: iamCertificate, api: CertificatesApi, extension: developerResponse): Certificate {
+        const partial: any = CertificateAdapter.map(from);
 
         partial.serverUri = extension.server_uri;
         partial.serverCertificate = extension.server_certificate;
@@ -76,7 +76,7 @@ export class CertificateAdapter {
         return new Certificate(partial, api);
     }
 
-    static reverseMap(from: AddCertificateObject): iamCertificateRequest {
+    public static reverseMap(from: AddCertificateObject): iamCertificateRequest {
         return {
             certificate:    from.certificateData,
             name:           from.name,
@@ -87,7 +87,7 @@ export class CertificateAdapter {
         };
     }
 
-    static reverseUpdateMap(from: UpdateCertificateObject): iamCertificateUpdate {
+    public static reverseUpdateMap(from: UpdateCertificateObject): iamCertificateUpdate {
         return {
             certificate:    from.certificateData,
             name:           from.name,
@@ -98,7 +98,7 @@ export class CertificateAdapter {
         };
     }
 
-    static reverseDeveloperMap(from: AddDeveloperCertificateObject): caCertificateRequest {
+    public static reverseDeveloperMap(from: AddDeveloperCertificateObject): caCertificateRequest {
         return {
             name:           from.name,
             description:    from.description

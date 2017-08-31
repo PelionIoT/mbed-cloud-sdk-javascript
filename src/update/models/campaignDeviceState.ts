@@ -25,47 +25,49 @@ export class CampaignDeviceState {
     /**
      * The id of the metadata record
      */
-    readonly id?: string;
+    public readonly id?: string;
     /**
      * The id of the device
      */
-    readonly deviceId?: string;
+    public readonly deviceId?: string;
     /**
      * The id of the campaign the device is in
      */
-    readonly campaignId?: string;
+    public readonly campaignId?: string;
     /**
      * The state of the update campaign on the device
      */
-    readonly state?: CampaignDeviceStateEnum;
+    public readonly state?: CampaignDeviceStateEnum;
     /**
      * The name of the device
      */
-    readonly name?: string;
+    public readonly name?: string;
     /**
      * Description of the device
      */
-    readonly description?: string;
+    public readonly description?: string;
     /**
      * This time the record was created in the database
      */
-    readonly createdAt?: Date;
+    public readonly createdAt?: Date;
     /**
      * This time this record was modified in the database format: date-time
      */
-    readonly updatedAt?: Date;
+    public readonly updatedAt?: Date;
     /**
      * The mechanism used to deliver the firmware (connector or direct)
      */
-    readonly mechanism?: string;
+    public readonly mechanism?: string;
     /**
      * The url of cloud connect used
      */
-    readonly mechanismUrl?: string;
+    public readonly mechanismUrl?: string;
 
     constructor(init?: Partial<CampaignDeviceState>) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 }

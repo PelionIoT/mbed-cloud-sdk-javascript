@@ -28,27 +28,29 @@ export class Device {
     /**
      * The ID of the device
      */
-    readonly id: string;
+    public readonly id: string;
     /**
      * The owning IAM account ID
      */
-    readonly accountId?: string;
+    public readonly accountId?: string;
     /**
      * The time the device was created
      */
-    readonly createdAt?: Date;
+    public readonly createdAt?: Date;
     /**
      * The time the device was updated
      */
-    readonly updatedAt?: Date;
+    public readonly updatedAt?: Date;
     /**
      * The timestamp of the current manifest version
      */
-    readonly manifestTimestamp?: Date;
+    public readonly manifestTimestamp?: Date;
 
     constructor(init?: Partial<Device>, private _api?: DeviceDirectoryApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 

@@ -30,31 +30,33 @@ export class ApiKey {
     /**
      * A list of group IDs this API key belongs to.
      */
-    readonly groups?: string[];
+    public readonly groups?: string[];
     /**
      * The status of the API key.
      */
-    readonly status?: ApiKeyStatusEnum;
+    public readonly status?: ApiKeyStatusEnum;
     /**
      * The API key.
      */
-    readonly key: string;
+    public readonly key: string;
     /**
      * Creation time
      */
-    readonly createdAt?: Date;
+    public readonly createdAt?: Date;
     /**
      * The timestamp of the API key creation in the storage, in milliseconds.
      */
-    readonly creationTime?: number;
+    public readonly creationTime?: number;
     /**
      * The timestamp of the latest API key usage, in milliseconds.
      */
-    readonly lastLoginTime?: number;
+    public readonly lastLoginTime?: number;
 
     constructor(init: Partial<ApiKey>, private _api?: AccountManagementApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 
@@ -62,13 +64,13 @@ export class ApiKey {
      * List the groups this API key belongs to
      * @returns Promise containing groups
      */
-    public listGroups(): Promise<Array<Group>>;
+    public listGroups(): Promise<Group[]>;
     /**
      * List the groups this API key belongs to
      * @param callback A function that is passed the return arguments (error, groups)
      */
-    public listGroups(callback: CallbackFn<Array<Group>>): void;
-    public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
+    public listGroups(callback: CallbackFn<Group[]>): void;
+    public listGroups(callback?: CallbackFn<Group[]>): Promise<Group[]> {
         return apiWrapper(resultsFn => {
             this._api.listGroups(resultsFn);
         }, (data, done) => {

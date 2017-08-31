@@ -28,26 +28,26 @@ import { Resource } from "./resource";
  */
 export class DeviceEventAdapter {
 
-    static mapResource(from: apiResourceEvent, deviceId: string, api: ConnectApi): Resource {
+    public static mapResource(from: apiResourceEvent, deviceId: string, api: ConnectApi): Resource {
         return new Resource({
-        	contentType:    from.ct,
+            contentType:    from.ct,
             observable:     from.obs,
             type:           from.rf,
             path:           from.path,
             deviceId:       deviceId
         }, api);
-	}
+    }
 
-    static map(from: apiDeviceEvent, api: ConnectApi): DeviceEvent<Resource> {
-    	let resources = from.resources.map(resource => {
-    		return DeviceEventAdapter.mapResource(resource, from.ep, api);
-    	});
+    public static map(from: apiDeviceEvent, api: ConnectApi): DeviceEvent<Resource> {
+        const resources = from.resources.map(resource => {
+            return DeviceEventAdapter.mapResource(resource, from.ep, api);
+        });
 
         return {
-			id:           from.ep,
-			type:         from.ept,
-			queueMode:    from.q,
-			resources:    resources
+            id:           from.ep,
+            type:         from.ept,
+            queueMode:    from.q,
+            resources:    resources
         };
     }
 }

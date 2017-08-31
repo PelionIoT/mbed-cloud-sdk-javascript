@@ -30,7 +30,7 @@ import { LoginHistoryAdapter } from "./loginHistoryAdapter";
  */
 export class UserAdapter {
 
-    static map(from: apiUser, api: AccountManagementApi): User {
+    public static map(from: apiUser, api: AccountManagementApi): User {
 
         let logins = [];
 
@@ -63,7 +63,7 @@ export class UserAdapter {
         }, api);
     }
 
-    static addMap(from: AddUserObject): apiUserAdd {
+    public static addMap(from: AddUserObject): apiUserAdd {
         return {
             full_name:                from.fullName,
             username:                 from.username,
@@ -76,7 +76,7 @@ export class UserAdapter {
         };
     }
 
-    static updateMap(from: UpdateUserObject): apiUserUpdate {
+    public static updateMap(from: UpdateUserObject): apiUserUpdate {
         return {
             full_name:                from.fullName,
             username:                 from.username,

@@ -23,7 +23,7 @@ import { DeviceEventData as apiDeviceEvent } from "../../_api/device_directory";
  */
 export class DeviceEventAdapter {
 
-    static map(from: apiDeviceEvent): DeviceEvent {
+    public static map(from: apiDeviceEvent): DeviceEvent {
         return new DeviceEvent({
             id:                      from.id,
             eventDate:               from.date_time,

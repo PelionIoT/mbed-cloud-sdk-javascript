@@ -15,4 +15,5 @@
 * limitations under the License.
 */
 
-module.exports = require("./updateApi").UpdateApi;
+import api = require("./updateApi");
+module.exports = api.UpdateApi;

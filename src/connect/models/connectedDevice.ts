@@ -28,19 +28,21 @@ export class ConnectedDevice {
     /**
      * The ID of the device
      */
-    readonly id: string;
+    public readonly id: string;
     /**
      * Determines whether the device is in queue mode.
      */
-    readonly queueMode?: boolean;
+    public readonly queueMode?: boolean;
     /**
      * Type of endpoint. (Free text)
      */
-    readonly type?: string;
+    public readonly type?: string;
 
     constructor(init?: Partial<ConnectedDevice>, private _api?: ConnectApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 
@@ -48,13 +50,13 @@ export class ConnectedDevice {
      * List device's resources
      * @returns Promise of device resources
      */
-    public listResources(): Promise<Array<Resource>>;
+    public listResources(): Promise<Resource[]>;
     /**
      * List device's resources
      * @param callback A function that is passed the arguments (error, resources)
      */
-    public listResources(callback: CallbackFn<Array<Resource>>): void;
-    public listResources(callback?: CallbackFn<Array<Resource>>): Promise<Resource[]> {
+    public listResources(callback: CallbackFn<Resource[]>): void;
+    public listResources(callback?: CallbackFn<Resource[]>): Promise<Resource[]> {
         return asyncStyle(done => {
             this._api.listResources(this.id, done);
         }, callback);
@@ -196,7 +198,7 @@ export class ConnectedDevice {
      * @param notifyFn Function to call with notification
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(path: string, notifyFn?: Function): Promise<string>;
+    public addResourceSubscription(path: string, notifyFn?: (any) => any): Promise<string>;
     /**
      * Subscribe to a resource
      *
@@ -205,8 +207,8 @@ export class ConnectedDevice {
      * @param notifyFn Function to call with notification
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(path: string, notifyFn?: Function, callback?: CallbackFn<string>): void;
-    public addResourceSubscription(path: string, notifyFn?: Function, callback?: CallbackFn<string>): Promise<string> {
+    public addResourceSubscription(path: string, notifyFn?: (any) => any, callback?: CallbackFn<string>): void;
+    public addResourceSubscription(path: string, notifyFn?: (any) => any, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.addResourceSubscription(this.id, path, notifyFn, done);
         }, callback);

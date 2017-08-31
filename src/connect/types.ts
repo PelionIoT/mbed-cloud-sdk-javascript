@@ -60,7 +60,7 @@ export interface DeviceEvent<T> {
     /**
      * The resources of the device
      */
-    resources?: Array<T>;
+    resources?: T[];
 }
 
 export interface AsyncResponse {
@@ -98,7 +98,7 @@ export interface NotificationOptions {
     /**
      * A function that is passed any asynchronous responses
      */
-    requestCallback?: CallbackFn<Array<AsyncResponse>>;
+    requestCallback?: CallbackFn<AsyncResponse[]>;
 }
 
 export interface PresubscriptionObject {

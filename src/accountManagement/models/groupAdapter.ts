@@ -23,7 +23,7 @@ import { Group } from "./group";
  * Group Adapter
  */
 export class GroupAdapter {
-    static map(from: apiGroup, api: AccountManagementApi): Group {
+    public static map(from: apiGroup, api: AccountManagementApi): Group {
         return new Group({
             id:                from.id,
             accountId:         from.account_id,

@@ -63,16 +63,16 @@ export class CertificatesApi {
         this._endpoints = new Endpoints(options);
     }
 
-    private extendCertificate(iamCert: iamCertificate, done: Function) {
-        var dataFn = null;
+    private extendCertificate(iamCert: iamCertificate, done: (error: any, certificate: any) => any) {
+        let dataFn = null;
         if (iamCert.service === "bootstrap") dataFn = this._endpoints.server.v3ServerCredentialsBootstrapGet;
         if (iamCert.service === "lwm2m") dataFn = this._endpoints.server.v3ServerCredentialsLwm2mGet;
 
         if (dataFn) {
             dataFn.call(this._endpoints.server, "", (error, data) => {
-                if (error) return done(error);
+                if (error) return done(error, null);
 
-                var certificate = CertificateAdapter.mapServerCertificate(iamCert, this, data);
+                const certificate = CertificateAdapter.mapServerCertificate(iamCert, this, data);
                 done(null, certificate);
             });
         }
@@ -131,10 +131,10 @@ export class CertificatesApi {
         }
 
         return apiWrapper(resultsFn => {
-            let { limit, after, order, include, filter } = options as CertificateListOptions;
-            let type = extractFilter(filter, "type");
-            let serviceEq = type === "developer" ? "bootstrap" : type;
-            let executionMode = type === "developer" ? 1 : null;
+            const { limit, after, order, include, filter } = options as CertificateListOptions;
+            const type = extractFilter(filter, "type");
+            const serviceEq = type === "developer" ? "bootstrap" : type;
+            const executionMode = type === "developer" ? 1 : null;
 
             this._endpoints.accountDeveloper.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, extractFilter(filter, "expires"), executionMode, extractFilter(filter, "ownerId"), resultsFn);
         }, (data, done) => {
@@ -238,8 +238,8 @@ export class CertificatesApi {
             this._endpoints.accountDeveloper.getCertificate(data.id, (error, certData) => {
                 if (error) return done(error, null);
 
-                let certificate = CertificateAdapter.mapDeveloperCertificate(certData, this, data);
-                done(null, certificate);
+                const cert = CertificateAdapter.mapDeveloperCertificate(certData, this, data);
+                done(null, cert);
             });
         }, callback);
     }

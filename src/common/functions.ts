@@ -24,8 +24,8 @@ import { decodeTlv } from "./tlvDecoder";
 export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn?: CallbackFn<T>): Promise<T> {
     if (callbackFn) {
         try {
-            asyncFn(callbackFn)
-        } catch(error) {
+            asyncFn(callbackFn);
+        } catch (error) {
             callbackFn(new SDKError(error.message, error));
         }
     } else {
@@ -35,7 +35,7 @@ export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn
                     if (error) reject(error);
                     else resolve(response);
                 });
-            } catch(error) {
+            } catch (error) {
                 reject(new SDKError(error.message, error));
             }
         });
@@ -56,12 +56,12 @@ export function apiWrapper<T>(apiFn: (resultsFn: (error: any, data: any) => void
                 try {
                     // Call the transformation function
                     transformFn(data, done);
-                } catch(error) {
+                } catch (error) {
                     // Catch any errors when transforming the returned data
                     done(new SDKError(error.message, error));
                 }
             });
-        } catch(error) {
+        } catch (error) {
             // Catch any errors when running api calls
             done(new SDKError(error.message, error));
         }
@@ -69,7 +69,7 @@ export function apiWrapper<T>(apiFn: (resultsFn: (error: any, data: any) => void
 }
 
 export function decodeBase64(payload, contentType) {
-    var result = "";
+    let result = "";
 
     // Decode Base64
     if (typeof atob === "function") {
@@ -96,7 +96,8 @@ export function decodeBase64(payload, contentType) {
             // Decode tlv
             try {
                 return decodeTlv(result);
-            } catch(e) {}
+            // tslint:disable-next-line:no-empty
+            } catch (e) {}
         }
         /*
         else if (contentType.indexOf("json") > -1) {
@@ -117,18 +118,18 @@ export function encodeInclude(include) {
 }
 
 export function snakeToCamel(snake) {
-    return snake.replace(/(\_\w)/g, function(match) {
+    return snake.replace(/(\_\w)/g, match => {
         return match[1].toUpperCase();
     });
 }
 
 export function camelToSnake(camel) {
-    return camel.replace(/([A-Z]+)/g, function(match) {
+    return camel.replace(/([A-Z]+)/g, match => {
         return "_" + match.toLowerCase();
     });
 }
 
-export function extractFilter(filter: { [key: string]: ComparisonObject<any> }, name: string, defaultValue:any = null): any {
+export function extractFilter(filter: { [key: string]: ComparisonObject<any> }, name: string, defaultValue: any = null): any {
     if (filter && filter[name]) {
         if (filter[name].constructor !== {}.constructor) return filter[name];
         if (filter[name].$eq) return filter[name].$eq;
@@ -147,10 +148,9 @@ export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, m
         if (prefix) {
             prefix = camelToSnake(prefix);
             prefix = `${prefix}__`;
-        }
-        else {
+        } else {
             // Don't encode nested names
-            let index = map.from.indexOf(name);
+            const index = map.from.indexOf(name);
             name = (index > -1) ? map.to[index] : camelToSnake(name);
         }
 
@@ -181,10 +181,10 @@ export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, m
 }
 
 export function decodeFilter(from: string, map: { from: string[], to: string[] }, nested: string[] = []): { [key: string]: ComparisonObject<any> } {
-    let filter:{ [key: string]: ComparisonObject<any> } = {};
+    const filter: { [key: string]: ComparisonObject<any> } = {};
 
     function decodeName(name: string): string {
-        let index = map.to.indexOf(name);
+        const index = map.to.indexOf(name);
         return (index > -1) ? map.from[index] : snakeToCamel(name);
     }
 
@@ -197,16 +197,16 @@ export function decodeFilter(from: string, map: { from: string[], to: string[] }
 
     from = decodeURIComponent(from);
     from.split("&").forEach(attrib => {
-        let match = attrib.match(/^(.+)=(.+)$/);
+        const match = attrib.match(/^(.+)=(.+)$/);
         if (match) {
-            let value = match[2];
-            let bits = match[1].split("__");
+            const value = match[2];
+            const bits = match[1].split("__");
 
-            let name = decodeName(bits[0]);
+            const name = decodeName(bits[0]);
             if (!filter[name]) filter[name] = {};
 
             if (nested.indexOf(name) > -1) {
-                let nestedName = bits[1]; // Don't decode nested names
+                const nestedName = bits[1]; // Don't decode nested names
                 if (!filter[name][nestedName]) filter[name][nestedName] = {};
                 addOperator(filter[name][nestedName], bits[2], value);
                 return;

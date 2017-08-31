@@ -24,23 +24,25 @@ export class Policy {
     /**
      * Comma separated list of actions, empty string represents all actions.
      */
-    readonly action?: string;
+    public readonly action?: string;
     /**
      * Resource that is protected by this policy.
      */
-    readonly resource?: string;
+    public readonly resource?: string;
     /**
      * Feature name corresponding to this policy.
      */
-    readonly feature?: string;
+    public readonly feature?: string;
     /**
      * True or false controlling whether an action is allowed or not.
      */
-    readonly allow?: boolean;
+    public readonly allow?: boolean;
 
     constructor(init: Partial<Policy>) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 }

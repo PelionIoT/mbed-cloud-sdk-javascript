@@ -17,7 +17,7 @@
 
 export class Filters {
 
-    static readonly CAMPAIGN_FILTER_MAP = {
+    public static readonly CAMPAIGN_FILTER_MAP = {
         from: [
             "finishedAt",
             "manifestId",
@@ -32,7 +32,7 @@ export class Filters {
         ]
     };
 
-    static readonly EMPTY_FILTER_MAP = {
+    public static readonly EMPTY_FILTER_MAP = {
         from: [],
         to: []
     };

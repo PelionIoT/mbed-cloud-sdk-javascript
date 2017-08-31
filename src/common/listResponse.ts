@@ -24,29 +24,29 @@ export class ListResponse<T> {
     /**
      * Whether there are more results to display
      */
-    readonly hasMore?: boolean;
+    public readonly hasMore?: boolean;
     /**
      * Total number of records
      */
-    readonly totalCount?: number;
+    public readonly totalCount?: number;
     /**
      * Entity id for fetch after it
      */
-    readonly after?: string;
+    public readonly after?: string;
     /**
      * The number of results to return
      */
-    readonly limit?: number;
+    public readonly limit?: number;
     /**
      * Order of returned records
      */
-    readonly order?: OrderEnum;
+    public readonly order?: OrderEnum;
     /**
      * Devices
      */
-    readonly data: Array<T>;
+    public readonly data: T[];
 
-    constructor(from: any, data?:Array<T>) {
+    constructor(from: any, data?: T[]) {
         this.after         = from.after;
         this.hasMore       = from.has_more;
         this.limit         = from.limit;

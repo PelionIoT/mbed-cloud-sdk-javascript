@@ -22,7 +22,7 @@ import { Policy } from "./policy";
  * Policy Adapter
  */
 export class PolicyAdapter {
-    static map(from: apiPolicy): Policy {
+    public static map(from: apiPolicy): Policy {
         return new Policy({
             action:      from.action,
             allow:       from.allow,

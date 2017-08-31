@@ -15,4 +15,5 @@
 * limitations under the License.
 */
 
-module.exports = require("./connectApi").ConnectApi;
+import api = require("./connectApi");
+module.exports = api.ConnectApi;

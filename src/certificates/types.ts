@@ -27,7 +27,7 @@ export interface AddDeveloperCertificateObject {
     /**
      * Certificate name
      */
-    name: string,
+    name: string;
     /**
      * Certificate description
      */
@@ -67,7 +67,7 @@ export interface UpdateCertificateObject {
     /**
      * Certificate name
      */
-    name?: string,
+    name?: string;
     /**
      * Certificate description
      */
@@ -117,5 +117,5 @@ export interface CertificateListOptions extends ListOptions {
          * Owner filter
          */
         ownerId: ComparisonObject<string>;
-    }
+    };
 }

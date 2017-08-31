@@ -26,39 +26,41 @@ import { ConnectApi } from "../connectApi";
 export class Resource extends EventEmitter {
 
     /**
-     * Related device ID
-     */
-    readonly deviceId: string;
-    /**
-     * Resource's url
-     */
-    readonly path: string;
-    /**
-     * Resource's type
-     */
-    readonly type: string;
-    /**
-     * The content type of the resource
-     */
-    readonly contentType: string;
-    /**
-     * Whether you can subscribe to changes for this resource
-     */
-    readonly observable: boolean;
-
-    /**
      * Resource notification event which returns the notification when handling notifications, otherwise an asyncId
      * @event
      */
-    static EVENT_NOTIFICATION: string = "notification";
+    public static EVENT_NOTIFICATION: string = "notification";
+
+    /**
+     * Related device ID
+     */
+    public readonly deviceId: string;
+    /**
+     * Resource's url
+     */
+    public readonly path: string;
+    /**
+     * Resource's type
+     */
+    public readonly type: string;
+    /**
+     * The content type of the resource
+     */
+    public readonly contentType: string;
+    /**
+     * Whether you can subscribe to changes for this resource
+     */
+    public readonly observable: boolean;
 
     constructor(init?: Partial<Resource>, private _api?: ConnectApi) {
         super();
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
 
-        this.on("newListener", (eventName) => {
+        this.on("newListener", eventName => {
             if (eventName === Resource.EVENT_NOTIFICATION) {
                 this.addSubscription(data => this.emit(Resource.EVENT_NOTIFICATION, data),
                 (error, asyncID) => {
@@ -70,13 +72,56 @@ export class Resource extends EventEmitter {
             }
         });
 
-        this.on("removeListener", (eventName) => {
+        this.on("removeListener", eventName => {
             if (eventName === Resource.EVENT_NOTIFICATION) {
                 if (this.listenerCount(Resource.EVENT_NOTIFICATION) === 0) {
                     this.deleteSubscription();
                 }
             }
         });
+    }
+
+    /**
+     * Subscribe to a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
+     * @param notifyFn Function to call with notification
+     * @returns Promise containing an asyncId when there isn't a notification channel
+     */
+    private addSubscription(notifyFn?: (any) => any): Promise<string>;
+    /**
+     * Subscribe to a resource
+     *
+     * __Note:__ This method requires a notification channel to be set up
+     * @param notifyFn Function to call with notification
+     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     */
+    private addSubscription(notifyFn?: (any) => any, callback?: CallbackFn<string>): void;
+    private addSubscription(notifyFn?: (any) => any, callback?: CallbackFn<string>): Promise<string> {
+        return asyncStyle(done => {
+            if (!this.observable) return done(null, null);
+            this._api.addResourceSubscription(this.deviceId, this.path, notifyFn, done);
+        }, callback);
+    }
+
+    /**
+     * Deletes a resource's subscription
+     *
+     * __Note:__ This method requires a notification channel to be set up
+     * @returns Promise containing an asyncId when there isn't a notification channel
+     */
+    private deleteSubscription(): Promise<string>;
+    /**
+     * Deletes a resource's subscription
+     *
+     * __Note:__ This method requires a notification channel to be set up
+     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     */
+    private deleteSubscription(callback: CallbackFn<string>): void;
+    private deleteSubscription(callback?: CallbackFn<string>): Promise<string> {
+        return asyncStyle(done => {
+            this._api.deleteResourceSubscription(this.deviceId, this.path, done);
+        }, callback);
     }
 
     /**
@@ -165,49 +210,6 @@ export class Resource extends EventEmitter {
         return asyncStyle(done => {
             if (!this.observable) return done(null, false);
             this._api.getResourceSubscription(this.deviceId, this.path, done);
-        }, callback);
-    }
-
-    /**
-     * Subscribe to a resource
-     *
-     * __Note:__ This method requires a notification channel to be set up
-     * @param notifyFn Function to call with notification
-     * @returns Promise containing an asyncId when there isn't a notification channel
-     */
-    private addSubscription(notifyFn?: Function): Promise<string>;
-    /**
-     * Subscribe to a resource
-     *
-     * __Note:__ This method requires a notification channel to be set up
-     * @param notifyFn Function to call with notification
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
-     */
-    private addSubscription(notifyFn?: Function, callback?: CallbackFn<string>): void;
-    private addSubscription(notifyFn?: Function, callback?: CallbackFn<string>): Promise<string> {
-        return asyncStyle(done => {
-            if (!this.observable) return done(null, null);
-            this._api.addResourceSubscription(this.deviceId, this.path, notifyFn, done);
-        }, callback);
-    }
-
-    /**
-     * Deletes a resource's subscription
-     *
-     * __Note:__ This method requires a notification channel to be set up
-     * @returns Promise containing an asyncId when there isn't a notification channel
-     */
-    private deleteSubscription(): Promise<string>;
-    /**
-     * Deletes a resource's subscription
-     *
-     * __Note:__ This method requires a notification channel to be set up
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
-     */
-    private deleteSubscription(callback: CallbackFn<string>): void;
-    private deleteSubscription(callback?: CallbackFn<string>): Promise<string> {
-        return asyncStyle(done => {
-            this._api.deleteResourceSubscription(this.deviceId, this.path, done);
         }, callback);
     }
 

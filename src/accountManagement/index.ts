@@ -15,4 +15,5 @@
 * limitations under the License.
 */
 
-module.exports = require("./accountManagementApi").AccountManagementApi;
+import api = require("./accountManagementApi");
+module.exports = api.AccountManagementApi;

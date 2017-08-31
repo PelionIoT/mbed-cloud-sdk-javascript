@@ -28,31 +28,33 @@ export class FirmwareImage {
     /**
      * The ID of the firmware image
      */
-    readonly id: string;
+    public readonly id: string;
     /**
      * The URL of the firmware image
      */
-    readonly url: string;
+    public readonly url: string;
     /**
      * Checksum generated for the datafile
      */
-    readonly datafileChecksum: string;
+    public readonly datafileChecksum: string;
     /**
      * Size of the datafile (in bytes)
      */
-    readonly datafileSize?: number;
+    public readonly datafileSize?: number;
     /**
      * The time the object was created
      */
-    readonly createdAt: Date;
+    public readonly createdAt: Date;
     /**
      * The time the object was updated
      */
-    readonly updatedAt: Date;
+    public readonly updatedAt: Date;
 
     constructor(init?: Partial<FirmwareImage>, private _api?: UpdateApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 

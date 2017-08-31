@@ -26,7 +26,7 @@ import { ConnectedDevice } from "./connectedDevice";
  */
 export class ConnectedDeviceAdapter {
 
-    static map(from: apiConnectedDevice, api: ConnectApi): ConnectedDevice {
+    public static map(from: apiConnectedDevice, api: ConnectApi): ConnectedDevice {
         return new ConnectedDevice({
             id:           from.name,
             type:         from.type,

@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import superagent = require('superagent');
+import superagent = require("superagent");
 import { SDKError } from "./sdkError";
 
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
@@ -24,25 +24,101 @@ export class ApiBase {
 
     private apiKey = "";
 
-    constructor(apiKey?: string, private host: string = "https://api.us-east-1.mbedcloud.com", private responseHandler: Function = null) {
+    constructor(apiKey?: string, private host: string = "https://api.us-east-1.mbedcloud.com", private responseHandler: (sdkError: SDKError, response: superagent.Response) => any = null) {
         if (apiKey && apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${apiKey}`;
         this.apiKey = apiKey;
     }
 
-    protected request<T>(options: { url: string, method: string, headers: {}, query: {}, useFormData: boolean, formParams: {}, json?: boolean, body?: any }, callback?:Function): superagent.SuperAgentRequest {
+    /**
+     * Normalizes parameter values:
+     * <ul>
+     * <li>remove nils</li>
+     * <li>keep files and arrays</li>
+     * <li>format to string with `paramToString` for other cases</li>
+     * </ul>
+     * @param {Object.<String, Object>} params The parameters as object properties.
+     * @returns {Object.<String, Object>} normalized parameters.
+     */
+    private static normalizeParams(params: any) {
+        const newParams = {};
+
+        for (const key in params) {
+            if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {
+                const value = params[key];
+                if (this.isFileParam(value) || Array.isArray(value)) {
+                    newParams[key] = value;
+                } else {
+                    newParams[key] = ApiBase.paramToString(value);
+                }
+            }
+        }
+
+        return newParams;
+    }
+
+    /**
+     * Checks whether the given parameter value represents file-like content.
+     * @param param The parameter to check.
+     * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
+     */
+    private static isFileParam(param: any) {
+        // fs.ReadStream in Node.js (but not in runtime like browserify)
+        if (typeof window === "undefined" &&
+            typeof require === "function" &&
+            require("fs") &&
+            param instanceof require("fs").ReadStream) {
+            return true;
+        }
+
+        // Buffer in Node.js
+        if (typeof Buffer === "function" && param instanceof Buffer) {
+            return true;
+        }
+
+        // Blob in browser
+        if (typeof Blob === "function" && param instanceof Blob) {
+            return true;
+        }
+
+        // File in browser (it seems File object is also instance of Blob, but keep this for safe)
+        if (typeof File === "function" && param instanceof File) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns a string representation for an actual parameter.
+     * @param param The actual parameter.
+     * @returns {String} The string representation of <code>param</code>.
+     */
+    private static paramToString(param: any) {
+        if (param === undefined || param === null) {
+            return "";
+        }
+
+        if (param instanceof Date) {
+            return param.toJSON();
+        }
+
+        return param.toString();
+    }
+
+    protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, useFormData: boolean, formParams: {}, json?: boolean, body?: any }, callback?: (sdkError: SDKError, data: T, response: superagent.Response) => any): superagent.SuperAgentRequest {
 
         // Normalize slashes in url
-        let url = options.url.replace(/([:])?\/+/g, function($0, $1) {
-            return $1 ? $0: "/";
+        const url = options.url.replace(/([:])?\/+/g, ($0, $1) => {
+            return $1 ? $0 : "/";
         });
 
-        let request = superagent(options.method, this.host + url);
+        const request = superagent(options.method, this.host + url);
 
         // set query parameters
         request.query(ApiBase.normalizeParams(options.query));
 
         // set header parameters
-        options.headers["Authorization"] = this.apiKey;
+        options.headers.Authorization = this.apiKey;
         request.set(ApiBase.normalizeParams(options.headers));
 
         // set request timeout
@@ -52,11 +128,11 @@ export class ApiBase {
             request.accept("application/json");
         }
 
-        var body = null;
+        let body = null;
         if (Object.keys(options.formParams).length > 0) {
             if (options.useFormData) {
-                let formParams = ApiBase.normalizeParams(options.formParams);
-                for (var key in formParams) {
+                const formParams = ApiBase.normalizeParams(options.formParams);
+                for (const key in formParams) {
                     if (formParams.hasOwnProperty(key)) {
                         if (ApiBase.isFileParam(formParams[key])) {
                             // file field
@@ -70,7 +146,7 @@ export class ApiBase {
                 request.type("application/x-www-form-urlencoded");
                 request.send(ApiBase.normalizeParams(options.formParams));
             }
-        } else if(options.body) {
+        } else if (options.body) {
 
             body = options.body;
 
@@ -79,7 +155,7 @@ export class ApiBase {
 
                 if (body.constructor === {}.constructor) {
                     body = Object.keys(body).reduce((val, key) => {
-                        if(body[key] !== null && body[key] !== undefined) val[key] = body[key];
+                        if (body[key] !== null && body[key] !== undefined) val[key] = body[key];
                         return val;
                     }, {});
                 }
@@ -90,11 +166,11 @@ export class ApiBase {
 
         request.end((error, response) => {
 
-            var sdkError = null;
+            let sdkError = null;
             if (error) {
-                var message = error.message;
-                var innerError = error;
-                var details = "";
+                let message = error.message;
+                let innerError = error;
+                let details = "";
 
                 if (response) {
                     if (response.error) message = response.error.message;
@@ -114,7 +190,7 @@ export class ApiBase {
             }
 
             if (callback) {
-                var data:T = null;
+                let data: T = null;
 
                 if (response && !sdkError) {
                     data = response.body || response.text;
@@ -134,85 +210,10 @@ export class ApiBase {
 
         if (body && process && process.env && process.env.DEBUG === "superagent") {
             process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m BODY ");
+            // tslint:disable-next-line:no-console
             console.log(body);
         }
 
         return request;
-    }
-
-    /**
-    * Normalizes parameter values:
-    * <ul>
-    * <li>remove nils</li>
-    * <li>keep files and arrays</li>
-    * <li>format to string with `paramToString` for other cases</li>
-    * </ul>
-    * @param {Object.<String, Object>} params The parameters as object properties.
-    * @returns {Object.<String, Object>} normalized parameters.
-    */
-    private static normalizeParams(params:any) {
-        var newParams = {};
-
-        for (var key in params) {
-            if (params.hasOwnProperty(key) && params[key] != undefined && params[key] != null) {
-                var value = params[key];
-                if (this.isFileParam(value) || Array.isArray(value)) {
-                    newParams[key] = value;
-                } else {
-                    newParams[key] = ApiBase.paramToString(value);
-                }
-            }
-        }
-
-        return newParams;
-    }
-
-    /**
-    * Checks whether the given parameter value represents file-like content.
-    * @param param The parameter to check.
-    * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
-    */
-    private static isFileParam(param:any) {
-        // fs.ReadStream in Node.js (but not in runtime like browserify)
-        if (typeof window === 'undefined' &&
-            typeof require === 'function' &&
-            require('fs') &&
-            param instanceof require('fs').ReadStream) {
-            return true;
-        }
-
-        // Buffer in Node.js
-        if (typeof Buffer === 'function' && param instanceof Buffer) {
-            return true;
-        }
-
-        // Blob in browser
-        if (typeof Blob === 'function' && param instanceof Blob) {
-            return true;
-        }
-
-        // File in browser (it seems File object is also instance of Blob, but keep this for safe)
-        if (typeof File === 'function' && param instanceof File) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-    * Returns a string representation for an actual parameter.
-    * @param param The actual parameter.
-    * @returns {String} The string representation of <code>param</code>.
-    */
-    private static paramToString(param:any) {
-        if (param == undefined || param == null) {
-            return '';
-        }
-
-        if (param instanceof Date) {
-            return param.toJSON();
-        }
-
-        return param.toString();
     }
 }

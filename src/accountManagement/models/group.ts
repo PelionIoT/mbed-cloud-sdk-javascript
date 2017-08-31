@@ -30,51 +30,53 @@ export class Group {
     /**
      * The UUID of the group.
      */
-    readonly id: string;
+    public readonly id: string;
     /**
      * The UUID of the account this group belongs to.
      */
-    readonly accountId: string;
+    public readonly accountId: string;
     /**
      * The name of the group.
      */
-    readonly name: string;
+    public readonly name: string;
     /**
      * The number of users in this group.
      */
-    readonly userCount: number;
+    public readonly userCount: number;
     /**
      * The number of API keys in this group.
      */
-    readonly apiKeyCount: number;
+    public readonly apiKeyCount: number;
     /**
      * Creation time.
      */
-    readonly createdAt?: Date;
+    public readonly createdAt?: Date;
     /**
      * A timestamp of the group creation in the storage, in milliseconds.
      */
-    readonly creationTime?: number;
+    public readonly creationTime?: number;
     /**
      * A timestamp of the latest group update, in milliseconds.
      */
-    readonly lastUpdateTime?: number;
+    public readonly lastUpdateTime?: number;
 
     constructor(init: Partial<Group>, private _api?: AccountManagementApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 
     /**
      * List users of this group
-     * @param options filter options     
+     * @param options filter options
      * @returns Promise of listResponse
      */
     public listUsers(options?: ListOptions): Promise<ListResponse<User>>;
     /**
      * List users of this group
-     * @param options filter options 
+     * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
     public listUsers(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): void;
@@ -86,13 +88,13 @@ export class Group {
 
     /**
      * List API keys of this group
-     * @param options filter options     
+     * @param options filter options
      * @returns Promise of listResponse
      */
     public listApiKeys(options?: ListOptions): Promise<ListResponse<ApiKey>>;
     /**
      * List API keys of this group
-     * @param options filter options 
+     * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
     public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): void;

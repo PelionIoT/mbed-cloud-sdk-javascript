@@ -15,4 +15,5 @@
 * limitations under the License.
 */
 
-module.exports = require("./certificatesApi").CertificatesApi;
+import api = require("./certificatesApi");
+module.exports = api.CertificatesApi;

@@ -74,48 +74,48 @@ import { ApiMetadata } from "../common/apiMetadata";
  */
 export class ConnectApi extends EventEmitter {
 
-    private readonly ASYNC_KEY = "async-response-id";
-
-    private _endpoints: Endpoints;
-    private _pollRequest: superagent.SuperAgentRequest;
-    private _asyncFns: { [key: string]: Function; } = {};
-    private _notifyFns: { [key: string]: Function; } = {};
-
-    /**
-     * Whether async callbacks are handled by the API.
-     * Pull notifications will set this automatically, but it can also be used alongside the `notify` function with webhooks
-     */
-    handleNotifications: boolean;
-
     /**
      * Resource notification event
      * @event
      */
-    static EVENT_NOTIFICATION: string = "notification";
+    public static EVENT_NOTIFICATION: string = "notification";
 
     /**
      * List of new devices that have registered (with resources)
      * @event
      */
-    static EVENT_REGISTRATION: string = "registration";
+    public static EVENT_REGISTRATION: string = "registration";
 
     /**
      * List of devices that have updated registration
      * @event
      */
-    static EVENT_REREGISTRATION: string = "reregistration";
+    public static EVENT_REREGISTRATION: string = "reregistration";
 
     /**
      * List of devices that were removed in a controlled manner
      * @event
      */
-    static EVENT_DEREGISTRATION: string = "deregistration";
+    public static EVENT_DEREGISTRATION: string = "deregistration";
 
     /**
      * List of devices that were removed because the registration has expired
      * @event
      */
-    static EVENT_EXPIRED: string = "expired";
+    public static EVENT_EXPIRED: string = "expired";
+
+    private readonly ASYNC_KEY = "async-response-id";
+
+    private _endpoints: Endpoints;
+    private _pollRequest: superagent.SuperAgentRequest;
+    private _asyncFns: { [key: string]: (error: any, data: any) => any; } = {};
+    private _notifyFns: { [key: string]: (data: any) => any; } = {};
+
+    /**
+     * Whether async callbacks are handled by the API.
+     * Pull notifications will set this automatically, but it can also be used alongside the `notify` function with webhooks
+     */
+    public handleNotifications: boolean;
 
     /**
      * @param options connection objects
@@ -160,17 +160,17 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param data The notification data to inject
-    */
-    public notify(notification: NotificationObject) {
+     */
+    public notify(data: NotificationObject) {
 
-        // Notification can be null
-        if (!notification) return;
+        // Data can be null
+        if (!data) return;
 
-        if (notification["notifications"]) {
-            notification["notifications"].forEach(notification => {
-                var body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
-                var path = `${notification.ep}${notification.path}`;
-                var fn = this._notifyFns[path];
+        if (data.notifications) {
+            data.notifications.forEach(notification => {
+                const body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
+                const path = `${notification.ep}${notification.path}`;
+                const fn = this._notifyFns[path];
                 if (fn) fn(body);
 
                 this.emit(ConnectApi.EVENT_NOTIFICATION, {
@@ -181,40 +181,40 @@ export class ConnectApi extends EventEmitter {
             });
         }
 
-        if (notification["registrations"]) {
-            notification["registrations"].forEach(device => {
+        if (data.registrations) {
+            data.registrations.forEach(device => {
                 this.emit(ConnectApi.EVENT_REGISTRATION, DeviceEventAdapter.map(device, this));
             });
         }
 
-        if (notification["reg-updates"]) {
-            notification["reg-updates"].forEach(device => {
+        if (data["reg-updates"]) {
+            data["reg-updates"].forEach(device => {
                 this.emit(ConnectApi.EVENT_REREGISTRATION, DeviceEventAdapter.map(device, this));
             });
         }
 
-        if (notification["de-registrations"]) {
-            notification["de-registrations"].forEach(deviceId => {
+        if (data["de-registrations"]) {
+            data["de-registrations"].forEach(deviceId => {
                 this.emit(ConnectApi.EVENT_DEREGISTRATION, deviceId);
             });
         }
 
-        if (notification["registrations-expired"]) {
-            notification["registrations-expired"].forEach(deviceId => {
+        if (data["registrations-expired"]) {
+            data["registrations-expired"].forEach(deviceId => {
                 this.emit(ConnectApi.EVENT_EXPIRED, deviceId);
             });
         }
 
-        if (notification["async-responses"]) {
-            notification["async-responses"].forEach(response => {
-                var asyncID = response.id;
-                var fn = this._asyncFns[asyncID];
+        if (data["async-responses"]) {
+            data["async-responses"].forEach(response => {
+                const asyncID = response.id;
+                const fn = this._asyncFns[asyncID];
                 if (fn) {
                     if (response.status >= 400) {
-                        var error = new SDKError(response.error || response.status);
+                        const error = new SDKError(response.error || response.status);
                         fn(error, null);
                     } else {
-                        var body = response.payload ? decodeBase64(response.payload, response.ct) : null;
+                        const body = response.payload ? decodeBase64(response.payload, response.ct) : null;
                         fn(null, body);
                     }
                     delete this._asyncFns[asyncID];
@@ -268,7 +268,7 @@ export class ConnectApi extends EventEmitter {
         }
 
         return asyncStyle(done => {
-            let { interval, requestCallback } = options;
+            const { interval, requestCallback } = options;
 
             function poll() {
                 this._pollRequest = this._endpoints.notifications.v2NotificationPullGet((error, data) => {
@@ -382,7 +382,7 @@ export class ConnectApi extends EventEmitter {
                     return done(error);
                 }
 
-                let webhook = WebhookAdapter.map(data);
+                const webhook = WebhookAdapter.map(data);
                 done(null, webhook);
             });
         }, callback);
@@ -502,7 +502,7 @@ export class ConnectApi extends EventEmitter {
      *
      * @returns Promise containing pre-subscriptions
      */
-    public listPresubscriptions(): Promise<Array<PresubscriptionObject>>;
+    public listPresubscriptions(): Promise<PresubscriptionObject[]>;
     /**
      * Gets a list of pre-subscription data
      *
@@ -516,12 +516,12 @@ export class ConnectApi extends EventEmitter {
      *
      * @param callback A function that is passed (error, pre-subscriptions)
      */
-    public listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>): void;
-    public listPresubscriptions(callback?: CallbackFn<Array<PresubscriptionObject>>): Promise<Array<PresubscriptionObject>> {
+    public listPresubscriptions(callback: CallbackFn<PresubscriptionObject[]>): void;
+    public listPresubscriptions(callback?: CallbackFn<PresubscriptionObject[]>): Promise<PresubscriptionObject[]> {
         return apiWrapper(resultsFn => {
             this._endpoints.subscriptions.v2SubscriptionsGet(resultsFn);
         }, (data, done) => {
-            let presubs = data.map(PresubscriptionAdapter.map);
+            const presubs = data.map(PresubscriptionAdapter.map);
             done(null, presubs);
         }, callback);
     }
@@ -542,7 +542,7 @@ export class ConnectApi extends EventEmitter {
      * @param subscriptions The pre-subscription data array
      * @returns Promise containing any error
      */
-    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>): Promise<void>;
+    public updatePresubscriptions(subscriptions: PresubscriptionObject[]): Promise<void>;
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
      *
@@ -558,10 +558,10 @@ export class ConnectApi extends EventEmitter {
      * @param subscriptions The pre-subscription data array
      * @param callback A function that is passed any error
      */
-    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>): void;
-    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback?: CallbackFn<void>): Promise<void> {
+    public updatePresubscriptions(subscriptions: PresubscriptionObject[], callback: CallbackFn<void>): void;
+    public updatePresubscriptions(subscriptions: PresubscriptionObject[], callback?: CallbackFn<void>): Promise<void> {
         return apiWrapper(resultsFn => {
-            let presubs = subscriptions.map(PresubscriptionAdapter.reverseMap);
+            const presubs = subscriptions.map(PresubscriptionAdapter.reverseMap);
             this._endpoints.subscriptions.v2SubscriptionsPut(presubs, resultsFn);
         }, (data, done) => {
             done(null, data);
@@ -655,7 +655,7 @@ export class ConnectApi extends EventEmitter {
      * @param type Filter devices by device type
      * @returns Promise of connected devices
      */
-    public listConnectedDevices(type?: string): Promise<Array<ConnectedDevice>>;
+    public listConnectedDevices(type?: string): Promise<ConnectedDevice[]>;
     /**
      * List connected devices
      *
@@ -670,8 +670,8 @@ export class ConnectApi extends EventEmitter {
      * @param options.type Filter devices by device type
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listConnectedDevices(type?: string, callback?: CallbackFn<Array<ConnectedDevice>>): void;
-    public listConnectedDevices(type?: any, callback?: CallbackFn<Array<ConnectedDevice>>): Promise<Array<ConnectedDevice>> {
+    public listConnectedDevices(type?: string, callback?: CallbackFn<ConnectedDevice[]>): void;
+    public listConnectedDevices(type?: any, callback?: CallbackFn<ConnectedDevice[]>): Promise<ConnectedDevice[]> {
         if (typeof type === "function") {
             callback = type;
             type = null;
@@ -680,7 +680,7 @@ export class ConnectApi extends EventEmitter {
         return apiWrapper(resultsFn => {
             this._endpoints.endpoints.v2EndpointsGet(type, resultsFn);
         }, (data, done) => {
-            let devices = data.map(device => {
+            const devices = data.map(device => {
                 return ConnectedDeviceAdapter.map(device, this);
             });
 
@@ -791,7 +791,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @returns Promise of device resources
      */
-    public listResources(deviceId: string): Promise<Array<Resource>>;
+    public listResources(deviceId: string): Promise<Resource[]>;
     /**
      * List device's resources
      *
@@ -810,12 +810,12 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param callback A function that is passed the arguments (error, resources)
      */
-    public listResources(deviceId: string, callback: CallbackFn<Array<Resource>>): void;
-    public listResources(deviceId: string, callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
+    public listResources(deviceId: string, callback: CallbackFn<Resource[]>): void;
+    public listResources(deviceId: string, callback?: CallbackFn<Resource[]>): Promise<Resource[]> {
         return apiWrapper(resultsFn => {
             this._endpoints.endpoints.v2EndpointsDeviceIdGet(deviceId, resultsFn);
         }, (data, done) => {
-            var resources = data.map(resource => {
+            const resources = data.map(resource => {
                 return ResourceAdapter.map(resource, deviceId, this);
             });
 
@@ -942,7 +942,7 @@ export class ConnectApi extends EventEmitter {
         return apiWrapper(resultsFn => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, path, cacheOnly, noResponse, resultsFn);
         }, (data, done) => {
-            var asyncID = data[this.ASYNC_KEY];
+            const asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
                 this._asyncFns[asyncID] = done;
                 return;
@@ -1012,7 +1012,7 @@ export class ConnectApi extends EventEmitter {
         return apiWrapper(resultsFn => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, path, value, noResponse, resultsFn);
         }, (data, done) => {
-            var asyncID = data[this.ASYNC_KEY];
+            const asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
                 this._asyncFns[asyncID] = done;
                 return;
@@ -1085,7 +1085,7 @@ export class ConnectApi extends EventEmitter {
         return apiWrapper(resultsFn => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, path, functionName, noResponse, resultsFn);
         }, (data, done) => {
-            var asyncID = data[this.ASYNC_KEY];
+            const asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
                 this._asyncFns[asyncID] = done;
                 return;
@@ -1169,7 +1169,7 @@ export class ConnectApi extends EventEmitter {
      * @param notifyFn Function to call with notification
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(deviceId: string, path: string, notifyFn?: Function): Promise<string>;
+    public addResourceSubscription(deviceId: string, path: string, notifyFn?: (data: any) => any): Promise<string>;
     /**
      * Subscribe to a resource
      *
@@ -1192,8 +1192,8 @@ export class ConnectApi extends EventEmitter {
      * @param notifyFn Function to call with notification
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(deviceId: string, path: string, notifyFn?: Function, callback?: CallbackFn<string>): void;
-    public addResourceSubscription(deviceId: string, path: string, notifyFn?: Function, callback?: CallbackFn<string>): Promise<string> {
+    public addResourceSubscription(deviceId: string, path: string, notifyFn?: (data: any) => any, callback?: CallbackFn<string>): void;
+    public addResourceSubscription(deviceId: string, path: string, notifyFn?: (data: any) => any, callback?: CallbackFn<string>): Promise<string> {
         path = this.normalizePath(path);
 
         return apiWrapper(resultsFn => {
@@ -1204,7 +1204,7 @@ export class ConnectApi extends EventEmitter {
                 this._notifyFns[`${deviceId}/${path}`] = notifyFn;
             }
 
-            var asyncID = data[this.ASYNC_KEY];
+            const asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
                 this._asyncFns[asyncID] = done;
                 return;
@@ -1266,7 +1266,7 @@ export class ConnectApi extends EventEmitter {
             // no-one is listening :(
             delete this._notifyFns[`${deviceId}/${path}`];
 
-            var asyncID = data[this.ASYNC_KEY];
+            const asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
                 this._asyncFns[asyncID] = done;
                 return;
@@ -1297,7 +1297,7 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @returns Promise of metrics
      */
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<Array<Metric>>;
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<Metric[]>;
     /**
      * List metrics
      *
@@ -1316,14 +1316,14 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<Array<Metric>>): void;
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<Metric[]>): void;
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback?: CallbackFn<Metric[]>): Promise<Metric[]> {
         return apiWrapper(resultsFn => {
-            function isPeriod(options: MetricsStartEndListOptions | MetricsPeriodListOptions): options is MetricsPeriodListOptions {
-                return (<MetricsPeriodListOptions>options).period !== undefined;
+            function isPeriod(test: MetricsStartEndListOptions | MetricsPeriodListOptions): test is MetricsPeriodListOptions {
+                return (test as MetricsPeriodListOptions).period !== undefined;
             }
 
-            let { limit, after, order, include, interval } = options as MetricsListOptions;
+            const { limit, after, order, include, interval } = options as MetricsListOptions;
 
             let start = null;
             let end = null;

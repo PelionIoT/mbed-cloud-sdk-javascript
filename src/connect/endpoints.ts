@@ -28,13 +28,13 @@ import {
 
 export class Endpoints extends EndpointsBase {
 
-    webhooks: WebhookApi;
-    endpoints: EndpointsApi;
-    notifications: NotificationsApi;
-    resources: ResourcesApi;
-    subscriptions: SubscriptionsApi;
-    account: AccountApi;
-    statistics: StatisticsApi;
+    public webhooks: WebhookApi;
+    public endpoints: EndpointsApi;
+    public notifications: NotificationsApi;
+    public resources: ResourcesApi;
+    public subscriptions: SubscriptionsApi;
+    public account: AccountApi;
+    public statistics: StatisticsApi;
 
     constructor(options: ConnectionOptions) {
         super();

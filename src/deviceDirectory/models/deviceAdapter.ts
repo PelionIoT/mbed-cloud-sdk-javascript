@@ -29,7 +29,7 @@ import { Device } from "./device";
  */
 export class DeviceAdapter {
 
-    static map(from: apiDevice, api: DeviceDirectoryApi): Device {
+    public static map(from: apiDevice, api: DeviceDirectoryApi): Device {
         return new Device({
             accountId:                         from.account_id,
             bootstrappedTimestamp:             from.bootstrapped_timestamp,
@@ -59,7 +59,7 @@ export class DeviceAdapter {
         }, api);
     }
 
-    static addMap(from: AddDeviceObject): apiDeviceAdd {
+    public static addMap(from: AddDeviceObject): apiDeviceAdd {
         return {
             name:                         from.name,
             vendor_id:                    from.vendorId,
@@ -84,7 +84,7 @@ export class DeviceAdapter {
         };
     }
 
-    static updateMap(from: UpdateDeviceObject): apiDeviceUpdate {
+    public static updateMap(from: UpdateDeviceObject): apiDeviceUpdate {
         return {
             name:                         from.name,
             custom_attributes:            from.customAttributes,

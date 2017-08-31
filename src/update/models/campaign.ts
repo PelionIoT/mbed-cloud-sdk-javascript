@@ -30,27 +30,29 @@ export class Campaign {
     /**
      * The ID of the campaign
      */
-    readonly id: string;
+    public readonly id: string;
     /**
      * URl of the manifest used
      */
-    readonly manifestUrl?: string;
+    public readonly manifestUrl?: string;
     /**
      * The time the object was created
      */
-    readonly createdAt?: Date;
+    public readonly createdAt?: Date;
     /**
      * The timestamp at which update campaign scheduled to start
      */
-    readonly startedAt?: Date;
+    public readonly startedAt?: Date;
     /**
      * The timestamp when the update campaign finished
      */
-    readonly finishedAt?: Date;
+    public readonly finishedAt?: Date;
 
     constructor(init?: Partial<Campaign>, private _api?: UpdateApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 

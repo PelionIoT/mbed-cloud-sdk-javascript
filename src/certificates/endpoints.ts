@@ -28,10 +28,10 @@ import {
 
 export class Endpoints extends EndpointsBase {
 
-    certDeveloper: CertDeveloperApi;
-    accountDeveloper: AccountDeveloperApi;
-    server: ServerApi;
-    admin: AdminApi;
+    public certDeveloper: CertDeveloperApi;
+    public accountDeveloper: AccountDeveloperApi;
+    public server: ServerApi;
+    public admin: AdminApi;
 
     constructor(options: ConnectionOptions) {
         super();

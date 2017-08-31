@@ -24,7 +24,7 @@ import { Resource } from "./resource";
  */
 export class ResourceAdapter {
 
-    static map(from: apiResource, deviceId: string, api: ConnectApi): Resource {
+    public static map(from: apiResource, deviceId: string, api: ConnectApi): Resource {
         return new Resource({
             contentType:    from.type,
             observable:     from.obs,

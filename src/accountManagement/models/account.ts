@@ -29,51 +29,53 @@ export class Account {
     /**
      * Account ID.
      */
-    readonly id: string;
+    public readonly id: string;
     /**
      * An array of aliases.
      */
-    readonly aliases: string[];
+    public readonly aliases: string[];
     /**
      * The status of the account.
      */
-    readonly status: AccountStatusEnum;
+    public readonly status: AccountStatusEnum;
     /**
      * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
      */
-    readonly tier: string;
+    public readonly tier: string;
     /**
      * List of limits as key-value pairs if requested.
      */
-    readonly limits?: { [key: string]: string; };
+    public readonly limits?: { [key: string]: string; };
     /**
      * List of policies if requested.
      */
-    readonly policies?: Array<Policy>;
+    public readonly policies?: Policy[];
     /**
      * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
      */
-    readonly provisioningAllowed: boolean;
+    public readonly provisioningAllowed: boolean;
     /**
      * Creation time.
      */
-    readonly createdAt?: Date;
+    public readonly createdAt?: Date;
     /**
      * Time when upgraded to commercial account
      */
-    readonly upgradedAt?: Date;
+    public readonly upgradedAt?: Date;
     /**
      * A reason note for updating the status of the account
      */
-    readonly reason?: string;
+    public readonly reason?: string;
     /**
      * Account template ID.
      */
-    readonly templateId?: string;
+    public readonly templateId?: string;
 
     constructor(init: Partial<Account>, private _api?: AccountManagementApi) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 

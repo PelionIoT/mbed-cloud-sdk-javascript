@@ -23,43 +23,45 @@ export class DeviceEvent {
     /**
      * ID of the event
      */
-    readonly id: string;
+    public readonly id: string;
     /**
      * ID of device the event is for
      */
-    readonly deviceId: string;
+    public readonly deviceId: string;
     /**
      * Date and time of the event
      */
-    readonly eventDate: Date;
+    public readonly eventDate: Date;
     /**
      * Whether the event changed state
      */
-    readonly stateChanged?: boolean;
+    public readonly stateChanged?: boolean;
     /**
      * Description of the event
      */
-    readonly description?: string;
+    public readonly description?: string;
     /**
      * Changes made
      */
-    readonly changes?: {};
+    public readonly changes?: {};
     /**
      * Description of the event type
      */
-    readonly typeDescription?: string;
+    public readonly typeDescription?: string;
     /**
      * Type of the event
      */
-    readonly type?: string;
+    public readonly type?: string;
     /**
      * Data pertaining to the event
      */
-    readonly data?: {};
+    public readonly data?: {};
 
     constructor(init?: Partial<DeviceEvent>) {
-        for(var key in init) {
-            this[key] = init[key];
+        for (const key in init) {
+            if (init.hasOwnProperty(key)) {
+                this[key] = init[key];
+            }
         }
     }
 }
