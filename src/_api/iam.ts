@@ -22,10 +22,174 @@ import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
 /**
+ * This object represents an account creation request.
+ */
+export interface AccountCreationReq {
+    /**
+     * Postal address line 2, not longer than 100 characters.
+     */
+    "address_line2"?: string;
+    /**
+     * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "city"?: string;
+    /**
+     * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "address_line1"?: string;
+    /**
+     * The display name for the account, not longer than 100 characters.
+     */
+    "display_name"?: string;
+    /**
+     * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "country"?: string;
+    /**
+     * The name of the company, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "company"?: string;
+    /**
+     * The state part of the postal address, not longer than 100 characters.
+     */
+    "state"?: string;
+    /**
+     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "contact"?: string;
+    /**
+     * The postal code part of the postal address, not longer than 100 characters.
+     */
+    "postal_code"?: string;
+    /**
+     * The password when creating a new user. It will be generated when not present in the request.
+     */
+    "admin_password"?: string;
+    /**
+     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "admin_name"?: string;
+    /**
+     * The full name of the admin user to be created.
+     */
+    "admin_full_name"?: string;
+    /**
+     * The end market of the account to be created.
+     */
+    "end_market": string;
+    /**
+     * The email address of the account admin, not longer than 254 characters.
+     */
+    "admin_email"?: string;
+    /**
+     * The phone number of the company, not longer than 100 characters.
+     */
+    "phone_number"?: string;
+    /**
+     * The company email address for this account, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "email"?: string;
+    /**
+     * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+     */
+    "aliases"?: Array<string>;
+}
+
+/**
+ * This object represents an account creation response.
+ */
+export interface AccountCreationResp {
+    /**
+     * Postal address line 2, not longer than 100 characters.
+     */
+    "address_line2"?: string;
+    /**
+     * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "city"?: string;
+    /**
+     * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "address_line1"?: string;
+    /**
+     * The display name for the account, not longer than 100 characters.
+     */
+    "display_name"?: string;
+    /**
+     * Flag (true/false) indicating whether Factory Tool is allowed to download or not..
+     */
+    "is_provisioning_allowed": boolean;
+    /**
+     * The ID of the admin user created.
+     */
+    "admin_id": string;
+    /**
+     * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "country"?: string;
+    /**
+     * The name of the company, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "company"?: string;
+    /**
+     * Account ID.
+     */
+    "id"?: string;
+    /**
+     * The state part of the postal address, not longer than 100 characters.
+     */
+    "state"?: string;
+    /**
+     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "contact"?: string;
+    /**
+     * The postal code part of the postal address, not longer than 100 characters.
+     */
+    "postal_code"?: string;
+    /**
+     * The password when creating a new user. It will be generated when not present in the request.
+     */
+    "admin_password"?: string;
+    /**
+     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "admin_name"?: string;
+    /**
+     * The full name of the admin user to be created.
+     */
+    "admin_full_name"?: string;
+    /**
+     * The admin API key created for the account.
+     */
+    "admin_key"?: string;
+    /**
+     * The end market of the account to be created.
+     */
+    "end_market": string;
+    /**
+     * The email address of the account admin, not longer than 254 characters.
+     */
+    "admin_email"?: string;
+    /**
+     * The phone number of the company, not longer than 100 characters.
+     */
+    "phone_number"?: string;
+    /**
+     * The company email address for this account, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "email"?: string;
+    /**
+     * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+     */
+    "aliases"?: Array<string>;
+}
+
+/**
  * This object represents an account in requests and responses.
  */
 export type AccountInfoStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
-export type AccountInfoObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type AccountInfoObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export interface AccountInfo {
     /**
      * Account end market.
@@ -141,6 +305,39 @@ export interface AccountInfo {
     "template_id"?: string;
 }
 
+export type AccountInfoListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
+export type AccountInfoListOrderEnum = "ASC" | "DESC";
+export interface AccountInfoList {
+    /**
+     * The entity ID to fetch after the given one.
+     */
+    "after"?: string;
+    /**
+     * Flag indicating whether there is more results.
+     */
+    "has_more": boolean;
+    /**
+     * The total number or records, if requested. It might be returned also for small lists.
+     */
+    "total_count": number;
+    /**
+     * Entity name: always 'list'
+     */
+    "object": AccountInfoListObjectEnum;
+    /**
+     * The number of results to return, (range: 2-1000), or equals to `total_count`
+     */
+    "limit": number;
+    /**
+     * A list of entities.
+     */
+    "data": Array<AccountInfo>;
+    /**
+     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     */
+    "order"?: AccountInfoListOrderEnum;
+}
+
 /**
  * This object represents an account creation request.
  */
@@ -186,6 +383,10 @@ export interface AccountUpdateReq {
      */
     "postal_code"?: string;
     /**
+     * Password policy for this account.
+     */
+    "password_policy"?: PasswordPolicy;
+    /**
      * The end market for this account, not longer than 100 characters.
      */
     "end_market"?: string;
@@ -204,6 +405,104 @@ export interface AccountUpdateReq {
 }
 
 /**
+ * This object represents an account update request.
+ */
+export interface AccountUpdateRootReq {
+    /**
+     * The end market for this account, not longer than 100 characters.
+     */
+    "end_market"?: string;
+    /**
+     * The phone number of the company, not longer than 100 characters.
+     */
+    "phone_number"?: string;
+    /**
+     * Password policy for this account.
+     */
+    "password_policy"?: PasswordPolicy;
+    /**
+     * The postal code part of the postal address, not longer than 100 characters.
+     */
+    "postal_code"?: string;
+    /**
+     * The ID of the parent account, if it has any.
+     */
+    "parentID"?: string;
+    /**
+     * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+     */
+    "aliases"?: Array<string>;
+    /**
+     * Postal address line 2, not longer than 100 characters.
+     */
+    "address_line2"?: string;
+    /**
+     * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "city"?: string;
+    /**
+     * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "address_line1"?: string;
+    /**
+     * The display name for the account, not longer than 100 characters.
+     */
+    "display_name"?: string;
+    /**
+     * The state part of the postal address, not longer than 100 characters.
+     */
+    "state"?: string;
+    /**
+     * Flag (true/false) indicating whether Factory Tool is allowed to download or not. Manageable by the root admin only.
+     */
+    "is_provisioning_allowed"?: boolean;
+    /**
+     * The company email address for this account, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "email"?: string;
+    /**
+     * The status of the account. Manageable by the root admin only.
+     */
+    "status"?: string;
+    /**
+     * The name of the company, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "company"?: string;
+    /**
+     * A reason note for changing account status. Manageable by the root admin only.
+     */
+    "reason"?: string;
+    /**
+     * The tier level of the account; '0': free tier, '1': commercial account, '2': partner account, '98': internal/demo account, '99': root admin team. Other values are reserved for the future. Manageable by the root admin only.
+     */
+    "tier"?: string;
+    /**
+     * List of service limits. Manageable by the root admin only.
+     */
+    "limits"?: { [key: string]: string; };
+    /**
+     * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "country"?: string;
+    /**
+     * The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
+     */
+    "idle_timeout"?: string;
+    /**
+     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "contact"?: string;
+    /**
+     * List of policies. Manageable by the root admin only.
+     */
+    "policies"?: Array<FeaturePolicy>;
+    /**
+     * Account template ID. Manageable by the root admin only.
+     */
+    "template_id"?: string;
+}
+
+/**
  * This object represents an API key in requests towards mbed Cloud.
  */
 export interface ApiKeyInfoReq {
@@ -211,6 +510,10 @@ export interface ApiKeyInfoReq {
      * The owner of this API key, who is the creator by default.
      */
     "owner"?: string;
+    /**
+     * The status of the API key.
+     */
+    "status"?: string;
     /**
      * The display name for the API key, not longer than 100 characters.
      */
@@ -225,7 +528,7 @@ export interface ApiKeyInfoReq {
  * This object represents an API key in mbed Cloud.
  */
 export type ApiKeyInfoRespStatusEnum = "ACTIVE" | "INACTIVE";
-export type ApiKeyInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type ApiKeyInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export interface ApiKeyInfoResp {
     /**
      * A list of group IDs this API key belongs to.
@@ -273,7 +576,7 @@ export interface ApiKeyInfoResp {
     "last_login_time"?: number;
 }
 
-export type ApiKeyInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type ApiKeyInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export type ApiKeyInfoRespListOrderEnum = "ASC" | "DESC";
 export interface ApiKeyInfoRespList {
     /**
@@ -315,6 +618,10 @@ export interface ApiKeyUpdateReq {
      */
     "owner"?: string;
     /**
+     * The status of the API key.
+     */
+    "status"?: string;
+    /**
      * The display name for the API key, not longer than 100 characters.
      */
     "name": string;
@@ -323,8 +630,8 @@ export interface ApiKeyUpdateReq {
 /**
  * This object represents an error message.
  */
-export type ErrorResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type ErrorResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
+export type ErrorResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
+export type ErrorResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 export interface ErrorResponse {
     /**
      * Response code.
@@ -382,7 +689,7 @@ export interface Field {
 /**
  * This object contains basic information about groups.
  */
-export type GroupSummaryObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type GroupSummaryObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export interface GroupSummary {
     /**
      * A timestamp of the latest group update, in milliseconds.
@@ -426,7 +733,7 @@ export interface GroupSummary {
     "account_id": string;
 }
 
-export type GroupSummaryListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type GroupSummaryListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export type GroupSummaryListOrderEnum = "ASC" | "DESC";
 export interface GroupSummaryList {
     /**
@@ -459,6 +766,9 @@ export interface GroupSummaryList {
     "order"?: GroupSummaryListOrderEnum;
 }
 
+/**
+ * This object represents an entry in login history.
+ */
 export interface LoginHistory {
     /**
      * UTC time RFC3339 for this login attempt.
@@ -482,7 +792,7 @@ export interface LoginHistory {
  * This object represents user details.
  */
 export type MyUserInfoRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type MyUserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type MyUserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export interface MyUserInfoResp {
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
@@ -574,6 +884,13 @@ export interface MyUserInfoResp {
     "password_changed_time"?: number;
 }
 
+export interface PasswordPolicy {
+    /**
+     * Minimum length for the password. A number between 8 and 512.
+     */
+    "minimum_length": string;
+}
+
 /**
  * This object represents an array of users and API keys.
  */
@@ -589,7 +906,7 @@ export interface SubjectList {
 }
 
 /**
- * This object represents a trusted certificate in requests.
+ * This object represents a trusted certificate in upload requests.
  */
 export type TrustedCertificateReqStatusEnum = "ACTIVE" | "INACTIVE";
 export type TrustedCertificateReqServiceEnum = "lwm2m" | "bootstrap";
@@ -625,7 +942,7 @@ export interface TrustedCertificateReq {
  */
 export type TrustedCertificateRespServiceEnum = "lwm2m" | "bootstrap";
 export type TrustedCertificateRespStatusEnum = "ACTIVE" | "INACTIVE";
-export type TrustedCertificateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type TrustedCertificateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export interface TrustedCertificateResp {
     /**
      * Service name where the certificate is to be used.
@@ -689,7 +1006,7 @@ export interface TrustedCertificateResp {
     "name": string;
 }
 
-export type TrustedCertificateRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type TrustedCertificateRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export type TrustedCertificateRespListOrderEnum = "ASC" | "DESC";
 export interface TrustedCertificateRespList {
     /**
@@ -723,7 +1040,7 @@ export interface TrustedCertificateRespList {
 }
 
 /**
- * This object represents a trusted certificate in requests.
+ * This object represents a trusted certificate in update requests.
  */
 export type TrustedCertificateUpdateReqStatusEnum = "ACTIVE" | "INACTIVE";
 export type TrustedCertificateUpdateReqServiceEnum = "lwm2m" | "bootstrap";
@@ -745,7 +1062,7 @@ export interface TrustedCertificateUpdateReq {
      */
     "service"?: TrustedCertificateUpdateReqServiceEnum;
     /**
-     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
+     * Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.
      */
     "signature"?: string;
     /**
@@ -757,8 +1074,8 @@ export interface TrustedCertificateUpdateReq {
 /**
  * This object represents a response to an update request.
  */
-export type UpdatedResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type UpdatedResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
+export type UpdatedResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
+export type UpdatedResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 export interface UpdatedResponse {
     /**
      * Response code.
@@ -789,15 +1106,15 @@ export interface UpdatedResponse {
 /**
  * This object represents a user in requests towards mbed Cloud.
  */
-export interface UserInfoReq {
-    /**
-     * Phone number, not longer than 100 characters.
-     */
-    "phone_number"?: string;
+export interface UserCreationReq {
     /**
      * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
      */
     "username"?: string;
+    /**
+     * Phone number, not longer than 100 characters.
+     */
+    "phone_number"?: string;
     /**
      * A list of IDs of the groups this user belongs to.
      */
@@ -807,13 +1124,13 @@ export interface UserInfoReq {
      */
     "is_gtc_accepted"?: boolean;
     /**
-     * The full name of the user, not longer than 100 characters.
-     */
-    "full_name"?: string;
-    /**
      * A flag indicating that receiving marketing information has been accepted.
      */
     "is_marketing_accepted"?: boolean;
+    /**
+     * The full name of the user, not longer than 100 characters.
+     */
+    "full_name"?: string;
     /**
      * Address, not longer than 100 characters.
      */
@@ -832,7 +1149,7 @@ export interface UserInfoReq {
  * This object represents a user in mbed Cloud.
  */
 export type UserInfoRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type UserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type UserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export interface UserInfoResp {
     /**
      * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
@@ -843,13 +1160,17 @@ export interface UserInfoResp {
      */
     "username"?: string;
     /**
+     * A timestamp of the latest change of the user password, in milliseconds.
+     */
+    "password_changed_time"?: number;
+    /**
      * A list of IDs of the groups this user belongs to.
      */
     "groups"?: Array<string>;
     /**
-     * A timestamp of the latest change of the user password, in milliseconds.
+     * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
      */
-    "password_changed_time"?: number;
+    "login_history"?: Array<LoginHistory>;
     /**
      * A flag indicating whether the user's email address has been verified or not.
      */
@@ -874,10 +1195,6 @@ export interface UserInfoResp {
      * The email address.
      */
     "email": string;
-    /**
-     * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
-     */
-    "login_history"?: Array<LoginHistory>;
     /**
      * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      */
@@ -920,7 +1237,7 @@ export interface UserInfoResp {
     "last_login_time"?: number;
 }
 
-export type UserInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type UserInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export type UserInfoRespListOrderEnum = "ASC" | "DESC";
 export interface UserInfoRespList {
     /**
@@ -958,9 +1275,9 @@ export interface UserInfoRespList {
  */
 export interface UserUpdateReq {
     /**
-     * Phone number, not longer than 100 characters.
+     * The status of the user.
      */
-    "phone_number"?: string;
+    "status"?: string;
     /**
      * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
      */
@@ -974,13 +1291,9 @@ export interface UserUpdateReq {
      */
     "is_gtc_accepted"?: boolean;
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
+     * The email address, not longer than 254 characters.
      */
-    "is_totp_enabled"?: boolean;
-    /**
-     * The status of the user.
-     */
-    "status"?: string;
+    "email": string;
     /**
      * The full name of the user, not longer than 100 characters.
      */
@@ -994,16 +1307,20 @@ export interface UserUpdateReq {
      */
     "password"?: string;
     /**
-     * The email address, not longer than 254 characters.
+     * Phone number, not longer than 100 characters.
      */
-    "email": string;
+    "phone_number"?: string;
+    /**
+     * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
+     */
+    "is_totp_enabled"?: boolean;
 }
 
 /**
  * This object represents a user update response.
  */
 export type UserUpdateRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type UserUpdateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type UserUpdateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "agreement" | "signed-agreement";
 export interface UserUpdateResp {
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
@@ -1177,12 +1494,48 @@ export class AccountAdminApi extends ApiBase {
         }, callback);
     }
     /** 
+     * Create a new account.
+     * An endpoint for creating a new account.
+     * @param body Details of the account to be created.
+     * @param action Action, either &#39;create&#39; or &#39;enroll&#39;.
+     */
+    createAccount (body: AccountCreationReq, action?: string, callback?: (error:any, data?:AccountCreationResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+        if (action !== undefined) {
+            queryParameters['action'] = action;
+        }
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<AccountCreationResp>({
+            url: '/v3/accounts',
+            method: 'POST',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+            body: body,
+        }, callback);
+    }
+    /** 
      * Create a new user.
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
      * @param body A user object with attributes.
      * @param action Action, either &#39;create&#39; or &#39;invite&#39;.
      */
-    createUser (body: UserInfoReq, action?: string, callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    createUser (body: UserCreationReq, action?: string, callback?: (error:any, data?:UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
@@ -1236,6 +1589,96 @@ export class AccountAdminApi extends ApiBase {
         return this.request<null>({
             url: '/v3/users/{user-id}'.replace('{' + 'user-id' + '}', String(userId)),
             method: 'DELETE',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Get account info.
+     * Returns detailed information about the account.
+     * @param accountID The ID or alias of the account to be fetched.
+     * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+     */
+    getAccountInfo (accountID: string, include?: string, callback?: (error:any, data?:AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<AccountInfo>({
+            url: '/v3/accounts/{accountID}'.replace('{' + 'accountID' + '}', String(accountID)),
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Get all accounts.
+     * Returns an array of account objects, optionally filtered by status and tier level.
+     * @param statusEq An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED.
+     * @param tierEq An optional filter for tier level, must be 0, 1 or omitted.
+     * @param parentEq An optional filter for parent account ID.
+     * @param endMarketEq An optional filter for account end market.
+     * @param limit The number of results to return (2-1000), default is 1000.
+     * @param after The entity ID to fetch after the given one.
+     * @param include Comma separated additional data to return. Currently supported: total_count,limits
+     * @param format Format information for the response to the query, supported: format&#x3D;breakdown.
+     */
+    getAllAccounts (statusEq?: string, tierEq?: string, parentEq?: string, endMarketEq?: string, limit?: number, after?: string, include?: string, format?: string, callback?: (error:any, data?:AccountInfoList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+        if (statusEq !== undefined) {
+            queryParameters['status__eq'] = statusEq;
+        }
+        if (tierEq !== undefined) {
+            queryParameters['tier__eq'] = tierEq;
+        }
+        if (parentEq !== undefined) {
+            queryParameters['parent__eq'] = parentEq;
+        }
+        if (endMarketEq !== undefined) {
+            queryParameters['end_market__eq'] = endMarketEq;
+        }
+        if (limit !== undefined) {
+            queryParameters['limit'] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters['after'] = after;
+        }
+        if (include !== undefined) {
+            queryParameters['include'] = include;
+        }
+        if (format !== undefined) {
+            queryParameters['format'] = format;
+        }
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<AccountInfoList>({
+            url: '/v3/accounts',
+            method: 'GET',
             headers: headerParams,
             query: queryParameters,
             useFormData: useFormData,
@@ -1405,8 +1848,48 @@ export class AccountAdminApi extends ApiBase {
         }, callback);
     }
     /** 
+     * Update attributes of an existing account.
+     * An endpoint for updating an account.
+     * @param accountID The ID of the account to be updated.
+     * @param body Details of the account to be updated.
+     */
+    updateAccount (accountID: string, body: AccountUpdateRootReq, callback?: (error:any, data?:AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<AccountInfo>({
+            url: '/v3/accounts/{accountID}'.replace('{' + 'accountID' + '}', String(accountID)),
+            method: 'PUT',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+            body: body,
+        }, callback);
+    }
+    /** 
      * Updates attributes of the account.
-     * An endpoint for updating the account. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for updating the account. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param body Details of the account to be updated.
      */
     updateMyAccount (body: AccountUpdateReq, callback?: (error:any, data?:AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1479,13 +1962,101 @@ export class AccountAdminApi extends ApiBase {
 }
 
 /**
+ * DefaultApi
+ */
+export class DefaultApi extends ApiBase {
+
+    /** 
+     * Download agreement as a document.
+     * Endpoint for download limits by account ID.
+     * @param agreementId The ID of the agreement to be returned.
+     */
+    downloadAgreement (agreementId: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+        // verify required parameter "agreementId" is set
+        if (agreementId === null || agreementId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'agreementId' missing."));
+            }
+            return;
+        }
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<null>({
+            url: '/downloads/agreements/{agreement-id}'.replace('{' + 'agreement-id' + '}', String(agreementId)),
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * The heartbeat method for this API.
+     * 
+     */
+    headDownloads (callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<null>({
+            url: '/downloads/agreements',
+            method: 'HEAD',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+    /** 
+     * Get alive status
+     * 
+     * @param deepalive An optional parameter for getting deep aliveness. Must be true or false.
+     */
+    isAlive (deepalive?: boolean, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+
+        let headerParams: any = {};
+
+        let queryParameters: any = {};
+        if (deepalive !== undefined) {
+            queryParameters['deepalive'] = deepalive;
+        }
+
+        let useFormData = false;
+        let formParams: any = {};
+
+        return this.request<null>({
+            url: '/alive',
+            method: 'GET',
+            headers: headerParams,
+            query: queryParameters,
+            useFormData: useFormData,
+            formParams: formParams,
+            json: true,
+        }, callback);
+    }
+}
+
+/**
  * DeveloperApi
  */
 export class DeveloperApi extends ApiBase {
 
     /** 
      * Create a new API key.
-     * An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param body The details of the API key to be created.
      */
     createApiKey (body: ApiKeyInfoReq, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1517,7 +2088,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Delete API key.
-     * An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param apiKey The ID of the API key to be deleted.
      */
     deleteApiKey (apiKey: string, callback?: (error:any, data?:any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1579,7 +2150,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Get all API keys
-     * An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
      * @param order The order of the records, ASC or DESC; by default ASC
@@ -1794,7 +2365,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Get trusted certificate by ID.
-     * An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param certId The ID or name of the trusted certificate to be retrieved.
      */
     getCertificate (certId: string, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1857,7 +2428,7 @@ export class DeveloperApi extends ApiBase {
     /** 
      * Get account info.
      * Returns detailed information about the account. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer AUTH_TOKEN&#39; .
-     * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
      */
     getMyAccountInfo (include?: string, callback?: (error:any, data?:AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
@@ -1883,7 +2454,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Get API key details.
-     * An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      */
     getMyApiKey (callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
@@ -1906,13 +2477,17 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Details of the current user.
-     * An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * @param scratchCodes Request to regenerate new emergency scratch codes.
      */
-    getMyUser (callback?: (error:any, data?:MyUserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    getMyUser (scratchCodes?: string, callback?: (error:any, data?:MyUserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
         let queryParameters: any = {};
+        if (scratchCodes !== undefined) {
+            queryParameters['scratch_codes'] = scratchCodes;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -2009,7 +2584,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Update trusted certificate.
-     * An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param certId The ID of the trusted certificate to be updated.
      * @param body A trusted certificate object with attributes.
      */
@@ -2049,7 +2624,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Update API key details.
-     * An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param body New API key attributes to be stored.
      */
     updateMyApiKey (body: ApiKeyUpdateReq, callback?: (error:any, data?:ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -2081,7 +2656,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Update user details.
-     * An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param body New attributes for the logged in user.
      */
     updateMyUser (body: UserUpdateReq, callback?: (error:any, data?:UserUpdateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
