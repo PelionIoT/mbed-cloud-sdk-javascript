@@ -16,7 +16,7 @@
 */
 
 import {
-    UserInfoReq as apiUserAdd,
+    UserCreationReq as apiUserAdd,
     UserUpdateReq as apiUserUpdate,
     UserInfoResp as apiUser
 } from "../../_api/iam";
