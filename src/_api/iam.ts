@@ -317,6 +317,7 @@ export interface ApiKeyInfoRespList {
 /**
  * This object represents an API key in requests towards mbed Cloud.
  */
+export type ApiKeyUpdateReqStatusEnum = "ACTIVE" | "INACTIVE";
 export interface ApiKeyUpdateReq {
     /**
      * The owner of this API key, who is the creator by default.
@@ -325,7 +326,7 @@ export interface ApiKeyUpdateReq {
     /**
      * The status of the API key.
      */
-    "status"?: string;
+    "status"?: ApiKeyUpdateReqStatusEnum;
     /**
      * The display name for the API key, not longer than 100 characters.
      */
