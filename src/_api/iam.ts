@@ -186,6 +186,10 @@ export interface AccountUpdateReq {
      */
     "postal_code"?: string;
     /**
+     * Password policy for this account.
+     */
+    "password_policy"?: PasswordPolicy;
+    /**
      * The end market for this account, not longer than 100 characters.
      */
     "end_market"?: string;
@@ -211,6 +215,10 @@ export interface ApiKeyInfoReq {
      * The owner of this API key, who is the creator by default.
      */
     "owner"?: string;
+    /**
+     * The status of the API key.
+     */
+    "status"?: string;
     /**
      * The display name for the API key, not longer than 100 characters.
      */
@@ -309,11 +317,16 @@ export interface ApiKeyInfoRespList {
 /**
  * This object represents an API key in requests towards mbed Cloud.
  */
+export type ApiKeyUpdateReqStatusEnum = "ACTIVE" | "INACTIVE";
 export interface ApiKeyUpdateReq {
     /**
      * The owner of this API key, who is the creator by default.
      */
     "owner"?: string;
+    /**
+     * The status of the API key.
+     */
+    "status"?: ApiKeyUpdateReqStatusEnum;
     /**
      * The display name for the API key, not longer than 100 characters.
      */
@@ -324,7 +337,7 @@ export interface ApiKeyUpdateReq {
  * This object represents an error message.
  */
 export type ErrorResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type ErrorResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
+export type ErrorResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 export interface ErrorResponse {
     /**
      * Response code.
@@ -375,8 +388,14 @@ export interface FeaturePolicy {
 }
 
 export interface Field {
-    "message"?: string;
-    "name"?: string;
+    /**
+     * Message describing the erroneous situation.
+     */
+    "message": string;
+    /**
+     * Name of the erroneous field.
+     */
+    "name": string;
 }
 
 /**
@@ -459,6 +478,9 @@ export interface GroupSummaryList {
     "order"?: GroupSummaryListOrderEnum;
 }
 
+/**
+ * This object represents an entry in login history.
+ */
 export interface LoginHistory {
     /**
      * UTC time RFC3339 for this login attempt.
@@ -574,6 +596,13 @@ export interface MyUserInfoResp {
     "password_changed_time"?: number;
 }
 
+export interface PasswordPolicy {
+    /**
+     * Minimum length for the password. A number between 8 and 512.
+     */
+    "minimum_length": string;
+}
+
 /**
  * This object represents an array of users and API keys.
  */
@@ -589,7 +618,7 @@ export interface SubjectList {
 }
 
 /**
- * This object represents a trusted certificate in requests.
+ * This object represents a trusted certificate in upload requests.
  */
 export type TrustedCertificateReqStatusEnum = "ACTIVE" | "INACTIVE";
 export type TrustedCertificateReqServiceEnum = "lwm2m" | "bootstrap";
@@ -723,7 +752,7 @@ export interface TrustedCertificateRespList {
 }
 
 /**
- * This object represents a trusted certificate in requests.
+ * This object represents a trusted certificate in update requests.
  */
 export type TrustedCertificateUpdateReqStatusEnum = "ACTIVE" | "INACTIVE";
 export type TrustedCertificateUpdateReqServiceEnum = "lwm2m" | "bootstrap";
@@ -745,7 +774,7 @@ export interface TrustedCertificateUpdateReq {
      */
     "service"?: TrustedCertificateUpdateReqServiceEnum;
     /**
-     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
+     * Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.
      */
     "signature"?: string;
     /**
@@ -758,7 +787,7 @@ export interface TrustedCertificateUpdateReq {
  * This object represents a response to an update request.
  */
 export type UpdatedResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type UpdatedResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
+export type UpdatedResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 export interface UpdatedResponse {
     /**
      * Response code.
@@ -996,7 +1025,7 @@ export interface UserUpdateReq {
     /**
      * The email address, not longer than 254 characters.
      */
-    "email": string;
+    "email"?: string;
 }
 
 /**
@@ -1794,7 +1823,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Get trusted certificate by ID.
-     * An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param certId The ID or name of the trusted certificate to be retrieved.
      */
     getCertificate (certId: string, callback?: (error:any, data?:TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1906,13 +1935,17 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Details of the current user.
-     * An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * @param scratchCodes Request to regenerate new emergency scratch codes.
      */
-    getMyUser (callback?: (error:any, data?:MyUserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    getMyUser (scratchCodes?: string, callback?: (error:any, data?:MyUserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         let headerParams: any = {};
 
         let queryParameters: any = {};
+        if (scratchCodes !== undefined) {
+            queryParameters['scratch_codes'] = scratchCodes;
+        }
 
         let useFormData = false;
         let formParams: any = {};
@@ -2009,7 +2042,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Update trusted certificate.
-     * An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param certId The ID of the trusted certificate to be updated.
      * @param body A trusted certificate object with attributes.
      */
@@ -2081,7 +2114,7 @@ export class DeveloperApi extends ApiBase {
     }
     /** 
      * Update user details.
-     * An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
      * @param body New attributes for the logged in user.
      */
     updateMyUser (body: UserUpdateReq, callback?: (error:any, data?:UserUpdateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
