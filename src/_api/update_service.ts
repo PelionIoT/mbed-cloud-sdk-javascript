@@ -30,7 +30,7 @@ export interface CampaignDeviceMetadata {
      */
     "description"?: string;
     /**
-     * The ID of the campaign the device is in
+     * The device's campaign ID
      */
     "campaign"?: string;
     /**
@@ -46,11 +46,11 @@ export interface CampaignDeviceMetadata {
      */
     "updated_at"?: Date;
     /**
-     * The mechanism used to deliver the firmware (connector or direct)
+     * How the firmware is delivered (connector or direct)
      */
     "mechanism"?: string;
     /**
-     * The name of the record
+     * The record name
      */
     "name"?: string;
     /**
@@ -58,7 +58,7 @@ export interface CampaignDeviceMetadata {
      */
     "etag"?: string;
     /**
-     * The URL of cloud connect used
+     * The Cloud Connect URL
      */
     "mechanism_url"?: string;
     /**
@@ -66,11 +66,11 @@ export interface CampaignDeviceMetadata {
      */
     "deployment_state"?: CampaignDeviceMetadataDeploymentStateEnum;
     /**
-     * The ID of the metadata record
+     * The metadata record ID
      */
     "id"?: string;
     /**
-     * The ID of the device
+     * The device ID
      */
     "device_id"?: string;
 }
@@ -78,11 +78,11 @@ export interface CampaignDeviceMetadata {
 export type CampaignDeviceMetadataPageOrderEnum = "ASC" | "DESC";
 export interface CampaignDeviceMetadataPage {
     /**
-     * The entity ID to fetch after the given one.
+     * The entity ID to fetch after the given one
      */
     "after"?: string;
     /**
-     * Flag indicating whether there is more results.
+     * Flag indicating whether there are more results
      */
     "has_more"?: boolean;
     /**
@@ -102,50 +102,50 @@ export interface CampaignDeviceMetadataPage {
      */
     "data"?: Array<CampaignDeviceMetadata>;
     /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
     "order"?: CampaignDeviceMetadataPageOrderEnum;
 }
 
 export interface FirmwareImage {
     /**
-     * The url to binary file of firmware image.
+     * The firmware image file URL
      */
     "datafile": string;
     /**
-     * The description of the object.
+     * The description of the object
      */
     "description": string;
     /**
-     * The time the object was created.
+     * The time the object was created
      */
     "created_at": Date;
     /**
-     * The API resource entity.
+     * The API resource entity
      */
     "object": string;
     /**
-     * The time the object was updated.
+     * The time the object was updated
      */
     "updated_at": Date;
     /**
-     * The entity instance signature.
+     * The entity instance signature
      */
     "etag": Date;
     /**
-     * Checksum generated for the datafile.
+     * Checksum generated for the datafile
      */
     "datafile_checksum": string;
     /**
-     * Size of the datafile (in bytes).
+     * Size of the datafile in bytes
      */
     "datafile_size"?: number;
     /**
-     * The ID of the firmware image.
+     * The firmware image ID
      */
     "id": string;
     /**
-     * The name of the object.
+     * The firmware image name
      */
     "name": string;
 }
@@ -159,59 +159,59 @@ export interface FirmwareImagePage {
     "limit"?: number;
     "data"?: Array<FirmwareImage>;
     /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
     "order"?: FirmwareImagePageOrderEnum;
 }
 
 export interface FirmwareManifest {
     /**
-     * The url to binary file of firmware manifest.
+     * The URL of the firmware manifest binary
      */
     "datafile": string;
     /**
-     * The description of the object.
+     * The description of the firmware manifest
      */
     "description": string;
     /**
-     * The version of the firmware manifest (as a timestamp).
+     * The firmware manifest version as a timestamp
      */
     "timestamp": Date;
     /**
-     * The time the object was created.
+     * The time the object was created
      */
     "created_at": Date;
     /**
-     * The API resource entity.
+     * The API resource entity
      */
     "object": string;
     /**
-     * The time the object was updated.
+     * The time the object was updated
      */
     "updated_at": Date;
     "manifest_contents": ManifestContents;
     /**
-     * The entity instance signature.
+     * The entity instance signature
      */
     "etag": Date;
     /**
-     * The class of device.
+     * The class of the device
      */
     "device_class": string;
     /**
-     * Checksum generated for the datafile.
+     * Checksum generated for the datafile
      */
     "datafile_checksum"?: string;
     /**
-     * Size of the datafile (in bytes).
+     * Size of the datafile in bytes
      */
     "datafile_size"?: number;
     /**
-     * The ID of the firmware manifest.
+     * The firmware manifest ID
      */
     "id": string;
     /**
-     * The name of the object.
+     * The name of the object
      */
     "name": string;
 }
@@ -225,26 +225,26 @@ export interface FirmwareManifestPage {
     "limit"?: number;
     "data"?: Array<FirmwareManifest>;
     /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
     "order"?: FirmwareManifestPageOrderEnum;
 }
 
 export interface ManifestContents {
     /**
-     * Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
+     * The device class's 128-bit RFC4122 GUID as a hexidecimal digit string
      */
     "classId"?: string;
     /**
-     * Hex representation of the 128-bit RFC4122 GUID that represents the vendor.
+     * The vendor's 128-bit RFC4122 GUID as a hexidecimal digit string
      */
     "vendorId"?: string;
     /**
-     * The version of the manifest format being used.
+     * The manifest format version
      */
     "manifestVersion"?: number;
     /**
-     * A short description of the update.
+     * A short description of the update
      */
     "description"?: string;
     /**
@@ -257,11 +257,11 @@ export interface ManifestContents {
     "timestamp"?: number;
     "encryptionMode"?: ManifestContentsEncryptionMode;
     /**
-     * A flag that indicates that the update described by the manifest should be applied as soon as possible.
+     * A flag that indicates whether the update described by the manifest should be applied as soon as possible
      */
     "applyImmediately"?: boolean;
     /**
-     * Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Each device has a single, unique device ID.
+     * The device's 128-bit RFC4122 GUID as a hexidecimal digit string. Each device has a single, unique device ID.
      */
     "deviceId"?: string;
     "payload"?: ManifestContentsPayload;
@@ -269,7 +269,7 @@ export interface ManifestContents {
 
 export interface ManifestContentsEncryptionMode {
     /**
-     * The encryption mode describing the kind of hashing, signing and, encryption in use. The following modes are available: 1: none-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. No payload encryption is used. 2: aes-128-ctr-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. The payload is encrypted with AES-128 in CTR-mode. 3: none-none-sha256: SHA-256 hashing. No signature is used. No payload encryption is used. This mode is not recommended except over existing, trusted connections. 
+     * The kind of hashing, signing, and encryption to use. These modes are available: 1: none-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. No payload encryption is used. 2: aes-128-ctr-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. The payload is encrypted with AES-128 in CTR-mode. 3: none-none-sha256: SHA-256 hashing. No signature is used. No payload encryption is used. This mode is not recommended except over existing, trusted connections. 
      */
     "enum"?: number;
 }
@@ -278,7 +278,7 @@ export interface ManifestContentsPayload {
     "format"?: ManifestContentsPayloadFormat;
     "reference"?: ManifestContentsPayloadReference;
     /**
-     * An identifier for where the payload is to be located. This identifier indicates where the image should be placed on the device. For example, when an IoT device contains multiple microcontrollers (MCUs) and the decision needs to be made to which MCU to send which firmware image.
+     * An payload storage destination identifier. The identifier specifies where to place the firmware image on the device. For example, when an IoT device has multiple microcontrollers (MCUs), the identifier determines which MCU receives the image.
      */
     "storageIdentifier"?: string;
 }
@@ -296,7 +296,7 @@ export interface ManifestContentsPayloadReference {
      */
     "hash"?: string;
     /**
-     * The URI of the payload.
+     * The payload URI
      */
     "uri"?: string;
     /**
@@ -308,46 +308,46 @@ export interface ManifestContentsPayloadReference {
 export type UpdateCampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export interface UpdateCampaign {
     /**
-     * An optional description of the campaign.
+     * The optional description of the campaign
      */
     "description"?: string;
     "root_manifest_id"?: string;
     /**
-     * The time the object was created.
+     * The time the update campaign was created
      */
     "created_at"?: Date;
     /**
-     * The API resource entity.
+     * The API resource entity
      */
     "object"?: string;
     /**
-     * The timestamp at which update campaign scheduled to start.
+     * The scheduled start time for the update campaign
      */
     "when"?: string;
     /**
-     * The state of the campaign.
+     * The state of the campaign
      */
     "state"?: UpdateCampaignStateEnum;
     /**
-     * The timestamp when the update campaign finished.
+     * The campaign finish timestamp
      */
     "finished"?: Date;
     /**
-     * The entity instance signature.
+     * The entity instance signature
      */
     "etag"?: string;
     "root_manifest_url"?: string;
     "started_at"?: Date;
     /**
-     * The ID of the campaign.
+     * The campaign ID
      */
     "id"?: string;
     /**
-     * The filter for the devices the campaign will target.
+     * The filter for the devices the campaign will target
      */
     "device_filter"?: string;
     /**
-     * A name for this campaign.
+     * The campaign name
      */
     "name"?: string;
 }
@@ -361,7 +361,7 @@ export interface UpdateCampaignPage {
     "limit"?: number;
     "data"?: Array<UpdateCampaign>;
     /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
     "order"?: UpdateCampaignPageOrderEnum;
 }
@@ -369,28 +369,28 @@ export interface UpdateCampaignPage {
 export type UpdateCampaignPatchRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export interface UpdateCampaignPatchRequest {
     /**
-     * An optional description of the campaign.
+     * The optional description of the campaign
      */
     "description"?: string;
     "root_manifest_id"?: string;
     /**
-     * The API resource entity.
+     * The API resource entity
      */
     "object"?: string;
     /**
-     * The timestamp at which update campaign scheduled to start.
+     * The scheduled start time for the update campaign
      */
     "when"?: string;
     /**
-     * The state of the campaign.
+     * The state of the campaign
      */
     "state"?: UpdateCampaignPatchRequestStateEnum;
     /**
-     * The filter for the devices the campaign will target.
+     * The filter for the devices the campaign will target
      */
     "device_filter"?: string;
     /**
-     * A name for this campaign.
+     * The campaign name
      */
     "name"?: string;
 }
@@ -398,28 +398,28 @@ export interface UpdateCampaignPatchRequest {
 export type UpdateCampaignPostRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export interface UpdateCampaignPostRequest {
     /**
-     * An optional description of the campaign.
+     * The optional description of the campaign
      */
     "description"?: string;
     "root_manifest_id"?: string;
     /**
-     * The API resource entity.
+     * The API resource entity
      */
     "object"?: string;
     /**
-     * The timestamp at which update campaign scheduled to start.
+     * The scheduled start time for the update campaign
      */
     "when"?: string;
     /**
-     * The state of the campaign.
+     * The state of the campaign
      */
     "state"?: UpdateCampaignPostRequestStateEnum;
     /**
-     * The filter for the devices the campaign will target.
+     * The filter for the devices the campaign will target
      */
     "device_filter": string;
     /**
-     * A name for this campaign.
+     * The name for this campaign
      */
     "name": string;
 }
@@ -427,28 +427,28 @@ export interface UpdateCampaignPostRequest {
 export type UpdateCampaignPutRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export interface UpdateCampaignPutRequest {
     /**
-     * An optional description of the campaign.
+     * An optional description of the campaign
      */
     "description": string;
     "root_manifest_id": string;
     /**
-     * The API resource entity.
+     * The API resource entity
      */
     "object": string;
     /**
-     * The timestamp at which update campaign scheduled to start.
+     * The scheduled start time for the update campaign
      */
     "when": string;
     /**
-     * The state of the campaign.
+     * The state of the campaign
      */
     "state": UpdateCampaignPutRequestStateEnum;
     /**
-     * The filter for the devices the campaign will target.
+     * The filter for the devices the campaign will target
      */
     "device_filter": string;
     /**
-     * A name for this campaign.
+     * The campaign's name
      */
     "name": string;
 }
@@ -460,9 +460,9 @@ export class DefaultApi extends ApiBase {
 
     /**
      * Create firmware image.
-     * @param datafile The firmware image file to upload.
-     * @param name The name of the object.
-     * @param description The description of the object.
+     * @param datafile The firmware image file to upload
+     * @param name The name of the firmware image
+     * @param description The description of the firmware image
      */
     public firmwareImageCreate(datafile: any, name: string, description?: string, callback?: (error: any, data?: FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "datafile" is set
@@ -512,7 +512,7 @@ export class DefaultApi extends ApiBase {
     }
     /**
      * Delete firmware image.
-     * @param imageId The ID of the firmware image.
+     * @param imageId The firmware image ID
      */
     public firmwareImageDestroy(imageId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "imageId" is set
@@ -541,12 +541,12 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * List all firmware images
-     * @param limit How many objects to retrieve in the page.
+     * List all firmware images.
+     * @param limit How many firmware images to retrieve
      * @param order ASC or DESC
-     * @param after The ID of the the item after which to retrieve the next page.
-     * @param filter URL encoded query string parameter to filter returned data. The result will be paged into pages of 50.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ###### By firmware image properties (all properties are filterable): For example: &#x60;&#x60;&#x60;name&#x3D;{value}&#x60;&#x60;&#x60; ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example &#x60;&#x60;&#x60;name&#x3D;MyName&amp;bootstrapped&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60;  Encoded: &#x60;&#x60;&#x60;?filter&#x3D;name%3DMyName%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60;
-     * @param include Comma separated list of data fields to return. Currently supported: total_count
+     * @param after The ID of the the item after which to retrieve the next page
+     * @param filter URL-encoded query string parameter to filter returned data. The results are paginated into groups of 50.  &lt;br/&gt; &#x60;&#x60;&#x60; ?filter&#x3D;{URL-encoded query string} &#x60;&#x60;&#x60; &lt;br/&gt;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;&#x60;&#x60; key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3 &#x60;&#x60;&#x60;  would be URL-encoded as: &#x60;&#x60;&#x60; ?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 &#x60;&#x60;&#x60; &lt;br/&gt;  The examples below show the queries in *unencoded* form.&lt;br/&gt;  &lt;br/&gt;**Filtering by campaign properties** &#x60;&#x60;&#x60; state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] &#x60;&#x60;&#x60;  &lt;br/&gt; &#x60;&#x60;&#x60; root_manifest_id&#x3D;43217771234242e594ddb433816c498a &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;&#x60;&#x60; {field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time} &#x60;&#x60;&#x60; &lt;br/&gt;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;&#x60;&#x60; created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on multiple fields**  Example: &#x60;&#x60;&#x60; state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  The example after URL encoding: &#x60;&#x60;&#x60; ?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z &#x60;&#x60;&#x60;
+     * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
     public firmwareImageList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: FirmwareImagePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
@@ -584,7 +584,7 @@ export class DefaultApi extends ApiBase {
     }
     /**
      * Retrieve firmware image.
-     * @param imageId The ID of the firmware image.
+     * @param imageId The firmware image ID
      */
     public firmwareImageRetrieve(imageId: string, callback?: (error: any, data?: FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "imageId" is set
@@ -614,9 +614,9 @@ export class DefaultApi extends ApiBase {
     }
     /**
      * Create firmware manifest.
-     * @param datafile The manifest file to create. The size of the file is account specific and enforced by the api gateway.
-     * @param name The name of the object.
-     * @param description The description of the object.
+     * @param datafile The manifest file to create. The API gateway enforces the account-specific file size.
+     * @param name The name of the firmware manifest
+     * @param description The description of the firmware manifest
      */
     public firmwareManifestCreate(datafile: any, name: string, description?: string, callback?: (error: any, data?: FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "datafile" is set
@@ -666,7 +666,7 @@ export class DefaultApi extends ApiBase {
     }
     /**
      * Delete firmware manifest.
-     * @param manifestId The ID of the firmware manifest.
+     * @param manifestId The firmware manifest ID
      */
     public firmwareManifestDestroy(manifestId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "manifestId" is set
@@ -695,12 +695,12 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * List all firmware manifests.
-     * @param limit How many objects to retrieve in the page.
+     * List firmware manifests.
+     * @param limit How many firmware manifests to retrieve
      * @param order ASC or DESC
      * @param after The ID of the the item after which to retrieve the next page.
-     * @param filter URL-encoded query string parameter to filter returned data.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL-encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ##### By manifest ID: &#x60;&#x60;&#x60;manifest_id&#x3D;{id}&#x60;&#x60;&#x60;  ##### By firmware manifest properties (all properties are filterable):  &#x60;&#x60;&#x60;device_class&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example &#x60;&#x60;&#x60;device_class&#x3D;1234&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60;  Encoded: &#x60;&#x60;&#x60;?filter&#x3D;device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60;
-     * @param include Comma separated list of data fields to return. Currently supported: total_count
+     * @param filter URL-encoded query string parameter to filter returned data  &lt;br/&gt; &#x60;&#x60;&#x60; ?filter&#x3D;{URL-encoded query string} &#x60;&#x60;&#x60; &lt;br/&gt;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;&#x60;&#x60; key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3 &#x60;&#x60;&#x60;  would be URL-encoded as: &#x60;&#x60;&#x60; ?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 &#x60;&#x60;&#x60; &lt;br/&gt;  The examples below show the queries in *unencoded* form.&lt;br/&gt;  &lt;br/&gt;**Filtering by campaign properties** &#x60;&#x60;&#x60; state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] &#x60;&#x60;&#x60;  &lt;br/&gt; &#x60;&#x60;&#x60; root_manifest_id&#x3D;43217771234242e594ddb433816c498a &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;&#x60;&#x60; {field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time} &#x60;&#x60;&#x60; &lt;br/&gt;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;&#x60;&#x60; created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on multiple fields**  Example: &#x60;&#x60;&#x60; state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  The example after URL encoding: &#x60;&#x60;&#x60; ?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z &#x60;&#x60;&#x60;
+     * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
     public firmwareManifestList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: FirmwareManifestPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
@@ -738,7 +738,7 @@ export class DefaultApi extends ApiBase {
     }
     /**
      * Retrieve firmware manifest.
-     * @param manifestId The ID of the firmware manifest.
+     * @param manifestId The firmware manifest ID
      */
     public firmwareManifestRetrieve(manifestId: string, callback?: (error: any, data?: FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "manifestId" is set
@@ -767,7 +767,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Create update campaign&lt;/p&gt;
+     * Create an update campaign.
      * @param campaign Update campaign
      */
     public updateCampaignCreate(campaign: UpdateCampaignPostRequest, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -798,7 +798,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Delete update campaign&lt;/p&gt;
+     * Delete an update campaign.
      * @param campaignId The ID of the update campaign
      */
     public updateCampaignDestroy(campaignId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -828,12 +828,12 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * The APIs for creating and manipulating update campaigns.
-     * @param limit How many objects to retrieve in the page.
-     * @param order ASC or DESC
-     * @param after The ID of the the item after which to retrieve the next page.
-     * @param filter URL encoded query string parameter to filter returned data.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ###### By campaign properties (all properties are filterable): For example: &#x60;&#x60;&#x60;state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]&#x60;&#x60;&#x60;  &#x60;&#x60;&#x60;root_manifest_id&#x3D;43217771234242e594ddb433816c498a&#x60;&#x60;&#x60;  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example &#x60;&#x60;&#x60;state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60; Encoded: &#x60;&#x60;&#x60;?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60;
-     * @param include Comma separated list of data fields to return. Currently supported: total_count
+     * Get update campaigns for devices specified by a filter.
+     * @param limit How many update campaigns to retrieve
+     * @param order The order of the records. Acceptable values: ASC, DESC. Default: ASC
+     * @param after The ID of the the item after which to retrieve the next page
+     * @param filter URL-encoded query string parameter to filter returned data  &lt;br/&gt; &#x60;&#x60;&#x60; ?filter&#x3D;{URL-encoded query string} &#x60;&#x60;&#x60; &lt;br/&gt;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;&#x60;&#x60; key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3 &#x60;&#x60;&#x60;  would be URL-encoded as: &#x60;&#x60;&#x60; ?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 &#x60;&#x60;&#x60; &lt;br/&gt;  The examples below show the queries in *unencoded* form.&lt;br/&gt;  &lt;br/&gt;**Filtering by campaign properties** &#x60;&#x60;&#x60; state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] &#x60;&#x60;&#x60;  &lt;br/&gt; &#x60;&#x60;&#x60; root_manifest_id&#x3D;43217771234242e594ddb433816c498a &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;&#x60;&#x60; {field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time} &#x60;&#x60;&#x60; &lt;br/&gt;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;&#x60;&#x60; created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on multiple fields**  Example: &#x60;&#x60;&#x60; state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  The example after URL encoding: &#x60;&#x60;&#x60; ?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z &#x60;&#x60;&#x60;
+     * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
     public updateCampaignList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
@@ -870,7 +870,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign fields&lt;/p&gt;
+     * Modify a subset of an update campaign&#39;s fields.
      * @param campaignId 
      * @param campaign Update campaign
      */
@@ -909,8 +909,8 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Retrieve campaign&lt;/p&gt;
-     * @param campaignId The ID of the campaign
+     * Get an update campaign.
+     * @param campaignId The campaign ID
      */
     public updateCampaignRetrieve(campaignId: string, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
@@ -939,7 +939,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign&lt;/p&gt;
+     * Modify an update campaign.
      * @param campaignId 
      * @param campaign Update campaign
      */
@@ -978,8 +978,9 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * @param campaignId The ID of the update campaign
-     * @param campaignDeviceMetadataId The ID of the campaign device metadata
+     * Get update campaign metadata.
+     * @param campaignId The update campaign ID
+     * @param campaignDeviceMetadataId The campaign device metadata ID
      */
     public v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId: string, campaignDeviceMetadataId: string, callback?: (error: any, data?: CampaignDeviceMetadata, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
@@ -1015,11 +1016,12 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * @param campaignId The ID of the update campaign
-     * @param limit How many objects to retrieve in the page.
+     * Get campaign device metadata.
+     * @param campaignId The update campaign ID
+     * @param limit How many objects to retrieve in the page
      * @param order ASC or DESC
-     * @param after The ID of the the item after which to retrieve the next page.
-     * @param include Comma separated list of data fields to return. Currently supported: total_count
+     * @param after The ID of the the item after which to retrieve the next page
+     * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
     public v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId: string, limit?: number, order?: string, after?: string, include?: string, callback?: (error: any, data?: CampaignDeviceMetadataPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
