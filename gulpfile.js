@@ -17,6 +17,8 @@ var namespace = "MbedCloudSDK";
 var docsToc = "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,UpdateApi,ConnectionOptions";
 
 var srcDir = "src";
+var srcFiles = srcDir + "/**/*.ts";
+var srcFilesOnly = [srcFiles, "!" + srcDir + "/_api/**"];
 var docsDir = "docs";
 var nodeDir = "lib";
 var typesDir = "types";
@@ -42,7 +44,7 @@ gulp.task("clean", function() {
 gulp.task("lint", function() {
     var program = tslint.Linter.createProgram();
 
-    gulp.src([srcDir + "/**/*.ts", "!" + srcDir + "/_api/**"])
+    gulp.src(srcFiles)
     .pipe(gulpTslint({
         program: program,
         formatter: "stylish"
@@ -54,7 +56,7 @@ gulp.task("lint", function() {
 
 // Create documentation
 gulp.task("doc", function() {
-    return gulp.src([srcDir + "/**/*.ts", "!" + srcDir + "/_api/**"])
+    return gulp.src(srcFilesOnly)
     .pipe(typedoc({
         name: name,
         readme: "src/documentation.md",
@@ -84,14 +86,14 @@ gulp.task("typescript", function() {
     };
 
     return merge([
-        gulp.src(srcDir + "/**/*.ts")
-        .pipe(ts(options))
-        .on("error", handleError).js
-        .pipe(gulp.dest(nodeDir)),
-        gulp.src([srcDir + "/**/*.ts", "!" + srcDir + "/_api/*"])
-        .pipe(ts(options))
-        .on("error", handleError).dts
-        .pipe(gulp.dest(typesDir))
+        gulp.src(srcFiles)
+            .pipe(ts(options))
+            .on("error", handleError).js
+            .pipe(gulp.dest(nodeDir)),
+        gulp.src(srcFilesOnly)
+            .pipe(ts(options))
+            .on("error", handleError).dts
+            .pipe(gulp.dest(typesDir))
     ]);
 });
 
@@ -144,7 +146,7 @@ gulp.task("browserify", ["typescript"], function() {
 });
 
 gulp.task("watch", ["setWatch", "default"], function() {
-    gulp.watch(srcDir + "/**/*.*", ["default"]);
+    gulp.watch(srcFiles, ["default"]);
 });
 
 gulp.task("default", ["clean", "lint", "doc", "browserify"]);
