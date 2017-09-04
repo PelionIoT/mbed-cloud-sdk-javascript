@@ -31,15 +31,15 @@ export class Certificate {
     /**
      * Certificate type
      */
-    public readonly type: CertificateTypeEnum;
+    public type: CertificateTypeEnum;
     /**
      * Status of the certificate
      */
-    public readonly status?: CertificateStatusEnum;
+    public status?: CertificateStatusEnum;
     /**
      * X509.v3 CA certificate in PEM or base64 encoded DER format
      */
-    public readonly certificateData: string;
+    public certificateData: string;
     /**
      * The UUID of the account.
      */

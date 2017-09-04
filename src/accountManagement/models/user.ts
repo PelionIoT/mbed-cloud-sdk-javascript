@@ -34,10 +34,6 @@ export class User {
      */
     public readonly groups?: string[];
     /**
-     * A username containing alphanumerical letters and -,._@+= characters.
-     */
-    public readonly username: string;
-    /**
      * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
      */
     public readonly status: UserStatusEnum;

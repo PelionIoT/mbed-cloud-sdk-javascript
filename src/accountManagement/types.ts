@@ -85,6 +85,10 @@ export interface AddApiKeyObject {
      * The owner of this API key, who is the creator by default.
      */
     ownerId?: string;
+    /**
+     * The status of the API key.
+     */
+    status?: ApiKeyStatusEnum;
 }
 
 export interface UpdateApiKeyObject extends AddApiKeyObject {
@@ -98,7 +102,7 @@ export type UserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INA
 /**
  * This object represents a user in Mbed Cloud.
  */
-export interface AddUserObject {
+export interface UserObject {
     /**
      * The full name of the user.
      */
@@ -111,10 +115,6 @@ export interface AddUserObject {
      * The password when creating a new user. It will will generated when not present in the request.
      */
     password?: string;
-    /**
-     * The email address.
-     */
-    email: string;
     /**
      * Phone number.
      */
@@ -133,11 +133,22 @@ export interface AddUserObject {
     marketingAccepted?: boolean;
 }
 
-export interface UpdateUserObject extends AddUserObject {
+export interface AddUserObject extends UserObject {
+    /**
+     * The email address.
+     */
+    email: string;
+}
+
+export interface UpdateUserObject extends UserObject {
     /**
      * The UUID of the user.
      */
     id: string;
+    /**
+     * The email address.
+     */
+    email?: string;
 }
 
 /**
