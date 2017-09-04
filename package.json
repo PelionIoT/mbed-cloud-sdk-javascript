@@ -24,7 +24,8 @@
   "scripts": {
     "start": "node examples/proxy/server.js",
     "test": "node tests/server.js",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "tpip": "nlf --csv --no-dev --reach 1 > tpip.csv"
   },
   "devDependencies": {
     "@types/node": "^7.0.4",
@@ -41,6 +42,7 @@
     "gulp-typescript": "^3.1.6",
     "gulp-uglify": "^2.0.1",
     "merge2": "^1.0.3",
+    "nlf": "^2.0.0",
     "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
     "typedoc": "^0.7.1",
