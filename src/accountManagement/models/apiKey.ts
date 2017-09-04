@@ -72,7 +72,7 @@ export class ApiKey {
     public listGroups(callback: CallbackFn<Group[]>): void;
     public listGroups(callback?: CallbackFn<Group[]>): Promise<Group[]> {
         return apiWrapper(resultsFn => {
-            this._api.listGroups(resultsFn);
+            this._api.listGroups(null, resultsFn);
         }, (data, done) => {
             let groups = [];
             if (data.data && data.data.length) {

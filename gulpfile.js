@@ -42,7 +42,7 @@ gulp.task("clean", function() {
 
 // Lint the source
 gulp.task("lint", function() {
-    var program = tslint.Linter.createProgram();
+    var program = tslint.Linter.createProgram("./");
 
     gulp.src(srcFiles)
     .pipe(gulpTslint({
@@ -74,7 +74,7 @@ gulp.task("doc", function() {
 });
 
 // Build TypeScript source into CommonJS Node modules
-gulp.task("typescript", function() {
+gulp.task("typescript", ["clean"], function() {
     var options = {
         target: "es5",
         lib: ["dom", "es5", "es2015.promise"],
@@ -149,4 +149,4 @@ gulp.task("watch", ["setWatch", "default"], function() {
     gulp.watch(srcFiles, ["default"]);
 });
 
-gulp.task("default", ["clean", "lint", "doc", "browserify"]);
+gulp.task("default", ["lint", "doc", "browserify"]);
