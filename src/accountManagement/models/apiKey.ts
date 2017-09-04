@@ -17,7 +17,7 @@
 
 import { asyncStyle, apiWrapper } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { UpdateApiKeyObject, ApiKeyStatusEnum } from "../types";
+import { UpdateApiKeyObject } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
 import { User } from "./user";
 import { Group } from "./group";
@@ -31,10 +31,6 @@ export class ApiKey {
      * A list of group IDs this API key belongs to.
      */
     public readonly groups?: string[];
-    /**
-     * The status of the API key.
-     */
-    public readonly status?: ApiKeyStatusEnum;
     /**
      * The API key.
      */

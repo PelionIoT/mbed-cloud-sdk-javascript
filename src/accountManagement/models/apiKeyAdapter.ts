@@ -46,6 +46,7 @@ export class ApiKeyAdapter {
     public static addMap(from: AddApiKeyObject): apiApiKeyAdd {
         return {
             name:      from.name,
+            status:    from.status,
             owner:     from.ownerId,
         };
     }
@@ -53,6 +54,7 @@ export class ApiKeyAdapter {
     public static updateMap(from: UpdateApiKeyObject): apiApiKeyUpdate {
         return {
             name:      from.name,
+            status:    from.status,
             owner:     from.ownerId,
         };
     }
