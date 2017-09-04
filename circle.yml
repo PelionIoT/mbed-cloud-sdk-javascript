@@ -2,6 +2,7 @@ general:
   artifacts:
     - ~/docs
     - ~/tests
+    - ~/tpip
   branches:
     ignore:
       - build
@@ -15,6 +16,7 @@ machine:
     SDK_BRANCH: build
     SDK_DOCS: ${HOME}/docs
     SDK_TESTS: ${HOME}/tests
+    SDK_TPIP: ${HOME}/tpip
     SDK_TMP: /tmp/tmp.${SDK_NAME}
 
 checkout:
@@ -29,8 +31,11 @@ checkout:
 dependencies:
   post:
     - npm run gulp
+    - npm run tpip
     - mkdir ${SDK_DOCS}
+    - mkdir ${SDK_TPIP}
     - cp -r docs/* ${SDK_DOCS}/
+    - cp tpip.csv ${SDK_TPIP}/
 
 test:
   pre:
