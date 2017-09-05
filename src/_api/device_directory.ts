@@ -148,9 +148,9 @@ export interface DeviceData {
      */
     "manifest"?: string;
     /**
-     * Up to 5 custom JSON attributes
+     * Custom attributes(key/value). Up to 5 attributes
      */
-    "custom_attributes"?: any;
+    "custom_attributes"?: { [key: string]: string; };
 }
 
 export interface DeviceDataPatchRequest {
@@ -175,9 +175,9 @@ export interface DeviceDataPatchRequest {
      */
     "object"?: string;
     /**
-     * Up to 5 custom JSON attributes
+     * Custom attributes(key/value). Up to 5 attributes
      */
-    "custom_attributes"?: any;
+    "custom_attributes"?: { [key: string]: string; };
     /**
      * Fingerprint of the device certificate.
      */
@@ -237,9 +237,9 @@ export interface DeviceDataPostRequest {
      */
     "device_execution_mode"?: number;
     /**
-     * Up to 5 custom JSON attributes
+     * Custom attributes(key/value). Up to 5 attributes
      */
-    "custom_attributes"?: any;
+    "custom_attributes"?: { [key: string]: string; };
     /**
      * The current state of the device.
      */
@@ -324,9 +324,9 @@ export interface DeviceDataPutRequest {
      */
     "object"?: string;
     /**
-     * Up to 5 custom JSON attributes
+     * Custom attributes(key/value). Up to 5 attributes
      */
-    "custom_attributes"?: any;
+    "custom_attributes"?: { [key: string]: string; };
     /**
      * Fingerprint of the device certificate.
      */
