@@ -1336,7 +1336,7 @@ export class ConnectApi extends EventEmitter {
                 end = options.end.toISOString();
             }
 
-            this._endpoints.statistics.v3MetricsGet(MetricAdapter.mapIncludes(include), MetricAdapter.mapTimePeriod(interval), "", start, end, period, limit, after, order, resultsFn);
+            this._endpoints.statistics.v3MetricsGet(MetricAdapter.mapIncludes(include), MetricAdapter.mapTimePeriod(interval), start, end, period, limit, after, order, resultsFn);
         }, (data, done) => {
             let list: Metric[];
 
