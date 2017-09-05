@@ -323,7 +323,7 @@ export interface UpdateCampaign {
     /**
      * The scheduled start time for the update campaign
      */
-    "when"?: string;
+    "when"?: Date;
     /**
      * The state of the campaign
      */
@@ -380,7 +380,7 @@ export interface UpdateCampaignPatchRequest {
     /**
      * The scheduled start time for the update campaign
      */
-    "when"?: string;
+    "when"?: Date;
     /**
      * The state of the campaign
      */
@@ -409,7 +409,7 @@ export interface UpdateCampaignPostRequest {
     /**
      * The scheduled start time for the update campaign
      */
-    "when"?: string;
+    "when"?: Date;
     /**
      * The state of the campaign
      */
@@ -438,7 +438,7 @@ export interface UpdateCampaignPutRequest {
     /**
      * The scheduled start time for the update campaign
      */
-    "when": string;
+    "when": Date;
     /**
      * The state of the campaign
      */
