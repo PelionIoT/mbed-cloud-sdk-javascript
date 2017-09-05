@@ -43,7 +43,7 @@ export class CampaignAdapter {
             name:                from.name,
             startedAt:           from.started_at,
             state:               from.state,
-            scheduledAt:         from.when ? new Date(from.when) : null,
+            scheduledAt:         from.when
         }, api);
     }
 
@@ -54,7 +54,7 @@ export class CampaignAdapter {
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,
-            when:                from.scheduledAt ? from.scheduledAt.toISOString() : null
+            when:                from.scheduledAt
         };
     }
 
@@ -65,7 +65,7 @@ export class CampaignAdapter {
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,
-            when:                from.scheduledAt ? from.scheduledAt.toISOString() : null
+            when:                from.scheduledAt
         };
     }
 }
