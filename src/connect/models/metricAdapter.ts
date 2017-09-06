@@ -29,7 +29,7 @@ export class MetricAdapter {
     public static map(from: apiMetric): Metric {
         return new Metric({
             id:                     from.id,
-            timestamp:              from.timestamp ? new Date(from.timestamp) : null,
+            timestamp:              from.timestamp,
             transactions:           from.transactions,
             successfulApiCalls:     from.device_server_rest_api_success,
             failedApiCalls:         from.device_server_rest_api_error,

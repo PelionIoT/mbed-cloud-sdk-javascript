@@ -1332,8 +1332,8 @@ export class ConnectApi extends EventEmitter {
             if (isPeriod(options)) {
                 period = MetricAdapter.mapTimePeriod(options.period);
             } else {
-                start = options.start.toISOString();
-                end = options.end.toISOString();
+                start = options.start;
+                end = options.end;
             }
 
             this._endpoints.statistics.v3MetricsGet(MetricAdapter.mapIncludes(include), MetricAdapter.mapTimePeriod(interval), start, end, period, limit, after, order, resultsFn);
