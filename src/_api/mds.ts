@@ -134,7 +134,7 @@ export interface Presubscription {
      */
     "endpoint-name"?: string;
     "endpoint-type"?: string;
-    "resource-path"?: Array<ResourcePath>;
+    "resource-path"?: Array<string>;
 }
 
 export interface PresubscriptionArray extends Array<Presubscription> {
@@ -157,9 +157,6 @@ export interface Resource {
      * Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". 
      */
     "obs"?: boolean;
-}
-
-export interface ResourcePath {
 }
 
 export interface ResourcesData {
@@ -193,7 +190,7 @@ export interface Webhook {
     /**
      * Headers (key/value) that are sent with the notification. Optional.
      */
-    "headers"?: any;
+    "headers"?: { [key: string]: string; };
 }
 
 /**

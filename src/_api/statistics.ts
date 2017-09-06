@@ -85,7 +85,7 @@ export interface Metric {
     /**
      * UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.
      */
-    "timestamp"?: string;
+    "timestamp"?: Date;
     /**
      * The number of successful [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.
      */
@@ -157,7 +157,7 @@ export class AccountApi extends ApiBase {
      * @param after The metric ID after which to start fetching. 
      * @param order The order of the records to return. Available values are ASC and DESC. The default value is ASC. 
      */
-    public v3MetricsGet(include: string, interval: string, start?: string, end?: string, period?: string, limit?: number, after?: string, order?: string, callback?: (error: any, data?: SuccessfulResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3MetricsGet(include: string, interval: string, start?: Date, end?: Date, period?: string, limit?: number, after?: string, order?: string, callback?: (error: any, data?: SuccessfulResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "include" is set
         if (include === null || include === undefined) {
             if (callback) {
@@ -232,7 +232,7 @@ export class StatisticsApi extends ApiBase {
      * @param after The metric ID after which to start fetching. 
      * @param order The order of the records to return. Available values are ASC and DESC. The default value is ASC. 
      */
-    public v3MetricsGet(include: string, interval: string, start?: string, end?: string, period?: string, limit?: number, after?: string, order?: string, callback?: (error: any, data?: SuccessfulResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3MetricsGet(include: string, interval: string, start?: Date, end?: Date, period?: string, limit?: number, after?: string, order?: string, callback?: (error: any, data?: SuccessfulResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "include" is set
         if (include === null || include === undefined) {
             if (callback) {
