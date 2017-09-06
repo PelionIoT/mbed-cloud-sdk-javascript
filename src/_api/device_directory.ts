@@ -477,7 +477,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * Delete device
+     * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
      * @param id 
      */
     public deviceDestroy(id: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
