@@ -28,19 +28,24 @@ export class MetricAdapter {
 
     public static map(from: apiMetric): Metric {
         return new Metric({
-            id:                     from.id,
-            timestamp:              from.timestamp,
-            transactions:           from.transactions,
-            successfulApiCalls:     from.device_server_rest_api_success,
-            failedApiCalls:         from.device_server_rest_api_error,
-            successfulHandshakes:   from.handshakes_successful,
-            pendingBootstraps:      from.bootstraps_pending,
-            successfulBootstraps:   from.bootstraps_successful,
-            failedBootstraps:       from.bootstraps_failed,
-            registrations:          from.full_registrations,
-            updatedRegistrations:   from.registration_updates,
-            expiredRegistrations:   from.expired_registrations,
-            deletedRegistrations:   from.deleted_registrations
+            id:                             from.id,
+            timestamp:                      from.timestamp,
+            handshakes:                     from.handshakes_successful,
+            transactions:                   from.transactions,
+            observations:                   from.device_observations,
+            successfulApiCalls:             from.connect_rest_api_success,
+            failedApiCalls:                 from.connect_rest_api_error,
+            successfulProxyRequests:        from.device_proxy_request_success,
+            failedProxyRequests:            from.device_proxy_request_error,
+            successfulSubscriptionRequests: from.device_subscription_request_success,
+            failedSubscriptionRequests:     from.device_subscription_request_error,
+            successfulBootstraps:           from.bootstraps_successful,
+            failedBootstraps:               from.bootstraps_failed,
+            pendingBootstraps:              from.bootstraps_pending,
+            fullRegistrations:              from.full_registrations,
+            updatedRegistrations:           from.registration_updates,
+            expiredRegistrations:           from.expired_registrations,
+            deletedRegistrations:           from.deleted_registrations
         });
     }
 
@@ -48,27 +53,37 @@ export class MetricAdapter {
         let includes = [];
 
         const metricNames = [
+            "handshakes",
             "transactions",
+            "observations",
             "successfulApiCalls",
             "failedApiCalls",
-            "successfulHandshakes",
-            "pendingBootstraps",
+            "successfulProxyRequests",
+            "failedProxyRequests",
+            "successfulSubscriptionRequests",
+            "failedSubscriptionRequests",
             "successfulBootstraps",
             "failedBootstraps",
-            "registrations",
+            "pendingBootstraps",
+            "fullRegistrations",
             "updatedRegistrations",
             "expiredRegistrations",
             "deletedRegistrations"
         ];
 
         const apiNames = [
-            "transactions",
-            "device_server_rest_api_success",
-            "device_server_rest_api_error",
             "handshakes_successful",
-            "bootstraps_pending",
+            "transactions",
+            "device_observations",
+            "connect_rest_api_success",
+            "connect_rest_api_error",
+            "device_proxy_request_success",
+            "device_proxy_request_error",
+            "device_subscription_request_success",
+            "device_subscription_request_error",
             "bootstraps_successful",
             "bootstraps_failed",
+            "bootstraps_pending",
             "full_registrations",
             "registration_updates",
             "expired_registrations",

@@ -28,9 +28,17 @@ export class Metric {
      */
     public readonly timestamp?: Date;
     /**
-     * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --> mbed cloud) or received by the device (mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
+     * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.
+     */
+    public readonly handshakes?: number;
+    /**
+     * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Mbed Cloud. It can be either sent by the device (device --> Mbed cloud) or received by the device (Mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
      */
     public readonly transactions?: number;
+    /**
+     * The number of observations received by Mbed Cloud Connect from the devices linked to the account. The observations are pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using Connect API endpoints.
+     */
+    public readonly observations?: number;
     /**
      * The number of successful requests the account has performed.
      */
@@ -40,13 +48,21 @@ export class Metric {
      */
     public readonly failedApiCalls?: number;
     /**
-     * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.
+     * The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using Connect API endpoints.
      */
-    public readonly successfulHandshakes?: number;
+    public readonly successfulProxyRequests?: number;
     /**
-     * The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
+     * The number of failed proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using Connect API endpoints.
      */
-    public readonly pendingBootstraps?: number;
+    public readonly failedProxyRequests?: number;
+    /**
+     * The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using Connect API endpoints.
+     */
+    public readonly successfulSubscriptionRequests?: number;
+    /**
+     * The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using Connect API endpoints.
+     */
+    public readonly failedSubscriptionRequests?: number;
     /**
      * The number of successful bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
      */
@@ -56,9 +72,13 @@ export class Metric {
      */
     public readonly failedBootstraps?: number;
     /**
-     * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
+     * The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
      */
-    public readonly registrations?: number;
+    public readonly pendingBootstraps?: number;
+    /**
+     * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure. The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
+     */
+    public readonly fullRegistrations?: number;
     /**
      * The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.
      */
