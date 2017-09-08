@@ -32,7 +32,7 @@ export class Metric {
      */
     public readonly handshakes?: number;
     /**
-     * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --> mbed cloud) or received by the device (mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
+     * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Mbed Cloud. It can be either sent by the device (device --> Mbed cloud) or received by the device (Mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
      */
     public readonly transactions?: number;
     /**
@@ -76,7 +76,7 @@ export class Metric {
      */
     public readonly pendingBootstraps?: number;
     /**
-     * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
+     * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure. The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
      */
     public readonly fullRegistrations?: number;
     /**
