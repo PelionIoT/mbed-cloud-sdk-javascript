@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.2.1
+
+### Deliverables
+
+The application is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using npm:
+
+```
+$ npm install ARMmbed/mbed-cloud-sdk-javascript#1.2.1
+```
+
+### Changes
+
+- Updated early access release tracking Mbed Cloud 1.2 APIs
+
 ## 1.2.0-alpha
 
 ### Deliverables
