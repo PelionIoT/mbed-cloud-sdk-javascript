@@ -17,7 +17,6 @@ machine:
     SDK_DOCS: ${HOME}/docs
     SDK_TESTS: ${HOME}/tests
     SDK_TPIP: ${HOME}/tpip
-    SDK_TMP: /tmp/tmp.${SDK_NAME}
 
 checkout:
   post:
@@ -53,14 +52,11 @@ deployment:
       - echo Syncing $SDK_NAME to S3...
       - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://$SDK_NAME
       - echo Syncing $SDK_NAME to $SDK_BRANCH on GitHub...
-      - mkdir $SDK_TMP
-      - cp -r bundles docs lib types $SDK_TMP
+      - git add --force bundles docs lib types
+      - git stash save
       - git checkout $SDK_BRANCH
-      - rm -rf node_modules
-      - rm -rf tests/testrunner
-      - git rebase master
-      - cp -r $SDK_TMP/* ./
-      - git add --force --all
+      - git merge master --no-commit
+      - git checkout stash -- .
       - git commit --allow-empty --message "Automatic Deployment"
       - git push
   release:
