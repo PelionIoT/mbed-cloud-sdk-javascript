@@ -11,7 +11,7 @@ The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exp
 The SDK is distributed using npm. To install the package in your project:
 
 ```bash
-$ npm install ARMmbed/mbed-cloud-sdk-javascript#build
+$ npm install ARMmbed/mbed-cloud-sdk-javascript#release
 ```
 
 `/node_modules/mbed-cloud-sdk` now contains:
