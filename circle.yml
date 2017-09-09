@@ -58,6 +58,7 @@ deployment:
       - git checkout $SDK_BRANCH
       - rm -rf node_modules
       - rm -rf tests/testrunner
+      - git rebase master
       - cp -r $SDK_TMP/* ./
       - git add --force --all
       - git commit --allow-empty --message "Automatic Deployment"
