@@ -1,0 +1,1060 @@
+<!doctype html>
+<html class="minimal no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Mbed Cloud SDK for JavaScript | Mbed Cloud SDK for JavaScript</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Mbed Cloud SDK for JavaScript</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<nav class="tsd-navigation secondary">
+	<ul>
+		<li class=" tsd-kind-class">
+			<a href="classes/accountmanagementapi.html" class="tsd-kind-icon">Account<wbr>Management<wbr>Api</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/certificatesapi.html" class="tsd-kind-icon">Certificates<wbr>Api</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/connectapi.html" class="tsd-kind-icon">Connect<wbr>Api</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/devicedirectoryapi.html" class="tsd-kind-icon">Device<wbr>Directory<wbr>Api</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="classes/updateapi.html" class="tsd-kind-icon">Update<wbr>Api</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="interfaces/connectionoptions.html" class="tsd-kind-icon">Connection<wbr>Options</a>
+		</li>
+	</ul>
+</nav>
+<div class="container container-main">
+	<div class="content-wrap">
+		<div class="tsd-panel tsd-typography">
+			<h1 id="mbed-cloud-sdk-for-javascript">Mbed Cloud SDK for JavaScript</h1>
+			<p>The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to JavaScript developers.</p>
+			<h2 id="prerequisite">Prerequisite</h2>
+			<p><a href="https://nodejs.org">Node.js &gt; v4.7.0</a>, which includes <code>npm</code>.</p>
+			<h2 id="installation">Installation</h2>
+			<p>The SDK is distributed using npm. To install the package in your project:</p>
+			<pre><code class="lang-bash">$ npm install ARMmbed/mbed-cloud-sdk-javascript<span class="hljs-comment">#release</span>
+</code></pre>
+			<p><code>/node_modules/mbed-cloud-sdk</code> now contains:</p>
+			<ul>
+				<li><code>bundles</code> - minified browser scripts.</li>
+				<li><code>lib</code> - Node.js modules.</li>
+				<li><code>examples</code> - contains all examples.</li>
+			</ul>
+			<h2 id="api-keys">API keys</h2>
+			<p>Before using the SDK, you need to obtain an API key for use with Mbed Cloud.</p>
+			<p>You can generate this through the Mbed Cloud management console.</p>
+			<h2 id="usage-in-node-js-commonjs-modules-">Usage in Node.js (CommonJS modules)</h2>
+			<p>To use the SDK in Node.js:</p>
+			<ol>
+				<li><code>require</code> this module.</li>
+				<li>Create a new instance of the API you want to use.</li>
+			</ol>
+			<p>For example, to list all connected devices:</p>
+			<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> MbedCloudSDK = <span class="hljs-built_in">require</span>(<span class="hljs-string">"mbed-cloud-sdk"</span>);
+
+<span class="hljs-keyword">var</span> connect = <span class="hljs-keyword">new</span> MbedCloudSDK.ConnectApi({
+    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">"&lt;Mbed Cloud API Key&gt;"</span>
+});
+
+connect.listConnectedDevices()
+.then(<span class="hljs-function"><span class="hljs-params">devices</span> =&gt;</span> {
+    devices.forEach(<span class="hljs-function"><span class="hljs-params">device</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(device.id);
+    });
+});
+</code></pre>
+			<h2 id="usage-in-browser-requirejs-amd-modules-vanilla-js-spas-">Usage in browser (RequireJS/AMD modules, Vanilla JS/SPAs)</h2>
+			<p>The files in the bundles folder are standalone modules following the <a href="https://github.com/umdjs/umd">UMD</a> specification, so you should be able to use them without any further installation or modification.</p>
+			<p>Include the JavaScript bundle you need on your page from the bundles folder. For example:</p>
+			<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"&lt;mbed-cloud-sdk&gt;/bundles/connect.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+			<p>If you are using VanillaJS, the bundles are then accessible through the global <code>MbedCloudSDK</code> namespace. For example, to list all connected devices:</p>
+			<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> connect = <span class="hljs-keyword">new</span> MbedCloudSDK.ConnectApi({
+    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">"&lt;Mbed Cloud API Key&gt;"</span>
+});
+
+connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, devices</span>) </span>{
+    devices.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">device</span>) </span>{
+        <span class="hljs-built_in">console</span>.log(device.id);
+    });
+});
+</code></pre>
+			<p>Otherwise, you should be able to load the bundles by using an AMD framework such as <a href="http://requirejs.org/">RequireJS</a>.</p>
+			<p>You can also use all bundles by including <code>index.min.js</code>:</p>
+			<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"&lt;mbed-cloud-sdk&gt;/bundles/index.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+			<p><strong>Warning:</strong> It is not advisable to embed your API key into distributed code such as client-side web pages. For production scenarios, developers may want to consider using Node.js for all API calls or to proxy client-side code requests to inject the API key. You can find an example proxy server in the <code>examples</code> folder.</p>
+			<p><strong>Note:</strong> <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">Cross-origin resource sharing</a> (CORS) protects Mbed Cloud. CORS restricts cross-origin calls from unknown domains. Until you have whitelisted your production server domain for Mbed Cloud, you may disable CORS support in your browser using <a href="http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/">command-line switches</a> or <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi">extensions</a>. This is only an issue if you are using the SDK&#39;s client side; however, the <code>localhost</code> domain is already whitelisted to allow local development.</p>
+			<h2 id="examples">Examples</h2>
+			<p>Please refer to the examples folder for some node and web examples.</p>
+		</div>
+		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
+		<section class="tsd-panel-group tsd-index-group">
+			<h2>Index</h2>
+			<section class="tsd-panel tsd-index-panel">
+				<div class="tsd-index-content">
+					<section class="tsd-index-section ">
+						<h3>Classes</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-class"><a href="classes/account.html" class="tsd-kind-icon">Account</a></li>
+							<li class="tsd-kind-class"><a href="classes/accountadapter.html" class="tsd-kind-icon">Account<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/accountmanagementapi.html" class="tsd-kind-icon">Account<wbr>Management<wbr>Api</a></li>
+							<li class="tsd-kind-class"><a href="classes/apibase.html" class="tsd-kind-icon">Api<wbr>Base</a></li>
+							<li class="tsd-kind-class"><a href="classes/apikey.html" class="tsd-kind-icon">Api<wbr>Key</a></li>
+							<li class="tsd-kind-class"><a href="classes/apikeyadapter.html" class="tsd-kind-icon">Api<wbr>Key<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/apimetadata.html" class="tsd-kind-icon">Api<wbr>Metadata</a></li>
+							<li class="tsd-kind-class"><a href="classes/campaign.html" class="tsd-kind-icon">Campaign</a></li>
+							<li class="tsd-kind-class"><a href="classes/campaignadapter.html" class="tsd-kind-icon">Campaign<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/campaigndevicestate.html" class="tsd-kind-icon">Campaign<wbr>Device<wbr>State</a></li>
+							<li class="tsd-kind-class"><a href="classes/campaigndevicestateadapter.html" class="tsd-kind-icon">Campaign<wbr>Device<wbr>State<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/certificate.html" class="tsd-kind-icon">Certificate</a></li>
+							<li class="tsd-kind-class"><a href="classes/certificateadapter.html" class="tsd-kind-icon">Certificate<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/certificatesapi.html" class="tsd-kind-icon">Certificates<wbr>Api</a></li>
+							<li class="tsd-kind-class"><a href="classes/connectapi.html" class="tsd-kind-icon">Connect<wbr>Api</a></li>
+							<li class="tsd-kind-class"><a href="classes/connecteddevice.html" class="tsd-kind-icon">Connected<wbr>Device</a></li>
+							<li class="tsd-kind-class"><a href="classes/connecteddeviceadapter.html" class="tsd-kind-icon">Connected<wbr>Device<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/device.html" class="tsd-kind-icon">Device</a></li>
+							<li class="tsd-kind-class"><a href="classes/deviceadapter.html" class="tsd-kind-icon">Device<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/devicedirectoryapi.html" class="tsd-kind-icon">Device<wbr>Directory<wbr>Api</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/deviceevent.html" class="tsd-kind-icon">Device<wbr>Event</a></li>
+							<li class="tsd-kind-class"><a href="classes/deviceeventadapter.html" class="tsd-kind-icon">Device<wbr>Event<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/endpoints.html" class="tsd-kind-icon">Endpoints</a></li>
+							<li class="tsd-kind-class"><a href="classes/endpointsbase.html" class="tsd-kind-icon">Endpoints<wbr>Base</a></li>
+							<li class="tsd-kind-class"><a href="classes/filters.html" class="tsd-kind-icon">Filters</a></li>
+							<li class="tsd-kind-class"><a href="classes/firmwareimage.html" class="tsd-kind-icon">Firmware<wbr>Image</a></li>
+							<li class="tsd-kind-class"><a href="classes/firmwareimageadapter.html" class="tsd-kind-icon">Firmware<wbr>Image<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/firmwaremanifest.html" class="tsd-kind-icon">Firmware<wbr>Manifest</a></li>
+							<li class="tsd-kind-class"><a href="classes/firmwaremanifestadapter.html" class="tsd-kind-icon">Firmware<wbr>Manifest<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/group.html" class="tsd-kind-icon">Group</a></li>
+							<li class="tsd-kind-class"><a href="classes/groupadapter.html" class="tsd-kind-icon">Group<wbr>Adapter</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/listresponse.html" class="tsd-kind-icon">List<wbr>Response</a></li>
+							<li class="tsd-kind-class"><a href="classes/loginhistory.html" class="tsd-kind-icon">Login<wbr>History</a></li>
+							<li class="tsd-kind-class"><a href="classes/loginhistoryadapter.html" class="tsd-kind-icon">Login<wbr>History<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/metric.html" class="tsd-kind-icon">Metric</a></li>
+							<li class="tsd-kind-class"><a href="classes/metricadapter.html" class="tsd-kind-icon">Metric<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/policy.html" class="tsd-kind-icon">Policy</a></li>
+							<li class="tsd-kind-class"><a href="classes/policyadapter.html" class="tsd-kind-icon">Policy<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/presubscriptionadapter.html" class="tsd-kind-icon">Presubscription<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/query.html" class="tsd-kind-icon">Query</a></li>
+							<li class="tsd-kind-class"><a href="classes/queryadapter.html" class="tsd-kind-icon">Query<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/resource.html" class="tsd-kind-icon">Resource</a></li>
+							<li class="tsd-kind-class"><a href="classes/resourceadapter.html" class="tsd-kind-icon">Resource<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/sdkerror.html" class="tsd-kind-icon">SDKError</a></li>
+							<li class="tsd-kind-class"><a href="classes/updateapi.html" class="tsd-kind-icon">Update<wbr>Api</a></li>
+							<li class="tsd-kind-class"><a href="classes/user.html" class="tsd-kind-icon">User</a></li>
+							<li class="tsd-kind-class"><a href="classes/useradapter.html" class="tsd-kind-icon">User<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/webhook.html" class="tsd-kind-icon">Webhook</a></li>
+							<li class="tsd-kind-class"><a href="classes/webhookadapter.html" class="tsd-kind-icon">Webhook<wbr>Adapter</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Interfaces</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-interface"><a href="interfaces/addapikeyobject.html" class="tsd-kind-icon">Add<wbr>Api<wbr>Key<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/addcampaignobject.html" class="tsd-kind-icon">Add<wbr>Campaign<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/addcertificateobject.html" class="tsd-kind-icon">Add<wbr>Certificate<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/adddevelopercertificateobject.html" class="tsd-kind-icon">Add<wbr>Developer<wbr>Certificate<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/adddeviceobject.html" class="tsd-kind-icon">Add<wbr>Device<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/addfirmwareimageobject.html" class="tsd-kind-icon">Add<wbr>Firmware<wbr>Image<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/addfirmwaremanifestobject.html" class="tsd-kind-icon">Add<wbr>Firmware<wbr>Manifest<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/addqueryobject.html" class="tsd-kind-icon">Add<wbr>Query<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/adduserobject.html" class="tsd-kind-icon">Add<wbr>User<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/apikeylistoptions.html" class="tsd-kind-icon">Api<wbr>Key<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/asyncresponse.html" class="tsd-kind-icon">Async<wbr>Response</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/campaignlistoptions.html" class="tsd-kind-icon">Campaign<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/campaignobject.html" class="tsd-kind-icon">Campaign<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/certificatelistoptions.html" class="tsd-kind-icon">Certificate<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/comparisonobject.html" class="tsd-kind-icon">Comparison<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/connectionoptions.html" class="tsd-kind-icon">Connection<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/deviceeventlistoptions.html" class="tsd-kind-icon">Device<wbr>Event<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/devicelistoptions.html" class="tsd-kind-icon">Device<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/deviceobject.html" class="tsd-kind-icon">Device<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/firmwareimagelistoptions.html" class="tsd-kind-icon">Firmware<wbr>Image<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/firmwareimageobject.html" class="tsd-kind-icon">Firmware<wbr>Image<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/firmwaremanifestlistoptions.html" class="tsd-kind-icon">Firmware<wbr>Manifest<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/firmwaremanifestobject.html" class="tsd-kind-icon">Firmware<wbr>Manifest<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/listoptions.html" class="tsd-kind-icon">List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/manifestcontents.html" class="tsd-kind-icon">Manifest<wbr>Contents</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/metricslistoptions.html" class="tsd-kind-icon">Metrics<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/metricsperiodlistoptions.html" class="tsd-kind-icon">Metrics<wbr>Period<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/metricsstartendlistoptions.html" class="tsd-kind-icon">Metrics<wbr>Start<wbr>End<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/notificationobject.html" class="tsd-kind-icon">Notification<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/notificationoptions.html" class="tsd-kind-icon">Notification<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/presubscriptionobject.html" class="tsd-kind-icon">Presubscription<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/querylistoptions.html" class="tsd-kind-icon">Query<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/queryobject.html" class="tsd-kind-icon">Query<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/timeperiod.html" class="tsd-kind-icon">Time<wbr>Period</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/updateaccountobject.html" class="tsd-kind-icon">Update<wbr>Account<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/updateapikeyobject.html" class="tsd-kind-icon">Update<wbr>Api<wbr>Key<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/updatecampaignobject.html" class="tsd-kind-icon">Update<wbr>Campaign<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/updatecertificateobject.html" class="tsd-kind-icon">Update<wbr>Certificate<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/updatedeviceobject.html" class="tsd-kind-icon">Update<wbr>Device<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/updatequeryobject.html" class="tsd-kind-icon">Update<wbr>Query<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/updateuserobject.html" class="tsd-kind-icon">Update<wbr>User<wbr>Object</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/userlistoptions.html" class="tsd-kind-icon">User<wbr>List<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/userobject.html" class="tsd-kind-icon">User<wbr>Object</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Type aliases</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-type-alias"><a href="globals.html#accountstatusenum" class="tsd-kind-icon">Account<wbr>Status<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#apikeystatusenum" class="tsd-kind-icon">Api<wbr>Key<wbr>Status<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#callbackfn" class="tsd-kind-icon">Callback<wbr>Fn</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#campaigndevicestateenum" class="tsd-kind-icon">Campaign<wbr>Device<wbr>State<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#campaignstateenum" class="tsd-kind-icon">Campaign<wbr>State<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#certificatestatusenum" class="tsd-kind-icon">Certificate<wbr>Status<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#certificatetypeenum" class="tsd-kind-icon">Certificate<wbr>Type<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#devicestateenum" class="tsd-kind-icon">Device<wbr>State<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#includeenum" class="tsd-kind-icon">Include<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#manifestencryptionmodeenum" class="tsd-kind-icon">Manifest<wbr>Encryption<wbr>Mode<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#manifestpayloadformatenum" class="tsd-kind-icon">Manifest<wbr>Payload<wbr>Format<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#mechanismenum" class="tsd-kind-icon">Mechanism<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#metricsincludeenum" class="tsd-kind-icon">Metrics<wbr>Include<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#orderenum" class="tsd-kind-icon">Order<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#unittype" class="tsd-kind-icon">Unit<wbr>Type</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#userstatusenum" class="tsd-kind-icon">User<wbr>Status<wbr>Enum</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section tsd-is-not-exported">
+						<h3>Variables</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#date_regex" class="tsd-kind-icon">DATE_<wbr>REGEX</a></li>
+							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#idlengthmask" class="tsd-kind-icon">id<wbr>Length<wbr>Mask</a></li>
+							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#lengthmask" class="tsd-kind-icon">length<wbr>Mask</a></li>
+							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#lengthtypemask" class="tsd-kind-icon">length<wbr>Type<wbr>Mask</a></li>
+							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#typemask" class="tsd-kind-icon">type<wbr>Mask</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Functions</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#apiwrapper" class="tsd-kind-icon">api<wbr>Wrapper</a></li>
+							<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#asyncstyle" class="tsd-kind-icon">async<wbr>Style</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#cameltosnake" class="tsd-kind-icon">camel<wbr>ToSnake</a></li>
+							<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#decode" class="tsd-kind-icon">decode</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#decodebase64" class="tsd-kind-icon">decode<wbr>Base64</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#decodefilter" class="tsd-kind-icon">decode<wbr>Filter</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#decodetlv" class="tsd-kind-icon">decode<wbr>Tlv</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#encodefilter" class="tsd-kind-icon">encode<wbr>Filter</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#encodeinclude" class="tsd-kind-icon">encode<wbr>Include</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#extractfilter" class="tsd-kind-icon">extract<wbr>Filter</a></li>
+							<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#findidlength" class="tsd-kind-icon">find<wbr>IdLength</a></li>
+							<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#findvaluelength" class="tsd-kind-icon">find<wbr>Value<wbr>Length</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#snaketocamel" class="tsd-kind-icon">snake<wbr>ToCamel</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section tsd-is-not-exported">
+						<h3>Object literals</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-object-literal tsd-is-not-exported"><a href="globals.html#lengthtype" class="tsd-kind-icon">length<wbr>Type</a></li>
+							<li class="tsd-kind-object-literal tsd-is-not-exported"><a href="globals.html#types" class="tsd-kind-icon">types</a></li>
+						</ul>
+					</section>
+				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Type aliases</h2>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="accountstatusenum" class="tsd-anchor"></a>
+				<h3>Account<wbr>Status<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Account<wbr>Status<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"ENROLLING"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ACTIVE"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"RESTRICTED"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SUSPENDED"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="apikeystatusenum" class="tsd-anchor"></a>
+				<h3>Api<wbr>Key<wbr>Status<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Api<wbr>Key<wbr>Status<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"ACTIVE"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"INACTIVE"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="callbackfn" class="tsd-anchor"></a>
+				<h3>Callback<wbr>Fn</h3>
+				<div class="tsd-signature tsd-kind-icon">Callback<wbr>Fn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-siganture">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><a href="classes/sdkerror.html" class="tsd-signature-type">SDKError</a>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-parameters-title">Parameters</h4>
+									<ul class="tsd-parameters">
+										<li>
+											<h5>error: <a href="classes/sdkerror.html" class="tsd-signature-type">SDKError</a></h5>
+										</li>
+										<li>
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">T</span></h5>
+										</li>
+									</ul>
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="campaigndevicestateenum" class="tsd-anchor"></a>
+				<h3>Campaign<wbr>Device<wbr>State<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Campaign<wbr>Device<wbr>State<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"pending"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"updated_connector_channel"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"failed_connector_channel_update"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"deployed"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"manifestremoved"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="campaignstateenum" class="tsd-anchor"></a>
+				<h3>Campaign<wbr>State<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Campaign<wbr>State<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"draft"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"scheduled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"devicefetch"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"devicecopy"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"publishing"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"deploying"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"deployed"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"manifestremoved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"expired"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="certificatestatusenum" class="tsd-anchor"></a>
+				<h3>Certificate<wbr>Status<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Certificate<wbr>Status<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"ACTIVE"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"INACTIVE"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="certificatetypeenum" class="tsd-anchor"></a>
+				<h3>Certificate<wbr>Type<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Certificate<wbr>Type<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"developer"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"lwm2m"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"bootstrap"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="devicestateenum" class="tsd-anchor"></a>
+				<h3>Device<wbr>State<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Device<wbr>State<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"unenrolled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"cloud_enrolling"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"bootstrapped"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"registered"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"deregistered"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="includeenum" class="tsd-anchor"></a>
+				<h3>Include<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Include<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"totalCount"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Possible optional fields to request when listing</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="manifestencryptionmodeenum" class="tsd-anchor"></a>
+				<h3>Manifest<wbr>Encryption<wbr>Mode<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Manifest<wbr>Encryption<wbr>Mode<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"none-ecc-secp256r1-sha256"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"aes-128-ctr-ecc-secp256r1-sha256"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"none-none-sha256"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="manifestpayloadformatenum" class="tsd-anchor"></a>
+				<h3>Manifest<wbr>Payload<wbr>Format<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Manifest<wbr>Payload<wbr>Format<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"raw-binary"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"cbor"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"hex-location-length-data"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"elf"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="mechanismenum" class="tsd-anchor"></a>
+				<h3>Mechanism<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Mechanism<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"connector"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"direct"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="metricsincludeenum" class="tsd-anchor"></a>
+				<h3>Metrics<wbr>Include<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Metrics<wbr>Include<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"handshakes"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"transactions"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"observations"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"successfulApiCalls"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"failedApiCalls"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"successfulProxyRequests"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"failedProxyRequests"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"successfulSubscriptionRequests"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"failedSubscriptionRequests"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"successfulBootstraps"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"failedBootstraps"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"pendingBootstraps"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"fullRegistrations"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"updatedRegistrations"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"expiredRegistrations"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"deletedRegistrations"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="orderenum" class="tsd-anchor"></a>
+				<h3>Order<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Order<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"ASC"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DESC"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Ordering options</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="unittype" class="tsd-anchor"></a>
+				<h3>Unit<wbr>Type</h3>
+				<div class="tsd-signature tsd-kind-icon">Unit<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"minutes"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"hours"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"days"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"weeks"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="userstatusenum" class="tsd-anchor"></a>
+				<h3>User<wbr>Status<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">User<wbr>Status<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"ENROLLING"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"INVITED"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ACTIVE"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"RESET"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"INACTIVE"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<h2>Variables</h2>
+			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+				<a name="date_regex" class="tsd-anchor"></a>
+				<h3>DATE_<wbr>REGEX</h3>
+				<div class="tsd-signature tsd-kind-icon">DATE_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+				<a name="idlengthmask" class="tsd-anchor"></a>
+				<h3>id<wbr>Length<wbr>Mask</h3>
+				<div class="tsd-signature tsd-kind-icon">id<wbr>Length<wbr>Mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;00100000&quot;, 2)</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+				<a name="lengthmask" class="tsd-anchor"></a>
+				<h3>length<wbr>Mask</h3>
+				<div class="tsd-signature tsd-kind-icon">length<wbr>Mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;00000111&quot;, 2)</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+				<a name="lengthtypemask" class="tsd-anchor"></a>
+				<h3>length<wbr>Type<wbr>Mask</h3>
+				<div class="tsd-signature tsd-kind-icon">length<wbr>Type<wbr>Mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;00011000&quot;, 2)</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+				<a name="typemask" class="tsd-anchor"></a>
+				<h3>type<wbr>Mask</h3>
+				<div class="tsd-signature tsd-kind-icon">type<wbr>Mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;11000000&quot;, 2)</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Functions</h2>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
+				<a name="apiwrapper" class="tsd-anchor"></a>
+				<h3>api<wbr>Wrapper</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">api<wbr>Wrapper&lt;T&gt;<span class="tsd-signature-symbol">(</span>apiFn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, transformFn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span>, callbackFn<span class="tsd-signature-symbol">?: </span><a href="globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>T</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>apiFn: <span class="tsd-signature-type">function</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>resultsFn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>resultsFn: <span class="tsd-signature-type">function</span></h5>
+														<ul class="tsd-parameters">
+															<li class="tsd-parameter-siganture">
+																<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+																	<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+																</ul>
+																<ul class="tsd-descriptions">
+																	<li class="tsd-description">
+																		<h4 class="tsd-parameters-title">Parameters</h4>
+																		<ul class="tsd-parameters">
+																			<li>
+																				<h5>error: <span class="tsd-signature-type">any</span></h5>
+																			</li>
+																			<li>
+																				<h5>data: <span class="tsd-signature-type">any</span></h5>
+																			</li>
+																		</ul>
+																		<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+																	</li>
+																</ul>
+															</li>
+														</ul>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> transformFn: <span class="tsd-signature-type">function</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, resultsFn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>data: <span class="tsd-signature-type">any</span></h5>
+													</li>
+													<li>
+														<h5>resultsFn: <span class="tsd-signature-type">function</span></h5>
+														<ul class="tsd-parameters">
+															<li class="tsd-parameter-siganture">
+																<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+																	<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><a href="classes/sdkerror.html" class="tsd-signature-type">SDKError</a>, result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+																</ul>
+																<ul class="tsd-descriptions">
+																	<li class="tsd-description">
+																		<h4 class="tsd-parameters-title">Parameters</h4>
+																		<ul class="tsd-parameters">
+																			<li>
+																				<h5>error: <a href="classes/sdkerror.html" class="tsd-signature-type">SDKError</a></h5>
+																			</li>
+																			<li>
+																				<h5>result: <span class="tsd-signature-type">T</span></h5>
+																			</li>
+																		</ul>
+																		<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+																	</li>
+																</ul>
+															</li>
+														</ul>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callbackFn: <a href="globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
+				<a name="asyncstyle" class="tsd-anchor"></a>
+				<h3>async<wbr>Style</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">async<wbr>Style&lt;T&gt;<span class="tsd-signature-symbol">(</span>asyncFn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, callbackFn<span class="tsd-signature-symbol">?: </span><a href="globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>T</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>asyncFn: <span class="tsd-signature-type">function</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>done<span class="tsd-signature-symbol">: </span><a href="globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>done: <a href="globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callbackFn: <a href="globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="cameltosnake" class="tsd-anchor"></a>
+				<h3>camel<wbr>ToSnake</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">camel<wbr>ToSnake<span class="tsd-signature-symbol">(</span>camel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>camel: <span class="tsd-signature-type">any</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-not-exported">
+				<a name="decode" class="tsd-anchor"></a>
+				<h3>decode</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-is-not-exported">
+					<li class="tsd-signature tsd-kind-icon">decode<span class="tsd-signature-symbol">(</span>bytes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, result<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">__type</span>, path<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">__type</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>bytes: <span class="tsd-signature-type">any</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> result: <span class="tsd-signature-type">__type</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> path: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">__type</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="decodebase64" class="tsd-anchor"></a>
+				<h3>decode<wbr>Base64</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">decode<wbr>Base64<span class="tsd-signature-symbol">(</span>payload<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, contentType<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>payload: <span class="tsd-signature-type">any</span></h5>
+							</li>
+							<li>
+								<h5>contentType: <span class="tsd-signature-type">any</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span>
+							<span class="tsd-signature-symbol"> | </span>
+							<span class="tsd-signature-type">number</span>
+							<span class="tsd-signature-symbol"> | </span>
+							<span class="tsd-signature-type">object</span>
+						</h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="decodefilter" class="tsd-anchor"></a>
+				<h3>decode<wbr>Filter</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">decode<wbr>Filter<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, map<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, nested<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>from: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5>map: <span class="tsd-signature-type">object</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter">
+										<h5>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string[]</span></h5>
+									</li>
+									<li class="tsd-parameter">
+										<h5>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string[]</span></h5>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> nested: <span class="tsd-signature-type">string[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="interfaces/comparisonobject.html" class="tsd-signature-type">ComparisonObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="decodetlv" class="tsd-anchor"></a>
+				<h3>decode<wbr>Tlv</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">decode<wbr>Tlv<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>value: <span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span>
+							<span class="tsd-signature-symbol"> | </span>
+							<span class="tsd-signature-type">number</span>
+							<span class="tsd-signature-symbol"> | </span>
+							<span class="tsd-signature-type">object</span>
+						</h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="encodefilter" class="tsd-anchor"></a>
+				<h3>encode<wbr>Filter</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">encode<wbr>Filter<span class="tsd-signature-symbol">(</span>filter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, map<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, nested<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>filter: <span class="tsd-signature-type">object</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-index-signature">
+										<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="interfaces/comparisonobject.html" class="tsd-signature-type">ComparisonObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<h5>map: <span class="tsd-signature-type">object</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter">
+										<h5>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string[]</span></h5>
+									</li>
+									<li class="tsd-parameter">
+										<h5>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string[]</span></h5>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> nested: <span class="tsd-signature-type">string[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="encodeinclude" class="tsd-anchor"></a>
+				<h3>encode<wbr>Include</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">encode<wbr>Include<span class="tsd-signature-symbol">(</span>include<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>include: <span class="tsd-signature-type">any</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="extractfilter" class="tsd-anchor"></a>
+				<h3>extract<wbr>Filter</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">extract<wbr>Filter<span class="tsd-signature-symbol">(</span>filter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, defaultValue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>filter: <span class="tsd-signature-type">object</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-index-signature">
+										<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="interfaces/comparisonobject.html" class="tsd-signature-type">ComparisonObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<h5>name: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> defaultValue: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;null</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-not-exported">
+				<a name="findidlength" class="tsd-anchor"></a>
+				<h3>find<wbr>IdLength</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-is-not-exported">
+					<li class="tsd-signature tsd-kind-icon">find<wbr>IdLength<span class="tsd-signature-symbol">(</span>byte<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>byte: <span class="tsd-signature-type">any</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-not-exported">
+				<a name="findvaluelength" class="tsd-anchor"></a>
+				<h3>find<wbr>Value<wbr>Length</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-is-not-exported">
+					<li class="tsd-signature tsd-kind-icon">find<wbr>Value<wbr>Length<span class="tsd-signature-symbol">(</span>byte<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>byte: <span class="tsd-signature-type">any</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="snaketocamel" class="tsd-anchor"></a>
+				<h3>snake<wbr>ToCamel</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">snake<wbr>ToCamel<span class="tsd-signature-symbol">(</span>snake<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>snake: <span class="tsd-signature-type">any</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+					</li>
+				</ul>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<h2>Object literals</h2>
+			<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-is-not-exported">
+				<a name="lengthtype" class="tsd-anchor"></a>
+				<h3>length<wbr>Type</h3>
+				<div class="tsd-signature tsd-kind-icon">length<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<a name="lengthtype.one_byte" class="tsd-anchor"></a>
+					<h3>ONE_<wbr>BYTE</h3>
+					<div class="tsd-signature tsd-kind-icon">ONE_<wbr>BYTE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;00001000&quot;, 2)</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<a name="lengthtype.otr_byte" class="tsd-anchor"></a>
+					<h3>OTR_<wbr>BYTE</h3>
+					<div class="tsd-signature tsd-kind-icon">OTR_<wbr>BYTE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;00000000&quot;, 2)</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<a name="lengthtype.tre_byte" class="tsd-anchor"></a>
+					<h3>TRE_<wbr>BYTE</h3>
+					<div class="tsd-signature tsd-kind-icon">TRE_<wbr>BYTE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;00011000&quot;, 2)</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<a name="lengthtype.two_byte" class="tsd-anchor"></a>
+					<h3>TWO_<wbr>BYTE</h3>
+					<div class="tsd-signature tsd-kind-icon">TWO_<wbr>BYTE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;00010000&quot;, 2)</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-is-not-exported">
+				<a name="types" class="tsd-anchor"></a>
+				<h3>types</h3>
+				<div class="tsd-signature tsd-kind-icon">types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<a name="types.mult_resource" class="tsd-anchor"></a>
+					<h3>MULT_<wbr>RESOURCE</h3>
+					<div class="tsd-signature tsd-kind-icon">MULT_<wbr>RESOURCE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;10000000&quot;, 2)</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<a name="types.object_instan" class="tsd-anchor"></a>
+					<h3>OBJECT_<wbr>INSTAN</h3>
+					<div class="tsd-signature tsd-kind-icon">OBJECT_<wbr>INSTAN<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;00000000&quot;, 2)</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<a name="types.resource_inst" class="tsd-anchor"></a>
+					<h3>RESOURCE_<wbr>INST</h3>
+					<div class="tsd-signature tsd-kind-icon">RESOURCE_<wbr>INST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;01000000&quot;, 2)</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<a name="types.resource_valu" class="tsd-anchor"></a>
+					<h3>RESOURCE_<wbr>VALU</h3>
+					<div class="tsd-signature tsd-kind-icon">RESOURCE_<wbr>VALU<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;11000000&quot;, 2)</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+			</section>
+		</section>
+		<footer>
+			<div class="container">
+				<h2>Legend</h2>
+				<div class="tsd-legend-group">
+					<ul class="tsd-legend">
+						<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+						<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+						<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+						<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+						<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+						<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+						<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+						<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+						<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+						<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+						<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+						<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+						<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+						<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+						<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+						<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+						<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+						<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+						<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+	</div>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
