@@ -53,67 +53,6 @@ export interface AddFirmwareManifestObject extends FirmwareManifestObject {
     dataFile: ReadableStream | File | Blob;
 }
 
-export type ManifestEncryptionModeEnum = "none-ecc-secp256r1-sha256" | "aes-128-ctr-ecc-secp256r1-sha256" | "none-none-sha256";
-export type ManifestPayloadFormatEnum = "raw-binary" | "cbor" | "hex-location-length-data" | "elf";
-export interface ManifestContents {
-    /**
-     * Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
-     */
-    classId?: string;
-    /**
-     * Hex representation of the 128-bit RFC4122 GUID that represents the vendor.
-     */
-    vendorId?: string;
-    /**
-     * Manifest version.
-     */
-    version?: number;
-    /**
-     * A short description of the update.
-     */
-    description?: string;
-    /**
-     * A 128-bit random field
-     */
-    nonce?: string;
-    /**
-     * The date the manifest was created.
-     */
-    createdAt?: Date;
-    /**
-     * The encryption mode describing the kind of hashing, signing and, encryption in use. The following modes are available: 1: none-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. No payload encryption is used. 2: aes-128-ctr-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. The payload is encrypted with AES-128 in CTR-mode. 3: none-none-sha256: SHA-256 hashing. No signature is used. No payload encryption is used. This mode is not recommended except over existing, trusted connections.
-     */
-    encryptionMode?: ManifestEncryptionModeEnum;
-    /**
-     * A flag that indicates that the update described by the manifest should be applied as soon as possible.
-     */
-    applyImmediately?: boolean;
-    /**
-     * Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Only applies to a manifest targeted at a specific device.
-     */
-    deviceId?: string;
-    /**
-     * Format of the manifest payload. Can be: 1: raw-binary 2: cbor 3: hex-location-length-data 4: elf
-     */
-    payloadFormat?: ManifestPayloadFormatEnum;
-    /**
-     * An identifier for where the payload is to be located.
-     */
-    payloadStorageIdentifier?: string;
-    /**
-     * Hex representation of the SHA-256 hash of the payload
-     */
-    payloadHash?: string;
-    /**
-     * The URI of the payload.
-     */
-    payloadUri?: string;
-    /**
-     * Size of the payload in bytes
-     */
-    payloadSize?: number;
-}
-
 export type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export type CampaignDeviceStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved";
 
