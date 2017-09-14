@@ -1,5 +1,5 @@
 import { CallbackFn } from "../../common/interfaces";
-import { FirmwareManifestObject, ManifestContents } from "../types";
+import { FirmwareManifestObject } from "../types";
 import { UpdateApi } from "../updateApi";
 /**
  * Firmware Manifest
@@ -26,10 +26,6 @@ export declare class FirmwareManifest {
      * The class of device
      */
     readonly deviceClass?: string;
-    /**
-     * The contents of the manifest
-     */
-    readonly contents: ManifestContents;
     /**
      * The time the object was created
      */
