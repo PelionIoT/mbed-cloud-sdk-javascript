@@ -364,7 +364,7 @@ export class DeviceDirectoryApi {
             const { limit, order, after, include, filter } = options;
             this._endpoints.directory.deviceQueryList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let queries: Query[];
+            let queries: Array<Query>;
             if (data.data && data.data.length) {
                 queries = data.data.map(query => {
                     return QueryAdapter.map(query, this);
@@ -629,7 +629,7 @@ export class DeviceDirectoryApi {
             const { limit, order, after, include, filter } = options as DeviceEventListOptions;
             this._endpoints.directory.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_EVENT_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let list: DeviceEvent[];
+            let list: Array<DeviceEvent>;
             if (data.data && data.data.length) {
                 list = data.data.map(event => {
                     return DeviceEventAdapter.map(event);

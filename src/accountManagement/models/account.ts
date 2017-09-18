@@ -33,7 +33,7 @@ export class Account {
     /**
      * An array of aliases.
      */
-    public readonly aliases: string[];
+    public readonly aliases: Array<string>;
     /**
      * The status of the account.
      */
@@ -49,7 +49,7 @@ export class Account {
     /**
      * List of policies if requested.
      */
-    public readonly policies?: Policy[];
+    public readonly policies?: Array<Policy>;
     /**
      * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
      */

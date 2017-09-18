@@ -49,7 +49,7 @@ export class MetricAdapter {
         });
     }
 
-    public static mapIncludes(from?: string[]): string {
+    public static mapIncludes(from?: Array<string>): string {
         let includes = [];
 
         const metricNames = [

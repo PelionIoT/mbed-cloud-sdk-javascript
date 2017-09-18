@@ -59,7 +59,7 @@ export interface ListOptions {
     /**
      * Optional fields to include
      */
-    include?: IncludeEnum[];
+    include?: Array<IncludeEnum>;
 }
 
 /**
