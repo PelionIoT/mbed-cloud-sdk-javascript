@@ -38,6 +38,10 @@ export interface AccountInfo {
      */
     "status": AccountInfoStatusEnum;
     /**
+     * The password policy for this account.
+     */
+    "password_policy"?: PasswordPolicy;
+    /**
      * The postal code part of the postal address.
      */
     "postal_code"?: string;
