@@ -37,7 +37,7 @@ export interface ListOptions {
     /**
      * Optional fields to include
      */
-    include?: IncludeEnum[];
+    include?: Array<IncludeEnum>;
 }
 /**
  * Operators inspired by [MongoDB](https://docs.mongodb.com/manual/reference/operator/query-comparison/)

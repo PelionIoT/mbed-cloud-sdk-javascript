@@ -304,7 +304,7 @@ export declare class ConnectApi extends EventEmitter {
      *
      * @returns Promise containing pre-subscriptions
      */
-    listPresubscriptions(): Promise<PresubscriptionObject[]>;
+    listPresubscriptions(): Promise<Array<PresubscriptionObject>>;
     /**
      * Gets a list of pre-subscription data
      *
@@ -318,7 +318,7 @@ export declare class ConnectApi extends EventEmitter {
      *
      * @param callback A function that is passed (error, pre-subscriptions)
      */
-    listPresubscriptions(callback: CallbackFn<PresubscriptionObject[]>): void;
+    listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>): void;
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
      *
@@ -335,7 +335,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param subscriptions The pre-subscription data array
      * @returns Promise containing any error
      */
-    updatePresubscriptions(subscriptions: PresubscriptionObject[]): Promise<void>;
+    updatePresubscriptions(subscriptions: Array<PresubscriptionObject>): Promise<void>;
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
      *
@@ -351,7 +351,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param subscriptions The pre-subscription data array
      * @param callback A function that is passed any error
      */
-    updatePresubscriptions(subscriptions: PresubscriptionObject[], callback: CallbackFn<void>): void;
+    updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>): void;
     /**
      * Deletes pre-subscription data
      *
@@ -423,7 +423,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param type Filter devices by device type
      * @returns Promise of connected devices
      */
-    listConnectedDevices(type?: string): Promise<ConnectedDevice[]>;
+    listConnectedDevices(type?: string): Promise<Array<ConnectedDevice>>;
     /**
      * List connected devices
      *
@@ -438,7 +438,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param options.type Filter devices by device type
      * @param callback A function that is passed the arguments (error, devices)
      */
-    listConnectedDevices(type?: string, callback?: CallbackFn<ConnectedDevice[]>): void;
+    listConnectedDevices(type?: string, callback?: CallbackFn<Array<ConnectedDevice>>): void;
     /**
      * List a device's subscriptions
      *
@@ -526,7 +526,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @returns Promise of device resources
      */
-    listResources(deviceId: string): Promise<Resource[]>;
+    listResources(deviceId: string): Promise<Array<Resource>>;
     /**
      * List device's resources
      *
@@ -545,7 +545,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param callback A function that is passed the arguments (error, resources)
      */
-    listResources(deviceId: string, callback: CallbackFn<Resource[]>): void;
+    listResources(deviceId: string, callback: CallbackFn<Array<Resource>>): void;
     /**
      * Deletes a resource
      *
@@ -886,7 +886,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @returns Promise of metrics
      */
-    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<Metric[]>;
+    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<Array<Metric>>;
     /**
      * List metrics
      *
@@ -905,7 +905,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
-    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<Metric[]>): void;
+    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<Array<Metric>>): void;
     /**
      * Get meta data for the last Mbed Cloud API call
      * @returns Promise of meta data

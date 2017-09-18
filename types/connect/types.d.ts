@@ -3,27 +3,27 @@ export interface NotificationObject {
     /**
      * Notifications
      */
-    notifications?: any[];
+    notifications?: Array<any>;
     /**
      * New device registration notifications
      */
-    registrations?: any[];
+    registrations?: Array<any>;
     /**
      * Device registration update notifications
      */
-    "reg-updates"?: any[];
+    "reg-updates"?: Array<any>;
     /**
      * Device deregistration notifications
      */
-    "de-registrations"?: any[];
+    "de-registrations"?: Array<any>;
     /**
      * Device registration expiry notifications
      */
-    "registrations-expired"?: any[];
+    "registrations-expired"?: Array<any>;
     /**
      * Asynchronous resoonse notifications
      */
-    "async-responses"?: any[];
+    "async-responses"?: Array<any>;
 }
 export interface DeviceEvent<T> {
     /**
@@ -41,7 +41,7 @@ export interface DeviceEvent<T> {
     /**
      * The resources of the device
      */
-    resources?: T[];
+    resources?: Array<T>;
 }
 export interface AsyncResponse {
     /**
@@ -77,7 +77,7 @@ export interface NotificationOptions {
     /**
      * A function that is passed any asynchronous responses
      */
-    requestCallback?: CallbackFn<AsyncResponse[]>;
+    requestCallback?: CallbackFn<Array<AsyncResponse>>;
 }
 export interface PresubscriptionObject {
     /**
@@ -91,7 +91,7 @@ export interface PresubscriptionObject {
     /**
      * A list of resources to subscribe to. Allows wildcards to subscribe to multiple resources at once
      */
-    resourcePaths?: string[];
+    resourcePaths?: Array<string>;
 }
 export declare type MetricsIncludeEnum = "handshakes" | "transactions" | "observations" | "successfulApiCalls" | "failedApiCalls" | "successfulProxyRequests" | "failedProxyRequests" | "successfulSubscriptionRequests" | "failedSubscriptionRequests" | "successfulBootstraps" | "failedBootstraps" | "pendingBootstraps" | "fullRegistrations" | "updatedRegistrations" | "expiredRegistrations" | "deletedRegistrations";
 export declare type UnitType = "minutes" | "hours" | "days" | "weeks";
@@ -121,7 +121,7 @@ export interface MetricsListOptions {
     /**
      * Optional metrics fields to include
      */
-    include?: MetricsIncludeEnum[];
+    include?: Array<MetricsIncludeEnum>;
     /**
      * Group data by this interval, defaults to 1 day
      */

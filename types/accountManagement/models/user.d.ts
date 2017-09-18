@@ -13,7 +13,7 @@ export declare class User {
     /**
      * A list of group IDs this user belongs to.
      */
-    readonly groups?: string[];
+    readonly groups?: Array<string>;
     /**
      * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
      */
@@ -49,7 +49,7 @@ export declare class User {
     /**
      * History of logins for this user;
      */
-    readonly loginHistory?: LoginHistory[];
+    readonly loginHistory?: Array<LoginHistory>;
     constructor(init: Partial<User>, _api?: AccountManagementApi);
     /**
      * Updates the user
@@ -65,12 +65,12 @@ export declare class User {
      * List the groups this user belongs to
      * @returns Promise containing groups
      */
-    listGroups(): Promise<Group[]>;
+    listGroups(): Promise<Array<Group>>;
     /**
      * List the groups this user belongs to
      * @param callback A function that is passed the return arguments (error, groups)
      */
-    listGroups(callback: CallbackFn<Group[]>): void;
+    listGroups(callback: CallbackFn<Array<Group>>): void;
     /**
      * List the API keys for this user
      * @returns Promise containing API keys

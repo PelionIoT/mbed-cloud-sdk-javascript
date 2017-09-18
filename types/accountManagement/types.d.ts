@@ -11,7 +11,7 @@ export interface UpdateAccountObject {
     /**
      * An array of aliases.
      */
-    aliases?: string[];
+    aliases?: Array<string>;
     /**
      * The name of the company.
      */

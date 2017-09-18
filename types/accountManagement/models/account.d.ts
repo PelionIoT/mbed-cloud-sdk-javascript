@@ -14,7 +14,7 @@ export declare class Account {
     /**
      * An array of aliases.
      */
-    readonly aliases: string[];
+    readonly aliases: Array<string>;
     /**
      * The status of the account.
      */
@@ -32,7 +32,7 @@ export declare class Account {
     /**
      * List of policies if requested.
      */
-    readonly policies?: Policy[];
+    readonly policies?: Array<Policy>;
     /**
      * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
      */

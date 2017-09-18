@@ -127,7 +127,7 @@ export class UpdateApi {
             const { limit, order, after, include, filter } = options as FirmwareImageListOptions;
             this._endpoints.update.firmwareImageList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let list: FirmwareImage[];
+            let list: Array<FirmwareImage>;
             if (data.data && data.data.length) {
                 list = data.data.map(image => {
                     return FirmwareImageAdapter.map(image, this);
@@ -362,7 +362,7 @@ export class UpdateApi {
             const { limit, order, after, include, filter } = options as FirmwareManifestListOptions;
             this._endpoints.update.firmwareManifestList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let list: FirmwareManifest[];
+            let list: Array<FirmwareManifest>;
             if (data.data && data.data.length) {
                 list = data.data.map(log => {
                     return FirmwareManifestAdapter.map(log, this);
@@ -597,7 +597,7 @@ export class UpdateApi {
             const { limit, order, after, include, filter } = options as CampaignListOptions;
             this._endpoints.update.updateCampaignList(limit, order, after, encodeFilter(filter, Filters.CAMPAIGN_FILTER_MAP), encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let list: Campaign[];
+            let list: Array<Campaign>;
             if (data.data && data.data.length) {
                 list = data.data.map(log => {
                     return CampaignAdapter.map(log, this);
@@ -953,7 +953,7 @@ export class UpdateApi {
             const { limit, order, after, include } = options;
             this._endpoints.update.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let list: CampaignDeviceState[];
+            let list: Array<CampaignDeviceState>;
             if (data.data && data.data.length) {
                 list = data.data.map(state => {
                     return CampaignDeviceStateAdapter.map(state);

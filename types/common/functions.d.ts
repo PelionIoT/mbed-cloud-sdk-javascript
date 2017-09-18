@@ -14,12 +14,12 @@ export declare function extractFilter(filter: {
 export declare function encodeFilter(filter: {
     [key: string]: ComparisonObject<any>;
 }, map: {
-    from: string[];
-    to: string[];
-}, nested?: string[]): string;
+    from: Array<string>;
+    to: Array<string>;
+}, nested?: Array<string>): string;
 export declare function decodeFilter(from: string, map: {
-    from: string[];
-    to: string[];
-}, nested?: string[]): {
+    from: Array<string>;
+    to: Array<string>;
+}, nested?: Array<string>): {
     [key: string]: ComparisonObject<any>;
 };

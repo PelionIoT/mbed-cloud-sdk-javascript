@@ -1500,7 +1500,7 @@ connect.getResourceValue(deviceId, resourceURI, <span class="hljs-function"><spa
 				<a name="listconnecteddevices" class="tsd-anchor"></a>
 				<h3>list<wbr>Connected<wbr>Devices</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConnectedDevice[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1529,12 +1529,12 @@ connect.getResourceValue(deviceId, resourceURI, <span class="hljs-function"><spa
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConnectedDevice[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p>Promise of connected devices</p>
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConnectedDevice[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1557,7 +1557,7 @@ connect.getResourceValue(deviceId, resourceURI, <span class="hljs-function"><spa
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <span class="tsd-signature-type">string</span></h5>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConnectedDevice[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>A function that is passed the arguments (error, devices)</p>
 								</div>
@@ -1647,7 +1647,7 @@ connect.listDeviceSubscriptions(deviceId, <span class="hljs-function"><span clas
 				<a name="listmetrics" class="tsd-anchor"></a>
 				<h3>list<wbr>Metrics</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Metrics<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Metric[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Metrics<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1680,12 +1680,12 @@ connect.listMetrics(options)
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Metric[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p>Promise of metrics</p>
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Metrics<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Metric[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Metrics<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1715,7 +1715,7 @@ connect.listMetrics(options, <span class="hljs-function"><span class="hljs-keywo
 								</div>
 							</li>
 							<li>
-								<h5>callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Metric[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>A function that is passed the return arguments (error, metrics)</p>
 								</div>
@@ -1729,7 +1729,7 @@ connect.listMetrics(options, <span class="hljs-function"><span class="hljs-keywo
 				<a name="listpresubscriptions" class="tsd-anchor"></a>
 				<h3>list<wbr>Presubscriptions</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PresubscriptionObject[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1749,12 +1749,12 @@ connect.listMetrics(options, <span class="hljs-function"><span class="hljs-keywo
 });
 </code></pre>
 						</div>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PresubscriptionObject[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p>Promise containing pre-subscriptions</p>
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PresubscriptionObject[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1774,7 +1774,7 @@ connect.listMetrics(options, <span class="hljs-function"><span class="hljs-keywo
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PresubscriptionObject[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>A function that is passed (error, pre-subscriptions)</p>
 								</div>
@@ -1788,7 +1788,7 @@ connect.listMetrics(options, <span class="hljs-function"><span class="hljs-keywo
 				<a name="listresources" class="tsd-anchor"></a>
 				<h3>list<wbr>Resources</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Resources<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Resource[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Resources<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1821,12 +1821,12 @@ connect.listResources(deviceId)
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Resource[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p>Promise of device resources</p>
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Resources<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Resource[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Resources<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1856,7 +1856,7 @@ connect.listResources(deviceId, <span class="hljs-function"><span class="hljs-ke
 								</div>
 							</li>
 							<li>
-								<h5>callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Resource[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>A function that is passed the arguments (error, resources)</p>
 								</div>
@@ -2382,7 +2382,7 @@ connect.setResourceValue(deviceId, resourceURI, payload, <span class="hljs-funct
 				<a name="updatepresubscriptions" class="tsd-anchor"></a>
 				<h3>update<wbr>Presubscriptions</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">update<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span>subscriptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PresubscriptionObject[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">update<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span>subscriptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -2404,7 +2404,7 @@ connect.updatePresubscriptions(subscriptions)
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>subscriptions: <span class="tsd-signature-type">PresubscriptionObject[]</span></h5>
+								<h5>subscriptions: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>The pre-subscription data array</p>
 								</div>
@@ -2415,7 +2415,7 @@ connect.updatePresubscriptions(subscriptions)
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">update<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span>subscriptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PresubscriptionObject[]</span>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">update<wbr>Presubscriptions<span class="tsd-signature-symbol">(</span>subscriptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -2436,7 +2436,7 @@ connect.updatePresubscriptions(subscriptions, <span class="hljs-function"><span 
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>subscriptions: <span class="tsd-signature-type">PresubscriptionObject[]</span></h5>
+								<h5>subscriptions: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/presubscriptionobject.html" class="tsd-signature-type">PresubscriptionObject</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>The pre-subscription data array</p>
 								</div>

@@ -23,12 +23,12 @@ export declare class ConnectedDevice {
      * List device's resources
      * @returns Promise of device resources
      */
-    listResources(): Promise<Resource[]>;
+    listResources(): Promise<Array<Resource>>;
     /**
      * List device's resources
      * @param callback A function that is passed the arguments (error, resources)
      */
-    listResources(callback: CallbackFn<Resource[]>): void;
+    listResources(callback: CallbackFn<Array<Resource>>): void;
     /**
      * List a device's subscriptions
      * @returns Promise containing the subscriptions

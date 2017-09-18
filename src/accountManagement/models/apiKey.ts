@@ -30,7 +30,7 @@ export class ApiKey {
     /**
      * A list of group IDs this API key belongs to.
      */
-    public readonly groups?: string[];
+    public readonly groups?: Array<string>;
     /**
      * The API key.
      */
@@ -60,13 +60,13 @@ export class ApiKey {
      * List the groups this API key belongs to
      * @returns Promise containing groups
      */
-    public listGroups(): Promise<Group[]>;
+    public listGroups(): Promise<Array<Group>>;
     /**
      * List the groups this API key belongs to
      * @param callback A function that is passed the return arguments (error, groups)
      */
-    public listGroups(callback: CallbackFn<Group[]>): void;
-    public listGroups(callback?: CallbackFn<Group[]>): Promise<Group[]> {
+    public listGroups(callback: CallbackFn<Array<Group>>): void;
+    public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
         return apiWrapper(resultsFn => {
             this._api.listGroups(null, resultsFn);
         }, (data, done) => {

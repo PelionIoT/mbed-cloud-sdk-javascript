@@ -11,7 +11,7 @@ export declare class ApiKey {
     /**
      * A list of group IDs this API key belongs to.
      */
-    readonly groups?: string[];
+    readonly groups?: Array<string>;
     /**
      * The API key.
      */
@@ -33,12 +33,12 @@ export declare class ApiKey {
      * List the groups this API key belongs to
      * @returns Promise containing groups
      */
-    listGroups(): Promise<Group[]>;
+    listGroups(): Promise<Array<Group>>;
     /**
      * List the groups this API key belongs to
      * @param callback A function that is passed the return arguments (error, groups)
      */
-    listGroups(callback: CallbackFn<Group[]>): void;
+    listGroups(callback: CallbackFn<Array<Group>>): void;
     /**
      * Get details of the key owner
      * @returns Promise containing the user

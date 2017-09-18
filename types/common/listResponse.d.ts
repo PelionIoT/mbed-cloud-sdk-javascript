@@ -26,6 +26,6 @@ export declare class ListResponse<T> {
     /**
      * Devices
      */
-    readonly data: T[];
-    constructor(from: any, data?: T[]);
+    readonly data: Array<T>;
+    constructor(from: any, data?: Array<T>);
 }

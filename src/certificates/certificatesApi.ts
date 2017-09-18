@@ -138,7 +138,7 @@ export class CertificatesApi {
 
             this._endpoints.accountDeveloper.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, extractFilter(filter, "expires"), executionMode, extractFilter(filter, "ownerId"), resultsFn);
         }, (data, done) => {
-            let certificates: Certificate[];
+            let certificates: Array<Certificate>;
             if (data.data && data.data.length) {
                 certificates = data.data.map(certificate => {
                     return CertificateAdapter.mapCertificate(certificate, this);

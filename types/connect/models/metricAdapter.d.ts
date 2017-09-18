@@ -7,6 +7,6 @@ import { Metric } from "./metric";
 export declare class MetricAdapter {
     private static readonly DEFAULT_TIME_PERIOD;
     static map(from: apiMetric): Metric;
-    static mapIncludes(from?: string[]): string;
+    static mapIncludes(from?: Array<string>): string;
     static mapTimePeriod(from?: TimePeriod): string;
 }
