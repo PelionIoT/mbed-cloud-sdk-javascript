@@ -50,13 +50,13 @@ export class ConnectedDevice {
      * List device's resources
      * @returns Promise of device resources
      */
-    public listResources(): Promise<Resource[]>;
+    public listResources(): Promise<Array<Resource>>;
     /**
      * List device's resources
      * @param callback A function that is passed the arguments (error, resources)
      */
-    public listResources(callback: CallbackFn<Resource[]>): void;
-    public listResources(callback?: CallbackFn<Resource[]>): Promise<Resource[]> {
+    public listResources(callback: CallbackFn<Array<Resource>>): void;
+    public listResources(callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
         return asyncStyle(done => {
             this._api.listResources(this.id, done);
         }, callback);

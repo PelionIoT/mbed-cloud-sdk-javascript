@@ -44,9 +44,9 @@ export class ListResponse<T> {
     /**
      * Devices
      */
-    public readonly data: T[];
+    public readonly data: Array<T>;
 
-    constructor(from: any, data?: T[]) {
+    constructor(from: any, data?: Array<T>) {
         this.after         = from.after;
         this.hasMore       = from.has_more;
         this.limit         = from.limit;

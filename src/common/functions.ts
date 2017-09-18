@@ -138,7 +138,7 @@ export function extractFilter(filter: { [key: string]: ComparisonObject<any> }, 
     return defaultValue;
 }
 
-export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, map: { from: string[], to: string[] }, nested: string[] = []): string {
+export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, map: { from: Array<string>, to: Array<string> }, nested: Array<string> = []): string {
     if (!filter) return "";
 
     function encode(name, operator, value, prefix: string = "") {
@@ -180,7 +180,7 @@ export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, m
     }).join("&");
 }
 
-export function decodeFilter(from: string, map: { from: string[], to: string[] }, nested: string[] = []): { [key: string]: ComparisonObject<any> } {
+export function decodeFilter(from: string, map: { from: Array<string>, to: Array<string> }, nested: Array<string> = []): { [key: string]: ComparisonObject<any> } {
     const filter: { [key: string]: ComparisonObject<any> } = {};
 
     function decodeName(name: string): string {

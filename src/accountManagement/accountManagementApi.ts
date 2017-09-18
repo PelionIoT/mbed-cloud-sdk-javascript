@@ -212,7 +212,7 @@ export class AccountManagementApi {
             const { limit, after, order, include, filter } = options as ApiKeyListOptions;
             this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), extractFilter(filter, "ownerId"), resultsFn);
         }, (data, done) => {
-            let keys: ApiKey[];
+            let keys: Array<ApiKey>;
             if (data && data.data && data.data.length) {
                 keys = data.data.map(key => {
                     return ApiKeyAdapter.map(key, this);
@@ -453,7 +453,7 @@ export class AccountManagementApi {
             const { limit, after, order, include, filter } = options as UserListOptions;
             this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), extractFilter(filter, "status"), resultsFn);
         }, (data, done) => {
-            let users: User[];
+            let users: Array<User>;
             if (data.data && data.data.length) {
                 users = data.data.map(user => {
                     return UserAdapter.map(user, this);
@@ -684,7 +684,7 @@ export class AccountManagementApi {
             const { limit, after, order, include } = options as ListOptions;
             this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let groups: Group[];
+            let groups: Array<Group>;
             if (data.data && data.data.length) {
                 groups = data.data.map(group => {
                     return GroupAdapter.map(group, this);
@@ -782,7 +782,7 @@ export class AccountManagementApi {
             const { limit, after, order, include } = options as ListOptions;
             this._endpoints.admin.getUsersOfGroup(groupId, limit, after, order, encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let users: User[];
+            let users: Array<User>;
             if (data.data && data.data.length) {
                 users = data.data.map(user => {
                     return UserAdapter.map(user, this);
@@ -839,7 +839,7 @@ export class AccountManagementApi {
             const { limit, after, order, include } = options as ListOptions;
             this._endpoints.developer.getApiKeysOfGroup(groupId, limit, after, order, encodeInclude(include), resultsFn);
         }, (data, done) => {
-            let keys: ApiKey[];
+            let keys: Array<ApiKey>;
             if (data.data && data.data.length) {
                 keys = data.data.map(key => {
                     return ApiKeyAdapter.map(key, this);

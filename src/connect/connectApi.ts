@@ -502,7 +502,7 @@ export class ConnectApi extends EventEmitter {
      *
      * @returns Promise containing pre-subscriptions
      */
-    public listPresubscriptions(): Promise<PresubscriptionObject[]>;
+    public listPresubscriptions(): Promise<Array<PresubscriptionObject>>;
     /**
      * Gets a list of pre-subscription data
      *
@@ -516,8 +516,8 @@ export class ConnectApi extends EventEmitter {
      *
      * @param callback A function that is passed (error, pre-subscriptions)
      */
-    public listPresubscriptions(callback: CallbackFn<PresubscriptionObject[]>): void;
-    public listPresubscriptions(callback?: CallbackFn<PresubscriptionObject[]>): Promise<PresubscriptionObject[]> {
+    public listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>): void;
+    public listPresubscriptions(callback?: CallbackFn<Array<PresubscriptionObject>>): Promise<Array<PresubscriptionObject>> {
         return apiWrapper(resultsFn => {
             this._endpoints.subscriptions.v2SubscriptionsGet(resultsFn);
         }, (data, done) => {
@@ -542,7 +542,7 @@ export class ConnectApi extends EventEmitter {
      * @param subscriptions The pre-subscription data array
      * @returns Promise containing any error
      */
-    public updatePresubscriptions(subscriptions: PresubscriptionObject[]): Promise<void>;
+    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>): Promise<void>;
     /**
      * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
      *
@@ -558,8 +558,8 @@ export class ConnectApi extends EventEmitter {
      * @param subscriptions The pre-subscription data array
      * @param callback A function that is passed any error
      */
-    public updatePresubscriptions(subscriptions: PresubscriptionObject[], callback: CallbackFn<void>): void;
-    public updatePresubscriptions(subscriptions: PresubscriptionObject[], callback?: CallbackFn<void>): Promise<void> {
+    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>): void;
+    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback?: CallbackFn<void>): Promise<void> {
         return apiWrapper(resultsFn => {
             const presubs = subscriptions.map(PresubscriptionAdapter.reverseMap);
             this._endpoints.subscriptions.v2SubscriptionsPut(presubs, resultsFn);
@@ -655,7 +655,7 @@ export class ConnectApi extends EventEmitter {
      * @param type Filter devices by device type
      * @returns Promise of connected devices
      */
-    public listConnectedDevices(type?: string): Promise<ConnectedDevice[]>;
+    public listConnectedDevices(type?: string): Promise<Array<ConnectedDevice>>;
     /**
      * List connected devices
      *
@@ -670,8 +670,8 @@ export class ConnectApi extends EventEmitter {
      * @param options.type Filter devices by device type
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listConnectedDevices(type?: string, callback?: CallbackFn<ConnectedDevice[]>): void;
-    public listConnectedDevices(type?: any, callback?: CallbackFn<ConnectedDevice[]>): Promise<ConnectedDevice[]> {
+    public listConnectedDevices(type?: string, callback?: CallbackFn<Array<ConnectedDevice>>): void;
+    public listConnectedDevices(type?: any, callback?: CallbackFn<Array<ConnectedDevice>>): Promise<Array<ConnectedDevice>> {
         if (typeof type === "function") {
             callback = type;
             type = null;
@@ -791,7 +791,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @returns Promise of device resources
      */
-    public listResources(deviceId: string): Promise<Resource[]>;
+    public listResources(deviceId: string): Promise<Array<Resource>>;
     /**
      * List device's resources
      *
@@ -810,8 +810,8 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param callback A function that is passed the arguments (error, resources)
      */
-    public listResources(deviceId: string, callback: CallbackFn<Resource[]>): void;
-    public listResources(deviceId: string, callback?: CallbackFn<Resource[]>): Promise<Resource[]> {
+    public listResources(deviceId: string, callback: CallbackFn<Array<Resource>>): void;
+    public listResources(deviceId: string, callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
         return apiWrapper(resultsFn => {
             this._endpoints.endpoints.v2EndpointsDeviceIdGet(deviceId, resultsFn);
         }, (data, done) => {
@@ -1297,7 +1297,7 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @returns Promise of metrics
      */
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<Metric[]>;
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<Array<Metric>>;
     /**
      * List metrics
      *
@@ -1316,8 +1316,8 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<Metric[]>): void;
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback?: CallbackFn<Metric[]>): Promise<Metric[]> {
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<Array<Metric>>): void;
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
         return apiWrapper(resultsFn => {
             function isPeriod(test: MetricsStartEndListOptions | MetricsPeriodListOptions): test is MetricsPeriodListOptions {
                 return (test as MetricsPeriodListOptions).period !== undefined;
@@ -1338,7 +1338,7 @@ export class ConnectApi extends EventEmitter {
 
             this._endpoints.statistics.v3MetricsGet(MetricAdapter.mapIncludes(include), MetricAdapter.mapTimePeriod(interval), start, end, period, limit, after, order, resultsFn);
         }, (data, done) => {
-            let list: Metric[];
+            let list: Array<Metric>;
 
             if (data.data && data.data.length) {
                 list = data.data.map(metric => {
