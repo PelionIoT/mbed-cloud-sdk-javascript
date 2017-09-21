@@ -66,13 +66,13 @@ export class ConnectedDevice {
      * List a device's subscriptions
      * @returns Promise containing the subscriptions
      */
-    public listSubscriptions(): Promise<any>;
+    public listSubscriptions(): Promise<string>;
     /**
      * List a device's subscriptions
      * @param callback A function that is passed (error, subscriptions)
      */
-    public listSubscriptions(callback: CallbackFn<any>): void;
-    public listSubscriptions(callback?: CallbackFn<any>): Promise<any> {
+    public listSubscriptions(callback: CallbackFn<string>): void;
+    public listSubscriptions(callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
             this._api.listDeviceSubscriptions(this.id, done);
         }, callback);
