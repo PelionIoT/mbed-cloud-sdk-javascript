@@ -163,6 +163,8 @@ export interface QueryObject {
         trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
+        deviceType?: ComparisonObject<string>;
+        hostGateway?: ComparisonObject<string>;
         customAttributes?: { [key: string]: ComparisonObject<string> };
     };
 }
@@ -216,6 +218,8 @@ export interface AddQueryObject extends QueryObject {
         trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
+        deviceType?: ComparisonObject<string>;
+        hostGateway?: ComparisonObject<string>;
         customAttributes?: { [key: string]: ComparisonObject<string> };
     };
 }
@@ -239,6 +243,35 @@ export interface DeviceListOptions extends ListOptions {
      *    }
      *  }
      *  ```
+     * ### Other example filters
+     * Currently connected devices:
+     * ```
+     * filter: {
+     *     state: { $eq: "registered" }
+     * }
+     * ```
+     *
+     * Directly connected devices (not via gateways):
+     * ```
+     * filter: {
+     *     hostGateway: { $eq: "" },
+     *     deviceType: { $eq: "" }
+     * }
+     * ```
+     *
+     * Devices connected via gateways:
+     * ```
+     * filter: {
+     *     hostGateway: { $neq: "" }
+     * }
+     * ```
+     *
+     * Gateway devices:
+     * ```
+     * filter: {
+     *     deviceType: { $eq: "MBED_GW" }
+     * }
+     * ```
      */
     filter?: {
         accountId?: ComparisonObject<string>;
@@ -261,6 +294,8 @@ export interface DeviceListOptions extends ListOptions {
         trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
+        deviceType?: ComparisonObject<string>;
+        hostGateway?: ComparisonObject<string>;
         customAttributes?: { [key: string]: ComparisonObject<string> };
     };
 }
