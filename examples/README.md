@@ -46,7 +46,7 @@ You can also simply edit the [config.js](node/config.js) file and add your key.
 
 ### Remoting
 
-__Note:__ Some of the Node examples utilise a webhook server which must be publicly visible. If development is being done using http://localhost, you can use tunnelling software such as [ngrok](https://ngrok.com/) to expose your deveopment server publicly.
+__Note:__ Some of the Node examples utilise a webhook server which must be publicly visible. If development is being done using http://localhost, you can use tunnelling software such as [ngrok](https://ngrok.com/) to expose your development server publicly.
 
 ### Examples
 
