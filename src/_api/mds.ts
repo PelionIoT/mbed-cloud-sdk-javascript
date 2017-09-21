@@ -650,7 +650,7 @@ export class SubscriptionsApi extends ApiBase {
      * Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
      * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
      */
-    public v2SubscriptionsDeviceIdGet(deviceId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsDeviceIdGet(deviceId: string, callback?: (error: any, data?: string, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -666,7 +666,7 @@ export class SubscriptionsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
-        return this.request<null>({
+        return this.request<string>({
             url: "/v2/subscriptions/{device-id}".replace("{" + "device-id" + "}", String(deviceId)),
             method: "GET",
             headers: headerParams,
