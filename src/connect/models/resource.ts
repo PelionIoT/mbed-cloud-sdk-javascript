@@ -142,7 +142,18 @@ export class Resource extends EventEmitter {
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
     public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
-    public getValue(cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
+    public getValue(cacheOnly?: any, noResponse?: any, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
+        cacheOnly = cacheOnly || false;
+        noResponse = noResponse || false;
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+        if (typeof cacheOnly === "function") {
+            callback = cacheOnly;
+            cacheOnly = false;
+        }
+
         return asyncStyle(done => {
             this._api.getResourceValue(this.deviceId, this.path, cacheOnly, noResponse, done);
         }, callback);
@@ -166,7 +177,13 @@ export class Resource extends EventEmitter {
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public setValue(value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public setValue(value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public setValue(value: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+        noResponse = noResponse || false;
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+
         return asyncStyle(done => {
             this._api.setResourceValue(this.deviceId, this.path, value, noResponse, done);
         }, callback);
@@ -190,7 +207,17 @@ export class Resource extends EventEmitter {
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public execute(functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public execute(functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public execute(functionName?: any, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+        noResponse = noResponse || false;
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+        if (typeof functionName === "function") {
+            callback = functionName;
+            functionName = null;
+        }
+
         return asyncStyle(done => {
             this._api.executeResource(this.deviceId, this.path, functionName, noResponse, done);
         }, callback);
@@ -225,7 +252,13 @@ export class Resource extends EventEmitter {
      * @param callback A function that is passed any error
      */
     public delete(noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public delete(noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public delete(noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+        noResponse = noResponse || false;
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+
         return asyncStyle(done => {
             this._api.deleteResource(this.deviceId, this.path, noResponse, done);
         }, callback);

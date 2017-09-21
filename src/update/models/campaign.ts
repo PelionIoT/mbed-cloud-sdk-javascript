@@ -117,6 +117,12 @@ export class Campaign {
      */
     public listDeviceStates(options?: ListOptions, callback?: CallbackFn<ListResponse<CampaignDeviceState>>): void;
     public listDeviceStates(options?: ListOptions, callback?: CallbackFn<ListResponse<CampaignDeviceState>>): Promise<ListResponse<CampaignDeviceState>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
         return asyncStyle(done => {
             this._api.listCampaignDeviceStates(this.id, options, done);
         }, callback);
