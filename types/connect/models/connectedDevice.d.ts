@@ -33,12 +33,12 @@ export declare class ConnectedDevice {
      * List a device's subscriptions
      * @returns Promise containing the subscriptions
      */
-    listSubscriptions(): Promise<any>;
+    listSubscriptions(): Promise<string>;
     /**
      * List a device's subscriptions
      * @param callback A function that is passed (error, subscriptions)
      */
-    listSubscriptions(callback: CallbackFn<any>): void;
+    listSubscriptions(callback: CallbackFn<string>): void;
     /**
      * Removes a device's subscriptions
      * @returns Promise containing any error
