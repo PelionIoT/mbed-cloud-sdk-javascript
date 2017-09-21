@@ -706,7 +706,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @returns Promise containing the subscriptions
      */
-    public listDeviceSubscriptions(deviceId: string): Promise<any>;
+    public listDeviceSubscriptions(deviceId: string): Promise<string>;
     /**
      * List a device's subscriptions
      *
@@ -722,8 +722,8 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param callback A function that is passed (error, subscriptions)
      */
-    public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<any>): void;
-    public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<any>): Promise<any> {
+    public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<string>): void;
+    public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<string>): Promise<string> {
         return apiWrapper(resultsFn => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdGet(deviceId, resultsFn);
         }, (data, done) => {
