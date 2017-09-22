@@ -39,7 +39,7 @@ export class EndpointsBase {
         if (response) {
             statusCode = response.statusCode;
             headers = response.headers;
-            body = response.body;
+            body = response.body || response.text;
             request = response.request || response.req;
         }
 
