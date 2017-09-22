@@ -60,7 +60,7 @@ deployment:
       - git commit --allow-empty --message "Automatic Deployment"
       - git push
   release:
-    branch: release
+    branch: /[0-9]+\.[0-9]+.*/
     commands:
       - echo Tagging $SDK_NAME in GitHub...
       - git tag ${SDK_TAG}
