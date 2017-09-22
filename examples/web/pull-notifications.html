@@ -66,18 +66,6 @@
             });
         }
 
-        // Clear any webhook
-        function clearWebhook(completeFn) {
-            connect.getWebhook(function(error, webhook) {
-                if (!webhook) {
-                    completeFn();
-                    return;
-                }
-
-                connect.deleteWebhook(completeFn);
-            });
-        }
-
         // Dom element builder
         function buildElement(type, parent, value) {
             var element = document.createElement(type);
@@ -95,9 +83,7 @@
         }
 
         // Start pull notifications
-        clearWebhook(function() {
-            connect.startNotifications();
-        });
+        connect.startNotifications();
 
         window.addEventListener("unload", function() {
             connect.stopNotifications();
