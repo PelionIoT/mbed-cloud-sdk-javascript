@@ -76,9 +76,10 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
 
 The web bundles support the [Universal Module Definition](https://github.com/umdjs/umd) specification and as such can be loaded using [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) module loaders such as [RequireJS](http://requirejs.org/), [CommonJS](https://en.wikipedia.org/wiki/CommonJS) module loaders such as Node.js or by using [browser globals](http://vanilla-js.com/).
 
-The examples don't use a module loader, so each bundle is available as a browser global under the `MbedCloudSDK` namespace. To run an example, simply open it in a browser once a valid API key has been added.
+The web examples don't use a module loader, so each bundle is available as a browser global under the `MbedCloudSDK` namespace.
 
-__Note:__ Mbed Cloud is protected with [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) which restricts cross-origin calls from unknown domains. The domain `localhost` has been whitelisted for Mbed Cloud to enable local development, but until your production server domain has been whitelisted, you may disable CORS support in your browser using [command line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi). This is only a concern for pure in-browser support.
+__Note:__ [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) protects Mbed Cloud. CORS rules are a browser security feature which restricts cross-origin calls from unknown domains and is only a concern when you use the SDKs directly in a browser (not Node.js).
+If using the SDKs in a browser (perhaps for a single page web application), the domain `localhost` has been whitelisted for Mbed Cloud to enable local development. Before deploying to production, any public domain will need to be whitelisted to avoid CORS restrictions. To do this, please contact Mbed Cloud support.
 
 ### API Keys
 
