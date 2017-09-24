@@ -11,7 +11,7 @@ The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exp
 The SDK is distributed using npm. To install the package in your project:
 
 ```bash
-$ npm install ARMmbed/mbed-cloud-sdk-javascript#release
+$ npm install mbed-cloud-sdk
 ```
 
 `/node_modules/mbed-cloud-sdk` now contains:
@@ -67,8 +67,8 @@ var connect = new MbedCloudSDK.ConnectApi({
 	apiKey: "<Mbed Cloud API Key>"
 });
 
-connect.listConnectedDevices(function(error, devices) {
-	devices.forEach(function(device) {
+connect.listConnectedDevices(function(error, result) {
+	result.data.forEach(function(device) {
 		console.log(device.id);
 	});
 });
@@ -84,7 +84,8 @@ You can also use all bundles by including `index.min.js`:
 
 __Warning:__ It is not advisable to embed your API key into distributed code such as client-side web pages. For production scenarios, developers may want to consider using Node.js for all API calls or to proxy client-side code requests to inject the API key. You can find an example proxy server in the `examples` folder.
 
-__Note:__ [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) protects Mbed Cloud. CORS restricts cross-origin calls from unknown domains. Until you have whitelisted your production server domain for Mbed Cloud, you may disable CORS support in your browser using [command-line switches](http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/) or [extensions](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi). This is only an issue if you are using the SDK's client side; however, the `localhost` domain is already whitelisted to allow local development.
+__Note:__ [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) protects Mbed Cloud. CORS rules are a browser security feature which restricts cross-origin calls from unknown domains and is only a concern when you use the SDKs directly in a browser (not Node.js).
+If using the SDKs in a browser (perhaps for a single page web application), the domain `localhost` has been whitelisted for Mbed Cloud to enable local development. Before deploying to production, any public domain will need to be whitelisted to avoid CORS restrictions. To do this, please contact Mbed Cloud support.
 
 ## Examples
 
