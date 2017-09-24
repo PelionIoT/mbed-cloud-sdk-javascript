@@ -1442,7 +1442,7 @@ export class AccountAdminApi extends ApiBase {
     }
     /**
      * Updates attributes of the account.
-     * An endpoint for updating the account. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for updating the account.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      * @param body Details of the account to be updated.
      */
     public updateMyAccount(body: AccountUpdateReq, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1520,7 +1520,7 @@ export class DeveloperApi extends ApiBase {
 
     /**
      * Create a new API key.
-     * An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      * @param body The details of the API key to be created.
      */
     public createApiKey(body: ApiKeyInfoReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1552,7 +1552,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Delete API key.
-     * An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for deleting the API key.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      * @param apiKey The ID of the API key to be deleted.
      */
     public deleteApiKey(apiKey: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1614,7 +1614,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Get all API keys
-     * An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for retrieving API keys in an array, optionally filtered by the owner.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
      * @param order The order of the records, ASC or DESC; by default ASC
@@ -1829,7 +1829,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Get trusted certificate by ID.
-     * An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
      * @param certId The ID or name of the trusted certificate to be retrieved.
      */
     public getCertificate(certId: string, callback?: (error: any, data?: TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1891,7 +1891,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Get account info.
-     * Returns detailed information about the account. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer AUTH_TOKEN&#39; .
+     * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; .
      * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
      */
     public getMyAccountInfo(include?: string, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1918,7 +1918,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Get API key details.
-     * An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      */
     public getMyApiKey(callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
@@ -1941,7 +1941,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Details of the current user.
-     * An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
      * @param scratchCodes Request to regenerate new emergency scratch codes.
      */
     public getMyUser(scratchCodes?: string, callback?: (error: any, data?: MyUserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -2048,7 +2048,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Update trusted certificate.
-     * An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * An endpoint for updating existing trusted certificates.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
      * @param certId The ID of the trusted certificate to be updated.
      * @param body A trusted certificate object with attributes.
      */
@@ -2088,7 +2088,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Update API key details.
-     * An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      * @param body New API key attributes to be stored.
      */
     public updateMyApiKey(body: ApiKeyUpdateReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -2120,7 +2120,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Update user details.
-     * An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
      * @param body New attributes for the logged in user.
      */
     public updateMyUser(body: UserUpdateReq, callback?: (error: any, data?: UserUpdateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {

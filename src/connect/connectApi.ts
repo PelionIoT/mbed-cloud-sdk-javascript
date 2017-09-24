@@ -288,10 +288,12 @@ export class ConnectApi extends EventEmitter {
                 });
             }
 
-            poll.call(this);
-            this.handleNotifications = true;
+            this.deleteWebhook(() => {
+                poll.call(this);
+                this.handleNotifications = true;
 
-            done(null, null);
+                done(null, null);
+            });
         }, callback);
     }
 
@@ -328,14 +330,16 @@ export class ConnectApi extends EventEmitter {
     public stopNotifications(callback: CallbackFn<void>): void;
     public stopNotifications(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            if (this._pollRequest) {
-                this._pollRequest.abort();
-                this._pollRequest = null;
-            }
+            this._endpoints.notifications.v2NotificationPullDelete(() => {
+                if (this._pollRequest) {
+                    this._pollRequest.abort();
+                    this._pollRequest = null;
+                }
 
-            this.handleNotifications = false;
+                this.handleNotifications = false;
 
-            done(null, null);
+                done(null, null);
+            });
         }, callback);
     }
 
@@ -431,7 +435,7 @@ export class ConnectApi extends EventEmitter {
         }
 
         return asyncStyle(done => {
-            this.deleteWebhook(() => {
+            this._endpoints.notifications.v2NotificationPullDelete(() => {
                 this._endpoints.notifications.v2NotificationCallbackPut({
                     url: url,
                     headers: headers
@@ -706,7 +710,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @returns Promise containing the subscriptions
      */
-    public listDeviceSubscriptions(deviceId: string): Promise<any>;
+    public listDeviceSubscriptions(deviceId: string): Promise<string>;
     /**
      * List a device's subscriptions
      *
@@ -722,8 +726,8 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param callback A function that is passed (error, subscriptions)
      */
-    public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<any>): void;
-    public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<any>): Promise<any> {
+    public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<string>): void;
+    public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<string>): Promise<string> {
         return apiWrapper(resultsFn => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdGet(deviceId, resultsFn);
         }, (data, done) => {

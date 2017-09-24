@@ -72,7 +72,7 @@ export interface DeviceData {
      */
     "host_gateway"?: string;
     /**
-     * The certificate type.
+     * The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
      */
     "device_execution_mode"?: number;
     /**
@@ -233,7 +233,7 @@ export interface DeviceDataPostRequest {
      */
     "host_gateway"?: string;
     /**
-     * The certificate type.
+     * The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
      */
     "device_execution_mode"?: number;
     /**
