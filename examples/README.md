@@ -59,6 +59,11 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
   This example creates (or overwrites) a developer certificate.
   This is then used to create a local `C` header file for connecting a device to Mbed Cloud Connect.
 
+* __Add Trusted Certificate__ [trusted-certificate.js](node/trusted-certificate.js)
+
+  This example creates (or overwrites) a trusted certificate.
+  It creates a private key and x509 certificate locally using openssl and shows how to create a valid signature to upload with the certificate.
+
 * __Webhook Server__ [webhook-server.js](node/webhook-server.js)
 
   This example creates a basic webhook server which registers for callbacks from Mbed Cloud and receives asynchronous notifications.

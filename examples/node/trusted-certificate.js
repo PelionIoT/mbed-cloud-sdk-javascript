@@ -17,26 +17,26 @@
 
 var fs = require("fs");
 var path = require("path");
+var crypto = require("crypto");
 var readline = require("readline");
+var execSync = require('child_process').execSync;
 
 var MbedCloudSDK = require("../../index");
 var config = require("./config");
 
-var certificateName = "header-cert";
-var outputFile = path.join(process.cwd(), "header.h");
-
+var account = new MbedCloudSDK.AccountManagementApi(config);
 var certificates = new MbedCloudSDK.CertificatesApi(config);
+
+var commonName = "trusted-cert";
+var keyFile = path.join(process.cwd(), `${commonName}.key`);
+var certFile = path.join(process.cwd(), `${commonName}.pem`);
 
 // Check for existing certificate with the same name
 function checkCertificate() {
-    return certificates.listCertificates({
-        filter: {
-            type: "developer"
-        }
-    })
+    return certificates.listCertificates()
     .then(certs => {
         var certificate = certs.data.find(cert => {
-            return cert.name === certificateName;
+            return cert.name === commonName;
         });
 
         if (certificate) {
@@ -46,7 +46,7 @@ function checkCertificate() {
                     output: process.stdout
                 });
 
-                rl.question("Developer certificate already exists, overwrite? [y/N] ", answer => {
+                rl.question(`Certificate "${commonName}" already exists, overwrite? [y/N] `, answer => {
                     rl.close();
                     if (answer === "y") {
                         return certificate.delete()
@@ -62,15 +62,47 @@ function checkCertificate() {
     });
 }
 
+// Function to delay a promise chain
+function delay(seconds) {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, seconds * 1000);
+    });
+}
+
 checkCertificate()
 .then(() => {
-    return certificates.addDeveloperCertificate({
-        name: certificateName
+    // Create private key
+    execSync(`openssl genrsa -out ${keyFile} 1024`);
+    console.log(`Private key written to ${keyFile}`);
+    
+    // Create certificate key
+    execSync(`openssl req -new -x509 -days 365 -key ${keyFile} -out ${certFile} -subj '/CN=${commonName}'`);
+    console.log(`x509 certificate written to ${certFile}`);
+
+    // Delay to ensure certificate becomes valid
+    return delay(5);
+})
+.then(() => {
+    // Get account details
+    return account.getAccount();
+})
+.then(account => {
+    // Create sugnature by signing account ID with private key
+    var sign = crypto.createSign('sha256');
+    sign.update(account.id);
+    var signature = sign.sign(fs.readFileSync(keyFile, "utf8"), "base64");
+    console.log(`Signature created`);
+    
+    // Upload certificate
+    return certificates.addCertificate({
+        name: commonName,
+        type: "bootstrap",
+        certificateData: fs.readFileSync(certFile, "utf8"),
+        signature: signature
     });
 })
-.then(certificate => {
-    fs.writeFileSync(outputFile, certificate.headerFile);
-    console.log(`Header file written to ${outputFile}`);
+.then(() => {
+    console.log(`Certificate uploaded with name "${commonName}"`);
 })
 .catch(error => {
     if (error) console.log(error.message || error);

@@ -253,7 +253,7 @@ export class CertificatesApi {
      * certificates.addCertificate({
      *     name: 'CertName',
      *     description: 'SDK generated cert',
-     *     type: 'developer',
+     *     type: 'bootstrap',
      *     signature: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
      *     certificateData: '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'
      * })
