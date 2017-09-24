@@ -179,7 +179,7 @@ export class ApiBase {
                         if (message.error) message = message.error;
                     }
                     innerError = response.error || error;
-                    details = response.body;
+                    details = response.body || response.text;
                 }
 
                 sdkError = new SDKError(message, innerError, details, error.status);

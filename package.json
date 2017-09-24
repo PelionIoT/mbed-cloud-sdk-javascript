@@ -19,7 +19,7 @@
     "SDK"
   ],
   "engines": {
-    "node": ">=4.7.0"
+    "node": ">=4.8.0"
   },
   "scripts": {
     "start": "node examples/proxy/server.js",
