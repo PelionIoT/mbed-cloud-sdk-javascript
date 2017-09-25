@@ -108,10 +108,6 @@ export interface AddDeviceObject extends DeviceObject {
      * The SHA256 checksum of the current firmware image
      */
     firmwareChecksum?: string;
-    /**
-     * The device trust level
-     */
-    trustLevel?: number;
 }
 
 export interface UpdateDeviceObject extends DeviceObject {
@@ -160,7 +156,6 @@ export interface QueryObject {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
         customAttributes?: { [key: string]: ComparisonObject<string> };
@@ -213,7 +208,6 @@ export interface AddQueryObject extends QueryObject {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
         customAttributes?: { [key: string]: ComparisonObject<string> };
@@ -258,7 +252,6 @@ export interface DeviceListOptions extends ListOptions {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
         customAttributes?: { [key: string]: ComparisonObject<string> };
