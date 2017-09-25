@@ -175,7 +175,7 @@ export interface DeviceDataPatchRequest {
      */
     "object"?: string;
     /**
-     * Up to five custom key-value attributes.
+     * Up to five custom key-value attributes. Note that keys cannot start with a number.
      */
     "custom_attributes"?: { [key: string]: string; };
     /**
@@ -237,7 +237,7 @@ export interface DeviceDataPostRequest {
      */
     "device_execution_mode"?: number;
     /**
-     * Up to five custom key-value attributes.
+     * Up to five custom key-value attributes. Note that keys cannot start with a number.
      */
     "custom_attributes"?: { [key: string]: string; };
     /**
@@ -281,10 +281,6 @@ export interface DeviceDataPostRequest {
      */
     "mechanism_url"?: string;
     /**
-     * The device trust level.
-     */
-    "trust_level"?: number;
-    /**
      * The name of the device.
      */
     "name"?: string;
@@ -324,7 +320,7 @@ export interface DeviceDataPutRequest {
      */
     "object"?: string;
     /**
-     * Up to five custom key-value attributes.
+     * Up to five custom key-value attributes. Note that keys cannot start with a number.
      */
     "custom_attributes"?: { [key: string]: string; };
     /**
