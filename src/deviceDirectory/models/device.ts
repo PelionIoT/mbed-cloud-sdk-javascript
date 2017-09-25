@@ -45,10 +45,6 @@ export class Device {
      * The timestamp of the current manifest version
      */
     public readonly manifestTimestamp?: Date;
-    /**
-     * The device execution mode
-     */
-    public readonly deviceExecutionMode?: number;
 
     constructor(init?: Partial<Device>, private _api?: DeviceDirectoryApi) {
         for (const key in init) {

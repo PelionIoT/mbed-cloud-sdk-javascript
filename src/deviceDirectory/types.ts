@@ -73,6 +73,10 @@ export interface AddDeviceObject extends DeviceObject {
      */
     deviceClass?: string;
     /**
+     * The certificate type
+     */
+    deviceExecutionMode?: number;
+    /**
      * The serial number of the device
      */
     serialNumber?: string;
