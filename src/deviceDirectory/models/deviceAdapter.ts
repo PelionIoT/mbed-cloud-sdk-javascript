@@ -72,7 +72,6 @@ export class DeviceAdapter {
             bootstrapped_timestamp:       from.bootstrappedTimestamp,
             ca_id:                        from.certificateIssuerId,
             connector_expiration_date:    from.connectorCertificateExpiration,
-            device_execution_mode:        from.deviceExecutionMode,
             device_key:                   from.certificateFingerprint,
             endpoint_name:                from.alias,
             firmware_checksum:            from.firmwareChecksum,
