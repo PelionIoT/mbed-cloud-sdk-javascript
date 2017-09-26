@@ -81,6 +81,12 @@ export class Group {
      */
     public listUsers(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): void;
     public listUsers(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
         return asyncStyle(done => {
             this._api.listGroupUsers(this.id, options, done);
         }, callback);
@@ -99,6 +105,12 @@ export class Group {
      */
     public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): void;
     public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
         return asyncStyle(done => {
             this._api.listGroupApiKeys(this.id, options, done);
         }, callback);
