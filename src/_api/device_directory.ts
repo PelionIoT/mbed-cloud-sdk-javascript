@@ -128,10 +128,6 @@ export interface DeviceData {
      */
     "mechanism_url"?: string;
     /**
-     * The device trust level.
-     */
-    "trust_level"?: number;
-    /**
      * The name of the device.
      */
     "name"?: string;
