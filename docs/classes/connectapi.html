@@ -1500,7 +1500,7 @@ connect.getResourceValue(deviceId, resourceURI, <span class="hljs-function"><spa
 				<a name="listconnecteddevices" class="tsd-anchor"></a>
 				<h3>list<wbr>Connected<wbr>Devices</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/devicelistoptions.html" class="tsd-signature-type">DeviceListOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1510,8 +1510,13 @@ connect.getResourceValue(deviceId, resourceURI, <span class="hljs-function"><spa
 							<div class="lead">
 								<p>List connected devices</p>
 							</div>
-							<p>Example: (The following filters all connected devices to those with custom device type <code>QuickstartDevice</code>):</p>
-							<pre><code class="lang-JavaScript">connect.listConnectedDevices(<span class="hljs-string">"QuickstartDevice"</span>)
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.listConnectedDevices({
+    <span class="hljs-attr">filter</span>: {
+        <span class="hljs-attr">createdAt</span>: { <span class="hljs-attr">$gte</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"01-01-2014"</span>), <span class="hljs-attr">$lte</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"01-01-2018"</span>) },
+        <span class="hljs-attr">updatedAt</span>: { <span class="hljs-attr">$gte</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"01-01-2014"</span>), <span class="hljs-attr">$lte</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"01-01-2018"</span>) }
+    }
+})
 .then(<span class="hljs-function"><span class="hljs-params">devices</span> =&gt;</span> {
     <span class="hljs-comment">// Utilize devices here</span>
 })
@@ -1523,18 +1528,18 @@ connect.getResourceValue(deviceId, resourceURI, <span class="hljs-function"><spa
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <span class="tsd-signature-type">string</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/devicelistoptions.html" class="tsd-signature-type">DeviceListOptions</a></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>Filter devices by device type</p>
+									<p>list options</p>
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p>Promise of connected devices</p>
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/devicelistoptions.html" class="tsd-signature-type">DeviceListOptions</a>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><a href="listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1544,8 +1549,13 @@ connect.getResourceValue(deviceId, resourceURI, <span class="hljs-function"><spa
 							<div class="lead">
 								<p>List connected devices</p>
 							</div>
-							<p>Example: (The following filters all connected devices to those with custom device type <code>QuickstartDevice</code>):</p>
-							<pre><code class="lang-JavaScript">connect.listConnectedDevices(<span class="hljs-string">"QuickstartDevice"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, devices</span>) </span>{
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.listConnectedDevices({
+    <span class="hljs-attr">filter</span>: {
+        <span class="hljs-attr">createdAt</span>: { <span class="hljs-attr">$gte</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"01-01-2014"</span>), <span class="hljs-attr">$lte</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"01-01-2018"</span>) },
+        <span class="hljs-attr">updatedAt</span>: { <span class="hljs-attr">$gte</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"01-01-2014"</span>), <span class="hljs-attr">$lte</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"01-01-2018"</span>) }
+    }
+}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, devices</span>) </span>{
     <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
     <span class="hljs-comment">// Utilize devices here</span>
 });
@@ -1554,10 +1564,13 @@ connect.getResourceValue(deviceId, resourceURI, <span class="hljs-function"><spa
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <span class="tsd-signature-type">string</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/devicelistoptions.html" class="tsd-signature-type">DeviceListOptions</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>list options</p>
+								</div>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><a href="listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>A function that is passed the arguments (error, devices)</p>
 								</div>

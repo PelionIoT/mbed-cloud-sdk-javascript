@@ -127,6 +127,25 @@
    }
  }
 </code></pre>
+					<h3 id="other-example-filters">Other example filters</h3>
+					<p>Currently connected devices:</p>
+					<pre><code>filter: {
+    <span class="hljs-keyword">state</span>: { <span class="hljs-variable">$eq</span>: <span class="hljs-string">"registered"</span> }
+}
+</code></pre><p>Directly connected devices (not via gateways):</p>
+					<pre><code>filter: {
+    hostGateway: { $eq: <span class="hljs-string">""</span> },
+    deviceType: { $eq: <span class="hljs-string">""</span> }
+}
+</code></pre><p>Devices connected via gateways:</p>
+					<pre><code><span class="hljs-selector-tag">filter</span>: {
+    <span class="hljs-attribute">hostGateway</span>: { $neq: <span class="hljs-string">""</span> }
+}
+</code></pre><p>Gateway devices:</p>
+					<pre><code><span class="hljs-selector-tag">filter</span>: {
+    <span class="hljs-attribute">deviceType</span>: { $eq: <span class="hljs-string">"MBED_GW"</span> }
+}
+</code></pre>
 				</div>
 				<div class="tsd-type-declaration">
 					<h4>Type declaration</h4>
@@ -170,7 +189,13 @@
 							<h5><span class="tsd-flag ts-flagOptional">Optional</span> device<wbr>Class<span class="tsd-signature-symbol">?: </span><a href="comparisonobject.html" class="tsd-signature-type">ComparisonObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
 						</li>
 						<li class="tsd-parameter">
+							<h5><span class="tsd-flag ts-flagOptional">Optional</span> device<wbr>Type<span class="tsd-signature-symbol">?: </span><a href="comparisonobject.html" class="tsd-signature-type">ComparisonObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+						</li>
+						<li class="tsd-parameter">
 							<h5><span class="tsd-flag ts-flagOptional">Optional</span> firmware<wbr>Checksum<span class="tsd-signature-symbol">?: </span><a href="comparisonobject.html" class="tsd-signature-type">ComparisonObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+						</li>
+						<li class="tsd-parameter">
+							<h5><span class="tsd-flag ts-flagOptional">Optional</span> host<wbr>Gateway<span class="tsd-signature-symbol">?: </span><a href="comparisonobject.html" class="tsd-signature-type">ComparisonObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
 						</li>
 						<li class="tsd-parameter">
 							<h5><span class="tsd-flag ts-flagOptional">Optional</span> manifest<wbr>Timestamp<span class="tsd-signature-symbol">?: </span><a href="comparisonobject.html" class="tsd-signature-type">ComparisonObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">&gt;</span></h5>

@@ -94,6 +94,8 @@ export interface CampaignObject {
         trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
+        deviceType?: ComparisonObject<string>;
+        hostGateway?: ComparisonObject<string>;
         customAttributes?: {
             [key: string]: ComparisonObject<string>;
         };

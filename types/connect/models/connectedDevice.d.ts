@@ -1,24 +1,13 @@
 import { CallbackFn } from "../../common/interfaces";
 import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
+import { Device } from "../../deviceDirectory/models/device";
 /**
  * Connected Device
  */
-export declare class ConnectedDevice {
-    private _api;
-    /**
-     * The ID of the device
-     */
-    readonly id: string;
-    /**
-     * Determines whether the device is in queue mode.
-     */
-    readonly queueMode?: boolean;
-    /**
-     * Type of endpoint. (Free text)
-     */
-    readonly type?: string;
-    constructor(init?: Partial<ConnectedDevice>, _api?: ConnectApi);
+export declare class ConnectedDevice extends Device {
+    private _connectApi;
+    constructor(init?: Partial<Device>, _connectApi?: ConnectApi);
     /**
      * List device's resources
      * @returns Promise of device resources
