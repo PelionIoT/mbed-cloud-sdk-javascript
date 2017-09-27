@@ -25,14 +25,16 @@ export class Filters {
             "bootstrapCertificateExpiration",
             "certificateFingerprint",
             "certificateIssuerId",
-            "connectorCertificateExpiration"
+            "connectorCertificateExpiration",
+            "deviceType"
         ],
         to: [
             "endpoint_name",
             "bootstrap_expiration_date",
             "device_key",
             "ca_id",
-            "connector_expiration_date"
+            "connector_expiration_date",
+            "endpoint_type"
         ]
     };
 

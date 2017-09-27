@@ -9,7 +9,7 @@
 // ===============================================
 /**
  * Device Directory API
- * This is the API Documentation for the Mbed device directory update service.
+ * This is the API Documentation for the Mbed Device Directory service.
  *
  * OpenAPI spec version: 3
  * 
@@ -72,7 +72,7 @@ export interface DeviceData {
      */
     "host_gateway"?: string;
     /**
-     * The certificate type.
+     * The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
      */
     "device_execution_mode"?: number;
     /**
@@ -128,10 +128,6 @@ export interface DeviceData {
      */
     "mechanism_url"?: string;
     /**
-     * The device trust level.
-     */
-    "trust_level"?: number;
-    /**
      * The name of the device.
      */
     "name"?: string;
@@ -175,7 +171,7 @@ export interface DeviceDataPatchRequest {
      */
     "object"?: string;
     /**
-     * Up to five custom key-value attributes.
+     * Up to five custom key-value attributes. Note that keys cannot start with a number.
      */
     "custom_attributes"?: { [key: string]: string; };
     /**
@@ -233,11 +229,11 @@ export interface DeviceDataPostRequest {
      */
     "host_gateway"?: string;
     /**
-     * The certificate type.
+     * The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
      */
     "device_execution_mode"?: number;
     /**
-     * Up to five custom key-value attributes.
+     * Up to five custom key-value attributes. Note that keys cannot start with a number.
      */
     "custom_attributes"?: { [key: string]: string; };
     /**
@@ -281,10 +277,6 @@ export interface DeviceDataPostRequest {
      */
     "mechanism_url"?: string;
     /**
-     * The device trust level.
-     */
-    "trust_level"?: number;
-    /**
      * The name of the device.
      */
     "name"?: string;
@@ -324,7 +316,7 @@ export interface DeviceDataPutRequest {
      */
     "object"?: string;
     /**
-     * Up to five custom key-value attributes.
+     * Up to five custom key-value attributes. Note that keys cannot start with a number.
      */
     "custom_attributes"?: { [key: string]: string; };
     /**

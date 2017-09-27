@@ -171,7 +171,7 @@
 certificates.addCertificate({
     <span class="hljs-attr">name</span>: <span class="hljs-string">'CertName'</span>,
     <span class="hljs-attr">description</span>: <span class="hljs-string">'SDK generated cert'</span>,
-    <span class="hljs-attr">type</span>: <span class="hljs-string">'developer'</span>,
+    <span class="hljs-attr">type</span>: <span class="hljs-string">'bootstrap'</span>,
     <span class="hljs-attr">signature</span>: <span class="hljs-string">'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'</span>,
     <span class="hljs-attr">certificateData</span>: <span class="hljs-string">'-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'</span>
 })
@@ -212,7 +212,7 @@ certificates.addCertificate({
 certificates.addCertificate({
     <span class="hljs-attr">name</span>: <span class="hljs-string">'CertName'</span>,
     <span class="hljs-attr">description</span>: <span class="hljs-string">'SDK generated cert'</span>,
-    <span class="hljs-attr">type</span>: <span class="hljs-string">'developer'</span>,
+    <span class="hljs-attr">type</span>: <span class="hljs-string">'bootstrap'</span>,
     <span class="hljs-attr">signature</span>: <span class="hljs-string">'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'</span>,
     <span class="hljs-attr">certificateData</span>: <span class="hljs-string">'-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'</span>
 }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, certificate</span>) </span>{
@@ -257,8 +257,7 @@ certificates.addCertificate({
 							<p>Example:</p>
 							<pre><code class="lang-JavaScript">certificates.addDeveloperCertificate({
     <span class="hljs-attr">name</span>: <span class="hljs-string">'CertName'</span>,
-    <span class="hljs-attr">description</span>: <span class="hljs-string">'SDK generated cert'</span>,
-    <span class="hljs-attr">type</span>: <span class="hljs-string">'developer'</span>
+    <span class="hljs-attr">description</span>: <span class="hljs-string">'SDK generated cert'</span>
 })
 .then(<span class="hljs-function"><span class="hljs-params">certificate</span> =&gt;</span> {
     <span class="hljs-comment">// Utilize certificate here</span>
@@ -295,8 +294,7 @@ certificates.addCertificate({
 							<p>Example:</p>
 							<pre><code class="lang-JavaScript">certificates.addDeveloperCertificate({
     <span class="hljs-attr">name</span>: <span class="hljs-string">'CertName'</span>,
-    <span class="hljs-attr">description</span>: <span class="hljs-string">'SDK generated cert'</span>,
-    <span class="hljs-attr">type</span>: <span class="hljs-string">'developer'</span>
+    <span class="hljs-attr">description</span>: <span class="hljs-string">'SDK generated cert'</span>
 }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, certificate</span>) </span>{
     <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
     <span class="hljs-comment">// Utilize certificate here</span>
@@ -615,7 +613,7 @@ certificates.addCertificate({
 certificates.updateCertificate({
     <span class="hljs-attr">name</span>: <span class="hljs-string">'CertName'</span>,
     <span class="hljs-attr">description</span>: <span class="hljs-string">'SDK generated cert'</span>,
-    <span class="hljs-attr">type</span>: <span class="hljs-string">'developer'</span>,
+    <span class="hljs-attr">type</span>: <span class="hljs-string">'bootstrap'</span>,
     <span class="hljs-attr">signature</span>: <span class="hljs-string">'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'</span>,
     <span class="hljs-attr">certificateData</span>: <span class="hljs-string">'-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'</span>
 })
@@ -656,7 +654,7 @@ certificates.updateCertificate({
 certificates.updateCertificate({
     <span class="hljs-attr">name</span>: <span class="hljs-string">'CertName'</span>,
     <span class="hljs-attr">description</span>: <span class="hljs-string">'SDK generated cert'</span>,
-    <span class="hljs-attr">type</span>: <span class="hljs-string">'developer'</span>,
+    <span class="hljs-attr">type</span>: <span class="hljs-string">'bootstrap'</span>,
     <span class="hljs-attr">signature</span>: <span class="hljs-string">'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'</span>,
     <span class="hljs-attr">certificateData</span>: <span class="hljs-string">'-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'</span>
 }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, certificate</span>) </span>{

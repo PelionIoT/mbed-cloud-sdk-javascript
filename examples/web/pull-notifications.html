@@ -48,33 +48,13 @@
 
         var connect = new MbedCloudSDK.ConnectApi(window.config);
 
-        // Get specified device or first device
-        var deviceId = "";
+        // Get first device
         function getDevice(completeFn) {
-            if (deviceId) {
-                connect.getDevice(deviceId, function(error, device) {
-                    if (!error) completeFn(device);
-                });
-                return;
-            }
-
             connect.listConnectedDevices(function(error, response) {
                 if (error) return alert(error.message);
 
                 if (response.length == 0) headerEl.innerText = "No Devices Found";
-                else completeFn(response[0]);
-            });
-        }
-
-        // Clear any webhook
-        function clearWebhook(completeFn) {
-            connect.getWebhook(function(error, webhook) {
-                if (!webhook) {
-                    completeFn();
-                    return;
-                }
-
-                connect.deleteWebhook(completeFn);
+                else completeFn(response.data[0]);
             });
         }
 
@@ -95,16 +75,14 @@
         }
 
         // Start pull notifications
-        clearWebhook(function() {
-            connect.startNotifications();
-        });
+        connect.startNotifications();
 
         window.addEventListener("unload", function() {
             connect.stopNotifications();
         });
 
         getDevice(function(device) {
-            headerEl.innerText = "Device: " + (device.name || device.id);
+            headerEl.innerText = "Device: " + device.id;
 
             device.listResources(function(error, resources) {
                 resources.forEach(function(resource) {

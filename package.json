@@ -1,6 +1,6 @@
 {
   "name": "mbed-cloud-sdk",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Mbed Cloud JavaScript SDK",
   "homepage": "https://www.mbed.com",
   "author": "Rob Moran <rob.moran@arm.com>",
@@ -19,7 +19,7 @@
     "SDK"
   ],
   "engines": {
-    "node": ">=4.7.0"
+    "node": ">=4.8.0"
   },
   "scripts": {
     "start": "node examples/proxy/server.js",

@@ -56,10 +56,10 @@
 			<h1 id="mbed-cloud-sdk-for-javascript">Mbed Cloud SDK for JavaScript</h1>
 			<p>The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to JavaScript developers.</p>
 			<h2 id="prerequisite">Prerequisite</h2>
-			<p><a href="https://nodejs.org">Node.js &gt; v4.7.0</a>, which includes <code>npm</code>.</p>
+			<p><a href="https://nodejs.org">Node.js &gt; v4.8.0</a>, which includes <code>npm</code>.</p>
 			<h2 id="installation">Installation</h2>
 			<p>The SDK is distributed using npm. To install the package in your project:</p>
-			<pre><code class="lang-bash">$ npm install ARMmbed/mbed-cloud-sdk-javascript<span class="hljs-comment">#release</span>
+			<pre><code class="lang-bash">$ npm install mbed-cloud-sdk
 </code></pre>
 			<p><code>/node_modules/mbed-cloud-sdk</code> now contains:</p>
 			<ul>
@@ -100,8 +100,8 @@ connect.listConnectedDevices()
     <span class="hljs-attr">apiKey</span>: <span class="hljs-string">"&lt;Mbed Cloud API Key&gt;"</span>
 });
 
-connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, devices</span>) </span>{
-    devices.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">device</span>) </span>{
+connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, result</span>) </span>{
+    result.data.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">device</span>) </span>{
         <span class="hljs-built_in">console</span>.log(device.id);
     });
 });
@@ -111,7 +111,8 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 			<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"&lt;mbed-cloud-sdk&gt;/bundles/index.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 			<p><strong>Warning:</strong> It is not advisable to embed your API key into distributed code such as client-side web pages. For production scenarios, developers may want to consider using Node.js for all API calls or to proxy client-side code requests to inject the API key. You can find an example proxy server in the <code>examples</code> folder.</p>
-			<p><strong>Note:</strong> <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">Cross-origin resource sharing</a> (CORS) protects Mbed Cloud. CORS restricts cross-origin calls from unknown domains. Until you have whitelisted your production server domain for Mbed Cloud, you may disable CORS support in your browser using <a href="http://www.thegeekstuff.com/2016/09/disable-same-origin-policy/">command-line switches</a> or <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi">extensions</a>. This is only an issue if you are using the SDK&#39;s client side; however, the <code>localhost</code> domain is already whitelisted to allow local development.</p>
+			<p><strong>Note:</strong> <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">Cross-origin resource sharing</a> (CORS) protects Mbed Cloud. CORS rules are a browser security feature which restricts cross-origin calls from unknown domains and is only a concern when you use the SDKs directly in a browser (not Node.js).
+			If using the SDKs in a browser (perhaps for a single page web application), the domain <code>localhost</code> has been whitelisted for Mbed Cloud to enable local development. Before deploying to production, any public domain will need to be whitelisted to avoid CORS restrictions. To do this, please contact Mbed Cloud support.</p>
 			<h2 id="examples">Examples</h2>
 			<p>Please refer to the examples folder for some node and web examples.</p>
 		</div>
@@ -138,7 +139,6 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 							<li class="tsd-kind-class"><a href="classes/certificatesapi.html" class="tsd-kind-icon">Certificates<wbr>Api</a></li>
 							<li class="tsd-kind-class"><a href="classes/connectapi.html" class="tsd-kind-icon">Connect<wbr>Api</a></li>
 							<li class="tsd-kind-class"><a href="classes/connecteddevice.html" class="tsd-kind-icon">Connected<wbr>Device</a></li>
-							<li class="tsd-kind-class"><a href="classes/connecteddeviceadapter.html" class="tsd-kind-icon">Connected<wbr>Device<wbr>Adapter</a></li>
 							<li class="tsd-kind-class"><a href="classes/device.html" class="tsd-kind-icon">Device</a></li>
 							<li class="tsd-kind-class"><a href="classes/deviceadapter.html" class="tsd-kind-icon">Device<wbr>Adapter</a></li>
 							<li class="tsd-kind-class"><a href="classes/devicedirectoryapi.html" class="tsd-kind-icon">Device<wbr>Directory<wbr>Api</a></li>

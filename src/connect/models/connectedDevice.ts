@@ -19,26 +19,15 @@ import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
 import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
+import { Device } from "../../deviceDirectory/models/device";
 
 /**
  * Connected Device
  */
-export class ConnectedDevice {
+export class ConnectedDevice extends Device {
 
-    /**
-     * The ID of the device
-     */
-    public readonly id: string;
-    /**
-     * Determines whether the device is in queue mode.
-     */
-    public readonly queueMode?: boolean;
-    /**
-     * Type of endpoint. (Free text)
-     */
-    public readonly type?: string;
-
-    constructor(init?: Partial<ConnectedDevice>, private _api?: ConnectApi) {
+    constructor(init?: Partial<Device>, private _connectApi?: ConnectApi) {
+        super();
         for (const key in init) {
             if (init.hasOwnProperty(key)) {
                 this[key] = init[key];
@@ -58,7 +47,7 @@ export class ConnectedDevice {
     public listResources(callback: CallbackFn<Array<Resource>>): void;
     public listResources(callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
         return asyncStyle(done => {
-            this._api.listResources(this.id, done);
+            this._connectApi.listResources(this.id, done);
         }, callback);
     }
 
@@ -66,15 +55,15 @@ export class ConnectedDevice {
      * List a device's subscriptions
      * @returns Promise containing the subscriptions
      */
-    public listSubscriptions(): Promise<any>;
+    public listSubscriptions(): Promise<string>;
     /**
      * List a device's subscriptions
      * @param callback A function that is passed (error, subscriptions)
      */
-    public listSubscriptions(callback: CallbackFn<any>): void;
-    public listSubscriptions(callback?: CallbackFn<any>): Promise<any> {
+    public listSubscriptions(callback: CallbackFn<string>): void;
+    public listSubscriptions(callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
-            this._api.listDeviceSubscriptions(this.id, done);
+            this._connectApi.listDeviceSubscriptions(this.id, done);
         }, callback);
     }
 
@@ -90,7 +79,7 @@ export class ConnectedDevice {
     public deleteSubscriptions(callback: CallbackFn<void>): void;
     public deleteSubscriptions(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._api.deleteDeviceSubscriptions(this.id, done);
+            this._connectApi.deleteDeviceSubscriptions(this.id, done);
         }, callback);
     }
 
@@ -114,9 +103,20 @@ export class ConnectedDevice {
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
     public getResourceValue(path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
-    public getResourceValue(path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
+    public getResourceValue(path: string, cacheOnly?: any, noResponse?: any, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
+        cacheOnly = cacheOnly || false;
+        noResponse = noResponse || false;
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+        if (typeof cacheOnly === "function") {
+            callback = cacheOnly;
+            cacheOnly = false;
+        }
+
         return asyncStyle(done => {
-            this._api.getResourceValue(this.id, path, cacheOnly, noResponse, done);
+            this._connectApi.getResourceValue(this.id, path, cacheOnly, noResponse, done);
         }, callback);
     }
 
@@ -140,9 +140,15 @@ export class ConnectedDevice {
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public setResourceValue(path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public setResourceValue(path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public setResourceValue(path: string, value: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+        noResponse = noResponse || false;
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+
         return asyncStyle(done => {
-            this._api.setResourceValue(this.id, path, value, noResponse, done);
+            this._connectApi.setResourceValue(this.id, path, value, noResponse, done);
         }, callback);
     }
 
@@ -166,9 +172,19 @@ export class ConnectedDevice {
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public executeResource(path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public executeResource(path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public executeResource(path: string, functionName?: any, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+        noResponse = noResponse || false;
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+        if (typeof functionName === "function") {
+            callback = functionName;
+            functionName = null;
+        }
+
         return asyncStyle(done => {
-            this._api.executeResource(this.id, path, functionName, noResponse, done);
+            this._connectApi.executeResource(this.id, path, functionName, noResponse, done);
         }, callback);
     }
 
@@ -186,7 +202,7 @@ export class ConnectedDevice {
     public getResourceSubscription(path: string, callback: CallbackFn<boolean>): void;
     public getResourceSubscription(path: string, callback?: CallbackFn<boolean>): Promise<boolean> {
         return asyncStyle(done => {
-            this._api.getResourceSubscription(this.id, path, done);
+            this._connectApi.getResourceSubscription(this.id, path, done);
         }, callback);
     }
 
@@ -210,7 +226,7 @@ export class ConnectedDevice {
     public addResourceSubscription(path: string, notifyFn?: (any) => any, callback?: CallbackFn<string>): void;
     public addResourceSubscription(path: string, notifyFn?: (any) => any, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
-            this._api.addResourceSubscription(this.id, path, notifyFn, done);
+            this._connectApi.addResourceSubscription(this.id, path, notifyFn, done);
         }, callback);
     }
 
@@ -232,7 +248,7 @@ export class ConnectedDevice {
     public deleteResourceSubscription(path: string, callback: CallbackFn<string>): void;
     public deleteResourceSubscription(path: string, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
-            this._api.deleteResourceSubscription(this.id, path, done);
+            this._connectApi.deleteResourceSubscription(this.id, path, done);
         }, callback);
     }
 
@@ -250,9 +266,15 @@ export class ConnectedDevice {
      * @param callback A function that is passed any error
      */
     public deleteResource(path: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public deleteResource(path: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public deleteResource(path: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+        noResponse = noResponse || false;
+        if (typeof noResponse === "function") {
+            callback = noResponse;
+            noResponse = false;
+        }
+
         return asyncStyle(done => {
-            this._api.deleteResource(this.id, path, noResponse, done);
+            this._connectApi.deleteResource(this.id, path, noResponse, done);
         }, callback);
     }
 }

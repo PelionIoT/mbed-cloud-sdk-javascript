@@ -55,7 +55,7 @@ export interface AddDeviceObject extends DeviceObject {
      */
     deviceClass?: string;
     /**
-     * The device class
+     * The device execution mode
      */
     deviceExecutionMode?: number;
     /**
@@ -90,10 +90,6 @@ export interface AddDeviceObject extends DeviceObject {
      * The SHA256 checksum of the current firmware image
      */
     firmwareChecksum?: string;
-    /**
-     * The device trust level
-     */
-    trustLevel?: number;
 }
 export interface UpdateDeviceObject extends DeviceObject {
     /**
@@ -140,9 +136,10 @@ export interface QueryObject {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
+        deviceType?: ComparisonObject<string>;
+        hostGateway?: ComparisonObject<string>;
         customAttributes?: {
             [key: string]: ComparisonObject<string>;
         };
@@ -193,9 +190,10 @@ export interface AddQueryObject extends QueryObject {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
+        deviceType?: ComparisonObject<string>;
+        hostGateway?: ComparisonObject<string>;
         customAttributes?: {
             [key: string]: ComparisonObject<string>;
         };
@@ -220,6 +218,35 @@ export interface DeviceListOptions extends ListOptions {
      *    }
      *  }
      *  ```
+     * ### Other example filters
+     * Currently connected devices:
+     * ```
+     * filter: {
+     *     state: { $eq: "registered" }
+     * }
+     * ```
+     *
+     * Directly connected devices (not via gateways):
+     * ```
+     * filter: {
+     *     hostGateway: { $eq: "" },
+     *     deviceType: { $eq: "" }
+     * }
+     * ```
+     *
+     * Devices connected via gateways:
+     * ```
+     * filter: {
+     *     hostGateway: { $neq: "" }
+     * }
+     * ```
+     *
+     * Gateway devices:
+     * ```
+     * filter: {
+     *     deviceType: { $eq: "MBED_GW" }
+     * }
+     * ```
      */
     filter?: {
         accountId?: ComparisonObject<string>;
@@ -239,9 +266,10 @@ export interface DeviceListOptions extends ListOptions {
         name?: ComparisonObject<string>;
         serialNumber?: ComparisonObject<string>;
         state?: ComparisonObject<string>;
-        trustLevel?: ComparisonObject<string>;
         updatedAt?: ComparisonObject<Date>;
         vendorId?: ComparisonObject<string>;
+        deviceType?: ComparisonObject<string>;
+        hostGateway?: ComparisonObject<string>;
         customAttributes?: {
             [key: string]: ComparisonObject<string>;
         };

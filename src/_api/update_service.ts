@@ -189,7 +189,6 @@ export interface FirmwareManifest {
      * The time the object was updated
      */
     "updated_at": Date;
-    "manifest_contents": ManifestContents;
     /**
      * The entity instance signature
      */
@@ -228,81 +227,6 @@ export interface FirmwareManifestPage {
      * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
     "order"?: FirmwareManifestPageOrderEnum;
-}
-
-export interface ManifestContents {
-    /**
-     * The device class's 128-bit RFC4122 GUID as a hexidecimal digit string
-     */
-    "classId"?: string;
-    /**
-     * The vendor's 128-bit RFC4122 GUID as a hexidecimal digit string
-     */
-    "vendorId"?: string;
-    /**
-     * The manifest format version
-     */
-    "manifestVersion"?: number;
-    /**
-     * A short description of the update
-     */
-    "description"?: string;
-    /**
-     * A 128-bit random field. This is provided by the manifest tool to ensure that the signing algorithm is safe from timing side-channel attacks.
-     */
-    "nonce"?: string;
-    /**
-     * The time the manifest was created. The timestamp is stored as Unix time.
-     */
-    "timestamp"?: number;
-    "encryptionMode"?: ManifestContentsEncryptionMode;
-    /**
-     * A flag that indicates whether the update described by the manifest should be applied as soon as possible
-     */
-    "applyImmediately"?: boolean;
-    /**
-     * The device's 128-bit RFC4122 GUID as a hexidecimal digit string. Each device has a single, unique device ID.
-     */
-    "deviceId"?: string;
-    "payload"?: ManifestContentsPayload;
-}
-
-export interface ManifestContentsEncryptionMode {
-    /**
-     * The kind of hashing, signing, and encryption to use. These modes are available: 1: none-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. No payload encryption is used. 2: aes-128-ctr-ecc-secp256r1-sha256: SHA-256 hashing, ECDSA signatures, using the secp256r1 curve. The payload is encrypted with AES-128 in CTR-mode. 3: none-none-sha256: SHA-256 hashing. No signature is used. No payload encryption is used. This mode is not recommended except over existing, trusted connections. 
-     */
-    "enum"?: number;
-}
-
-export interface ManifestContentsPayload {
-    "format"?: ManifestContentsPayloadFormat;
-    "reference"?: ManifestContentsPayloadReference;
-    /**
-     * An payload storage destination identifier. The identifier specifies where to place the firmware image on the device. For example, when an IoT device has multiple microcontrollers (MCUs), the identifier determines which MCU receives the image.
-     */
-    "storageIdentifier"?: string;
-}
-
-export interface ManifestContentsPayloadFormat {
-    /**
-     * Format of the payload. Can be: 1: raw-binary 2: cbor 3: hex-location-length-data 4: elf 
-     */
-    "enum"?: number;
-}
-
-export interface ManifestContentsPayloadReference {
-    /**
-     * Hex representation of the SHA-256 hash of the payload
-     */
-    "hash"?: string;
-    /**
-     * The payload URI
-     */
-    "uri"?: string;
-    /**
-     * Size of the payload in bytes
-     */
-    "size"?: number;
 }
 
 export type UpdateCampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";

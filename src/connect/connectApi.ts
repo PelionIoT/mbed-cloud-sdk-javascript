@@ -17,6 +17,7 @@
 
 import superagent = require("superagent");
 import { EventEmitter } from "events";
+import { ListResponse } from "../common/listResponse";
 import { asyncStyle, apiWrapper, decodeBase64 } from "../common/functions";
 import { ConnectionOptions, CallbackFn } from "../common/interfaces";
 import { SDKError } from "../common/sdkError";
@@ -28,12 +29,13 @@ import { PresubscriptionAdapter } from "./models/presubscriptionAdapter";
 import { Resource } from "./models/resource";
 import { ResourceAdapter } from "./models/resourceAdapter";
 import { ConnectedDevice } from "./models/connectedDevice";
-import { ConnectedDeviceAdapter } from "./models/connectedDeviceAdapter";
 import { DeviceEventAdapter } from "./models/deviceEventAdapter";
 import { MetricsListOptions, MetricsStartEndListOptions, MetricsPeriodListOptions } from "./types";
 import { Metric } from "./models/metric";
 import { MetricAdapter } from "./models/metricAdapter";
 import { ApiMetadata } from "../common/apiMetadata";
+import { DeviceListOptions } from "../deviceDirectory/types";
+import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
 
 /**
  * ## Connect API
@@ -106,6 +108,7 @@ export class ConnectApi extends EventEmitter {
 
     private readonly ASYNC_KEY = "async-response-id";
 
+    private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
     private _pollRequest: superagent.SuperAgentRequest;
     private _asyncFns: { [key: string]: (error: any, data: any) => any; } = {};
@@ -123,6 +126,7 @@ export class ConnectApi extends EventEmitter {
     constructor(options: ConnectionOptions) {
         super();
         this._endpoints = new Endpoints(options);
+        this._deviceDirectory = new DeviceDirectoryApi(options);
     }
 
     private normalizePath(path?: string): string {
@@ -288,10 +292,12 @@ export class ConnectApi extends EventEmitter {
                 });
             }
 
-            poll.call(this);
-            this.handleNotifications = true;
+            this.deleteWebhook(() => {
+                poll.call(this);
+                this.handleNotifications = true;
 
-            done(null, null);
+                done(null, null);
+            });
         }, callback);
     }
 
@@ -328,14 +334,16 @@ export class ConnectApi extends EventEmitter {
     public stopNotifications(callback: CallbackFn<void>): void;
     public stopNotifications(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            if (this._pollRequest) {
-                this._pollRequest.abort();
-                this._pollRequest = null;
-            }
+            this._endpoints.notifications.v2NotificationPullDelete(() => {
+                if (this._pollRequest) {
+                    this._pollRequest.abort();
+                    this._pollRequest = null;
+                }
 
-            this.handleNotifications = false;
+                this.handleNotifications = false;
 
-            done(null, null);
+                done(null, null);
+            });
         }, callback);
     }
 
@@ -431,7 +439,7 @@ export class ConnectApi extends EventEmitter {
         }
 
         return asyncStyle(done => {
-            this.deleteWebhook(() => {
+            this._endpoints.notifications.v2NotificationPullDelete(() => {
                 this._endpoints.notifications.v2NotificationCallbackPut({
                     url: url,
                     headers: headers
@@ -641,9 +649,14 @@ export class ConnectApi extends EventEmitter {
     /**
      * List connected devices
      *
-     * Example: (The following filters all connected devices to those with custom device type `QuickstartDevice`):
+     * Example:
      * ```JavaScript
-     * connect.listConnectedDevices("QuickstartDevice")
+     * connect.listConnectedDevices({
+     *     filter: {
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
      * .then(devices => {
      *     // Utilize devices here
      * })
@@ -652,39 +665,49 @@ export class ConnectApi extends EventEmitter {
      * });
      * ```
      *
-     * @param type Filter devices by device type
+     * @param options list options
      * @returns Promise of connected devices
      */
-    public listConnectedDevices(type?: string): Promise<Array<ConnectedDevice>>;
+    public listConnectedDevices(options?: DeviceListOptions): Promise<ListResponse<ConnectedDevice>>;
     /**
      * List connected devices
      *
-     * Example: (The following filters all connected devices to those with custom device type `QuickstartDevice`):
+     * Example:
      * ```JavaScript
-     * connect.listConnectedDevices("QuickstartDevice", function(error, devices) {
+     * connect.listConnectedDevices({
+     *     filter: {
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, devices) {
      *     if (error) throw error;
      *     // Utilize devices here
      * });
      * ```
      *
-     * @param options.type Filter devices by device type
+     * @param options list options
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listConnectedDevices(type?: string, callback?: CallbackFn<Array<ConnectedDevice>>): void;
-    public listConnectedDevices(type?: any, callback?: CallbackFn<Array<ConnectedDevice>>): Promise<Array<ConnectedDevice>> {
-        if (typeof type === "function") {
-            callback = type;
-            type = null;
+    public listConnectedDevices(options?: DeviceListOptions, callback?: CallbackFn<ListResponse<ConnectedDevice>>): void;
+    public listConnectedDevices(options?: any, callback?: CallbackFn<ListResponse<ConnectedDevice>>): Promise<ListResponse<ConnectedDevice>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
         }
 
+        // Grab all connected devices
+        options.filter = options.filter || {};
+        options.filter.state = "registered";
+
         return apiWrapper(resultsFn => {
-            this._endpoints.endpoints.v2EndpointsGet(type, resultsFn);
+            this._deviceDirectory.listDevices(options, resultsFn);
         }, (data, done) => {
-            const devices = data.map(device => {
-                return ConnectedDeviceAdapter.map(device, this);
+            const devices = data.data.map(device => {
+                return new ConnectedDevice(device, this);
             });
 
-            done(null, devices);
+            done(null, new ListResponse<ConnectedDevice>(data, devices));
         }, callback);
     }
 
@@ -706,7 +729,7 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @returns Promise containing the subscriptions
      */
-    public listDeviceSubscriptions(deviceId: string): Promise<any>;
+    public listDeviceSubscriptions(deviceId: string): Promise<string>;
     /**
      * List a device's subscriptions
      *
@@ -722,8 +745,8 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param callback A function that is passed (error, subscriptions)
      */
-    public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<any>): void;
-    public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<any>): Promise<any> {
+    public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<string>): void;
+    public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<string>): Promise<string> {
         return apiWrapper(resultsFn => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdGet(deviceId, resultsFn);
         }, (data, done) => {
@@ -864,9 +887,10 @@ export class ConnectApi extends EventEmitter {
      * @param callback A function that is passed any error
      */
     public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public deleteResource(deviceId: string, path: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
         path = this.normalizePath(path);
 
+        noResponse = noResponse || false;
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
@@ -926,9 +950,11 @@ export class ConnectApi extends EventEmitter {
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
     public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
-    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
+    public getResourceValue(deviceId: string, path: string, cacheOnly?: any, noResponse?: any, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
         path = this.normalizePath(path);
 
+        cacheOnly = cacheOnly || false;
+        noResponse = noResponse || false;
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
@@ -936,7 +962,6 @@ export class ConnectApi extends EventEmitter {
         if (typeof cacheOnly === "function") {
             callback = cacheOnly;
             cacheOnly = false;
-            noResponse = false;
         }
 
         return apiWrapper(resultsFn => {
@@ -1001,9 +1026,10 @@ export class ConnectApi extends EventEmitter {
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public setResourceValue(deviceId: string, path: string, value: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
         path = this.normalizePath(path);
 
+        noResponse = noResponse || false;
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
@@ -1069,9 +1095,10 @@ export class ConnectApi extends EventEmitter {
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
     public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): Promise<string> {
+    public executeResource(deviceId: string, path: string, functionName?: any, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
         path = this.normalizePath(path);
 
+        noResponse = noResponse || false;
         if (typeof noResponse === "function") {
             callback = noResponse;
             noResponse = false;
@@ -1079,7 +1106,6 @@ export class ConnectApi extends EventEmitter {
         if (typeof functionName === "function") {
             callback = functionName;
             functionName = null;
-            noResponse = false;
         }
 
         return apiWrapper(resultsFn => {

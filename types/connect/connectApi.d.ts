@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
+import { ListResponse } from "../common/listResponse";
 import { ConnectionOptions, CallbackFn } from "../common/interfaces";
 import { NotificationObject, NotificationOptions, PresubscriptionObject } from "./types";
 import { Webhook } from "./models/webhook";
@@ -8,6 +9,7 @@ import { ConnectedDevice } from "./models/connectedDevice";
 import { MetricsStartEndListOptions, MetricsPeriodListOptions } from "./types";
 import { Metric } from "./models/metric";
 import { ApiMetadata } from "../common/apiMetadata";
+import { DeviceListOptions } from "../deviceDirectory/types";
 /**
  * ## Connect API
  *
@@ -72,6 +74,7 @@ export declare class ConnectApi extends EventEmitter {
      */
     static EVENT_EXPIRED: string;
     private readonly ASYNC_KEY;
+    private _deviceDirectory;
     private _endpoints;
     private _pollRequest;
     private _asyncFns;
@@ -409,9 +412,14 @@ export declare class ConnectApi extends EventEmitter {
     /**
      * List connected devices
      *
-     * Example: (The following filters all connected devices to those with custom device type `QuickstartDevice`):
+     * Example:
      * ```JavaScript
-     * connect.listConnectedDevices("QuickstartDevice")
+     * connect.listConnectedDevices({
+     *     filter: {
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * })
      * .then(devices => {
      *     // Utilize devices here
      * })
@@ -420,25 +428,30 @@ export declare class ConnectApi extends EventEmitter {
      * });
      * ```
      *
-     * @param type Filter devices by device type
+     * @param options list options
      * @returns Promise of connected devices
      */
-    listConnectedDevices(type?: string): Promise<Array<ConnectedDevice>>;
+    listConnectedDevices(options?: DeviceListOptions): Promise<ListResponse<ConnectedDevice>>;
     /**
      * List connected devices
      *
-     * Example: (The following filters all connected devices to those with custom device type `QuickstartDevice`):
+     * Example:
      * ```JavaScript
-     * connect.listConnectedDevices("QuickstartDevice", function(error, devices) {
+     * connect.listConnectedDevices({
+     *     filter: {
+     *         createdAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") },
+     *         updatedAt: { $gte: new Date("01-01-2014"), $lte: new Date("01-01-2018") }
+     *     }
+     * }, function(error, devices) {
      *     if (error) throw error;
      *     // Utilize devices here
      * });
      * ```
      *
-     * @param options.type Filter devices by device type
+     * @param options list options
      * @param callback A function that is passed the arguments (error, devices)
      */
-    listConnectedDevices(type?: string, callback?: CallbackFn<Array<ConnectedDevice>>): void;
+    listConnectedDevices(options?: DeviceListOptions, callback?: CallbackFn<ListResponse<ConnectedDevice>>): void;
     /**
      * List a device's subscriptions
      *
@@ -457,7 +470,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @returns Promise containing the subscriptions
      */
-    listDeviceSubscriptions(deviceId: string): Promise<any>;
+    listDeviceSubscriptions(deviceId: string): Promise<string>;
     /**
      * List a device's subscriptions
      *
@@ -473,7 +486,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param callback A function that is passed (error, subscriptions)
      */
-    listDeviceSubscriptions(deviceId: string, callback: CallbackFn<any>): void;
+    listDeviceSubscriptions(deviceId: string, callback: CallbackFn<string>): void;
     /**
      * Removes a device's subscriptions
      *

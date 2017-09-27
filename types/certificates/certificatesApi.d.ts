@@ -122,8 +122,7 @@ export declare class CertificatesApi {
      * ```JavaScript
      * certificates.addDeveloperCertificate({
      *     name: 'CertName',
-     *     description: 'SDK generated cert',
-     *     type: 'developer'
+     *     description: 'SDK generated cert'
      * })
      * .then(certificate => {
      *     // Utilize certificate here
@@ -144,8 +143,7 @@ export declare class CertificatesApi {
      * ```JavaScript
      * certificates.addDeveloperCertificate({
      *     name: 'CertName',
-     *     description: 'SDK generated cert',
-     *     type: 'developer'
+     *     description: 'SDK generated cert'
      * }, function(error, certificate) {
      *     if (error) throw error;
      *     // Utilize certificate here
@@ -165,7 +163,7 @@ export declare class CertificatesApi {
      * certificates.addCertificate({
      *     name: 'CertName',
      *     description: 'SDK generated cert',
-     *     type: 'developer',
+     *     type: 'bootstrap',
      *     signature: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
      *     certificateData: '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'
      * })
@@ -190,7 +188,7 @@ export declare class CertificatesApi {
      * certificates.addCertificate({
      *     name: 'CertName',
      *     description: 'SDK generated cert',
-     *     type: 'developer',
+     *     type: 'bootstrap',
      *     signature: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
      *     certificateData: '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'
      * }, function(error, certificate) {
@@ -212,7 +210,7 @@ export declare class CertificatesApi {
      * certificates.updateCertificate({
      *     name: 'CertName',
      *     description: 'SDK generated cert',
-     *     type: 'developer',
+     *     type: 'bootstrap',
      *     signature: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
      *     certificateData: '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'
      * })
@@ -237,7 +235,7 @@ export declare class CertificatesApi {
      * certificates.updateCertificate({
      *     name: 'CertName',
      *     description: 'SDK generated cert',
-     *     type: 'developer',
+     *     type: 'bootstrap',
      *     signature: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
      *     certificateData: '-----BEGIN CERTIFICATE-----\nMIICFzCCAbygAwIBAgIQX ... EPSDKEF\n-----END CERTIFICATE-----'
      * }, function(error, certificate) {

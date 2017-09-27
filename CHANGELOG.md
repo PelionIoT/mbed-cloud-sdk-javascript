@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.2.2
+
+### Deliverables
+
+The application is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using npm:
+
+```
+$ npm install ARMmbed/mbed-cloud-sdk-javascript#1.2.2
+```
+
+### Changes
+
+- Updated early access release tracking Mbed Cloud 1.2 APIs
+- Included new example of adding trusted certificate
+- Switched to using device directory and filters for listing connected devices
+- Removed inline manifest contents from firmware manifest
+- Ensure notification channels and webhooks never co-exist
+- Minor doc updates
+
 ## 1.2.1
 
 ### Deliverables
