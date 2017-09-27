@@ -7,7 +7,7 @@
 
 ## Prerequisites
 
-[Node.js > v4.7.0](https://nodejs.org), which includes `npm`.
+[Node.js > v4.8.0](https://nodejs.org), which includes `npm`.
 
 ## Installing
 

@@ -6,7 +6,7 @@ The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exp
 
 ## Prerequisites
 
-[Node.js > v4.7.0](https://nodejs.org), which includes `npm`.
+[Node.js > v4.8.0](https://nodejs.org), which includes `npm`.
 
 ## Installation
 
