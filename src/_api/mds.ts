@@ -282,8 +282,8 @@ export class EndpointsApi extends ApiBase {
         }, callback);
     }
     /**
-     * List registered endpoints. The number of returned endpoints is currently limited to 200.
-     * Endpoints are physical devices having valid registration to mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API [&#39;/v3/devices/&#x60;](/docs/v1.2/api-references/device-directory-api.html#v3-devices).  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H &#39;authorization: Bearer {api-key}&#39;      
+     * (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
+     * Endpoints are physical devices having valid registration to mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API [&#39;/v3/devices/&#x60;](/docs/v1.2/api-references/device-directory-api.html#v3-devices).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [&#x60;/v3/devices/&#x60;](/docs/v1.2/api-references/device-directory-api.html#v3-devices). To list only the registered devices, use filter &#x60;/v3/devices/?filter&#x3D;state%3Dregistered&#x60;.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H &#39;authorization: Bearer {api-key}&#39;      
      * @param type Filter endpoints by endpoint-type.
      */
     public v2EndpointsGet(type?: string, callback?: (error: any, data?: Array<Endpoint>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
