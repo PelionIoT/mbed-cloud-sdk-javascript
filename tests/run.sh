@@ -13,4 +13,4 @@ function finish {
 trap finish EXIT
 
 sleep 1
-python -u testrunner/bin/trunner -s http://localhost:5000
+python3 -u testrunner/bin/trunner -s http://localhost:5000
