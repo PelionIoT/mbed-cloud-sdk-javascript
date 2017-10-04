@@ -25,14 +25,17 @@ checkout:
     - git config --global user.name monty-bot
     - git config --global user.email monty-bot@arm.com
     - git clone https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
+
+dependencies:
+  pre:
+    - npm install -g codecov ansi-html-stream npm
+  post:
     - pip install -r tests/testrunner/requirements.txt
     - python setup.py develop:
         pwd: tests/testrunner
 
-dependencies:
-  pre:
-    - npm install -g npm@latest codecov ansi-html-stream
-  post:
+compile:
+  override:
     - npm run gulp
     - mkdir -p ${SDK_DOCS}
     - cp -r docs/* ${SDK_DOCS}/
