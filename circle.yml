@@ -40,9 +40,11 @@ dependencies:
 
 test:
   pre:
-    - npm install -g ansi-html-stream
+    - npm install -g codecov ansi-html-stream
   override:
     - npm test
+    - codecov coverage/lcov.info
+    - mkdir $CIRCLE_TEST_REPORTS/junit
     - cp junit.xml $CIRCLE_TEST_REPORTS/junit/test-results.xml
     - mkdir ${SDK_COVERAGE}
     - cp -r coverage/* ${SDK_COVERAGE}/
