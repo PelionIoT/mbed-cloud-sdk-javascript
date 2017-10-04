@@ -23,11 +23,12 @@
   },
   "scripts": {
     "start": "node examples/proxy/server.js",
-    "test": "node tests/server.js",
     "gulp": "gulp",
-    "tpip": "nlf --csv --no-dev --reach 1 > tpip.csv"
+    "tpip": "nlf --csv --no-dev --reach 1 > tpip.csv",
+    "test": "intern"
   },
   "devDependencies": {
+    "@types/express": "^4.0.37",
     "@types/node": "^7.0.4",
     "@types/superagent": "^2.0.36",
     "browserify": "^14.0.0",
@@ -41,6 +42,7 @@
     "gulp-typedoc": "^2.0.2",
     "gulp-typescript": "^3.1.6",
     "gulp-uglify": "^2.0.1",
+    "intern": "^4.0.0-rc.0",
     "merge2": "^1.0.3",
     "nlf": "^2.0.0",
     "tslint": "^5.7.0",
