@@ -28,8 +28,9 @@ checkout:
 
 dependencies:
   pre:
-    - npm install -g codecov ansi-html-stream npm
+    - npm install -g npm@latest
   post:
+    - npm install -g codecov ansi-html-stream
     - pip install -r tests/testrunner/requirements.txt
     - python setup.py develop:
         pwd: tests/testrunner
