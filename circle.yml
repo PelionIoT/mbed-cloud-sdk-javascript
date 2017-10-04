@@ -10,7 +10,7 @@ general:
 
 machine:
   node:
-    version: 6.10.0
+    version: 4.8.0
   environment:
     SDK_NAME: ${CIRCLE_PROJECT_REPONAME}
     SDK_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
@@ -30,6 +30,8 @@ checkout:
         pwd: tests/testrunner
 
 dependencies:
+  pre:
+    - npm install -g npm@latest codecov ansi-html-stream
   post:
     - npm run gulp
     - mkdir -p ${SDK_DOCS}
@@ -39,8 +41,6 @@ dependencies:
     - cp tpip.csv ${SDK_TPIP}/
 
 test:
-  pre:
-    - npm install -g codecov ansi-html-stream
   override:
     - mkdir -p ${SDK_TESTS}
     - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" >> ${SDK_TESTS}/index.html:
