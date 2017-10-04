@@ -10,7 +10,7 @@ general:
 
 machine:
   node:
-    version: 4.8.0
+    version: 6.10.0
   environment:
     SDK_NAME: ${CIRCLE_PROJECT_REPONAME}
     SDK_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
