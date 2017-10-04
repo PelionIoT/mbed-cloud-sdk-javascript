@@ -5,8 +5,8 @@
     },
     "coverage": [
         "lib/**/*.js",
-        "!lib/_tests/**",
-        "!lib/_api/**"
+        "!lib/_api/**",
+        "!lib/_tests/**"
     ],
     "reporters+": [
         "htmlcoverage",

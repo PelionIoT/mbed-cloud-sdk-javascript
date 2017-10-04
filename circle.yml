@@ -2,6 +2,7 @@ general:
   artifacts:
     - ~/docs
     - ~/tests
+    - ~/coverage
     - ~/tpip
   branches:
     ignore:
@@ -16,6 +17,7 @@ machine:
     SDK_BRANCH: build
     SDK_DOCS: ${HOME}/docs
     SDK_TESTS: ${HOME}/tests
+    SDK_COVERAGE: ${HOME}/coverage
     SDK_TPIP: ${HOME}/tpip
 
 checkout:
@@ -40,6 +42,10 @@ test:
   pre:
     - npm install -g ansi-html-stream
   override:
+    - npm test
+    - cp junit.xml $CIRCLE_TEST_REPORTS/junit/test-results.xml
+    - mkdir ${SDK_COVERAGE}
+    - cp -r coverage/* ${SDK_COVERAGE}/
     - mkdir ${SDK_TESTS}
     - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${SDK_TESTS}/index.html:
     - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${SDK_TESTS}/index.html:
