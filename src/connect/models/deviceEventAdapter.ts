@@ -39,9 +39,13 @@ export class DeviceEventAdapter {
     }
 
     public static map(from: apiDeviceEvent, api: ConnectApi): DeviceEvent<Resource> {
-        const resources = from.resources.map(resource => {
-            return DeviceEventAdapter.mapResource(resource, from.ep, api);
-        });
+        let resources = [];
+
+        if (from && from.resources) {
+            resources = from.resources.map(resource => {
+                return DeviceEventAdapter.mapResource(resource, from.ep, api);
+            });
+        }
 
         return {
             id:           from.ep,
