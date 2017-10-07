@@ -75,7 +75,7 @@ export function decodeBase64(payload, contentType) {
     if (typeof atob === "function") {
         result = atob(payload);
     } else {
-        result = new Buffer(payload, "base64").toString("utf8");
+        result = new Buffer(payload, "base64").toString("binary");
     }
 
     // According to the swagger, content types can be:
