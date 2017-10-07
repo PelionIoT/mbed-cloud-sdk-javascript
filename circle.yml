@@ -2,6 +2,7 @@ general:
   artifacts:
     - ~/docs
     - ~/tests
+    - ~/coverage
     - ~/tpip
   branches:
     ignore:
@@ -18,6 +19,7 @@ machine:
     SDK_BRANCH: build
     SDK_DOCS: ${HOME}/docs
     SDK_TESTS: ${HOME}/tests
+    SDK_COVERAGE: ${HOME}/coverage
     SDK_TPIP: ${HOME}/tpip
 
 checkout:
@@ -25,25 +27,37 @@ checkout:
     - git config --global user.name monty-bot
     - git config --global user.email monty-bot@arm.com
     - git clone https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
+
+dependencies:
+  pre:
+    - npm install -g npm@latest
+  post:
+    - npm install -g codecov ansi-html-stream
     - pip install -r tests/testrunner/requirements.txt
     - python3 setup.py develop:
         pwd: tests/testrunner
 
-dependencies:
-  post:
+compile:
+  override:
     - npm run gulp
-    - npm run tpip
-    - mkdir ${SDK_DOCS}
-    - mkdir ${SDK_TPIP}
+    - mkdir -p ${SDK_DOCS}
     - cp -r docs/* ${SDK_DOCS}/
+    - npm run tpip
+    - mkdir -p ${SDK_TPIP}
     - cp tpip.csv ${SDK_TPIP}/
 
 test:
-  pre:
-    - npm install -g ansi-html-stream
   override:
-    - mkdir ${SDK_TESTS}
-    - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${SDK_TESTS}/index.html:
+    - mkdir -p ${SDK_TESTS}
+    - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" >> ${SDK_TESTS}/index.html:
+    - echo "<h2>Unit Tests</h2>" >> ${SDK_TESTS}/index.html:
+    - set -o pipefail && npm test 2>&1 | tee /dev/tty | ansi-html >> ${SDK_TESTS}/index.html:
+    - codecov coverage/lcov.info
+    - mkdir -p ${CIRCLE_TEST_REPORTS}/junit
+    - cp junit.xml $CIRCLE_TEST_REPORTS/junit/test-results.xml
+    - mkdir -p ${SDK_COVERAGE}
+    - cp -r coverage/* ${SDK_COVERAGE}/
+    - echo "<h2>Integration Tests</h2>" >> ${SDK_TESTS}/index.html:
     - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${SDK_TESTS}/index.html:
         pwd: tests
 

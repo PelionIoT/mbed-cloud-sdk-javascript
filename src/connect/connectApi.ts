@@ -215,7 +215,7 @@ export class ConnectApi extends EventEmitter {
                 const fn = this._asyncFns[asyncID];
                 if (fn) {
                     if (response.status >= 400) {
-                        const error = new SDKError(response.error || response.status);
+                        const error = new SDKError(response.error || response.status, null, null, response.status);
                         fn(error, null);
                     } else {
                         const body = response.payload ? decodeBase64(response.payload, response.ct) : null;
@@ -843,6 +843,63 @@ export class ConnectApi extends EventEmitter {
             });
 
             done(null, resources);
+        }, callback);
+    }
+
+    /**
+     * Get a resource
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceId = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * connect.getResource(deviceId, resourceURI)
+     * .then(resource => {
+     *     // Utilize resource here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * @param deviceId Device ID
+     * @param path Path of the resource to get
+     * @returns Promise of device resource
+     */
+    public getResource(deviceId: string, path: string): Promise<Resource>;
+    /**
+     * Get a resource
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceId = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * connect.getResource(deviceId, resourceURI, function(error, resource) {
+     *     if (error) throw error;
+     *     // Utilize resource here
+     * });
+     * ```
+     *
+     * @param deviceId Device ID
+     * @param path Path of the resource to get
+     * @param callback A function that is passed the arguments (error, resource)
+     */
+    public getResource(deviceId: string, path: string, callback?: CallbackFn<Resource>): void;
+    public getResource(deviceId: string, path: string, callback?: CallbackFn<Resource>): Promise<Resource> {
+        path = this.normalizePath(path);
+
+        return apiWrapper(resultsFn => {
+            this._endpoints.endpoints.v2EndpointsDeviceIdGet(deviceId, resultsFn);
+        }, (data, done) => {
+            const found = data.find(resource => {
+                return this.normalizePath(resource.uri) === path;
+            });
+
+            if (!found) {
+                return done(new SDKError("Resource not found"), null);
+            }
+
+            done(null, ResourceAdapter.map(found, deviceId, this));
         }, callback);
     }
 

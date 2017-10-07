@@ -18,7 +18,11 @@ var docsToc = "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryAp
 
 var srcDir = "src";
 var srcFiles = srcDir + "/**/*.ts";
-var srcFilesOnly = [srcFiles, "!" + srcDir + "/_api/**"];
+var srcFilesOnly = [
+    srcFiles,
+    "!" + srcDir + "/_api/**",
+    "!" + srcDir + "/_tests/**"
+];
 var docsDir = "docs";
 var nodeDir = "lib";
 var typesDir = "types";
@@ -77,7 +81,13 @@ gulp.task("doc", function() {
 gulp.task("typescript", ["clean"], function() {
     var options = {
         target: "es5",
-        lib: ["dom", "es5", "es2015.promise"],
+        types: ["intern"],
+        lib: [
+            "dom",
+            "es5",
+            "es2015.promise",
+            "es2015.symbol.wellknown"
+        ],
         alwaysStrict: true,
         noEmitOnError: true,
         noUnusedLocals: true,
@@ -87,8 +97,10 @@ gulp.task("typescript", ["clean"], function() {
 
     return merge([
         gulp.src(srcFiles)
+            .pipe(sourcemaps.init())
             .pipe(ts(options))
             .on("error", handleError).js
+            .pipe(sourcemaps.write("./"))
             .pipe(gulp.dest(nodeDir)),
         gulp.src(srcFilesOnly)
             .pipe(ts(options))

@@ -105,7 +105,7 @@ export class ApiBase {
         return param.toString();
     }
 
-    protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, useFormData: boolean, formParams: {}, json?: boolean, body?: any }, callback?: (sdkError: SDKError, data: T, response: superagent.Response) => any): superagent.SuperAgentRequest {
+    protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, useFormData: boolean, formParams: {}, json?: boolean, body?: any }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest {
 
         // Normalize slashes in url
         const url = options.url.replace(/([:])?\/+/g, ($0, $1) => {
@@ -153,6 +153,7 @@ export class ApiBase {
             if (options.json) {
                 request.type("application/json");
 
+                // Remove empty or undefined json parameters
                 if (body.constructor === {}.constructor) {
                     body = Object.keys(body).reduce((val, key) => {
                         if (body[key] !== null && body[key] !== undefined) val[key] = body[key];
@@ -165,47 +166,7 @@ export class ApiBase {
         }
 
         request.end((error, response) => {
-
-            let sdkError = null;
-            if (error) {
-                let message = error.message;
-                let innerError = error;
-                let details = "";
-
-                if (response) {
-                    if (response.error) message = response.error.message;
-                    if (response.body && response.body.message) {
-                        message = response.body.message;
-                        if (message.error) message = message.error;
-                    }
-                    innerError = response.error || error;
-                    details = response.body || response.text;
-                }
-
-                sdkError = new SDKError(message, innerError, details, error.status);
-            }
-
-            if (this.responseHandler) {
-                this.responseHandler(sdkError, response);
-            }
-
-            if (callback) {
-                let data: T = null;
-
-                if (response && !sdkError) {
-                    data = response.body || response.text;
-                }
-
-                if (options.json && typeof data === "object") {
-                    data = JSON.parse(JSON.stringify(data), (_key, value) => {
-                        // Check for date
-                        if (DATE_REGEX.test(value)) return new Date(value);
-                        return value;
-                    });
-                }
-
-                callback(sdkError, data, response);
-            }
+            this.complete(error, response, options.json, callback);
         });
 
         if (body && process && process.env && process.env.DEBUG === "superagent") {
@@ -215,5 +176,49 @@ export class ApiBase {
         }
 
         return request;
+    }
+
+    protected complete(error: any, response: any, json: boolean, callback?: (sdkError: SDKError, data) => any) {
+        let sdkError = null;
+
+        if (error) {
+            let message = error.message;
+            let innerError = error;
+            let details = "";
+
+            if (response) {
+                if (response.error) message = response.error.message;
+                if (response.body && response.body.message) {
+                    message = response.body.message;
+                    if (message.error) message = message.error;
+                }
+                innerError = response.error || error;
+                details = response.body || response.text;
+            }
+
+            sdkError = new SDKError(message, innerError, details, error.status);
+        }
+
+        if (this.responseHandler) {
+            this.responseHandler(sdkError, response);
+        }
+
+        if (callback) {
+            let data = null;
+
+            if (response && !sdkError) {
+                data = response.body || response.text;
+            }
+
+            if (json && typeof data === "object") {
+                data = JSON.parse(JSON.stringify(data), (_key, value) => {
+                    // Check for date
+                    if (DATE_REGEX.test(value)) return new Date(value);
+                    return value;
+                });
+            }
+
+            callback(sdkError, data);
+        }
     }
 }
