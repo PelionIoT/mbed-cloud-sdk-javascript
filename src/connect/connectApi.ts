@@ -215,7 +215,7 @@ export class ConnectApi extends EventEmitter {
                 const fn = this._asyncFns[asyncID];
                 if (fn) {
                     if (response.status >= 400) {
-                        const error = new SDKError(response.error || response.status);
+                        const error = new SDKError(response.error || response.status, null, null, response.status);
                         fn(error, null);
                     } else {
                         const body = response.payload ? decodeBase64(response.payload, response.ct) : null;

@@ -2,10 +2,12 @@
 .DS_Store
 node_modules
 tests/testrunner
-test
+coverage
 bundles
 docs
 lib
 types
+test
+junit.xml
 package-lock.json
 tpip.csv

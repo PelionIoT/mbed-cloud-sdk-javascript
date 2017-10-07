@@ -1,0 +1,16 @@
+{
+    "name": "Mbed Cloud SDK for JavaScript",
+    "node": {
+        "suites": "lib/_tests/**/*.js"        
+    },
+    "coverage": [
+        "lib/**/*.js",
+        "!lib/_api/**",
+        "!lib/_tests/**"
+    ],
+    "reporters+": [
+        "htmlcoverage",
+        { "name": "lcov", "options": { "filename": "lcov.info" }},
+        { "name": "junit", "options": { "filename": "junit.xml" }}
+    ]
+}
