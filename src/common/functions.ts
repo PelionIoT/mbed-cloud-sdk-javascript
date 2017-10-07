@@ -129,16 +129,18 @@ export function camelToSnake(camel) {
     });
 }
 
-export function extractFilter(filter: { [key: string]: ComparisonObject<any> }, name: string, defaultValue: any = null): any {
+export function extractFilter(filter: { [key: string]: ComparisonObject<any> | string }, name: string, defaultValue: any = null): any {
+
     if (filter && filter[name]) {
-        if (filter[name].constructor !== {}.constructor) return filter[name];
-        if (filter[name].$eq) return filter[name].$eq;
+        const value = filter[name];
+        if (value.constructor !== {}.constructor) return value;
+        if ((value as ComparisonObject<any>).$eq) return (value as ComparisonObject<any>).$eq;
     }
 
     return defaultValue;
 }
 
-export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, map: { from: Array<string>, to: Array<string> }, nested: Array<string> = []): string {
+export function encodeFilter(filter: { [key: string]: ComparisonObject<any> | string | {} }, map: { from: Array<string>, to: Array<string> } = { from: [], to: [] }, nested: Array<string> = []): string {
     if (!filter) return "";
 
     function encode(name, operator, value, prefix: string = "") {
@@ -180,7 +182,7 @@ export function encodeFilter(filter: { [key: string]: ComparisonObject<any> }, m
     }).join("&");
 }
 
-export function decodeFilter(from: string, map: { from: Array<string>, to: Array<string> }, nested: Array<string> = []): { [key: string]: ComparisonObject<any> } {
+export function decodeFilter(from: string, map: { from: Array<string>, to: Array<string> } = { from: [], to: [] }, nested: Array<string> = []): { [key: string]: ComparisonObject<any> | {} } {
     const filter: { [key: string]: ComparisonObject<any> } = {};
 
     function decodeName(name: string): string {

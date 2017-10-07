@@ -1,9 +1,25 @@
+/*
+* Mbed Cloud JavaScript SDK
+* Copyright Arm Limited 2017
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
 const { suite, test, beforeEach } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
 import { ConnectApi } from "../connect/connectApi";
 
-// Test connectApi events and notifications
 suite("connectEvents", () => {
 
     let api: ConnectApi;
@@ -144,6 +160,49 @@ suite("connectEvents", () => {
         });
     });
 
+    test("should emit multiple", ctx => {
+
+        const notifications = {
+            "notifications": [ "1", "2" ],
+            "registrations": [ "1", "2" ],
+            "reg-updates": [ "1", "2" ],
+            "de-registrations": [ "1", "2" ],
+            "registrations-expired": [ "1", "2" ]
+        };
+
+        const notificationCount = Object.keys(notifications).length * 2;
+        const dfd = ctx.async(1000, notificationCount);
+
+        api.on(ConnectApi.EVENT_NOTIFICATION, () => {
+            dfd.resolve();
+        });
+        api.on(ConnectApi.EVENT_REGISTRATION, () => {
+            dfd.resolve();
+        });
+        api.on(ConnectApi.EVENT_REREGISTRATION, () => {
+            dfd.resolve();
+        });
+        api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
+            dfd.resolve();
+        });
+        api.on(ConnectApi.EVENT_EXPIRED, () => {
+            dfd.resolve();
+        });
+
+        api.notify(notifications);
+    });
+});
+
+suite("notifications", () => {
+
+    let api: ConnectApi;
+
+    beforeEach(() => {
+        api = new ConnectApi({
+            apiKey: "key"
+        });
+    });
+
     test("should notify", ctx => {
 
         const dfd = ctx.async(1000);
@@ -190,37 +249,5 @@ suite("connectEvents", () => {
                 payload: new Buffer(payload).toString("base64")
             } ]
         });
-    });
-
-    test("should emit multiple", ctx => {
-
-        const notifications = {
-            "notifications": [ "1", "2" ],
-            "registrations": [ "1", "2" ],
-            "reg-updates": [ "1", "2" ],
-            "de-registrations": [ "1", "2" ],
-            "registrations-expired": [ "1", "2" ]
-        };
-
-        const notificationCount = Object.keys(notifications).length * 2;
-        const dfd = ctx.async(1000, notificationCount);
-
-        api.on(ConnectApi.EVENT_NOTIFICATION, () => {
-            dfd.resolve();
-        });
-        api.on(ConnectApi.EVENT_REGISTRATION, () => {
-            dfd.resolve();
-        });
-        api.on(ConnectApi.EVENT_REREGISTRATION, () => {
-            dfd.resolve();
-        });
-        api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
-            dfd.resolve();
-        });
-        api.on(ConnectApi.EVENT_EXPIRED, () => {
-            dfd.resolve();
-        });
-
-        api.notify(notifications);
     });
 });
