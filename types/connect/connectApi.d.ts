@@ -560,6 +560,45 @@ export declare class ConnectApi extends EventEmitter {
      */
     listResources(deviceId: string, callback: CallbackFn<Array<Resource>>): void;
     /**
+     * Get a resource
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceId = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * connect.getResource(deviceId, resourceURI)
+     * .then(resource => {
+     *     // Utilize resource here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * @param deviceId Device ID
+     * @param path Path of the resource to get
+     * @returns Promise of device resource
+     */
+    getResource(deviceId: string, path: string): Promise<Resource>;
+    /**
+     * Get a resource
+     *
+     * Example:
+     * ```JavaScript
+     * var deviceId = "015bb66a92a30000000000010010006d";
+     * var resourceURI = "3200/0/5500";
+     * connect.getResource(deviceId, resourceURI, function(error, resource) {
+     *     if (error) throw error;
+     *     // Utilize resource here
+     * });
+     * ```
+     *
+     * @param deviceId Device ID
+     * @param path Path of the resource to get
+     * @param callback A function that is passed the arguments (error, resource)
+     */
+    getResource(deviceId: string, path: string, callback?: CallbackFn<Resource>): void;
+    /**
      * Deletes a resource
      *
      * Example:

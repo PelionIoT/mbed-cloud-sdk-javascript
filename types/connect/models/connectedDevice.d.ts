@@ -19,6 +19,20 @@ export declare class ConnectedDevice extends Device {
      */
     listResources(callback: CallbackFn<Array<Resource>>): void;
     /**
+     * Get a resource
+     *
+     * @param path Path of the resource to get
+     * @returns Promise of device resource
+     */
+    getResource(path: string): Promise<Resource>;
+    /**
+     * Get a resource
+     *
+     * @param path Path of the resource to get
+     * @param callback A function that is passed the arguments (error, resource)
+     */
+    getResource(path: string, callback?: CallbackFn<Resource>): void;
+    /**
      * List a device's subscriptions
      * @returns Promise containing the subscriptions
      */

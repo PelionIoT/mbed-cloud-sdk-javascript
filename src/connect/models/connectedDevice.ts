@@ -52,6 +52,27 @@ export class ConnectedDevice extends Device {
     }
 
     /**
+     * Get a resource
+     *
+     * @param path Path of the resource to get
+     * @returns Promise of device resource
+     */
+    public getResource(path: string): Promise<Resource>;
+    /**
+     * Get a resource
+     *
+     * @param path Path of the resource to get
+     * @param callback A function that is passed the arguments (error, resource)
+     */
+    public getResource(path: string, callback?: CallbackFn<Resource>): void;
+    public getResource(path: string, callback?: CallbackFn<Resource>): Promise<Resource> {
+
+        return asyncStyle(done => {
+            this._connectApi.getResource(this.id, path, done);
+        }, callback);
+    }
+
+    /**
      * List a device's subscriptions
      * @returns Promise containing the subscriptions
      */

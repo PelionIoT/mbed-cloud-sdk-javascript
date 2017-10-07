@@ -127,6 +127,9 @@
 					<a href="connecteddevice.html#executeresource" class="tsd-kind-icon">execute<wbr>Resource</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connecteddevice.html#getresource" class="tsd-kind-icon">get<wbr>Resource</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="connecteddevice.html#getresourcesubscription" class="tsd-kind-icon">get<wbr>Resource<wbr>Subscription</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -218,6 +221,7 @@
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connecteddevice.html#deleteresourcesubscription" class="tsd-kind-icon">delete<wbr>Resource<wbr>Subscription</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connecteddevice.html#deletesubscriptions" class="tsd-kind-icon">delete<wbr>Subscriptions</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connecteddevice.html#executeresource" class="tsd-kind-icon">execute<wbr>Resource</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connecteddevice.html#getresource" class="tsd-kind-icon">get<wbr>Resource</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connecteddevice.html#getresourcesubscription" class="tsd-kind-icon">get<wbr>Resource<wbr>Subscription</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connecteddevice.html#getresourcevalue" class="tsd-kind-icon">get<wbr>Resource<wbr>Value</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connecteddevice.html#listresources" class="tsd-kind-icon">list<wbr>Resources</a></li>
@@ -992,6 +996,65 @@
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>A function that is passed the arguments (error, value) where value is an asyncId when there isn&#39;t a notification channel</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="getresource" class="tsd-anchor"></a>
+				<h3>get<wbr>Resource</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Get a resource</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Path of the resource to get</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise of device resource</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Get a resource</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Path of the resource to get</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, resource)</p>
 								</div>
 							</li>
 						</ul>
