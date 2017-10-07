@@ -1,4 +1,3 @@
-/// <reference types="superagent" />
 import superagent = require("superagent");
 import { SDKError } from "./sdkError";
 export declare class ApiBase {
@@ -40,5 +39,6 @@ export declare class ApiBase {
         formParams: {};
         json?: boolean;
         body?: any;
-    }, callback?: (sdkError: SDKError, data: T, response: superagent.Response) => any): superagent.SuperAgentRequest;
+    }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest;
+    protected complete(error: any, response: any, json: boolean, callback?: (sdkError: SDKError, data) => any): void;
 }

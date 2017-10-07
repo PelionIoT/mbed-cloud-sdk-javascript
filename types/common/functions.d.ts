@@ -9,17 +9,17 @@ export declare function encodeInclude(include: any): any;
 export declare function snakeToCamel(snake: any): any;
 export declare function camelToSnake(camel: any): any;
 export declare function extractFilter(filter: {
-    [key: string]: ComparisonObject<any>;
+    [key: string]: ComparisonObject<any> | string;
 }, name: string, defaultValue?: any): any;
 export declare function encodeFilter(filter: {
-    [key: string]: ComparisonObject<any>;
-}, map: {
+    [key: string]: ComparisonObject<any> | string | {};
+}, map?: {
     from: Array<string>;
     to: Array<string>;
 }, nested?: Array<string>): string;
-export declare function decodeFilter(from: string, map: {
+export declare function decodeFilter(from: string, map?: {
     from: Array<string>;
     to: Array<string>;
 }, nested?: Array<string>): {
-    [key: string]: ComparisonObject<any>;
+    [key: string]: ComparisonObject<any> | {};
 };

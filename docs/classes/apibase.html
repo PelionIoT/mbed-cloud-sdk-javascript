@@ -36,6 +36,9 @@
 				<li class=" tsd-kind-constructor tsd-parent-kind-class">
 					<a href="apibase.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="apibase.html#complete" class="tsd-kind-icon">complete</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
 					<a href="apibase.html#request" class="tsd-kind-icon">request</a>
 				</li>
@@ -66,6 +69,7 @@
 					<section class="tsd-index-section tsd-is-private-protected">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="apibase.html#complete" class="tsd-kind-icon">complete</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected"><a href="apibase.html#request" class="tsd-kind-icon">request</a></li>
 						</ul>
 					</section>
@@ -124,6 +128,56 @@
 		</section>
 		<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="complete" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> complete</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">complete<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, json<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>error: <span class="tsd-signature-type">any</span></h5>
+							</li>
+							<li>
+								<h5>response: <span class="tsd-signature-type">any</span></h5>
+							</li>
+							<li>
+								<h5>json: <span class="tsd-signature-type">boolean</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>sdkError<span class="tsd-signature-symbol">: </span><a href="sdkerror.html" class="tsd-signature-type">SDKError</a>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>sdkError: <a href="sdkerror.html" class="tsd-signature-type">SDKError</a></h5>
+													</li>
+													<li>
+														<h5>data: <span class="tsd-signature-type">any</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
 				<a name="request" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> request</h3>
@@ -181,7 +235,7 @@
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>sdkError<span class="tsd-signature-symbol">: </span><a href="sdkerror.html" class="tsd-signature-type">SDKError</a>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">superagent.Response</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>sdkError<span class="tsd-signature-symbol">: </span><a href="sdkerror.html" class="tsd-signature-type">SDKError</a>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 										</ul>
 										<ul class="tsd-descriptions">
 											<li class="tsd-description">
@@ -192,9 +246,6 @@
 													</li>
 													<li>
 														<h5>data: <span class="tsd-signature-type">T</span></h5>
-													</li>
-													<li>
-														<h5>response: <span class="tsd-signature-type">superagent.Response</span></h5>
 													</li>
 												</ul>
 												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
