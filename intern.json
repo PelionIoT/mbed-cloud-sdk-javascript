@@ -4,7 +4,7 @@
         "node",
         {
             "browserName": "chrome",
-            "version": "54.0"
+            "browser_api_name": "Chrome54"
         }
     ],
     "suites": "lib/_tests/**/*.js",
