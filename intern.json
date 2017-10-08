@@ -2,10 +2,7 @@
     "name": "Mbed Cloud SDK for JavaScript",
     "environments": [
         "node",
-        {
-            "browserName": "chrome",
-            "browser_api_name": "Chrome54"
-        }
+        "chrome"
     ],
     "suites": "lib/_tests/**/*.js",
     "coverage": [
