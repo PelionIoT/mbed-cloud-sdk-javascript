@@ -26,13 +26,13 @@ checkout:
     - git config --global user.email monty-bot@arm.com
     - git clone https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
 
+# Install dependencies for CI; latest npm, latest chrome, codecov, html output and testrunner reqs
 dependencies:
   pre:
     - npm install -g npm@latest
     - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - sudo dpkg -i google-chrome.deb
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
-    - rm google-chrome.deb
   post:
     - npm install -g codecov ansi-html-stream
     - pip install -r tests/testrunner/requirements.txt

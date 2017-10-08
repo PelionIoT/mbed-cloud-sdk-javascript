@@ -1,13 +1,13 @@
 .vscode
 .DS_Store
 node_modules
-tests/testrunner
-coverage
 bundles
+coverage
 docs
 lib
-types
 test
+tests/testrunner
+types
 junit.xml
 package-lock.json
 tpip.csv
