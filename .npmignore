@@ -1,9 +1,16 @@
+.vscode
+.DS_Store
+bundles/_tests
+lib/_tests
+coverage
 docs
 src
 tests
 .gitignore
 circle.yml
-gulpfile.js
 DEVELOPMENT.md
+gulpfile.js
+intern.json
+junit.xml
 tslint.json
 tpip.csv

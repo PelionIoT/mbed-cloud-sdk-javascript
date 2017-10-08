@@ -22,6 +22,11 @@ import { decodeTlv } from "../common/tlvDecoder";
 
 suite("decodeTlv", () => {
 
+    function decode(payload) {
+        if (typeof atob === "function") return atob(payload);
+        return new Buffer(payload, "base64").toString("binary");
+    }
+
     test("should decode nothing", () => {
         const result = decodeTlv("");
         assert.deepEqual(result, {});
@@ -29,7 +34,7 @@ suite("decodeTlv", () => {
 
     test("should decode simple", () => {
         const payload = "AAA=";
-        const tlv = new Buffer(payload, "base64").toString("binary");
+        const tlv = decode(payload);
 
         const result = decodeTlv(tlv);
 
@@ -40,7 +45,7 @@ suite("decodeTlv", () => {
 
     test("should decode complex", () => {
         const payload = "iAsLSAAIAAAAAAAAAADBEFXIABAAAAAAAAAAAAAAAAAAAAAAyAEQAAAAAAAAAAAAAAAAAAAAAMECMMgRD2Rldl9kZXZpY2VfdHlwZcgSFGRldl9oYXJkd2FyZV92ZXJzaW9uyBUIAAAAAAAAAADIDQgAAAAAWdH0Bw==";
-        const tlv = new Buffer(payload, "base64").toString("binary");
+        const tlv = decode(payload);
 
         const result = decodeTlv(tlv);
 

@@ -197,6 +197,11 @@ suite("notifications", () => {
 
     let api: ConnectApi;
 
+    function encode(payload) {
+        if (typeof btoa === "function") return btoa(payload);
+        return new Buffer(payload).toString("base64");
+    }
+
     beforeEach(() => {
         api = new ConnectApi({
             apiKey: "key"
@@ -223,7 +228,7 @@ suite("notifications", () => {
             notifications: [ {
                 ep: deviceId,
                 path: devicePath,
-                payload: new Buffer(payload).toString("base64")
+                payload: encode(payload)
             } ]
         });
     });
@@ -246,7 +251,7 @@ suite("notifications", () => {
         api.notify({
             "async-responses": [ {
                 id: asyncId,
-                payload: new Buffer(payload).toString("base64")
+                payload: encode(payload)
             } ]
         });
     });
