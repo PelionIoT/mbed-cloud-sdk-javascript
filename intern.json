@@ -4,7 +4,12 @@
         "node",
         "chrome"
     ],
-    "suites": "lib/_tests/**/*.js",
+    "node": {
+        "suites": "lib/_tests/**/*.js"
+    },
+    "browser": {
+        "suites": "bundles/_tests/**/*.js"
+    },
     "coverage": [
         "lib/**/*.js",
         "!lib/_api/**",

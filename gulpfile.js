@@ -157,8 +157,30 @@ gulp.task("browserify", ["typescript"], function() {
     .pipe(gulp.dest(bundleDir));
 });
 
+// Build CommonJS modules into browser bundles
+gulp.task("bundles", ["browserify"], function() {
+    return gulp.src(nodeDir + "/_tests/**/*.js", {
+        read: false
+    })
+    .pipe(tap(function(file) {
+        // var bundleFile = getBundleFile(file);
+
+        // console.log(`Creating ${bundleDir}/${bundleFile}`);
+        file.contents = browserify(file.path)
+        .bundle()
+        .on("error", handleError);
+        // file.path = path.join(file.base, bundleFile);
+    }))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({
+        loadMaps: true
+    }))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(bundleDir + "/_tests"));
+});
+
 gulp.task("watch", ["setWatch", "default"], function() {
     gulp.watch(srcFiles, ["default"]);
 });
 
-gulp.task("default", ["lint", "doc", "browserify"]);
+gulp.task("default", ["lint", "doc", "bundles"]);
