@@ -3,8 +3,8 @@
     "environments": [
         "node",
         {
-            browserName: "chrome",
-            browser_api_name: "Chrome54"
+            "browserName": "chrome",
+            "version": "54.0"
         }
     ],
     "suites": "lib/_tests/**/*.js",
