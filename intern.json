@@ -1,7 +1,14 @@
 {
     "name": "Mbed Cloud SDK for JavaScript",
+    "environments": [
+        "node",
+        "chrome"
+    ],
     "node": {
-        "suites": "lib/_tests/**/*.js"        
+        "suites": "lib/_tests/**/*.js"
+    },
+    "browser": {
+        "suites": "bundles/_tests/**/*.js"
     },
     "coverage": [
         "lib/**/*.js",

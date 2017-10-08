@@ -16,6 +16,7 @@ var name = "Mbed Cloud SDK for JavaScript";
 var namespace = "MbedCloudSDK";
 var docsToc = "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,UpdateApi,ConnectionOptions";
 
+// Source
 var srcDir = "src";
 var srcFiles = srcDir + "/**/*.ts";
 var srcFilesOnly = [
@@ -23,12 +24,23 @@ var srcFilesOnly = [
     "!" + srcDir + "/_api/**",
     "!" + srcDir + "/_tests/**"
 ];
-var docsDir = "docs";
+
+// Node
 var nodeDir = "lib";
-var typesDir = "types";
+var bundleFiles = nodeDir + "/**/index.js"
+var testFiles = nodeDir + "/_tests/**/*.js";
+
+// Browser bundles
 var bundleDir = "bundles";
+var testDir = bundleDir + "/_tests";
+
+// Other
+var docsDir = "docs";
+var typesDir = "types";
+
 var watching = false;
 
+// Error handler suppresses exists during watch
 function handleError() {
     if (watching) this.emit("end");
     else process.exit(1);
@@ -63,8 +75,8 @@ gulp.task("doc", function() {
     return gulp.src(srcFilesOnly)
     .pipe(typedoc({
         name: name,
-        readme: "src/documentation.md",
-        theme: "src/theme",
+        readme: srcDir + "/documentation.md",
+        theme: srcDir + "/theme",
         module: "commonjs",
         target: "es6",
         mode: "file",
@@ -109,40 +121,26 @@ gulp.task("typescript", ["clean"], function() {
     ]);
 });
 
-function getBundleName(file) {
-    var name = path.dirname(file.relative);
-    if (name === ".") return namespace;
-    return `${namespace}.${name.charAt(0).toUpperCase()}${name.slice(1)}Api`;
-}
-
-function getBundleFile(file) {
-    var name = path.dirname(file.relative);
-    if (name === ".") name = "index";
-
-    name = name.replace(/([A-Z]+)/g, function(match) {
-        return `-${match.toLowerCase()}`;
-    });
-
-    return `${name}.min${path.extname(file.relative)}`;
-}
-
-// Build CommonJS modules into browser bundles
-gulp.task("browserify", ["typescript"], function() {
-    return gulp.src(nodeDir + "/**/index.js", {
+// Browserify helper function
+function bundle(srcFiles, destDir, optionsFn) {
+    return gulp.src(srcFiles, {
         read: false
     })
     .pipe(tap(function(file) {
-        var bundleName = getBundleName(file);
-        var bundleFile = getBundleFile(file);
+        var options = {};
+        if (optionsFn) options = optionsFn(file);
+        var fileName = options.fileName || path.basename(file.path);
 
-        console.log(`Creating ${bundleName} in ${bundleDir}/${bundleFile}`);
-        file.contents = browserify(file.path, {
-            standalone: bundleName
-        })
+        if (options.standalone)
+            console.log(`Creating ${options.standalone} in ${destDir}/${fileName}`);
+        else
+            console.log(`Creating ${destDir}/${fileName}`);
+
+        file.contents = browserify(file.path, options)
         .ignore("buffer")
         .bundle()
         .on("error", handleError);
-        file.path = path.join(file.base, bundleFile);
+        file.path = path.join(file.base, fileName);
     }))
     .pipe(buffer())
     .pipe(sourcemaps.init({
@@ -154,11 +152,38 @@ gulp.task("browserify", ["typescript"], function() {
         }
     }))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(bundleDir));
+    .pipe(gulp.dest(destDir));
+}
+
+// Build CommonJS modules into browser bundles
+gulp.task("bundleSource", ["typescript"], function() {
+    return bundle(bundleFiles, bundleDir, function(file) {
+        var name = path.dirname(file.relative);
+        if (name === ".") {
+            return {
+                fileName: "index.min.js",
+                standalone: namespace
+            };
+        }
+
+        name = name.replace(/([A-Z]+)/g, function(match) {
+            return `-${match.toLowerCase()}`;
+        });
+
+        return {
+            fileName: `${name}.min${path.extname(file.relative)}`,
+            standalone: `${namespace}.${name.charAt(0).toUpperCase()}${name.slice(1)}Api`
+        };
+    });
+});
+
+// Build CommonJS tests into browser tests
+gulp.task("bundleTests", ["typescript"], function() {
+    return bundle(testFiles, testDir);
 });
 
 gulp.task("watch", ["setWatch", "default"], function() {
     gulp.watch(srcFiles, ["default"]);
 });
 
-gulp.task("default", ["lint", "doc", "browserify"]);
+gulp.task("default", ["lint", "doc", "bundleSource", "bundleTests"]);
