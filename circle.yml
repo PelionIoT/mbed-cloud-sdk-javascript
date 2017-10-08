@@ -53,7 +53,7 @@ test:
     - mkdir -p ${SDK_TESTS}
     - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" >> ${SDK_TESTS}/index.html:
     - echo "<h2>Unit Tests</h2>" >> ${SDK_TESTS}/index.html:
-    - set -o pipefail && npm test 2>&1 | tee /dev/tty | ansi-html >> ${SDK_TESTS}/index.html:
+    - set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ${SDK_TESTS}/index.html:
     - codecov coverage/lcov.info
     - mkdir -p ${CIRCLE_TEST_REPORTS}/junit
     - cp junit.xml $CIRCLE_TEST_REPORTS/junit/test-results.xml
