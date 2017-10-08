@@ -163,13 +163,11 @@ gulp.task("bundles", ["browserify"], function() {
         read: false
     })
     .pipe(tap(function(file) {
-        // var bundleFile = getBundleFile(file);
-
         // console.log(`Creating ${bundleDir}/${bundleFile}`);
         file.contents = browserify(file.path)
+        .ignore("buffer")
         .bundle()
         .on("error", handleError);
-        // file.path = path.join(file.base, bundleFile);
     }))
     .pipe(buffer())
     .pipe(sourcemaps.init({
