@@ -140,21 +140,34 @@ export class DeveloperCertificateApi extends ApiBase {
         }
 
         const headerParams: any = {};
-        headerParams["Authorization"] = authorization;
+        if (authorization !== undefined) {
+            headerParams["Authorization"] = authorization;
+        }
 
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<DeveloperCertificateResponseData>({
             url: "/v3/developer-certificates/{id}".replace("{" + "id" + "}", String(id)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -180,21 +193,34 @@ export class DeveloperCertificateApi extends ApiBase {
         }
 
         const headerParams: any = {};
-        headerParams["Authorization"] = authorization;
+        if (authorization !== undefined) {
+            headerParams["Authorization"] = authorization;
+        }
 
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<DeveloperCertificateResponseData>({
             url: "/v3/developer-certificates",
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
@@ -227,21 +253,34 @@ export class ExternalAPIApi extends ApiBase {
         }
 
         const headerParams: any = {};
-        headerParams["Authorization"] = authorization;
+        if (authorization !== undefined) {
+            headerParams["Authorization"] = authorization;
+        }
 
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<DeveloperCertificateResponseData>({
             url: "/v3/developer-certificates/{id}".replace("{" + "id" + "}", String(id)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -267,21 +306,34 @@ export class ExternalAPIApi extends ApiBase {
         }
 
         const headerParams: any = {};
-        headerParams["Authorization"] = authorization;
+        if (authorization !== undefined) {
+            headerParams["Authorization"] = authorization;
+        }
 
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<DeveloperCertificateResponseData>({
             url: "/v3/developer-certificates",
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
@@ -300,21 +352,34 @@ export class ExternalAPIApi extends ApiBase {
         }
 
         const headerParams: any = {};
-        headerParams["Authorization"] = authorization;
+        if (authorization !== undefined) {
+            headerParams["Authorization"] = authorization;
+        }
 
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ServerCredentialsResponseData>({
             url: "/v3/server-credentials/bootstrap",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -332,21 +397,34 @@ export class ExternalAPIApi extends ApiBase {
         }
 
         const headerParams: any = {};
-        headerParams["Authorization"] = authorization;
+        if (authorization !== undefined) {
+            headerParams["Authorization"] = authorization;
+        }
 
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ServerCredentialsResponseData>({
             url: "/v3/server-credentials/lwm2m",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
 }
@@ -370,21 +448,34 @@ export class ServerCredentialsApi extends ApiBase {
         }
 
         const headerParams: any = {};
-        headerParams["Authorization"] = authorization;
+        if (authorization !== undefined) {
+            headerParams["Authorization"] = authorization;
+        }
 
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ServerCredentialsResponseData>({
             url: "/v3/server-credentials/bootstrap",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -402,21 +493,34 @@ export class ServerCredentialsApi extends ApiBase {
         }
 
         const headerParams: any = {};
-        headerParams["Authorization"] = authorization;
+        if (authorization !== undefined) {
+            headerParams["Authorization"] = authorization;
+        }
 
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ServerCredentialsResponseData>({
             url: "/v3/server-credentials/lwm2m",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
 }

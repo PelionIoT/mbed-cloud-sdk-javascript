@@ -1161,14 +1161,26 @@ export class AccountAdminApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<TrustedCertificateResp>({
             url: "/v3/trusted-certificates",
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
@@ -1201,14 +1213,26 @@ export class AccountAdminApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<UpdatedResponse>({
             url: "/v3/policy-groups/{groupID}".replace("{" + "groupID" + "}", String(groupID)),
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
@@ -1237,14 +1261,26 @@ export class AccountAdminApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<UserInfoResp>({
             url: "/v3/users",
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
@@ -1269,14 +1305,25 @@ export class AccountAdminApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<null>({
             url: "/v3/users/{user-id}".replace("{" + "user-id" + "}", String(userId)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1312,14 +1359,25 @@ export class AccountAdminApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<UserInfoRespList>({
             url: "/v3/users",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1343,14 +1401,25 @@ export class AccountAdminApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<UserInfoResp>({
             url: "/v3/users/{user-id}".replace("{" + "user-id" + "}", String(userId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1390,14 +1459,25 @@ export class AccountAdminApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<UserInfoRespList>({
             url: "/v3/policy-groups/{groupID}/users".replace("{" + "groupID" + "}", String(groupID)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1429,20 +1509,32 @@ export class AccountAdminApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<UpdatedResponse>({
             url: "/v3/policy-groups/{groupID}/users".replace("{" + "groupID" + "}", String(groupID)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
     /**
      * Updates attributes of the account.
-     * An endpoint for updating the account.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
+     * An endpoint for updating the account.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param body Details of the account to be updated.
      */
     public updateMyAccount(body: AccountUpdateReq, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1461,14 +1553,26 @@ export class AccountAdminApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<AccountInfo>({
             url: "/v3/accounts/me",
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
@@ -1501,14 +1605,26 @@ export class AccountAdminApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<UserInfoResp>({
             url: "/v3/users/{user-id}".replace("{" + "user-id" + "}", String(userId)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
@@ -1520,7 +1636,7 @@ export class DeveloperApi extends ApiBase {
 
     /**
      * Create a new API key.
-     * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
+     * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param body The details of the API key to be created.
      */
     public createApiKey(body: ApiKeyInfoReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1539,20 +1655,32 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ApiKeyInfoResp>({
             url: "/v3/api-keys",
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
     /**
      * Delete API key.
-     * An endpoint for deleting the API key.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
+     * An endpoint for deleting the API key.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param apiKey The ID of the API key to be deleted.
      */
     public deleteApiKey(apiKey: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1571,14 +1699,25 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<null>({
             url: "/v3/api-keys/{apiKey}".replace("{" + "apiKey" + "}", String(apiKey)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1602,19 +1741,30 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<null>({
             url: "/v3/trusted-certificates/{cert-id}".replace("{" + "cert-id" + "}", String(certId)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
      * Get all API keys
-     * An endpoint for retrieving API keys in an array, optionally filtered by the owner.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
+     * An endpoint for retrieving API keys in an array, optionally filtered by the owner.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
      * @param order The order of the records, ASC or DESC; by default ASC
@@ -1645,14 +1795,25 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ApiKeyInfoRespList>({
             url: "/v3/api-keys",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1700,14 +1861,25 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<TrustedCertificateRespList>({
             url: "/v3/trusted-certificates",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1739,14 +1911,25 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<GroupSummaryList>({
             url: "/v3/policy-groups",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1770,14 +1953,25 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ApiKeyInfoResp>({
             url: "/v3/api-keys/{apiKey}".replace("{" + "apiKey" + "}", String(apiKey)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1817,19 +2011,30 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ApiKeyInfoRespList>({
             url: "/v3/policy-groups/{groupID}/api-keys".replace("{" + "groupID" + "}", String(groupID)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
      * Get trusted certificate by ID.
-     * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
+     * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      * @param certId The ID or name of the trusted certificate to be retrieved.
      */
     public getCertificate(certId: string, callback?: (error: any, data?: TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1848,14 +2053,25 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<TrustedCertificateResp>({
             url: "/v3/trusted-certificates/{cert-id}".replace("{" + "cert-id" + "}", String(certId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1879,19 +2095,30 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<GroupSummary>({
             url: "/v3/policy-groups/{groupID}".replace("{" + "groupID" + "}", String(groupID)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
      * Get account info.
-     * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; .
+     * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer API_KEY&#39;&#x60; .
      * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
      */
     public getMyAccountInfo(include?: string, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1906,19 +2133,30 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<AccountInfo>({
             url: "/v3/accounts/me",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
      * Get API key details.
-     * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
+     * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     public getMyApiKey(callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
@@ -1929,19 +2167,30 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ApiKeyInfoResp>({
             url: "/v3/api-keys/me",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
      * Details of the current user.
-     * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
+     * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      * @param scratchCodes Request to regenerate new emergency scratch codes.
      */
     public getMyUser(scratchCodes?: string, callback?: (error: any, data?: MyUserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1956,14 +2205,25 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<MyUserInfoResp>({
             url: "/v3/users/me",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -1995,14 +2255,26 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<UpdatedResponse>({
             url: "/v3/policy-groups/{groupID}/api-keys".replace("{" + "groupID" + "}", String(groupID)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
@@ -2035,20 +2307,31 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ApiKeyInfoResp>({
             url: "/v3/api-keys/{apiKey}".replace("{" + "apiKey" + "}", String(apiKey)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
     /**
      * Update trusted certificate.
-     * An endpoint for updating existing trusted certificates.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
+     * An endpoint for updating existing trusted certificates.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      * @param certId The ID of the trusted certificate to be updated.
      * @param body A trusted certificate object with attributes.
      */
@@ -2075,20 +2358,32 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<TrustedCertificateResp>({
             url: "/v3/trusted-certificates/{cert-id}".replace("{" + "cert-id" + "}", String(certId)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
     /**
      * Update API key details.
-     * An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
+     * An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param body New API key attributes to be stored.
      */
     public updateMyApiKey(body: ApiKeyUpdateReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -2107,20 +2402,31 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<ApiKeyInfoResp>({
             url: "/v3/api-keys/me",
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
     /**
      * Update user details.
-     * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
+     * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      * @param body New attributes for the logged in user.
      */
     public updateMyUser(body: UserUpdateReq, callback?: (error: any, data?: UserUpdateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -2139,14 +2445,26 @@ export class DeveloperApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<UserUpdateResp>({
             url: "/v3/users/me",
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
