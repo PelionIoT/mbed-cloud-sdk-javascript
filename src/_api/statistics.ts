@@ -224,14 +224,25 @@ export class AccountApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<SuccessfulResponse>({
             url: "/v3/metrics",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
 }
@@ -299,14 +310,25 @@ export class StatisticsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<SuccessfulResponse>({
             url: "/v3/metrics",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
 }

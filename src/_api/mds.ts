@@ -211,14 +211,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v2/notification/callback",
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -234,14 +244,25 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<Webhook>({
             url: "/v2/notification/callback",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
 }
@@ -271,14 +292,25 @@ export class EndpointsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<Array<Resource>>({
             url: "/v2/endpoints/{device-id}".replace("{" + "device-id" + "}", String(deviceId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -298,14 +330,25 @@ export class EndpointsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<Array<Endpoint>>({
             url: "/v2/endpoints",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
 }
@@ -335,14 +378,25 @@ export class NotificationsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v2/notification/callback",
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: webhook,
         }, callback);
     }
@@ -359,14 +413,24 @@ export class NotificationsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v2/notification/pull",
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -382,14 +446,25 @@ export class NotificationsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<NotificationMessage>({
             url: "/v2/notification/pull",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
 }
@@ -431,14 +506,24 @@ export class ResourcesApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<AsyncID>({
             url: "/v2/endpoints/{device-id}/{resourcePath}".replace("{" + "device-id" + "}", String(deviceId)).replace("{" + "resourcePath" + "}", String(resourcePath)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -478,14 +563,24 @@ export class ResourcesApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<AsyncID>({
             url: "/v2/endpoints/{device-id}/{resourcePath}".replace("{" + "device-id" + "}", String(deviceId)).replace("{" + "resourcePath" + "}", String(resourcePath)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -522,14 +617,36 @@ export class ResourcesApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "text/plain", 
+            "application/xml", 
+            "application/octet-stream", 
+            "application/exi", 
+            "application/json", 
+            "application/link-format", 
+            "application/senml+json", 
+            "application/nanoservice-tlv", 
+            "application/vnd.oma.lwm2m+text", 
+            "application/vnd.oma.lwm2m+opaq", 
+            "application/vnd.oma.lwm2m+tlv", 
+            "application/vnd.oma.lwm2m+json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<AsyncID>({
             url: "/v2/endpoints/{device-id}/{resourcePath}".replace("{" + "device-id" + "}", String(deviceId)).replace("{" + "resourcePath" + "}", String(resourcePath)),
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: resourceFunction,
         }, callback);
     }
@@ -574,14 +691,36 @@ export class ResourcesApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "text/plain", 
+            "application/xml", 
+            "application/octet-stream", 
+            "application/exi", 
+            "application/json", 
+            "application/link-format", 
+            "application/senml+json", 
+            "application/nanoservice-tlv", 
+            "application/vnd.oma.lwm2m+text", 
+            "application/vnd.oma.lwm2m+opaq", 
+            "application/vnd.oma.lwm2m+tlv", 
+            "application/vnd.oma.lwm2m+json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<AsyncID>({
             url: "/v2/endpoints/{device-id}/{resourcePath}".replace("{" + "device-id" + "}", String(deviceId)).replace("{" + "resourcePath" + "}", String(resourcePath)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: resourceValue,
         }, callback);
     }
@@ -604,14 +743,24 @@ export class SubscriptionsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v2/subscriptions",
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -635,14 +784,24 @@ export class SubscriptionsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v2/subscriptions/{device-id}".replace("{" + "device-id" + "}", String(deviceId)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -666,14 +825,25 @@ export class SubscriptionsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "text/uri-list"
+        ];
+
         return this.request<string>({
             url: "/v2/subscriptions/{device-id}".replace("{" + "device-id" + "}", String(deviceId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -705,14 +875,24 @@ export class SubscriptionsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v2/subscriptions/{device-id}/{resourcePath}".replace("{" + "device-id" + "}", String(deviceId)).replace("{" + "resourcePath" + "}", String(resourcePath)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -743,14 +923,24 @@ export class SubscriptionsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v2/subscriptions/{device-id}/{resourcePath}".replace("{" + "device-id" + "}", String(deviceId)).replace("{" + "resourcePath" + "}", String(resourcePath)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -782,14 +972,25 @@ export class SubscriptionsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<null>({
             url: "/v2/subscriptions/{device-id}/{resourcePath}".replace("{" + "device-id" + "}", String(deviceId)).replace("{" + "resourcePath" + "}", String(resourcePath)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -805,14 +1006,25 @@ export class SubscriptionsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
         return this.request<PresubscriptionArray>({
             url: "/v2/subscriptions",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -836,14 +1048,26 @@ export class SubscriptionsApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "text/plain"
+        ];
+
         return this.request<null>({
             url: "/v2/subscriptions",
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: presubsription,
         }, callback);
     }
