@@ -7,6 +7,8 @@ general:
   branches:
     ignore:
       - build
+  python:
+    version: 3.6.2
 
 machine:
   node:
@@ -36,7 +38,7 @@ dependencies:
   post:
     - npm install -g codecov ansi-html-stream
     - pip install -r tests/testrunner/requirements.txt
-    - python setup.py develop:
+    - python3 setup.py develop:
         pwd: tests/testrunner
 
 compile:
