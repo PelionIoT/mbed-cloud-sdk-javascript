@@ -457,14 +457,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceData>({
             url: "/v3/devices/",
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: device,
         }, callback);
     }
@@ -488,14 +498,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v3/devices/{id}/".replace("{" + "id" + "}", String(id)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -530,14 +550,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceEventPage>({
             url: "/v3/device-events/",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -560,14 +590,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceEventData>({
             url: "/v3/device-events/{device_event_id}/".replace("{" + "device_event_id" + "}", String(deviceEventId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -602,14 +642,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DevicePage>({
             url: "/v3/devices/",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -644,14 +694,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceEventPage>({
             url: "/v3/devicelog/",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -674,14 +734,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceEventData>({
             url: "/v3/devicelog/{device_event_id}/".replace("{" + "device_event_id" + "}", String(deviceEventId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -712,14 +782,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceData>({
             url: "/v3/devices/{id}/".replace("{" + "id" + "}", String(id)),
             method: "PATCH",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: device,
         }, callback);
     }
@@ -743,14 +823,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceQuery>({
             url: "/v3/device-queries/",
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: device,
         }, callback);
     }
@@ -774,14 +864,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v3/device-queries/{query_id}/".replace("{" + "query_id" + "}", String(queryId)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -816,14 +916,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceQueryPage>({
             url: "/v3/device-queries/",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -854,14 +964,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceQuery>({
             url: "/v3/device-queries/{query_id}/".replace("{" + "query_id" + "}", String(queryId)),
             method: "PATCH",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: deviceQuery,
         }, callback);
     }
@@ -885,14 +1005,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceQuery>({
             url: "/v3/device-queries/{query_id}/".replace("{" + "query_id" + "}", String(queryId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -923,14 +1053,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceQuery>({
             url: "/v3/device-queries/{query_id}/".replace("{" + "query_id" + "}", String(queryId)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: body,
         }, callback);
     }
@@ -954,14 +1094,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceData>({
             url: "/v3/devices/{id}/".replace("{" + "id" + "}", String(id)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -992,14 +1142,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<DeviceData>({
             url: "/v3/devices/{id}/".replace("{" + "id" + "}", String(id)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: device,
         }, callback);
     }

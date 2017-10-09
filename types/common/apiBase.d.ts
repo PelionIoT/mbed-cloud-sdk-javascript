@@ -28,6 +28,7 @@ export declare class ApiBase {
      * @returns {String} The string representation of <code>param</code>.
      */
     private static paramToString(param);
+    private static chooseType(types, defaultType?);
     protected request<T>(options: {
         url: string;
         method: string;
@@ -35,10 +36,12 @@ export declare class ApiBase {
             [key: string]: string;
         };
         query: {};
-        useFormData: boolean;
         formParams: {};
-        json?: boolean;
+        useFormData: boolean;
+        contentTypes: Array<string>;
+        acceptTypes: Array<string>;
         body?: any;
+        file?: boolean;
     }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest;
-    protected complete(error: any, response: any, json: boolean, callback?: (sdkError: SDKError, data) => any): void;
+    protected complete(error: any, response: any, acceptHeader: string, callback?: (sdkError: SDKError, data) => any): void;
 }

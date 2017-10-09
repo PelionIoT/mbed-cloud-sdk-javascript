@@ -411,6 +411,7 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
         if (datafile !== undefined) {
             formParams["datafile"] = datafile;
         }
@@ -424,14 +425,24 @@ export class DefaultApi extends ApiBase {
             formParams["name"] = name;
         }
 
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "multipart/form-data"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<FirmwareImage>({
             url: "/v3/firmware-images/",
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -454,14 +465,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v3/firmware-images/{image_id}/".replace("{" + "image_id" + "}", String(imageId)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -496,14 +517,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<FirmwareImagePage>({
             url: "/v3/firmware-images/",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -526,14 +557,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<FirmwareImage>({
             url: "/v3/firmware-images/{image_id}/".replace("{" + "image_id" + "}", String(imageId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -565,6 +606,7 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
         if (datafile !== undefined) {
             formParams["datafile"] = datafile;
         }
@@ -578,14 +620,24 @@ export class DefaultApi extends ApiBase {
             formParams["name"] = name;
         }
 
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "multipart/form-data"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<FirmwareManifest>({
             url: "/v3/firmware-manifests/",
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -608,14 +660,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v3/firmware-manifests/{manifest_id}/".replace("{" + "manifest_id" + "}", String(manifestId)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -650,14 +712,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<FirmwareManifestPage>({
             url: "/v3/firmware-manifests/",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -680,14 +752,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<FirmwareManifest>({
             url: "/v3/firmware-manifests/{manifest_id}/".replace("{" + "manifest_id" + "}", String(manifestId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -710,14 +792,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<UpdateCampaign>({
             url: "/v3/update-campaigns/",
             method: "POST",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: campaign,
         }, callback);
     }
@@ -741,14 +833,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<null>({
             url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -783,14 +885,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<UpdateCampaignPage>({
             url: "/v3/update-campaigns/",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -821,14 +933,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<UpdateCampaign>({
             url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "PATCH",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: campaign,
         }, callback);
     }
@@ -852,14 +974,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<UpdateCampaign>({
             url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -890,14 +1022,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<UpdateCampaign>({
             url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
             body: campaign,
         }, callback);
     }
@@ -929,14 +1071,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<CampaignDeviceMetadata>({
             url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/".replace("{" + "campaign_id" + "}", String(campaignId)).replace("{" + "campaign_device_metadata_id" + "}", String(campaignDeviceMetadataId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
     /**
@@ -975,14 +1127,24 @@ export class DefaultApi extends ApiBase {
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
         const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
         return this.request<CampaignDeviceMetadataPage>({
             url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
-            useFormData: useFormData,
             formParams: formParams,
-            json: true,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
         }, callback);
     }
 }

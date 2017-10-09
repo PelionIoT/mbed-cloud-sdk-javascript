@@ -19,6 +19,7 @@ import superagent = require("superagent");
 import { SDKError } from "./sdkError";
 
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
+const MIME_REGEX = /^application\/json(;.*)?$/i;
 
 export class ApiBase {
 
@@ -105,7 +106,25 @@ export class ApiBase {
         return param.toString();
     }
 
-    protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, useFormData: boolean, formParams: {}, json?: boolean, body?: any }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest {
+    private static chooseType(types: Array<string>, defaultType: string = null): string {
+        // No type
+        if (!types.length) return defaultType;
+
+        // Default to first entry or default
+        let result = types[0] || defaultType;
+
+        // Find first preferred type
+        types.some(type => {
+            if (MIME_REGEX.test(type)) {
+                result = type;
+                return true;
+            }
+        });
+
+        return result;
+    }
+
+    protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest {
 
         // Normalize slashes in url
         const url = options.url.replace(/([:])?\/+/g, ($0, $1) => {
@@ -124,8 +143,10 @@ export class ApiBase {
         // set request timeout
         request.timeout(60000);
 
-        if (options.json) {
-            request.accept("application/json");
+        // set accept header
+        const acceptHeader = ApiBase.chooseType(options.acceptTypes);
+        if (acceptHeader) {
+            request.accept(acceptHeader);
         }
 
         let body = null;
@@ -150,23 +171,23 @@ export class ApiBase {
 
             body = options.body;
 
-            if (options.json) {
-                request.type("application/json");
+            // set content type header
+            const contentType = ApiBase.chooseType(options.contentTypes, "application/json");
+            request.type(contentType);
 
-                // Remove empty or undefined json parameters
-                if (body.constructor === {}.constructor) {
-                    body = Object.keys(body).reduce((val, key) => {
-                        if (body[key] !== null && body[key] !== undefined) val[key] = body[key];
-                        return val;
-                    }, {});
-                }
+            // Remove empty or undefined json parameters
+            if (body && body.constructor === {}.constructor && MIME_REGEX.test(contentType)) {
+                body = Object.keys(body).reduce((val, key) => {
+                    if (body[key] !== null && body[key] !== undefined) val[key] = body[key];
+                    return val;
+                }, {});
             }
 
             request.send(body);
         }
 
         request.end((error, response) => {
-            this.complete(error, response, options.json, callback);
+            this.complete(error, response, acceptHeader, callback);
         });
 
         if (body && process && process.env && process.env.DEBUG === "superagent") {
@@ -178,7 +199,7 @@ export class ApiBase {
         return request;
     }
 
-    protected complete(error: any, response: any, json: boolean, callback?: (sdkError: SDKError, data) => any) {
+    protected complete(error: any, response: any, acceptHeader: string, callback?: (sdkError: SDKError, data) => any) {
         let sdkError = null;
 
         if (error) {
@@ -210,7 +231,8 @@ export class ApiBase {
                 data = response.body || response.text;
             }
 
-            if (json && typeof data === "object") {
+            // If an object has been returned and we expected json
+            if (data && data.constructor === {}.constructor && MIME_REGEX.test(acceptHeader)) {
                 data = JSON.parse(JSON.stringify(data), (_key, value) => {
                     // Check for date
                     if (DATE_REGEX.test(value)) return new Date(value);

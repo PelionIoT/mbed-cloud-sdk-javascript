@@ -22,8 +22,8 @@ import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
 class Api extends ApiBase {
-    public complete(error: any, response: any, json: boolean, callback?: (sdkError: SDKError, data) => any) {
-        return super.complete(error, response, json, callback);
+    public complete(error: any, response: any, acceptHeader: string, callback?: (sdkError: SDKError, data) => any) {
+        return super.complete(error, response, acceptHeader, callback);
     }
 }
 
@@ -37,7 +37,7 @@ suite("apiBase", () => {
 
     test("should execute callback", () => {
 
-        api.complete(null, null, false, (_error, _data) => {
+        api.complete(null, null, null, (_error, _data) => {
             assert(true);
         });
     });
@@ -50,7 +50,7 @@ suite("apiBase", () => {
         api.complete(null, {
             body: body,
             text: text
-        }, false, (_error, data) => {
+        }, null, (_error, data) => {
             assert.strictEqual(data, body);
         });
     });
@@ -61,7 +61,7 @@ suite("apiBase", () => {
 
         api.complete(null, {
             text: text
-        }, false, (_error, data) => {
+        }, "application/json", (_error, data) => {
             assert.strictEqual(data, text);
         });
     });
@@ -74,7 +74,7 @@ suite("apiBase", () => {
             body: {
                 birthday: date
             }
-        }, true, (_error, data) => {
+        }, "application/json", (_error, data) => {
             assert.typeOf(data.birthday, "date");
             assert.strictEqual(data.birthday.getDate(), 12);
             assert.strictEqual(data.birthday.getMonth(), 0);
@@ -82,7 +82,7 @@ suite("apiBase", () => {
         });
     });
 
-    test("should not make date with json", () => {
+    test("should not make date with application/json", () => {
 
         const date = "nineteen-seventy-seven";
 
@@ -90,13 +90,13 @@ suite("apiBase", () => {
             body: {
                 birthday: date
             }
-        }, true, (_error, data) => {
+        }, "application/json", (_error, data) => {
             assert.typeOf(data.birthday, "string");
             assert.strictEqual(data.birthday, date);
         });
     });
 
-    test("should not make date without json", () => {
+    test("should not make date without application/json", () => {
 
         const date = "nineteen-seventy-seven";
 
@@ -104,7 +104,7 @@ suite("apiBase", () => {
             body: {
                 birthday: date
             }
-        }, false, (_error, data) => {
+        }, null, (_error, data) => {
             assert.typeOf(data.birthday, "string");
             assert.notEqual(data, date);
         });
@@ -116,7 +116,7 @@ suite("apiBase", () => {
 
         api.complete({
             message: message
-        }, null, false, error => {
+        }, null, null, error => {
             assert.strictEqual(error.message, message);
         });
     });
@@ -130,7 +130,7 @@ suite("apiBase", () => {
             message: message
         }, {
             body: details
-        }, false, error => {
+        }, null, error => {
             assert.strictEqual(error.message, message);
             assert.strictEqual(error.details, details);
         });
@@ -149,7 +149,7 @@ suite("apiBase", () => {
             error: {
                 message: responseError
             }
-        }, false, error => {
+        }, null, error => {
             assert.strictEqual(error.message, responseError);
             assert.strictEqual(error.details, details);
         });
@@ -166,7 +166,7 @@ suite("apiBase", () => {
             body: {
                 message: bodyError
             }
-        }, false, error => {
+        }, null, error => {
             assert.strictEqual(error.message, bodyError);
         });
     });
@@ -184,7 +184,7 @@ suite("apiBase", () => {
                     error: bodyError
                 }
             }
-        }, false, error => {
+        }, null, error => {
             assert.strictEqual(error.message, bodyError);
         });
     });
