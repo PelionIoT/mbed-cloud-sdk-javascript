@@ -110,7 +110,7 @@ export interface AccountInfo {
      */
     "upgraded_at"?: Date;
     /**
-     * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
+     * The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.
      */
     "tier": string;
     /**
@@ -204,7 +204,7 @@ export interface AccountUpdateReq {
      */
     "phone_number"?: string;
     /**
-     * The company email address for this account, not longer than 100 characters. Required for commercial accounts only.
+     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
      */
     "email"?: string;
     /**
@@ -582,7 +582,7 @@ export interface MyUserInfoResp {
      */
     "address"?: string;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     "password"?: string;
     /**
@@ -855,7 +855,7 @@ export interface UserInfoReq {
      */
     "address"?: string;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     "password"?: string;
     /**
@@ -939,7 +939,7 @@ export interface UserInfoResp {
      */
     "creation_time"?: number;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     "password"?: string;
     /**
@@ -1026,7 +1026,7 @@ export interface UserUpdateReq {
      */
     "address"?: string;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     "password"?: string;
     /**
@@ -1114,7 +1114,7 @@ export interface UserUpdateResp {
      */
     "totp_secret"?: string;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     "password"?: string;
     /**
