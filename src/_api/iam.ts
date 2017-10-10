@@ -582,7 +582,7 @@ export interface MyUserInfoResp {
      */
     "address"?: string;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     "password"?: string;
     /**
@@ -855,7 +855,7 @@ export interface UserInfoReq {
      */
     "address"?: string;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     "password"?: string;
     /**
@@ -939,7 +939,7 @@ export interface UserInfoResp {
      */
     "creation_time"?: number;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     "password"?: string;
     /**
@@ -1026,7 +1026,7 @@ export interface UserUpdateReq {
      */
     "address"?: string;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     "password"?: string;
     /**
@@ -1114,7 +1114,7 @@ export interface UserUpdateResp {
      */
     "totp_secret"?: string;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     "password"?: string;
     /**
