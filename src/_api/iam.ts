@@ -316,7 +316,7 @@ export interface ApiKeyInfoRespList {
      */
     "data": Array<ApiKeyInfoResp>;
     /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
      */
     "order"?: ApiKeyInfoRespListOrderEnum;
 }
@@ -480,7 +480,7 @@ export interface GroupSummaryList {
      */
     "data": Array<GroupSummary>;
     /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
      */
     "order"?: GroupSummaryListOrderEnum;
 }
@@ -753,7 +753,7 @@ export interface TrustedCertificateRespList {
      */
     "data": Array<TrustedCertificateResp>;
     /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
      */
     "order"?: TrustedCertificateRespListOrderEnum;
 }
@@ -984,7 +984,7 @@ export interface UserInfoRespList {
      */
     "data": Array<UserInfoResp>;
     /**
-     * The order of the records to return. Available values: ASC, DESC; by default ASC.
+     * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
      */
     "order"?: UserInfoRespListOrderEnum;
 }
@@ -1331,7 +1331,7 @@ export class AccountAdminApi extends ApiBase {
      * An endpoint for retrieving the details of all users.
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
-     * @param order The order of the records, ASC or DESC; by default ASC
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param statusEq Filter for status, for example active or reset
      */
@@ -1428,7 +1428,7 @@ export class AccountAdminApi extends ApiBase {
      * @param groupID The ID of the group whose users are retrieved.
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
-     * @param order The order of the records, ASC or DESC; by default ASC
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      */
     public getUsersOfGroup(groupID: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: UserInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1767,7 +1767,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for retrieving API keys in an array, optionally filtered by the owner.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
-     * @param order The order of the records, ASC or DESC; by default ASC
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param ownerEq Owner name filter.
      */
@@ -1821,7 +1821,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for retrieving trusted certificates in an array.
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
-     * @param order The order of the records, ASC or DESC; by default ASC
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param serviceEq Service filter, either lwm2m or bootstrap
      * @param expireEq Expire filter in days
@@ -1887,7 +1887,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for retrieving all group information.
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
-     * @param order The order of the records, ASC or DESC; by default ASC
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      */
     public getAllGroups(limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
@@ -1980,7 +1980,7 @@ export class DeveloperApi extends ApiBase {
      * @param groupID The ID of the group whose API keys are retrieved.
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
-     * @param order The order of the records, ASC or DESC; by default ASC
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      */
     public getApiKeysOfGroup(groupID: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: ApiKeyInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
