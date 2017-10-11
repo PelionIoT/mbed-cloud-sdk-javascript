@@ -90,7 +90,7 @@ export interface AccountInfo {
      */
     "email"?: string;
     /**
-     * The phone number of the company.
+     * The phone number of a representative of the company.
      */
     "phone_number"?: string;
     /**
@@ -200,7 +200,7 @@ export interface AccountUpdateReq {
      */
     "end_market"?: string;
     /**
-     * The phone number of the company, not longer than 100 characters.
+     * The phone number of a representative of the company, not longer than 100 characters.
      */
     "phone_number"?: string;
     /**
@@ -558,7 +558,7 @@ export interface MyUserInfoResp {
      */
     "email": string;
     /**
-     * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
     "status": MyUserInfoRespStatusEnum;
     /**
@@ -871,7 +871,7 @@ export type UserInfoRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET
 export type UserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface UserInfoResp {
     /**
-     * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
     "status": UserInfoRespStatusEnum;
     /**
@@ -1086,7 +1086,7 @@ export interface UserUpdateResp {
      */
     "email": string;
     /**
-     * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
     "status": UserUpdateRespStatusEnum;
     /**
