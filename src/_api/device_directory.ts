@@ -340,7 +340,7 @@ export interface DeviceEventData {
     "event_type_description"?: string;
     "event_type"?: string;
     "data"?: any;
-    "id"?: string;
+    "id": string;
     "device_id"?: string;
 }
 
