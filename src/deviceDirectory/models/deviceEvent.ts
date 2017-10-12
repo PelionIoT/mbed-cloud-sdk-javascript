@@ -25,13 +25,13 @@ export class DeviceEvent {
      */
     public readonly id: string;
     /**
-     * ID of device the event is for
-     */
-    public readonly deviceId: string;
-    /**
      * Date and time of the event
      */
     public readonly eventDate: Date;
+    /**
+     * ID of device the event is for
+     */
+    public readonly deviceId?: string;
     /**
      * Whether the event changed state
      */

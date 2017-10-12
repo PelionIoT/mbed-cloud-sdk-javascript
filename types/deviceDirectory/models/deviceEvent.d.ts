@@ -7,13 +7,13 @@ export declare class DeviceEvent {
      */
     readonly id: string;
     /**
-     * ID of device the event is for
-     */
-    readonly deviceId: string;
-    /**
      * Date and time of the event
      */
     readonly eventDate: Date;
+    /**
+     * ID of device the event is for
+     */
+    readonly deviceId?: string;
     /**
      * Whether the event changed state
      */
