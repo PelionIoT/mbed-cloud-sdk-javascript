@@ -45,10 +45,12 @@ function listEvents(after) {
         after: after
     })
     .then(response => {
+
         response.data.forEach(deviceEvent => {
+          var unixTimestamp = new Date(deviceEvent.eventDate).getTime()/1000 | 0;
         	var fileName = path.format({
 				dir: eventDir,
-				base: `${deviceEvent.id}.json`
+				base: `${deviceEvent.id}-${unixTimestamp.toString(16)}.json`
 			});
 
 			var data = JSON.stringify(deviceEvent, null, "\t");
