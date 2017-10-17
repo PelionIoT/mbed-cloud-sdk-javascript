@@ -159,7 +159,7 @@ export interface FirmwareImagePage {
     "limit"?: number;
     "data"?: Array<FirmwareImage>;
     /**
-     * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
+     * The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
      */
     "order"?: FirmwareImagePageOrderEnum;
 }
