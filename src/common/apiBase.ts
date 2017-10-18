@@ -124,11 +124,11 @@ export class ApiBase {
         return result;
     }
 
-    private static debugLog(message: string) {
+    private static debugLog(title: string, obj: any) {
         if (process && process.env && process.env.DEBUG === "superagent") {
-            process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m ");
+            process.stdout.write(`  \x1b[1m\x1b[35msuperagent\x1b[0m ${title.toUpperCase()}`);
             // tslint:disable-next-line:no-console
-            console.log(message);
+            console.log(obj);
         }
     }
 
@@ -194,8 +194,8 @@ export class ApiBase {
             request.send(body);
         }
 
-        ApiBase.debugLog(`HOST ${this.host}`);
-        if (body) ApiBase.debugLog(`BODY ${body}`);
+        ApiBase.debugLog("host", this.host);
+        if (body) ApiBase.debugLog("body", body);
 
         request.end((error, response) => {
             this.complete(error, response, acceptHeader, callback);
