@@ -187,18 +187,14 @@ export class ApiBase {
         }
 
         if (process && process.env && process.env.DEBUG === "superagent") {
-            process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m HOST ");
-            // tslint:disable-next-line:no-console
-            console.log(this.host);
-            process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m KEY ");
-            // tslint:disable-next-line:no-console
-            console.log(this.apiKey);
-
-            if (body) {
-                process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m BODY ");
+            function debugLog(message) {
+                process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m ");
                 // tslint:disable-next-line:no-console
-                console.log(body);
+                console.log(message);
             }
+
+            debugLog(`HOST ${this.host}`);
+            if (body) debugLog(`BODY ${body}`);
         }
 
         request.end((error, response) => {
