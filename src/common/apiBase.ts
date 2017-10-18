@@ -124,6 +124,14 @@ export class ApiBase {
         return result;
     }
 
+    private static debugLog(title: string, obj: any) {
+        if (process && process.env && process.env.DEBUG === "superagent") {
+            process.stdout.write(`  \x1b[1m\x1b[35msuperagent\x1b[0m ${title.toUpperCase()} `);
+            // tslint:disable-next-line:no-console
+            console.log(obj);
+        }
+    }
+
     protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest {
 
         // Normalize slashes in url
@@ -186,15 +194,12 @@ export class ApiBase {
             request.send(body);
         }
 
+        ApiBase.debugLog("host", this.host);
+        if (body) ApiBase.debugLog("body", body);
+
         request.end((error, response) => {
             this.complete(error, response, acceptHeader, callback);
         });
-
-        if (body && process && process.env && process.env.DEBUG === "superagent") {
-            process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m BODY ");
-            // tslint:disable-next-line:no-console
-            console.log(body);
-        }
 
         return request;
     }
