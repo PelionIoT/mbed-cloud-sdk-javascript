@@ -22,6 +22,7 @@ if (!config.apiKey) {
 if (config.host) {
     console.log(`Using host ${config.host}`);
 }
+console.log(`Using key ${envVarKey}`);
 
 var modules = {
     AccountManagementApi: new MbedCloudSDK.AccountManagementApi(config),
