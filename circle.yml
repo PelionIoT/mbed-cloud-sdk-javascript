@@ -11,7 +11,7 @@ machine:
   environment:
     SDK_NAME: ${CIRCLE_PROJECT_REPONAME}
     SDK_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
-    SDK_LIVE_BRANCH: build
+    SDK_LIVE_BRANCH: live-build
     SDK_DOCS: ${HOME}/docs
     SDK_TESTS: ${HOME}/tests
     SDK_COVERAGE: ${HOME}/coverage
