@@ -47,6 +47,7 @@ compile:
 
 test:
   override:
+    - if [ $CIRCLE_BRANCH = $SDK_LIVE_BRANCH ]; then echo export MBED_CLOUD_HOST='' >> $HOME/.circlerc ; fi
     - mkdir -p ${SDK_TESTS}
     - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" >> ${SDK_TESTS}/index.html:
     - echo "<h2>Unit Tests</h2>" >> ${SDK_TESTS}/index.html:
@@ -57,7 +58,7 @@ test:
     - mkdir -p ${SDK_COVERAGE}
     - cp -r coverage/* ${SDK_COVERAGE}/
     - echo "<h2>Integration Tests</h2>" >> ${SDK_TESTS}/index.html:
-    - if [ $CIRCLE_BRANCH = $SDK_LIVE_BRANCH ]; then echo export MBED_CLOUD_HOST=''; fi set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${SDK_TESTS}/index.html:
+    - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${SDK_TESTS}/index.html:
         pwd: tests
 
 deployment:
