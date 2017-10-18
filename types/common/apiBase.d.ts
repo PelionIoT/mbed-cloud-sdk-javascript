@@ -29,6 +29,7 @@ export declare class ApiBase {
      */
     private static paramToString(param);
     private static chooseType(types, defaultType?);
+    private static debugLog(title, obj);
     protected request<T>(options: {
         url: string;
         method: string;

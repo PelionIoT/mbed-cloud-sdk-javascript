@@ -1,24 +1,21 @@
 general:
   artifacts:
     - ~/docs
-    - ~/tests
-    - ~/coverage
-    - ~/tpip
-  branches:
-    ignore:
-      - build
+    - ~/reports
 
 machine:
   node:
     version: 4.8.0
   environment:
-    SDK_NAME: ${CIRCLE_PROJECT_REPONAME}
-    SDK_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
-    SDK_BRANCH: build
-    SDK_DOCS: ${HOME}/docs
-    SDK_TESTS: ${HOME}/tests
-    SDK_COVERAGE: ${HOME}/coverage
-    SDK_TPIP: ${HOME}/tpip
+    PROJECT_NAME: ${CIRCLE_PROJECT_REPONAME}
+    PROJECT_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
+    PROJECT_LIVE_BRANCH: build
+    PROJECT_DOCS: ${HOME}/docs
+    PROJECT_REPORTS: ${HOME}/reports
+    COVERAGE_REPORTS: ${PROJECT_REPORTS}/coverage
+    FILE_UNITTESTS: ${PROJECT_REPORTS}/unittests.html
+    FILE_INTTESTS: ${PROJECT_REPORTS}/inttests.html
+    FILE_RAW: ${PROJECT_REPORTS}/raw.txt
 
 checkout:
   post:
@@ -26,7 +23,7 @@ checkout:
     - git config --global user.email monty-bot@arm.com
     - git clone https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
 
-# Install dependencies for CI; latest npm, latest chrome, codecov, html output and testrunner reqs
+# Install dependencies for CI; latest npm, latest chrome, code coverage, html output and testrunner reqs
 dependencies:
   pre:
     - npm install -g npm@latest
@@ -42,37 +39,39 @@ dependencies:
 compile:
   override:
     - npm run gulp
-    - mkdir -p ${SDK_DOCS}
-    - cp -r docs/* ${SDK_DOCS}/
+    - mkdir -p ${PROJECT_DOCS}
+    - cp -r docs/* ${PROJECT_DOCS}/
     - npm run tpip
-    - mkdir -p ${SDK_TPIP}
-    - cp tpip.csv ${SDK_TPIP}/
+    - mkdir -p ${PROJECT_REPORTS}
+    - cp tpip.csv ${PROJECT_REPORTS}/
 
 test:
   override:
-    - mkdir -p ${SDK_TESTS}
-    - echo "<h1>${SDK_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" >> ${SDK_TESTS}/index.html:
-    - echo "<h2>Unit Tests</h2>" >> ${SDK_TESTS}/index.html:
-    - set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ${SDK_TESTS}/index.html:
-    - codecov coverage/lcov.info
+    - if [ $CIRCLE_BRANCH = $PROJECT_LIVE_BRANCH ]; then echo export MBED_CLOUD_HOST='' >> $HOME/.circlerc ; fi
+    - echo "<h1>${PROJECT_NAME} unit tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_UNITTESTS}
+    - set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ${FILE_UNITTESTS}
+    - cat ${FILE_UNITTESTS} | grep 'TOTAL' >> ${FILE_RAW}
+    - mkdir -p ${COVERAGE_REPORTS}
+    - cp -r coverage/* ${COVERAGE_REPORTS}
+    - cat ${COVERAGE_REPORTS}/cobertura.xml | grep '<coverage' >> ${FILE_RAW}
+    - codecov ${COVERAGE_REPORTS}/lcov.info
     - mkdir -p ${CIRCLE_TEST_REPORTS}/junit
     - cp junit.xml $CIRCLE_TEST_REPORTS/junit/test-results.xml
-    - mkdir -p ${SDK_COVERAGE}
-    - cp -r coverage/* ${SDK_COVERAGE}/
-    - echo "<h2>Integration Tests</h2>" >> ${SDK_TESTS}/index.html:
-    - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${SDK_TESTS}/index.html:
+    - echo "<h1>${PROJECT_NAME} integration tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_INTTESTS}
+    - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${FILE_INTTESTS}:
         pwd: tests
+    - cat ${FILE_INTTESTS} | grep 'Number of tests run' >> ${FILE_RAW}
 
 deployment:
   staging:
     branch: master
     commands:
-      - echo Syncing $SDK_NAME to S3...
-      - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://$SDK_NAME
-      - echo Syncing $SDK_NAME to $SDK_BRANCH on GitHub...
+      - echo Syncing $PROJECT_NAME to S3...
+      - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://$PROJECT_NAME
+      - echo Syncing $PROJECT_NAME to $PROJECT_LIVE_BRANCH on GitHub...
       - git add --force bundles docs lib types
       - git stash save
-      - git checkout $SDK_BRANCH
+      - git checkout $PROJECT_LIVE_BRANCH
       - git merge master --no-commit
       - git checkout stash -- .
       - git commit --allow-empty --message "Automatic Deployment"
@@ -80,6 +79,6 @@ deployment:
   release:
     branch: /[0-9]+\.[0-9]+.*/
     commands:
-      - echo Tagging $SDK_NAME in GitHub...
-      - git tag ${SDK_TAG}
+      - echo Tagging $PROJECT_NAME in GitHub...
+      - git tag ${PROJECT_TAG}
       - git push --tags
