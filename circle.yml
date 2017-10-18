@@ -4,9 +4,6 @@ general:
     - ~/tests
     - ~/coverage
     - ~/tpip
-  branches:
-    ignore:
-      - build
 
 machine:
   node:
@@ -19,6 +16,8 @@ machine:
     SDK_TESTS: ${HOME}/tests
     SDK_COVERAGE: ${HOME}/coverage
     SDK_TPIP: ${HOME}/tpip
+  post:
+    - if [ $CIRCLE_BRANCH = 'build' ]; then echo export MBED_CLOUD_HOST='' >> $HOME/.circlerc fi
 
 checkout:
   post:

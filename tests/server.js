@@ -4,19 +4,23 @@ var MbedCloudSDK = require('../lib/');
 var mapping = require("./mapping");
 
 var port = 5000;
-var envVarKey = "MBED_CLOUD_API_KEY";
-var envVarHost = "MBED_CLOUD_HOST";
+var host = process.env["MBED_CLOUD_HOST"];
+var envVarKey = host ? "MBED_CLOUD_HOST_API_KEY" : "MBED_CLOUD_API_KEY";
 var logPrefix = "  \x1b[1m\x1b[34mtestserver\x1b[0m ";
 
 // Environment configuration
 var config = {
     apiKey: process.env[envVarKey],
-    host: process.env[envVarHost]
+    host: host
 };
 
 if (!config.apiKey) {
     console.log(`Unable to find ${envVarKey} environment variable`);
     process.exit();
+}
+
+if (config.host) {
+    console.log(`Using host ${config.host}`);
 }
 
 var modules = {
