@@ -219,7 +219,7 @@ export interface AccountUpdateReq {
 export type ApiKeyInfoReqStatusEnum = "ACTIVE" | "INACTIVE";
 export interface ApiKeyInfoReq {
     /**
-     * The owner of this API key, who is the creator by default.
+     * The owner of this API key.
      */
     "owner"?: string;
     /**
@@ -275,7 +275,7 @@ export interface ApiKeyInfoResp {
      */
     "key": string;
     /**
-     * The owner of this API key, who is the creator by default.
+     * The owner of this API key.
      */
     "owner"?: string;
     /**
@@ -327,7 +327,7 @@ export interface ApiKeyInfoRespList {
 export type ApiKeyUpdateReqStatusEnum = "ACTIVE" | "INACTIVE";
 export interface ApiKeyUpdateReq {
     /**
-     * The owner of this API key, who is the creator by default.
+     * The owner of this API key.
      */
     "owner"?: string;
     /**
@@ -1636,7 +1636,7 @@ export class DeveloperApi extends ApiBase {
 
     /**
      * Create a new API key.
-     * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param body The details of the API key to be created.
      */
     public createApiKey(body: ApiKeyInfoReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
