@@ -186,15 +186,24 @@ export class ApiBase {
             request.send(body);
         }
 
+        if (process && process.env && process.env.DEBUG === "superagent") {
+            process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m HOST ");
+            // tslint:disable-next-line:no-console
+            console.log(this.host);
+            process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m KEY ");
+            // tslint:disable-next-line:no-console
+            console.log(this.apiKey);
+
+            if (body) {
+                process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m BODY ");
+                // tslint:disable-next-line:no-console
+                console.log(body);
+            }
+        }
+
         request.end((error, response) => {
             this.complete(error, response, acceptHeader, callback);
         });
-
-        if (body && process && process.env && process.env.DEBUG === "superagent") {
-            process.stdout.write("  \x1b[1m\x1b[35msuperagent\x1b[0m BODY ");
-            // tslint:disable-next-line:no-console
-            console.log(body);
-        }
 
         return request;
     }
