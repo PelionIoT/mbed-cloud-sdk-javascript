@@ -126,7 +126,7 @@ export class ApiBase {
 
     private static debugLog(title: string, obj: any) {
         if (process && process.env && process.env.DEBUG === "superagent") {
-            process.stdout.write(`  \x1b[1m\x1b[35msuperagent\x1b[0m ${title.toUpperCase()}`);
+            process.stdout.write(`  \x1b[1m\x1b[35msuperagent\x1b[0m ${title.toUpperCase()} `);
             // tslint:disable-next-line:no-console
             console.log(obj);
         }
