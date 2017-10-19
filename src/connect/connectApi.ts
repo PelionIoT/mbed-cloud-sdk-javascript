@@ -863,10 +863,10 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Path of the resource to get
+     * @param resourcePath Path of the resource to get
      * @returns Promise of device resource
      */
-    public getResource(deviceId: string, path: string): Promise<Resource>;
+    public getResource(deviceId: string, resourcePath: string): Promise<Resource>;
     /**
      * Get a resource
      *
@@ -881,18 +881,18 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Path of the resource to get
+     * @param resourcePath Path of the resource to get
      * @param callback A function that is passed the arguments (error, resource)
      */
-    public getResource(deviceId: string, path: string, callback?: CallbackFn<Resource>): void;
-    public getResource(deviceId: string, path: string, callback?: CallbackFn<Resource>): Promise<Resource> {
-        path = this.normalizePath(path);
+    public getResource(deviceId: string, resourcePath: string, callback?: CallbackFn<Resource>): void;
+    public getResource(deviceId: string, resourcePath: string, callback?: CallbackFn<Resource>): Promise<Resource> {
+        resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
             this._endpoints.endpoints.v2EndpointsDeviceIdGet(deviceId, resultsFn);
         }, (data, done) => {
             const found = data.find(resource => {
-                return this.normalizePath(resource.uri) === path;
+                return this.normalizePath(resource.uri) === resourcePath;
             });
 
             if (!found) {
@@ -920,11 +920,11 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Path of the resource to delete
+     * @param resourcePath Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
      * @returns Promise containing any error
      */
-    public deleteResource(deviceId: string, path: string, noResponse?: boolean): Promise<string>;
+    public deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean): Promise<string>;
     /**
      * Deletes a resource
      *
@@ -939,13 +939,13 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Path of the resource to delete
+     * @param resourcePath Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    public deleteResource(deviceId: string, path: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public deleteResource(deviceId: string, path: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
-        path = this.normalizePath(path);
+    public deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    public deleteResource(deviceId: string, resourcePath: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+        resourcePath = this.normalizePath(resourcePath);
 
         noResponse = noResponse || false;
         if (typeof noResponse === "function") {
@@ -954,7 +954,7 @@ export class ConnectApi extends EventEmitter {
         }
 
         return apiWrapper(resultsFn => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathDelete(deviceId, path, noResponse, resultsFn);
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathDelete(deviceId, resourcePath, noResponse, resultsFn);
         }, (data, done) => {
             done(null, data[this.ASYNC_KEY]);
         }, callback);
@@ -979,12 +979,12 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
      */
-    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | { [key: string]: string | number }>;
+    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | { [key: string]: string | number }>;
     /**
      * Gets the value of a resource
      *
@@ -1001,14 +1001,14 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    public getResourceValue(deviceId: string, path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
-    public getResourceValue(deviceId: string, path: string, cacheOnly?: any, noResponse?: any, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
-        path = this.normalizePath(path);
+    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
+    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: any, noResponse?: any, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
+        resourcePath = this.normalizePath(resourcePath);
 
         cacheOnly = cacheOnly || false;
         noResponse = noResponse || false;
@@ -1022,7 +1022,7 @@ export class ConnectApi extends EventEmitter {
         }
 
         return apiWrapper(resultsFn => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, path, cacheOnly, noResponse, resultsFn);
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResponse, resultsFn);
         }, (data, done) => {
             const asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
@@ -1054,12 +1054,12 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean): Promise<string>;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean): Promise<string>;
     /**
      * Sets the value of a resource
      *
@@ -1077,14 +1077,14 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public setResourceValue(deviceId: string, path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public setResourceValue(deviceId: string, path: string, value: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
-        path = this.normalizePath(path);
+    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+        resourcePath = this.normalizePath(resourcePath);
 
         noResponse = noResponse || false;
         if (typeof noResponse === "function") {
@@ -1093,7 +1093,7 @@ export class ConnectApi extends EventEmitter {
         }
 
         return apiWrapper(resultsFn => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, path, value, noResponse, resultsFn);
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, resourcePath, value, noResponse, resultsFn);
         }, (data, done) => {
             const asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
@@ -1124,12 +1124,12 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean): Promise<string>;
+    public executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean): Promise<string>;
     /**
      * Execute a function on a resource
      *
@@ -1146,14 +1146,14 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public executeResource(deviceId: string, path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public executeResource(deviceId: string, path: string, functionName?: any, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
-        path = this.normalizePath(path);
+    public executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    public executeResource(deviceId: string, resourcePath: string, functionName?: any, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+        resourcePath = this.normalizePath(resourcePath);
 
         noResponse = noResponse || false;
         if (typeof noResponse === "function") {
@@ -1166,7 +1166,7 @@ export class ConnectApi extends EventEmitter {
         }
 
         return apiWrapper(resultsFn => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, path, functionName, noResponse, resultsFn);
+            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, resourcePath, functionName, noResponse, resultsFn);
         }, (data, done) => {
             const asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
@@ -1195,10 +1195,10 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @returns Promise containing resource subscription status
      */
-    public getResourceSubscription(deviceId: string, path: string): Promise<boolean>;
+    public getResourceSubscription(deviceId: string, resourcePath: string): Promise<boolean>;
     /**
      * Gets the status of a resource's subscription
      *
@@ -1213,15 +1213,15 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
      */
-    public getResourceSubscription(deviceId: string, path: string, callback: CallbackFn<boolean>): void;
-    public getResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<boolean>): Promise<boolean> {
-        path = this.normalizePath(path);
+    public getResourceSubscription(deviceId: string, resourcePath: string, callback: CallbackFn<boolean>): void;
+    public getResourceSubscription(deviceId: string, resourcePath: string, callback?: CallbackFn<boolean>): Promise<boolean> {
+        resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathGet(deviceId, path, resultsFn);
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathGet(deviceId, resourcePath, resultsFn);
         }, (data, done) => {
             done(null, data);
         }, callback);
@@ -1248,11 +1248,11 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param notifyFn Function to call with notification
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(deviceId: string, path: string, notifyFn?: (data: any) => any): Promise<string>;
+    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any): Promise<string>;
     /**
      * Subscribe to a resource
      *
@@ -1271,20 +1271,20 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param notifyFn Function to call with notification
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(deviceId: string, path: string, notifyFn?: (data: any) => any, callback?: CallbackFn<string>): void;
-    public addResourceSubscription(deviceId: string, path: string, notifyFn?: (data: any) => any, callback?: CallbackFn<string>): Promise<string> {
-        path = this.normalizePath(path);
+    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any, callback?: CallbackFn<string>): void;
+    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any, callback?: CallbackFn<string>): Promise<string> {
+        resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, path, resultsFn);
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, resourcePath, resultsFn);
         }, (data, done) => {
             if (notifyFn) {
                 // Record the function at this path for notifications
-                this._notifyFns[`${deviceId}/${path}`] = notifyFn;
+                this._notifyFns[`${deviceId}/${resourcePath}`] = notifyFn;
             }
 
             const asyncID = data[this.ASYNC_KEY];
@@ -1316,10 +1316,10 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public deleteResourceSubscription(deviceId: string, path: string): Promise<string>;
+    public deleteResourceSubscription(deviceId: string, resourcePath: string): Promise<string>;
     /**
      * Deletes a resource's subscription
      *
@@ -1336,18 +1336,18 @@ export class ConnectApi extends EventEmitter {
      * ```
      *
      * @param deviceId Device ID
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public deleteResourceSubscription(deviceId: string, path: string, callback: CallbackFn<string>): void;
-    public deleteResourceSubscription(deviceId: string, path: string, callback?: CallbackFn<string>): Promise<string> {
-        path = this.normalizePath(path);
+    public deleteResourceSubscription(deviceId: string, resourcePath: string, callback: CallbackFn<string>): void;
+    public deleteResourceSubscription(deviceId: string, resourcePath: string, callback?: CallbackFn<string>): Promise<string> {
+        resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, path, resultsFn);
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, resourcePath, resultsFn);
         }, (data, done) => {
             // no-one is listening :(
-            delete this._notifyFns[`${deviceId}/${path}`];
+            delete this._notifyFns[`${deviceId}/${resourcePath}`];
 
             const asyncID = data[this.ASYNC_KEY];
             if (this.handleNotifications && asyncID) {
