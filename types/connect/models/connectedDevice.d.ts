@@ -21,17 +21,17 @@ export declare class ConnectedDevice extends Device {
     /**
      * Get a resource
      *
-     * @param path Path of the resource to get
+     * @param resourcePath Path of the resource to get
      * @returns Promise of device resource
      */
-    getResource(path: string): Promise<Resource>;
+    getResource(resourcePath: string): Promise<Resource>;
     /**
      * Get a resource
      *
-     * @param path Path of the resource to get
+     * @param resourcePath Path of the resource to get
      * @param callback A function that is passed the arguments (error, resource)
      */
-    getResource(path: string, callback?: CallbackFn<Resource>): void;
+    getResource(resourcePath: string, callback?: CallbackFn<Resource>): void;
     /**
      * List a device's subscriptions
      * @returns Promise containing the subscriptions
@@ -56,124 +56,124 @@ export declare class ConnectedDevice extends Device {
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
      */
-    getResourceValue(path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | {
+    getResourceValue(resourcePath: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | {
         [key: string]: string | number;
     }>;
     /**
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    getResourceValue(path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | {
+    getResourceValue(resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | {
         [key: string]: string | number;
     }>): void;
     /**
      * Sets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    setResourceValue(path: string, value: string, noResponse?: boolean): Promise<string>;
+    setResourceValue(resourcePath: string, value: string, noResponse?: boolean): Promise<string>;
     /**
      * Sets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    setResourceValue(path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    setResourceValue(resourcePath: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     /**
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    executeResource(path: string, functionName?: string, noResponse?: boolean): Promise<string>;
+    executeResource(resourcePath: string, functionName?: string, noResponse?: boolean): Promise<string>;
     /**
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    executeResource(path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    executeResource(resourcePath: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
     /**
      * Gets the status of a resource's subscription
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @returns Promise containing resource subscription status
      */
-    getResourceSubscription(path: string): Promise<boolean>;
+    getResourceSubscription(resourcePath: string): Promise<boolean>;
     /**
      * Gets the status of a resource's subscription
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
      */
-    getResourceSubscription(path: string, callback: CallbackFn<boolean>): void;
+    getResourceSubscription(resourcePath: string, callback: CallbackFn<boolean>): void;
     /**
      * Subscribe to a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param notifyFn Function to call with notification
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    addResourceSubscription(path: string, notifyFn?: (any) => any): Promise<string>;
+    addResourceSubscription(resourcePath: string, notifyFn?: (any) => any): Promise<string>;
     /**
      * Subscribe to a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param notifyFn Function to call with notification
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    addResourceSubscription(path: string, notifyFn?: (any) => any, callback?: CallbackFn<string>): void;
+    addResourceSubscription(resourcePath: string, notifyFn?: (any) => any, callback?: CallbackFn<string>): void;
     /**
      * Deletes a resource's subscription
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    deleteResourceSubscription(path: string): Promise<string>;
+    deleteResourceSubscription(resourcePath: string): Promise<string>;
     /**
      * Deletes a resource's subscription
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    deleteResourceSubscription(path: string, callback: CallbackFn<string>): void;
+    deleteResourceSubscription(resourcePath: string, callback: CallbackFn<string>): void;
     /**
      * Deletes a resource
-     * @param path Path of the resource to delete
+     * @param resourcePath Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
      * @returns Promise containing any error
      */
-    deleteResource(path: string, noResponse?: boolean): Promise<string>;
+    deleteResource(resourcePath: string, noResponse?: boolean): Promise<string>;
     /**
      * Deletes a resource
-     * @param path Path of the resource to delete
+     * @param resourcePath Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    deleteResource(path: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    deleteResource(resourcePath: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
 }

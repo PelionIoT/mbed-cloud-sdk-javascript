@@ -443,7 +443,7 @@
 				<a name="addresourcesubscription" class="tsd-anchor"></a>
 				<h3>add<wbr>Resource<wbr>Subscription</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">add<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, notifyFn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">add<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, notifyFn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -477,7 +477,7 @@ connect.addResourceSubscription(deviceId, resourceURI, data =&gt; {
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -512,7 +512,7 @@ connect.addResourceSubscription(deviceId, resourceURI, data =&gt; {
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">add<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, notifyFn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">add<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, notifyFn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -543,7 +543,7 @@ connect.addResourceSubscription(deviceId, resourceURI, <span class="hljs-functio
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -714,7 +714,7 @@ connect.deleteDeviceSubscriptions(deviceId, <span class="hljs-function"><span cl
 				<a name="deleteresource" class="tsd-anchor"></a>
 				<h3>delete<wbr>Resource</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -745,7 +745,7 @@ connect.deleteResource(deviceId, resourceURI)
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Path of the resource to delete</p>
 								</div>
@@ -762,7 +762,7 @@ connect.deleteResource(deviceId, resourceURI)
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -790,7 +790,7 @@ connect.deleteResource(deviceId, resourceURI, <span class="hljs-function"><span 
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Path of the resource to delete</p>
 								</div>
@@ -816,7 +816,7 @@ connect.deleteResource(deviceId, resourceURI, <span class="hljs-function"><span 
 				<a name="deleteresourcesubscription" class="tsd-anchor"></a>
 				<h3>delete<wbr>Resource<wbr>Subscription</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -848,7 +848,7 @@ connect.deleteResourceSubscription(deviceId, resourceURI)
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -859,7 +859,7 @@ connect.deleteResourceSubscription(deviceId, resourceURI)
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -888,7 +888,7 @@ connect.deleteResourceSubscription(deviceId, resourceURI, <span class="hljs-func
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -1063,7 +1063,7 @@ connect.deleteResourceSubscription(deviceId, resourceURI, <span class="hljs-func
 				<a name="executeresource" class="tsd-anchor"></a>
 				<h3>execute<wbr>Resource</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">execute<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, functionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">execute<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, functionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1095,7 +1095,7 @@ connect.executeResource(deviceId, resourceURI)
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -1118,7 +1118,7 @@ connect.executeResource(deviceId, resourceURI)
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">execute<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, functionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">execute<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, functionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1147,7 +1147,7 @@ connect.executeResource(deviceId, resourceURI, <span class="hljs-function"><span
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -1239,7 +1239,7 @@ connect.executeResource(deviceId, resourceURI, <span class="hljs-function"><span
 				<a name="getresource" class="tsd-anchor"></a>
 				<h3>get<wbr>Resource</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1270,7 +1270,7 @@ connect.getResource(deviceId, resourceURI)
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Path of the resource to get</p>
 								</div>
@@ -1281,7 +1281,7 @@ connect.getResource(deviceId, resourceURI)
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><a href="resource.html" class="tsd-signature-type">Resource</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1309,7 +1309,7 @@ connect.getResource(deviceId, resourceURI, <span class="hljs-function"><span cla
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Path of the resource to get</p>
 								</div>
@@ -1329,7 +1329,7 @@ connect.getResource(deviceId, resourceURI, <span class="hljs-function"><span cla
 				<a name="getresourcesubscription" class="tsd-anchor"></a>
 				<h3>get<wbr>Resource<wbr>Subscription</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1360,7 +1360,7 @@ connect.getResourceSubscription(deviceId, resourceURI)
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -1371,7 +1371,7 @@ connect.getResourceSubscription(deviceId, resourceURI)
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Subscription<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1399,7 +1399,7 @@ connect.getResourceSubscription(deviceId, resourceURI, <span class="hljs-functio
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -1419,7 +1419,7 @@ connect.getResourceSubscription(deviceId, resourceURI, <span class="hljs-functio
 				<a name="getresourcevalue" class="tsd-anchor"></a>
 				<h3>get<wbr>Resource<wbr>Value</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cacheOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cacheOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1451,7 +1451,7 @@ connect.getResourceValue(deviceId, resourceURI)
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -1474,7 +1474,7 @@ connect.getResourceValue(deviceId, resourceURI)
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cacheOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cacheOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1503,7 +1503,7 @@ connect.getResourceValue(deviceId, resourceURI, <span class="hljs-function"><spa
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -2236,7 +2236,7 @@ connectApi.on(mbed.ConnectApi.EVENT_NOTIFICATION, <span class="hljs-function"><s
 				<a name="setresourcevalue" class="tsd-anchor"></a>
 				<h3>set<wbr>Resource<wbr>Value</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">set<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -2269,7 +2269,7 @@ connect.setResourceValue(deviceId, resourceURI, payload)
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
@@ -2292,7 +2292,7 @@ connect.setResourceValue(deviceId, resourceURI, payload)
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">set<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Resource<wbr>Value<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -2322,7 +2322,7 @@ connect.setResourceValue(deviceId, resourceURI, payload, <span class="hljs-funct
 								</div>
 							</li>
 							<li>
-								<h5>path: <span class="tsd-signature-type">string</span></h5>
+								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Resource path</p>
 								</div>
