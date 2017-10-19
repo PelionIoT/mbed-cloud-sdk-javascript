@@ -130,6 +130,9 @@
 					<a href="connectapi.html#listeners" class="tsd-kind-icon">listeners</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="connectapi.html#mdsconnecteddevices" class="tsd-kind-icon">mds<wbr>Connected<wbr>Devices</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="connectapi.html#notify" class="tsd-kind-icon">notify</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
@@ -276,6 +279,7 @@
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#listresources" class="tsd-kind-icon">list<wbr>Resources</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#listenercount" class="tsd-kind-icon">listener<wbr>Count</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#listeners" class="tsd-kind-icon">listeners</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#mdsconnecteddevices" class="tsd-kind-icon">mds<wbr>Connected<wbr>Devices</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#notify" class="tsd-kind-icon">notify</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#on" class="tsd-kind-icon">on</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectapi.html#once" class="tsd-kind-icon">once</a></li>
@@ -2014,6 +2018,80 @@ connect.listResources(deviceId, <span class="hljs-function"><span class="hljs-ke
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Function[]</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="mdsconnecteddevices" class="tsd-anchor"></a>
+				<h3>mds<wbr>Connected<wbr>Devices</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">mds<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>List connected devices from mDS <strong>DEPRECATED</strong></p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.mdsConnectedDevices()
+.then(<span class="hljs-function"><span class="hljs-params">devices</span> =&gt;</span> {
+    <span class="hljs-comment">// Utilize devices here</span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(error);
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>device type</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise of mds devices</p>
+					</li>
+				</ul>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">mds<wbr>Connected<wbr>Devices<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>List connected devices from mDS <strong>DEPRECATED</strong></p>
+							</div>
+							<p>Example:</p>
+							<pre><code class="lang-JavaScript">connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, devices</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
+    <span class="hljs-comment">// Utilize devices here</span>
+});
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>device type</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="connecteddevice.html" class="tsd-signature-type">ConnectedDevice</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, devices)</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
 			</section>
