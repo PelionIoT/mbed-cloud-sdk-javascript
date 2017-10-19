@@ -54,21 +54,21 @@ export class ConnectedDevice extends Device {
     /**
      * Get a resource
      *
-     * @param path Path of the resource to get
+     * @param resourcePath Path of the resource to get
      * @returns Promise of device resource
      */
-    public getResource(path: string): Promise<Resource>;
+    public getResource(resourcePath: string): Promise<Resource>;
     /**
      * Get a resource
      *
-     * @param path Path of the resource to get
+     * @param resourcePath Path of the resource to get
      * @param callback A function that is passed the arguments (error, resource)
      */
-    public getResource(path: string, callback?: CallbackFn<Resource>): void;
-    public getResource(path: string, callback?: CallbackFn<Resource>): Promise<Resource> {
+    public getResource(resourcePath: string, callback?: CallbackFn<Resource>): void;
+    public getResource(resourcePath: string, callback?: CallbackFn<Resource>): Promise<Resource> {
 
         return asyncStyle(done => {
-            this._connectApi.getResource(this.id, path, done);
+            this._connectApi.getResource(this.id, resourcePath, done);
         }, callback);
     }
 
@@ -108,23 +108,23 @@ export class ConnectedDevice extends Device {
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise of resource value when handling notifications or an asyncId
      */
-    public getResourceValue(path: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | { [key: string]: string | number }>;
+    public getResourceValue(resourcePath: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | { [key: string]: string | number }>;
     /**
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    public getResourceValue(path: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
-    public getResourceValue(path: string, cacheOnly?: any, noResponse?: any, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
+    public getResourceValue(resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
+    public getResourceValue(resourcePath: string, cacheOnly?: any, noResponse?: any, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
         cacheOnly = cacheOnly || false;
         noResponse = noResponse || false;
         if (typeof noResponse === "function") {
@@ -137,7 +137,7 @@ export class ConnectedDevice extends Device {
         }
 
         return asyncStyle(done => {
-            this._connectApi.getResourceValue(this.id, path, cacheOnly, noResponse, done);
+            this._connectApi.getResourceValue(this.id, resourcePath, cacheOnly, noResponse, done);
         }, callback);
     }
 
@@ -145,23 +145,23 @@ export class ConnectedDevice extends Device {
      * Sets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public setResourceValue(path: string, value: string, noResponse?: boolean): Promise<string>;
+    public setResourceValue(resourcePath: string, value: string, noResponse?: boolean): Promise<string>;
     /**
      * Sets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public setResourceValue(path: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public setResourceValue(path: string, value: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+    public setResourceValue(resourcePath: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    public setResourceValue(resourcePath: string, value: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
         noResponse = noResponse || false;
         if (typeof noResponse === "function") {
             callback = noResponse;
@@ -169,7 +169,7 @@ export class ConnectedDevice extends Device {
         }
 
         return asyncStyle(done => {
-            this._connectApi.setResourceValue(this.id, path, value, noResponse, done);
+            this._connectApi.setResourceValue(this.id, resourcePath, value, noResponse, done);
         }, callback);
     }
 
@@ -177,23 +177,23 @@ export class ConnectedDevice extends Device {
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public executeResource(path: string, functionName?: string, noResponse?: boolean): Promise<string>;
+    public executeResource(resourcePath: string, functionName?: string, noResponse?: boolean): Promise<string>;
     /**
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public executeResource(path: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public executeResource(path: string, functionName?: any, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+    public executeResource(resourcePath: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    public executeResource(resourcePath: string, functionName?: any, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
         noResponse = noResponse || false;
         if (typeof noResponse === "function") {
             callback = noResponse;
@@ -205,25 +205,25 @@ export class ConnectedDevice extends Device {
         }
 
         return asyncStyle(done => {
-            this._connectApi.executeResource(this.id, path, functionName, noResponse, done);
+            this._connectApi.executeResource(this.id, resourcePath, functionName, noResponse, done);
         }, callback);
     }
 
     /**
      * Gets the status of a resource's subscription
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @returns Promise containing resource subscription status
      */
-    public getResourceSubscription(path: string): Promise<boolean>;
+    public getResourceSubscription(resourcePath: string): Promise<boolean>;
     /**
      * Gets the status of a resource's subscription
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
      */
-    public getResourceSubscription(path: string, callback: CallbackFn<boolean>): void;
-    public getResourceSubscription(path: string, callback?: CallbackFn<boolean>): Promise<boolean> {
+    public getResourceSubscription(resourcePath: string, callback: CallbackFn<boolean>): void;
+    public getResourceSubscription(resourcePath: string, callback?: CallbackFn<boolean>): Promise<boolean> {
         return asyncStyle(done => {
-            this._connectApi.getResourceSubscription(this.id, path, done);
+            this._connectApi.getResourceSubscription(this.id, resourcePath, done);
         }, callback);
     }
 
@@ -231,23 +231,23 @@ export class ConnectedDevice extends Device {
      * Subscribe to a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param notifyFn Function to call with notification
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(path: string, notifyFn?: (any) => any): Promise<string>;
+    public addResourceSubscription(resourcePath: string, notifyFn?: (any) => any): Promise<string>;
     /**
      * Subscribe to a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param notifyFn Function to call with notification
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public addResourceSubscription(path: string, notifyFn?: (any) => any, callback?: CallbackFn<string>): void;
-    public addResourceSubscription(path: string, notifyFn?: (any) => any, callback?: CallbackFn<string>): Promise<string> {
+    public addResourceSubscription(resourcePath: string, notifyFn?: (any) => any, callback?: CallbackFn<string>): void;
+    public addResourceSubscription(resourcePath: string, notifyFn?: (any) => any, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
-            this._connectApi.addResourceSubscription(this.id, path, notifyFn, done);
+            this._connectApi.addResourceSubscription(this.id, resourcePath, notifyFn, done);
         }, callback);
     }
 
@@ -255,39 +255,39 @@ export class ConnectedDevice extends Device {
      * Deletes a resource's subscription
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    public deleteResourceSubscription(path: string): Promise<string>;
+    public deleteResourceSubscription(resourcePath: string): Promise<string>;
     /**
      * Deletes a resource's subscription
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param path Resource path
+     * @param resourcePath Resource path
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    public deleteResourceSubscription(path: string, callback: CallbackFn<string>): void;
-    public deleteResourceSubscription(path: string, callback?: CallbackFn<string>): Promise<string> {
+    public deleteResourceSubscription(resourcePath: string, callback: CallbackFn<string>): void;
+    public deleteResourceSubscription(resourcePath: string, callback?: CallbackFn<string>): Promise<string> {
         return asyncStyle(done => {
-            this._connectApi.deleteResourceSubscription(this.id, path, done);
+            this._connectApi.deleteResourceSubscription(this.id, resourcePath, done);
         }, callback);
     }
 
     /**
      * Deletes a resource
-     * @param path Path of the resource to delete
+     * @param resourcePath Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
      * @returns Promise containing any error
      */
-    public deleteResource(path: string, noResponse?: boolean): Promise<string>;
+    public deleteResource(resourcePath: string, noResponse?: boolean): Promise<string>;
     /**
      * Deletes a resource
-     * @param path Path of the resource to delete
+     * @param resourcePath Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    public deleteResource(path: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public deleteResource(path: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+    public deleteResource(resourcePath: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    public deleteResource(resourcePath: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
         noResponse = noResponse || false;
         if (typeof noResponse === "function") {
             callback = noResponse;
@@ -295,7 +295,7 @@ export class ConnectedDevice extends Device {
         }
 
         return asyncStyle(done => {
-            this._connectApi.deleteResource(this.id, path, noResponse, done);
+            this._connectApi.deleteResource(this.id, resourcePath, noResponse, done);
         }, callback);
     }
 }
