@@ -5,11 +5,10 @@ var mapping = require("./mapping");
 
 var port = 5000;
 var logPrefix = "  \x1b[1m\x1b[34mtestserver\x1b[0m ";
+var envVarKey = "MBED_CLOUD_API_KEY";
 var host = process.env["MBED_CLOUD_HOST"];
-var envVarKey = host ? "MBED_CLOUD_HOST_API_KEY" : "MBED_CLOUD_API_KEY";
 
 // Environment configuration
-console.log(`Using key ${envVarKey}`);
 var config = {
     apiKey: process.env[envVarKey],
 };
