@@ -194,7 +194,6 @@ export class ApiBase {
             request.send(body);
         }
 
-        ApiBase.debugLog("host", this.host);
         if (body) ApiBase.debugLog("body", body);
 
         request.end((error, response) => {
