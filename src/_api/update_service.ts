@@ -23,7 +23,7 @@ import superagent = require("superagent");
 import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
-export type CampaignDeviceMetadataDeploymentStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved";
+export type CampaignDeviceMetadataDeploymentStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved" | "deregistered";
 export interface CampaignDeviceMetadata {
     /**
      * Description
