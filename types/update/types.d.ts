@@ -32,7 +32,7 @@ export interface AddFirmwareManifestObject extends FirmwareManifestObject {
     dataFile: ReadableStream | File | Blob;
 }
 export declare type CampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
-export declare type CampaignDeviceStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved";
+export declare type CampaignDeviceStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved" | "deregistered";
 export interface CampaignObject {
     /**
      * A name for this campaign
