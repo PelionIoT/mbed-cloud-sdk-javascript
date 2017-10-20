@@ -26,15 +26,12 @@ checkout:
 # Install dependencies for CI; latest npm, latest chrome, code coverage, html output and testrunner reqs
 dependencies:
   pre:
-    - sudo apt-get update
     - npm install -g npm@latest
+    - npm install -g codecov ansi-html-stream
     - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - sudo dpkg -i google-chrome.deb
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
-  post:
-    - npm install -g codecov ansi-html-stream
     - pip install -U pip
-    - pip install certifi
     - pip install -r tests/testrunner/requirements.txt
     - python setup.py develop:
         pwd: tests/testrunner
