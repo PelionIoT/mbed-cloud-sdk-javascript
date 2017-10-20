@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.2.3
+
+### Deliverables
+
+The application is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using npm:
+
+```
+$ npm install mbed-cloud-sdk
+```
+
+### Changes
+
+- Implemented connectApi.getResource method
+- Added unit test coverage
+- Fixed issue with binary resources not being returned correctly
+
 ## 1.2.2
 
 ### Deliverables
