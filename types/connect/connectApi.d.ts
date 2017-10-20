@@ -968,37 +968,4 @@ export declare class ConnectApi extends EventEmitter {
      * @param callback A function that is passed the arguments (error, meta data)
      */
     getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;
-    /**
-     * List connected devices from mDS **DEPRECATED**
-     *
-     * Example:
-     * ```JavaScript
-     * connect.mdsConnectedDevices()
-     * .then(devices => {
-     *     // Utilize devices here
-     * })
-     * .catch(error => {
-     *     console.log(error);
-     * });
-     * ```
-     *
-     * @param type device type
-     * @returns Promise of mds devices
-     */
-    mdsConnectedDevices(type?: string): Promise<Array<ConnectedDevice>>;
-    /**
-     * List connected devices from mDS **DEPRECATED**
-     *
-     * Example:
-     * ```JavaScript
-     * connect.listConnectedDevices(function(error, devices) {
-     *     if (error) throw error;
-     *     // Utilize devices here
-     * });
-     * ```
-     *
-     * @param type device type
-     * @param callback A function that is passed the arguments (error, devices)
-     */
-    mdsConnectedDevices(type?: string, callback?: CallbackFn<Array<ConnectedDevice>>): void;
 }
