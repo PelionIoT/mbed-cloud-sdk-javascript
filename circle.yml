@@ -35,6 +35,7 @@ dependencies:
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
     - sudo pip install -U setuptools
     - sudo pip install --upgrade pip
+    - sudo apt-get install g++ libffi-dev openssl-dev openssl
   post:
     - npm install -g codecov ansi-html-stream
     - pip install certifi
