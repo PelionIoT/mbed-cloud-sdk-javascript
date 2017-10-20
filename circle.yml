@@ -35,7 +35,8 @@ dependencies:
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
   post:
     - npm install -g codecov ansi-html-stream
-    - pip3 install -r tests/testrunner/requirements.txt
+    - pip install certifi
+    - pip install -r tests/testrunner/requirements.txt
     - python setup.py develop:
         pwd: tests/testrunner
 
