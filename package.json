@@ -1,6 +1,6 @@
 {
   "name": "mbed-cloud-sdk",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Mbed Cloud SDK for JavaScript",
   "homepage": "https://www.mbed.com",
   "author": "Rob Moran <rob.moran@arm.com>",
