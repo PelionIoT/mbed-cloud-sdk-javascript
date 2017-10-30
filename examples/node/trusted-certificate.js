@@ -71,6 +71,8 @@ function delay(seconds) {
 
 checkCertificate()
 .then(() => {
+    // Rather than spawn openssl, this could be done using the forge package - https://www.npmjs.com/package/node-forge
+
     // Create private key
     execSync(`openssl genrsa -out ${keyFile} 1024`);
     console.log(`Private key written to ${keyFile}`);
