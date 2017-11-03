@@ -1,4 +1,5 @@
 /* tslint:disable:array-type */
+/* tslint:disable:no-namespace */
 /* tslint:disable:no-string-literal */
 /* tslint:disable:max-classes-per-file */
 /* tslint:disable:no-trailing-whitespace */
