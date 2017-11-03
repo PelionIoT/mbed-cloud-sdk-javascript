@@ -23,7 +23,7 @@ import superagent = require("superagent");
 import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
-export type CampaignDeviceMetadataDeploymentStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved" | "deregistered";
+export type DeploymentStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved" | "deregistered";
 export interface CampaignDeviceMetadata {
     /**
      * Description
@@ -64,7 +64,7 @@ export interface CampaignDeviceMetadata {
     /**
      * The state of the update campaign on the device
      */
-    "deployment_state"?: CampaignDeviceMetadataDeploymentStateEnum;
+    "deployment_state"?: CampaignDeviceMetadata.DeploymentStateEnum;
     /**
      * The metadata record ID
      */
@@ -75,7 +75,7 @@ export interface CampaignDeviceMetadata {
     "device_id"?: string;
 }
 
-export type CampaignDeviceMetadataPageOrderEnum = "ASC" | "DESC";
+export type OrderEnum = "ASC" | "DESC";
 export interface CampaignDeviceMetadataPage {
     /**
      * The entity ID to fetch after the given one
@@ -104,7 +104,7 @@ export interface CampaignDeviceMetadataPage {
     /**
      * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
-    "order"?: CampaignDeviceMetadataPageOrderEnum;
+    "order"?: CampaignDeviceMetadataPage.OrderEnum;
 }
 
 export interface FirmwareImage {
@@ -150,7 +150,7 @@ export interface FirmwareImage {
     "name": string;
 }
 
-export type FirmwareImagePageOrderEnum = "ASC" | "DESC";
+export type OrderEnum = "ASC" | "DESC";
 export interface FirmwareImagePage {
     "object"?: string;
     "has_more"?: boolean;
@@ -161,7 +161,7 @@ export interface FirmwareImagePage {
     /**
      * The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
      */
-    "order"?: FirmwareImagePageOrderEnum;
+    "order"?: FirmwareImagePage.OrderEnum;
 }
 
 export interface FirmwareManifest {
@@ -215,7 +215,7 @@ export interface FirmwareManifest {
     "name": string;
 }
 
-export type FirmwareManifestPageOrderEnum = "ASC" | "DESC";
+export type OrderEnum = "ASC" | "DESC";
 export interface FirmwareManifestPage {
     "object"?: string;
     "has_more"?: boolean;
@@ -226,10 +226,10 @@ export interface FirmwareManifestPage {
     /**
      * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
-    "order"?: FirmwareManifestPageOrderEnum;
+    "order"?: FirmwareManifestPage.OrderEnum;
 }
 
-export type UpdateCampaignStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export type StateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export interface UpdateCampaign {
     /**
      * The optional description of the campaign
@@ -251,7 +251,7 @@ export interface UpdateCampaign {
     /**
      * The state of the campaign
      */
-    "state"?: UpdateCampaignStateEnum;
+    "state"?: UpdateCampaign.StateEnum;
     /**
      * The campaign finish timestamp
      */
@@ -276,7 +276,7 @@ export interface UpdateCampaign {
     "name"?: string;
 }
 
-export type UpdateCampaignPageOrderEnum = "ASC" | "DESC";
+export type OrderEnum = "ASC" | "DESC";
 export interface UpdateCampaignPage {
     "object"?: string;
     "has_more"?: boolean;
@@ -287,10 +287,10 @@ export interface UpdateCampaignPage {
     /**
      * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
-    "order"?: UpdateCampaignPageOrderEnum;
+    "order"?: UpdateCampaignPage.OrderEnum;
 }
 
-export type UpdateCampaignPatchRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export type StateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export interface UpdateCampaignPatchRequest {
     /**
      * The optional description of the campaign
@@ -308,7 +308,7 @@ export interface UpdateCampaignPatchRequest {
     /**
      * The state of the campaign
      */
-    "state"?: UpdateCampaignPatchRequestStateEnum;
+    "state"?: UpdateCampaignPatchRequest.StateEnum;
     /**
      * The filter for the devices the campaign will target
      */
@@ -319,7 +319,7 @@ export interface UpdateCampaignPatchRequest {
     "name"?: string;
 }
 
-export type UpdateCampaignPostRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export type StateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export interface UpdateCampaignPostRequest {
     /**
      * The optional description of the campaign
@@ -337,7 +337,7 @@ export interface UpdateCampaignPostRequest {
     /**
      * The state of the campaign
      */
-    "state"?: UpdateCampaignPostRequestStateEnum;
+    "state"?: UpdateCampaignPostRequest.StateEnum;
     /**
      * The filter for the devices the campaign will target
      */
@@ -348,7 +348,7 @@ export interface UpdateCampaignPostRequest {
     "name": string;
 }
 
-export type UpdateCampaignPutRequestStateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+export type StateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
 export interface UpdateCampaignPutRequest {
     /**
      * An optional description of the campaign
@@ -366,7 +366,7 @@ export interface UpdateCampaignPutRequest {
     /**
      * The state of the campaign
      */
-    "state": UpdateCampaignPutRequestStateEnum;
+    "state": UpdateCampaignPutRequest.StateEnum;
     /**
      * The filter for the devices the campaign will target
      */

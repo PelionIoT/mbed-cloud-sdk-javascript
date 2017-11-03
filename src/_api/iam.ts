@@ -26,8 +26,8 @@ import { SDKError } from "../common/sdkError";
 /**
  * This object represents an account in requests and responses.
  */
-export type AccountInfoStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
-export type AccountInfoObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type StatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface AccountInfo {
     /**
      * Account end market.
@@ -36,7 +36,7 @@ export interface AccountInfo {
     /**
      * The status of the account.
      */
-    "status": AccountInfoStatusEnum;
+    "status": AccountInfo.StatusEnum;
     /**
      * The password policy for this account.
      */
@@ -100,7 +100,7 @@ export interface AccountInfo {
     /**
      * Entity name: always 'account'
      */
-    "object": AccountInfoObjectEnum;
+    "object": AccountInfo.ObjectEnum;
     /**
      * A reason note for updating the status of the account
      */
@@ -216,7 +216,7 @@ export interface AccountUpdateReq {
 /**
  * This object represents an API key in requests towards mbed Cloud.
  */
-export type ApiKeyInfoReqStatusEnum = "ACTIVE" | "INACTIVE";
+export type StatusEnum = "ACTIVE" | "INACTIVE";
 export interface ApiKeyInfoReq {
     /**
      * The owner of this API key.
@@ -225,7 +225,7 @@ export interface ApiKeyInfoReq {
     /**
      * The status of the API key.
      */
-    "status"?: ApiKeyInfoReqStatusEnum;
+    "status"?: ApiKeyInfoReq.StatusEnum;
     /**
      * The display name for the API key, not longer than 100 characters.
      */
@@ -239,8 +239,8 @@ export interface ApiKeyInfoReq {
 /**
  * This object represents an API key in mbed Cloud.
  */
-export type ApiKeyInfoRespStatusEnum = "ACTIVE" | "INACTIVE";
-export type ApiKeyInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type StatusEnum = "ACTIVE" | "INACTIVE";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface ApiKeyInfoResp {
     /**
      * A list of group IDs this API key belongs to.
@@ -249,7 +249,7 @@ export interface ApiKeyInfoResp {
     /**
      * The status of the API key.
      */
-    "status"?: ApiKeyInfoRespStatusEnum;
+    "status"?: ApiKeyInfoResp.StatusEnum;
     /**
      * The display name for the API key.
      */
@@ -261,7 +261,7 @@ export interface ApiKeyInfoResp {
     /**
      * Entity name: always 'api-key'
      */
-    "object": ApiKeyInfoRespObjectEnum;
+    "object": ApiKeyInfoResp.ObjectEnum;
     /**
      * The timestamp of the API key creation in the storage, in milliseconds.
      */
@@ -288,8 +288,8 @@ export interface ApiKeyInfoResp {
     "last_login_time"?: number;
 }
 
-export type ApiKeyInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type ApiKeyInfoRespListOrderEnum = "ASC" | "DESC";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type OrderEnum = "ASC" | "DESC";
 export interface ApiKeyInfoRespList {
     /**
      * The entity ID to fetch after the given one.
@@ -306,7 +306,7 @@ export interface ApiKeyInfoRespList {
     /**
      * Entity name: always 'list'
      */
-    "object": ApiKeyInfoRespListObjectEnum;
+    "object": ApiKeyInfoRespList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -318,13 +318,13 @@ export interface ApiKeyInfoRespList {
     /**
      * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
      */
-    "order"?: ApiKeyInfoRespListOrderEnum;
+    "order"?: ApiKeyInfoRespList.OrderEnum;
 }
 
 /**
  * This object represents an API key in requests towards mbed Cloud.
  */
-export type ApiKeyUpdateReqStatusEnum = "ACTIVE" | "INACTIVE";
+export type StatusEnum = "ACTIVE" | "INACTIVE";
 export interface ApiKeyUpdateReq {
     /**
      * The owner of this API key.
@@ -333,7 +333,7 @@ export interface ApiKeyUpdateReq {
     /**
      * The status of the API key.
      */
-    "status"?: ApiKeyUpdateReqStatusEnum;
+    "status"?: ApiKeyUpdateReq.StatusEnum;
     /**
      * The display name for the API key, not longer than 100 characters.
      */
@@ -343,8 +343,8 @@ export interface ApiKeyUpdateReq {
 /**
  * This object represents an error message.
  */
-export type ErrorResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type ErrorResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type TypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 export interface ErrorResponse {
     /**
      * Response code.
@@ -357,7 +357,7 @@ export interface ErrorResponse {
     /**
      * Entity name, always 'error'.
      */
-    "object": ErrorResponseObjectEnum;
+    "object": ErrorResponse.ObjectEnum;
     /**
      * Request ID.
      */
@@ -369,7 +369,7 @@ export interface ErrorResponse {
     /**
      * Error type.
      */
-    "type": ErrorResponseTypeEnum;
+    "type": ErrorResponse.TypeEnum;
 }
 
 /**
@@ -408,7 +408,7 @@ export interface Field {
 /**
  * This object contains basic information about groups.
  */
-export type GroupSummaryObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface GroupSummary {
     /**
      * A timestamp of the latest group update, in milliseconds.
@@ -429,7 +429,7 @@ export interface GroupSummary {
     /**
      * Entity name: always 'group'
      */
-    "object": GroupSummaryObjectEnum;
+    "object": GroupSummary.ObjectEnum;
     /**
      * A timestamp of the group creation in the storage, in milliseconds.
      */
@@ -452,8 +452,8 @@ export interface GroupSummary {
     "account_id": string;
 }
 
-export type GroupSummaryListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type GroupSummaryListOrderEnum = "ASC" | "DESC";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type OrderEnum = "ASC" | "DESC";
 export interface GroupSummaryList {
     /**
      * The entity ID to fetch after the given one.
@@ -470,7 +470,7 @@ export interface GroupSummaryList {
     /**
      * Entity name: always 'list'
      */
-    "object": GroupSummaryListObjectEnum;
+    "object": GroupSummaryList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -482,7 +482,7 @@ export interface GroupSummaryList {
     /**
      * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
      */
-    "order"?: GroupSummaryListOrderEnum;
+    "order"?: GroupSummaryList.OrderEnum;
 }
 
 /**
@@ -510,8 +510,8 @@ export interface LoginHistory {
 /**
  * This object represents user details.
  */
-export type MyUserInfoRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type MyUserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type StatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface MyUserInfoResp {
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
@@ -560,7 +560,7 @@ export interface MyUserInfoResp {
     /**
      * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
-    "status": MyUserInfoRespStatusEnum;
+    "status": MyUserInfoResp.StatusEnum;
     /**
      * The UUID of the account.
      */
@@ -572,7 +572,7 @@ export interface MyUserInfoResp {
     /**
      * Entity name: always 'user'
      */
-    "object": MyUserInfoRespObjectEnum;
+    "object": MyUserInfoResp.ObjectEnum;
     /**
      * A list of IDs of the groups this user belongs to.
      */
@@ -627,13 +627,13 @@ export interface SubjectList {
 /**
  * This object represents a trusted certificate in upload requests.
  */
-export type TrustedCertificateReqStatusEnum = "ACTIVE" | "INACTIVE";
-export type TrustedCertificateReqServiceEnum = "lwm2m" | "bootstrap";
+export type StatusEnum = "ACTIVE" | "INACTIVE";
+export type ServiceEnum = "lwm2m" | "bootstrap";
 export interface TrustedCertificateReq {
     /**
      * Status of the certificate.
      */
-    "status"?: TrustedCertificateReqStatusEnum;
+    "status"?: TrustedCertificateReq.StatusEnum;
     /**
      * X509.v3 trusted certificate in PEM format.
      */
@@ -645,7 +645,7 @@ export interface TrustedCertificateReq {
     /**
      * Service name where the certificate must be used.
      */
-    "service": TrustedCertificateReqServiceEnum;
+    "service": TrustedCertificateReq.ServiceEnum;
     /**
      * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
      */
@@ -659,18 +659,18 @@ export interface TrustedCertificateReq {
 /**
  * This object represents a trusted certificate in responses.
  */
-export type TrustedCertificateRespServiceEnum = "lwm2m" | "bootstrap";
-export type TrustedCertificateRespStatusEnum = "ACTIVE" | "INACTIVE";
-export type TrustedCertificateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type ServiceEnum = "lwm2m" | "bootstrap";
+export type StatusEnum = "ACTIVE" | "INACTIVE";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface TrustedCertificateResp {
     /**
      * Service name where the certificate is to be used.
      */
-    "service": TrustedCertificateRespServiceEnum;
+    "service": TrustedCertificateResp.ServiceEnum;
     /**
      * Status of the certificate.
      */
-    "status"?: TrustedCertificateRespStatusEnum;
+    "status"?: TrustedCertificateResp.StatusEnum;
     /**
      * Human readable description of this certificate.
      */
@@ -694,7 +694,7 @@ export interface TrustedCertificateResp {
     /**
      * Entity name: always 'trusted-cert'
      */
-    "object": TrustedCertificateRespObjectEnum;
+    "object": TrustedCertificateResp.ObjectEnum;
     /**
      * Subject of the certificate.
      */
@@ -725,8 +725,8 @@ export interface TrustedCertificateResp {
     "name": string;
 }
 
-export type TrustedCertificateRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type TrustedCertificateRespListOrderEnum = "ASC" | "DESC";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type OrderEnum = "ASC" | "DESC";
 export interface TrustedCertificateRespList {
     /**
      * The entity ID to fetch after the given one.
@@ -743,7 +743,7 @@ export interface TrustedCertificateRespList {
     /**
      * Entity name: always 'list'
      */
-    "object": TrustedCertificateRespListObjectEnum;
+    "object": TrustedCertificateRespList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -755,19 +755,19 @@ export interface TrustedCertificateRespList {
     /**
      * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
      */
-    "order"?: TrustedCertificateRespListOrderEnum;
+    "order"?: TrustedCertificateRespList.OrderEnum;
 }
 
 /**
  * This object represents a trusted certificate in update requests.
  */
-export type TrustedCertificateUpdateReqStatusEnum = "ACTIVE" | "INACTIVE";
-export type TrustedCertificateUpdateReqServiceEnum = "lwm2m" | "bootstrap";
+export type StatusEnum = "ACTIVE" | "INACTIVE";
+export type ServiceEnum = "lwm2m" | "bootstrap";
 export interface TrustedCertificateUpdateReq {
     /**
      * Status of the certificate.
      */
-    "status"?: TrustedCertificateUpdateReqStatusEnum;
+    "status"?: TrustedCertificateUpdateReq.StatusEnum;
     /**
      * X509.v3 trusted certificate in PEM format.
      */
@@ -779,7 +779,7 @@ export interface TrustedCertificateUpdateReq {
     /**
      * Service name where the certificate must be used.
      */
-    "service"?: TrustedCertificateUpdateReqServiceEnum;
+    "service"?: TrustedCertificateUpdateReq.ServiceEnum;
     /**
      * Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.
      */
@@ -793,8 +793,8 @@ export interface TrustedCertificateUpdateReq {
 /**
  * This object represents a response to an update request.
  */
-export type UpdatedResponseObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type UpdatedResponseTypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type TypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 export interface UpdatedResponse {
     /**
      * Response code.
@@ -803,7 +803,7 @@ export interface UpdatedResponse {
     /**
      * Entity name: 'user', 'apikey', 'group' or 'account'.
      */
-    "object": UpdatedResponseObjectEnum;
+    "object": UpdatedResponse.ObjectEnum;
     /**
      * Request ID.
      */
@@ -815,7 +815,7 @@ export interface UpdatedResponse {
     /**
      * Response type: success.
      */
-    "type": UpdatedResponseTypeEnum;
+    "type": UpdatedResponse.TypeEnum;
     /**
      * Entity ID.
      */
@@ -867,13 +867,13 @@ export interface UserInfoReq {
 /**
  * This object represents a user in mbed Cloud.
  */
-export type UserInfoRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type UserInfoRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type StatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface UserInfoResp {
     /**
      * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
-    "status": UserInfoRespStatusEnum;
+    "status": UserInfoResp.StatusEnum;
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
      */
@@ -897,7 +897,7 @@ export interface UserInfoResp {
     /**
      * Entity name: always 'user'
      */
-    "object": UserInfoRespObjectEnum;
+    "object": UserInfoResp.ObjectEnum;
     /**
      * A flag indicating that the General Terms and Conditions has been accepted.
      */
@@ -956,8 +956,8 @@ export interface UserInfoResp {
     "last_login_time"?: number;
 }
 
-export type UserInfoRespListObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
-export type UserInfoRespListOrderEnum = "ASC" | "DESC";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type OrderEnum = "ASC" | "DESC";
 export interface UserInfoRespList {
     /**
      * The entity ID to fetch after the given one.
@@ -974,7 +974,7 @@ export interface UserInfoRespList {
     /**
      * Entity name: always 'list'
      */
-    "object": UserInfoRespListObjectEnum;
+    "object": UserInfoRespList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -986,7 +986,7 @@ export interface UserInfoRespList {
     /**
      * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
      */
-    "order"?: UserInfoRespListOrderEnum;
+    "order"?: UserInfoRespList.OrderEnum;
 }
 
 /**
@@ -1038,8 +1038,8 @@ export interface UserUpdateReq {
 /**
  * This object represents a user update response.
  */
-export type UserUpdateRespStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-export type UserUpdateRespObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+export type StatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
 export interface UserUpdateResp {
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
@@ -1088,7 +1088,7 @@ export interface UserUpdateResp {
     /**
      * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
-    "status": UserUpdateRespStatusEnum;
+    "status": UserUpdateResp.StatusEnum;
     /**
      * The UUID of the account.
      */
@@ -1100,7 +1100,7 @@ export interface UserUpdateResp {
     /**
      * Entity name: always 'user'
      */
-    "object": UserUpdateRespObjectEnum;
+    "object": UserUpdateResp.ObjectEnum;
     /**
      * A list of IDs of the groups this user belongs to.
      */

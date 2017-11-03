@@ -23,9 +23,9 @@ import superagent = require("superagent");
 import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
-export type DeviceDataMechanismEnum = "connector" | "direct";
-export type DeviceDataStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
-export type DeviceDataDeployedStateEnum = "development" | "production";
+export type MechanismEnum = "connector" | "direct";
+export type StateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
+export type DeployedStateEnum = "development" | "production";
 export interface DeviceData {
     /**
      * The expiration date of the certificate used to connect to bootstrap server.
@@ -78,11 +78,11 @@ export interface DeviceData {
     /**
      * The ID of the channel used to communicate with the device.
      */
-    "mechanism"?: DeviceDataMechanismEnum;
+    "mechanism"?: DeviceData.MechanismEnum;
     /**
      * The current state of the device.
      */
-    "state"?: DeviceDataStateEnum;
+    "state"?: DeviceData.StateEnum;
     /**
      * The entity instance signature.
      */
@@ -110,7 +110,7 @@ export interface DeviceData {
     /**
      * DEPRECATED: The state of the device's deployment.
      */
-    "deployed_state"?: DeviceDataDeployedStateEnum;
+    "deployed_state"?: DeviceData.DeployedStateEnum;
     /**
      * The API resource entity.
      */
@@ -192,8 +192,8 @@ export interface DeviceDataPatchRequest {
     "name"?: string;
 }
 
-export type DeviceDataPostRequestMechanismEnum = "connector" | "direct";
-export type DeviceDataPostRequestStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
+export type MechanismEnum = "connector" | "direct";
+export type StateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 export interface DeviceDataPostRequest {
     /**
      * The expiration date of the certificate used to connect to bootstrap server.
@@ -210,7 +210,7 @@ export interface DeviceDataPostRequest {
     /**
      * The ID of the channel used to communicate with the device.
      */
-    "mechanism"?: DeviceDataPostRequestMechanismEnum;
+    "mechanism"?: DeviceDataPostRequest.MechanismEnum;
     /**
      * An ID representing the model and hardware revision of the device.
      */
@@ -238,7 +238,7 @@ export interface DeviceDataPostRequest {
     /**
      * The current state of the device.
      */
-    "state"?: DeviceDataPostRequestStateEnum;
+    "state"?: DeviceDataPostRequest.StateEnum;
     /**
      * The serial number of the device.
      */
