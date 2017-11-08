@@ -96,7 +96,7 @@ export interface CampaignDeviceMetadataPage {
      */
     "total_count"?: number;
     /**
-     * Entity name: always ‘list’
+     * Entity name: always 'list'
      */
     "object"?: string;
     /**
