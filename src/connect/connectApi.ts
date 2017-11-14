@@ -535,7 +535,7 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
+     * Update pre-subscription data
      *
      * Example:
      * ```JavaScript
@@ -547,12 +547,12 @@ export class ConnectApi extends EventEmitter {
      * });
      * ```
      *
-     * @param subscriptions The pre-subscription data array
+     * @param subscriptions The pre-subscription data array. If you send an empty array, the pre-subscription data will be removed
      * @returns Promise containing any error
      */
     public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>): Promise<void>;
     /**
-     * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
+     * Update pre-subscription data
      *
      * Example:
      * ```JavaScript
@@ -563,7 +563,7 @@ export class ConnectApi extends EventEmitter {
      * });
      * ```
      *
-     * @param subscriptions The pre-subscription data array
+     * @param subscriptions The pre-subscription data array. If you send an empty array, the pre-subscription data will be removed
      * @param callback A function that is passed any error
      */
     public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>): void;
