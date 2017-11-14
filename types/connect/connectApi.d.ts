@@ -323,7 +323,7 @@ export declare class ConnectApi extends EventEmitter {
      */
     listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>): void;
     /**
-     * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
+     * Update pre-subscription data
      *
      * Example:
      * ```JavaScript
@@ -335,12 +335,12 @@ export declare class ConnectApi extends EventEmitter {
      * });
      * ```
      *
-     * @param subscriptions The pre-subscription data array
+     * @param subscriptions The pre-subscription data array. If you send an empty array, the pre-subscription data will be removed
      * @returns Promise containing any error
      */
     updatePresubscriptions(subscriptions: Array<PresubscriptionObject>): Promise<void>;
     /**
-     * Updates pre-subscription data. If you send an empty array, the pre-subscription data will be removed
+     * Update pre-subscription data
      *
      * Example:
      * ```JavaScript
@@ -351,7 +351,7 @@ export declare class ConnectApi extends EventEmitter {
      * });
      * ```
      *
-     * @param subscriptions The pre-subscription data array
+     * @param subscriptions The pre-subscription data array. If you send an empty array, the pre-subscription data will be removed
      * @param callback A function that is passed any error
      */
     updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>): void;
