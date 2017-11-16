@@ -536,7 +536,7 @@ export class ResourcesApi extends ApiBase {
      * @param cacheOnly If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/collecting/handle-resources.html#working-with-the-server-cache) defined in the client side. 
      * @param noResp &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Non-confirmable requests&lt;/b&gt;&lt;br/&gt;  All resource APIs have the parameter &#x60;noResp&#x60;. If a request is made with &#x60;noResp&#x3D;true&#x60;, Mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code &#x60;204 No Content&#x60;. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  &#x60;409 Conflict&#x60;. 
      */
-    public v2EndpointsDeviceIdResourcePathGet(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error: any, data?: AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsDeviceIdResourcePathGet(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -574,7 +574,7 @@ export class ResourcesApi extends ApiBase {
         const acceptTypes: Array<string> = [
         ];
 
-        return this.request<AsyncID>({
+        return this.request<null>({
             url: "/v2/endpoints/{device-id}/{resourcePath}".replace("{" + "device-id" + "}", String(deviceId)).replace("{" + "resourcePath" + "}", String(resourcePath)),
             method: "GET",
             headers: headerParams,
