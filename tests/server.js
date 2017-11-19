@@ -36,35 +36,22 @@ if (host) {
 
 // Determine files to cover
 var coverageFiles = expandFiles(intern.coverage);
-
 function expandFiles(patterns) {
+	var excludes = [];
+	var includes = [];
+	var paths = [];
 
-    if (!patterns) {
-		patterns = [];
-	} else if (!Array.isArray(patterns)) {
-		patterns = [patterns];
-	}
-
-	const excludes = [];
-	const includes = [];
-	const paths = [];
-
-	for (let pattern of patterns) {
-		if (pattern[0] === '!') {
-            pattern = path.resolve("..", pattern.slice(1));
-			excludes.push(pattern);
-		} else {
-			if (glob.hasMagic(pattern)) {
-				includes.push(path.resolve("..", pattern));
-			} else {
-				paths.push(path.resolve("..", pattern));
-			}
+	patterns.forEach(pattern => {
+		if (pattern[0] === '!') excludes.push(path.resolve("..", pattern.slice(1)));
+		else {
+			if (glob.hasMagic(pattern)) includes.push(path.resolve("..", pattern));
+			else paths.push(path.resolve("..", pattern));
 		}
-    }
+    });
 
     return includes
-		.map(pattern => glob.sync(pattern, { ignore: excludes }))
-		.reduce((allFiles, files) => allFiles.concat(files), paths);
+    .map(pattern => glob.sync(pattern, { ignore: excludes }))
+    .reduce((allFiles, files) => allFiles.concat(files), paths);
 }
 
 // Instrumentation
