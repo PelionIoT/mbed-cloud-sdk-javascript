@@ -112,7 +112,9 @@ gulp.task("typescript", ["clean"], function() {
             .pipe(sourcemaps.init())
             .pipe(ts(options))
             .on("error", handleError).js
-            .pipe(sourcemaps.write("./"))
+            .pipe(sourcemaps.write(".", {
+                sourceRoot: "../src"
+            }))
             .pipe(gulp.dest(nodeDir)),
         gulp.src(srcFilesOnly)
             .pipe(ts(options))
@@ -151,7 +153,9 @@ function bundle(srcFiles, destDir, optionsFn) {
             return comment.value.includes("Copyright Arm");
         }
     }))
-    .pipe(sourcemaps.write('./'))
+    .pipe(sourcemaps.write(".", {
+        sourceRoot: "../src"
+    }))
     .pipe(gulp.dest(destDir));
 }
 

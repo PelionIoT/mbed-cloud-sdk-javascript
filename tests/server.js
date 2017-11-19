@@ -1,7 +1,18 @@
-var http = require('http');
-var express = require('express');
-var MbedCloudSDK = require('../lib/');
+var fs = require("fs");
+var path = require("path");
+var http = require("http");
+
+var nyc = require("nyc");
+var glob = require("glob");
+var express = require("express");
+
+var istanbulHook = require("istanbul-lib-hook");
+var istanbulMaps = require("istanbul-lib-source-maps");
+var istanbulCoverage = require("istanbul-lib-coverage");
+var istanbulInstrument = require("istanbul-lib-instrument");
+
 var mapping = require("./mapping");
+var intern = require("../intern.json");
 
 var port = 5000;
 var logPrefix = "  \x1b[1m\x1b[34mtestserver\x1b[0m ";
@@ -22,6 +33,97 @@ if (host) {
     config.host = host;
     console.log(`Using host ${config.host}`);
 }
+
+// Determine files to cover
+var coverageFiles = expandFiles(intern.coverage);
+
+function expandFiles(patterns) {
+
+    if (!patterns) {
+		patterns = [];
+	} else if (!Array.isArray(patterns)) {
+		patterns = [patterns];
+	}
+
+	const excludes = [];
+	const includes = [];
+	const paths = [];
+
+	for (let pattern of patterns) {
+		if (pattern[0] === '!') {
+            pattern = path.resolve("..", pattern.slice(1));
+			excludes.push(pattern);
+		} else {
+			if (glob.hasMagic(pattern)) {
+				includes.push(path.resolve("..", pattern));
+			} else {
+				paths.push(path.resolve("..", pattern));
+			}
+		}
+    }
+
+    return includes
+		.map(pattern => glob.sync(pattern, { ignore: excludes }))
+		.reduce((allFiles, files) => allFiles.concat(files), paths);
+}
+
+// Instrumentation
+var instrumenter = istanbulInstrument.createInstrumenter({
+    coverageVariable: "__coverage__",
+    preserveComments: true,
+    produceSourceMap: true
+});
+
+function instrumentCode(code, sourceFile) {
+    var sourceMapRegEx = /^(?:\/{2}[#@]{1,2}|\/\*)\s+sourceMappingURL\s*=\s*(data:(?:[^;]+;)+base64,)?(\S+)/;
+
+    if (!code) code = fs.readFileSync(sourceFile, { encoding: 'utf8' });
+    var lastNewline = code.lastIndexOf('\n', code.length - 2);
+    var lastLine = code.slice(lastNewline + 1);
+    var sourceMap = null;
+    var match;
+
+    if ((match = sourceMapRegEx.exec(lastLine))) {
+        if (match[1]) sourceMap = JSON.parse(new Buffer(match[2], 'base64').toString('utf8'));
+        else {
+            var mapFile = path.join(path.dirname(sourceFile), match[2]);
+            sourceMap = JSON.parse(fs.readFileSync(mapFile, { encoding: 'utf8' }));
+        }
+    }
+
+    try {
+        return instrumenter.instrumentSync(code, path.normalize(sourceFile), sourceMap);
+    } catch (error) {
+        return code;
+    }
+}
+
+var unhookRequire = istanbulHook.hookRequire(file => {
+    return coverageFiles.indexOf(file) !== -1;
+}, instrumentCode);
+
+// On exit
+process.on("SIGTERM", function() {
+    if (unhookRequire) unhookRequire();
+
+    var coverageMap = istanbulCoverage.createCoverageMap(__coverage__);
+    var sourceMaps = istanbulMaps.createSourceMapStore();
+    var transformed = sourceMaps.transformCoverage(coverageMap);
+    var fileName = path.join("..", "coverage", "int_coverage.json");
+    fs.writeFileSync(fileName, JSON.stringify(transformed.map));
+
+    var reporter = new nyc({
+        tempDirectory: path.join("..", "coverage"),
+        reportDir: path.join("..", "reports"),
+        reporter: ["html", "lcov", "cobertura"]
+    });
+
+    reporter.report();
+    process.exit();
+});
+
+// Setup server
+var MbedCloudSDK = require('../lib/');
 
 var modules = {
     AccountManagementApi: new MbedCloudSDK.AccountManagementApi(config),

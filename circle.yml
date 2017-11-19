@@ -55,16 +55,16 @@ test:
     - echo "<h1>${PROJECT_NAME} unit tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_UNITTESTS}
     - set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ${FILE_UNITTESTS}
     - cat ${FILE_UNITTESTS} | grep 'TOTAL' >> ${FILE_RAW}
-    - mkdir -p ${COVERAGE_REPORTS}
-    - cp -r coverage/* ${COVERAGE_REPORTS}
-    - cat ${COVERAGE_REPORTS}/cobertura.xml | grep '<coverage' >> ${FILE_RAW}
-    - codecov ${COVERAGE_REPORTS}/lcov.info
-    - mkdir -p ${CIRCLE_TEST_REPORTS}/junit
-    - cp junit.xml $CIRCLE_TEST_REPORTS/junit/test-results.xml
     - echo "<h1>${PROJECT_NAME} integration tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_INTTESTS}
     - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${FILE_INTTESTS}:
         pwd: tests
     - cat ${FILE_INTTESTS} | grep 'Number of tests run' >> ${FILE_RAW}
+    - mkdir -p ${COVERAGE_REPORTS}
+    - cp -r reports/* ${COVERAGE_REPORTS}
+    - cat ${COVERAGE_REPORTS}/cobertura-coverage.xml | grep '<coverage' >> ${FILE_RAW}
+    - codecov ${COVERAGE_REPORTS}/lcov.info
+    - mkdir -p ${CIRCLE_TEST_REPORTS}/junit
+    - cp junit.xml $CIRCLE_TEST_REPORTS/junit/test-results.xml
 
 deployment:
   staging:

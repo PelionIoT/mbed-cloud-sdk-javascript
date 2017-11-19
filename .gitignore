@@ -3,6 +3,7 @@
 node_modules
 bundles
 coverage
+reports
 docs
 lib
 test
