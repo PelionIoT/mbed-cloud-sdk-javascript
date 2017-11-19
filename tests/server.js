@@ -18,6 +18,7 @@ var port = 5000;
 var logPrefix = "  \x1b[1m\x1b[34mtestserver\x1b[0m ";
 var envVarKey = "MBED_CLOUD_API_KEY";
 var host = process.env["MBED_CLOUD_HOST"];
+var root = path.join(__dirname__, "..");
 
 // Environment configuration
 var config = {
@@ -42,10 +43,10 @@ function expandFiles(patterns) {
 	var paths = [];
 
 	patterns.forEach(pattern => {
-		if (pattern[0] === '!') excludes.push(path.resolve("..", pattern.slice(1)));
+		if (pattern[0] === "!") excludes.push(path.resolve(root, pattern.slice(1)));
 		else {
-			if (glob.hasMagic(pattern)) includes.push(path.resolve("..", pattern));
-			else paths.push(path.resolve("..", pattern));
+			if (glob.hasMagic(pattern)) includes.push(path.resolve(root, pattern));
+			else paths.push(path.resolve(root, pattern));
 		}
     });
 
@@ -64,17 +65,17 @@ var instrumenter = istanbulInstrument.createInstrumenter({
 function instrumentCode(code, sourceFile) {
     var sourceMapRegEx = /^(?:\/{2}[#@]{1,2}|\/\*)\s+sourceMappingURL\s*=\s*(data:(?:[^;]+;)+base64,)?(\S+)/;
 
-    if (!code) code = fs.readFileSync(sourceFile, { encoding: 'utf8' });
-    var lastNewline = code.lastIndexOf('\n', code.length - 2);
+    if (!code) code = fs.readFileSync(sourceFile, { encoding: "utf8" });
+    var lastNewline = code.lastIndexOf("\n", code.length - 2);
     var lastLine = code.slice(lastNewline + 1);
     var sourceMap = null;
     var match;
 
     if ((match = sourceMapRegEx.exec(lastLine))) {
-        if (match[1]) sourceMap = JSON.parse(new Buffer(match[2], 'base64').toString('utf8'));
+        if (match[1]) sourceMap = JSON.parse(new Buffer(match[2], "base64").toString("utf8"));
         else {
             var mapFile = path.join(path.dirname(sourceFile), match[2]);
-            sourceMap = JSON.parse(fs.readFileSync(mapFile, { encoding: 'utf8' }));
+            sourceMap = JSON.parse(fs.readFileSync(mapFile, { encoding: "utf8" }));
         }
     }
 
@@ -96,12 +97,12 @@ process.on("SIGTERM", function() {
     var coverageMap = istanbulCoverage.createCoverageMap(__coverage__);
     var sourceMaps = istanbulMaps.createSourceMapStore();
     var transformed = sourceMaps.transformCoverage(coverageMap);
-    var fileName = path.join("..", "coverage", "int_coverage.json");
+    var fileName = path.join(root, "coverage", "int_coverage.json");
     fs.writeFileSync(fileName, JSON.stringify(transformed.map));
 
     var reporter = new nyc({
-        tempDirectory: path.join("..", "coverage"),
-        reportDir: path.join("..", "reports"),
+        tempDirectory: path.join(root, "coverage"),
+        reportDir: path.join(root, "reports"),
         reporter: ["html", "lcov", "cobertura"]
     });
 
@@ -110,7 +111,7 @@ process.on("SIGTERM", function() {
 });
 
 // Setup server
-var MbedCloudSDK = require('../lib/');
+var MbedCloudSDK = require("../lib/");
 
 var modules = {
     AccountManagementApi: new MbedCloudSDK.AccountManagementApi(config),

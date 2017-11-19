@@ -18,6 +18,7 @@ var docsToc = "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryAp
 
 // Source
 var srcDir = "src";
+var srcRoot = "../" + srcDir;
 var srcFiles = srcDir + "/**/*.ts";
 var srcFilesOnly = [
     srcFiles,
@@ -113,7 +114,7 @@ gulp.task("typescript", ["clean"], function() {
             .pipe(ts(options))
             .on("error", handleError).js
             .pipe(sourcemaps.write(".", {
-                sourceRoot: "../src"
+                sourceRoot: srcRoot
             }))
             .pipe(gulp.dest(nodeDir)),
         gulp.src(srcFilesOnly)
@@ -154,7 +155,7 @@ function bundle(srcFiles, destDir, optionsFn) {
         }
     }))
     .pipe(sourcemaps.write(".", {
-        sourceRoot: "../src"
+        sourceRoot: srcRoot
     }))
     .pipe(gulp.dest(destDir));
 }
