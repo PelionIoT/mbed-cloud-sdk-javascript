@@ -1,11 +1,11 @@
 var path        = require("path");
 var browserify  = require("browserify");
 var del         = require("del");
-var merge       = require('merge2');
+var merge       = require("merge2");
 var tslint      = require("tslint");
 var gulp        = require("gulp");
 var buffer      = require("gulp-buffer");
-var sourcemaps  = require('gulp-sourcemaps');
+var sourcemaps  = require("gulp-sourcemaps");
 var tap         = require("gulp-tap");
 var typedoc     = require("gulp-typedoc");
 var ts          = require("gulp-typescript");
@@ -18,7 +18,6 @@ var docsToc = "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryAp
 
 // Source
 var srcDir = "src";
-var srcRoot = "../" + srcDir;
 var srcFiles = srcDir + "/**/*.ts";
 var srcFilesOnly = [
     srcFiles,
@@ -114,7 +113,7 @@ gulp.task("typescript", ["clean"], function() {
             .pipe(ts(options))
             .on("error", handleError).js
             .pipe(sourcemaps.write(".", {
-                sourceRoot: srcRoot
+                sourceRoot: path.relative(nodeDir, srcDir)
             }))
             .pipe(gulp.dest(nodeDir)),
         gulp.src(srcFilesOnly)
@@ -155,7 +154,7 @@ function bundle(srcFiles, destDir, optionsFn) {
         }
     }))
     .pipe(sourcemaps.write(".", {
-        sourceRoot: srcRoot
+        sourceRoot: path.relative(destDir, nodeDir)
     }))
     .pipe(gulp.dest(destDir));
 }

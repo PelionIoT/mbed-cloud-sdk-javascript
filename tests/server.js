@@ -14,11 +14,20 @@ var istanbulInstrument = require("istanbul-lib-instrument");
 var mapping = require("./mapping");
 var intern = require("../intern.json");
 
+// Variables
 var port = 5000;
 var logPrefix = "  \x1b[1m\x1b[34mtestserver\x1b[0m ";
 var envVarKey = "MBED_CLOUD_API_KEY";
 var host = process.env["MBED_CLOUD_HOST"];
 var root = path.join(__dirname__, "..");
+var coverageDir = path.join(root, "coverage");
+var coverageFile = path.join(coverageDir, "int_coverage.json");
+
+var reporter = new nyc({
+    tempDirectory: coverageDir,
+    reportDir: path.join(root, "reports"),
+    reporter: ["html", "lcov", "cobertura"]
+});
 
 // Environment configuration
 var config = {
@@ -57,7 +66,6 @@ function expandFiles(patterns) {
 
 // Instrumentation
 var instrumenter = istanbulInstrument.createInstrumenter({
-    coverageVariable: "__coverage__",
     preserveComments: true,
     produceSourceMap: true
 });
@@ -97,14 +105,7 @@ process.on("SIGTERM", function() {
     var coverageMap = istanbulCoverage.createCoverageMap(__coverage__);
     var sourceMaps = istanbulMaps.createSourceMapStore();
     var transformed = sourceMaps.transformCoverage(coverageMap);
-    var fileName = path.join(root, "coverage", "int_coverage.json");
-    fs.writeFileSync(fileName, JSON.stringify(transformed.map));
-
-    var reporter = new nyc({
-        tempDirectory: path.join(root, "coverage"),
-        reportDir: path.join(root, "reports"),
-        reporter: ["html", "lcov", "cobertura"]
-    });
+    fs.writeFileSync(coverageFile, JSON.stringify(transformed.map));
 
     reporter.report();
     process.exit();

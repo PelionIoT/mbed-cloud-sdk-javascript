@@ -4,7 +4,6 @@ bundles/_tests
 lib/_tests
 coverage
 docs
-src
 tests
 .gitignore
 circle.yml
