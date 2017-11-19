@@ -19,7 +19,7 @@ var port = 5000;
 var logPrefix = "  \x1b[1m\x1b[34mtestserver\x1b[0m ";
 var envVarKey = "MBED_CLOUD_API_KEY";
 var host = process.env["MBED_CLOUD_HOST"];
-var root = path.join(__dirname__, "..");
+var root = path.join(__dirname, "..");
 var coverageDir = path.join(root, "coverage");
 var coverageFile = path.join(coverageDir, "int_coverage.json");
 
