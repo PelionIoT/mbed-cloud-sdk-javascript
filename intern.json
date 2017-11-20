@@ -16,10 +16,18 @@
         "!lib/_tests/**"
     ],
     "reporters+": [
-        "jsoncoverage",
-        "htmlcoverage",
-        { "name": "lcov", "options": { "filename": "lcov.info" }},
-        { "name": "cobertura", "options": { "filename": "cobertura.xml" }},
-        { "name": "junit", "options": { "filename": "junit.xml" }}
+        {
+            "name": "jsoncoverage",
+            "options": {
+                "filename": "unit_coverage.json",
+                "directory": "coverage"
+            }
+        },
+        {
+            "name": "junit",
+            "options": {
+                "filename": "junit.xml"
+            }
+        }
     ]
 }

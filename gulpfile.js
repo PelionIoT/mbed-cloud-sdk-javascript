@@ -1,11 +1,11 @@
 var path        = require("path");
 var browserify  = require("browserify");
 var del         = require("del");
-var merge       = require('merge2');
+var merge       = require("merge2");
 var tslint      = require("tslint");
 var gulp        = require("gulp");
 var buffer      = require("gulp-buffer");
-var sourcemaps  = require('gulp-sourcemaps');
+var sourcemaps  = require("gulp-sourcemaps");
 var tap         = require("gulp-tap");
 var typedoc     = require("gulp-typedoc");
 var ts          = require("gulp-typescript");
@@ -112,7 +112,9 @@ gulp.task("typescript", ["clean"], function() {
             .pipe(sourcemaps.init())
             .pipe(ts(options))
             .on("error", handleError).js
-            .pipe(sourcemaps.write("./"))
+            .pipe(sourcemaps.write(".", {
+                sourceRoot: path.relative(nodeDir, srcDir)
+            }))
             .pipe(gulp.dest(nodeDir)),
         gulp.src(srcFilesOnly)
             .pipe(ts(options))
@@ -151,7 +153,9 @@ function bundle(srcFiles, destDir, optionsFn) {
             return comment.value.includes("Copyright Arm");
         }
     }))
-    .pipe(sourcemaps.write('./'))
+    .pipe(sourcemaps.write(".", {
+        sourceRoot: path.relative(destDir, nodeDir)
+    }))
     .pipe(gulp.dest(destDir));
 }
 
