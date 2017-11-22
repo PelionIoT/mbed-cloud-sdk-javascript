@@ -57,7 +57,7 @@ test:
         pwd: tests
     - cat ${FILE_INTTESTS} | grep 'testsuite' >> ${FILE_RAW}
     - mkdir -p ${COVERAGE_REPORTS}
-    - cp -r reports/* ${COVERAGE_REPORTS}
+    - cp -r ${PROJECT_REPORTS}/* ${COVERAGE_REPORTS}
     - cat ${COVERAGE_REPORTS}/cobertura-coverage.xml | grep '<coverage' >> ${FILE_RAW}
     - codecov ${COVERAGE_REPORTS}/lcov.info
     - mkdir -p ${CIRCLE_TEST_REPORTS}/junit
