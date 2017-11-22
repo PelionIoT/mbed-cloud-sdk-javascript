@@ -6,6 +6,8 @@ general:
 machine:
   node:
     version: 4.8.0
+  services:
+    - docker
   environment:
     PROJECT_NAME: ${CIRCLE_PROJECT_REPONAME}
     PROJECT_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
