@@ -18,12 +18,6 @@ machine:
     FILE_RAW: ${PROJECT_REPORTS}/raw.txt
     INTEGRATION_DOCKER: ${TESTRUNNER_DOCKER_IMAGE}
 
-checkout:
-  post:
-    - git config --global user.name monty-bot
-    - git config --global user.email monty-bot@arm.com
-    - git clone https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
-
 # Install dependencies for CI; latest npm, latest chrome, code coverage, html output and testrunner reqs
 dependencies:
   pre:
