@@ -12,13 +12,16 @@ function finish {
 }
 trap finish EXIT
 
+# run docker and remove container afterwards
+#   where our SDK server is located
+#   host-relative path to fixtures mountpoint
+#   configure the fixtures mountpoint
+#   configure the results mountpoint
+#   image name
+
 docker run --rm --net=host --name=testrunner_container\
-# where our SDK server is located
 -e "TEST_SERVER_URL=http://127.0.0.1:5000"\
-# host-relative path to fixtures mountpoint
 -e "TEST_FIXTURES_DIR=/home/ubuntu/cci_fixtures"\
-# configure the fixtures mountpoint
 -v /home/ubuntu/cci_fixtures:/runner/test_fixtures\
-# configure the results mountpoint
 -v ./integration_results:/runner/results\
 ${TESTRUNNER_DOCKER_IMAGE}
