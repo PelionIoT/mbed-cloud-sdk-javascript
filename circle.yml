@@ -33,7 +33,7 @@ dependencies:
       ${login}
       login="$(aws ecr get-login --no-include-email)"
       ${login}
-    - docker pull ${INTEGRATION_DOCKER}
+    - docker pull $INTEGRATION_DOCKER
 
 compile:
   override:
