@@ -23,5 +23,5 @@ docker run --rm --net=host --name=testrunner_container\
 -e "TEST_SERVER_URL=http://127.0.0.1:5000"\
 -e "TEST_FIXTURES_DIR=/home/ubuntu/cci_fixtures"\
 -v /home/ubuntu/cci_fixtures:/runner/test_fixtures\
--v ./integration_results:/runner/results\
+-v ${PROJECT_REPORTS}:/runner/results\
 ${TESTRUNNER_DOCKER_IMAGE}
