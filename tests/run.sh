@@ -21,4 +21,4 @@ docker run --rm --net=host --name=testrunner_container\
 -v /home/ubuntu/cci_fixtures:/runner/test_fixtures\
 # configure the results mountpoint
 -v ./integration_results:/runner/results\
-${INTEGRATION_DOCKER}
+$INTEGRATION_DOCKER
