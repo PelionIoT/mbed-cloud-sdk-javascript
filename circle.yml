@@ -16,7 +16,7 @@ machine:
     PROJECT_REPORTS: ${HOME}/reports
     COVERAGE_REPORTS: ${PROJECT_REPORTS}/coverage
     FILE_UNITTESTS: ${PROJECT_REPORTS}/unittests.html
-    FILE_INTTESTS: ${PROJECT_REPORTS}/inttests.html
+    FILE_INTTESTS: ${PROJECT_REPORTS}/results.xml
     FILE_RAW: ${PROJECT_REPORTS}/raw.txt
 
 # Install dependencies for CI; latest npm, latest chrome, code coverage, html output and testrunner reqs
@@ -53,10 +53,9 @@ test:
     - echo "<h1>${PROJECT_NAME} unit tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_UNITTESTS}
     - set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ${FILE_UNITTESTS}
     - cat ${FILE_UNITTESTS} | grep 'TOTAL' >> ${FILE_RAW}
-    - echo "<h1>${PROJECT_NAME} integration tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_INTTESTS}
-    - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${FILE_INTTESTS}:
+    - bash run.sh:
         pwd: tests
-    - cat ${FILE_INTTESTS} | grep 'Number of tests run' >> ${FILE_RAW}
+    - cat ${FILE_INTTESTS} | grep 'testsuite' >> ${FILE_RAW}
     - mkdir -p ${COVERAGE_REPORTS}
     - cp -r reports/* ${COVERAGE_REPORTS}
     - cat ${COVERAGE_REPORTS}/cobertura-coverage.xml | grep '<coverage' >> ${FILE_RAW}
