@@ -13,7 +13,7 @@ machine:
     PROJECT_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
     PROJECT_LIVE_BRANCH: build
     PROJECT_DOCS: ${HOME}/docs
-    PROJECT_REPORTS: ${HOME}
+    PROJECT_REPORTS: ${HOME}/reports
     COVERAGE_REPORTS: ${PROJECT_REPORTS}/coverage
     FILE_UNITTESTS: ${PROJECT_REPORTS}/unittests.html
     FILE_INTTESTS: ${PROJECT_REPORTS}/results.xml
@@ -57,7 +57,7 @@ test:
         pwd: tests
     - cat ${FILE_INTTESTS} | grep 'testsuite' >> ${FILE_RAW}
     - mkdir -p ${COVERAGE_REPORTS}
-    - cp -r reports/* ${COVERAGE_REPORTS}
+    - cp -r coverage/* ${COVERAGE_REPORTS}
     - cat ${COVERAGE_REPORTS}/cobertura-coverage.xml | grep '<coverage' >> ${FILE_RAW}
     - codecov ${COVERAGE_REPORTS}/lcov.info
     - mkdir -p ${CIRCLE_TEST_REPORTS}/junit
