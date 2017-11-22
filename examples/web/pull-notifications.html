@@ -74,13 +74,6 @@
             return value;
         }
 
-        // Start pull notifications
-        connect.startNotifications();
-
-        window.addEventListener("unload", function() {
-            connect.stopNotifications();
-        });
-
         getDevice(function(device) {
             headerEl.innerText = "Device: " + device.id;
 
