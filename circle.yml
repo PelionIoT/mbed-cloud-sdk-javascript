@@ -16,6 +16,7 @@ machine:
     FILE_UNITTESTS: ${PROJECT_REPORTS}/unittests.html
     FILE_INTTESTS: ${PROJECT_REPORTS}/inttests.html
     FILE_RAW: ${PROJECT_REPORTS}/raw.txt
+    INTEGRATION_DOCKER: ${TESTRUNNER_DOCKER_IMAGE}
 
 checkout:
   post:
@@ -31,10 +32,12 @@ dependencies:
     - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - sudo dpkg -i google-chrome.deb
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
-    - pip install -U pip
-    - pip install -r tests/testrunner/requirements.txt
-    - python setup.py develop:
-        pwd: tests/testrunner
+    - |
+      login="$(aws ecr get-login)"
+      ${login}
+      login="$(aws ecr get-login --no-include-email)"
+      ${login}
+    - docker pull ${INTEGRATION_DOCKER}
 
 compile:
   override:
