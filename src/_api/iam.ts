@@ -1181,7 +1181,7 @@ export class AccountAdminApi extends ApiBase {
      * An endpoint for uploading new trusted certificates.
      * @param body A trusted certificate object with attributes.
      */
-    public addCertificate(body: TrustedCertificateReq, callback?: (error: any, data?: TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public addCertificate(body: TrustedCertificateReq, callback?: (error: any, data?: TrustedCertificateResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
@@ -1217,6 +1217,7 @@ export class AccountAdminApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -1226,7 +1227,7 @@ export class AccountAdminApi extends ApiBase {
      * @param groupID The ID of the group to be updated.
      * @param body A list of users and API keys to be added to the group.
      */
-    public addSubjectsToGroup(groupID: string, body: SubjectList, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public addSubjectsToGroup(groupID: string, body: SubjectList, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
@@ -1269,6 +1270,7 @@ export class AccountAdminApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -1278,7 +1280,7 @@ export class AccountAdminApi extends ApiBase {
      * @param body A user object with attributes.
      * @param action Action, either &#39;create&#39; or &#39;invite&#39;.
      */
-    public createUser(body: UserInfoReq, action?: string, callback?: (error: any, data?: UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public createUser(body: UserInfoReq, action?: string, callback?: (error: any, data?: UserInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
@@ -1317,6 +1319,7 @@ export class AccountAdminApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -1325,7 +1328,7 @@ export class AccountAdminApi extends ApiBase {
      * An endpoint for deleting a user.
      * @param userId The ID of the user to be deleted.
      */
-    public deleteUser(userId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deleteUser(userId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "userId" is set
         if (userId === null || userId === undefined) {
             if (callback) {
@@ -1360,6 +1363,7 @@ export class AccountAdminApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1371,7 +1375,7 @@ export class AccountAdminApi extends ApiBase {
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param statusEq Filter for status, for example active or reset
      */
-    public getAllUsers(limit?: number, after?: string, order?: string, include?: string, statusEq?: string, callback?: (error: any, data?: UserInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllUsers(limit?: number, after?: string, order?: string, include?: string, statusEq?: string, callback?: (error: any, data?: UserInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -1414,6 +1418,7 @@ export class AccountAdminApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1421,7 +1426,7 @@ export class AccountAdminApi extends ApiBase {
      * An endpoint for retrieving the details of a user.
      * @param userId The ID or name of the user whose details are retrieved.
      */
-    public getUser(userId: string, callback?: (error: any, data?: UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getUser(userId: string, callback?: (error: any, data?: UserInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "userId" is set
         if (userId === null || userId === undefined) {
             if (callback) {
@@ -1456,6 +1461,7 @@ export class AccountAdminApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1467,7 +1473,7 @@ export class AccountAdminApi extends ApiBase {
      * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      */
-    public getUsersOfGroup(groupID: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: UserInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getUsersOfGroup(groupID: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: UserInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
@@ -1514,6 +1520,7 @@ export class AccountAdminApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1522,7 +1529,7 @@ export class AccountAdminApi extends ApiBase {
      * @param groupID The ID of the group whose users are removed.
      * @param body A list of users to be removed from the group.
      */
-    public removeUsersFromGroup(groupID: string, body: SubjectList, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public removeUsersFromGroup(groupID: string, body: SubjectList, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
@@ -1565,6 +1572,7 @@ export class AccountAdminApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -1573,7 +1581,7 @@ export class AccountAdminApi extends ApiBase {
      * An endpoint for updating the account.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param body Details of the account to be updated.
      */
-    public updateMyAccount(body: AccountUpdateReq, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateMyAccount(body: AccountUpdateReq, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
@@ -1609,6 +1617,7 @@ export class AccountAdminApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -1618,7 +1627,7 @@ export class AccountAdminApi extends ApiBase {
      * @param userId The ID of the user whose details are updated.
      * @param body A user object with attributes.
      */
-    public updateUser(userId: string, body: UserUpdateReq, callback?: (error: any, data?: UserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateUser(userId: string, body: UserUpdateReq, callback?: (error: any, data?: UserInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "userId" is set
         if (userId === null || userId === undefined) {
             if (callback) {
@@ -1661,6 +1670,7 @@ export class AccountAdminApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -1675,7 +1685,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param body The details of the API key to be created.
      */
-    public createApiKey(body: ApiKeyInfoReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public createApiKey(body: ApiKeyInfoReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
@@ -1711,6 +1721,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -1719,7 +1730,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for deleting the API key.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param apiKey The ID of the API key to be deleted.
      */
-    public deleteApiKey(apiKey: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deleteApiKey(apiKey: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "apiKey" is set
         if (apiKey === null || apiKey === undefined) {
             if (callback) {
@@ -1754,6 +1765,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1761,7 +1773,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for deleting a trusted certificate.
      * @param certId The ID of the trusted certificate to be deleted.
      */
-    public deleteCertificate(certId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deleteCertificate(certId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "certId" is set
         if (certId === null || certId === undefined) {
             if (callback) {
@@ -1796,6 +1808,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1807,7 +1820,7 @@ export class DeveloperApi extends ApiBase {
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param ownerEq Owner name filter.
      */
-    public getAllApiKeys(limit?: number, after?: string, order?: string, include?: string, ownerEq?: string, callback?: (error: any, data?: ApiKeyInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllApiKeys(limit?: number, after?: string, order?: string, include?: string, ownerEq?: string, callback?: (error: any, data?: ApiKeyInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -1850,6 +1863,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1864,7 +1878,7 @@ export class DeveloperApi extends ApiBase {
      * @param deviceExecutionModeEq Device execution mode, as 1 for developer certificates or as another natural integer value
      * @param ownerEq Owner ID filter
      */
-    public getAllCertificates(limit?: number, after?: string, order?: string, include?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, ownerEq?: string, callback?: (error: any, data?: TrustedCertificateRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllCertificates(limit?: number, after?: string, order?: string, include?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, ownerEq?: string, callback?: (error: any, data?: TrustedCertificateRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -1916,6 +1930,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1926,7 +1941,7 @@ export class DeveloperApi extends ApiBase {
      * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      */
-    public getAllGroups(limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getAllGroups(limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -1966,6 +1981,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1973,7 +1989,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for retrieving API key details.
      * @param apiKey The ID of the API key to be retrieved.
      */
-    public getApiKey(apiKey: string, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getApiKey(apiKey: string, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "apiKey" is set
         if (apiKey === null || apiKey === undefined) {
             if (callback) {
@@ -2008,6 +2024,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -2019,7 +2036,7 @@ export class DeveloperApi extends ApiBase {
      * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
      */
-    public getApiKeysOfGroup(groupID: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: ApiKeyInfoRespList, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getApiKeysOfGroup(groupID: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: ApiKeyInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
@@ -2066,6 +2083,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -2073,7 +2091,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      * @param certId The ID or name of the trusted certificate to be retrieved.
      */
-    public getCertificate(certId: string, callback?: (error: any, data?: TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getCertificate(certId: string, callback?: (error: any, data?: TrustedCertificateResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "certId" is set
         if (certId === null || certId === undefined) {
             if (callback) {
@@ -2108,6 +2126,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -2115,7 +2134,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for getting general information about the group.
      * @param groupID The ID or name of the group to be retrieved.
      */
-    public getGroupSummary(groupID: string, callback?: (error: any, data?: GroupSummary, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getGroupSummary(groupID: string, callback?: (error: any, data?: GroupSummary, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
@@ -2150,6 +2169,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -2157,7 +2177,7 @@ export class DeveloperApi extends ApiBase {
      * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer API_KEY&#39;&#x60; .
      * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
      */
-    public getMyAccountInfo(include?: string, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getMyAccountInfo(include?: string, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -2188,13 +2208,14 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Get API key details.
      * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
-    public getMyApiKey(callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getMyApiKey(callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -2222,6 +2243,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -2229,7 +2251,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      * @param scratchCodes Request to regenerate new emergency scratch codes.
      */
-    public getMyUser(scratchCodes?: string, callback?: (error: any, data?: MyUserInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public getMyUser(scratchCodes?: string, callback?: (error: any, data?: MyUserInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -2260,6 +2282,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -2268,7 +2291,7 @@ export class DeveloperApi extends ApiBase {
      * @param groupID The ID of the group whose API keys are removed.
      * @param body A list of API keys to be removed from the group.
      */
-    public removeApiKeysFromGroup(groupID: string, body: SubjectList, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public removeApiKeysFromGroup(groupID: string, body: SubjectList, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "groupID" is set
         if (groupID === null || groupID === undefined) {
             if (callback) {
@@ -2311,6 +2334,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -2320,7 +2344,7 @@ export class DeveloperApi extends ApiBase {
      * @param apiKey The ID of the API key to be updated.
      * @param body New API key attributes to be stored.
      */
-    public updateApiKey(apiKey: string, body: ApiKeyUpdateReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateApiKey(apiKey: string, body: ApiKeyUpdateReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "apiKey" is set
         if (apiKey === null || apiKey === undefined) {
             if (callback) {
@@ -2362,6 +2386,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -2371,7 +2396,7 @@ export class DeveloperApi extends ApiBase {
      * @param certId The ID of the trusted certificate to be updated.
      * @param body A trusted certificate object with attributes.
      */
-    public updateCertificate(certId: string, body: TrustedCertificateUpdateReq, callback?: (error: any, data?: TrustedCertificateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCertificate(certId: string, body: TrustedCertificateUpdateReq, callback?: (error: any, data?: TrustedCertificateResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "certId" is set
         if (certId === null || certId === undefined) {
             if (callback) {
@@ -2414,6 +2439,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -2422,7 +2448,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param body New API key attributes to be stored.
      */
-    public updateMyApiKey(body: ApiKeyUpdateReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateMyApiKey(body: ApiKeyUpdateReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
@@ -2457,6 +2483,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -2465,7 +2492,7 @@ export class DeveloperApi extends ApiBase {
      * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      * @param body New attributes for the logged in user.
      */
-    public updateMyUser(body: UserUpdateReq, callback?: (error: any, data?: UserUpdateResp, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateMyUser(body: UserUpdateReq, callback?: (error: any, data?: UserUpdateResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "body" is set
         if (body === null || body === undefined) {
             if (callback) {
@@ -2501,6 +2528,7 @@ export class DeveloperApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
