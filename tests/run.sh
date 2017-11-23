@@ -19,6 +19,9 @@ trap finish EXIT
 #   configure the results mountpoint
 #   image name
 
+# sleep to allow coverage to get its hooks in
+sleep 5
+
 docker run --rm --net=host --name=testrunner_container \
 -e "TEST_SERVER_URL=http://127.0.0.1:5000" \
 -e "TEST_FIXTURES_DIR=/home/ubuntu/cci_fixtures" \
