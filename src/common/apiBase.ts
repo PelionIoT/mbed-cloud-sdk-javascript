@@ -135,7 +135,7 @@ export class ApiBase {
     protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, requestOptions?: { [key: string]: any }, body?: any, file?: boolean }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest {
 
         // Allow overrides
-        const requestOptions = options.requestOptions;
+        const requestOptions = options.requestOptions || {};
         requestOptions.timeout = requestOptions.timeout || 60000;
         requestOptions.method = requestOptions.method || options.method;
         requestOptions.query = requestOptions.query || ApiBase.normalizeParams(options.query);
