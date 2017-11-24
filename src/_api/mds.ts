@@ -204,7 +204,7 @@ export class DefaultApi extends ApiBase {
      * Delete callback URL
      * Deletes the callback URL.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback -H &#39;authorization: Bearer {api-key}&#39;      
      */
-    public v2NotificationCallbackDelete(callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2NotificationCallbackDelete(callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -231,13 +231,14 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Check callback URL
      * Shows the current callback URL if it exists.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/callback -H &#39;authorization: Bearer {api-key}&#39;      
      */
-    public v2NotificationCallbackGet(callback?: (error: any, data?: Webhook, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2NotificationCallbackGet(callback?: (error: any, data?: Webhook, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -265,6 +266,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
 }
@@ -278,7 +280,7 @@ export class EndpointsApi extends ApiBase {
      * The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H &#39;authorization: Bearer {api-key}&#39;      
      * @param deviceId A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
      */
-    public v2EndpointsDeviceIdGet(deviceId: string, callback?: (error: any, data?: Array<Resource>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsDeviceIdGet(deviceId: string, callback?: (error: any, data?: Array<Resource>, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -313,6 +315,7 @@ export class EndpointsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -320,7 +323,7 @@ export class EndpointsApi extends ApiBase {
      * Endpoints are physical devices having valid registration to Mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API [&#39;/v3/devices/&#x60;](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [&#x60;/v3/devices/&#x60;](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices). To list only the registered devices, use filter &#x60;/v3/devices/?filter&#x3D;state%3Dregistered&#x60;.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H &#39;authorization: Bearer {api-key}&#39;      
      * @param type Filter endpoints by endpoint-type.
      */
-    public v2EndpointsGet(type?: string, callback?: (error: any, data?: Array<Endpoint>, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsGet(type?: string, callback?: (error: any, data?: Array<Endpoint>, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -351,6 +354,7 @@ export class EndpointsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
 }
@@ -364,7 +368,7 @@ export class NotificationsApi extends ApiBase {
      * Register a URL to which the server should deliver notifications of the subscribed resource changes. To get notifications pushed you need to also place the subscriptions.  The maximum length of URL, header keys and values, all combined, is 400 characters.  Notifications are delivered as PUT messages to the HTTP server defined by the client with a subscription server message.  The given URL should be accessible and respond to the PUT request with response code of 200 or 204. Mbed Cloud Connect  tests the callback URL with an empty payload when the URL is registered. For more information on callback notification, see [NotificationMessage](/docs/v1.2/service-api-references/connect-api.html#notificationmessage).  **Optional headers in a callback message:**  You can set optional headers to a callback in a [Webhook](/docs/v1.2/service-api-references/connect-api.html#v2-notification-callback) object. The Mbed Cloud Connect will include the header and key pairs to the notification messages send to callback URL. As the callback URL&#39;s are API key specific also the headers are.   One possible use for the additional headers is to check the origin of a PUT request and also distinguish the application (API key) to which the notification belongs to.  **Note**: Only one callback URL per an API key can be active. If you register a new URL while another one is already active,  it replaces the active one. There can be only one notification channel at a time. If the Long Poll notification is already present  you need to delete it before setting the callback URL.  **Expiration of a callback URL:**   A callback can expire when Mbed DS cannot deliver a notification due to a connection timeout or  error response (4xx or 5xx). After each delivery failure, mbed DS sets an exponential back off time and makes a retry attempt  after that. The first retry delay is 1 second, then 2s, 4s, 8s, ..., 2min, 2min. The maximum retry delay is 2 minutes.  The callback URL will be removed if all retries fail withing 24 hours. More about [notification sending logic](/docs/v1.2/connecting/event-notification.html).  **Example usage:**  This example command shows how to set your callback URL and API key. It also sets an optional header authorization. When Mbed Cloud Connect calls your callback URL, the call contains the authorization header with the defined value.          curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/notification/callback \\       -H &#39;authorization: Bearer {api-key}&#39; \\       -H &#39;content-type: application/json&#39; \\       -d &#39;{       \&quot;url\&quot;: \&quot;{callback-url}\&quot;,       \&quot;headers\&quot;: {\&quot;authorization\&quot; : \&quot;f4b93d6e-4652-4874-82e4-41a3ced0cd56\&quot;}       }&#39; 
      * @param webhook A json object that contains the optional headers and the URL to which the notifications need to be sent. 
      */
-    public v2NotificationCallbackPut(webhook: Webhook, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2NotificationCallbackPut(webhook: Webhook, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "webhook" is set
         if (webhook === null || webhook === undefined) {
             if (callback) {
@@ -399,6 +403,7 @@ export class NotificationsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: webhook,
         }, callback);
     }
@@ -406,7 +411,7 @@ export class NotificationsApi extends ApiBase {
      * Delete notification Long Poll channel
      * To delete a notification Long Poll channel. This is required to change the channel from Long Poll to a callback.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39;      
      */
-    public v2NotificationPullDelete(callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2NotificationPullDelete(callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -433,13 +438,14 @@ export class NotificationsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Get notifications using Long Poll
      * In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out  (response code 204). In both cases, the client should open a new polling connection after the previous one closes. Only a single long polling connection per API key can be ongoing at any given time. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess  TLS handshakes.  **Note:** If it is not possible to have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, long polling is deprecated and will likely be replaced in future. It is meant only for experimentation and not for commercial usage. The proper method to receive notifications is via [Notification Callback](/docs/v1.2/service-api-references/connect-api.html#v2-notification-callback). Only a single notification channel per API key can exist in Mbed Cloud Connect at a time. If a callback notification channel already exists, you need to delete it before creating a long poll notification channel, and vice-versa.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39; 
      */
-    public v2NotificationPullGet(callback?: (error: any, data?: NotificationMessage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2NotificationPullGet(callback?: (error: any, data?: NotificationMessage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -467,6 +473,7 @@ export class NotificationsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
 }
@@ -482,7 +489,7 @@ export class ResourcesApi extends ApiBase {
      * @param resourcePath The URL of the resource. 
      * @param noResp &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Non-confirmable requests&lt;/b&gt;&lt;br/&gt;  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, Mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code &#x60;204 No Content&#x60;. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code &#x60;409 Conflict&#x60;. 
      */
-    public v2EndpointsDeviceIdResourcePathDelete(deviceId: string, resourcePath: string, noResp?: boolean, callback?: (error: any, data?: AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsDeviceIdResourcePathDelete(deviceId: string, resourcePath: string, noResp?: boolean, callback?: (error: any, data?: AsyncID, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -526,6 +533,7 @@ export class ResourcesApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -536,7 +544,7 @@ export class ResourcesApi extends ApiBase {
      * @param cacheOnly If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/collecting/handle-resources.html#working-with-the-server-cache) defined in the client side. 
      * @param noResp &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Non-confirmable requests&lt;/b&gt;&lt;br/&gt;  All resource APIs have the parameter &#x60;noResp&#x60;. If a request is made with &#x60;noResp&#x3D;true&#x60;, Mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code &#x60;204 No Content&#x60;. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  &#x60;409 Conflict&#x60;. 
      */
-    public v2EndpointsDeviceIdResourcePathGet(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error: any, data?: AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsDeviceIdResourcePathGet(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResp?: boolean, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -574,7 +582,7 @@ export class ResourcesApi extends ApiBase {
         const acceptTypes: Array<string> = [
         ];
 
-        return this.request<AsyncID>({
+        return this.request<null>({
             url: "/v2/endpoints/{device-id}/{resourcePath}".replace("{" + "device-id" + "}", String(deviceId)).replace("{" + "resourcePath" + "}", String(resourcePath)),
             method: "GET",
             headers: headerParams,
@@ -583,6 +591,7 @@ export class ResourcesApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -593,7 +602,7 @@ export class ResourcesApi extends ApiBase {
      * @param resourceFunction This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in Mbed Cloud Client. 
      * @param noResp &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Non-confirmable requests&lt;/b&gt;&lt;br/&gt;  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, Mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code &#x60;204 No Content&#x60;. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code &#x60;409 Conflict&#x60;. 
      */
-    public v2EndpointsDeviceIdResourcePathPost(deviceId: string, resourcePath: string, resourceFunction?: string, noResp?: boolean, callback?: (error: any, data?: AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsDeviceIdResourcePathPost(deviceId: string, resourcePath: string, resourceFunction?: string, noResp?: boolean, callback?: (error: any, data?: AsyncID, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -649,6 +658,7 @@ export class ResourcesApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: resourceFunction,
         }, callback);
     }
@@ -660,7 +670,7 @@ export class ResourcesApi extends ApiBase {
      * @param resourceValue The value to be set to the resource. 
      * @param noResp &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Non-confirmable requests&lt;/b&gt;&lt;br/&gt;  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, Mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code &#x60;204 No Content&#x60;. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code &#x60;409 Conflict&#x60;. 
      */
-    public v2EndpointsDeviceIdResourcePathPut(deviceId: string, resourcePath: string, resourceValue: string, noResp?: boolean, callback?: (error: any, data?: AsyncID, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2EndpointsDeviceIdResourcePathPut(deviceId: string, resourcePath: string, resourceValue: string, noResp?: boolean, callback?: (error: any, data?: AsyncID, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -723,6 +733,7 @@ export class ResourcesApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: resourceValue,
         }, callback);
     }
@@ -736,7 +747,7 @@ export class SubscriptionsApi extends ApiBase {
      * Remove all subscriptions
      * Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39;      
      */
-    public v2SubscriptionsDelete(callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsDelete(callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -763,6 +774,7 @@ export class SubscriptionsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -770,7 +782,7 @@ export class SubscriptionsApi extends ApiBase {
      * Deletes all resource subscriptions in a single endpoint.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39;        
      * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
      */
-    public v2SubscriptionsDeviceIdDelete(deviceId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsDeviceIdDelete(deviceId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -804,6 +816,7 @@ export class SubscriptionsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -811,7 +824,7 @@ export class SubscriptionsApi extends ApiBase {
      * Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39;        
      * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
      */
-    public v2SubscriptionsDeviceIdGet(deviceId: string, callback?: (error: any, data?: string, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsDeviceIdGet(deviceId: string, callback?: (error: any, data?: string, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -846,6 +859,7 @@ export class SubscriptionsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -854,7 +868,7 @@ export class SubscriptionsApi extends ApiBase {
      * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
      * @param resourcePath The URL of the resource. 
      */
-    public v2SubscriptionsDeviceIdResourcePathDelete(deviceId: string, resourcePath: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsDeviceIdResourcePathDelete(deviceId: string, resourcePath: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -895,6 +909,7 @@ export class SubscriptionsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -902,7 +917,7 @@ export class SubscriptionsApi extends ApiBase {
      * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
      * @param resourcePath The URL of the resource. 
      */
-    public v2SubscriptionsDeviceIdResourcePathGet(deviceId: string, resourcePath: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsDeviceIdResourcePathGet(deviceId: string, resourcePath: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -943,6 +958,7 @@ export class SubscriptionsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -951,7 +967,7 @@ export class SubscriptionsApi extends ApiBase {
      * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
      * @param resourcePath The URL of the resource. 
      */
-    public v2SubscriptionsDeviceIdResourcePathPut(deviceId: string, resourcePath: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsDeviceIdResourcePathPut(deviceId: string, resourcePath: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceId" is set
         if (deviceId === null || deviceId === undefined) {
             if (callback) {
@@ -993,13 +1009,14 @@ export class SubscriptionsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Get pre-subscriptions
      * You can retrieve the pre-subscription data with the GET operation. The server returns with the same JSON structure  as described above. If there are no pre-subscribed resources, it returns with an empty array.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39;      
      */
-    public v2SubscriptionsGet(callback?: (error: any, data?: PresubscriptionArray, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsGet(callback?: (error: any, data?: PresubscriptionArray, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -1027,6 +1044,7 @@ export class SubscriptionsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1034,7 +1052,7 @@ export class SubscriptionsApi extends ApiBase {
      * Pre-subscription is a set of rules and patterns put by the application. When an endpoint registers  and its ID, type and registered resources match the pre-subscription data, Mbed Cloud Connect sends  subscription requests to the device automatically. The pattern may include the endpoint ID  (optionally having an &#x60;*&#x60; character at the end), endpoint type, a list of resources or expressions with an &#x60;*&#x60; character at the end. Subscriptions based on pre-subscriptions are done when device registers or does register update. To remove the pre-subscription data, put an empty array as a rule.  **Limits**:  - The maximum length of the endpoint name and endpoint type is 64 characters. - The maximum length of the resource path is 128 characters. - You can listen to 256 separate resource paths. - The maximum number of pre-subscription entries is 1024.          **Example request:**  &#x60;&#x60;&#x60; curl -X PUT \\   https://api.us-east-1.mbedcloud.com/v2/subscriptions \\   -H &#39;authorization: Bearer {api-key}&#39; \\   -H &#39;content-type: application/json&#39; \\   -d &#39;[          {            \&quot;endpoint-name\&quot;: \&quot;node-001\&quot;,            \&quot;resource-path\&quot;: [\&quot;/dev\&quot;]          },          {            \&quot;endpoint-type\&quot;: \&quot;Light\&quot;,            \&quot;resource-path\&quot;: [\&quot;/sen/_*\&quot;]          },          {            \&quot;endpoint-name\&quot;: \&quot;node*\&quot;          },          {            \&quot;endpoint-type\&quot;: \&quot;Sensor\&quot;          },          {            \&quot;resource-path\&quot;: [\&quot;/dev/temp\&quot;,\&quot;/dev/hum\&quot;]          }       ]&#39; &#x60;&#x60;&#x60; 
      * @param presubsription Array of pre-subscriptions.
      */
-    public v2SubscriptionsPut(presubsription: PresubscriptionArray, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v2SubscriptionsPut(presubsription: PresubscriptionArray, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "presubsription" is set
         if (presubsription === null || presubsription === undefined) {
             if (callback) {
@@ -1070,6 +1088,7 @@ export class SubscriptionsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: presubsription,
         }, callback);
     }
