@@ -20,9 +20,9 @@ machine:
     FILE_RAW: ${PROJECT_REPORTS}/raw.txt
 
 checkout:
- post:
-   - git config --global user.name monty-bot
-   - git config --global user.email monty-bot@arm.com
+  post:
+    - git config --global user.name monty-bot
+    - git config --global user.email monty-bot@arm.com
 
 # Install dependencies for CI; latest npm, latest chrome, code coverage, html output and testrunner reqs
 dependencies:
