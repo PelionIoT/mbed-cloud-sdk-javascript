@@ -408,7 +408,7 @@ export class DefaultApi extends ApiBase {
      * @param name The name of the firmware image
      * @param description The description of the firmware image
      */
-    public firmwareImageCreate(datafile: any, name: string, description?: string, callback?: (error: any, data?: FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareImageCreate(datafile: any, name: string, description?: string, callback?: (error: any, data?: FirmwareImage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "datafile" is set
         if (datafile === null || datafile === undefined) {
             if (callback) {
@@ -464,13 +464,14 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Delete firmware image.
      * @param imageId The firmware image ID
      */
-    public firmwareImageDestroy(imageId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareImageDestroy(imageId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "imageId" is set
         if (imageId === null || imageId === undefined) {
             if (callback) {
@@ -505,6 +506,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -515,7 +517,7 @@ export class DefaultApi extends ApiBase {
      * @param filter URL-encoded query string parameter to filter returned data. The results are paginated into groups of 50.  &lt;br/&gt; ?filter&#x3D;{URL-encoded query string} &lt;br/&gt;  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3  would be URL-encoded as: ?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 &lt;br/&gt;  The examples below show the queries in *unencoded* form.&lt;br/&gt;  &lt;br/&gt;**Filtering by campaign properties** state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  &lt;br/&gt; root_manifest_id&#x3D;43217771234242e594ddb433816c498a  &lt;br/&gt;**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  {field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time} &lt;br/&gt;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z  &lt;br/&gt;**Filtering on multiple fields**  Example: state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z  The example after URL encoding: ?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
      * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
-    public firmwareImageList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: FirmwareImagePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareImageList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: FirmwareImagePage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -558,13 +560,14 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Retrieve firmware image.
      * @param imageId The firmware image ID
      */
-    public firmwareImageRetrieve(imageId: string, callback?: (error: any, data?: FirmwareImage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareImageRetrieve(imageId: string, callback?: (error: any, data?: FirmwareImage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "imageId" is set
         if (imageId === null || imageId === undefined) {
             if (callback) {
@@ -599,6 +602,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -607,7 +611,7 @@ export class DefaultApi extends ApiBase {
      * @param name The name of the firmware manifest
      * @param description The description of the firmware manifest
      */
-    public firmwareManifestCreate(datafile: any, name: string, description?: string, callback?: (error: any, data?: FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareManifestCreate(datafile: any, name: string, description?: string, callback?: (error: any, data?: FirmwareManifest, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "datafile" is set
         if (datafile === null || datafile === undefined) {
             if (callback) {
@@ -663,13 +667,14 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Delete firmware manifest.
      * @param manifestId The firmware manifest ID
      */
-    public firmwareManifestDestroy(manifestId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareManifestDestroy(manifestId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "manifestId" is set
         if (manifestId === null || manifestId === undefined) {
             if (callback) {
@@ -704,6 +709,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -714,7 +720,7 @@ export class DefaultApi extends ApiBase {
      * @param filter URL-encoded query string parameter to filter returned data  &lt;br/&gt; ?filter&#x3D;{URL-encoded query string} &lt;br/&gt;  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3  would be URL-encoded as: ?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 &lt;br/&gt;  The examples below show the queries in *unencoded* form.&lt;br/&gt;  &lt;br/&gt;**Filtering by campaign properties** state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  &lt;br/&gt; root_manifest_id&#x3D;43217771234242e594ddb433816c498a  &lt;br/&gt;**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  {field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time} &lt;br/&gt;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z  &lt;br/&gt;**Filtering on multiple fields**  Example: state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z  The example after URL encoding: ?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
      * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
-    public firmwareManifestList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: FirmwareManifestPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareManifestList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: FirmwareManifestPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -757,13 +763,14 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Retrieve firmware manifest.
      * @param manifestId The firmware manifest ID
      */
-    public firmwareManifestRetrieve(manifestId: string, callback?: (error: any, data?: FirmwareManifest, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public firmwareManifestRetrieve(manifestId: string, callback?: (error: any, data?: FirmwareManifest, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "manifestId" is set
         if (manifestId === null || manifestId === undefined) {
             if (callback) {
@@ -798,13 +805,14 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Create an update campaign.
      * @param campaign Update campaign
      */
-    public updateCampaignCreate(campaign: UpdateCampaignPostRequest, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignCreate(campaign: UpdateCampaignPostRequest, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "campaign" is set
         if (campaign === null || campaign === undefined) {
             if (callback) {
@@ -839,6 +847,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: campaign,
         }, callback);
     }
@@ -846,7 +855,7 @@ export class DefaultApi extends ApiBase {
      * Delete an update campaign.
      * @param campaignId The ID of the update campaign
      */
-    public updateCampaignDestroy(campaignId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignDestroy(campaignId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -881,6 +890,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -891,7 +901,7 @@ export class DefaultApi extends ApiBase {
      * @param filter URL-encoded query string parameter to filter returned data  &lt;br/&gt; ?filter&#x3D;{URL-encoded query string} &lt;br/&gt;  The query string is made up of key-value pairs separated by ampersands. For example, this query: key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3  would be URL-encoded as: ?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 &lt;br/&gt;  The examples below show the queries in *unencoded* form.&lt;br/&gt;  &lt;br/&gt;**Filtering by campaign properties** state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]  &lt;br/&gt; root_manifest_id&#x3D;43217771234242e594ddb433816c498a  &lt;br/&gt;**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  {field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time} &lt;br/&gt;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z  &lt;br/&gt;**Filtering on multiple fields**  Example: state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z  The example after URL encoding: ?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z
      * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
-    public updateCampaignList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: UpdateCampaignPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: UpdateCampaignPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -934,6 +944,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -941,7 +952,7 @@ export class DefaultApi extends ApiBase {
      * @param campaignId 
      * @param campaign Update campaign
      */
-    public updateCampaignPartialUpdate(campaignId: string, campaign: UpdateCampaignPatchRequest, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignPartialUpdate(campaignId: string, campaign: UpdateCampaignPatchRequest, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -983,6 +994,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: campaign,
         }, callback);
     }
@@ -990,7 +1002,7 @@ export class DefaultApi extends ApiBase {
      * Get an update campaign.
      * @param campaignId The campaign ID
      */
-    public updateCampaignRetrieve(campaignId: string, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignRetrieve(campaignId: string, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -1025,6 +1037,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1032,7 +1045,7 @@ export class DefaultApi extends ApiBase {
      * @param campaignId 
      * @param campaign Update campaign
      */
-    public updateCampaignUpdate(campaignId: string, campaign: UpdateCampaignPutRequest, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public updateCampaignUpdate(campaignId: string, campaign: UpdateCampaignPutRequest, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -1074,6 +1087,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: campaign,
         }, callback);
     }
@@ -1082,7 +1096,7 @@ export class DefaultApi extends ApiBase {
      * @param campaignId The update campaign ID
      * @param campaignDeviceMetadataId The campaign device metadata ID
      */
-    public v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId: string, campaignDeviceMetadataId: string, callback?: (error: any, data?: CampaignDeviceMetadata, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId: string, campaignDeviceMetadataId: string, callback?: (error: any, data?: CampaignDeviceMetadata, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -1124,6 +1138,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1134,7 +1149,7 @@ export class DefaultApi extends ApiBase {
      * @param after The ID of the the item after which to retrieve the next page
      * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
-    public v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId: string, limit?: number, order?: string, after?: string, include?: string, callback?: (error: any, data?: CampaignDeviceMetadataPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId: string, limit?: number, order?: string, after?: string, include?: string, callback?: (error: any, data?: CampaignDeviceMetadataPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -1181,6 +1196,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
 }
