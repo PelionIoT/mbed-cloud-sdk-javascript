@@ -661,9 +661,10 @@ export declare class ConnectApi extends EventEmitter {
      * @param resourcePath Resource path
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
+     * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value when handling notifications or an asyncId
      */
-    getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean): Promise<string | number | {
+    getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string): Promise<string | number | {
         [key: string]: string | number;
     }>;
     /**
@@ -685,9 +686,10 @@ export declare class ConnectApi extends EventEmitter {
      * @param resourcePath Resource path
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
+     * @param mimeType The requested mime type format of the value
      * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
      */
-    getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, callback?: CallbackFn<string | number | {
+    getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | {
         [key: string]: string | number;
     }>): void;
     /**
@@ -713,9 +715,10 @@ export declare class ConnectApi extends EventEmitter {
      * @param resourcePath Resource path
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
+     * @param mimeType The mime type format of the value
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean): Promise<string>;
+    setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string): Promise<string>;
     /**
      * Sets the value of a resource
      *
@@ -736,9 +739,10 @@ export declare class ConnectApi extends EventEmitter {
      * @param resourcePath Resource path
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
+     * @param mimeType The mime type format of the value
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string>): void;
     /**
      * Execute a function on a resource
      *
@@ -761,9 +765,10 @@ export declare class ConnectApi extends EventEmitter {
      * @param resourcePath Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
+     * @param mimeType The mime type format of the value
      * @returns Promise containing an asyncId when there isn't a notification channel
      */
-    executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean): Promise<string>;
+    executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string): Promise<string>;
     /**
      * Execute a function on a resource
      *
@@ -783,9 +788,10 @@ export declare class ConnectApi extends EventEmitter {
      * @param resourcePath Resource path
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
+     * @param mimeType The mime type format of the value
      * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
      */
-    executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string>): void;
     /**
      * Gets the status of a resource's subscription
      *
