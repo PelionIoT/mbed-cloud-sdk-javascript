@@ -19,6 +19,7 @@ import superagent = require("superagent");
 import { SDKError } from "./sdkError";
 
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
+const JSON_REGEX = /^application\/json(;.*)?$/i;
 const MIME_REGEX = /^text\/plain(;.*)?$/i;
 
 export class ApiBase {
@@ -190,7 +191,7 @@ export class ApiBase {
             request.type(requestOptions.contentType);
 
             // Remove empty or undefined json parameters
-            if (body && body.constructor === {}.constructor && MIME_REGEX.test(requestOptions.contentType)) {
+            if (body && body.constructor === {}.constructor && JSON_REGEX.test(requestOptions.contentType)) {
                 body = Object.keys(body).reduce((val, key) => {
                     if (body[key] !== null && body[key] !== undefined) val[key] = body[key];
                     return val;
@@ -242,7 +243,7 @@ export class ApiBase {
             }
 
             // If an object has been returned and we expected json
-            if (data && data.constructor === {}.constructor && MIME_REGEX.test(acceptHeader)) {
+            if (data && data.constructor === {}.constructor && JSON_REGEX.test(acceptHeader)) {
                 data = JSON.parse(JSON.stringify(data), (_key, value) => {
                     // Check for date
                     if (DATE_REGEX.test(value)) return new Date(value);
