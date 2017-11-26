@@ -19,7 +19,7 @@ import superagent = require("superagent");
 import { SDKError } from "./sdkError";
 
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
-const MIME_REGEX = /^application\/json(;.*)?$/i;
+const MIME_REGEX = /^text\/plain(;.*)?$/i;
 
 export class ApiBase {
 
