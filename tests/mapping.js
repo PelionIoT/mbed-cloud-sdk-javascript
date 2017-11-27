@@ -42,6 +42,12 @@ var mapping = {
 				2: args.resourceValue
 			}
 		},
+		executeResource: args => {
+			return {
+				0: args.deviceId,
+				1: args.resourcePath
+			}
+		},
 		addResourceSubscription: args => {
 			return {
 				0: args.deviceId,
