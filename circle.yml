@@ -61,7 +61,7 @@ test:
     - echo "<h1>${PROJECT_NAME} integration tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_INTTESTS}
     - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${FILE_INTTESTS}:
         pwd: tests
-    - cat ${FILE_INTTESTS} | grep 'seconds =====================' >> ${FILE_RAW}
+    - cat ${FILE_INTTESTS} | grep 'seconds ====' >> ${FILE_RAW}
     - mkdir -p ${COVERAGE_REPORTS}
     - cp -r reports/* ${COVERAGE_REPORTS}
     - cat ${COVERAGE_REPORTS}/cobertura-coverage.xml | grep '<coverage' >> ${FILE_RAW}
