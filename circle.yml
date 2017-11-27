@@ -6,6 +6,8 @@ general:
 machine:
   node:
     version: 4.8.0
+  services:
+    - docker
   environment:
     PROJECT_NAME: ${CIRCLE_PROJECT_REPONAME}
     PROJECT_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
@@ -21,7 +23,6 @@ checkout:
   post:
     - git config --global user.name monty-bot
     - git config --global user.email monty-bot@arm.com
-    - git clone https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
 
 # Install dependencies for CI; latest npm, latest chrome, code coverage, html output and testrunner reqs
 dependencies:
@@ -31,10 +32,12 @@ dependencies:
     - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - sudo dpkg -i google-chrome.deb
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
-    - pip install -U pip
-    - pip install -r tests/testrunner/requirements.txt
-    - python setup.py develop:
-        pwd: tests/testrunner
+    - |
+      login="$(aws ecr get-login)"
+      ${login}
+      login="$(aws ecr get-login --no-include-email)"
+      ${login}
+    - docker pull ${TESTRUNNER_DOCKER_IMAGE}
 
 compile:
   override:
@@ -58,24 +61,24 @@ test:
     - echo "<h1>${PROJECT_NAME} integration tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_INTTESTS}
     - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${FILE_INTTESTS}:
         pwd: tests
-    - cat ${FILE_INTTESTS} | grep 'Number of tests run' >> ${FILE_RAW}
+    - cat ${FILE_INTTESTS} | grep 'seconds ====' >> ${FILE_RAW}
     - mkdir -p ${COVERAGE_REPORTS}
     - cp -r reports/* ${COVERAGE_REPORTS}
     - cat ${COVERAGE_REPORTS}/cobertura-coverage.xml | grep '<coverage' >> ${FILE_RAW}
     - codecov ${COVERAGE_REPORTS}/lcov.info
     - mkdir -p ${CIRCLE_TEST_REPORTS}/junit
-    - cp junit.xml $CIRCLE_TEST_REPORTS/junit/test-results.xml
+    - cp junit.xml ${CIRCLE_TEST_REPORTS}/junit/test-results.xml
 
 deployment:
   staging:
     branch: master
     commands:
-      - echo Syncing $PROJECT_NAME to S3...
-      - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://$PROJECT_NAME
-      - echo Syncing $PROJECT_NAME to $PROJECT_LIVE_BRANCH on GitHub...
+      - echo Syncing ${PROJECT_NAME} to S3...
+      - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://${PROJECT_NAME}
+      - echo Syncing ${PROJECT_NAME} to ${PROJECT_LIVE_BRANCH} on GitHub...
       - git add --force bundles docs lib types
       - git stash save
-      - git checkout $PROJECT_LIVE_BRANCH
+      - git checkout ${PROJECT_LIVE_BRANCH}
       - git merge master --no-commit
       - git checkout stash -- .
       - git commit --allow-empty --message "Automatic Deployment"
@@ -83,6 +86,6 @@ deployment:
   release:
     branch: /[0-9]+\.[0-9]+.*/
     commands:
-      - echo Tagging $PROJECT_NAME in GitHub...
+      - echo Tagging ${PROJECT_NAME} in GitHub...
       - git tag ${PROJECT_TAG}
       - git push --tags
