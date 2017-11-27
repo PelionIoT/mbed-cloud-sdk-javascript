@@ -125,7 +125,7 @@ export class DeveloperCertificateApi extends ApiBase {
      * @param id A unique identifier for the developer certificate. 
      * @param authorization Bearer {Access Token}. 
      */
-    public v3DeveloperCertificatesIdGet(id: string, authorization: string, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3DeveloperCertificatesIdGet(id: string, authorization: string, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -170,6 +170,7 @@ export class DeveloperCertificateApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -178,7 +179,7 @@ export class DeveloperCertificateApi extends ApiBase {
      * @param authorization Bearer {Access Token}. 
      * @param body 
      */
-    public v3DeveloperCertificatesPost(authorization: string, body: DeveloperCertificateRequestData, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3DeveloperCertificatesPost(authorization: string, body: DeveloperCertificateRequestData, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -223,6 +224,7 @@ export class DeveloperCertificateApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -238,7 +240,7 @@ export class ExternalAPIApi extends ApiBase {
      * @param id A unique identifier for the developer certificate. 
      * @param authorization Bearer {Access Token}. 
      */
-    public v3DeveloperCertificatesIdGet(id: string, authorization: string, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3DeveloperCertificatesIdGet(id: string, authorization: string, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -283,6 +285,7 @@ export class ExternalAPIApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -291,7 +294,7 @@ export class ExternalAPIApi extends ApiBase {
      * @param authorization Bearer {Access Token}. 
      * @param body 
      */
-    public v3DeveloperCertificatesPost(authorization: string, body: DeveloperCertificateRequestData, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3DeveloperCertificatesPost(authorization: string, body: DeveloperCertificateRequestData, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -336,6 +339,7 @@ export class ExternalAPIApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -344,7 +348,7 @@ export class ExternalAPIApi extends ApiBase {
      * This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
      * @param authorization Bearer {Access Token}. 
      */
-    public v3ServerCredentialsBootstrapGet(authorization: string, callback?: (error: any, data?: ServerCredentialsResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ServerCredentialsBootstrapGet(authorization: string, callback?: (error: any, data?: ServerCredentialsResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -382,6 +386,7 @@ export class ExternalAPIApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -389,7 +394,7 @@ export class ExternalAPIApi extends ApiBase {
      * This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
      * @param authorization Bearer {Access Token}. 
      */
-    public v3ServerCredentialsLwm2mGet(authorization: string, callback?: (error: any, data?: ServerCredentialsResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ServerCredentialsLwm2mGet(authorization: string, callback?: (error: any, data?: ServerCredentialsResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -427,6 +432,7 @@ export class ExternalAPIApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
 }
@@ -440,7 +446,7 @@ export class ServerCredentialsApi extends ApiBase {
      * This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
      * @param authorization Bearer {Access Token}. 
      */
-    public v3ServerCredentialsBootstrapGet(authorization: string, callback?: (error: any, data?: ServerCredentialsResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ServerCredentialsBootstrapGet(authorization: string, callback?: (error: any, data?: ServerCredentialsResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -478,6 +484,7 @@ export class ServerCredentialsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -485,7 +492,7 @@ export class ServerCredentialsApi extends ApiBase {
      * This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
      * @param authorization Bearer {Access Token}. 
      */
-    public v3ServerCredentialsLwm2mGet(authorization: string, callback?: (error: any, data?: ServerCredentialsResponseData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public v3ServerCredentialsLwm2mGet(authorization: string, callback?: (error: any, data?: ServerCredentialsResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "authorization" is set
         if (authorization === null || authorization === undefined) {
             if (callback) {
@@ -523,6 +530,7 @@ export class ServerCredentialsApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
 }

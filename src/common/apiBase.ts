@@ -19,7 +19,8 @@ import superagent = require("superagent");
 import { SDKError } from "./sdkError";
 
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
-const MIME_REGEX = /^application\/json(;.*)?$/i;
+const JSON_REGEX = /^application\/json(;.*)?$/i;
+const MIME_REGEX = /^text\/plain(;.*)?$/i;
 
 export class ApiBase {
 
@@ -132,29 +133,34 @@ export class ApiBase {
         }
     }
 
-    protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest {
+    protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, requestOptions?: { [key: string]: any }, body?: any, file?: boolean }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest {
 
-        // Normalize slashes in url
-        const url = options.url.replace(/([:])?\/+/g, ($0, $1) => {
+        // Allow overrides
+        const requestOptions = options.requestOptions || {};
+        requestOptions.timeout = requestOptions.timeout || 60000;
+        requestOptions.method = requestOptions.method || options.method;
+        requestOptions.query = requestOptions.query || ApiBase.normalizeParams(options.query);
+        requestOptions.headers = requestOptions.headers || ApiBase.normalizeParams(options.headers);
+        requestOptions.acceptHeader = requestOptions.acceptHeader || ApiBase.chooseType(options.acceptTypes);
+        requestOptions.url = requestOptions.url || options.url.replace(/([:])?\/+/g, ($0, $1) => {
             return $1 ? $0 : "/";
         });
 
-        const request = superagent(options.method, this.host + url);
+        const request = superagent(requestOptions.method, this.host + requestOptions.url);
 
         // set query parameters
-        request.query(ApiBase.normalizeParams(options.query));
+        request.query(requestOptions.query);
 
         // set header parameters
-        options.headers.Authorization = this.apiKey;
-        request.set(ApiBase.normalizeParams(options.headers));
+        requestOptions.headers.Authorization = this.apiKey;
+        request.set(requestOptions.headers);
 
         // set request timeout
-        request.timeout(60000);
+        request.timeout(requestOptions.timeout);
 
         // set accept header
-        const acceptHeader = ApiBase.chooseType(options.acceptTypes);
-        if (acceptHeader) {
-            request.accept(acceptHeader);
+        if (requestOptions.acceptHeader) {
+            request.accept(requestOptions.acceptHeader);
         }
 
         let body = null;
@@ -172,7 +178,8 @@ export class ApiBase {
                     }
                 }
             } else {
-                request.type("application/x-www-form-urlencoded");
+                requestOptions.contentType = requestOptions.contentType || "application/x-www-form-urlencoded";
+                request.type(requestOptions.contentType);
                 request.send(ApiBase.normalizeParams(options.formParams));
             }
         } else if (options.body) {
@@ -180,11 +187,11 @@ export class ApiBase {
             body = options.body;
 
             // set content type header
-            const contentType = ApiBase.chooseType(options.contentTypes, "application/json");
-            request.type(contentType);
+            requestOptions.contentType = requestOptions.contentType || ApiBase.chooseType(options.contentTypes, "application/json");
+            request.type(requestOptions.contentType);
 
             // Remove empty or undefined json parameters
-            if (body && body.constructor === {}.constructor && MIME_REGEX.test(contentType)) {
+            if (body && body.constructor === {}.constructor && JSON_REGEX.test(requestOptions.contentType)) {
                 body = Object.keys(body).reduce((val, key) => {
                     if (body[key] !== null && body[key] !== undefined) val[key] = body[key];
                     return val;
@@ -197,7 +204,7 @@ export class ApiBase {
         if (body) ApiBase.debugLog("body", body);
 
         request.end((error, response) => {
-            this.complete(error, response, acceptHeader, callback);
+            this.complete(error, response, requestOptions.acceptHeader, callback);
         });
 
         return request;
@@ -236,7 +243,7 @@ export class ApiBase {
             }
 
             // If an object has been returned and we expected json
-            if (data && data.constructor === {}.constructor && MIME_REGEX.test(acceptHeader)) {
+            if (data && data.constructor === {}.constructor && JSON_REGEX.test(acceptHeader)) {
                 data = JSON.parse(JSON.stringify(data), (_key, value) => {
                     // Check for date
                     if (DATE_REGEX.test(value)) return new Date(value);

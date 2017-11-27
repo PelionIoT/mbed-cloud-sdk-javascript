@@ -442,7 +442,7 @@ export class DefaultApi extends ApiBase {
      * Create device.
      * @param device 
      */
-    public deviceCreate(device: DeviceDataPostRequest, callback?: (error: any, data?: DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceCreate(device: DeviceDataPostRequest, callback?: (error: any, data?: DeviceData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "device" is set
         if (device === null || device === undefined) {
             if (callback) {
@@ -477,6 +477,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: device,
         }, callback);
     }
@@ -484,7 +485,7 @@ export class DefaultApi extends ApiBase {
      * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
      * @param id 
      */
-    public deviceDestroy(id: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceDestroy(id: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -519,6 +520,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -529,7 +531,7 @@ export class DefaultApi extends ApiBase {
      * @param filter URL encoded query string parameter to filter returned data.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ###### By id: &#x60;&#x60;&#x60;id&#x3D;{id}&#x60;&#x60;&#x60;  ###### By state change: &#x60;&#x60;&#x60;state_change&#x3D;[True|False]&#x60;&#x60;&#x60;  ###### By event type: &#x60;&#x60;&#x60;event_type&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example  &#x60;&#x60;&#x60;id&#x3D;0158d38771f70000000000010010038c&amp;state_change&#x3D;True&amp;date_time__gte&#x3D;2016-11-30T16:25:12.1234Z&#x60;&#x60;&#x60;  Encoded:  &#x60;&#x60;&#x60;?filter&#x3D;id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z&#x60;&#x60;&#x60;
      * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;
      */
-    public deviceEventList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: DeviceEventPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceEventList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: DeviceEventPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -572,13 +574,14 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Retrieve device event.
      * @param deviceEventId 
      */
-    public deviceEventRetrieve(deviceEventId: string, callback?: (error: any, data?: DeviceEventData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceEventRetrieve(deviceEventId: string, callback?: (error: any, data?: DeviceEventData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceEventId" is set
         if (deviceEventId === null || deviceEventId === undefined) {
             if (callback) {
@@ -613,6 +616,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -623,7 +627,7 @@ export class DefaultApi extends ApiBase {
      * @param filter URL encoded query string parameter to filter returned data.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ###### By device properties (all properties are filterable): &#x60;&#x60;&#x60;state&#x3D;[unenrolled|cloud_enrolling|bootstrapped|registered]&#x60;&#x60;&#x60;  &#x60;&#x60;&#x60;device_class&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ###### On device custom attributes:  &#x60;&#x60;&#x60;custom_attributes__{param}&#x3D;{value}&#x60;&#x60;&#x60; &#x60;&#x60;&#x60;custom_attributes__tag&#x3D;TAG1&#x60;&#x60;&#x60;  ##### Multi-field example  &#x60;&#x60;&#x60;state&#x3D;bootstrapped&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60;  Encoded:  &#x60;&#x60;&#x60;?filter&#x3D;state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60;
      * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;.
      */
-    public deviceList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: DevicePage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: DevicePage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -666,6 +670,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -676,7 +681,7 @@ export class DefaultApi extends ApiBase {
      * @param filter URL encoded query string parameter to filter returned data.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ###### By id: &#x60;&#x60;&#x60;id&#x3D;{id}&#x60;&#x60;&#x60;  ###### By state change: &#x60;&#x60;&#x60;state_change&#x3D;[True|False]&#x60;&#x60;&#x60;  ###### By event type: &#x60;&#x60;&#x60;event_type&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example  &#x60;&#x60;&#x60;id&#x3D;0158d38771f70000000000010010038c&amp;state_change&#x3D;True&amp;date_time__gte&#x3D;2016-11-30T16:25:12.1234Z&#x60;&#x60;&#x60;  Encoded:  &#x60;&#x60;&#x60;?filter&#x3D;id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z&#x60;&#x60;&#x60;
      * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;.
      */
-    public deviceLogList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: DeviceEventPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceLogList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: DeviceEventPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -719,13 +724,14 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
      * Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
      * @param deviceEventId 
      */
-    public deviceLogRetrieve(deviceEventId: string, callback?: (error: any, data?: DeviceEventData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceLogRetrieve(deviceEventId: string, callback?: (error: any, data?: DeviceEventData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "deviceEventId" is set
         if (deviceEventId === null || deviceEventId === undefined) {
             if (callback) {
@@ -760,6 +766,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -767,7 +774,7 @@ export class DefaultApi extends ApiBase {
      * @param id The ID of the device.
      * @param device 
      */
-    public devicePartialUpdate(id: string, device: DeviceDataPatchRequest, callback?: (error: any, data?: DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public devicePartialUpdate(id: string, device: DeviceDataPatchRequest, callback?: (error: any, data?: DeviceData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -809,6 +816,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: device,
         }, callback);
     }
@@ -816,7 +824,7 @@ export class DefaultApi extends ApiBase {
      * Create device query.
      * @param device 
      */
-    public deviceQueryCreate(device: DeviceQueryPostPutRequest, callback?: (error: any, data?: DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryCreate(device: DeviceQueryPostPutRequest, callback?: (error: any, data?: DeviceQuery, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "device" is set
         if (device === null || device === undefined) {
             if (callback) {
@@ -851,6 +859,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: device,
         }, callback);
     }
@@ -858,7 +867,7 @@ export class DefaultApi extends ApiBase {
      * Delete device query.
      * @param queryId 
      */
-    public deviceQueryDestroy(queryId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryDestroy(queryId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "queryId" is set
         if (queryId === null || queryId === undefined) {
             if (callback) {
@@ -893,6 +902,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -903,7 +913,7 @@ export class DefaultApi extends ApiBase {
      * @param filter URL encoded query string parameter to filter returned data.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ###### By device query properties (all properties are filterable): For example: &#x60;&#x60;&#x60;description&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example  &#x60;&#x60;&#x60;query_id&#x3D;0158d38771f70000000000010010038c&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60;  Encoded:  &#x60;&#x60;&#x60;filter&#x3D;query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60;
      * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;.
      */
-    public deviceQueryList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: DeviceQueryPage, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: DeviceQueryPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -946,6 +956,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -953,7 +964,7 @@ export class DefaultApi extends ApiBase {
      * @param queryId 
      * @param deviceQuery 
      */
-    public deviceQueryPartialUpdate(queryId: string, deviceQuery: DeviceQueryPatchRequest, callback?: (error: any, data?: DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryPartialUpdate(queryId: string, deviceQuery: DeviceQueryPatchRequest, callback?: (error: any, data?: DeviceQuery, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "queryId" is set
         if (queryId === null || queryId === undefined) {
             if (callback) {
@@ -995,6 +1006,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: deviceQuery,
         }, callback);
     }
@@ -1002,7 +1014,7 @@ export class DefaultApi extends ApiBase {
      * Retrieve device query.
      * @param queryId 
      */
-    public deviceQueryRetrieve(queryId: string, callback?: (error: any, data?: DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryRetrieve(queryId: string, callback?: (error: any, data?: DeviceQuery, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "queryId" is set
         if (queryId === null || queryId === undefined) {
             if (callback) {
@@ -1037,6 +1049,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1044,7 +1057,7 @@ export class DefaultApi extends ApiBase {
      * @param queryId 
      * @param body Device query update object.
      */
-    public deviceQueryUpdate(queryId: string, body: DeviceQueryPostPutRequest, callback?: (error: any, data?: DeviceQuery, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceQueryUpdate(queryId: string, body: DeviceQueryPostPutRequest, callback?: (error: any, data?: DeviceQuery, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "queryId" is set
         if (queryId === null || queryId === undefined) {
             if (callback) {
@@ -1086,6 +1099,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: body,
         }, callback);
     }
@@ -1093,7 +1107,7 @@ export class DefaultApi extends ApiBase {
      * Retrieve device.
      * @param id 
      */
-    public deviceRetrieve(id: string, callback?: (error: any, data?: DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceRetrieve(id: string, callback?: (error: any, data?: DeviceData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -1128,6 +1142,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1135,7 +1150,7 @@ export class DefaultApi extends ApiBase {
      * @param id The ID of the device.
      * @param device 
      */
-    public deviceUpdate(id: string, device: DeviceDataPutRequest, callback?: (error: any, data?: DeviceData, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public deviceUpdate(id: string, device: DeviceDataPutRequest, callback?: (error: any, data?: DeviceData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -1177,6 +1192,7 @@ export class DefaultApi extends ApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
             body: device,
         }, callback);
     }
