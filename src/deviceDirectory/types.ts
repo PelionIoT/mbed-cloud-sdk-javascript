@@ -57,14 +57,6 @@ export interface DeviceObject {
 
 export interface AddDeviceObject extends DeviceObject {
     /**
-     * ID of the issuer of the certificate
-     */
-    certificateIssuerId: string;
-    /**
-     * Fingerprint of the device certificate
-     */
-    certificateFingerprint: string;
-    /**
      * The current state of the device
      */
     state?: DeviceStateEnum;
