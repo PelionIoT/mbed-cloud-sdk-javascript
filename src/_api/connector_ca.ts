@@ -122,14 +122,14 @@ export class DeveloperCertificateApi extends ApiBase {
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
      * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
-     * @param id A unique identifier for the developer certificate. 
+     * @param muuid A unique identifier for the developer certificate. 
      * @param authorization Bearer {Access Token}. 
      */
-    public v3DeveloperCertificatesIdGet(id: string, authorization: string, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
+    public v3DeveloperCertificatesMuuidGet(muuid: string, authorization: string, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "muuid" is set
+        if (muuid === null || muuid === undefined) {
             if (callback) {
-                callback(new SDKError("Required parameter 'id' missing."));
+                callback(new SDKError("Required parameter 'muuid' missing."));
             }
             return;
         }
@@ -162,7 +162,7 @@ export class DeveloperCertificateApi extends ApiBase {
         ];
 
         return this.request<DeveloperCertificateResponseData>({
-            url: "/v3/developer-certificates/{id}".replace("{" + "id" + "}", String(id)),
+            url: "/v3/developer-certificates/{muuid}".replace("{" + "muuid" + "}", String(muuid)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
@@ -237,14 +237,14 @@ export class ExternalAPIApi extends ApiBase {
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
      * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
-     * @param id A unique identifier for the developer certificate. 
+     * @param muuid A unique identifier for the developer certificate. 
      * @param authorization Bearer {Access Token}. 
      */
-    public v3DeveloperCertificatesIdGet(id: string, authorization: string, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "id" is set
-        if (id === null || id === undefined) {
+    public v3DeveloperCertificatesMuuidGet(muuid: string, authorization: string, callback?: (error: any, data?: DeveloperCertificateResponseData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "muuid" is set
+        if (muuid === null || muuid === undefined) {
             if (callback) {
-                callback(new SDKError("Required parameter 'id' missing."));
+                callback(new SDKError("Required parameter 'muuid' missing."));
             }
             return;
         }
@@ -277,7 +277,7 @@ export class ExternalAPIApi extends ApiBase {
         ];
 
         return this.request<DeveloperCertificateResponseData>({
-            url: "/v3/developer-certificates/{id}".replace("{" + "id" + "}", String(id)),
+            url: "/v3/developer-certificates/{muuid}".replace("{" + "muuid" + "}", String(muuid)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,

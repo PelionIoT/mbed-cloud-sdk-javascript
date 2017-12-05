@@ -284,7 +284,7 @@ export interface DeviceDataPostRequest {
     /**
      * The fingerprint of the device certificate.
      */
-    "device_key": string;
+    "device_key"?: string;
     /**
      * DEPRECATED: The URL for the current device manifest.
      */
@@ -292,7 +292,7 @@ export interface DeviceDataPostRequest {
     /**
      * The certificate issuer's ID.
      */
-    "ca_id": string;
+    "ca_id"?: string;
 }
 
 export interface DeviceDataPutRequest {
@@ -323,7 +323,7 @@ export interface DeviceDataPutRequest {
     /**
      * The fingerprint of the device certificate.
      */
-    "device_key": string;
+    "device_key"?: string;
     /**
      * The endpoint type of the device. For example, the device is a gateway.
      */
@@ -331,7 +331,7 @@ export interface DeviceDataPutRequest {
     /**
      * The certificate issuer's ID.
      */
-    "ca_id": string;
+    "ca_id"?: string;
     /**
      * The name of the device.
      */
