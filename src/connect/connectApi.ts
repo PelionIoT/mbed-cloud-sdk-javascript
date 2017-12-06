@@ -69,8 +69,8 @@ import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
  * Some methods on connected device resources (e.g. `resource.getValue()`) and most events (e.g. `resource.on("notification")`) require a notification channel to be set up before they will work.
  *
  * There are two options for setting up a notification channel:
+ *  * Use pull notifications by using `startNotifications()` (the default which starts automatically)
  *  * Register a callback server or _webhook_ using `updateWebhook()`
- *  * Use pull notifications by using `startNotifications()` (which starts automatically)
  *
  * The `webhook` and `pull-notifications` examples show how this can be done.
  */
@@ -111,6 +111,7 @@ export class ConnectApi extends EventEmitter {
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
     private _pollRequest: superagent.SuperAgentRequest | boolean;
+    private _handleNotifications: boolean = false;
     private _asyncFns: { [key: string]: (error: any, data: any) => any; } = {};
     private _notifyFns: { [key: string]: (data: any) => any; } = {};
 
@@ -118,7 +119,15 @@ export class ConnectApi extends EventEmitter {
      * Whether the user will handle notifications
      * This suppresses pull notifications for when another method is being used (such as webhooks)
      */
-    public handleNotifications: boolean;
+    public get handleNotifications(): boolean {
+        return this._handleNotifications;
+    }
+    public set handleNotifications(value: boolean) {
+        if (value === true) {
+            this.stopNotifications();
+        }
+        this._handleNotifications = value;
+    }
 
     /**
      * @param options connection objects
@@ -127,7 +136,7 @@ export class ConnectApi extends EventEmitter {
         super();
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
-        this.handleNotifications = options.handleNotifications;
+        this._handleNotifications = options.handleNotifications;
     }
 
     private normalizePath(path?: string): string {
@@ -288,7 +297,7 @@ export class ConnectApi extends EventEmitter {
 
         return asyncStyle(done => {
             // Don't start notifications if they are handled elsewhere or already running
-            if (this.handleNotifications || this._pollRequest) return done(null, null);
+            if (this._handleNotifications || this._pollRequest) return done(null, null);
 
             this._pollRequest = true;
             const { interval, requestCallback, forceClear } = options;
@@ -296,9 +305,9 @@ export class ConnectApi extends EventEmitter {
             function poll() {
                 this._pollRequest = this._endpoints.notifications.v2NotificationPullGet((error, data) => {
 
+                    if (error) return;
                     this.notify(data);
                     if (requestCallback && data["async-responses"]) requestCallback(error, data["async-responses"]);
-                    if (error) return;
 
                     setTimeout(poll.bind(this), interval || 500);
                 });
@@ -311,8 +320,9 @@ export class ConnectApi extends EventEmitter {
 
             if (forceClear) return this.deleteWebhook(start.bind(this));
 
-            this.getWebhook((_error, webhook) => {
-                if (webhook) throw new SDKError("Webhook already exists");
+            this.getWebhook((error, webhook) => {
+                if (error) return done(error, null);
+                if (webhook) return done(new SDKError(`Webhook already exists at ${webhook.url}`), null);
                 start.call(this);
             });
         }, callback);
@@ -473,7 +483,10 @@ export class ConnectApi extends EventEmitter {
                 });
             }
 
-            if (forceClear) this.stopNotifications(update.bind(this));
+            if (forceClear) {
+                this._handleNotifications = true;
+                this.stopNotifications(update.bind(this));
+            } else if (this._pollRequest) return done(new SDKError("Pull notifications are already running"), null);
             else update.call(this);
         }, callback);
     }
@@ -1055,7 +1068,8 @@ export class ConnectApi extends EventEmitter {
         }
 
         return apiWrapper(resultsFn => {
-            this.startNotifications(null, () => {
+            this.startNotifications(null, error => {
+                if (error) return resultsFn(error, null);
                 this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResponse, resultsFn, {
                     acceptHeader: mimeType
                 });
@@ -1128,7 +1142,8 @@ export class ConnectApi extends EventEmitter {
         }
 
         return apiWrapper(resultsFn => {
-            this.startNotifications(null, () => {
+            this.startNotifications(null, error => {
+                if (error) return resultsFn(error, null);
                 this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, resourcePath, value, noResponse, resultsFn, {
                     contentType: mimeType
                 });
@@ -1203,7 +1218,8 @@ export class ConnectApi extends EventEmitter {
         }
 
         return apiWrapper(resultsFn => {
-            this.startNotifications(null, () => {
+            this.startNotifications(null, error => {
+                if (error) return resultsFn(error, null);
                 this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, resourcePath, functionName, noResponse, resultsFn, {
                     contentType: mimeType
                 });
@@ -1313,7 +1329,8 @@ export class ConnectApi extends EventEmitter {
         resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
-            this.startNotifications(null, () => {
+            this.startNotifications(null, error => {
+                if (error) return resultsFn(error, null);
                 this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, resourcePath, resultsFn);
             });
         }, (data, done) => {
@@ -1372,7 +1389,8 @@ export class ConnectApi extends EventEmitter {
         resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
-            this.startNotifications(null, () => {
+            this.startNotifications(null, error => {
+                if (error) return resultsFn(error, null);
                 this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, resourcePath, resultsFn);
             });
         }, (data, done) => {
