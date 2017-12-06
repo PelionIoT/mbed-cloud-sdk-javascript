@@ -486,8 +486,11 @@ export class ConnectApi extends EventEmitter {
             if (forceClear) {
                 this._handleNotifications = true;
                 this.stopNotifications(update.bind(this));
-            } else if (this._pollRequest) return done(new SDKError("Pull notifications are already running"), null);
-            else update.call(this);
+            // } else if (this._pollRequest) {
+            //    return done(new SDKError("Pull notifications are already running"), null);
+            } else {
+                update.call(this);
+            }
         }, callback);
     }
 
