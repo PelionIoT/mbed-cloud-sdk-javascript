@@ -1,5 +1,38 @@
 # Changelog
 
+## 1.2.5
+
+### Deliverables
+
+The application is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using npm:
+
+```
+$ npm install mbed-cloud-sdk
+```
+
+### Changes
+
+- Pull notifications now auto-start
+- Cached values now correctly returned from resources
+- Error now thrown if a notification channel already exists
+- Added ability to force a new notification channel, deleting any existing one
+
+## 1.2.4
+
+### Deliverables
+
+The application is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using npm:
+
+```
+$ npm install mbed-cloud-sdk
+```
+
+### Changes
+
+- Allow resource mime types to be overridden
+- Minor documentation updates
+- Added complete code coverage
+
 ## 1.2.3
 
 ### Deliverables

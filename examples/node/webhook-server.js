@@ -30,7 +30,7 @@ var MbedCloudSDK = require("../../index");
 var config = require("./config");
 
 // ngrok http 3002
-var url = "http://988649a3.ngrok.io";
+var url = "http://fc76edc6.ngrok.io";
 var port = 3002;
 
 var connect = new MbedCloudSDK.ConnectApi(config);
@@ -92,13 +92,20 @@ http.createServer(app).listen(port, () => {
 // Set up webhook
 connect.getWebhook()
 .then(webhook => {
-    if (!webhook) console.log("No webhook currently registered");
-    else console.log(`Webhook currently set to ${webhook.url}`);
+    if (webhook) {
+        if (webhook.url === url) {
+            console.log(`Webhook already set to ${url}`);
+            return;
+        } else {
+            console.log(`Webhook currently set to ${webhook.url}, changing to ${url}`);
+        }
+    } else {
+        console.log(`No webhook currently registered, setting to ${url}`);
+    }
 
     return connect.updateWebhook(url);
 })
 .then(() => {
-    console.log(`Webhook now set to ${url}`);
     listDevices();
 })
 .catch(error => {

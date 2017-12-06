@@ -120,7 +120,7 @@ export declare class UpdateApi {
      */
     getFirmwareImage(firmwareImageId: string, callback: CallbackFn<FirmwareImage>): void;
     /**
-     * Adds a firmware image, returning a Promise
+     * Add a firmware image
      *
      * Example (Node.js):
      * ```JavaScript
@@ -163,7 +163,7 @@ export declare class UpdateApi {
      */
     addFirmwareImage(image: AddFirmwareImageObject): Promise<FirmwareImage>;
     /**
-     * Adds a firmware image, using a callback function
+     * Add a firmware image
      *
      * Example (Node.js):
      * ```JavaScript
@@ -200,7 +200,7 @@ export declare class UpdateApi {
      */
     addFirmwareImage(image: AddFirmwareImageObject, callback: CallbackFn<FirmwareImage>): void;
     /**
-     * Deletes a firmware image
+     * Delete a firmware image
      *
      * Example:
      * ```JavaScript
@@ -215,7 +215,7 @@ export declare class UpdateApi {
      */
     deleteFirmwareImage(firmwareImageId: string): Promise<void>;
     /**
-     * Deletes a firmware image
+     * Delete a firmware image
      *
      * Example:
      * ```JavaScript
@@ -254,7 +254,7 @@ export declare class UpdateApi {
      */
     listFirmwareManifests(options?: FirmwareManifestListOptions): Promise<ListResponse<FirmwareManifest>>;
     /**
-     * List manifests
+     * List firmware manifests
      *
      * Example:
      * ```JavaScript
@@ -309,7 +309,7 @@ export declare class UpdateApi {
      */
     getFirmwareManifest(firmwareManifestId: string, callback: CallbackFn<FirmwareManifest>): void;
     /**
-     * Adds a firmware manifest, returning a Promise
+     * Add a firmware manifest
      *
      * Example (Node.js):
      * ```JavaScript
@@ -352,7 +352,7 @@ export declare class UpdateApi {
      */
     addFirmwareManifest(manifest: AddFirmwareManifestObject): Promise<FirmwareManifest>;
     /**
-     * Adds a firmware manifest, using a callback function
+     * Add a firmware manifest
      *
      * Example (Node.js):
      * ```JavaScript
@@ -389,7 +389,7 @@ export declare class UpdateApi {
      */
     addFirmwareManifest(manifest: AddFirmwareManifestObject, callback: CallbackFn<FirmwareManifest>): void;
     /**
-     * Deletes a firmware manifest
+     * Delete a firmware manifest
      *
      * Example:
      * ```JavaScript
@@ -404,7 +404,7 @@ export declare class UpdateApi {
      */
     deleteFirmwareManifest(firmwareManifestId: string): Promise<void>;
     /**
-     * Deletes a firmware manifest
+     * Delete a firmware manifest
      *
      * Example:
      * ```JavaScript
@@ -498,7 +498,7 @@ export declare class UpdateApi {
      */
     getCampaign(campaignId: string, callback: CallbackFn<Campaign>): void;
     /**
-     * Adds an update campaign
+     * Add an update campaign
      *
      * Example:
      * ```JavaScript
@@ -527,7 +527,7 @@ export declare class UpdateApi {
      */
     addCampaign(campaign: AddCampaignObject): Promise<Campaign>;
     /**
-     * Adds an update campaign
+     * Add an update campaign
      *
      * Example:
      * ```JavaScript
@@ -610,7 +610,7 @@ export declare class UpdateApi {
      */
     updateCampaign(campaign: UpdateCampaignObject, callback: CallbackFn<Campaign>): void;
     /**
-     * Deletes an update campaign
+     * Delete an update campaign
      *
      * Example:
      * ```JavaScript
@@ -625,7 +625,7 @@ export declare class UpdateApi {
      */
     deleteCampaign(campaignId: string): Promise<void>;
     /**
-     * Deletes an update campaign
+     * Delete an update campaign
      *
      * Example:
      * ```JavaScript

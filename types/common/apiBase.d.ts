@@ -41,6 +41,9 @@ export declare class ApiBase {
         useFormData: boolean;
         contentTypes: Array<string>;
         acceptTypes: Array<string>;
+        requestOptions?: {
+            [key: string]: any;
+        };
         body?: any;
         file?: boolean;
     }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest;

@@ -180,7 +180,7 @@ export class UpdateApi {
     }
 
     /**
-     * Adds a firmware image, returning a Promise
+     * Add a firmware image
      *
      * Example (Node.js):
      * ```JavaScript
@@ -223,7 +223,7 @@ export class UpdateApi {
      */
     public addFirmwareImage(image: AddFirmwareImageObject): Promise<FirmwareImage>;
     /**
-     * Adds a firmware image, using a callback function
+     * Add a firmware image
      *
      * Example (Node.js):
      * ```JavaScript
@@ -268,7 +268,7 @@ export class UpdateApi {
     }
 
     /**
-     * Deletes a firmware image
+     * Delete a firmware image
      *
      * Example:
      * ```JavaScript
@@ -283,7 +283,7 @@ export class UpdateApi {
      */
     public deleteFirmwareImage(firmwareImageId: string): Promise<void>;
     /**
-     * Deletes a firmware image
+     * Delete a firmware image
      *
      * Example:
      * ```JavaScript
@@ -330,7 +330,7 @@ export class UpdateApi {
      */
     public listFirmwareManifests(options?: FirmwareManifestListOptions): Promise<ListResponse<FirmwareManifest>>;
     /**
-     * List manifests
+     * List firmware manifests
      *
      * Example:
      * ```JavaScript
@@ -415,7 +415,7 @@ export class UpdateApi {
     }
 
     /**
-     * Adds a firmware manifest, returning a Promise
+     * Add a firmware manifest
      *
      * Example (Node.js):
      * ```JavaScript
@@ -458,7 +458,7 @@ export class UpdateApi {
      */
     public addFirmwareManifest(manifest: AddFirmwareManifestObject): Promise<FirmwareManifest>;
     /**
-     * Adds a firmware manifest, using a callback function
+     * Add a firmware manifest
      *
      * Example (Node.js):
      * ```JavaScript
@@ -503,7 +503,7 @@ export class UpdateApi {
     }
 
     /**
-     * Deletes a firmware manifest
+     * Delete a firmware manifest
      *
      * Example:
      * ```JavaScript
@@ -518,7 +518,7 @@ export class UpdateApi {
      */
     public deleteFirmwareManifest(firmwareManifestId: string): Promise<void>;
     /**
-     * Deletes a firmware manifest
+     * Delete a firmware manifest
      *
      * Example:
      * ```JavaScript
@@ -650,7 +650,7 @@ export class UpdateApi {
     }
 
     /**
-     * Adds an update campaign
+     * Add an update campaign
      *
      * Example:
      * ```JavaScript
@@ -679,7 +679,7 @@ export class UpdateApi {
      */
     public addCampaign(campaign: AddCampaignObject): Promise<Campaign>;
     /**
-     * Adds an update campaign
+     * Add an update campaign
      *
      * Example:
      * ```JavaScript
@@ -779,7 +779,7 @@ export class UpdateApi {
     }
 
     /**
-     * Deletes an update campaign
+     * Delete an update campaign
      *
      * Example:
      * ```JavaScript
@@ -794,7 +794,7 @@ export class UpdateApi {
      */
     public deleteCampaign(campaignId: string): Promise<void>;
     /**
-     * Deletes an update campaign
+     * Delete an update campaign
      *
      * Example:
      * ```JavaScript

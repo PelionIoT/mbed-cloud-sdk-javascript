@@ -337,7 +337,7 @@
 				<a name="delete" class="tsd-anchor"></a>
 				<h3>delete</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -357,12 +357,12 @@
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						<p>Promise containing any error</p>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>empty Promise</p>
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -382,7 +382,7 @@
 								</div>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>A function that is passed any error</p>
 								</div>
@@ -437,7 +437,7 @@
 				<a name="execute" class="tsd-anchor"></a>
 				<h3>execute</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>functionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>functionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, mimeType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -461,15 +461,21 @@
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>If true, Mbed Device Connector will not wait for a response</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> mimeType: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The mime type format of the value</p>
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						<p>Promise containing an asyncId when there isn&#39;t a notification channel</p>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>empty Promise</p>
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>functionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>functionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, mimeType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -496,9 +502,15 @@
 								</div>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> mimeType: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>A function that is passed the arguments (error, value) where value is an asyncId when there isn&#39;t a notification channel</p>
+									<p>The mime type format of the value</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
 								</div>
 							</li>
 						</ul>
@@ -570,7 +582,7 @@
 				<a name="getvalue" class="tsd-anchor"></a>
 				<h3>get<wbr>Value</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Value<span class="tsd-signature-symbol">(</span>cacheOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Value<span class="tsd-signature-symbol">(</span>cacheOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, mimeType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -594,15 +606,21 @@
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>If true, Mbed Device Connector will not wait for a response</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> mimeType: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The requested mime type format of the value</p>
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						<p>Promise of resource value when handling notifications or an asyncId</p>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise of resource value</p>
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">get<wbr>Value<span class="tsd-signature-symbol">(</span>cacheOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Value<span class="tsd-signature-symbol">(</span>cacheOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, mimeType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -629,9 +647,15 @@
 								</div>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> mimeType: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId</p>
+									<p>The requested mime type format of the value</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed the arguments (error, value) where value is the resource value</p>
 								</div>
 							</li>
 						</ul>
@@ -856,7 +880,7 @@
 				<a name="setvalue" class="tsd-anchor"></a>
 				<h3>set<wbr>Value</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">set<wbr>Value<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Value<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, mimeType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -880,15 +904,21 @@
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>If true, Mbed Device Connector will not wait for a response</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> mimeType: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The mime type format of the value</p>
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						<p>Promise containing an asyncId when there isn&#39;t a notification channel</p>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>empty Promise</p>
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">set<wbr>Value<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Value<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, mimeType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -915,9 +945,15 @@
 								</div>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> mimeType: <span class="tsd-signature-type">string</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>A function that is passed the arguments (error, value) where value is an asyncId when there isn&#39;t a notification channel</p>
+									<p>The mime type format of the value</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>A function that is passed any error</p>
 								</div>
 							</li>
 						</ul>
