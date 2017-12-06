@@ -19,10 +19,10 @@ import superagent = require("superagent");
 import { EventEmitter } from "events";
 import { ListResponse } from "../common/listResponse";
 import { asyncStyle, apiWrapper, decodeBase64 } from "../common/functions";
-import { ConnectionOptions, CallbackFn } from "../common/interfaces";
+import { CallbackFn } from "../common/interfaces";
 import { SDKError } from "../common/sdkError";
 import { Endpoints } from "./endpoints";
-import { NotificationObject, NotificationOptions, PresubscriptionObject } from "./types";
+import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject } from "./types";
 import { Webhook } from "./models/webhook";
 import { WebhookAdapter } from "./models/webhookAdapter";
 import { PresubscriptionAdapter } from "./models/presubscriptionAdapter";
@@ -69,8 +69,8 @@ import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
  * Some methods on connected device resources (e.g. `resource.getValue()`) and most events (e.g. `resource.on("notification")`) require a notification channel to be set up before they will work.
  *
  * There are two options for setting up a notification channel:
+ *  * Use pull notifications by using `startNotifications()` (the default which starts automatically)
  *  * Register a callback server or _webhook_ using `updateWebhook()`
- *  * Use pull notifications by using `startNotifications()`
  *
  * The `webhook` and `pull-notifications` examples show how this can be done.
  */
@@ -110,23 +110,33 @@ export class ConnectApi extends EventEmitter {
 
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
-    private _pollRequest: superagent.SuperAgentRequest;
+    private _pollRequest: superagent.SuperAgentRequest | boolean;
+    private _handleNotifications: boolean = false;
     private _asyncFns: { [key: string]: (error: any, data: any) => any; } = {};
     private _notifyFns: { [key: string]: (data: any) => any; } = {};
 
     /**
-     * Whether async callbacks are handled by the API.
-     * Pull notifications will set this automatically, but it can also be used alongside the `notify` function with webhooks
+     * Whether the user will handle notifications
+     * This suppresses pull notifications for when another method is being used (such as webhooks)
      */
-    public handleNotifications: boolean;
+    public get handleNotifications(): boolean {
+        return this._handleNotifications;
+    }
+    public set handleNotifications(value: boolean) {
+        if (value === true) {
+            this.stopNotifications();
+        }
+        this._handleNotifications = value;
+    }
 
     /**
      * @param options connection objects
      */
-    constructor(options: ConnectionOptions) {
+    constructor(options: ConnectOptions) {
         super();
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
+        this._handleNotifications = options.handleNotifications;
     }
 
     private normalizePath(path?: string): string {
@@ -135,6 +145,20 @@ export class ConnectApi extends EventEmitter {
         }
 
         return path;
+    }
+
+    private handleAsync<T>(data: any, done: (error: SDKError, result: T) => void): void {
+        try {
+            const asyncID = data[this.ASYNC_KEY];
+            if (asyncID) {
+                this._asyncFns[asyncID] = done;
+                return;
+            }
+        // tslint:disable-next-line:no-empty
+        } catch (_e) {}
+
+        // Cached value may be returned
+        done(null, data);
     }
 
     /**
@@ -272,31 +296,34 @@ export class ConnectApi extends EventEmitter {
         }
 
         return asyncStyle(done => {
-            const { interval, requestCallback } = options;
+            // Don't start notifications if they are handled elsewhere or already running
+            if (this._handleNotifications || this._pollRequest) return done(null, null);
+
+            this._pollRequest = true;
+            const { interval, requestCallback, forceClear } = options;
 
             function poll() {
                 this._pollRequest = this._endpoints.notifications.v2NotificationPullGet((error, data) => {
 
-                    if (!this.handleNotifications) return;
-
+                    if (error) return;
                     this.notify(data);
-
                     if (requestCallback && data["async-responses"]) requestCallback(error, data["async-responses"]);
-
-                    if (error) {
-                        this.handleNotifications = false;
-                        return;
-                    }
 
                     setTimeout(poll.bind(this), interval || 500);
                 });
             }
 
-            this.deleteWebhook(() => {
+            function start() {
                 poll.call(this);
-                this.handleNotifications = true;
-
                 done(null, null);
+            }
+
+            if (forceClear) return this.deleteWebhook(start.bind(this));
+
+            this.getWebhook((error, webhook) => {
+                if (error) return done(error, null);
+                if (webhook) return done(new SDKError(`Webhook already exists at ${webhook.url}`), null);
+                start.call(this);
             });
         }, callback);
     }
@@ -336,11 +363,10 @@ export class ConnectApi extends EventEmitter {
         return asyncStyle(done => {
             this._endpoints.notifications.v2NotificationPullDelete(() => {
                 if (this._pollRequest) {
-                    this._pollRequest.abort();
+                    // tslint:disable-next-line:no-string-literal
+                    if (this._pollRequest["abort"]) this._pollRequest["abort"]();
                     this._pollRequest = null;
                 }
-
-                this.handleNotifications = false;
 
                 done(null, null);
             });
@@ -361,7 +387,7 @@ export class ConnectApi extends EventEmitter {
      * });
      * ```
      *
-     * @returns Promise containing the webhhok data
+     * @returns Promise containing the webhook data
      */
     public getWebhook(): Promise<Webhook>;
     /**
@@ -411,9 +437,10 @@ export class ConnectApi extends EventEmitter {
      *
      * @param url The URL to which the notifications must be sent
      * @param headers Any headers (key/value) that must be sent with the request
+     * @param forceClear Whether to clear any existing notification channel
      * @returns Promise containing any error
      */
-    public updateWebhook(url: string, headers?: { [key: string]: string; }): Promise<void>;
+    public updateWebhook(url: string, headers?: { [key: string]: string; }, forceClear?: boolean): Promise<void>;
     /**
      * Register new webhook for incoming subscriptions.
      *
@@ -428,18 +455,25 @@ export class ConnectApi extends EventEmitter {
      *
      * @param url The URL to which the notifications must be sent
      * @param headers Any headers (key/value) that must be sent with the request
+     * @param forceClear Whether to clear any existing notification channel
      * @param callback A function that is passed any error
      */
-    public updateWebhook(url: string, headers?: { [key: string]: string; }, callback?: CallbackFn<void>): void;
-    public updateWebhook(url: string, headers?: any, callback?: CallbackFn<void>): Promise<void> {
+    public updateWebhook(url: string, headers?: { [key: string]: string; }, forceClear?: boolean, callback?: CallbackFn<void>): void;
+    public updateWebhook(url: string, headers?: any, forceClear?: any, callback?: CallbackFn<void>): Promise<void> {
         headers = headers || {};
+        forceClear = forceClear || false;
+        if (typeof forceClear === "function") {
+            callback = forceClear;
+            forceClear = false;
+        }
         if (typeof headers === "function") {
             callback = headers;
             headers = {};
         }
 
         return asyncStyle(done => {
-            this._endpoints.notifications.v2NotificationPullDelete(() => {
+
+            function update() {
                 this._endpoints.notifications.v2NotificationCallbackPut({
                     url: url,
                     headers: headers
@@ -447,7 +481,16 @@ export class ConnectApi extends EventEmitter {
                     if (error) return done(error);
                     done(null, null);
                 });
-            });
+            }
+
+            if (forceClear) {
+                this._handleNotifications = true;
+                this.stopNotifications(update.bind(this));
+            // } else if (this._pollRequest) {
+            //    return done(new SDKError("Pull notifications are already running"), null);
+            } else {
+                update.call(this);
+            }
         }, callback);
     }
 
@@ -922,9 +965,9 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns Promise containing any error
+     * @returns empty Promise
      */
-    public deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean): Promise<string>;
+    public deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean): Promise<void>;
     /**
      * Deletes a resource
      *
@@ -943,8 +986,8 @@ export class ConnectApi extends EventEmitter {
      * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    public deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
-    public deleteResource(deviceId: string, resourcePath: string, noResponse?: any, callback?: CallbackFn<string>): Promise<string> {
+    public deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean, callback?: CallbackFn<void>): void;
+    public deleteResource(deviceId: string, resourcePath: string, noResponse?: any, callback?: CallbackFn<void>): Promise<void> {
         resourcePath = this.normalizePath(resourcePath);
 
         noResponse = noResponse || false;
@@ -955,8 +998,8 @@ export class ConnectApi extends EventEmitter {
 
         return apiWrapper(resultsFn => {
             this._endpoints.resources.v2EndpointsDeviceIdResourcePathDelete(deviceId, resourcePath, noResponse, resultsFn);
-        }, (data, done) => {
-            done(null, data[this.ASYNC_KEY]);
+        }, (_data, done) => {
+            done(null, null);
         }, callback);
     }
 
@@ -983,9 +1026,9 @@ export class ConnectApi extends EventEmitter {
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The requested mime type format of the value
-     * @returns Promise of resource value when handling notifications or an asyncId
+     * @returns Promise of resource value
      */
-    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string): Promise<string | number | { [key: string]: string | number }>;
+    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
@@ -1006,10 +1049,10 @@ export class ConnectApi extends EventEmitter {
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The requested mime type format of the value
-     * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
+     * @param callback A function that is passed the arguments (error, value)
      */
-    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | { [key: string]: string | number }>): void;
-    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<string | number | { [key: string]: string | number }>): Promise<string | number | { [key: string]: string | number }> {
+    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
+    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
         resourcePath = this.normalizePath(resourcePath);
 
         cacheOnly = cacheOnly || false;
@@ -1028,18 +1071,13 @@ export class ConnectApi extends EventEmitter {
         }
 
         return apiWrapper(resultsFn => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResponse, resultsFn, {
-                acceptHeader: mimeType
+            this.startNotifications(null, error => {
+                if (error) return resultsFn(error, null);
+                this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResponse, resultsFn, {
+                    acceptHeader: mimeType
+                });
             });
-        }, (data, done) => {
-            const asyncID = data[this.ASYNC_KEY];
-            if (this.handleNotifications && asyncID) {
-                this._asyncFns[asyncID] = done;
-                return;
-            }
-
-            done(null, asyncID);
-        }, callback);
+        }, this.handleAsync.bind(this), callback);
     }
 
     /**
@@ -1066,9 +1104,9 @@ export class ConnectApi extends EventEmitter {
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string): Promise<string>;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string): Promise<void>;
     /**
      * Sets the value of a resource
      *
@@ -1090,10 +1128,10 @@ export class ConnectApi extends EventEmitter {
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string>): void;
-    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: any, mimeType?: any, callback?: CallbackFn<string>): Promise<string> {
+    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: any, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
         resourcePath = this.normalizePath(resourcePath);
 
         noResponse = noResponse || false;
@@ -1107,18 +1145,13 @@ export class ConnectApi extends EventEmitter {
         }
 
         return apiWrapper(resultsFn => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, resourcePath, value, noResponse, resultsFn, {
-                contentType: mimeType
+            this.startNotifications(null, error => {
+                if (error) return resultsFn(error, null);
+                this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, resourcePath, value, noResponse, resultsFn, {
+                    contentType: mimeType
+                });
             });
-        }, (data, done) => {
-            const asyncID = data[this.ASYNC_KEY];
-            if (this.handleNotifications && asyncID) {
-                this._asyncFns[asyncID] = done;
-                return;
-            }
-
-            done(null, asyncID);
-        }, callback);
+        }, this.handleAsync.bind(this), callback);
     }
 
     /**
@@ -1144,9 +1177,9 @@ export class ConnectApi extends EventEmitter {
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
-    public executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string): Promise<string>;
+    public executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string): Promise<void>;
     /**
      * Execute a function on a resource
      *
@@ -1167,10 +1200,10 @@ export class ConnectApi extends EventEmitter {
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
-    public executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string>): void;
-    public executeResource(deviceId: string, resourcePath: string, functionName?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<string>): Promise<string> {
+    public executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
+    public executeResource(deviceId: string, resourcePath: string, functionName?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
         resourcePath = this.normalizePath(resourcePath);
 
         noResponse = noResponse || false;
@@ -1188,18 +1221,13 @@ export class ConnectApi extends EventEmitter {
         }
 
         return apiWrapper(resultsFn => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, resourcePath, functionName, noResponse, resultsFn, {
-                contentType: mimeType
+            this.startNotifications(null, error => {
+                if (error) return resultsFn(error, null);
+                this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, resourcePath, functionName, noResponse, resultsFn, {
+                    contentType: mimeType
+                });
             });
-        }, (data, done) => {
-            const asyncID = data[this.ASYNC_KEY];
-            if (this.handleNotifications && asyncID) {
-                this._asyncFns[asyncID] = done;
-                return;
-            }
-
-            done(null, asyncID);
-        }, callback);
+        }, this.handleAsync.bind(this), callback);
     }
 
     /**
@@ -1274,9 +1302,9 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param notifyFn Function to call with notification
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
-    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any): Promise<string>;
+    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any): Promise<void>;
     /**
      * Subscribe to a resource
      *
@@ -1297,27 +1325,23 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param notifyFn Function to call with notification
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
-    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any, callback?: CallbackFn<string>): void;
-    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any, callback?: CallbackFn<string>): Promise<string> {
+    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any, callback?: CallbackFn<void>): void;
+    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any, callback?: CallbackFn<void>): Promise<void> {
         resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, resourcePath, resultsFn);
+            this.startNotifications(null, error => {
+                if (error) return resultsFn(error, null);
+                this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, resourcePath, resultsFn);
+            });
         }, (data, done) => {
             if (notifyFn) {
                 // Record the function at this path for notifications
                 this._notifyFns[`${deviceId}/${resourcePath}`] = notifyFn;
             }
-
-            const asyncID = data[this.ASYNC_KEY];
-            if (this.handleNotifications && asyncID) {
-                this._asyncFns[asyncID] = done;
-                return;
-            }
-
-            done(null, asyncID);
+            this.handleAsync(data, done);
         }, callback);
     }
 
@@ -1341,9 +1365,9 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
-    public deleteResourceSubscription(deviceId: string, resourcePath: string): Promise<string>;
+    public deleteResourceSubscription(deviceId: string, resourcePath: string): Promise<void>;
     /**
      * Deletes a resource's subscription
      *
@@ -1361,25 +1385,21 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
-    public deleteResourceSubscription(deviceId: string, resourcePath: string, callback: CallbackFn<string>): void;
-    public deleteResourceSubscription(deviceId: string, resourcePath: string, callback?: CallbackFn<string>): Promise<string> {
+    public deleteResourceSubscription(deviceId: string, resourcePath: string, callback: CallbackFn<void>): void;
+    public deleteResourceSubscription(deviceId: string, resourcePath: string, callback?: CallbackFn<void>): Promise<void> {
         resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, resourcePath, resultsFn);
+            this.startNotifications(null, error => {
+                if (error) return resultsFn(error, null);
+                this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, resourcePath, resultsFn);
+            });
         }, (data, done) => {
             // no-one is listening :(
             delete this._notifyFns[`${deviceId}/${resourcePath}`];
-
-            const asyncID = data[this.ASYNC_KEY];
-            if (this.handleNotifications && asyncID) {
-                this._asyncFns[asyncID] = done;
-                return;
-            }
-
-            done(null, asyncID);
+            this.handleAsync(data, done);
         }, callback);
     }
 

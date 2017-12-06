@@ -53,7 +53,7 @@
             connect.listConnectedDevices(function(error, response) {
                 if (error) return alert(error.message);
 
-                if (response.length == 0) headerEl.innerText = "No Devices Found";
+                if (response.length === 0) headerEl.innerText = "No Devices Found";
                 else completeFn(response.data[0]);
             });
         }
@@ -73,13 +73,6 @@
             }
             return value;
         }
-
-        // Start pull notifications
-        connect.startNotifications();
-
-        window.addEventListener("unload", function() {
-            connect.stopNotifications();
-        });
 
         getDevice(function(device) {
             headerEl.innerText = "Device: " + device.id;
