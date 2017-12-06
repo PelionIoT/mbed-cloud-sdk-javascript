@@ -38,7 +38,7 @@ export declare class Resource extends EventEmitter {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param notifyFn Function to call with notification
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
     private addSubscription(notifyFn?);
     /**
@@ -46,21 +46,21 @@ export declare class Resource extends EventEmitter {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param notifyFn Function to call with notification
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
     private addSubscription(notifyFn?, callback?);
     /**
      * Deletes a resource's subscription
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
     private deleteSubscription();
     /**
      * Deletes a resource's subscription
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
     private deleteSubscription(callback);
     /**
@@ -70,11 +70,9 @@ export declare class Resource extends EventEmitter {
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The requested mime type format of the value
-     * @returns Promise of resource value when handling notifications or an asyncId
+     * @returns Promise of resource value
      */
-    getValue(cacheOnly?: boolean, noResponse?: boolean, mimeType?: string): Promise<string | number | {
-        [key: string]: string | number;
-    }>;
+    getValue(cacheOnly?: boolean, noResponse?: boolean, mimeType?: string): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
@@ -82,11 +80,9 @@ export declare class Resource extends EventEmitter {
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The requested mime type format of the value
-     * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
+     * @param callback A function that is passed the arguments (error, value) where value is the resource value
      */
-    getValue(cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | {
-        [key: string]: string | number;
-    }>): void;
+    getValue(cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
     /**
      * Sets the value of a resource
      *
@@ -94,9 +90,9 @@ export declare class Resource extends EventEmitter {
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
-    setValue(value: string, noResponse?: boolean, mimeType?: string): Promise<string>;
+    setValue(value: string, noResponse?: boolean, mimeType?: string): Promise<void>;
     /**
      * Sets the value of a resource
      *
@@ -104,9 +100,9 @@ export declare class Resource extends EventEmitter {
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
-    setValue(value: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string>): void;
+    setValue(value: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
     /**
      * Execute a function on a resource
      *
@@ -114,9 +110,9 @@ export declare class Resource extends EventEmitter {
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
-    execute(functionName?: string, noResponse?: boolean, mimeType?: string): Promise<string>;
+    execute(functionName?: string, noResponse?: boolean, mimeType?: string): Promise<void>;
     /**
      * Execute a function on a resource
      *
@@ -124,9 +120,9 @@ export declare class Resource extends EventEmitter {
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
-    execute(functionName?: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string>): void;
+    execute(functionName?: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
     /**
      * Gets the status of a resource's subscription
      * @returns Promise containing resource subscription status
@@ -140,13 +136,13 @@ export declare class Resource extends EventEmitter {
     /**
      * Deletes a resource
      * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns Promise containing any error
+     * @returns empty Promise
      */
-    delete(noResponse?: boolean): Promise<string>;
+    delete(noResponse?: boolean): Promise<void>;
     /**
      * Deletes a resource
      * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    delete(noResponse?: boolean, callback?: CallbackFn<string>): void;
+    delete(noResponse?: boolean, callback?: CallbackFn<void>): void;
 }

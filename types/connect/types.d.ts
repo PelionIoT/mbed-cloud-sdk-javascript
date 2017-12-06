@@ -1,4 +1,11 @@
-import { OrderEnum, CallbackFn } from "../common/interfaces";
+import { OrderEnum, CallbackFn, ConnectionOptions } from "../common/interfaces";
+export interface ConnectOptions extends ConnectionOptions {
+    /**
+     * Whether the user will handle notifications
+     * This suppresses pull notifications for when another method is being used (such as webhooks)
+     */
+    handleNotifications?: boolean;
+}
 export interface NotificationObject {
     /**
      * Notifications
@@ -78,6 +85,10 @@ export interface NotificationOptions {
      * A function that is passed any asynchronous responses
      */
     requestCallback?: CallbackFn<Array<AsyncResponse>>;
+    /**
+     * Whether to clear any existing notification channel
+     */
+    forceClear?: boolean;
 }
 export interface PresubscriptionObject {
     /**

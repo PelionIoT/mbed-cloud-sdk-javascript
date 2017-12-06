@@ -1,8 +1,8 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
 import { ListResponse } from "../common/listResponse";
-import { ConnectionOptions, CallbackFn } from "../common/interfaces";
-import { NotificationObject, NotificationOptions, PresubscriptionObject } from "./types";
+import { CallbackFn } from "../common/interfaces";
+import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject } from "./types";
 import { Webhook } from "./models/webhook";
 import { Resource } from "./models/resource";
 import { ConnectedDevice } from "./models/connectedDevice";
@@ -42,8 +42,8 @@ import { DeviceListOptions } from "../deviceDirectory/types";
  * Some methods on connected device resources (e.g. `resource.getValue()`) and most events (e.g. `resource.on("notification")`) require a notification channel to be set up before they will work.
  *
  * There are two options for setting up a notification channel:
+ *  * Use pull notifications by using `startNotifications()` (the default which starts automatically)
  *  * Register a callback server or _webhook_ using `updateWebhook()`
- *  * Use pull notifications by using `startNotifications()`
  *
  * The `webhook` and `pull-notifications` examples show how this can be done.
  */
@@ -77,18 +77,20 @@ export declare class ConnectApi extends EventEmitter {
     private _deviceDirectory;
     private _endpoints;
     private _pollRequest;
+    private _handleNotifications;
     private _asyncFns;
     private _notifyFns;
     /**
-     * Whether async callbacks are handled by the API.
-     * Pull notifications will set this automatically, but it can also be used alongside the `notify` function with webhooks
+     * Whether the user will handle notifications
+     * This suppresses pull notifications for when another method is being used (such as webhooks)
      */
     handleNotifications: boolean;
     /**
      * @param options connection objects
      */
-    constructor(options: ConnectionOptions);
+    constructor(options: ConnectOptions);
     private normalizePath(path?);
+    private handleAsync<T>(data, done);
     /**
      * Allows a notification to be injected into the notifications system
      *
@@ -200,7 +202,7 @@ export declare class ConnectApi extends EventEmitter {
      * });
      * ```
      *
-     * @returns Promise containing the webhhok data
+     * @returns Promise containing the webhook data
      */
     getWebhook(): Promise<Webhook>;
     /**
@@ -232,11 +234,12 @@ export declare class ConnectApi extends EventEmitter {
      *
      * @param url The URL to which the notifications must be sent
      * @param headers Any headers (key/value) that must be sent with the request
+     * @param forceClear Whether to clear any existing notification channel
      * @returns Promise containing any error
      */
     updateWebhook(url: string, headers?: {
         [key: string]: string;
-    }): Promise<void>;
+    }, forceClear?: boolean): Promise<void>;
     /**
      * Register new webhook for incoming subscriptions.
      *
@@ -251,11 +254,12 @@ export declare class ConnectApi extends EventEmitter {
      *
      * @param url The URL to which the notifications must be sent
      * @param headers Any headers (key/value) that must be sent with the request
+     * @param forceClear Whether to clear any existing notification channel
      * @param callback A function that is passed any error
      */
     updateWebhook(url: string, headers?: {
         [key: string]: string;
-    }, callback?: CallbackFn<void>): void;
+    }, forceClear?: boolean, callback?: CallbackFn<void>): void;
     /**
      * Deletes the callback data (effectively stopping Mbed Cloud Connect from putting notifications)
      *
@@ -617,9 +621,9 @@ export declare class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Path of the resource to delete
      * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns Promise containing any error
+     * @returns empty Promise
      */
-    deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean): Promise<string>;
+    deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean): Promise<void>;
     /**
      * Deletes a resource
      *
@@ -638,7 +642,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param noResponse Whether to make a non-confirmable request to the device
      * @param callback A function that is passed any error
      */
-    deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean, callback?: CallbackFn<string>): void;
+    deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean, callback?: CallbackFn<void>): void;
     /**
      * Gets the value of a resource
      *
@@ -662,11 +666,9 @@ export declare class ConnectApi extends EventEmitter {
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The requested mime type format of the value
-     * @returns Promise of resource value when handling notifications or an asyncId
+     * @returns Promise of resource value
      */
-    getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string): Promise<string | number | {
-        [key: string]: string | number;
-    }>;
+    getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
@@ -687,11 +689,9 @@ export declare class ConnectApi extends EventEmitter {
      * @param cacheOnly If true, the response will come only from the cache
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The requested mime type format of the value
-     * @param callback A function that is passed the arguments (error, value) where value is the resource value when handling notifications or an asyncId
+     * @param callback A function that is passed the arguments (error, value)
      */
-    getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | {
-        [key: string]: string | number;
-    }>): void;
+    getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
     /**
      * Sets the value of a resource
      *
@@ -716,9 +716,9 @@ export declare class ConnectApi extends EventEmitter {
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
-    setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string): Promise<string>;
+    setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string): Promise<void>;
     /**
      * Sets the value of a resource
      *
@@ -740,9 +740,9 @@ export declare class ConnectApi extends EventEmitter {
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
-    setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string>): void;
+    setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
     /**
      * Execute a function on a resource
      *
@@ -766,9 +766,9 @@ export declare class ConnectApi extends EventEmitter {
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
-    executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string): Promise<string>;
+    executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string): Promise<void>;
     /**
      * Execute a function on a resource
      *
@@ -789,9 +789,9 @@ export declare class ConnectApi extends EventEmitter {
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
-    executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string>): void;
+    executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
     /**
      * Gets the status of a resource's subscription
      *
@@ -854,9 +854,9 @@ export declare class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param notifyFn Function to call with notification
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
-    addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any): Promise<string>;
+    addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any): Promise<void>;
     /**
      * Subscribe to a resource
      *
@@ -877,9 +877,9 @@ export declare class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param notifyFn Function to call with notification
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
-    addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any, callback?: CallbackFn<string>): void;
+    addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any, callback?: CallbackFn<void>): void;
     /**
      * Deletes a resource's subscription
      *
@@ -900,9 +900,9 @@ export declare class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @returns Promise containing an asyncId when there isn't a notification channel
+     * @returns empty Promise
      */
-    deleteResourceSubscription(deviceId: string, resourcePath: string): Promise<string>;
+    deleteResourceSubscription(deviceId: string, resourcePath: string): Promise<void>;
     /**
      * Deletes a resource's subscription
      *
@@ -920,9 +920,9 @@ export declare class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param callback A function that is passed the arguments (error, value) where value is an asyncId when there isn't a notification channel
+     * @param callback A function that is passed any error
      */
-    deleteResourceSubscription(deviceId: string, resourcePath: string, callback: CallbackFn<string>): void;
+    deleteResourceSubscription(deviceId: string, resourcePath: string, callback: CallbackFn<void>): void;
     /**
      * List metrics
      *
