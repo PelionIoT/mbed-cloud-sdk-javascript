@@ -58,7 +58,7 @@ export class User {
      */
     public readonly passwordChangedTime?: number;
     /**
-     * Whether two factor authentication has been enabled for this user
+     * Whether two factor authentication has been enabled for this user.
      */
     public readonly twoFactorAuthentication?: boolean;
     /**
@@ -66,7 +66,7 @@ export class User {
      */
     public readonly lastLoginTime?: number;
     /**
-     * History of logins for this user;
+     * History of logins for this user.
      */
     public readonly loginHistory?: Array<LoginHistory>;
 

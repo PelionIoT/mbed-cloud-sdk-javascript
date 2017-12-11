@@ -36,7 +36,7 @@ export class Resource extends EventEmitter {
      */
     public readonly deviceId: string;
     /**
-     * Resource's url
+     * Resource's URL
      */
     public readonly path: string;
     /**

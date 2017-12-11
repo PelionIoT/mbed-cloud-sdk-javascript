@@ -112,7 +112,7 @@ export interface UserObject {
      */
     username?: string;
     /**
-     * The password when creating a new user. It will will generated when not present in the request.
+     * The password when creating a new user. It will be generated when not present in the request.
      */
     password?: string;
     /**

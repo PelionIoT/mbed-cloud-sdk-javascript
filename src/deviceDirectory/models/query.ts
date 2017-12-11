@@ -30,11 +30,11 @@ export class Query {
      */
     public readonly id: string;
     /**
-     * The time the query was created
+     * The timestamp of when the query was created
      */
     public readonly createdAt?: Date;
     /**
-     * The time the query was updated
+     * The timestamp when the query was updated
      */
     public readonly updatedAt?: Date;
 
