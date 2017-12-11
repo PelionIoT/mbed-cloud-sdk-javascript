@@ -30,7 +30,7 @@ export class Device {
      */
     public readonly id: string;
     /**
-     * The owning Ixxx Axxx Mxxxx (IAM) account ID [[[I think it would be helpful to expand this abbreviation]]]
+     * The owning Identity and Access Management (IAM) account ID
      */
     public readonly accountId?: string;
     /**
