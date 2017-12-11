@@ -46,7 +46,7 @@ export class FirmwareImage {
      */
     public readonly createdAt: Date;
     /**
-     * The timestamp when the object was updated 
+     * The timestamp when the object was updated
      */
     public readonly updatedAt: Date;
 
