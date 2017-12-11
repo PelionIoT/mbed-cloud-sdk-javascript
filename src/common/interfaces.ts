@@ -45,7 +45,7 @@ export type OrderEnum = "ASC" | "DESC";
  */
 export interface ListOptions {
     /**
-     * how many objects to retrieve in the page
+     * How many objects to retrieve in the page
      */
     limit?: number;
     /**
@@ -53,7 +53,7 @@ export interface ListOptions {
      */
     order?: OrderEnum;
     /**
-     * the ID of the the item after which to retrieve the next page
+     * The ID of the item after which to retrieve the next page
      */
     after?: string;
     /**
