@@ -50,7 +50,7 @@ export class FirmwareManifest {
      */
     public readonly createdAt: Date;
     /**
-     * The timestamp the object was updated 
+     * The timestamp the object was updated
      */
     public readonly updatedAt: Date;
     /**
