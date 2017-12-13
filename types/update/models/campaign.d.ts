@@ -25,6 +25,10 @@ export declare class Campaign {
      */
     readonly startedAt?: Date;
     /**
+     * The timestamp when the update campaign was updated
+     */
+    readonly updatedAt?: Date;
+    /**
      * The timestamp when the update campaign finished
      */
     readonly finishedAt?: Date;

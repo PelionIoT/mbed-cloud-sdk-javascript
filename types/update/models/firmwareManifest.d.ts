@@ -15,10 +15,6 @@ export declare class FirmwareManifest {
      */
     readonly url: string;
     /**
-     * Checksum generated for the datafile
-     */
-    readonly datafileChecksum?: string;
-    /**
      * Size of the datafile (in bytes)
      */
     readonly datafileSize?: number;

@@ -133,7 +133,6 @@ export interface FirmwareImageListOptions extends ListOptions {
         name?: ComparisonObject<string>;
         createdAt?: ComparisonObject<Date>;
         updatedAt?: ComparisonObject<Date>;
-        datafileChecksum?: ComparisonObject<string>;
     };
 }
 /**
