@@ -11,11 +11,11 @@ export declare class Query {
      */
     readonly id: string;
     /**
-     * The time the query was created
+     * The timestamp of when the query was created
      */
     readonly createdAt?: Date;
     /**
-     * The time the query was updated
+     * The timestamp when the query was updated
      */
     readonly updatedAt?: Date;
     constructor(init?: Partial<Query>, _api?: DeviceDirectoryApi);

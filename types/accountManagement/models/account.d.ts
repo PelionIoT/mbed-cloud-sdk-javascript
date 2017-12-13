@@ -42,11 +42,11 @@ export declare class Account {
      */
     readonly createdAt?: Date;
     /**
-     * Time when upgraded to commercial account
+     * Time when upgraded to commercial account.
      */
     readonly upgradedAt?: Date;
     /**
-     * A reason note for updating the status of the account
+     * A reason note for updating the status of the account.
      */
     readonly reason?: string;
     /**

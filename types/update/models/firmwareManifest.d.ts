@@ -27,11 +27,11 @@ export declare class FirmwareManifest {
      */
     readonly deviceClass?: string;
     /**
-     * The time the object was created
+     * The timestamp when the object was created
      */
     readonly createdAt: Date;
     /**
-     * The time the object was updated
+     * The timestamp the object was updated
      */
     readonly updatedAt: Date;
     /**

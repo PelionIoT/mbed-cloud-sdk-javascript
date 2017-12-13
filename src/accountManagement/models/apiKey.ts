@@ -36,7 +36,7 @@ export class ApiKey {
      */
     public readonly key: string;
     /**
-     * Creation time
+     * Creation time.
      */
     public readonly createdAt?: Date;
     /**

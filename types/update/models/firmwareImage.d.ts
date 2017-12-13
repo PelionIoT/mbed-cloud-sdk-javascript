@@ -23,11 +23,11 @@ export declare class FirmwareImage {
      */
     readonly datafileSize?: number;
     /**
-     * The time the object was created
+     * The timestamp when the object was created
      */
     readonly createdAt: Date;
     /**
-     * The time the object was updated
+     * The timestamp when the object was updated
      */
     readonly updatedAt: Date;
     constructor(init?: Partial<FirmwareImage>, _api?: UpdateApi);

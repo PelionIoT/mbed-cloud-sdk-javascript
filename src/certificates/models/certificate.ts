@@ -57,11 +57,11 @@ export class Certificate {
      */
     public readonly issuer: string;
     /**
-     * Creation time.
+     * The timestamp when this certfcate was created.
      */
     public readonly createdAt?: Date;
     /**
-     * The UUID of the certificate owner (user or ApiKey)
+     * The UUID of the certificate owner (user or ApiKey).
      */
     public readonly ownerId?: string;
     /**
@@ -69,11 +69,11 @@ export class Certificate {
      */
     public readonly serverUri?: string;
     /**
-     * PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
+     * PEM format X.509 server certificate that will be used to validate the server certificate and will be received during the TLS/DTLS handshake.
      */
     public readonly serverCertificate?: string;
     /**
-     * Content of the security.c file that will be flashed into the device to provide the security credentials
+     * Content of the security.c file that will be flashed into the device to provide the security credentials.
      */
     public readonly headerFile?: string;
     /**

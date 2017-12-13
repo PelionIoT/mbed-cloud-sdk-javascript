@@ -17,7 +17,7 @@ export declare class ApiKey {
      */
     readonly key: string;
     /**
-     * Creation time
+     * Creation time.
      */
     readonly createdAt?: Date;
     /**

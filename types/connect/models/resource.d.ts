@@ -17,7 +17,7 @@ export declare class Resource extends EventEmitter {
      */
     readonly deviceId: string;
     /**
-     * Resource's url
+     * Resource's URL
      */
     readonly path: string;
     /**

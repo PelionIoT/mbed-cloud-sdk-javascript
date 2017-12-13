@@ -13,7 +13,7 @@ export declare class Campaign {
      */
     readonly id: string;
     /**
-     * URl of the manifest used
+     * URL of the manifest used
      */
     readonly manifestUrl?: string;
     /**

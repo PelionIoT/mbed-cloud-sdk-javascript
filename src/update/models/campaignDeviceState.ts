@@ -47,11 +47,11 @@ export class CampaignDeviceState {
      */
     public readonly description?: string;
     /**
-     * This time the record was created in the database
+     * The timestamp of when this record was created in the database
      */
     public readonly createdAt?: Date;
     /**
-     * This time this record was modified in the database format: date-time
+     * The timestamp of when this record was modified in the database
      */
     public readonly updatedAt?: Date;
     /**
@@ -59,7 +59,7 @@ export class CampaignDeviceState {
      */
     public readonly mechanism?: string;
     /**
-     * The url of cloud connect used
+     * The URL of cloud connect used
      */
     public readonly mechanismUrl?: string;
 
