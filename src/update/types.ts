@@ -44,6 +44,10 @@ export interface FirmwareManifestObject {
      * The description of the object
      */
     description?: string;
+    /**
+     * The URL of the key table binary
+     */
+    keyTable?: string;
 }
 
 export interface AddFirmwareManifestObject extends FirmwareManifestObject {
