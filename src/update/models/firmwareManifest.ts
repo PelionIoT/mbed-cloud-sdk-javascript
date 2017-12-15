@@ -34,10 +34,6 @@ export class FirmwareManifest {
      */
     public readonly url: string;
     /**
-     * Checksum generated for the datafile
-     */
-    public readonly datafileChecksum?: string;
-    /**
      * Size of the datafile (in bytes)
      */
     public readonly datafileSize?: number;

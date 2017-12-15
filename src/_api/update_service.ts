@@ -139,7 +139,7 @@ export interface FirmwareImage {
      */
     "etag": Date;
     /**
-     * Checksum generated for the datafile
+     * Checksum (sha256) generated for the datafile
      */
     "datafile_checksum": string;
     /**
@@ -206,10 +206,6 @@ export interface FirmwareManifest {
      */
     "device_class": string;
     /**
-     * Checksum generated for the datafile
-     */
-    "datafile_checksum"?: string;
-    /**
      * Size of the datafile in bytes
      */
     "datafile_size"?: number;
@@ -261,17 +257,21 @@ export interface UpdateCampaign {
      */
     "when"?: Date;
     /**
+     * The time the object was updated
+     */
+    "updated_at"?: Date;
+    /**
      * The state of the campaign
      */
     "state"?: UpdateCampaign.StateEnum;
     /**
-     * The campaign finish timestamp
-     */
-    "finished"?: Date;
-    /**
      * The entity instance signature
      */
     "etag"?: string;
+    /**
+     * The campaign finish timestamp
+     */
+    "finished"?: Date;
     "root_manifest_url"?: string;
     "started_at"?: Date;
     /**
