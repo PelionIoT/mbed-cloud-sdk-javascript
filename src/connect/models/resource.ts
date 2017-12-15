@@ -251,28 +251,4 @@ export class Resource extends EventEmitter {
             this._api.getResourceSubscription(this.deviceId, this.path, done);
         }, callback);
     }
-
-    /**
-     * Deletes a resource
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns empty Promise
-     */
-    public delete(noResponse?: boolean): Promise<void>;
-    /**
-     * Deletes a resource
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @param callback A function that is passed any error
-     */
-    public delete(noResponse?: boolean, callback?: CallbackFn<void>): void;
-    public delete(noResponse?: any, callback?: CallbackFn<void>): Promise<void> {
-        noResponse = noResponse || false;
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
-
-        return asyncStyle(done => {
-            this._api.deleteResource(this.deviceId, this.path, noResponse, done);
-        }, callback);
-    }
 }
