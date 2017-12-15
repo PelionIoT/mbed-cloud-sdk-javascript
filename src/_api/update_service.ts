@@ -202,10 +202,6 @@ export interface FirmwareManifest {
      */
     "etag": Date;
     /**
-     * The optional URL of the key_table binary
-     */
-    "key_table"?: string;
-    /**
      * The class of the device
      */
     "device_class": string;
@@ -614,9 +610,8 @@ export class DefaultApi extends ApiBase {
      * @param datafile The manifest file to create. The API gateway enforces the account-specific file size.
      * @param name The name of the firmware manifest
      * @param description The description of the firmware manifest
-     * @param keyTable The optional key table file to create.
      */
-    public firmwareManifestCreate(datafile: any, name: string, description?: string, keyTable?: any, callback?: (error: any, data?: FirmwareManifest, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public firmwareManifestCreate(datafile: any, name: string, description?: string, callback?: (error: any, data?: FirmwareManifest, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "datafile" is set
         if (datafile === null || datafile === undefined) {
             if (callback) {
@@ -652,11 +647,6 @@ export class DefaultApi extends ApiBase {
         if (name !== undefined) {
             formParams["name"] = name;
         }
-
-        if (keyTable !== undefined) {
-            formParams["key_table"] = keyTable;
-        }
-        useFormData = true;
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
