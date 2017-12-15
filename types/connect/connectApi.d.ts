@@ -603,47 +603,6 @@ export declare class ConnectApi extends EventEmitter {
      */
     getResource(deviceId: string, resourcePath: string, callback?: CallbackFn<Resource>): void;
     /**
-     * Deletes a resource
-     *
-     * Example:
-     * ```JavaScript
-     * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
-     * connect.deleteResource(deviceId, resourceURI)
-     * .then(response => {
-     *     // Utilize response here
-     * })
-     * .catch(error => {
-     *     console.log(error);
-     * });
-     * ```
-     *
-     * @param deviceId Device ID
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns empty Promise
-     */
-    deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean): Promise<void>;
-    /**
-     * Deletes a resource
-     *
-     * Example:
-     * ```JavaScript
-     * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
-     * connect.deleteResource(deviceId, resourceURI, function(error, response) {
-     *     if (error) throw error;
-     *     // Utilize response here
-     * });
-     * ```
-     *
-     * @param deviceId Device ID
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @param callback A function that is passed any error
-     */
-    deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean, callback?: CallbackFn<void>): void;
-    /**
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
