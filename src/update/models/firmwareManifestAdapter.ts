@@ -36,7 +36,8 @@ export class FirmwareManifestAdapter {
             id:                  from.id,
             name:                from.name,
             timestamp:           from.timestamp,
-            updatedAt:           from.updated_at
+            updatedAt:           from.updated_at,
+            keyTable:            from.key_table
         }, api);
     }
 }

@@ -496,7 +496,7 @@ export class UpdateApi {
     public addFirmwareManifest(manifest: AddFirmwareManifestObject, callback: CallbackFn<FirmwareManifest>): void;
     public addFirmwareManifest(manifest: AddFirmwareManifestObject, callback?: CallbackFn<FirmwareManifest>): Promise<FirmwareManifest> {
         return apiWrapper(resultsFn => {
-            this._endpoints.update.firmwareManifestCreate(manifest.dataFile, manifest.name, manifest.description, resultsFn);
+            this._endpoints.update.firmwareManifestCreate(manifest.dataFile, manifest.name, manifest.description, manifest.keyTable, resultsFn);
         }, (data, done) => {
             done(null, FirmwareManifestAdapter.map(data, this));
         }, callback);
