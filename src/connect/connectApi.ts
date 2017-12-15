@@ -947,63 +947,6 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Deletes a resource
-     *
-     * Example:
-     * ```JavaScript
-     * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
-     * connect.deleteResource(deviceId, resourceURI)
-     * .then(response => {
-     *     // Utilize response here
-     * })
-     * .catch(error => {
-     *     console.log(error);
-     * });
-     * ```
-     *
-     * @param deviceId Device ID
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns empty Promise
-     */
-    public deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean): Promise<void>;
-    /**
-     * Deletes a resource
-     *
-     * Example:
-     * ```JavaScript
-     * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
-     * connect.deleteResource(deviceId, resourceURI, function(error, response) {
-     *     if (error) throw error;
-     *     // Utilize response here
-     * });
-     * ```
-     *
-     * @param deviceId Device ID
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @param callback A function that is passed any error
-     */
-    public deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean, callback?: CallbackFn<void>): void;
-    public deleteResource(deviceId: string, resourcePath: string, noResponse?: any, callback?: CallbackFn<void>): Promise<void> {
-        resourcePath = this.normalizePath(resourcePath);
-
-        noResponse = noResponse || false;
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
-
-        return apiWrapper(resultsFn => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathDelete(deviceId, resourcePath, noResponse, resultsFn);
-        }, (_data, done) => {
-            done(null, null);
-        }, callback);
-    }
-
-    /**
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up

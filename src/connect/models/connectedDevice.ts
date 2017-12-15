@@ -290,30 +290,4 @@ export class ConnectedDevice extends Device {
             this._connectApi.deleteResourceSubscription(this.id, resourcePath, done);
         }, callback);
     }
-
-    /**
-     * Deletes a resource
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns empty Promise
-     */
-    public deleteResource(resourcePath: string, noResponse?: boolean): Promise<void>;
-    /**
-     * Deletes a resource
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @param callback A function that is passed any error
-     */
-    public deleteResource(resourcePath: string, noResponse?: boolean, callback?: CallbackFn<void>): void;
-    public deleteResource(resourcePath: string, noResponse?: any, callback?: CallbackFn<void>): Promise<void> {
-        noResponse = noResponse || false;
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
-
-        return asyncStyle(done => {
-            this._connectApi.deleteResource(this.id, resourcePath, noResponse, done);
-        }, callback);
-    }
 }
