@@ -103,8 +103,8 @@ gulp.task("typescript", ["clean"], function() {
         alwaysStrict: true,
         noEmitOnError: true,
         noUnusedLocals: true,
-        declaration: true,
-        noUnusedParameters: true
+        noUnusedParameters: true,
+        declaration: true
     };
 
     return merge([
@@ -170,12 +170,14 @@ gulp.task("bundleSource", ["typescript"], function() {
             };
         }
 
-        name = name.replace(/([A-Z]+)/g, function(match) {
-            return `-${match.toLowerCase()}`;
-        });
+        function camelToKebab(camel) {
+            return camel.replace(/([A-Z]+)/g, function(match) {
+                return `-${match.toLowerCase()}`;
+            });
+        }
 
         return {
-            fileName: `${name}.min${path.extname(file.relative)}`,
+            fileName: `${camelToKebab(name)}.min${path.extname(file.relative)}`,
             standalone: `${namespace}.${name.charAt(0).toUpperCase()}${name.slice(1)}Api`
         };
     });
