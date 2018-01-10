@@ -18,6 +18,7 @@
 var path = require("path");
 var http = require("http");
 var https = require("https");
+var exec = require("child_process").exec;
 try {
     var express = require("express");
 } catch(e) {}
@@ -130,4 +131,13 @@ app.use(apiPath, (req, res, next) => {
 
 // Start server
 http.createServer(app)
-.listen(port, () => console.log(`Proxy server listening on port ${port}`));
+.listen(port, () => {
+    var url = `http://localhost:${port}`;
+    console.log(`Proxy server listening at ${url}`);
+
+    var cmd = path.join(__dirname, "xdg-open");
+    if (process.platform === "darwin") cmd = "open";
+    else if (process.platform === "win32") cmd = `start ""`;
+
+    exec(`${cmd} ${url}`);
+});
