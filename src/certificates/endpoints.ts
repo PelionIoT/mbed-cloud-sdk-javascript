@@ -21,23 +21,18 @@ import {
     AccountAdminApi as AdminApi,
     DeveloperApi as AccountDeveloperApi
 } from "../_api/iam";
-import {
-    ServerCredentialsApi as ServerApi,
-    DeveloperCertificateApi as CertDeveloperApi
-} from "../_api/connector_ca";
+import { ExternalAPIApi as ConnectorApi } from "../_api/connector_ca";
 
 export class Endpoints extends EndpointsBase {
 
-    public certDeveloper: CertDeveloperApi;
     public accountDeveloper: AccountDeveloperApi;
-    public server: ServerApi;
+    public connector: ConnectorApi;
     public admin: AdminApi;
 
     constructor(options: ConnectionOptions) {
         super();
-        this.certDeveloper = new CertDeveloperApi(options.apiKey, options.host, this.responseHandler.bind(this));
         this.accountDeveloper = new AccountDeveloperApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.server = new ServerApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.connector = new ConnectorApi(options.apiKey, options.host, this.responseHandler.bind(this));
         this.admin = new AdminApi(options.apiKey, options.host, this.responseHandler.bind(this));
     }
 }
