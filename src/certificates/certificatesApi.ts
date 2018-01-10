@@ -64,12 +64,24 @@ export class CertificatesApi {
     }
 
     private extendCertificate(iamCert: iamCertificate, done: (error: any, certificate: any) => any) {
+        if (iamCert.device_execution_mode === 1) {
+            // Developer certificate
+            this._endpoints.connector.v3DeveloperCertificatesMuuidGet(iamCert.id, "", (error, data) => {
+                if (error) return done(error, null);
+
+                const certificate = CertificateAdapter.mapDeveloperCertificate(iamCert, this, data);
+                done(null, certificate);
+            });
+
+            return;
+        }
+
         let dataFn = null;
-        if (iamCert.service === "bootstrap") dataFn = this._endpoints.server.v3ServerCredentialsBootstrapGet;
-        if (iamCert.service === "lwm2m") dataFn = this._endpoints.server.v3ServerCredentialsLwm2mGet;
+        if (iamCert.service === "bootstrap") dataFn = this._endpoints.connector.v3ServerCredentialsBootstrapGet;
+        if (iamCert.service === "lwm2m") dataFn = this._endpoints.connector.v3ServerCredentialsLwm2mGet;
 
         if (dataFn) {
-            dataFn.call(this._endpoints.server, "", (error, data) => {
+            dataFn.call(this._endpoints.connector, "", (error, data) => {
                 if (error) return done(error, null);
 
                 const certificate = CertificateAdapter.mapServerCertificate(iamCert, this, data);
@@ -231,7 +243,7 @@ export class CertificatesApi {
     public addDeveloperCertificate(certificate: AddDeveloperCertificateObject, callback: CallbackFn<Certificate>): void;
     public addDeveloperCertificate(certificate: AddDeveloperCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
         return apiWrapper(resultsFn => {
-            this._endpoints.certDeveloper.v3DeveloperCertificatesPost("", CertificateAdapter.reverseDeveloperMap(certificate), resultsFn);
+            this._endpoints.connector.v3DeveloperCertificatesPost("", CertificateAdapter.reverseDeveloperMap(certificate), resultsFn);
         }, (data, done) => {
             this._endpoints.accountDeveloper.getCertificate(data.id, (error, certData) => {
                 if (error) return done(error, null);
