@@ -57,8 +57,6 @@
 				<a title="Github Commit" href="<%- build.vcs_url %>/commit/<%- build.vcs_revision %>">
 					<img class="logo github" src="images/github.svg" /></a>
 				<% if (build.has_artifacts) { %>
-					<a title="Documentation" href="<%- getArtifactUrl(build, { path: 'docs' }) %>">
-						<img class="logo docs" src="images/docs.svg" /></a>
 					<a title="Unit Tests Results" href="<%- getArtifactUrl(build, { file: 'unittests.html' }) %>">
 						<img class="logo tests" src="images/unittests.svg" /></a>
 					<a title="Integration Test Results" href="<%- getArtifactUrl(build, { file: 'inttests.html' }) %>">
