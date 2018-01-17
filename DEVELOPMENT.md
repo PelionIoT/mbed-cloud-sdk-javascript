@@ -4,7 +4,6 @@
 [![codecov](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-javascript/branch/master/graph/badge.svg?token=9h7ZMJ0xwK)](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-javascript)
 
 [![Builds](https://img.shields.io/badge/sdk-builds-blue.svg)](http://armmbed.github.io/mbed-cloud-sdk-javascript/builds/)
-[![Docs](https://img.shields.io/badge/sdk-documentation-blue.svg)](http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/)
 
 ## Prerequisites
 
