@@ -83,12 +83,6 @@ deployment:
       - git checkout stash -- .
       - git commit --allow-empty --message "Automatic Deployment"
       - git push
-  build:
-    branch: build
-    commands:
-      - echo Publishing ${PROJECT_NAME} to npm...
-      - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
-      - npm publish || true
   release:
     branch: /[0-9]+\.[0-9]+.*/
     commands:
