@@ -1,7 +1,7 @@
 # Mbed Cloud SDK for JavaScript
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://spdx.org/licenses/Apache-2.0.html)
-[![Circle CI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript.svg?style=shield&circle-token=62ef40035b1b5442234a44ad7e74199ea582f3f4)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript/)
+[![Circle CI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript-private.svg?style=shield&circle-token=9eb108b4971ce5cfca13e228eed6c2264396baae)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript-private/)
 
 The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to JavaScript developers.
 
