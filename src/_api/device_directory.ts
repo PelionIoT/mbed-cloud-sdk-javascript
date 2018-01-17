@@ -140,9 +140,9 @@ export interface DeviceData {
      */
     "device_key"?: string;
     /**
-     * The timestamp of when the device was created in the device directory.
+     * The claim date/time.
      */
-    "created_at"?: Date;
+    "enrolment_list_timestamp"?: Date;
     /**
      * DEPRECATED: The URL for the current device manifest.
      */
@@ -151,6 +151,10 @@ export interface DeviceData {
      * Up to five custom key-value attributes.
      */
     "custom_attributes"?: { [key: string]: string; };
+    /**
+     * The timestamp of when the device was created in the device directory.
+     */
+    "created_at"?: Date;
 }
 
 export interface DeviceDataPatchRequest {
@@ -170,6 +174,10 @@ export interface DeviceDataPatchRequest {
      * The `endpoint_name` of the host gateway, if appropriate.
      */
     "host_gateway"?: string;
+    /**
+     * The claim date/time.
+     */
+    "enrolment_list_timestamp"?: Date;
     /**
      * The API resource entity.
      */
@@ -206,7 +214,7 @@ export interface DeviceDataPostRequest {
      */
     "bootstrap_expiration_date"?: Date;
     /**
-     * The timestamp of the device's most recent bootstrap process..
+     * The timestamp of the device's most recent bootstrap process.
      */
     "bootstrapped_timestamp"?: Date;
     /**
@@ -286,6 +294,10 @@ export interface DeviceDataPostRequest {
      */
     "device_key"?: string;
     /**
+     * The claim date/time.
+     */
+    "enrolment_list_timestamp"?: Date;
+    /**
      * DEPRECATED: The URL for the current device manifest.
      */
     "manifest"?: string;
@@ -312,6 +324,10 @@ export interface DeviceDataPutRequest {
      * The `endpoint_name` of the host gateway, if appropriate.
      */
     "host_gateway"?: string;
+    /**
+     * The claim date/time.
+     */
+    "enrolment_list_timestamp"?: Date;
     /**
      * The API resource entity.
      */
