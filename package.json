@@ -46,7 +46,7 @@
     "merge2": "^1.0.3",
     "nlf": "^2.0.0",
     "nyc": "^11.3.0",
-    "tslint": "^5.7.0",
+    "tslint": "5.8.0",
     "tslint-eslint-rules": "^4.1.1",
     "typedoc": "^0.7.1",
     "typescript": "^2.3.3"
