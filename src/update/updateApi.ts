@@ -771,7 +771,7 @@ export class UpdateApi {
     public updateCampaign(campaign: UpdateCampaignObject, callback: CallbackFn<Campaign>): void;
     public updateCampaign(campaign: UpdateCampaignObject, callback?: CallbackFn<Campaign>): Promise<Campaign> {
         return apiWrapper(resultsFn => {
-            this._endpoints.update.updateCampaignPartialUpdate(campaign.id, CampaignAdapter.updateMap(campaign), resultsFn);
+            this._endpoints.update.updateCampaignUpdate(campaign.id, CampaignAdapter.updateMap(campaign), resultsFn);
         }, (data, done) => {
             const response = CampaignAdapter.map(data, this);
             done(null, response);
