@@ -93,6 +93,9 @@ export class CertificatesApi {
     /**
      * List certificates
      *
+     * Currently returns partially populated certificates. To obtain the full
+     * certificate object use [[getCertificate]].
+     *
      * Example:
      * ```JavaScript
      * certificates.listCertificates({
@@ -116,6 +119,9 @@ export class CertificatesApi {
     public listCertificates(options?: CertificateListOptions): Promise<ListResponse<Certificate>>;
     /**
      * List certificates
+     *
+     * Currently returns partially populated certificates. To obtain the full
+     * certificate object use [[getCertificate]].
      *
      * Example:
      * ```JavaScript
