@@ -1,3 +1,4 @@
+//TODO mapping for former test server. Remove when no longer needed.
 var fs = require("fs");
 var functions = require('../lib/common/functions');
 
