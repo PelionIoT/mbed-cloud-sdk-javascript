@@ -481,7 +481,7 @@ export class DefaultApi extends ApiBase {
         ];
 
         return this.request<null>({
-            url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            url: "/v3/campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
@@ -547,6 +547,114 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
+     * Get campaign device metadata.
+     * @param campaignId The update campaign ID
+     * @param limit How many objects to retrieve in the page
+     * @param order ASC or DESC
+     * @param after The ID of the the item after which to retrieve the next page
+     * @param include Comma-separated list of data fields to return. Currently supported: total_count
+     */
+    public campaignMetadataList(campaignId: string, limit?: number, order?: string, after?: string, include?: string, callback?: (error: any, data?: CampaignDeviceMetadataPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<CampaignDeviceMetadataPage>({
+            url: "/v3/campaigns/{campaign_id}/campaign-device-metadata/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get update campaign metadata.
+     * @param campaignId The update campaign ID
+     * @param campaignDeviceMetadataId The campaign device metadata ID
+     */
+    public campaignMetadataRetreive(campaignId: string, campaignDeviceMetadataId: string, callback?: (error: any, data?: CampaignDeviceMetadata, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "campaignDeviceMetadataId" is set
+        if (campaignDeviceMetadataId === null || campaignDeviceMetadataId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignDeviceMetadataId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<CampaignDeviceMetadata>({
+            url: "/v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/".replace("{" + "campaign_id" + "}", String(campaignId)).replace("{" + "campaign_device_metadata_id" + "}", String(campaignDeviceMetadataId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
      * Get an update campaign.
      * @param campaignId The campaign ID
      */
@@ -577,8 +685,50 @@ export class DefaultApi extends ApiBase {
         ];
 
         return this.request<UpdateCampaign>({
-            url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            url: "/v3/campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Stop a running update campaign.
+     * @param campaignId The campaign ID
+     */
+    public campaignStop(campaignId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/campaigns/{campaign_id}/stop".replace("{" + "campaign_id" + "}", String(campaignId)),
+            method: "POST",
             headers: headerParams,
             query: queryParameters,
             formParams: formParams,
@@ -627,7 +777,7 @@ export class DefaultApi extends ApiBase {
         ];
 
         return this.request<UpdateCampaign>({
-            url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            url: "/v3/campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
@@ -1119,7 +1269,7 @@ export class DefaultApi extends ApiBase {
         ];
 
         return this.request<null>({
-            url: "/v3/campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
@@ -1231,7 +1381,7 @@ export class DefaultApi extends ApiBase {
         ];
 
         return this.request<CampaignDeviceMetadataPage>({
-            url: "/v3/campaigns/{campaign_id}/campaign-device-metadata/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
@@ -1247,7 +1397,7 @@ export class DefaultApi extends ApiBase {
      * @param campaignId The update campaign ID
      * @param campaignDeviceMetadataId The campaign device metadata ID
      */
-    public updateCampaignMetadataRetreive(campaignId: string, campaignDeviceMetadataId: string, callback?: (error: any, data?: CampaignDeviceMetadata, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public updateCampaignMetadataRetrieve(campaignId: string, campaignDeviceMetadataId: string, callback?: (error: any, data?: CampaignDeviceMetadata, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -1281,8 +1431,50 @@ export class DefaultApi extends ApiBase {
         ];
 
         return this.request<CampaignDeviceMetadata>({
-            url: "/v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/".replace("{" + "campaign_id" + "}", String(campaignId)).replace("{" + "campaign_device_metadata_id" + "}", String(campaignDeviceMetadataId)),
+            url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/".replace("{" + "campaign_id" + "}", String(campaignId)).replace("{" + "campaign_device_metadata_id" + "}", String(campaignDeviceMetadataId)),
             method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Stop a running update campaign.
+     * @param campaignId The campaign ID
+     */
+    public updateCampaignMetadataStop(campaignId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/update-campaigns/{campaign_id}/stop".replace("{" + "campaign_id" + "}", String(campaignId)),
+            method: "POST",
             headers: headerParams,
             query: queryParameters,
             formParams: formParams,
@@ -1323,50 +1515,8 @@ export class DefaultApi extends ApiBase {
         ];
 
         return this.request<UpdateCampaign>({
-            url: "/v3/campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "GET",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
-        }, callback);
-    }
-    /**
-     * Stop a running update campaign.
-     * @param campaignId The campaign ID
-     */
-    public updateCampaignStop(campaignId: string, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "campaignId" is set
-        if (campaignId === null || campaignId === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'campaignId' missing."));
-            }
-            return;
-        }
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
-
-        return this.request<UpdateCampaign>({
-            url: "/v3/campaigns/{campaign_id}/stop".replace("{" + "campaign_id" + "}", String(campaignId)),
-            method: "POST",
             headers: headerParams,
             query: queryParameters,
             formParams: formParams,
@@ -1415,7 +1565,7 @@ export class DefaultApi extends ApiBase {
         ];
 
         return this.request<UpdateCampaign>({
-            url: "/v3/campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
@@ -1425,114 +1575,6 @@ export class DefaultApi extends ApiBase {
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
             body: campaign,
-        }, callback);
-    }
-    /**
-     * Get update campaign metadata.
-     * @param campaignId The update campaign ID
-     * @param campaignDeviceMetadataId The campaign device metadata ID
-     */
-    public v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId: string, campaignDeviceMetadataId: string, callback?: (error: any, data?: CampaignDeviceMetadata, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "campaignId" is set
-        if (campaignId === null || campaignId === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'campaignId' missing."));
-            }
-            return;
-        }
-        // verify required parameter "campaignDeviceMetadataId" is set
-        if (campaignDeviceMetadataId === null || campaignDeviceMetadataId === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'campaignDeviceMetadataId' missing."));
-            }
-            return;
-        }
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
-
-        return this.request<CampaignDeviceMetadata>({
-            url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/".replace("{" + "campaign_id" + "}", String(campaignId)).replace("{" + "campaign_device_metadata_id" + "}", String(campaignDeviceMetadataId)),
-            method: "GET",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
-        }, callback);
-    }
-    /**
-     * Get campaign device metadata.
-     * @param campaignId The update campaign ID
-     * @param limit How many objects to retrieve in the page
-     * @param order ASC or DESC
-     * @param after The ID of the the item after which to retrieve the next page
-     * @param include Comma-separated list of data fields to return. Currently supported: total_count
-     */
-    public v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId: string, limit?: number, order?: string, after?: string, include?: string, callback?: (error: any, data?: CampaignDeviceMetadataPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "campaignId" is set
-        if (campaignId === null || campaignId === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'campaignId' missing."));
-            }
-            return;
-        }
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters["limit"] = limit;
-        }
-        if (order !== undefined) {
-            queryParameters["order"] = order;
-        }
-        if (after !== undefined) {
-            queryParameters["after"] = after;
-        }
-        if (include !== undefined) {
-            queryParameters["include"] = include;
-        }
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
-
-        return this.request<CampaignDeviceMetadataPage>({
-            url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/".replace("{" + "campaign_id" + "}", String(campaignId)),
-            method: "GET",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
         }, callback);
     }
 }

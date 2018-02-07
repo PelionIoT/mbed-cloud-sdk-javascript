@@ -80,7 +80,6 @@ export class DeviceAdapter {
             state:                        from.state,
             host_gateway:                 from.hostGateway,
             endpoint_type:                from.deviceType,
-            enrolment_list_timestamp:     from.claimedAt,
         };
     }
 
@@ -94,7 +93,6 @@ export class DeviceAdapter {
             endpoint_name:                from.alias,
             host_gateway:                 from.hostGateway,
             endpoint_type:                from.deviceType,
-            enrolment_list_timestamp:     from.claimedAt,
         };
     }
 }

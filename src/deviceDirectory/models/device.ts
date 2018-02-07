@@ -45,6 +45,10 @@ export class Device {
      * The date-time of the current manifest version
      */
     public readonly manifestTimestamp?: Date;
+    /**
+     * The claim date/time
+     */
+    public readonly claimedAt?: Date;
 
     constructor(init?: Partial<Device>, private _api?: DeviceDirectoryApi) {
         for (const key in init) {

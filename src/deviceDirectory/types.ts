@@ -50,10 +50,6 @@ export interface DeviceObject {
      */
     hostGateway?: string;
     /**
-     * The claim date/time
-     */
-    claimedAt?: Date;
-    /**
      * Up to 5 custom JSON attributes
      */
     customAttributes?: { [key: string]: string; };

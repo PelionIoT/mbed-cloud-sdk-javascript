@@ -175,10 +175,6 @@ export interface DeviceDataPatchRequest {
      */
     "host_gateway"?: string;
     /**
-     * The claim date/time.
-     */
-    "enrolment_list_timestamp"?: Date;
-    /**
      * The API resource entity.
      */
     "object"?: string;
@@ -294,10 +290,6 @@ export interface DeviceDataPostRequest {
      */
     "device_key"?: string;
     /**
-     * The claim date/time.
-     */
-    "enrolment_list_timestamp"?: Date;
-    /**
      * DEPRECATED: The URL for the current device manifest.
      */
     "manifest"?: string;
@@ -324,10 +316,6 @@ export interface DeviceDataPutRequest {
      * The `endpoint_name` of the host gateway, if appropriate.
      */
     "host_gateway"?: string;
-    /**
-     * The claim date/time.
-     */
-    "enrolment_list_timestamp"?: Date;
     /**
      * The API resource entity.
      */

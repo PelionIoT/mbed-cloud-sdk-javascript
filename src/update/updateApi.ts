@@ -951,7 +951,7 @@ export class UpdateApi {
 
         return apiWrapper(resultsFn => {
             const { limit, order, after, include } = options;
-            this._endpoints.update.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, encodeInclude(include), resultsFn);
+            this._endpoints.update.updateCampaignMetadataList(campaignId, limit, order, after, encodeInclude(include), resultsFn);
         }, (data, done) => {
             let list: Array<CampaignDeviceState>;
             if (data.data && data.data.length) {
