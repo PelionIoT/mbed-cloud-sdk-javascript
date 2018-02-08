@@ -1,5 +1,8 @@
+//TODO mapping for former test server. Remove when no longer needed.
 var fs = require("fs");
 var functions = require('../lib/common/functions');
+
+var dateRegex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/;
 
 var objectFns = [
 	"addApiKey",
@@ -74,9 +77,36 @@ var mapping = {
 				interval: parse(args.interval),
 				period: parse(args.period)
 			};
+		},
+		listConnectedDevices: args => {
+			// keeps filter key so listConnectedDevices can add state=registered filter
+			if (args.filter) args.filter = { filter: args.filter };
+			return args;
+		}
+	},
+	DeviceDirectoryApi: {
+		listDeviceEvents: args => {
+			if (args.filter) args.filter = { filter: args.filter };
+			return args;
+		},
+		listQueries: args => {
+			if (args.filter) args.filter = { filter: args.filter };
+			return args;
 		}
 	},
 	UpdateApi: {
+		listCampaigns: args => {
+			if (args.filter) args.filter = { filter: args.filter };
+			return args;
+		},
+		listFirmwareImages: args => {
+			if (args.filter) args.filter = { filter: args.filter };
+			return args;
+		},
+		listFirmwareManifests: args => {
+			if (args.filter) args.filter = { filter: args.filter };
+			return args;
+		},
 		addFirmwareManifest: args => {
 			args.dataFile = fs.createReadStream(args.datafile);
 			return args;
@@ -121,6 +151,14 @@ exports.mapArgs = (module, method, query) => {
 		return [];
 	}
 
+	// map keys to correct format and account for timezones
+	Object.keys(args).forEach(key => {
+		if (dateRegex.test(args[key])) {
+			var date = Date.parse(args[key]);
+			if (date) args[key] = new Date(date).toISOString();
+		}
+	});
+
 	// Any function specific mapping
 	if (mapping[module] && mapping[module][method]) {
 		args = mapping[module][method](args);
@@ -147,6 +185,8 @@ exports.mapArgs = (module, method, query) => {
 }
 
 exports.mapResult = (module, method, result) => {
+	// We need to explicitly check for false because some methods return bools, and stringify removes false values from the response
+	if (result === false) return false;
 	if (!result) return {};
 
 	// Snake-case the result keys
@@ -160,6 +200,8 @@ exports.mapResult = (module, method, result) => {
 			}
 			return replacement;
 		}
+		//keep value in response for benefit of schema tests
+		if (value === undefined) return null;
 		return value;
 	});
 

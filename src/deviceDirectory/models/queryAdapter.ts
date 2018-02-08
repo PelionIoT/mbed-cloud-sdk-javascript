@@ -19,7 +19,7 @@ import { encodeFilter, decodeFilter } from "../../common/functions";
 import {
     DeviceQuery as apiQuery,
     DeviceQueryPostPutRequest as apiQueryAdd,
-    DeviceQueryPatchRequest as apiQueryUpdate
+    DeviceQueryPostPutRequest as apiQueryUpdate,
 } from "../../_api/device_directory";
 import { DeviceDirectoryApi } from "../deviceDirectoryApi";
 import { Filters } from "../filters";

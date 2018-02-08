@@ -18,7 +18,7 @@
 import {
     DeviceData as apiDevice,
     DeviceDataPostRequest as apiDeviceAdd,
-    DeviceDataPatchRequest as apiDeviceUpdate
+    DeviceDataPutRequest as apiDeviceUpdate
 } from "../../_api/device_directory";
 import { DeviceDirectoryApi } from "../deviceDirectoryApi";
 import { AddDeviceObject, UpdateDeviceObject } from "../types";
@@ -54,7 +54,8 @@ export class DeviceAdapter {
             firmwareChecksum:                  from.firmware_checksum,
             manifestTimestamp:                 from.manifest_timestamp,
             hostGateway:                       from.host_gateway,
-            deviceType:                        from.endpoint_type
+            deviceType:                        from.endpoint_type,
+            claimedAt:                         from.enrolment_list_timestamp,
         }, api);
     }
 
@@ -78,7 +79,7 @@ export class DeviceAdapter {
             firmware_checksum:            from.firmwareChecksum,
             state:                        from.state,
             host_gateway:                 from.hostGateway,
-            endpoint_type:                from.deviceType
+            endpoint_type:                from.deviceType,
         };
     }
 
@@ -91,7 +92,7 @@ export class DeviceAdapter {
             device_key:                   from.certificateFingerprint,
             endpoint_name:                from.alias,
             host_gateway:                 from.hostGateway,
-            endpoint_type:                from.deviceType
+            endpoint_type:                from.deviceType,
         };
     }
 }

@@ -274,7 +274,7 @@ export class DeviceDirectoryApi {
     public updateDevice(device: UpdateDeviceObject, callback: CallbackFn<Device>): void;
     public updateDevice(device: UpdateDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
         return apiWrapper(resultsFn => {
-            this._endpoints.directory.devicePartialUpdate(device.id, DeviceAdapter.updateMap(device), resultsFn);
+            this._endpoints.directory.deviceUpdate(device.id, DeviceAdapter.updateMap(device), resultsFn);
         }, (data, done) => {
             const result = DeviceAdapter.map(data, this);
             done(null, result);
@@ -529,7 +529,7 @@ export class DeviceDirectoryApi {
     public updateQuery(query: UpdateQueryObject, callback: CallbackFn<Query>): void;
     public updateQuery(query: UpdateQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
         return apiWrapper(resultsFn => {
-            this._endpoints.directory.deviceQueryPartialUpdate(query.id, QueryAdapter.updateMap(query), resultsFn);
+            this._endpoints.directory.deviceQueryUpdate(query.id, QueryAdapter.updateMap(query), resultsFn);
         }, (data, done) => {
             const result = QueryAdapter.map(data, this);
             done(null, result);

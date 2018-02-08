@@ -74,9 +74,9 @@ export interface UpdateAccountObject {
 
 export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
 /**
- * This object represents an API key in Mbed Cloud.
+ * This object represents the common properties between Add and Update ApiKey.
  */
-export interface AddApiKeyObject {
+export interface ApiKeyObject {
     /**
      * The display name for the API key.
      */
@@ -90,8 +90,14 @@ export interface AddApiKeyObject {
      */
     status?: ApiKeyStatusEnum;
 }
+export interface AddApiKeyObject extends ApiKeyObject {
+    /**
+     * A list of group IDs this API key belongs to.
+     */
+    groups?: Array<string>;
+}
 
-export interface UpdateApiKeyObject extends AddApiKeyObject {
+export interface UpdateApiKeyObject extends ApiKeyObject {
     /**
      * The UUID of the API key.
      */

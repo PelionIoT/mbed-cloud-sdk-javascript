@@ -13,3 +13,5 @@ intern.json
 junit.xml
 tslint.json
 tpip.csv
+.dockerignore
+Dockerfile

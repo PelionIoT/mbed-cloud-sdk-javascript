@@ -17,7 +17,7 @@
 
 import { asyncStyle, apiWrapper } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { UpdateApiKeyObject } from "../types";
+import { AddApiKeyObject } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
 import { User } from "./user";
 import { Group } from "./group";
@@ -28,9 +28,9 @@ import { Group } from "./group";
 export class ApiKey {
 
     /**
-     * A list of group IDs this API key belongs to.
+     * The UUID of the API key.
      */
-    public readonly groups?: Array<string>;
+    public readonly id: string;
     /**
      * The API key.
      */
@@ -130,4 +130,4 @@ export class ApiKey {
         }, callback);
     }
 }
-export interface ApiKey extends UpdateApiKeyObject {}
+export interface ApiKey extends AddApiKeyObject {}
