@@ -12,3 +12,5 @@ circle.yml
 gulpfile.js
 tpip.csv
 google-chrome.deb
+.dockerignore
+Dockerfile

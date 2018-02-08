@@ -4,7 +4,7 @@ set -e
 export DEBUG=superagent
 export DEBUG_COLORS=true
 
-node server.js &
+node server/tests/codeCoverage.js &
 pid=$!
 
 function finish {

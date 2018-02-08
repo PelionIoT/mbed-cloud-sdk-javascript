@@ -118,8 +118,10 @@
         }
 
         function buildChart(results, element, key) {
+            var data = results.data;
+
             // Determine max height
-            var allResults = results.map(function(result) {
+            var allResults = data.map(function (result) {
                 return result[key];
             });
             var multiplier = 100 / Math.max.apply(null, allResults);
@@ -130,15 +132,15 @@
             }
 
             // Add new bars
-            for (var i in results) {
+            for (var i in data) {
                 var li = buildElement("li", element);
                 var div = buildElement("div", li);
 
-                var value = results[i][key];
+                var value = data[i][key];
                 div.setAttribute("value", value);
                 div.style.height = `${value * multiplier}px`;
 
-                var date = new Date(results[i].timestamp).toISOString().slice(0,10);
+                var date = new Date(data[i].timestamp).toISOString().slice(0, 10);
                 div.setAttribute("title", date);
             }
         }
