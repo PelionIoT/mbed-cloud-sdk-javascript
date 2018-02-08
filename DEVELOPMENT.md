@@ -2,8 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript-private.svg?style=shield&circle-token=9eb108b4971ce5cfca13e228eed6c2264396baae)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript-private/)
 
-[![Builds](https://img.shields.io/badge/sdk-builds-blue.svg)](http://armmbed.github.io/mbed-cloud-sdk-javascript/builds/)
-[![Docs](https://img.shields.io/badge/sdk-documentation-blue.svg)](http://mbed-cloud-sdk-javascript.s3-website-us-west-2.amazonaws.com/)
+[![Builds](https://img.shields.io/badge/sdk-builds-blue.svg)](http://armmbed.github.io/mbed-cloud-sdk-javascript-private/builds/)
 
 ## Prerequisites
 
