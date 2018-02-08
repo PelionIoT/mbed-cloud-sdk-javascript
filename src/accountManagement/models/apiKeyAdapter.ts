@@ -48,6 +48,7 @@ export class ApiKeyAdapter {
             name:      from.name,
             status:    from.status,
             owner:     from.ownerId,
+            groups:    from.groups,
         };
     }
 
