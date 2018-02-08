@@ -18,6 +18,7 @@ machine:
     FILE_UNITTESTS: ${PROJECT_REPORTS}/unittests.html
     FILE_INTTESTS: ${PROJECT_REPORTS}/inttests.html
     FILE_RAW: ${PROJECT_REPORTS}/raw.txt
+    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
 
 checkout:
   post:
@@ -54,6 +55,7 @@ test:
     - set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ${FILE_UNITTESTS}
     - cat ${FILE_UNITTESTS} | grep 'TOTAL' >> ${FILE_RAW}
     - echo "<h1>${PROJECT_NAME} integration tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_INTTESTS}
+    - npm run build-test-server
     - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${FILE_INTTESTS}:
         pwd: tests
     - cat ${FILE_INTTESTS} | grep 'seconds ====' >> ${FILE_RAW}
@@ -76,12 +78,6 @@ deployment:
       - git checkout stash -- .
       - git commit --allow-empty --message "Automatic Deployment [skip ci]"
       - git push
-  build:
-    branch: build
-    commands:
-      - echo Publishing ${PROJECT_NAME} to npm...
-      - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
-      - npm publish || true
   release:
     branch: /[0-9]+\.[0-9]+.*/
     commands:

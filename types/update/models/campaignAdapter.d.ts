@@ -1,4 +1,4 @@
-import { UpdateCampaign as apiCampaign, UpdateCampaignPostRequest as apiCampaignAdd, UpdateCampaignPatchRequest as apiCampaignUpdate } from "../../_api/update_service";
+import { UpdateCampaign as apiCampaign, UpdateCampaignPostRequest as apiCampaignAdd, UpdateCampaignPutRequest as apiCampaignUpdate } from "../../_api/update_service";
 import { AddCampaignObject, UpdateCampaignObject } from "../types";
 import { UpdateApi } from "../updateApi";
 import { Campaign } from "./campaign";

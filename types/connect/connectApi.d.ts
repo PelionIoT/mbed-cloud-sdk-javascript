@@ -903,7 +903,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @returns Promise of metrics
      */
-    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<Array<Metric>>;
+    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<ListResponse<Metric>>;
     /**
      * List metrics
      *
@@ -922,7 +922,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
-    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<Array<Metric>>): void;
+    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<ListResponse<Metric>>): void;
     /**
      * Get meta data for the last Mbed Cloud API call
      * @returns Promise of meta data

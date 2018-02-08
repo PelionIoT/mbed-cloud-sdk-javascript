@@ -1,4 +1,4 @@
-import { DeviceQuery as apiQuery, DeviceQueryPostPutRequest as apiQueryAdd, DeviceQueryPatchRequest as apiQueryUpdate } from "../../_api/device_directory";
+import { DeviceQuery as apiQuery, DeviceQueryPostPutRequest as apiQueryAdd, DeviceQueryPostPutRequest as apiQueryUpdate } from "../../_api/device_directory";
 import { DeviceDirectoryApi } from "../deviceDirectoryApi";
 import { AddQueryObject, UpdateQueryObject } from "../types";
 import { Query } from "./query";

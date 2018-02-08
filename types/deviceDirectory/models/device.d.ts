@@ -26,6 +26,10 @@ export declare class Device {
      * The date-time of the current manifest version
      */
     readonly manifestTimestamp?: Date;
+    /**
+     * The claim date/time
+     */
+    readonly claimedAt?: Date;
     constructor(init?: Partial<Device>, _api?: DeviceDirectoryApi);
     /**
      * Update the device

@@ -236,7 +236,8 @@ export interface FirmwareManifestPage {
 }
 
 export namespace UpdateCampaign {
-    export type StateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+    export type StateEnum = "draft" | "scheduled" | "allocatingquota" | "allocatedquota" | "insufficientquota" | "checkingmanifest" | "checkedmanifest" | "devicefetch" | "devicecopy" | "devicecheck" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired" | "stopping" | "autostopped" | "userstopped" | "conflict";
+    export type PhaseEnum = "draft" | "setup" | "awaiting_approval" | "timed" | "starting" | "active" | "stopping" | "stopped" | "archived";
 }
 export interface UpdateCampaign {
     /**
@@ -273,6 +274,10 @@ export interface UpdateCampaign {
      */
     "finished"?: Date;
     "root_manifest_url"?: string;
+    /**
+     * The phase of the campaign
+     */
+    "phase"?: UpdateCampaign.PhaseEnum;
     "started_at"?: Date;
     /**
      * The campaign ID
@@ -305,7 +310,7 @@ export interface UpdateCampaignPage {
 }
 
 export namespace UpdateCampaignPatchRequest {
-    export type StateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+    export type StateEnum = "draft" | "scheduled" | "allocatingquota" | "allocatedquota" | "insufficientquota" | "checkingmanifest" | "checkedmanifest" | "devicefetch" | "devicecopy" | "devicecheck" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired" | "stopping" | "autostopped" | "userstopped" | "conflict";
 }
 export interface UpdateCampaignPatchRequest {
     /**
@@ -336,7 +341,7 @@ export interface UpdateCampaignPatchRequest {
 }
 
 export namespace UpdateCampaignPostRequest {
-    export type StateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+    export type StateEnum = "draft" | "scheduled" | "allocatingquota" | "allocatedquota" | "insufficientquota" | "checkingmanifest" | "checkedmanifest" | "devicefetch" | "devicecopy" | "devicecheck" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired" | "stopping" | "autostopped" | "userstopped" | "conflict";
 }
 export interface UpdateCampaignPostRequest {
     /**
@@ -367,7 +372,7 @@ export interface UpdateCampaignPostRequest {
 }
 
 export namespace UpdateCampaignPutRequest {
-    export type StateEnum = "draft" | "scheduled" | "devicefetch" | "devicecopy" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired";
+    export type StateEnum = "draft" | "scheduled" | "allocatingquota" | "allocatedquota" | "insufficientquota" | "checkingmanifest" | "checkedmanifest" | "devicefetch" | "devicecopy" | "devicecheck" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired" | "stopping" | "autostopped" | "userstopped" | "conflict";
 }
 export interface UpdateCampaignPutRequest {
     /**
@@ -402,6 +407,388 @@ export interface UpdateCampaignPutRequest {
  */
 export class DefaultApi extends ApiBase {
 
+    /**
+     * Create an update campaign.
+     * @param campaign Update campaign
+     */
+    public campaignCreate(campaign: UpdateCampaignPostRequest, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaign" is set
+        if (campaign === null || campaign === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaign' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdateCampaign>({
+            url: "/v3/campaigns/",
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: campaign,
+        }, callback);
+    }
+    /**
+     * Delete an update campaign.
+     * @param campaignId The ID of the update campaign
+     */
+    public campaignDestroy(campaignId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get update campaigns for devices specified by a filter.
+     * @param limit How many update campaigns to retrieve
+     * @param order The order of the records. Acceptable values: ASC, DESC. Default: ASC
+     * @param after The ID of the the item after which to retrieve the next page
+     * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by campaign properties** &#x60;state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]&#x60;  &#x60;root_manifest_id&#x3D;43217771234242e594ddb433816c498a&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;state__nin&#x3D;draft,scheduled,expired&#x60;
+     * @param include Comma-separated list of data fields to return. Currently supported: total_count
+     */
+    public campaignList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: UpdateCampaignPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (filter !== undefined) {
+            queryParameters["filter"] = filter;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdateCampaignPage>({
+            url: "/v3/campaigns/",
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get campaign device metadata.
+     * @param campaignId The update campaign ID
+     * @param limit How many objects to retrieve in the page
+     * @param order ASC or DESC
+     * @param after The ID of the the item after which to retrieve the next page
+     * @param include Comma-separated list of data fields to return. Currently supported: total_count
+     */
+    public campaignMetadataList(campaignId: string, limit?: number, order?: string, after?: string, include?: string, callback?: (error: any, data?: CampaignDeviceMetadataPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<CampaignDeviceMetadataPage>({
+            url: "/v3/campaigns/{campaign_id}/campaign-device-metadata/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get update campaign metadata.
+     * @param campaignId The update campaign ID
+     * @param campaignDeviceMetadataId The campaign device metadata ID
+     */
+    public campaignMetadataRetreive(campaignId: string, campaignDeviceMetadataId: string, callback?: (error: any, data?: CampaignDeviceMetadata, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "campaignDeviceMetadataId" is set
+        if (campaignDeviceMetadataId === null || campaignDeviceMetadataId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignDeviceMetadataId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<CampaignDeviceMetadata>({
+            url: "/v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/".replace("{" + "campaign_id" + "}", String(campaignId)).replace("{" + "campaign_device_metadata_id" + "}", String(campaignDeviceMetadataId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get an update campaign.
+     * @param campaignId The campaign ID
+     */
+    public campaignRetrieve(campaignId: string, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdateCampaign>({
+            url: "/v3/campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Stop a running update campaign.
+     * @param campaignId The campaign ID
+     */
+    public campaignStop(campaignId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/campaigns/{campaign_id}/stop".replace("{" + "campaign_id" + "}", String(campaignId)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Modify an update campaign.
+     * @param campaignId 
+     * @param campaign Update campaign
+     */
+    public campaignUpdate(campaignId: string, campaign: UpdateCampaignPutRequest, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "campaign" is set
+        if (campaign === null || campaign === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaign' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdateCampaign>({
+            url: "/v3/campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            method: "PUT",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: campaign,
+        }, callback);
+    }
     /**
      * Create firmware image.
      * @param datafile The firmware image file to upload
@@ -514,7 +901,7 @@ export class DefaultApi extends ApiBase {
      * @param limit How many firmware images to retrieve
      * @param order ASC or DESC
      * @param after The ID of the the item after which to retrieve the next page
-     * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by properties** &#x60;name&#x3D;myimage&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name&#x3D;myimage&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;
+     * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by properties** &#x60;name&#x3D;myimage&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name&#x3D;myimage&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-image1,fw-image2&#x60;
      * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
     public firmwareImageList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: FirmwareImagePage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -717,7 +1104,7 @@ export class DefaultApi extends ApiBase {
      * @param limit How many firmware manifests to retrieve
      * @param order ASC or DESC
      * @param after The ID of the the item after which to retrieve the next page.
-     * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by properties** &#x60;name&#x3D;mymanifest&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name&#x3D;mymanifest&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;
+     * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by properties** &#x60;name&#x3D;mymanifest&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name&#x3D;mymanifest&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-manifest1,fw-manifest2&#x60;
      * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
     public firmwareManifestList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: FirmwareManifestPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -894,11 +1281,11 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * Get update campaigns for devices specified by a filter.
+     * Get update campaigns for devices specified by a filter. Can also use the &#x60;/campaigns/&#x60; alias.
      * @param limit How many update campaigns to retrieve
      * @param order The order of the records. Acceptable values: ASC, DESC. Default: ASC
      * @param after The ID of the the item after which to retrieve the next page
-     * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by campaign properties** &#x60;state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]&#x60;  &#x60;root_manifest_id&#x3D;43217771234242e594ddb433816c498a&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;
+     * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by campaign properties** &#x60;state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]&#x60;  &#x60;root_manifest_id&#x3D;43217771234242e594ddb433816c498a&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-image1,fw-image2&#x60;
      * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
     public updateCampaignList(limit?: number, order?: string, after?: string, filter?: string, include?: string, callback?: (error: any, data?: UpdateCampaignPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -948,11 +1335,14 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * Modify a subset of an update campaign&#39;s fields.
-     * @param campaignId 
-     * @param campaign Update campaign
+     * Get campaign device metadata.
+     * @param campaignId The update campaign ID
+     * @param limit How many objects to retrieve in the page
+     * @param order ASC or DESC
+     * @param after The ID of the the item after which to retrieve the next page
+     * @param include Comma-separated list of data fields to return. Currently supported: total_count
      */
-    public updateCampaignPartialUpdate(campaignId: string, campaign: UpdateCampaignPatchRequest, callback?: (error: any, data?: UpdateCampaign, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public updateCampaignMetadataList(campaignId: string, limit?: number, order?: string, after?: string, include?: string, callback?: (error: any, data?: CampaignDeviceMetadataPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "campaignId" is set
         if (campaignId === null || campaignId === undefined) {
             if (callback) {
@@ -960,10 +1350,65 @@ export class DefaultApi extends ApiBase {
             }
             return;
         }
-        // verify required parameter "campaign" is set
-        if (campaign === null || campaign === undefined) {
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<CampaignDeviceMetadataPage>({
+            url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/".replace("{" + "campaign_id" + "}", String(campaignId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get update campaign metadata.
+     * @param campaignId The update campaign ID
+     * @param campaignDeviceMetadataId The campaign device metadata ID
+     */
+    public updateCampaignMetadataRetrieve(campaignId: string, campaignDeviceMetadataId: string, callback?: (error: any, data?: CampaignDeviceMetadata, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
             if (callback) {
-                callback(new SDKError("Required parameter 'campaign' missing."));
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "campaignDeviceMetadataId" is set
+        if (campaignDeviceMetadataId === null || campaignDeviceMetadataId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignDeviceMetadataId' missing."));
             }
             return;
         }
@@ -985,9 +1430,9 @@ export class DefaultApi extends ApiBase {
             "application/json"
         ];
 
-        return this.request<UpdateCampaign>({
-            url: "/v3/update-campaigns/{campaign_id}/".replace("{" + "campaign_id" + "}", String(campaignId)),
-            method: "PATCH",
+        return this.request<CampaignDeviceMetadata>({
+            url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/".replace("{" + "campaign_id" + "}", String(campaignId)).replace("{" + "campaign_device_metadata_id" + "}", String(campaignDeviceMetadataId)),
+            method: "GET",
             headers: headerParams,
             query: queryParameters,
             formParams: formParams,
@@ -995,7 +1440,48 @@ export class DefaultApi extends ApiBase {
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
-            body: campaign,
+        }, callback);
+    }
+    /**
+     * Stop a running update campaign.
+     * @param campaignId The campaign ID
+     */
+    public updateCampaignMetadataStop(campaignId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "campaignId" is set
+        if (campaignId === null || campaignId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'campaignId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/update-campaigns/{campaign_id}/stop".replace("{" + "campaign_id" + "}", String(campaignId)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1089,114 +1575,6 @@ export class DefaultApi extends ApiBase {
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
             body: campaign,
-        }, callback);
-    }
-    /**
-     * Get update campaign metadata.
-     * @param campaignId The update campaign ID
-     * @param campaignDeviceMetadataId The campaign device metadata ID
-     */
-    public v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId: string, campaignDeviceMetadataId: string, callback?: (error: any, data?: CampaignDeviceMetadata, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "campaignId" is set
-        if (campaignId === null || campaignId === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'campaignId' missing."));
-            }
-            return;
-        }
-        // verify required parameter "campaignDeviceMetadataId" is set
-        if (campaignDeviceMetadataId === null || campaignDeviceMetadataId === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'campaignDeviceMetadataId' missing."));
-            }
-            return;
-        }
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
-
-        return this.request<CampaignDeviceMetadata>({
-            url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/".replace("{" + "campaign_id" + "}", String(campaignId)).replace("{" + "campaign_device_metadata_id" + "}", String(campaignDeviceMetadataId)),
-            method: "GET",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
-        }, callback);
-    }
-    /**
-     * Get campaign device metadata.
-     * @param campaignId The update campaign ID
-     * @param limit How many objects to retrieve in the page
-     * @param order ASC or DESC
-     * @param after The ID of the the item after which to retrieve the next page
-     * @param include Comma-separated list of data fields to return. Currently supported: total_count
-     */
-    public v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId: string, limit?: number, order?: string, after?: string, include?: string, callback?: (error: any, data?: CampaignDeviceMetadataPage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "campaignId" is set
-        if (campaignId === null || campaignId === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'campaignId' missing."));
-            }
-            return;
-        }
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters["limit"] = limit;
-        }
-        if (order !== undefined) {
-            queryParameters["order"] = order;
-        }
-        if (after !== undefined) {
-            queryParameters["after"] = after;
-        }
-        if (include !== undefined) {
-            queryParameters["include"] = include;
-        }
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
-
-        return this.request<CampaignDeviceMetadataPage>({
-            url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/".replace("{" + "campaign_id" + "}", String(campaignId)),
-            method: "GET",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
         }, callback);
     }
 }
