@@ -947,63 +947,6 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Deletes a resource
-     *
-     * Example:
-     * ```JavaScript
-     * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
-     * connect.deleteResource(deviceId, resourceURI)
-     * .then(response => {
-     *     // Utilize response here
-     * })
-     * .catch(error => {
-     *     console.log(error);
-     * });
-     * ```
-     *
-     * @param deviceId Device ID
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns empty Promise
-     */
-    public deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean): Promise<void>;
-    /**
-     * Deletes a resource
-     *
-     * Example:
-     * ```JavaScript
-     * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
-     * connect.deleteResource(deviceId, resourceURI, function(error, response) {
-     *     if (error) throw error;
-     *     // Utilize response here
-     * });
-     * ```
-     *
-     * @param deviceId Device ID
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @param callback A function that is passed any error
-     */
-    public deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean, callback?: CallbackFn<void>): void;
-    public deleteResource(deviceId: string, resourcePath: string, noResponse?: any, callback?: CallbackFn<void>): Promise<void> {
-        resourcePath = this.normalizePath(resourcePath);
-
-        noResponse = noResponse || false;
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
-
-        return apiWrapper(resultsFn => {
-            this._endpoints.resources.v2EndpointsDeviceIdResourcePathDelete(deviceId, resourcePath, noResponse, resultsFn);
-        }, (_data, done) => {
-            done(null, null);
-        }, callback);
-    }
-
-    /**
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
@@ -1272,10 +1215,10 @@ export class ConnectApi extends EventEmitter {
     public getResourceSubscription(deviceId: string, resourcePath: string, callback?: CallbackFn<boolean>): Promise<boolean> {
         resourcePath = this.normalizePath(resourcePath);
 
-        return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathGet(deviceId, resourcePath, resultsFn);
-        }, (data, done) => {
-            done(null, data);
+        return asyncStyle(done => {
+            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathGet(deviceId, resourcePath, error => {
+                return done(null, !error);
+            });
         }, callback);
     }
 
@@ -1424,7 +1367,7 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @returns Promise of metrics
      */
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<Array<Metric>>;
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<ListResponse<Metric>>;
     /**
      * List metrics
      *
@@ -1443,8 +1386,8 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<Array<Metric>>): void;
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback?: CallbackFn<Array<Metric>>): Promise<Array<Metric>> {
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<ListResponse<Metric>>): void;
+    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback?: CallbackFn<ListResponse<Metric>>): Promise<ListResponse<Metric>> {
         return apiWrapper(resultsFn => {
             function isPeriod(test: MetricsStartEndListOptions | MetricsPeriodListOptions): test is MetricsPeriodListOptions {
                 return (test as MetricsPeriodListOptions).period !== undefined;
@@ -1465,15 +1408,15 @@ export class ConnectApi extends EventEmitter {
 
             this._endpoints.statistics.v3MetricsGet(MetricAdapter.mapIncludes(include), MetricAdapter.mapTimePeriod(interval), start, end, period, limit, after, order, resultsFn);
         }, (data, done) => {
-            let list: Array<Metric>;
+            let metrics: Array<Metric> = [];
 
             if (data.data && data.data.length) {
-                list = data.data.map(metric => {
+                metrics = data.data.map(metric => {
                     return MetricAdapter.map(metric);
                 });
             }
 
-            done(null, list);
+            done(null, new ListResponse<Metric>(data, metrics));
         }, callback);
     }
 

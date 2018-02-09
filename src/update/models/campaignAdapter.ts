@@ -19,7 +19,7 @@ import { encodeFilter, decodeFilter } from "../../common/functions";
 import {
     UpdateCampaign as apiCampaign,
     UpdateCampaignPostRequest as apiCampaignAdd,
-    UpdateCampaignPatchRequest as apiCampaignUpdate
+    UpdateCampaignPutRequest as apiCampaignUpdate
 } from "../../_api/update_service";
 import { Filters } from "../../deviceDirectory/filters";
 import { AddCampaignObject, UpdateCampaignObject } from "../types";
@@ -43,7 +43,8 @@ export class CampaignAdapter {
             name:                from.name,
             startedAt:           from.started_at,
             state:               from.state,
-            scheduledAt:         from.when
+            scheduledAt:         from.when,
+            updatedAt:           from.updated_at
         }, api);
     }
 
@@ -54,7 +55,8 @@ export class CampaignAdapter {
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,
-            when:                from.scheduledAt
+            when:                from.scheduledAt,
+            object:              from.object,
         };
     }
 
@@ -65,7 +67,8 @@ export class CampaignAdapter {
             name:                from.name,
             root_manifest_id:    from.manifestId,
             state:               from.state,
-            when:                from.scheduledAt
+            when:                from.scheduledAt,
+            object:              from.object,
         };
     }
 }

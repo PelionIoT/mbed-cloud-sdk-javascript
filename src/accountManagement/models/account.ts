@@ -59,11 +59,11 @@ export class Account {
      */
     public readonly createdAt?: Date;
     /**
-     * Time when upgraded to commercial account
+     * Time when upgraded to commercial account.
      */
     public readonly upgradedAt?: Date;
     /**
-     * A reason note for updating the status of the account
+     * A reason note for updating the status of the account.
      */
     public readonly reason?: string;
     /**

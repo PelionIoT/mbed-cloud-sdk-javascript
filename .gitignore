@@ -7,7 +7,8 @@ reports
 docs
 lib
 test
-tests/testrunner
+tests/server
+tests/common
 types
 junit.xml
 package-lock.json

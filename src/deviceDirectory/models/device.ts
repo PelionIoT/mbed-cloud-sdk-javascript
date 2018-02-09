@@ -30,21 +30,25 @@ export class Device {
      */
     public readonly id: string;
     /**
-     * The owning IAM account ID
+     * The owning Identity and Access Management (IAM) account ID
      */
     public readonly accountId?: string;
     /**
-     * The time the device was created
+     * The timestamp of when the device was created
      */
     public readonly createdAt?: Date;
     /**
-     * The time the device was updated
+     * The date-time of when the device was updated
      */
     public readonly updatedAt?: Date;
     /**
-     * The timestamp of the current manifest version
+     * The date-time of the current manifest version
      */
     public readonly manifestTimestamp?: Date;
+    /**
+     * The claim date/time
+     */
+    public readonly claimedAt?: Date;
 
     constructor(init?: Partial<Device>, private _api?: DeviceDirectoryApi) {
         for (const key in init) {

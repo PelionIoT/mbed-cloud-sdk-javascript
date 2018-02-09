@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.2.6
+
+### Deliverables
+
+The application is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using npm:
+
+```
+$ npm install mbed-cloud-sdk
+```
+
+### Changes
+
+- Add 'claimedAt' field to device
+- Add 'groups' to ApiKeys
+- listMetrics now returns a paginated response
+
 ## 1.2.5
 
 ### Deliverables

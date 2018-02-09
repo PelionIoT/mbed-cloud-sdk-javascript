@@ -32,7 +32,7 @@ export class Campaign {
      */
     public readonly id: string;
     /**
-     * URl of the manifest used
+     * URL of the manifest used
      */
     public readonly manifestUrl?: string;
     /**
@@ -43,6 +43,10 @@ export class Campaign {
      * The timestamp at which update campaign scheduled to start
      */
     public readonly startedAt?: Date;
+    /**
+     * The timestamp when the update campaign was updated
+     */
+    public readonly updatedAt?: Date;
     /**
      * The timestamp when the update campaign finished
      */

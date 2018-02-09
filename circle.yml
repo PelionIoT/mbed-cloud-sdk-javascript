@@ -18,6 +18,7 @@ machine:
     FILE_UNITTESTS: ${PROJECT_REPORTS}/unittests.html
     FILE_INTTESTS: ${PROJECT_REPORTS}/inttests.html
     FILE_RAW: ${PROJECT_REPORTS}/raw.txt
+    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
 
 checkout:
   post:
@@ -50,15 +51,11 @@ compile:
 
 test:
   override:
-    - |
-      if [ $CIRCLE_BRANCH = $PROJECT_LIVE_BRANCH ]; then
-        echo export MBED_CLOUD_HOST='' >> $HOME/.circlerc;
-        echo export MBED_CLOUD_API_KEY=$MBED_CLOUD_API_KEY_PROD >> $HOME/.circlerc;
-      fi
     - echo "<h1>${PROJECT_NAME} unit tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_UNITTESTS}
     - set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ${FILE_UNITTESTS}
     - cat ${FILE_UNITTESTS} | grep 'TOTAL' >> ${FILE_RAW}
     - echo "<h1>${PROJECT_NAME} integration tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_INTTESTS}
+    - npm run build-test-server
     - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${FILE_INTTESTS}:
         pwd: tests
     - cat ${FILE_INTTESTS} | grep 'seconds ====' >> ${FILE_RAW}
@@ -73,15 +70,13 @@ deployment:
   staging:
     branch: master
     commands:
-      - echo Syncing ${PROJECT_NAME} to S3...
-      - aws s3 sync --delete --cache-control max-age=3600 docs/ s3://${PROJECT_NAME}
       - echo Syncing ${PROJECT_NAME} to ${PROJECT_LIVE_BRANCH} on GitHub...
       - git add --force bundles docs lib types
       - git stash save
       - git checkout ${PROJECT_LIVE_BRANCH}
       - git merge master --no-commit
       - git checkout stash -- .
-      - git commit --allow-empty --message "Automatic Deployment"
+      - git commit --allow-empty --message "Automatic Deployment [skip ci]"
       - git push
   build:
     branch: build
