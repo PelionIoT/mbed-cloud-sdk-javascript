@@ -110,6 +110,10 @@ export interface CertificateListOptions extends ListOptions {
          */
         type: ComparisonObject<CertificateTypeEnum>;
         /**
+         * Certificate type not equals filter
+         */
+        typeNeq: ComparisonObject<CertificateTypeEnum>;
+        /**
          * Expire filter in days
          */
         expires: ComparisonObject<number>;
@@ -117,5 +121,21 @@ export interface CertificateListOptions extends ListOptions {
          * Owner filter
          */
         ownerId: ComparisonObject<string>;
+        /**
+         * Name filter
+         */
+        name: ComparisonObject<string>;
+        /**
+         * Enrollment mode filter
+         */
+        enrollmentMode: ComparisonObject<boolean>;
+        /**
+         * Issuer filter
+         */
+        issuer: ComparisonObject<string>
+        /**
+         * Subject filter
+         */
+        subject: ComparisonObject<string>
     };
 }

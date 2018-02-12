@@ -51,10 +51,6 @@ export class Account {
      */
     public readonly policies?: Array<Policy>;
     /**
-     * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
-     */
-    public readonly provisioningAllowed: boolean;
-    /**
      * Creation time.
      */
     public readonly createdAt?: Date;

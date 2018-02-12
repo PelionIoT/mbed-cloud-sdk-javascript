@@ -167,7 +167,8 @@ export interface ApiKeyListOptions extends ListOptions {
      * Constructed like so:
      *  ```JavaScript
      *  filter: {
-     *    ownerId: { $eq: "1234" }
+     *    ownerId: { $eq: "1234" },
+     *    apiKey: { $eq: "abc123" }
      *  }
      *  ```
      */
@@ -176,6 +177,10 @@ export interface ApiKeyListOptions extends ListOptions {
          * Owner filter
          */
         ownerId: ComparisonObject<string>;
+        /**
+         * ApiKey filter
+         */
+        apiKey: ComparisonObject<string>;
     };
 }
 
@@ -189,7 +194,8 @@ export interface UserListOptions extends ListOptions {
      * Constructed like so:
      *  ```JavaScript
      *  filter: {
-     *    status: { $eq: "INVITED" }
+     *    status: { $eq: "INVITED" },
+     *    email: { $eq: "email@email.com" },
      *  }
      *  ```
      */
@@ -198,5 +204,31 @@ export interface UserListOptions extends ListOptions {
          * User status filter
          */
         status: ComparisonObject<UserStatusEnum>;
+        /**
+         * User email filter
+         */
+        email: ComparisonObject<string>;
+    };
+}
+
+/**
+ * Options to use when listing groups
+ */
+export interface GroupListOptions extends ListOptions {
+    /**
+     * The group filter
+     *
+     * Constructed like so:
+     *  ```JavaScript
+     *  filter: {
+     *    name: { $eq: "myGroup" }
+     *  }
+     *  ```
+     */
+    filter?: {
+        /**
+         * Group name filter
+         */
+        name: ComparisonObject<string>;
     };
 }

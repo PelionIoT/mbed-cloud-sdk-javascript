@@ -31,8 +31,6 @@ export class GroupAdapter {
             userCount:         from.user_count,
             apiKeyCount:       from.apikey_count,
             createdAt:         from.created_at,
-            creationTime:      from.creation_time,
-            lastUpdateTime:    from.last_update_time
         }, api);
     }
 }

@@ -58,7 +58,6 @@ export class AccountAdapter {
             tier                   : from.tier,
             limits                 : from.limits,
             policies               : policies,
-            provisioningAllowed    : from.is_provisioning_allowed,
             createdAt              : from.created_at,
             upgradedAt             : from.upgraded_at,
             reason                 : from.reason,
