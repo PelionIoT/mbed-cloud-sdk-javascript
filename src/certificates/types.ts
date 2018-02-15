@@ -54,6 +54,10 @@ export interface AddCertificateObject extends AddDeveloperCertificateObject {
      * Status of the certificate
      */
     status?: CertificateStatusEnum;
+    /**
+     * If true, signature parameter is not required. Default value is false.
+     */
+    enrollmentMode?: boolean;
 }
 
 /**
@@ -88,6 +92,10 @@ export interface UpdateCertificateObject {
      * Status of the certificate
      */
     status?: CertificateStatusEnum;
+    /**
+     * If true, signature parameter is not required. Default value is false.
+     */
+    enrollmentMode?: boolean;
 }
 
 /**
