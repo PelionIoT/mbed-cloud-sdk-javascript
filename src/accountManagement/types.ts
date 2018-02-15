@@ -18,6 +18,8 @@
 import { ListOptions, ComparisonObject } from "../common/interfaces";
 
 export type AccountStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
+
+export type MultifactorAuthenticationStatusEnum = "enabled" | "enforced" | "optional";
 /**
  * This object represents an account in requests and responses.
  */
@@ -70,6 +72,18 @@ export interface UpdateAccountObject {
      * The country part of the postal address.
      */
     country?: string;
+    /**
+     * The number of days before account expiration notification email should be sent
+     */
+    expirationWarning?: string;
+    /**
+     * The enforcement status of the multi-factor authentication
+     */
+    multifactorAuthenticationStatus?: MultifactorAuthenticationStatusEnum;
+    /**
+     * The list of notification email addresses
+     */
+    notificationEmails?: Array<string>;
 }
 
 export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";

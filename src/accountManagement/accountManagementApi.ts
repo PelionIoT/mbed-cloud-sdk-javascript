@@ -682,7 +682,7 @@ export class AccountManagementApi {
 
         return apiWrapper(resultsFn => {
             const { limit, after, order, include, filter } = options as GroupListOptions;
-            this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), extractFilter(filter, "name"),resultsFn);
+            this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), extractFilter(filter, "name"), resultsFn);
         }, (data, done) => {
             let groups: Array<Group>;
             if (data.data && data.data.length) {
