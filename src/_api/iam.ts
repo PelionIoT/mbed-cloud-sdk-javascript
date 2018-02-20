@@ -26,11 +26,176 @@ import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
 /**
+ * This object represents an account creation request.
+ */
+export interface AccountCreationReq {
+    /**
+     * Postal address line 2, not longer than 100 characters.
+     */
+    "address_line2"?: string;
+    /**
+     * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "city"?: string;
+    /**
+     * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "address_line1"?: string;
+    /**
+     * The display name for the account, not longer than 100 characters.
+     */
+    "display_name"?: string;
+    /**
+     * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "country"?: string;
+    /**
+     * The name of the company, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "company"?: string;
+    /**
+     * The state part of the postal address, not longer than 100 characters.
+     */
+    "state"?: string;
+    /**
+     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "contact"?: string;
+    /**
+     * The postal code part of the postal address, not longer than 100 characters.
+     */
+    "postal_code"?: string;
+    /**
+     * The password when creating a new user. It will be generated when not present in the request.
+     */
+    "admin_password"?: string;
+    /**
+     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "admin_name"?: string;
+    /**
+     * The full name of the admin user to be created.
+     */
+    "admin_full_name"?: string;
+    /**
+     * The end market of the account to be created.
+     */
+    "end_market": string;
+    /**
+     * The email address of the account admin, not longer than 254 characters.
+     */
+    "admin_email"?: string;
+    /**
+     * The phone number of a representative of the company, not longer than 100 characters.
+     */
+    "phone_number"?: string;
+    /**
+     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+     */
+    "email"?: string;
+    /**
+     * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+     */
+    "aliases"?: Array<string>;
+}
+
+/**
+ * This object represents an account creation response.
+ */
+export interface AccountCreationResp {
+    /**
+     * Postal address line 2, not longer than 100 characters.
+     */
+    "address_line2"?: string;
+    /**
+     * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "city"?: string;
+    /**
+     * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "address_line1"?: string;
+    /**
+     * The enrollment finalisation link which can be provided for the customer.
+     */
+    "enrollment_link"?: string;
+    /**
+     * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "country"?: string;
+    /**
+     * The name of the company, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "company"?: string;
+    /**
+     * The postal code part of the postal address, not longer than 100 characters.
+     */
+    "postal_code"?: string;
+    /**
+     * The ID of the admin user created.
+     */
+    "admin_id": string;
+    /**
+     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+     */
+    "email"?: string;
+    /**
+     * The state part of the postal address, not longer than 100 characters.
+     */
+    "state"?: string;
+    /**
+     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "contact"?: string;
+    /**
+     * The admin API key created for the account.
+     */
+    "admin_key"?: string;
+    /**
+     * The password when creating a new user. It will be generated when not present in the request.
+     */
+    "admin_password"?: string;
+    /**
+     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "admin_name"?: string;
+    /**
+     * The full name of the admin user to be created.
+     */
+    "admin_full_name"?: string;
+    /**
+     * The display name for the account, not longer than 100 characters.
+     */
+    "display_name"?: string;
+    /**
+     * The end market of the account to be created.
+     */
+    "end_market": string;
+    /**
+     * The email address of the account admin, not longer than 254 characters.
+     */
+    "admin_email"?: string;
+    /**
+     * The phone number of a representative of the company, not longer than 100 characters.
+     */
+    "phone_number"?: string;
+    /**
+     * Account ID.
+     */
+    "id"?: string;
+    /**
+     * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+     */
+    "aliases"?: Array<string>;
+}
+
+/**
  * This object represents an account in requests and responses.
  */
 export namespace AccountInfo {
     export type StatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type MfaStatusEnum = "enabled" | "enforced" | "optional";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
 }
 export interface AccountInfo {
     /**
@@ -46,9 +211,25 @@ export interface AccountInfo {
      */
     "password_policy"?: PasswordPolicy;
     /**
+     * Email address of the sales contact.
+     */
+    "sales_contact"?: string;
+    /**
+     * Last update UTC time RFC3339.
+     */
+    "updated_at"?: Date;
+    /**
      * The postal code part of the postal address.
      */
     "postal_code"?: string;
+    /**
+     * Account specific custom properties.
+     */
+    "account_properties"?: { [key: string]: { [key: string]: string; }; };
+    /**
+     * Customer number of the customer.
+     */
+    "customer_number"?: string;
     /**
      * Account ID.
      */
@@ -74,6 +255,10 @@ export interface AccountInfo {
      */
     "display_name"?: string;
     /**
+     * The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
+     */
+    "mfa_status"?: AccountInfo.MfaStatusEnum;
+    /**
      * The ID of the parent account, if it has any.
      */
     "parent_id"?: string;
@@ -86,10 +271,6 @@ export interface AccountInfo {
      */
     "etag": string;
     /**
-     * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
-     */
-    "is_provisioning_allowed": boolean;
-    /**
      * The company email address for this account.
      */
     "email"?: string;
@@ -97,6 +278,10 @@ export interface AccountInfo {
      * The phone number of a representative of the company.
      */
     "phone_number"?: string;
+    /**
+     * A reference note for updating the status of the account
+     */
+    "reference_note"?: string;
     /**
      * The name of the company.
      */
@@ -138,6 +323,14 @@ export interface AccountInfo {
      */
     "idle_timeout"?: string;
     /**
+     * Contract number of the customer.
+     */
+    "contract_number"?: string;
+    /**
+     * Indicates how many days before the account expiration a notification email should be sent.
+     */
+    "expiration_warning_threshold"?: string;
+    /**
      * The name of the contact person for this account.
      */
     "contact"?: string;
@@ -146,14 +339,56 @@ export interface AccountInfo {
      */
     "policies"?: Array<FeaturePolicy>;
     /**
+     * A list of notification email addresses.
+     */
+    "notification_emails"?: Array<string>;
+    /**
      * Account template ID.
      */
     "template_id"?: string;
 }
 
+export namespace AccountInfoList {
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type OrderEnum = "ASC" | "DESC";
+}
+export interface AccountInfoList {
+    /**
+     * The entity ID to fetch after the given one.
+     */
+    "after"?: string;
+    /**
+     * Flag indicating whether there is more results.
+     */
+    "has_more": boolean;
+    /**
+     * The total number or records, if requested. It might be returned also for small lists.
+     */
+    "total_count": number;
+    /**
+     * Entity name: always 'list'
+     */
+    "object": AccountInfoList.ObjectEnum;
+    /**
+     * The number of results to return, (range: 2-1000), or equals to `total_count`
+     */
+    "limit": number;
+    /**
+     * A list of entities.
+     */
+    "data": Array<AccountInfo>;
+    /**
+     * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
+     */
+    "order"?: AccountInfoList.OrderEnum;
+}
+
 /**
  * This object represents an account creation request.
  */
+export namespace AccountUpdateReq {
+    export type MfaStatusEnum = "enforced" | "optional";
+}
 export interface AccountUpdateReq {
     /**
      * Postal address line 2, not longer than 100 characters.
@@ -172,6 +407,10 @@ export interface AccountUpdateReq {
      */
     "display_name"?: string;
     /**
+     * The enforcement status of setting up the multi-factor authentication. 'Enforced' means that setting up the MFA is required after login. 'Optional' means that the MFA is not required.
+     */
+    "mfa_status"?: AccountUpdateReq.MfaStatusEnum;
+    /**
      * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
      */
     "country"?: string;
@@ -184,6 +423,10 @@ export interface AccountUpdateReq {
      */
     "idle_timeout"?: string;
     /**
+     * A list of notification email addresses.
+     */
+    "notification_emails"?: Array<string>;
+    /**
      * The state part of the postal address, not longer than 100 characters.
      */
     "state"?: string;
@@ -195,6 +438,14 @@ export interface AccountUpdateReq {
      * The postal code part of the postal address, not longer than 100 characters.
      */
     "postal_code"?: string;
+    /**
+     * Properties for this account.
+     */
+    "account_properties"?: { [key: string]: { [key: string]: string; }; };
+    /**
+     * Indicates how many days before the account expiration a notification email should be sent.
+     */
+    "expiration_warning_threshold"?: string;
     /**
      * Password policy for this account.
      */
@@ -215,6 +466,183 @@ export interface AccountUpdateReq {
      * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
      */
     "aliases"?: Array<string>;
+}
+
+/**
+ * This object represents an account update request.
+ */
+export namespace AccountUpdateRootReq {
+    export type MfaStatusEnum = "enforced" | "optional";
+}
+export interface AccountUpdateRootReq {
+    /**
+     * The end market for this account, not longer than 100 characters.
+     */
+    "end_market"?: string;
+    /**
+     * Password policy for this account.
+     */
+    "password_policy"?: PasswordPolicy;
+    /**
+     * Email address of the sales contact.
+     */
+    "sales_contact"?: string;
+    /**
+     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+     */
+    "email"?: string;
+    /**
+     * The postal code part of the postal address, not longer than 100 characters.
+     */
+    "postal_code"?: string;
+    /**
+     * Properties for this account.
+     */
+    "account_properties"?: { [key: string]: { [key: string]: string; }; };
+    /**
+     * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+     */
+    "aliases"?: Array<string>;
+    /**
+     * Postal address line 2, not longer than 100 characters.
+     */
+    "address_line2"?: string;
+    /**
+     * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "city"?: string;
+    /**
+     * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "address_line1"?: string;
+    /**
+     * The display name for the account, not longer than 100 characters.
+     */
+    "display_name"?: string;
+    /**
+     * The enforcement status of setting up the multi-factor authentication. 'Enforced' means that setting up the MFA is required after login. 'Optional' means that the MFA is not required.
+     */
+    "mfa_status"?: AccountUpdateRootReq.MfaStatusEnum;
+    /**
+     * The state part of the postal address, not longer than 100 characters.
+     */
+    "state"?: string;
+    /**
+     * Contract number of the customer.
+     */
+    "contract_number"?: string;
+    /**
+     * The phone number of a representative of the company, not longer than 100 characters.
+     */
+    "phone_number"?: string;
+    /**
+     * The name of the company, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "company"?: string;
+    /**
+     * The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
+     */
+    "idle_timeout"?: string;
+    /**
+     * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "country"?: string;
+    /**
+     * Customer number of the customer.
+     */
+    "customer_number"?: string;
+    /**
+     * Indicates how many days before the account expiration a notification email should be sent.
+     */
+    "expiration_warning_threshold"?: string;
+    /**
+     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "contact"?: string;
+    /**
+     * A list of notification email addresses.
+     */
+    "notification_emails"?: Array<string>;
+}
+
+/**
+ * This object represents an active user session.
+ */
+export interface ActiveSession {
+    /**
+     * User Agent header from the login request.
+     */
+    "user_agent": string;
+    /**
+     * IP address of the client.
+     */
+    "ip_address": string;
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
+    /**
+     * The reference token.
+     */
+    "reference_token": string;
+    /**
+     * The login time of the user.
+     */
+    "login_time": Date;
+}
+
+/**
+ * This object represents a user in requests towards mbed Cloud.
+ */
+export interface AdminUserUpdateReq {
+    /**
+     * Phone number, not longer than 100 characters.
+     */
+    "phone_number"?: string;
+    /**
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "username"?: string;
+    /**
+     * A flag indicating that receiving marketing information has been accepted.
+     */
+    "is_marketing_accepted"?: boolean;
+    /**
+     * User's account specific custom properties.
+     */
+    "user_properties"?: { [key: string]: { [key: string]: string; }; };
+    /**
+     * A flag indicating that the General Terms and Conditions has been accepted.
+     */
+    "is_gtc_accepted"?: boolean;
+    /**
+     * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
+     */
+    "is_totp_enabled"?: boolean;
+    /**
+     * Users notification properties for root admins. Currently supported; 'agreement_acceptance_notification', which controls whether notification should be sent upon accepting an agreement in an account. Possible values are: 'always_notify', 'only_first' and 'not_interested'.
+     */
+    "notification_properties"?: { [key: string]: string; };
+    /**
+     * The status of the user.
+     */
+    "status"?: string;
+    /**
+     * The full name of the user, not longer than 100 characters.
+     */
+    "full_name"?: string;
+    /**
+     * Address, not longer than 100 characters.
+     */
+    "address"?: string;
+    /**
+     * The password when creating a new user. It will be generated when not present in the request.
+     */
+    "password"?: string;
+    /**
+     * The email address, not longer than 254 characters.
+     */
+    "email"?: string;
 }
 
 /**
@@ -247,7 +675,7 @@ export interface ApiKeyInfoReq {
  */
 export namespace ApiKeyInfoResp {
     export type StatusEnum = "ACTIVE" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
 }
 export interface ApiKeyInfoResp {
     /**
@@ -275,6 +703,10 @@ export interface ApiKeyInfoResp {
      */
     "creation_time"?: number;
     /**
+     * Last update UTC time RFC3339.
+     */
+    "updated_at"?: Date;
+    /**
      * API resource entity version.
      */
     "etag": string;
@@ -283,7 +715,7 @@ export interface ApiKeyInfoResp {
      */
     "key": string;
     /**
-     * The owner of this API key.
+     * The owner of this API key, who is the creator by default.
      */
     "owner"?: string;
     /**
@@ -297,7 +729,7 @@ export interface ApiKeyInfoResp {
 }
 
 export namespace ApiKeyInfoRespList {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface ApiKeyInfoRespList {
@@ -356,7 +788,7 @@ export interface ApiKeyUpdateReq {
  * This object represents an error message.
  */
 export namespace ErrorResponse {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
     export type TypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 }
 export interface ErrorResponse {
@@ -406,6 +838,10 @@ export interface FeaturePolicy {
      * True or false controlling whether an action is allowed or not.
      */
     "allow"?: boolean;
+    /**
+     * Flag indicating whether this feature is inherited or overwritten specifically.
+     */
+    "inherited"?: boolean;
 }
 
 export interface Field {
@@ -420,24 +856,34 @@ export interface Field {
 }
 
 /**
+ * This object is used when creating new groups.
+ */
+export interface GroupCreationInfo {
+    /**
+     * The group name, not longer than 100 characters.
+     */
+    "name": string;
+    /**
+     * The members of the group as arrays of user and API key UUIDs.
+     */
+    "members"?: SubjectList;
+}
+
+/**
  * This object contains basic information about groups.
  */
 export namespace GroupSummary {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
 }
 export interface GroupSummary {
-    /**
-     * A timestamp of the latest group update, in milliseconds.
-     */
-    "last_update_time"?: number;
     /**
      * The number of users in this group.
      */
     "user_count": number;
     /**
-     * The name of the group.
+     * The UUID of the account this group belongs to.
      */
-    "name": string;
+    "account_id": string;
     /**
      * Creation UTC time RFC3339.
      */
@@ -447,9 +893,9 @@ export interface GroupSummary {
      */
     "object": GroupSummary.ObjectEnum;
     /**
-     * A timestamp of the group creation in the storage, in milliseconds.
+     * Last update UTC time RFC3339.
      */
-    "creation_time"?: number;
+    "updated_at"?: Date;
     /**
      * API resource entity version.
      */
@@ -463,13 +909,13 @@ export interface GroupSummary {
      */
     "id": string;
     /**
-     * The UUID of the account this group belongs to.
+     * The name of the group.
      */
-    "account_id": string;
+    "name": string;
 }
 
 export namespace GroupSummaryList {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface GroupSummaryList {
@@ -530,13 +976,17 @@ export interface LoginHistory {
  */
 export namespace MyUserInfoResp {
     export type StatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
 }
 export interface MyUserInfoResp {
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
      */
     "username"?: string;
+    /**
+     * List of active user sessions.
+     */
+    "active_sessions"?: Array<ActiveSession>;
     /**
      * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
      */
@@ -545,6 +995,10 @@ export interface MyUserInfoResp {
      * A timestamp of the user creation in the storage, in milliseconds.
      */
     "creation_time"?: number;
+    /**
+     * Last update UTC time RFC3339.
+     */
+    "updated_at"?: Date;
     /**
      * The full name of the user.
      */
@@ -614,6 +1068,10 @@ export interface MyUserInfoResp {
      */
     "created_at"?: Date;
     /**
+     * User's account specific custom properties.
+     */
+    "user_properties"?: { [key: string]: { [key: string]: string; }; };
+    /**
      * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      */
     "is_totp_enabled"?: boolean;
@@ -631,78 +1089,52 @@ export interface PasswordPolicy {
 }
 
 /**
- * This object represents an array of users and API keys.
+ * This object represents arrays of user and API key IDs.
  */
 export interface SubjectList {
     /**
-     * An array of API keys.
+     * An array of API key IDs.
      */
     "apikeys"?: Array<string>;
     /**
-     * An array of user names.
+     * An array of user IDs.
      */
     "users"?: Array<string>;
 }
 
 /**
- * This object represents a trusted certificate in upload requests.
- */
-export namespace TrustedCertificateReq {
-    export type StatusEnum = "ACTIVE" | "INACTIVE";
-    export type ServiceEnum = "lwm2m" | "bootstrap";
-}
-export interface TrustedCertificateReq {
-    /**
-     * Status of the certificate.
-     */
-    "status"?: TrustedCertificateReq.StatusEnum;
-    /**
-     * X509.v3 trusted certificate in PEM format.
-     */
-    "certificate": string;
-    /**
-     * Certificate name, not longer than 100 characters.
-     */
-    "name": string;
-    /**
-     * Service name where the certificate must be used.
-     */
-    "service": TrustedCertificateReq.ServiceEnum;
-    /**
-     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
-     */
-    "signature": string;
-    /**
-     * Human readable description of this certificate, not longer than 500 characters.
-     */
-    "description"?: string;
-}
-
-/**
  * This object represents a trusted certificate in responses.
  */
-export namespace TrustedCertificateResp {
+export namespace TrustedCertificateInternalResp {
     export type ServiceEnum = "lwm2m" | "bootstrap";
     export type StatusEnum = "ACTIVE" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
 }
-export interface TrustedCertificateResp {
+export interface TrustedCertificateInternalResp {
     /**
      * Service name where the certificate is to be used.
      */
-    "service": TrustedCertificateResp.ServiceEnum;
+    "service": TrustedCertificateInternalResp.ServiceEnum;
     /**
      * Status of the certificate.
      */
-    "status"?: TrustedCertificateResp.StatusEnum;
+    "status"?: TrustedCertificateInternalResp.StatusEnum;
     /**
-     * Human readable description of this certificate.
+     * Private key of the certificate in PEM or base64 encoded DER format.
      */
-    "description"?: string;
+    "private_key": string;
+    /**
+     * Certificate name.
+     */
+    "name": string;
     /**
      * X509.v3 trusted certificate in PEM format.
      */
     "certificate": string;
+    /**
+     * If true, signature is not required. Default value false.
+     */
+    "enrollment_mode"?: boolean;
     /**
      * Issuer of the certificate.
      */
@@ -718,11 +1150,15 @@ export interface TrustedCertificateResp {
     /**
      * Entity name: always 'trusted-cert'
      */
-    "object": TrustedCertificateResp.ObjectEnum;
+    "object": TrustedCertificateInternalResp.ObjectEnum;
     /**
      * Subject of the certificate.
      */
     "subject": string;
+    /**
+     * Last update UTC time RFC3339.
+     */
+    "updated_at"?: Date;
     /**
      * The UUID of the account.
      */
@@ -744,13 +1180,165 @@ export interface TrustedCertificateResp {
      */
     "id": string;
     /**
+     * Human readable description of this certificate.
+     */
+    "description"?: string;
+}
+
+export namespace TrustedCertificateInternalRespList {
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type OrderEnum = "ASC" | "DESC";
+}
+export interface TrustedCertificateInternalRespList {
+    /**
+     * The entity ID to fetch after the given one.
+     */
+    "after"?: string;
+    /**
+     * Flag indicating whether there is more results.
+     */
+    "has_more": boolean;
+    /**
+     * The total number or records, if requested. It might be returned also for small lists.
+     */
+    "total_count": number;
+    /**
+     * Entity name: always 'list'
+     */
+    "object": TrustedCertificateInternalRespList.ObjectEnum;
+    /**
+     * The number of results to return, (range: 2-1000), or equals to `total_count`
+     */
+    "limit": number;
+    /**
+     * A list of entities.
+     */
+    "data": Array<TrustedCertificateInternalResp>;
+    /**
+     * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
+     */
+    "order"?: TrustedCertificateInternalRespList.OrderEnum;
+}
+
+/**
+ * This object represents a trusted certificate in upload requests.
+ */
+export namespace TrustedCertificateReq {
+    export type StatusEnum = "ACTIVE" | "INACTIVE";
+    export type ServiceEnum = "lwm2m" | "bootstrap";
+}
+export interface TrustedCertificateReq {
+    /**
+     * Status of the certificate.
+     */
+    "status"?: TrustedCertificateReq.StatusEnum;
+    /**
+     * If true, signature parameter is not required. Default value is false.
+     */
+    "enrollment_mode"?: boolean;
+    /**
+     * X509.v3 trusted certificate in PEM format.
+     */
+    "certificate": string;
+    /**
+     * Certificate name, not longer than 100 characters.
+     */
+    "name": string;
+    /**
+     * Service name where the certificate must be used.
+     */
+    "service": TrustedCertificateReq.ServiceEnum;
+    /**
+     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+     */
+    "signature"?: string;
+    /**
+     * Human readable description of this certificate, not longer than 500 characters.
+     */
+    "description"?: string;
+}
+
+/**
+ * This object represents a trusted certificate in responses.
+ */
+export namespace TrustedCertificateResp {
+    export type ServiceEnum = "lwm2m" | "bootstrap";
+    export type StatusEnum = "ACTIVE" | "INACTIVE";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+}
+export interface TrustedCertificateResp {
+    /**
+     * Service name where the certificate is to be used.
+     */
+    "service": TrustedCertificateResp.ServiceEnum;
+    /**
+     * Status of the certificate.
+     */
+    "status"?: TrustedCertificateResp.StatusEnum;
+    /**
      * Certificate name.
      */
     "name": string;
+    /**
+     * X509.v3 trusted certificate in PEM format.
+     */
+    "certificate": string;
+    /**
+     * If true, signature is not required. Default value false.
+     */
+    "enrollment_mode"?: boolean;
+    /**
+     * Issuer of the certificate.
+     */
+    "issuer": string;
+    /**
+     * Device execution mode where 1 means a developer certificate.
+     */
+    "device_execution_mode"?: number;
+    /**
+     * Creation UTC time RFC3339.
+     */
+    "created_at"?: Date;
+    /**
+     * Entity name: always 'trusted-cert'
+     */
+    "object": TrustedCertificateResp.ObjectEnum;
+    /**
+     * Subject of the certificate.
+     */
+    "subject": string;
+    /**
+     * Last update UTC time RFC3339.
+     */
+    "updated_at"?: Date;
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
+    /**
+     * API resource entity version.
+     */
+    "etag": string;
+    /**
+     * Expiration time in UTC formatted as RFC3339.
+     */
+    "validity": Date;
+    /**
+     * The UUID of the owner.
+     */
+    "owner_id"?: string;
+    /**
+     * Entity ID.
+     */
+    "id": string;
+    /**
+     * Human readable description of this certificate.
+     */
+    "description"?: string;
 }
 
 export namespace TrustedCertificateRespList {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface TrustedCertificateRespList {
@@ -785,6 +1373,44 @@ export interface TrustedCertificateRespList {
 }
 
 /**
+ * This object represents a trusted certificate in upload requests.
+ */
+export namespace TrustedCertificateRootReq {
+    export type StatusEnum = "ACTIVE" | "INACTIVE";
+    export type ServiceEnum = "lwm2m" | "bootstrap";
+}
+export interface TrustedCertificateRootReq {
+    /**
+     * Status of the certificate.
+     */
+    "status"?: TrustedCertificateRootReq.StatusEnum;
+    /**
+     * If true, signature parameter is not required. Default value is false.
+     */
+    "enrollment_mode"?: boolean;
+    /**
+     * X509.v3 trusted certificate in PEM format.
+     */
+    "certificate": string;
+    /**
+     * Certificate name, not longer than 100 characters.
+     */
+    "name": string;
+    /**
+     * Service name where the certificate must be used.
+     */
+    "service": TrustedCertificateRootReq.ServiceEnum;
+    /**
+     * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+     */
+    "signature"?: string;
+    /**
+     * Human readable description of this certificate, not longer than 500 characters.
+     */
+    "description"?: string;
+}
+
+/**
  * This object represents a trusted certificate in update requests.
  */
 export namespace TrustedCertificateUpdateReq {
@@ -796,6 +1422,10 @@ export interface TrustedCertificateUpdateReq {
      * Status of the certificate.
      */
     "status"?: TrustedCertificateUpdateReq.StatusEnum;
+    /**
+     * If true, signature parameter is not required. Default value is false.
+     */
+    "enrollment_mode"?: boolean;
     /**
      * X509.v3 trusted certificate in PEM format.
      */
@@ -822,7 +1452,7 @@ export interface TrustedCertificateUpdateReq {
  * This object represents a response to an update request.
  */
 export namespace UpdatedResponse {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
     export type TypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 }
 export interface UpdatedResponse {
@@ -831,7 +1461,7 @@ export interface UpdatedResponse {
      */
     "code": number;
     /**
-     * Entity name: 'user', 'apikey', 'group' or 'account'.
+     * Entity name: 'user', 'apikey', 'group', 'policy' or 'account'.
      */
     "object": UpdatedResponse.ObjectEnum;
     /**
@@ -899,25 +1529,81 @@ export interface UserInfoReq {
  */
 export namespace UserInfoResp {
     export type StatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
 }
 export interface UserInfoResp {
-    /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
-     */
-    "status": UserInfoResp.StatusEnum;
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
      */
     "username"?: string;
     /**
+     * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+     */
+    "login_history"?: Array<LoginHistory>;
+    /**
+     * A timestamp of the user creation in the storage, in milliseconds.
+     */
+    "creation_time"?: number;
+    /**
+     * Last update UTC time RFC3339.
+     */
+    "updated_at"?: Date;
+    /**
+     * The full name of the user.
+     */
+    "full_name"?: string;
+    /**
+     * The UUID of the user.
+     */
+    "id": string;
+    /**
+     * A timestamp of the latest login of the user, in milliseconds.
+     */
+    "last_login_time"?: number;
+    /**
+     * A flag indicating that the General Terms and Conditions has been accepted.
+     */
+    "is_gtc_accepted"?: boolean;
+    /**
+     * API resource entity version.
+     */
+    "etag": string;
+    /**
+     * A flag indicating that receiving marketing information has been accepted.
+     */
+    "is_marketing_accepted"?: boolean;
+    /**
+     * Phone number.
+     */
+    "phone_number"?: string;
+    /**
+     * The email address.
+     */
+    "email": string;
+    /**
+     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     */
+    "status": UserInfoResp.StatusEnum;
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
+    /**
+     * Entity name: always 'user'
+     */
+    "object": UserInfoResp.ObjectEnum;
+    /**
      * A list of IDs of the groups this user belongs to.
      */
     "groups"?: Array<string>;
     /**
-     * A timestamp of the latest change of the user password, in milliseconds.
+     * Address.
      */
-    "password_changed_time"?: number;
+    "address"?: string;
+    /**
+     * The password when creating a new user. It will be generated when not present in the request.
+     */
+    "password"?: string;
     /**
      * A flag indicating whether the user's email address has been verified or not.
      */
@@ -927,69 +1613,21 @@ export interface UserInfoResp {
      */
     "created_at"?: Date;
     /**
-     * Entity name: always 'user'
+     * User's account specific custom properties.
      */
-    "object": UserInfoResp.ObjectEnum;
-    /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
-     */
-    "is_gtc_accepted"?: boolean;
-    /**
-     * The UUID of the account.
-     */
-    "account_id": string;
-    /**
-     * The email address.
-     */
-    "email": string;
-    /**
-     * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
-     */
-    "login_history"?: Array<LoginHistory>;
+    "user_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
      * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      */
     "is_totp_enabled"?: boolean;
     /**
-     * A flag indicating that receiving marketing information has been accepted.
+     * A timestamp of the latest change of the user password, in milliseconds.
      */
-    "is_marketing_accepted"?: boolean;
-    /**
-     * API resource entity version.
-     */
-    "etag": string;
-    /**
-     * The full name of the user.
-     */
-    "full_name"?: string;
-    /**
-     * Address.
-     */
-    "address"?: string;
-    /**
-     * A timestamp of the user creation in the storage, in milliseconds.
-     */
-    "creation_time"?: number;
-    /**
-     * The password when creating a new user. It will be generated when not present in the request.
-     */
-    "password"?: string;
-    /**
-     * Phone number.
-     */
-    "phone_number"?: string;
-    /**
-     * The UUID of the user.
-     */
-    "id": string;
-    /**
-     * A timestamp of the latest login of the user, in milliseconds.
-     */
-    "last_login_time"?: number;
+    "password_changed_time"?: number;
 }
 
 export namespace UserInfoRespList {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface UserInfoRespList {
@@ -1040,6 +1678,10 @@ export interface UserUpdateReq {
      */
     "is_marketing_accepted"?: boolean;
     /**
+     * User's account specific custom properties.
+     */
+    "user_properties"?: { [key: string]: { [key: string]: string; }; };
+    /**
      * A flag indicating that the General Terms and Conditions has been accepted.
      */
     "is_gtc_accepted"?: boolean;
@@ -1074,13 +1716,17 @@ export interface UserUpdateReq {
  */
 export namespace UserUpdateResp {
     export type StatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
 }
 export interface UserUpdateResp {
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
      */
     "username"?: string;
+    /**
+     * List of active user sessions.
+     */
+    "active_sessions"?: Array<ActiveSession>;
     /**
      * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
      */
@@ -1089,6 +1735,10 @@ export interface UserUpdateResp {
      * A timestamp of the user creation in the storage, in milliseconds.
      */
     "creation_time"?: number;
+    /**
+     * Last update UTC time RFC3339.
+     */
+    "updated_at"?: Date;
     /**
      * The full name of the user.
      */
@@ -1162,6 +1812,10 @@ export interface UserUpdateResp {
      */
     "created_at"?: Date;
     /**
+     * User's account specific custom properties.
+     */
+    "user_properties"?: { [key: string]: { [key: string]: string; }; };
+    /**
      * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      */
     "is_totp_enabled"?: boolean;
@@ -1176,6 +1830,120 @@ export interface UserUpdateResp {
  */
 export class AccountAdminApi extends ApiBase {
 
+    /**
+     * Add API key to a list of groups.
+     * An endpoint for adding API key to groups.
+     * @param accountID Account ID.
+     * @param apiKey The ID of the API key to be added to the group.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public addAccountApiKeyToGroups(accountID: string, apiKey: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Add API key to a list of groups.
+     * An endpoint for adding API key to groups.
+     * @param apiKey The ID of the API key to be added to the group.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public addApiKeyToGroups(apiKey: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/api-keys/{apiKey}/groups".replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
     /**
      * Upload a new trusted certificate.
      * An endpoint for uploading new trusted certificates.
@@ -1275,6 +2043,104 @@ export class AccountAdminApi extends ApiBase {
         }, callback);
     }
     /**
+     * Add user to a list of groups.
+     * An endpoint for adding user to groups.
+     * @param userId The ID of the user to be added to the group.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public addUserToGroups(userId: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'userId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/users/{user-id}/groups".replace("{" + "user-id" + "}", String(userId)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Create a new group.
+     * An endpoint for creating a new group.
+     * @param body Details of the group to be created.
+     */
+    public createGroup(body: GroupCreationInfo, callback?: (error: any, data?: GroupSummary, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummary>({
+            url: "/v3/policy-groups",
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
      * Create a new user.
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
      * @param body A user object with attributes.
@@ -1321,6 +2187,49 @@ export class AccountAdminApi extends ApiBase {
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
             body: body,
+        }, callback);
+    }
+    /**
+     * Delete a group.
+     * An endpoint for deleting a group.
+     * @param groupID The ID of the group to be deleted.
+     */
+    public deleteGroup(groupID: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "groupID" is set
+        if (groupID === null || groupID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'groupID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/policy-groups/{groupID}".replace("{" + "groupID" + "}", String(groupID)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
     /**
@@ -1373,9 +2282,10 @@ export class AccountAdminApi extends ApiBase {
      * @param after The entity ID to fetch after the given one.
      * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
+     * @param emailEq Filter for email address
      * @param statusEq Filter for status, for example active or reset
      */
-    public getAllUsers(limit?: number, after?: string, order?: string, include?: string, statusEq?: string, callback?: (error: any, data?: UserInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getAllUsers(limit?: number, after?: string, order?: string, include?: string, emailEq?: string, statusEq?: string, callback?: (error: any, data?: UserInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -1391,6 +2301,9 @@ export class AccountAdminApi extends ApiBase {
         }
         if (include !== undefined) {
             queryParameters["include"] = include;
+        }
+        if (emailEq !== undefined) {
+            queryParameters["email__eq"] = emailEq;
         }
         if (statusEq !== undefined) {
             queryParameters["status__eq"] = statusEq;
@@ -1422,11 +2335,141 @@ export class AccountAdminApi extends ApiBase {
         }, callback);
     }
     /**
-     * Details of a user.
-     * An endpoint for retrieving the details of a user.
-     * @param userId The ID or name of the user whose details are retrieved.
+     * Get groups of the API key.
+     * An endpoint for retrieving groups of the API key.
+     * @param accountID Account ID.
+     * @param apiKey The ID of the API key whose details are retrieved.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
      */
-    public getUser(userId: string, callback?: (error: any, data?: UserInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getGroupsOfAccountApikey(accountID: string, apiKey: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummaryList>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get groups of the API key.
+     * An endpoint for retrieving groups of the API key.
+     * @param apiKey The ID of the API key whose details are retrieved.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     */
+    public getGroupsOfApikey(apiKey: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummaryList>({
+            url: "/v3/api-keys/{apiKey}/groups".replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get groups of the user.
+     * An endpoint for retrieving groups of the user.
+     * @param userId The ID of the user whose details are retrieved.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     */
+    public getGroupsOfUser(userId: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "userId" is set
         if (userId === null || userId === undefined) {
             if (callback) {
@@ -1438,6 +2481,65 @@ export class AccountAdminApi extends ApiBase {
         const headerParams: any = {};
 
         const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummaryList>({
+            url: "/v3/users/{user-id}/groups".replace("{" + "user-id" + "}", String(userId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Details of a user.
+     * An endpoint for retrieving the details of a user.
+     * @param userId The ID of the user whose details are retrieved.
+     * @param properties Request to return account specific user property values according to the given property name.
+     */
+    public getUser(userId: string, properties?: string, callback?: (error: any, data?: UserInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'userId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (properties !== undefined) {
+            queryParameters["properties"] = properties;
+        }
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
@@ -1521,6 +2623,173 @@ export class AccountAdminApi extends ApiBase {
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Remove API key from groups.
+     * An endpoint for removing API key from groups.
+     * @param accountID Account ID.
+     * @param apiKey The ID of the API key to be removed from the group.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public removeAccountApiKeyFromGroups(accountID: string, apiKey: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Remove API key from groups.
+     * An endpoint for removing API key from groups.
+     * @param apiKey The ID of the API key to be removed from the group.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public removeApiKeyFromGroups(apiKey: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/api-keys/{apiKey}/groups".replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Remove user from groups.
+     * An endpoint for removing user from groups.
+     * @param userId The ID of the user to be removed from the group.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public removeUserFromGroups(userId: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'userId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/users/{user-id}/groups".replace("{" + "user-id" + "}", String(userId)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
         }, callback);
     }
     /**
@@ -1676,10 +2945,1985 @@ export class AccountAdminApi extends ApiBase {
     }
 }
 /**
+ * AggregatorAccountAdminApi
+ */
+export class AggregatorAccountAdminApi extends ApiBase {
+
+    /**
+     * Upload new trusted certificate.
+     * An endpoint for uploading new trusted certificates.
+     * @param accountID Account ID.
+     * @param body A trusted certificate object with attributes, signature is optional.
+     */
+    public addAccountCertificate(accountID: string, body: TrustedCertificateRootReq, callback?: (error: any, data?: TrustedCertificateResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<TrustedCertificateResp>({
+            url: "/v3/accounts/{accountID}/trusted-certificates".replace("{" + "accountID" + "}", String(accountID)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Add user to a list of groups.
+     * An endpoint for adding user to groups.
+     * @param accountID Account ID.
+     * @param userId The ID of the user to be added to the group.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public addAccountUserToGroups(accountID: string, userId: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'userId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/users/{user-id}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "user-id" + "}", String(userId)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Add members to a group.
+     * An endpoint for adding users and API keys to groups.
+     * @param accountID Account ID.
+     * @param groupID The ID of the group to be updated.
+     * @param body A list of users and API keys to be added to the group.
+     */
+    public addSubjectsToAccountGroup(accountID: string, groupID: string, body: SubjectList, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "groupID" is set
+        if (groupID === null || groupID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'groupID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/policy-groups/{groupID}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "groupID" + "}", String(groupID)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Check the API key.
+     * An endpoint for checking API key.
+     * @param accountID Account ID.
+     * @param apiKey The API key to be checked.
+     */
+    public checkAccountApiKey(accountID: string, apiKey: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Create a new account.
+     * An endpoint for creating a new account.
+     * @param body Details of the account to be created.
+     * @param action Action, either &#39;create&#39;, &#39;enroll&#39; or &#39;enrollment_link&#39;.
+     */
+    public createAccount(body: AccountCreationReq, action?: string, callback?: (error: any, data?: AccountCreationResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (action !== undefined) {
+            queryParameters["action"] = action;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<AccountCreationResp>({
+            url: "/v3/accounts",
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Create a new API key.
+     * An endpoint for creating a new API key. There is no default value for the owner ID and it must be from the same account where the new API key is created.
+     * @param accountID Account ID.
+     * @param body Details of the API key to be created.
+     */
+    public createAccountApiKey(accountID: string, body: ApiKeyInfoReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<ApiKeyInfoResp>({
+            url: "/v3/accounts/{accountID}/api-keys".replace("{" + "accountID" + "}", String(accountID)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Create a new user.
+     * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
+     * @param accountID Account ID.
+     * @param body A user object with attributes.
+     * @param action Create or invite user.
+     */
+    public createAccountUser(accountID: string, body: UserInfoReq, action?: string, callback?: (error: any, data?: UserInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (action !== undefined) {
+            queryParameters["action"] = action;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UserInfoResp>({
+            url: "/v3/accounts/{accountID}/users".replace("{" + "accountID" + "}", String(accountID)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Delete the API key.
+     * An endpoint for deleting an API key.
+     * @param accountID Account ID.
+     * @param apiKey The ID of the API key to be deleted.
+     */
+    public deleteAccountApiKey(accountID: string, apiKey: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Delete trusted certificate by ID.
+     * An endpoint for deleting the trusted certificate.
+     * @param accountID Account ID.
+     * @param certId The ID of the trusted certificate to be deleted.
+     */
+    public deleteAccountCertificate(accountID: string, certId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "certId" is set
+        if (certId === null || certId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'certId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/accounts/{accountID}/trusted-certificates/{cert-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "cert-id" + "}", String(certId)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Delete a user.
+     * An endpoint for deleting a user.
+     * @param accountID Account ID.
+     * @param userId The ID of the user to be deleted.
+     */
+    public deleteAccountUser(accountID: string, userId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'userId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/accounts/{accountID}/users/{user-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "user-id" + "}", String(userId)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get API key details.
+     * An endpoint for retrieving API key details.
+     * @param accountID Account ID.
+     * @param apiKey The ID of the API key to be retrieved.
+     */
+    public getAccountApiKey(accountID: string, apiKey: string, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<ApiKeyInfoResp>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get trusted certificate by ID.
+     * An endpoint for retrieving a trusted certificate by ID.
+     * @param accountID Account ID.
+     * @param certId The ID of the trusted certificate to be retrieved.
+     */
+    public getAccountCertificate(accountID: string, certId: string, callback?: (error: any, data?: TrustedCertificateInternalResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "certId" is set
+        if (certId === null || certId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'certId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<TrustedCertificateInternalResp>({
+            url: "/v3/accounts/{accountID}/trusted-certificates/{cert-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "cert-id" + "}", String(certId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get group information.
+     * An endpoint for getting general information about the group.
+     * @param accountID Account ID.
+     * @param groupID The ID of the group to be retrieved.
+     */
+    public getAccountGroupSummary(accountID: string, groupID: string, callback?: (error: any, data?: GroupSummary, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "groupID" is set
+        if (groupID === null || groupID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'groupID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummary>({
+            url: "/v3/accounts/{accountID}/policy-groups/{groupID}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "groupID" + "}", String(groupID)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get account info.
+     * Returns detailed information about the account.
+     * @param accountID The ID of the account to be fetched.
+     * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+     * @param properties Property name to be returned from account specific properties.
+     */
+    public getAccountInfo(accountID: string, include?: string, properties?: string, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+        if (properties !== undefined) {
+            queryParameters["properties"] = properties;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<AccountInfo>({
+            url: "/v3/accounts/{accountID}".replace("{" + "accountID" + "}", String(accountID)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Details of the user.
+     * An endpoint for retrieving details of the user.
+     * @param accountID Account ID.
+     * @param userId The ID of the user to be retrieved.
+     * @param scratchCodes Request to regenerate new emergency scratch codes.
+     * @param properties Request to return account specific user property values according to the given property name.
+     */
+    public getAccountUser(accountID: string, userId: string, scratchCodes?: string, properties?: string, callback?: (error: any, data?: MyUserInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'userId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (scratchCodes !== undefined) {
+            queryParameters["scratch_codes"] = scratchCodes;
+        }
+        if (properties !== undefined) {
+            queryParameters["properties"] = properties;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<MyUserInfoResp>({
+            url: "/v3/accounts/{accountID}/users/{user-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "user-id" + "}", String(userId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get all API keys.
+     * An endpoint for retrieving the API keys in an array, optionally filtered by the owner.
+     * @param accountID Account ID.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     * @param keyEq API key filter.
+     * @param ownerEq Owner name filter.
+     */
+    public getAllAccountApiKeys(accountID: string, limit?: number, after?: string, order?: string, include?: string, keyEq?: string, ownerEq?: string, callback?: (error: any, data?: ApiKeyInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+        if (keyEq !== undefined) {
+            queryParameters["key__eq"] = keyEq;
+        }
+        if (ownerEq !== undefined) {
+            queryParameters["owner__eq"] = ownerEq;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<ApiKeyInfoRespList>({
+            url: "/v3/accounts/{accountID}/api-keys".replace("{" + "accountID" + "}", String(accountID)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get all trusted certificates.
+     * An endpoint for retrieving trusted certificates in an array.
+     * @param accountID Account ID.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     * @param nameEq Filter for certificate name
+     * @param serviceEq Filter for service
+     * @param expireEq Filter for expire
+     * @param deviceExecutionModeEq Filter for developer certificates
+     * @param deviceExecutionModeNeq Filter for not developer certificates
+     * @param ownerEq Owner name filter
+     * @param enrollmentModeEq Enrollment mode filter
+     * @param issuerLike Filter for issuer
+     * @param subjectLike Filter for subject
+     */
+    public getAllAccountCertificates(accountID: string, limit?: number, after?: string, order?: string, include?: string, nameEq?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, deviceExecutionModeNeq?: number, ownerEq?: string, enrollmentModeEq?: boolean, issuerLike?: string, subjectLike?: string, callback?: (error: any, data?: TrustedCertificateInternalRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+        if (nameEq !== undefined) {
+            queryParameters["name__eq"] = nameEq;
+        }
+        if (serviceEq !== undefined) {
+            queryParameters["service__eq"] = serviceEq;
+        }
+        if (expireEq !== undefined) {
+            queryParameters["expire__eq"] = expireEq;
+        }
+        if (deviceExecutionModeEq !== undefined) {
+            queryParameters["device_execution_mode__eq"] = deviceExecutionModeEq;
+        }
+        if (deviceExecutionModeNeq !== undefined) {
+            queryParameters["device_execution_mode__neq"] = deviceExecutionModeNeq;
+        }
+        if (ownerEq !== undefined) {
+            queryParameters["owner__eq"] = ownerEq;
+        }
+        if (enrollmentModeEq !== undefined) {
+            queryParameters["enrollment_mode__eq"] = enrollmentModeEq;
+        }
+        if (issuerLike !== undefined) {
+            queryParameters["issuer__like"] = issuerLike;
+        }
+        if (subjectLike !== undefined) {
+            queryParameters["subject__like"] = subjectLike;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<TrustedCertificateInternalRespList>({
+            url: "/v3/accounts/{accountID}/trusted-certificates".replace("{" + "accountID" + "}", String(accountID)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get all group information.
+     * An endpoint for retrieving all group information.
+     * @param accountID Account ID.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     * @param nameEq Filter for group name
+     */
+    public getAllAccountGroups(accountID: string, limit?: number, after?: string, order?: string, include?: string, nameEq?: string, callback?: (error: any, data?: Array<GroupSummary>, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+        if (nameEq !== undefined) {
+            queryParameters["name__eq"] = nameEq;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<Array<GroupSummary>>({
+            url: "/v3/accounts/{accountID}/policy-groups".replace("{" + "accountID" + "}", String(accountID)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get all user details.
+     * An endpoint for retrieving details of all users.
+     * @param accountID Account ID.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     * @param emailEq Filter for email address
+     * @param statusEq Filter for status
+     */
+    public getAllAccountUsers(accountID: string, limit?: number, after?: string, order?: string, include?: string, emailEq?: string, statusEq?: string, callback?: (error: any, data?: UserInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+        if (emailEq !== undefined) {
+            queryParameters["email__eq"] = emailEq;
+        }
+        if (statusEq !== undefined) {
+            queryParameters["status__eq"] = statusEq;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UserInfoRespList>({
+            url: "/v3/accounts/{accountID}/users".replace("{" + "accountID" + "}", String(accountID)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get all accounts.
+     * Returns an array of account objects, optionally filtered by status and tier level.
+     * @param statusEq An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED.
+     * @param tierEq An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
+     * @param parentEq An optional filter for parent account ID.
+     * @param endMarketEq An optional filter for account end market.
+     * @param countryLike An optional filter for account country.
+     * @param limit The number of results to return (2-1000), default is 1000.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC. Default value is ASC
+     * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+     * @param format Format information for the response to the query, supported: format&#x3D;breakdown.
+     * @param properties Property name to be returned from account specific properties.
+     */
+    public getAllAccounts(statusEq?: string, tierEq?: string, parentEq?: string, endMarketEq?: string, countryLike?: string, limit?: number, after?: string, order?: string, include?: string, format?: string, properties?: string, callback?: (error: any, data?: AccountInfoList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (statusEq !== undefined) {
+            queryParameters["status__eq"] = statusEq;
+        }
+        if (tierEq !== undefined) {
+            queryParameters["tier__eq"] = tierEq;
+        }
+        if (parentEq !== undefined) {
+            queryParameters["parent__eq"] = parentEq;
+        }
+        if (endMarketEq !== undefined) {
+            queryParameters["end_market__eq"] = endMarketEq;
+        }
+        if (countryLike !== undefined) {
+            queryParameters["country__like"] = countryLike;
+        }
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+        if (format !== undefined) {
+            queryParameters["format"] = format;
+        }
+        if (properties !== undefined) {
+            queryParameters["properties"] = properties;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<AccountInfoList>({
+            url: "/v3/accounts",
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get API keys of a group.
+     * An endpoint for listing the API keys of the group with details.
+     * @param accountID Account ID.
+     * @param groupID The ID of the group whose API keys are retrieved.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     */
+    public getApiKeysOfAccountGroup(accountID: string, groupID: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: ApiKeyInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "groupID" is set
+        if (groupID === null || groupID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'groupID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<ApiKeyInfoRespList>({
+            url: "/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "groupID" + "}", String(groupID)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get groups of the user.
+     * An endpoint for retrieving groups of the user.
+     * @param accountID Account ID.
+     * @param userId The ID of the user whose details are retrieved.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     */
+    public getGroupsOfAccountUser(accountID: string, userId: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'userId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummaryList>({
+            url: "/v3/accounts/{accountID}/users/{user-id}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "user-id" + "}", String(userId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get users of a group.
+     * An endpoint for listing users of the group with details.
+     * @param accountID Account ID.
+     * @param groupID The ID of the group whose users are retrieved.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     */
+    public getUsersOfAccountGroup(accountID: string, groupID: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: UserInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "groupID" is set
+        if (groupID === null || groupID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'groupID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UserInfoRespList>({
+            url: "/v3/accounts/{accountID}/policy-groups/{groupID}/users".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "groupID" + "}", String(groupID)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Remove user from groups.
+     * An endpoint for removing user from groups.
+     * @param accountID Account ID.
+     * @param userId The ID of the user to be removed from the group.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public removeAccountUserFromGroups(accountID: string, userId: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'userId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/users/{user-id}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "user-id" + "}", String(userId)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Remove API keys from a group.
+     * An endpoint for removing API keys from groups.
+     * @param accountID Account ID.
+     * @param groupID A list of API keys to be removed from the group.
+     * @param body 
+     */
+    public removeApiKeysFromAccountGroup(accountID: string, groupID: string, body?: SubjectList, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "groupID" is set
+        if (groupID === null || groupID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'groupID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "groupID" + "}", String(groupID)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Remove users from a group.
+     * An endpoint for removing users from groups.
+     * @param accountID Account ID.
+     * @param groupID 
+     * @param body 
+     */
+    public removeUsersFromAccountGroup(accountID: string, groupID: string, body?: SubjectList, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "groupID" is set
+        if (groupID === null || groupID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'groupID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/policy-groups/{groupID}/users".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "groupID" + "}", String(groupID)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Reset the secret key.
+     * An endpoint for resetting the secret key of the API key.
+     * @param accountID Account ID.
+     * @param apiKey The ID of the API key to be reset.
+     */
+    public resetAccountApiKeySecret(accountID: string, apiKey: string, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<ApiKeyInfoResp>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Update attributes of an existing account.
+     * An endpoint for updating an account.
+     * @param accountID The ID of the account to be updated.
+     * @param body Details of the account to be updated.
+     */
+    public updateAccount(accountID: string, body: AccountUpdateRootReq, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<AccountInfo>({
+            url: "/v3/accounts/{accountID}".replace("{" + "accountID" + "}", String(accountID)),
+            method: "PUT",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Update API key details.
+     * An endpoint for updating API key details.
+     * @param accountID Account ID.
+     * @param apiKey The ID of the API key to be updated.
+     * @param body New API key attributes to be stored.
+     */
+    public updateAccountApiKey(accountID: string, apiKey: string, body: ApiKeyUpdateReq, callback?: (error: any, data?: ApiKeyInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<ApiKeyInfoResp>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "PUT",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Update trusted certificate.
+     * An endpoint for updating existing trusted certificates.
+     * @param accountID Account ID.
+     * @param certId The ID of the trusted certificate to be updated.
+     * @param body A trusted certificate object with attributes.
+     */
+    public updateAccountCertificate(accountID: string, certId: string, body: TrustedCertificateUpdateReq, callback?: (error: any, data?: TrustedCertificateInternalResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "certId" is set
+        if (certId === null || certId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'certId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<TrustedCertificateInternalResp>({
+            url: "/v3/accounts/{accountID}/trusted-certificates/{cert-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "cert-id" + "}", String(certId)),
+            method: "PUT",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Update user details.
+     * An endpoint for updating user details.
+     * @param accountID Account ID.
+     * @param userId The ID of the user to be updated.
+     * @param body A user object with attributes.
+     */
+    public updateAccountUser(accountID: string, userId: string, body: AdminUserUpdateReq, callback?: (error: any, data?: UserUpdateResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'userId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UserUpdateResp>({
+            url: "/v3/accounts/{accountID}/users/{user-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "user-id" + "}", String(userId)),
+            method: "PUT",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Validate the user email.
+     * An endpoint for validating the user email.
+     * @param accountID Account ID.
+     * @param userId The ID of the user whose email is validated.
+     */
+    public validateAccountUserEmail(accountID: string, userId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "userId" is set
+        if (userId === null || userId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'userId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/accounts/{accountID}/users/{user-id}/validate-email".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "user-id" + "}", String(userId)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+}
+/**
  * DeveloperApi
  */
 export class DeveloperApi extends ApiBase {
 
+    /**
+     * Add user to a list of groupS.
+     * An endpoint for adding user to groups.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public addMeToGroups(body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/users/me/groups",
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Add API key to a list of groups.
+     * An endpoint for adding API key to groups.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public addMyApiKeyToGroups(body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/api-keys/me/groups",
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
     /**
      * Create a new API key.
      * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
@@ -1818,9 +5062,10 @@ export class DeveloperApi extends ApiBase {
      * @param after The entity ID to fetch after the given one.
      * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
+     * @param keyEq API key filter.
      * @param ownerEq Owner name filter.
      */
-    public getAllApiKeys(limit?: number, after?: string, order?: string, include?: string, ownerEq?: string, callback?: (error: any, data?: ApiKeyInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getAllApiKeys(limit?: number, after?: string, order?: string, include?: string, keyEq?: string, ownerEq?: string, callback?: (error: any, data?: ApiKeyInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -1836,6 +5081,9 @@ export class DeveloperApi extends ApiBase {
         }
         if (include !== undefined) {
             queryParameters["include"] = include;
+        }
+        if (keyEq !== undefined) {
+            queryParameters["key__eq"] = keyEq;
         }
         if (ownerEq !== undefined) {
             queryParameters["owner__eq"] = ownerEq;
@@ -1873,12 +5121,17 @@ export class DeveloperApi extends ApiBase {
      * @param after The entity ID to fetch after the given one.
      * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
+     * @param nameEq Filter for certificate name
      * @param serviceEq Service filter, either lwm2m or bootstrap
      * @param expireEq Expire filter in days
      * @param deviceExecutionModeEq Device execution mode, as 1 for developer certificates or as another natural integer value
-     * @param ownerEq Owner ID filter
+     * @param deviceExecutionModeNeq Device execution mode not equals filter
+     * @param ownerEq Owner name filter
+     * @param enrollmentModeEq Enrollment mode filter
+     * @param issuerLike Issuer filter
+     * @param subjectLike Subject filter
      */
-    public getAllCertificates(limit?: number, after?: string, order?: string, include?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, ownerEq?: string, callback?: (error: any, data?: TrustedCertificateRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getAllCertificates(limit?: number, after?: string, order?: string, include?: string, nameEq?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, deviceExecutionModeNeq?: number, ownerEq?: string, enrollmentModeEq?: boolean, issuerLike?: string, subjectLike?: string, callback?: (error: any, data?: TrustedCertificateRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -1895,6 +5148,9 @@ export class DeveloperApi extends ApiBase {
         if (include !== undefined) {
             queryParameters["include"] = include;
         }
+        if (nameEq !== undefined) {
+            queryParameters["name__eq"] = nameEq;
+        }
         if (serviceEq !== undefined) {
             queryParameters["service__eq"] = serviceEq;
         }
@@ -1904,8 +5160,20 @@ export class DeveloperApi extends ApiBase {
         if (deviceExecutionModeEq !== undefined) {
             queryParameters["device_execution_mode__eq"] = deviceExecutionModeEq;
         }
+        if (deviceExecutionModeNeq !== undefined) {
+            queryParameters["device_execution_mode__neq"] = deviceExecutionModeNeq;
+        }
         if (ownerEq !== undefined) {
             queryParameters["owner__eq"] = ownerEq;
+        }
+        if (enrollmentModeEq !== undefined) {
+            queryParameters["enrollment_mode__eq"] = enrollmentModeEq;
+        }
+        if (issuerLike !== undefined) {
+            queryParameters["issuer__like"] = issuerLike;
+        }
+        if (subjectLike !== undefined) {
+            queryParameters["subject__like"] = subjectLike;
         }
 
         // tslint:disable-next-line:prefer-const
@@ -1940,8 +5208,9 @@ export class DeveloperApi extends ApiBase {
      * @param after The entity ID to fetch after the given one.
      * @param order The order of the records based on creation time, ASC or DESC; by default ASC
      * @param include Comma separated additional data to return. Currently supported: total_count
+     * @param nameEq Filter for group name
      */
-    public getAllGroups(limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getAllGroups(limit?: number, after?: string, order?: string, include?: string, nameEq?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
@@ -1957,6 +5226,9 @@ export class DeveloperApi extends ApiBase {
         }
         if (include !== undefined) {
             queryParameters["include"] = include;
+        }
+        if (nameEq !== undefined) {
+            queryParameters["name__eq"] = nameEq;
         }
 
         // tslint:disable-next-line:prefer-const
@@ -2088,8 +5360,8 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Get trusted certificate by ID.
-     * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
-     * @param certId The ID or name of the trusted certificate to be retrieved.
+     * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * @param certId The ID of the trusted certificate to be retrieved.
      */
     public getCertificate(certId: string, callback?: (error: any, data?: TrustedCertificateResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "certId" is set
@@ -2132,7 +5404,7 @@ export class DeveloperApi extends ApiBase {
     /**
      * Get group information.
      * An endpoint for getting general information about the group.
-     * @param groupID The ID or name of the group to be retrieved.
+     * @param groupID The ID of the group to be retrieved.
      */
     public getGroupSummary(groupID: string, callback?: (error: any, data?: GroupSummary, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "groupID" is set
@@ -2173,17 +5445,72 @@ export class DeveloperApi extends ApiBase {
         }, callback);
     }
     /**
-     * Get account info.
-     * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer API_KEY&#39;&#x60; .
-     * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     * Get groups of the API key.
+     * An endpoint for retrieving groups of the API key.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
      */
-    public getMyAccountInfo(include?: string, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getGroupsOfMyApiKey(limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummaryList>({
+            url: "/v3/api-keys/me/groups",
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get account info.
+     * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
+     * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     * @param properties Property name to be returned from account specific properties.
+     */
+    public getMyAccountInfo(include?: string, properties?: string, callback?: (error: any, data?: AccountInfo, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
         const queryParameters: any = {};
         if (include !== undefined) {
             queryParameters["include"] = include;
+        }
+        if (properties !== undefined) {
+            queryParameters["properties"] = properties;
         }
 
         // tslint:disable-next-line:prefer-const
@@ -2247,17 +5574,76 @@ export class DeveloperApi extends ApiBase {
         }, callback);
     }
     /**
-     * Details of the current user.
-     * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
-     * @param scratchCodes Request to regenerate new emergency scratch codes.
+     * Get groups of the user.
+     * An endpoint for retrieving groups of the user.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
      */
-    public getMyUser(scratchCodes?: string, callback?: (error: any, data?: MyUserInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getMyGroups(limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummaryList>({
+            url: "/v3/users/me/groups",
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Details of the current user.
+     * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * @param scratchCodes Request to regenerate new emergency scratch codes.
+     * @param properties Request to return account specific user property values according to the given property name.
+     * @param include Comma separated additional data to return. Currently supported: active_sessions
+     */
+    public getMyUser(scratchCodes?: string, properties?: string, include?: string, callback?: (error: any, data?: MyUserInfoResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
         const queryParameters: any = {};
         if (scratchCodes !== undefined) {
             queryParameters["scratch_codes"] = scratchCodes;
+        }
+        if (properties !== undefined) {
+            queryParameters["properties"] = properties;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
         }
 
         // tslint:disable-next-line:prefer-const
@@ -2339,6 +5725,96 @@ export class DeveloperApi extends ApiBase {
         }, callback);
     }
     /**
+     * Remove user from a group.
+     * An endpoint for removing user from groups.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public removeMeFromGroups(body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/users/me/groups",
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Remove API key from groups.
+     * An endpoint for removing API key from groups.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public removeMyApiKeyFromGroups(body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/api-keys/me/groups",
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
      * Update API key details.
      * An endpoint for updating API key details.
      * @param apiKey The ID of the API key to be updated.
@@ -2392,7 +5868,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Update trusted certificate.
-     * An endpoint for updating existing trusted certificates.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
+     * An endpoint for updating existing trusted certificates.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param certId The ID of the trusted certificate to be updated.
      * @param body A trusted certificate object with attributes.
      */
@@ -2489,7 +5965,7 @@ export class DeveloperApi extends ApiBase {
     }
     /**
      * Update user details.
-     * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
+     * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param body New attributes for the logged in user.
      */
     public updateMyUser(body: UserUpdateReq, callback?: (error: any, data?: UserUpdateResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {

@@ -18,6 +18,8 @@
 import { ListOptions, ComparisonObject } from "../common/interfaces";
 
 export type AccountStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
+
+export type MultifactorAuthenticationStatusEnum = "enabled" | "enforced" | "optional";
 /**
  * This object represents an account in requests and responses.
  */
@@ -70,6 +72,26 @@ export interface UpdateAccountObject {
      * The country part of the postal address.
      */
     country?: string;
+    /**
+     * The number of days before account expiration notification email should be sent
+     */
+    expiryWarning?: string;
+    /**
+     * The enforcement status of the multi-factor authentication
+     */
+    multifactorAuthenticationStatus?: MultifactorAuthenticationStatusEnum;
+    /**
+     * The list of notification email addresses
+     */
+    notificationEmails?: Array<string>;
+    /**
+     * Email address of the sales contact.
+     */
+    salesContactEmail?: string;
+    /**
+     * Account specific custom properties.
+     */
+    customProperties?: { [key: string]: { [key: string]: string; }; };
 }
 
 export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
@@ -155,6 +177,10 @@ export interface UpdateUserObject extends UserObject {
      * The email address.
      */
     email?: string;
+    /**
+     * User's account specific custom properties.
+     */
+    customProperties?: { [key: string]: { [key: string]: string; }; };
 }
 
 /**
@@ -167,7 +193,8 @@ export interface ApiKeyListOptions extends ListOptions {
      * Constructed like so:
      *  ```JavaScript
      *  filter: {
-     *    ownerId: { $eq: "1234" }
+     *    ownerId: { $eq: "1234" },
+     *    apiKey: { $eq: "abc123" }
      *  }
      *  ```
      */
@@ -176,6 +203,10 @@ export interface ApiKeyListOptions extends ListOptions {
          * Owner filter
          */
         ownerId: ComparisonObject<string>;
+        /**
+         * ApiKey filter
+         */
+        apiKey: ComparisonObject<string>;
     };
 }
 
@@ -189,7 +220,8 @@ export interface UserListOptions extends ListOptions {
      * Constructed like so:
      *  ```JavaScript
      *  filter: {
-     *    status: { $eq: "INVITED" }
+     *    status: { $eq: "INVITED" },
+     *    email: { $eq: "email@email.com" },
      *  }
      *  ```
      */
@@ -198,5 +230,31 @@ export interface UserListOptions extends ListOptions {
          * User status filter
          */
         status: ComparisonObject<UserStatusEnum>;
+        /**
+         * User email filter
+         */
+        email: ComparisonObject<string>;
+    };
+}
+
+/**
+ * Options to use when listing groups
+ */
+export interface GroupListOptions extends ListOptions {
+    /**
+     * The group filter
+     *
+     * Constructed like so:
+     *  ```JavaScript
+     *  filter: {
+     *    name: { $eq: "myGroup" }
+     *  }
+     *  ```
+     */
+    filter?: {
+        /**
+         * Group name filter
+         */
+        name: ComparisonObject<string>;
     };
 }
