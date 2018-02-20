@@ -75,7 +75,7 @@ export interface UpdateAccountObject {
     /**
      * The number of days before account expiration notification email should be sent
      */
-    expirationWarning?: string;
+    expiryWarning?: string;
     /**
      * The enforcement status of the multi-factor authentication
      */
@@ -84,6 +84,14 @@ export interface UpdateAccountObject {
      * The list of notification email addresses
      */
     notificationEmails?: Array<string>;
+    /**
+     * Email address of the sales contact.
+     */
+    salesContactEmail?: string;
+    /**
+     * Account specific custom properties.
+     */
+    customProperties?: { [key: string]: { [key: string]: string; }; };
 }
 
 export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
@@ -169,6 +177,10 @@ export interface UpdateUserObject extends UserObject {
      * The email address.
      */
     email?: string;
+    /**
+     * User's account specific custom properties.
+     */
+    customProperties?: { [key: string]: { [key: string]: string; }; };
 }
 
 /**

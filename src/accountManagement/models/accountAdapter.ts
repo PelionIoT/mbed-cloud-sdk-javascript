@@ -63,31 +63,34 @@ export class AccountAdapter {
             reason                          : from.reason,
             templateId                      : from.template_id,
             customerNumber                  : from.customer_number,
-            expirationWarning               : from.expiration_warning_threshold,
+            expiryWarning                   : from.expiration_warning_threshold,
+            salesContactEmail               : from.sales_contact,
             multifactorAuthenticationStatus : from.mfa_status,
             notificationEmails              : from.notification_emails,
             referenceNote                   : from.reference_note,
             updatedAt                       : from.updated_at,
+            customProperties                : from.account_properties
         }, api);
     }
 
     public static reverseMap(from: UpdateAccountObject): apiAccountRequest {
         return {
-            display_name:     from.displayName,
-            aliases:          from.aliases,
-            company:          from.company,
-            contact:          from.contact,
-            email:            from.email,
-            phone_number:     from.phoneNumber,
-            address_line1:    from.addressLine1,
-            address_line2:    from.addressLine2,
-            city:             from.city,
-            state:            from.state,
-            postal_code:      from.postcode,
-            country:          from.country,
-            // mfa_status: from.multifactorAuthenticationStatus,
-            notification_emails: from.notificationEmails,
-            expiration_warning_threshold: from.expirationWarning,
+            display_name:                  from.displayName,
+            aliases:                       from.aliases,
+            company:                       from.company,
+            contact:                       from.contact,
+            email:                         from.email,
+            phone_number:                  from.phoneNumber,
+            address_line1:                 from.addressLine1,
+            address_line2:                 from.addressLine2,
+            city:                          from.city,
+            state:                         from.state,
+            postal_code:                   from.postcode,
+            country:                       from.country,
+            // mfa_status:                   from.multifactorAuthenticationStatus,
+            notification_emails:           from.notificationEmails,
+            expiration_warning_threshold:  from.expiryWarning,
+            account_properties:            from.customProperties
         };
     }
 }
