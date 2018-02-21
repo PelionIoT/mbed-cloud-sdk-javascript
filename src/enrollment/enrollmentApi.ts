@@ -15,13 +15,14 @@
  * limitations under the License.
  */
 
-import { apiWrapper, encodeInclude } from "../common/functions";
+import { apiWrapper, encodeInclude, asyncStyle } from "../common/functions";
 import { Endpoints } from "./endpoints";
 import { CallbackFn, ConnectionOptions, ListOptions } from "../common/interfaces";
 import { AddEnrollmentClaimObject } from "./types";
 import { EnrollmentClaim } from "./models/enrollmentClaim";
 import { ListResponse } from "../common/listResponse";
 import * as EnrollmentAdapter from "./models/enrollmentClaimAdapter";
+import { ApiMetadata } from "../common/apiMetadata";
 
 export class EnrollmentApi {
     private readonly _endpoints: Endpoints;
@@ -212,6 +213,22 @@ export class EnrollmentApi {
             this._endpoints.enrollment.v3DeviceEnrollmentsIdDelete(claimId, resultsFn);
         }, (data, done) => {
             done(null, data);
+        }, callback);
+    }
+
+    /**
+     * Get meta data for the last Mbed Cloud API call
+     * @returns Promise of meta data
+     */
+    public getLastApiMetadata(): Promise<ApiMetadata>;
+    /**
+     * Get meta data for the last Mbed Cloud API call
+     * @param callback A function that is passed the arguments (error, meta data)
+     */
+    public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;
+    public getLastApiMetadata(callback?: CallbackFn<ApiMetadata>): Promise<ApiMetadata> {
+        return asyncStyle(done => {
+            done(null, this._endpoints.getLastMeta());
         }, callback);
     }
 }
