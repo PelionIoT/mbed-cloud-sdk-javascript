@@ -1,0 +1,217 @@
+/*
+ * Mbed Cloud JavaScript SDK
+ * Copyright Arm Limited 2018
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { apiWrapper, encodeInclude } from "../common/functions";
+import { Endpoints } from "./endpoints";
+import { CallbackFn, ConnectionOptions, ListOptions } from "../common/interfaces";
+import { AddEnrollmentClaimObject } from "./types";
+import { EnrollmentClaim } from "./models/enrollmentClaim";
+import { ListResponse } from "../common/listResponse";
+import * as EnrollmentAdapter from "./models/enrollmentClaimAdapter";
+
+export class EnrollmentApi {
+    private readonly _endpoints: Endpoints;
+
+    /**
+     * @param options Connection objects
+     */
+    constructor(options: ConnectionOptions) {
+        this._endpoints = new Endpoints(options);
+    }
+
+    /**
+     * Place an enrollment claim for a device.
+     *
+     * Example:
+     * ```JavaScript
+     * enrollment.addEnrollmentClaim({
+     *     claimId: 'A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5'
+     * })
+     * .then(enrollmentClaim => {
+     *     // Utilize claim here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * @param enrollmentClaim Claim details
+     * @returns Promise of enrollment claim
+     */
+    public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaimObject): Promise<EnrollmentClaim>;
+    /**
+     * Place an enrollment claim for a device.
+     *
+     * Example:
+     * ```JavaScript
+     * enrollment.addEnrollmentClaim({
+     *     claimId: 'A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5'
+     * }, function(error, enrollmentClaim) {
+     *     if (error) throw error;
+     *     // Utilize enrollment claim here
+     * });
+     * ```
+     *
+     * @param enrollmentClaim Claim details
+     * @param callback A function that is passed the arguments (error, enrollmentClaim)
+     */
+    public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaimObject, callback: CallbackFn<EnrollmentClaim>): void;
+    public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaimObject, callback?: CallbackFn<EnrollmentClaim>): Promise<EnrollmentClaim> {
+        return apiWrapper(resultsFn => {
+            this._endpoints.enrollment.v3DeviceEnrollmentsPost(EnrollmentAdapter.addMap(enrollmentClaim), resultsFn);
+        }, (data, done) => {
+            done(null, EnrollmentAdapter.map(data, this));
+        }, callback);
+    }
+
+    /**
+     * Gets details of an enrollment.
+     *
+     * Example:
+     * ```JavaScript
+     * enrollment.getEnrollmentClaim('sckv52bebji8dxnxuw3zvnon95u8gshm'')
+     * .then(enrollmentClaim => {
+     *     // Utilize enrollment claim here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * @param claimId Enrollment claim ID
+     * @returns Promise of enrollment claim
+     */
+    public getEnrollmentClaim(claimId: string): Promise<EnrollmentClaim>;
+    /**
+     * Gets details of an enrollment.
+     *
+     * Example:
+     * ```JavaScript
+     * enrollment.getEnrollmentClaim('sckv52bebji8dxnxuw3zvnon95u8gshm', function(error, enrollmentClaim) {
+     *     if (error) throw error;
+     *     // Utilize claim here
+     * });
+     * ```
+     *
+     * @param claimId Enrollment claim ID
+     * @param callback A function that is passed the arguments (error, enrollmentClaim)
+     */
+    public getEnrollmentClaim(claimId: string, callback: CallbackFn<EnrollmentClaim>): void;
+    public getEnrollmentClaim(claimId: string, callback?: CallbackFn<EnrollmentClaim>): Promise<EnrollmentClaim> {
+        return apiWrapper(resultsFn => {
+            this._endpoints.enrollment.v3DeviceEnrollmentsIdGet(claimId, resultsFn);
+        }, (data, done) => {
+            done(null, EnrollmentAdapter.map(data, this));
+        }, callback);
+    }
+
+    /**
+     * Get enrollment list.
+     *
+     * Example:
+     * ```JavaScript
+     * enrollment.listEnrollmentClaims({
+     *     limit: 100
+     * })
+     * .then(claims => {
+     *     // Utilize claims here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * @param options list options
+     * @returns Promise of devices
+     */
+    public listEnrollmentClaims(options?: ListOptions): Promise<ListResponse<EnrollmentClaim>>;
+    /**
+     * Get enrollment list.
+     *
+     * Example:
+     * ```JavaScript
+     * enrollment.listEnrollmentClaims({
+     *     limit: 100
+     * }, function(error, claims) {
+     *     if (error) throw error;
+     *     // Utilize claims here
+     * });
+     * ```
+     *
+     * @param optionsOrCallback List options or callback
+     * @param callback A function that is passed the arguments (error, claims)
+     */
+    public listEnrollmentClaims(optionsOrCallback?: ListOptions | CallbackFn<ListResponse<EnrollmentClaim>>, callback?: CallbackFn<ListResponse<EnrollmentClaim>>): void;
+    public listEnrollmentClaims(optionsOrCallback?: ListOptions | CallbackFn<ListResponse<EnrollmentClaim>>, callback?: CallbackFn<ListResponse<EnrollmentClaim>>): Promise<ListResponse<EnrollmentClaim>> {
+        optionsOrCallback = optionsOrCallback || {};
+        let options: ListOptions = {};
+
+        if (typeof optionsOrCallback === "function") {
+            callback = optionsOrCallback;
+            options = {};
+        }
+
+        return apiWrapper(resultsFn => {
+            const { limit, after, order, include } = options;
+            this._endpoints.enrollment.v3DeviceEnrollmentsGet(limit, order, after, encodeInclude(include), resultsFn);
+        }, (data, done) => {
+            const devices = data.data.map(device => {
+                return EnrollmentAdapter.map(device, this);
+            });
+
+            done(null, new ListResponse<EnrollmentClaim>(data, devices));
+        }, callback);
+    }
+
+    /**
+     * Delete an enrollment claim.
+     *
+     * Example:
+     * ```JavaScript
+     * enrollment.deleteEnrollmentClaim('sckv52bebji8dxnxuw3zvnon95u8gshm')
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * @param claimId Enrollment claim ID
+     * @returns Promise containing any error
+     */
+    public deleteEnrollmentClaim(claimId: string): Promise<void>;
+    /**
+     *
+     * Delete an enrollment claim.
+     *
+     * Example:
+     * ```JavaScript
+     * enrollment.deleteEnrollmentClaim('sckv52bebji8dxnxuw3zvnon95u8gshm')
+     *     if (error) throw error;
+     * });
+     * ```
+     *
+     * @param claimId Device ID
+     * @param callback A function that is passed any error
+     */
+    public deleteEnrollmentClaim(claimId: string, callback: CallbackFn<void>): void;
+    public deleteEnrollmentClaim(claimId: string, callback?: CallbackFn<void>): Promise<void> {
+        return apiWrapper(resultsFn => {
+            this._endpoints.enrollment.v3DeviceEnrollmentsIdDelete(claimId, resultsFn);
+        }, (data, done) => {
+            done(null, data);
+        }, callback);
+    }
+}
