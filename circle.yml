@@ -18,7 +18,7 @@ machine:
     FILE_UNITTESTS: ${PROJECT_REPORTS}/unittests.html
     FILE_INTTESTS: ${PROJECT_REPORTS}/inttests.html
     FILE_RAW: ${PROJECT_REPORTS}/raw.txt
-    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:038fa60f9b52e3317f4e6c6d8ea3c82182ea16d1
 
 checkout:
   post:
