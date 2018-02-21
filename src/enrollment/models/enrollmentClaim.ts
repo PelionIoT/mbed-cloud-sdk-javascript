@@ -15,28 +15,38 @@
  * limitations under the License.
  */
 
-import { EnrollmentClaimObject } from "../types";
+import { AddEnrollmentClaim } from "../types";
 import { EnrollmentApi } from "../enrollmentApi";
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
 
-export class EnrollmentClaim implements EnrollmentClaimObject {
-    /** @inheritDoc */
+export class EnrollmentClaim {
+    /**
+     * Enrollment internal id.
+     */
     public readonly id: string;
-    /** @inheritDoc */
+    /**
+     * muid
+     */
     public readonly accountId: string;
-    /** @inheritDoc */
+    /**
+     * The time of the enrollment identity creation.
+     */
     public readonly createdAt: Date;
-    /** @inheritDoc */
-    public readonly updatedAt?: Date;
-    /** @inheritDoc */
-    public readonly manifestTimestamp?: Date;
-    /** @inheritDoc */
+    /**
+     * The time of claiming the device to the account
+     */
     public readonly claimedAt?: Date;
-    /** @inheritDoc */
+    /**
+     * The id of the device in the device directory once it has been registered
+     */
+    public readonly deviceId?: string;
+    /**
+     * The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice.
+     */
     public readonly expiresAt: Date;
 
-    constructor(init: EnrollmentClaimObject, private readonly _api: EnrollmentApi) {
+    constructor(init: Partial<EnrollmentClaim>, private readonly _api: EnrollmentApi) {
         Object.keys(init).forEach(key => {
             this[key] = init[key];
         });
@@ -58,3 +68,5 @@ export class EnrollmentClaim implements EnrollmentClaimObject {
         }, callback);
     }
 }
+
+export interface EnrollmentClaim extends AddEnrollmentClaim { }

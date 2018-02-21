@@ -18,7 +18,7 @@
 import { apiWrapper, encodeInclude, asyncStyle } from "../common/functions";
 import { Endpoints } from "./endpoints";
 import { CallbackFn, ConnectionOptions, ListOptions } from "../common/interfaces";
-import { AddEnrollmentClaimObject } from "./types";
+import { AddEnrollmentClaim } from "./types";
 import { EnrollmentClaim } from "./models/enrollmentClaim";
 import { ListResponse } from "../common/listResponse";
 import * as EnrollmentAdapter from "./models/enrollmentClaimAdapter";
@@ -53,7 +53,7 @@ export class EnrollmentApi {
      * @param enrollmentClaim Claim details
      * @returns Promise of enrollment claim
      */
-    public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaimObject): Promise<EnrollmentClaim>;
+    public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaim): Promise<EnrollmentClaim>;
     /**
      * Place an enrollment claim for a device.
      *
@@ -70,8 +70,8 @@ export class EnrollmentApi {
      * @param enrollmentClaim Claim details
      * @param callback A function that is passed the arguments (error, enrollmentClaim)
      */
-    public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaimObject, callback: CallbackFn<EnrollmentClaim>): void;
-    public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaimObject, callback?: CallbackFn<EnrollmentClaim>): Promise<EnrollmentClaim> {
+    public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaim, callback: CallbackFn<EnrollmentClaim>): void;
+    public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaim, callback?: CallbackFn<EnrollmentClaim>): Promise<EnrollmentClaim> {
         return apiWrapper(resultsFn => {
             this._endpoints.enrollment.v3DeviceEnrollmentsPost(EnrollmentAdapter.addMap(enrollmentClaim), resultsFn);
         }, (data, done) => {

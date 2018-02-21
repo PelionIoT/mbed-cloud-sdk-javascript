@@ -15,40 +15,9 @@
  * limitations under the License.
  */
 
-export interface AddEnrollmentClaimObject {
+export interface AddEnrollmentClaim {
     /**
      * Enrollment identity.
      */
     claimId: string;
-}
-
-export interface EnrollmentClaimObject {
-    /**
-     * Enrollment identity internal id.
-     */
-    id: string;
-    /**
-     * muid
-     */
-    accountId: string;
-    /**
-     * Enrollment identity.
-     */
-    claimId?: string;
-    /**
-     * The time of the enrollment identity creation.
-     */
-    createdAt: Date;
-    /**
-     * The time of claiming the device to be assigned to the account.
-     */
-    claimedAt?: Date;
-    /**
-     * Enrolled device internal ID.
-     */
-    deviceId?: string;
-    /**
-     * The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice.
-     */
-    expiresAt: Date;
 }

@@ -17,7 +17,7 @@
 import { EnrollmentIdentity as ApiEnrollmentIdentity, EnrollmentId as ApiEnrollmentId } from "../../_api/enrollment";
 import { EnrollmentApi } from "../enrollmentApi";
 import { EnrollmentClaim } from "./enrollmentClaim";
-import { AddEnrollmentClaimObject } from "../types";
+import { AddEnrollmentClaim } from "../types";
 
 export const map = (from: ApiEnrollmentIdentity, api: EnrollmentApi): EnrollmentClaim => {
     return new EnrollmentClaim({
@@ -30,4 +30,4 @@ export const map = (from: ApiEnrollmentIdentity, api: EnrollmentApi): Enrollment
     }, api);
 };
 
-export const addMap = ({ claimId }: AddEnrollmentClaimObject): ApiEnrollmentId => ({ enrollment_identity: claimId });
+export const addMap = ({ claimId }: AddEnrollmentClaim): ApiEnrollmentId => ({ enrollment_identity: claimId });
