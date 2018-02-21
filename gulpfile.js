@@ -1,44 +1,44 @@
-const path        = require("path");
-const browserify  = require("browserify");
-const del         = require("del");
-const merge       = require("merge2");
-const tslint      = require("tslint");
-const gulp        = require("gulp");
-const buffer      = require("gulp-buffer");
-const sourcemaps  = require("gulp-sourcemaps");
-const tap         = require("gulp-tap");
-const typedoc     = require("gulp-typedoc");
-const ts          = require("gulp-typescript");
-const uglify      = require("gulp-uglify");
-const gulpTslint  = require("gulp-tslint");
+var path        = require("path");
+var browserify  = require("browserify");
+var del         = require("del");
+var merge       = require("merge2");
+var tslint      = require("tslint");
+var gulp        = require("gulp");
+var buffer      = require("gulp-buffer");
+var sourcemaps  = require("gulp-sourcemaps");
+var tap         = require("gulp-tap");
+var typedoc     = require("gulp-typedoc");
+var ts          = require("gulp-typescript");
+var uglify      = require("gulp-uglify");
+var gulpTslint  = require("gulp-tslint");
 
-const name = "Mbed Cloud SDK for JavaScript";
-const namespace = "MbedCloudSDK";
-const docsToc = "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,UpdateApi,ConnectionOptions,EnrollmentApi";
+var name = "Mbed Cloud SDK for JavaScript";
+var namespace = "MbedCloudSDK";
+var docsToc = "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,UpdateApi,ConnectionOptions,EnrollmentApi";
 
 // Source
-const srcDir = "src";
-const srcFiles = srcDir + "/**/*.ts";
-const srcFilesOnly = [
+var srcDir = "src";
+var srcFiles = srcDir + "/**/*.ts";
+var srcFilesOnly = [
     srcFiles,
     "!" + srcDir + "/_api/**",
     "!" + srcDir + "/_tests/**"
 ];
 
 // Node
-const nodeDir = "lib";
-const bundleFiles = nodeDir + "/**/index.js";
-const testFiles = nodeDir + "/_tests/**/*.js";
+var nodeDir = "lib";
+var bundleFiles = nodeDir + "/**/index.js";
+var testFiles = nodeDir + "/_tests/**/*.js";
 
 // Browser bundles
-const bundleDir = "bundles";
-const testDir = bundleDir + "/_tests";
+var bundleDir = "bundles";
+var testDir = bundleDir + "/_tests";
 
 // Other
-const docsDir = "docs";
-const typesDir = "types";
+var docsDir = "docs";
+var typesDir = "types";
 
-let watching = false;
+var watching = false;
 
 // Error handler suppresses exists during watch
 function handleError() {
@@ -58,7 +58,7 @@ gulp.task("clean", function() {
 
 // Lint the source
 gulp.task("lint", function() {
-    const program = tslint.Linter.createProgram("./");
+    var program = tslint.Linter.createProgram("./");
 
     gulp.src(srcFiles)
     .pipe(gulpTslint({
@@ -91,7 +91,7 @@ gulp.task("doc", function() {
 
 // Build TypeScript source into CommonJS Node modules
 gulp.task("typescript", ["clean"], function() {
-    const options = {
+    var options = {
         target: "es5",
         types: ["intern"],
         lib: [
@@ -129,9 +129,9 @@ function bundle(srcFiles, destDir, optionsFn) {
         read: false
     })
     .pipe(tap(function(file) {
-        let options = {};
+        var options = {};
         if (optionsFn) options = optionsFn(file);
-        const fileName = options.fileName || path.basename(file.path);
+        var fileName = options.fileName || path.basename(file.path);
 
         if (options.standalone)
             console.log(`Creating ${options.standalone} in ${destDir}/${fileName}`);
@@ -162,7 +162,7 @@ function bundle(srcFiles, destDir, optionsFn) {
 // Build CommonJS modules into browser bundles
 gulp.task("bundleSource", ["typescript"], function() {
     return bundle(bundleFiles, bundleDir, function(file) {
-        const name = path.dirname(file.relative);
+        var name = path.dirname(file.relative);
         if (name === ".") {
             return {
                 fileName: "index.min.js",
