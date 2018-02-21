@@ -5,6 +5,7 @@ import { SdkApi } from "./sdkMethod";
 import { ModuleDescription } from "./serverMessages";
 import { ServerError } from "./error";
 import { mapMethod, mapModule } from "./argumentMapping";
+import { TestStubApi } from "./testStub";
 
 function uuidv4(): string {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c: string) => {
@@ -26,7 +27,7 @@ export class SdkModuleInstance {
         this.module = { pythonName, name };
         this.id = `${name}-${uuidv4()}`;
         this.createdAt = new Date();
-        const constructor = (MbedCloudSDK as any)[name];
+        const constructor = name === "TestStubApi" ? TestStubApi : (MbedCloudSDK as any)[name];
         if (constructor) {
             this.instance = new constructor(config);
         }

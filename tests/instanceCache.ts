@@ -1,10 +1,11 @@
 import * as cache from "memory-cache";
+import * as MbedCloudSDK from "../lib/";
 import { ServerError } from "./error";
 import { SdkModuleInstance } from "./sdkModuleInstance";
 import { reverseMapModule, mapModule } from "./argumentMapping";
 import { ConnectionOptions } from "./common/interfaces";
 
-const moduleList: Array<string> = ["AccountManagementApi", "CertificatesApi", "ConnectApi", "DeviceDirectoryApi", "UpdateApi", "TestStubApi"];
+const moduleList: Array<string> = [ ...(Object.keys(MbedCloudSDK)), "TestStubApi" ];
 
 function fetchModuleInstance(instanceId: string | undefined): SdkModuleInstance {
     const instance: SdkModuleInstance | undefined = cache.get(instanceId);
