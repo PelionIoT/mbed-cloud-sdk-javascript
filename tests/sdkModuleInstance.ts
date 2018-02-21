@@ -1,9 +1,8 @@
-import { Module, SuccessCallback, ErrorCallback } from "./types";
+import { ErrorCallback, Module, SuccessCallback } from "./types";
 import * as MbedCloudSDK from "../lib/";
-import { TestStubApi } from "./testStub";
 import { ConnectionOptions } from "./common/interfaces";
 import { SdkApi } from "./sdkMethod";
-import { TestError, TestResult, ModuleDescription } from "./serverMessages";
+import { ModuleDescription } from "./serverMessages";
 import { ServerError } from "./error";
 import { mapMethod, mapModule } from "./argumentMapping";
 
@@ -22,40 +21,14 @@ export class SdkModuleInstance {
     public id: string;
     public createdAt: Date;
 
-    public constructor(module: string | undefined, config: ConnectionOptions | undefined) {
-        this.module = {
-            pythonName: module,
-            name: (module) ? mapModule(module) : undefined
-        };
-        const name: string = this.module.name || "";
-        this.id = `${this.module.name}-${uuidv4()}`;
-        this.createdAt = new Date(Date.now());
-        this.instance = undefined;
-        switch (name) {
-            case "AccountManagementApi": {
-                this.instance = new MbedCloudSDK.AccountManagementApi(config);
-                break;
-            }
-            case "CertificatesApi": {
-                this.instance = new MbedCloudSDK.CertificatesApi(config);
-                break;
-            }
-            case "ConnectApi": {
-                this.instance = new MbedCloudSDK.ConnectApi(config);
-                break;
-            }
-            case "DeviceDirectoryApi": {
-                this.instance = new MbedCloudSDK.DeviceDirectoryApi(config);
-                break;
-            }
-            case "UpdateApi": {
-                this.instance = new MbedCloudSDK.UpdateApi(config);
-                break;
-            }
-            case "TestStubApi": {
-                this.instance = new TestStubApi(config);
-                break;
-            }
+    public constructor(pythonName: string | undefined, config: ConnectionOptions | undefined) {
+        const name: string = pythonName ? mapModule(pythonName) : "";
+        this.module = { pythonName, name };
+        this.id = `${name}-${uuidv4()}`;
+        this.createdAt = new Date();
+        const constructor = (MbedCloudSDK as any)[name];
+        if (constructor) {
+            this.instance = new constructor(config);
         }
     }
     private getSdkRelatedApi(name: string | undefined): string {
@@ -81,8 +54,7 @@ export class SdkModuleInstance {
             throw new ServerError(500, `Invalid instance ("${this.id}") of module ["${this.module.name}"]`);
         }
         for (const prop in this.instance) {
-            if (this.instance[prop] && this.instance[prop].constructor &&
-                this.instance[prop].call && this.instance[prop].apply) {
+            if (typeof this.instance[prop] === "function") {
                 methodList.push(new SdkApi(prop, this.instance[prop]));
             }
         }
