@@ -44,13 +44,25 @@ export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn
 
 // Wrap our functions to allow error catching
 // Wraps an api function call and optionally a data transformation function to allow a single point for trapping errors
-export function apiWrapper<T>(apiFn: (resultsFn: (error: any, data: any) => void) => void, transformFn?: (data: any, resultsFn: (error: SDKError, result: T) => void) => void, callbackFn?: CallbackFn<T>): Promise<T> {
+export function apiWrapper<T>(
+    apiFn: (resultsFn: (error: any, data: any) => void) => void,
+    transformFn?: (data: any, resultsFn: (error: SDKError, result: T) => void) => void,
+    callbackFn?: CallbackFn<T>,
+    failOnNotFound = false
+): Promise<T> {
     // Use async style
     return asyncStyle(done => {
         try {
             // Call the api function
             apiFn((error, data) => {
-                if (error) return done(error);
+                if (error) {
+                    if (!failOnNotFound && error.code === 404) {
+                        return done(null, null);
+                    } else {
+                        return done(error);
+                    }
+                }
+
                 if (!transformFn) return done(null, data);
 
                 try {
