@@ -153,17 +153,15 @@ export class EnrollmentApi {
      * });
      * ```
      *
-     * @param optionsOrCallback List options or callback
+     * @param options List options or callback
      * @param callback A function that is passed the arguments (error, claims)
      */
-    public listEnrollmentClaims(optionsOrCallback?: ListOptions | CallbackFn<ListResponse<EnrollmentClaim>>, callback?: CallbackFn<ListResponse<EnrollmentClaim>>): void;
-    public listEnrollmentClaims(optionsOrCallback?: ListOptions | CallbackFn<ListResponse<EnrollmentClaim>>, callback?: CallbackFn<ListResponse<EnrollmentClaim>>): Promise<ListResponse<EnrollmentClaim>> {
-        optionsOrCallback = optionsOrCallback || {};
-        let options: ListOptions = {};
+    public listEnrollmentClaims(options?: ListOptions, callback?: CallbackFn<ListResponse<EnrollmentClaim>>): void;
+    public listEnrollmentClaims(options?: any, callback?: CallbackFn<ListResponse<EnrollmentClaim>>): Promise<ListResponse<EnrollmentClaim>> {
+        options = options || {};
 
-        if (typeof optionsOrCallback === "function") {
-            callback = optionsOrCallback;
-            options = {};
+        if (typeof options === "function") {
+            callback = options;
         }
 
         return apiWrapper(resultsFn => {
