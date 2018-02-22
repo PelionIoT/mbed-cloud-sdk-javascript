@@ -406,7 +406,7 @@ export class ConnectApi extends EventEmitter {
     public getWebhook(callback: CallbackFn<Webhook>): void;
     public getWebhook(callback?: CallbackFn<Webhook>): Promise<Webhook> {
         return asyncStyle(done => {
-            this._endpoints.webhooks.v2NotificationCallbackGet((error, data) => {
+            this._endpoints.notifications.v2NotificationCallbackGet((error, data) => {
 
                 if (error) {
                     if (error.code === 404) {
@@ -531,7 +531,7 @@ export class ConnectApi extends EventEmitter {
     public deleteWebhook(callback: CallbackFn<void>): void;
     public deleteWebhook(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.webhooks.v2NotificationCallbackDelete(() => {
+            this._endpoints.notifications.v2NotificationCallbackDelete(() => {
                 done(null, null);
             });
         }, callback);

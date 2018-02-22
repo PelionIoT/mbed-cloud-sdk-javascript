@@ -24,10 +24,14 @@ import { Presubscription as apiPresubscription } from "../../_api/mds";
 export class PresubscriptionAdapter {
 
     public static map(from: apiPresubscription): Presubscription {
+        const method = "log";
+        console[method](`### ${from["resource-path"]}`);
+
         return {
             deviceId:         from["endpoint-name"],
             deviceType:       from["endpoint-type"],
-            resourcePaths:    from["resource-path"]
+            // TODO: This is crap
+            resourcePaths:    (from["resource-path"] as Array<string>)
         };
     }
 
