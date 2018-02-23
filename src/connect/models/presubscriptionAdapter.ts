@@ -30,7 +30,6 @@ export class PresubscriptionAdapter {
         return {
             deviceId:         from["endpoint-name"],
             deviceType:       from["endpoint-type"],
-            // TODO: This is crap
             resourcePaths:    (from["resource-path"] as Array<string>)
         };
     }
