@@ -54,13 +54,25 @@ export interface AccountCreationReq {
      */
     "company"?: string;
     /**
-     * The state part of the postal address, not longer than 100 characters.
+     * Customer number of the customer.
      */
-    "state"?: string;
+    "customer_number"?: string;
     /**
      * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
      */
     "contact"?: string;
+    /**
+     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+     */
+    "email"?: string;
+    /**
+     * The state part of the postal address, not longer than 100 characters.
+     */
+    "state"?: string;
+    /**
+     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "admin_name"?: string;
     /**
      * The postal code part of the postal address, not longer than 100 characters.
      */
@@ -69,10 +81,6 @@ export interface AccountCreationReq {
      * The password when creating a new user. It will be generated when not present in the request.
      */
     "admin_password"?: string;
-    /**
-     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-     */
-    "admin_name"?: string;
     /**
      * The full name of the admin user to be created.
      */
@@ -90,9 +98,9 @@ export interface AccountCreationReq {
      */
     "phone_number"?: string;
     /**
-     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+     * Contract number of the customer.
      */
-    "email"?: string;
+    "contract_number"?: string;
     /**
      * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
      */
@@ -103,6 +111,30 @@ export interface AccountCreationReq {
  * This object represents an account creation response.
  */
 export interface AccountCreationResp {
+    /**
+     * The end market of the account to be created.
+     */
+    "end_market": string;
+    /**
+     * The ID of the admin user created.
+     */
+    "admin_id": string;
+    /**
+     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "admin_name"?: string;
+    /**
+     * The postal code part of the postal address, not longer than 100 characters.
+     */
+    "postal_code"?: string;
+    /**
+     * Account ID.
+     */
+    "id": string;
+    /**
+     * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+     */
+    "aliases"?: Array<string>;
     /**
      * Postal address line 2, not longer than 100 characters.
      */
@@ -116,77 +148,57 @@ export interface AccountCreationResp {
      */
     "address_line1"?: string;
     /**
-     * The enrollment finalisation link which can be provided for the customer.
+     * The display name for the account, not longer than 100 characters.
      */
-    "enrollment_link"?: string;
-    /**
-     * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
-     */
-    "country"?: string;
-    /**
-     * The name of the company, not longer than 100 characters. Required for commercial accounts only.
-     */
-    "company"?: string;
-    /**
-     * The postal code part of the postal address, not longer than 100 characters.
-     */
-    "postal_code"?: string;
-    /**
-     * The ID of the admin user created.
-     */
-    "admin_id": string;
-    /**
-     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-     */
-    "email"?: string;
+    "display_name"?: string;
     /**
      * The state part of the postal address, not longer than 100 characters.
      */
     "state"?: string;
     /**
-     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
-     */
-    "contact"?: string;
-    /**
-     * The admin API key created for the account.
-     */
-    "admin_key"?: string;
-    /**
      * The password when creating a new user. It will be generated when not present in the request.
      */
     "admin_password"?: string;
     /**
-     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
      */
-    "admin_name"?: string;
-    /**
-     * The full name of the admin user to be created.
-     */
-    "admin_full_name"?: string;
-    /**
-     * The display name for the account, not longer than 100 characters.
-     */
-    "display_name"?: string;
-    /**
-     * The end market of the account to be created.
-     */
-    "end_market": string;
-    /**
-     * The email address of the account admin, not longer than 254 characters.
-     */
-    "admin_email"?: string;
+    "email"?: string;
     /**
      * The phone number of a representative of the company, not longer than 100 characters.
      */
     "phone_number"?: string;
     /**
-     * Account ID.
+     * Contract number of the customer.
      */
-    "id"?: string;
+    "contract_number"?: string;
     /**
-     * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+     * The name of the company, not longer than 100 characters. Required for commercial accounts only.
      */
-    "aliases"?: Array<string>;
+    "company"?: string;
+    /**
+     * The admin API key created for the account.
+     */
+    "admin_key"?: string;
+    /**
+     * The full name of the admin user to be created.
+     */
+    "admin_full_name"?: string;
+    /**
+     * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "country"?: string;
+    /**
+     * Customer number of the customer.
+     */
+    "customer_number"?: string;
+    /**
+     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+     */
+    "contact"?: string;
+    /**
+     * The email address of the account admin, not longer than 254 characters.
+     */
+    "admin_email"?: string;
 }
 
 /**
@@ -194,8 +206,8 @@ export interface AccountCreationResp {
  */
 export namespace AccountInfo {
     export type StatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
-    export type MfaStatusEnum = "enabled" | "enforced" | "optional";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type MfaStatusEnum = "enforced" | "optional";
+    export type ObjectEnum = "account";
 }
 export interface AccountInfo {
     /**
@@ -226,10 +238,6 @@ export interface AccountInfo {
      * Account specific custom properties.
      */
     "account_properties"?: { [key: string]: { [key: string]: string; }; };
-    /**
-     * Customer number of the customer.
-     */
-    "customer_number"?: string;
     /**
      * Account ID.
      */
@@ -279,6 +287,10 @@ export interface AccountInfo {
      */
     "phone_number"?: string;
     /**
+     * Contract number of the customer.
+     */
+    "contract_number"?: string;
+    /**
      * A reference note for updating the status of the account
      */
     "reference_note"?: string;
@@ -291,9 +303,9 @@ export interface AccountInfo {
      */
     "object": AccountInfo.ObjectEnum;
     /**
-     * A reason note for updating the status of the account
+     * The reference token expiration time in minutes for this account.
      */
-    "reason"?: string;
+    "idle_timeout"?: string;
     /**
      * Time when upgraded to commercial account in UTC format RFC3339.
      */
@@ -319,15 +331,15 @@ export interface AccountInfo {
      */
     "created_at"?: Date;
     /**
-     * The reference token expiration time in minutes for this account.
+     * A reason note for updating the status of the account
      */
-    "idle_timeout"?: string;
+    "reason"?: string;
     /**
-     * Contract number of the customer.
+     * Customer number of the customer.
      */
-    "contract_number"?: string;
+    "customer_number"?: string;
     /**
-     * Indicates how many days before the account expiration a notification email should be sent.
+     * Indicates how many days (1-180) before account expiration a notification email should be sent.
      */
     "expiration_warning_threshold"?: string;
     /**
@@ -349,14 +361,14 @@ export interface AccountInfo {
 }
 
 export namespace AccountInfoList {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "list";
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface AccountInfoList {
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": AccountInfoList.ObjectEnum;
     /**
      * Flag indicating whether there is more results.
      */
@@ -366,9 +378,9 @@ export interface AccountInfoList {
      */
     "total_count": number;
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": AccountInfoList.ObjectEnum;
+    "after"?: string;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -411,6 +423,10 @@ export interface AccountUpdateReq {
      */
     "mfa_status"?: AccountUpdateReq.MfaStatusEnum;
     /**
+     * The state part of the postal address, not longer than 100 characters.
+     */
+    "state"?: string;
+    /**
      * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
      */
     "country"?: string;
@@ -423,13 +439,13 @@ export interface AccountUpdateReq {
      */
     "idle_timeout"?: string;
     /**
-     * A list of notification email addresses.
+     * Password policy for this account.
      */
-    "notification_emails"?: Array<string>;
+    "password_policy"?: PasswordPolicy;
     /**
-     * The state part of the postal address, not longer than 100 characters.
+     * Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
      */
-    "state"?: string;
+    "expiration_warning_threshold"?: string;
     /**
      * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
      */
@@ -443,13 +459,9 @@ export interface AccountUpdateReq {
      */
     "account_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
-     * Indicates how many days before the account expiration a notification email should be sent.
+     * A list of notification email addresses.
      */
-    "expiration_warning_threshold"?: string;
-    /**
-     * Password policy for this account.
-     */
-    "password_policy"?: PasswordPolicy;
+    "notification_emails"?: Array<string>;
     /**
      * The end market for this account, not longer than 100 characters.
      */
@@ -488,10 +500,6 @@ export interface AccountUpdateRootReq {
      */
     "sales_contact"?: string;
     /**
-     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-     */
-    "email"?: string;
-    /**
      * The postal code part of the postal address, not longer than 100 characters.
      */
     "postal_code"?: string;
@@ -528,13 +536,17 @@ export interface AccountUpdateRootReq {
      */
     "state"?: string;
     /**
-     * Contract number of the customer.
+     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
      */
-    "contract_number"?: string;
+    "email"?: string;
     /**
      * The phone number of a representative of the company, not longer than 100 characters.
      */
     "phone_number"?: string;
+    /**
+     * Contract number of the customer.
+     */
+    "contract_number"?: string;
     /**
      * The name of the company, not longer than 100 characters. Required for commercial accounts only.
      */
@@ -552,7 +564,7 @@ export interface AccountUpdateRootReq {
      */
     "customer_number"?: string;
     /**
-     * Indicates how many days before the account expiration a notification email should be sent.
+     * Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
      */
     "expiration_warning_threshold"?: string;
     /**
@@ -568,7 +580,18 @@ export interface AccountUpdateRootReq {
 /**
  * This object represents an active user session.
  */
+export namespace ActiveSession {
+    export type ObjectEnum = "user-session";
+}
 export interface ActiveSession {
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
+    /**
+     * Entity name: always 'user-session'
+     */
+    "object": ActiveSession.ObjectEnum;
     /**
      * User Agent header from the login request.
      */
@@ -577,10 +600,6 @@ export interface ActiveSession {
      * IP address of the client.
      */
     "ip_address": string;
-    /**
-     * The UUID of the account.
-     */
-    "account_id": string;
     /**
      * The reference token.
      */
@@ -600,9 +619,9 @@ export interface AdminUserUpdateReq {
      */
     "phone_number"?: string;
     /**
-     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     * The status of the user.
      */
-    "username"?: string;
+    "status"?: string;
     /**
      * A flag indicating that receiving marketing information has been accepted.
      */
@@ -612,9 +631,17 @@ export interface AdminUserUpdateReq {
      */
     "user_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "username"?: string;
+    /**
      * A flag indicating that the General Terms and Conditions has been accepted.
      */
     "is_gtc_accepted"?: boolean;
+    /**
+     * The full name of the user, not longer than 100 characters.
+     */
+    "full_name"?: string;
     /**
      * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
      */
@@ -624,13 +651,9 @@ export interface AdminUserUpdateReq {
      */
     "notification_properties"?: { [key: string]: string; };
     /**
-     * The status of the user.
+     * A list of group IDs this user belongs to.
      */
-    "status"?: string;
-    /**
-     * The full name of the user, not longer than 100 characters.
-     */
-    "full_name"?: string;
+    "groups"?: Array<string>;
     /**
      * Address, not longer than 100 characters.
      */
@@ -675,21 +698,17 @@ export interface ApiKeyInfoReq {
  */
 export namespace ApiKeyInfoResp {
     export type StatusEnum = "ACTIVE" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "api-key";
 }
 export interface ApiKeyInfoResp {
-    /**
-     * A list of group IDs this API key belongs to.
-     */
-    "groups"?: Array<string>;
     /**
      * The status of the API key.
      */
     "status"?: ApiKeyInfoResp.StatusEnum;
     /**
-     * The display name for the API key.
+     * A list of group IDs this API key belongs to.
      */
-    "name": string;
+    "groups"?: Array<string>;
     /**
      * Creation UTC time RFC3339.
      */
@@ -706,6 +725,10 @@ export interface ApiKeyInfoResp {
      * Last update UTC time RFC3339.
      */
     "updated_at"?: Date;
+    /**
+     * The display name for the API key.
+     */
+    "name": string;
     /**
      * API resource entity version.
      */
@@ -729,14 +752,14 @@ export interface ApiKeyInfoResp {
 }
 
 export namespace ApiKeyInfoRespList {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "list";
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface ApiKeyInfoRespList {
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": ApiKeyInfoRespList.ObjectEnum;
     /**
      * Flag indicating whether there is more results.
      */
@@ -746,9 +769,9 @@ export interface ApiKeyInfoRespList {
      */
     "total_count": number;
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": ApiKeyInfoRespList.ObjectEnum;
+    "after"?: string;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -782,13 +805,17 @@ export interface ApiKeyUpdateReq {
      * The display name for the API key, not longer than 100 characters.
      */
     "name": string;
+    /**
+     * A list of group IDs this API key belongs to.
+     */
+    "groups"?: Array<string>;
 }
 
 /**
  * This object represents an error message.
  */
 export namespace ErrorResponse {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "error";
     export type TypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
 }
 export interface ErrorResponse {
@@ -873,7 +900,7 @@ export interface GroupCreationInfo {
  * This object contains basic information about groups.
  */
 export namespace GroupSummary {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "group";
 }
 export interface GroupSummary {
     /**
@@ -915,14 +942,14 @@ export interface GroupSummary {
 }
 
 export namespace GroupSummaryList {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "list";
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface GroupSummaryList {
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": GroupSummaryList.ObjectEnum;
     /**
      * Flag indicating whether there is more results.
      */
@@ -932,9 +959,9 @@ export interface GroupSummaryList {
      */
     "total_count": number;
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": GroupSummaryList.ObjectEnum;
+    "after"?: string;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -947,6 +974,16 @@ export interface GroupSummaryList {
      * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
      */
     "order"?: GroupSummaryList.OrderEnum;
+}
+
+/**
+ * This object is used when updating groups.
+ */
+export interface GroupUpdateInfo {
+    /**
+     * The group name, not longer than 100 characters.
+     */
+    "name": string;
 }
 
 /**
@@ -976,13 +1013,13 @@ export interface LoginHistory {
  */
 export namespace MyUserInfoResp {
     export type StatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "user";
 }
 export interface MyUserInfoResp {
     /**
-     * A username containing alphanumerical letters and -,._@+= characters.
+     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
-    "username"?: string;
+    "status": MyUserInfoResp.StatusEnum;
     /**
      * List of active user sessions.
      */
@@ -1024,17 +1061,13 @@ export interface MyUserInfoResp {
      */
     "is_marketing_accepted"?: boolean;
     /**
+     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     */
+    "is_totp_enabled"?: boolean;
+    /**
      * Phone number.
      */
     "phone_number"?: string;
-    /**
-     * The email address.
-     */
-    "email": string;
-    /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
-     */
-    "status": MyUserInfoResp.StatusEnum;
     /**
      * The UUID of the account.
      */
@@ -1072,9 +1105,13 @@ export interface MyUserInfoResp {
      */
     "user_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     * The email address.
      */
-    "is_totp_enabled"?: boolean;
+    "email": string;
+    /**
+     * A username containing alphanumerical letters and -,._@+= characters.
+     */
+    "username"?: string;
     /**
      * A timestamp of the latest change of the user password, in milliseconds.
      */
@@ -1086,6 +1123,297 @@ export interface PasswordPolicy {
      * Minimum length for the password. A number between 8 and 512.
      */
     "minimum_length": string;
+}
+
+/**
+ * This object is used while creating new policies.
+ */
+export namespace PolicyCreationReq {
+    export type StatusEnum = "ACTIVE" | "INACTIVE";
+}
+export interface PolicyCreationReq {
+    /**
+     * The status of this policy.
+     */
+    "status"?: PolicyCreationReq.StatusEnum;
+    /**
+     * Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
+     */
+    "valid_from"?: Date;
+    /**
+     * Custom error message returned when this policy matches with not allowed result.
+     */
+    "error_message"?: string;
+    /**
+     * The description of this policy, not longer than 500 character.
+     */
+    "description"?: string;
+    /**
+     * Specifies the date and time until the policy is valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
+     */
+    "valid_until"?: Date;
+    /**
+     * Specifies the value in seconds for how long an authorization result is valid.
+     */
+    "grant_expires_in"?: number;
+    /**
+     * List of not_resources in urn:mbed-cloud:{resource-type}:{resource-name} format, not more than 100.
+     */
+    "not_resources"?: Array<string>;
+    /**
+     * List of actions as key-pairs of '{action}': 'true' or 'false', not more than 100. For enabling all actions use { '*': true }.
+     */
+    "actions"?: { [key: string]: boolean; };
+    /**
+     * List of not_conditions in urn:mbed-cloud:{resource-type}:{resource-name} format, not more than 100.
+     */
+    "not_conditions"?: Array<string>;
+    /**
+     * Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+     */
+    "tag"?: string;
+    /**
+     * List of user IDs this policy is attached to, not more than 100.
+     */
+    "users"?: Array<string>;
+    /**
+     * List of group IDs this policy is attached to, not more than 100.
+     */
+    "groups"?: Array<string>;
+    /**
+     * List of not_actions, not more than 100.
+     */
+    "notActions"?: Array<string>;
+    /**
+     * List of API key IDs this policy is attached to, not more than 100.
+     */
+    "apikeys"?: Array<string>;
+    /**
+     * List of conditions in urn:mbed-cloud:{resource-type}:{resource-name} format, not more than 100.
+     */
+    "conditions"?: Array<string>;
+    /**
+     * List of resources in urn:mbed-cloud:{resource-type}:{resource-name} format, not more than 100.
+     */
+    "resources"?: Array<string>;
+    /**
+     * The name of this policy, must be unique and not longer than 100 character.
+     */
+    "name": string;
+}
+
+/**
+ * This object represents a policy in responses.
+ */
+export namespace PolicyInfo {
+    export type StatusEnum = "ACTIVE" | "INACTIVE";
+    export type ObjectEnum = "policy";
+}
+export interface PolicyInfo {
+    /**
+     * Specifies the date and time until the policy is valid.
+     */
+    "valid_until"?: Date;
+    /**
+     * Custom error message returned when this policy matches with not allowed result.
+     */
+    "error_message"?: string;
+    /**
+     * Last update UTC time RFC3339.
+     */
+    "updated_at": Date;
+    /**
+     * List of actions.
+     */
+    "actions": { [key: string]: boolean; };
+    /**
+     * Policy tag that can be used for various purposes to be able to distinguish between policies.
+     */
+    "tag"?: string;
+    /**
+     * List of API key IDs this policy is attached to.
+     */
+    "apikeys"?: Array<string>;
+    /**
+     * Entity ID.
+     */
+    "id": string;
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
+    /**
+     * Specifies the date and time when the policy will become valid.
+     */
+    "valid_from"?: Date;
+    /**
+     * The description of this policy.
+     */
+    "description"?: string;
+    /**
+     * API resource entity version.
+     */
+    "etag": string;
+    /**
+     * List of conditions.
+     */
+    "conditions": Array<string>;
+    /**
+     * List of resources.
+     */
+    "resources": Array<string>;
+    /**
+     * The status of this policy.
+     */
+    "status": PolicyInfo.StatusEnum;
+    /**
+     * List of user IDs this policy is attached to.
+     */
+    "users"?: Array<string>;
+    /**
+     * Entity name: always 'policy'
+     */
+    "object": PolicyInfo.ObjectEnum;
+    /**
+     * List of group IDs this policy is attached to.
+     */
+    "groups"?: Array<string>;
+    /**
+     * List of not_actions.
+     */
+    "notActions": Array<string>;
+    /**
+     * List of not_resources.
+     */
+    "notResources": Array<string>;
+    /**
+     * The name of this policy.
+     */
+    "name": string;
+    /**
+     * Creation UTC time RFC3339.
+     */
+    "created_at"?: Date;
+    /**
+     * Specifies the value in seconds for how long an authorization result is valid.
+     */
+    "grant_expires_in"?: number;
+    /**
+     * List of not_conditions.
+     */
+    "notConditions": Array<string>;
+}
+
+export namespace PolicyInfoList {
+    export type ObjectEnum = "list";
+    export type OrderEnum = "ASC" | "DESC";
+}
+export interface PolicyInfoList {
+    /**
+     * Entity name: always 'list'
+     */
+    "object": PolicyInfoList.ObjectEnum;
+    /**
+     * Flag indicating whether there is more results.
+     */
+    "has_more": boolean;
+    /**
+     * The total number or records, if requested. It might be returned also for small lists.
+     */
+    "total_count": number;
+    /**
+     * The entity ID to fetch after the given one.
+     */
+    "after"?: string;
+    /**
+     * The number of results to return, (range: 2-1000), or equals to `total_count`
+     */
+    "limit": number;
+    /**
+     * A list of entities.
+     */
+    "data": Array<PolicyInfo>;
+    /**
+     * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
+     */
+    "order"?: PolicyInfoList.OrderEnum;
+}
+
+/**
+ * This object is used while creating new policies.
+ */
+export namespace PolicyUpdateReq {
+    export type StatusEnum = "ACTIVE" | "INACTIVE";
+}
+export interface PolicyUpdateReq {
+    /**
+     * The new status of this policy.
+     */
+    "status"?: PolicyUpdateReq.StatusEnum;
+    /**
+     * Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
+     */
+    "valid_from"?: Date;
+    /**
+     * Custom error message returned when this policy matches with not allowed result.
+     */
+    "error_message"?: string;
+    /**
+     * The new description of this policy, not longer than 500 character.
+     */
+    "description"?: string;
+    /**
+     * Specifies the date and time until the policy is valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
+     */
+    "valid_until"?: Date;
+    /**
+     * Specifies the value in seconds for how long an authorization result is valid.
+     */
+    "grant_expires_in"?: number;
+    /**
+     * New list of not_resources in urn:mbed-cloud:{resource-type}:{resource-name} format, not more than 100. Previous list will be overwritten.
+     */
+    "not_resources"?: Array<string>;
+    /**
+     * New list of actions as key-pairs of '{action}': 'true' or 'false', not more than 100. For enabling all actions use { '*': true }. Previous list will be overwritten.
+     */
+    "actions"?: { [key: string]: boolean; };
+    /**
+     * New list of not_conditions in urn:mbed-cloud:{resource-type}:{resource-name} format, not more than 100. Previous list will be overwritten.
+     */
+    "not_conditions"?: Array<string>;
+    /**
+     * New policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+     */
+    "tag"?: string;
+    /**
+     * New list of user IDs this policy is attached to, not more than 100. Previous list will be overwritten.
+     */
+    "users"?: Array<string>;
+    /**
+     * New list of group IDs this policy is attached to, not more than 100. Previous list will be overwritten.
+     */
+    "groups"?: Array<string>;
+    /**
+     * New list of not_actions, not more than 100. Previous list will be overwritten.
+     */
+    "notActions"?: Array<string>;
+    /**
+     * New list of API key IDs this policy is attached to, not more than 100. Previous list will be overwritten.
+     */
+    "apikeys"?: Array<string>;
+    /**
+     * New list of conditions in urn:mbed-cloud:{resource-type}:{resource-name} format, not more than 100. Previous list will be overwritten.
+     */
+    "conditions"?: Array<string>;
+    /**
+     * New list of resources in urn:mbed-cloud:{resource-type}:{resource-name} format, not more than 100. Previous list will be overwritten.
+     */
+    "resources"?: Array<string>;
+    /**
+     * The new name of this policy, must be unique and not longer than 100 character.
+     */
+    "name"?: string;
 }
 
 /**
@@ -1107,8 +1435,8 @@ export interface SubjectList {
  */
 export namespace TrustedCertificateInternalResp {
     export type ServiceEnum = "lwm2m" | "bootstrap";
+    export type ObjectEnum = "trusted-cert";
     export type StatusEnum = "ACTIVE" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
 }
 export interface TrustedCertificateInternalResp {
     /**
@@ -1116,33 +1444,25 @@ export interface TrustedCertificateInternalResp {
      */
     "service": TrustedCertificateInternalResp.ServiceEnum;
     /**
-     * Status of the certificate.
+     * If true, signature is not required. Default value false.
      */
-    "status"?: TrustedCertificateInternalResp.StatusEnum;
+    "enrollment_mode"?: boolean;
     /**
      * Private key of the certificate in PEM or base64 encoded DER format.
      */
     "private_key": string;
     /**
-     * Certificate name.
+     * The UUID of the account.
      */
-    "name": string;
+    "account_id": string;
     /**
      * X509.v3 trusted certificate in PEM format.
      */
     "certificate": string;
     /**
-     * If true, signature is not required. Default value false.
+     * Last update UTC time RFC3339.
      */
-    "enrollment_mode"?: boolean;
-    /**
-     * Issuer of the certificate.
-     */
-    "issuer": string;
-    /**
-     * Device execution mode where 1 means a developer certificate.
-     */
-    "device_execution_mode"?: number;
+    "updated_at"?: Date;
     /**
      * Creation UTC time RFC3339.
      */
@@ -1152,29 +1472,37 @@ export interface TrustedCertificateInternalResp {
      */
     "object": TrustedCertificateInternalResp.ObjectEnum;
     /**
+     * Device execution mode where 1 means a developer certificate.
+     */
+    "device_execution_mode"?: number;
+    /**
+     * The UUID of the owner.
+     */
+    "owner_id"?: string;
+    /**
      * Subject of the certificate.
      */
     "subject": string;
     /**
-     * Last update UTC time RFC3339.
+     * Certificate name.
      */
-    "updated_at"?: Date;
-    /**
-     * The UUID of the account.
-     */
-    "account_id": string;
+    "name": string;
     /**
      * API resource entity version.
      */
     "etag": string;
     /**
+     * Status of the certificate.
+     */
+    "status"?: TrustedCertificateInternalResp.StatusEnum;
+    /**
      * Expiration time in UTC formatted as RFC3339.
      */
     "validity": Date;
     /**
-     * The UUID of the owner.
+     * Issuer of the certificate.
      */
-    "owner_id"?: string;
+    "issuer": string;
     /**
      * Entity ID.
      */
@@ -1186,14 +1514,14 @@ export interface TrustedCertificateInternalResp {
 }
 
 export namespace TrustedCertificateInternalRespList {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "list";
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface TrustedCertificateInternalRespList {
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": TrustedCertificateInternalRespList.ObjectEnum;
     /**
      * Flag indicating whether there is more results.
      */
@@ -1203,9 +1531,9 @@ export interface TrustedCertificateInternalRespList {
      */
     "total_count": number;
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": TrustedCertificateInternalRespList.ObjectEnum;
+    "after"?: string;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -1237,13 +1565,13 @@ export interface TrustedCertificateReq {
      */
     "enrollment_mode"?: boolean;
     /**
-     * X509.v3 trusted certificate in PEM format.
+     * X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
      */
     "certificate": string;
     /**
-     * Certificate name, not longer than 100 characters.
+     * Human readable description of this certificate, not longer than 500 characters.
      */
-    "name": string;
+    "description"?: string;
     /**
      * Service name where the certificate must be used.
      */
@@ -1253,9 +1581,9 @@ export interface TrustedCertificateReq {
      */
     "signature"?: string;
     /**
-     * Human readable description of this certificate, not longer than 500 characters.
+     * Certificate name, not longer than 100 characters.
      */
-    "description"?: string;
+    "name": string;
 }
 
 /**
@@ -1263,8 +1591,8 @@ export interface TrustedCertificateReq {
  */
 export namespace TrustedCertificateResp {
     export type ServiceEnum = "lwm2m" | "bootstrap";
+    export type ObjectEnum = "trusted-cert";
     export type StatusEnum = "ACTIVE" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
 }
 export interface TrustedCertificateResp {
     /**
@@ -1272,29 +1600,21 @@ export interface TrustedCertificateResp {
      */
     "service": TrustedCertificateResp.ServiceEnum;
     /**
-     * Status of the certificate.
+     * If true, signature is not required. Default value false.
      */
-    "status"?: TrustedCertificateResp.StatusEnum;
+    "enrollment_mode"?: boolean;
     /**
-     * Certificate name.
+     * The UUID of the account.
      */
-    "name": string;
+    "account_id": string;
     /**
      * X509.v3 trusted certificate in PEM format.
      */
     "certificate": string;
     /**
-     * If true, signature is not required. Default value false.
+     * Last update UTC time RFC3339.
      */
-    "enrollment_mode"?: boolean;
-    /**
-     * Issuer of the certificate.
-     */
-    "issuer": string;
-    /**
-     * Device execution mode where 1 means a developer certificate.
-     */
-    "device_execution_mode"?: number;
+    "updated_at"?: Date;
     /**
      * Creation UTC time RFC3339.
      */
@@ -1304,29 +1624,37 @@ export interface TrustedCertificateResp {
      */
     "object": TrustedCertificateResp.ObjectEnum;
     /**
+     * Device execution mode where 1 means a developer certificate.
+     */
+    "device_execution_mode"?: number;
+    /**
+     * The UUID of the owner.
+     */
+    "owner_id"?: string;
+    /**
      * Subject of the certificate.
      */
     "subject": string;
     /**
-     * Last update UTC time RFC3339.
+     * Certificate name.
      */
-    "updated_at"?: Date;
-    /**
-     * The UUID of the account.
-     */
-    "account_id": string;
+    "name": string;
     /**
      * API resource entity version.
      */
     "etag": string;
     /**
+     * Status of the certificate.
+     */
+    "status"?: TrustedCertificateResp.StatusEnum;
+    /**
      * Expiration time in UTC formatted as RFC3339.
      */
     "validity": Date;
     /**
-     * The UUID of the owner.
+     * Issuer of the certificate.
      */
-    "owner_id"?: string;
+    "issuer": string;
     /**
      * Entity ID.
      */
@@ -1338,14 +1666,14 @@ export interface TrustedCertificateResp {
 }
 
 export namespace TrustedCertificateRespList {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "list";
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface TrustedCertificateRespList {
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": TrustedCertificateRespList.ObjectEnum;
     /**
      * Flag indicating whether there is more results.
      */
@@ -1355,9 +1683,9 @@ export interface TrustedCertificateRespList {
      */
     "total_count": number;
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": TrustedCertificateRespList.ObjectEnum;
+    "after"?: string;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -1389,13 +1717,13 @@ export interface TrustedCertificateRootReq {
      */
     "enrollment_mode"?: boolean;
     /**
-     * X509.v3 trusted certificate in PEM format.
+     * X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
      */
     "certificate": string;
     /**
-     * Certificate name, not longer than 100 characters.
+     * Human readable description of this certificate, not longer than 500 characters.
      */
-    "name": string;
+    "description"?: string;
     /**
      * Service name where the certificate must be used.
      */
@@ -1405,9 +1733,9 @@ export interface TrustedCertificateRootReq {
      */
     "signature"?: string;
     /**
-     * Human readable description of this certificate, not longer than 500 characters.
+     * Certificate name, not longer than 100 characters.
      */
-    "description"?: string;
+    "name": string;
 }
 
 /**
@@ -1431,9 +1759,9 @@ export interface TrustedCertificateUpdateReq {
      */
     "certificate"?: string;
     /**
-     * Certificate name, not longer than 100 characters.
+     * Human readable description of this certificate, not longer than 500 characters.
      */
-    "name"?: string;
+    "description"?: string;
     /**
      * Service name where the certificate must be used.
      */
@@ -1443,17 +1771,17 @@ export interface TrustedCertificateUpdateReq {
      */
     "signature"?: string;
     /**
-     * Human readable description of this certificate, not longer than 500 characters.
+     * Certificate name, not longer than 100 characters.
      */
-    "description"?: string;
+    "name"?: string;
 }
 
 /**
  * This object represents a response to an update request.
  */
 export namespace UpdatedResponse {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
-    export type TypeEnum = "success" | "created" | "accepted" | "permanently_deleted" | "validation_error" | "invalid_token" | "invalid_apikey" | "reauth_required" | "access_denied" | "account_limit_exceeded" | "not_found" | "method_not_supported" | "not_acceptable" | "duplicate" | "precondition_failed" | "unsupported_media_type" | "rate_limit_exceeded" | "internal_server_error" | "system_unavailable";
+    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider" | "user-session";
+    export type TypeEnum = "success";
 }
 export interface UpdatedResponse {
     /**
@@ -1495,9 +1823,9 @@ export interface UserInfoReq {
      */
     "username"?: string;
     /**
-     * A list of IDs of the groups this user belongs to.
+     * A flag indicating that receiving marketing information has been accepted.
      */
-    "groups"?: Array<string>;
+    "is_marketing_accepted"?: boolean;
     /**
      * A flag indicating that the General Terms and Conditions has been accepted.
      */
@@ -1507,9 +1835,9 @@ export interface UserInfoReq {
      */
     "full_name"?: string;
     /**
-     * A flag indicating that receiving marketing information has been accepted.
+     * A list of IDs of the groups this user belongs to.
      */
-    "is_marketing_accepted"?: boolean;
+    "groups"?: Array<string>;
     /**
      * Address, not longer than 100 characters.
      */
@@ -1529,13 +1857,13 @@ export interface UserInfoReq {
  */
 export namespace UserInfoResp {
     export type StatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "user";
 }
 export interface UserInfoResp {
     /**
-     * A username containing alphanumerical letters and -,._@+= characters.
+     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
-    "username"?: string;
+    "status": UserInfoResp.StatusEnum;
     /**
      * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
      */
@@ -1573,17 +1901,13 @@ export interface UserInfoResp {
      */
     "is_marketing_accepted"?: boolean;
     /**
+     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     */
+    "is_totp_enabled"?: boolean;
+    /**
      * Phone number.
      */
     "phone_number"?: string;
-    /**
-     * The email address.
-     */
-    "email": string;
-    /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
-     */
-    "status": UserInfoResp.StatusEnum;
     /**
      * The UUID of the account.
      */
@@ -1617,9 +1941,13 @@ export interface UserInfoResp {
      */
     "user_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     * The email address.
      */
-    "is_totp_enabled"?: boolean;
+    "email": string;
+    /**
+     * A username containing alphanumerical letters and -,._@+= characters.
+     */
+    "username"?: string;
     /**
      * A timestamp of the latest change of the user password, in milliseconds.
      */
@@ -1627,14 +1955,14 @@ export interface UserInfoResp {
 }
 
 export namespace UserInfoRespList {
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "list";
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface UserInfoRespList {
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": UserInfoRespList.ObjectEnum;
     /**
      * Flag indicating whether there is more results.
      */
@@ -1644,9 +1972,9 @@ export interface UserInfoRespList {
      */
     "total_count": number;
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": UserInfoRespList.ObjectEnum;
+    "after"?: string;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -1670,9 +1998,9 @@ export interface UserUpdateReq {
      */
     "phone_number"?: string;
     /**
-     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     * The status of the user.
      */
-    "username"?: string;
+    "status"?: string;
     /**
      * A flag indicating that receiving marketing information has been accepted.
      */
@@ -1686,17 +2014,21 @@ export interface UserUpdateReq {
      */
     "is_gtc_accepted"?: boolean;
     /**
+     * The full name of the user, not longer than 100 characters.
+     */
+    "full_name"?: string;
+    /**
      * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
      */
     "is_totp_enabled"?: boolean;
     /**
-     * The status of the user.
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
      */
-    "status"?: string;
+    "username"?: string;
     /**
-     * The full name of the user, not longer than 100 characters.
+     * A list of group IDs this user belongs to.
      */
-    "full_name"?: string;
+    "groups"?: Array<string>;
     /**
      * Address, not longer than 100 characters.
      */
@@ -1716,13 +2048,13 @@ export interface UserUpdateReq {
  */
 export namespace UserUpdateResp {
     export type StatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
-    export type ObjectEnum = "user" | "api-key" | "group" | "account" | "account-template" | "trusted-cert" | "list" | "error" | "policy" | "identity-provider";
+    export type ObjectEnum = "user";
 }
 export interface UserUpdateResp {
     /**
-     * A username containing alphanumerical letters and -,._@+= characters.
+     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
-    "username"?: string;
+    "status": UserUpdateResp.StatusEnum;
     /**
      * List of active user sessions.
      */
@@ -1764,17 +2096,13 @@ export interface UserUpdateResp {
      */
     "is_marketing_accepted"?: boolean;
     /**
+     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     */
+    "is_totp_enabled"?: boolean;
+    /**
      * Phone number.
      */
     "phone_number"?: string;
-    /**
-     * The email address.
-     */
-    "email": string;
-    /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
-     */
-    "status": UserUpdateResp.StatusEnum;
     /**
      * The UUID of the account.
      */
@@ -1816,9 +2144,13 @@ export interface UserUpdateResp {
      */
     "user_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     * The email address.
      */
-    "is_totp_enabled"?: boolean;
+    "email": string;
+    /**
+     * A username containing alphanumerical letters and -,._@+= characters.
+     */
+    "username"?: string;
     /**
      * A timestamp of the latest change of the user password, in milliseconds.
      */
@@ -1830,67 +2162,6 @@ export interface UserUpdateResp {
  */
 export class AccountAdminApi extends ApiBase {
 
-    /**
-     * Add API key to a list of groups.
-     * An endpoint for adding API key to groups.
-     * @param accountID Account ID.
-     * @param apiKey The ID of the API key to be added to the group.
-     * @param body A list of IDs of the groups to be updated.
-     */
-    public addAccountApiKeyToGroups(accountID: string, apiKey: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "accountID" is set
-        if (accountID === null || accountID === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'accountID' missing."));
-            }
-            return;
-        }
-        // verify required parameter "apiKey" is set
-        if (apiKey === null || apiKey === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'apiKey' missing."));
-            }
-            return;
-        }
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'body' missing."));
-            }
-            return;
-        }
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-            "application/json"
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
-
-        return this.request<UpdatedResponse>({
-            url: "/v3/accounts/{accountID}/api-keys/{apiKey}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
-            method: "POST",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
-            body: body,
-        }, callback);
-    }
     /**
      * Add API key to a list of groups.
      * An endpoint for adding API key to groups.
@@ -2337,73 +2608,6 @@ export class AccountAdminApi extends ApiBase {
     /**
      * Get groups of the API key.
      * An endpoint for retrieving groups of the API key.
-     * @param accountID Account ID.
-     * @param apiKey The ID of the API key whose details are retrieved.
-     * @param limit The number of results to return (2-1000), default is 50.
-     * @param after The entity ID to fetch after the given one.
-     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
-     * @param include Comma separated additional data to return. Currently supported: total_count
-     */
-    public getGroupsOfAccountApikey(accountID: string, apiKey: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "accountID" is set
-        if (accountID === null || accountID === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'accountID' missing."));
-            }
-            return;
-        }
-        // verify required parameter "apiKey" is set
-        if (apiKey === null || apiKey === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'apiKey' missing."));
-            }
-            return;
-        }
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters["limit"] = limit;
-        }
-        if (after !== undefined) {
-            queryParameters["after"] = after;
-        }
-        if (order !== undefined) {
-            queryParameters["order"] = order;
-        }
-        if (include !== undefined) {
-            queryParameters["include"] = include;
-        }
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
-
-        return this.request<GroupSummaryList>({
-            url: "/v3/accounts/{accountID}/api-keys/{apiKey}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
-            method: "GET",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
-        }, callback);
-    }
-    /**
-     * Get groups of the API key.
-     * An endpoint for retrieving groups of the API key.
      * @param apiKey The ID of the API key whose details are retrieved.
      * @param limit The number of results to return (2-1000), default is 50.
      * @param after The entity ID to fetch after the given one.
@@ -2628,67 +2832,6 @@ export class AccountAdminApi extends ApiBase {
     /**
      * Remove API key from groups.
      * An endpoint for removing API key from groups.
-     * @param accountID Account ID.
-     * @param apiKey The ID of the API key to be removed from the group.
-     * @param body A list of IDs of the groups to be updated.
-     */
-    public removeAccountApiKeyFromGroups(accountID: string, apiKey: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "accountID" is set
-        if (accountID === null || accountID === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'accountID' missing."));
-            }
-            return;
-        }
-        // verify required parameter "apiKey" is set
-        if (apiKey === null || apiKey === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'apiKey' missing."));
-            }
-            return;
-        }
-        // verify required parameter "body" is set
-        if (body === null || body === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'body' missing."));
-            }
-            return;
-        }
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-            "application/json"
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
-
-        return this.request<UpdatedResponse>({
-            url: "/v3/accounts/{accountID}/api-keys/{apiKey}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
-            method: "DELETE",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
-            body: body,
-        }, callback);
-    }
-    /**
-     * Remove API key from groups.
-     * An endpoint for removing API key from groups.
      * @param apiKey The ID of the API key to be removed from the group.
      * @param body A list of IDs of the groups to be updated.
      */
@@ -2846,6 +2989,59 @@ export class AccountAdminApi extends ApiBase {
         }, callback);
     }
     /**
+     * Update the group name.
+     * An endpoint for updating a group name.
+     * @param groupID The ID of the group to be updated.
+     * @param body Details of the group to be created.
+     */
+    public updateGroupName(groupID: string, body: GroupUpdateInfo, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "groupID" is set
+        if (groupID === null || groupID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'groupID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/policy-groups/{groupID}".replace("{" + "groupID" + "}", String(groupID)),
+            method: "PUT",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
      * Updates attributes of the account.
      * An endpoint for updating the account.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      * @param body Details of the account to be updated.
@@ -2949,6 +3145,67 @@ export class AccountAdminApi extends ApiBase {
  */
 export class AggregatorAccountAdminApi extends ApiBase {
 
+    /**
+     * Add API key to a list of groups.
+     * An endpoint for adding API key to groups.
+     * @param accountID Account ID.
+     * @param apiKey The ID of the API key to be added to the group.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public addAccountApiKeyToGroups(accountID: string, apiKey: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
     /**
      * Upload new trusted certificate.
      * An endpoint for uploading new trusted certificates.
@@ -3125,6 +3382,189 @@ export class AggregatorAccountAdminApi extends ApiBase {
         }, callback);
     }
     /**
+     * Attach a policy to API keys.
+     * An endpoint for attaching policy to API keys.
+     * @param accountID Account ID.
+     * @param policyId The ID of the policy to be attached to API keys.
+     * @param body List of API key IDs.
+     */
+    public attachAccountPolicyToApikeys(accountID: string, policyId: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}/api-keys".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Attach a policy to groups.
+     * An endpoint for attaching policy to groups.
+     * @param accountID Account ID.
+     * @param policyId The ID of the policy to be attached to groups.
+     * @param body List of groups IDs.
+     */
+    public attachAccountPolicyToGroup(accountID: string, policyId: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Attach a policy to users.
+     * An endpoint for attaching policy to users.
+     * @param accountID Account ID.
+     * @param policyId The ID of the policy to be attached to users.
+     * @param body List of user IDs.
+     */
+    public attachAccountPolicyToUsers(accountID: string, policyId: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}/users".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
      * Check the API key.
      * An endpoint for checking API key.
      * @param accountID Account ID.
@@ -3266,6 +3706,59 @@ export class AggregatorAccountAdminApi extends ApiBase {
 
         return this.request<ApiKeyInfoResp>({
             url: "/v3/accounts/{accountID}/api-keys".replace("{" + "accountID" + "}", String(accountID)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Create a policy.
+     * An endpoint for creating a new policy.
+     * @param accountID Account ID.
+     * @param body The details of the policy to be created.
+     */
+    public createAccountPolicy(accountID: string, body: PolicyCreationReq, callback?: (error: any, data?: PolicyInfo, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<PolicyInfo>({
+            url: "/v3/accounts/{accountID}/policies".replace("{" + "accountID" + "}", String(accountID)),
             method: "POST",
             headers: headerParams,
             query: queryParameters,
@@ -3437,6 +3930,57 @@ export class AggregatorAccountAdminApi extends ApiBase {
         }, callback);
     }
     /**
+     * Delete policy.
+     * An endpoint for deleting a policy.
+     * @param accountID Account ID.
+     * @param policyId The ID of the policy to be deleted.
+     */
+    public deleteAccountPolicy(accountID: string, policyId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
      * Delete a user.
      * An endpoint for deleting a user.
      * @param accountID Account ID.
@@ -3485,6 +4029,189 @@ export class AggregatorAccountAdminApi extends ApiBase {
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Detach a policy from API keys.
+     * An endpoint for detaching policy from API keys.
+     * @param accountID Account ID.
+     * @param policyId The ID of the policy to be detached from API keys.
+     * @param body List of API key IDs.
+     */
+    public detachAccountPolicyFromApikeys(accountID: string, policyId: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}/api-keys".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Detach a policy from users.
+     * An endpoint for detaching policy from users.
+     * @param accountID Account ID.
+     * @param policyId The ID of the policy to be detached from users.
+     * @param body List of user IDs.
+     */
+    public detachAccountPolicyFromUsers(accountID: string, policyId: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}/users".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Detach a policy to groups.
+     * An endpoint for detaching policy to groups.
+     * @param accountID Account ID.
+     * @param policyId The ID of the policy to be detached from groups.
+     * @param body List of groups IDs.
+     */
+    public detachAccountPolicyToGroup(accountID: string, policyId: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
         }, callback);
     }
     /**
@@ -3681,6 +4408,258 @@ export class AggregatorAccountAdminApi extends ApiBase {
 
         return this.request<AccountInfo>({
             url: "/v3/accounts/{accountID}".replace("{" + "accountID" + "}", String(accountID)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get policy by ID.
+     * An endpoint for retrieving a policy by ID.
+     * @param accountID Account ID.
+     * @param policyId The ID the policy to be retrieved.
+     */
+    public getAccountPolicy(accountID: string, policyId: string, callback?: (error: any, data?: PolicyInfo, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<PolicyInfo>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Fetch details of policy&#39;s API keys.
+     * An endpoint for fetching detailed information about API keys this policy is attached to.
+     * @param accountID Account ID.
+     * @param policyId The ID the policy whose API keys to be retrieved.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     */
+    public getAccountPolicyApikeys(accountID: string, policyId: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: ApiKeyInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<ApiKeyInfoRespList>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}/api-keys".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Fetch details of policy&#39;s groups.
+     * An endpoint for fetching detailed information about groups this policy is attached to.
+     * @param accountID Account ID.
+     * @param policyId The ID the policy whose API keys to be retrieved.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     */
+    public getAccountPolicyGroups(accountID: string, policyId: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummaryList>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Fetch details of policy&#39;s users.
+     * An endpoint for fetching detailed information about users this policy is attached to.
+     * @param accountID Account ID.
+     * @param policyId The ID the policy whose users to be retrieved.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     */
+    public getAccountPolicyUsers(accountID: string, policyId: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: UserInfoRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UserInfoRespList>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}/users".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
             method: "GET",
             headers: headerParams,
             query: queryParameters,
@@ -3976,6 +4955,89 @@ export class AggregatorAccountAdminApi extends ApiBase {
         }, callback);
     }
     /**
+     * Get all policies.
+     * An endpoint for retrieving all policies in the account.
+     * @param accountID Account ID.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param nameEq Filter result by policy name.
+     * @param statusEq Filter for status, ACTIVE or INACTIVE.
+     * @param tagEq Filter results for tag.
+     * @param userIdEq Retrieve policies attached to a certain user ID.
+     * @param apikeyIdEq Retrieve policies attached to a certain API key ID.
+     * @param groupIdEq Retrieve policies attached to a certain group ID.
+     * @param unbounded Retrieve policies not attached to any subject in the account.
+     */
+    public getAllAccountPolicies(accountID: string, limit?: number, after?: string, order?: string, nameEq?: string, statusEq?: string, tagEq?: string, userIdEq?: string, apikeyIdEq?: string, groupIdEq?: string, unbounded?: string, callback?: (error: any, data?: PolicyInfoList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (nameEq !== undefined) {
+            queryParameters["name__eq"] = nameEq;
+        }
+        if (statusEq !== undefined) {
+            queryParameters["status__eq"] = statusEq;
+        }
+        if (tagEq !== undefined) {
+            queryParameters["tag__eq"] = tagEq;
+        }
+        if (userIdEq !== undefined) {
+            queryParameters["user_id__eq"] = userIdEq;
+        }
+        if (apikeyIdEq !== undefined) {
+            queryParameters["apikey_id__eq"] = apikeyIdEq;
+        }
+        if (groupIdEq !== undefined) {
+            queryParameters["group_id__eq"] = groupIdEq;
+        }
+        if (unbounded !== undefined) {
+            queryParameters["unbounded"] = unbounded;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<PolicyInfoList>({
+            url: "/v3/accounts/{accountID}/policies".replace("{" + "accountID" + "}", String(accountID)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
      * Get all user details.
      * An endpoint for retrieving details of all users.
      * @param accountID Account ID.
@@ -4189,6 +5251,73 @@ export class AggregatorAccountAdminApi extends ApiBase {
         }, callback);
     }
     /**
+     * Get groups of the API key.
+     * An endpoint for retrieving groups of the API key.
+     * @param accountID Account ID.
+     * @param apiKey The ID of the API key whose details are retrieved.
+     * @param limit The number of results to return (2-1000), default is 50.
+     * @param after The entity ID to fetch after the given one.
+     * @param order The order of the records based on creation time, ASC or DESC; by default ASC
+     * @param include Comma separated additional data to return. Currently supported: total_count
+     */
+    public getGroupsOfAccountApikey(accountID: string, apiKey: string, limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummaryList>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
      * Get groups of the user.
      * An endpoint for retrieving groups of the user.
      * @param accountID Account ID.
@@ -4320,6 +5449,67 @@ export class AggregatorAccountAdminApi extends ApiBase {
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Remove API key from groups.
+     * An endpoint for removing API key from groups.
+     * @param accountID Account ID.
+     * @param apiKey The ID of the API key to be removed from the group.
+     * @param body A list of IDs of the groups to be updated.
+     */
+    public removeAccountApiKeyFromGroups(accountID: string, apiKey: string, body: Array<string>, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "apiKey" is set
+        if (apiKey === null || apiKey === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'apiKey' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/api-keys/{apiKey}/groups".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "apiKey" + "}", String(apiKey)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
         }, callback);
     }
     /**
@@ -4705,6 +5895,67 @@ export class AggregatorAccountAdminApi extends ApiBase {
 
         return this.request<TrustedCertificateInternalResp>({
             url: "/v3/accounts/{accountID}/trusted-certificates/{cert-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "cert-id" + "}", String(certId)),
+            method: "PUT",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Update a policy.
+     * An endpoint for updating a policy.
+     * @param accountID Account ID.
+     * @param policyId The ID the policy to be retrieved.
+     * @param body The details of the policy to be updated.
+     */
+    public updateAccountPolicy(accountID: string, policyId: string, body: PolicyUpdateReq, callback?: (error: any, data?: PolicyInfo, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "policyId" is set
+        if (policyId === null || policyId === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'policyId' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<PolicyInfo>({
+            url: "/v3/accounts/{accountID}/policies/{policy-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "policy-id" + "}", String(policyId)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,
