@@ -443,7 +443,8 @@ export interface DeviceQueryPostPutRequest {
 export class DefaultApi extends ApiBase {
 
     /**
-     * Create device.
+     * Create a device
+     * Create a new device.
      * @param device 
      */
     public deviceCreate(device: DeviceDataPostRequest, callback?: (error: any, data?: DeviceData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -486,6 +487,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
+     * Delete a device.
      * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
      * @param id 
      */
@@ -529,6 +531,7 @@ export class DefaultApi extends ApiBase {
     }
     /**
      * List all device events.
+     * List all device events for an account.
      * @param limit How many objects to retrieve in the page.
      * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;.
      * @param after The ID of The item after which to retrieve the next page.
@@ -582,7 +585,8 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * Retrieve device event.
+     * Retrieve a device event.
+     * Retrieve a specific device event.
      * @param deviceEventId 
      */
     public deviceEventRetrieve(deviceEventId: string, callback?: (error: any, data?: DeviceEventData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -624,6 +628,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
+     * List all devices.
      * List all devices.
      * @param limit How many objects to retrieve in the page.
      * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;.
@@ -678,6 +683,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
+     * DEPRECATED: List all device events.
      * DEPRECATED: List all device events. Use &#x60;/v3/device-events/&#x60; instead.
      * @param limit How many objects to retrieve in the page.
      * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;.
@@ -732,6 +738,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
+     * DEPRECATED: Retrieve a device event.
      * Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
      * @param deviceEventId 
      */
@@ -774,7 +781,8 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * Create device query.
+     * Create a device query
+     * Create a new device query.
      * @param device 
      */
     public deviceQueryCreate(device: DeviceQueryPostPutRequest, callback?: (error: any, data?: DeviceQuery, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -817,7 +825,8 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * Delete device query.
+     * Delete a device query
+     * Delete a device query.
      * @param queryId 
      */
     public deviceQueryDestroy(queryId: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -859,6 +868,7 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
+     * List device queries.
      * List all device queries. The result will be paged into pages of 100.
      * @param limit How many objects to retrieve in the page.
      * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;.
@@ -913,7 +923,8 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * Retrieve device query.
+     * Retrieve a device query.
+     * Retrieve a specific device query.
      * @param queryId 
      */
     public deviceQueryRetrieve(queryId: string, callback?: (error: any, data?: DeviceQuery, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -955,7 +966,8 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * Update device query.
+     * Update a device query
+     * Update a specifc device query.
      * @param queryId 
      * @param body Device query update object.
      */
@@ -1006,7 +1018,8 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * Retrieve device.
+     * Get a devices
+     * Retrieve information about a specific device.
      * @param id 
      */
     public deviceRetrieve(id: string, callback?: (error: any, data?: DeviceData, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -1048,7 +1061,8 @@ export class DefaultApi extends ApiBase {
         }, callback);
     }
     /**
-     * Update device.
+     * Update a device
+     * Update a specific device.
      * @param id The ID of the device.
      * @param device 
      */
