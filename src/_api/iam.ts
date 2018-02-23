@@ -58,21 +58,17 @@ export interface AccountCreationReq {
      */
     "customer_number"?: string;
     /**
-     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+     * Contract number of the customer.
      */
-    "contact"?: string;
-    /**
-     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-     */
-    "email"?: string;
+    "contract_number"?: string;
     /**
      * The state part of the postal address, not longer than 100 characters.
      */
     "state"?: string;
     /**
-     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
      */
-    "admin_name"?: string;
+    "contact"?: string;
     /**
      * The postal code part of the postal address, not longer than 100 characters.
      */
@@ -81,6 +77,10 @@ export interface AccountCreationReq {
      * The password when creating a new user. It will be generated when not present in the request.
      */
     "admin_password"?: string;
+    /**
+     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     */
+    "admin_name"?: string;
     /**
      * The full name of the admin user to be created.
      */
@@ -98,9 +98,9 @@ export interface AccountCreationReq {
      */
     "phone_number"?: string;
     /**
-     * Contract number of the customer.
+     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
      */
-    "contract_number"?: string;
+    "email"?: string;
     /**
      * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
      */
@@ -119,6 +119,10 @@ export interface AccountCreationResp {
      * The ID of the admin user created.
      */
     "admin_id": string;
+    /**
+     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+     */
+    "email"?: string;
     /**
      * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
      */
@@ -160,17 +164,13 @@ export interface AccountCreationResp {
      */
     "admin_password"?: string;
     /**
-     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+     * Contract number of the customer.
      */
-    "email"?: string;
+    "contract_number"?: string;
     /**
      * The phone number of a representative of the company, not longer than 100 characters.
      */
     "phone_number"?: string;
-    /**
-     * Contract number of the customer.
-     */
-    "contract_number"?: string;
     /**
      * The name of the company, not longer than 100 characters. Required for commercial accounts only.
      */
@@ -239,6 +239,10 @@ export interface AccountInfo {
      */
     "account_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
+     * Customer number of the customer.
+     */
+    "customer_number"?: string;
+    /**
      * Account ID.
      */
     "id": string;
@@ -287,10 +291,6 @@ export interface AccountInfo {
      */
     "phone_number"?: string;
     /**
-     * Contract number of the customer.
-     */
-    "contract_number"?: string;
-    /**
      * A reference note for updating the status of the account
      */
     "reference_note"?: string;
@@ -303,9 +303,9 @@ export interface AccountInfo {
      */
     "object": AccountInfo.ObjectEnum;
     /**
-     * The reference token expiration time in minutes for this account.
+     * A reason note for updating the status of the account
      */
-    "idle_timeout"?: string;
+    "reason"?: string;
     /**
      * Time when upgraded to commercial account in UTC format RFC3339.
      */
@@ -331,13 +331,13 @@ export interface AccountInfo {
      */
     "created_at"?: Date;
     /**
-     * A reason note for updating the status of the account
+     * The reference token expiration time in minutes for this account.
      */
-    "reason"?: string;
+    "idle_timeout"?: string;
     /**
-     * Customer number of the customer.
+     * Contract number of the customer.
      */
-    "customer_number"?: string;
+    "contract_number"?: string;
     /**
      * Indicates how many days (1-180) before account expiration a notification email should be sent.
      */
@@ -366,9 +366,9 @@ export namespace AccountInfoList {
 }
 export interface AccountInfoList {
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": AccountInfoList.ObjectEnum;
+    "after"?: string;
     /**
      * Flag indicating whether there is more results.
      */
@@ -378,9 +378,9 @@ export interface AccountInfoList {
      */
     "total_count": number;
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": AccountInfoList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -423,10 +423,6 @@ export interface AccountUpdateReq {
      */
     "mfa_status"?: AccountUpdateReq.MfaStatusEnum;
     /**
-     * The state part of the postal address, not longer than 100 characters.
-     */
-    "state"?: string;
-    /**
      * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
      */
     "country"?: string;
@@ -439,13 +435,13 @@ export interface AccountUpdateReq {
      */
     "idle_timeout"?: string;
     /**
-     * Password policy for this account.
+     * A list of notification email addresses.
      */
-    "password_policy"?: PasswordPolicy;
+    "notification_emails"?: Array<string>;
     /**
-     * Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
+     * The state part of the postal address, not longer than 100 characters.
      */
-    "expiration_warning_threshold"?: string;
+    "state"?: string;
     /**
      * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
      */
@@ -459,9 +455,13 @@ export interface AccountUpdateReq {
      */
     "account_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
-     * A list of notification email addresses.
+     * Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
      */
-    "notification_emails"?: Array<string>;
+    "expiration_warning_threshold"?: string;
+    /**
+     * Password policy for this account.
+     */
+    "password_policy"?: PasswordPolicy;
     /**
      * The end market for this account, not longer than 100 characters.
      */
@@ -500,6 +500,10 @@ export interface AccountUpdateRootReq {
      */
     "sales_contact"?: string;
     /**
+     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+     */
+    "email"?: string;
+    /**
      * The postal code part of the postal address, not longer than 100 characters.
      */
     "postal_code"?: string;
@@ -536,17 +540,13 @@ export interface AccountUpdateRootReq {
      */
     "state"?: string;
     /**
-     * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+     * Contract number of the customer.
      */
-    "email"?: string;
+    "contract_number"?: string;
     /**
      * The phone number of a representative of the company, not longer than 100 characters.
      */
     "phone_number"?: string;
-    /**
-     * Contract number of the customer.
-     */
-    "contract_number"?: string;
     /**
      * The name of the company, not longer than 100 characters. Required for commercial accounts only.
      */
@@ -619,9 +619,13 @@ export interface AdminUserUpdateReq {
      */
     "phone_number"?: string;
     /**
-     * The status of the user.
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
      */
-    "status"?: string;
+    "username"?: string;
+    /**
+     * A list of group IDs this user belongs to.
+     */
+    "groups"?: Array<string>;
     /**
      * A flag indicating that receiving marketing information has been accepted.
      */
@@ -631,17 +635,9 @@ export interface AdminUserUpdateReq {
      */
     "user_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
-     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-     */
-    "username"?: string;
-    /**
      * A flag indicating that the General Terms and Conditions has been accepted.
      */
     "is_gtc_accepted"?: boolean;
-    /**
-     * The full name of the user, not longer than 100 characters.
-     */
-    "full_name"?: string;
     /**
      * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
      */
@@ -651,9 +647,13 @@ export interface AdminUserUpdateReq {
      */
     "notification_properties"?: { [key: string]: string; };
     /**
-     * A list of group IDs this user belongs to.
+     * The status of the user.
      */
-    "groups"?: Array<string>;
+    "status"?: string;
+    /**
+     * The full name of the user, not longer than 100 characters.
+     */
+    "full_name"?: string;
     /**
      * Address, not longer than 100 characters.
      */
@@ -702,13 +702,17 @@ export namespace ApiKeyInfoResp {
 }
 export interface ApiKeyInfoResp {
     /**
+     * A list of group IDs this API key belongs to.
+     */
+    "groups"?: Array<string>;
+    /**
      * The status of the API key.
      */
     "status"?: ApiKeyInfoResp.StatusEnum;
     /**
-     * A list of group IDs this API key belongs to.
+     * The display name for the API key.
      */
-    "groups"?: Array<string>;
+    "name": string;
     /**
      * Creation UTC time RFC3339.
      */
@@ -725,10 +729,6 @@ export interface ApiKeyInfoResp {
      * Last update UTC time RFC3339.
      */
     "updated_at"?: Date;
-    /**
-     * The display name for the API key.
-     */
-    "name": string;
     /**
      * API resource entity version.
      */
@@ -757,9 +757,9 @@ export namespace ApiKeyInfoRespList {
 }
 export interface ApiKeyInfoRespList {
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": ApiKeyInfoRespList.ObjectEnum;
+    "after"?: string;
     /**
      * Flag indicating whether there is more results.
      */
@@ -769,9 +769,9 @@ export interface ApiKeyInfoRespList {
      */
     "total_count": number;
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": ApiKeyInfoRespList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -947,9 +947,9 @@ export namespace GroupSummaryList {
 }
 export interface GroupSummaryList {
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": GroupSummaryList.ObjectEnum;
+    "after"?: string;
     /**
      * Flag indicating whether there is more results.
      */
@@ -959,9 +959,9 @@ export interface GroupSummaryList {
      */
     "total_count": number;
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": GroupSummaryList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -1017,9 +1017,9 @@ export namespace MyUserInfoResp {
 }
 export interface MyUserInfoResp {
     /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     * A username containing alphanumerical letters and -,._@+= characters.
      */
-    "status": MyUserInfoResp.StatusEnum;
+    "username"?: string;
     /**
      * List of active user sessions.
      */
@@ -1061,13 +1061,17 @@ export interface MyUserInfoResp {
      */
     "is_marketing_accepted"?: boolean;
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-     */
-    "is_totp_enabled"?: boolean;
-    /**
      * Phone number.
      */
     "phone_number"?: string;
+    /**
+     * The email address.
+     */
+    "email": string;
+    /**
+     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     */
+    "status": MyUserInfoResp.StatusEnum;
     /**
      * The UUID of the account.
      */
@@ -1105,13 +1109,9 @@ export interface MyUserInfoResp {
      */
     "user_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
-     * The email address.
+     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      */
-    "email": string;
-    /**
-     * A username containing alphanumerical letters and -,._@+= characters.
-     */
-    "username"?: string;
+    "is_totp_enabled"?: boolean;
     /**
      * A timestamp of the latest change of the user password, in milliseconds.
      */
@@ -1137,18 +1137,6 @@ export interface PolicyCreationReq {
      */
     "status"?: PolicyCreationReq.StatusEnum;
     /**
-     * Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
-     */
-    "valid_from"?: Date;
-    /**
-     * Custom error message returned when this policy matches with not allowed result.
-     */
-    "error_message"?: string;
-    /**
-     * The description of this policy, not longer than 500 character.
-     */
-    "description"?: string;
-    /**
      * Specifies the date and time until the policy is valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
      */
     "valid_until"?: Date;
@@ -1156,6 +1144,14 @@ export interface PolicyCreationReq {
      * Specifies the value in seconds for how long an authorization result is valid.
      */
     "grant_expires_in"?: number;
+    /**
+     * The name of this policy, must be unique and not longer than 100 character.
+     */
+    "name": string;
+    /**
+     * Custom error message returned when this policy matches with not allowed result.
+     */
+    "error_message"?: string;
     /**
      * List of not_resources in urn:mbed-cloud:{resource-type}:{resource-name} format, not more than 100.
      */
@@ -1169,9 +1165,9 @@ export interface PolicyCreationReq {
      */
     "not_conditions"?: Array<string>;
     /**
-     * Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+     * Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
      */
-    "tag"?: string;
+    "valid_from"?: Date;
     /**
      * List of user IDs this policy is attached to, not more than 100.
      */
@@ -1180,6 +1176,10 @@ export interface PolicyCreationReq {
      * List of group IDs this policy is attached to, not more than 100.
      */
     "groups"?: Array<string>;
+    /**
+     * Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+     */
+    "tag"?: string;
     /**
      * List of not_actions, not more than 100.
      */
@@ -1197,9 +1197,9 @@ export interface PolicyCreationReq {
      */
     "resources"?: Array<string>;
     /**
-     * The name of this policy, must be unique and not longer than 100 character.
+     * The description of this policy, not longer than 500 character.
      */
-    "name": string;
+    "description"?: string;
 }
 
 /**
@@ -1215,9 +1215,9 @@ export interface PolicyInfo {
      */
     "valid_until"?: Date;
     /**
-     * Custom error message returned when this policy matches with not allowed result.
+     * Specifies the value in seconds for how long an authorization result is valid.
      */
-    "error_message"?: string;
+    "grant_expires_in"?: number;
     /**
      * Last update UTC time RFC3339.
      */
@@ -1239,21 +1239,21 @@ export interface PolicyInfo {
      */
     "id": string;
     /**
-     * The UUID of the account.
+     * List of user IDs this policy is attached to.
      */
-    "account_id": string;
+    "users"?: Array<string>;
     /**
      * Specifies the date and time when the policy will become valid.
      */
     "valid_from"?: Date;
     /**
-     * The description of this policy.
-     */
-    "description"?: string;
-    /**
      * API resource entity version.
      */
     "etag": string;
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
     /**
      * List of conditions.
      */
@@ -1267,9 +1267,9 @@ export interface PolicyInfo {
      */
     "status": PolicyInfo.StatusEnum;
     /**
-     * List of user IDs this policy is attached to.
+     * The description of this policy.
      */
-    "users"?: Array<string>;
+    "description"?: string;
     /**
      * Entity name: always 'policy'
      */
@@ -1295,9 +1295,9 @@ export interface PolicyInfo {
      */
     "created_at"?: Date;
     /**
-     * Specifies the value in seconds for how long an authorization result is valid.
+     * Custom error message returned when this policy matches with not allowed result.
      */
-    "grant_expires_in"?: number;
+    "error_message"?: string;
     /**
      * List of not_conditions.
      */
@@ -1310,9 +1310,9 @@ export namespace PolicyInfoList {
 }
 export interface PolicyInfoList {
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": PolicyInfoList.ObjectEnum;
+    "after"?: string;
     /**
      * Flag indicating whether there is more results.
      */
@@ -1322,9 +1322,9 @@ export interface PolicyInfoList {
      */
     "total_count": number;
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": PolicyInfoList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -1351,18 +1351,6 @@ export interface PolicyUpdateReq {
      */
     "status"?: PolicyUpdateReq.StatusEnum;
     /**
-     * Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
-     */
-    "valid_from"?: Date;
-    /**
-     * Custom error message returned when this policy matches with not allowed result.
-     */
-    "error_message"?: string;
-    /**
-     * The new description of this policy, not longer than 500 character.
-     */
-    "description"?: string;
-    /**
      * Specifies the date and time until the policy is valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
      */
     "valid_until"?: Date;
@@ -1370,6 +1358,14 @@ export interface PolicyUpdateReq {
      * Specifies the value in seconds for how long an authorization result is valid.
      */
     "grant_expires_in"?: number;
+    /**
+     * The new name of this policy, must be unique and not longer than 100 character.
+     */
+    "name"?: string;
+    /**
+     * Custom error message returned when this policy matches with not allowed result.
+     */
+    "error_message"?: string;
     /**
      * New list of not_resources in urn:mbed-cloud:{resource-type}:{resource-name} format, not more than 100. Previous list will be overwritten.
      */
@@ -1383,9 +1379,9 @@ export interface PolicyUpdateReq {
      */
     "not_conditions"?: Array<string>;
     /**
-     * New policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+     * Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'
      */
-    "tag"?: string;
+    "valid_from"?: Date;
     /**
      * New list of user IDs this policy is attached to, not more than 100. Previous list will be overwritten.
      */
@@ -1394,6 +1390,10 @@ export interface PolicyUpdateReq {
      * New list of group IDs this policy is attached to, not more than 100. Previous list will be overwritten.
      */
     "groups"?: Array<string>;
+    /**
+     * New policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+     */
+    "tag"?: string;
     /**
      * New list of not_actions, not more than 100. Previous list will be overwritten.
      */
@@ -1411,9 +1411,9 @@ export interface PolicyUpdateReq {
      */
     "resources"?: Array<string>;
     /**
-     * The new name of this policy, must be unique and not longer than 100 character.
+     * The new description of this policy, not longer than 500 character.
      */
-    "name"?: string;
+    "description"?: string;
 }
 
 /**
@@ -1435,8 +1435,8 @@ export interface SubjectList {
  */
 export namespace TrustedCertificateInternalResp {
     export type ServiceEnum = "lwm2m" | "bootstrap";
-    export type ObjectEnum = "trusted-cert";
     export type StatusEnum = "ACTIVE" | "INACTIVE";
+    export type ObjectEnum = "trusted-cert";
 }
 export interface TrustedCertificateInternalResp {
     /**
@@ -1444,25 +1444,33 @@ export interface TrustedCertificateInternalResp {
      */
     "service": TrustedCertificateInternalResp.ServiceEnum;
     /**
-     * If true, signature is not required. Default value false.
+     * Status of the certificate.
      */
-    "enrollment_mode"?: boolean;
+    "status"?: TrustedCertificateInternalResp.StatusEnum;
     /**
      * Private key of the certificate in PEM or base64 encoded DER format.
      */
     "private_key": string;
     /**
-     * The UUID of the account.
+     * Certificate name.
      */
-    "account_id": string;
+    "name": string;
     /**
      * X509.v3 trusted certificate in PEM format.
      */
     "certificate": string;
     /**
-     * Last update UTC time RFC3339.
+     * If true, signature is not required. Default value false.
      */
-    "updated_at"?: Date;
+    "enrollment_mode"?: boolean;
+    /**
+     * Issuer of the certificate.
+     */
+    "issuer": string;
+    /**
+     * Device execution mode where 1 means a developer certificate.
+     */
+    "device_execution_mode"?: number;
     /**
      * Creation UTC time RFC3339.
      */
@@ -1472,37 +1480,29 @@ export interface TrustedCertificateInternalResp {
      */
     "object": TrustedCertificateInternalResp.ObjectEnum;
     /**
-     * Device execution mode where 1 means a developer certificate.
-     */
-    "device_execution_mode"?: number;
-    /**
-     * The UUID of the owner.
-     */
-    "owner_id"?: string;
-    /**
      * Subject of the certificate.
      */
     "subject": string;
     /**
-     * Certificate name.
+     * Last update UTC time RFC3339.
      */
-    "name": string;
+    "updated_at"?: Date;
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
     /**
      * API resource entity version.
      */
     "etag": string;
     /**
-     * Status of the certificate.
-     */
-    "status"?: TrustedCertificateInternalResp.StatusEnum;
-    /**
      * Expiration time in UTC formatted as RFC3339.
      */
     "validity": Date;
     /**
-     * Issuer of the certificate.
+     * The UUID of the owner.
      */
-    "issuer": string;
+    "owner_id"?: string;
     /**
      * Entity ID.
      */
@@ -1519,9 +1519,9 @@ export namespace TrustedCertificateInternalRespList {
 }
 export interface TrustedCertificateInternalRespList {
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": TrustedCertificateInternalRespList.ObjectEnum;
+    "after"?: string;
     /**
      * Flag indicating whether there is more results.
      */
@@ -1531,9 +1531,9 @@ export interface TrustedCertificateInternalRespList {
      */
     "total_count": number;
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": TrustedCertificateInternalRespList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -1569,9 +1569,9 @@ export interface TrustedCertificateReq {
      */
     "certificate": string;
     /**
-     * Human readable description of this certificate, not longer than 500 characters.
+     * Certificate name, not longer than 100 characters.
      */
-    "description"?: string;
+    "name": string;
     /**
      * Service name where the certificate must be used.
      */
@@ -1581,9 +1581,9 @@ export interface TrustedCertificateReq {
      */
     "signature"?: string;
     /**
-     * Certificate name, not longer than 100 characters.
+     * Human readable description of this certificate, not longer than 500 characters.
      */
-    "name": string;
+    "description"?: string;
 }
 
 /**
@@ -1591,8 +1591,8 @@ export interface TrustedCertificateReq {
  */
 export namespace TrustedCertificateResp {
     export type ServiceEnum = "lwm2m" | "bootstrap";
-    export type ObjectEnum = "trusted-cert";
     export type StatusEnum = "ACTIVE" | "INACTIVE";
+    export type ObjectEnum = "trusted-cert";
 }
 export interface TrustedCertificateResp {
     /**
@@ -1600,21 +1600,29 @@ export interface TrustedCertificateResp {
      */
     "service": TrustedCertificateResp.ServiceEnum;
     /**
-     * If true, signature is not required. Default value false.
+     * Status of the certificate.
      */
-    "enrollment_mode"?: boolean;
+    "status"?: TrustedCertificateResp.StatusEnum;
     /**
-     * The UUID of the account.
+     * Certificate name.
      */
-    "account_id": string;
+    "name": string;
     /**
      * X509.v3 trusted certificate in PEM format.
      */
     "certificate": string;
     /**
-     * Last update UTC time RFC3339.
+     * If true, signature is not required. Default value false.
      */
-    "updated_at"?: Date;
+    "enrollment_mode"?: boolean;
+    /**
+     * Issuer of the certificate.
+     */
+    "issuer": string;
+    /**
+     * Device execution mode where 1 means a developer certificate.
+     */
+    "device_execution_mode"?: number;
     /**
      * Creation UTC time RFC3339.
      */
@@ -1624,37 +1632,29 @@ export interface TrustedCertificateResp {
      */
     "object": TrustedCertificateResp.ObjectEnum;
     /**
-     * Device execution mode where 1 means a developer certificate.
-     */
-    "device_execution_mode"?: number;
-    /**
-     * The UUID of the owner.
-     */
-    "owner_id"?: string;
-    /**
      * Subject of the certificate.
      */
     "subject": string;
     /**
-     * Certificate name.
+     * Last update UTC time RFC3339.
      */
-    "name": string;
+    "updated_at"?: Date;
+    /**
+     * The UUID of the account.
+     */
+    "account_id": string;
     /**
      * API resource entity version.
      */
     "etag": string;
     /**
-     * Status of the certificate.
-     */
-    "status"?: TrustedCertificateResp.StatusEnum;
-    /**
      * Expiration time in UTC formatted as RFC3339.
      */
     "validity": Date;
     /**
-     * Issuer of the certificate.
+     * The UUID of the owner.
      */
-    "issuer": string;
+    "owner_id"?: string;
     /**
      * Entity ID.
      */
@@ -1671,9 +1671,9 @@ export namespace TrustedCertificateRespList {
 }
 export interface TrustedCertificateRespList {
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": TrustedCertificateRespList.ObjectEnum;
+    "after"?: string;
     /**
      * Flag indicating whether there is more results.
      */
@@ -1683,9 +1683,9 @@ export interface TrustedCertificateRespList {
      */
     "total_count": number;
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": TrustedCertificateRespList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -1721,9 +1721,9 @@ export interface TrustedCertificateRootReq {
      */
     "certificate": string;
     /**
-     * Human readable description of this certificate, not longer than 500 characters.
+     * Certificate name, not longer than 100 characters.
      */
-    "description"?: string;
+    "name": string;
     /**
      * Service name where the certificate must be used.
      */
@@ -1733,9 +1733,9 @@ export interface TrustedCertificateRootReq {
      */
     "signature"?: string;
     /**
-     * Certificate name, not longer than 100 characters.
+     * Human readable description of this certificate, not longer than 500 characters.
      */
-    "name": string;
+    "description"?: string;
 }
 
 /**
@@ -1759,9 +1759,9 @@ export interface TrustedCertificateUpdateReq {
      */
     "certificate"?: string;
     /**
-     * Human readable description of this certificate, not longer than 500 characters.
+     * Certificate name, not longer than 100 characters.
      */
-    "description"?: string;
+    "name"?: string;
     /**
      * Service name where the certificate must be used.
      */
@@ -1771,9 +1771,9 @@ export interface TrustedCertificateUpdateReq {
      */
     "signature"?: string;
     /**
-     * Certificate name, not longer than 100 characters.
+     * Human readable description of this certificate, not longer than 500 characters.
      */
-    "name"?: string;
+    "description"?: string;
 }
 
 /**
@@ -1823,9 +1823,13 @@ export interface UserInfoReq {
      */
     "username"?: string;
     /**
-     * A flag indicating that receiving marketing information has been accepted.
+     * A list of IDs of the groups this user belongs to.
      */
-    "is_marketing_accepted"?: boolean;
+    "groups"?: Array<string>;
+    /**
+     * User's account specific custom properties.
+     */
+    "user_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
      * A flag indicating that the General Terms and Conditions has been accepted.
      */
@@ -1835,9 +1839,9 @@ export interface UserInfoReq {
      */
     "full_name"?: string;
     /**
-     * A list of IDs of the groups this user belongs to.
+     * A flag indicating that receiving marketing information has been accepted.
      */
-    "groups"?: Array<string>;
+    "is_marketing_accepted"?: boolean;
     /**
      * Address, not longer than 100 characters.
      */
@@ -1861,9 +1865,9 @@ export namespace UserInfoResp {
 }
 export interface UserInfoResp {
     /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     * A username containing alphanumerical letters and -,._@+= characters.
      */
-    "status": UserInfoResp.StatusEnum;
+    "username"?: string;
     /**
      * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
      */
@@ -1901,13 +1905,17 @@ export interface UserInfoResp {
      */
     "is_marketing_accepted"?: boolean;
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-     */
-    "is_totp_enabled"?: boolean;
-    /**
      * Phone number.
      */
     "phone_number"?: string;
+    /**
+     * The email address.
+     */
+    "email": string;
+    /**
+     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     */
+    "status": UserInfoResp.StatusEnum;
     /**
      * The UUID of the account.
      */
@@ -1941,13 +1949,9 @@ export interface UserInfoResp {
      */
     "user_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
-     * The email address.
+     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      */
-    "email": string;
-    /**
-     * A username containing alphanumerical letters and -,._@+= characters.
-     */
-    "username"?: string;
+    "is_totp_enabled"?: boolean;
     /**
      * A timestamp of the latest change of the user password, in milliseconds.
      */
@@ -1960,9 +1964,9 @@ export namespace UserInfoRespList {
 }
 export interface UserInfoRespList {
     /**
-     * Entity name: always 'list'
+     * The entity ID to fetch after the given one.
      */
-    "object": UserInfoRespList.ObjectEnum;
+    "after"?: string;
     /**
      * Flag indicating whether there is more results.
      */
@@ -1972,9 +1976,9 @@ export interface UserInfoRespList {
      */
     "total_count": number;
     /**
-     * The entity ID to fetch after the given one.
+     * Entity name: always 'list'
      */
-    "after"?: string;
+    "object": UserInfoRespList.ObjectEnum;
     /**
      * The number of results to return, (range: 2-1000), or equals to `total_count`
      */
@@ -1998,9 +2002,13 @@ export interface UserUpdateReq {
      */
     "phone_number"?: string;
     /**
-     * The status of the user.
+     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
      */
-    "status"?: string;
+    "username"?: string;
+    /**
+     * A list of group IDs this user belongs to.
+     */
+    "groups"?: Array<string>;
     /**
      * A flag indicating that receiving marketing information has been accepted.
      */
@@ -2014,21 +2022,17 @@ export interface UserUpdateReq {
      */
     "is_gtc_accepted"?: boolean;
     /**
-     * The full name of the user, not longer than 100 characters.
-     */
-    "full_name"?: string;
-    /**
      * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
      */
     "is_totp_enabled"?: boolean;
     /**
-     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     * The status of the user.
      */
-    "username"?: string;
+    "status"?: string;
     /**
-     * A list of group IDs this user belongs to.
+     * The full name of the user, not longer than 100 characters.
      */
-    "groups"?: Array<string>;
+    "full_name"?: string;
     /**
      * Address, not longer than 100 characters.
      */
@@ -2052,9 +2056,9 @@ export namespace UserUpdateResp {
 }
 export interface UserUpdateResp {
     /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     * A username containing alphanumerical letters and -,._@+= characters.
      */
-    "status": UserUpdateResp.StatusEnum;
+    "username"?: string;
     /**
      * List of active user sessions.
      */
@@ -2096,13 +2100,17 @@ export interface UserUpdateResp {
      */
     "is_marketing_accepted"?: boolean;
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-     */
-    "is_totp_enabled"?: boolean;
-    /**
      * Phone number.
      */
     "phone_number"?: string;
+    /**
+     * The email address.
+     */
+    "email": string;
+    /**
+     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     */
+    "status": UserUpdateResp.StatusEnum;
     /**
      * The UUID of the account.
      */
@@ -2144,13 +2152,9 @@ export interface UserUpdateResp {
      */
     "user_properties"?: { [key: string]: { [key: string]: string; }; };
     /**
-     * The email address.
+     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      */
-    "email": string;
-    /**
-     * A username containing alphanumerical letters and -,._@+= characters.
-     */
-    "username"?: string;
+    "is_totp_enabled"?: boolean;
     /**
      * A timestamp of the latest change of the user password, in milliseconds.
      */
