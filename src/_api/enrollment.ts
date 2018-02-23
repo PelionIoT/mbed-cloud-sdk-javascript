@@ -141,30 +141,22 @@ export interface Field {
 export class PublicAPIApi extends ApiBase {
 
     /**
-     * Get enrollment list.
-     * Provides a list of pending and claimed enrollments. Example usage: 
-     * @param limit Number of results to be returned. Between 2 and 1000, inclusive.
-     * @param after Entity ID to fetch after.
-     * @param order ASC or DESC
-     * @param include Comma separate additional data to return. Currently supported: total_count
+     * Place an enrollment claim for one or several devices.
+     * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
+     * @param enrollmentIdentity 
      */
-    public v3DeviceEnrollmentsGet(limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: EnrollmentIdentities, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public createDeviceEnrollment(enrollmentIdentity: EnrollmentId, callback?: (error: any, data?: EnrollmentIdentity, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "enrollmentIdentity" is set
+        if (enrollmentIdentity === null || enrollmentIdentity === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'enrollmentIdentity' missing."));
+            }
+            return;
+        }
 
         const headerParams: any = {};
 
         const queryParameters: any = {};
-        if (limit !== undefined) {
-            queryParameters["limit"] = limit;
-        }
-        if (after !== undefined) {
-            queryParameters["after"] = after;
-        }
-        if (order !== undefined) {
-            queryParameters["order"] = order;
-        }
-        if (include !== undefined) {
-            queryParameters["include"] = include;
-        }
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
@@ -172,6 +164,7 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
+            "application/json"
         ];
 
         // Determine the Accept header
@@ -179,9 +172,9 @@ export class PublicAPIApi extends ApiBase {
             "application/json"
         ];
 
-        return this.request<EnrollmentIdentities>({
+        return this.request<EnrollmentIdentity>({
             url: "/v3/device-enrollments",
-            method: "GET",
+            method: "POST",
             headers: headerParams,
             query: queryParameters,
             formParams: formParams,
@@ -189,6 +182,7 @@ export class PublicAPIApi extends ApiBase {
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
+            body: enrollmentIdentity,
         }, callback);
     }
     /**
@@ -196,7 +190,7 @@ export class PublicAPIApi extends ApiBase {
      * To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
      * @param id Enrollment identity internal id
      */
-    public v3DeviceEnrollmentsIdDelete(id: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public deleteDeviceEnrollment(id: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -239,7 +233,7 @@ export class PublicAPIApi extends ApiBase {
      * To check the enrollment info in detail, for example claming date and expiration date.
      * @param id Enrollment identity internal id
      */
-    public v3DeviceEnrollmentsIdGet(id: string, callback?: (error: any, data?: EnrollmentIdentity, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getDeviceEnrollment(id: string, callback?: (error: any, data?: EnrollmentIdentity, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
         if (id === null || id === undefined) {
             if (callback) {
@@ -278,22 +272,30 @@ export class PublicAPIApi extends ApiBase {
         }, callback);
     }
     /**
-     * Place an enrollment claim for one or several devices.
-     * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
-     * @param enrollmentIdentity 
+     * Get enrollment list.
+     * Provides a list of pending and claimed enrollments. Example usage: 
+     * @param limit Number of results to be returned. Between 2 and 1000, inclusive.
+     * @param after Entity ID to fetch after.
+     * @param order ASC or DESC
+     * @param include Comma separate additional data to return. Currently supported: total_count
      */
-    public v3DeviceEnrollmentsPost(enrollmentIdentity: EnrollmentId, callback?: (error: any, data?: EnrollmentIdentity, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "enrollmentIdentity" is set
-        if (enrollmentIdentity === null || enrollmentIdentity === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'enrollmentIdentity' missing."));
-            }
-            return;
-        }
+    public getDeviceEnrollments(limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: EnrollmentIdentities, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
         const headerParams: any = {};
 
         const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+        if (order !== undefined) {
+            queryParameters["order"] = order;
+        }
+        if (include !== undefined) {
+            queryParameters["include"] = include;
+        }
 
         // tslint:disable-next-line:prefer-const
         let useFormData = false;
@@ -301,7 +303,6 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
         ];
 
         // Determine the Accept header
@@ -309,9 +310,9 @@ export class PublicAPIApi extends ApiBase {
             "application/json"
         ];
 
-        return this.request<EnrollmentIdentity>({
+        return this.request<EnrollmentIdentities>({
             url: "/v3/device-enrollments",
-            method: "POST",
+            method: "GET",
             headers: headerParams,
             query: queryParameters,
             formParams: formParams,
@@ -319,7 +320,6 @@ export class PublicAPIApi extends ApiBase {
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
-            body: enrollmentIdentity,
         }, callback);
     }
 }

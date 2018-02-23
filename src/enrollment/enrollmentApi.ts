@@ -73,7 +73,7 @@ export class EnrollmentApi {
     public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaim, callback: CallbackFn<EnrollmentClaim>): void;
     public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaim, callback?: CallbackFn<EnrollmentClaim>): Promise<EnrollmentClaim> {
         return apiWrapper(resultsFn => {
-            this._endpoints.enrollment.v3DeviceEnrollmentsPost(EnrollmentAdapter.addMap(enrollmentClaim), resultsFn);
+            this._endpoints.enrollment.createDeviceEnrollment(EnrollmentAdapter.addMap(enrollmentClaim), resultsFn);
         }, (data, done) => {
             done(null, EnrollmentAdapter.map(data, this));
         }, callback);
@@ -114,7 +114,7 @@ export class EnrollmentApi {
     public getEnrollmentClaim(claimId: string, callback: CallbackFn<EnrollmentClaim>): void;
     public getEnrollmentClaim(claimId: string, callback?: CallbackFn<EnrollmentClaim>): Promise<EnrollmentClaim> {
         return apiWrapper(resultsFn => {
-            this._endpoints.enrollment.v3DeviceEnrollmentsIdGet(claimId, resultsFn);
+            this._endpoints.enrollment.getDeviceEnrollment(claimId, resultsFn);
         }, (data, done) => {
             done(null, EnrollmentAdapter.map(data, this));
         }, callback);
@@ -166,7 +166,7 @@ export class EnrollmentApi {
 
         return apiWrapper(resultsFn => {
             const { limit, after, order, include } = options;
-            this._endpoints.enrollment.v3DeviceEnrollmentsGet(limit, order, after, encodeInclude(include), resultsFn);
+            this._endpoints.enrollment.getDeviceEnrollments(limit, order, after, encodeInclude(include), resultsFn);
         }, (data, done) => {
             const devices = data.data.map(device => {
                 return EnrollmentAdapter.map(device, this);
@@ -208,7 +208,7 @@ export class EnrollmentApi {
     public deleteEnrollmentClaim(claimId: string, callback: CallbackFn<void>): void;
     public deleteEnrollmentClaim(claimId: string, callback?: CallbackFn<void>): Promise<void> {
         return apiWrapper(resultsFn => {
-            this._endpoints.enrollment.v3DeviceEnrollmentsIdDelete(claimId, resultsFn);
+            this._endpoints.enrollment.deleteDeviceEnrollment(claimId, resultsFn);
         }, (data, done) => {
             done(null, data);
         }, callback);
