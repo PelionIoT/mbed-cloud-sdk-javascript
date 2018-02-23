@@ -24,9 +24,6 @@ import { Presubscription as apiPresubscription } from "../../_api/mds";
 export class PresubscriptionAdapter {
 
     public static map(from: apiPresubscription): Presubscription {
-        const method = "log";
-        console[method](`### ${from["resource-path"]}`);
-
         return {
             deviceId:         from["endpoint-name"],
             deviceType:       from["endpoint-type"],
