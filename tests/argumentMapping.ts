@@ -201,6 +201,10 @@ function mapResult(result: any): any {
 
     // Snake-case the result keys
     const jsonString: string | undefined = JSON.stringify(result, (key, value) => {
+        if (key.charAt(0) === "_") {
+            // Keys beginning with underscore are internal and shouldn't be sent to the test runner
+            return undefined;
+        }
         if (value && !Array.isArray(value) && typeof value === "object") {
             const replacement: any = {};
             for (key in value) {
