@@ -87,7 +87,7 @@ export class AccountAdapter {
             state:                         from.state,
             postal_code:                   from.postcode,
             country:                       from.country,
-            // mfa_status:                   from.multifactorAuthenticationStatus,
+            mfa_status:                    from.multifactorAuthenticationStatus,
             notification_emails:           from.notificationEmails,
             expiration_warning_threshold:  from.expiryWarning,
             account_properties:            from.customProperties

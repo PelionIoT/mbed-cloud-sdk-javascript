@@ -19,7 +19,7 @@ import { ListOptions, ComparisonObject } from "../common/interfaces";
 
 export type AccountStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
 
-export type MultifactorAuthenticationStatusEnum = "enabled" | "enforced" | "optional";
+export type MultifactorAuthenticationStatusEnum = "enforced" | "optional";
 /**
  * This object represents an account in requests and responses.
  */
@@ -159,6 +159,10 @@ export interface UserObject {
      * A flag indicating that receiving marketing information has been accepted.
      */
     marketingAccepted?: boolean;
+    /**
+     * Groups
+     */
+    groups?: Array<string>;
 }
 
 export interface AddUserObject extends UserObject {
