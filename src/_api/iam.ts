@@ -396,6 +396,67 @@ export interface AccountInfoList {
 }
 
 /**
+ * This object represents an account in responses.
+ */
+export interface AccountResponse {
+    /**
+     * The status of the account.
+     */
+    "status": string;
+    /**
+     * Alias of the account.
+     */
+    "alias"?: string;
+    /**
+     * The display name for the account.
+     */
+    "display_name"?: string;
+    /**
+     * The UUID of the account.
+     */
+    "id"?: string;
+    /**
+     * The UUID of the parent account, if it has any.
+     */
+    "parentId": string;
+}
+
+export namespace AccountResponseList {
+    export type ObjectEnum = "list";
+    export type OrderEnum = "ASC" | "DESC";
+}
+export interface AccountResponseList {
+    /**
+     * The entity ID to fetch after the given one.
+     */
+    "after"?: string;
+    /**
+     * Flag indicating whether there is more results.
+     */
+    "has_more": boolean;
+    /**
+     * The total number or records, if requested. It might be returned also for small lists.
+     */
+    "total_count": number;
+    /**
+     * Entity name: always 'list'
+     */
+    "object": AccountResponseList.ObjectEnum;
+    /**
+     * The number of results to return, (range: 2-1000), or equals to `total_count`
+     */
+    "limit": number;
+    /**
+     * A list of entities.
+     */
+    "data": Array<AccountResponse>;
+    /**
+     * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
+     */
+    "order"?: AccountResponseList.OrderEnum;
+}
+
+/**
  * This object represents an account creation request.
  */
 export namespace AccountUpdateReq {
@@ -4815,8 +4876,8 @@ export class AggregatorAccountAdminApi extends ApiBase {
      * @param deviceExecutionModeNeq Filter for not developer certificates
      * @param ownerEq Owner name filter
      * @param enrollmentModeEq Enrollment mode filter
-     * @param issuerLike Filter for issuer
-     * @param subjectLike Filter for subject
+     * @param issuerLike Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like&#x3D;cn&#x3D;iss matches CN&#x3D;issuer.
+     * @param subjectLike Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject.
      */
     public getAllAccountCertificates(accountID: string, limit?: number, after?: string, order?: string, include?: string, nameEq?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, deviceExecutionModeNeq?: number, ownerEq?: string, enrollmentModeEq?: boolean, issuerLike?: string, subjectLike?: string, callback?: (error: any, data?: TrustedCertificateInternalRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "accountID" is set
@@ -5115,7 +5176,7 @@ export class AggregatorAccountAdminApi extends ApiBase {
      * @param tierEq An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
      * @param parentEq An optional filter for parent account ID.
      * @param endMarketEq An optional filter for account end market.
-     * @param countryLike An optional filter for account country.
+     * @param countryLike An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like&#x3D;LAND matches Ireland.
      * @param limit The number of results to return (2-1000), default is 1000.
      * @param after The entity ID to fetch after the given one.
      * @param order The order of the records based on creation time, ASC or DESC. Default value is ASC
@@ -6383,8 +6444,8 @@ export class DeveloperApi extends ApiBase {
      * @param deviceExecutionModeNeq Device execution mode not equals filter
      * @param ownerEq Owner name filter
      * @param enrollmentModeEq Enrollment mode filter
-     * @param issuerLike Issuer filter
-     * @param subjectLike Subject filter
+     * @param issuerLike Issuer filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like&#x3D;cn&#x3D;iss matches CN&#x3D;issuer.
+     * @param subjectLike Subject filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject.
      */
     public getAllCertificates(limit?: number, after?: string, order?: string, include?: string, nameEq?: string, serviceEq?: string, expireEq?: number, deviceExecutionModeEq?: number, deviceExecutionModeNeq?: number, ownerEq?: string, enrollmentModeEq?: boolean, issuerLike?: string, subjectLike?: string, callback?: (error: any, data?: TrustedCertificateRespList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
@@ -6783,6 +6844,41 @@ export class DeveloperApi extends ApiBase {
 
         return this.request<AccountInfo>({
             url: "/v3/accounts/me",
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Get accounts of the user.
+     * An endpoint for retrieving the accounts of the logged in user.
+     */
+    public getMyAccounts(callback?: (error: any, data?: AccountResponseList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<AccountResponseList>({
+            url: "/v3/users/me/accounts",
             method: "GET",
             headers: headerParams,
             query: queryParameters,
