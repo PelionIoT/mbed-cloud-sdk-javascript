@@ -340,10 +340,6 @@ export interface UpdateCampaign {
      */
     "finished"?: Date;
     "root_manifest_url"?: string;
-    /**
-     * The phase of the campaign
-     */
-    "phase"?: UpdateCampaign.PhaseEnum;
     "started_at"?: Date;
     /**
      * The campaign ID
