@@ -1,5 +1,82 @@
 # Changelog
 
+## 1.2.7
+
+### Deliverables
+
+The application is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using npm:
+
+```
+$ npm install mbed-cloud-sdk
+```
+
+### Changes
+
+Support Connector Enrollment Service API in SDK
+Features supported
+
+- Upload a DeviceId to claim
+- View status of claimed devices
+
+### AccountManagement
+
+- Add new fields to Account 
+    - ContractNumber
+    - CustomerNumber
+    - ExpiryWarning
+    - MultifactorAuthenticationStatus
+    - NotificationEmails
+    - ReferenceNote
+    - UpdatedAt
+    - CustomProperties
+    - SalesContactEmail
+
+- remove following fields from Group
+    - LastUpdateTime
+    - CreationTime
+
+- Add following fields to Group
+    - UpdatedAt
+
+- Add following fields to User
+    - CustomProperties
+
+- Following fields on User can be updated
+    - Password,
+    - CustomProperties
+    - TwoFactorAuthentication
+    - Status
+    - Groups
+
+### Certificates
+
+- Add EnrollmentMode field
+
+### ConnectApi
+
+- DeleteSubscriptions now deletes subscribtions by iterating over connected devices.
+- Use a different backend api in GetResourceValue to fix the issue with getting a value from cache.
+
+### All modules
+
+- All get and delete methods now return null if not found, instead of throwing an exception
+
+## 1.2.6
+
+### Deliverables
+
+The application is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using npm:
+
+```
+$ npm install mbed-cloud-sdk
+```
+
+### Changes
+
+- Add 'claimedAt' field to device
+- Add 'groups' to ApiKeys
+- listMetrics now returns a paginated response
+
 ## 1.2.5
 
 ### Deliverables
