@@ -43,7 +43,7 @@ export class Certificate {
     /**
      * If true, signature parameter is not required. Default value is false.
      */
-    public enrollmentMode?: boolean;
+    public enrollmentMode?: boolean = false;
     /**
      * The UUID of the account.
      */

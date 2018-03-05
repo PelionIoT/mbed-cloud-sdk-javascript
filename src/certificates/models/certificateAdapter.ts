@@ -48,7 +48,7 @@ export class CertificateAdapter {
             subject              : from.subject,
             validity             : from.validity,
             ownerId              : from.owner_id,
-            enrollmentMode       : from.enrollment_mode,
+            enrollmentMode       : from.enrollment_mode || false,
             serverUri            : null,
             serverCertificate    : null,
             headerFile           : null,
