@@ -19,7 +19,6 @@ import { ConnectionOptions } from "../common/interfaces";
 import { AccountApi, StatisticsApi } from "../_api/statistics";
 import { EndpointsBase } from "../common/endpointsBase";
 import {
-    DefaultApi as WebhookApi,
     EndpointsApi,
     NotificationsApi,
     ResourcesApi,
@@ -28,7 +27,6 @@ import {
 
 export class Endpoints extends EndpointsBase {
 
-    public webhooks: WebhookApi;
     public endpoints: EndpointsApi;
     public notifications: NotificationsApi;
     public resources: ResourcesApi;
@@ -38,7 +36,6 @@ export class Endpoints extends EndpointsBase {
 
     constructor(options: ConnectionOptions) {
         super();
-        this.webhooks = new WebhookApi(options.apiKey, options.host, this.responseHandler.bind(this));
         this.endpoints = new EndpointsApi(options.apiKey, options.host, this.responseHandler.bind(this));
         this.notifications = new NotificationsApi(options.apiKey, options.host, this.responseHandler.bind(this));
         this.resources = new ResourcesApi(options.apiKey, options.host, this.responseHandler.bind(this));

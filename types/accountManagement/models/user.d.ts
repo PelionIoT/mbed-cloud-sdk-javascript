@@ -39,7 +39,7 @@ export declare class User {
      */
     readonly passwordChangedTime?: number;
     /**
-     * Whether two factor authentication has been enabled for this user
+     * Whether two factor authentication has been enabled for this user.
      */
     readonly twoFactorAuthentication?: boolean;
     /**
@@ -47,7 +47,7 @@ export declare class User {
      */
     readonly lastLoginTime?: number;
     /**
-     * History of logins for this user;
+     * History of logins for this user.
      */
     readonly loginHistory?: Array<LoginHistory>;
     constructor(init: Partial<User>, _api?: AccountManagementApi);

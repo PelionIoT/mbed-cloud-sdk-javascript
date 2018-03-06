@@ -32,7 +32,7 @@ export class DeviceEventAdapter {
         return new Resource({
             contentType:    from.ct,
             observable:     from.obs,
-            type:           from.rf,
+            type:           from.rt,
             path:           from.path,
             deviceId:       deviceId
         }, api);

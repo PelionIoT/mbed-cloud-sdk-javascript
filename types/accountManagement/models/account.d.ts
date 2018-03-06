@@ -34,25 +34,37 @@ export declare class Account {
      */
     readonly policies?: Array<Policy>;
     /**
-     * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
-     */
-    readonly provisioningAllowed: boolean;
-    /**
      * Creation time.
      */
     readonly createdAt?: Date;
     /**
-     * Time when upgraded to commercial account
+     * Time when upgraded to commercial account.
      */
     readonly upgradedAt?: Date;
     /**
-     * A reason note for updating the status of the account
+     * A reason note for updating the status of the account.
      */
     readonly reason?: string;
     /**
      * Account template ID.
      */
     readonly templateId?: string;
+    /**
+     * Contract number of the customer
+     */
+    readonly contractNumber?: string;
+    /**
+     * Customer number of the customer
+     */
+    readonly customerNumber?: string;
+    /**
+     * Reference note for updating the status of the account
+     */
+    readonly referenceNote?: string;
+    /**
+     * The last update time
+     */
+    readonly updatedAt?: Date;
     constructor(init: Partial<Account>, _api?: AccountManagementApi);
     /**
      * Update details of the account

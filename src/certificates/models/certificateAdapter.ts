@@ -48,6 +48,7 @@ export class CertificateAdapter {
             subject              : from.subject,
             validity             : from.validity,
             ownerId              : from.owner_id,
+            enrollmentMode       : from.enrollment_mode || false,
             serverUri            : null,
             serverCertificate    : null,
             headerFile           : null,
@@ -83,23 +84,25 @@ export class CertificateAdapter {
 
     public static reverseMap(from: AddCertificateObject): iamCertificateRequest {
         return {
-            certificate:    from.certificateData,
-            name:           from.name,
-            service:        from.type === "developer" ? "bootstrap" : from.type,
-            status:         from.status,
-            signature:      from.signature,
-            description:    from.description
+            certificate:     from.certificateData,
+            name:            from.name,
+            service:         from.type === "developer" ? "bootstrap" : from.type,
+            status:          from.status,
+            signature:       from.signature,
+            enrollment_mode: from.enrollmentMode,
+            description:     from.description
         };
     }
 
     public static reverseUpdateMap(from: UpdateCertificateObject): iamCertificateUpdate {
         return {
-            certificate:    from.certificateData,
-            name:           from.name,
-            service:        from.type === "developer" ? "bootstrap" : from.type,
-            status:         from.status,
-            signature:      from.signature,
-            description:    from.description
+            certificate:     from.certificateData,
+            name:            from.name,
+            service:         from.type === "developer" ? "bootstrap" : from.type,
+            status:          from.status,
+            signature:       from.signature,
+            enrollment_mode: from.enrollmentMode,
+            description:     from.description
         };
     }
 

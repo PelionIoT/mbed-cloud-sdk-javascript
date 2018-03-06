@@ -1,7 +1,7 @@
 import { CallbackFn, ComparisonObject } from "./interfaces";
 import { SDKError } from "./sdkError";
 export declare function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn?: CallbackFn<T>): Promise<T>;
-export declare function apiWrapper<T>(apiFn: (resultsFn: (error: any, data: any) => void) => void, transformFn?: (data: any, resultsFn: (error: SDKError, result: T) => void) => void, callbackFn?: CallbackFn<T>): Promise<T>;
+export declare function apiWrapper<T>(apiFn: (resultsFn: (error: any, data: any) => void) => void, transformFn?: (data: any, resultsFn: (error: SDKError, result: T) => void) => void, callbackFn?: CallbackFn<T>, failOnNotFound?: boolean): Promise<T>;
 export declare function decodeBase64(payload: any, contentType: any): string | number | {
     [key: string]: string | number;
 };

@@ -17,7 +17,7 @@ export declare class Resource extends EventEmitter {
      */
     readonly deviceId: string;
     /**
-     * Resource's url
+     * Resource's URL
      */
     readonly path: string;
     /**
@@ -133,16 +133,4 @@ export declare class Resource extends EventEmitter {
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
      */
     getSubscription(callback: CallbackFn<boolean>): void;
-    /**
-     * Deletes a resource
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns empty Promise
-     */
-    delete(noResponse?: boolean): Promise<void>;
-    /**
-     * Deletes a resource
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @param callback A function that is passed any error
-     */
-    delete(noResponse?: boolean, callback?: CallbackFn<void>): void;
 }

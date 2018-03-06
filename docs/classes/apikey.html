@@ -43,7 +43,7 @@
 					<a href="apikey.html#creationtime" class="tsd-kind-icon">creation<wbr>Time</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="apikey.html#groups" class="tsd-kind-icon">groups</a>
+					<a href="apikey.html#id" class="tsd-kind-icon">id</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
 					<a href="apikey.html#key" class="tsd-kind-icon">key</a>
@@ -52,7 +52,7 @@
 					<a href="apikey.html#lastlogintime" class="tsd-kind-icon">last<wbr>Login<wbr>Time</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a href="apikey.html#id" class="tsd-kind-icon">id</a>
+					<a href="apikey.html#groups" class="tsd-kind-icon">groups</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a href="apikey.html#name" class="tsd-kind-icon">name</a>
@@ -92,7 +92,7 @@
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<a href="../interfaces/updateapikeyobject.html" class="tsd-signature-type">UpdateApiKeyObject</a>
+					<a href="../interfaces/addapikeyobject.html" class="tsd-signature-type">AddApiKeyObject</a>
 					<ul class="tsd-hierarchy">
 						<li>
 							<span class="target">ApiKey</span>
@@ -116,10 +116,10 @@
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apikey.html#createdat" class="tsd-kind-icon">created<wbr>At</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apikey.html#creationtime" class="tsd-kind-icon">creation<wbr>Time</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apikey.html#groups" class="tsd-kind-icon">groups</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apikey.html#id" class="tsd-kind-icon">id</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apikey.html#key" class="tsd-kind-icon">key</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="apikey.html#lastlogintime" class="tsd-kind-icon">last<wbr>Login<wbr>Time</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="apikey.html#id" class="tsd-kind-icon">id</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="apikey.html#groups" class="tsd-kind-icon">groups</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="apikey.html#name" class="tsd-kind-icon">name</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="apikey.html#ownerid" class="tsd-kind-icon">owner<wbr>Id</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="apikey.html#status" class="tsd-kind-icon">status</a></li>
@@ -173,7 +173,7 @@
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Creation time</p>
+						<p>Creation time.</p>
 					</div>
 				</div>
 			</section>
@@ -190,14 +190,14 @@
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="groups" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> groups</h3>
-				<div class="tsd-signature tsd-kind-icon">groups<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<a name="id" class="tsd-anchor"></a>
+				<h3>id</h3>
+				<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A list of group IDs this API key belongs to.</p>
+						<p>The UUID of the API key.</p>
 					</div>
 				</div>
 			</section>
@@ -226,15 +226,15 @@
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-				<a name="id" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagStatic">Static</span> id</h3>
-				<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<a name="groups" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> groups</h3>
+				<div class="tsd-signature tsd-kind-icon">groups<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
-					<p>Inherited from <a href="../interfaces/updateapikeyobject.html">UpdateApiKeyObject</a>.<a href="../interfaces/updateapikeyobject.html#id">id</a></p>
+					<p>Inherited from <a href="../interfaces/addapikeyobject.html">AddApiKeyObject</a>.<a href="../interfaces/addapikeyobject.html#groups">groups</a></p>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The UUID of the API key.</p>
+						<p>A list of group IDs this API key belongs to.</p>
 					</div>
 				</div>
 			</section>
@@ -243,7 +243,7 @@
 				<h3><span class="tsd-flag ts-flagStatic">Static</span> name</h3>
 				<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
-					<p>Inherited from <a href="../interfaces/addapikeyobject.html">AddApiKeyObject</a>.<a href="../interfaces/addapikeyobject.html#name">name</a></p>
+					<p>Inherited from <a href="../interfaces/apikeyobject.html">ApiKeyObject</a>.<a href="../interfaces/apikeyobject.html#name">name</a></p>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
@@ -256,7 +256,7 @@
 				<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> owner<wbr>Id</h3>
 				<div class="tsd-signature tsd-kind-icon">owner<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
-					<p>Inherited from <a href="../interfaces/addapikeyobject.html">AddApiKeyObject</a>.<a href="../interfaces/addapikeyobject.html#ownerid">ownerId</a></p>
+					<p>Inherited from <a href="../interfaces/apikeyobject.html">ApiKeyObject</a>.<a href="../interfaces/apikeyobject.html#ownerid">ownerId</a></p>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
@@ -269,7 +269,7 @@
 				<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> status</h3>
 				<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <a href="../globals.html#apikeystatusenum" class="tsd-signature-type">ApiKeyStatusEnum</a></div>
 				<aside class="tsd-sources">
-					<p>Inherited from <a href="../interfaces/addapikeyobject.html">AddApiKeyObject</a>.<a href="../interfaces/addapikeyobject.html#status">status</a></p>
+					<p>Inherited from <a href="../interfaces/apikeyobject.html">ApiKeyObject</a>.<a href="../interfaces/apikeyobject.html#status">status</a></p>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">

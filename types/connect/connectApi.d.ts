@@ -387,7 +387,10 @@ export declare class ConnectApi extends EventEmitter {
      */
     deletePresubscriptions(callback: CallbackFn<void>): void;
     /**
-     * Removes all subscriptions
+     * Removes all subscriptions for all devices.
+     *
+     * Warning: This could be slow for large numbers of connected devices.
+     * If possible, explicitly delete subscriptions known to have been created.
      *
      * Example:
      * ```JavaScript
@@ -401,7 +404,10 @@ export declare class ConnectApi extends EventEmitter {
      */
     deleteSubscriptions(): Promise<void>;
     /**
-     * Removes all subscriptions
+     * Removes all subscriptions for all devices.
+     *
+     * Warning: This could be slow for large numbers of connected devices.
+     * If possible, explicitly delete subscriptions known to have been created.
      *
      * Example:
      * ```JavaScript
@@ -602,47 +608,6 @@ export declare class ConnectApi extends EventEmitter {
      * @param callback A function that is passed the arguments (error, resource)
      */
     getResource(deviceId: string, resourcePath: string, callback?: CallbackFn<Resource>): void;
-    /**
-     * Deletes a resource
-     *
-     * Example:
-     * ```JavaScript
-     * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
-     * connect.deleteResource(deviceId, resourceURI)
-     * .then(response => {
-     *     // Utilize response here
-     * })
-     * .catch(error => {
-     *     console.log(error);
-     * });
-     * ```
-     *
-     * @param deviceId Device ID
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns empty Promise
-     */
-    deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean): Promise<void>;
-    /**
-     * Deletes a resource
-     *
-     * Example:
-     * ```JavaScript
-     * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
-     * connect.deleteResource(deviceId, resourceURI, function(error, response) {
-     *     if (error) throw error;
-     *     // Utilize response here
-     * });
-     * ```
-     *
-     * @param deviceId Device ID
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @param callback A function that is passed any error
-     */
-    deleteResource(deviceId: string, resourcePath: string, noResponse?: boolean, callback?: CallbackFn<void>): void;
     /**
      * Gets the value of a resource
      *
@@ -944,7 +909,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @returns Promise of metrics
      */
-    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<Array<Metric>>;
+    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions): Promise<ListResponse<Metric>>;
     /**
      * List metrics
      *
@@ -963,7 +928,7 @@ export declare class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
-    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<Array<Metric>>): void;
+    listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<ListResponse<Metric>>): void;
     /**
      * Get meta data for the last Mbed Cloud API call
      * @returns Promise of meta data

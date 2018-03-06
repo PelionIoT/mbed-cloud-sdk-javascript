@@ -1,5 +1,5 @@
 import { CallbackFn } from "../../common/interfaces";
-import { UpdateApiKeyObject } from "../types";
+import { AddApiKeyObject } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
 import { User } from "./user";
 import { Group } from "./group";
@@ -9,15 +9,15 @@ import { Group } from "./group";
 export declare class ApiKey {
     private _api;
     /**
-     * A list of group IDs this API key belongs to.
+     * The UUID of the API key.
      */
-    readonly groups?: Array<string>;
+    readonly id: string;
     /**
      * The API key.
      */
     readonly key: string;
     /**
-     * Creation time
+     * Creation time.
      */
     readonly createdAt?: Date;
     /**
@@ -70,5 +70,5 @@ export declare class ApiKey {
      */
     delete(callback: CallbackFn<void>): void;
 }
-export interface ApiKey extends UpdateApiKeyObject {
+export interface ApiKey extends AddApiKeyObject {
 }

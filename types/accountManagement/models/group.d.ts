@@ -32,14 +32,6 @@ export declare class Group {
      * Creation time.
      */
     readonly createdAt?: Date;
-    /**
-     * A timestamp of the group creation in the storage, in milliseconds.
-     */
-    readonly creationTime?: number;
-    /**
-     * A timestamp of the latest group update, in milliseconds.
-     */
-    readonly lastUpdateTime?: number;
     constructor(init: Partial<Group>, _api?: AccountManagementApi);
     /**
      * List users of this group

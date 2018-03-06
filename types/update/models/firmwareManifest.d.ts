@@ -15,10 +15,6 @@ export declare class FirmwareManifest {
      */
     readonly url: string;
     /**
-     * Checksum generated for the datafile
-     */
-    readonly datafileChecksum?: string;
-    /**
      * Size of the datafile (in bytes)
      */
     readonly datafileSize?: number;
@@ -27,11 +23,11 @@ export declare class FirmwareManifest {
      */
     readonly deviceClass?: string;
     /**
-     * The time the object was created
+     * The timestamp when the object was created
      */
     readonly createdAt: Date;
     /**
-     * The time the object was updated
+     * The timestamp the object was updated
      */
     readonly updatedAt: Date;
     /**

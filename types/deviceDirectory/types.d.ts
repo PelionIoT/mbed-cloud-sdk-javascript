@@ -67,7 +67,7 @@ export interface AddDeviceObject extends DeviceObject {
      */
     bootstrapCertificateExpiration?: Date;
     /**
-     * The time the device was bootstrapped
+     * The date and time the device was bootstrapped
      */
     bootstrappedTimestamp?: Date;
     /**

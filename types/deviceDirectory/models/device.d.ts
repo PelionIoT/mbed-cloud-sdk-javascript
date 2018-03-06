@@ -11,21 +11,25 @@ export declare class Device {
      */
     readonly id: string;
     /**
-     * The owning IAM account ID
+     * The owning Identity and Access Management (IAM) account ID
      */
     readonly accountId?: string;
     /**
-     * The time the device was created
+     * The timestamp of when the device was created
      */
     readonly createdAt?: Date;
     /**
-     * The time the device was updated
+     * The date-time of when the device was updated
      */
     readonly updatedAt?: Date;
     /**
-     * The timestamp of the current manifest version
+     * The date-time of the current manifest version
      */
     readonly manifestTimestamp?: Date;
+    /**
+     * The claim date/time
+     */
+    readonly claimedAt?: Date;
     constructor(init?: Partial<Device>, _api?: DeviceDirectoryApi);
     /**
      * Update the device

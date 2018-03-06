@@ -70,9 +70,6 @@
 					<a href="connectapi.html#deletepresubscriptions" class="tsd-kind-icon">delete<wbr>Presubscriptions</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="connectapi.html#deleteresource" class="tsd-kind-icon">delete<wbr>Resource</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="connectapi.html#deleteresourcesubscription" class="tsd-kind-icon">delete<wbr>Resource<wbr>Subscription</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -261,7 +258,6 @@
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#addresourcesubscription" class="tsd-kind-icon">add<wbr>Resource<wbr>Subscription</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deletedevicesubscriptions" class="tsd-kind-icon">delete<wbr>Device<wbr>Subscriptions</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deletepresubscriptions" class="tsd-kind-icon">delete<wbr>Presubscriptions</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deleteresource" class="tsd-kind-icon">delete<wbr>Resource</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deleteresourcesubscription" class="tsd-kind-icon">delete<wbr>Resource<wbr>Subscription</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deletesubscriptions" class="tsd-kind-icon">delete<wbr>Subscriptions</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectapi.html#deletewebhook" class="tsd-kind-icon">delete<wbr>Webhook</a></li>
@@ -522,7 +518,7 @@ connect.addResourceSubscription(deviceId, resourceURI, data =&gt; {
 								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+										<ul class="tsd-signatures tsd-kind-type-literal">
 											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 										</ul>
 										<ul class="tsd-descriptions">
@@ -588,7 +584,7 @@ connect.addResourceSubscription(deviceId, resourceURI, <span class="hljs-functio
 								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+										<ul class="tsd-signatures tsd-kind-type-literal">
 											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 										</ul>
 										<ul class="tsd-descriptions">
@@ -744,108 +740,6 @@ connect.deleteDeviceSubscriptions(deviceId, <span class="hljs-function"><span cl
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="deleteresource" class="tsd-anchor"></a>
-				<h3>delete<wbr>Resource</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Deletes a resource</p>
-							</div>
-							<p>Example:</p>
-							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
-<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
-connect.deleteResource(deviceId, resourceURI)
-.then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
-    <span class="hljs-comment">// Utilize response here</span>
-})
-.catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(error);
-});
-</code></pre>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Device ID</p>
-								</div>
-							</li>
-							<li>
-								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Path of the resource to delete</p>
-								</div>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Whether to make a non-confirmable request to the device</p>
-								</div>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						<p>empty Promise</p>
-					</li>
-				</ul>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">delete<wbr>Resource<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, resourcePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, noResponse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Deletes a resource</p>
-							</div>
-							<p>Example:</p>
-							<pre><code class="lang-JavaScript"><span class="hljs-keyword">var</span> deviceId = <span class="hljs-string">"015bb66a92a30000000000010010006d"</span>;
-<span class="hljs-keyword">var</span> resourceURI = <span class="hljs-string">"3200/0/5500"</span>;
-connect.deleteResource(deviceId, resourceURI, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, response</span>) </span>{
-    <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
-    <span class="hljs-comment">// Utilize response here</span>
-});
-</code></pre>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>deviceId: <span class="tsd-signature-type">string</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Device ID</p>
-								</div>
-							</li>
-							<li>
-								<h5>resourcePath: <span class="tsd-signature-type">string</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Path of the resource to delete</p>
-								</div>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> noResponse: <span class="tsd-signature-type">boolean</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Whether to make a non-confirmable request to the device</p>
-								</div>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>A function that is passed any error</p>
-								</div>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="deleteresourcesubscription" class="tsd-anchor"></a>
 				<h3>delete<wbr>Resource<wbr>Subscription</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -949,8 +843,10 @@ connect.deleteResourceSubscription(deviceId, resourceURI, <span class="hljs-func
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Removes all subscriptions</p>
+								<p>Removes all subscriptions for all devices.</p>
 							</div>
+							<p>Warning: This could be slow for large numbers of connected devices.
+							If possible, explicitly delete subscriptions known to have been created.</p>
 							<p>Example:</p>
 							<pre><code class="lang-JavaScript">connect.deleteSubscriptions()
 .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
@@ -971,8 +867,10 @@ connect.deleteResourceSubscription(deviceId, resourceURI, <span class="hljs-func
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Removes all subscriptions</p>
+								<p>Removes all subscriptions for all devices.</p>
 							</div>
+							<p>Warning: This could be slow for large numbers of connected devices.
+							If possible, explicitly delete subscriptions known to have been created.</p>
 							<p>Example:</p>
 							<pre><code class="lang-JavaScript">connect.deleteSubscriptions(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
     <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;
@@ -1811,7 +1709,7 @@ connect.listDeviceSubscriptions(deviceId, <span class="hljs-function"><span clas
 				<a name="listmetrics" class="tsd-anchor"></a>
 				<h3>list<wbr>Metrics</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Metrics<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Metrics<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1844,12 +1742,12 @@ connect.listMetrics(options)
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p>Promise of metrics</p>
 					</li>
 				</ul>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">list<wbr>Metrics<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">list<wbr>Metrics<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/metricsstartendlistoptions.html" class="tsd-signature-type">MetricsStartEndListOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/metricsperiodlistoptions.html" class="tsd-signature-type">MetricsPeriodListOptions</a>, callback<span class="tsd-signature-symbol">: </span><a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><a href="listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -1879,7 +1777,7 @@ connect.listMetrics(options, <span class="hljs-function"><span class="hljs-keywo
 								</div>
 							</li>
 							<li>
-								<h5>callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>callback: <a href="../globals.html#callbackfn" class="tsd-signature-type">CallbackFn</a><span class="tsd-signature-symbol">&lt;</span><a href="listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="metric.html" class="tsd-signature-type">Metric</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>A function that is passed the return arguments (error, metrics)</p>
 								</div>

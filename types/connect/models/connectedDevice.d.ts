@@ -164,18 +164,4 @@ export declare class ConnectedDevice extends Device {
      * @param callback A function that is passed any error
      */
     deleteResourceSubscription(resourcePath: string, callback: CallbackFn<void>): void;
-    /**
-     * Deletes a resource
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @returns empty Promise
-     */
-    deleteResource(resourcePath: string, noResponse?: boolean): Promise<void>;
-    /**
-     * Deletes a resource
-     * @param resourcePath Path of the resource to delete
-     * @param noResponse Whether to make a non-confirmable request to the device
-     * @param callback A function that is passed any error
-     */
-    deleteResource(resourcePath: string, noResponse?: boolean, callback?: CallbackFn<void>): void;
 }
