@@ -118,13 +118,22 @@
 					</div>
 					<p>Constructed like so:</p>
 					<pre><code class="lang-JavaScript"> filter: {
-   <span class="hljs-attr">status</span>: { <span class="hljs-attr">$eq</span>: <span class="hljs-string">"INVITED"</span> }
+   <span class="hljs-attr">status</span>: { <span class="hljs-attr">$eq</span>: <span class="hljs-string">"INVITED"</span> },
+   <span class="hljs-attr">email</span>: { <span class="hljs-attr">$eq</span>: <span class="hljs-string">"email@email.com"</span> },
  }
 </code></pre>
 				</div>
 				<div class="tsd-type-declaration">
 					<h4>Type declaration</h4>
 					<ul class="tsd-parameters">
+						<li class="tsd-parameter">
+							<h5>email<span class="tsd-signature-symbol">: </span><a href="comparisonobject.html" class="tsd-signature-type">ComparisonObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>User email filter</p>
+								</div>
+							</div>
+						</li>
 						<li class="tsd-parameter">
 							<h5>status<span class="tsd-signature-symbol">: </span><a href="comparisonobject.html" class="tsd-signature-type">ComparisonObject</a><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#userstatusenum" class="tsd-signature-type">UserStatusEnum</a><span class="tsd-signature-symbol">&gt;</span></h5>
 							<div class="tsd-comment tsd-typography">

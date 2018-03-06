@@ -59,7 +59,8 @@ export class UserAdapter {
             passwordChangedTime    : from.password_changed_time,
             twoFactorAuthentication: from.is_totp_enabled,
             lastLoginTime          : from.last_login_time,
-            loginHistory           : logins
+            customProperties       : from.user_properties,
+            loginHistory           : logins,
         }, api);
     }
 
@@ -72,7 +73,8 @@ export class UserAdapter {
             phone_number:             from.phoneNumber,
             address:                  from.address,
             is_gtc_accepted:          from.termsAccepted,
-            is_marketing_accepted:    from.marketingAccepted
+            is_marketing_accepted:    from.marketingAccepted,
+            groups:                   from.groups,
         };
     }
 
@@ -85,7 +87,9 @@ export class UserAdapter {
             phone_number:             from.phoneNumber,
             address:                  from.address,
             is_gtc_accepted:          from.termsAccepted,
-            is_marketing_accepted:    from.marketingAccepted
+            is_marketing_accepted:    from.marketingAccepted,
+            user_properties:          from.customProperties,
+            groups:                   from.groups,
         };
     }
 }

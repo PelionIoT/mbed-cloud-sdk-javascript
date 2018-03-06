@@ -34,6 +34,10 @@ export interface AddCertificateObject extends AddDeveloperCertificateObject {
      * Status of the certificate
      */
     status?: CertificateStatusEnum;
+    /**
+     * If true, signature parameter is not required. Default value is false.
+     */
+    enrollmentMode?: boolean;
 }
 /**
  * This object represents a certificate
@@ -67,6 +71,10 @@ export interface UpdateCertificateObject {
      * Status of the certificate
      */
     status?: CertificateStatusEnum;
+    /**
+     * If true, signature parameter is not required. Default value is false.
+     */
+    enrollmentMode?: boolean;
 }
 /**
  * Options to use when listing certificates
@@ -88,6 +96,10 @@ export interface CertificateListOptions extends ListOptions {
          */
         type: ComparisonObject<CertificateTypeEnum>;
         /**
+         * Certificate type not equals filter
+         */
+        typeNeq: ComparisonObject<CertificateTypeEnum>;
+        /**
          * Expire filter in days
          */
         expires: ComparisonObject<number>;
@@ -95,5 +107,21 @@ export interface CertificateListOptions extends ListOptions {
          * Owner filter
          */
         ownerId: ComparisonObject<string>;
+        /**
+         * Name filter
+         */
+        name: ComparisonObject<string>;
+        /**
+         * Enrollment mode filter
+         */
+        enrollmentMode: ComparisonObject<boolean>;
+        /**
+         * Issuer filter
+         */
+        issuer: ComparisonObject<string>;
+        /**
+         * Subject filter
+         */
+        subject: ComparisonObject<string>;
     };
 }

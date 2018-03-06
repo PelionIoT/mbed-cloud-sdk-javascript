@@ -387,7 +387,10 @@ export declare class ConnectApi extends EventEmitter {
      */
     deletePresubscriptions(callback: CallbackFn<void>): void;
     /**
-     * Removes all subscriptions
+     * Removes all subscriptions for all devices.
+     *
+     * Warning: This could be slow for large numbers of connected devices.
+     * If possible, explicitly delete subscriptions known to have been created.
      *
      * Example:
      * ```JavaScript
@@ -401,7 +404,10 @@ export declare class ConnectApi extends EventEmitter {
      */
     deleteSubscriptions(): Promise<void>;
     /**
-     * Removes all subscriptions
+     * Removes all subscriptions for all devices.
+     *
+     * Warning: This could be slow for large numbers of connected devices.
+     * If possible, explicitly delete subscriptions known to have been created.
      *
      * Example:
      * ```JavaScript

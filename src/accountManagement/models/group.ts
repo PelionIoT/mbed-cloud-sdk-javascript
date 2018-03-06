@@ -51,14 +51,6 @@ export class Group {
      * Creation time.
      */
     public readonly createdAt?: Date;
-    /**
-     * A timestamp of the group creation in the storage, in milliseconds.
-     */
-    public readonly creationTime?: number;
-    /**
-     * A timestamp of the latest group update, in milliseconds.
-     */
-    public readonly lastUpdateTime?: number;
 
     constructor(init: Partial<Group>, private _api?: AccountManagementApi) {
         for (const key in init) {

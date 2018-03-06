@@ -843,8 +843,10 @@ connect.deleteResourceSubscription(deviceId, resourceURI, <span class="hljs-func
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Removes all subscriptions</p>
+								<p>Removes all subscriptions for all devices.</p>
 							</div>
+							<p>Warning: This could be slow for large numbers of connected devices.
+							If possible, explicitly delete subscriptions known to have been created.</p>
 							<p>Example:</p>
 							<pre><code class="lang-JavaScript">connect.deleteSubscriptions()
 .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
@@ -865,8 +867,10 @@ connect.deleteResourceSubscription(deviceId, resourceURI, <span class="hljs-func
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Removes all subscriptions</p>
+								<p>Removes all subscriptions for all devices.</p>
 							</div>
+							<p>Warning: This could be slow for large numbers of connected devices.
+							If possible, explicitly delete subscriptions known to have been created.</p>
 							<p>Example:</p>
 							<pre><code class="lang-JavaScript">connect.deleteSubscriptions(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
     <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">throw</span> error;

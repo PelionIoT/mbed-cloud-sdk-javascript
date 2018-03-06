@@ -1,6 +1,6 @@
 import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
-import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions } from "./types";
+import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions, GroupListOptions } from "./types";
 import { Account } from "./models/account";
 import { ApiKey } from "./models/apiKey";
 import { User } from "./models/user";
@@ -71,7 +71,7 @@ export declare class AccountManagementApi {
      *
      * @param callback A function that is passed the return arguments (error, account)
      */
-    getAccount(callback: CallbackFn<Account>): void;
+    getAccount(callback?: CallbackFn<Account>): void;
     /**
      * Update details of account associated with current API key
      *
@@ -369,7 +369,7 @@ export declare class AccountManagementApi {
      * @param userId The user ID
      * @param callback A function that is passed the return arguments (error, user)
      */
-    getUser(userId: string, callback: CallbackFn<User>): void;
+    getUser(userId: string, callback?: CallbackFn<User>): void;
     /**
      * Adds a user
      *
@@ -513,7 +513,7 @@ export declare class AccountManagementApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    listGroups(options?: ListOptions, callback?: CallbackFn<ListResponse<Group>>): void;
+    listGroups(options?: GroupListOptions, callback?: CallbackFn<ListResponse<Group>>): void;
     /**
      * Get details of a group
      *

@@ -31,7 +31,7 @@ export interface AddFirmwareManifestObject extends FirmwareManifestObject {
      */
     dataFile: ReadableStream | File | Blob;
 }
-export declare type CampaignStateEnum = "draft" | "scheduled" | "allocatingquota" | "allocatedquota" | "insufficientquota" | "checkingmanifest" | "checkedmanifest" | "devicefetch" | "devicecopy" | "devicecheck" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired" | "stopping" | "autostopped" | "userstopped" | "conflict";
+export declare type CampaignStateEnum = "draft" | "scheduled" | "allocatingquota" | "allocatedquota" | "quotaallocationfailed" | "checkingmanifest" | "checkedmanifest" | "devicefetch" | "devicecopy" | "devicecheck" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired" | "stopping" | "autostopped" | "userstopped" | "conflict";
 export declare type CampaignDeviceStateEnum = "pending" | "updated_connector_channel" | "failed_connector_channel_update" | "deployed" | "manifestremoved" | "deregistered";
 export interface CampaignObject {
     /**

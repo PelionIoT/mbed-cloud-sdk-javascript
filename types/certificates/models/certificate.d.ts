@@ -23,6 +23,10 @@ export declare class Certificate {
      */
     certificateData: string;
     /**
+     * If true, signature parameter is not required. Default value is false.
+     */
+    enrollmentMode?: boolean;
+    /**
      * The UUID of the account.
      */
     readonly accountId: string;
