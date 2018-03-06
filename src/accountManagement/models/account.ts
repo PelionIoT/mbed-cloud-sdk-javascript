@@ -51,10 +51,6 @@ export class Account {
      */
     public readonly policies?: Array<Policy>;
     /**
-     * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
-     */
-    public readonly provisioningAllowed: boolean;
-    /**
      * Creation time.
      */
     public readonly createdAt?: Date;
@@ -70,6 +66,22 @@ export class Account {
      * Account template ID.
      */
     public readonly templateId?: string;
+    /**
+     * Contract number of the customer
+     */
+    public readonly contractNumber?: string;
+    /**
+     * Customer number of the customer
+     */
+    public readonly customerNumber?: string;
+    /**
+     * Reference note for updating the status of the account
+     */
+    public readonly referenceNote?: string;
+    /**
+     * The last update time
+     */
+    public readonly updatedAt?: Date;
 
     constructor(init: Partial<Account>, private _api?: AccountManagementApi) {
         for (const key in init) {

@@ -197,12 +197,14 @@ function mapJsonArgs(snakeObject: any): Array<any> {
     }
 }
 function mapResult(result: any): any {
-    // We need to explicitly check for false because some methods return bools, and stringify removes false values from the response
-    if (result === false) return false;
-    if (!result) return {};
+    if (!result) return result;
 
     // Snake-case the result keys
     const jsonString: string | undefined = JSON.stringify(result, (key, value) => {
+        if (key.charAt(0) === "_") {
+            // Keys beginning with underscore are internal and shouldn't be sent to the test runner
+            return undefined;
+        }
         if (value && !Array.isArray(value) && typeof value === "object") {
             const replacement: any = {};
             for (key in value) {

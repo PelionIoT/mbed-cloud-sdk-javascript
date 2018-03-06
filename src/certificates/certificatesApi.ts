@@ -153,8 +153,10 @@ export class CertificatesApi {
             const type = extractFilter(filter, "type");
             const serviceEq = type === "developer" ? "bootstrap" : type;
             const executionMode = type === "developer" ? 1 : null;
+            const typeNeq = extractFilter(filter, "typeNeq");
+            const executionModeNeq = typeNeq === "developer" ? 0 : 1;
 
-            this._endpoints.accountDeveloper.getAllCertificates(limit, after, order, encodeInclude(include), serviceEq, extractFilter(filter, "expires"), executionMode, extractFilter(filter, "ownerId"), resultsFn);
+            this._endpoints.accountDeveloper.getAllCertificates(limit, after, order, encodeInclude(include), extractFilter(filter, "name"), serviceEq, extractFilter(filter, "expires"), executionMode, executionModeNeq, extractFilter(filter, "ownerId"), extractFilter(filter, "enrollmentMode"), extractFilter(filter, "issuer"), extractFilter(filter, "subject"), resultsFn);
         }, (data, done) => {
             let certificates: Array<Certificate>;
             if (data.data && data.data.length) {

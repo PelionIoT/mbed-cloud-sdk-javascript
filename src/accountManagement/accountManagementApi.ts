@@ -19,7 +19,7 @@ import { asyncStyle, apiWrapper, encodeInclude, extractFilter } from "../common/
 import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { Endpoints } from "./endpoints";
-import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions } from "./types";
+import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions, GroupListOptions } from "./types";
 import { Account } from "./models/account";
 import { AccountAdapter } from "./models/accountAdapter";
 import { ApiKey } from "./models/apiKey";
@@ -100,10 +100,10 @@ export class AccountManagementApi {
      *
      * @param callback A function that is passed the return arguments (error, account)
      */
-    public getAccount(callback: CallbackFn<Account>): void;
+    public getAccount(callback?: CallbackFn<Account>): void;
     public getAccount(callback?: CallbackFn<Account>): Promise<Account> {
         return apiWrapper(resultsFn => {
-            this._endpoints.developer.getMyAccountInfo("limits, policies", resultsFn);
+            this._endpoints.developer.getMyAccountInfo("limits, policies", "", resultsFn);
         }, (data, done) => {
             done(null, AccountAdapter.map(data, this));
         }, callback);
@@ -210,7 +210,7 @@ export class AccountManagementApi {
 
         return apiWrapper(resultsFn => {
             const { limit, after, order, include, filter } = options as ApiKeyListOptions;
-            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), extractFilter(filter, "ownerId"), resultsFn);
+            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), extractFilter(filter, "apiKey"), extractFilter(filter, "ownerId"), resultsFn);
         }, (data, done) => {
             let keys: Array<ApiKey>;
             if (data && data.data && data.data.length) {
@@ -451,7 +451,7 @@ export class AccountManagementApi {
 
         return apiWrapper(resultsFn => {
             const { limit, after, order, include, filter } = options as UserListOptions;
-            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), extractFilter(filter, "status"), resultsFn);
+            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), extractFilter(filter, "email"), extractFilter(filter, "status"), resultsFn);
         }, (data, done) => {
             let users: Array<User>;
             if (data.data && data.data.length) {
@@ -496,10 +496,10 @@ export class AccountManagementApi {
      * @param userId The user ID
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public getUser(userId: string, callback: CallbackFn<User>): void;
+    public getUser(userId: string, callback?: CallbackFn<User>): void;
     public getUser(userId: string, callback?: CallbackFn<User>): Promise<User> {
         return apiWrapper(resultsFn => {
-            this._endpoints.admin.getUser(userId, resultsFn);
+            this._endpoints.admin.getUser(userId, "", resultsFn);
         }, (data, done) => {
             done(null, UserAdapter.map(data, this));
         }, callback);
@@ -672,7 +672,7 @@ export class AccountManagementApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listGroups(options?: ListOptions, callback?: CallbackFn<ListResponse<Group>>): void;
+    public listGroups(options?: GroupListOptions, callback?: CallbackFn<ListResponse<Group>>): void;
     public listGroups(options?: any, callback?: CallbackFn<ListResponse<Group>>): Promise<ListResponse<Group>> {
         options = options || {};
         if (typeof options === "function") {
@@ -681,8 +681,8 @@ export class AccountManagementApi {
         }
 
         return apiWrapper(resultsFn => {
-            const { limit, after, order, include } = options as ListOptions;
-            this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), resultsFn);
+            const { limit, after, order, include, filter } = options as GroupListOptions;
+            this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), extractFilter(filter, "name"), resultsFn);
         }, (data, done) => {
             let groups: Array<Group>;
             if (data.data && data.data.length) {

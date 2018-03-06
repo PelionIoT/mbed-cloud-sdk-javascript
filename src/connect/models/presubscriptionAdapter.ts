@@ -27,7 +27,7 @@ export class PresubscriptionAdapter {
         return {
             deviceId:         from["endpoint-name"],
             deviceType:       from["endpoint-type"],
-            resourcePaths:    from["resource-path"]
+            resourcePaths:    (from["resource-path"] as Array<string>)
         };
     }
 

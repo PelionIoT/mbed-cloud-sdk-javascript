@@ -36,6 +36,7 @@ import { MetricAdapter } from "./models/metricAdapter";
 import { ApiMetadata } from "../common/apiMetadata";
 import { DeviceListOptions } from "../deviceDirectory/types";
 import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
+import { executeForAll } from "../common/pagination";
 
 /**
  * ## Connect API
@@ -406,7 +407,7 @@ export class ConnectApi extends EventEmitter {
     public getWebhook(callback: CallbackFn<Webhook>): void;
     public getWebhook(callback?: CallbackFn<Webhook>): Promise<Webhook> {
         return asyncStyle(done => {
-            this._endpoints.webhooks.v2NotificationCallbackGet((error, data) => {
+            this._endpoints.notifications.v2NotificationCallbackGet((error, data) => {
 
                 if (error) {
                     if (error.code === 404) {
@@ -531,7 +532,7 @@ export class ConnectApi extends EventEmitter {
     public deleteWebhook(callback: CallbackFn<void>): void;
     public deleteWebhook(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.webhooks.v2NotificationCallbackDelete(() => {
+            this._endpoints.notifications.v2NotificationCallbackDelete(() => {
                 done(null, null);
             });
         }, callback);
@@ -655,7 +656,10 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Removes all subscriptions
+     * Removes all subscriptions for all devices.
+     *
+     * Warning: This could be slow for large numbers of connected devices.
+     * If possible, explicitly delete subscriptions known to have been created.
      *
      * Example:
      * ```JavaScript
@@ -669,7 +673,10 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteSubscriptions(): Promise<void>;
     /**
-     * Removes all subscriptions
+     * Removes all subscriptions for all devices.
+     *
+     * Warning: This could be slow for large numbers of connected devices.
+     * If possible, explicitly delete subscriptions known to have been created.
      *
      * Example:
      * ```JavaScript
@@ -682,10 +689,9 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteSubscriptions(callback: CallbackFn<void>): void;
     public deleteSubscriptions(callback?: CallbackFn<void>): Promise<void> {
-        return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsDelete(resultsFn);
-        }, (data, done) => {
-            done(null, data);
+        return asyncStyle(done => {
+            executeForAll(this.listConnectedDevices.bind(this), this.deleteDeviceSubscriptions.bind(this))
+                .then(() => done(null), done);
         }, callback);
     }
 
@@ -832,6 +838,12 @@ export class ConnectApi extends EventEmitter {
         return apiWrapper(resultsFn => {
             this._endpoints.subscriptions.v2SubscriptionsDeviceIdDelete(deviceId, resultsFn);
         }, (data, done) => {
+            Object.keys(this._notifyFns).forEach(key => {
+                if (key.indexOf(`${deviceId}/`) === 0) {
+                    delete this._notifyFns[key];
+                }
+            });
+
             done(null, data);
         }, callback);
     }
