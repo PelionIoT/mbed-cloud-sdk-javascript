@@ -57,7 +57,8 @@
     "typedoc": "^0.7.1",
     "typescript": "~2.6.2",
     "typescript-logging": "^0.5.0",
-    "source-map-merger": "~0.2.0"
+    "source-map-merger": "~0.2.0",
+    "gulp-json-modify": "^1.0.2"
   },
   "dependencies": {
     "superagent": "^3.4.1"

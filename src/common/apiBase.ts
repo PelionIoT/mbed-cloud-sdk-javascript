@@ -17,6 +17,7 @@
 
 import superagent = require("superagent");
 import { SDKError } from "./sdkError";
+import * as packageInformation from "../../version.json";
 
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 const JSON_REGEX = /^application\/json(;.*)?$/i;
@@ -152,7 +153,9 @@ export class ApiBase {
         request.query(requestOptions.query);
 
         // set header parameters
+        const packInfo = packageInformation as any;
         requestOptions.headers.Authorization = this.apiKey;
+        requestOptions.headers["User-Agent"] = packInfo.name + " / " + packInfo.version;
         request.set(requestOptions.headers);
 
         // set request timeout

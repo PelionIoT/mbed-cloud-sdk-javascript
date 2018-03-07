@@ -11,6 +11,8 @@ var typedoc     = require("gulp-typedoc");
 var ts          = require("gulp-typescript");
 var uglify      = require("gulp-uglify");
 var gulpTslint  = require("gulp-tslint");
+var gulpModify  = require("gulp-json-modify");
+var versionJson = require("./version.json");
 
 var name = "Mbed Cloud SDK for JavaScript";
 var namespace = "MbedCloudSDK";
@@ -192,4 +194,13 @@ gulp.task("watch", ["setWatch", "default"], function() {
     gulp.watch(srcFiles, ["default"]);
 });
 
-gulp.task("default", ["lint", "doc", "bundleSource", "bundleTests"]);
+gulp.task("default", ["lint", "doc", "bundleSource", "bundleTests", "versionModify"]);
+
+gulp.task('versionModify', function () {
+    return gulp.src([ './package.json' ])
+        .pipe(gulpModify({
+            key: 'version',
+            value: versionJson.version
+        }))
+        .pipe(gulp.dest('./'))
+});
