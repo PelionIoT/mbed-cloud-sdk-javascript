@@ -155,7 +155,7 @@ export class ApiBase {
 
         // set header parameters
         requestOptions.headers.Authorization = this.apiKey;
-        requestOptions.headers["User-Agent"] = packageInformation.name + "-javascript / " + packageInformation.version;
+        requestOptions.headers["User-Agent"] = `${packageInformation.name}-javascript / ${packageInformation.version}`;
         request.set(requestOptions.headers);
 
         // set request timeout
