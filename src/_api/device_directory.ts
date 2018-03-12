@@ -136,7 +136,7 @@ export interface DeviceData {
      */
     "name"?: string;
     /**
-     * The fingerprint of the device certificate.
+     * This is not part of the certificate but rather the SH-256 hash of the certificate.
      */
     "device_key"?: string;
     /**
@@ -183,7 +183,7 @@ export interface DeviceDataPatchRequest {
      */
     "custom_attributes"?: { [key: string]: string; };
     /**
-     * The fingerprint of the device certificate.
+     * This is not part of the certificate but rather the SH-256 hash of the certificate.
      */
     "device_key"?: string;
     /**
@@ -286,7 +286,7 @@ export interface DeviceDataPostRequest {
      */
     "name"?: string;
     /**
-     * The fingerprint of the device certificate.
+     * This is not part of the certificate but rather the SH-256 hash of the certificate.
      */
     "device_key"?: string;
     /**
@@ -325,7 +325,7 @@ export interface DeviceDataPutRequest {
      */
     "custom_attributes"?: { [key: string]: string; };
     /**
-     * The fingerprint of the device certificate.
+     * This is not part of the certificate but rather the SH-256 hash of the certificate.
      */
     "device_key"?: string;
     /**

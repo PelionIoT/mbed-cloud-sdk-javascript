@@ -22,11 +22,11 @@ export type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" 
 
 export interface DeviceObject {
     /**
-     * ID of the issuer of the certificate
+     * This is the value of the CN field (in the Subject) of the Issuer of the certificate.
      */
     certificateIssuerId?: string;
     /**
-     * Fingerprint of the device certificate
+     * This is not part of the certificate but rather the SH-256 hash of the certificate.
      */
     certificateFingerprint?: string;
     /**
