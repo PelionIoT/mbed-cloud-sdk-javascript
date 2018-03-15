@@ -69,7 +69,8 @@ export class AccountAdapter {
             notificationEmails              : from.notification_emails,
             referenceNote                   : from.reference_note,
             updatedAt                       : from.updated_at,
-            customProperties                : from.account_properties
+            customProperties: from.account_properties,
+            contractNumber                  : from.contract_number,
         }, api);
     }
 
