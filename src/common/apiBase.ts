@@ -18,6 +18,8 @@
 import superagent = require("superagent");
 import { SDKError } from "./sdkError";
 
+// tslint:disable-next-line:no-var-requires
+const packageInformation = require("../../package.json");
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 const JSON_REGEX = /^application\/json(;.*)?$/i;
 const MIME_REGEX = /^text\/plain(;.*)?$/i;
@@ -153,6 +155,7 @@ export class ApiBase {
 
         // set header parameters
         requestOptions.headers.Authorization = this.apiKey;
+        requestOptions.headers["User-Agent"] = `${packageInformation.name}-javascript / ${packageInformation.version}`;
         request.set(requestOptions.headers);
 
         // set request timeout
