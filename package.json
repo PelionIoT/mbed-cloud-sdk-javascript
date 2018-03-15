@@ -26,7 +26,7 @@
     "gulp": "gulp",
     "tpip": "nlf --csv --no-dev --reach 1 > tpip.csv",
     "test": "intern",
-    "build-test-server": "node tests/build.js && tsc -p tests && cp intern.json ./tests/server/",
+    "build-test-server": "node tests/build.js && tsc -p tests && cp intern.json ./tests/server/ && cp package.json ./tests/server/",
     "start-test-server": "node tests/server/tests/codeCoverage.js"
   },
   "devDependencies": {
