@@ -200,6 +200,8 @@ exports.mapResult = (module, method, result) => {
 			}
 			return replacement;
 		}
+		// Empty strings should be null so testrunner can recognise as invalid
+		if (value == "") return null;
 		//keep value in response for benefit of schema tests
 		if (value === undefined) return null;
 		return value;
