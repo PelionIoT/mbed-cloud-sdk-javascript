@@ -32,8 +32,8 @@ dependencies:
     - npm install -g codecov ansi-html-stream
     # Version 65.0.3325.146-1 seems to have a bug which breaks the unit tests
     # - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    - apt-get update 
-    - apt-get install jq  # needed for json manipulation 
+    - sudo apt-get update 
+    - sudo apt-get install jq  # needed for json manipulation 
     - curl -L -o google-chrome.deb http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_64.0.3282.186-1_amd64.deb
     - sudo dpkg -i google-chrome.deb
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
@@ -46,10 +46,10 @@ dependencies:
 
 compile:
   pre:
-    - sudo pip install -U git+https://github.com/davidhyman/towncrier.git@config-project-name
+    - pip install -U git+https://github.com/davidhyman/towncrier.git@config-project-name
   override:
     # we have to tell towncrier what the version number is; `jq` extracts the version, `tr` strips quotes from the json string
-    - cd docs/changelog && towncrier --name="" --version="$(jq .version <package.json | tr -d '\"')"
+    - cd src/changelog && towncrier --yes --name="" --version="$(jq .version <package.json | tr -d '\"')"
     - npm run gulp
     - mkdir -p ${PROJECT_DOCS}
     - cp -r docs/* ${PROJECT_DOCS}/
