@@ -1,0 +1,7 @@
+[tool.towncrier]
+filename = '../../CHANGELOG.md'
+directory = 'news'
+package = 'mbed_cloud'
+template = 'template.rst'
+# this is the correct way to use comments in RST (blank block init: `..`)
+start_string = """<!-- begin_release_notes -->"""
