@@ -3,14 +3,12 @@
 {% for section in sections %}
 {% set underline = underlines[0] %}
 {% if section %}
-{{section}}
-{{ underline * section|length }}{% set underline = underlines[1] %}
+## {{section}}
 
 {% endif %}
 {% if sections[section] %}
 {% for category, val in definitions.items() if category in sections[section] %}
-{{ definitions[category]['name'] }}
-{{ underline * definitions[category]['name']|length }}
+### {{ definitions[category]['name'] }}
 
 {% if definitions[category]['showcontent'] %}
 {% for text, values in sections[section][category]|dictsort(by='value') %}

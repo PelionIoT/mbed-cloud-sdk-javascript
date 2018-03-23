@@ -1,2 +1,2 @@
-The HTTP header User-Agent is now configured by to contain SDK version
+The HTTP header User-Agent now contains SDK version
 information, which is passed to the Mbed Cloud.
