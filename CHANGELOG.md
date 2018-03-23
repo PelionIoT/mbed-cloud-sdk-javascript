@@ -9,7 +9,7 @@ $ npm install mbed-cloud-sdk
 This news file contains a log of notable changes to the SDK. Please see [npm history for mbed-cloud-sdk](https://www.npmjs.com/package/mbed-cloud-sdk?activeTab=versions) for
 a list of versions that have been released on **npm**.
 
-<!-- begin_release_notes -->
+[//]: # (begin_release_notes)
 
 ## 1.2.7
 
