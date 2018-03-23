@@ -49,7 +49,8 @@ compile:
     - pip install -U git+https://github.com/davidhyman/towncrier.git@config-project-name
   override:
     # we have to tell towncrier what the version number is; `jq` extracts the version, `tr` strips quotes from the json string
-    - cd src/changelog && towncrier --yes --name="" --version="$(jq .version <package.json | tr -d '\"')"
+    - cd src/changelog && towncrier --yes --name="" --version=$(jq .version <../../package.json | tr -d '\"')
+    - cp CHANGELOG.md ${CIRCLE_ARTIFACTS}/
     - npm run gulp
     - mkdir -p ${PROJECT_DOCS}
     - cp -r docs/* ${PROJECT_DOCS}/
