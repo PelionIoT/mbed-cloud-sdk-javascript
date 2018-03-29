@@ -32,8 +32,8 @@ dependencies:
     - npm install -g codecov ansi-html-stream
     # Version 65.0.3325.146-1 seems to have a bug which breaks the unit tests
     # - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    - sudo apt-get update 
-    - sudo apt-get install jq  # needed for json manipulation 
+    - sudo apt-get update
+    - sudo apt-get install jq  # needed for json manipulation
     - curl -L -o google-chrome.deb http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_64.0.3282.186-1_amd64.deb
     - sudo dpkg -i google-chrome.deb
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
@@ -93,6 +93,9 @@ deployment:
       - echo Tagging ${PROJECT_NAME} in GitHub...
       - git tag ${PROJECT_TAG}
       - git push --tags
+      - if ${CIRCLE_PROJECT_REPONAME} == 'mbed-cloud-sdk-javascript'; then echo 'tag and release'; else echo 'will not release from unofficial repo' && exit 1; fi
+      - jq '. + { "is_published": true }' package.json > package.json.tmp && mv package.json.tmp package.json
       - git add CHANGELOG.md src/changelog/*
       - git commit -m ":newspaper: Hear yea, hear yea. News O'Clock. [skip ci]"
       - git push
+      - npm publish
