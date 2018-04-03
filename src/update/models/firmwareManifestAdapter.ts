@@ -31,6 +31,7 @@ export class FirmwareManifestAdapter {
             createdAt:           from.created_at,
             url:                 from.datafile,
             datafileSize:        from.datafile_size,
+            keyTableUrl:         from.key_table,
             description:         from.description,
             deviceClass:         from.device_class,
             id:                  from.id,
