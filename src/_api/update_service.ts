@@ -30,10 +30,6 @@ export namespace CampaignDeviceMetadata {
 }
 export interface CampaignDeviceMetadata {
     /**
-     * Description
-     */
-    "description"?: string;
-    /**
      * The device's campaign ID
      */
     "campaign"?: string;
@@ -42,6 +38,38 @@ export interface CampaignDeviceMetadata {
      */
     "created_at"?: Date;
     /**
+     * The state of the update campaign on the device
+     */
+    "deployment_state"?: CampaignDeviceMetadata.DeploymentStateEnum;
+    /**
+     * Description
+     */
+    "description"?: string;
+    /**
+     * The device ID
+     */
+    "device_id"?: string;
+    /**
+     * API resource entity version
+     */
+    "etag"?: string;
+    /**
+     * The metadata record ID
+     */
+    "id"?: string;
+    /**
+     * How the firmware is delivered (connector or direct)
+     */
+    "mechanism"?: string;
+    /**
+     * The Cloud Connect URL
+     */
+    "mechanism_url"?: string;
+    /**
+     * The record name
+     */
+    "name"?: string;
+    /**
      * Entity name: always 'update-campaign-device-metadata'
      */
     "object"?: string;
@@ -49,34 +77,6 @@ export interface CampaignDeviceMetadata {
      * This time this record was modified in the database format: date-time
      */
     "updated_at"?: Date;
-    /**
-     * How the firmware is delivered (connector or direct)
-     */
-    "mechanism"?: string;
-    /**
-     * The record name
-     */
-    "name"?: string;
-    /**
-     * API resource entity version
-     */
-    "etag"?: string;
-    /**
-     * The Cloud Connect URL
-     */
-    "mechanism_url"?: string;
-    /**
-     * The state of the update campaign on the device
-     */
-    "deployment_state"?: CampaignDeviceMetadata.DeploymentStateEnum;
-    /**
-     * The metadata record ID
-     */
-    "id"?: string;
-    /**
-     * The device ID
-     */
-    "device_id"?: string;
 }
 
 export namespace CampaignDeviceMetadataPage {
@@ -88,56 +88,40 @@ export interface CampaignDeviceMetadataPage {
      */
     "after"?: string;
     /**
+     * A list of entities
+     */
+    "data"?: Array<CampaignDeviceMetadata>;
+    /**
      * Flag indicating whether there are more results
      */
     "has_more"?: boolean;
-    /**
-     * The total number or records, if requested. It might be returned also for small lists.
-     */
-    "total_count"?: number;
-    /**
-     * Entity name: always 'list'
-     */
-    "object"?: string;
     /**
      * The number of results to return, (range: 2-1000), or equals to total_count
      */
     "limit"?: number;
     /**
-     * A list of entities
+     * Entity name: always 'list'
      */
-    "data"?: Array<CampaignDeviceMetadata>;
+    "object"?: string;
     /**
      * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
     "order"?: CampaignDeviceMetadataPage.OrderEnum;
+    /**
+     * The total number or records, if requested. It might be returned also for small lists.
+     */
+    "total_count"?: number;
 }
 
 export interface FirmwareImage {
-    /**
-     * The firmware image file URL
-     */
-    "datafile": string;
-    /**
-     * The description of the object
-     */
-    "description": string;
     /**
      * The time the object was created
      */
     "created_at": Date;
     /**
-     * The API resource entity
+     * The firmware image file URL
      */
-    "object": string;
-    /**
-     * The time the object was updated
-     */
-    "updated_at": Date;
-    /**
-     * The entity instance signature
-     */
-    "etag": Date;
+    "datafile": string;
     /**
      * Checksum (sha256) generated for the datafile
      */
@@ -147,6 +131,14 @@ export interface FirmwareImage {
      */
     "datafile_size"?: number;
     /**
+     * The description of the object
+     */
+    "description": string;
+    /**
+     * The entity instance signature
+     */
+    "etag": Date;
+    /**
      * The firmware image ID
      */
     "id": string;
@@ -154,18 +146,26 @@ export interface FirmwareImage {
      * The firmware image name
      */
     "name": string;
+    /**
+     * The API resource entity
+     */
+    "object": string;
+    /**
+     * The time the object was updated
+     */
+    "updated_at": Date;
 }
 
 export interface FirmwareImageEqNeqFilter {
-    "datafile"?: string;
-    "description"?: string;
     "created_at"?: Date;
-    "updated_at"?: Date;
-    "etag"?: Date;
+    "datafile"?: string;
     "datafile_checksum"?: string;
     "datafile_size"?: number;
+    "description"?: string;
+    "etag"?: Date;
     "id"?: string;
     "name"?: string;
+    "updated_at"?: Date;
 }
 
 export interface FirmwareImageGteLteFilter {
@@ -175,131 +175,131 @@ export interface FirmwareImageGteLteFilter {
 }
 
 export interface FirmwareImageInNinFilter {
-    "datafile"?: string;
-    "description"?: string;
     "created_at"?: Date;
-    "updated_at"?: Date;
-    "etag"?: Date;
+    "datafile"?: string;
     "datafile_checksum"?: string;
     "datafile_size"?: number;
+    "description"?: string;
+    "etag"?: Date;
     "id"?: string;
     "name"?: string;
+    "updated_at"?: Date;
 }
 
 export namespace FirmwareImagePage {
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface FirmwareImagePage {
-    "object"?: string;
-    "has_more"?: boolean;
-    "total_count"?: number;
     "after"?: string;
-    "limit"?: number;
     "data"?: Array<FirmwareImage>;
+    "has_more"?: boolean;
+    "limit"?: number;
+    "object"?: string;
     /**
      * The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
      */
     "order"?: FirmwareImagePage.OrderEnum;
+    "total_count"?: number;
 }
 
 export interface FirmwareManifest {
-    /**
-     * The URL of the firmware manifest binary
-     */
-    "datafile": string;
-    /**
-     * The description of the firmware manifest
-     */
-    "description": string;
-    /**
-     * The firmware manifest version as a timestamp
-     */
-    "timestamp": Date;
     /**
      * The time the object was created
      */
     "created_at": Date;
     /**
-     * The API resource entity
+     * The URL of the firmware manifest binary
      */
-    "object": string;
-    /**
-     * The time the object was updated
-     */
-    "updated_at": Date;
-    /**
-     * The entity instance signature
-     */
-    "etag": Date;
-    /**
-     * The key table of pre-shared keys for devices
-     */
-    "key_table"?: string;
-    /**
-     * The class of the device
-     */
-    "device_class": string;
+    "datafile": string;
     /**
      * Size of the datafile in bytes
      */
     "datafile_size"?: number;
     /**
+     * The description of the firmware manifest
+     */
+    "description": string;
+    /**
+     * The class of the device
+     */
+    "device_class": string;
+    /**
+     * The entity instance signature
+     */
+    "etag": Date;
+    /**
      * The firmware manifest ID
      */
     "id": string;
     /**
+     * The key table of pre-shared keys for devices
+     */
+    "key_table"?: string;
+    /**
      * The name of the object
      */
     "name": string;
+    /**
+     * The API resource entity
+     */
+    "object": string;
+    /**
+     * The firmware manifest version as a timestamp
+     */
+    "timestamp": Date;
+    /**
+     * The time the object was updated
+     */
+    "updated_at": Date;
 }
 
 export interface FirmwareManifestEqNeqFilter {
-    "datafile"?: string;
-    "description"?: string;
-    "timestamp"?: Date;
     "created_at"?: Date;
-    "updated_at"?: Date;
-    "etag"?: Date;
-    "device_class"?: string;
+    "datafile"?: string;
     "datafile_size"?: number;
+    "description"?: string;
+    "device_class"?: string;
+    "etag"?: Date;
     "id"?: string;
     "name"?: string;
+    "timestamp"?: Date;
+    "updated_at"?: Date;
 }
 
 export interface FirmwareManifestGteLteFilter {
-    "timestamp"?: Date;
     "created_at"?: Date;
     "etag"?: Date;
+    "timestamp"?: Date;
     "updated_at"?: Date;
 }
 
 export interface FirmwareManifestInNinFilter {
-    "datafile"?: string;
-    "description"?: string;
-    "timestamp"?: Date;
     "created_at"?: Date;
-    "updated_at"?: Date;
-    "etag"?: Date;
-    "device_class"?: string;
+    "datafile"?: string;
     "datafile_size"?: number;
+    "description"?: string;
+    "device_class"?: string;
+    "etag"?: Date;
     "id"?: string;
     "name"?: string;
+    "timestamp"?: Date;
+    "updated_at"?: Date;
 }
 
 export namespace FirmwareManifestPage {
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface FirmwareManifestPage {
-    "object"?: string;
-    "has_more"?: boolean;
-    "total_count"?: number;
     "after"?: string;
-    "limit"?: number;
     "data"?: Array<FirmwareManifest>;
+    "has_more"?: boolean;
+    "limit"?: number;
+    "object"?: string;
     /**
      * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
     "order"?: FirmwareManifestPage.OrderEnum;
+    "total_count"?: number;
 }
 
 export namespace UpdateCampaign {
@@ -307,30 +307,17 @@ export namespace UpdateCampaign {
 }
 export interface UpdateCampaign {
     /**
-     * The optional description of the campaign
-     */
-    "description"?: string;
-    "root_manifest_id"?: string;
-    /**
      * The time the update campaign was created
      */
     "created_at"?: Date;
     /**
-     * The API resource entity
+     * The optional description of the campaign
      */
-    "object"?: string;
+    "description"?: string;
     /**
-     * The scheduled start time for the update campaign
+     * The filter for the devices the campaign will target
      */
-    "when"?: Date;
-    /**
-     * The time the object was updated
-     */
-    "updated_at"?: Date;
-    /**
-     * The state of the campaign
-     */
-    "state"?: UpdateCampaign.StateEnum;
+    "device_filter"?: string;
     /**
      * The entity instance signature
      */
@@ -339,75 +326,92 @@ export interface UpdateCampaign {
      * The campaign finish timestamp
      */
     "finished"?: Date;
-    "root_manifest_url"?: string;
-    "started_at"?: Date;
     /**
      * The campaign ID
      */
     "id"?: string;
     /**
-     * The filter for the devices the campaign will target
-     */
-    "device_filter"?: string;
-    /**
      * The campaign name
      */
     "name"?: string;
+    /**
+     * The API resource entity
+     */
+    "object"?: string;
+    /**
+     * The current phase of the campaign.
+     */
+    "phase"?: string;
+    "root_manifest_id"?: string;
+    "root_manifest_url"?: string;
+    "started_at"?: Date;
+    /**
+     * The state of the campaign
+     */
+    "state"?: UpdateCampaign.StateEnum;
+    /**
+     * The time the object was updated
+     */
+    "updated_at"?: Date;
+    /**
+     * The scheduled start time for the update campaign
+     */
+    "when"?: Date;
 }
 
 export interface UpdateCampaignEqNeqFilter {
-    "description"?: string;
-    "root_manifest_id"?: string;
     "created_at"?: Date;
-    "when"?: Date;
-    "updated_at"?: Date;
-    "state"?: string;
+    "description"?: string;
+    "device_filter"?: string;
     "etag"?: Date;
     "finished"?: Date;
-    "started_at"?: Date;
     "id"?: string;
-    "device_filter"?: string;
     "name"?: string;
+    "root_manifest_id"?: string;
+    "started_at"?: Date;
+    "state"?: string;
+    "updated_at"?: Date;
+    "when"?: Date;
 }
 
 export interface UpdateCampaignGteLteFilter {
     "created_at"?: Date;
-    "when"?: Date;
-    "updated_at"?: Date;
-    "finished"?: Date;
     "etag"?: Date;
+    "finished"?: Date;
     "started_at"?: Date;
+    "updated_at"?: Date;
+    "when"?: Date;
 }
 
 export interface UpdateCampaignInNinFilter {
-    "description"?: string;
-    "root_manifest_id"?: string;
     "created_at"?: Date;
-    "when"?: Date;
-    "updated_at"?: Date;
-    "state"?: string;
+    "description"?: string;
+    "device_filter"?: string;
     "etag"?: Date;
     "finished"?: Date;
-    "started_at"?: Date;
     "id"?: string;
-    "device_filter"?: string;
     "name"?: string;
+    "root_manifest_id"?: string;
+    "started_at"?: Date;
+    "state"?: string;
+    "updated_at"?: Date;
+    "when"?: Date;
 }
 
 export namespace UpdateCampaignPage {
     export type OrderEnum = "ASC" | "DESC";
 }
 export interface UpdateCampaignPage {
-    "object"?: string;
-    "has_more"?: boolean;
-    "total_count"?: number;
     "after"?: string;
-    "limit"?: number;
     "data"?: Array<UpdateCampaign>;
+    "has_more"?: boolean;
+    "limit"?: number;
+    "object"?: string;
     /**
      * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
      */
     "order"?: UpdateCampaignPage.OrderEnum;
+    "total_count"?: number;
 }
 
 export namespace UpdateCampaignPatchRequest {
@@ -418,19 +422,6 @@ export interface UpdateCampaignPatchRequest {
      * The optional description of the campaign
      */
     "description"?: string;
-    "root_manifest_id"?: string;
-    /**
-     * The API resource entity
-     */
-    "object"?: string;
-    /**
-     * The scheduled start time for the update campaign
-     */
-    "when"?: Date;
-    /**
-     * The state of the campaign
-     */
-    "state"?: UpdateCampaignPatchRequest.StateEnum;
     /**
      * The filter for the devices the campaign will target
      */
@@ -439,6 +430,19 @@ export interface UpdateCampaignPatchRequest {
      * The campaign name
      */
     "name"?: string;
+    /**
+     * The API resource entity
+     */
+    "object"?: string;
+    "root_manifest_id"?: string;
+    /**
+     * The state of the campaign
+     */
+    "state"?: UpdateCampaignPatchRequest.StateEnum;
+    /**
+     * The scheduled start time for the update campaign
+     */
+    "when"?: Date;
 }
 
 export namespace UpdateCampaignPostRequest {
@@ -449,19 +453,6 @@ export interface UpdateCampaignPostRequest {
      * The optional description of the campaign
      */
     "description"?: string;
-    "root_manifest_id"?: string;
-    /**
-     * The API resource entity
-     */
-    "object"?: string;
-    /**
-     * The scheduled start time for the update campaign
-     */
-    "when"?: Date;
-    /**
-     * The state of the campaign
-     */
-    "state"?: UpdateCampaignPostRequest.StateEnum;
     /**
      * The filter for the devices the campaign will target
      */
@@ -470,6 +461,19 @@ export interface UpdateCampaignPostRequest {
      * The name for this campaign
      */
     "name": string;
+    /**
+     * The API resource entity
+     */
+    "object"?: string;
+    "root_manifest_id"?: string;
+    /**
+     * The state of the campaign
+     */
+    "state"?: UpdateCampaignPostRequest.StateEnum;
+    /**
+     * The scheduled start time for the update campaign
+     */
+    "when"?: Date;
 }
 
 export namespace UpdateCampaignPutRequest {
@@ -480,19 +484,6 @@ export interface UpdateCampaignPutRequest {
      * An optional description of the campaign
      */
     "description": string;
-    "root_manifest_id": string;
-    /**
-     * The API resource entity
-     */
-    "object": string;
-    /**
-     * The scheduled start time for the update campaign
-     */
-    "when": Date;
-    /**
-     * The state of the campaign
-     */
-    "state": UpdateCampaignPutRequest.StateEnum;
     /**
      * The filter for the devices the campaign will target
      */
@@ -501,6 +492,19 @@ export interface UpdateCampaignPutRequest {
      * The campaign's name
      */
     "name": string;
+    /**
+     * The API resource entity
+     */
+    "object": string;
+    "root_manifest_id": string;
+    /**
+     * The state of the campaign
+     */
+    "state": UpdateCampaignPutRequest.StateEnum;
+    /**
+     * The scheduled start time for the update campaign
+     */
+    "when": Date;
 }
 
 /**

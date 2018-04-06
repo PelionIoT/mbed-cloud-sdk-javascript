@@ -23,3 +23,4 @@ export declare function decodeFilter(from: string, map?: {
 }, nested?: Array<string>): {
     [key: string]: ComparisonObject<any> | {};
 };
+export declare function ensureArray<T>(item: T | Array<T>): Array<T>;

@@ -10,6 +10,7 @@ import { MetricsStartEndListOptions, MetricsPeriodListOptions } from "./types";
 import { Metric } from "./models/metric";
 import { ApiMetadata } from "../common/apiMetadata";
 import { DeviceListOptions } from "../deviceDirectory/types";
+import { Subscribe } from "./subscribe/subscribe";
 /**
  * ## Connect API
  *
@@ -73,6 +74,10 @@ export declare class ConnectApi extends EventEmitter {
      * @event
      */
     static EVENT_EXPIRED: string;
+    /**
+     * Gives you access to the subscribe manager
+     */
+    subscribe: Subscribe;
     private readonly ASYNC_KEY;
     private _deviceDirectory;
     private _endpoints;

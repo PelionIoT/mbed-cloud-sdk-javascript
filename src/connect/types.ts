@@ -52,6 +52,11 @@ export interface NotificationObject {
     "async-responses"?: Array<any>;
 }
 
+/**
+ * The types of device event
+ */
+export type DeviceEventEnum = "expired" | "registration" | "reregistration" | "deregistration";
+
 export interface DeviceEvent<T> {
     /**
      * The ID of the device
@@ -69,6 +74,21 @@ export interface DeviceEvent<T> {
      * The resources of the device
      */
     resources?: Array<T>;
+    /**
+     * The type of device event
+     */
+    event?: DeviceEventEnum;
+}
+
+export interface DeviceEventFilter {
+    /**
+     * Device Ids to be notified of
+     */
+    id?: string | Array<string>;
+    /**
+     * Device Events to be notified of
+     */
+    event?: DeviceEventEnum | Array<DeviceEventEnum>;
 }
 
 export interface AsyncResponse {

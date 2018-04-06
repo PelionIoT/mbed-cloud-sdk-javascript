@@ -1,5 +1,30 @@
 # Changelog
 
+The SDK is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using npm:
+
+```
+$ npm install mbed-cloud-sdk
+```
+
+This news file contains a log of notable changes to the SDK. Please see [npm history for mbed-cloud-sdk](https://www.npmjs.com/package/mbed-cloud-sdk?activeTab=versions) for
+a list of versions that have been released on **npm**.
+
+[//]: # (begin_release_notes)
+
+1.2.8 (2018-04-06)
+==================
+
+### Features
+
+- The HTTP header User-Agent now contains SDK version information, which is
+  passed to the Mbed Cloud. (#634)
+
+- Add ability to subscribe to devicve events using the Subscribe interface.
+  (#722)
+
+
+# Older Releases:
+
 ## 1.2.7
 
 ### Deliverables

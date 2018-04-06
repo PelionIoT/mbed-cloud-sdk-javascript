@@ -148,6 +148,7 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 							<li class="tsd-kind-class"><a href="classes/devicedirectoryapi.html" class="tsd-kind-icon">Device<wbr>Directory<wbr>Api</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/deviceevent.html" class="tsd-kind-icon">Device<wbr>Event</a></li>
 							<li class="tsd-kind-class"><a href="classes/deviceeventadapter.html" class="tsd-kind-icon">Device<wbr>Event<wbr>Adapter</a></li>
+							<li class="tsd-kind-class"><a href="classes/devicestateobserver.html" class="tsd-kind-icon">Device<wbr>State<wbr>Observer</a></li>
 							<li class="tsd-kind-class"><a href="classes/endpoints.html" class="tsd-kind-icon">Endpoints</a></li>
 							<li class="tsd-kind-class"><a href="classes/endpointsbase.html" class="tsd-kind-icon">Endpoints<wbr>Base</a></li>
 							<li class="tsd-kind-class"><a href="classes/enrollmentapi.html" class="tsd-kind-icon">Enrollment<wbr>Api</a></li>
@@ -164,6 +165,7 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 							<li class="tsd-kind-class"><a href="classes/loginhistoryadapter.html" class="tsd-kind-icon">Login<wbr>History<wbr>Adapter</a></li>
 							<li class="tsd-kind-class"><a href="classes/metric.html" class="tsd-kind-icon">Metric</a></li>
 							<li class="tsd-kind-class"><a href="classes/metricadapter.html" class="tsd-kind-icon">Metric<wbr>Adapter</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/observer.html" class="tsd-kind-icon">Observer</a></li>
 							<li class="tsd-kind-class"><a href="classes/policy.html" class="tsd-kind-icon">Policy</a></li>
 							<li class="tsd-kind-class"><a href="classes/policyadapter.html" class="tsd-kind-icon">Policy<wbr>Adapter</a></li>
 							<li class="tsd-kind-class"><a href="classes/presubscriptionadapter.html" class="tsd-kind-icon">Presubscription<wbr>Adapter</a></li>
@@ -172,6 +174,7 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 							<li class="tsd-kind-class"><a href="classes/resource.html" class="tsd-kind-icon">Resource</a></li>
 							<li class="tsd-kind-class"><a href="classes/resourceadapter.html" class="tsd-kind-icon">Resource<wbr>Adapter</a></li>
 							<li class="tsd-kind-class"><a href="classes/sdkerror.html" class="tsd-kind-icon">SDKError</a></li>
+							<li class="tsd-kind-class"><a href="classes/subscribe.html" class="tsd-kind-icon">Subscribe</a></li>
 							<li class="tsd-kind-class"><a href="classes/updateapi.html" class="tsd-kind-icon">Update<wbr>Api</a></li>
 							<li class="tsd-kind-class"><a href="classes/user.html" class="tsd-kind-icon">User</a></li>
 							<li class="tsd-kind-class"><a href="classes/useradapter.html" class="tsd-kind-icon">User<wbr>Adapter</a></li>
@@ -201,6 +204,7 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 							<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/comparisonobject.html" class="tsd-kind-icon">Comparison<wbr>Object</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/connectoptions.html" class="tsd-kind-icon">Connect<wbr>Options</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/connectionoptions.html" class="tsd-kind-icon">Connection<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/deviceeventfilter.html" class="tsd-kind-icon">Device<wbr>Event<wbr>Filter</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/deviceeventlistoptions.html" class="tsd-kind-icon">Device<wbr>Event<wbr>List<wbr>Options</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/devicelistoptions.html" class="tsd-kind-icon">Device<wbr>List<wbr>Options</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/deviceobject.html" class="tsd-kind-icon">Device<wbr>Object</a></li>
@@ -240,6 +244,7 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 							<li class="tsd-kind-type-alias"><a href="globals.html#campaignstateenum" class="tsd-kind-icon">Campaign<wbr>State<wbr>Enum</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#certificatestatusenum" class="tsd-kind-icon">Certificate<wbr>Status<wbr>Enum</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#certificatetypeenum" class="tsd-kind-icon">Certificate<wbr>Type<wbr>Enum</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#deviceeventenum" class="tsd-kind-icon">Device<wbr>Event<wbr>Enum</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#devicestateenum" class="tsd-kind-icon">Device<wbr>State<wbr>Enum</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#includeenum" class="tsd-kind-icon">Include<wbr>Enum</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#mechanismenum" class="tsd-kind-icon">Mechanism<wbr>Enum</a></li>
@@ -256,11 +261,13 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#date_regex" class="tsd-kind-icon">DATE_<wbr>REGEX</a></li>
 							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#json_regex" class="tsd-kind-icon">JSON_<wbr>REGEX</a></li>
 							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#mime_regex" class="tsd-kind-icon">MIME_<wbr>REGEX</a></li>
+							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#version" class="tsd-kind-icon">VERSION</a></li>
 							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#idlengthmask" class="tsd-kind-icon">id<wbr>Length<wbr>Mask</a></li>
 							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#lengthmask" class="tsd-kind-icon">length<wbr>Mask</a></li>
 							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#lengthtypemask" class="tsd-kind-icon">length<wbr>Type<wbr>Mask</a></li>
 							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#packageinformation" class="tsd-kind-icon">package<wbr>Information</a></li>
 							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#typemask" class="tsd-kind-icon">type<wbr>Mask</a></li>
+							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#useragent" class="tsd-kind-icon">user<wbr>Agent</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -276,6 +283,7 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 							<li class="tsd-kind-function"><a href="globals.html#decodetlv" class="tsd-kind-icon">decode<wbr>Tlv</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#encodefilter" class="tsd-kind-icon">encode<wbr>Filter</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#encodeinclude" class="tsd-kind-icon">encode<wbr>Include</a></li>
+							<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#ensurearray" class="tsd-kind-icon">ensure<wbr>Array</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#executeforall" class="tsd-kind-icon">execute<wbr>For<wbr>All</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#extractfilter" class="tsd-kind-icon">extract<wbr>Filter</a></li>
 							<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#findidlength" class="tsd-kind-icon">find<wbr>IdLength</a></li>
@@ -370,6 +378,18 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="deviceeventenum" class="tsd-anchor"></a>
+				<h3>Device<wbr>Event<wbr>Enum</h3>
+				<div class="tsd-signature tsd-kind-icon">Device<wbr>Event<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"expired"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"registration"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"reregistration"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"deregistration"</span></div>
+				<aside class="tsd-sources">
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The types of device event</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
 				<a name="devicestateenum" class="tsd-anchor"></a>
 				<h3>Device<wbr>State<wbr>Enum</h3>
 				<div class="tsd-signature tsd-kind-icon">Device<wbr>State<wbr>Enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"unenrolled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"cloud_enrolling"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"bootstrapped"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"registered"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"deregistered"</span></div>
@@ -460,6 +480,13 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+				<a name="version" class="tsd-anchor"></a>
+				<h3>VERSION</h3>
+				<div class="tsd-signature tsd-kind-icon">VERSION<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;packageInformation.is_published ? packageInformation.version : &#x60;${packageInformation.version}+dev&#x60;</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
 				<a name="idlengthmask" class="tsd-anchor"></a>
 				<h3>id<wbr>Length<wbr>Mask</h3>
 				<div class="tsd-signature tsd-kind-icon">id<wbr>Length<wbr>Mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;00100000&quot;, 2)</span></div>
@@ -491,6 +518,13 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 				<a name="typemask" class="tsd-anchor"></a>
 				<h3>type<wbr>Mask</h3>
 				<div class="tsd-signature tsd-kind-icon">type<wbr>Mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;parseInt(&quot;11000000&quot;, 2)</span></div>
+				<aside class="tsd-sources">
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+				<a name="useragent" class="tsd-anchor"></a>
+				<h3>user<wbr>Agent</h3>
+				<div class="tsd-signature tsd-kind-icon">user<wbr>Agent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&#x60;${packageInformation.name}-javascript / ${VERSION}&#x60;</span></div>
 				<aside class="tsd-sources">
 				</aside>
 			</section>
@@ -879,6 +913,32 @@ connect.listConnectedDevices(<span class="hljs-function"><span class="hljs-keywo
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
+				<a name="ensurearray" class="tsd-anchor"></a>
+				<h3>ensure<wbr>Array</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">ensure<wbr>Array&lt;T&gt;<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+						</aside>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>T</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>item: <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
