@@ -3,6 +3,7 @@ import { SDKError } from "./common/sdkError";
 import { ServerError } from "./error";
 import { isSpecialMappingMethod, mapSpecialMethodsArg, mapResult, reverseMapMethod } from "./argumentMapping";
 import { TestError, TestResult, MethodDescription } from "./serverMessages";
+import { logError } from "./logger";
 
 function retrieveRelatedObject(methodName: string | undefined): string | undefined {
     // Hack to determine from its name, the objects type the API deals with.
@@ -120,9 +121,11 @@ export class SdkApi {
     }
     public execute(instance: Instance, args: any, onResult: SuccessCallback, onError: ErrorCallback): void {
         if (!this.isValid()) {
+            logError(`Invalid method ("${this.name}")`);
             throw new ServerError(500, `Invalid method ("${this.name}")`);
         }
         if (!instance || !instance.instance) {
+            logError(`Invalid instance to execute method ("${this.name}") on`);
             throw new ServerError(500, `Invalid instance to execute method ("${this.name}") on`);
         }
 
@@ -134,7 +137,7 @@ export class SdkApi {
                 let message = `(${e.code}) ${e.message}`;
                 // If a server exception
                 if ((e as ServerError).fromTestServer) {
-                    message = `${e.message}`;
+                    message = `Test Server Exception: ${e.message}`;
                 }
                 onError({
                     message: message,
