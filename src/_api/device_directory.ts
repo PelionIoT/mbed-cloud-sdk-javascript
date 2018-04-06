@@ -26,11 +26,19 @@ import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
 export namespace DeviceData {
+    export type DeployedStateEnum = "development" | "production";
     export type MechanismEnum = "connector" | "direct";
     export type StateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
-    export type DeployedStateEnum = "development" | "production";
 }
 export interface DeviceData {
+    /**
+     * The ID of the associated account.
+     */
+    "account_id"?: string;
+    /**
+     * DEPRECATED: Mark this device for automatic firmware update.
+     */
+    "auto_update"?: boolean;
     /**
      * The expiration date of the certificate used to connect to bootstrap server.
      */
@@ -40,93 +48,85 @@ export interface DeviceData {
      */
     "bootstrapped_timestamp"?: Date;
     /**
-     * The expiration date of the certificate used to connect to LWM2M server.
-     */
-    "connector_expiration_date"?: Date;
-    /**
-     * The time the object was updated.
-     */
-    "updated_at"?: Date;
-    /**
      * The certificate issuer's ID.
      */
     "ca_id"?: string;
     /**
-     * An ID representing the model and hardware revision of the device.
+     * The expiration date of the certificate used to connect to LWM2M server.
      */
-    "device_class"?: string;
+    "connector_expiration_date"?: Date;
     /**
-     * The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.
+     * The timestamp of when the device was created in the device directory.
      */
-    "id"?: string;
+    "created_at"?: Date;
     /**
-     * The ID of the associated account.
+     * Up to five custom key-value attributes.
      */
-    "account_id"?: string;
-    /**
-     * The endpoint name given to the device.
-     */
-    "endpoint_name"?: string;
-    /**
-     * DEPRECATED: Mark this device for automatic firmware update.
-     */
-    "auto_update"?: boolean;
-    /**
-     * The `endpoint_name` of the host gateway, if appropriate.
-     */
-    "host_gateway"?: string;
-    /**
-     * The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - unspecified execution mode (default if host_gateway invalid or not set)   - 1 - development devices   - 5 - production devices
-     */
-    "device_execution_mode"?: number;
-    /**
-     * The ID of the channel used to communicate with the device.
-     */
-    "mechanism"?: DeviceData.MechanismEnum;
-    /**
-     * The current state of the device.
-     */
-    "state"?: DeviceData.StateEnum;
-    /**
-     * The entity instance signature.
-     */
-    "etag"?: Date;
-    /**
-     * The serial number of the device.
-     */
-    "serial_number"?: string;
-    /**
-     * The SHA256 checksum of the current firmware image.
-     */
-    "firmware_checksum"?: string;
-    /**
-     * The timestamp of the current manifest version.
-     */
-    "manifest_timestamp"?: Date;
-    /**
-     * The device vendor ID.
-     */
-    "vendor_id"?: string;
-    /**
-     * The description of the device.
-     */
-    "description"?: string;
+    "custom_attributes"?: { [key: string]: string; };
     /**
      * DEPRECATED: The state of the device's deployment.
      */
     "deployed_state"?: DeviceData.DeployedStateEnum;
     /**
-     * The API resource entity.
+     * DEPRECATED: The last deployment used on the device.
      */
-    "object"?: string;
+    "deployment"?: string;
+    /**
+     * The description of the device.
+     */
+    "description"?: string;
+    /**
+     * An ID representing the model and hardware revision of the device.
+     */
+    "device_class"?: string;
+    /**
+     * The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - unspecified execution mode (default if host_gateway invalid or not set)   - 1 - development devices   - 5 - production devices
+     */
+    "device_execution_mode"?: number;
+    /**
+     * The fingerprint of the device certificate.
+     */
+    "device_key"?: string;
+    /**
+     * The endpoint name given to the device.
+     */
+    "endpoint_name"?: string;
     /**
      * The endpoint type of the device. For example, the device is a gateway.
      */
     "endpoint_type"?: string;
     /**
-     * DEPRECATED: The last deployment used on the device.
+     * The claim date/time.
      */
-    "deployment"?: string;
+    "enrolment_list_timestamp"?: Date;
+    /**
+     * The entity instance signature.
+     */
+    "etag"?: Date;
+    /**
+     * The SHA256 checksum of the current firmware image.
+     */
+    "firmware_checksum"?: string;
+    /**
+     * The `endpoint_name` of the host gateway, if appropriate.
+     */
+    "host_gateway"?: string;
+    /**
+     * The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.
+     */
+    "id"?: string;
+    /**
+     * DEPRECATED: The URL for the current device manifest.
+     */
+    "manifest"?: string;
+    /**
+     * The timestamp of the current manifest version.
+     */
+    "manifest_timestamp"?: Date;
+    /**
+     * The ID of the channel used to communicate with the device.
+     */
+    "mechanism"?: DeviceData.MechanismEnum;
     /**
      * The address of the connector to use.
      */
@@ -136,68 +136,68 @@ export interface DeviceData {
      */
     "name"?: string;
     /**
-     * The fingerprint of the device certificate.
+     * The API resource entity.
      */
-    "device_key"?: string;
+    "object"?: string;
     /**
-     * The claim date/time.
+     * The serial number of the device.
      */
-    "enrolment_list_timestamp"?: Date;
+    "serial_number"?: string;
     /**
-     * DEPRECATED: The URL for the current device manifest.
+     * The current state of the device.
      */
-    "manifest"?: string;
+    "state"?: DeviceData.StateEnum;
     /**
-     * Up to five custom key-value attributes.
+     * The time the object was updated.
      */
-    "custom_attributes"?: { [key: string]: string; };
+    "updated_at"?: Date;
     /**
-     * The timestamp of when the device was created in the device directory.
+     * The device vendor ID.
      */
-    "created_at"?: Date;
+    "vendor_id"?: string;
 }
 
 export interface DeviceDataPatchRequest {
-    /**
-     * The description of the device.
-     */
-    "description"?: string;
-    /**
-     * The endpoint name given to the device.
-     */
-    "endpoint_name"?: string;
     /**
      * DEPRECATED: Mark this device for automatic firmware update.
      */
     "auto_update"?: boolean;
     /**
-     * The `endpoint_name` of the host gateway, if appropriate.
+     * The certificate issuer's ID.
      */
-    "host_gateway"?: string;
-    /**
-     * The API resource entity.
-     */
-    "object"?: string;
+    "ca_id"?: string;
     /**
      * Up to five custom key-value attributes. Note that keys cannot start with a number.
      */
     "custom_attributes"?: { [key: string]: string; };
     /**
+     * The description of the device.
+     */
+    "description"?: string;
+    /**
      * The fingerprint of the device certificate.
      */
     "device_key"?: string;
+    /**
+     * The endpoint name given to the device.
+     */
+    "endpoint_name"?: string;
     /**
      * The endpoint type of the device. For example, the device is a gateway.
      */
     "endpoint_type"?: string;
     /**
-     * The certificate issuer's ID.
+     * The `endpoint_name` of the host gateway, if appropriate.
      */
-    "ca_id"?: string;
+    "host_gateway"?: string;
     /**
      * The name of the device.
      */
     "name"?: string;
+    /**
+     * The API resource entity.
+     */
+    "object"?: string;
 }
 
 export namespace DeviceDataPostRequest {
@@ -206,6 +206,10 @@ export namespace DeviceDataPostRequest {
 }
 export interface DeviceDataPostRequest {
     /**
+     * DEPRECATED: Mark this device for automatic firmware update.
+     */
+    "auto_update"?: boolean;
+    /**
      * The expiration date of the certificate used to connect to bootstrap server.
      */
     "bootstrap_expiration_date"?: Date;
@@ -214,69 +218,61 @@ export interface DeviceDataPostRequest {
      */
     "bootstrapped_timestamp"?: Date;
     /**
+     * The certificate issuer's ID.
+     */
+    "ca_id"?: string;
+    /**
      * The expiration date of the certificate used to connect to the LWM2M server.
      */
     "connector_expiration_date"?: Date;
-    /**
-     * The ID of the channel used to communicate with the device.
-     */
-    "mechanism"?: DeviceDataPostRequest.MechanismEnum;
-    /**
-     * An ID representing the model and hardware revision of the device.
-     */
-    "device_class"?: string;
-    /**
-     * The endpoint name given to the device.
-     */
-    "endpoint_name"?: string;
-    /**
-     * DEPRECATED: Mark this device for automatic firmware update.
-     */
-    "auto_update"?: boolean;
-    /**
-     * The `endpoint_name` of the host gateway, if appropriate.
-     */
-    "host_gateway"?: string;
-    /**
-     * The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
-     */
-    "device_execution_mode"?: number;
     /**
      * Up to five custom key-value attributes. Note that keys cannot start with a number.
      */
     "custom_attributes"?: { [key: string]: string; };
     /**
-     * The current state of the device.
+     * DEPRECATED: The last deployment used on the device.
      */
-    "state"?: DeviceDataPostRequest.StateEnum;
-    /**
-     * The serial number of the device.
-     */
-    "serial_number"?: string;
-    /**
-     * The SHA256 checksum of the current firmware image.
-     */
-    "firmware_checksum"?: string;
-    /**
-     * The API resource entity.
-     */
-    "object"?: string;
+    "deployment"?: string;
     /**
      * The description of the device.
      */
     "description"?: string;
     /**
-     * The device vendor ID.
+     * An ID representing the model and hardware revision of the device.
      */
-    "vendor_id"?: string;
+    "device_class"?: string;
+    /**
+     * The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
+     */
+    "device_execution_mode"?: number;
+    /**
+     * The fingerprint of the device certificate.
+     */
+    "device_key"?: string;
+    /**
+     * The endpoint name given to the device.
+     */
+    "endpoint_name"?: string;
     /**
      * The endpoint type of the device. For example, the device is a gateway.
      */
     "endpoint_type"?: string;
     /**
-     * DEPRECATED: The last deployment used on the device.
+     * The SHA256 checksum of the current firmware image.
      */
-    "deployment"?: string;
+    "firmware_checksum"?: string;
+    /**
+     * The `endpoint_name` of the host gateway, if appropriate.
+     */
+    "host_gateway"?: string;
+    /**
+     * DEPRECATED: The URL for the current device manifest.
+     */
+    "manifest"?: string;
+    /**
+     * The ID of the channel used to communicate with the device.
+     */
+    "mechanism"?: DeviceDataPostRequest.MechanismEnum;
     /**
      * The address of the connector to use.
      */
@@ -286,114 +282,118 @@ export interface DeviceDataPostRequest {
      */
     "name"?: string;
     /**
-     * The fingerprint of the device certificate.
+     * The API resource entity.
      */
-    "device_key"?: string;
+    "object"?: string;
     /**
-     * DEPRECATED: The URL for the current device manifest.
+     * The serial number of the device.
      */
-    "manifest"?: string;
+    "serial_number"?: string;
     /**
-     * The certificate issuer's ID.
+     * The current state of the device.
      */
-    "ca_id"?: string;
+    "state"?: DeviceDataPostRequest.StateEnum;
+    /**
+     * The device vendor ID.
+     */
+    "vendor_id"?: string;
 }
 
 export interface DeviceDataPutRequest {
-    /**
-     * The description of the device.
-     */
-    "description"?: string;
-    /**
-     * The endpoint name given to the device.
-     */
-    "endpoint_name"?: string;
     /**
      * DEPRECATED: Mark this device for automatic firmware update.
      */
     "auto_update"?: boolean;
     /**
-     * The `endpoint_name` of the host gateway, if appropriate.
+     * The certificate issuer's ID.
      */
-    "host_gateway"?: string;
-    /**
-     * The API resource entity.
-     */
-    "object"?: string;
+    "ca_id"?: string;
     /**
      * Up to five custom key-value attributes. Note that keys cannot start with a number.
      */
     "custom_attributes"?: { [key: string]: string; };
     /**
+     * The description of the device.
+     */
+    "description"?: string;
+    /**
      * The fingerprint of the device certificate.
      */
     "device_key"?: string;
+    /**
+     * The endpoint name given to the device.
+     */
+    "endpoint_name"?: string;
     /**
      * The endpoint type of the device. For example, the device is a gateway.
      */
     "endpoint_type"?: string;
     /**
-     * The certificate issuer's ID.
+     * The `endpoint_name` of the host gateway, if appropriate.
      */
-    "ca_id"?: string;
+    "host_gateway"?: string;
     /**
      * The name of the device.
      */
     "name"?: string;
+    /**
+     * The API resource entity.
+     */
+    "object"?: string;
 }
 
 export interface DeviceEqNeqFilter {
+    "account_id"?: string;
+    "auto_update"?: boolean;
     "bootstrap_expiration_date"?: Date;
     "bootstrapped_timestamp"?: Date;
-    "connector_expiration_date"?: Date;
-    "updated_at"?: Date;
     "ca_id"?: string;
-    "device_class"?: string;
-    "id"?: string;
-    "account_id"?: string;
-    "endpoint_name"?: string;
-    "auto_update"?: boolean;
-    "host_gateway"?: string;
-    "device_execution_mode"?: number;
-    "mechanism"?: string;
-    "state"?: string;
-    "etag"?: Date;
-    "serial_number"?: string;
-    "firmware_checksum"?: string;
-    "manifest_timestamp"?: Date;
-    "description"?: string;
+    "connector_expiration_date"?: Date;
+    "created_at"?: Date;
+    "custom_attributes"?: { [key: string]: string; };
     "deployed_state"?: string;
-    "vendor_id"?: string;
-    "endpoint_type"?: string;
     "deployment"?: string;
+    "description"?: string;
+    "device_class"?: string;
+    "device_execution_mode"?: number;
+    "device_key"?: string;
+    "endpoint_name"?: string;
+    "endpoint_type"?: string;
+    "enrolment_list_timestamp"?: Date;
+    "etag"?: Date;
+    "firmware_checksum"?: string;
+    "host_gateway"?: string;
+    "id"?: string;
+    "manifest"?: string;
+    "manifest_timestamp"?: Date;
+    "mechanism"?: string;
     "mechanism_url"?: string;
     "name"?: string;
-    "device_key"?: string;
-    "enrolment_list_timestamp"?: Date;
-    "manifest"?: string;
-    "custom_attributes"?: { [key: string]: string; };
-    "created_at"?: Date;
+    "serial_number"?: string;
+    "state"?: string;
+    "updated_at"?: Date;
+    "vendor_id"?: string;
 }
 
 export interface DeviceEventData {
-    "date_time": Date;
-    "state_change"?: boolean;
-    "description"?: string;
     "changes"?: any;
-    "event_type_description"?: string;
-    "event_type"?: string;
     "data"?: any;
-    "id": string;
+    "date_time": Date;
+    "description"?: string;
     "device_id"?: string;
+    "event_type"?: string;
+    "event_type_description"?: string;
+    "id": string;
+    "state_change"?: boolean;
 }
 
 export interface DeviceEventEqNeqFilter {
     "date_time"?: Date;
-    "state_change"?: boolean;
     "description"?: string;
     "device_id"?: string;
-    "id"?: string;
     "event_type"?: string;
+    "id"?: string;
+    "state_change"?: boolean;
 }
 
 export interface DeviceEventGteLteFilter {
@@ -402,115 +402,115 @@ export interface DeviceEventGteLteFilter {
 
 export interface DeviceEventInNinFilter {
     "date_time"?: Date;
-    "state_change"?: boolean;
     "description"?: string;
     "device_id"?: string;
-    "id"?: string;
     "event_type"?: string;
+    "id"?: string;
+    "state_change"?: boolean;
 }
 
 export interface DeviceEventPage {
-    "object"?: string;
-    "has_more"?: boolean;
-    "total_count"?: number;
     "after"?: string;
-    "limit"?: number;
     "data"?: Array<DeviceEventData>;
+    "has_more"?: boolean;
+    "limit"?: number;
+    "object"?: string;
     "order"?: string;
+    "total_count"?: number;
 }
 
 export interface DeviceGteLteFilter {
-    "manifest_timestamp"?: Date;
     "bootstrap_expiration_date"?: Date;
-    "created_at"?: Date;
-    "connector_expiration_date"?: Date;
-    "updated_at"?: Date;
-    "etag"?: Date;
-    "enrolment_list_timestamp"?: Date;
     "bootstrapped_timestamp"?: Date;
+    "connector_expiration_date"?: Date;
+    "created_at"?: Date;
+    "enrolment_list_timestamp"?: Date;
+    "etag"?: Date;
+    "manifest_timestamp"?: Date;
+    "updated_at"?: Date;
 }
 
 export interface DeviceInNinFilter {
+    "account_id"?: string;
+    "auto_update"?: boolean;
     "bootstrap_expiration_date"?: Date;
     "bootstrapped_timestamp"?: Date;
-    "connector_expiration_date"?: Date;
-    "updated_at"?: Date;
     "ca_id"?: string;
-    "device_class"?: string;
-    "id"?: string;
-    "account_id"?: string;
-    "endpoint_name"?: string;
-    "auto_update"?: boolean;
-    "host_gateway"?: string;
-    "device_execution_mode"?: number;
-    "mechanism"?: string;
-    "state"?: string;
-    "etag"?: Date;
-    "serial_number"?: string;
-    "firmware_checksum"?: string;
-    "manifest_timestamp"?: Date;
-    "description"?: string;
+    "connector_expiration_date"?: Date;
+    "created_at"?: Date;
+    "custom_attributes"?: { [key: string]: string; };
     "deployed_state"?: string;
-    "vendor_id"?: string;
-    "endpoint_type"?: string;
     "deployment"?: string;
+    "description"?: string;
+    "device_class"?: string;
+    "device_execution_mode"?: number;
+    "device_key"?: string;
+    "endpoint_name"?: string;
+    "endpoint_type"?: string;
+    "enrolment_list_timestamp"?: Date;
+    "etag"?: Date;
+    "firmware_checksum"?: string;
+    "host_gateway"?: string;
+    "id"?: string;
+    "manifest"?: string;
+    "manifest_timestamp"?: Date;
+    "mechanism"?: string;
     "mechanism_url"?: string;
     "name"?: string;
-    "device_key"?: string;
-    "enrolment_list_timestamp"?: Date;
-    "manifest"?: string;
-    "custom_attributes"?: { [key: string]: string; };
-    "created_at"?: Date;
+    "serial_number"?: string;
+    "state"?: string;
+    "updated_at"?: Date;
+    "vendor_id"?: string;
 }
 
 export interface DevicePage {
-    "object"?: string;
-    "has_more"?: boolean;
-    "total_count"?: number;
     "after"?: string;
-    "limit"?: number;
     "data"?: Array<DeviceData>;
+    "has_more"?: boolean;
+    "limit"?: number;
+    "object"?: string;
     "order"?: string;
+    "total_count"?: number;
 }
 
 export interface DeviceQuery {
-    /**
-     * The name of the query.
-     */
-    "name": string;
     /**
      * The timestamp of when the device was created in the device directory.
      */
     "created_at": Date;
     /**
-     * The API resource entity.
-     */
-    "object": string;
-    /**
-     * The time the object was updated.
-     */
-    "updated_at": Date;
-    /**
      * The entity instance signature.
      */
     "etag": Date;
+    /**
+     * The ID of the query.
+     */
+    "id": string;
+    /**
+     * The name of the query.
+     */
+    "name": string;
+    /**
+     * The API resource entity.
+     */
+    "object": string;
     /**
      * The device query.
      */
     "query": string;
     /**
-     * The ID of the query.
+     * The time the object was updated.
      */
-    "id": string;
+    "updated_at": Date;
 }
 
 export interface DeviceQueryEqNeqFilter {
-    "name"?: string;
     "created_at"?: Date;
-    "updated_at"?: Date;
     "etag"?: Date;
-    "query"?: string;
     "id"?: string;
+    "name"?: string;
+    "query"?: string;
+    "updated_at"?: Date;
 }
 
 export interface DeviceQueryGteLteFilter {
@@ -520,44 +520,44 @@ export interface DeviceQueryGteLteFilter {
 }
 
 export interface DeviceQueryInNinFilter {
-    "name"?: string;
     "created_at"?: Date;
-    "updated_at"?: Date;
     "etag"?: Date;
-    "query"?: string;
     "id"?: string;
+    "name"?: string;
+    "query"?: string;
+    "updated_at"?: Date;
 }
 
 export interface DeviceQueryPage {
-    "object": string;
-    "has_more": boolean;
-    "total_count": number;
     "after"?: string;
-    "limit": number;
     "data": Array<DeviceQuery>;
+    "has_more": boolean;
+    "limit": number;
+    "object": string;
     "order": string;
+    "total_count": number;
 }
 
 export interface DeviceQueryPatchRequest {
     /**
-     * The device query.
-     */
-    "query"?: string;
-    /**
      * The name of the query.
      */
     "name"?: string;
+    /**
+     * The device query.
+     */
+    "query"?: string;
 }
 
 export interface DeviceQueryPostPutRequest {
     /**
-     * The device query.
-     */
-    "query": string;
-    /**
      * The name of the query.
      */
     "name": string;
+    /**
+     * The device query.
+     */
+    "query": string;
 }
 
 /**
