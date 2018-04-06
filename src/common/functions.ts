@@ -232,3 +232,7 @@ export function decodeFilter(from: string, map: { from: Array<string>, to: Array
 
     return filter;
 }
+
+export function ensureArray<T>(item: T | Array<T>): Array<T> {
+    return item instanceof Array ? item : [ item ];
+}

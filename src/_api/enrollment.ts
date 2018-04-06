@@ -41,15 +41,15 @@ export interface EnrollmentIdentities {
      * muuid
      */
     "after": string;
+    "data": Array<EnrollmentIdentity>;
     "has_more": boolean;
-    "total_count": number;
-    "object": EnrollmentIdentities.ObjectEnum;
     /**
      * Range 2-1000, or default.
      */
     "limit": number;
-    "data": Array<EnrollmentIdentity>;
+    "object": EnrollmentIdentities.ObjectEnum;
     "order": EnrollmentIdentities.OrderEnum;
+    "total_count": number;
 }
 
 export namespace EnrollmentIdentity {
@@ -57,39 +57,39 @@ export namespace EnrollmentIdentity {
 }
 export interface EnrollmentIdentity {
     /**
-     * Enrollment identity.
-     */
-    "enrollment_identity"?: string;
-    "object"?: EnrollmentIdentity.ObjectEnum;
-    /**
      * muuid
      */
     "account_id": string;
-    /**
-     * The time of the enrollment identity creation.
-     */
-    "created_at": Date;
     /**
      * The time of claiming the device to be assigned to the account.
      */
     "claimed_at"?: Date;
     /**
-     * The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
+     * The time of the enrollment identity creation.
      */
-    "expires_at": Date;
-    /**
-     * Enrolled device internal ID
-     */
-    "enrolled_device_id"?: string;
-    "etag": string;
-    /**
-     * Enrollment identity internal id
-     */
-    "id": string;
+    "created_at": Date;
     /**
      * The ID of the device in the Device Directory once it has been registered.
      */
     "device_id"?: string;
+    /**
+     * Enrolled device internal ID
+     */
+    "enrolled_device_id"?: string;
+    /**
+     * Enrollment identity.
+     */
+    "enrollment_identity"?: string;
+    "etag": string;
+    /**
+     * The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
+     */
+    "expires_at": Date;
+    /**
+     * Enrollment identity internal id
+     */
+    "id": string;
+    "object"?: EnrollmentIdentity.ObjectEnum;
 }
 
 export namespace ErrorResponse {
@@ -107,6 +107,10 @@ export interface ErrorResponse {
      */
     "fields"?: Array<Field>;
     /**
+     * A human readable message with detailed info.
+     */
+    "message"?: string;
+    /**
      * Entity name, always 'error'.
      */
     "object"?: ErrorResponse.ObjectEnum;
@@ -114,10 +118,6 @@ export interface ErrorResponse {
      * Request ID (muuid).
      */
     "request_id"?: string;
-    /**
-     * A human readable message with detailed info.
-     */
-    "message"?: string;
     /**
      * Error type.
      */
