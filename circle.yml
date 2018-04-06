@@ -99,7 +99,7 @@ deployment:
       - echo Tagging ${PROJECT_NAME} in GitHub...
       - git tag ${PROJECT_TAG}
       - git push --tags
-      - if ${CIRCLE_PROJECT_REPONAME} == 'mbed-cloud-sdk-javascript'; then echo 'tag and release'; else echo 'will not release from unofficial repo' && exit 1; fi
+      - if [[ ${CIRCLE_PROJECT_REPONAME} == mbed-cloud-sdk-javascript ]]; then echo 'tag and release'; else echo 'will not release from unofficial repo' && exit 1; fi
       - jq '. + { "is_published": true }' package.json > package.json.tmp && mv package.json.tmp package.json
       - git add CHANGELOG.md src/changelog/*
       - git commit -m "Hear yea, hear yea. News O'Clock. [skip ci]"
