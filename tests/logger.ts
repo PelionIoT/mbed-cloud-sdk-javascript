@@ -1,4 +1,4 @@
-import { LoggerFactory, LoggerFactoryOptions, LFService, LogGroupRule, LogLevel } from "typescript-logging";
+import { LoggerFactoryOptions, LFService, LogGroupRule, LogLevel } from "typescript-logging";
 
 // Create options instance:
 const options = new LoggerFactoryOptions().addLogGroupRule(new LogGroupRule(new RegExp(".+"), LogLevel.Info));
@@ -13,6 +13,10 @@ function logMessage(message: string): void {
     log.info(message);
 }
 
+function logError(message: string): void {
+    log.error(message);
+}
+
 export {
-    logMessage
+    logMessage, logError
 };
