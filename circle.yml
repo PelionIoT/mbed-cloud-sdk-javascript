@@ -34,7 +34,6 @@ dependencies:
     # - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - sudo apt-get update
     - sudo apt-get install jq  # needed for json manipulation
-    - "jq '. + { \"is_published\": true }' package.json > package.json.tmp && mv package.json.tmp package.json"
     - curl -L -o google-chrome.deb http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_64.0.3282.186-1_amd64.deb
     - sudo dpkg -i google-chrome.deb
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
@@ -98,5 +97,5 @@ deployment:
       - "jq '. + { \"is_published\": true }' package.json > package.json.tmp && mv package.json.tmp package.json"
       - git add CHANGELOG.md src/changelog/*
       - git commit -m "Hear yea, hear yea. News O'Clock. [skip ci]"
-      - git push
+      - git push --set-upstream origin ${CIRCLE_BRANCH}
       - npm publish
