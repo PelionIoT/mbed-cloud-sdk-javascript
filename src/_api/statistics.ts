@@ -35,6 +35,10 @@ export interface ErrorResponse {
      */
     "fields"?: Array<Fields>;
     /**
+     * Description of the error.
+     */
+    "message"?: string;
+    /**
      * Response type, always \"error\".
      */
     "object"?: string;
@@ -42,10 +46,6 @@ export interface ErrorResponse {
      * Request ID.
      */
     "request_id"?: string;
-    /**
-     * Description of the error.
-     */
-    "message"?: string;
     /**
      * Type of error.
      */
@@ -65,57 +65,29 @@ export interface Fields {
 
 export interface Metric {
     /**
-     * The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.
-     */
-    "registration_updates"?: number;
-    /**
-     * The number of successful [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.
-     */
-    "connect_rest_api_success"?: number;
-    /**
      * The number of failed bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
      */
     "bootstraps_failed"?: number;
-    /**
-     * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Mbed Cloud Connect. It can be either sent by the device (device --> Mbed Cloud Connect) or received by the device (Mbed Cloud Connect --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers). The Registration (full registration or registration update) and Deregistration events from device to Mbed Cloud Connect are not counted as a transaction. The observation event (resource change notifications) from device to Mbed Cloud Connect is counted as a transaction. The proxy and subscription request from Mbed Cloud Connect to the device is counted as a transaction and the access to Mbed Cloud Connect cache without contacting the actual device may also add to transaction count.
-     */
-    "transactions"?: number;
-    /**
-     * UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.
-     */
-    "timestamp"?: Date;
-    /**
-     * **(Beta)** The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
-     */
-    "device_subscription_request_error"?: number;
     /**
      * The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
      */
     "bootstraps_pending"?: number;
     /**
-     * **(Beta)** The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
-     */
-    "device_proxy_request_success"?: number;
-    /**
      * The number of successful bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
      */
     "bootstraps_successful"?: number;
     /**
-     * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
+     * The number of failed [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.
      */
-    "full_registrations"?: number;
+    "connect_rest_api_error"?: number;
     /**
-     * **(Beta)** The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
+     * The number of successful [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.
      */
-    "device_subscription_request_success"?: number;
+    "connect_rest_api_success"?: number;
     /**
-     * The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.
+     * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.
      */
-    "expired_registrations"?: number;
-    /**
-     * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.
-     */
-    "handshakes_successful"?: number;
+    "deleted_registrations"?: number;
     /**
      * **(Beta)** The number of observations received by Mbed Cloud Connect from the devices linked to the account. The observations are pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
      */
@@ -125,17 +97,45 @@ export interface Metric {
      */
     "device_proxy_request_error"?: number;
     /**
-     * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.
+     * **(Beta)** The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
      */
-    "deleted_registrations"?: number;
+    "device_proxy_request_success"?: number;
     /**
-     * The number of failed [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.
+     * **(Beta)** The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
      */
-    "connect_rest_api_error"?: number;
+    "device_subscription_request_error"?: number;
+    /**
+     * **(Beta)** The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
+     */
+    "device_subscription_request_success"?: number;
+    /**
+     * The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.
+     */
+    "expired_registrations"?: number;
+    /**
+     * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
+     */
+    "full_registrations"?: number;
+    /**
+     * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.
+     */
+    "handshakes_successful"?: number;
     /**
      * A unique metric ID.
      */
     "id"?: string;
+    /**
+     * The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.
+     */
+    "registration_updates"?: number;
+    /**
+     * UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.
+     */
+    "timestamp"?: Date;
+    /**
+     * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Mbed Cloud Connect. It can be either sent by the device (device --> Mbed Cloud Connect) or received by the device (Mbed Cloud Connect --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers). The Registration (full registration or registration update) and Deregistration events from device to Mbed Cloud Connect are not counted as a transaction. The observation event (resource change notifications) from device to Mbed Cloud Connect is counted as a transaction. The proxy and subscription request from Mbed Cloud Connect to the device is counted as a transaction and the access to Mbed Cloud Connect cache without contacting the actual device may also add to transaction count.
+     */
+    "transactions"?: number;
 }
 
 export interface SuccessfulResponse {
@@ -143,23 +143,23 @@ export interface SuccessfulResponse {
      * The metric ID included in the request or null.
      */
     "after"?: string;
+    "data"?: Array<Metric>;
     /**
      * Indicates whether there are more results for you to fetch in the next page.
      */
     "has_more"?: boolean;
     /**
-     * The total number of records available.
+     * The limit used in the request to retrieve the results.
      */
-    "total_count"?: number;
+    "limit"?: number;
     /**
      * API resource name.
      */
     "object"?: string;
     /**
-     * The limit used in the request to retrieve the results.
+     * The total number of records available.
      */
-    "limit"?: number;
-    "data"?: Array<Metric>;
+    "total_count"?: number;
 }
 
 /**
