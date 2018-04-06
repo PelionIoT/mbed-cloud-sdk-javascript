@@ -63,7 +63,9 @@ export function apiWrapper<T>(
                     }
                 }
 
-                if (!transformFn) return done(null, data);
+                if (!transformFn) {
+                    return done(null, data);
+                }
 
                 try {
                     // Call the transformation function
