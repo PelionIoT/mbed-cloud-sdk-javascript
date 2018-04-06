@@ -19,7 +19,7 @@ import {
     EndpointData as apiDeviceEvent,
     ResourcesData as apiResourceEvent
 } from "../../_api/mds";
-import { DeviceEvent } from "../types";
+import { DeviceEvent, DeviceEventEnum } from "../types";
 import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
 
@@ -38,7 +38,7 @@ export class DeviceEventAdapter {
         }, api);
     }
 
-    public static map(from: apiDeviceEvent, api: ConnectApi): DeviceEvent<Resource> {
+    public static map(from: apiDeviceEvent, api: ConnectApi, event: DeviceEventEnum): DeviceEvent<Resource> {
         let resources = [];
 
         if (from && from.resources) {
@@ -51,7 +51,16 @@ export class DeviceEventAdapter {
             id:           from.ep,
             type:         from.ept,
             queueMode:    from.q,
-            resources:    resources
+            resources:    resources,
+            event:        event,
+        };
+    }
+
+    public static mapId(from: string, event: DeviceEventEnum): DeviceEvent<Resource> {
+        // map an id to a sparse DeviceEvent object for observing.
+        return {
+            id    : from,
+            event : event,
         };
     }
 }

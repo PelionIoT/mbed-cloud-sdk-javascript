@@ -37,6 +37,7 @@ import { ApiMetadata } from "../common/apiMetadata";
 import { DeviceListOptions } from "../deviceDirectory/types";
 import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
 import { executeForAll } from "../common/pagination";
+import { Subscribe } from "./subscribe/subscribe";
 
 /**
  * ## Connect API
@@ -107,6 +108,11 @@ export class ConnectApi extends EventEmitter {
      */
     public static EVENT_EXPIRED: string = "expired";
 
+    /**
+     * Gives you access to the subscribe manager
+     */
+    public subscribe: Subscribe;
+
     private readonly ASYNC_KEY = "async-response-id";
 
     private _deviceDirectory: DeviceDirectoryApi;
@@ -138,6 +144,7 @@ export class ConnectApi extends EventEmitter {
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
         this._handleNotifications = options.handleNotifications;
+        this.subscribe = new Subscribe(this);
     }
 
     private normalizePath(path?: string): string {
@@ -212,24 +219,32 @@ export class ConnectApi extends EventEmitter {
 
         if (data.registrations) {
             data.registrations.forEach(device => {
-                this.emit(ConnectApi.EVENT_REGISTRATION, DeviceEventAdapter.map(device, this));
+                const map = DeviceEventAdapter.map(device, this, "registration");
+                this.subscribe.notify(map);
+                this.emit(ConnectApi.EVENT_REGISTRATION, map);
             });
         }
 
         if (data["reg-updates"]) {
             data["reg-updates"].forEach(device => {
-                this.emit(ConnectApi.EVENT_REREGISTRATION, DeviceEventAdapter.map(device, this));
+                const map = DeviceEventAdapter.map(device, this, "reregistration");
+                this.subscribe.notify(map);
+                this.emit(ConnectApi.EVENT_REREGISTRATION, map);
             });
         }
 
         if (data["de-registrations"]) {
             data["de-registrations"].forEach(deviceId => {
+                const map = DeviceEventAdapter.mapId(deviceId, "deregistration");
+                this.subscribe.notify(map);
                 this.emit(ConnectApi.EVENT_DEREGISTRATION, deviceId);
             });
         }
 
         if (data["registrations-expired"]) {
             data["registrations-expired"].forEach(deviceId => {
+                const map = DeviceEventAdapter.mapId(deviceId, "expired");
+                this.subscribe.notify(map);
                 this.emit(ConnectApi.EVENT_EXPIRED, deviceId);
             });
         }
