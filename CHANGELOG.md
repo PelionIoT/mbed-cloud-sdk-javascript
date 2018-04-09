@@ -23,6 +23,18 @@ a list of versions that have been released on **npm**.
   (#722)
 
 
+1.2.8 (2018-04-09)
+==================
+
+### Features
+
+- The HTTP header User-Agent now contains SDK version information, which is
+  passed to the Mbed Cloud. (#634)
+
+- Add ability to subscribe to devicve events using the Subscribe interface.
+  (#722)
+
+
 # Older Releases:
 
 ## 1.2.7
