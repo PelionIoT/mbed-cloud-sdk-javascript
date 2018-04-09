@@ -11,7 +11,7 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
-1.2.8 (2018-04-06)
+1.2.8 (2018-04-09)
 ==================
 
 ### Features
