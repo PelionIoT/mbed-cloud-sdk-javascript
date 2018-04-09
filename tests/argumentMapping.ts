@@ -96,8 +96,7 @@ const specialMethodsMapping: any = {
                 delete args.datafile;
             }
             if (args.keyTable) {
-                args.dataFile = fs.createReadStream(args.keyTable);
-                delete args.keyTable;
+                args.keyTable = fs.createReadStream(args.keyTable);
             }
             return args;
         },
