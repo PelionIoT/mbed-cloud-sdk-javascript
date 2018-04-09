@@ -51,6 +51,11 @@ export interface AddFirmwareManifestObject extends FirmwareManifestObject {
      * The binary file of the manifest
      */
     dataFile: ReadableStream | File | Blob;
+
+    /**
+     * The binary file of the key table
+     */
+    keyTable: ReadableStream | File | Blob;
 }
 
 export type CampaignStateEnum = "draft" | "scheduled" | "allocatingquota" | "allocatedquota" | "quotaallocationfailed" | "checkingmanifest" | "checkedmanifest" | "devicefetch" | "devicecopy" | "devicecheck" | "publishing" | "deploying" | "deployed" | "manifestremoved" | "expired" | "stopping" | "autostopped" | "userstopped" | "conflict";
