@@ -33,10 +33,6 @@ export interface AddFirmwareImageObject extends FirmwareImageObject {
      * The binary file of firmware image
      */
     dataFile: ReadableStream | File | Blob;
-    /**
-     * The binary file of the key table
-     */
-    keyTable: ReadableStream | File | Blob;
 }
 
 export interface FirmwareManifestObject {
