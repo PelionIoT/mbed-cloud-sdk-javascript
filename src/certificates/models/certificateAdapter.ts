@@ -25,7 +25,7 @@ import {
 } from "../../_api/iam";
 import {
     DeveloperCertificateRequestData as caCertificateRequest,
-    ServerCredentialsResponseData as serverResponse,
+    CredentialsResponseData as serverResponse,
     DeveloperCertificateResponseData as developerResponse
 } from "../../_api/connector_ca";
 
@@ -64,8 +64,8 @@ export class CertificateAdapter {
     public static mapServerCertificate(from: iamCertificate, api: CertificatesApi, extension: serverResponse): Certificate {
         const partial: any = CertificateAdapter.map(from);
 
-        partial.serverUri = extension.server_uri;
-        partial.serverCertificate = extension.server_certificate;
+        partial.serverUri = extension.url;
+        partial.serverCertificate = extension.certificate;
 
         return new Certificate(partial, api);
     }
@@ -73,8 +73,6 @@ export class CertificateAdapter {
     public static mapDeveloperCertificate(from: iamCertificate, api: CertificatesApi, extension: developerResponse): Certificate {
         const partial: any = CertificateAdapter.map(from);
 
-        partial.serverUri = extension.server_uri;
-        partial.serverCertificate = extension.server_certificate;
         partial.headerFile = extension.security_file_content;
         partial.developerCertificate = extension.developer_certificate;
         partial.developerPrivateKey = extension.developer_private_key;
