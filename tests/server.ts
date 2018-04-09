@@ -2,7 +2,7 @@ import * as express from "express";
 import * as  http from "http";
 import * as bodyParser from "body-parser";
 import * as instanceCache from "./instanceCache";
-import { logMessage } from "./logger";
+import { logMessage, logError } from "./logger";
 import { SdkModuleInstance } from "./sdkModuleInstance";
 import { ConnectionOptions } from "./common/interfaces";
 import { Exception } from "./types";
@@ -31,15 +31,27 @@ const defaultConfig: ConnectionOptions = {
     apiKey: process.env[apiKeyEnv],
     host: process.env[hostEnv]
 };
-interface PythonConnectionOptions {
+
+interface PythonConnectionOptionsBase {
     api_key: string | undefined;
     host: string | undefined;
 }
-function determineInstanceConfig(config: PythonConnectionOptions | undefined): ConnectionOptions {
+
+interface PythonConnectionOptions extends PythonConnectionOptionsBase {
+    params: PythonConnectionOptionsBase | undefined;
+}
+function determineInstanceConfig(config: any): ConnectionOptions {
     if (!config) {
         logMessage("The test server did not receive any connection configuration. Defaulting to test server configuration.");
         return defaultConfig;
     }
+
+    // FIXME: temporary workaround, testrunner sends parameters in this way,
+    // also remove PythonConnectionOptionsBase and any as type for config.
+    if (!config.api_key && config.params) {
+        config = config.params;
+    }
+
     if (!config.api_key) {
         const configStr: string = JSON.stringify(config);
         logMessage(`The test server could not interpret instance configuration properly: [${configStr}]. Defaulting to test server configuration.`);
@@ -50,6 +62,7 @@ function determineInstanceConfig(config: PythonConnectionOptions | undefined): C
 }
 function sendException(res: any, exception: Exception | undefined): void {
     let exceptionCode: number = 500;
+
     const errorMessage: TestError = { message: `${exception}`, traceback: "" };
     if (exception && (exception as ServerError).fromTestServer) {
         const serverError: ServerError = exception as ServerError;
@@ -62,7 +75,7 @@ function sendException(res: any, exception: Exception | undefined): void {
 }
 function sendApiError(res: any, error: TestError | undefined): void {
     if (error) {
-        logMessage(`Error: ${error.message}`);
+        logError(`Error: ${error.message}`);
     }
     res.status(500).send(error);
 }
@@ -202,6 +215,7 @@ app.post("/instances/:instanceId/methods/:methodId", (req, res, next) => {
             logMessage(`USING ${argsStr}`);
         }
         instance.executeMethod(methodId, args, (result: TestResult | undefined) => {
+            //logMessage("Call result :" + JSON.stringify(result));
             if (result) {
                 res.json(result);
             }
