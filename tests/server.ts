@@ -33,24 +33,18 @@ const defaultConfig: ConnectionOptions = {
     host: process.env[hostEnv]
 };
 
-interface PythonConnectionOptionsBase {
+interface RunnerConnectionOptionsBase {
     api_key: string | undefined;
     host: string | undefined;
 }
 
-interface PythonConnectionOptions extends PythonConnectionOptionsBase {
-    params: PythonConnectionOptionsBase | undefined;
+interface RunnerConnectionOptions extends RunnerConnectionOptionsBase {
+    params: RunnerConnectionOptionsBase | undefined;
 }
-function determineInstanceConfig(config: any): ConnectionOptions {
+function determineInstanceConfig(config: RunnerConnectionOptions): ConnectionOptions {
     if (!config) {
         logMessage("The test server did not receive any connection configuration. Defaulting to test server configuration.");
         return defaultConfig;
-    }
-
-    // FIXME: temporary workaround, testrunner sends parameters in this way,
-    // also remove PythonConnectionOptionsBase and any as type for config.
-    if (!config.api_key && config.params) {
-        config = config.params;
     }
 
     if (!config.api_key) {
