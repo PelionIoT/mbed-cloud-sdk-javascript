@@ -38,11 +38,11 @@ export class BootstrapApi {
      *
      * Example:
      * ```JavaScript
-     * bootstrap.addpresharedkey({
-     *     claimId: 'A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5'
+     * bootstrap.addPsk({
+     *     preSharedKey: new preSharedKey({endpointName: 'abc', secretHex: 'secret'})
      * })
-     * .then(presharedkey => {
-     *     // Utilize claim here
+     * .then(preSharedKey => {
+     *     // success
      * })
      * .catch(error => {
      *     console.log(error);
@@ -58,11 +58,11 @@ export class BootstrapApi {
      *
      * Example:
      * ```JavaScript
-     * bootstrap.addpresharedkey({
-     *     claimId: 'A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5'
-     * }, function(error, presharedkey) {
+     * bootstrap.addPsk({
+     *     preSharedKey: new preSharedKey({endpointName: 'abc', secretHex: 'secret'})
+     * }, function(error, preSharedKey) {
      *     if (error) throw error;
-     *     // Utilize bootstrap claim here
+     *     // success
      * });
      * ```
      *
@@ -81,15 +81,15 @@ export class BootstrapApi {
     /**
      * Get a device's pre-shared key
      *
-     * note: the actual key will not be returned
+     * note: the secretHex will not be included in the response
      *
      * Example:
      * ```JavaScript
-     * bootstrap.addpresharedkey({
-     *     claimId: 'A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5'
+     * bootstrap.getPsk({
+     *     preSharedKey: 'abc'
      * })
-     * .then(presharedkey => {
-     *     // Utilize claim here
+     * .then(preSharedKey => {
+     *     // success
      * })
      * .catch(error => {
      *     console.log(error);
@@ -103,15 +103,15 @@ export class BootstrapApi {
     /**
      * Get a device's pre-shared key
      *
-     * note: the actual key will not be returned
+     * note: the secretHex will not be included in the response
      *
      * Example:
      * ```JavaScript
-     * bootstrap.addpresharedkey({
-     *     claimId: 'A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5'
-     * }, function(error, presharedkey) {
+     * bootstrap.getPsk({
+     *     preSharedKey: 'abc'
+     * }, function(error, preSharedKey) {
      *     if (error) throw error;
-     *     // Utilize bootstrap claim here
+     *     // success
      * });
      * ```
      *
@@ -132,11 +132,11 @@ export class BootstrapApi {
      *
      * Example:
      * ```JavaScript
-     * bootstrap.addpresharedkey({
-     *     claimId: 'A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5'
+     * bootstrap.deletePsk({
+     *     preSharedKey: 'abc'
      * })
-     * .then(presharedkey => {
-     *     // Utilize claim here
+     * .then(preSharedKey => {
+     *     // success
      * })
      * .catch(error => {
      *     console.log(error);
@@ -152,11 +152,11 @@ export class BootstrapApi {
      *
      * Example:
      * ```JavaScript
-     * bootstrap.addpresharedkey({
-     *     claimId: 'A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5'
-     * }, function(error, presharedkey) {
+     * bootstrap.getPsk({
+     *     preSharedKey: 'abc'
+     * }, function(error, preSharedKey) {
      *     if (error) throw error;
-     *     // Utilize bootstrap claim here
+     *     // success
      * });
      * ```
      *
