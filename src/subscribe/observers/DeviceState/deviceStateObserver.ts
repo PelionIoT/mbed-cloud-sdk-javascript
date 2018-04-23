@@ -16,9 +16,9 @@
 */
 
 import { Observer } from "../observer";
-import { Resource } from "../../../models/resource";
-import { DeviceEvent, DeviceEventFilter } from "../../../types";
-import { ensureArray } from "../../../../common/functions";
+import { Resource } from "../../../connect/models/resource";
+import { DeviceEvent, DeviceEventFilter } from "../../../connect/types";
+import { ensureArray } from "../../../common/functions";
 
 export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
 

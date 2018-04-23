@@ -10,6 +10,14 @@
     "browser": {
         "suites": "bundles/_tests/**/*.js"
     },
+    "tunnelOptions": {
+        "drivers": [
+            {
+                "name": "chrome",
+                "version": "2.36"
+            }
+        ]
+    },
     "coverage": [
         "lib/**/*.js",
         "!lib/_api/**",

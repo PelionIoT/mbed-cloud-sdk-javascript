@@ -18,14 +18,14 @@
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
-import { Observer } from "../connect/subscribe/observers/observer";
+import { Observer } from "../subscribe/observers/observer";
 
 suite("testObserver", () => {
 
     test("subscribeFirst", () => {
         const observer = new Observer<string>();
-        const a = observer.take();
-        const b = observer.take();
+        const a = observer.once();
+        const b = observer.once();
         observer.notify("a");
         observer.notify("b");
         observer.notify("c");
@@ -36,8 +36,8 @@ suite("testObserver", () => {
 
     test("subscribeFirstCallback", () => {
         const observer = new Observer<string>();
-        observer.take(res => assert.strictEqual(res, "a"));
-        observer.take(res => assert.strictEqual(res, "b"));
+        observer.once(res => assert.strictEqual(res, "a"));
+        observer.once(res => assert.strictEqual(res, "b"));
         observer.notify("a");
         observer.notify("b");
         observer.notify("c");
@@ -48,8 +48,8 @@ suite("testObserver", () => {
         observer.notify("a");
         observer.notify("b");
         observer.notify("c");
-        const a = observer.take();
-        const b = observer.take();
+        const a = observer.once();
+        const b = observer.once();
         assert.notEqual(a, b);
         a.then(res => assert.strictEqual(res, "a"));
         b.then(res => assert.strictEqual(res, "b"));
@@ -60,22 +60,22 @@ suite("testObserver", () => {
         observer.notify("a");
         observer.notify("b");
         observer.notify("c");
-        observer.take(res => assert.strictEqual(res, "a"));
-        observer.take(res => assert.strictEqual(res, "b"));
+        observer.once(res => assert.strictEqual(res, "a"));
+        observer.once(res => assert.strictEqual(res, "b"));
     });
 
     test("interleaved", () => {
         const observer = new Observer<string>();
         observer.notify("a");
-        const a = observer.take();
-        const b = observer.take();
-        const c = observer.take();
+        const a = observer.once();
+        const b = observer.once();
+        const c = observer.once();
         observer.notify("b");
-        const d = observer.take();
+        const d = observer.once();
         observer.notify("c");
         observer.notify("d");
         observer.notify("e");
-        const e = observer.take();
+        const e = observer.once();
         a.then(res => assert.strictEqual(res, "a"));
         b.then(res => assert.strictEqual(res, "b"));
         c.then(res => assert.strictEqual(res, "c"));
@@ -86,15 +86,15 @@ suite("testObserver", () => {
     test("interleavedCallback", () => {
         const observer = new Observer<string>();
         observer.notify("a");
-        observer.take(res => assert.strictEqual(res, "a"));
-        observer.take(res => assert.strictEqual(res, "b"));
-        observer.take(res => assert.strictEqual(res, "c"));
+        observer.once(res => assert.strictEqual(res, "a"));
+        observer.once(res => assert.strictEqual(res, "b"));
+        observer.once(res => assert.strictEqual(res, "c"));
         observer.notify("b");
-        observer.take(res => assert.strictEqual(res, "d"));
+        observer.once(res => assert.strictEqual(res, "d"));
         observer.notify("c");
         observer.notify("d");
         observer.notify("e");
-        observer.take(res => assert.strictEqual(res, "e"));
+        observer.once(res => assert.strictEqual(res, "e"));
     });
 
     test("callback", () => {
@@ -114,11 +114,11 @@ suite("testObserver", () => {
         const g = () => { };
         observer.addCallback(f);
         observer.addCallback(g);
-        assert.sameOrderedMembers(observer.callbacks, [ f, g ]);
+        assert.sameOrderedMembers(observer.listCallbacks(), [ f, g ]);
         observer.removeCallback(f);
-        assert.sameOrderedMembers(observer.callbacks, [ g ]);
+        assert.sameOrderedMembers(observer.listCallbacks(), [ g ]);
         observer.removeCallback(g);
-        assert.sameOrderedMembers(observer.callbacks, []);
+        assert.sameOrderedMembers(observer.listCallbacks(), []);
     });
 
     test("collection", () => {
@@ -127,7 +127,7 @@ suite("testObserver", () => {
             observer.notify(index);
         }
         const items = [];
-        observer.notificationQueue.forEach(item => items.push(item));
+        observer.getNotificationQueue().forEach(item => items.push(item));
         assert.sameOrderedMembers(items, Array.apply(null, { length: 10 }).map(Function.call, Number));
     });
 });

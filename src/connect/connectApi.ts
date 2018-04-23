@@ -37,7 +37,7 @@ import { ApiMetadata } from "../common/apiMetadata";
 import { DeviceListOptions } from "../deviceDirectory/types";
 import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
 import { executeForAll } from "../common/pagination";
-import { Subscribe } from "./subscribe/subscribe";
+import { Subscribe } from "../subscribe/subscribe";
 
 /**
  * ## Connect API

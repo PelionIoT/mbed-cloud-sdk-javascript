@@ -27,10 +27,10 @@ const observer = connect.subscribe.deviceState();
 observer.addCallback(res => console.log(res));
 
 // get a single device event via a promise
-observer.take().then(res => console.log(res));
+observer.once().then(res => console.log(res));
 
 // get a single device event via a callback
-observer.take(res => console.log(res));
+observer.once(res => console.log(res));
 
 // this observer will listen for registration events where the device Id is 1
 const filteredObserver = connect.subscribe.deviceState({ id: "1", event: "registrations" });

@@ -18,7 +18,7 @@
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
-import { Subscribe } from "../connect/subscribe/subscribe";
+import { Subscribe } from "../subscribe/subscribe";
 import { DeviceEvent } from "../connect/types";
 import { Resource } from "../connect/models/resource";
 

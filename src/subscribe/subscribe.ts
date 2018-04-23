@@ -15,10 +15,10 @@
 * limitations under the License.
 */
 
-import { ConnectApi } from "../connectApi";
+import { ConnectApi } from "../connect/connectApi";
 import { DeviceStateObserver } from "./observers/DeviceState/deviceStateObserver";
-import { DeviceEvent, DeviceEventFilter } from "../types";
-import { Resource } from "../models/resource";
+import { DeviceEvent, DeviceEventFilter } from "../connect/types";
+import { Resource } from "../connect/models/resource";
 
 export class Subscribe {
 
