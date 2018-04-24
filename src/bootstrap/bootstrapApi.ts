@@ -38,9 +38,7 @@ export class BootstrapApi {
      *
      * Example:
      * ```JavaScript
-     * bootstrap.addPsk({
-     *     preSharedKey: new preSharedKey({endpointName: 'abc', secretHex: 'secret'})
-     * })
+     * bootstrap.addPsk({endpointName: 'abc', secretHex: 'secret'})
      * .then(preSharedKey => {
      *     // success
      * })
@@ -58,9 +56,8 @@ export class BootstrapApi {
      *
      * Example:
      * ```JavaScript
-     * bootstrap.addPsk({
-     *     preSharedKey: new preSharedKey({endpointName: 'abc', secretHex: 'secret'})
-     * }, function(error, preSharedKey) {
+     * bootstrap.addPsk({endpointName: 'abc', secretHex: 'secret'},
+     * function(error, preSharedKey) {
      *     if (error) throw error;
      *     // success
      * });
@@ -85,9 +82,7 @@ export class BootstrapApi {
      *
      * Example:
      * ```JavaScript
-     * bootstrap.getPsk({
-     *     preSharedKey: 'abc'
-     * })
+     * bootstrap.getPsk('abc')
      * .then(preSharedKey => {
      *     // success
      * })
@@ -107,9 +102,8 @@ export class BootstrapApi {
      *
      * Example:
      * ```JavaScript
-     * bootstrap.getPsk({
-     *     preSharedKey: 'abc'
-     * }, function(error, preSharedKey) {
+     * bootstrap.getPsk('abc',
+     * function(error, preSharedKey) {
      *     if (error) throw error;
      *     // success
      * });
@@ -132,9 +126,7 @@ export class BootstrapApi {
      *
      * Example:
      * ```JavaScript
-     * bootstrap.deletePsk({
-     *     preSharedKey: 'abc'
-     * })
+     * bootstrap.deletePsk('abc')
      * .then(preSharedKey => {
      *     // success
      * })
@@ -152,9 +144,8 @@ export class BootstrapApi {
      *
      * Example:
      * ```JavaScript
-     * bootstrap.getPsk({
-     *     preSharedKey: 'abc'
-     * }, function(error, preSharedKey) {
+     * bootstrap.deletePsk('abc',
+     * function(error, preSharedKey) {
      *     if (error) throw error;
      *     // success
      * });
