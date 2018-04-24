@@ -15,10 +15,17 @@
  * limitations under the License.
  */
 
+/**
+ * Pre-Shared Key
+ */
 export interface AddPreSharedKey {
     /**
-     * pre-shared key
+     * The unique device identifier
      */
     endpointName: string;
+
+    /**
+     * The secret Pre-Shared Key
+     */
     secretHex: string;
 }
