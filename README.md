@@ -26,7 +26,7 @@ $ npm install mbed-cloud-sdk
 
 ## Documentation and examples
 
-See the full documentation and API reference at [https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-javascript/](https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-javascript/).
+See the full documentation and API reference at [https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-javascript](https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-javascript).
 
 Please refer to the examples folder for some node and web examples.
 
