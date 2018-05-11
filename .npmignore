@@ -15,3 +15,4 @@ google-chrome.deb
 .dockerignore
 Dockerfile
 docker-compose.yml
+news
