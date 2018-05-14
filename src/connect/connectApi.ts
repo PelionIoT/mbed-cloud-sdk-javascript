@@ -198,7 +198,6 @@ export class ConnectApi extends EventEmitter {
      * @param data The notification data to inject
      */
     public notify(data: NotificationObject) {
-
         // Data can be null
         if (!data) return;
 
@@ -214,13 +213,21 @@ export class ConnectApi extends EventEmitter {
                     path: notification.path,
                     payload: body
                 });
+
+                this.subscribe.notifyResourceValues({
+                    deviceId: notification.ep,
+                    path: notification.path,
+                    payload: body,
+                    maxAge: notification["max-age"],
+                    contentType: notification.ct
+                });
             });
         }
 
         if (data.registrations) {
             data.registrations.forEach(device => {
                 const map = DeviceEventAdapter.map(device, this, "registration");
-                this.subscribe.notify(map);
+                this.subscribe.notifyDeviceEvents(map);
                 this.emit(ConnectApi.EVENT_REGISTRATION, map);
             });
         }
@@ -228,7 +235,7 @@ export class ConnectApi extends EventEmitter {
         if (data["reg-updates"]) {
             data["reg-updates"].forEach(device => {
                 const map = DeviceEventAdapter.map(device, this, "reregistration");
-                this.subscribe.notify(map);
+                this.subscribe.notifyDeviceEvents(map);
                 this.emit(ConnectApi.EVENT_REREGISTRATION, map);
             });
         }
@@ -236,7 +243,7 @@ export class ConnectApi extends EventEmitter {
         if (data["de-registrations"]) {
             data["de-registrations"].forEach(deviceId => {
                 const map = DeviceEventAdapter.mapId(deviceId, "deregistration");
-                this.subscribe.notify(map);
+                this.subscribe.notifyDeviceEvents(map);
                 this.emit(ConnectApi.EVENT_DEREGISTRATION, deviceId);
             });
         }
@@ -244,7 +251,7 @@ export class ConnectApi extends EventEmitter {
         if (data["registrations-expired"]) {
             data["registrations-expired"].forEach(deviceId => {
                 const map = DeviceEventAdapter.mapId(deviceId, "expired");
-                this.subscribe.notify(map);
+                this.subscribe.notifyDeviceEvents(map);
                 this.emit(ConnectApi.EVENT_EXPIRED, deviceId);
             });
         }

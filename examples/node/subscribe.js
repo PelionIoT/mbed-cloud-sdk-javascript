@@ -21,10 +21,10 @@ var config = require("./config");
 var connect = new MbedCloudSDK.ConnectApi(config);
 
 // creates an observer with no filter. This will listen for all device events
-const observer = connect.subscribe.deviceState();
+const observer = connect.subscribe.deviceStateChanges();
 
-// add a callback
-observer.addCallback(res => console.log(res));
+// add a Listener
+observer.addListener(res => console.log(res));
 
 // get a single device event via a promise
 observer.once().then(res => console.log(res));
@@ -33,9 +33,36 @@ observer.once().then(res => console.log(res));
 observer.once(res => console.log(res));
 
 // this observer will listen for registration events where the device Id is 1
-const filteredObserver = connect.subscribe.deviceState({ id: "1", event: "registrations" });
+const filteredObserver = connect.subscribe.deviceStateChanges({ id: "1", event: "registrations" });
 
-// add a callback
-filteredObserver.addCallback(res => console.log(res));
+// add a Listener
+filteredObserver.addListener(res => console.log(res));
+
+// subscribe to all resource paths on all your devices
+const subObserver = connect.subscribe.resourceValues({ deviceId: "*" });
+
+// returns values as soon as a value changes, rather than when the device registers
+const subObserver1 = connect.subscribe.resourceValues({ deviceId: "*" }, "OnValueUpdate");
+
+// subscribe to devices whose id begins with 0161
+const subObserver2 = connect.subscribe.resourceValues({ deviceId: "0161*" });
+
+// subscribe to two paths on a specific device
+const subObserver3 = connect.subscribe.resourceValues({ deviceId: "0161661f44460000000000010010004f", resourcePaths: ["/3200/0/5501", "/5/0/3"] });
+
+// subscribe to two paths on two specific devices
+const subObserver4 = connect.subscribe.resourceValues({ deviceId: ["0161661f44460000000000010010004f", "0161661f44460000000000010010004f"], resourcePaths: ["/3200/0/5501", "/5/0/3"] });
+
+// subscribe to two resource paths on all your devices
+const subObserver5 = connect.subscribe.resourceValues({ resourcePaths: ["/3200/0/5501", "/5/0/3"] });
+
+subObserver.once().then(res => console.log(res));
+
+subObserver.addListener(res => console.log(res));
+subObserver1.addListener(res => console.log(res));
+subObserver2.addListener(res => console.log(res));
+subObserver3.addListener(res => console.log(res));
+subObserver4.addListener(res => console.log(res));
+subObserver5.addListener(res => console.log(res));
 
 process.stdin.resume();

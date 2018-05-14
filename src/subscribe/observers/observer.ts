@@ -17,6 +17,8 @@
 
 export class Observer<T> {
 
+    public subscribed: boolean = true;
+
     private notificationQueue: Array<T>;
 
     private callbacks: Array<(data: T) => any>;
@@ -121,7 +123,7 @@ export class Observer<T> {
      *
      * @param callback a callback
      */
-    public addCallback(callback: (data: T) => any): void {
+    public addListener(callback: (data: T) => any): void {
         this.callbacks.push(callback);
     }
 
@@ -135,7 +137,7 @@ export class Observer<T> {
      *
      * @param callback the callback to remove
      */
-    public removeCallback(callback: (data: T) => any): void {
+    public removeListener(callback: (data: T) => any): void {
         const index = this.callbacks.indexOf(callback, 0);
         if (index > -1) {
             this.callbacks.splice(index, 1);

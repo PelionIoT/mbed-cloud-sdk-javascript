@@ -27,8 +27,8 @@ suite("testSubscribe", () => {
     test("allEvents", () => {
         const subscribe = new Subscribe();
         const items: Array<DeviceEvent<Resource>> = [];
-        const observer = subscribe.deviceState();
-        observer.addCallback(res => items.push(res));
+        const observer = subscribe.deviceStateChanges();
+        observer.addListener(res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 36);
         mockNotify(subscribe);
@@ -38,8 +38,8 @@ suite("testSubscribe", () => {
     test("oneDeviceId", () => {
         const subscribe = new Subscribe();
         const items: Array<DeviceEvent<Resource>> = [];
-        const observer = subscribe.deviceState({ id: "1" });
-        observer.addCallback(res => items.push(res));
+        const observer = subscribe.deviceStateChanges({ id: "1" });
+        observer.addListener(res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 8);
         mockNotify(subscribe);
@@ -49,8 +49,8 @@ suite("testSubscribe", () => {
     test("multipleDeviceId", () => {
         const subscribe = new Subscribe();
         const items: Array<DeviceEvent<Resource>> = [];
-        const observer = subscribe.deviceState({ id: [ "1", "2" ] });
-        observer.addCallback(res => items.push(res));
+        const observer = subscribe.deviceStateChanges({ id: [ "1", "2" ] });
+        observer.addListener(res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 16);
         mockNotify(subscribe);
@@ -60,8 +60,8 @@ suite("testSubscribe", () => {
     test("oneState", () => {
         const subscribe = new Subscribe();
         const items: Array<DeviceEvent<Resource>> = [];
-        const observer = subscribe.deviceState({ event: "registration" });
-        observer.addCallback(res => items.push(res));
+        const observer = subscribe.deviceStateChanges({ event: "registration" });
+        observer.addListener(res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 9);
         mockNotify(subscribe);
@@ -71,8 +71,8 @@ suite("testSubscribe", () => {
     test("multipleStates", () => {
         const subscribe = new Subscribe();
         const items: Array<DeviceEvent<Resource>> = [];
-        const observer = subscribe.deviceState({ event: [ "registration", "deregistration" ] });
-        observer.addCallback(res => items.push(res));
+        const observer = subscribe.deviceStateChanges({ event: [ "registration", "deregistration" ] });
+        observer.addListener(res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 18);
         mockNotify(subscribe);
@@ -82,8 +82,8 @@ suite("testSubscribe", () => {
     test("specific", () => {
         const subscribe = new Subscribe();
         const items: Array<DeviceEvent<Resource>> = [];
-        const observer = subscribe.deviceState({ id: "1", event: "registration" });
-        observer.addCallback(res => items.push(res));
+        const observer = subscribe.deviceStateChanges({ id: "1", event: "registration" });
+        observer.addListener(res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 2);
         mockNotify(subscribe);
@@ -93,8 +93,8 @@ suite("testSubscribe", () => {
     test("multipleSpecific", () => {
         const subscribe = new Subscribe();
         const items: Array<DeviceEvent<Resource>> = [];
-        const observer = subscribe.deviceState({ id: [ "1", "3" ], event: [ "registration", "deregistration" ] });
-        observer.addCallback(res => items.push(res));
+        const observer = subscribe.deviceStateChanges({ id: [ "1", "3" ], event: [ "registration", "deregistration" ] });
+        observer.addListener(res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 8);
         mockNotify(subscribe);
@@ -142,5 +142,5 @@ export function mockNotify(subscribe: Subscribe): void {
         { id: "5", event: "expired" },
     ];
 
-    regList.forEach(item => subscribe.notify(item));
+    regList.forEach(item => subscribe.notifyDeviceEvents(item));
 }

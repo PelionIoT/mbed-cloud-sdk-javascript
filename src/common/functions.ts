@@ -236,3 +236,23 @@ export function decodeFilter(from: string, map: { from: Array<string>, to: Array
 export function ensureArray<T>(item: T | Array<T>): Array<T> {
     return item instanceof Array ? item : [ item ];
 }
+
+export function matchWithWildcard(input: string, matchWith: string): boolean {
+    // if we have nothing to match with, return false
+    if (matchWith === null || matchWith === undefined || matchWith === "") {
+        return false;
+    }
+
+    // if input is empty or * then we're listening to everything so return true
+    if (input === null || input === undefined || input === "" || input === "*") {
+        return true;
+    }
+
+    // if wildcard used, match on begining of string
+    if (input.endsWith("*")) {
+        return matchWith.startsWith(input.slice(0, -1));
+    }
+
+    // no wildcard so match strings explicitly
+    return input === matchWith;
+}

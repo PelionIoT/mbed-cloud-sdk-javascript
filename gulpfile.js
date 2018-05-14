@@ -98,7 +98,8 @@ gulp.task("typescript", ["clean"], function() {
             "dom",
             "es5",
             "es2015.promise",
-            "es2015.symbol.wellknown"
+            "es2015.symbol.wellknown",
+            "es2015.Core",
         ],
         alwaysStrict: true,
         noEmitOnError: true,

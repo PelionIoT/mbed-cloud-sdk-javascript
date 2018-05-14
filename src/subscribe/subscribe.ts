@@ -16,9 +16,10 @@
 */
 
 import { ConnectApi } from "../connect/connectApi";
-import { DeviceStateObserver } from "./observers/DeviceState/deviceStateObserver";
-import { DeviceEvent, DeviceEventFilter } from "../connect/types";
+import { DeviceStateObserver } from "./observers/deviceStateObserver";
+import { DeviceEvent, DeviceEventFilter, ResourceValuesFilter, NotificationData, FirstValueEnum } from "../connect/types";
 import { Resource } from "../connect/models/resource";
+import { ResourceValuesObserver } from "./observers/resourceValuesObserver";
 
 export class Subscribe {
 
@@ -26,11 +27,14 @@ export class Subscribe {
 
     private deviceStateObservers: Array<DeviceStateObserver>;
 
+    private resourceValueObservers: Array<ResourceValuesObserver>;
+
     constructor(_connect?: ConnectApi) {
         if (_connect) {
             this.connect = _connect;
         }
         this.deviceStateObservers = new Array();
+        this.resourceValueObservers = new Array();
     }
 
     /**
@@ -40,22 +44,25 @@ export class Subscribe {
      * Example: subscribe to device registration events.
      *
      * ```javascript
-     * const observer = connect.subscribe.deviceState({ event: "registrations" });
+     * const observer = connect.subscribe.deviceStateChanges({ event: "registrations" });
      * // add a callback
      * observer.addCallback(res => console.log(res));
      * ```
      *
      * @param filter the deviceEventFilter
      */
-    public deviceState(filter?: DeviceEventFilter): DeviceStateObserver {
+    public deviceStateChanges(filter?: DeviceEventFilter): DeviceStateObserver {
         const observer = new DeviceStateObserver(filter);
         this.deviceStateObservers.push(observer);
-        if (this.connect) {
-            if (!this.connect.handleNotifications) {
-                this.connect.startNotifications();
-            }
-        }
+        this.startNotifications();
 
+        return observer;
+    }
+
+    public resourceValues(filter?: ResourceValuesFilter, immediacy: FirstValueEnum = "OnRegistration" ): ResourceValuesObserver {
+        const observer = new ResourceValuesObserver(filter, this.connect, immediacy);
+        this.resourceValueObservers.push(observer);
+        this.startNotifications();
         return observer;
     }
 
@@ -63,7 +70,23 @@ export class Subscribe {
      * Notify all observers
      * @param data
      */
-    public notify(data: DeviceEvent<Resource>): void {
+    public notifyDeviceEvents(data: DeviceEvent<Resource>): void {
         this.deviceStateObservers.forEach(observer => observer.notify(data));
+    }
+
+    /**
+     * Notify all observers
+     * @param data
+     */
+    public notifyResourceValues(data: NotificationData): void {
+        this.resourceValueObservers.forEach(observer => observer.notify(data));
+    }
+
+    private startNotifications(): void {
+        if (this.connect) {
+            if (!this.connect.handleNotifications) {
+                this.connect.startNotifications();
+            }
+        }
     }
 }

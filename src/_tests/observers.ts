@@ -100,8 +100,8 @@ suite("testObserver", () => {
     test("callback", () => {
         const observer = new Observer<number>();
         let x = 1;
-        observer.addCallback(res => x += res);
-        observer.addCallback(res => x += (res * 2));
+        observer.addListener(res => x += res);
+        observer.addListener(res => x += (res * 2));
         observer.notify(3);
         assert.strictEqual(x, 10);
     });
@@ -112,12 +112,12 @@ suite("testObserver", () => {
         const f = () => { };
         // tslint:disable-next-line:no-empty
         const g = () => { };
-        observer.addCallback(f);
-        observer.addCallback(g);
+        observer.addListener(f);
+        observer.addListener(g);
         assert.sameOrderedMembers(observer.listCallbacks(), [ f, g ]);
-        observer.removeCallback(f);
+        observer.removeListener(f);
         assert.sameOrderedMembers(observer.listCallbacks(), [ g ]);
-        observer.removeCallback(g);
+        observer.removeListener(g);
         assert.sameOrderedMembers(observer.listCallbacks(), []);
     });
 
