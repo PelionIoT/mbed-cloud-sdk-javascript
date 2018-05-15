@@ -326,7 +326,7 @@ export class ConnectApi extends EventEmitter {
             const { interval, requestCallback, forceClear } = options;
 
             function poll() {
-                this._pollRequest = this._endpoints.notifications.v2NotificationPullGet((error, data) => {
+                this._pollRequest = this._endpoints.notifications.longPollNotifications((error, data) => {
 
                     if (error) return;
                     this.notify(data);
@@ -384,7 +384,7 @@ export class ConnectApi extends EventEmitter {
     public stopNotifications(callback: CallbackFn<void>): void;
     public stopNotifications(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.notifications.v2NotificationPullDelete(() => {
+            this._endpoints.notifications.deleteLongPollChannel(() => {
                 if (this._pollRequest) {
                     // tslint:disable-next-line:no-string-literal
                     if (this._pollRequest["abort"]) this._pollRequest["abort"]();
@@ -429,7 +429,7 @@ export class ConnectApi extends EventEmitter {
     public getWebhook(callback: CallbackFn<Webhook>): void;
     public getWebhook(callback?: CallbackFn<Webhook>): Promise<Webhook> {
         return asyncStyle(done => {
-            this._endpoints.notifications.v2NotificationCallbackGet((error, data) => {
+            this._endpoints.notifications.getWebhook((error, data) => {
 
                 if (error) {
                     if (error.code === 404) {
@@ -497,7 +497,7 @@ export class ConnectApi extends EventEmitter {
         return asyncStyle(done => {
 
             function update() {
-                this._endpoints.notifications.v2NotificationCallbackPut({
+                this._endpoints.notifications.registerWebhook({
                     url: url,
                     headers: headers
                 }, error => {
@@ -554,7 +554,7 @@ export class ConnectApi extends EventEmitter {
     public deleteWebhook(callback: CallbackFn<void>): void;
     public deleteWebhook(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.notifications.v2NotificationCallbackDelete(() => {
+            this._endpoints.notifications.deregisterWebhook(() => {
                 done(null, null);
             });
         }, callback);
@@ -593,7 +593,7 @@ export class ConnectApi extends EventEmitter {
     public listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>): void;
     public listPresubscriptions(callback?: CallbackFn<Array<PresubscriptionObject>>): Promise<Array<PresubscriptionObject>> {
         return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsGet(resultsFn);
+            this._endpoints.subscriptions.getPreSubscriptions(resultsFn);
         }, (data, done) => {
             const presubs = data.map(PresubscriptionAdapter.map);
             done(null, presubs);
@@ -636,7 +636,7 @@ export class ConnectApi extends EventEmitter {
     public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback?: CallbackFn<void>): Promise<void> {
         return apiWrapper(resultsFn => {
             const presubs = subscriptions.map(PresubscriptionAdapter.reverseMap);
-            this._endpoints.subscriptions.v2SubscriptionsPut(presubs, resultsFn);
+            this._endpoints.subscriptions.updatePreSubscriptions(presubs, resultsFn);
         }, (data, done) => {
             done(null, data);
         }, callback);
@@ -671,7 +671,7 @@ export class ConnectApi extends EventEmitter {
     public deletePresubscriptions(callback: CallbackFn<void>): void;
     public deletePresubscriptions(callback?: CallbackFn<void>): Promise<void> {
         return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsPut([], resultsFn);
+            this._endpoints.subscriptions.deletePreSubscriptions(resultsFn);
         }, (data, done) => {
             done(null, data);
         }, callback);
@@ -819,7 +819,7 @@ export class ConnectApi extends EventEmitter {
     public listDeviceSubscriptions(deviceId: string, callback: CallbackFn<string>): void;
     public listDeviceSubscriptions(deviceId: string, callback?: CallbackFn<string>): Promise<string> {
         return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdGet(deviceId, resultsFn);
+            this._endpoints.subscriptions.getEndpointSubscriptions(deviceId, resultsFn);
         }, (data, done) => {
             done(null, data);
         }, callback);
@@ -858,7 +858,7 @@ export class ConnectApi extends EventEmitter {
     public deleteDeviceSubscriptions(deviceId: string, callback: CallbackFn<void>): void;
     public deleteDeviceSubscriptions(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
         return apiWrapper(resultsFn => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdDelete(deviceId, resultsFn);
+            this._endpoints.subscriptions.deleteEndpointSubscriptions(deviceId, resultsFn);
         }, (data, done) => {
             Object.keys(this._notifyFns).forEach(key => {
                 if (key.indexOf(`${deviceId}/`) === 0) {
@@ -913,7 +913,7 @@ export class ConnectApi extends EventEmitter {
     public listResources(deviceId: string, callback: CallbackFn<Array<Resource>>): void;
     public listResources(deviceId: string, callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
         return apiWrapper(resultsFn => {
-            this._endpoints.endpoints.v2EndpointsDeviceIdGet(deviceId, resultsFn);
+            this._endpoints.endpoints.getEndpointResources(deviceId, resultsFn);
         }, (data, done) => {
             const resources = data.map(resource => {
                 return ResourceAdapter.map(resource, deviceId, this);
@@ -966,7 +966,7 @@ export class ConnectApi extends EventEmitter {
         resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
-            this._endpoints.endpoints.v2EndpointsDeviceIdGet(deviceId, resultsFn);
+            this._endpoints.endpoints.getEndpointResources(deviceId, resultsFn);
         }, (data, done) => {
             const found = data.find(resource => {
                 return this.normalizePath(resource.uri) === resourcePath;
@@ -1050,7 +1050,7 @@ export class ConnectApi extends EventEmitter {
         return apiWrapper(resultsFn => {
             this.startNotifications(null, error => {
                 if (error) return resultsFn(error, null);
-                this._endpoints.resources.v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResponse, resultsFn, {
+                this._endpoints.resources.getResourceValue(deviceId, resourcePath, cacheOnly, noResponse, resultsFn, {
                     acceptHeader: mimeType
                 });
             });
@@ -1124,7 +1124,7 @@ export class ConnectApi extends EventEmitter {
         return apiWrapper(resultsFn => {
             this.startNotifications(null, error => {
                 if (error) return resultsFn(error, null);
-                this._endpoints.resources.v2EndpointsDeviceIdResourcePathPut(deviceId, resourcePath, value, noResponse, resultsFn, {
+                this._endpoints.resources.updateResourceValue(deviceId, resourcePath, value, noResponse, resultsFn, {
                     contentType: mimeType
                 });
             });
@@ -1200,7 +1200,7 @@ export class ConnectApi extends EventEmitter {
         return apiWrapper(resultsFn => {
             this.startNotifications(null, error => {
                 if (error) return resultsFn(error, null);
-                this._endpoints.resources.v2EndpointsDeviceIdResourcePathPost(deviceId, resourcePath, functionName, noResponse, resultsFn, {
+                this._endpoints.resources.executeOrCreateResource(deviceId, resourcePath, functionName, noResponse, resultsFn, {
                     contentType: mimeType
                 });
             });
@@ -1250,7 +1250,7 @@ export class ConnectApi extends EventEmitter {
         resourcePath = this.normalizePath(resourcePath);
 
         return asyncStyle(done => {
-            this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathGet(deviceId, resourcePath, error => {
+            this._endpoints.subscriptions.checkResourceSubscription(deviceId, resourcePath, error => {
                 return done(null, !error);
             });
         }, callback);
@@ -1311,7 +1311,7 @@ export class ConnectApi extends EventEmitter {
         return apiWrapper(resultsFn => {
             this.startNotifications(null, error => {
                 if (error) return resultsFn(error, null);
-                this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathPut(deviceId, resourcePath, resultsFn);
+                this._endpoints.subscriptions.addResourceSubscription(deviceId, resourcePath, resultsFn);
             });
         }, (data, done) => {
             if (notifyFn) {
@@ -1371,7 +1371,7 @@ export class ConnectApi extends EventEmitter {
         return apiWrapper(resultsFn => {
             this.startNotifications(null, error => {
                 if (error) return resultsFn(error, null);
-                this._endpoints.subscriptions.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, resourcePath, resultsFn);
+                this._endpoints.subscriptions.deleteResourceSubscription(deviceId, resourcePath, resultsFn);
             });
         }, (data, done) => {
             // no-one is listening :(
