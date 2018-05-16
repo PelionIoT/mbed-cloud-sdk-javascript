@@ -17,7 +17,7 @@
 
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
-import { matchWithWildcard } from "../common/functions";
+import { matchWithWildcard, decodeBase64 } from "../common/functions";
 
 suite("testFunctions", () => {
 
@@ -63,4 +63,24 @@ suite("testFunctions", () => {
         assert.isTrue(match);
     });
 
+});
+
+suite("testPayloadDecoding", () => {
+
+    test("string", () => {
+        const payload = decodeBase64("dGVzdA==", "text/plain");
+        assert.isString(payload);
+    });
+
+    test("number", () => {
+        const payload = decodeBase64("NQ==", "text/plain");
+        assert.isNumber(payload);
+    });
+
+    test("tlv", () => {
+        const payload = decodeBase64("AAA=", "tlv");
+        assert.deepEqual(payload, {
+            "/0": ""
+        });
+    });
 });

@@ -114,11 +114,11 @@ suite("testObserver", () => {
         const g = () => { };
         observer.addListener(f);
         observer.addListener(g);
-        assert.sameOrderedMembers(observer.listCallbacks(), [ f, g ]);
+        assert.sameOrderedMembers(observer.listeners(), [ f, g ]);
         observer.removeListener(f);
-        assert.sameOrderedMembers(observer.listCallbacks(), [ g ]);
+        assert.sameOrderedMembers(observer.listeners(), [ g ]);
         observer.removeListener(g);
-        assert.sameOrderedMembers(observer.listCallbacks(), []);
+        assert.sameOrderedMembers(observer.listeners(), []);
     });
 
     test("collection", () => {
@@ -129,5 +129,15 @@ suite("testObserver", () => {
         const items = [];
         observer.getNotificationQueue().forEach(item => items.push(item));
         assert.sameOrderedMembers(items, Array.apply(null, { length: 10 }).map(Function.call, Number));
+    });
+
+    test("localFilter", () => {
+        let x = 0;
+        const observer = new Observer<number>()
+            .addLocalFilter(num => num >= 5)
+            .addListener(res => x += res);
+        observer.notify(4);
+        observer.notify(5);
+        assert.strictEqual(x, 5);
     });
 });

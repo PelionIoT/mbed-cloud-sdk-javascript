@@ -57,7 +57,7 @@ export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
      */
     public unsubscribe(): void {
         this._subscribed = false;
-        super.clearCallbacks();
+        super.clearListeners();
     }
 
 }

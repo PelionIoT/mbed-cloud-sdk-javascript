@@ -23,12 +23,15 @@ export class Observer<T> {
 
     private callbacks: Array<(data: T) => any>;
 
+    private filters: Array<(data: T) => boolean>;
+
     private _waiting: Array<(data: T) => any>;
 
     constructor() {
         this.notificationQueue = new Array();
         this.callbacks = new Array();
         this._waiting = new Array();
+        this.filters = new Array();
     }
 
     /**
@@ -36,15 +39,17 @@ export class Observer<T> {
      * @param data the data to notify
      */
     public notify(data: T): void {
-        // notify all callbacks
-        this._notifyCallbacks(data);
+        if (this.runLocalFilter(data)) {
+            // notify all callbacks
+            this._notifyCallbacks(data);
 
-        if (this._waiting.length > 0) {
-            // get first function in waiting queue
-            this._waiting.shift()(data);
-        } else {
-            // nothing waiting so add to collection
-            this.notificationQueue.push(data);
+            if (this._waiting.length > 0) {
+                // get first function in waiting queue
+                this._waiting.shift()(data);
+            } else {
+                // nothing waiting so add to collection
+                this.notificationQueue.push(data);
+            }
         }
     }
 
@@ -109,52 +114,55 @@ export class Observer<T> {
     }
 
     /**
-     * Add a callback that is invoked when the observer recieves a notification.
-     * An observer can have many callbacks.
+     * Add a Listener that is invoked when the observer recieves a notification.
+     * An observer can have many Listeners.
      *
      * Example:
      * ```JavaScript
-     * var myCallback = (data) => {
+     * var myListener = (data) => {
      *     console.log(data);
      * }
      *
-     * observer.addCallback(myCallback);
+     * observer.addListener(myListener);
      * ```
      *
-     * @param callback a callback
+     * @param listener a listener
      */
-    public addListener(callback: (data: T) => any): void {
-        this.callbacks.push(callback);
+    public addListener(listener: (data: T) => any): this {
+        this.callbacks.push(listener);
+        return this;
     }
 
     /**
-     * Remove a callback
+     * Remove a listener
      *
      * Example:
      * ```JavaScript
-     * observer.removeCallback(myCallback);
+     * observer.removeListener(myListener);
      * ```
      *
-     * @param callback the callback to remove
+     * @param listener the listener to remove
      */
-    public removeListener(callback: (data: T) => any): void {
-        const index = this.callbacks.indexOf(callback, 0);
+    public removeListener(listener: (data: T) => any): this {
+        const index = this.callbacks.indexOf(listener, 0);
         if (index > -1) {
             this.callbacks.splice(index, 1);
         }
+        return this;
     }
 
     /**
-     * Clear all callbacks
+     * Clear all listeners
      *
      * Example:
      * ```JavaScript
-     * observer.clearCallbacks();
+     * observer.clearListeners();
      * ```
      *
      */
-    public clearCallbacks(): void {
+    public clearListeners(): this {
         this.callbacks = new Array();
+        return this;
     }
 
     /**
@@ -162,12 +170,12 @@ export class Observer<T> {
      *
      * Example:
      * ```JavaScript
-     * observer.listCallbacks();
+     * observer.listeners();
      * ```
      *
-     * @returns list of callbacks
+     * @returns list of listeners
      */
-    public listCallbacks(): Array<(data: T) => any> {
+    public listeners(): Array<(data: T) => any> {
         return this.callbacks;
     }
 
@@ -183,6 +191,15 @@ export class Observer<T> {
      */
     public getNotificationQueue(): Array<T> {
         return this.notificationQueue;
+    }
+
+    public addLocalFilter(filter: (filter: T) => boolean): this {
+        this.filters.push(filter);
+        return this;
+    }
+
+    private runLocalFilter(data: T): boolean {
+        return this.filters.length > 0 ? this.filters.some(f => f(data)) : true;
     }
 
     private _notifyCallbacks(data: T) {

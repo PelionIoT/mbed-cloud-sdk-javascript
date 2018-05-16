@@ -80,8 +80,9 @@ export function apiWrapper<T>(
     }, callbackFn);
 }
 
-export function decodeBase64(payload, contentType) {
-    let result = "";
+export function decodeBase64(payload, contentType): string | number | { [key: string]: string | number } {
+    // any so can be used in .isNaN method
+    let result: any = "";
 
     // Decode Base64
     if (typeof atob === "function") {
@@ -121,7 +122,8 @@ export function decodeBase64(payload, contentType) {
         */
     }
 
-    return result;
+    // if string value is a number, then return number, otherwise just return the string
+    return !isNaN(result) ? Number(result) : result;
 }
 
 export function encodeInclude(include) {

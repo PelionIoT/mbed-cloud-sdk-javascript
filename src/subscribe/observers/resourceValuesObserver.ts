@@ -71,7 +71,7 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
      */
     public unsubscribe(): void {
         this._subscribed = false;
-        super.clearCallbacks();
+        super.clearListeners();
     }
 
     private compareData(data: NotificationData): boolean {
