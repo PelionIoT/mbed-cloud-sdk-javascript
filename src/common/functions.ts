@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { CallbackFn, ComparisonObject } from "./interfaces";
+import { CallbackFn, ComparisonObject, operators } from "./interfaces";
 import { SDKError } from "./sdkError";
 import { decodeTlv } from "./tlvDecoder";
 
@@ -143,12 +143,38 @@ export function camelToSnake(camel) {
     });
 }
 
-export function extractFilter(filter: { [key: string]: ComparisonObject<any> | string }, name: string, defaultValue: any = null): any {
+export function extractFilter(filter: { [key: string]: ComparisonObject<any> | string }, name: string, operator: operators = "$eq", defaultValue: any = null): any {
 
     if (filter && filter[name]) {
         const value = filter[name];
         if (value.constructor !== {}.constructor) return value;
-        if ((value as ComparisonObject<any>).$eq) return (value as ComparisonObject<any>).$eq;
+
+        switch (operator) {
+        case "$ne": {
+            if ((value as ComparisonObject<any>).$ne) return (value as ComparisonObject<any>).$ne;
+            break;
+        }
+        case "$gte": {
+            if ((value as ComparisonObject<any>).$gte) return (value as ComparisonObject<any>).$gte;
+            break;
+        }
+        case "$lte": {
+            if ((value as ComparisonObject<any>).$lte) return (value as ComparisonObject<any>).$lte;
+            break;
+        }
+        case "$in": {
+            if ((value as ComparisonObject<any>).$in) return (value as ComparisonObject<any>).$in;
+            break;
+        }
+        case "$nin": {
+            if ((value as ComparisonObject<any>).$nin) return (value as ComparisonObject<any>).$nin;
+            break;
+        }
+        default: {
+            if ((value as ComparisonObject<any>).$eq) return (value as ComparisonObject<any>).$eq;
+            break;
+        }
+        }
     }
 
     return defaultValue;

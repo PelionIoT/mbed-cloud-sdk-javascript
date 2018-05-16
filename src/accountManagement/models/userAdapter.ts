@@ -59,7 +59,7 @@ export class UserAdapter {
             passwordChangedTime    : from.password_changed_time,
             twoFactorAuthentication: from.is_totp_enabled,
             lastLoginTime          : from.last_login_time,
-            customProperties       : from.user_properties,
+            customProperties       : this.mapCustomPropertiesFrom(from.custom_fields),
             loginHistory           : logins,
         }, api);
     }
@@ -75,6 +75,7 @@ export class UserAdapter {
             is_gtc_accepted:          from.termsAccepted,
             is_marketing_accepted:    from.marketingAccepted,
             groups:                   from.groups,
+            custom_fields:            this.mapCustomPropertiesTo(from.customProperties),
         };
     }
 
@@ -88,8 +89,28 @@ export class UserAdapter {
             address:                  from.address,
             is_gtc_accepted:          from.termsAccepted,
             is_marketing_accepted:    from.marketingAccepted,
-            user_properties:          from.customProperties,
+            custom_fields:            this.mapCustomPropertiesTo(from.customProperties),
             groups:                   from.groups,
         };
+    }
+
+    private static mapCustomPropertiesFrom(dict: { [key: string]: string }): { [key: string]: { [key: string]: string } } {
+        const mappedDict: { [key: string]: { [key: string]: string } } = {};
+        for (const key in dict) {
+            if (dict[key]) {
+                mappedDict[key] = JSON.parse(dict[key]);
+            }
+        }
+        return mappedDict;
+    }
+
+    private static mapCustomPropertiesTo(dict: { [key: string]: { [key: string]: string } }): { [key: string]: string } {
+        const mappedDict: { [key: string]: string } = {};
+        for (const key in dict) {
+            if (dict[key]) {
+                mappedDict[key] = JSON.stringify(dict[key]);
+            }
+        }
+        return mappedDict;
     }
 }

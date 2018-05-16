@@ -39,30 +39,30 @@ const filteredObserver = connect.subscribe.deviceStateChanges({ id: "1", event: 
 filteredObserver.addListener(res => console.log(res));
 
 // subscribe to all resource paths on all your devices
-const subObserver = connect.subscribe.resourceValues({ deviceId: "*" });
+const subObserver = connect.subscribe.resourceValues({ deviceId: "*" })
+                                      .addListener(res => console.log(res));
 
 // returns values as soon as a value changes, rather than when the device registers
-const subObserver1 = connect.subscribe.resourceValues({ deviceId: "*" }, "OnValueUpdate");
+const subObserver1 = connect.subscribe.resourceValues({ deviceId: "*" }, "OnValueUpdate")
+                                      .addListener(res => console.log(res));
 
 // subscribe to devices whose id begins with 0161
-const subObserver2 = connect.subscribe.resourceValues({ deviceId: "0161*" });
+const subObserver2 = connect.subscribe.resourceValues({ deviceId: "0161*" })
+                                      .addListener(res => console.log(res));
 
 // subscribe to two paths on a specific device
-const subObserver3 = connect.subscribe.resourceValues({ deviceId: "0161661f44460000000000010010004f", resourcePaths: ["/3200/0/5501", "/5/0/3"] });
+const subObserver3 = connect.subscribe.resourceValues({ deviceId: "0161661f44460000000000010010004f", resourcePaths: ["/3200/0/5501", "/5/0/3"] })
+                                      .addListener(res => console.log(res));
 
 // subscribe to two paths on two specific devices
-const subObserver4 = connect.subscribe.resourceValues({ deviceId: ["0161661f44460000000000010010004f", "0161661f44460000000000010010004f"], resourcePaths: ["/3200/0/5501", "/5/0/3"] });
+const subObserver4 = connect.subscribe.resourceValues({ deviceId: ["0161661f44460000000000010010004f", "0161661f44460000000000010010004f"], resourcePaths: ["/3200/0/5501", "/5/0/3"] })
+                                      .addListener(res => console.log(res));
 
 // subscribe to two resource paths on all your devices
-const subObserver5 = connect.subscribe.resourceValues({ resourcePaths: ["/3200/0/5501", "/5/0/3"] });
+const subObserver5 = connect.subscribe.resourceValues({ resourcePaths: ["/3200/0/5501"] })
+    .addListener(res => console.log(res))
+    .addLocalFilter(res => res.payload >= 20);
 
 subObserver.once().then(res => console.log(res));
-
-subObserver.addListener(res => console.log(res));
-subObserver1.addListener(res => console.log(res));
-subObserver2.addListener(res => console.log(res));
-subObserver3.addListener(res => console.log(res));
-subObserver4.addListener(res => console.log(res));
-subObserver5.addListener(res => console.log(res));
 
 process.stdin.resume();
