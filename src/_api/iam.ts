@@ -611,64 +611,6 @@ export interface ActiveSession {
 }
 
 /**
- * This object represents a user in requests towards mbed Cloud.
- */
-export interface AdminUserUpdateReq {
-    /**
-     * Address, not longer than 100 characters.
-     */
-    "address"?: string;
-    /**
-     * User's account specific custom properties. The value is handled as a string.
-     */
-    "custom_fields"?: { [key: string]: string; };
-    /**
-     * The email address, not longer than 254 characters.
-     */
-    "email"?: string;
-    /**
-     * The full name of the user, not longer than 100 characters.
-     */
-    "full_name"?: string;
-    /**
-     * A list of group IDs this user belongs to.
-     */
-    "groups"?: Array<string>;
-    /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
-     */
-    "is_gtc_accepted"?: boolean;
-    /**
-     * A flag indicating that receiving marketing information has been accepted.
-     */
-    "is_marketing_accepted"?: boolean;
-    /**
-     * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
-     */
-    "is_totp_enabled"?: boolean;
-    /**
-     * Users notification properties for root admins. Currently supported; 'agreement_acceptance_notification', which controls whether notification should be sent upon accepting an agreement in an account. Possible values are: 'always_notify', 'only_first' and 'not_interested'.
-     */
-    "notification_properties"?: { [key: string]: string; };
-    /**
-     * The password when creating a new user. It will be generated when not present in the request.
-     */
-    "password"?: string;
-    /**
-     * Phone number, not longer than 100 characters.
-     */
-    "phone_number"?: string;
-    /**
-     * The status of the user.
-     */
-    "status"?: string;
-    /**
-     * A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
-     */
-    "username"?: string;
-}
-
-/**
  * This object represents an API key in requests towards mbed Cloud.
  */
 export namespace ApiKeyInfoReq {
@@ -4755,7 +4697,7 @@ export class AggregatorAccountAdminApi extends ApiBase {
      * @param userId The ID of the user to be updated.
      * @param body A user object with attributes.
      */
-    public updateAccountUser(accountID: string, userId: string, body: AdminUserUpdateReq, callback?: (error: any, data?: UserUpdateResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public updateAccountUser(accountID: string, userId: string, body: UserUpdateReq, callback?: (error: any, data?: UserUpdateResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "accountID" is set
         if (accountID === null || accountID === undefined) {
             if (callback) {
