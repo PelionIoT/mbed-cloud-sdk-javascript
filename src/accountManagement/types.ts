@@ -166,7 +166,7 @@ export interface UserObject {
     /**
      * User's account specific custom properties.
      */
-    customProperties?: { [key: string]: { [key: string]: string; }; };
+    customProperties?: { [key: string]: string; };
 }
 
 export interface AddUserObject extends UserObject {

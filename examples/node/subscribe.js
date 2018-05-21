@@ -42,8 +42,8 @@ filteredObserver.addListener(res => console.log(res));
 const subObserver = connect.subscribe.resourceValues({ deviceId: "*" })
                                       .addListener(res => console.log(res));
 
-// returns values as soon as a value changes, rather than when the device registers
-const subObserver1 = connect.subscribe.resourceValues({ deviceId: "*" }, "OnValueUpdate")
+// by default, resourceValues() will create subscriptions for all matching resources. To turn this off set first value to "OnRegistration".
+const subObserver1 = connect.subscribe.resourceValues({ deviceId: "*" }, "OnRegistration")
                                       .addListener(res => console.log(res));
 
 // subscribe to devices whose id begins with 0161
