@@ -82,4 +82,14 @@ export interface ComparisonObject<T> {
      * Less than or equal to
      */
     $lte?: T;
+    /**
+     * In
+     */
+    $in?: T;
+    /**
+     * Not in
+     */
+    $nin?: T;
 }
+
+export type operators = "$eq" | "$ne" | "$gte" | "$lte" | "$in" | "$nin";

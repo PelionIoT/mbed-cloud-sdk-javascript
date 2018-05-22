@@ -5,6 +5,5 @@
     "allowJs": true,
     "sourceMap": true,
     "outDir": "server",
-    "strict": true
   }
 }

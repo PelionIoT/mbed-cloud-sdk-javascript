@@ -1,6 +1,6 @@
 {
   "name": "mbed-cloud-sdk",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "Mbed Cloud SDK for JavaScript",
   "homepage": "https://www.mbed.com",
   "author": "Rob Moran <rob.moran@arm.com>",
@@ -24,7 +24,7 @@
   "scripts": {
     "start": "node examples/proxy/server.js",
     "gulp": "gulp",
-    "tpip": "nlf --csv --no-dev --reach 1 > tpip.csv",
+    "tpip": "node scripts/generate-tpip.js",
     "test": "intern",
     "build-test-server": "node tests/build.js && tsc -p tests && cp intern.json ./tests/server/ && cp package.json ./tests/server/",
     "start-test-server": "node tests/server/tests/codeCoverage.js"
@@ -57,7 +57,8 @@
     "typedoc": "^0.7.1",
     "typescript": "~2.6.2",
     "typescript-logging": "^0.5.0",
-    "source-map-merger": "~0.2.0"
+    "source-map-merger": "~0.2.0",
+    "csv-write-stream": "2.0.0"
   },
   "dependencies": {
     "superagent": "^3.4.1"

@@ -19,7 +19,7 @@ var fs = require("fs");
 var http = require("http");
 try {
     var express = require("express");
-} catch(e) {}
+} catch (e) { }
 
 if (!express) {
     console.log("This example requires the 'express' server. Please install it by running 'npm install express'");
@@ -39,32 +39,22 @@ var app = express();
 // Set system to await notifications for callbacks instead of emitting asyncIds
 connect.handleNotifications = true;
 
-// Get first device
-function getDevice(completeFn) {
-    return connect.listConnectedDevices()
-    .then(response => {
-        return response.data[0];
-    });
+// subscribe to the button resource
+function subscribe() {
+    // starts to receive values after device regsiters
+    connect.subscribe.resourceValues({ resourcePaths: ["/3200/0/5501"] })
+        .addListener((res) => logData(res, "OnRegistration"))
+        .addLocalFilter(res => res.payload >= 20);
+
+    // starts to reveive values immediatley
+    connect.subscribe.resourceValues({ resourcePaths: ["/3200/0/5501"] }, "OnValueUpdate")
+        .addListener((res) => logData(res, "OnValueUpdate"));
 }
 
-// Get device, it's resources and values
-function listDevices() {
-    return getDevice()
-    .then(device => {
-        console.log(`Device: ${device.id}`);
-        return device.listResources();
-    })
-    .then(resources => {
-        resources.forEach(resource => {
-            resource.getValue()
-            .then(value => {
-                console.log(`\t└\x1b[1m${resource.path}\x1b[0m: ${value}`);
-            })
-            .catch(error => {
-                console.log(`\t└\x1b[1m${resource.path}\x1b[0m: Error: ${error.message}`);
-            });
-        });
-    });
+function logData(res, message) {
+    console.log("------" + message + "------");
+    console.log(res);
+    console.log("---------------");
 }
 
 // Listen for PUTs at the root URL
@@ -91,24 +81,24 @@ http.createServer(app).listen(port, () => {
 
 // Set up webhook
 connect.getWebhook()
-.then(webhook => {
-    if (webhook) {
-        if (webhook.url === url) {
-            console.log(`Webhook already set to ${url}`);
-            return;
+    .then(webhook => {
+        if (webhook) {
+            if (webhook.url === url) {
+                console.log(`Webhook already set to ${url}`);
+                return;
+            } else {
+                console.log(`Webhook currently set to ${webhook.url}, changing to ${url}`);
+            }
         } else {
-            console.log(`Webhook currently set to ${webhook.url}, changing to ${url}`);
+            console.log(`No webhook currently registered, setting to ${url}`);
         }
-    } else {
-        console.log(`No webhook currently registered, setting to ${url}`);
-    }
 
-    return connect.updateWebhook(url);
-})
-.then(() => {
-    listDevices();
-})
-.catch(error => {
-    console.log(`${error.message} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
-    process.exit();
-});
+        return connect.updateWebhook(url);
+    })
+    .then(() => {
+        subscribe();
+    })
+    .catch(error => {
+        console.log(`${error.message} - Unable to set webhook to ${url}, please ensure the URL is publicly accessible`);
+        process.exit();
+    });

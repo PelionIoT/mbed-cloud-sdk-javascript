@@ -26,20 +26,27 @@ const apiKeyEnv: string = "MBED_CLOUD_API_KEY";
 const hostEnv: string = "MBED_CLOUD_HOST";
 
 const port: number = 5000;
+
 // Environment configuration
 const defaultConfig: ConnectionOptions = {
     apiKey: process.env[apiKeyEnv],
     host: process.env[hostEnv]
 };
-interface PythonConnectionOptions {
+
+interface RunnerConnectionOptionsBase {
     api_key: string | undefined;
     host: string | undefined;
 }
-function determineInstanceConfig(config: PythonConnectionOptions | undefined): ConnectionOptions {
+
+interface RunnerConnectionOptions extends RunnerConnectionOptionsBase {
+    params: RunnerConnectionOptionsBase | undefined;
+}
+function determineInstanceConfig(config: RunnerConnectionOptions): ConnectionOptions {
     if (!config) {
         logMessage("The test server did not receive any connection configuration. Defaulting to test server configuration.");
         return defaultConfig;
     }
+
     if (!config.api_key) {
         const configStr: string = JSON.stringify(config);
         logMessage(`The test server could not interpret instance configuration properly: [${configStr}]. Defaulting to test server configuration.`);

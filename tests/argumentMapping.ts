@@ -95,6 +95,9 @@ const specialMethodsMapping: any = {
                 args.dataFile = fs.createReadStream(args.datafile);
                 delete args.datafile;
             }
+            if (args.keyTableFile) {
+                args.keyTableFile = fs.createReadStream(args.keyTableFile);
+            }
             return args;
         },
         addFirmwareImage: (args: any) => {
