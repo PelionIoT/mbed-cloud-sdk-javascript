@@ -22,6 +22,7 @@ a list of versions that have been released on **npm**.
 - Add ability to subscribe to devicve events using the Subscribe interface.
   (#722)
 
+
 # Older Releases:
 
 ## 1.2.7
