@@ -59,7 +59,7 @@ export class Subscribe {
         return observer;
     }
 
-    public resourceValues(filter?: ResourceValuesFilter, immediacy: FirstValueEnum = "OnRegistration" ): ResourceValuesObserver {
+    public resourceValues(filter?: ResourceValuesFilter, immediacy: FirstValueEnum = "OnValueUpdate" ): ResourceValuesObserver {
         const observer = new ResourceValuesObserver(filter, this.connect, immediacy);
         this.resourceValueObservers.push(observer);
         this.startNotifications();

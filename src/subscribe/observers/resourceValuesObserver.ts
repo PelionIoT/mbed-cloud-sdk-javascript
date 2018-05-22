@@ -32,7 +32,7 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
 
     public localPresubscriptions: Array<PresubscriptionObject>;
 
-    constructor(_filter?: ResourceValuesFilter, _connect?: ConnectApi, firstValue: FirstValueEnum = "OnRegistration") {
+    constructor(_filter?: ResourceValuesFilter, _connect?: ConnectApi, firstValue: FirstValueEnum = "OnValueUpdate") {
         super();
         this.firstValue = firstValue;
         this.localPresubscriptions = new Array();
