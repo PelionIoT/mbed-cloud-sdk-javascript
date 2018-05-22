@@ -43,6 +43,7 @@ export class CampaignAdapter {
             name:                from.name,
             startedAt:           from.started_at,
             state:               from.state,
+            phase:               from.phase,
             scheduledAt:         from.when,
             updatedAt:           from.updated_at
         }, api);

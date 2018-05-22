@@ -10,7 +10,7 @@ import { MetricsStartEndListOptions, MetricsPeriodListOptions } from "./types";
 import { Metric } from "./models/metric";
 import { ApiMetadata } from "../common/apiMetadata";
 import { DeviceListOptions } from "../deviceDirectory/types";
-import { Subscribe } from "./subscribe/subscribe";
+import { Subscribe } from "../subscribe/subscribe";
 /**
  * ## Connect API
  *

@@ -581,7 +581,7 @@ export declare class AccountManagementApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    listGroupUsers(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): void;
+    listGroupUsers(groupId: string, options?: GroupListOptions, callback?: CallbackFn<ListResponse<User>>): void;
     /**
      * List API keys of a group
      *

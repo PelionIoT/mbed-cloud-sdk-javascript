@@ -19,6 +19,10 @@ export declare class FirmwareManifest {
      */
     readonly datafileSize?: number;
     /**
+     * The URL of the key table used to encrypt the firmware
+     */
+    readonly keyTableUrl?: string;
+    /**
      * The class of device
      */
     readonly deviceClass?: string;

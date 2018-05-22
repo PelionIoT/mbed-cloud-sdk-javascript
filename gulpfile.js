@@ -14,7 +14,7 @@ var gulpTslint  = require("gulp-tslint");
 
 var name = "Mbed Cloud SDK for JavaScript";
 var namespace = "MbedCloudSDK";
-var docsToc = "AccountManagementApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,EnrollmentApi,UpdateApi,ConnectionOptions";
+var docsToc = "AccountManagementApi,BootstrapAPI,CertificatesApi,ConnectApi,DeviceDirectoryApi,EnrollmentApi,Subscribe,UpdateApi,ConnectionOptions";
 
 // Source
 var srcDir = "src";
@@ -98,7 +98,8 @@ gulp.task("typescript", ["clean"], function() {
             "dom",
             "es5",
             "es2015.promise",
-            "es2015.symbol.wellknown"
+            "es2015.symbol.wellknown",
+            "es2015.Core",
         ],
         alwaysStrict: true,
         noEmitOnError: true,

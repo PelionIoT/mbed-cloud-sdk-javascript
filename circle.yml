@@ -28,13 +28,13 @@ checkout:
 # Install dependencies for CI; latest npm, latest chrome, code coverage, html output and testrunner reqs
 dependencies:
   pre:
-    - npm install -g npm@latest
+    - npm install -g npm@5.6.0
     - npm install -g codecov ansi-html-stream
     # Version 65.0.3325.146-1 seems to have a bug which breaks the unit tests
     # - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - sudo apt-get update
     - sudo apt-get install jq  # needed for json manipulation
-    - curl -L -o google-chrome.deb http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_64.0.3282.186-1_amd64.deb
+    - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - sudo dpkg -i google-chrome.deb
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
     - |
@@ -49,7 +49,7 @@ compile:
     - pip install -U git+https://github.com/davidhyman/towncrier.git@config-project-name
   override:
     # we have to tell towncrier what the version number is; `jq` extracts the version, `tr` strips quotes from the json string
-    - cd src/changelog && towncrier --yes --name="" --version=$(jq .version <../../package.json | tr -d '\"')
+    - cd news && towncrier --yes --name="" --version=$(jq .version <../package.json | tr -d '\"')
     - cp CHANGELOG.md ${CIRCLE_ARTIFACTS}/
     - npm run gulp
     - mkdir -p ${PROJECT_DOCS}
@@ -101,7 +101,6 @@ deployment:
       - git push --tags
       - if [[ ${CIRCLE_PROJECT_REPONAME} == mbed-cloud-sdk-javascript ]]; then echo 'tag and release'; else echo 'will not release from unofficial repo' && exit 1; fi
       - "jq '. + { \"is_published\": true }' package.json > package.json.tmp && mv package.json.tmp package.json"
-      - git add CHANGELOG.md src/changelog/*
+      - git add CHANGELOG.md news/*
       - git commit -m "Hear yea, hear yea. News O'Clock. [skip ci]"
       - git push --set-upstream origin ${CIRCLE_BRANCH}
-      - npm publish

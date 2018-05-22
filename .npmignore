@@ -14,3 +14,6 @@ tpip.csv
 google-chrome.deb
 .dockerignore
 Dockerfile
+docker-compose.yml
+news
+scripts

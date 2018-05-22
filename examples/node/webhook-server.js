@@ -30,7 +30,7 @@ var MbedCloudSDK = require("../../index");
 var config = require("./config");
 
 // ngrok http 3002
-var url = "http://fc76edc6.ngrok.io";
+var url = "http://2976cb8f.ngrok.io";
 var port = 3002;
 
 var connect = new MbedCloudSDK.ConnectApi(config);

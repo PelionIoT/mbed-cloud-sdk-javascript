@@ -26,7 +26,6 @@ import { CampaignDeviceState } from "./campaignDeviceState";
  * Campaign
  */
 export class Campaign {
-
     /**
      * The ID of the campaign
      */
@@ -51,6 +50,10 @@ export class Campaign {
      * The timestamp when the update campaign finished
      */
     public readonly finishedAt?: Date;
+    /**
+     * The phase of the campaign
+     */
+    public readonly phase?: string;
 
     constructor(init?: Partial<Campaign>, private _api?: UpdateApi) {
         for (const key in init) {
