@@ -2,7 +2,7 @@ import { CertificatesApi } from "../certificatesApi";
 import { Certificate } from "./certificate";
 import { AddCertificateObject, AddDeveloperCertificateObject, UpdateCertificateObject } from "../types";
 import { TrustedCertificateReq as iamCertificateRequest, TrustedCertificateUpdateReq as iamCertificateUpdate, TrustedCertificateResp as iamCertificate } from "../../_api/iam";
-import { DeveloperCertificateRequestData as caCertificateRequest, ServerCredentialsResponseData as serverResponse, DeveloperCertificateResponseData as developerResponse } from "../../_api/connector_ca";
+import { DeveloperCertificateRequestData as caCertificateRequest, CredentialsResponseData as serverResponse, DeveloperCertificateResponseData as developerResponse } from "../../_api/connector_ca";
 /**
  * Certificate Adapter
  */

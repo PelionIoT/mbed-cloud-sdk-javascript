@@ -1,4 +1,4 @@
-import { CallbackFn, ComparisonObject } from "./interfaces";
+import { CallbackFn, ComparisonObject, operators } from "./interfaces";
 import { SDKError } from "./sdkError";
 export declare function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn?: CallbackFn<T>): Promise<T>;
 export declare function apiWrapper<T>(apiFn: (resultsFn: (error: any, data: any) => void) => void, transformFn?: (data: any, resultsFn: (error: SDKError, result: T) => void) => void, callbackFn?: CallbackFn<T>, failOnNotFound?: boolean): Promise<T>;
@@ -10,7 +10,7 @@ export declare function snakeToCamel(snake: any): any;
 export declare function camelToSnake(camel: any): any;
 export declare function extractFilter(filter: {
     [key: string]: ComparisonObject<any> | string;
-}, name: string, defaultValue?: any): any;
+}, name: string, operator?: operators, defaultValue?: any): any;
 export declare function encodeFilter(filter: {
     [key: string]: ComparisonObject<any> | string | {};
 }, map?: {
@@ -24,3 +24,4 @@ export declare function decodeFilter(from: string, map?: {
     [key: string]: ComparisonObject<any> | {};
 };
 export declare function ensureArray<T>(item: T | Array<T>): Array<T>;
+export declare function matchWithWildcard(input: string, matchWith: string): boolean;

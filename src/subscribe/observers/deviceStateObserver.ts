@@ -15,10 +15,10 @@
 * limitations under the License.
 */
 
-import { Observer } from "../observer";
-import { Resource } from "../../../models/resource";
-import { DeviceEvent, DeviceEventFilter } from "../../../types";
-import { ensureArray } from "../../../../common/functions";
+import { Observer } from "./observer";
+import { Resource } from "../../connect/models/resource";
+import { DeviceEvent, DeviceEventFilter } from "../../connect/types";
+import { ensureArray } from "../../common/functions";
 
 export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
 
@@ -57,7 +57,7 @@ export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
      */
     public unsubscribe(): void {
         this._subscribed = false;
-        super.clearCallbacks();
+        super.clearListeners();
     }
 
 }

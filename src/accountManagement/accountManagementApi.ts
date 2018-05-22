@@ -451,7 +451,7 @@ export class AccountManagementApi {
 
         return apiWrapper(resultsFn => {
             const { limit, after, order, include, filter } = options as UserListOptions;
-            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), extractFilter(filter, "email"), extractFilter(filter, "status"), resultsFn);
+            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), extractFilter(filter, "email"), extractFilter(filter, "status"), extractFilter(filter, "status", "$in"), extractFilter(filter, "status", "$nin"), resultsFn);
         }, (data, done) => {
             let users: Array<User>;
             if (data.data && data.data.length) {
@@ -770,8 +770,8 @@ export class AccountManagementApi {
      * @param options filter options
      * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public listGroupUsers(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): void;
-    public listGroupUsers(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
+    public listGroupUsers(groupId: string, options?: GroupListOptions, callback?: CallbackFn<ListResponse<User>>): void;
+    public listGroupUsers(groupId: string, options?: GroupListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -779,8 +779,8 @@ export class AccountManagementApi {
         }
 
         return apiWrapper(resultsFn => {
-            const { limit, after, order, include } = options as ListOptions;
-            this._endpoints.admin.getUsersOfGroup(groupId, limit, after, order, encodeInclude(include), resultsFn);
+            const { limit, after, order, include, filter } = options as GroupListOptions;
+            this._endpoints.admin.getUsersOfGroup(groupId, limit, after, order, encodeInclude(include), extractFilter(filter, "status"), extractFilter(filter, "status", "$in"), extractFilter(filter, "status", "$nin"), resultsFn);
         }, (data, done) => {
             let users: Array<User>;
             if (data.data && data.data.length) {

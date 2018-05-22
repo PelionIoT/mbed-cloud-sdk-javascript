@@ -91,6 +91,28 @@ export interface DeviceEventFilter {
     event?: DeviceEventEnum | Array<DeviceEventEnum>;
 }
 
+export type FirstValueEnum = "OnRegistration" | "OnValueUpdate";
+
+export interface ResourceValuesFilter {
+    /**
+     * device Id
+     */
+    deviceId?: string | Array<string>;
+
+    /**
+     * Resource Paths
+     */
+    resourcePaths?: Array<string>;
+}
+
+export interface NotificationData {
+    path?: string;
+    maxAge?: string;
+    payload?: string | number | { [key: string]: string | number };
+    deviceId?: string;
+    contentType?: string;
+}
+
 export interface AsyncResponse {
     /**
      * Asynchronous response unique ID.

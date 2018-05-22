@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { CallbackFn, ComparisonObject } from "./interfaces";
+import { CallbackFn, ComparisonObject, operators } from "./interfaces";
 import { SDKError } from "./sdkError";
 import { decodeTlv } from "./tlvDecoder";
 
@@ -80,8 +80,9 @@ export function apiWrapper<T>(
     }, callbackFn);
 }
 
-export function decodeBase64(payload, contentType) {
-    let result = "";
+export function decodeBase64(payload, contentType): string | number | { [key: string]: string | number } {
+    // any so can be used in .isNaN method
+    let result: any = "";
 
     // Decode Base64
     if (typeof atob === "function") {
@@ -121,7 +122,8 @@ export function decodeBase64(payload, contentType) {
         */
     }
 
-    return result;
+    // if string value is a number, then return number, otherwise just return the string
+    return !isNaN(result) ? Number(result) : result;
 }
 
 export function encodeInclude(include) {
@@ -141,12 +143,38 @@ export function camelToSnake(camel) {
     });
 }
 
-export function extractFilter(filter: { [key: string]: ComparisonObject<any> | string }, name: string, defaultValue: any = null): any {
+export function extractFilter(filter: { [key: string]: ComparisonObject<any> | string }, name: string, operator: operators = "$eq", defaultValue: any = null): any {
 
     if (filter && filter[name]) {
         const value = filter[name];
         if (value.constructor !== {}.constructor) return value;
-        if ((value as ComparisonObject<any>).$eq) return (value as ComparisonObject<any>).$eq;
+
+        switch (operator) {
+        case "$ne": {
+            if ((value as ComparisonObject<any>).$ne) return (value as ComparisonObject<any>).$ne;
+            break;
+        }
+        case "$gte": {
+            if ((value as ComparisonObject<any>).$gte) return (value as ComparisonObject<any>).$gte;
+            break;
+        }
+        case "$lte": {
+            if ((value as ComparisonObject<any>).$lte) return (value as ComparisonObject<any>).$lte;
+            break;
+        }
+        case "$in": {
+            if ((value as ComparisonObject<any>).$in) return (value as ComparisonObject<any>).$in;
+            break;
+        }
+        case "$nin": {
+            if ((value as ComparisonObject<any>).$nin) return (value as ComparisonObject<any>).$nin;
+            break;
+        }
+        default: {
+            if ((value as ComparisonObject<any>).$eq) return (value as ComparisonObject<any>).$eq;
+            break;
+        }
+        }
     }
 
     return defaultValue;
@@ -235,4 +263,24 @@ export function decodeFilter(from: string, map: { from: Array<string>, to: Array
 
 export function ensureArray<T>(item: T | Array<T>): Array<T> {
     return item instanceof Array ? item : [ item ];
+}
+
+export function matchWithWildcard(input: string, matchWith: string): boolean {
+    // if we have nothing to match with, return false
+    if (matchWith === null || matchWith === undefined || matchWith === "") {
+        return false;
+    }
+
+    // if input is empty or * then we're listening to everything so return true
+    if (input === null || input === undefined || input === "" || input === "*") {
+        return true;
+    }
+
+    // if wildcard used, match on begining of string
+    if (input.endsWith("*")) {
+        return matchWith.startsWith(input.slice(0, -1));
+    }
+
+    // no wildcard so match strings explicitly
+    return input === matchWith;
 }

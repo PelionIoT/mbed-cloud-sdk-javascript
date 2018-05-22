@@ -32,6 +32,10 @@ export declare class Campaign {
      * The timestamp when the update campaign finished
      */
     readonly finishedAt?: Date;
+    /**
+     * The phase of the campaign
+     */
+    readonly phase?: string;
     constructor(init?: Partial<Campaign>, _api?: UpdateApi);
     /**
      * Update the campaign

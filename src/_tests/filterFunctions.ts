@@ -24,7 +24,7 @@ suite("extractFilter", () => {
 
     test("should return default", () => {
         const string = "dee folt";
-        const result = extractFilter(null, null, string);
+        const result = extractFilter(null, null, null, string);
         assert.strictEqual(result, string);
     });
 
@@ -35,6 +35,16 @@ suite("extractFilter", () => {
         };
 
         const result = extractFilter(filter, "filter");
+        assert.strictEqual(result, value);
+    });
+
+    test("should extract from ne", () => {
+        const value = "coffee";
+        const filter = {
+            filter: { $ne: value }
+        };
+
+        const result = extractFilter(filter, "filter", "$ne");
         assert.strictEqual(result, value);
     });
 

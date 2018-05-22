@@ -163,6 +163,10 @@ export interface UserObject {
      * Groups
      */
     groups?: Array<string>;
+    /**
+     * User's account specific custom properties.
+     */
+    customProperties?: { [key: string]: string; };
 }
 
 export interface AddUserObject extends UserObject {
@@ -181,10 +185,6 @@ export interface UpdateUserObject extends UserObject {
      * The email address.
      */
     email?: string;
-    /**
-     * User's account specific custom properties.
-     */
-    customProperties?: { [key: string]: { [key: string]: string; }; };
 }
 
 /**
