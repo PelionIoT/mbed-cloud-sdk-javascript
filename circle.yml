@@ -98,4 +98,3 @@ deployment:
       - git add CHANGELOG.md news/*
       - git commit -m "Hear yea, hear yea. News O'Clock. [skip ci]"
       - git push --set-upstream origin ${CIRCLE_BRANCH}
-      - npm publish
