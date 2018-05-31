@@ -1098,7 +1098,7 @@ export namespace TrustedCertificateReq {
 }
 export interface TrustedCertificateReq {
     /**
-     * X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
+     * A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required.
      */
     "certificate": string;
     /**
@@ -1118,7 +1118,7 @@ export interface TrustedCertificateReq {
      */
     "service": TrustedCertificateReq.ServiceEnum;
     /**
-     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
      */
     "signature"?: string;
     /**
@@ -1250,7 +1250,7 @@ export namespace TrustedCertificateRootReq {
 }
 export interface TrustedCertificateRootReq {
     /**
-     * X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
+     * A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required.
      */
     "certificate": string;
     /**
@@ -1270,7 +1270,7 @@ export interface TrustedCertificateRootReq {
      */
     "service": TrustedCertificateRootReq.ServiceEnum;
     /**
-     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
      */
     "signature"?: string;
     /**
@@ -1288,7 +1288,7 @@ export namespace TrustedCertificateUpdateReq {
 }
 export interface TrustedCertificateUpdateReq {
     /**
-     * X509.v3 trusted certificate in PEM format.
+     * A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required.
      */
     "certificate"?: string;
     /**
@@ -1308,7 +1308,7 @@ export interface TrustedCertificateUpdateReq {
      */
     "service"?: TrustedCertificateUpdateReq.ServiceEnum;
     /**
-     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
      */
     "signature"?: string;
     /**
