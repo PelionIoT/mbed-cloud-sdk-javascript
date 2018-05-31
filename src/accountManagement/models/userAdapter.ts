@@ -83,7 +83,6 @@ export class UserAdapter {
         return {
             full_name:                from.fullName,
             username:                 from.username,
-            password:                 from.password,
             email:                    from.email,
             phone_number:             from.phoneNumber,
             address:                  from.address,
