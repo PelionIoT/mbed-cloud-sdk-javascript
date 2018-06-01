@@ -91,7 +91,7 @@ export interface UpdateAccountObject {
     /**
      * Account specific custom properties.
      */
-    customProperties?: { [key: string]: { [key: string]: string; }; };
+    customProperties?: { [key: string]: string; };
 }
 
 export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
