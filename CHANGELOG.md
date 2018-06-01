@@ -44,39 +44,6 @@ a list of versions that have been released on **npm**.
 - Add security recommendations to PSK documentation. (#742)
 
 
-1.2.9 (2018-05-22)
-==================
-
-### Features
-
-- Client-Lite: Add device bootstrap API. This provides the ability to set
-  Pre-Shared Keys for device bring-up. (#1099)
-
-- Adds 'Value Change' subscription channel. This supercedes 'presubscription'
-  and 'subscription' behaviours to provide a uniform interface, in line with
-  the existing 'Device State' channel. (#1102)
-
-- New API updates for IAM. (#1225)
-
-- New API updates for MDS. (#1235)
-
-- Client-Lite: Manifest upload supports upload of keytable file (#522)
-
-- First to Claim: If a certificate is in enrollment mode, signature is not
-  required (#924)
-
-### Bugfixes
-
-- Online documentation now links back to GitHub for license and contribution
-  guidelines (#1097)
-
-- Link to the new location of the online documentation (#1109)
-
-### Improved Documentation
-
-- Add security recommendations to PSK documentation. (#742)
-
-
 1.2.8 (2018-04-09)
 ==================
 
