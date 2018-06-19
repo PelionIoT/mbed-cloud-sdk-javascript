@@ -30,8 +30,9 @@ suite("connectSnippet", () => {
 
         const observer = connect.subscribe.deviceStateChanges({ event: "registration" });
 
-        // tslint:disable-next-line:no-console
-        observer.addListener(res => console.log(res));
+        observer.addListener(res => {
+            // do something here
+        });
         // end of example
     });
 
@@ -43,8 +44,9 @@ suite("connectSnippet", () => {
 
         const observer = connect.subscribe.resourceValues({ deviceId: "016*", resourcePaths: [ "/3/0/*" ] });
 
-        // tslint:disable-next-line:no-console
-        observer.addListener(res => console.log(res));
+        observer.addListener(res => {
+            // do something here
+        });
         // end of example
     });
 });

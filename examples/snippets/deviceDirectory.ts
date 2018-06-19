@@ -32,8 +32,9 @@ suite("deviceDirectorySnippet", () => {
 
         devices.then(d => {
             d.data.map(item => `${item.id} [${item.state}]`)
-                  // tslint:disable-next-line:no-console
-                  .forEach(f => console.log(f));
+                .forEach(f => {
+                    // do something here
+                });
         });
         // end of example
     });
@@ -48,8 +49,9 @@ suite("deviceDirectorySnippet", () => {
 
         devices.then(d => {
             d.data.map(item => `${item.id} [${item.state}]`)
-                // tslint:disable-next-line:no-console
-                .forEach(f => console.log(f));
+                .forEach(f => {
+                    // do something here
+                });
         });
         // end of example
     });
