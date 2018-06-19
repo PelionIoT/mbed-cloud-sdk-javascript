@@ -211,10 +211,6 @@ export namespace AccountInfo {
 }
 export interface AccountInfo {
     /**
-     * Account specific custom properties.
-     */
-    "account_properties"?: { [key: string]: { [key: string]: string; }; };
-    /**
      * Postal address line 1.
      */
     "address_line1"?: string;
@@ -250,6 +246,10 @@ export interface AccountInfo {
      * Creation UTC time RFC3339.
      */
     "created_at"?: Date;
+    /**
+     * Account's custom properties as key-value pairs.
+     */
+    "custom_fields"?: { [key: string]: string; };
     /**
      * Customer number of the customer.
      */
@@ -403,10 +403,6 @@ export namespace AccountUpdateReq {
 }
 export interface AccountUpdateReq {
     /**
-     * Properties for this account.
-     */
-    "account_properties"?: { [key: string]: { [key: string]: string; }; };
-    /**
      * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
      */
     "address_line1"?: string;
@@ -434,6 +430,10 @@ export interface AccountUpdateReq {
      * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
      */
     "country"?: string;
+    /**
+     * Account's custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
+     */
+    "custom_fields"?: { [key: string]: string; };
     /**
      * The display name for the account, not longer than 100 characters.
      */
@@ -488,10 +488,6 @@ export namespace AccountUpdateRootReq {
 }
 export interface AccountUpdateRootReq {
     /**
-     * Properties for this account.
-     */
-    "account_properties"?: { [key: string]: { [key: string]: string; }; };
-    /**
      * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
      */
     "address_line1"?: string;
@@ -523,6 +519,10 @@ export interface AccountUpdateRootReq {
      * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
      */
     "country"?: string;
+    /**
+     * Account's custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
+     */
+    "custom_fields"?: { [key: string]: string; };
     /**
      * Customer number of the customer.
      */
@@ -1098,7 +1098,7 @@ export namespace TrustedCertificateReq {
 }
 export interface TrustedCertificateReq {
     /**
-     * X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
+     * A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required.
      */
     "certificate": string;
     /**
@@ -1118,7 +1118,7 @@ export interface TrustedCertificateReq {
      */
     "service": TrustedCertificateReq.ServiceEnum;
     /**
-     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
      */
     "signature"?: string;
     /**
@@ -1250,7 +1250,7 @@ export namespace TrustedCertificateRootReq {
 }
 export interface TrustedCertificateRootReq {
     /**
-     * X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
+     * A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required.
      */
     "certificate": string;
     /**
@@ -1270,7 +1270,7 @@ export interface TrustedCertificateRootReq {
      */
     "service": TrustedCertificateRootReq.ServiceEnum;
     /**
-     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
      */
     "signature"?: string;
     /**
@@ -1288,7 +1288,7 @@ export namespace TrustedCertificateUpdateReq {
 }
 export interface TrustedCertificateUpdateReq {
     /**
-     * X509.v3 trusted certificate in PEM format.
+     * A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required.
      */
     "certificate"?: string;
     /**
@@ -1308,7 +1308,7 @@ export interface TrustedCertificateUpdateReq {
      */
     "service"?: TrustedCertificateUpdateReq.ServiceEnum;
     /**
-     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.
+     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
      */
     "signature"?: string;
     /**
@@ -1360,7 +1360,7 @@ export interface UserInfoReq {
      */
     "address"?: string;
     /**
-     * User's account-specific custom properties as key-value pairs, with a maximum of 100 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 4000 characters.
+     * User's account-specific custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
      */
     "custom_fields"?: { [key: string]: string; };
     /**
@@ -1543,7 +1543,7 @@ export interface UserUpdateReq {
      */
     "address"?: string;
     /**
-     * User's account specific custom properties. The value is handled as a string.
+     * User's account specific custom properties, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
      */
     "custom_fields"?: { [key: string]: string; };
     /**
@@ -1570,10 +1570,6 @@ export interface UserUpdateReq {
      * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
      */
     "is_totp_enabled"?: boolean;
-    /**
-     * The password when creating a new user. It will be generated when not present in the request.
-     */
-    "password"?: string;
     /**
      * Phone number, not longer than 100 characters.
      */
@@ -3001,7 +2997,7 @@ export class AggregatorAccountAdminApi extends ApiBase {
      * Create a new account.
      * An endpoint for creating a new account.
      * @param body Details of the account to be created.
-     * @param action Action, either &#39;create&#39;, &#39;enroll&#39; or &#39;enrollment_link&#39;.
+     * @param action Action, either &#39;create&#39; or &#39;enroll&#39;. &lt;ul&gt;&lt;li&gt;&#39;create&#39; creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. &lt;/li&gt;&lt;li&gt;&#39;enroll&#39; creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. &lt;/li&gt;&lt;/ul&gt;
      */
     public createAccount(body: AccountCreationReq, action?: string, callback?: (error: any, data?: AccountCreationResp, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "body" is set
@@ -3088,6 +3084,59 @@ export class AggregatorAccountAdminApi extends ApiBase {
 
         return this.request<ApiKeyInfoResp>({
             url: "/v3/accounts/{accountID}/api-keys".replace("{" + "accountID" + "}", String(accountID)),
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Create a new group.
+     * An endpoint for creating a new group.
+     * @param accountID Account ID.
+     * @param body Details of the group to be created.
+     */
+    public createAccountGroup(accountID: string, body: GroupCreationInfo, callback?: (error: any, data?: GroupSummary, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<GroupSummary>({
+            url: "/v3/accounts/{accountID}/policy-groups".replace("{" + "accountID" + "}", String(accountID)),
             method: "POST",
             headers: headerParams,
             query: queryParameters,
@@ -3248,6 +3297,57 @@ export class AggregatorAccountAdminApi extends ApiBase {
 
         return this.request<null>({
             url: "/v3/accounts/{accountID}/trusted-certificates/{cert-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "cert-id" + "}", String(certId)),
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Delete a group.
+     * An endpoint for deleting a group.
+     * @param accountID Account ID.
+     * @param groupID The ID of the group to be deleted.
+     */
+    public deleteAccountGroup(accountID: string, groupID: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "groupID" is set
+        if (groupID === null || groupID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'groupID' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<null>({
+            url: "/v3/accounts/{accountID}/policy-groups/{groupID}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "groupID" + "}", String(groupID)),
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
@@ -3740,7 +3840,7 @@ export class AggregatorAccountAdminApi extends ApiBase {
      * @param include Comma separated additional data to return. Currently supported: total_count
      * @param nameEq Filter for group name
      */
-    public getAllAccountGroups(accountID: string, limit?: number, after?: string, order?: string, include?: string, nameEq?: string, callback?: (error: any, data?: Array<GroupSummary>, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getAllAccountGroups(accountID: string, limit?: number, after?: string, order?: string, include?: string, nameEq?: string, callback?: (error: any, data?: GroupSummaryList, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "accountID" is set
         if (accountID === null || accountID === undefined) {
             if (callback) {
@@ -3781,7 +3881,7 @@ export class AggregatorAccountAdminApi extends ApiBase {
             "application/json"
         ];
 
-        return this.request<Array<GroupSummary>>({
+        return this.request<GroupSummaryList>({
             url: "/v3/accounts/{accountID}/policy-groups".replace("{" + "accountID" + "}", String(accountID)),
             method: "GET",
             headers: headerParams,
@@ -4679,6 +4779,67 @@ export class AggregatorAccountAdminApi extends ApiBase {
 
         return this.request<TrustedCertificateInternalResp>({
             url: "/v3/accounts/{accountID}/trusted-certificates/{cert-id}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "cert-id" + "}", String(certId)),
+            method: "PUT",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+            body: body,
+        }, callback);
+    }
+    /**
+     * Update the group name.
+     * An endpoint for updating a group name.
+     * @param accountID Account ID.
+     * @param groupID The ID of the group to be updated.
+     * @param body Details of the group to be created.
+     */
+    public updateAccountGroupName(accountID: string, groupID: string, body: GroupUpdateInfo, callback?: (error: any, data?: UpdatedResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "accountID" is set
+        if (accountID === null || accountID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'accountID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "groupID" is set
+        if (groupID === null || groupID === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'groupID' missing."));
+            }
+            return;
+        }
+        // verify required parameter "body" is set
+        if (body === null || body === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'body' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<UpdatedResponse>({
+            url: "/v3/accounts/{accountID}/policy-groups/{groupID}".replace("{" + "accountID" + "}", String(accountID)).replace("{" + "groupID" + "}", String(groupID)),
             method: "PUT",
             headers: headerParams,
             query: queryParameters,

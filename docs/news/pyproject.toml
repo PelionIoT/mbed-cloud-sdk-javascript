@@ -1,6 +1,6 @@
 [tool.towncrier]
 directory = '.'
-filename = '../CHANGELOG.md'
+filename = '../../CHANGELOG.md'
 package = 'mbed_cloud'
 template = 'template.rst'
 title_format = '{version} ({project_date})'
