@@ -22,12 +22,15 @@ import { AddPreSharedKey } from "../types";
 export const mapToSDK = (from: ConnectorPSKPartial, api: BootstrapApi): PreSharedKey => {
     return new PreSharedKey({
         endpointName: from.endpoint_name,
+        createdAt:    from.created_at,
+        secretHex:    null,
     }, api);
 };
 
-export const stripToken = (from: AddPreSharedKey, api: BootstrapApi): PreSharedKey => {
+export const mapFrom = (from: AddPreSharedKey, api: BootstrapApi): PreSharedKey => {
     return new PreSharedKey({
         endpointName: from.endpointName,
+        secretHex:    from.secretHex,
     }, api);
 };
 
