@@ -25,6 +25,37 @@ import superagent = require("superagent");
 import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
+export interface ListOfPreSharedKeysWithoutSecret {
+    /**
+     * An offset token for current page.
+     */
+    "after"?: string;
+    /**
+     * An offset token for fetching the next page. Note that exactly the same limit needs to be used on the request for fetching the subsequent pages.
+     */
+    "continuation_marker"?: string;
+    /**
+     * Array of the pre-shared key entries. The array is empty if there are no pre-shared keys.
+     */
+    "data": Array<PreSharedKeyWithoutSecret>;
+    /**
+     * Are there more results available.
+     */
+    "has_more": boolean;
+    /**
+     * The value of limit query parameter from the request, or default if not specified.
+     */
+    "limit": number;
+    /**
+     * The type of this API object is a \"list\".
+     */
+    "object": string;
+    /**
+     * The creation time based order of the entries.
+     */
+    "order": string;
+}
+
 export interface PreSharedKey {
     /**
      * The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
@@ -38,6 +69,10 @@ export interface PreSharedKey {
 
 export interface PreSharedKeyWithoutSecret {
     /**
+     * The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
+     */
+    "created_at"?: Date;
+    /**
      * The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
      */
     "endpoint_name": string;
@@ -50,7 +85,7 @@ export class PreSharedKeysApi extends ApiBase {
 
     /**
      * Remove a pre-shared key.
-     * Remove a pre-shared key.
+     * Remove a pre-shared key.  **Example usage:**  &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot; -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 &#x60;&#x60;&#x60; 
      * @param endpointName The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
      */
     public deletePreSharedKey(endpointName: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -92,7 +127,7 @@ export class PreSharedKeysApi extends ApiBase {
     }
     /**
      * Get a pre-shared key.
-     * Check if a pre-shared key for an endpoint exists or not. The response does not contain the secret itself. 
+     * Check if a pre-shared key for an endpoint exists or not. The response does not contain the secret itself.  **Example usage:**  &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot; https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 &#x60;&#x60;&#x60; 
      * @param endpointName The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
      */
     public getPreSharedKey(endpointName: string, callback?: (error: any, data?: PreSharedKeyWithoutSecret, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -133,8 +168,52 @@ export class PreSharedKeysApi extends ApiBase {
         }, callback);
     }
     /**
+     * List pre-shared keys.
+     * List pre-shared keys with pagination and default page size of 50 entries.  **Example usage:**  &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot; https://api.us-east-1.mbedcloud.com/v2/device-shared-keys &#x60;&#x60;&#x60; 
+     * @param limit The number of entries per page
+     * @param after An offset token for fetching a specific page. Provided by the server.
+     */
+    public listPreSharedKeys(limit?: number, after?: string, callback?: (error: any, data?: ListOfPreSharedKeysWithoutSecret, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+        if (limit !== undefined) {
+            queryParameters["limit"] = limit;
+        }
+        if (after !== undefined) {
+            queryParameters["after"] = after;
+        }
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<ListOfPreSharedKeysWithoutSecret>({
+            url: "/v2/device-shared-keys",
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
      * Upload a pre-shared key to Mbed Cloud.
-     * Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  &#x60;&#x60;&#x60; Example payloads: {\&quot;endpoint_name\&quot;: \&quot;myEndpoint.host.com\&quot;, \&quot;secret_hex\&quot;: \&quot;4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\&quot; } {\&quot;endpoint_name\&quot;: \&quot;myEndpoint.host.com\&quot;, \&quot;secret_hex\&quot;: \&quot;0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\&quot; } &#x60;&#x60;&#x60; 
+     * Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  **Example usage:**  &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot; -H \&quot;content-type: application/json\&quot; -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\      -d &#39;{\&quot;endpoint_name\&quot;: \&quot;my-endpoint-0001\&quot;, \&quot;secret_hex\&quot;: \&quot;4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\&quot; }&#39; &#x60;&#x60;&#x60; 
      * @param body Pre-shared key to be uploaded.
      */
     public uploadPreSharedKey(body: PreSharedKey, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
