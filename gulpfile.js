@@ -35,7 +35,7 @@ var bundleDir = "bundles";
 var testDir = bundleDir + "/_tests";
 
 // Other
-var docsDir = "docs";
+var docsDir = "docs/_docs";
 var typesDir = "types";
 
 var watching = false;

@@ -69,14 +69,6 @@ export interface UpdateAccountObject {
      * Email address of the sales contact.
      */
     salesContactEmail?: string;
-    /**
-     * Account specific custom properties.
-     */
-    customProperties?: {
-        [key: string]: {
-            [key: string]: string;
-        };
-    };
 }
 export declare type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
 /**
@@ -145,12 +137,6 @@ export interface UserObject {
      * Groups
      */
     groups?: Array<string>;
-    /**
-     * User's account specific custom properties.
-     */
-    customProperties?: {
-        [key: string]: string;
-    };
 }
 export interface AddUserObject extends UserObject {
     /**

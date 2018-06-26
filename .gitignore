@@ -2,7 +2,6 @@
 .DS_Store
 node_modules
 bundles
-docs
 coverage
 reports
 lib
@@ -14,3 +13,4 @@ junit.xml
 package-lock.json
 tpip.csv
 rpc_fixtures
+docs/_docs

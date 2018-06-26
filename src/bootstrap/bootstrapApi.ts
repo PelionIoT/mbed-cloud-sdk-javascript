@@ -18,10 +18,11 @@
 import { apiWrapper, asyncStyle } from "../common/functions";
 import { Endpoints } from "./endpoints";
 import { CallbackFn, ConnectionOptions } from "../common/interfaces";
-import { AddPreSharedKey } from "./types";
+import { AddPreSharedKey, PskListOptions } from "./types";
 import { PreSharedKey } from "./models/preSharedKey";
-import { mapToSDK, mapToSpec, stripToken } from "./models/preSharedKeyAdapter";
+import { mapToSDK, mapToSpec, mapFrom } from "./models/preSharedKeyAdapter";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ListResponse } from "../common/listResponse";
 
 export class BootstrapApi {
     private readonly _endpoints: Endpoints;
@@ -31,6 +32,61 @@ export class BootstrapApi {
      */
     constructor(options: ConnectionOptions) {
         this._endpoints = new Endpoints(options);
+    }
+
+     /**
+      * List Psks
+      *
+      * Example:
+      * ```JavaScript
+      * bootstrap.listPsks()
+      * .then(psks => {
+      *     // Utilize psks here
+      * })
+      * .catch(error => {
+      *     console.log(error);
+      * });
+      * ```
+      *
+      * @param options options
+      * @returns Promise of listResponse
+      */
+    public listPsks(options?: PskListOptions): Promise<ListResponse<PreSharedKey>>;
+    /**
+     * List Psks
+     *
+     * Example:
+     * ```JavaScript
+     * bootstrap.listPsks(function(error, psks) {
+     *     if (error) throw error;
+     *     // Utilize psks here
+     * });
+     * ```
+     *
+     * @param options options
+     * @param callback A function that is passed the arguments (error, listResponse)
+     */
+    public listPsks(options?: PskListOptions, callback?: CallbackFn<ListResponse<PreSharedKey>>): void;
+    public listPsks(options?: any, callback?: CallbackFn<ListResponse<PreSharedKey>>): Promise<ListResponse<PreSharedKey>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        return apiWrapper(resultsFn => {
+            const { limit, after } = options as PskListOptions;
+            this._endpoints.bootstrap.listPreSharedKeys(limit, after, resultsFn);
+        }, (data, done) => {
+            let keys: Array<PreSharedKey>;
+            if (data && data.data && data.data.length) {
+                keys = data.data.map(key => {
+                    return mapToSDK(key, this);
+                });
+            }
+
+            done(null, new ListResponse(data, keys));
+        }, callback);
     }
 
     /**
@@ -71,7 +127,7 @@ export class BootstrapApi {
         return apiWrapper(resultsFn => {
             this._endpoints.bootstrap.uploadPreSharedKey(mapToSpec(preSharedKey), resultsFn);
         }, (_data, done) => {
-            done(null, stripToken(preSharedKey, this));
+            done(null, mapFrom(preSharedKey, this));
         }, callback);
     }
 

@@ -1,13 +1,47 @@
 import { CallbackFn, ConnectionOptions } from "../common/interfaces";
-import { AddPreSharedKey } from "./types";
+import { AddPreSharedKey, PskListOptions } from "./types";
 import { PreSharedKey } from "./models/preSharedKey";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ListResponse } from "../common/listResponse";
 export declare class BootstrapApi {
     private readonly _endpoints;
     /**
      * @param options Connection objects
      */
     constructor(options: ConnectionOptions);
+    /**
+     * List Psks
+     *
+     * Example:
+     * ```JavaScript
+     * bootstrap.listPsks()
+     * .then(psks => {
+     *     // Utilize psks here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * @param options options
+     * @returns Promise of listResponse
+     */
+    listPsks(options?: PskListOptions): Promise<ListResponse<PreSharedKey>>;
+    /**
+     * List Psks
+     *
+     * Example:
+     * ```JavaScript
+     * bootstrap.listPsks(function(error, psks) {
+     *     if (error) throw error;
+     *     // Utilize psks here
+     * });
+     * ```
+     *
+     * @param options options
+     * @param callback A function that is passed the arguments (error, listResponse)
+     */
+    listPsks(options?: PskListOptions, callback?: CallbackFn<ListResponse<PreSharedKey>>): void;
     /**
      * Set a device's pre-shared key.
      *

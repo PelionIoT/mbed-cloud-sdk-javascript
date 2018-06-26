@@ -1,3 +1,4 @@
+import { ListOptions } from "../common/interfaces";
 /**
  * Pre-Shared Key
  * For more information about such keys, have a look at <a href="https://cloud.mbed.com/docs/latest/connecting/mbed-client-lite-security-considerations.html"/>
@@ -15,4 +16,9 @@ export interface AddPreSharedKey {
      * For example: "4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a"
      */
     secretHex: string;
+}
+/**
+ * Options to use when listing psks
+ */
+export interface PskListOptions extends ListOptions {
 }
