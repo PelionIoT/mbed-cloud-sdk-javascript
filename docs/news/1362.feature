@@ -1,1 +1,0 @@
-Remove customProperties from Account and User in accountManagement.

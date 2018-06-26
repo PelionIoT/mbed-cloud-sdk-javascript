@@ -21,6 +21,16 @@ a list of versions that have been released on **npm**.
 - Support listing of Psks and add createdAt field to PreSharedKey (#631)
 
 
+1.2.10 (2018-06-26)
+===================
+
+### Features
+
+- Remove customProperties from Account and User in accountManagement. (#1362)
+
+- Support listing of Psks and add createdAt field to PreSharedKey (#631)
+
+
 1.2.9 (2018-05-22)
 ==================
 
