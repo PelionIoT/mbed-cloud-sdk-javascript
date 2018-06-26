@@ -69,7 +69,6 @@ export class AccountAdapter {
             notificationEmails              : from.notification_emails,
             referenceNote                   : from.reference_note,
             updatedAt                       : from.updated_at,
-            customProperties                : from.custom_fields,
             contractNumber                  : from.contract_number,
         }, api);
     }
@@ -91,7 +90,6 @@ export class AccountAdapter {
             mfa_status:                    from.multifactorAuthenticationStatus,
             notification_emails:           from.notificationEmails,
             expiration_warning_threshold:  from.expiryWarning,
-            custom_fields:            from.customProperties
         };
     }
 }
