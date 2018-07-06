@@ -43,6 +43,8 @@ dependencies:
       login="$(aws ecr get-login --no-include-email)"
       ${login}
     - docker pull ${TESTRUNNER_DOCKER_IMAGE}
+    - mkdir -p ${HOME}/cci_fixtures
+    - chmod -R 777 ${HOME}/cci_fixtures
 
 compile:
   pre:
