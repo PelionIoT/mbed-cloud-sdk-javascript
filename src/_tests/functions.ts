@@ -17,7 +17,7 @@
 
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
-import { matchWithWildcard, decodeBase64 } from "../common/functions";
+import { matchWithWildcard, decodeBase64, dateToBillingMonth } from "../common/functions";
 
 suite("testFunctions", () => {
 
@@ -82,5 +82,19 @@ suite("testPayloadDecoding", () => {
         assert.deepEqual(payload, {
             "/0": ""
         });
+    });
+});
+
+suite("testBillingMonth", () => {
+    test("singleDigitMonth", () => {
+        const date = new Date(2018, 4);
+        const string = dateToBillingMonth(date);
+        assert.strictEqual("2018-05", string);
+    });
+
+    test("doubleDigitMonth", () => {
+        const date = new Date(2018, 11);
+        const string = dateToBillingMonth(date);
+        assert.strictEqual("2018-12", string);
     });
 });
