@@ -11,6 +11,16 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+1.2.11 (2018-07-06)
+===================
+
+### Features
+
+- Add support for billing endpoints getReportOverview, getServicePackages,
+  getQuotaHistory and getQuotaRemaining. (#1210)
+
+
+
 1.2.10 (2018-06-26)
 ===================
 
