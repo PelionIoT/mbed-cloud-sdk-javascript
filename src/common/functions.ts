@@ -284,3 +284,9 @@ export function matchWithWildcard(input: string, matchWith: string): boolean {
     // no wildcard so match strings explicitly
     return input === matchWith;
 }
+
+export function dateToBillingMonth(date: Date) {
+    // make sure date is actually a Date object;
+    date = new Date(date);
+    return `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}`;
+}

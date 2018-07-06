@@ -16,6 +16,7 @@
 */
 
 export { AccountManagementApi } from "./accountManagement/accountManagementApi";
+export { BillingApi } from "./billing/billingApi";
 export { BootstrapApi } from "./bootstrap/bootstrapApi";
 export { CertificatesApi } from "./certificates/certificatesApi";
 export { ConnectApi } from "./connect/connectApi";

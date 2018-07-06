@@ -10,7 +10,6 @@ machine:
     - docker
   environment:
     PROJECT_NAME: ${CIRCLE_PROJECT_REPONAME}
-    PROJECT_TAG: ${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}
     PROJECT_LIVE_BRANCH: build
     PROJECT_DOCS: ${HOME}/docs
     PROJECT_REPORTS: ${HOME}/reports
@@ -43,6 +42,8 @@ dependencies:
       login="$(aws ecr get-login --no-include-email)"
       ${login}
     - docker pull ${TESTRUNNER_DOCKER_IMAGE}
+    - mkdir -p ${HOME}/cci_fixtures
+    - chmod -R 777 ${HOME}/cci_fixtures
 
 compile:
   pre:
@@ -91,7 +92,7 @@ deployment:
     branch: /[0-9]+\.[0-9]+.*/
     commands:
       - echo Tagging ${PROJECT_NAME} in GitHub...
-      - git tag ${PROJECT_TAG}
+      - git tag $(jq .version <package.json | tr -d '\"')
       - git push --tags
       - if [[ ${CIRCLE_PROJECT_REPONAME} == mbed-cloud-sdk-javascript ]]; then echo 'tag and release'; else echo 'will not release from unofficial repo' && exit 1; fi
       - "jq '. + { \"is_published\": true }' package.json > package.json.tmp && mv package.json.tmp package.json"

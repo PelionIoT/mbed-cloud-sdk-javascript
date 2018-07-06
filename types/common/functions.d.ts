@@ -25,3 +25,4 @@ export declare function decodeFilter(from: string, map?: {
 };
 export declare function ensureArray<T>(item: T | Array<T>): Array<T>;
 export declare function matchWithWildcard(input: string, matchWith: string): boolean;
+export declare function dateToBillingMonth(date: Date): string;
