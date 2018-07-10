@@ -14,7 +14,7 @@ var gulpTslint  = require("gulp-tslint");
 
 var name = "Mbed Cloud SDK for JavaScript";
 var namespace = "MbedCloudSDK";
-var docsToc = "AccountManagementApi,BootstrapAPI,CertificatesApi,ConnectApi,DeviceDirectoryApi,EnrollmentApi,Subscribe,UpdateApi,ConnectionOptions";
+var docsToc = "AccountManagementApi,BillingApi,BootstrapApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,EnrollmentApi,Subscribe,UpdateApi,ConnectionOptions,SDKError";
 
 // Source
 var srcDir = "src";
