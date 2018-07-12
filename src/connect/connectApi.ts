@@ -42,6 +42,16 @@ import { Subscribe } from "../subscribe/subscribe";
 /**
  * ## Connect API
  *
+ * The API can be initalized with a .env file in the working directory with the following values
+ *
+ * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+ *
+ * and optionally
+ *
+ * MBED_CLOUD_SDK_HOST=<your host> (defaults to https://api.us-east-1.mbedcloud.com)
+ *
+ * OR
+ *
  * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
  *
  * To create an instance of this API in [Node.js](https://nodejs.org):
@@ -139,7 +149,7 @@ export class ConnectApi extends EventEmitter {
     /**
      * @param options connection objects
      */
-    constructor(options: ConnectOptions) {
+    constructor(options?: ConnectOptions) {
         super();
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);

@@ -19,7 +19,7 @@
     "SDK"
   ],
   "engines": {
-    "node": ">=4.8.0"
+    "node": ">=6.0.0"
   },
   "scripts": {
     "start": "node examples/proxy/server.js",
@@ -61,6 +61,7 @@
     "typescript-logging": "^0.5.0"
   },
   "dependencies": {
+    "dotenv": "^6.0.0",
     "superagent": "^3.4.1"
   }
 }

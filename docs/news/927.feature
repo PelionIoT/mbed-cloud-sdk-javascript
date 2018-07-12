@@ -1,0 +1,1 @@
+Settings can now be configured from `.env` files through use of https://www.npmjs.com/package/dotenv

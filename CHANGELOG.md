@@ -20,7 +20,6 @@ a list of versions that have been released on **npm**.
   getQuotaHistory and getQuotaRemaining. (#1210)
 
 
-
 1.2.10 (2018-06-26)
 ===================
 

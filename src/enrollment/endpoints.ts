@@ -22,8 +22,8 @@ import { PublicAPIApi as EnrollmentApi } from "../_api/enrollment";
 export class Endpoints extends EndpointsBase {
     public readonly enrollment: EnrollmentApi;
 
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         super();
-        this.enrollment = new EnrollmentApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.enrollment = new EnrollmentApi(options, this.responseHandler.bind(this));
     }
 }

@@ -23,8 +23,8 @@ export class Endpoints extends EndpointsBase {
 
     public update: UpdateApi;
 
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         super();
-        this.update = new UpdateApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.update = new UpdateApi(options, this.responseHandler.bind(this));
     }
 }

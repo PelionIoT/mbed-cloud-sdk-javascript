@@ -21,7 +21,7 @@ export interface ConnectionOptions {
     /**
      * API Key for your Mbed Cloud account
      */
-    apiKey: string;
+    apiKey?: string;
     /**
      * URL for Mbed Cloud API
      */

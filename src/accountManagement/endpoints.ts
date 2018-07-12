@@ -27,9 +27,9 @@ export class Endpoints extends EndpointsBase {
     public developer: DeveloperApi;
     public admin: AccountAdminApi;
 
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         super();
-        this.developer = new DeveloperApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.admin = new AccountAdminApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.developer = new DeveloperApi(options, this.responseHandler.bind(this));
+        this.admin = new AccountAdminApi(options, this.responseHandler.bind(this));
     }
 }

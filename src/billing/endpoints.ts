@@ -22,8 +22,8 @@ import { ConnectionOptions } from "../common/interfaces";
 export class Endpoints extends EndpointsBase {
     public readonly billing: BillingApi;
 
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         super();
-        this.billing = new BillingApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.billing = new BillingApi(options, this.responseHandler.bind(this));
     }
 }

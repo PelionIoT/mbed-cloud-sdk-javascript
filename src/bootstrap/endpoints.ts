@@ -22,8 +22,8 @@ import { PreSharedKeysApi } from "../_api/connector_bootstrap";
 export class Endpoints extends EndpointsBase {
     public readonly bootstrap: PreSharedKeysApi;
 
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         super();
-        this.bootstrap = new PreSharedKeysApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.bootstrap = new PreSharedKeysApi(options, this.responseHandler.bind(this));
     }
 }

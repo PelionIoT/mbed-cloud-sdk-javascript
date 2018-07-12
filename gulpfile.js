@@ -140,7 +140,8 @@ function bundle(srcFiles, destDir, optionsFn) {
             console.log(`Creating ${destDir}/${fileName}`);
 
         file.contents = browserify(file.path, options)
-        .ignore("buffer")
+            .ignore("buffer")
+            .ignore("dotenv")
         .bundle()
         .on("error", handleError);
         file.path = path.join(file.base, fileName);
