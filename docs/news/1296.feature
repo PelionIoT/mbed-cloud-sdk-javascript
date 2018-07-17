@@ -1,0 +1,1 @@
+The concept of Paginator is introduced in common/pagination.ts and can be used in the SDK to list elements.

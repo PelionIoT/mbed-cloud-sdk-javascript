@@ -18,7 +18,9 @@
 import { OrderEnum } from "./interfaces";
 
 /**
- * List Response
+ * ## List Response
+ * Most listing operations are paginated and respond with truncated results. This object comprises the information related to one page.
+ * For operations over a full collection, it is recommended to use the [Paginator](./paginator.html) instead.
  */
 export class ListResponse<T> {
     /**
@@ -26,7 +28,7 @@ export class ListResponse<T> {
      */
     public readonly hasMore?: boolean;
     /**
-     * Total number of records
+     * Total number of records (Approximate number of results according to the API)
      */
     public readonly totalCount?: number;
     /**
@@ -34,24 +36,32 @@ export class ListResponse<T> {
      */
     public readonly after?: string;
     /**
-     * The number of results to return
+     * The page size
      */
-    public readonly limit?: number;
+    public readonly pageSize?: number;
     /**
      * Order of returned records
      */
     public readonly order?: OrderEnum;
     /**
-     * Devices
+     * List of results.
      */
     public readonly data: Array<T>;
+    /**
+     *  Entity id for fetch after it
+     */
+    public readonly continuationMarker?: string;
 
     constructor(from: any, data?: Array<T>) {
-        this.after         = from.after;
-        this.hasMore       = from.has_more;
-        this.limit         = from.limit;
-        this.order         = from.order;
-        this.totalCount    = from.total_count;
-        this.data          = data || [];
+        this.after = from.after;
+        this.hasMore = from.has_more || from.hasMore;
+        this.pageSize = ("limit" in from) ? from.limit : ("pageSize" in from) ? from.pageSize : undefined;
+        this.order = from.order;
+        this.totalCount = from.total_count || from.totalCount;
+        this.continuationMarker = from.continuation_marker || from.continuationMarker;
+        this.data = data || [];
+        // Setting limit for backward compatibility
+        const limitParameterName = "limit";
+        this[limitParameterName] = this.pageSize;
     }
 }
