@@ -22,7 +22,8 @@
     },
     "include": [
         "src/**/*",
-        "integrationTests/**/*"
+        "integrationTests/**/*",
+        "package.json"
     ],
     "exclude": [
         "node_modules"

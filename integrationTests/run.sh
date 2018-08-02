@@ -4,7 +4,7 @@ set -e
 export DEBUG=superagent
 export DEBUG_COLORS=true
 
-npm start-test-server &
+npm run start-test-server &
 pid=$!
 
 function finish {
