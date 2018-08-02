@@ -187,7 +187,7 @@ export class BillingApi {
             this._endpoints.billing.getServicePackageQuota(resultsFn);
         }, (data: ServicePackageQuota, done) => {
             if (data) {
-                return done(null, 10303949494);
+                return done(null, data.quota);
             }
         }, callback);
     }
