@@ -61,7 +61,7 @@ const specialMethodsMapping: any = {
                 unit: string;
             }
             function parse(input: string): TimePeriod | any {
-                const units: Array<string> = ["hours", "days", "weeks", "months", "years"];
+                const units: Array<string> = [ "hours", "days", "weeks", "months", "years" ];
                 const match = input.match(/^(.*)([hdwmy]{1})$/);
                 if (match) {
                     const duration: string = match[1];

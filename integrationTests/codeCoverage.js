@@ -7,13 +7,13 @@ var istanbulMaps = require("istanbul-lib-source-maps");
 var istanbulCoverage = require("istanbul-lib-coverage");
 var istanbulInstrument = require("istanbul-lib-instrument");
 var sourceMapMerger = require("source-map-merger");
-var intern = require("../intern.json");
+var intern = require("../../intern.json");
 
 
 // Variables
 var root = path.join(__dirname, "..");
 var builtSdkDir = path.join(root, "./lib");
-var projectRoot = path.join(__dirname, "../../..");
+var projectRoot = path.join(__dirname, "../..");
 var projectRootBuild = path.join(projectRoot, "./lib");
 var projectRootSrc = path.join(projectRoot, "./src");
 var coverageDir = path.join(projectRoot, "coverage");

@@ -1,13 +1,13 @@
 import { TestResult, TestError } from "./serverMessages";
 import { SDKError } from "../src/common/sdkError";
 import { ServerError } from "./error";
-interface Module {
+interface SdkModule {
     name: string | undefined;
     pythonName: string | undefined;
 }
 interface Instance {
     instance: any;
-    module: Module;
+    sdkModule: SdkModule;
 }
 type Method = (() => void);
 type SuccessCallback = (result: TestResult | undefined) => void;
@@ -18,7 +18,7 @@ export {
     Method,
     SuccessCallback,
     ErrorCallback,
+    SdkModule,
     Instance,
-    Module,
     Exception
 };

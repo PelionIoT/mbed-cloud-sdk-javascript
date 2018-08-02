@@ -17,3 +17,4 @@ Dockerfile
 docker-compose.yml
 news
 scripts
+_integrationTests

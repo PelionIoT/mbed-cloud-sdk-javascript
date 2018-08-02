@@ -52,7 +52,7 @@ compile:
     # we have to tell towncrier what the version number is; `jq` extracts the version, `tr` strips quotes from the json string
     - cd docs/news && towncrier --yes --name="" --version=$(jq .version <../../package.json | tr -d '\"')
     - cp CHANGELOG.md ${CIRCLE_ARTIFACTS}/
-    - npm run gulp
+    - npm run build
     - mkdir -p ${PROJECT_DOCS}
     - cp -r docs/* ${PROJECT_DOCS}/
     - npm run tpip
@@ -65,7 +65,6 @@ test:
     - set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ${FILE_UNITTESTS}
     - cat ${FILE_UNITTESTS} | grep 'TOTAL' >> ${FILE_RAW}
     - echo "<h1>${PROJECT_NAME} integration tests (build ${CIRCLE_BUILD_NUM})</h1>" >> ${FILE_INTTESTS}
-    - npm run build-test-server
     - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${FILE_INTTESTS}:
         pwd: tests
     - cat ${FILE_INTTESTS} | grep 'seconds ====' >> ${FILE_RAW}
