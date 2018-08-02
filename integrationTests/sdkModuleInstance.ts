@@ -1,6 +1,6 @@
 import { ErrorCallback, Module, SuccessCallback } from "./types";
-import * as MbedCloudSDK from "../lib/";
-import { ConnectionOptions } from "./common/interfaces";
+import * as MbedCloudSDK from "../src";
+import { ConnectionOptions } from "../src/common/interfaces";
 import { SdkApi } from "./sdkMethod";
 import { ModuleDescription } from "./serverMessages";
 import { ServerError } from "./error";

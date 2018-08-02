@@ -115,7 +115,7 @@ function snakeToCamel(snake: string) {
     });
 }
 function camelToSnake(camel: string) {
-    return camel.replace(/([A-Z]+?)/g, (match, p, i) => {
+    return camel.replace(/([A-Z]+?)/g, (match, _, i) => {
         return `${i === 0 ? "" : "_"}${match.toLowerCase()}`;
     });
 }

@@ -1,9 +1,9 @@
 import * as cache from "memory-cache";
-import * as MbedCloudSDK from "../lib/";
+import * as MbedCloudSDK from "../src";
 import { ServerError } from "./error";
 import { SdkModuleInstance } from "./sdkModuleInstance";
 import { reverseMapModule, mapModule } from "./argumentMapping";
-import { ConnectionOptions } from "./common/interfaces";
+import { ConnectionOptions } from "../src/common/interfaces";
 
 const moduleList: Array<string> = [ ...(Object.keys(MbedCloudSDK)), "TestStubApi" ];
 

@@ -1,8 +1,7 @@
 import { Module, Instance, Method, SuccessCallback, ErrorCallback, Exception } from "./types";
-import { SDKError } from "./common/sdkError";
 import { ServerError } from "./error";
 import { isSpecialMappingMethod, mapSpecialMethodsArg, mapResult, reverseMapMethod } from "./argumentMapping";
-import { TestError, TestResult, MethodDescription } from "./serverMessages";
+import { MethodDescription } from "./serverMessages";
 
 function retrieveRelatedObject(methodName: string | undefined): string | undefined {
     // Hack to determine from its name, the objects type the API deals with.

@@ -22,11 +22,18 @@
     "node": ">=6.0.0"
   },
   "scripts": {
+    "clean": "rm -rf ./{lib,bundles,types} && mkdir -p ./{lib,bundles,types}",
+    "lint": "tslint -c tslint.json 'src/**/.ts'",
+    "lint:fix": "tslint --fix -c tslint.json 'src/**/.ts'",
+    "docs": "rm -rf ./docs/_docs && mkdir -p ./docs/_docs && typedoc --options typedoc.json ./src/**/*.ts",
+    "compile": "tsc && rm -rf types/{_api,_tests}",
+    "dev_build": "npm run clean && npm run compile",
+    "full_build": "npm run clean && npm run lint:fix && npm run docs && npm run compile && npm run gulp",
     "start": "node examples/proxy/server.js",
     "gulp": "gulp",
     "tpip": "node scripts/generate-tpip.js",
     "test": "intern",
-    "build-test-server": "node tests/build.js && tsc -p tests && cp intern.json ./tests/server/ && cp package.json ./tests/server/",
+    "build-test-server": "rm -rf ./integrationTests/server && mkdir -p ./integrationTests/server && tsc -p integrationTests",
     "start-test-server": "node tests/server/tests/codeCoverage.js"
   },
   "devDependencies": {
@@ -54,9 +61,9 @@
     "nyc": "^11.3.0",
     "rimraf": "2.6.2",
     "source-map-merger": "~0.2.0",
-    "tslint": "5.8.0",
+    "tslint": "^5.8.0",
     "tslint-eslint-rules": "^4.1.1",
-    "typedoc": "^0.7.1",
+    "typedoc": "^0.11.1",
     "typescript": "~2.6.2",
     "typescript-logging": "^0.5.0"
   },

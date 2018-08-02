@@ -1,5 +1,5 @@
 import { TestResult, TestError } from "./serverMessages";
-import { SDKError } from "./common/sdkError";
+import { SDKError } from "../src/common/sdkError";
 import { ServerError } from "./error";
 interface Module {
     name: string | undefined;
