@@ -21,8 +21,13 @@ import dotenv = require("dotenv");
 
 import { SDKError } from "./sdkError";
 import { ConnectionOptions } from "./interfaces";
-import * as p from "pjson";
-const pjson: any = p;
+// import * as p from "pjson";
+// const pjson: any = p;
+
+import path = require("path");
+const root = path.resolve(__dirname, "..", "..");
+// tslint:disable-next-line:no-var-requires
+const pjson = require(root + "/package.json");
 
 // tslint:disable-next-line:no-var-requires
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
