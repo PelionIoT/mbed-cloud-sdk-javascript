@@ -60,7 +60,7 @@ var connect = new MbedCloudSDK.ConnectApi({
 
 connect.listConnectedDevices()
 .then(devices => {
-	devices.forEach(device => {
+	devices.data.forEach(device => {
 		console.log(device.id);
 	});
 });

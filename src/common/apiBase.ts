@@ -148,6 +148,13 @@ export class ApiBase {
         }
     }
 
+    /**
+     * Returns the current configuration of this API module
+     */
+    public currentConfig() {
+        return { apiKey: this.apiKey, host: this.host };
+    }
+
     protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, requestOptions?: { [key: string]: any }, body?: any, file?: boolean }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest {
 
         // Allow overrides

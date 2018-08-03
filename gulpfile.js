@@ -5,6 +5,7 @@ var merge       = require("merge2");
 var tslint      = require("tslint");
 var gulp        = require("gulp");
 var buffer      = require("gulp-buffer");
+var changed     = require('gulp-changed');
 var sourcemaps  = require("gulp-sourcemaps");
 var tap         = require("gulp-tap");
 var typedoc     = require("gulp-typedoc");
@@ -90,7 +91,7 @@ gulp.task("doc", function() {
 });
 
 // Build TypeScript source into CommonJS Node modules
-gulp.task("typescript", ["clean"], function() {
+gulp.task("typescript", function() {
     var options = {
         target: "es5",
         types: ["intern"],
@@ -110,6 +111,7 @@ gulp.task("typescript", ["clean"], function() {
 
     return merge([
         gulp.src(srcFiles)
+            .pipe(changed(nodeDir, {extension: '.js'}))
             .pipe(sourcemaps.init())
             .pipe(ts(options))
             .on("error", handleError).js
@@ -118,6 +120,7 @@ gulp.task("typescript", ["clean"], function() {
             }))
             .pipe(gulp.dest(nodeDir)),
         gulp.src(srcFilesOnly)
+            .pipe(changed(typesDir, {extension: '.js'}))
             .pipe(ts(options))
             .on("error", handleError).dts
             .pipe(gulp.dest(typesDir))

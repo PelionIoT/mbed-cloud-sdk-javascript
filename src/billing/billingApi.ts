@@ -21,11 +21,12 @@ import { apiWrapper, dateToBillingMonth } from "../common/functions";
 import { QuotaHistory } from "./models/quotaHistory";
 import { mapQuotaHistory } from "./models/quotaHistoryAdapter";
 import { ListResponse } from "../common/listResponse";
-import { ServicePackageQuota, ServicePackagesResponse, ServicePackageQuotaHistoryResponse } from "../_api/billing";
+import { ServicePackageQuota, ServicePackagesResponse, ServicePackageQuotaHistoryResponse, BillingReportRawDataResponse } from "../_api/billing";
 import { ServicePackage } from "./models/servicePackage";
 import { mapPending, mapActive, mapPrevious } from "./models/servicePackageAdapter";
 import { SDKError } from "../common/sdkError";
-import { writeFile } from "fs";
+import { writeFile, createWriteStream } from "fs";
+import { get as http_get } from "superagent";
 
 export class BillingApi {
     private readonly _endpoints: Endpoints;
@@ -109,6 +110,58 @@ export class BillingApi {
     }
 
     /**
+     * Get the active devices report.
+     * @param month Date object for the year and month you want a report from
+     * @param filepath Optional. If specified, the destination to write the billing report to.
+     * @returns Promise of string. The json string for the billing report.
+     */
+    public getReportActiveDevices(month: Date, filepath?: string): Promise<string>;
+    /**
+     * Get the active devices report.
+     * @param month Date object for the year and month you want a report from
+     * @param filepath Optional. If specified, the destination to write the billing report to.
+     * @param callback
+     */
+    public getReportActiveDevices(month: Date, filepath?: string, callback?: CallbackFn<string>): void;
+    public getReportActiveDevices(month: Date, filepath?: string, callback?: CallbackFn<string>): Promise<string> {
+        if (typeof filepath === "function") {
+            callback = filepath;
+        }
+
+        return apiWrapper(resultsFn => {
+            this._endpoints.billing.getBillingReportActiveDevices(dateToBillingMonth(month), resultsFn);
+        }, (data: BillingReportRawDataResponse, done) => {
+            this.streamToFile(filepath, data.url, done);
+        }, callback);
+    }
+
+    /**
+     * Get the firmware update report.
+     * @param month Date object for the year and month you want a report from
+     * @param filepath Optional. If specified, the destination to write the billing report to.
+     * @returns Promise of string. The json string for the billing report.
+     */
+    public getReportFirmwareUpdates(month: Date, filepath?: string): Promise<string>;
+    /**
+     * Get the firmware update report.
+     * @param month Date object for the year and month you want a report from
+     * @param filepath Optional. If specified, the destination to write the billing report to.
+     * @param callback
+     */
+    public getReportFirmwareUpdates(month: Date, filepath?: string, callback?: CallbackFn<string>): void;
+    public getReportFirmwareUpdates(month: Date, filepath?: string, callback?: CallbackFn<string>): Promise<string> {
+        if (typeof filepath === "function") {
+            callback = filepath;
+        }
+
+        return apiWrapper(resultsFn => {
+            this._endpoints.billing.getBillingReportFirmwareUpdates(dateToBillingMonth(month), resultsFn);
+        }, (data: BillingReportRawDataResponse, done) => {
+            this.streamToFile(filepath, data.url, done);
+        }, callback);
+    }
+
+    /**
      * Get the service packages in order: pending -> active -> all pending
      * @returns Promise with Array of ServicePackages
      */
@@ -136,6 +189,31 @@ export class BillingApi {
             }
             done(null, list);
         }, callback);
+    }
+
+    /**
+     * Streams content from HTTP url to file path on disk
+     * @param filepath
+     * @param url
+     * @param done callback
+     */
+    private streamToFile(filepath: string, url: string, done: any) {
+        // tslint:disable-next-line:no-console
+        if (typeof window === "undefined" && filepath) {
+            // we're in node and want to stream a file
+            const fileStream = createWriteStream(filepath);
+            const req = http_get(url);
+            // bugfix: https://github.com/segmentio/superagent-retry/issues/24
+            //         https://github.com/visionmedia/superagent/issues/313
+            req.pipe(fileStream).on("finish", _ => {
+                done(null, url);
+            });
+            req.on("error", error => {
+                done(new SDKError(error.message), null);
+            });
+        } else {
+            done(null, url);
+        }
     }
 
     /**
