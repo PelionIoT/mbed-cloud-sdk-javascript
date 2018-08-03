@@ -206,9 +206,6 @@ jobs:
           command: |
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             pipenv run python scripts/tag_and_release.py
-      - run:
-          name: Post announcement to slack
-          command: pipenv run python scripts/notify.py
 
 workflows:
   version: 2
