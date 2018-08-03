@@ -27,6 +27,15 @@ import { ApiMetadata } from "../common/apiMetadata";
 
 /**
  * ## Certificates API
+ * The API can be initalized with a .env file in the working directory with the following values
+ *
+ * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+ *
+ * and optionally
+ *
+ * MBED_CLOUD_SDK_HOST=<your host> (defaults to https://api.us-east-1.mbedcloud.com)
+ *
+ * OR
  *
  * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
  *
@@ -59,7 +68,7 @@ export class CertificatesApi {
     /**
      * @param options connection options
      */
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         this._endpoints = new Endpoints(options);
     }
 

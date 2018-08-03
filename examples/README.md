@@ -24,10 +24,10 @@ $ node <path to example.js>
 
 These examples utilise a [config.js](node/config.js) file which can read an API Key (and optionally a host) from an environment variable, a command line switch or from the file itself.
 
-To use environment variables, set the varaible `MBED_CLOUD_API_KEY` prior to running the application. e.g.:
+To use environment variables, set the varaible `MBED_CLOUD_SDK_API_KEY` prior to running the application. e.g.:
 
 ```bash
-$ export MBED_CLOUD_API_KEY=<Mbed Cloud API Key>
+$ export MBED_CLOUD_SDK_API_KEY=<Mbed Cloud API Key>
 ```
 
 To use a command line switch, pass your API key to the program being run. e.g.:

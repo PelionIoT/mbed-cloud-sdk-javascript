@@ -25,11 +25,57 @@ import superagent = require("superagent");
 import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 
+export namespace BulkResponse {
+    export type ObjectEnum = "enrollment-identity-bulk-uploads";
+    export type StatusEnum = "new" | "processing" | "completed";
+}
+export interface BulkResponse {
+    /**
+     * ID
+     */
+    "account_id": string;
+    /**
+     * The time of completing the bulk creation task. 
+     */
+    "completed_at"?: Date;
+    /**
+     * The time of receiving the bulk creation task. 
+     */
+    "created_at": Date;
+    /**
+     * The number of enrollment identities with failed processing. 
+     */
+    "errors_count": number;
+    "errors_report_file"?: string;
+    /**
+     * etag
+     */
+    "etag": string;
+    "full_report_file"?: string;
+    /**
+     * Bulk ID
+     */
+    "id": string;
+    "object": BulkResponse.ObjectEnum;
+    /**
+     * The number of enrollment identities processed until now. 
+     */
+    "processed_count": number;
+    /**
+     * The state of the process is 'new' at the time of creation. If the creation is still in progress, the state is shown as 'processing'. When the request has been fully processed, the state changes to 'completed'. 
+     */
+    "status": BulkResponse.StatusEnum;
+    /**
+     * Total number of enrollment identities found in the input CSV. 
+     */
+    "total_count": number;
+}
+
 export interface EnrollmentId {
     /**
      * Enrollment identity.
      */
-    "enrollment_identity"?: string;
+    "enrollment_identity": string;
 }
 
 export namespace EnrollmentIdentities {
@@ -38,7 +84,7 @@ export namespace EnrollmentIdentities {
 }
 export interface EnrollmentIdentities {
     /**
-     * muuid
+     * ID
      */
     "after": string;
     "data": Array<EnrollmentIdentity>;
@@ -57,13 +103,13 @@ export namespace EnrollmentIdentity {
 }
 export interface EnrollmentIdentity {
     /**
-     * muuid
+     * ID
      */
     "account_id": string;
     /**
      * The time of claiming the device to be assigned to the account.
      */
-    "claimed_at"?: Date;
+    "claimed_at": Date;
     /**
      * The time of the enrollment identity creation.
      */
@@ -71,25 +117,21 @@ export interface EnrollmentIdentity {
     /**
      * The ID of the device in the Device Directory once it has been registered.
      */
-    "device_id"?: string;
-    /**
-     * Enrolled device internal ID
-     */
-    "enrolled_device_id"?: string;
+    "enrolled_device_id": string;
     /**
      * Enrollment identity.
      */
-    "enrollment_identity"?: string;
+    "enrollment_identity": string;
     "etag": string;
     /**
      * The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
      */
     "expires_at": Date;
     /**
-     * Enrollment identity internal id
+     * Enrollment identity.
      */
     "id": string;
-    "object"?: EnrollmentIdentity.ObjectEnum;
+    "object": EnrollmentIdentity.ObjectEnum;
 }
 
 export namespace ErrorResponse {
@@ -115,7 +157,7 @@ export interface ErrorResponse {
      */
     "object"?: ErrorResponse.ObjectEnum;
     /**
-     * Request ID (muuid).
+     * Request ID.
      */
     "request_id"?: string;
     /**
@@ -141,8 +183,57 @@ export interface Field {
 export class PublicAPIApi extends ApiBase {
 
     /**
+     * Bulk upload
+     * With bulk upload you can upload a CSV file containing a number of enrollment IDs.  **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollment_identities&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads  &#x60;&#x60;&#x60; **Example csv File:** 1. First line is assumed to be the header. Content of the header is not validated. 2. Each line can contain comma separated values where 1st value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected in one line. 4. Valid Enrollments begins with A followed by a - and 95 charactors in the format as given below. 5. Valid Enrollment identities may be enclosed with in quotes. 6. UTF-8 encoding is expected.  &#x60;&#x60;&#x60; \&quot;enrollment_identity\&quot; \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\&quot;, \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\&quot;,  &#x60;&#x60;&#x60; 
+     * @param enrollmentIdentities Enrollment identities CSV file. Maximum file size is 10MB. 
+     */
+    public createBulkDeviceEnrollment(enrollmentIdentities: any, callback?: (error: any, data?: BulkResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "enrollmentIdentities" is set
+        if (enrollmentIdentities === null || enrollmentIdentities === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'enrollmentIdentities' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        if (enrollmentIdentities !== undefined) {
+            formParams["enrollment_identities"] = enrollmentIdentities;
+        }
+        useFormData = true;
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "multipart/form-data"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<BulkResponse>({
+            url: "/v3/device-enrollments-bulk-uploads",
+            method: "POST",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
      * Place an enrollment claim for one or several devices.
-     * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
+     * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. &lt;br&gt; **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments \\ -d &#39;{\&quot;enrollment_identity\&quot;: \&quot;A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5\&quot;}&#39; &#x60;&#x60;&#x60; 
      * @param enrollmentIdentity 
      */
     public createDeviceEnrollment(enrollmentIdentity: EnrollmentId, callback?: (error: any, data?: EnrollmentIdentity, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
@@ -187,8 +278,8 @@ export class PublicAPIApi extends ApiBase {
     }
     /**
      * Delete an enrollment by ID.
-     * To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
-     * @param id Enrollment identity internal id
+     * To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information, see [Transferring the ownership using First-to-Claim](/docs/current/connecting/device-ownership.html). &lt;br&gt; **Example usage:** &#x60;&#x60;&#x60; curl -X DELETE \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} &#x60;&#x60;&#x60; 
+     * @param id Enrollment identity.
      */
     public deleteDeviceEnrollment(id: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
@@ -209,6 +300,7 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
+            "application/json"
         ];
 
         // Determine the Accept header
@@ -229,9 +321,53 @@ export class PublicAPIApi extends ApiBase {
         }, callback);
     }
     /**
+     * Get bulk upload entity
+     * Provides info about bulk upload for the given ID. For example bulk status and processed count of enrollment identities. Info includes also links for the bulk upload reports. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} &#x60;&#x60;&#x60; 
+     * @param id Bulk create task entity ID
+     */
+    public getBulkDeviceEnrollment(id: string, callback?: (error: any, data?: BulkResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "id" is set
+        if (id === null || id === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'id' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<BulkResponse>({
+            url: "/v3/device-enrollments-bulk-uploads/{id}".replace("{" + "id" + "}", String(id)),
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
      * Get details of an enrollment by ID.
-     * To check the enrollment info in detail, for example claming date and expiration date.
-     * @param id Enrollment identity internal id
+     * To check the enrollment info in detail, for example date of claim and expiration date. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} &#x60;&#x60;&#x60; 
+     * @param id Enrollment identity.
      */
     public getDeviceEnrollment(id: string, callback?: (error: any, data?: EnrollmentIdentity, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "id" is set
@@ -252,6 +388,7 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
+            "application/json"
         ];
 
         // Determine the Accept header
@@ -273,11 +410,11 @@ export class PublicAPIApi extends ApiBase {
     }
     /**
      * Get enrollment list.
-     * Provides a list of pending and claimed enrollments. Example usage: 
+     * Provides a list of pending and claimed enrollments. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments &#x60;&#x60;&#x60; With query parameters: &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ &#39;https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit&#x3D;10&#39; &#x60;&#x60;&#x60; 
      * @param limit Number of results to be returned. Between 2 and 1000, inclusive.
      * @param after Entity ID to fetch after.
      * @param order ASC or DESC
-     * @param include Comma separate additional data to return. Currently supported: total_count
+     * @param include Comma-separated additional data to return. Currently supported: total_count.
      */
     public getDeviceEnrollments(limit?: number, after?: string, order?: string, include?: string, callback?: (error: any, data?: EnrollmentIdentities, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
@@ -303,6 +440,7 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
+            "application/json"
         ];
 
         // Determine the Accept header

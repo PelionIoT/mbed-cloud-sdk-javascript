@@ -1,0 +1,232 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/build
+    environment:
+      PIPENV_VENV_IN_PROJECT: TRUE
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - run:
+          name: Update Python Installers
+          command: sudo python -m pip install -U setuptools pip pipenv
+      - restore_cache:
+          key: v0-package-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install Python Libraries
+          # pipenv is currently poorly behaved when installing from remote subdirectory
+          # so we simply use it as a proxy for the virtualenv
+          command: pipenv run pip install -r scripts/requirements.txt
+      - run:
+          name: Install SDK dependencies
+          command: npm install
+      - save_cache:
+          key: v0-package-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+            - .venv
+      - run:
+          name: Set version
+          # set the version (dev)
+          command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news
+      - run:
+          name: Build the SDK
+          command: npm run gulp
+      - store_artifacts:
+          path: docs
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - package.json
+            - bundles
+            - lib
+  tpip:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: v0-package-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install SDK dependencies
+          command: npm install
+      - run:
+          name: Build the Third Party Intellectual Property file
+          command: npm run tpip
+      - store_artifacts:
+          path: tpip.csv
+  news:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Update Python Installers
+          command: sudo python -m pip install -U setuptools pip pipenv
+      - run:
+          name: Install Python Libraries
+          # pipenv is currently poorly behaved when installing from remote subdirectory
+          # so we simply use it as a proxy for the virtualenv
+          command: pipenv run pip install -r scripts/requirements.txt
+      - run:
+          name: Set version
+          # set the version as if this was a production release
+          command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news --release
+      - run:
+          name: Generate changelog
+          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && auto_version --config=scripts/auto_version.toml)
+          working_directory: docs/news
+      - store_artifacts:
+          path: CHANGELOG.md
+  integration_test:
+    working_directory: ~/build
+    environment:
+      TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+      PIPENV_VENV_IN_PROJECT: TRUE
+    machine: true
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - restore_cache:
+          key: v0-package-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install node and python
+          command: |
+            sudo apt-get update -qq
+            sudo apt-get install -y nodejs python3 openssl libffi-dev libssl-dev
+      - run:
+          name: Update Python Installers
+          command: sudo pip install -U setuptools pip pipenv
+      - run:
+          name: Install extra dependencies (python)
+          command: pipenv install awscli --python=python3
+      - run:
+          name: Install SDK dependencies
+          command: npm install
+      - run:
+          name: Install extra dependencies (node)
+          command: npm install -g codecov ansi-html-stream --unsafe-perm
+      - run:
+          name: Configure Docker to use AWS
+          command: |
+            source $(pipenv --venv)/bin/activate
+            login="$(aws ecr get-login --no-include-email)"
+            ${login}
+      - run:
+          name: Fetch the test runner
+          command: docker pull ${TESTRUNNER_DOCKER_IMAGE}
+      - run:
+          name: Build the SDK test server
+          command: npm run build-test-server
+      - run:
+          name: Run the tests
+          command: set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ~/build/integration.html
+          working_directory: tests
+      - run:
+          name: Run any post-test result aggregators
+          when: always
+          command: |
+            cp -r coverage/* reports
+            cp integration.html reports
+      - run:
+          name: Upload to codecov
+          command: codecov reports/lcov.info
+      - store_artifacts:
+          path: reports
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - reports
+  unit_test:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: v0-package-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install SDK dependencies
+          command: npm install
+      - run:
+          name: Install extra dependencies (node)
+          command: sudo npm install -g codecov ansi-html-stream --unsafe-perm
+      - run:
+          name: Run the tests
+          command: set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
+      - store_artifacts:
+          path: unit_tests.html
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - unit_tests.html
+  release:
+    working_directory: ~/build
+    environment:
+      PIPENV_VENV_IN_PROJECT: TRUE
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Update Python Installers
+          command: sudo python -m pip install -U setuptools pip pipenv
+      - run:
+          name: Install Python Libraries
+          # pipenv is currently poorly behaved when installing from remote subdirectory
+          # so we simply use it as a proxy for the virtualenv
+          command: pipenv run pip install -r scripts/requirements.txt
+      - run:
+          name: Set version
+          # set the version as if this was a production release
+          command: pipenv run auto_version --config=scripts/auto_version.toml --release
+      - run:
+          name: Generate changelog
+          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && auto_version --config=scripts/auto_version.toml)
+          working_directory: docs/news
+      - run:
+          name: Tag and Release
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            pipenv run python scripts/tag_and_release.py
+
+workflows:
+  version: 2
+  javascript_workflow:
+    jobs:
+      - build
+      - tpip
+      - news
+      - integration_test:
+          requires:
+            - build
+      - unit_test:
+          requires:
+            - build
+      - release_gate:
+          type: approval
+          filters:
+            branches:
+              only: master
+          requires:
+            - build
+      - release:
+          requires:
+            - release_gate

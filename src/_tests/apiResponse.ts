@@ -32,7 +32,7 @@ suite("apiBase", () => {
     let api: Api;
 
     beforeEach(() => {
-        api = new Api();
+        api = new Api({ apiKey: "testApiKey" } );
     });
 
     test("should execute callback", () => {

@@ -11,6 +11,20 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+ (2018-08-03)
+=============
+
+### Features
+
+- Add support for pase 2 billing (#1210)
+
+- The concept of Paginator is introduced in common/pagination.ts and can be
+  used in the SDK to list elements. (#1296)
+
+- Settings can now be configured from `.env` files through use of
+  https://www.npmjs.com/package/dotenv (#927)
+
+
 1.2.11 (2018-07-06)
 ===================
 
@@ -18,7 +32,6 @@ a list of versions that have been released on **npm**.
 
 - Add support for billing endpoints getReportOverview, getServicePackages,
   getQuotaHistory and getQuotaRemaining. (#1210)
-
 
 
 1.2.10 (2018-06-26)

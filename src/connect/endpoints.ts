@@ -34,13 +34,13 @@ export class Endpoints extends EndpointsBase {
     public account: AccountApi;
     public statistics: StatisticsApi;
 
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         super();
-        this.endpoints = new EndpointsApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.notifications = new NotificationsApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.resources = new ResourcesApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.subscriptions = new SubscriptionsApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.account = new AccountApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.statistics = new StatisticsApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.endpoints = new EndpointsApi(options, this.responseHandler.bind(this));
+        this.notifications = new NotificationsApi(options, this.responseHandler.bind(this));
+        this.resources = new ResourcesApi(options, this.responseHandler.bind(this));
+        this.subscriptions = new SubscriptionsApi(options, this.responseHandler.bind(this));
+        this.account = new AccountApi(options, this.responseHandler.bind(this));
+        this.statistics = new StatisticsApi(options, this.responseHandler.bind(this));
     }
 }

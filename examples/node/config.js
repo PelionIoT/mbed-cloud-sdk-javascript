@@ -15,8 +15,8 @@
 * limitations under the License.
 */
 
-var envVarKey = "MBED_CLOUD_API_KEY";
-var envVarHost = "MBED_CLOUD_HOST";
+var envVarKey = "MBED_CLOUD_SDK_API_KEY";
+var envVarHost = "MBED_CLOUD_SDK_HOST";
 var commandKey = "apiKey";
 var commandHost = "host";
 

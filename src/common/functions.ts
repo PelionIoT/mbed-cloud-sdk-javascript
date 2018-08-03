@@ -288,5 +288,6 @@ export function matchWithWildcard(input: string, matchWith: string): boolean {
 export function dateToBillingMonth(date: Date) {
     // make sure date is actually a Date object;
     date = new Date(date);
+    // javascript uses 0-indexed months
     return `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}`;
 }

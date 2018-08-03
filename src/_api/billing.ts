@@ -30,11 +30,11 @@ import { SDKError } from "../common/sdkError";
  */
 export interface ActiveServicePackage {
     /**
-     * Service package creation time in RFC3339 date-time with UTC time zone.
+     * Service package creation time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "created": Date;
     /**
-     * Service package expiration time in RFC3339 date-time with UTC time zone.
+     * Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "expires": Date;
     /**
@@ -50,7 +50,7 @@ export interface ActiveServicePackage {
      */
     "id": string;
     /**
-     * Service package latest modified time in RFC3339 date-time with UTC time zone.
+     * Service package latest modified time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "modified": Date;
     /**
@@ -62,7 +62,7 @@ export interface ActiveServicePackage {
      */
     "previous_id"?: string;
     /**
-     * Service package start time in RFC3339 date-time with UTC time zone.
+     * Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "start_time": Date;
 }
@@ -76,7 +76,7 @@ export namespace AggregatedQuotaUsageReport {
 export interface AggregatedQuotaUsageReport {
     "account_id": string;
     /**
-     * Amount of quota usage entry. Negavtive if it is quota consumption.
+     * Amount of quota usage entry. Negative if it is quota consumption.
      */
     "amount": number;
     /**
@@ -84,7 +84,7 @@ export interface AggregatedQuotaUsageReport {
      */
     "campaign_name"?: string;
     /**
-     * Added time of quota usage entry.
+     * Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "time": Date;
     /**
@@ -136,6 +136,24 @@ export interface BadRequestErrorResponseField {
      * Name of the field that failed the validation. If name is set to \"body\" then the validation failed on request body.
      */
     "name": string;
+}
+
+/**
+ * The response includes the URL to download the raw billing data.
+ */
+export interface BillingReportRawDataResponse {
+    /**
+     * The filename of the raw billing data file to be downloaded. It contains the file extensions.
+     */
+    "filename": string;
+    /**
+     * API Resource name.
+     */
+    "object": string;
+    /**
+     * The URL to download the raw billing data.
+     */
+    "url": string;
 }
 
 /**
@@ -203,11 +221,11 @@ export interface InternalServerErrorResponse {
  */
 export interface PendingServicePackage {
     /**
-     * Service package creation time in RFC3339 date-time with UTC time zone.
+     * Service package creation time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "created": Date;
     /**
-     * Service package expiration time in RFC3339 date-time with UTC time zone.
+     * Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "expires": Date;
     /**
@@ -219,7 +237,7 @@ export interface PendingServicePackage {
      */
     "id": string;
     /**
-     * Service package latest modified time in RFC3339 date-time with UTC time zone.
+     * Service package latest modified time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "modified": Date;
     /**
@@ -227,7 +245,7 @@ export interface PendingServicePackage {
      */
     "previous_id": string;
     /**
-     * Service package start time in RFC3339 date-time with UTC time zone.
+     * Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "start_time": Date;
 }
@@ -240,15 +258,15 @@ export namespace PreviousServicePackage {
 }
 export interface PreviousServicePackage {
     /**
-     * Service package creation time in RFC3339 date-time with UTC time zone.
+     * Service package creation time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "created": Date;
     /**
-     * Service package end time in RFC3339 date-time with UTC time zone.
+     * Service package end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "end_time": Date;
     /**
-     * Service package expiration time in RFC3339 date-time with UTC time zone.
+     * Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "expires": Date;
     /**
@@ -260,7 +278,7 @@ export interface PreviousServicePackage {
      */
     "id": string;
     /**
-     * Service package latest modified time in RFC3339 date-time with UTC time zone.
+     * Service package latest modified time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "modified": Date;
     /**
@@ -276,7 +294,7 @@ export interface PreviousServicePackage {
      */
     "reason": PreviousServicePackage.ReasonEnum;
     /**
-     * Service package start time in RFC3339 date-time with UTC time zone.
+     * Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "start_time": Date;
 }
@@ -289,7 +307,7 @@ export namespace QuotaUsageReport {
 }
 export interface QuotaUsageReport {
     /**
-     * Amount of quota usage entry. Negavtive if it is quota consumption.
+     * Amount of quota usage entry. Negative if it is quota consumption.
      */
     "amount": number;
     /**
@@ -297,7 +315,7 @@ export interface QuotaUsageReport {
      */
     "campaign_name"?: string;
     /**
-     * Added time of quota usage entry.
+     * Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "time": Date;
     /**
@@ -329,8 +347,17 @@ export interface ReportAccountContactInfo {
 export interface ReportBillingData {
     "active_devices": number;
     "firmware_updates": number;
+    /**
+     * Billing report generated time in RFC3339 date-time with millisecond accuracy and UTC time zone.
+     */
     "generated": Date;
+    /**
+     * Billing report end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
+     */
     "period_end": Date;
+    /**
+     * Billing report start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
+     */
     "period_start": Date;
 }
 
@@ -410,7 +437,7 @@ export interface ReportResponse {
  */
 export interface ServicePackageMetadata {
     /**
-     * Service package end time.
+     * Service package end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "end_time": Date;
     /**
@@ -422,7 +449,7 @@ export interface ServicePackageMetadata {
      */
     "reserved_quota": number;
     /**
-     * Service package start time.
+     * Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "start_time": Date;
 }
@@ -452,7 +479,7 @@ export namespace ServicePackageQuotaHistoryItem {
 }
 export interface ServicePackageQuotaHistoryItem {
     /**
-     * Added time of quota history entry.
+     * Added time of quota history entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "added": Date;
     /**
@@ -533,7 +560,7 @@ export interface ServicePackageQuotaHistoryResponse {
  */
 export interface ServicePackageQuotaHistoryServicePackage {
     /**
-     * Service package expiration time in RFC3339 date-time with UTC time zone.
+     * Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "expires": Date;
     /**
@@ -549,7 +576,7 @@ export interface ServicePackageQuotaHistoryServicePackage {
      */
     "previous_id"?: string;
     /**
-     * Service package start time in RFC3339 date-time with UTC time zone.
+     * Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
      */
     "start_time": Date;
 }
@@ -717,10 +744,10 @@ export class DefaultApi extends ApiBase {
     }
     /**
      * Get raw active devices billing data for the month.
-     * Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data.
+     * Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device id.
      * @param month Queried year and month of billing report
      */
-    public getBillingReportActiveDevices(month: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getBillingReportActiveDevices(month: string, callback?: (error: any, data?: BillingReportRawDataResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "month" is set
         if (month === null || month === undefined) {
             if (callback) {
@@ -749,7 +776,7 @@ export class DefaultApi extends ApiBase {
             "application/json"
         ];
 
-        return this.request<null>({
+        return this.request<BillingReportRawDataResponse>({
             url: "/v3/billing-report-active-devices",
             method: "GET",
             headers: headerParams,
@@ -763,10 +790,10 @@ export class DefaultApi extends ApiBase {
     }
     /**
      * Get raw firmware updates billing data for the month.
-     * Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator&#39;s firmware update devices billing report.
+     * Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator&#39;s raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device id.
      * @param month Queried year and month of billing report
      */
-    public getBillingReportFirmwareUpdates(month: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+    public getBillingReportFirmwareUpdates(month: string, callback?: (error: any, data?: BillingReportRawDataResponse, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
         // verify required parameter "month" is set
         if (month === null || month === undefined) {
             if (callback) {
@@ -795,7 +822,7 @@ export class DefaultApi extends ApiBase {
             "application/json"
         ];
 
-        return this.request<null>({
+        return this.request<BillingReportRawDataResponse>({
             url: "/v3/billing-report-firmware-updates",
             method: "GET",
             headers: headerParams,

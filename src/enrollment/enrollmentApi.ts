@@ -28,9 +28,42 @@ export class EnrollmentApi {
     private readonly _endpoints: Endpoints;
 
     /**
+     * The API can be initalized with a .env file in the working directory with the following values
+     *
+     * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+     *
+     * and optionally
+     *
+     * MBED_CLOUD_SDK_HOST=<your host> (defaults to https://api.us-east-1.mbedcloud.com)
+     *
+     * OR
+     *
+     * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
+     *
+     * To create an instance of this API in [Node.js](https://nodejs.org):
+     *
+     * ```JavaScript
+     * var MbedCloudSDK = require("mbed-cloud-sdk");
+     *
+     * var update = new MbedCloudSDK.UpdateApi({
+     *     apiKey: "<Mbed Cloud API Key>"
+     * });
+     * ```
+     *
+     * To create an instance of this API in the browser:
+     *
+     * ```html
+     * <script src="<mbed-cloud-sdk>/bundles/update.min.js"></script>
+     *
+     * <script>
+     *     var update = new MbedCloudSDK.UpdateApi({
+     *         apiKey: "<Mbed Cloud API Key>"
+     *     });
+     * </script>
+     * ```
      * @param options Connection objects
      */
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         this._endpoints = new Endpoints(options);
     }
 
