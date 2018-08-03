@@ -8,5 +8,4 @@ COPY . .
 RUN npm run gulp
 RUN npm test
 RUN npm run build-test-server
-EXPOSE 5000
-CMD [ "npm", "run", "start-test-server"]
+ENTRYPOINT [ "npm", "run", "start-test-server"]

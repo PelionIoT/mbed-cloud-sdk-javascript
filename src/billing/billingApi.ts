@@ -201,7 +201,7 @@ export class BillingApi {
         // tslint:disable-next-line:no-console
         if (typeof window === "undefined" && filepath) {
             // we're in node and want to stream a file
-            const fileStream = createWriteStream(filepath);
+            const fileStream = createWriteStream(filepath, { flags: "a+" });
             const req = http_get(url);
             // bugfix: https://github.com/segmentio/superagent-retry/issues/24
             //         https://github.com/visionmedia/superagent/issues/313
