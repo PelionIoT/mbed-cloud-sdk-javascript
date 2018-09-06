@@ -11,10 +11,12 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
- (2018-08-03)
+2.0.0 (2018-08-03)
 =============
 
 ### Features
+
+- Minimum version of node increased to v6.0.0 on account of v4 no longer being maintained
 
 - Add support for pase 2 billing (#1210)
 
