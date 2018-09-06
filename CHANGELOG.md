@@ -11,6 +11,14 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+ (2018-09-06)
+=============
+
+### Bugfixes
+
+- Change getResourceValue to use new deviceRequests endpoint. (#1661)
+
+
 2.0.0 (2018-08-03)
 =============
 
