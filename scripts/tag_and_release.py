@@ -62,7 +62,7 @@ def main():
     print('setting version release flag')
     version = subprocess.check_output(['python', '-m', 'auto_version', '--config=scripts/auto_version.toml', '--release']).decode().strip()
     print('uploading to npm')
-    subprocess.check_call(['npm', 'publish', '--tag=beta'])
+    subprocess.check_call(['npm', 'publish'])
     print('uploading to npm successful')
     # posting message to slack
     body = {"text": ":checkered_flag: New version of :javascript: SDK released: {}".format(version)}
