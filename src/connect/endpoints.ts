@@ -19,6 +19,7 @@ import { ConnectionOptions } from "../common/interfaces";
 import { AccountApi, StatisticsApi } from "../_api/statistics";
 import { EndpointsBase } from "../common/endpointsBase";
 import {
+    DeviceRequestsApi,
     EndpointsApi,
     NotificationsApi,
     ResourcesApi,
@@ -28,6 +29,7 @@ import {
 export class Endpoints extends EndpointsBase {
 
     public endpoints: EndpointsApi;
+    public deviceRequests: DeviceRequestsApi;
     public notifications: NotificationsApi;
     public resources: ResourcesApi;
     public subscriptions: SubscriptionsApi;
@@ -37,6 +39,7 @@ export class Endpoints extends EndpointsBase {
     constructor(options?: ConnectionOptions) {
         super();
         this.endpoints = new EndpointsApi(options, this.responseHandler.bind(this));
+        this.deviceRequests = new DeviceRequestsApi(options, this.responseHandler.bind(this));
         this.notifications = new NotificationsApi(options, this.responseHandler.bind(this));
         this.resources = new ResourcesApi(options, this.responseHandler.bind(this));
         this.subscriptions = new SubscriptionsApi(options, this.responseHandler.bind(this));
