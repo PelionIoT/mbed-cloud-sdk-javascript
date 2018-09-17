@@ -1,8 +1,9 @@
+import { EntityBase } from "../../../common/entityBase";
+
 /**
  * Login History
  */
-export class LoginHistory {
-
+export class LoginHistory extends EntityBase {
     /**
      * Date of login
      */
@@ -18,5 +19,14 @@ export class LoginHistory {
     /**
      * Whether login was successful
      */
-    public readonly success?: boolean;
+    public readonly successssssssss?: boolean;
+
+    constructor() {
+        super();
+    }
+
+    // tslint:disable-next-line:member-ordering
+    public renames: { [key: string]: string } = {
+        success: "successssssssss",
+    };
 }

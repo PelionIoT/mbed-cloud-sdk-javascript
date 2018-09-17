@@ -20,9 +20,10 @@ import superagent = require("superagent");
 
 import { SDKError } from "../../common/sdkError";
 import { Config } from "./config";
+import { EntityBase } from "../common/entityBase";
 
 // tslint:disable-next-line:no-var-requires
-const packageInformation = require("../../package.json");
+const packageInformation = require("../../../package.json");
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 const JSON_REGEX = /^application\/json(;.*)?$/i;
 const MIME_REGEX = /^text\/plain(;.*)?$/i;
@@ -42,14 +43,15 @@ export class SdkApiBase {
      */
     private static normalizeParams(params: any) {
         const newParams = {};
-
-        for (const key in params) {
-            if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {
-                const value = params[key];
-                if (this.isFileParam(value) || Array.isArray(value)) {
-                    newParams[key] = value;
-                } else {
-                    newParams[key] = SdkApiBase.paramToString(value);
+        if (params) {
+            for (const key in params) {
+                if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {
+                    const value = params[key];
+                    if (this.isFileParam(value) || Array.isArray(value)) {
+                        newParams[key] = value;
+                    } else {
+                        newParams[key] = SdkApiBase.paramToString(value);
+                    }
                 }
             }
         }
@@ -132,27 +134,40 @@ export class SdkApiBase {
         }
     }
 
-    // tslint:disable-next-line:member-ordering
-    protected static request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, requestOptions?: { [key: string]: any }, body?: any, file?: boolean, config?: Config }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest {
+    private static buildUrl(url: string, pathParams: { [key: string]: string }): string {
+        if (pathParams) {
+            Object.keys(pathParams).forEach(param => {
+                url = url.replace(`{${param}}`, pathParams[param]);
+            });
+        }
 
-        // Allow overrides
-        const requestOptions = options.requestOptions || {};
-        requestOptions.timeout = requestOptions.timeout || 60000;
-        requestOptions.method = requestOptions.method || options.method;
-        requestOptions.query = requestOptions.query || SdkApiBase.normalizeParams(options.query);
-        requestOptions.headers = requestOptions.headers || SdkApiBase.normalizeParams(options.headers);
-        requestOptions.acceptHeader = requestOptions.acceptHeader || SdkApiBase.chooseType(options.acceptTypes);
-        requestOptions.url = requestOptions.url || options.url.replace(/([:])?\/+/g, ($0, $1) => {
+        return url;
+    }
+
+    // tslint:disable-next-line:member-ordering
+    protected static request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean, config?: Config }, instance: T, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
+
+        const requestOptions: { [key: string]: any } = {};
+        requestOptions.timeout = 60000;
+        requestOptions.method = options.method;
+        requestOptions.query = SdkApiBase.normalizeParams(options.query);
+        requestOptions.headers = SdkApiBase.normalizeParams(options.headers);
+        requestOptions.acceptHeader = SdkApiBase.chooseType(options.acceptTypes);
+        requestOptions.url = this.buildUrl(options.url, options.pathParams).replace(/([:])?\/+/g, ($0, $1) => {
             return $1 ? $0 : "/";
         });
+        requestOptions.formParams = options.formParams || {};
 
-        const request = superagent(requestOptions.method, requestOptions.config.host + requestOptions.url);
+        const request = superagent(requestOptions.method, options.config.host + requestOptions.url);
 
         // set query parameters
         request.query(requestOptions.query);
 
+        let apiKey: string;
+        if (options.config.apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${options.config.apiKey}`;
+
         // set header parameters
-        requestOptions.headers.Authorization = requestOptions.config.apiKey;
+        requestOptions.headers.Authorization = apiKey;
         requestOptions.headers["User-Agent"] = userAgent;
         request.set(requestOptions.headers);
 
@@ -165,9 +180,9 @@ export class SdkApiBase {
         }
 
         let body = null;
-        if (Object.keys(options.formParams).length > 0) {
+        if (Object.keys(requestOptions.formParams).length > 0) {
             if (options.useFormData) {
-                const formParams = SdkApiBase.normalizeParams(options.formParams);
+                const formParams = SdkApiBase.normalizeParams(requestOptions.formParams);
                 for (const key in formParams) {
                     if (formParams.hasOwnProperty(key)) {
                         if (SdkApiBase.isFileParam(formParams[key])) {
@@ -181,7 +196,7 @@ export class SdkApiBase {
             } else {
                 requestOptions.contentType = requestOptions.contentType || "application/x-www-form-urlencoded";
                 request.type(requestOptions.contentType);
-                request.send(SdkApiBase.normalizeParams(options.formParams));
+                request.send(SdkApiBase.normalizeParams(requestOptions.formParams));
             }
         } else if (options.body) {
 
@@ -205,14 +220,14 @@ export class SdkApiBase {
         if (body) SdkApiBase.debugLog("body", body);
 
         request.end((error, response) => {
-            this.complete(error, response, requestOptions.acceptHeader, callback);
+            this.complete(error, response, requestOptions.acceptHeader, options.paginated, instance, callback);
         });
 
         return request;
     }
 
     // tslint:disable-next-line:member-ordering
-    protected static complete(error: any, response: any, acceptHeader: string, callback?: (sdkError: SDKError, data) => any) {
+    protected static complete<T extends EntityBase>(error: any, response: any, acceptHeader: string, paginated: boolean, instance: T, callback?: (sdkError: SDKError, data) => any) {
         let sdkError = null;
 
         if (error) {
@@ -243,10 +258,21 @@ export class SdkApiBase {
             // If an object has been returned and we expected json
             if (data && data.constructor === {}.constructor && JSON_REGEX.test(acceptHeader)) {
                 data = JSON.parse(JSON.stringify(data), (_key, value) => {
-                    // Check for date
+                    // revive a date object
                     if (DATE_REGEX.test(value)) return new Date(value);
                     return value;
                 });
+
+                if (!paginated) {
+                    data = instance._fromApi(instance, data);
+                } else {
+                    const arr: Array<T> = [];
+                    Object.keys(data.data).forEach(d => {
+                        const inst = instance._fromApi(instance, data.data[d]);
+                        arr.push(inst);
+                    });
+                    data.data = arr;
+                }
             }
 
             callback(sdkError, data);

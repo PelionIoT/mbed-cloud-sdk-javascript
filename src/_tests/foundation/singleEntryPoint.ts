@@ -37,23 +37,19 @@ suite("singleEntryPoint", () => {
     });
 
     test("sdk instance", () => {
-        const sdk = new SDK(new Config({ apiKey: "ak_1" }));
+        const sdk = new SDK({ apiKey: "ak_1" });
         assert.strictEqual("ak_1", sdk.getConfig().apiKey);
 
-        // tslint:disable-next-line:no-console
-        console.log(sdk.getConfig());
-
         const user = sdk.entities.User();
-        // tslint:disable-next-line:no-console
-        console.log(user.config);
+
         assert.strictEqual("ak_1", user.config.apiKey);
     });
 
     test("multiple sdk instances", () => {
-        const sdk1 = new SDK(new Config({ apiKey: "ak_1" }));
+        const sdk1 = new SDK({ apiKey: "ak_1" });
         assert.strictEqual("ak_1", sdk1.getConfig().apiKey);
 
-        const sdk2 = new SDK(new Config({ apiKey: "ak_2" }));
+        const sdk2 = new SDK({ apiKey: "ak_2" });
         assert.strictEqual("ak_2", sdk2.getConfig().apiKey);
     });
 

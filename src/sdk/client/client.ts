@@ -1,15 +1,10 @@
 import superagent = require("superagent");
 import { SdkApiBase } from "./sdkApiBase";
+import { Config } from "./config";
+import { EntityBase } from "../common/entityBase";
 
 export class Client extends SdkApiBase {
-    public static CallApi<T>(url?: string, method?: string, headers?: any, query?: any, formParams?: any, body?: T, callback?: (error: any, data?: T, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-
-        // const headerParams: any = {};
-
-        // const queryParameters: any = {};
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+    public static CallApi<T extends EntityBase>(options: { url?: string, method?: Method, pathParams?: ClientParams, headers?: ClientParams, query?: ClientParams, formParams?: ClientParams, body?: any, paginated?: boolean, config?: Config }, instance: T, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
@@ -21,7 +16,11 @@ export class Client extends SdkApiBase {
             "application/json"
         ];
 
-        return this.request<T>({
+        const { url, method, pathParams, headers, query, formParams, body, paginated, config } = options;
+
+        const useFormData = !!formParams;
+
+        return this.request({
             url: url,
             method: method,
             headers: headers,
@@ -30,8 +29,16 @@ export class Client extends SdkApiBase {
             useFormData: useFormData,
             contentTypes: contentTypes,
             acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
             body: body,
-        }, callback);
+            pathParams: pathParams,
+            paginated: paginated || false,
+            config: config
+        }, instance, callback);
     }
 }
+
+export interface ClientParams {
+    [parameter: string]: any;
+}
+
+export type Method = "GET" | "POST" | "PUT" | "DELETE";

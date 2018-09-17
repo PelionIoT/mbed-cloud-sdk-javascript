@@ -1,8 +1,14 @@
 import { Config } from "../client/config";
 import { SDK } from "../sdk";
+import { snakeToCamel } from "../../common/functions";
 
 export class EntityBase {
+    protected readonly _renames: { [key: string]: string };
+
+    protected readonly _foreignKeys: { [key: string]: { [key: string]: any } };
+
     private _config: Config;
+
     /**
      * The id of the entity
      */
@@ -14,5 +20,27 @@ export class EntityBase {
 
     public set config(c: Config) {
         this._config = c;
+    }
+
+    public _fromApi<T extends EntityBase>(instance: T, data: any): T {
+        const renames = this._renames || {};
+        const foreignKeys = this._foreignKeys || {};
+
+        return Object.keys(data).map(key => {
+            const newKey = renames[key] || snakeToCamel(key);
+            if (foreignKeys[newKey]) {
+                const type = foreignKeys[newKey].type;
+                if (foreignKeys[newKey].array === true) {
+                    const arr = [];
+                    Object.keys(data[key]).forEach(k => {
+                        arr.push(type._fromApi(type, data[key][k]));
+                    });
+                    return { [newKey]: arr };
+                } else {
+                    return { [newKey]: foreignKeys[newKey].type._fromApi(type, data) };
+                }
+            }
+            return { [newKey]: data[key] };
+        }).reduce((a, b) => Object.assign(instance, a, b)) as T;
     }
 }

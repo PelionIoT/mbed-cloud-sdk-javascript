@@ -1,9 +1,11 @@
 import { UserStatusEnum } from "./userStatusEnum";
 import { LoginHistory } from "../loginHistory/loginHistory";
-import { asyncStyle } from "../../../../common/functions";
-import { CallbackFn } from "../../../../common/interfaces";
+import { apiWrapper } from "../../../../common/functions";
+import { CallbackFn, ConnectionOptions, ListOptions } from "../../../../common/interfaces";
 import { EntityBase } from "../../../common/entityBase";
 import { Config } from "../../../client/config";
+import { Client } from "../../../client/client";
+import { ListResponse } from "../../../../common/listResponse";
 
 export class User extends EntityBase {
     /**
@@ -79,26 +81,100 @@ export class User extends EntityBase {
      */
     public loginHistory?: Array<LoginHistory>;
 
-    constructor(config?: Config) {
+    constructor(config?: ConnectionOptions | Config) {
         super();
-        if (config) {
+        if (config instanceof Config) {
             this.config = config;
+        } else {
+            this.config = new Config(config);
         }
+    }
+
+    // tslint:disable-next-line:member-ordering
+    public readonly _renames: { [key: string]: string } = {
+        is_totp_enabled: "twoFactorAuthentication",
+        is_gtc_accepted: "termsAccepted",
+        is_marketing_accepted: "marketingAccepted"
+    };
+
+    // tslint:disable-next-line:member-ordering
+    public readonly _foreignKeys: { [key: string]: { [key: string]: EntityBase | boolean } } = {
+        loginHistory: {
+            type: new LoginHistory(),
+            array: true,
+        }
+    };
+
+    /**
+     * List users
+     *
+     * @param options options
+     * @returns Promise of listResponse
+     */
+    public list(options?: ListOptions): Promise<ListResponse<User>>;
+    /**
+     * List users
+     * @param options filter options
+     * @param callback A function that is passed the arguments (error, listResponse)
+     */
+    public list(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): void;
+    public list(options?: any, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        return apiWrapper(resultsFn => {
+            const { limit, after, order, include } = options as ListOptions;
+            Client.CallApi<User>({
+                url: "/v3/users",
+                method: "GET",
+                query: { after, include, order, limit },
+                config: this.config,
+                paginated: true,
+            }, this, resultsFn);
+        }, (data: ListResponse<User>, done) => {
+            done(null, new ListResponse(data, data.data));
+        }, callback);
     }
 
     /**
      * Creates a user
      * @returns Promise containing user
      */
-    public create(): Promise<User>;
+    public create(action?: string): Promise<User>;
     /**
      * Creates a user
      * @param callback A function that is passed the return arguments (error, user)
      */
-    public create(callback: CallbackFn<User>): void;
-    public create(callback?: CallbackFn<User>): Promise<User> {
-        return asyncStyle(_done => {
-            // this._api.updateUser(this, done);
+    public create(action?: string, callback?: CallbackFn<User>): void;
+    public create(action?: string, callback?: CallbackFn<User>): Promise<User> {
+        if (typeof action === "function") {
+            callback = action;
+        }
+
+        return apiWrapper(resultsFn => {
+            const body = {
+                address: this.address,
+                email: this.email,
+                full_name: this.fullName,
+                groups: this.groups,
+                is_marketing_accepted: this.marketingAccepted,
+                password: this.password,
+                phone_number: this.phoneNumber,
+                is_gtc_accepted: this.termsAccepted,
+                username: this.username,
+            };
+
+            Client.CallApi({
+                url: "/v3/users",
+                method: "POST",
+                body: body,
+                config: this.config
+            }, this, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -113,8 +189,15 @@ export class User extends EntityBase {
      */
     public get(callback: CallbackFn<User>): void;
     public get(callback?: CallbackFn<User>): Promise<User> {
-        return asyncStyle(_done => {
-            // this._api.updateUser(this, done);
+        return apiWrapper(resultsFn => {
+            Client.CallApi<User>({
+                url: "/v3/users/{user-id}",
+                method: "GET",
+                pathParams: { "user-id": this.id },
+                config: this.config
+            }, this, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -129,8 +212,27 @@ export class User extends EntityBase {
      */
     public update(callback: CallbackFn<User>): void;
     public update(callback?: CallbackFn<User>): Promise<User> {
-        return asyncStyle(_done => {
-            // this._api.updateUser(this, done);
+        return apiWrapper(resultsFn => {
+            const body = {
+                address: this.address,
+                full_name: this.fullName,
+                groups: this.groups,
+                is_marketing_accepted: this.marketingAccepted,
+                phone_number: this.phoneNumber,
+                is_gtc_accepted: this.termsAccepted,
+                is_totp_enabled: this.twoFactorAuthentication,
+                username: this.username,
+            };
+
+            Client.CallApi({
+                url: "/v3/users/{user-id}",
+                method: "PUT",
+                pathParams: { "user-id": this.id },
+                body: body,
+                config: this.config
+            }, this, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 
@@ -145,8 +247,15 @@ export class User extends EntityBase {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(_done => {
-            // this._api.deleteUser(this.id, done);
+        return apiWrapper(resultsFn => {
+            Client.CallApi<User>({
+                url: "/v3/users/{user-id}",
+                method: "DELETE",
+                pathParams: { "user-id": this.id },
+                config: this.config
+            }, this, resultsFn);
+        }, (data, done) => {
+            done(null, data);
         }, callback);
     }
 }

@@ -1,5 +1,6 @@
 import { Config } from "./client/config";
-import { Factory } from "./generatedPOC/accounts/factory";
+import { Factory } from "./generatedPOC/factory";
+import { ConnectionOptions } from "../common/interfaces";
 
 export class SDK {
     private static _config: Config;
@@ -8,9 +9,13 @@ export class SDK {
 
     public entities: Factory;
 
-    constructor(config?: Config) {
+    constructor(config?: Config | ConnectionOptions) {
         if (config) {
-            this._instanceConfig = config;
+            if (config instanceof Config) {
+                this._instanceConfig = config;
+            } else {
+                this._instanceConfig = new Config(config);
+            }
         }
 
         this.entities = new Factory(this.getConfig());

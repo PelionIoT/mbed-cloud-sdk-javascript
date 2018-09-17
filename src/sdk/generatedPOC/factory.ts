@@ -1,5 +1,5 @@
-import { Config } from "../../client/config";
-import { User } from "./user/user";
+import { Config } from "../client/config";
+import { User } from "./accounts/user/user";
 
 export class Factory {
     private readonly _config: Config;
