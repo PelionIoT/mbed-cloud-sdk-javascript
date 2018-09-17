@@ -7,22 +7,17 @@ export class LoginHistory extends EntityBase {
     /**
      * Date of login
      */
-    public readonly date?: Date;
+    public date?: Date;
     /**
      * User agent used for login
      */
-    public readonly userAgent?: string;
+    public userAgent?: string;
     /**
      * IP Address login from
      */
-    public readonly ipAddress?: string;
+    public ipAddress?: string;
     /**
      * Whether login was successful
      */
-    public readonly successssssssss?: boolean;
-
-    // tslint:disable-next-line:member-ordering
-    public renames: { [key: string]: string } = {
-        success: "successssssssss",
-    };
+    public success?: boolean;
 }

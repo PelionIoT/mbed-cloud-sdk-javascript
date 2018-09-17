@@ -1,31 +1,41 @@
 import { EntityBase } from "../../../common/entityBase";
-import { ListOptions, CallbackFn } from "../../../../common/interfaces";
+import { ListOptions, CallbackFn, ConnectionOptions } from "../../../../common/interfaces";
 import { ListResponse } from "../../../../common/listResponse";
 import { User } from "../user/user";
 import { apiWrapper } from "../../../../common/functions";
 import { Client } from "../../../client/client";
+import { Config } from "../../../client/config";
 
 export class PolicyGroup extends EntityBase {
     /**
      * The UUID of the account this group belongs to.
      */
-    public readonly accountId: string;
+    public accountId: string;
     /**
      * The name of the group.
      */
-    public readonly name: string;
+    public name: string;
     /**
      * The number of users in this group.
      */
-    public readonly userCount: number;
+    public userCount: number;
     /**
      * The number of API keys in this group.
      */
-    public readonly apiKeyCount: number;
+    public apiKeyCount: number;
     /**
      * Creation time.
      */
-    public readonly createdAt?: Date;
+    public createdAt?: Date;
+
+    constructor(config?: ConnectionOptions | Config) {
+        super();
+        if (config instanceof Config) {
+            this.config = config;
+        } else {
+            this.config = new Config(config);
+        }
+    }
 
     /**
      * List groups

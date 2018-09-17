@@ -13,7 +13,5 @@ export class Config {
         if (dotenv && typeof dotenv.config === "function") dotenv.config();
         this.apiKey = options.apiKey || (process && process.env[this.ENV_API_KEY]) || "default";
         this.host = options.host || (process && process.env[this.ENV_HOST]) || "https://api.us-east-1.mbedcloud.com";
-        // if (!this.apiKey) throw new SDKError("no api key provided");
-        // if (this.apiKey.substr(0, 6).toLowerCase() !== "bearer") this.apiKey = `Bearer ${this.apiKey}`;
     }
 }

@@ -5,13 +5,9 @@ import { EntityBase } from "../common/entityBase";
 
 export class Client extends SdkApiBase {
     public static CallApi<T extends EntityBase>(options: { url?: string, method?: Method, pathParams?: ClientParams, headers?: ClientParams, query?: ClientParams, formParams?: ClientParams, body?: any, paginated?: boolean, config?: Config }, instance: T, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-
-        // Determine the Content-Type header
         const contentTypes: Array<string> = [
             "application/json"
         ];
-
-        // Determine the Accept header
         const acceptTypes: Array<string> = [
             "application/json"
         ];

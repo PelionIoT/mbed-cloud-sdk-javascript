@@ -144,7 +144,6 @@ export class SdkApiBase {
         return url;
     }
 
-    // tslint:disable-next-line:member-ordering
     protected static request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean, config?: Config }, instance: T, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
 
         const requestOptions: { [key: string]: any } = {};
@@ -226,7 +225,6 @@ export class SdkApiBase {
         return request;
     }
 
-    // tslint:disable-next-line:member-ordering
     protected static complete<T extends EntityBase>(error: any, response: any, acceptHeader: string, paginated: boolean, instance: T, callback?: (sdkError: SDKError, data) => any) {
         let sdkError = null;
 
