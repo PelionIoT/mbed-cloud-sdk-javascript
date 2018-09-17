@@ -7,6 +7,7 @@ import { Config } from "../../../client/config";
 import { Client } from "../../../client/client";
 import { ListResponse } from "../../../../common/listResponse";
 import { PolicyGroup } from "../policyGroup/policyGroup";
+import { Paginator } from "../../../../common/pagination";
 
 export class User extends EntityBase {
     public readonly _renames: { [key: string]: string } = {
@@ -107,36 +108,26 @@ export class User extends EntityBase {
 
     /**
      * List users
-     *
-     * @param options options
-     * @returns Promise of listResponse
-     */
-    public list(options?: ListOptions): Promise<ListResponse<User>>;
-    /**
-     * List users
      * @param options filter options
-     * @param callback A function that is passed the arguments (error, listResponse)
      */
-    public list(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): void;
-    public list(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
+    public list(options?: ListOptions): Paginator<User, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client.CallApi<User>({
+                    url: "/v3/users",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    config: this.config,
+                    paginated: true,
+                }, this, resultsFn);
+            }, (data: ListResponse<User>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
 
-        return apiWrapper(resultsFn => {
-            const { limit, after, order, include } = options as ListOptions;
-            Client.CallApi<User>({
-                url: "/v3/users",
-                method: "GET",
-                query: { after, include, order, limit },
-                config: this.config,
-                paginated: true,
-            }, this, resultsFn);
-        }, (data: ListResponse<User>, done) => {
-            done(null, new ListResponse(data, data.data));
-        }, callback);
+        const maxSize = options ? options.maxSize || options.limit || 50 : 50;
+        return new Paginator(pageFunc, maxSize, options);
     }
 
     /**
@@ -145,33 +136,25 @@ export class User extends EntityBase {
      * @param options options
      * @returns Promise of listResponse
      */
-    public groups(options?: ListOptions): Promise<ListResponse<PolicyGroup>>;
-    /**
-     * List users
-     * @param options filter options
-     * @param callback A function that is passed the arguments (error, listResponse)
-     */
-    public groups(options?: ListOptions, callback?: CallbackFn<ListResponse<PolicyGroup>>): void;
-    public groups(options?: ListOptions, callback?: CallbackFn<ListResponse<PolicyGroup>>): Promise<ListResponse<PolicyGroup>> {
-        options = options || {};
-        if (typeof options === "function") {
-            callback = options;
-            options = {};
-        }
+    public groups(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client.CallApi<PolicyGroup>({
+                    url: "/v3/users/{user-id}/groups",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    pathParams: { "user-id": this.id },
+                    config: this.config,
+                    paginated: true,
+                }, new PolicyGroup(), resultsFn);
+            }, (data: ListResponse<PolicyGroup>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
 
-        return apiWrapper(resultsFn => {
-            const { limit, after, order, include } = options as ListOptions;
-            Client.CallApi<PolicyGroup>({
-                url: "/v3/users/{user-id}/groups",
-                method: "GET",
-                query: { after, include, order, limit },
-                pathParams: { "user-id": this.id },
-                config: this.config,
-                paginated: true,
-            }, new PolicyGroup(), resultsFn);
-        }, (data: ListResponse<PolicyGroup>, done) => {
-            done(null, new ListResponse(data, data.data));
-        }, callback);
+        const maxSize = options ? options.maxSize || options.limit || 50 : 50;
+        return new Paginator(pageFunc, maxSize, options);
     }
 
     /**

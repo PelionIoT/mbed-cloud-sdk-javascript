@@ -54,10 +54,8 @@ suite("userCrud", () => {
         const user = new User();
 
         return user.list()
-            .then(users => {
-
-                const first = users.data[0];
-
+            .first()
+            .then(first => {
                 assert.instanceOf(first, User);
             })
             .catch(e => {
@@ -72,25 +70,25 @@ suite("userCrud", () => {
             .then(_ => {
                 const group = new PolicyGroup();
 
-                return group.list();
+                return group.list().all();
             })
             .then(groups => {
                 const user = new User();
 
                 return user.list()
-                    .then(users => {
-                        const first = users.data[0];
-                        const groupId = groups.data[0].id;
+                    .first()
+                    .then(first => {
+                        const groupId = groups[0].id;
                         if (first.groupIds.indexOf(groupId) === -1) {
-                            first.groupIds.push(groups.data[0].id);
+                            first.groupIds.push(groupId);
                         }
                         return first.update();
                     });
             })
             .then(user => {
-                return user.groups();
+                return user.groups().all();
             }).then(groups => {
-                const firstGroup = groups.data[0];
+                const firstGroup = groups[0];
 
                 assert.instanceOf(firstGroup, PolicyGroup);
             })

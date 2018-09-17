@@ -58,7 +58,7 @@ export class Paginator<T, U extends ListOptions> {
      * @param options List options
      */
     constructor(getPage: (options: U) => Promise<ListResponse<T>>, public maxResults?: number | null, options?: U) {
-        this.listOptions = Object.create(options);
+        this.listOptions = Object.create(options || null);
         const pageSizeParameterName = "pageSize";
         if (pageSizeParameterName in this.listOptions) {
             this.listOptions.limit = this.listOptions[pageSizeParameterName];
