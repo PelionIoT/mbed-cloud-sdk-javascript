@@ -21,10 +21,6 @@ export class LoginHistory extends EntityBase {
      */
     public readonly successssssssss?: boolean;
 
-    constructor() {
-        super();
-    }
-
     // tslint:disable-next-line:member-ordering
     public renames: { [key: string]: string } = {
         success: "successssssssss",

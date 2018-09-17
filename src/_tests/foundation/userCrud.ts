@@ -1,4 +1,4 @@
-import { User, LoginHistory } from "../../sdk/entities";
+import { User, LoginHistory, PolicyGroup } from "../../sdk/entities";
 import { Config } from "../../sdk/client/config";
 import { AccountManagementApi } from "../../accountManagement/accountManagementApi";
 
@@ -46,20 +46,58 @@ suite("userCrud", () => {
             .catch(e => {
                 // tslint:disable-next-line:no-console
                 console.log(e);
+                throw e;
             });
     });
 
     test("user list", () => {
         const user = new User();
 
-        user.list()
+        return user.list()
             .then(users => {
-                // tslint:disable-next-line:no-console
-                console.log(users);
 
                 const first = users.data[0];
 
                 assert.instanceOf(first, User);
+            })
+            .catch(e => {
+                // tslint:disable-next-line:no-console
+                console.log(e);
+                throw e;
+            });
+    });
+
+    test("user list foreignKey", () => {
+        return Promise.resolve()
+            .then(_ => {
+                const group = new PolicyGroup();
+
+                return group.list();
+            })
+            .then(groups => {
+                const user = new User();
+
+                return user.list()
+                    .then(users => {
+                        const first = users.data[0];
+                        const groupId = groups.data[0].id;
+                        if (first.groupIds.indexOf(groupId) === -1) {
+                            first.groupIds.push(groups.data[0].id);
+                        }
+                        return first.update();
+                    });
+            })
+            .then(user => {
+                return user.groups();
+            }).then(groups => {
+                const firstGroup = groups.data[0];
+
+                assert.instanceOf(firstGroup, PolicyGroup);
+            })
+            .catch(e => {
+                // tslint:disable-next-line:no-console
+                console.log(e);
+                throw e;
             });
     });
 
@@ -88,6 +126,7 @@ suite("userCrud", () => {
             .catch(e => {
                 // tslint:disable-next-line:no-console
                 console.log(e);
+                throw e;
             });
     });
 });

@@ -28,9 +28,11 @@ export class EntityBase {
 
         return Object.keys(data).map(key => {
             const newKey = renames[key] || snakeToCamel(key);
+            // check if key has type in foreignKey dict
             if (foreignKeys[newKey]) {
                 const type = foreignKeys[newKey].type;
                 if (foreignKeys[newKey].array === true) {
+                    // populate list of foreign keys
                     const arr = [];
                     Object.keys(data[key]).forEach(k => {
                         arr.push(type._fromApi(type, data[key][k]));

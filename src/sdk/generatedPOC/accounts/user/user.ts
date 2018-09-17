@@ -6,8 +6,23 @@ import { EntityBase } from "../../../common/entityBase";
 import { Config } from "../../../client/config";
 import { Client } from "../../../client/client";
 import { ListResponse } from "../../../../common/listResponse";
+import { PolicyGroup } from "../policyGroup/policyGroup";
 
 export class User extends EntityBase {
+    public readonly _renames: { [key: string]: string } = {
+        is_totp_enabled: "twoFactorAuthentication",
+        is_gtc_accepted: "termsAccepted",
+        is_marketing_accepted: "marketingAccepted",
+        groups: "groupIds",
+    };
+
+    public readonly _foreignKeys: { [key: string]: { [key: string]: EntityBase | boolean } } = {
+        loginHistory: {
+            type: new LoginHistory(),
+            array: true,
+        }
+    };
+
     /**
      * The email address.
      */
@@ -43,7 +58,7 @@ export class User extends EntityBase {
     /**
      * A list of group IDs this user belongs to.
      */
-    public groups?: Array<string>;
+    public groupIds?: Array<string>;
     /**
      * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
      */
@@ -90,21 +105,6 @@ export class User extends EntityBase {
         }
     }
 
-    // tslint:disable-next-line:member-ordering
-    public readonly _renames: { [key: string]: string } = {
-        is_totp_enabled: "twoFactorAuthentication",
-        is_gtc_accepted: "termsAccepted",
-        is_marketing_accepted: "marketingAccepted"
-    };
-
-    // tslint:disable-next-line:member-ordering
-    public readonly _foreignKeys: { [key: string]: { [key: string]: EntityBase | boolean } } = {
-        loginHistory: {
-            type: new LoginHistory(),
-            array: true,
-        }
-    };
-
     /**
      * List users
      *
@@ -118,7 +118,7 @@ export class User extends EntityBase {
      * @param callback A function that is passed the arguments (error, listResponse)
      */
     public list(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): void;
-    public list(options?: any, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
+    public list(options?: ListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
@@ -135,6 +135,41 @@ export class User extends EntityBase {
                 paginated: true,
             }, this, resultsFn);
         }, (data: ListResponse<User>, done) => {
+            done(null, new ListResponse(data, data.data));
+        }, callback);
+    }
+
+    /**
+     * List users groups
+     *
+     * @param options options
+     * @returns Promise of listResponse
+     */
+    public groups(options?: ListOptions): Promise<ListResponse<PolicyGroup>>;
+    /**
+     * List users
+     * @param options filter options
+     * @param callback A function that is passed the arguments (error, listResponse)
+     */
+    public groups(options?: ListOptions, callback?: CallbackFn<ListResponse<PolicyGroup>>): void;
+    public groups(options?: ListOptions, callback?: CallbackFn<ListResponse<PolicyGroup>>): Promise<ListResponse<PolicyGroup>> {
+        options = options || {};
+        if (typeof options === "function") {
+            callback = options;
+            options = {};
+        }
+
+        return apiWrapper(resultsFn => {
+            const { limit, after, order, include } = options as ListOptions;
+            Client.CallApi<PolicyGroup>({
+                url: "/v3/users/{user-id}/groups",
+                method: "GET",
+                query: { after, include, order, limit },
+                pathParams: { "user-id": this.id },
+                config: this.config,
+                paginated: true,
+            }, new PolicyGroup(), resultsFn);
+        }, (data: ListResponse<PolicyGroup>, done) => {
             done(null, new ListResponse(data, data.data));
         }, callback);
     }
@@ -159,7 +194,7 @@ export class User extends EntityBase {
                 address: this.address,
                 email: this.email,
                 full_name: this.fullName,
-                groups: this.groups,
+                groups: this.groupIds,
                 is_marketing_accepted: this.marketingAccepted,
                 password: this.password,
                 phone_number: this.phoneNumber,
@@ -216,7 +251,7 @@ export class User extends EntityBase {
             const body = {
                 address: this.address,
                 full_name: this.fullName,
-                groups: this.groups,
+                groups: this.groupIds,
                 is_marketing_accepted: this.marketingAccepted,
                 phone_number: this.phoneNumber,
                 is_gtc_accepted: this.termsAccepted,
