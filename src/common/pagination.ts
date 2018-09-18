@@ -51,13 +51,17 @@ export class Paginator<T, U extends ListOptions> {
     private hasBrowsedFullCollection: boolean;
     private currentElementIndex: number;
     private collectionTotalCount: number;
+
+    public maxResults?: number;
+
     /**
      * Constructor
      * @param getPage Method returning a page of results ([ListResponse](./listresponse.html))
      * @param maxResults The maximum number of results to return
      * @param options List options
      */
-    constructor(getPage: (options: U) => Promise<ListResponse<T>>, public maxResults?: number | null, options?: U) {
+    constructor(getPage: (options: U) => Promise<ListResponse<T>>, options?: U) {
+        this.maxResults = options ? options.maxSize || options.limit || 50 : 50;
         this.listOptions = Object.create(options || null);
         const pageSizeParameterName = "pageSize";
         if (pageSizeParameterName in this.listOptions) {

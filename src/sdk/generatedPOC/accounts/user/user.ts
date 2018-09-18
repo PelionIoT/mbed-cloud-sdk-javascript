@@ -126,8 +126,7 @@ export class User extends EntityBase {
             });
         };
 
-        const maxSize = options ? options.maxSize || options.limit || 50 : 50;
-        return new Paginator(pageFunc, maxSize, options);
+        return new Paginator(pageFunc, options);
     }
 
     /**
@@ -153,8 +152,7 @@ export class User extends EntityBase {
             });
         };
 
-        const maxSize = options ? options.maxSize || options.limit || 50 : 50;
-        return new Paginator(pageFunc, maxSize, options);
+        return new Paginator(pageFunc, options);
     }
 
     /**
