@@ -110,7 +110,7 @@ export class Paginator<T, U extends ListOptions> {
         if (this.hasNewPage()) {
             this.currentElementIndex = -1;
             const after: string = this.currentPageIndex < 0 ? null : this.fetchNextPageCursor(this.currentPageData);
-            const newPageOptions: U = Object.create(this.listOptions);
+            const newPageOptions: U = Object.create(this.listOptions || null);
             newPageOptions.after = after;
             const newPage = this.pageRequester(newPageOptions);
             return newPage.then(page => { this.setCurrentPage(page); return page; }).then(page => {
@@ -136,7 +136,7 @@ export class Paginator<T, U extends ListOptions> {
             this.collectionTotalCount = this.currentPageData.totalCount;
             return Promise.resolve(this.collectionTotalCount);
         } else {
-            const newPageOptions: U = Object.create(this.listOptions);
+            const newPageOptions: U = Object.create(this.listOptions || null);
             if (newPageOptions.include) {
                 newPageOptions.include.push("totalCount");
             } else {

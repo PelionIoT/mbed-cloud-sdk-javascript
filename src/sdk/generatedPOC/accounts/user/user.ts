@@ -1,4 +1,4 @@
-import { UserStatusEnum } from "./userStatusEnum";
+import { UserStatusEnum } from "../../enums";
 import { LoginHistory } from "../loginHistory/loginHistory";
 import { apiWrapper } from "../../../../common/functions";
 import { CallbackFn, ConnectionOptions, ListOptions } from "../../../../common/interfaces";
