@@ -1,7 +1,7 @@
 import { UserStatusEnum } from "../../enums";
 import { LoginHistory } from "../loginHistory/loginHistory";
 import { apiWrapper } from "../../../../common/functions";
-import { CallbackFn, ConnectionOptions, ListOptions } from "../../../../common/interfaces";
+import { ConnectionOptions, ListOptions } from "../../../../common/interfaces";
 import { EntityBase } from "../../../common/entityBase";
 import { Config } from "../../../client/config";
 import { Client } from "../../../client/client";
@@ -17,9 +17,9 @@ export class User extends EntityBase {
         groups: "groupIds",
     };
 
-    public readonly _foreignKeys: { [key: string]: { [key: string]: EntityBase | boolean } } = {
+    public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
         loginHistory: {
-            type: new LoginHistory(),
+            type: LoginHistory,
             array: true,
         }
     };
@@ -159,17 +159,7 @@ export class User extends EntityBase {
      * Creates a user
      * @returns Promise containing user
      */
-    public create(action?: string): Promise<User>;
-    /**
-     * Creates a user
-     * @param callback A function that is passed the return arguments (error, user)
-     */
-    public create(action?: string, callback?: CallbackFn<User>): void;
-    public create(action?: string, callback?: CallbackFn<User>): Promise<User> {
-        if (typeof action === "function") {
-            callback = action;
-        }
-
+    public create(action?: string): Promise<User> {
         return apiWrapper(resultsFn => {
             const body = {
                 address: this.address,
@@ -186,25 +176,20 @@ export class User extends EntityBase {
             Client.CallApi({
                 url: "/v3/users",
                 method: "POST",
+                query: { action: action },
                 body: body,
                 config: this.config
             }, this, resultsFn);
         }, (data, done) => {
             done(null, data);
-        }, callback);
+        });
     }
 
     /**
      * Gets a user
      * @returns Promise containing user
      */
-    public get(): Promise<User>;
-    /**
-     * Gets a user
-     * @param callback A function that is passed the return arguments (error, user)
-     */
-    public get(callback: CallbackFn<User>): void;
-    public get(callback?: CallbackFn<User>): Promise<User> {
+    public get(): Promise<User> {
         return apiWrapper(resultsFn => {
             Client.CallApi<User>({
                 url: "/v3/users/{user-id}",
@@ -214,20 +199,14 @@ export class User extends EntityBase {
             }, this, resultsFn);
         }, (data, done) => {
             done(null, data);
-        }, callback);
+        });
     }
 
     /**
      * Updates the user
      * @returns Promise containing user
      */
-    public update(): Promise<User>;
-    /**
-     * Updates the user
-     * @param callback A function that is passed the return arguments (error, user)
-     */
-    public update(callback: CallbackFn<User>): void;
-    public update(callback?: CallbackFn<User>): Promise<User> {
+    public update(): Promise<User> {
         return apiWrapper(resultsFn => {
             const body = {
                 address: this.address,
@@ -249,20 +228,14 @@ export class User extends EntityBase {
             }, this, resultsFn);
         }, (data, done) => {
             done(null, data);
-        }, callback);
+        });
     }
 
     /**
      * Delete the user
      * @returns Promise containing any error
      */
-    public delete(): Promise<void>;
-    /**
-     * Delete the user
-     * @param callback A function that is passed any error
-     */
-    public delete(callback: CallbackFn<void>): void;
-    public delete(callback?: CallbackFn<void>): Promise<void> {
+    public delete(): Promise<User> {
         return apiWrapper(resultsFn => {
             Client.CallApi<User>({
                 url: "/v3/users/{user-id}",
@@ -270,8 +243,8 @@ export class User extends EntityBase {
                 pathParams: { "user-id": this.id },
                 config: this.config
             }, this, resultsFn);
-        }, (data, done) => {
+        }, (data: User, done) => {
             done(null, data);
-        }, callback);
+        });
     }
 }

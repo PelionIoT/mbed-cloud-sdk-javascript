@@ -1,20 +1,67 @@
 import { EntityBase } from "../../../common/entityBase";
-import { CallbackFn, ConnectionOptions, ListOptions } from "../../../../common/interfaces";
+import { ConnectionOptions, ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
-
+import { apiWrapper } from "../../../../common/functions";
+import { Client } from "../../../client/client";
 export class <%= entity._key.pascal %> extends EntityBase {
-
-    // private renames/foreignKeys
-
-    constructor(config?: ConnectionOptions | Config) {
-        super();
-        if (config instanceof Config) {
-            this.config = config;
-        } else {
-            this.config = new Config(config);
+public readonly _renames: { [key: string]: string } = {
+<% entity.field_renames.forEach(function(rename){ %>
+    <%= rename.api_fieldname %>: "<%= rename._key.lower_camel %>",
+<% }); %>
+};
+public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
+<% foreignKeyTypes.forEach(function(f) { %>
+    <%= f %>: {
+    type: <%= f %>,
+    array: true,
+<% }); %>
+}
+};
+<% entity.fields.forEach(function(field) { %>
+    <% if (field._key.name !== "id") {%>
+        /**
+        * Gets a user
+        * @returns Promise containing user
+        */
+        public <%= field._key.lower_camel %>?: <%- types[field._key.lower_camel]%>;
+    <% } %>
+<%});%>
+constructor(config?: ConnectionOptions | Config) {
+super();
+if (config instanceof Config) {
+this.config = config;
+} else {
+this.config = new Config(config);
+}
+}
+<% methods.forEach(function(method) { %>
+    <% if (method.paginated) { %>
+    <% } else { %>
+        /**
+        * Gets a user
+        * @returns Promise containing user
+        */
+        public <%= method.methodName %>(<% method.methodParams.forEach(function(param, i) {%><%= param.key %><% if (!param.required) { %>?<% } %>: <%= param.type %><% if (i < method.methodParams.length - 1) { %>,<% } %><% }); %>): Promise<<%= method.returns %>> {
+        return apiWrapper(resultsFn => {
+        Client.CallApi<<%= method.returns %>>({
+        url: "<%= method.path %>",
+        method: "<%= method.httpMethod %>",
+        <% if (Object.keys(method.queryParams).length > 0) { %>
+            query: {
+            <% for (var key in method.queryParams){%>
+                "<%= key %>":
+                <% if (!method.queryParams[key].external) { %>
+                    this.
+                <% } %>
+                <%= method.queryParams[key].key %>,
+            <% } %> },
+        <% } %>
+        config: this.config,
+        }, this, resultsFn);
+        }, (data, done) => {
+        done(null, data);
+        });
         }
-    }
-
-    // methods
-
+    <% } %>
+<% }); %>
 }

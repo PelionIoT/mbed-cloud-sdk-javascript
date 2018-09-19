@@ -30,7 +30,7 @@
     "test": "intern",
     "build-test-server": "node tests/build.js && tsc -p tests && cp intern.json ./tests/server/ && cp package.json ./tests/server/",
     "start-test-server": "node tests/server/tests/codeCoverage.js",
-    "generate": "node generator/build.js"
+    "generate": "node generator/build.js && tsfmt -r ./src/sdk/generated/**/**/*.ts ./src/sdk/generated/*.ts && tslint --fix -c tslint.json 'src/**/.ts'"
   },
   "devDependencies": {
     "@types/express": "^4.0.37",

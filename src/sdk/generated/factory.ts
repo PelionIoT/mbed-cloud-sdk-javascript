@@ -14,7 +14,6 @@ import { SubtenantAccount } from "./accounts/subtenantAccount/subtenantAccount";
 
 import { User } from "./accounts/user/user";
 
-
 export class Factory {
     private readonly _config: Config;
 

@@ -22,6 +22,10 @@ export class EntityBase {
         this._config = c;
     }
 
+    public activator<T extends EntityBase>(type: { new(): T; }): T {
+        return new type();
+    }
+
     public _fromApi<T extends EntityBase>(instance: T, data: any): T {
         const renames = this._renames || {};
         const foreignKeys = this._foreignKeys || {};
@@ -30,7 +34,7 @@ export class EntityBase {
             const newKey = renames[key] || snakeToCamel(key);
             // check if key has type in foreignKey dict
             if (foreignKeys[newKey]) {
-                const type = foreignKeys[newKey].type;
+                const type = this.activator(foreignKeys[newKey].type);
                 if (foreignKeys[newKey].array === true) {
                     // populate list of foreign keys
                     const arr = [];
