@@ -1,5 +1,3 @@
-import { ConnectApi } from "../../src/connect/connectApi";
-
 /*
 * Mbed Cloud JavaScript SDK
 * Copyright Arm Limited 2017
@@ -17,10 +15,11 @@ import { ConnectApi } from "../../src/connect/connectApi";
 * limitations under the License.
 */
 
+import { ConnectApi } from "../../connect/connectApi";
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
-suite("connectSnippet", () => {
+suite("connectSnippet[skipci]", () => {
 
     test("subscribeToDeviceState", () => {
         // an example: subscribing to device state changes
@@ -30,10 +29,11 @@ suite("connectSnippet", () => {
 
         const observer = connect.subscribe.deviceStateChanges({ event: "registration" });
 
-        observer.addListener(res => {
+        observer.addListener(_res => {
             // do something here
         });
         // end of example
+        assert.isOk(true);
     });
 
     test("subscribeToResourceValueChanges", () => {
@@ -44,7 +44,7 @@ suite("connectSnippet", () => {
 
         const observer = connect.subscribe.resourceValues({ deviceId: "016*", resourcePaths: [ "/3/0/*" ] });
 
-        observer.addListener(res => {
+        observer.addListener(_res => {
             // do something here
         });
         // end of example

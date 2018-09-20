@@ -1,5 +1,3 @@
-import { DeviceDirectoryApi } from "../../src/deviceDirectory/deviceDirectoryApi";
-
 /*
 * Mbed Cloud JavaScript SDK
 * Copyright Arm Limited 2017
@@ -17,10 +15,11 @@ import { DeviceDirectoryApi } from "../../src/deviceDirectory/deviceDirectoryApi
 * limitations under the License.
 */
 
+import { DeviceDirectoryApi } from "../../deviceDirectory/deviceDirectoryApi";
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
-suite("deviceDirectorySnippet", () => {
+suite("deviceDirectorySnippet[skipci]", () => {
 
     test("listDevices", () => {
         // an example: list devices in Mbed Cloud
@@ -32,11 +31,12 @@ suite("deviceDirectorySnippet", () => {
 
         devices.then(d => {
             d.data.map(item => `${item.id} [${item.state}]`)
-                .forEach(f => {
+                .forEach(_ => {
                     // do something here
                 });
         });
         // end of example
+        assert.isOk(true);
     });
 
     test("listDevicesWithFilters", () => {
@@ -49,7 +49,7 @@ suite("deviceDirectorySnippet", () => {
 
         devices.then(d => {
             d.data.map(item => `${item.id} [${item.state}]`)
-                .forEach(f => {
+                .forEach(_ => {
                     // do something here
                 });
         });

@@ -168,7 +168,7 @@ jobs:
           command: sudo npm install -g codecov ansi-html-stream --unsafe-perm
       - run:
           name: Run the tests
-          command: set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
+          command: set -o pipefail && npm run testci 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
       - store_artifacts:
           path: unit_tests.html
       - persist_to_workspace:

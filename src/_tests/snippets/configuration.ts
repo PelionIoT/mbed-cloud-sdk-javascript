@@ -1,5 +1,3 @@
-import { DeviceDirectoryApi } from "../../src/deviceDirectory/deviceDirectoryApi";
-
 /*
 * Mbed Cloud JavaScript SDK
 * Copyright Arm Limited 2017
@@ -17,10 +15,11 @@ import { DeviceDirectoryApi } from "../../src/deviceDirectory/deviceDirectoryApi
 * limitations under the License.
 */
 
+import { DeviceDirectoryApi } from "../../deviceDirectory/deviceDirectoryApi";
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
-suite("configurationSnippet", () => {
+suite("configurationSnippet[skipci]", () => {
 
     test("configureSDK", () => {
         // an example: configuring the SDK
@@ -28,5 +27,6 @@ suite("configurationSnippet", () => {
 
         const deviceDirectory = new DeviceDirectoryApi(config);
         // end of example
+        assert.isOk(deviceDirectory);
     });
 });
