@@ -33,6 +33,16 @@ import { ApiMetadata } from "../common/apiMetadata";
 /**
  * ## Account Management API
  *
+ * The API can be initalized with a .env file in the wroking directory with the following values
+ *
+ * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+ *
+ * and optionally
+ *
+ * MBED_CLOUD_SDK_HOST=<your host> (defaults to https://api.us-east-1.mbedcloud.com)
+ *
+ * OR
+ *
  * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
  *
  * To create an instance of this API in [Node.js](https://nodejs.org):
@@ -40,9 +50,7 @@ import { ApiMetadata } from "../common/apiMetadata";
  * ```JavaScript
  * var MbedCloudSDK = require("mbed-cloud-sdk");
  *
- * var accounts = new MbedCloudSDK.AccountManagementApi({
- *     apiKey: "<Mbed Cloud API Key>"
- * });
+ * var accounts = new MbedCloudSDK.AccountManagementApi();
  * ```
  *
  * To create an instance of this API in the browser:
@@ -64,7 +72,7 @@ export class AccountManagementApi {
     /**
      * @param options connection options
      */
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         this._endpoints = new Endpoints(options);
     }
 

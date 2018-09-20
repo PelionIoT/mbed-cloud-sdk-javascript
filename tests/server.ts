@@ -22,8 +22,8 @@ const moduleIdParam: string = "moduleId";
 const instanceIdParam: string = "instanceId";
 const methodIdParam: string = "methodId";
 
-const apiKeyEnv: string = "MBED_CLOUD_API_KEY";
-const hostEnv: string = "MBED_CLOUD_HOST";
+const apiKeyEnv: string = "MBED_CLOUD_SDK_API_KEY";
+const hostEnv: string = "MBED_CLOUD_SDK_HOST";
 
 const port: number = 5000;
 

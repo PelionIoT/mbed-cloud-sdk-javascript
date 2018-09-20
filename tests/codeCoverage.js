@@ -19,6 +19,10 @@ var projectRootSrc = path.join(projectRoot, "./src");
 var coverageDir = path.join(projectRoot, "coverage");
 var coverageFile = path.join(coverageDir, "int_coverage.json");
 
+if (!fs.existsSync(coverageDir)) {
+    fs.mkdirSync(coverageDir);
+}
+
 var reporter = new nyc({
     tempDirectory: coverageDir,
     reportDir: path.join(projectRoot, "reports"),

@@ -36,11 +36,22 @@ import { MetricAdapter } from "./models/metricAdapter";
 import { ApiMetadata } from "../common/apiMetadata";
 import { DeviceListOptions } from "../deviceDirectory/types";
 import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
+import { generateId } from "../common/idGenerator";
 import { executeForAll } from "../common/pagination";
 import { Subscribe } from "../subscribe/subscribe";
 
 /**
  * ## Connect API
+ *
+ * The API can be initalized with a .env file in the working directory with the following values
+ *
+ * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+ *
+ * and optionally
+ *
+ * MBED_CLOUD_SDK_HOST=<your host> (defaults to https://api.us-east-1.mbedcloud.com)
+ *
+ * OR
  *
  * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
  *
@@ -77,43 +88,42 @@ import { Subscribe } from "../subscribe/subscribe";
  * The `webhook` and `pull-notifications` examples show how this can be done.
  */
 export class ConnectApi extends EventEmitter {
-
     /**
      * Resource notification event
      * @event
      */
-    public static EVENT_NOTIFICATION: string = "notification";
+    public static readonly EVENT_NOTIFICATION: string = "notification";
 
     /**
      * List of new devices that have registered (with resources)
      * @event
      */
-    public static EVENT_REGISTRATION: string = "registration";
+    public static readonly EVENT_REGISTRATION: string = "registration";
 
     /**
      * List of devices that have updated registration
      * @event
      */
-    public static EVENT_REREGISTRATION: string = "reregistration";
+    public static readonly EVENT_REREGISTRATION: string = "reregistration";
 
     /**
      * List of devices that were removed in a controlled manner
      * @event
      */
-    public static EVENT_DEREGISTRATION: string = "deregistration";
+    public static readonly EVENT_DEREGISTRATION: string = "deregistration";
 
     /**
      * List of devices that were removed because the registration has expired
      * @event
      */
-    public static EVENT_EXPIRED: string = "expired";
+    public static readonly EVENT_EXPIRED: string = "expired";
+
+    private static readonly ASYNC_KEY = "async-response-id";
 
     /**
      * Gives you access to the subscribe manager
      */
     public subscribe: Subscribe;
-
-    private readonly ASYNC_KEY = "async-response-id";
 
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
@@ -139,7 +149,7 @@ export class ConnectApi extends EventEmitter {
     /**
      * @param options connection objects
      */
-    constructor(options: ConnectOptions) {
+    constructor(options?: ConnectOptions) {
         super();
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
@@ -156,14 +166,10 @@ export class ConnectApi extends EventEmitter {
     }
 
     private handleAsync<T>(data: any, done: (error: SDKError, result: T) => void): void {
-        try {
-            const asyncID = data[this.ASYNC_KEY];
-            if (asyncID) {
-                this._asyncFns[asyncID] = done;
-                return;
-            }
-        // tslint:disable-next-line:no-empty
-        } catch (_e) {}
+        if (data && data[ConnectApi.ASYNC_KEY]) {
+            this._asyncFns[data[ConnectApi.ASYNC_KEY]] = done;
+            return;
+        }
 
         // Cached value may be returned
         done(null, data);
@@ -325,28 +331,27 @@ export class ConnectApi extends EventEmitter {
             this._pollRequest = true;
             const { interval, requestCallback, forceClear } = options;
 
-            function poll() {
+            const poll = () => {
                 this._pollRequest = this._endpoints.notifications.longPollNotifications((error, data) => {
-
                     if (error) return;
                     this.notify(data);
                     if (requestCallback && data["async-responses"]) requestCallback(error, data["async-responses"]);
 
-                    setTimeout(poll.bind(this), interval || 500);
+                    setTimeout(poll, interval || 500);
                 });
-            }
+            };
 
             function start() {
-                poll.call(this);
+                poll();
                 done(null, null);
             }
 
-            if (forceClear) return this.deleteWebhook(start.bind(this));
+            if (forceClear) return this.deleteWebhook(start);
 
             this.getWebhook((error, webhook) => {
                 if (error) return done(error, null);
                 if (webhook) return done(new SDKError(`Webhook already exists at ${webhook.url}`), null);
-                start.call(this);
+                start();
             });
         }, callback);
     }
@@ -1000,8 +1005,8 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
+     * @param cacheOnly Deprecated, has no effect
+     * @param noResponse Deprecated, has no effect
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
@@ -1023,38 +1028,39 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
+     * @param cacheOnly Deprecated, has no effect
+     * @param noResponse Deprecated, has no effect
      * @param mimeType The requested mime type format of the value
      * @param callback A function that is passed the arguments (error, value)
      */
     public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
     public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
-        resourcePath = this.normalizePath(resourcePath);
-
-        cacheOnly = cacheOnly || false;
-        noResponse = noResponse || false;
-        if (typeof mimeType === "function") {
+        if (typeof cacheOnly === "function") {
+            callback = cacheOnly;
+            mimeType = null;
+        } else if (typeof noResponse === "function") {
+            callback = noResponse;
+            mimeType = null;
+        } else if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
-        if (typeof cacheOnly === "function") {
-            callback = cacheOnly;
-            cacheOnly = false;
-        }
+
+        const asyncId = generateId();
 
         return apiWrapper(resultsFn => {
             this.startNotifications(null, error => {
                 if (error) return resultsFn(error, null);
-                this._endpoints.resources.getResourceValue(deviceId, resourcePath, cacheOnly, noResponse, resultsFn, {
-                    acceptHeader: mimeType
-                });
+
+                this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
+                    method: "GET",
+                    uri: resourcePath,
+                    accept: mimeType
+                }, resultsFn);
             });
-        }, this.handleAsync.bind(this), callback);
+        }, (_data, resultsFn) => {
+            this._asyncFns[asyncId] = resultsFn;
+        }, callback);
     }
 
     /**
@@ -1373,10 +1379,10 @@ export class ConnectApi extends EventEmitter {
                 if (error) return resultsFn(error, null);
                 this._endpoints.subscriptions.deleteResourceSubscription(deviceId, resourcePath, resultsFn);
             });
-        }, (data, done) => {
-            // no-one is listening :(
+        }, (_data, done) => {
+            // no-one is listening :'(
             delete this._notifyFns[`${deviceId}/${resourcePath}`];
-            this.handleAsync(data, done);
+            done(null, null);
         }, callback);
     }
 

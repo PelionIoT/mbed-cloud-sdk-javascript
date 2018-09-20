@@ -34,6 +34,16 @@ import { ApiMetadata } from "../common/apiMetadata";
 /**
  * ## Update API
  *
+ * The API can be initalized with a .env file in the working directory with the following values
+ *
+ * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+ *
+ * and optionally
+ *
+ * MBED_CLOUD_SDK_HOST=<your host> (defaults to https://api.us-east-1.mbedcloud.com)
+ *
+ * OR
+ *
  * This API is initialized with [ConnectionOptions](../interfaces/connectionoptions.html).
  *
  * To create an instance of this API in [Node.js](https://nodejs.org):

@@ -15,15 +15,19 @@
  * limitations under the License.
  */
 
-import { EndpointsBase } from "../common/endpointsBase";
-import { ConnectionOptions } from "../common/interfaces";
-import { PublicAPIApi as EnrollmentApi } from "../_api/enrollment";
+import { generateId } from "../common/idGenerator";
+const { assert } = intern.getPlugin("chai");
 
-export class Endpoints extends EndpointsBase {
-    public readonly enrollment: EnrollmentApi;
+const { suite, test } = intern.getInterface("tdd");
 
-    constructor(options?: ConnectionOptions) {
-        super();
-        this.enrollment = new EnrollmentApi(options, this.responseHandler.bind(this));
-    }
-}
+suite("idGenerator", () => {
+    test("generates three unique IDs", () => {
+        const ids = [ generateId(), generateId(), generateId() ];
+
+        const hasDuplicates = ids.some(id => {
+            return ids.filter(otherId => id === otherId).length > 1;
+        });
+
+        assert.strictEqual(hasDuplicates, false);
+    });
+});

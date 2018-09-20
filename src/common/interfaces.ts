@@ -21,7 +21,7 @@ export interface ConnectionOptions {
     /**
      * API Key for your Mbed Cloud account
      */
-    apiKey: string;
+    apiKey?: string;
     /**
      * URL for Mbed Cloud API
      */
@@ -45,7 +45,7 @@ export type OrderEnum = "ASC" | "DESC";
  */
 export interface ListOptions {
     /**
-     * How many objects to retrieve in the page
+     * How many objects to retrieve in the page (Page size)
      */
     limit?: number;
     /**

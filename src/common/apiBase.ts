@@ -15,8 +15,12 @@
 * limitations under the License.
 */
 
+// this style of import is needed for third party packages that are being ignored by browserify
 import superagent = require("superagent");
+import dotenv = require("dotenv");
+
 import { SDKError } from "./sdkError";
+import { ConnectionOptions } from "./interfaces";
 
 // tslint:disable-next-line:no-var-requires
 const packageInformation = require("../../package.json");
@@ -28,11 +32,18 @@ const userAgent = `${packageInformation.name}-javascript / ${VERSION}`;
 
 export class ApiBase {
 
-    private apiKey = "";
+    private readonly ENV_API_KEY = "MBED_CLOUD_SDK_API_KEY";
+    private readonly ENV_HOST = "MBED_CLOUD_SDK_HOST";
+    private readonly apiKey;
+    private readonly host;
 
-    constructor(apiKey?: string, private host: string = "https://api.us-east-1.mbedcloud.com", private responseHandler: (sdkError: SDKError, response: superagent.Response) => any = null) {
-        if (apiKey && apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${apiKey}`;
-        this.apiKey = apiKey;
+    constructor(options?: ConnectionOptions, private responseHandler: (sdkError: SDKError, response: superagent.Response) => any = null) {
+        options = options || {};
+        if (dotenv && typeof dotenv.config === "function") dotenv.config();
+        this.apiKey = options.apiKey || (process && process.env[this.ENV_API_KEY]);
+        this.host = options.host || (process && process.env[this.ENV_HOST]) || "https://api.us-east-1.mbedcloud.com";
+        if (!this.apiKey) throw new SDKError("no api key provided");
+        if (this.apiKey.substr(0, 6).toLowerCase() !== "bearer") this.apiKey = `Bearer ${this.apiKey}`;
     }
 
     /**
@@ -135,6 +146,13 @@ export class ApiBase {
             // tslint:disable-next-line:no-console
             console.log(obj);
         }
+    }
+
+    /**
+     * Returns the current configuration of this API module
+     */
+    public currentConfig() {
+        return { apiKey: this.apiKey, host: this.host };
     }
 
     protected request<T>(options: { url: string, method: string, headers: { [key: string]: string }, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, requestOptions?: { [key: string]: any }, body?: any, file?: boolean }, callback?: (sdkError: SDKError, data: T) => any): superagent.SuperAgentRequest {

@@ -11,6 +11,49 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.0.1 (2018-09-06)
+==================
+
+### Bugfixes
+
+- Change getResourceValue to use new deviceRequests endpoint. (#1664)
+
+
+2.0.0 (2018-08-03)
+==================
+
+### Features
+
+- Minimum version of node increased to v6.0.0 on account of v4 no longer being maintained
+
+- Add support for phase 2 billing (#1210)
+
+- The concept of Paginator is introduced in common/pagination.ts and can be
+  used in the SDK to list elements. (#1296)
+
+- Settings can now be configured from `.env` files through use of
+  https://www.npmjs.com/package/dotenv (#927)
+
+
+1.2.11 (2018-07-06)
+===================
+
+### Features
+
+- Add support for billing endpoints getReportOverview, getServicePackages,
+  getQuotaHistory and getQuotaRemaining. (#1210)
+
+
+1.2.10 (2018-06-26)
+===================
+
+### Features
+
+- Remove customProperties from Account and User in accountManagement. (#1362)
+
+- Support listing of Psks and add createdAt field to PreSharedKey (#631)
+
+
 1.2.9 (2018-05-22)
 ==================
 

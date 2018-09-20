@@ -16,14 +16,14 @@
  */
 
 import { EndpointsBase } from "../common/endpointsBase";
+import { DefaultApi as BillingApi } from "../_api/billing";
 import { ConnectionOptions } from "../common/interfaces";
-import { PublicAPIApi as EnrollmentApi } from "../_api/enrollment";
 
 export class Endpoints extends EndpointsBase {
-    public readonly enrollment: EnrollmentApi;
+    public readonly billing: BillingApi;
 
     constructor(options?: ConnectionOptions) {
         super();
-        this.enrollment = new EnrollmentApi(options, this.responseHandler.bind(this));
+        this.billing = new BillingApi(options, this.responseHandler.bind(this));
     }
 }

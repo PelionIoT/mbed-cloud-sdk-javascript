@@ -30,11 +30,11 @@ export class Endpoints extends EndpointsBase {
     public admin: AdminApi;
     public serverCredentials: ServerCredentialsApi;
 
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         super();
-        this.accountDeveloper = new AccountDeveloperApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.connector = new ConnectorApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.admin = new AdminApi(options.apiKey, options.host, this.responseHandler.bind(this));
-        this.serverCredentials = new ServerCredentialsApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.accountDeveloper = new AccountDeveloperApi(options, this.responseHandler.bind(this));
+        this.connector = new ConnectorApi(options, this.responseHandler.bind(this));
+        this.admin = new AdminApi(options, this.responseHandler.bind(this));
+        this.serverCredentials = new ServerCredentialsApi(options, this.responseHandler.bind(this));
     }
 }

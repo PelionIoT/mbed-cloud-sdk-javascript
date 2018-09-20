@@ -4,7 +4,7 @@ The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exp
 
 ## Prerequisite
 
-[Node.js > v4.8.0](https://nodejs.org), which includes `npm`.
+[Node.js > v6.0.0](https://nodejs.org), which includes `npm`.
 
 ## Installation
 
@@ -26,6 +26,22 @@ Before using the SDK, you need to obtain an API key for use with Mbed Cloud.
 
 You can generate this through the Mbed Cloud management console.
 
+## Configuration
+
+The SDKs support setting parameters through environment variables and `.env` (also known as _dotenv_) files. Values can also be provided to the constructor of each module.
+
+## Configuration parameters
+
+### MBED_CLOUD_SDK_HOST
+The fully qualified url of the host serving the mbed cloud api (scheme, hostname, port, base path).
+The schema and hostname are required. For example:
+
+- `https://api.us-east-1.mbedcloud.com`
+- `https://my-deployment.net/mbed-api/`
+
+### MBED_CLOUD_SDK_API_KEY
+The user's API key for accessing this instance of mbed cloud.
+
 ## Usage in Node.js (CommonJS modules)
 
 To use the SDK in Node.js:
@@ -44,7 +60,7 @@ var connect = new MbedCloudSDK.ConnectApi({
 
 connect.listConnectedDevices()
 .then(devices => {
-	devices.forEach(device => {
+	devices.data.forEach(device => {
 		console.log(device.id);
 	});
 });

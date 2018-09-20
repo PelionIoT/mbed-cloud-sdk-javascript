@@ -21,6 +21,11 @@ import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
 
 export class PreSharedKey {
+    /**
+     * Creation time.
+     */
+    public readonly createdAt?: Date;
+
     constructor(init: Partial<PreSharedKey>, private readonly _api: BootstrapApi) {
         Object.keys(init).forEach(key => {
             this[key] = init[key];

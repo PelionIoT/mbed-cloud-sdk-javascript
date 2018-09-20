@@ -23,8 +23,8 @@ export class Endpoints extends EndpointsBase {
 
     public directory: DirectoryApi;
 
-    constructor(options: ConnectionOptions) {
+    constructor(options?: ConnectionOptions) {
         super();
-        this.directory = new DirectoryApi(options.apiKey, options.host, this.responseHandler.bind(this));
+        this.directory = new DirectoryApi(options, this.responseHandler.bind(this));
     }
 }
