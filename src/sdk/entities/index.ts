@@ -1,1 +1,1 @@
-export * from "../generatedPOC";
+export * from "../generated";

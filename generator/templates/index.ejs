@@ -1,3 +1,3 @@
 <% entities.forEach(function(entity) { %>
-export { <%= entity._key.pascal %> } from "./<%= entity.group_id.lower_camel %>/<%= entity._key.pascal%>/<%= entity._key.pascal%>";
+export { <%= entity._key.pascal %> } from "./<%= entity.group_id.lower_camel %>/<%= entity._key.lower_camel%>/<%= entity._key.lower_camel%>";
 <%}); %>

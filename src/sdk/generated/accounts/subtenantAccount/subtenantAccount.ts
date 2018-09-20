@@ -1,215 +1,182 @@
 import { EntityBase } from "../../../common/entityBase";
-import { ConnectionOptions, ListOptions } from "../../../../common/interfaces";
+import { Paginator } from "../../../../common/pagination";
+import { ListResponse } from "../../../../common/listResponse";
+import { ListOptions } from "../../../../common/interfaces";
+import { ConnectionOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { Client } from "../../../client/client";
+import { ApiKey } from "../apiKey/apiKey";
+import { PolicyGroup } from "../policyGroup/policyGroup";
+import { User } from "../user/user";
+/**
+* SubtenantAccount.
+*/
 export class SubtenantAccount extends EntityBase {
-    public readonly _renames: { [key: string]: string } = {
-    };
     public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
-        SubtenantAccount: {
+        subtenantAccount: {
             type: SubtenantAccount,
             array: true,
         }
     };
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Postal address line 1.
     */
     public addressLine1?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Postal address line 2.
     */
     public addressLine2?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The email address of the account admin, not longer than 254 characters.
     */
     public adminEmail?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The full name of the admin user to be created.
     */
     public adminFullName?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The ID of the admin user created.
     */
     public adminId?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The admin API key created for the account.
     */
     public adminKey?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The username of the admin user to be created, containing alphanumerical letters and -,_@+= characters. It must be at least 4 but not more than 30 character long..
     */
     public adminName?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The password when creating a new user It will be generated when not present in the request..
     */
     public adminPassword?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * An array of aliases.
     */
     public aliases?: Array<string>;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The city part of the postal address.
     */
     public city?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The name of the company.
     */
     public company?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The name of the contact person for this account.
     */
     public contact?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Contract number of the customer.
     */
     public contractNumber?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The country part of the postal address.
     */
     public country?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Creation UTC time RFC3339.
     */
     public createdAt?: Date;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Account&#39;s custom properties as key-value pairs.
     */
     public customFields?: any;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Customer number of the customer.
     */
     public customerNumber?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The display name for the account.
     */
     public displayName?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The company email address for this account.
     */
     public email?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Account end market.
     */
     public endMarket?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Indicates how many days (1-180) before account expiration a notification email should be sent.
     */
     public expirationWarningThreshold?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The reference token expiration time in minutes for this account.
     */
     public idleTimeout?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * List of limits as key-value pairs if requested.
     */
     public limits?: any;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
     */
     public mfaStatus?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A list of notification email addresses.
     */
     public notificationEmails?: Array<string>;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The ID of the parent account, if it has any.
     */
     public parentId?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * passwordPolicy.
     */
     public passwordPolicy?: any;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The phone number of a representative of the company.
     */
     public phoneNumber?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * List of policies if requested.
     */
     public policies?: Array<undefined>;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The postal code part of the postal address.
     */
     public postalCode?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A reason note for updating the status of the account.
     */
     public reason?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A reference note for updating the status of the account.
     */
     public referenceNote?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Email address of the sales contact.
     */
     public salesContact?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The state part of the postal address.
     */
     public state?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The status of the account.
     */
     public status?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * List of sub accounts Not available for developer users..
     */
     public subAccounts?: Array<SubtenantAccount>;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Account template ID.
     */
     public templateId?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier Other values are reserved for the future..
     */
     public tier?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Last update UTC time RFC3339.
     */
     public updatedAt?: Date;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Time when upgraded to commercial account in UTC format RFC3339.
     */
     public upgradedAt?: Date;
     constructor(config?: ConnectionOptions | Config) {
@@ -221,18 +188,63 @@ export class SubtenantAccount extends EntityBase {
         }
     }
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * List ApiKeys
+    * @param options filter options
+    */
+    public apiKeys(options?: ListOptions): Paginator<ApiKey, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client.CallApi<ApiKey>({
+                    url: "/v3/accounts/{accountID}/api-keys",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    pathParams: {
+                        "accountID": this.id,
+                    },
+                    config: this.config,
+                    paginated: true,
+                }, new ApiKey(), resultsFn);
+            }, (data: ListResponse<ApiKey>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * creates a SubtenantAccount.
+    * @returns Promise containing SubtenantAccount.
     */
     public create(action?: string): Promise<SubtenantAccount> {
+        const body = {
+            address_line1: this.addressLine1,
+            address_line2: this.addressLine2,
+            admin_email: this.adminEmail,
+            admin_full_name: this.adminFullName,
+            admin_name: this.adminName,
+            admin_password: this.adminPassword,
+            aliases: this.aliases,
+            city: this.city,
+            company: this.company,
+            contact: this.contact,
+            contract_number: this.contractNumber,
+            country: this.country,
+            customer_number: this.customerNumber,
+            display_name: this.displayName,
+            email: this.email,
+            end_market: this.endMarket,
+            phone_number: this.phoneNumber,
+            postal_code: this.postalCode,
+            state: this.state,
+        };
         return apiWrapper(resultsFn => {
             Client.CallApi<SubtenantAccount>({
                 url: "/v3/accounts",
                 method: "POST",
                 query: {
-                    "action":
-                        action,
+                    "action": action,
                 },
+                body: body,
                 config: this.config,
             }, this, resultsFn);
         }, (data, done) => {
@@ -240,8 +252,8 @@ export class SubtenantAccount extends EntityBase {
         });
     }
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * gets a SubtenantAccount.
+    * @returns Promise containing SubtenantAccount.
     */
     public get(include?: string, properties?: string): Promise<SubtenantAccount> {
         return apiWrapper(resultsFn => {
@@ -249,10 +261,11 @@ export class SubtenantAccount extends EntityBase {
                 url: "/v3/accounts/{accountID}",
                 method: "GET",
                 query: {
-                    "include":
-                        include,
-                    "properties":
-                        properties,
+                    "include": include,
+                    "properties": properties,
+                },
+                pathParams: {
+                    "accountID": this.id,
                 },
                 config: this.config,
             }, this, resultsFn);
@@ -261,18 +274,115 @@ export class SubtenantAccount extends EntityBase {
         });
     }
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * List PolicyGroups
+    * @param options filter options
+    */
+    public groups(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client.CallApi<PolicyGroup>({
+                    url: "/v3/accounts/{accountID}/policy-groups",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    pathParams: {
+                        "accountID": this.id,
+                    },
+                    config: this.config,
+                    paginated: true,
+                }, new PolicyGroup(), resultsFn);
+            }, (data: ListResponse<PolicyGroup>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * List SubtenantAccounts
+    * @param options filter options
+    */
+    public list(options?: ListOptions): Paginator<SubtenantAccount, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantAccount>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client.CallApi<SubtenantAccount>({
+                    url: "/v3/accounts",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    config: this.config,
+                    paginated: true,
+                }, new SubtenantAccount(), resultsFn);
+            }, (data: ListResponse<SubtenantAccount>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * updates a SubtenantAccount.
+    * @returns Promise containing SubtenantAccount.
     */
     public update(): Promise<SubtenantAccount> {
+        const body = {
+            address_line1: this.addressLine1,
+            address_line2: this.addressLine2,
+            aliases: this.aliases,
+            city: this.city,
+            company: this.company,
+            contact: this.contact,
+            contract_number: this.contractNumber,
+            country: this.country,
+            custom_fields: this.customFields,
+            customer_number: this.customerNumber,
+            display_name: this.displayName,
+            email: this.email,
+            end_market: this.endMarket,
+            expiration_warning_threshold: this.expirationWarningThreshold,
+            idle_timeout: this.idleTimeout,
+            mfa_status: this.mfaStatus,
+            notification_emails: this.notificationEmails,
+            password_policy: this.passwordPolicy,
+            phone_number: this.phoneNumber,
+            postal_code: this.postalCode,
+            sales_contact: this.salesContact,
+            state: this.state,
+        };
         return apiWrapper(resultsFn => {
             Client.CallApi<SubtenantAccount>({
                 url: "/v3/accounts/{accountID}",
                 method: "PUT",
+                pathParams: {
+                    "accountID": this.id,
+                },
+                body: body,
                 config: this.config,
             }, this, resultsFn);
         }, (data, done) => {
             done(null, data);
         });
+    }
+    /**
+    * List Users
+    * @param options filter options
+    */
+    public users(options?: ListOptions): Paginator<User, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client.CallApi<User>({
+                    url: "/v3/accounts/{accountID}/users",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    pathParams: {
+                        "accountID": this.id,
+                    },
+                    config: this.config,
+                    paginated: true,
+                }, new User(), resultsFn);
+            }, (data: ListResponse<User>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
     }
 }

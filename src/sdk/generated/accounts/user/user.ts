@@ -1,8 +1,16 @@
 import { EntityBase } from "../../../common/entityBase";
-import { ConnectionOptions, ListOptions } from "../../../../common/interfaces";
+import { Paginator } from "../../../../common/pagination";
+import { ListResponse } from "../../../../common/listResponse";
+import { ListOptions } from "../../../../common/interfaces";
+import { ConnectionOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { Client } from "../../../client/client";
+import { PolicyGroup } from "../policyGroup/policyGroup";
+import { LoginHistory } from "../loginHistory/loginHistory";
+/**
+* User.
+*/
 export class User extends EntityBase {
     public readonly _renames: { [key: string]: string } = {
         groups: "groupIds",
@@ -11,104 +19,85 @@ export class User extends EntityBase {
         is_totp_enabled: "twoFactorAuthentication",
     };
     public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
-        LoginHistory: {
+        loginHistory: {
             type: LoginHistory,
             array: true,
         }
     };
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The UUID of the account.
     */
     public accountId?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Address.
     */
     public address?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Creation UTC time RFC3339.
     */
     public createdAt?: Date;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A timestamp of the user creation in the storage, in milliseconds.
     */
     public creationTime?: number;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The email address.
     */
     public email?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A flag indicating whether the user&#39;s email address has been verified or not.
     */
     public emailVerified?: boolean;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The full name of the user.
     */
     public fullName?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A list of IDs of the groups this user belongs to.
     */
     public groupIds?: Array<string>;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A timestamp of the latest login of the user, in milliseconds.
     */
     public lastLoginTime?: number;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
     */
     public loginHistory?: Array<LoginHistory>;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A flag indicating that receiving marketing information has been accepted.
     */
     public marketingAccepted?: boolean;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The password when creating a new user It will be generated when not present in the request..
     */
     public password?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A timestamp of the latest change of the user password, in milliseconds.
     */
     public passwordChangedTime?: number;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Phone number.
     */
     public phoneNumber?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * The status of the user ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system..
     */
     public status?: string;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A flag indicating that the General Terms and Conditions has been accepted.
     */
     public termsAccepted?: boolean;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
     */
     public twoFactorAuthentication?: boolean;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * Last update UTC time RFC3339.
     */
     public updatedAt?: Date;
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * A username containing alphanumerical letters and -,_@+= characters..
     */
     public username?: string;
     constructor(config?: ConnectionOptions | Config) {
@@ -120,17 +109,46 @@ export class User extends EntityBase {
         }
     }
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * creates a User.
+    * @returns Promise containing User.
     */
     public create(action?: string): Promise<User> {
+        const body = {
+            address: this.address,
+            email: this.email,
+            full_name: this.fullName,
+            groups: this.groupIds,
+            is_marketing_accepted: this.marketingAccepted,
+            password: this.password,
+            phone_number: this.phoneNumber,
+            is_gtc_accepted: this.termsAccepted,
+            username: this.username,
+        };
         return apiWrapper(resultsFn => {
             Client.CallApi<User>({
                 url: "/v3/users",
                 method: "POST",
                 query: {
-                    "action":
-                        action,
+                    "action": action,
+                },
+                body: body,
+                config: this.config,
+            }, this, resultsFn);
+        }, (data, done) => {
+            done(null, data);
+        });
+    }
+    /**
+    * deletes a User.
+    * @returns Promise containing User.
+    */
+    public delete(): Promise<User> {
+        return apiWrapper(resultsFn => {
+            Client.CallApi<User>({
+                url: "/v3/users/{user-id}",
+                method: "DELETE",
+                pathParams: {
+                    "user-id": this.id,
                 },
                 config: this.config,
             }, this, resultsFn);
@@ -139,29 +157,17 @@ export class User extends EntityBase {
         });
     }
     /**
-    * Gets a user
-    * @returns Promise containing user
-    */
-    public delete(): Promise<User> {
-        return apiWrapper(resultsFn => {
-            Client.CallApi<User>({
-                url: "/v3/users/{user-id}",
-                method: "DELETE",
-                config: this.config,
-            }, this, resultsFn);
-        }, (data, done) => {
-            done(null, data);
-        });
-    }
-    /**
-    * Gets a user
-    * @returns Promise containing user
+    * gets a User.
+    * @returns Promise containing User.
     */
     public get(): Promise<User> {
         return apiWrapper(resultsFn => {
             Client.CallApi<User>({
                 url: "/v3/users/{user-id}",
                 method: "GET",
+                pathParams: {
+                    "user-id": this.id,
+                },
                 config: this.config,
             }, this, resultsFn);
         }, (data, done) => {
@@ -169,14 +175,73 @@ export class User extends EntityBase {
         });
     }
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * List PolicyGroups
+    * @param options filter options
+    */
+    public groups(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client.CallApi<PolicyGroup>({
+                    url: "/v3/users/{user-id}/groups",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    pathParams: {
+                        "user-id": this.id,
+                    },
+                    config: this.config,
+                    paginated: true,
+                }, new PolicyGroup(), resultsFn);
+            }, (data: ListResponse<PolicyGroup>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * List Users
+    * @param options filter options
+    */
+    public list(options?: ListOptions): Paginator<User, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client.CallApi<User>({
+                    url: "/v3/users",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    config: this.config,
+                    paginated: true,
+                }, new User(), resultsFn);
+            }, (data: ListResponse<User>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * updates a User.
+    * @returns Promise containing User.
     */
     public update(): Promise<User> {
+        const body = {
+            address: this.address,
+            full_name: this.fullName,
+            groups: this.groupIds,
+            is_marketing_accepted: this.marketingAccepted,
+            phone_number: this.phoneNumber,
+            is_gtc_accepted: this.termsAccepted,
+            is_totp_enabled: this.twoFactorAuthentication,
+            username: this.username,
+        };
         return apiWrapper(resultsFn => {
             Client.CallApi<User>({
                 url: "/v3/users/{user-id}",
                 method: "PUT",
+                pathParams: {
+                    "user-id": this.id,
+                },
+                body: body,
                 config: this.config,
             }, this, resultsFn);
         }, (data, done) => {
@@ -184,14 +249,18 @@ export class User extends EntityBase {
         });
     }
     /**
-    * Gets a user
-    * @returns Promise containing user
+    * validateEmails a User.
+    * @returns Promise containing User.
     */
     public validateEmail(): Promise<User> {
         return apiWrapper(resultsFn => {
             Client.CallApi<User>({
                 url: "/v3/accounts/{accountID}/users/{user-id}/validate-email",
                 method: "POST",
+                pathParams: {
+                    "accountID": this.accountId,
+                    "user-id": this.id,
+                },
                 config: this.config,
             }, this, resultsFn);
         }, (data, done) => {

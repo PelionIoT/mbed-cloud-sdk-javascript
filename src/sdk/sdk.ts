@@ -1,5 +1,5 @@
 import { Config } from "./client/config";
-import { Factory } from "./generatedPOC/factory";
+import { Factory } from "./generated/factory";
 import { ConnectionOptions } from "../common/interfaces";
 
 export class SDK {

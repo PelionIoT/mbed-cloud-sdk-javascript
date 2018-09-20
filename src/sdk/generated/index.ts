@@ -1,14 +1,14 @@
 
-export { ApiKey } from "./accounts/ApiKey/ApiKey";
+export { ApiKey } from "./accounts/apiKey/apiKey";
 
-export { LoginHistory } from "./accounts/LoginHistory/LoginHistory";
+export { LoginHistory } from "./accounts/loginHistory/loginHistory";
 
-export { MyAccount } from "./accounts/MyAccount/MyAccount";
+export { MyAccount } from "./accounts/myAccount/myAccount";
 
-export { PasswordPolicy } from "./accounts/PasswordPolicy/PasswordPolicy";
+export { PasswordPolicy } from "./accounts/passwordPolicy/passwordPolicy";
 
-export { PolicyGroup } from "./accounts/PolicyGroup/PolicyGroup";
+export { PolicyGroup } from "./accounts/policyGroup/policyGroup";
 
-export { SubtenantAccount } from "./accounts/SubtenantAccount/SubtenantAccount";
+export { SubtenantAccount } from "./accounts/subtenantAccount/subtenantAccount";
 
-export { User } from "./accounts/User/User";
+export { User } from "./accounts/user/user";
