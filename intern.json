@@ -5,10 +5,10 @@
         "chrome"
     ],
     "node": {
-        "suites": "lib/_tests/**/*.js"
+        "suites": ["lib/_tests/**/*.js"]
     },
     "browser": {
-        "suites": "bundles/_tests/**/*.js"
+        "suites": ["bundles/_tests/**/*.js"]
     },
     "tunnelOptions": {
         "drivers": [
@@ -37,5 +37,15 @@
                 "filename": "junit.xml"
             }
         }
-    ]
+    ],
+    "configs": {
+        "ci": {
+            "node+": {
+                "suites+": ["!lib/_tests/snippets/*.js"]
+            },
+            "browser+": {
+                "suites+": ["!bundles/_tests/snippets/*.js"]
+            }
+        }
+    }
 }
