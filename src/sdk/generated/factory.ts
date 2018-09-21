@@ -1,9 +1,9 @@
 import { Config } from "../client/config";
-import { ApiKey } from "./accounts/apiKey/apiKey";
-import { MyAccount } from "./accounts/myAccount/myAccount";
-import { PolicyGroup } from "./accounts/policyGroup/policyGroup";
-import { SubtenantAccount } from "./accounts/subtenantAccount/subtenantAccount";
-import { User } from "./accounts/user/user";
+import { ApiKey } from "./index";
+import { MyAccount } from "./index";
+import { PolicyGroup } from "./index";
+import { SubtenantAccount } from "./index";
+import { User } from "./index";
 export class Factory {
     private readonly _config: Config;
     constructor(config: Config) {

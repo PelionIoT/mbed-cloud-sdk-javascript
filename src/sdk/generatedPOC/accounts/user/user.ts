@@ -114,7 +114,7 @@ export class User extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client.CallApi<User>({
+                Client._CallApi<User>({
                     url: "/v3/users",
                     method: "GET",
                     query: { after, include, order, limit },
@@ -139,7 +139,7 @@ export class User extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client.CallApi<PolicyGroup>({
+                Client._CallApi<PolicyGroup>({
                     url: "/v3/users/{user-id}/groups",
                     method: "GET",
                     query: { after, include, order, limit },
@@ -173,7 +173,7 @@ export class User extends EntityBase {
                 username: this.username,
             };
 
-            Client.CallApi({
+            Client._CallApi({
                 url: "/v3/users",
                 method: "POST",
                 query: { action: action },
@@ -191,7 +191,7 @@ export class User extends EntityBase {
      */
     public get(): Promise<User> {
         return apiWrapper(resultsFn => {
-            Client.CallApi<User>({
+            Client._CallApi<User>({
                 url: "/v3/users/{user-id}",
                 method: "GET",
                 pathParams: { "user-id": this.id },
@@ -219,7 +219,7 @@ export class User extends EntityBase {
                 username: this.username,
             };
 
-            Client.CallApi({
+            Client._CallApi({
                 url: "/v3/users/{user-id}",
                 method: "PUT",
                 pathParams: { "user-id": this.id },
@@ -237,7 +237,7 @@ export class User extends EntityBase {
      */
     public delete(): Promise<User> {
         return apiWrapper(resultsFn => {
-            Client.CallApi<User>({
+            Client._CallApi<User>({
                 url: "/v3/users/{user-id}",
                 method: "DELETE",
                 pathParams: { "user-id": this.id },

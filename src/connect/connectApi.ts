@@ -151,9 +151,10 @@ export class ConnectApi extends EventEmitter {
      */
     constructor(options?: ConnectOptions) {
         super();
+        options = options || {};
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
-        this._handleNotifications = options.handleNotifications;
+        this._handleNotifications = options.handleNotifications || false;
         this.subscribe = new Subscribe(this);
     }
 

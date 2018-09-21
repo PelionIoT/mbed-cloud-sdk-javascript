@@ -1,7 +1,7 @@
 import { Config } from "../client/config";
 <% entities.forEach(function(entity){ %>
     <% if (entity.modes.length > 1) { %>
-        import { <%= entity._key.pascal %> } from "./accounts/<%= entity._key.lower_camel %>/<%= entity._key.lower_camel %>";
+        import { <%= entity._key.pascal %> } from "./index";
     <% } %>
 <%});%>
 

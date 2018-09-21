@@ -1,3 +1,5 @@
+import { Client } from "../../../sdk";
+
 /*
 * Mbed Cloud JavaScript SDK
 * Copyright Arm Limited 2017
@@ -15,18 +17,14 @@
 * limitations under the License.
 */
 
-import { DeviceDirectoryApi } from "../../deviceDirectory/deviceDirectoryApi";
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
-suite("configurationSnippet[skipci]", () => {
-
-    test("configureSDK", () => {
+suite("customApiCall", () => {
+    test("customApiCall", async () => {
         try {
-            // an example: configuring the SDK
-            const deviceDirectory = new DeviceDirectoryApi();
-            // end of example
-            assert.isOk(deviceDirectory);
+            const users = await Client.CallApi({ url: "/v3/users", method: "GET", query: { "limit": 2 } });
+            assert.hasAnyKeys(users, [ "data" ]);
         } catch (e) {
             throw e;
         }

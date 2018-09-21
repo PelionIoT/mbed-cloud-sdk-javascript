@@ -11,7 +11,7 @@ import { EntityBase } from "../../../common/entityBase";
     import { Client } from "../../../client/client";
 <% } %>
 <% filteredImports.forEach(function(fk) { %>
-    import { <%= fk.type %> } from "../<%= fk.propName %>/<%= fk.propName %>";
+    import { <%= fk.type %> } from "../../index";
 <% }); %>
 /**
 * <%= entity._key.pascal %>.
@@ -62,7 +62,7 @@ this.config = new Config(config);
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<<%= method.returns %>>> => {
         return apiWrapper(resultsFn => {
         const { limit, after, order, include } = pageOptions as ListOptions;
-        Client.CallApi<<%= method.returns %>>({
+        Client._CallApi<<%= method.returns %>>({
         url: "<%= method.path %>",
         method: "<%= method.httpMethod %>",
         query: { after, include, order, limit },
@@ -95,7 +95,7 @@ this.config = new Config(config);
             };
         <% } %>
         return apiWrapper(resultsFn => {
-        Client.CallApi<<%= method.returns %>>({
+        Client._CallApi<<%= method.returns %>>({
         url: "<%= method.path %>",
         method: "<%= method.httpMethod %>",
         <% if (Object.keys(method.queryParams).length > 0) { %>

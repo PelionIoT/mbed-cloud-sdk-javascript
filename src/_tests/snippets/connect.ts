@@ -22,31 +22,35 @@ const { assert } = intern.getPlugin("chai");
 suite("connectSnippet[skipci]", () => {
 
     test("subscribeToDeviceState", () => {
-        // an example: subscribing to device state changes
-        const config = { apiKey: "an Mbed Cloud Api Key" };
+        try {
+            // an example: subscribing to device state changes
+            const connect = new ConnectApi();
 
-        const connect = new ConnectApi(config);
+            const observer = connect.subscribe.deviceStateChanges({ event: "registration" });
 
-        const observer = connect.subscribe.deviceStateChanges({ event: "registration" });
-
-        observer.addListener(_res => {
-            // do something here
-        });
-        // end of example
-        assert.isOk(true);
+            observer.addListener(_res => {
+                // do something here
+            });
+            // end of example
+            assert.isOk(true);
+        } catch (e) {
+            throw e;
+        }
     });
 
     test("subscribeToResourceValueChanges", () => {
-        // an example: subscribing to resource value changes
-        const config = { apiKey: "an Mbed Cloud Api Key" };
+        try {
+            // an example: subscribing to resource value changes
+            const connect = new ConnectApi();
 
-        const connect = new ConnectApi(config);
+            const observer = connect.subscribe.resourceValues({ deviceId: "016*", resourcePaths: [ "/3/0/*" ] });
 
-        const observer = connect.subscribe.resourceValues({ deviceId: "016*", resourcePaths: [ "/3/0/*" ] });
-
-        observer.addListener(_res => {
-            // do something here
-        });
-        // end of example
+            observer.addListener(_res => {
+                // do something here
+            });
+            // end of example
+        } catch (e) {
+            throw e;
+        }
     });
 });

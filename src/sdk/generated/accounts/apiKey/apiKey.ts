@@ -6,7 +6,7 @@ import { ConnectionOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { Client } from "../../../client/client";
-import { PolicyGroup } from "../policyGroup/policyGroup";
+import { PolicyGroup } from "../../index";
 /**
 * ApiKey.
 */
@@ -70,7 +70,7 @@ export class ApiKey extends EntityBase {
             status: this.status,
         };
         return apiWrapper(resultsFn => {
-            Client.CallApi<ApiKey>({
+            Client._CallApi<ApiKey>({
                 url: "/v3/api-keys",
                 method: "POST",
                 body: body,
@@ -86,7 +86,7 @@ export class ApiKey extends EntityBase {
     */
     public delete(): Promise<ApiKey> {
         return apiWrapper(resultsFn => {
-            Client.CallApi<ApiKey>({
+            Client._CallApi<ApiKey>({
                 url: "/v3/api-keys/{apiKey}",
                 method: "DELETE",
                 pathParams: {
@@ -104,7 +104,7 @@ export class ApiKey extends EntityBase {
     */
     public get(): Promise<ApiKey> {
         return apiWrapper(resultsFn => {
-            Client.CallApi<ApiKey>({
+            Client._CallApi<ApiKey>({
                 url: "/v3/api-keys/{apiKey}",
                 method: "GET",
                 pathParams: {
@@ -124,7 +124,7 @@ export class ApiKey extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client.CallApi<PolicyGroup>({
+                Client._CallApi<PolicyGroup>({
                     url: "/v3/api-keys/{apiKey}/groups",
                     method: "GET",
                     query: { after, include, order, limit },
@@ -148,7 +148,7 @@ export class ApiKey extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client.CallApi<ApiKey>({
+                Client._CallApi<ApiKey>({
                     url: "/v3/api-keys",
                     method: "GET",
                     query: { after, include, order, limit },
@@ -167,7 +167,7 @@ export class ApiKey extends EntityBase {
     */
     public resetSecret(accountID: string): Promise<ApiKey> {
         return apiWrapper(resultsFn => {
-            Client.CallApi<ApiKey>({
+            Client._CallApi<ApiKey>({
                 url: "/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret",
                 method: "POST",
                 pathParams: {
@@ -192,7 +192,7 @@ export class ApiKey extends EntityBase {
             status: this.status,
         };
         return apiWrapper(resultsFn => {
-            Client.CallApi<ApiKey>({
+            Client._CallApi<ApiKey>({
                 url: "/v3/api-keys/{apiKey}",
                 method: "PUT",
                 pathParams: {

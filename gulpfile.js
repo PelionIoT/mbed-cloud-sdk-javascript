@@ -29,7 +29,10 @@ var srcFilesOnly = [
 // Node
 var nodeDir = "lib";
 var bundleFiles = nodeDir + "/**/index.js";
-var testFiles = nodeDir + "/_tests/**/*.js";
+var testFiles = [
+    nodeDir + "/_tests/**/*.js",
+    "!" + nodeDir + "/_tests/snippets/**",
+];
 
 // Browser bundles
 var bundleDir = "bundles";

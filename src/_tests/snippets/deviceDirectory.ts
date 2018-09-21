@@ -22,37 +22,41 @@ const { assert } = intern.getPlugin("chai");
 suite("deviceDirectorySnippet[skipci]", () => {
 
     test("listDevices", () => {
-        // an example: list devices in Mbed Cloud
-        const config = { apiKey: "an Mbed Cloud Api Key" };
+        try {
+            // an example: list devices in Mbed Cloud
+            const deviceDirectory = new DeviceDirectoryApi();
 
-        const deviceDirectory = new DeviceDirectoryApi(config);
+            const devices = deviceDirectory.listDevices({ order: "ASC" });
 
-        const devices = deviceDirectory.listDevices({ order: "ASC" });
-
-        devices.then(d => {
-            d.data.map(item => `${item.id} [${item.state}]`)
-                .forEach(_ => {
-                    // do something here
-                });
-        });
-        // end of example
-        assert.isOk(true);
+            devices.then(d => {
+                d.data.map(item => `${item.id} [${item.state}]`)
+                    .forEach(_ => {
+                        // do something here
+                    });
+            });
+            // end of example
+            assert.isOk(true);
+        } catch (e) {
+            throw e;
+        }
     });
 
     test("listDevicesWithFilters", () => {
-        // an example: list deregistered devices in Mbed Cloud
-        const config = { apiKey: "an Mbed Cloud Api Key" };
+        try {
+            // an example: list deregistered devices in Mbed Cloud
+            const deviceDirectory = new DeviceDirectoryApi();
 
-        const deviceDirectory = new DeviceDirectoryApi(config);
+            const devices = deviceDirectory.listDevices({ order: "ASC", filter: { state: { $eq: "deregistered" } } });
 
-        const devices = deviceDirectory.listDevices({ order: "ASC", filter: { state: { $eq: "deregistered" } } });
-
-        devices.then(d => {
-            d.data.map(item => `${item.id} [${item.state}]`)
-                .forEach(_ => {
-                    // do something here
-                });
-        });
-        // end of example
+            devices.then(d => {
+                d.data.map(item => `${item.id} [${item.state}]`)
+                    .forEach(_ => {
+                        // do something here
+                    });
+            });
+            // end of example
+        } catch (e) {
+            throw e;
+        }
     });
 });

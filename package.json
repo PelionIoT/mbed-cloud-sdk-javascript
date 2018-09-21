@@ -28,7 +28,7 @@
     "gulp": "gulp",
     "tpip": "node scripts/generate-tpip.js",
     "test": "intern",
-    "testci": "intern config=@ci",
+    "snippets": "intern config=@snippets",
     "build-test-server": "node tests/build.js && tsc -p tests && cp intern.json ./tests/server/ && cp package.json ./tests/server/",
     "start-test-server": "node tests/server/tests/codeCoverage.js",
     "generate": "node generator/build.js && tsfmt -r ./src/sdk/generated/**/**/*.ts ./src/sdk/generated/*.ts && gulp"

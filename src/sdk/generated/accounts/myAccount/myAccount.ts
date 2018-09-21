@@ -3,7 +3,7 @@ import { ConnectionOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { Client } from "../../../client/client";
-import { SubtenantAccount } from "../subtenantAccount/subtenantAccount";
+import { SubtenantAccount } from "../../index";
 /**
 * MyAccount.
 */
@@ -164,7 +164,7 @@ export class MyAccount extends EntityBase {
     */
     public get(include?: string, properties?: string): Promise<MyAccount> {
         return apiWrapper(resultsFn => {
-            Client.CallApi<MyAccount>({
+            Client._CallApi<MyAccount>({
                 url: "/v3/accounts/me",
                 method: "GET",
                 query: {
@@ -204,7 +204,7 @@ export class MyAccount extends EntityBase {
             state: this.state,
         };
         return apiWrapper(resultsFn => {
-            Client.CallApi<MyAccount>({
+            Client._CallApi<MyAccount>({
                 url: "/v3/accounts/me",
                 method: "PUT",
                 body: body,

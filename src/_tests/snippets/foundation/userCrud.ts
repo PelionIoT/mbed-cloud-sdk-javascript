@@ -1,7 +1,3 @@
-import { User, LoginHistory, PolicyGroup } from "../../sdk/entities";
-import { Config } from "../../sdk/client/config";
-import { AccountManagementApi } from "../../accountManagement/accountManagementApi";
-
 /*
 * Mbed Cloud JavaScript SDK
 * Copyright Arm Limited 2017
@@ -19,6 +15,9 @@ import { AccountManagementApi } from "../../accountManagement/accountManagementA
 * limitations under the License.
 */
 
+import { User, LoginHistory, PolicyGroup } from "../../../sdk/entities";
+import { Config } from "../../../sdk";
+import { AccountManagementApi } from "../../../accountManagement/accountManagementApi";
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
@@ -44,8 +43,6 @@ suite("userCrud", () => {
                 });
             })
             .catch(e => {
-                // tslint:disable-next-line:no-console
-                console.log(e);
                 throw e;
             });
     });
@@ -59,8 +56,6 @@ suite("userCrud", () => {
                 assert.instanceOf(first, User);
             })
             .catch(e => {
-                // tslint:disable-next-line:no-console
-                console.log(e);
                 throw e;
             });
     });
@@ -93,8 +88,6 @@ suite("userCrud", () => {
                 assert.instanceOf(firstGroup, PolicyGroup);
             })
             .catch(e => {
-                // tslint:disable-next-line:no-console
-                console.log(e);
                 throw e;
             });
     });
@@ -122,8 +115,6 @@ suite("userCrud", () => {
                 return user.delete();
             })
             .catch(e => {
-                // tslint:disable-next-line:no-console
-                console.log(e);
                 throw e;
             });
     });

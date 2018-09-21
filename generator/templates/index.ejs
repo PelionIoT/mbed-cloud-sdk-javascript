@@ -1,3 +1,5 @@
 <% entities.forEach(function(entity) { %>
-export { <%= entity._key.pascal %> } from "./<%= entity.group_id.lower_camel %>/<%= entity._key.lower_camel%>/<%= entity._key.lower_camel%>";
+export * from "./<%= entity.group_id.lower_camel %>/<%= entity._key.lower_camel%>/<%= entity._key.lower_camel%>";
 <%}); %>
+export * from "./enums";
+export * from "./factory";

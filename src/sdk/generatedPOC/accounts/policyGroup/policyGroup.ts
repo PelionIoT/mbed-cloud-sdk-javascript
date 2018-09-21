@@ -47,7 +47,7 @@ export class PolicyGroup extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client.CallApi<PolicyGroup>({
+                Client._CallApi<PolicyGroup>({
                     url: "/v3/policy-groups",
                     method: "GET",
                     query: { after, include, order, limit },
@@ -71,7 +71,7 @@ export class PolicyGroup extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client.CallApi<User>({
+                Client._CallApi<User>({
                     url: "/v3/policy-groups/{groupID}/users",
                     method: "GET",
                     pathParams: { groupID: this.id },

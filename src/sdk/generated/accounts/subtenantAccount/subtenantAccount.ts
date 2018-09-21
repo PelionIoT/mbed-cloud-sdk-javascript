@@ -6,9 +6,9 @@ import { ConnectionOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { Client } from "../../../client/client";
-import { ApiKey } from "../apiKey/apiKey";
-import { PolicyGroup } from "../policyGroup/policyGroup";
-import { User } from "../user/user";
+import { ApiKey } from "../../index";
+import { PolicyGroup } from "../../index";
+import { User } from "../../index";
 /**
 * SubtenantAccount.
 */
@@ -195,7 +195,7 @@ export class SubtenantAccount extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client.CallApi<ApiKey>({
+                Client._CallApi<ApiKey>({
                     url: "/v3/accounts/{accountID}/api-keys",
                     method: "GET",
                     query: { after, include, order, limit },
@@ -238,7 +238,7 @@ export class SubtenantAccount extends EntityBase {
             state: this.state,
         };
         return apiWrapper(resultsFn => {
-            Client.CallApi<SubtenantAccount>({
+            Client._CallApi<SubtenantAccount>({
                 url: "/v3/accounts",
                 method: "POST",
                 query: {
@@ -257,7 +257,7 @@ export class SubtenantAccount extends EntityBase {
     */
     public get(include?: string, properties?: string): Promise<SubtenantAccount> {
         return apiWrapper(resultsFn => {
-            Client.CallApi<SubtenantAccount>({
+            Client._CallApi<SubtenantAccount>({
                 url: "/v3/accounts/{accountID}",
                 method: "GET",
                 query: {
@@ -281,7 +281,7 @@ export class SubtenantAccount extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client.CallApi<PolicyGroup>({
+                Client._CallApi<PolicyGroup>({
                     url: "/v3/accounts/{accountID}/policy-groups",
                     method: "GET",
                     query: { after, include, order, limit },
@@ -305,7 +305,7 @@ export class SubtenantAccount extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantAccount>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client.CallApi<SubtenantAccount>({
+                Client._CallApi<SubtenantAccount>({
                     url: "/v3/accounts",
                     method: "GET",
                     query: { after, include, order, limit },
@@ -348,7 +348,7 @@ export class SubtenantAccount extends EntityBase {
             state: this.state,
         };
         return apiWrapper(resultsFn => {
-            Client.CallApi<SubtenantAccount>({
+            Client._CallApi<SubtenantAccount>({
                 url: "/v3/accounts/{accountID}",
                 method: "PUT",
                 pathParams: {
@@ -369,7 +369,7 @@ export class SubtenantAccount extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client.CallApi<User>({
+                Client._CallApi<User>({
                     url: "/v3/accounts/{accountID}/users",
                     method: "GET",
                     query: { after, include, order, limit },
