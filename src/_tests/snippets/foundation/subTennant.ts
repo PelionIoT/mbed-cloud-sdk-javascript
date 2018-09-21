@@ -23,6 +23,7 @@ const { assert } = intern.getPlugin("chai");
 suite("subTennants", () => {
     test("subTennant", async () => {
         try {
+            // an example: creating and managing a subtenant account
             const newSubtennant = new SubtenantAccount();
             newSubtennant.displayName = "sdk test dan";
             newSubtennant.endMarket = "connected warrens";
@@ -44,6 +45,7 @@ suite("subTennants", () => {
             const users = await newSubtennant.list().all();
             // tslint:disable-next-line:no-console
             users.forEach(u => console.log(u));
+            // end of example
 
             assert.isAtLeast(users.length, 1);
             await user.delete();

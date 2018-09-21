@@ -23,7 +23,9 @@ const { assert } = intern.getPlugin("chai");
 suite("customApiCall", () => {
     test("customApiCall", async () => {
         try {
+            // an example: custom api call
             const users = await Client.CallApi({ url: "/v3/users", method: "GET", query: { "limit": 2 } });
+            // end of example
             assert.hasAnyKeys(users, [ "data" ]);
         } catch (e) {
             throw e;

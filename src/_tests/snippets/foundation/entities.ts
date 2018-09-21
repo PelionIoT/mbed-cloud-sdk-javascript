@@ -24,8 +24,10 @@ const { assert } = intern.getPlugin("chai");
 suite("entities", () => {
     test("quick", async () => {
         try {
+            // an example: checking account status
             const myAccount = await new MyAccount().get();
             const isActive = myAccount.status === "ACTIVE";
+            // end of example
             assert.isOk(isActive);
         } catch (e) {
             throw e;
@@ -34,8 +36,10 @@ suite("entities", () => {
 
     test("listing", async () => {
         try {
+            // an example: listing api keys
             const allKeys = await new ApiKey().list().all();
             const names = allKeys.map(k => k.name);
+            // end of example
             assert.isAtLeast(names.length, 1);
         } catch (e) {
             throw e;
@@ -45,8 +49,10 @@ suite("entities", () => {
     test("customConfig", () => {
         assert.throws(() => {
             try {
+                // an example: using multiple api keys
                 const allUsers = [];
                 [ "ak_1", "ak_2" ].forEach(async k => allUsers.concat(await new SDK({ apiKey: k }).entities.User().list().all()));
+                // end of example
             } catch (e) {
                 throw e;
             }
@@ -56,8 +62,10 @@ suite("entities", () => {
     test("realyCustomConfig", () => {
         assert.throws(() => {
             try {
+                // an example: using custom hosts
                 const config = new Config({ apiKey: "ak_1", host: "http://example" });
                 const allUsers = new SDK(config).entities.User().list().all();
+                // end of example
                 assert.isOk(allUsers);
             } catch (e) {
                 throw e;
