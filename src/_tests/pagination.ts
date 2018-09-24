@@ -220,7 +220,7 @@ suite("paginator", () => {
             return Promise.resolve(new ListResponse(response, pageData));
         }
         const options: ListOptions = {};
-        const paginator = new Paginator(getPage, null, options);
+        const paginator = new Paginator(getPage, options);
         assert.isTrue(paginator.hasNext());
         // Moving to the next element (first)
         return paginator.next().then(element => {
@@ -256,7 +256,7 @@ suite("paginator", () => {
             return listOptions.after === "" + firstPageData[firstPageData.length - 1] ? Promise.resolve(new ListResponse(response, secondPageData)) : Promise.resolve(new ListResponse({ ...response, has_more: true, continuation_marker: "" + firstPageData[firstPageData.length - 1] }, firstPageData));
         }
         const options: ListOptions = {};
-        const paginator = new Paginator(getPage, null, options);
+        const paginator = new Paginator(getPage, options);
         assert.isTrue(paginator.hasNext());
         // Moving to the next element (first)
 
@@ -301,7 +301,8 @@ suite("paginator", () => {
         }
         const options: ListOptions = {};
         const maxResult = firstPageData.length - 3;
-        const paginator = new Paginator(getPage, maxResult, options);
+        options.maxSize = maxResult;
+        const paginator = new Paginator(getPage, options);
         assert.isTrue(paginator.hasNext());
         // Moving to the next element (first)
         return paginator.next().then(element => {
@@ -347,8 +348,9 @@ suite("paginator", () => {
         }
         const options: ListOptions = {};
         const maxResult = firstPageData.length + 1;
+        options.maxSize = maxResult;
         const expectedResult = firstPageData.concat(secondPageData.slice(0, maxResult - firstPageData.length));
-        const paginator = new Paginator(getPage, maxResult, options);
+        const paginator = new Paginator(getPage, options);
         return paginator.executeForAll(execute).then(() => assert.deepEqual(resultsExecution, expectedResult));
     });
 });

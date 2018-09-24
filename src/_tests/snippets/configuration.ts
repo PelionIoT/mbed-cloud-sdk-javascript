@@ -22,11 +22,13 @@ const { assert } = intern.getPlugin("chai");
 suite("configurationSnippet[skipci]", () => {
 
     test("configureSDK", () => {
-        // an example: configuring the SDK
-        const config = { apiKey: "an Mbed Cloud Api Key" };
-
-        const deviceDirectory = new DeviceDirectoryApi(config);
-        // end of example
-        assert.isOk(deviceDirectory);
+        try {
+            // an example: configuring the SDK
+            const deviceDirectory = new DeviceDirectoryApi();
+            // end of example
+            assert.isOk(deviceDirectory);
+        } catch (e) {
+            throw e;
+        }
     });
 });

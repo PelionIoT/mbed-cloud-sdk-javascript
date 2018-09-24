@@ -10,7 +10,6 @@
         "block-spacing": [true, "always"],
         "brace-style": [true, "1tbs", { "allowSingleLine": true }],
         "curly": [true, "ignore-same-line"],
-        "eofline": true,
         "interface-name": [true, "never-prefix"],
         "linebreak-style": [true, "LF"],
         "max-line-length": [false],
@@ -29,6 +28,9 @@
         "ter-no-irregular-whitespace": [true],
         "trailing-comma": [true, "never"],
         "triple-equals": [true],
-        "variable-name": [true, "allow-leading-underscore"]
+        "variable-name": [true, "allow-leading-underscore"],
+        "jsdoc-format": false, //TODO revert to true when formatting fixed
+        "object-literal-key-quotes": false, //TODO revert to true when formatting fixed
+        "eofline": false //TODO revert to true when formatting fixed
     }
 }

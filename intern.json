@@ -5,7 +5,7 @@
         "chrome"
     ],
     "node": {
-        "suites": ["lib/_tests/**/*.js"]
+        "suites": ["lib/_tests/**/*.js", "!lib/_tests/snippets/**"]
     },
     "browser": {
         "suites": ["bundles/_tests/**/*.js"]
@@ -39,12 +39,12 @@
         }
     ],
     "configs": {
-        "ci": {
-            "node+": {
-                "suites+": ["!lib/_tests/snippets/*.js"]
-            },
-            "browser+": {
-                "suites+": ["!bundles/_tests/snippets/*.js"]
+        "snippets": {
+            "environments": [
+                "node"
+            ],
+            "node": {
+                "suites": ["lib/_tests/snippets/**/*.js"]
             }
         }
     }

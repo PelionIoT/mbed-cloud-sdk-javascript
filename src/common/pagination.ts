@@ -51,14 +51,18 @@ export class Paginator<T, U extends ListOptions> {
     private hasBrowsedFullCollection: boolean;
     private currentElementIndex: number;
     private collectionTotalCount: number;
+
+    public maxResults?: number;
+
     /**
      * Constructor
      * @param getPage Method returning a page of results ([ListResponse](./listresponse.html))
      * @param maxResults The maximum number of results to return
      * @param options List options
      */
-    constructor(getPage: (options: U) => Promise<ListResponse<T>>, public maxResults?: number | null, options?: U) {
-        this.listOptions = Object.create(options);
+    constructor(getPage: (options: U) => Promise<ListResponse<T>>, options?: U) {
+        this.maxResults = options ? options.maxSize || options.limit || 50 : 50;
+        this.listOptions = Object.create(options || null);
         const pageSizeParameterName = "pageSize";
         if (pageSizeParameterName in this.listOptions) {
             this.listOptions.limit = this.listOptions[pageSizeParameterName];
@@ -106,7 +110,7 @@ export class Paginator<T, U extends ListOptions> {
         if (this.hasNewPage()) {
             this.currentElementIndex = -1;
             const after: string = this.currentPageIndex < 0 ? null : this.fetchNextPageCursor(this.currentPageData);
-            const newPageOptions: U = Object.create(this.listOptions);
+            const newPageOptions: U = Object.create(this.listOptions || null);
             newPageOptions.after = after;
             const newPage = this.pageRequester(newPageOptions);
             return newPage.then(page => { this.setCurrentPage(page); return page; }).then(page => {
@@ -132,7 +136,7 @@ export class Paginator<T, U extends ListOptions> {
             this.collectionTotalCount = this.currentPageData.totalCount;
             return Promise.resolve(this.collectionTotalCount);
         } else {
-            const newPageOptions: U = Object.create(this.listOptions);
+            const newPageOptions: U = Object.create(this.listOptions || null);
             if (newPageOptions.include) {
                 newPageOptions.include.push("totalCount");
             } else {

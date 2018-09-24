@@ -1,3 +1,5 @@
+import { Client } from "../../../sdk";
+
 /*
 * Mbed Cloud JavaScript SDK
 * Copyright Arm Limited 2017
@@ -15,13 +17,18 @@
 * limitations under the License.
 */
 
-export { AccountManagementApi } from "./accountManagement/accountManagementApi";
-export { BillingApi } from "./billing/billingApi";
-export { BootstrapApi } from "./bootstrap/bootstrapApi";
-export { CertificatesApi } from "./certificates/certificatesApi";
-export { ConnectApi } from "./connect/connectApi";
-export { DeviceDirectoryApi } from "./deviceDirectory/deviceDirectoryApi";
-export { EnrollmentApi } from "./enrollment/enrollmentApi";
-export { UpdateApi } from "./update/updateApi";
-export { SDK } from "./sdk/sdk";
-export * from "./sdk/entities";
+const { suite, test } = intern.getInterface("tdd");
+const { assert } = intern.getPlugin("chai");
+
+suite("customApiCall", () => {
+    test("customApiCall", async () => {
+        try {
+            // an example: custom api call
+            const users = await Client.CallApi({ url: "/v3/users", method: "GET", query: { "limit": 2 } });
+            // end of example
+            assert.hasAnyKeys(users, [ "data" ]);
+        } catch (e) {
+            throw e;
+        }
+    });
+});
