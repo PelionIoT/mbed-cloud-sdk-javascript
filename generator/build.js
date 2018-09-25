@@ -34,6 +34,15 @@ const getType = (type, items) => {
     return t;
 };
 
+const unpackParams = (key, params) => {
+    console.log(key);
+    console.log(params);
+    if (key && params) {
+        return '"' + key + '"' + ":" + (!params.external ? "this." : "") + params.key;
+    }
+    return "";
+};
+
 // clear generated folder
 fs.emptyDirSync(generatedFolder);
 
@@ -83,14 +92,18 @@ entities.forEach(entity => {
     if (modes) {
         modes.forEach(method => {
             clientCalls = true;
+            let deferToForeignKey = false;
+            let deferedMethodCall = {};
             const methodName = method._key.lower_camel;
-            const httpMethod = method.method.toUpperCase();
+            const httpMethod = method.method ? method.method.toUpperCase() : deferToForeignKey = true;
             const path = method.path;
             const paginated = !!method.pagination;
+            const customMethodCall = !!method.custom_method;
+            const customMethodName = method.custom_method;
             if (paginated) paginators = true;
             // if a foreign key exists and its not the same as the enity
             const foreignKey = method.foreign_key ? (method.foreign_key.entity.pascal != entityName) : false;
-            const returns = foreignKey ? method.foreign_key.entity.pascal : entityName;
+            const returns = deferToForeignKey ? method.defer_to_foreign_key_field.foreign_key.entity.pascal : foreignKey ? method.foreign_key.entity.pascal : entityName;
 
             if (foreignKey) {
                 const fk = {};
@@ -99,9 +112,24 @@ entities.forEach(entity => {
                 imports.push(fk);
             }
 
+            if (deferToForeignKey) {
+                const fk = {};
+                fk["propName"] = method.defer_to_foreign_key_field.foreign_key.entity.lower_camel;
+                fk["type"] = method.defer_to_foreign_key_field.foreign_key.entity.pascal;
+                imports.push(fk);
+
+                deferedMethodCall = {
+                    method: method.defer_to_foreign_key_field.method,
+                    field: method.defer_to_foreign_key_field.field,
+                }
+            }
+
             const pathParams = {};
             const queryParams = {};
             const bodyParams = {};
+            const deferedParams = {};
+
+            const setForeignKeyProps = [];
 
             method.fields.forEach(field => {
                 const paramIn = field.in;
@@ -110,9 +138,29 @@ entities.forEach(entity => {
                 let type;
                 const fieldName = field.parameter_fieldname;
                 const key = field._key.lower_camel;
+                const replaceBody = !!field.__REPLACE_BODY;
 
                 if (external) {
-                    type = getType(field.type);
+                    type = getType(field.type, field.items);
+                }
+
+                if (deferToForeignKey) {
+                    console.log("<<<<<<<<<<<<<<<<<<<<<<<<");
+                    deferedParams[field._key.pascal] = {
+                        key,
+                        type: field._key.pascal,
+                        external,
+                        required,
+                    }
+
+                    Object.keys(field.set_foreign_key_properties).forEach(k => {
+                        const assignments = {
+                            externalKey: k,
+                            selfKey: field.set_foreign_key_properties[k],
+                        }
+                        setForeignKeyProps.push(assignments);
+                    });
+                    console.log("<<<<<<<<<<<<<<<<<<<<<<<<");
                 }
 
                 if (paramIn === "path") {
@@ -139,19 +187,28 @@ entities.forEach(entity => {
                         type,
                         external,
                         required,
+                        replaceBody
                     };
                 }
             });
 
             // currently skipping as covered by ListOptions interface. In future, extensions to interface could be generated also
             const skip = ["after", "include", "limit", "order"];
-            const methodParams = Object.values(Object.assign({}, pathParams, queryParams, bodyParams))
+            const methodParams = Object.values(Object.assign({}, pathParams, queryParams, bodyParams, deferedParams))
                 .filter(f => f.external === true)
                 .sort((a, b) => {
                     return (a.required === b.required) ? 0 : a.required ? -1 : 1;
                 });
 
             console.log(methodName);
+
+            if (deferToForeignKey) {
+                console.log("%%%%%%%%%%%%");
+                console.log(deferToForeignKey);
+                console.log(setForeignKeyProps);
+                console.log(deferedMethodCall);
+                console.log("%%%%%%%%%%%%");
+            }
 
             methods.push({
                 entityName,
@@ -164,12 +221,17 @@ entities.forEach(entity => {
                 queryParams,
                 bodyParams,
                 methodParams,
+                deferToForeignKey,
+                setForeignKeyProps,
+                deferedMethodCall,
+                customMethodCall,
+                customMethodName
             });
         });
     }
 
     const filteredImports = imports.concat(foreignKeyTypes).filter((fk, index, self) => index === self.findIndex((t) => (t.propName === fk.propName))).filter(fk => fk.type !== entityName);
-    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, clientCalls, paginators }, { rmWhitespace: true })
+    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, clientCalls, paginators, unpackParams }, { rmWhitespace: true })
         .then(contents => {
             const path = `${generatedFolder}/${entity.group_id.lower_camel}/${entity._key.lower_camel}/${entity._key.lower_camel}.ts`;
             fs.createFileSync(path);

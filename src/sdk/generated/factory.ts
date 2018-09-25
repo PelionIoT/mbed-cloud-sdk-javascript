@@ -1,7 +1,14 @@
 import { Config } from "../client/config";
 import { ApiKey } from "./index";
+import { Certificate } from "./index";
+import { CertificateEnrollment } from "./index";
+import { EnrollmentBulkCreateTask } from "./index";
+import { EnrollmentBulkDeleteTask } from "./index";
+import { EnrollmentClaim } from "./index";
 import { MyAccount } from "./index";
+import { MyApiKey } from "./index";
 import { PolicyGroup } from "./index";
+import { ServerCredentials } from "./index";
 import { SubtenantAccount } from "./index";
 import { User } from "./index";
 export class Factory {
@@ -12,11 +19,32 @@ export class Factory {
     public ApiKey(): ApiKey {
         return new ApiKey(this._config);
     }
+    public Certificate(): Certificate {
+        return new Certificate(this._config);
+    }
+    public CertificateEnrollment(): CertificateEnrollment {
+        return new CertificateEnrollment(this._config);
+    }
+    public EnrollmentBulkCreateTask(): EnrollmentBulkCreateTask {
+        return new EnrollmentBulkCreateTask(this._config);
+    }
+    public EnrollmentBulkDeleteTask(): EnrollmentBulkDeleteTask {
+        return new EnrollmentBulkDeleteTask(this._config);
+    }
+    public EnrollmentClaim(): EnrollmentClaim {
+        return new EnrollmentClaim(this._config);
+    }
     public MyAccount(): MyAccount {
         return new MyAccount(this._config);
     }
+    public MyApiKey(): MyApiKey {
+        return new MyApiKey(this._config);
+    }
     public PolicyGroup(): PolicyGroup {
         return new PolicyGroup(this._config);
+    }
+    public ServerCredentials(): ServerCredentials {
+        return new ServerCredentials(this._config);
     }
     public SubtenantAccount(): SubtenantAccount {
         return new SubtenantAccount(this._config);

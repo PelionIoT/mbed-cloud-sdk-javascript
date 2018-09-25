@@ -7,22 +7,15 @@ import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { Client } from "../../../client/client";
 import { PolicyGroup } from "../../index";
-import { LoginHistory } from "../../index";
 /**
 * User.
 */
 export class User extends EntityBase {
     public readonly _renames: { [key: string]: string } = {
-        groups: "groupIds",
-        is_marketing_accepted: "marketingAccepted",
-        is_gtc_accepted: "termsAccepted",
-        is_totp_enabled: "twoFactorAuthentication",
-    };
-    public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
-        loginHistory: {
-            type: LoginHistory,
-            array: true,
-        }
+        "groups": "groupIds",
+        "is_marketing_accepted": "marketingAccepted",
+        "is_gtc_accepted": "termsAccepted",
+        "is_totp_enabled": "twoFactorAuthentication",
     };
     /**
     * The UUID of the account.
@@ -63,7 +56,7 @@ export class User extends EntityBase {
     /**
     * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
     */
-    public loginHistory?: Array<LoginHistory>;
+    public loginHistory?: Array<undefined>;
     /**
     * A flag indicating that receiving marketing information has been accepted.
     */
@@ -109,10 +102,37 @@ export class User extends EntityBase {
         }
     }
     /**
+    * addToGroupss a User.
+    * @returns Promise containing User.
+    */
+    public addToGroups(addToGroupIds: Array<string>): Promise<User> {
+        const body = addToGroupIds;
+        return apiWrapper(resultsFn => {
+            Client._CallApi<User>({
+                url: "/v3/users/{user-id}/groups",
+                method: "POST",
+                pathParams: {
+                    "user-id": this.id,
+                },
+                body: body,
+                config: this.config,
+            }, this, resultsFn);
+        }, (data, done) => {
+            done(null, data);
+        });
+    }
+    /**
     * creates a User.
     * @returns Promise containing User.
     */
     public create(action?: string): Promise<User> {
+        return subtenant_account_switch_create();
+    }
+    /**
+    * createOnAggregators a User.
+    * @returns Promise containing User.
+    */
+    public createOnAggregator(action?: string): Promise<User> {
         const body = {
             address: this.address,
             email: this.email,
@@ -139,6 +159,39 @@ export class User extends EntityBase {
         });
     }
     /**
+    * createOnSubtenants a User.
+    * @returns Promise containing User.
+    */
+    public createOnSubtenant(action?: string): Promise<User> {
+        const body = {
+            address: this.address,
+            email: this.email,
+            full_name: this.fullName,
+            groups: this.groupIds,
+            is_marketing_accepted: this.marketingAccepted,
+            password: this.password,
+            phone_number: this.phoneNumber,
+            is_gtc_accepted: this.termsAccepted,
+            username: this.username,
+        };
+        return apiWrapper(resultsFn => {
+            Client._CallApi<User>({
+                url: "/v3/accounts/{accountID}/users",
+                method: "POST",
+                query: {
+                    "action": action,
+                },
+                pathParams: {
+                    "accountID": this.accountId,
+                },
+                body: body,
+                config: this.config,
+            }, this, resultsFn);
+        }, (data, done) => {
+            done(null, data);
+        });
+    }
+    /**
     * deletes a User.
     * @returns Promise containing User.
     */
@@ -148,7 +201,7 @@ export class User extends EntityBase {
                 url: "/v3/users/{user-id}",
                 method: "DELETE",
                 pathParams: {
-                    "user-id": this.id,
+                    "undefined": this.id,
                 },
                 config: this.config,
             }, this, resultsFn);
@@ -161,11 +214,37 @@ export class User extends EntityBase {
     * @returns Promise containing User.
     */
     public get(): Promise<User> {
+        return subtenant_account_switch_get();
+    }
+    /**
+    * getOnAggregators a User.
+    * @returns Promise containing User.
+    */
+    public getOnAggregator(): Promise<User> {
         return apiWrapper(resultsFn => {
             Client._CallApi<User>({
                 url: "/v3/users/{user-id}",
                 method: "GET",
                 pathParams: {
+                    "user-id": this.id,
+                },
+                config: this.config,
+            }, this, resultsFn);
+        }, (data, done) => {
+            done(null, data);
+        });
+    }
+    /**
+    * getOnSubtenants a User.
+    * @returns Promise containing User.
+    */
+    public getOnSubtenant(): Promise<User> {
+        return apiWrapper(resultsFn => {
+            Client._CallApi<User>({
+                url: "/v3/accounts/{accountID}/users/{user-id}",
+                method: "GET",
+                pathParams: {
+                    "accountID": this.accountId,
                     "user-id": this.id,
                 },
                 config: this.config,
@@ -203,6 +282,51 @@ export class User extends EntityBase {
     * @param options filter options
     */
     public list(options?: ListOptions): Paginator<User, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client._CallApi<User>({
+                    url: "/v3/users",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    config: this.config,
+                    paginated: true,
+                }, new User(), resultsFn);
+            }, (data: ListResponse<User>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * List PolicyGroups
+    * @param options filter options
+    */
+    public paginateGroups(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client._CallApi<PolicyGroup>({
+                    url: "/v3/users/{user-id}/groups",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    pathParams: {
+                        "user-id": this.id,
+                    },
+                    config: this.config,
+                    paginated: true,
+                }, new PolicyGroup(), resultsFn);
+            }, (data: ListResponse<PolicyGroup>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * List Users
+    * @param options filter options
+    */
+    public paginateList(options?: ListOptions): Paginator<User, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;

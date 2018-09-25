@@ -108,6 +108,75 @@ export class PolicyGroup extends EntityBase {
         return new Paginator(pageFunc, options);
     }
     /**
+    * List ApiKeys
+    * @param options filter options
+    */
+    public paginateApiKeys(options?: ListOptions): Paginator<ApiKey, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client._CallApi<ApiKey>({
+                    url: "/v3/policy-groups/{groupID}/api-keys",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    pathParams: {
+                        "groupID": this.id,
+                    },
+                    config: this.config,
+                    paginated: true,
+                }, new ApiKey(), resultsFn);
+            }, (data: ListResponse<ApiKey>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * List PolicyGroups
+    * @param options filter options
+    */
+    public paginateList(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client._CallApi<PolicyGroup>({
+                    url: "/v3/policy-groups",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    config: this.config,
+                    paginated: true,
+                }, new PolicyGroup(), resultsFn);
+            }, (data: ListResponse<PolicyGroup>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * List Users
+    * @param options filter options
+    */
+    public paginateUsers(options?: ListOptions): Paginator<User, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client._CallApi<User>({
+                    url: "/v3/policy-groups/{groupID}/users",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    pathParams: {
+                        "groupID": this.id,
+                    },
+                    config: this.config,
+                    paginated: true,
+                }, new User(), resultsFn);
+            }, (data: ListResponse<User>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
     * List Users
     * @param options filter options
     */

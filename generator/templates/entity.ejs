@@ -20,7 +20,7 @@ export class <%= entity._key.pascal %> extends EntityBase {
 <% if (entity.field_renames.length > 0) { %>
     public readonly _renames: { [key: string]: string } = {
     <% entity.field_renames.forEach(function(rename){ %>
-        <%= rename.api_fieldname %>: "<%= rename._key.lower_camel %>",
+        "<%= rename.api_fieldname %>": "<%= rename._key.lower_camel %>",
     <% }); %>
     };
 <% } %>
@@ -53,7 +53,14 @@ this.config = new Config(config);
 }
 <% } %>
 <% methods.forEach(function(method) { %>
-    <% if (method.paginated) { %>
+    <% if (method.deferToForeignKey) { %>
+        public <%= method.methodName %>(<% method.methodParams.forEach(function(param, i) {%><%= param.key %><% if (!param.required) { %>?<% } %>: <%- param.type %><% if (i < method.methodParams.length - 1) { %>,<% } %><% }); %>): Promise<<%= method.returns %>> {
+        <% method.setForeignKeyProps.forEach(function(prop) { %>
+            <%= method.deferedMethodCall.field%>.<%= prop.externalKey%> = this.<%= prop.selfKey %>;
+        <% }); %>
+        return <%= method.deferedMethodCall.field%>.<%= method.deferedMethodCall.method%>();
+        }
+    <% } else if (method.paginated) { %>
         /**
         * List <%= method.returns %>s
         * @param options filter options
@@ -69,7 +76,7 @@ this.config = new Config(config);
         <% if (Object.keys(method.pathParams).length > 0) { %>
             pathParams: {
             <% for (var key in method.pathParams){%>
-                "<%= key %>":<% if (!method.pathParams[key].external) { %>this.<% } %><%= method.pathParams[key].key %>,
+                <%- unpackParams(key, method.pathParams[key]) %>,
             <% } %> },
         <% } %>
         config: this.config,
@@ -86,39 +93,48 @@ this.config = new Config(config);
         * <%= method.methodName %>s a <%= method.returns %>.
         * @returns Promise containing <%= method.returns %>.
         */
-        public <%= method.methodName %>(<% method.methodParams.forEach(function(param, i) {%><%= param.key %><% if (!param.required) { %>?<% } %>: <%= param.type %><% if (i < method.methodParams.length - 1) { %>,<% } %><% }); %>): Promise<<%= method.returns %>> {
-        <% if (Object.keys(method.bodyParams).length > 0) { %>
-            const body = {
-            <% for (var key in method.bodyParams) { %>
-                <%= key %>: this.<%= method.bodyParams[key].key %>,
+        public <%= method.methodName %>(<% method.methodParams.forEach(function(param, i) {%><%= param.key %><% if (!param.required) { %>?<% } %>: <%- param.type %><% if (i < method.methodParams.length - 1) { %>,<% } %><% }); %>): Promise<<%= method.returns %>> {
+        <% if (method.customMethodCall) { %>
+            return <%= method.customMethodName %>();
+            }
+        <% } else { %>
+            <% if (Object.keys(method.bodyParams).length > 0) { %>
+                <% if (method.bodyParams[Object.keys(method.bodyParams)[0]].replaceBody ) { %>
+                    const body = <% if (!method.bodyParams[Object.keys(method.bodyParams)[0]].external) { %>this.<% } %><%= method.bodyParams[Object.keys(method.bodyParams)[0]].key %>;
+                <% } else { %>
+                    const body = {
+                    <% for (var key in method.bodyParams) { %>
+                        <%= key %>: <% if (!method.bodyParams[key].external) { %>this.<% } %><%= method.bodyParams[key].key %>,
+                    <% } %>
+                    };
+                <% } %>
             <% } %>
-            };
+            return apiWrapper(resultsFn => {
+            Client._CallApi<<%= method.returns %>>({
+            url: "<%= method.path %>",
+            method: "<%= method.httpMethod %>",
+            <% if (Object.keys(method.queryParams).length > 0) { %>
+                query: {
+                <% for (var key in method.queryParams){%>
+                    <%- unpackParams(key, method.queryParams[key]) %>,
+                <% } %> },
+            <% } %>
+            <% if (Object.keys(method.pathParams).length > 0) { %>
+                pathParams: {
+                <% for (var key in method.pathParams){%>
+                    <%- unpackParams(key, method.pathParams[key]) %>,
+                <% } %> },
+            <% } %>
+            <% if (Object.keys(method.bodyParams).length > 0) { %>
+                body: body,
+            <% } %>
+            config: this.config,
+            }, this, resultsFn);
+            }, (data, done) => {
+            done(null, data);
+            });
+            }
         <% } %>
-        return apiWrapper(resultsFn => {
-        Client._CallApi<<%= method.returns %>>({
-        url: "<%= method.path %>",
-        method: "<%= method.httpMethod %>",
-        <% if (Object.keys(method.queryParams).length > 0) { %>
-            query: {
-            <% for (var key in method.queryParams){%>
-                "<%= key %>":<% if (!method.queryParams[key].external) { %>this.<% } %><%= method.queryParams[key].key %>,
-            <% } %> },
-        <% } %>
-        <% if (Object.keys(method.pathParams).length > 0) { %>
-            pathParams: {
-            <% for (var key in method.pathParams){%>
-                "<%= key %>":<% if (!method.pathParams[key].external) { %>this.<% } %><%= method.pathParams[key].key %>,
-            <% } %> },
-        <% } %>
-        <% if (Object.keys(method.bodyParams).length > 0) { %>
-            body: body,
-        <% } %>
-        config: this.config,
-        }, this, resultsFn);
-        }, (data, done) => {
-        done(null, data);
-        });
-        }
     <% } %>
 <% }); %>
 }

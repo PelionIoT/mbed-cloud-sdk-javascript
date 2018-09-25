@@ -12,7 +12,7 @@ import { PolicyGroup } from "../../index";
 */
 export class ApiKey extends EntityBase {
     public readonly _renames: { [key: string]: string } = {
-        groups: "groupIds",
+        "groups": "groupIds",
     };
     /**
     * Creation UTC time RFC3339.
@@ -145,6 +145,51 @@ export class ApiKey extends EntityBase {
     * @param options filter options
     */
     public list(options?: ListOptions): Paginator<ApiKey, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client._CallApi<ApiKey>({
+                    url: "/v3/api-keys",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    config: this.config,
+                    paginated: true,
+                }, new ApiKey(), resultsFn);
+            }, (data: ListResponse<ApiKey>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * List PolicyGroups
+    * @param options filter options
+    */
+    public paginateGroups(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
+            return apiWrapper(resultsFn => {
+                const { limit, after, order, include } = pageOptions as ListOptions;
+                Client._CallApi<PolicyGroup>({
+                    url: "/v3/api-keys/{apiKey}/groups",
+                    method: "GET",
+                    query: { after, include, order, limit },
+                    pathParams: {
+                        "apiKey": this.id,
+                    },
+                    config: this.config,
+                    paginated: true,
+                }, new PolicyGroup(), resultsFn);
+            }, (data: ListResponse<PolicyGroup>, done) => {
+                done(null, new ListResponse(data, data.data));
+            });
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+    * List ApiKeys
+    * @param options filter options
+    */
+    public paginateList(options?: ListOptions): Paginator<ApiKey, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
