@@ -31,7 +31,7 @@ suite("extractFilter", () => {
     test("should extract from eq", () => {
         const value = "coffee";
         const filter = {
-            filter: { $eq: value }
+            filter: { $eq: value },
         };
 
         const result = extractFilter(filter, "filter");
@@ -41,7 +41,7 @@ suite("extractFilter", () => {
     test("should extract from ne", () => {
         const value = "coffee";
         const filter = {
-            filter: { $ne: value }
+            filter: { $ne: value },
         };
 
         const result = extractFilter(filter, "filter", "$ne");
@@ -51,7 +51,7 @@ suite("extractFilter", () => {
     test("should extract without eq", () => {
         const value = "coffee";
         const filter = {
-            filter: value
+            filter: value,
         };
 
         const result = extractFilter(filter, "filter");
@@ -75,7 +75,7 @@ suite("encodeFilter", () => {
         const result = encodeFilter({
             key: { $eq: "value" },
             error: { $ne: "found" },
-            range: { $lte: 10, $gte: 2 }
+            range: { $lte: 10, $gte: 2 },
         });
         assert.strictEqual(result, "key=value&error__neq=found&range__lte=10&range__gte=2");
     });
@@ -84,7 +84,7 @@ suite("encodeFilter", () => {
         const result = encodeFilter({
             key: { $eq: "value" },
             error: { $ne: "found" },
-            theRange: { $lte: 10, $gte: 2 }
+            theRange: { $lte: 10, $gte: 2 },
         });
         assert.strictEqual(result, "key=value&error__neq=found&the_range__lte=10&the_range__gte=2");
     });
@@ -93,7 +93,7 @@ suite("encodeFilter", () => {
         const result = encodeFilter({
             key: "value",
             error: { $ne: "found" },
-            range: { $lte: 10, $gte: 2 }
+            range: { $lte: 10, $gte: 2 },
         });
         assert.strictEqual(result, "key=value&error__neq=found&range__lte=10&range__gte=2");
     });
@@ -102,14 +102,14 @@ suite("encodeFilter", () => {
         const result = encodeFilter({
             key: { $eq: "value" },
             error: { $ne: "found" },
-            range: { $lte: 10, $gte: 2 }
+            range: { $lte: 10, $gte: 2 },
         }, {
             from: [
-                "key"
+                "key",
             ],
             to: [
-                "switch"
-            ]
+                "switch",
+            ],
         });
         assert.strictEqual(result, "switch=value&error__neq=found&range__lte=10&range__gte=2");
     });
@@ -121,17 +121,17 @@ suite("encodeFilter", () => {
             range: { $lte: 10, $gte: 2 },
             custom: {
                 custom_1: { $eq: "custom_value_1" },
-                custom_2: { $ne: "custom_value_2" }
-            }
+                custom_2: { $ne: "custom_value_2" },
+            },
         }, {
             from: [
-                "key"
+                "key",
             ],
             to: [
-                "switch"
-            ]
+                "switch",
+            ],
         }, [
-            "custom"
+            "custom",
         ]);
         assert.strictEqual(result, "switch=value&error__neq=found&range__lte=10&range__gte=2&custom__custom_1=custom_value_1&custom__custom_2__neq=custom_value_2");
     });
@@ -149,7 +149,7 @@ suite("decodeFilter", () => {
         assert.deepEqual(result, {
             key: { $eq: "value" },
             error: { $ne: "found" },
-            range: { $lte: "10", $gte: "2" }
+            range: { $lte: "10", $gte: "2" },
         });
     });
 
@@ -158,36 +158,36 @@ suite("decodeFilter", () => {
         assert.deepEqual(result, {
             key: { $eq: "value" },
             error: { $ne: "found" },
-            theRange: { $lte: "10", $gte: "2" }
+            theRange: { $lte: "10", $gte: "2" },
         });
     });
 
     test("should decode with map", () => {
         const result = decodeFilter("switch=value&error__neq=found&range__lte=10&range__gte=2", {
             from: [
-                "key"
+                "key",
             ],
             to: [
-                "switch"
-            ]
+                "switch",
+            ],
         });
         assert.deepEqual(result, {
             key: { $eq: "value" },
             error: { $ne: "found" },
-            range: { $lte: "10", $gte: "2" }
+            range: { $lte: "10", $gte: "2" },
         });
     });
 
     test("should decode with nest", () => {
         const result = decodeFilter("switch=value&error__neq=found&range__lte=10&range__gte=2&custom__custom_1=custom_value_1&custom__custom_2__neq=custom_value_2", {
             from: [
-                "key"
+                "key",
             ],
             to: [
-                "switch"
-            ]
+                "switch",
+            ],
         }, [
-            "custom"
+            "custom",
         ]);
         assert.deepEqual(result, {
             key: { $eq: "value" },
@@ -195,8 +195,8 @@ suite("decodeFilter", () => {
             range: { $lte: "10", $gte: "2" },
             custom: {
                 custom_1: { $eq: "custom_value_1" },
-                custom_2: { $ne: "custom_value_2" }
-            }
+                custom_2: { $ne: "custom_value_2" },
+            },
         });
     });
 });

@@ -28,9 +28,9 @@ suite("deviceDirectorySnippet", () => {
 
             const devices = deviceDirectory.listDevices({ order: "ASC" });
 
-            devices.then(d => {
-                d.data.map(item => `${item.id} [${item.state}]`)
-                    .forEach(_ => {
+            devices.then( d => {
+                d.data.map( item => `${item.id} [${item.state}]`)
+                    .forEach( _ => {
                         // do something here
                     });
             });
@@ -48,9 +48,9 @@ suite("deviceDirectorySnippet", () => {
 
             const devices = deviceDirectory.listDevices({ order: "ASC", filter: { state: { $eq: "deregistered" } } });
 
-            devices.then(d => {
-                d.data.map(item => `${item.id} [${item.state}]`)
-                    .forEach(_ => {
+            devices.then( d => {
+                d.data.map( item => `${item.id} [${item.state}]`)
+                    .forEach( _ => {
                         // do something here
                     });
             });

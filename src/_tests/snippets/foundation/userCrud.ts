@@ -27,14 +27,14 @@ suite("userCrud", () => {
         const iam = new AccountManagementApi(new Config());
 
         return iam.listUsers()
-            .then(users => {
+            .then( users => {
                 const firstUserId = users.data[0].id;
 
                 const user = new User();
                 user.id = firstUserId;
 
                 user.get()
-                .then(u => {
+                .then( u => {
 
                     assert.instanceOf(u, User);
 
@@ -42,7 +42,7 @@ suite("userCrud", () => {
                     assert.instanceOf(l, LoginHistory);
                 });
             })
-            .catch(e => {
+            .catch( e => {
                 throw e;
             });
     });
@@ -52,27 +52,27 @@ suite("userCrud", () => {
 
         return user.list()
             .first()
-            .then(first => {
+            .then( first => {
                 assert.instanceOf(first, User);
             })
-            .catch(e => {
+            .catch( e => {
                 throw e;
             });
     });
 
     test("user list foreignKey", () => {
         return Promise.resolve()
-            .then(_ => {
+            .then( _ => {
                 const group = new PolicyGroup();
 
                 return group.list().all();
             })
-            .then(groups => {
+            .then( groups => {
                 const user = new User();
 
                 return user.list()
                     .first()
-                    .then(first => {
+                    .then( first => {
                         const groupId = groups[0].id;
                         if (first.groupIds.indexOf(groupId) === -1) {
                             first.groupIds.push(groupId);
@@ -80,21 +80,21 @@ suite("userCrud", () => {
                         return first.update();
                     });
             })
-            .then(user => {
+            .then( user => {
                 return user.groups().all();
-            }).then(groups => {
+            }).then( groups => {
                 const firstGroup = groups[0];
 
                 assert.instanceOf(firstGroup, PolicyGroup);
             })
-            .catch(e => {
+            .catch( e => {
                 throw e;
             });
     });
 
     test("phone demo", () => {
         return Promise.resolve()
-            .then(_ => {
+            .then( _ => {
                 const user = new User();
 
                 user.username = "alexjs";
@@ -104,17 +104,17 @@ suite("userCrud", () => {
 
                 return user.create();
             })
-            .then(user => {
+            .then( user => {
                 user.phoneNumber = "118118";
 
                 return user.update();
             })
-            .then(user => {
+            .then( user => {
                 assert.strictEqual("118118", user.phoneNumber);
 
                 return user.delete();
             })
-            .catch(e => {
+            .catch( e => {
                 throw e;
             });
     });

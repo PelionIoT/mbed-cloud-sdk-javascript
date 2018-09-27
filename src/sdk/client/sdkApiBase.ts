@@ -118,13 +118,13 @@ export class SdkApiBase {
 
     private static chooseType(types: Array<string>, defaultType: string = null): string {
         // No type
-        if (!types.length) return defaultType;
+        if (!types.length) { return defaultType; }
 
         // Default to first entry or default
         let result = types[0] || defaultType;
 
         // Find first preferred type
-        types.some(type => {
+        types.some( type => {
             if (MIME_REGEX.test(type)) {
                 result = type;
                 return true;
@@ -144,7 +144,7 @@ export class SdkApiBase {
 
     private static buildUrl(url: string, pathParams: { [key: string]: string }): string {
         if (pathParams) {
-            Object.keys(pathParams).forEach(param => {
+            Object.keys(pathParams).forEach( param => {
                 url = url.replace(`{${param}}`, pathParams[param]);
             });
         }
@@ -170,7 +170,7 @@ export class SdkApiBase {
         request.query(requestOptions.query);
 
         let apiKey: string;
-        if (this.config.apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${this.config.apiKey}`;
+        if (this.config.apiKey.substr(0, 6).toLowerCase() !== "bearer") { apiKey = `Bearer ${this.config.apiKey}`; }
 
         // set header parameters
         requestOptions.headers.Authorization = apiKey;
@@ -215,7 +215,7 @@ export class SdkApiBase {
             // Remove empty or undefined json parameters
             if (body && body.constructor === {}.constructor && JSON_REGEX.test(requestOptions.contentType)) {
                 body = Object.keys(body).reduce((val, key) => {
-                    if (body[key] !== null && body[key] !== undefined) val[key] = body[key];
+                    if (body[key] !== null && body[key] !== undefined) { val[key] = body[key]; }
                     return val;
                 }, {});
             }
@@ -223,7 +223,7 @@ export class SdkApiBase {
             request.send(body);
         }
 
-        if (body) SdkApiBase.debugLog("body", body);
+        if (body) { SdkApiBase.debugLog("body", body); }
 
         request.end((error, response) => {
             this.complete(error, response, requestOptions.acceptHeader, options.paginated, instance, callback);
@@ -241,10 +241,10 @@ export class SdkApiBase {
             let details = "";
 
             if (response) {
-                if (response.error) message = response.error.message;
+                if (response.error) { message = response.error.message; }
                 if (response.body && response.body.message) {
                     message = response.body.message;
-                    if (message.error) message = message.error;
+                    if (message.error) { message = message.error; }
                 }
                 innerError = response.error || error;
                 details = response.body || response.text;
@@ -264,7 +264,7 @@ export class SdkApiBase {
             if (data && data.constructor === {}.constructor && JSON_REGEX.test(acceptHeader)) {
                 data = JSON.parse(JSON.stringify(data), (_key, value) => {
                     // revive a date object
-                    if (DATE_REGEX.test(value)) return new Date(value);
+                    if (DATE_REGEX.test(value)) { return new Date(value); }
                     return value;
                 });
 
@@ -273,7 +273,7 @@ export class SdkApiBase {
                         data = instance._fromApi(instance, data);
                     } else {
                         const arr: Array<T> = [];
-                        Object.keys(data.data).forEach(d => {
+                        Object.keys(data.data).forEach( d => {
                             const inst = instance._fromApi(instance, data.data[d]);
                             arr.push(inst);
                         });

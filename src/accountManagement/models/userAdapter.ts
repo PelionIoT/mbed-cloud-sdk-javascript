@@ -18,7 +18,7 @@
 import {
     UserInfoReq as apiUserAdd,
     UserUpdateReq as apiUserUpdate,
-    UserInfoResp as apiUser
+    UserInfoResp as apiUser,
 } from "../../_api/iam";
 import { AddUserObject, UpdateUserObject } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
@@ -35,7 +35,7 @@ export class UserAdapter {
         let logins = [];
 
         if (from.login_history) {
-            logins = from.login_history.map(login => {
+            logins = from.login_history.map( login => {
                 return LoginHistoryAdapter.map(login);
             });
         }

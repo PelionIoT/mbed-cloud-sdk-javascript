@@ -43,7 +43,7 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
         if (_filter) {
             this.filter = _filter;
             // create presubscriptions
-            ensureArray(this.filter.deviceId).forEach(d => {
+            ensureArray(this.filter.deviceId).forEach( d => {
                 this.localPresubscriptions.push({ deviceId: d, resourcePaths: this.filter.resourcePaths || new Array() });
             });
             this.syncPresubscriptions();
@@ -75,30 +75,30 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
     }
 
     private compareData(data: NotificationData): boolean {
-        return this.localPresubscriptions.some(sub => {
-            return matchWithWildcard(sub.deviceId, data.deviceId) && (sub.resourcePaths.length === 0 || sub.resourcePaths.some(r => matchWithWildcard(r, data.path)));
+        return this.localPresubscriptions.some( sub => {
+            return matchWithWildcard(sub.deviceId, data.deviceId) && (sub.resourcePaths.length === 0 || sub.resourcePaths.some( r => matchWithWildcard(r, data.path)));
         });
     }
 
     private syncPresubscriptions(): void {
         if (this.connect) {
             this.connect.listPresubscriptions()
-                .then(subs => {
+                .then( subs => {
                     const concat = this.localPresubscriptions.concat(subs);
                     const union = concat.filter((el, i, a) => i === a.indexOf(el));
                     this.connect.updatePresubscriptions(union);
                 });
 
             if (this.firstValue === "OnValueUpdate") {
-                this.localPresubscriptions.forEach(p => {
+                this.localPresubscriptions.forEach( p => {
                     this.connect.listConnectedDevices()
-                        .then(devices => {
-                            devices.data.filter(device => matchWithWildcard(device.id, p.deviceId))
-                                .forEach(m => {
+                        .then( devices => {
+                            devices.data.filter( device => matchWithWildcard(device.id, p.deviceId))
+                                .forEach( m => {
                                     m.listResources()
-                                        .then(r => {
-                                            r.forEach(q => {
-                                                if (p.resourcePaths.length === 0 || p.resourcePaths.some(w => matchWithWildcard(w, q.path))) {
+                                        .then( r => {
+                                            r.forEach( q => {
+                                                if (p.resourcePaths.length === 0 || p.resourcePaths.some( w => matchWithWildcard(w, q.path))) {
                                                     this.connect.addResourceSubscription(m.id, q.path);
                                                 }
                                             });

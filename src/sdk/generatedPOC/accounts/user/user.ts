@@ -20,7 +20,7 @@ export class User extends EntityBase {
         loginHistory: {
             type: LoginHistory,
             array: true,
-        }
+        },
     };
 
     /**
@@ -111,7 +111,7 @@ export class User extends EntityBase {
      */
     public list(options?: ListOptions): Paginator<User, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
-            return apiWrapper(resultsFn => {
+            return apiWrapper( resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
                 this.client._CallApi<User>({
                     url: "/v3/users",
@@ -135,7 +135,7 @@ export class User extends EntityBase {
      */
     public groups(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
-            return apiWrapper(resultsFn => {
+            return apiWrapper( resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
                 this.client._CallApi<PolicyGroup>({
                     url: "/v3/users/{user-id}/groups",
@@ -157,7 +157,7 @@ export class User extends EntityBase {
      * @returns Promise containing user
      */
     public create(action?: string): Promise<User> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             const body = {
                 address: this.address,
                 email: this.email,
@@ -186,7 +186,7 @@ export class User extends EntityBase {
      * @returns Promise containing user
      */
     public get(): Promise<User> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this.client._CallApi<User>({
                 url: "/v3/users/{user-id}",
                 method: "GET",
@@ -202,7 +202,7 @@ export class User extends EntityBase {
      * @returns Promise containing user
      */
     public update(): Promise<User> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             const body = {
                 address: this.address,
                 full_name: this.fullName,
@@ -230,7 +230,7 @@ export class User extends EntityBase {
      * @returns Promise containing any error
      */
     public delete(): Promise<User> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this.client._CallApi<User>({
                 url: "/v3/users/{user-id}",
                 method: "DELETE",

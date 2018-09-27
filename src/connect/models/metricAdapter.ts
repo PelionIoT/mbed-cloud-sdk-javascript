@@ -45,7 +45,7 @@ export class MetricAdapter {
             fullRegistrations:              from.full_registrations,
             updatedRegistrations:           from.registration_updates,
             expiredRegistrations:           from.expired_registrations,
-            deletedRegistrations:           from.deleted_registrations
+            deletedRegistrations:           from.deleted_registrations,
         });
     }
 
@@ -68,7 +68,7 @@ export class MetricAdapter {
             "fullRegistrations",
             "updatedRegistrations",
             "expiredRegistrations",
-            "deletedRegistrations"
+            "deletedRegistrations",
         ];
 
         const apiNames = [
@@ -87,22 +87,22 @@ export class MetricAdapter {
             "full_registrations",
             "registration_updates",
             "expired_registrations",
-            "deleted_registrations"
+            "deleted_registrations",
         ];
 
         if (from) {
-            from.forEach(include => {
+            from.forEach( include => {
                 const index = metricNames.indexOf(include);
-                if (index >= 0 ) includes.push(apiNames[index]);
+                if (index >= 0 ) { includes.push(apiNames[index]); }
             });
         }
 
-        if (includes.length === 0) includes = apiNames;
+        if (includes.length === 0) { includes = apiNames; }
         return includes.join(",");
     }
 
     public static mapTimePeriod(from?: TimePeriod): string {
-        if (!from) return MetricAdapter.DEFAULT_TIME_PERIOD;
+        if (!from) { return MetricAdapter.DEFAULT_TIME_PERIOD; }
         const unit = from.unit[0];
         return `${from.duration}${unit}`;
     }

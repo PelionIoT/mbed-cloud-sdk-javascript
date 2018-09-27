@@ -28,7 +28,7 @@ suite("connectSnippet", () => {
 
             const observer = connect.subscribe.deviceStateChanges({ event: "registration" });
 
-            observer.addListener(_res => {
+            observer.addListener( _res => {
                 // do something here
             });
             // end of example
@@ -45,7 +45,7 @@ suite("connectSnippet", () => {
 
             const observer = connect.subscribe.resourceValues({ deviceId: "016*", resourcePaths: [ "/3/0/*" ] });
 
-            observer.addListener(_res => {
+            observer.addListener( _res => {
                 // do something here
             });
             // end of example

@@ -67,12 +67,12 @@ export class ApiKey {
      */
     public listGroups(callback: CallbackFn<Array<Group>>): void;
     public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._api.listGroups(null, resultsFn);
         }, (data, done) => {
             let groups = [];
             if (data.data && data.data.length) {
-                groups = data.data.filter(group => {
+                groups = data.data.filter( group => {
                     return this.groups.indexOf(group.id) > -1;
                 });
             }
@@ -92,8 +92,8 @@ export class ApiKey {
      */
     public getOwner(callback: CallbackFn<User>): void;
     public getOwner(callback?: CallbackFn<User>): Promise<User> {
-        return asyncStyle(done => {
-            if (!this.ownerId) return done(null, null);
+        return asyncStyle( done => {
+            if (!this.ownerId) { return done(null, null); }
             this._api.getUser(this.ownerId, done);
         }, callback);
     }
@@ -109,7 +109,7 @@ export class ApiKey {
      */
     public update(callback: CallbackFn<ApiKey>): void;
     public update(callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.updateApiKey(this, done);
         }, callback);
     }
@@ -125,7 +125,7 @@ export class ApiKey {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.deleteApiKey(this.id, done);
         }, callback);
     }

@@ -26,7 +26,7 @@ suite("connectEvents", () => {
 
     beforeEach(() => {
         api = new ConnectApi({
-            apiKey: "key"
+            apiKey: "key",
         });
     });
 
@@ -52,7 +52,7 @@ suite("connectEvents", () => {
         });
 
         api.notify({
-            notifications: [ { ep: "device-id" } ]
+            notifications: [ { ep: "device-id" } ],
         });
     });
 
@@ -78,7 +78,7 @@ suite("connectEvents", () => {
         });
 
         api.notify({
-            registrations: [ { ep: "device-id" } ]
+            registrations: [ { ep: "device-id" } ],
         });
     });
 
@@ -104,7 +104,7 @@ suite("connectEvents", () => {
         });
 
         api.notify({
-            "reg-updates": [ { ep: "device-id" } ]
+            "reg-updates": [ { ep: "device-id" } ],
         });
     });
 
@@ -130,7 +130,7 @@ suite("connectEvents", () => {
         });
 
         api.notify({
-            "de-registrations": [ "device-id" ]
+            "de-registrations": [ "device-id" ],
         });
     });
 
@@ -156,7 +156,7 @@ suite("connectEvents", () => {
         });
 
         api.notify({
-            "registrations-expired": [ "device-id" ]
+            "registrations-expired": [ "device-id" ],
         });
     });
 
@@ -167,7 +167,7 @@ suite("connectEvents", () => {
             "registrations": [ "1", "2" ],
             "reg-updates": [ "1", "2" ],
             "de-registrations": [ "1", "2" ],
-            "registrations-expired": [ "1", "2" ]
+            "registrations-expired": [ "1", "2" ],
         };
 
         const notificationCount = Object.keys(notifications).length * 2;
@@ -198,13 +198,13 @@ suite("notifications", () => {
     let api: ConnectApi;
 
     function encode(payload) {
-        if (typeof btoa === "function") return btoa(payload);
+        if (typeof btoa === "function") { return btoa(payload); }
         return new Buffer(payload).toString("base64");
     }
 
     beforeEach(() => {
         api = new ConnectApi({
-            apiKey: "key"
+            apiKey: "key",
         });
     });
 
@@ -228,8 +228,8 @@ suite("notifications", () => {
             notifications: [ {
                 ep: deviceId,
                 path: devicePath,
-                payload: encode(payload)
-            } ]
+                payload: encode(payload),
+            } ],
         });
     });
 
@@ -251,8 +251,8 @@ suite("notifications", () => {
         api.notify({
             "async-responses": [ {
                 id: asyncId,
-                payload: encode(payload)
-            } ]
+                payload: encode(payload),
+            } ],
         });
     });
 });

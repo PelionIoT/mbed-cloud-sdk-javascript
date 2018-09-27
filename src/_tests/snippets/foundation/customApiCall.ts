@@ -25,7 +25,7 @@ suite("customApiCall", () => {
         try {
             // an example: custom api call
             const client = new Client();
-            const users = await client.CallApi({ url: "/v3/users", method: "GET", query: { "limit": 2 } });
+            const users = await client.CallApi({ url: "/v3/users", method: "GET", query: { limit: 2 } });
             // end of example
             assert.hasAnyKeys(users, [ "data" ]);
         } catch (e) {

@@ -30,14 +30,14 @@ suite("testObserver", () => {
         observer.notify("b");
         observer.notify("c");
         assert.notEqual(a, b);
-        a.then(res => assert.strictEqual(res, "a"));
-        b.then(res => assert.strictEqual(res, "b"));
+        a.then( res => assert.strictEqual(res, "a"));
+        b.then( res => assert.strictEqual(res, "b"));
     });
 
     test("subscribeFirstCallback", () => {
         const observer = new Observer<string>();
-        observer.once(res => assert.strictEqual(res, "a"));
-        observer.once(res => assert.strictEqual(res, "b"));
+        observer.once( res => assert.strictEqual(res, "a"));
+        observer.once( res => assert.strictEqual(res, "b"));
         observer.notify("a");
         observer.notify("b");
         observer.notify("c");
@@ -51,8 +51,8 @@ suite("testObserver", () => {
         const a = observer.once();
         const b = observer.once();
         assert.notEqual(a, b);
-        a.then(res => assert.strictEqual(res, "a"));
-        b.then(res => assert.strictEqual(res, "b"));
+        a.then( res => assert.strictEqual(res, "a"));
+        b.then( res => assert.strictEqual(res, "b"));
     });
 
     test("notifyFirstCallback", () => {
@@ -60,8 +60,8 @@ suite("testObserver", () => {
         observer.notify("a");
         observer.notify("b");
         observer.notify("c");
-        observer.once(res => assert.strictEqual(res, "a"));
-        observer.once(res => assert.strictEqual(res, "b"));
+        observer.once( res => assert.strictEqual(res, "a"));
+        observer.once( res => assert.strictEqual(res, "b"));
     });
 
     test("interleaved", () => {
@@ -76,32 +76,32 @@ suite("testObserver", () => {
         observer.notify("d");
         observer.notify("e");
         const e = observer.once();
-        a.then(res => assert.strictEqual(res, "a"));
-        b.then(res => assert.strictEqual(res, "b"));
-        c.then(res => assert.strictEqual(res, "c"));
-        d.then(res => assert.strictEqual(res, "d"));
-        e.then(res => assert.strictEqual(res, "e"));
+        a.then( res => assert.strictEqual(res, "a"));
+        b.then( res => assert.strictEqual(res, "b"));
+        c.then( res => assert.strictEqual(res, "c"));
+        d.then( res => assert.strictEqual(res, "d"));
+        e.then( res => assert.strictEqual(res, "e"));
     });
 
     test("interleavedCallback", () => {
         const observer = new Observer<string>();
         observer.notify("a");
-        observer.once(res => assert.strictEqual(res, "a"));
-        observer.once(res => assert.strictEqual(res, "b"));
-        observer.once(res => assert.strictEqual(res, "c"));
+        observer.once( res => assert.strictEqual(res, "a"));
+        observer.once( res => assert.strictEqual(res, "b"));
+        observer.once( res => assert.strictEqual(res, "c"));
         observer.notify("b");
-        observer.once(res => assert.strictEqual(res, "d"));
+        observer.once( res => assert.strictEqual(res, "d"));
         observer.notify("c");
         observer.notify("d");
         observer.notify("e");
-        observer.once(res => assert.strictEqual(res, "e"));
+        observer.once( res => assert.strictEqual(res, "e"));
     });
 
     test("callback", () => {
         const observer = new Observer<number>();
         let x = 1;
-        observer.addListener(res => x += res);
-        observer.addListener(res => x += (res * 2));
+        observer.addListener( res => x += res);
+        observer.addListener( res => x += (res * 2));
         observer.notify(3);
         assert.strictEqual(x, 10);
     });
@@ -127,15 +127,15 @@ suite("testObserver", () => {
             observer.notify(index);
         }
         const items = [];
-        observer.getNotificationQueue().forEach(item => items.push(item));
+        observer.getNotificationQueue().forEach( item => items.push(item));
         assert.sameOrderedMembers(items, Array.apply(null, { length: 10 }).map(Function.call, Number));
     });
 
     test("localFilter", () => {
         let x = 0;
         const observer = new Observer<number>()
-            .addLocalFilter(num => num >= 5)
-            .addListener(res => x += res);
+            .addLocalFilter( num => num >= 5)
+            .addListener( res => x += res);
         observer.notify(4);
         observer.notify(5);
         assert.strictEqual(x, 5);

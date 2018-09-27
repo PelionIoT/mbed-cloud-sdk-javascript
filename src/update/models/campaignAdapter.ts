@@ -19,7 +19,7 @@ import { encodeFilter, decodeFilter } from "../../common/functions";
 import {
     UpdateCampaign as apiCampaign,
     UpdateCampaignPostRequest as apiCampaignAdd,
-    UpdateCampaignPutRequest as apiCampaignUpdate
+    UpdateCampaignPutRequest as apiCampaignUpdate,
 } from "../../_api/update_service";
 import { Filters } from "../../deviceDirectory/filters";
 import { AddCampaignObject, UpdateCampaignObject } from "../types";
@@ -45,7 +45,7 @@ export class CampaignAdapter {
             state:               from.state,
             phase:               from.phase,
             scheduledAt:         from.when,
-            updatedAt:           from.updated_at
+            updatedAt:           from.updated_at,
         }, api);
     }
 

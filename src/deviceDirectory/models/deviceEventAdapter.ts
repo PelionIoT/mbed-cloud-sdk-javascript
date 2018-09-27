@@ -33,7 +33,7 @@ export class DeviceEventAdapter {
             typeDescription:         from.event_type_description,
             type:                    from.event_type,
             data:                    from.data,
-            deviceId:                from.device_id
+            deviceId:                from.device_id,
         });
     }
 }

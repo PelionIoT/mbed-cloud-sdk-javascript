@@ -29,7 +29,6 @@
         "trailing-comma": [true, "never"],
         "triple-equals": [true],
         "variable-name": [true, "allow-leading-underscore"],
-        "jsdoc-format": false, //TODO revert to true when formatting fixed
-        "object-literal-key-quotes": false //TODO revert to true when formatting fixed
+        "jsdoc-format": false //TODO revert to true when formatting fixed
     }
 }

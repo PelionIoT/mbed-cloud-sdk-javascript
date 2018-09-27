@@ -38,6 +38,7 @@ method: "<%= method.httpMethod %>",
         <%- unpackParams(key, method.formParams[key]) -%>,
     <% } -%>
     },
+    contentTypes: [ "multipart/form-data" ],
 <% } -%>
 <% if (Object.keys(method.bodyParams).length > 0) { -%>
     body: body,

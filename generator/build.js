@@ -158,7 +158,7 @@ entities.forEach(entity => {
                 const external = field.external_param;
                 const required = field.required;
                 let type;
-                const fieldName = field.parameter_fieldname;
+                const fieldName = field.parameter_fieldname || field.name;
                 const key = snakeToCamel(field._key);
                 const replaceBody = !!field.__REPLACE_BODY;
 

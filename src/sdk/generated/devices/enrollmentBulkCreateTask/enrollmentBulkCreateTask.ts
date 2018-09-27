@@ -69,6 +69,7 @@ export class EnrollmentBulkCreateTask extends EntityBase {
                         formParams: {
                             enrollment_identities: enrollmentIdentities,
                         },
+                        contentTypes: [ "multipart/form-data" ],
                     },
                     this,
                     resultsFn

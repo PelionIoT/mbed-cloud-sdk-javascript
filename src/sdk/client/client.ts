@@ -9,8 +9,7 @@ export class Client extends SdkApiBase {
         super(config);
     }
 
-    public CallApi(options: { url?: string, method?: Method, pathParams?: ClientParams, headers?: ClientParams, query?: ClientParams, formParams?: ClientParams, body?: any, paginated?: boolean }): Promise<any> {
-        options = options || {};
+    public CallApi(options: CallApiOptions): Promise<any> {
         return new Promise((resolve, reject) => {
             this._CallApi(options, null, (err, data) => {
                 if (err) {
@@ -22,15 +21,9 @@ export class Client extends SdkApiBase {
         });
     }
 
-    public _CallApi<T extends EntityBase>(options: { url?: string, method?: Method, pathParams?: ClientParams, headers?: ClientParams, query?: ClientParams, formParams?: ClientParams, body?: any, paginated?: boolean }, instance?: T, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        const contentTypes: Array<string> = [
-            "application/json"
-        ];
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
+    public _CallApi<T extends EntityBase>(options: CallApiOptions, instance?: T, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
-        const { url, method, pathParams, headers, query, formParams, body, paginated } = options;
+        const { url, method, pathParams, headers, query, formParams, body, paginated, contentTypes, acceptTypes } = options;
 
         const useFormData = !!formParams;
 
@@ -41,13 +34,26 @@ export class Client extends SdkApiBase {
             query: query,
             formParams: formParams,
             useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
+            contentTypes: contentTypes || [ "application/json" ],
+            acceptTypes: acceptTypes || [ "application/json" ],
             body: body,
             pathParams: pathParams,
             paginated: paginated || false,
         }, instance, callback);
     }
+}
+
+export interface CallApiOptions {
+    url?: string;
+    method?: Method;
+    pathParams?: ClientParams;
+    headers?: ClientParams;
+    query?: ClientParams;
+    formParams?: ClientParams;
+    body?: any;
+    contentTypes?: Array<string>;
+    acceptTypes?: Array<string>;
+    paginated?: boolean;
 }
 
 export interface ClientParams {

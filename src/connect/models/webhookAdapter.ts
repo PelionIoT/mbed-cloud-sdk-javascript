@@ -26,7 +26,7 @@ export class WebhookAdapter {
     public static map(from: apiWebhook): Webhook {
         return new Webhook({
             url:        from.url,
-            headers:    from.headers
+            headers:    from.headers,
         });
     }
 }

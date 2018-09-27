@@ -44,7 +44,7 @@ export class PolicyGroup extends EntityBase {
      */
     public list(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
-            return apiWrapper(resultsFn => {
+            return apiWrapper( resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
                 this.client._CallApi<PolicyGroup>({
                     url: "/v3/policy-groups",
@@ -67,7 +67,7 @@ export class PolicyGroup extends EntityBase {
      */
     public users(options?: ListOptions): Paginator<User, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
-            return apiWrapper(resultsFn => {
+            return apiWrapper( resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
                 this.client._CallApi<User>({
                     url: "/v3/policy-groups/{groupID}/users",

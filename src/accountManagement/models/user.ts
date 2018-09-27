@@ -89,7 +89,7 @@ export class User {
      */
     public update(callback: CallbackFn<User>): void;
     public update(callback?: CallbackFn<User>): Promise<User> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.updateUser(this, done);
         }, callback);
     }
@@ -105,12 +105,12 @@ export class User {
      */
     public listGroups(callback: CallbackFn<Array<Group>>): void;
     public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._api.listGroups(null, resultsFn);
         }, (data, done) => {
             let groups = [];
             if (data.data && data.data.length) {
-                groups = data.data.filter(group => {
+                groups = data.data.filter( group => {
                     return this.groups.indexOf(group.id) > -1;
                 });
             }
@@ -136,9 +136,9 @@ export class User {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             options.filter = {
-                ownerId: { $eq: this.id }
+                ownerId: { $eq: this.id },
             };
 
             this._api.listApiKeys(options, done);
@@ -156,7 +156,7 @@ export class User {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.deleteUser(this.id, done);
         }, callback);
     }

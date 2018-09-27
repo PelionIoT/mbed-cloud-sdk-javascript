@@ -27,7 +27,7 @@ export class PolicyAdapter {
             action:      from.action,
             allow:       from.allow,
             feature:     from.feature,
-            resource:    from.resource
+            resource:    from.resource,
         });
     }
 }

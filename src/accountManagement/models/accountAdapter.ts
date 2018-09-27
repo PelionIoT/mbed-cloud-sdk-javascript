@@ -17,7 +17,7 @@
 
 import {
     AccountUpdateReq as apiAccountRequest,
-    AccountInfo as apiAccount
+    AccountInfo as apiAccount,
 } from "../../_api/iam";
 import { UpdateAccountObject } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
@@ -33,7 +33,7 @@ export class AccountAdapter {
         let policies = [];
 
         if (from.policies) {
-            policies = from.policies.map(policy => {
+            policies = from.policies.map( policy => {
                 return PolicyAdapter.map(policy);
             });
         }

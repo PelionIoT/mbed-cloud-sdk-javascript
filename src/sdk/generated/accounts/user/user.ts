@@ -241,7 +241,7 @@ export class User extends EntityBase {
                         url: "/v3/users/{user-id}",
                         method: "DELETE",
                         pathParams: {
-                            undefined: this.id,
+                            "user-id": this.id,
                         },
                     },
                     this,
@@ -299,7 +299,7 @@ export class User extends EntityBase {
                         url: "/v3/accounts/{accountID}/users/{user-id}",
                         method: "GET",
                         pathParams: {
-                            accountID: this.accountId,
+                            "accountID": this.accountId,
                             "user-id": this.id,
                         },
                     },
@@ -420,7 +420,7 @@ export class User extends EntityBase {
                         url: "/v3/accounts/{accountID}/users/{user-id}/validate-email",
                         method: "POST",
                         pathParams: {
-                            accountID: this.accountId,
+                            "accountID": this.accountId,
                             "user-id": this.id,
                         },
                     },

@@ -27,7 +27,7 @@ export class LoginHistoryAdapter {
             date:       from.date,
             userAgent:  from.user_agent,
             ipAddress:  from.ip_address,
-            success:    from.success
+            success:    from.success,
         });
     }
 }

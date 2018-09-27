@@ -49,7 +49,7 @@ suite("apiBase", () => {
 
         api.complete(null, {
             body: body,
-            text: text
+            text: text,
         }, null, (_error, data) => {
             assert.strictEqual(data, body);
         });
@@ -60,7 +60,7 @@ suite("apiBase", () => {
         const text = "text";
 
         api.complete(null, {
-            text: text
+            text: text,
         }, "application/json", (_error, data) => {
             assert.strictEqual(data, text);
         });
@@ -72,8 +72,8 @@ suite("apiBase", () => {
 
         api.complete(null, {
             body: {
-                birthday: date
-            }
+                birthday: date,
+            },
         }, "application/json", (_error, data) => {
             assert.typeOf(data.birthday, "date");
             assert.strictEqual(data.birthday.getDate(), 12);
@@ -88,8 +88,8 @@ suite("apiBase", () => {
 
         api.complete(null, {
             body: {
-                birthday: date
-            }
+                birthday: date,
+            },
         }, "application/json", (_error, data) => {
             assert.typeOf(data.birthday, "string");
             assert.strictEqual(data.birthday, date);
@@ -102,8 +102,8 @@ suite("apiBase", () => {
 
         api.complete(null, {
             body: {
-                birthday: date
-            }
+                birthday: date,
+            },
         }, null, (_error, data) => {
             assert.typeOf(data.birthday, "string");
             assert.notEqual(data, date);
@@ -115,7 +115,7 @@ suite("apiBase", () => {
         const message = "abort!";
 
         api.complete({
-            message: message
+            message: message,
         }, null, null, error => {
             assert.strictEqual(error.message, message);
         });
@@ -127,9 +127,9 @@ suite("apiBase", () => {
         const details = "more details";
 
         api.complete({
-            message: message
+            message: message,
         }, {
-            body: details
+            body: details,
         }, null, error => {
             assert.strictEqual(error.message, message);
             assert.strictEqual(error.details, details);
@@ -143,12 +143,12 @@ suite("apiBase", () => {
         const details = "more details";
 
         api.complete({
-            message: message
+            message: message,
         }, {
             body: details,
             error: {
-                message: responseError
-            }
+                message: responseError,
+            },
         }, null, error => {
             assert.strictEqual(error.message, responseError);
             assert.strictEqual(error.details, details);
@@ -161,11 +161,11 @@ suite("apiBase", () => {
         const bodyError = "error!";
 
         api.complete({
-            message: message
+            message: message,
         }, {
             body: {
-                message: bodyError
-            }
+                message: bodyError,
+            },
         }, null, error => {
             assert.strictEqual(error.message, bodyError);
         });
@@ -177,13 +177,13 @@ suite("apiBase", () => {
         const bodyError = "error!";
 
         api.complete({
-            message: message
+            message: message,
         }, {
             body: {
                 message: {
-                    error: bodyError
-                }
-            }
+                    error: bodyError,
+                },
+            },
         }, null, error => {
             assert.strictEqual(error.message, bodyError);
         });
