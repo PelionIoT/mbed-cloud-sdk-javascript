@@ -3,7 +3,6 @@ import { ListOptions, ConnectionOptions } from "../../../../common/interfaces";
 import { ListResponse } from "../../../../common/listResponse";
 import { User } from "../user/user";
 import { apiWrapper } from "../../../../common/functions";
-import { Client } from "../../../client/client";
 import { Config } from "../../../client/config";
 import { Paginator } from "../../../../common/pagination";
 
@@ -47,11 +46,10 @@ export class PolicyGroup extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client._CallApi<PolicyGroup>({
+                this.client._CallApi<PolicyGroup>({
                     url: "/v3/policy-groups",
                     method: "GET",
                     query: { after, include, order, limit },
-                    config: this.config,
                     paginated: true,
                 }, new PolicyGroup(), resultsFn);
             }, (data: ListResponse<PolicyGroup>, done) => {
@@ -71,12 +69,11 @@ export class PolicyGroup extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client._CallApi<User>({
+                this.client._CallApi<User>({
                     url: "/v3/policy-groups/{groupID}/users",
                     method: "GET",
                     pathParams: { groupID: this.id },
                     query: { after, include, order, limit },
-                    config: this.config,
                     paginated: true,
                 }, new User(), resultsFn);
             }, (data: ListResponse<User>, done) => {

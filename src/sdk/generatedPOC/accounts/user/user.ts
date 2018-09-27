@@ -4,7 +4,6 @@ import { apiWrapper } from "../../../../common/functions";
 import { ConnectionOptions, ListOptions } from "../../../../common/interfaces";
 import { EntityBase } from "../../../common/entityBase";
 import { Config } from "../../../client/config";
-import { Client } from "../../../client/client";
 import { ListResponse } from "../../../../common/listResponse";
 import { PolicyGroup } from "../policyGroup/policyGroup";
 import { Paginator } from "../../../../common/pagination";
@@ -114,11 +113,10 @@ export class User extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client._CallApi<User>({
+                this.client._CallApi<User>({
                     url: "/v3/users",
                     method: "GET",
                     query: { after, include, order, limit },
-                    config: this.config,
                     paginated: true,
                 }, this, resultsFn);
             }, (data: ListResponse<User>, done) => {
@@ -139,12 +137,11 @@ export class User extends EntityBase {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
             return apiWrapper(resultsFn => {
                 const { limit, after, order, include } = pageOptions as ListOptions;
-                Client._CallApi<PolicyGroup>({
+                this.client._CallApi<PolicyGroup>({
                     url: "/v3/users/{user-id}/groups",
                     method: "GET",
                     query: { after, include, order, limit },
                     pathParams: { "user-id": this.id },
-                    config: this.config,
                     paginated: true,
                 }, new PolicyGroup(), resultsFn);
             }, (data: ListResponse<PolicyGroup>, done) => {
@@ -173,12 +170,11 @@ export class User extends EntityBase {
                 username: this.username,
             };
 
-            Client._CallApi({
+            this.client._CallApi({
                 url: "/v3/users",
                 method: "POST",
                 query: { action: action },
                 body: body,
-                config: this.config
             }, this, resultsFn);
         }, (data, done) => {
             done(null, data);
@@ -191,11 +187,10 @@ export class User extends EntityBase {
      */
     public get(): Promise<User> {
         return apiWrapper(resultsFn => {
-            Client._CallApi<User>({
+            this.client._CallApi<User>({
                 url: "/v3/users/{user-id}",
                 method: "GET",
                 pathParams: { "user-id": this.id },
-                config: this.config
             }, this, resultsFn);
         }, (data, done) => {
             done(null, data);
@@ -219,12 +214,11 @@ export class User extends EntityBase {
                 username: this.username,
             };
 
-            Client._CallApi({
+            this.client._CallApi({
                 url: "/v3/users/{user-id}",
                 method: "PUT",
                 pathParams: { "user-id": this.id },
                 body: body,
-                config: this.config
             }, this, resultsFn);
         }, (data, done) => {
             done(null, data);
@@ -237,11 +231,10 @@ export class User extends EntityBase {
      */
     public delete(): Promise<User> {
         return apiWrapper(resultsFn => {
-            Client._CallApi<User>({
+            this.client._CallApi<User>({
                 url: "/v3/users/{user-id}",
                 method: "DELETE",
                 pathParams: { "user-id": this.id },
-                config: this.config
             }, this, resultsFn);
         }, (data: User, done) => {
             done(null, data);

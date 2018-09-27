@@ -21,6 +21,7 @@ import superagent = require("superagent");
 import { SDKError } from "../../common/sdkError";
 import { Config } from "./config";
 import { EntityBase } from "../common/entityBase";
+import { SDK } from "../sdk";
 
 // tslint:disable-next-line:no-var-requires
 const packageInformation = require("../../../package.json");
@@ -31,6 +32,13 @@ const VERSION = packageInformation.is_published ? packageInformation.version : `
 const userAgent = `${packageInformation.name}-javascript / ${VERSION}`;
 
 export class SdkApiBase {
+
+    private config: Config;
+
+    constructor(config?: Config) {
+        this.config = config || SDK.config;
+    }
+
     /**
      * Normalizes parameter values:
      * <ul>
@@ -144,26 +152,25 @@ export class SdkApiBase {
         return url;
     }
 
-    protected static request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean, config?: Config }, instance?: T, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
-
+    protected request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean }, instance?: T, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
         const requestOptions: { [key: string]: any } = {};
         requestOptions.timeout = 60000;
         requestOptions.method = options.method;
         requestOptions.query = SdkApiBase.normalizeParams(options.query);
         requestOptions.headers = SdkApiBase.normalizeParams(options.headers);
         requestOptions.acceptHeader = SdkApiBase.chooseType(options.acceptTypes);
-        requestOptions.url = this.buildUrl(options.url, options.pathParams).replace(/([:])?\/+/g, ($0, $1) => {
+        requestOptions.url = SdkApiBase.buildUrl(options.url, options.pathParams).replace(/([:])?\/+/g, ($0, $1) => {
             return $1 ? $0 : "/";
         });
         requestOptions.formParams = options.formParams || {};
 
-        const request = superagent(requestOptions.method, options.config.host + requestOptions.url);
+        const request = superagent(requestOptions.method, this.config.host + requestOptions.url);
 
         // set query parameters
         request.query(requestOptions.query);
 
         let apiKey: string;
-        if (options.config.apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${options.config.apiKey}`;
+        if (this.config.apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${this.config.apiKey}`;
 
         // set header parameters
         requestOptions.headers.Authorization = apiKey;
@@ -225,7 +232,7 @@ export class SdkApiBase {
         return request;
     }
 
-    protected static complete<T extends EntityBase>(error: any, response: any, acceptHeader: string, paginated: boolean, instance?: T, callback?: (sdkError: SDKError, data) => any) {
+    protected complete<T extends EntityBase>(error: any, response: any, acceptHeader: string, paginated: boolean, instance?: T, callback?: (sdkError: SDKError, data) => any) {
         let sdkError = null;
 
         if (error) {

@@ -19,7 +19,7 @@ import { ConnectApi } from "../../connect/connectApi";
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
-suite("connectSnippet[skipci]", () => {
+suite("connectSnippet", () => {
 
     test("subscribeToDeviceState", () => {
         try {

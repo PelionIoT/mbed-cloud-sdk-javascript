@@ -2,6 +2,8 @@ import { Config } from "../client/config";
 import { ApiKey } from "./index";
 import { Certificate } from "./index";
 import { CertificateEnrollment } from "./index";
+import { CertificateIssuer } from "./index";
+import { CertificateIssuerConfig } from "./index";
 import { EnrollmentBulkCreateTask } from "./index";
 import { EnrollmentBulkDeleteTask } from "./index";
 import { EnrollmentClaim } from "./index";
@@ -24,6 +26,12 @@ export class Factory {
     }
     public CertificateEnrollment(): CertificateEnrollment {
         return new CertificateEnrollment(this._config);
+    }
+    public CertificateIssuer(): CertificateIssuer {
+        return new CertificateIssuer(this._config);
+    }
+    public CertificateIssuerConfig(): CertificateIssuerConfig {
+        return new CertificateIssuerConfig(this._config);
     }
     public EnrollmentBulkCreateTask(): EnrollmentBulkCreateTask {
         return new EnrollmentBulkCreateTask(this._config);

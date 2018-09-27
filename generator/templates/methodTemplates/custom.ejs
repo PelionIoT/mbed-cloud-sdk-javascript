@@ -1,0 +1,7 @@
+/**
+ * <%= method.methodName %>s a <%= method.returns %>.
+ * @returns Promise containing <%= method.returns %>.
+ */
+public <%= method.methodName %>(<% method.methodParams.forEach(function(param, i) {%><%= param.key %><% if (!param.required) { %>?<% } %>: <%- param.type %><% if (i < method.methodParams.length - 1) { %>,<% } %><% }); %>): Promise<<%= method.returns %>> {
+return privateFunctions.<%= snakeToCamel(method.customMethodName) %>(this,<% method.methodParams.forEach(function(param){ %><%= param.key %><% }); %>);
+}

@@ -1,6 +1,7 @@
 import { Config } from "../client/config";
 import { SDK } from "../sdk";
 import { snakeToCamel } from "../../common/functions";
+import { Client } from "../client/client";
 
 export class EntityBase {
     protected readonly _renames: { [key: string]: string };
@@ -8,6 +9,8 @@ export class EntityBase {
     protected readonly _foreignKeys: { [key: string]: { [key: string]: any } };
 
     private _config: Config;
+
+    public client: Client;
 
     /**
      * The id of the entity
@@ -20,6 +23,14 @@ export class EntityBase {
 
     public set config(c: Config) {
         this._config = c;
+    }
+
+    constructor(config?: Config) {
+        if (config) {
+            this.config = config;
+        }
+
+        this.client = new Client(this.config);
     }
 
     public activator<T extends EntityBase>(type: { new(): T; }): T {

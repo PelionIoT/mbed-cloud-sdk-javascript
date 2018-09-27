@@ -30,7 +30,6 @@
         "triple-equals": [true],
         "variable-name": [true, "allow-leading-underscore"],
         "jsdoc-format": false, //TODO revert to true when formatting fixed
-        "object-literal-key-quotes": false, //TODO revert to true when formatting fixed
-        "eofline": false //TODO revert to true when formatting fixed
+        "object-literal-key-quotes": false //TODO revert to true when formatting fixed
     }
 }

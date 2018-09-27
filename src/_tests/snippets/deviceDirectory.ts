@@ -19,7 +19,7 @@ import { DeviceDirectoryApi } from "../../deviceDirectory/deviceDirectoryApi";
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
-suite("deviceDirectorySnippet[skipci]", () => {
+suite("deviceDirectorySnippet", () => {
 
     test("listDevices", () => {
         try {

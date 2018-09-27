@@ -3,7 +3,7 @@ const ejs = require("ejs");
 
 const templatesPath = "./generator/templates";
 const generatedFolder = "./src/sdk/generated";
-const generatedConfigPath = "/Users/alelog01/git/mbed-cloud-api-contract/out/sdk_generation_cache.yaml.json";
+const generatedConfigPath = "/Users/alelog01/git/mbed-cloud-api-contract/out/sdk_gen_intermediate.json";
 
 const generatedConfig = JSON.parse(fs.readFileSync(generatedConfigPath));
 const enums = generatedConfig.enums;
@@ -18,6 +18,8 @@ const typeMap = {
     "date-time": "Date",
     int64: "number",
     int32: "number",
+    object: "any",
+    file: "ReadableStream | File | Blob",
 }
 
 const getType = (type, items) => {
@@ -25,7 +27,7 @@ const getType = (type, items) => {
     // if type is array
     if (typeof t === "function") {
         if (items.foreign_key) {
-            return t(items.foreign_key.entity.pascal);
+            return t(snakeToPascal(items.foreign_key.entity));
         }
 
         return t(getType(items.type));
@@ -35,41 +37,57 @@ const getType = (type, items) => {
 };
 
 const unpackParams = (key, params) => {
-    console.log(key);
-    console.log(params);
     if (key && params) {
         return '"' + key + '"' + ":" + (!params.external ? "this." : "") + params.key;
     }
     return "";
 };
 
+const snakeToCamel = (snake) => {
+    if (snake) {
+        const out = snake.replace(/((\_|\-)\w)/g, match => {
+            return match[1].toUpperCase();
+        });
+
+        return out;
+    }
+
+    return "";
+}
+
+const snakeToPascal = (snake) => {
+    const camel = snakeToCamel(snake);
+    return camel.charAt(0).toUpperCase() + camel.slice(1);
+}
+
 // clear generated folder
 fs.emptyDirSync(generatedFolder);
 
 // generate enums
-ejs.renderFile(`${templatesPath}/enums.ejs`, { enums })
+ejs.renderFile(`${templatesPath}/enums.ejs`, { enums, snakeToCamel, snakeToPascal })
     .then(contents => {
         fs.writeFileSync(`${generatedFolder}/enums.ts`, contents);
     });
 
 // generate entity factory
-ejs.renderFile(`${templatesPath}/factory.ejs`, { entities }, { rmWhitespace: true })
+ejs.renderFile(`${templatesPath}/factory.ejs`, { entities, snakeToCamel, snakeToPascal }, { rmWhitespace: true })
     .then(contents => {
         fs.writeFileSync(`${generatedFolder}/factory.ts`, contents);
     });
 
 // generate entities
 entities.forEach(entity => {
-    const entityName = entity._key.pascal;
+    const entityName = snakeToPascal(entity._key);
     console.log(`--------------${entityName}------------------`);
     const imports = [];
     let clientCalls = false;
     let paginators = false;
+    let customMethods = false;
     // get types
     const types = {};
     entity.fields.forEach(f => {
         const t = getType(f.format) || getType(f.type, f.items) || "any";
-        const k = f._key.lower_camel
+        const k = snakeToCamel(f._key)
         types[k] = t;
     });
 
@@ -79,8 +97,8 @@ entities.forEach(entity => {
         if (f.items) {
             if (f.items.foreign_key) {
                 const fk = {}
-                fk["propName"] = f.items.foreign_key.entity.lower_camel;
-                fk["type"] = f.items.foreign_key.entity.pascal;
+                fk["propName"] = snakeToCamel(f.items.foreign_key.entity);
+                fk["type"] = snakeToPascal(f.items.foreign_key.entity);
                 foreignKeyTypes.push(fk);
             }
         }
@@ -88,34 +106,37 @@ entities.forEach(entity => {
 
     // get methods
     const methods = [];
-    const modes = entity.modes;
+    const modes = entity.methods;
     if (modes) {
         modes.forEach(method => {
             clientCalls = true;
             let deferToForeignKey = false;
             let deferedMethodCall = {};
-            const methodName = method._key.lower_camel;
+            const methodName = snakeToCamel(method._key);
             const httpMethod = method.method ? method.method.toUpperCase() : deferToForeignKey = true;
             const path = method.path;
             const paginated = !!method.pagination;
             const customMethodCall = !!method.custom_method;
+            if (customMethodCall) {
+                customMethods = true;
+            }
             const customMethodName = method.custom_method;
             if (paginated) paginators = true;
             // if a foreign key exists and its not the same as the enity
-            const foreignKey = method.foreign_key ? (method.foreign_key.entity.pascal != entityName) : false;
-            const returns = deferToForeignKey ? method.defer_to_foreign_key_field.foreign_key.entity.pascal : foreignKey ? method.foreign_key.entity.pascal : entityName;
+            const foreignKey = method.foreign_key ? (snakeToPascal(method.foreign_key.entity) != entityName) : false;
+            const returns = deferToForeignKey ? snakeToPascal(method.defer_to_foreign_key_field.foreign_key.entity) : foreignKey ? snakeToPascal(method.foreign_key.entity) : entityName;
 
             if (foreignKey) {
                 const fk = {};
-                fk["propName"] = method.foreign_key.entity.lower_camel;
-                fk["type"] = method.foreign_key.entity.pascal;
+                fk["propName"] = snakeToCamel(method.foreign_key.entity);
+                fk["type"] = snakeToPascal(method.foreign_key.entity);
                 imports.push(fk);
             }
 
             if (deferToForeignKey) {
                 const fk = {};
-                fk["propName"] = method.defer_to_foreign_key_field.foreign_key.entity.lower_camel;
-                fk["type"] = method.defer_to_foreign_key_field.foreign_key.entity.pascal;
+                fk["propName"] = snakeToCamel(method.defer_to_foreign_key_field.foreign_key.entity);
+                fk["type"] = snakeToPascal(method.defer_to_foreign_key_field.foreign_key.entity);
                 imports.push(fk);
 
                 deferedMethodCall = {
@@ -127,6 +148,7 @@ entities.forEach(entity => {
             const pathParams = {};
             const queryParams = {};
             const bodyParams = {};
+            const formParams = {};
             const deferedParams = {};
 
             const setForeignKeyProps = [];
@@ -137,7 +159,7 @@ entities.forEach(entity => {
                 const required = field.required;
                 let type;
                 const fieldName = field.parameter_fieldname;
-                const key = field._key.lower_camel;
+                const key = snakeToCamel(field._key);
                 const replaceBody = !!field.__REPLACE_BODY;
 
                 if (external) {
@@ -145,10 +167,9 @@ entities.forEach(entity => {
                 }
 
                 if (deferToForeignKey) {
-                    console.log("<<<<<<<<<<<<<<<<<<<<<<<<");
-                    deferedParams[field._key.pascal] = {
+                    deferedParams[snakeToPascal(field._key)] = {
                         key,
-                        type: field._key.pascal,
+                        type: snakeToPascal(field._key),
                         external,
                         required,
                     }
@@ -160,7 +181,6 @@ entities.forEach(entity => {
                         }
                         setForeignKeyProps.push(assignments);
                     });
-                    console.log("<<<<<<<<<<<<<<<<<<<<<<<<");
                 }
 
                 if (paramIn === "path") {
@@ -190,25 +210,25 @@ entities.forEach(entity => {
                         replaceBody
                     };
                 }
+
+                if (paramIn === "stream") {
+                    formParams[fieldName] = {
+                        key,
+                        type,
+                        external,
+                        required,
+                    };
+                    console.log(formParams[fieldName]);
+                }
             });
 
             // currently skipping as covered by ListOptions interface. In future, extensions to interface could be generated also
             const skip = ["after", "include", "limit", "order"];
-            const methodParams = Object.values(Object.assign({}, pathParams, queryParams, bodyParams, deferedParams))
+            const methodParams = Object.values(Object.assign({}, pathParams, queryParams, bodyParams, formParams, deferedParams))
                 .filter(f => f.external === true)
                 .sort((a, b) => {
                     return (a.required === b.required) ? 0 : a.required ? -1 : 1;
                 });
-
-            console.log(methodName);
-
-            if (deferToForeignKey) {
-                console.log("%%%%%%%%%%%%");
-                console.log(deferToForeignKey);
-                console.log(setForeignKeyProps);
-                console.log(deferedMethodCall);
-                console.log("%%%%%%%%%%%%");
-            }
 
             methods.push({
                 entityName,
@@ -220,6 +240,7 @@ entities.forEach(entity => {
                 pathParams,
                 queryParams,
                 bodyParams,
+                formParams,
                 methodParams,
                 deferToForeignKey,
                 setForeignKeyProps,
@@ -231,9 +252,9 @@ entities.forEach(entity => {
     }
 
     const filteredImports = imports.concat(foreignKeyTypes).filter((fk, index, self) => index === self.findIndex((t) => (t.propName === fk.propName))).filter(fk => fk.type !== entityName);
-    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, clientCalls, paginators, unpackParams }, { rmWhitespace: true })
+    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, clientCalls, paginators, customMethods, unpackParams, snakeToCamel, snakeToPascal }, { rmWhitespace: false })
         .then(contents => {
-            const path = `${generatedFolder}/${entity.group_id.lower_camel}/${entity._key.lower_camel}/${entity._key.lower_camel}.ts`;
+            const path = `${generatedFolder}/${snakeToCamel(entity.group_id)}/${snakeToCamel(entity._key)}/${snakeToCamel(entity._key)}.ts`;
             fs.createFileSync(path);
             fs.writeFileSync(path, contents);
         });
@@ -241,7 +262,7 @@ entities.forEach(entity => {
 });
 
 // generate index
-ejs.renderFile(`${templatesPath}/index.ejs`, { entities })
+ejs.renderFile(`${templatesPath}/index.ejs`, { entities, snakeToCamel, snakeToPascal })
     .then(contents => {
         fs.writeFileSync(`${generatedFolder}/index.ts`, contents);
     });

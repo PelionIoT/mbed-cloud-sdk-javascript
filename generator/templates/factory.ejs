@@ -1,7 +1,7 @@
 import { Config } from "../client/config";
 <% entities.forEach(function(entity){ %>
-    <% if (entity.modes.length > 1) { %>
-        import { <%= entity._key.pascal %> } from "./index";
+    <% if (entity.methods.length > 1) { %>
+        import { <%= snakeToPascal(entity._key) %> } from "./index";
     <% } %>
 <%});%>
 
@@ -11,9 +11,9 @@ constructor(config: Config) {
 this._config = config;
 }
 <% entities.forEach(function(entity){ %>
-    <% if (entity.modes.length > 1) { %>
-        public <%= entity._key.pascal %>(): <%= entity._key.pascal %> {
-        return new <%= entity._key.pascal %>(this._config);
+    <% if (entity.methods.length > 1) { %>
+        public <%= snakeToPascal(entity._key) %>(): <%= snakeToPascal(entity._key) %> {
+        return new <%= snakeToPascal(entity._key) %>(this._config);
         }
     <% } %>
 <%});%>
