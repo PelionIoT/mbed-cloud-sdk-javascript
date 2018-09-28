@@ -2,7 +2,7 @@
  * <%= method.methodName %>s a <%= method.returns %>.
  * @returns Promise containing <%= method.returns %>.
  */
-public <%= method.methodName %>(<% method.methodParams.forEach(function(param, i) {%><%= param.key %><% if (!param.required) { %>?<% } %>: <%- param.type %><% if (i < method.methodParams.length - 1) { %>,<% } %><% }); %>): Promise<<%= method.returns %>> {
+<% if (method.privateMethod) {%>protected<% } else { %>public<% } %> <%= method.methodName %>(<% method.methodParams.forEach(function(param, i) {%><%= param.key %><% if (!param.required) { %>?<% } %>: <%- param.type %><% if (i < method.methodParams.length - 1) { %>,<% } %><% }); %>): Promise<<%= method.returns %>> {
 <% if (Object.keys(method.bodyParams).length > 0) { -%>
     <% if (method.bodyParams[Object.keys(method.bodyParams)[0]].replaceBody ) { -%>
         const body = <% if (!method.bodyParams[Object.keys(method.bodyParams)[0]].external) { %>this.<% } %><%= method.bodyParams[Object.keys(method.bodyParams)[0]].key -%>;

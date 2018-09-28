@@ -40,13 +40,29 @@ export class <%= snakeToPascal(entity._key) %> extends EntityBase {
 <% } -%>
 
 <% entity.fields.forEach(function(field) { -%>
-    <% if (field._key !== "id") { -%>
+    <% if (field._override && !field.private_field) { -%>
+        <% if (field.getter_custom_method) { -%>
+            /**
+            * <%= (field.description || field._key).replace(/^\s+|\s+$/g, '').trim(); %>
+            */
+            get <%= snakeToCamel(field._key) %>(): <%- types[snakeToCamel(field._key)]%> {
+            return privateFunctions.<%= snakeToCamel(field.getter_custom_method) %>(this);
+            }
+        <% } -%>
+        <% if (field.setter_custom_method) { -%>
+            set <%= snakeToCamel(field._key) %>(value: <%- types[snakeToCamel(field._key)]%>) {
+            privateFunctions.<%= snakeToCamel(field.setter_custom_method) %>(this, value);
+            }
+        <% } -%>
+    <% } else { -%>
+        <% if (field._key !== "id") { -%>
 
-        /**
-         * <%= (field.description || field._key).replace(/^\s+|\s+$/g, '').trim(); %>
-         */
-        public <%= snakeToCamel(field._key) %>?: <%- types[snakeToCamel(field._key)]%>;
-    <% } -%>
+            /**
+            * <%= (field.description || field._key).replace(/^\s+|\s+$/g, '').trim(); %>
+            */
+            public <%= snakeToCamel(field._key) %>?: <%- types[snakeToCamel(field._key)]%>;
+        <% } -%>
+    <% } %>
 <% }); -%>
 
 <% if (clientCalls || paginators) { -%>

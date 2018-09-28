@@ -1,17 +1,29 @@
-import { User } from "../entities";
+import { User, Certificate } from "../entities";
 
 export function subtenantAccountSwitchCreate(self: User, action: string) {
     if (self.accountId) {
-        return self.createOnSubtenant(action);
+        // tslint:disable-next-line:no-string-literal
+        return self["createOnSubtenant"](action);
     }
 
-    return self.createOnAggregator(action);
+    // tslint:disable-next-line:no-string-literal
+    return self["createOnAggregator"](action);
 }
 
 export function subtenantAccountSwitchGet(self: User) {
     if (self.accountId) {
-        return self.getOnSubtenant();
+        // tslint:disable-next-line:no-string-literal
+        return self["getOnSubtenant"]();
     }
 
-    return self.getOnAggregator();
+    // tslint:disable-next-line:no-string-literal
+    return self["getOnAggregator"]();
+}
+
+export function certificateTypeGetter(self: Certificate) {
+    return null;
+}
+
+export function certificateTypeSetter(self: Certificate, value: string) {
+    return null;
 }

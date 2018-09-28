@@ -2,6 +2,8 @@ export type ApiKeyOrderEnum = "ASC" | "DESC";
 
 export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
 
+export type CertificateCertificateTypeEnum = "BOOTSTRAP" | "DEVELOPER" | "LWM2M";
+
 export type CertificateEnrollmentEnrollResultEnum = "failure" | "forbidden" | "not_found" | "success";
 
 export type CertificateEnrollmentEnrollStatusEnum = "completed" | "new";

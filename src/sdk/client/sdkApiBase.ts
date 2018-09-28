@@ -169,11 +169,8 @@ export class SdkApiBase {
         // set query parameters
         request.query(requestOptions.query);
 
-        let apiKey: string;
-        if (this.config.apiKey.substr(0, 6).toLowerCase() !== "bearer") { apiKey = `Bearer ${this.config.apiKey}`; }
-
         // set header parameters
-        requestOptions.headers.Authorization = apiKey;
+        requestOptions.headers.Authorization = this.config.apiKey;
         requestOptions.headers["User-Agent"] = userAgent;
         request.set(requestOptions.headers);
 

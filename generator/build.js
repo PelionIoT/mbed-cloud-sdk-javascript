@@ -102,6 +102,10 @@ entities.forEach(entity => {
                 foreignKeyTypes.push(fk);
             }
         }
+
+        if (f._override) {
+            customMethods = true;
+        }
     });
 
     // get methods
@@ -116,6 +120,7 @@ entities.forEach(entity => {
             const httpMethod = method.method ? method.method.toUpperCase() : deferToForeignKey = true;
             const path = method.path;
             const paginated = !!method.pagination;
+            const privateMethod = !!method.private_method;
             const customMethodCall = !!method.custom_method;
             if (customMethodCall) {
                 customMethods = true;
@@ -246,7 +251,8 @@ entities.forEach(entity => {
                 setForeignKeyProps,
                 deferedMethodCall,
                 customMethodCall,
-                customMethodName
+                customMethodName,
+                privateMethod
             });
         });
     }

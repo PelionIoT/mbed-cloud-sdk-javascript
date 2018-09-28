@@ -1,4 +1,5 @@
 import { EntityBase } from "../../../common/entityBase";
+import * as privateFunctions from "../../../common/privateFunctions";
 import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
@@ -22,6 +23,16 @@ export class Certificate extends EntityBase {
      * X509.v3 trusted certificate in PEM format.
      */
     public certificate?: string;
+
+    /**
+     * The type of the certificate.
+     */
+    get certificateType(): string {
+        return privateFunctions.certificateTypeGetter(this);
+    }
+    set certificateType(value: string) {
+        privateFunctions.certificateTypeSetter(this, value);
+    }
 
     /**
      * Creation UTC time RFC3339.
@@ -216,6 +227,9 @@ export class Certificate extends EntityBase {
      * @returns Promise containing Certificate.
      */
     public getStandard(): Promise<Certificate> {
+        const body = {
+            service: this.service,
+        };
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<Certificate>(
@@ -225,6 +239,7 @@ export class Certificate extends EntityBase {
                         pathParams: {
                             "cert-id": this.id,
                         },
+                        body: body,
                     },
                     this,
                     resultsFn

@@ -14,9 +14,9 @@ export class CertificateIssuerConfig extends EntityBase {
     };
 
     /**
-         * The ID of the certificate issuer.
+            * The ID of the certificate issuer.
 Null if Device Management internal HSM is used.
-         */
+            */
     public certificateIssuerId?: string;
 
     /**

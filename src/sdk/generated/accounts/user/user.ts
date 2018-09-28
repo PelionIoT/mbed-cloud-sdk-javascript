@@ -6,6 +6,7 @@ import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { PolicyGroup } from "../../index";
+import { LoginHistory } from "../../index";
 
 /**
  * User
@@ -16,6 +17,13 @@ export class User extends EntityBase {
         is_marketing_accepted: "marketingAccepted",
         is_gtc_accepted: "termsAccepted",
         is_totp_enabled: "twoFactorAuthentication",
+    };
+
+    public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
+        loginHistory: {
+            type: LoginHistory,
+            array: true,
+        },
     };
 
     /**
@@ -66,7 +74,7 @@ export class User extends EntityBase {
     /**
      * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
      */
-    public loginHistory?: Array<any>;
+    public loginHistory?: Array<LoginHistory>;
 
     /**
      * A flag indicating that receiving marketing information has been accepted.
@@ -156,7 +164,7 @@ export class User extends EntityBase {
      * createOnAggregators a User.
      * @returns Promise containing User.
      */
-    public createOnAggregator(action?: string): Promise<User> {
+    protected createOnAggregator(action?: string): Promise<User> {
         const body = {
             address: this.address,
             email: this.email,
@@ -193,7 +201,7 @@ export class User extends EntityBase {
      * createOnSubtenants a User.
      * @returns Promise containing User.
      */
-    public createOnSubtenant(action?: string): Promise<User> {
+    protected createOnSubtenant(action?: string): Promise<User> {
         const body = {
             address: this.address,
             email: this.email,
@@ -266,7 +274,7 @@ export class User extends EntityBase {
      * getOnAggregators a User.
      * @returns Promise containing User.
      */
-    public getOnAggregator(): Promise<User> {
+    protected getOnAggregator(): Promise<User> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<User>(
@@ -291,7 +299,7 @@ export class User extends EntityBase {
      * getOnSubtenants a User.
      * @returns Promise containing User.
      */
-    public getOnSubtenant(): Promise<User> {
+    protected getOnSubtenant(): Promise<User> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<User>(
