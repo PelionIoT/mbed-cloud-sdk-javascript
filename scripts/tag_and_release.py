@@ -63,7 +63,7 @@ def beta_release(config_file):
 
 
 def release(config_file):
-    version = subprocess.check_output(['python', '-m', 'auto_version', config_file]).decode().strip()
+    version = subprocess.check_output(['python', '-m', 'auto_version', config_file, '--release']).decode().strip()
     print(version)
     prepare_git()
     print('pushing tags')
