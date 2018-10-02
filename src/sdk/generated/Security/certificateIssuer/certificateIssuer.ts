@@ -4,6 +4,7 @@ import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
+import { CertificateIssuerIssuerTypeEnum } from "../../enums";
 
 /**
  * CertificateIssuer
@@ -38,7 +39,7 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
   Certificates are issued by CFSSL authenticated signing service.
   The users must provide their own CFSSL host_url and credentials.
             */
-    public issuerType?: string;
+    public issuerType?: CertificateIssuerIssuerTypeEnum;
 
     /**
      * Certificate issuer name, unique per account.

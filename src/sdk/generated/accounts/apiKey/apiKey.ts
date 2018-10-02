@@ -5,6 +5,7 @@ import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { PolicyGroup } from "../../index";
+import { ApiKeyStatusEnum } from "../../enums";
 
 /**
  * ApiKey
@@ -52,7 +53,7 @@ export class ApiKey extends EntityBase {
     /**
      * The status of the API key.
      */
-    public status?: string;
+    public status?: ApiKeyStatusEnum;
 
     /**
      * Last update UTC time RFC3339.

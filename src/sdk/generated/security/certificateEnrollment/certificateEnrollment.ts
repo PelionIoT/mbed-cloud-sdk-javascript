@@ -4,6 +4,8 @@ import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
+import { CertificateEnrollmentEnrollResultEnum } from "../../enums";
+import { CertificateEnrollmentEnrollStatusEnum } from "../../enums";
 
 /**
  * CertificateEnrollment
@@ -31,12 +33,12 @@ export class CertificateEnrollment extends EntityBase {
     /**
      * enroll_result
      */
-    public enrollResult?: string;
+    public enrollResult?: CertificateEnrollmentEnrollResultEnum;
 
     /**
      * enroll_status
      */
-    public enrollStatus?: string;
+    public enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
 
     constructor(config?: Config) {
         super(config);

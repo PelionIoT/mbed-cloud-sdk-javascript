@@ -7,6 +7,8 @@ import { apiWrapper } from "../../../../common/functions";
 import { ApiKey } from "../../index";
 import { User } from "../../index";
 import { PolicyGroup } from "../../index";
+import { SubtenantAccountMfaStatusEnum } from "../../enums";
+import { SubtenantAccountStatusEnum } from "../../enums";
 
 /**
  * SubtenantAccount
@@ -137,7 +139,7 @@ export class SubtenantAccount extends EntityBase {
     /**
      * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
      */
-    public mfaStatus?: string;
+    public mfaStatus?: SubtenantAccountMfaStatusEnum;
 
     /**
      * A list of notification email addresses.
@@ -192,7 +194,7 @@ export class SubtenantAccount extends EntityBase {
     /**
      * The status of the account.
      */
-    public status?: string;
+    public status?: SubtenantAccountStatusEnum;
 
     /**
      * List of sub accounts. Not available for developer users.

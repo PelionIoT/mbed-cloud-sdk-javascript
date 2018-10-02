@@ -7,6 +7,7 @@ import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { PolicyGroup } from "../../index";
 import { LoginHistory } from "../../index";
+import { UserStatusEnum } from "../../enums";
 
 /**
  * User
@@ -99,7 +100,7 @@ export class User extends EntityBase {
     /**
      * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
-    public status?: string;
+    public status?: UserStatusEnum;
 
     /**
      * A flag indicating that the General Terms and Conditions has been accepted.

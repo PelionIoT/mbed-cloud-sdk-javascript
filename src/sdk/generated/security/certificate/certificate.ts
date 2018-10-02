@@ -5,6 +5,9 @@ import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
+import { CertificateCertificateTypeEnum } from "../../enums";
+import { CertificateServiceEnum } from "../../enums";
+import { CertificateStatusEnum } from "../../enums";
 
 /**
  * Certificate
@@ -27,10 +30,10 @@ export class Certificate extends EntityBase {
     /**
      * The type of the certificate.
      */
-    get certificateType(): string {
+    get certificateType(): CertificateCertificateTypeEnum {
         return privateFunctions.certificateTypeGetter(this);
     }
-    set certificateType(value: string) {
+    set certificateType(value: CertificateCertificateTypeEnum) {
         privateFunctions.certificateTypeSetter(this, value);
     }
 
@@ -87,12 +90,12 @@ export class Certificate extends EntityBase {
     /**
      * Service name where the certificate is to be used.
      */
-    public service?: string;
+    public service?: CertificateServiceEnum;
 
     /**
      * Status of the certificate.
      */
-    public status?: string;
+    public status?: CertificateStatusEnum;
 
     /**
      * Subject of the certificate.

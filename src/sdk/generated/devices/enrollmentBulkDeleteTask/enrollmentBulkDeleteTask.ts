@@ -1,6 +1,7 @@
 import { EntityBase } from "../../../common/entityBase";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
+import { EnrollmentBulkDeleteTaskStatusEnum } from "../../enums";
 
 /**
  * EnrollmentBulkDeleteTask
@@ -44,7 +45,7 @@ export class EnrollmentBulkDeleteTask extends EntityBase {
     /**
      * The state of the process is &#39;new&#39; at the time of creation. If the creation is still in progress, the state is shown as &#39;processing&#39;. When the request has been fully processed, the state changes to &#39;completed&#39;.
      */
-    public status?: string;
+    public status?: EnrollmentBulkDeleteTaskStatusEnum;
 
     /**
      * Total number of enrollment identities found in the input CSV.

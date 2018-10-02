@@ -36,6 +36,12 @@ const getType = (type, items) => {
     return t;
 };
 
+const getEnumType = (field, enums) => {
+    const enumName = snakeToPascal(field.enum_reference);
+    enums.push(enumName);
+    return enumName;
+}
+
 const unpackParams = (key, params) => {
     if (key && params) {
         return '"' + key + '"' + ":" + (!params.external ? "this." : "") + params.key;
@@ -80,13 +86,14 @@ entities.forEach(entity => {
     const entityName = snakeToPascal(entity._key);
     console.log(`--------------${entityName}------------------`);
     const imports = [];
+    const enums = [];
     let clientCalls = false;
     let paginators = false;
     let customMethods = false;
     // get types
     const types = {};
     entity.fields.forEach(f => {
-        const t = getType(f.format) || getType(f.type, f.items) || "any";
+        const t = f.enum ? getEnumType(f, enums) : getType(f.format) || getType(f.type, f.items) || "any";
         const k = snakeToCamel(f._key)
         types[k] = t;
     });
@@ -258,7 +265,7 @@ entities.forEach(entity => {
     }
 
     const filteredImports = imports.concat(foreignKeyTypes).filter((fk, index, self) => index === self.findIndex((t) => (t.propName === fk.propName))).filter(fk => fk.type !== entityName);
-    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, clientCalls, paginators, customMethods, unpackParams, snakeToCamel, snakeToPascal }, { rmWhitespace: false })
+    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, enums, clientCalls, paginators, customMethods, unpackParams, snakeToCamel, snakeToPascal }, { rmWhitespace: false })
         .then(contents => {
             const path = `${generatedFolder}/${snakeToCamel(entity.group_id)}/${snakeToCamel(entity._key)}/${snakeToCamel(entity._key)}.ts`;
             fs.createFileSync(path);

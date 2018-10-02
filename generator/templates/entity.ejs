@@ -14,6 +14,9 @@ import { EntityBase } from "../../../common/entityBase";
 <% filteredImports.forEach(function(fk) { -%>
     import { <%= fk.type %> } from "../../index";
 <% }); -%>
+<% enums.forEach(function(en) { -%>
+    import { <%= en %> } from "../../enums";
+<% }); -%>
 
 /**
  * <%= snakeToPascal(entity._key) %>

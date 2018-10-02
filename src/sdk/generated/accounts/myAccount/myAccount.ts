@@ -2,6 +2,8 @@ import { EntityBase } from "../../../common/entityBase";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { SubtenantAccount } from "../../index";
+import { MyAccountMfaStatusEnum } from "../../enums";
+import { MyAccountStatusEnum } from "../../enums";
 
 /**
  * MyAccount
@@ -102,7 +104,7 @@ export class MyAccount extends EntityBase {
     /**
      * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
      */
-    public mfaStatus?: string;
+    public mfaStatus?: MyAccountMfaStatusEnum;
 
     /**
      * A list of notification email addresses.
@@ -157,7 +159,7 @@ export class MyAccount extends EntityBase {
     /**
      * The status of the account.
      */
-    public status?: string;
+    public status?: MyAccountStatusEnum;
 
     /**
      * List of sub accounts. Not available for developer users.
