@@ -41,7 +41,7 @@ jobs:
       - persist_to_workspace:
           root: ./
           paths:
-            - package.json
+            # - package.json
             - bundles
             - lib
   tpip:
