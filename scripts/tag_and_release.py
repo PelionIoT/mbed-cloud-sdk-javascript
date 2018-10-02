@@ -49,7 +49,7 @@ def prepare_git():
 
 
 def beta_release(config_file):
-    version = subprocess.check_output(['python', '-m', 'auto_version', config_file, '--news']).decode().strip()
+    version = subprocess.check_output(['python', '-m', 'auto_version', config_file]).decode().strip()
     print(version)
     prepare_git()
     print('pushing tags')
@@ -63,7 +63,7 @@ def beta_release(config_file):
 
 
 def release(config_file):
-    version = subprocess.check_output(['python', '-m', 'auto_version', config_file, '--news']).decode().strip()
+    version = subprocess.check_output(['python', '-m', 'auto_version', config_file]).decode().strip()
     prepare_git()
     print('pushing tags')
     subprocess.check_call(['git', 'tag', '-a', version, '-m', 'release %s' % version])
@@ -75,7 +75,7 @@ def release(config_file):
     print('pushing commits')
     subprocess.check_call(['git', 'push', 'origin'])
     print('setting version release flag')
-    version = subprocess.check_output(['python', '-m', 'auto_version', '--config=scripts/auto_version.toml', '--release']).decode().strip()
+    version = subprocess.check_output(['python', '-m', 'auto_version', '--config=scripts/auto_version.toml']).decode().strip()
     print('uploading to npm')
     subprocess.check_call(['npm', 'publish'])
     print('uploading to npm successful')

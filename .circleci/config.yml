@@ -199,7 +199,7 @@ jobs:
           command: pipenv run auto_version --config=scripts/auto_version_beta.toml --news
       - run:
           name: Generate changelog
-          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version_beta.toml --news)
+          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version_beta.toml)
           working_directory: docs/news
       - run:
           name: Tag and Release
@@ -227,7 +227,7 @@ jobs:
       - run:
           name: Set version
           # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version.toml --release
+          command: pipenv run auto_version --config=scripts/auto_version.toml --news --release
       - run:
           name: Generate changelog
           command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml)
