@@ -1,7 +1,7 @@
 {
   "name": "mbed-cloud-sdk",
   "version": "2.0.1",
-  "is_published": true,
+  "is_published": false,
   "is_locked": false,
   "description": "Mbed Cloud SDK for JavaScript",
   "homepage": "https://www.mbed.com",
