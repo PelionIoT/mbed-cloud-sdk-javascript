@@ -50,6 +50,7 @@ def prepare_git():
 
 def beta_release(config_file):
     version = subprocess.check_output(['python', '-m', 'auto_version', config_file, '--news']).decode().strip()
+    print(version)
     prepare_git()
     print('pushing tags')
     #subprocess.check_call(['git', 'tag', '-a', version, '-m', 'beta release %s' % version])

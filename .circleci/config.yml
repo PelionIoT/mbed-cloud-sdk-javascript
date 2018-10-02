@@ -196,10 +196,10 @@ jobs:
       - run:
           name: Set version
           # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version_beta.toml
+          command: pipenv run auto_version --config=scripts/auto_version_beta.toml --news
       - run:
           name: Generate changelog
-          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version_beta.toml)
+          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version_beta.toml --news)
           working_directory: docs/news
       - run:
           name: Tag and Release
