@@ -17,3 +17,16 @@ Dockerfile
 docker-compose.yml
 news
 scripts
+.gitattributes
+CONTRIBUTING.md
+DEVELOPMENT.md
+old_circle.yml
+Pipfile
+tsconfig.json
+tsfmt.json
+tslint.json
+unit_tests.html
+.venv
+.circleci
+docs
+generator
