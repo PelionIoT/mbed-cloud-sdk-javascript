@@ -43,6 +43,7 @@ jobs:
           paths:
             - bundles
             - lib
+            - types
   tpip:
     working_directory: ~/build
     docker:
