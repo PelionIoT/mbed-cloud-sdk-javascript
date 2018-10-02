@@ -74,8 +74,6 @@ def release(config_file):
     subprocess.check_call(['git', 'commit', '-m', ':checkered_flag: Increment version\n[skip ci]'])
     print('pushing commits')
     subprocess.check_call(['git', 'push', 'origin'])
-    print('setting version release flag')
-    version = subprocess.check_output(['python', '-m', 'auto_version', '--config=scripts/auto_version.toml']).decode().strip()
     print('uploading to npm')
     subprocess.check_call(['npm', 'publish'])
     print('uploading to npm successful')
