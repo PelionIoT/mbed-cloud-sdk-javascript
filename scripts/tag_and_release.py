@@ -98,11 +98,10 @@ def main(beta=None):
 
     and commits changes to news files
     """
-    config_file = '--config=scripts/auto_version_beta.toml' if beta else '--config=scripts/auto_version.toml'
     if beta:
-        beta_release(config_file)
+        beta_release('--config=scripts/auto_version_beta.toml')
     else:
-        release(config_file)
+        release('--config=scripts/auto_version.toml')
 
 
 if __name__ == '__main__':
