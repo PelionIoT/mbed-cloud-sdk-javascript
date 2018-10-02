@@ -1,0 +1,12 @@
+[AutoVersionConfig]
+CONFIG_NAME = "JAVASCRIPT"
+RELEASED_VALUE = 'true'
+VERSION_LOCK_VALUE = 'true'
+VERSION_UNLOCK_VALUE = 'false'
+targets = [ "package.json",]
+DEVMODE_TEMPLATE = "{version}-beta{count}"
+
+[AutoVersionConfig.key_aliases]
+version = "VERSION_KEY_STRICT"
+is_locked = "VERSION_LOCK"
+is_published = "RELEASE_FIELD"

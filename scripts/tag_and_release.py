@@ -20,6 +20,7 @@ import os
 import subprocess
 import urllib.request
 import json
+import sys
 
 
 def git_url_ssh_to_https(url):
@@ -35,21 +36,34 @@ def git_url_ssh_to_https(url):
     path = url.split('github.com', 1)[1][1:].strip()
     new = 'https://{GITHUB_TOKEN}@github.com/%s' % path
     print('rewriting git url to: %s' % new)
-    return new.format(GITHUB_TOKEN=os.getenv('GITHUB_TOKEN'))
+    return new.format(GITHUB_TOKEN = os.getenv('GITHUB_TOKEN'))
 
 
-def main():
-    """Tags the current repository
-
-    and commits changes to news files
-    """
-    version = subprocess.check_output(['python', '-m', 'auto_version', '--config=scripts/auto_version.toml']).decode().strip()
+def prepare_git():
     print('preparing environment')
     url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
     new_url = git_url_ssh_to_https(url.decode())
     subprocess.check_call(['git', 'remote', 'set-url', 'origin', new_url])
     branch_spec = 'origin/%s' % os.getenv('CIRCLE_BRANCH')
     subprocess.check_call(['git', 'branch', '--set-upstream-to', branch_spec])
+
+
+def beta_release(config_file):
+    version = subprocess.check_output(['python', '-m', 'auto_version', config_file, '--news']).decode().strip()
+    prepare_git()
+    print('pushing tags')
+    #subprocess.check_call(['git', 'tag', '-a', version, '-m', 'beta release %s' % version])
+    #subprocess.check_call(['git', 'tag', '-f', 'latest-beta'])
+    #subprocess.check_call(['git', 'push', '-f', 'origin', '--tags'])
+    print('uploading to npm')
+    # subprocess.check_call(['npm', 'publish'])
+    print('uploading to npm successful')
+    #post_to_slack(version)
+
+
+def release(config_file):
+    version = subprocess.check_output(['python', '-m', 'auto_version', config_file, '--news']).decode().strip()
+    prepare_git()
     print('pushing tags')
     subprocess.check_call(['git', 'tag', '-a', version, '-m', 'release %s' % version])
     subprocess.check_call(['git', 'tag', '-f', 'latest'])
@@ -64,6 +78,10 @@ def main():
     print('uploading to npm')
     subprocess.check_call(['npm', 'publish'])
     print('uploading to npm successful')
+    post_to_slack(version)
+
+
+def post_to_slack(version):
     # posting message to slack
     body = {"text": ":checkered_flag: New version of :javascript: SDK released: {}".format(version)}
     myurl = "https://hooks.slack.com/services/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"
@@ -75,5 +93,21 @@ def main():
     response = urllib.request.urlopen(req, jsondataasbytes)
 
 
+def main(beta=None):
+    """Tags the current repository
+
+    and commits changes to news files
+    """
+    config_file = '--config=scripts/auto_version_beta.toml' if beta else '--config=scripts/auto_version.toml'
+    if beta:
+        beta_release(config_file)
+    else:
+        print('release')
+        # release(config_file)
+
+
 if __name__ == '__main__':
+    if len(sys.argv >= 1):
+        if sys.argv[1] == 'beta':
+            main('beta')
     main()

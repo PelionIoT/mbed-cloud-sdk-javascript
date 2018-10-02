@@ -175,6 +175,37 @@ jobs:
           root: ./
           paths:
             - unit_tests.html
+  beta_release:
+    working_directory: ~/build
+    environment:
+      PIPENV_VENV_IN_PROJECT: TRUE
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Update Python Installers
+          command: sudo python -m pip install -U setuptools pip pipenv
+      - run:
+          name: Install Python Libraries
+          # pipenv is currently poorly behaved when installing from remote subdirectory
+          # so we simply use it as a proxy for the virtualenv
+          command: pipenv run pip install -r scripts/requirements.txt
+      - run:
+          name: Set version
+          # set the version as if this was a production release
+          command: pipenv run auto_version --config=scripts/auto_version_beta.toml
+      - run:
+          name: Generate changelog
+          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version_beta.toml)
+          working_directory: docs/news
+      - run:
+          name: Tag and Release
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            pipenv run python scripts/tag_and_release.py beta
   release:
     working_directory: ~/build
     environment:
@@ -220,6 +251,16 @@ workflows:
       - unit_test:
           requires:
             - build
+      - beta_release_gate:
+          type: approval
+          filters:
+            branches:
+              only: f/beta-flow
+          requires:
+            - build
+      - beta_release:
+          requires:
+            - beta_release_gate
       - release_gate:
           type: approval
           filters:
