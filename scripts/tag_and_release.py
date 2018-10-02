@@ -64,20 +64,21 @@ def beta_release(config_file):
 
 def release(config_file):
     version = subprocess.check_output(['python', '-m', 'auto_version', config_file]).decode().strip()
+    print(version)
     prepare_git()
     print('pushing tags')
-    subprocess.check_call(['git', 'tag', '-a', version, '-m', 'release %s' % version])
-    subprocess.check_call(['git', 'tag', '-f', 'latest'])
-    subprocess.check_call(['git', 'push', '-f', 'origin', '--tags'])
+    #subprocess.check_call(['git', 'tag', '-a', version, '-m', 'release %s' % version])
+    #subprocess.check_call(['git', 'tag', '-f', 'latest'])
+    #subprocess.check_call(['git', 'push', '-f', 'origin', '--tags'])
     print('commit version')
-    subprocess.check_call(['git', 'add', 'package.json', 'CHANGELOG.md', 'docs/news/*'])
-    subprocess.check_call(['git', 'commit', '-m', ':checkered_flag: Increment version\n[skip ci]'])
+    #subprocess.check_call(['git', 'add', 'package.json', 'CHANGELOG.md', 'docs/news/*'])
+    #subprocess.check_call(['git', 'commit', '-m', ':checkered_flag: Increment version\n[skip ci]'])
     print('pushing commits')
-    subprocess.check_call(['git', 'push', 'origin'])
+    #subprocess.check_call(['git', 'push', 'origin'])
     print('uploading to npm')
-    subprocess.check_call(['npm', 'publish'])
+    #subprocess.check_call(['npm', 'publish'])
     print('uploading to npm successful')
-    post_to_slack(version)
+    #post_to_slack(version)
 
 
 def post_to_slack(version):

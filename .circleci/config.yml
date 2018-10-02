@@ -265,7 +265,7 @@ workflows:
           type: approval
           filters:
             branches:
-              only: master
+              only: f/beta-flow
           requires:
             - build
       - release:
