@@ -7,6 +7,6 @@ targets = [ "package.json",]
 DEVMODE_TEMPLATE = "{version}-beta{count}"
 
 [AutoVersionConfig.key_aliases]
-version = "VERSION_KEY_STRICT"
+version = "VERSION_KEY"
 is_locked = "VERSION_LOCK"
 is_published = "RELEASE_FIELD"
