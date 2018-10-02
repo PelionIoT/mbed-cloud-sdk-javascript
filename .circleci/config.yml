@@ -41,7 +41,6 @@ jobs:
       - persist_to_workspace:
           root: ./
           paths:
-            # - package.json
             - bundles
             - lib
   tpip:
@@ -255,9 +254,10 @@ workflows:
           type: approval
           filters:
             branches:
-              only: f/beta-flow
+              only: beta
           requires:
-            - build
+            - integration_test
+            - unit_test
       - beta_release:
           requires:
             - beta_release_gate
@@ -265,9 +265,10 @@ workflows:
           type: approval
           filters:
             branches:
-              only: f/beta-flow
+              only: master
           requires:
-            - build
+            - integration_test
+            - unit_test
       - release:
           requires:
             - release_gate
