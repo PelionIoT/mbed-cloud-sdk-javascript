@@ -20,19 +20,19 @@ import { User, SubtenantAccount } from "../../../sdk/entities";
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
-suite("subTennants", () => {
-    test("subTennant", async () => {
+suite("subTenants", () => {
+    test("subTenant", async () => {
         try {
             // an example: creating and managing a subtenant account
-            const newSubtennant = new SubtenantAccount();
-            newSubtennant.displayName = "sdk test dan";
-            newSubtennant.endMarket = "connected warrens";
-            newSubtennant.adminFullName = "dan the wombat";
-            newSubtennant.adminEmail = "dan@example.com";
+            const newSubtenant = new SubtenantAccount();
+            newSubtenant.displayName = "sdk test dan";
+            newSubtenant.endMarket = "connected warrens";
+            newSubtenant.adminFullName = "dan the wombat";
+            newSubtenant.adminEmail = "dan@example.com";
 
-            await newSubtennant.create();
+            await newSubtenant.create();
 
-            const user = new User({ apiKey: newSubtennant.adminKey });
+            const user = new User({ apiKey: newSubtenant.adminKey });
             user.fullName = "tommi the wombat";
             user.username = "tommi_wombat";
             user.phoneNumber = "0800001066";
@@ -42,11 +42,10 @@ suite("subTennants", () => {
 
             assert.isOk(true);
 
-            const users = await newSubtennant.list().all();
+            const users = await newSubtenant.list().all();
+            // end of example
             // tslint:disable-next-line:no-console
             users.forEach(u => console.log(u));
-            // end of example
-
             assert.isAtLeast(users.length, 1);
             await user.delete();
         } catch (e) {
