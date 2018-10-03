@@ -30,22 +30,24 @@ suite("subTenants", () => {
             newSubtenant.adminFullName = "dan the wombat";
             newSubtenant.adminEmail = "dan@example.com";
 
+            // when creating a new subtenant, this is the only opportunity to obtain
+            // the `admin_key` for that subtenant account
             await newSubtenant.create();
 
+            // now log in as this subtenant using the `admin_key`
             const user = new User({ apiKey: newSubtenant.adminKey });
             user.fullName = "tommi the wombat";
             user.username = "tommi_wombat";
             user.phoneNumber = "0800001066";
             user.email = "tommi_wombat@email.com";
 
+            // and add another user
             await user.create();
 
-            assert.isOk(true);
-
+            // back as the aggregator again ...
             const users = await newSubtenant.list().all();
             // end of example
-            // tslint:disable-next-line:no-console
-            users.forEach(u => console.log(u));
+
             assert.isAtLeast(users.length, 1);
             await user.delete();
         } catch (e) {
