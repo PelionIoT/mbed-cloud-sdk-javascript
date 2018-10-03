@@ -5,7 +5,7 @@
         "chrome"
     ],
     "node": {
-        "suites": ["lib/_tests/**/*.js", "!lib/_tests/snippets/**"]
+        "suites": ["test/unit_build/test/unit/**/*.js", "!test/unit_build/test/unit/snippets/**"]
     },
     "browser": {
         "suites": ["bundles/_tests/**/*.js"]
@@ -19,9 +19,8 @@
         ]
     },
     "coverage": [
-        "lib/**/*.js",
-        "!lib/_api/**",
-        "!lib/_tests/**"
+        "test/unit/build/src/**/*.js",
+        "!test/unit/build/src/_api/**"
     ],
     "reporters+": [
         {
@@ -44,7 +43,7 @@
                 "node"
             ],
             "node": {
-                "suites": ["lib/_tests/snippets/**/*.js"]
+                "suites": ["test/unit/build/test/snippets/**/*.js"]
             }
         }
     }

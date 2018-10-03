@@ -5,9 +5,6 @@ bundles
 coverage
 reports
 lib
-test
-tests/server
-tests/common
 types
 junit.xml
 package-lock.json
@@ -15,4 +12,4 @@ tpip.csv
 rpc_fixtures
 docs/_docs
 .env
-_integrationTests
+build
