@@ -242,6 +242,12 @@ jobs:
       - image: circleci/node:jessie-browsers
     steps:
       - run:
+          name: vars?
+          command: |
+              echo ${DOCUMENTATION_BRANCH}
+              echo ${ORGASNISATION}
+              echo ${DOCUMENTATION_PROJECT}
+      - run:
           name: Trigger documentation build
           command: |
               curl -X POST --header "Content-Type: application/json" \
