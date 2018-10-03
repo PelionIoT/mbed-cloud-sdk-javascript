@@ -4,7 +4,7 @@ set -e
 export DEBUG=superagent
 export DEBUG_COLORS=true
 
-npm run start-test-server &
+npm run integration &
 pid=$!
 
 function finish {

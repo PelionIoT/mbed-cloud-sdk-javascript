@@ -35,7 +35,7 @@ jobs:
           command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news
       - run:
           name: Build the SDK
-          command: npm run gulp
+          command: npm run build
       - store_artifacts:
           path: docs
       - persist_to_workspace:
@@ -125,9 +125,6 @@ jobs:
       - run:
           name: Fetch the test runner
           command: docker pull ${TESTRUNNER_DOCKER_IMAGE}
-      - run:
-          name: Build the SDK test server
-          command: npm run build-test-server
       - run:
           name: Run the tests
           command: set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ~/build/integration.html
