@@ -242,13 +242,6 @@ jobs:
       - image: circleci/node:jessie-browsers
     steps:
       - run:
-          name: vars?
-          command: |
-              echo ${DOCUMENTATION_BRANCH}
-              echo ${ORGANISATION}
-              echo ${DOCUMENTATION_PROJECT}
-              echo '{"branch":"$DOCUMENTATION_BRANCH"}'
-      - run:
           name: Trigger documentation build
           command: |
               curl -X POST --header "Content-Type: application/json" \
@@ -263,11 +256,13 @@ workflows:
       - tpip
       - news
       - build_documentation:
-          #requires:
-            #- build
+          requires:
+            - build
           filters:
             branches:
-              only: f/trigger-docs
+              only:
+                - master
+                - beta
       - integration_test:
           requires:
             - build
