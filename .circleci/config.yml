@@ -254,8 +254,8 @@ workflows:
       - tpip
       - news
       - build_documentation:
-          requires:
-            - build
+          #requires:
+            #- build
           filters:
             branches:
               only: f/trigger-docs
