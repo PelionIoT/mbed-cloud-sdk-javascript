@@ -239,7 +239,7 @@ jobs:
             pipenv run python scripts/tag_and_release.py
   build_documentation:
     docker:
-      - image: circleci/slim-base
+      - image: circleci/node:jessie-browsers
     steps:
       - run:
           name: Trigger documentation build
