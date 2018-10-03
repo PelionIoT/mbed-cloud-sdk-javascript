@@ -247,12 +247,12 @@ jobs:
               echo ${DOCUMENTATION_BRANCH}
               echo ${ORGANISATION}
               echo ${DOCUMENTATION_PROJECT}
-              echo '{"branch":"${DOCUMENTATION_BRANCH}"}'
+              echo '{"branch":"$DOCUMENTATION_BRANCH"}'
       - run:
           name: Trigger documentation build
           command: |
               curl -X POST --header "Content-Type: application/json" \
-               -d '{"branch":"${DOCUMENTATION_BRANCH}"}' \
+               -d '{"branch":"$DOCUMENTATION_BRANCH"}' \
                https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/build?circle-token=${CIRCLE_TOKEN}
 
 workflows:
