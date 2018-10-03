@@ -252,7 +252,7 @@ jobs:
           name: Trigger documentation build
           command: |
               curl -X POST --header "Content-Type: application/json" \
-               -d '{"branch":"$DOCUMENTATION_BRANCH"}' \
+               -d '{"branch":"master"}' \
                https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/build?circle-token=${CIRCLE_TOKEN}
 
 workflows:
