@@ -243,7 +243,8 @@ jobs:
     steps:
       - run:
           name: Trigger documentation build
-          command: $(curl -X POST -H -d {} "https://circleci.com/api/vi/project/${ORGANISATION}/${DOCUMENTATION_PROJECT}/tree/${DOCUMENTATION_BRANCH}?circle-token=${CIRCLE_TOKEN}")
+          command: curl -u ${CIRCLE_TOKEN}: \
+                  https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/tree/${DOCUMENTATION_BRANCH}
 
 workflows:
   version: 2
