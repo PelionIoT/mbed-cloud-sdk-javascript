@@ -4,14 +4,13 @@ import * as bodyParser from "body-parser";
 import * as instanceCache from "./instanceCache";
 import { logMessage } from "./logger";
 import { SdkModuleInstance } from "./sdkModuleInstance";
-import { ConnectionOptions } from "./common/interfaces";
+import { ConnectionOptions } from "../src/common/interfaces";
 import { Exception } from "./types";
 import { TestError, TestResult } from "./serverMessages";
 import { ServerError } from "./error";
-import { SDKError } from "./common/sdkError";
 import { mapJsonArgs } from "./argumentMapping";
 // TODO remove when no longer needed
-import * as MbedCloudSDK from "../lib";
+import * as MbedCloudSDK from "../src";
 import * as mapping from "./mapping";
 
 const app = express();
@@ -88,25 +87,25 @@ function quit(): void {
 
 // Instance server endpoints
 // * Server endpoints
-app.get("/ping", (req, res, next) => {
+app.get("/ping", (_req, res, _next) => {
     logMessage("Ping ---> <--- Pong");
     res.json("pong");
 });
-app.post("/reset", (req, res, next) => {
+app.post("/reset", (_req, res, _next) => {
     logMessage("Resetting");
     res.status(205).end();
 });
-app.post("/shutdown", (req, res, next) => {
+app.post("/shutdown", (_req, res, _next) => {
     res.status(202).end();
     logMessage("Shutting down.");
     quit();
 });
 // * API Modules endpoints
-app.get("/modules", (req, res, next) => {
+app.get("/modules", (_req, res, _next) => {
     logMessage("Listing SDK modules");
     res.json(instanceCache.listAllModules());
 });
-app.post("/modules/:moduleId/instances", (req, res, next) => {
+app.post("/modules/:moduleId/instances", (req, res, _next) => {
     const moduleId: string | undefined = req.params[moduleIdParam];
     logMessage(`Creating a module ("${moduleId}") instance`);
     const config: ConnectionOptions = determineInstanceConfig(req.body);
@@ -121,7 +120,7 @@ app.post("/modules/:moduleId/instances", (req, res, next) => {
         sendException(res, exception);
     }
 });
-app.get("/modules/:moduleId/instances", (req, res, next) => {
+app.get("/modules/:moduleId/instances", (req, res, _next) => {
     const moduleId: string = req.params[moduleIdParam];
     logMessage(`Listing module ("${moduleId}") instances`);
     if (!moduleId) {
@@ -135,7 +134,7 @@ app.get("/modules/:moduleId/instances", (req, res, next) => {
     }
 });
 // * API Instances endpoints
-app.get("/instances", (req, res, next) => {
+app.get("/instances", (_req, res, _next) => {
     logMessage("Listing all module instances");
     try {
         res.json(instanceCache.listAllInstances().map(i => i.toJson()));
@@ -143,7 +142,7 @@ app.get("/instances", (req, res, next) => {
         sendException(res, exception);
     }
 });
-app.get("/instances/:instanceId", (req, res, next) => {
+app.get("/instances/:instanceId", (req, res, _next) => {
     const instanceId: string | undefined = req.params[instanceIdParam];
     logMessage(`Fetching instance ("${instanceId}")`);
     if (!instanceId) {
@@ -156,7 +155,7 @@ app.get("/instances/:instanceId", (req, res, next) => {
         sendException(res, exception);
     }
 });
-app.delete("/instances/:instanceId", (req, res, next) => {
+app.delete("/instances/:instanceId", (req, res, _next) => {
     const instanceId: string | undefined = req.params[instanceIdParam];
     logMessage(`Deleting instance ("${instanceId}")`);
     if (!instanceId) {
@@ -170,7 +169,7 @@ app.delete("/instances/:instanceId", (req, res, next) => {
         sendException(res, exception);
     }
 });
-app.get("/instances/:instanceId/methods", (req, res, next) => {
+app.get("/instances/:instanceId/methods", (req, res, _next) => {
     const instanceId: string | undefined = req.params[instanceIdParam];
     logMessage(`Listing instance ("${instanceId}") methods`);
     if (!instanceId) {
@@ -185,7 +184,7 @@ app.get("/instances/:instanceId/methods", (req, res, next) => {
         sendException(res, exception);
     }
 });
-app.post("/instances/:instanceId/methods/:methodId", (req, res, next) => {
+app.post("/instances/:instanceId/methods/:methodId", (req, res, _next) => {
     logMessage(`TEST http://localhost:${port}${req.url} at ${new Date().toISOString()}`);
 
     // Instance
@@ -242,11 +241,11 @@ function sendError(res: any, error: any): void {
 }
 
 // TODO endpoint definitions for former test server. Remove when no longer needed.
-app.get("/_init", (req, res, next) => {
+app.get("/_init", (_req, res, _next) => {
     res.send({});
 });
 
-app.get("/:module/:method", (req, res, next) => {
+app.get("/:module/:method", (req, res, _next) => {
     logMessage(`TEST http://localhost:${port}${req.url} at ${new Date().toISOString()}`);
     const moduleParam: string = "module";
     const methodParam: string = "method";

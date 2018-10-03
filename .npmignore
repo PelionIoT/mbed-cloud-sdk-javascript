@@ -30,3 +30,4 @@ unit_tests.html
 .circleci
 docs
 generator
+_integrationTests

@@ -1,9 +1,9 @@
 import * as cache from "memory-cache";
-import * as MbedCloudSDK from "../lib/";
+import * as MbedCloudSDK from "../src";
 import { ServerError } from "./error";
 import { SdkModuleInstance } from "./sdkModuleInstance";
 import { reverseMapModule, mapModule } from "./argumentMapping";
-import { ConnectionOptions } from "./common/interfaces";
+import { ConnectionOptions } from "../src/common/interfaces";
 
 const moduleList: Array<string> = [ ...(Object.keys(MbedCloudSDK)), "TestStubApi" ];
 
@@ -25,7 +25,7 @@ function listAllInstancesOfAModule(module: string | undefined): Array<SdkModuleI
     if (moduleList.filter((m: string) => m === sdkModule).length === 0) {
         throw new ServerError(404, `No such module in the SDK- ["${module}"]`);
     }
-    return listAllInstances().filter((i: SdkModuleInstance) => i.module.pythonName === module);
+    return listAllInstances().filter((i: SdkModuleInstance) => i.sdkModule.pythonName === module);
 }
 function deleteInstance(instanceId: string): void {
     return cache.del(instanceId);
@@ -36,7 +36,7 @@ function deleteAllInstance(): void {
 function createModuleInstance(module: string | undefined, config: ConnectionOptions | undefined): SdkModuleInstance {
     const instance: SdkModuleInstance = new SdkModuleInstance(module, config);
     if (!instance.isValid()) {
-        throw new ServerError(500, `Instance ("${instance.id}") of module ["${instance.module}"] cannot be stored, as invalid`);
+        throw new ServerError(500, `Instance ("${instance.id}") of module ["${instance.sdkModule}"] cannot be stored, as invalid`);
     }
     cache.put(instance.id, instance);
     return instance;

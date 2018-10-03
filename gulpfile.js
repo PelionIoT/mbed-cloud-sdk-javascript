@@ -13,9 +13,7 @@ var ts          = require("gulp-typescript");
 var uglify      = require("gulp-uglify");
 var gulpTslint  = require("gulp-tslint");
 
-var name = "Mbed Cloud SDK for JavaScript";
 var namespace = "MbedCloudSDK";
-var docsToc = "AccountManagementApi,BillingApi,BootstrapApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,EnrollmentApi,Subscribe,UpdateApi,ConnectionOptions,SDKError,ListResponse,Paginator";
 
 // Source
 var srcDir = "src";
@@ -168,7 +166,7 @@ function bundle(srcFiles, destDir, optionsFn) {
 }
 
 // Build CommonJS modules into browser bundles
-gulp.task("bundleSource", ["typescript"], function() {
+gulp.task("bundleSource", function() {
     return bundle(bundleFiles, bundleDir, function(file) {
         var name = path.dirname(file.relative);
         if (name === ".") {
@@ -192,7 +190,7 @@ gulp.task("bundleSource", ["typescript"], function() {
 });
 
 // Build CommonJS tests into browser tests
-gulp.task("bundleTests", ["typescript"], function() {
+gulp.task("bundleTests", function() {
     return bundle(testFiles, testDir);
 });
 
@@ -200,4 +198,4 @@ gulp.task("watch", ["setWatch", "default"], function() {
     gulp.watch(srcFiles, ["default"]);
 });
 
-gulp.task("default", ["lint", "doc", "bundleSource", "bundleTests"]);
+gulp.task("default", ["bundleSource", "bundleTests"]);

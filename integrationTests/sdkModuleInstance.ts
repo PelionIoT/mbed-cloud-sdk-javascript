@@ -1,6 +1,6 @@
-import { ErrorCallback, Module, SuccessCallback } from "./types";
-import * as MbedCloudSDK from "../lib/";
-import { ConnectionOptions } from "./common/interfaces";
+import { ErrorCallback, SdkModule, SuccessCallback } from "./types";
+import * as MbedCloudSDK from "../src";
+import { ConnectionOptions } from "../src/common/interfaces";
 import { SdkApi } from "./sdkMethod";
 import { ModuleDescription } from "./serverMessages";
 import { ServerError } from "./error";
@@ -17,14 +17,14 @@ function uuidv4(): string {
 
 export class SdkModuleInstance {
 
-    public module: Module;
+    public sdkModule: SdkModule;
     public instance: any;
     public id: string;
     public createdAt: Date;
 
     public constructor(pythonName: string | undefined, config: ConnectionOptions | undefined) {
         const name: string = pythonName ? mapModule(pythonName) : "";
-        this.module = { pythonName, name };
+        this.sdkModule = { pythonName, name };
         this.id = `${name}-${uuidv4()}`;
         this.createdAt = new Date();
         const constructor = name === "TestStubApi" ? TestStubApi : (MbedCloudSDK as any)[name];
@@ -35,7 +35,7 @@ export class SdkModuleInstance {
     private getSdkRelatedApi(name: string | undefined): string {
         const api: string = (name) ? mapMethod(name) : "";
         if (api.length === 0 || !this.instance[api]) {
-            throw new ServerError(404, `No such method ["${api}"] on module ["${this.module.name}"]`);
+            throw new ServerError(404, `No such method ["${api}"] on module ["${this.sdkModule.name}"]`);
         }
         return api;
     }
@@ -45,14 +45,14 @@ export class SdkModuleInstance {
     public toJson(): ModuleDescription {
         return {
             id: this.id,
-            module: this.module.pythonName,
+            module: this.sdkModule.pythonName,
             created_at: this.createdAt.toISOString()
         };
     }
     public listApis(): Array<SdkApi> {
         const methodList: Array<SdkApi> = [];
         if (!this.isValid()) {
-            throw new ServerError(500, `Invalid instance ("${this.id}") of module ["${this.module.name}"]`);
+            throw new ServerError(500, `Invalid instance ("${this.id}") of module ["${this.sdkModule.name}"]`);
         }
         for (const prop in this.instance) {
             if (typeof this.instance[prop] === "function") {
@@ -63,7 +63,7 @@ export class SdkModuleInstance {
     }
     public executeMethod(methodName: string | undefined, args: any, onResult: SuccessCallback, onError: ErrorCallback): void {
         if (!this.isValid()) {
-            throw new ServerError(500, `Invalid instance ("${this.id}") of module ["${this.module.name}"]`);
+            throw new ServerError(500, `Invalid instance ("${this.id}") of module ["${this.sdkModule.name}"]`);
         }
 
         const method: string = this.getSdkRelatedApi(methodName);
