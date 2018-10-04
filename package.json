@@ -31,7 +31,7 @@
   "scripts": {
     "build": "npm run lint:fix && npm run compile && npm run bundle",
     "bundle": "gulp",
-    "clean": "rm -rf ./{lib,bundles,types} && mkdir -p ./{lib,bundles,types}",
+    "clean": "rm -rf ./lib && rm -rf ./bundles && rm -rf ./types",
     "clean:integration": "rm -rf test/integration/build && mkdir test/integration/build && cp package.json test/integration/build && rm -rf ./coverage",
     "clean:unit": "rm -rf test/unit/build && mkdir test/unit/build && cp package.json test/unit/build && rm -rf ./coverage",
     "compile": "tsc",
