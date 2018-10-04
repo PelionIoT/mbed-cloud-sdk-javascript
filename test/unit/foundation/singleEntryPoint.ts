@@ -38,34 +38,34 @@ suite("singleEntryPoint", () => {
 
     test("sdk instance", () => {
         const sdk = new SDK({ apiKey: "ak_1" });
-        assert.strictEqual("ak_1", sdk.getConfig().apiKey);
+        assert.strictEqual("Bearer ak_1", sdk.getConfig().apiKey);
 
         const user = sdk.entities.User();
 
-        assert.strictEqual("ak_1", user.config.apiKey);
+        assert.strictEqual("Bearer ak_1", user.config.apiKey);
     });
 
     test("multiple sdk instances", () => {
         const sdk1 = new SDK({ apiKey: "ak_1" });
-        assert.strictEqual("ak_1", sdk1.getConfig().apiKey);
+        assert.strictEqual("Bearer ak_1", sdk1.getConfig().apiKey);
 
         const sdk2 = new SDK({ apiKey: "ak_2" });
-        assert.strictEqual("ak_2", sdk2.getConfig().apiKey);
+        assert.strictEqual("Bearer ak_2", sdk2.getConfig().apiKey);
     });
 
     test("reusable config", () => {
         const config = new Config({ apiKey: "ak_1" });
         const sdk = new SDK(config);
 
-        assert.strictEqual("ak_1", sdk.getConfig().apiKey);
+        assert.strictEqual("Bearer ak_1", sdk.getConfig().apiKey);
 
         const user = new User(config);
-        assert.strictEqual("ak_1", user.config.apiKey);
+        assert.strictEqual("Bearer ak_1", user.config.apiKey);
 
         const sdk2 = new SDK(config);
-        assert.strictEqual("ak_1", sdk2.getConfig().apiKey);
+        assert.strictEqual("Bearer ak_1", sdk2.getConfig().apiKey);
 
         const user2 = sdk.entities.User();
-        assert.strictEqual("ak_1", user2.config.apiKey);
+        assert.strictEqual("Bearer ak_1", user2.config.apiKey);
     });
 });

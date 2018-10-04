@@ -1,4 +1,5 @@
 import { User, SubtenantAccount } from "../../../../src/sdk/entities";
+import { Config } from "../../../../src/sdk";
 
 /*
 * Mbed Cloud JavaScript SDK
@@ -35,7 +36,7 @@ suite("subTenants", () => {
             await newSubtenant.create();
 
             // now log in as this subtenant using the `admin_key`
-            const user = new User({ apiKey: newSubtenant.adminKey });
+            const user = new User(new Config({ apiKey: newSubtenant.adminKey }));
             user.fullName = "tommi the wombat";
             user.username = "tommi_wombat";
             user.phoneNumber = "0800001066";

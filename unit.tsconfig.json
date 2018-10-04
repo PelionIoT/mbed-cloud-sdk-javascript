@@ -3,9 +3,11 @@
     "compilerOptions" : {
         "types": [
             "intern"
-        ]
+        ],
+        "outDir": "./test/unit/build"
     },
     "include": [
+        "src/**/*",
         "test/unit/**/*"
     ]
 }

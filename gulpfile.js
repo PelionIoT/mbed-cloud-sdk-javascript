@@ -20,16 +20,18 @@ var srcDir = "src";
 var srcFiles = srcDir + "/**/*.ts";
 var srcFilesOnly = [
     srcFiles,
-    "!" + srcDir + "/_api/**",
-    "!" + srcDir + "/_tests/**"
+    "!" + srcDir + "/_api/**"
 ];
 
 // Node
 var nodeDir = "lib";
 var bundleFiles = nodeDir + "/**/index.js";
+
+// tests
+var builtTestDir = "test/unit/build/test/unit";
 var testFiles = [
-    nodeDir + "/_tests/**/*.js",
-    "!" + nodeDir + "/_tests/snippets/**",
+    builtTestDir + "/**/*.js",
+    "!" + builtTestDir + "/snippets/**",
 ];
 
 // Browser bundles
@@ -147,7 +149,9 @@ function bundle(srcFiles, destDir, optionsFn) {
             .ignore("buffer")
             .ignore("dotenv")
         .bundle()
-        .on("error", handleError);
+            .on("error", function (err) {
+                console.log(err);
+            });
         file.path = path.join(file.base, fileName);
     }))
     .pipe(buffer())

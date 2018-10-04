@@ -9,6 +9,11 @@
   "license": "Apache-2.0",
   "types": "./types/index.d.ts",
   "main": "./index.js",
+  "files": [
+    "bundles",
+    "lib",
+    "examples"
+  ],
   "browser": {
     "./index.js": "./bundles/index.min.js"
   },
@@ -24,28 +29,27 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "clean": "rm -rf ./{lib,bundles,types} && mkdir -p ./{lib,bundles,types} && rm -rf ./coverage",
-    "clean:integration": "rm -rf test/integration/build && mkdir test/integration/build && cp package.json test/integration/build",
-    "clean:unit": "rm -rf test/unit/{build,types} && mkdir test/unit/build && cp package.json test/unit/build",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'",
-    "docs": "rm -rf ./docs/_docs && mkdir -p ./docs/_docs && typedoc --options typedoc.json ./src/**/*.ts",
+    "build": "npm run lint:fix && npm run compile && npm run bundle",
+    "bundle": "gulp",
+    "clean": "rm -rf ./{lib,bundles,types} && mkdir -p ./{lib,bundles,types}",
+    "clean:integration": "rm -rf test/integration/build && mkdir test/integration/build && cp package.json test/integration/build && rm -rf ./coverage",
+    "clean:unit": "rm -rf test/unit/build && mkdir test/unit/build && cp package.json test/unit/build && rm -rf ./coverage",
     "compile": "npm run clean && tsc",
-    "integration:watch": "npm run clean:server && tsc-watch -p integration.tsconfig.json --onSuccess \"node test/integration/build/test/integration/codeCoverage.js\"",
-    "integration": "npm run clean:integration && tsc -p integration.tsconfig.json && node test/integration/build/test/integration/codeCoverage.js",
-    "build": "npm run clean && npm run lint:fix && npm run docs && npm run compile && npm run gulp",
-    "start": "node examples/proxy/server.js",
-    "gulp": "gulp",
-    "tpip": "node scripts/generate-tpip.js",
-    "snippets": "intern config=@snippets",
-    "build-test-server": "node tests/build.js && tsc -p tests && cp intern.json ./tests/server/ && cp package.json ./tests/server/",
-    "start-test-server": "node tests/server/tests/codeCoverage.js",
-    "lint": "tslint --fix -c tslint.json 'src/**/**/*.ts'",
+    "compile:unit": "npm run clean:unit && tsc -p unit.tsconfig.json",
+    "compile:integration": "npm run clean:integration && tsc -p integration.tsconfig.json",
+    "docs": "rm -rf ./docs/_docs && mkdir -p ./docs/_docs && typedoc --options typedoc.json ./src/**/*.ts",
     "format": "prettier --write --tab-width 4 --print-width 120 --trailing-comma es5 './src/sdk/generated/**/**/*.ts' './src/sdk/generated/*.ts'",
-    "generate": "node generator/build.js && npm run format && npm run lint && gulp"
-    "generate": "node generator/build.js && tsfmt -r ./src/sdk/generated/**/**/*.ts ./src/sdk/generated/*.ts && gulp",
-    "test": "npm run clean:unit && tsc -p unit.tsconfig.json && intern",
-    "test:watch": "npm run clean:unit && tsc-watch -p unit.tsconfig.json --onSuccess \"intern\""
+    "generate": "node generator/build.js && npm run format && npm run lint:fix && npm run compile",
+    "integration": "npm run compile:integration && node test/integration/build/test/integration/codeCoverage.js",
+    "integration:watch": "npm run clean:server && tsc-watch -p integration.tsconfig.json --onSuccess \"node test/integration/build/test/integration/codeCoverage.js\"",
+    "lint": "tslint -c tslint.json 'src/**/**/*.ts'",
+    "lint:fix": "tslint --fix -c tslint.json 'src/**/**/*.ts'",
+    "start-proxy": "node examples/proxy/server.js",
+    "test": "npm run compile:unit && intern",
+    "test:browser": "npm run compile:unit && npm run bundle && intern",
+    "test:snippets": "npm run compile:unit && intern config=@snippets",
+    "test:watch": "npm run clean:unit && tsc-watch -p unit.tsconfig.json --onSuccess \"intern\"",
+    "tpip": "node scripts/generate-tpip.js"
   },
   "devDependencies": {
     "@types/chai": "^4.1.5",

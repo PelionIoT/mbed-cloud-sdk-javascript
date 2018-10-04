@@ -5,7 +5,7 @@
         "chrome"
     ],
     "node": {
-        "suites": ["test/unit_build/test/unit/**/*.js", "!test/unit_build/test/unit/snippets/**"]
+        "suites": ["test/unit/build/test/unit/**/*.js", "!test/unit/build/test/unit/snippets/**"]
     },
     "browser": {
         "suites": ["bundles/_tests/**/*.js"]
