@@ -37,9 +37,7 @@ jobs:
           name: Build the SDK
           command: npm run build
       - store_artifacts:
-          paths:
-            - docs
-            - package.json
+          path: package.json
       - persist_to_workspace:
           root: ./
           paths:
