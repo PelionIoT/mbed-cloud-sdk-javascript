@@ -45,6 +45,22 @@
             "node": {
                 "suites": ["test/unit/build/test/snippets/**/*.js"]
             }
+        },
+        "node" : {
+            "environments": [
+                "node"
+            ],
+            "node": {
+                "suites": ["test/unit/build/test/unit/**/*.js", "!test/unit/build/test/unit/snippets/**"]
+            }
+        },
+        "browser" : {
+            "environments": [
+                "chrome"
+            ],
+            "browser": {
+                "suites": ["bundles/_tests/**/*.js"]
+            }
         }
     }
 }
