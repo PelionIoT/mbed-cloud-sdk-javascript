@@ -14,6 +14,7 @@ import { CertificateStatusEnum } from "../../enums";
  */
 export class Certificate extends EntityBase {
     public readonly _renames: { [key: string]: string } = {
+        "developerCertificateId": "developerCertificateId",
         "cert-id": "id",
     };
 
@@ -117,10 +118,18 @@ export class Certificate extends EntityBase {
     }
 
     /**
+     * creates a Certificate.
+     * @returns Promise containing Certificate.
+     */
+    public create(signature?: string): Promise<Certificate> {
+        return privateFunctions.createAnyCertificate(this, signature);
+    }
+
+    /**
      * createDevelopers a Certificate.
      * @returns Promise containing Certificate.
      */
-    public createDeveloper(): Promise<Certificate> {
+    protected createDeveloper(): Promise<Certificate> {
         const body = {
             description: this.description,
             name: this.name,
@@ -147,7 +156,7 @@ export class Certificate extends EntityBase {
      * createStandards a Certificate.
      * @returns Promise containing Certificate.
      */
-    public createStandard(signature?: string): Promise<Certificate> {
+    protected createStandard(signature?: string): Promise<Certificate> {
         const body = {
             certificate: this.certificate,
             description: this.description,
@@ -201,10 +210,18 @@ export class Certificate extends EntityBase {
     }
 
     /**
+     * gets a Certificate.
+     * @returns Promise containing Certificate.
+     */
+    public get(): Promise<Certificate> {
+        return privateFunctions.getAnyCertificate(this);
+    }
+
+    /**
      * getDevelopers a Certificate.
      * @returns Promise containing Certificate.
      */
-    public getDeveloper(developerCertificateId: string): Promise<Certificate> {
+    protected getDeveloper(developerCertificateId: string): Promise<Certificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<Certificate>(
@@ -229,7 +246,7 @@ export class Certificate extends EntityBase {
      * getStandards a Certificate.
      * @returns Promise containing Certificate.
      */
-    public getStandard(): Promise<Certificate> {
+    protected getStandard(): Promise<Certificate> {
         const body = {
             service: this.service,
         };
@@ -287,6 +304,14 @@ export class Certificate extends EntityBase {
      * @returns Promise containing Certificate.
      */
     public update(signature?: string): Promise<Certificate> {
+        return privateFunctions.extendUpdateResponse(this, signature);
+    }
+
+    /**
+     * updateCertificates a Certificate.
+     * @returns Promise containing Certificate.
+     */
+    protected updateCertificate(signature?: string): Promise<Certificate> {
         const body = {
             certificate: this.certificate,
             description: this.description,

@@ -48,5 +48,18 @@ export function certificateTypeSetter(self: Certificate, value: CertificateCerti
         default:
             break;
     }
-    return null;
+}
+
+export function createAnyCertificate(self: Certificate, signature: string) {
+    // tslint:disable-next-line:no-string-literal
+    return self["createStandard"](signature);
+}
+
+export function getAnyCertificate(self: Certificate) {
+    // tslint:disable-next-line:no-string-literal
+    return self["getDeveloper"](self.id);
+}
+
+export function extendUpdateResponse(self: Certificate, signature: string) {
+    return self.update(signature);
 }
