@@ -40,7 +40,7 @@ suite("testResourceValues", () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
         const observer = subscribe.resourceValues({ deviceId: "1" });
-        observer.addListener(res => items.push(res));
+        observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 3);
         mockNotify(subscribe);
@@ -51,7 +51,7 @@ suite("testResourceValues", () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
         const observer = subscribe.resourceValues({ deviceId: [ "1", "2" ] });
-        observer.addListener(res => items.push(res));
+        observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 6);
         mockNotify(subscribe);
@@ -62,7 +62,7 @@ suite("testResourceValues", () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
         const observer = subscribe.resourceValues({ resourcePaths: [ "/3/0/0" ] });
-        observer.addListener(res => items.push(res));
+        observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 5);
         mockNotify(subscribe);
@@ -73,7 +73,7 @@ suite("testResourceValues", () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
         const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/0/0" ] });
-        observer.addListener(res => items.push(res));
+        observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 1);
         mockNotify(subscribe);
@@ -84,7 +84,7 @@ suite("testResourceValues", () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
         const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/0/0", "/3/0/1" ] });
-        observer.addListener(res => items.push(res));
+        observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 2);
         mockNotify(subscribe);
@@ -95,7 +95,7 @@ suite("testResourceValues", () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
         const observer = subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "/3/0/0" ] });
-        observer.addListener(res => items.push(res));
+        observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 2);
         mockNotify(subscribe);
@@ -106,7 +106,7 @@ suite("testResourceValues", () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
         const observer = subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "/3/0/0", "/3/0/1" ] });
-        observer.addListener(res => items.push(res));
+        observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 4);
         mockNotify(subscribe);
@@ -117,7 +117,7 @@ suite("testResourceValues", () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
         const observer = subscribe.resourceValues({ deviceId: "*" });
-        observer.addListener(res => items.push(res));
+        observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 15);
         mockNotify(subscribe);
@@ -128,7 +128,7 @@ suite("testResourceValues", () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
         const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/*" ] });
-        observer.addListener(res => items.push(res));
+        observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         assert.lengthOf(items, 3);
         mockNotify(subscribe);
@@ -152,8 +152,8 @@ export function mockNotify(subscribe: Subscribe): void {
         { deviceId: "4", path: "/3/0/2", payload: "SGK=" },
         { deviceId: "5", path: "/3/0/0", payload: "SGK=" },
         { deviceId: "5", path: "/3/0/1", payload: "SGK=" },
-        { deviceId: "5", path: "/3/0/2", payload: "SGK=" }
+        { deviceId: "5", path: "/3/0/2", payload: "SGK=" },
     ];
 
-    notificationList.forEach(item => subscribe.notifyResourceValues(item));
+    notificationList.forEach( item => subscribe.notifyResourceValues(item));
 }

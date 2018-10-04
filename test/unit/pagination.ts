@@ -30,7 +30,7 @@ interface Call<O> {
 
 // Wait for the stack to clear. Required because callbacks assigned with Promise.then are called asynchronously.
 const wait = (): Promise<void> => {
-    return new Promise(resolve => {
+    return new Promise( resolve => {
         setTimeout(resolve, 1);
     });
 };
@@ -125,7 +125,7 @@ suite("executeForAll", () => {
                                 assert.strictEqual(executeCalls.length, 4);
 
                                 return Promise.all([
-                                    executeCalls[2].resolve(null), executeCalls[3].resolve(null)
+                                    executeCalls[2].resolve(null), executeCalls[3].resolve(null),
                                 ])
                                     .then(() => {
                                         assert.strictEqual(tracker.resolved, true);
@@ -166,7 +166,7 @@ suite("executeForAll", () => {
                 assert.strictEqual(executeCalls.length, 2);
 
                 return Promise.all([
-                    executeCalls[0].resolve(null), executeCalls[1].reject()
+                    executeCalls[0].resolve(null), executeCalls[1].reject(),
                 ])
                     .then(() => {
                         assert.strictEqual(tracker.resolved, false);
@@ -188,7 +188,7 @@ suite("executeForAll", () => {
                 assert.strictEqual(executeCalls.length, 2);
 
                 return Promise.all([
-                    executeCalls[0].resolve(null), executeCalls[1].resolve(null)
+                    executeCalls[0].resolve(null), executeCalls[1].resolve(null),
                 ])
                     .then(() => {
                         assert.strictEqual(getPageCalls.length, 2);
@@ -215,7 +215,7 @@ suite("paginator", () => {
                 limit: 50,
                 order: "ASC",
                 total_count: null,
-                continuation_marker: null
+                continuation_marker: null,
             };
             return Promise.resolve(new ListResponse(response, pageData));
         }
@@ -223,18 +223,18 @@ suite("paginator", () => {
         const paginator = new Paginator(getPage, options);
         assert.isTrue(paginator.hasNext());
         // Moving to the next element (first)
-        return paginator.next().then(element => {
+        return paginator.next().then( element => {
             assert.isNotNull(element);
             assert.equal(element, pageData[0]);
             assert.isTrue(paginator.hasNext());
             return Promise.resolve();
             // Moving to the next element
-        }).then(() => paginator.next().then(element => {
+        }).then(() => paginator.next().then( element => {
             assert.isNotNull(element);
             assert.equal(element, pageData[1]);
             assert.isTrue(paginator.hasNext());
             return Promise.resolve();
-        })).then(() => paginator.all().then(all => {
+        })).then(() => paginator.all().then( all => {
             assert.isNotNull(all);
             assert.deepEqual(all, pageData);
             return Promise.resolve();
@@ -250,7 +250,7 @@ suite("paginator", () => {
                 limit: 50,
                 order: "ASC",
                 total_count: null,
-                continuation_marker: null
+                continuation_marker: null,
             };
             // The following returns the first page if after is not equal to the last element of the first page. Otherwise the second page is returned. The first page is filled with relevant values to stipulate that there are more pages available i.e. has_more and continuation_marker are set.
             return listOptions.after === "" + firstPageData[firstPageData.length - 1] ? Promise.resolve(new ListResponse(response, secondPageData)) : Promise.resolve(new ListResponse({ ...response, has_more: true, continuation_marker: "" + firstPageData[firstPageData.length - 1] }, firstPageData));
@@ -260,22 +260,22 @@ suite("paginator", () => {
         assert.isTrue(paginator.hasNext());
         // Moving to the next element (first)
 
-        return paginator.next().then(element => {
+        return paginator.next().then( element => {
             assert.isNotNull(element);
             assert.equal(element, firstPageData[0]);
             assert.isTrue(paginator.hasNext());
             return Promise.resolve();
             // Moving to the next element
-        }).then(() => paginator.next().then(element => {
+        }).then(() => paginator.next().then( element => {
             assert.isNotNull(element);
             assert.equal(element, firstPageData[1]);
             assert.isTrue(paginator.hasNext());
             return Promise.resolve();
-        })).then(() => paginator.all().then(all => {
+        })).then(() => paginator.all().then( all => {
             assert.isNotNull(all);
             assert.deepEqual(all, firstPageData.concat(secondPageData));
             return Promise.resolve();
-        })).then(() => paginator.first().then(first => {
+        })).then(() => paginator.first().then( first => {
             assert.isNotNull(first);
             assert.equal(first, firstPageData[0]);
             return Promise.resolve();
@@ -292,12 +292,12 @@ suite("paginator", () => {
                 limit: 50,
                 order: "ASC",
                 total_count: null,
-                continuation_marker: null
+                continuation_marker: null,
             };
             // The following returns the first page if after is not equal to the last element of the first page. Otherwise the second page is returned. The first page is filled with relevant values to stipulate that there are more pages available i.e. has_more and after are set.
             // The page also contains the total count if requested by the user.
             const pagePromise = (listOptions.after === "" + firstPageData[firstPageData.length - 1] ? Promise.resolve(new ListResponse(response, secondPageData)) : Promise.resolve(new ListResponse({ ...response, has_more: true, after: "" + firstPageData[firstPageData.length - 1] }, firstPageData)));
-            return pagePromise.then(pageResponse => listOptions.include && listOptions.include.indexOf("totalCount") > -1 ? new ListResponse({ ...pageResponse, totalCount: totalElementCount }, pageResponse.data) : pageResponse);
+            return pagePromise.then( pageResponse => listOptions.include && listOptions.include.indexOf("totalCount") > -1 ? new ListResponse({ ...pageResponse, totalCount: totalElementCount }, pageResponse.data) : pageResponse);
         }
         const options: ListOptions = {};
         const maxResult = firstPageData.length - 3;
@@ -305,22 +305,22 @@ suite("paginator", () => {
         const paginator = new Paginator(getPage, options);
         assert.isTrue(paginator.hasNext());
         // Moving to the next element (first)
-        return paginator.next().then(element => {
+        return paginator.next().then( element => {
             assert.isNotNull(element);
             assert.equal(element, firstPageData[0]);
             assert.isTrue(paginator.hasNext());
             return Promise.resolve();
             // Moving to the next element
-        }).then(() => paginator.next().then(element => {
+        }).then(() => paginator.next().then( element => {
             assert.isNotNull(element);
             assert.equal(element, firstPageData[1]);
             assert.isTrue(paginator.hasNext());
             return Promise.resolve();
-        })).then(() => paginator.all().then(all => {
+        })).then(() => paginator.all().then( all => {
             assert.isNotNull(all);
             assert.deepEqual(all, firstPageData.slice(0, maxResult));
             return Promise.resolve();
-        })).then(() => paginator.totalCount().then(total => {
+        })).then(() => paginator.totalCount().then( total => {
             assert.isNotNull(total);
             assert.equal(total, totalElementCount);
             return Promise.resolve();
@@ -341,7 +341,7 @@ suite("paginator", () => {
                 limit: 50,
                 order: "ASC",
                 total_count: null,
-                continuation_marker: null
+                continuation_marker: null,
             };
             // The following returns the first page if after is not equal to the last element of the first page. Otherwise the second page is returned. The first page is filled with relevant values to stipulate that there are more pages available i.e. has_more and after are set.
             return listOptions.after === "" + firstPageData[firstPageData.length - 1] ? Promise.resolve(new ListResponse(response, secondPageData)) : Promise.resolve(new ListResponse({ ...response, has_more: true, after: "" + firstPageData[firstPageData.length - 1] }, firstPageData));

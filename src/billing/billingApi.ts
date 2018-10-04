@@ -89,7 +89,7 @@ export class BillingApi {
             callback = filepath;
         }
 
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.billing.getBillingReport(dateToBillingMonth(month), resultsFn);
         }, (data, done) => {
             const string = JSON.stringify(data);
@@ -128,7 +128,7 @@ export class BillingApi {
             callback = filepath;
         }
 
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.billing.getBillingReportActiveDevices(dateToBillingMonth(month), resultsFn);
         }, (data: BillingReportRawDataResponse, done) => {
             this.streamToFile(filepath, data.url, done);
@@ -154,7 +154,7 @@ export class BillingApi {
             callback = filepath;
         }
 
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.billing.getBillingReportFirmwareUpdates(dateToBillingMonth(month), resultsFn);
         }, (data: BillingReportRawDataResponse, done) => {
             this.streamToFile(filepath, data.url, done);
@@ -172,7 +172,7 @@ export class BillingApi {
      */
     public getServicePackages(callback: CallbackFn<Array<ServicePackage>>): void;
     public getServicePackages(callback?: CallbackFn<Array<ServicePackage>>): Promise<Array<ServicePackage>> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.billing.getServicePackages(resultsFn);
         }, (data: ServicePackagesResponse, done) => {
             const list: Array<ServicePackage> = new Array();
@@ -184,7 +184,7 @@ export class BillingApi {
                     list.push(mapActive(data.active));
                 }
                 if (data.previous) {
-                    data.previous.forEach(p => list.push(mapPrevious(p)));
+                    data.previous.forEach( p => list.push(mapPrevious(p)));
                 }
             }
             done(null, list);
@@ -235,13 +235,13 @@ export class BillingApi {
             callback = options;
         }
 
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             const { limit, after } = options;
             this._endpoints.billing.getServicePackageQuotaHistory(limit, after, resultsFn);
         }, (data: ServicePackageQuotaHistoryResponse, done) => {
             let keys: Array<QuotaHistory>;
             if (data && data.data && data.data.length) {
-                keys = data.data.map(key => {
+                keys = data.data.map( key => {
                     return mapQuotaHistory(key);
                 });
             }
@@ -261,7 +261,7 @@ export class BillingApi {
      */
     public getQuotaRemaining(callback: CallbackFn<number>): void;
     public getQuotaRemaining(callback?: CallbackFn<number>): Promise<number> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.billing.getServicePackageQuota(resultsFn);
         }, (data: ServicePackageQuota, done) => {
             if (data) {

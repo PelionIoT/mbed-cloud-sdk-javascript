@@ -1,6 +1,7 @@
 import { Config } from "../client/config";
 import { SDK } from "../sdk";
 import { snakeToCamel } from "../../common/functions";
+import { Client } from "../client/client";
 
 export class EntityBase {
     protected readonly _renames: { [key: string]: string };
@@ -8,6 +9,8 @@ export class EntityBase {
     protected readonly _foreignKeys: { [key: string]: { [key: string]: any } };
 
     private _config: Config;
+
+    public client: Client;
 
     /**
      * The id of the entity
@@ -22,6 +25,14 @@ export class EntityBase {
         this._config = c;
     }
 
+    constructor(config?: Config) {
+        if (config) {
+            this.config = config;
+        }
+
+        this.client = new Client(this.config);
+    }
+
     public activator<T extends EntityBase>(type: { new(): T; }): T {
         return new type();
     }
@@ -30,7 +41,7 @@ export class EntityBase {
         const renames = this._renames || {};
         const foreignKeys = this._foreignKeys || {};
 
-        return Object.keys(data).map(key => {
+        return Object.keys(data).map( key => {
             const newKey = renames[key] || snakeToCamel(key);
             // check if key has type in foreignKey dict
             if (foreignKeys[newKey]) {
@@ -38,7 +49,7 @@ export class EntityBase {
                 if (foreignKeys[newKey].array === true) {
                     // populate list of foreign keys
                     const arr = [];
-                    Object.keys(data[key]).forEach(k => {
+                    Object.keys(data[key]).forEach( k => {
                         arr.push(type._fromApi(type, data[key][k]));
                     });
                     return { [newKey]: arr };

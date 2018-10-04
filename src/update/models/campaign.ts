@@ -74,7 +74,7 @@ export class Campaign {
      */
     public update(callback: CallbackFn<Campaign>): void;
     public update(callback?: CallbackFn<Campaign>): Promise<Campaign> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.updateCampaign(this, done);
         }, callback);
     }
@@ -90,7 +90,7 @@ export class Campaign {
      */
     public start(callback: CallbackFn<Campaign>): void;
     public start(callback?: CallbackFn<Campaign>): Promise<Campaign> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.startCampaign(this.id, done);
         }, callback);
     }
@@ -106,7 +106,7 @@ export class Campaign {
      */
     public stop(callback: CallbackFn<Campaign>): void;
     public stop(callback?: CallbackFn<Campaign>): Promise<Campaign> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.stopCampaign(this.id, done);
         }, callback);
     }
@@ -130,7 +130,7 @@ export class Campaign {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.listCampaignDeviceStates(this.id, options, done);
         }, callback);
     }
@@ -146,7 +146,7 @@ export class Campaign {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.deleteCampaign(this.id, done);
         }, callback);
     }

@@ -38,7 +38,7 @@ suite("entities", () => {
         try {
             // an example: listing api keys
             const allKeys = await new ApiKey().list().all();
-            const names = allKeys.map(k => k.name);
+            const names = allKeys.map( k => k.name);
             // end of example
             assert.isAtLeast(names.length, 1);
         } catch (e) {

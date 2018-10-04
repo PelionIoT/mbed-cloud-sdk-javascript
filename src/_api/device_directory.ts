@@ -593,7 +593,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceData>({
@@ -637,7 +637,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<null>({
@@ -692,7 +692,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceEventPage>({
@@ -735,7 +735,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceEventData>({
@@ -790,7 +790,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DevicePage>({
@@ -845,7 +845,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceEventPage>({
@@ -888,7 +888,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceEventData>({
@@ -931,7 +931,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceQuery>({
@@ -975,7 +975,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<null>({
@@ -1030,7 +1030,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceQueryPage>({
@@ -1073,7 +1073,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceQuery>({
@@ -1124,7 +1124,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceQuery>({
@@ -1168,7 +1168,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceData>({
@@ -1219,7 +1219,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeviceData>({

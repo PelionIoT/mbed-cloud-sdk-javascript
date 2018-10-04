@@ -24,8 +24,8 @@ suite("idGenerator", () => {
     test("generates three unique IDs", () => {
         const ids = [ generateId(), generateId(), generateId() ];
 
-        const hasDuplicates = ids.some(id => {
-            return ids.filter(otherId => id === otherId).length > 1;
+        const hasDuplicates = ids.some( id => {
+            return ids.filter( otherId => id === otherId).length > 1;
         });
 
         assert.strictEqual(hasDuplicates, false);

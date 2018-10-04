@@ -16,7 +16,7 @@
 */
 
 import {
-    FirmwareManifest as apiFirmwareManifest
+    FirmwareManifest as apiFirmwareManifest,
 } from "../../_api/update_service";
 import { UpdateApi } from "../updateApi";
 import { FirmwareManifest } from "./firmwareManifest";
@@ -37,7 +37,7 @@ export class FirmwareManifestAdapter {
             id:                  from.id,
             name:                from.name,
             timestamp:           from.timestamp,
-            updatedAt:           from.updated_at
+            updatedAt:           from.updated_at,
         }, api);
     }
 }

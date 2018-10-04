@@ -76,7 +76,7 @@ export class CertificatesApi {
         if (iamCert.device_execution_mode === 1) {
             // Developer certificate
             this._endpoints.connector.getDeveloperCertificate(iamCert.id, "", (error, data) => {
-                if (error) return done(error, null);
+                if (error) { return done(error, null); }
 
                 const certificate = CertificateAdapter.mapDeveloperCertificate(iamCert, this, data);
                 done(null, certificate);
@@ -87,10 +87,10 @@ export class CertificatesApi {
 
         let credentials = null;
         this._endpoints.serverCredentials.getAllServerCredentials("", (error, data) => {
-            if (error) return done(error, null);
+            if (error) { return done(error, null); }
 
-            if (iamCert.service === "bootstrap") credentials = data.bootstrap;
-            if (iamCert.service === "lwm2m") credentials = data.lwm2m;
+            if (iamCert.service === "bootstrap") { credentials = data.bootstrap; }
+            if (iamCert.service === "lwm2m") { credentials = data.lwm2m; }
 
             const certificate = CertificateAdapter.mapServerCertificate(iamCert, this, credentials);
             done(null, certificate);
@@ -155,7 +155,7 @@ export class CertificatesApi {
             options = {};
         }
 
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             const { limit, after, order, include, filter } = options as CertificateListOptions;
             const type = extractFilter(filter, "type");
             const serviceEq = type === "developer" ? "bootstrap" : type;
@@ -167,7 +167,7 @@ export class CertificatesApi {
         }, (data, done) => {
             let certificates: Array<Certificate>;
             if (data.data && data.data.length) {
-                certificates = data.data.map(certificate => {
+                certificates = data.data.map( certificate => {
                     return CertificateAdapter.mapCertificate(certificate, this);
                 });
             }
@@ -210,7 +210,7 @@ export class CertificatesApi {
      */
     public getCertificate(certificateId: string, callback: CallbackFn<Certificate>): void;
     public getCertificate(certificateId: string, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.accountDeveloper.getCertificate(certificateId, resultsFn);
         }, (data, done) => {
             this.extendCertificate(data, done);
@@ -257,11 +257,11 @@ export class CertificatesApi {
      */
     public addDeveloperCertificate(certificate: AddDeveloperCertificateObject, callback: CallbackFn<Certificate>): void;
     public addDeveloperCertificate(certificate: AddDeveloperCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.connector.createDeveloperCertificate("", CertificateAdapter.reverseDeveloperMap(certificate), resultsFn);
         }, (data, done) => {
             this._endpoints.accountDeveloper.getCertificate(data.id, (error, certData) => {
-                if (error) return done(error, null);
+                if (error) { return done(error, null); }
 
                 const cert = CertificateAdapter.mapDeveloperCertificate(certData, this, data);
                 done(null, cert);
@@ -317,7 +317,7 @@ export class CertificatesApi {
      */
     public addCertificate(certificate: AddCertificateObject, callback: CallbackFn<Certificate>): void;
     public addCertificate(certificate: AddCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.admin.addCertificate(CertificateAdapter.reverseMap(certificate), resultsFn);
         }, (data, done) => {
             this.extendCertificate(data, done);
@@ -372,7 +372,7 @@ export class CertificatesApi {
      */
     public updateCertificate(certificate: UpdateCertificateObject, callback: CallbackFn<Certificate>): void;
     public updateCertificate(certificate: UpdateCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.accountDeveloper.updateCertificate(certificate.id, CertificateAdapter.reverseUpdateMap(certificate), resultsFn);
         }, (data, done) => {
             this.extendCertificate(data, done);
@@ -409,7 +409,7 @@ export class CertificatesApi {
      */
     public deleteCertificate(certificateId: string, callback: CallbackFn<void>): void;
     public deleteCertificate(certificateId: string, callback?: CallbackFn<void>): Promise<void> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.accountDeveloper.deleteCertificate(certificateId, resultsFn);
         }, (data, done) => {
             done(null, data);
@@ -427,7 +427,7 @@ export class CertificatesApi {
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;
     public getLastApiMetadata(callback?: CallbackFn<ApiMetadata>): Promise<ApiMetadata> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
     }

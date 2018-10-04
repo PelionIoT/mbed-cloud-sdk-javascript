@@ -80,7 +80,7 @@ suite("testPayloadDecoding", () => {
     test("tlv", () => {
         const payload = decodeBase64("AAA=", "tlv");
         assert.deepEqual(payload, {
-            "/0": ""
+            "/0": "",
         });
     });
 });

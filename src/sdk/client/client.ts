@@ -2,13 +2,14 @@ import superagent = require("superagent");
 import { SdkApiBase } from "./sdkApiBase";
 import { Config } from "./config";
 import { EntityBase } from "../common/entityBase";
-import { SDK } from "../sdk";
 
 export class Client extends SdkApiBase {
 
-    public static CallApi(options: { url?: string, method?: Method, pathParams?: ClientParams, headers?: ClientParams, query?: ClientParams, formParams?: ClientParams, body?: any, paginated?: boolean, config?: Config }): Promise<any> {
-        options = options || {};
-        options.config = SDK.config;
+    constructor(config?: Config) {
+        super(config);
+    }
+
+    public CallApi(options: CallApiOptions): Promise<any> {
         return new Promise((resolve, reject) => {
             this._CallApi(options, null, (err, data) => {
                 if (err) {
@@ -20,15 +21,9 @@ export class Client extends SdkApiBase {
         });
     }
 
-    public static _CallApi<T extends EntityBase>(options: { url?: string, method?: Method, pathParams?: ClientParams, headers?: ClientParams, query?: ClientParams, formParams?: ClientParams, body?: any, paginated?: boolean, config?: Config }, instance?: T, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-        const contentTypes: Array<string> = [
-            "application/json"
-        ];
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
+    public _CallApi<T extends EntityBase>(options: CallApiOptions, instance?: T, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
-        const { url, method, pathParams, headers, query, formParams, body, paginated, config } = options;
+        const { url, method, pathParams, headers, query, formParams, body, paginated, contentTypes, acceptTypes } = options;
 
         const useFormData = !!formParams;
 
@@ -39,14 +34,26 @@ export class Client extends SdkApiBase {
             query: query,
             formParams: formParams,
             useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
+            contentTypes: contentTypes || [ "application/json" ],
+            acceptTypes: acceptTypes || [ "application/json" ],
             body: body,
             pathParams: pathParams,
             paginated: paginated || false,
-            config: config
         }, instance, callback);
     }
+}
+
+export interface CallApiOptions {
+    url?: string;
+    method?: Method;
+    pathParams?: ClientParams;
+    headers?: ClientParams;
+    query?: ClientParams;
+    formParams?: ClientParams;
+    body?: any;
+    contentTypes?: Array<string>;
+    acceptTypes?: Array<string>;
+    paginated?: boolean;
 }
 
 export interface ClientParams {

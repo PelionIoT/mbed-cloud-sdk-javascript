@@ -23,7 +23,7 @@ import { decodeTlv } from "../../src/common/tlvDecoder";
 suite("decodeTlv", () => {
 
     function decode(payload) {
-        if (typeof atob === "function") return atob(payload);
+        if (typeof atob === "function") { return atob(payload); }
         return new Buffer(payload, "base64").toString("binary");
     }
 
@@ -39,7 +39,7 @@ suite("decodeTlv", () => {
         const result = decodeTlv(tlv);
 
         assert.deepEqual(result, {
-            "/0": ""
+            "/0": "",
         });
     });
 
@@ -58,7 +58,7 @@ suite("decodeTlv", () => {
             "/17": "dev_device_type",
             "/18": "dev_hardware_version",
             "/2": "0",
-            "/21": 0
+            "/21": 0,
         });
     });
 });

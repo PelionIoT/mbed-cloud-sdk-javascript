@@ -26,7 +26,7 @@ export class Filters {
             "certificateFingerprint",
             "certificateIssuerId",
             "connectorCertificateExpiration",
-            "deviceType"
+            "deviceType",
         ],
         to: [
             "endpoint_name",
@@ -34,23 +34,23 @@ export class Filters {
             "device_key",
             "ca_id",
             "connector_expiration_date",
-            "endpoint_type"
-        ]
+            "endpoint_type",
+        ],
     };
 
     public static readonly DEVICE_EVENT_FILTER_MAP = {
         from: [
             "eventDate",
-            "type"
+            "type",
         ],
         to: [
             "date_time",
-            "event_type"
-        ]
+            "event_type",
+        ],
     };
 
     public static readonly EMPTY_FILTER_MAP = {
         from: [],
-        to: []
+        to: [],
     };
 }

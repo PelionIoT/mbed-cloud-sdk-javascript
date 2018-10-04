@@ -1,186 +1,225 @@
 import { EntityBase } from "../../../common/entityBase";
-import { ConnectionOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
-import { Client } from "../../../client/client";
 import { SubtenantAccount } from "../../index";
+import { MyAccountMfaStatusEnum } from "../../enums";
+import { MyAccountStatusEnum } from "../../enums";
+
 /**
-* MyAccount.
-*/
+ * MyAccount
+ */
 export class MyAccount extends EntityBase {
     public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
         subtenantAccount: {
             type: SubtenantAccount,
             array: true,
-        }
+        },
     };
+
     /**
-    * Postal address line 1.
-    */
+     * Postal address line 1.
+     */
     public addressLine1?: string;
+
     /**
-    * Postal address line 2.
-    */
+     * Postal address line 2.
+     */
     public addressLine2?: string;
+
     /**
-    * An array of aliases.
-    */
+     * An array of aliases.
+     */
     public aliases?: Array<string>;
+
     /**
-    * The city part of the postal address.
-    */
+     * The city part of the postal address.
+     */
     public city?: string;
+
     /**
-    * The name of the company.
-    */
+     * The name of the company.
+     */
     public company?: string;
+
     /**
-    * The name of the contact person for this account.
-    */
+     * The name of the contact person for this account.
+     */
     public contact?: string;
+
     /**
-    * Contract number of the customer.
-    */
+     * Contract number of the customer.
+     */
     public contractNumber?: string;
+
     /**
-    * The country part of the postal address.
-    */
+     * The country part of the postal address.
+     */
     public country?: string;
+
     /**
-    * Creation UTC time RFC3339.
-    */
+     * Creation UTC time RFC3339.
+     */
     public createdAt?: Date;
+
     /**
-    * Account&#39;s custom properties as key-value pairs.
-    */
+     * Account&#39;s custom properties as key-value pairs.
+     */
     public customFields?: any;
+
     /**
-    * Customer number of the customer.
-    */
+     * Customer number of the customer.
+     */
     public customerNumber?: string;
+
     /**
-    * The display name for the account.
-    */
+     * The display name for the account.
+     */
     public displayName?: string;
+
     /**
-    * The company email address for this account.
-    */
+     * The company email address for this account.
+     */
     public email?: string;
+
     /**
-    * Account end market.
-    */
+     * Account end market.
+     */
     public endMarket?: string;
+
     /**
-    * Indicates how many days (1-180) before account expiration a notification email should be sent.
-    */
+     * Indicates how many days (1-180) before account expiration a notification email should be sent.
+     */
     public expirationWarningThreshold?: string;
+
     /**
-    * The reference token expiration time in minutes for this account.
-    */
+     * The reference token expiration time in minutes for this account.
+     */
     public idleTimeout?: string;
+
     /**
-    * List of limits as key-value pairs if requested.
-    */
+     * List of limits as key-value pairs if requested.
+     */
     public limits?: any;
+
     /**
-    * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
-    */
-    public mfaStatus?: string;
+     * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+     */
+    public mfaStatus?: MyAccountMfaStatusEnum;
+
     /**
-    * A list of notification email addresses.
-    */
+     * A list of notification email addresses.
+     */
     public notificationEmails?: Array<string>;
+
     /**
-    * The ID of the parent account, if it has any.
-    */
+     * The ID of the parent account, if it has any.
+     */
     public parentId?: string;
+
     /**
-    * passwordPolicy.
-    */
+     * password_policy
+     */
     public passwordPolicy?: any;
+
     /**
-    * The phone number of a representative of the company.
-    */
+     * The phone number of a representative of the company.
+     */
     public phoneNumber?: string;
+
     /**
-    * List of policies if requested.
-    */
-    public policies?: Array<undefined>;
+     * List of policies if requested.
+     */
+    public policies?: Array<any>;
+
     /**
-    * The postal code part of the postal address.
-    */
+     * The postal code part of the postal address.
+     */
     public postalCode?: string;
+
     /**
-    * A reason note for updating the status of the account.
-    */
+     * A reason note for updating the status of the account
+     */
     public reason?: string;
+
     /**
-    * A reference note for updating the status of the account.
-    */
+     * A reference note for updating the status of the account
+     */
     public referenceNote?: string;
+
     /**
-    * Email address of the sales contact.
-    */
+     * Email address of the sales contact.
+     */
     public salesContact?: string;
+
     /**
-    * The state part of the postal address.
-    */
+     * The state part of the postal address.
+     */
     public state?: string;
+
     /**
-    * The status of the account.
-    */
-    public status?: string;
+     * The status of the account.
+     */
+    public status?: MyAccountStatusEnum;
+
     /**
-    * List of sub accounts Not available for developer users..
-    */
+     * List of sub accounts. Not available for developer users.
+     */
     public subAccounts?: Array<SubtenantAccount>;
+
     /**
-    * Account template ID.
-    */
+     * Account template ID.
+     */
     public templateId?: string;
+
     /**
-    * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier Other values are reserved for the future..
-    */
+     * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier. Other values are reserved for the future.
+     */
     public tier?: string;
+
     /**
-    * Last update UTC time RFC3339.
-    */
+     * Last update UTC time RFC3339.
+     */
     public updatedAt?: Date;
+
     /**
-    * Time when upgraded to commercial account in UTC format RFC3339.
-    */
+     * Time when upgraded to commercial account in UTC format RFC3339.
+     */
     public upgradedAt?: Date;
-    constructor(config?: ConnectionOptions | Config) {
-        super();
-        if (config instanceof Config) {
-            this.config = config;
-        } else {
-            this.config = new Config(config);
-        }
+
+    constructor(config?: Config) {
+        super(config);
     }
+
     /**
-    * gets a MyAccount.
-    * @returns Promise containing MyAccount.
-    */
+     * gets a MyAccount.
+     * @returns Promise containing MyAccount.
+     */
     public get(include?: string, properties?: string): Promise<MyAccount> {
-        return apiWrapper(resultsFn => {
-            Client._CallApi<MyAccount>({
-                url: "/v3/accounts/me",
-                method: "GET",
-                query: {
-                    "include": include,
-                    "properties": properties,
-                },
-                config: this.config,
-            }, this, resultsFn);
-        }, (data, done) => {
-            done(null, data);
-        });
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<MyAccount>(
+                    {
+                        url: "/v3/accounts/me",
+                        method: "GET",
+                        query: {
+                            include: include,
+                            properties: properties,
+                        },
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
     }
+
     /**
-    * updates a MyAccount.
-    * @returns Promise containing MyAccount.
-    */
+     * updates a MyAccount.
+     * @returns Promise containing MyAccount.
+     */
     public update(): Promise<MyAccount> {
         const body = {
             address_line1: this.addressLine1,
@@ -203,15 +242,21 @@ export class MyAccount extends EntityBase {
             postal_code: this.postalCode,
             state: this.state,
         };
-        return apiWrapper(resultsFn => {
-            Client._CallApi<MyAccount>({
-                url: "/v3/accounts/me",
-                method: "PUT",
-                body: body,
-                config: this.config,
-            }, this, resultsFn);
-        }, (data, done) => {
-            done(null, data);
-        });
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<MyAccount>(
+                    {
+                        url: "/v3/accounts/me",
+                        method: "PUT",
+                        body: body,
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
     }
 }

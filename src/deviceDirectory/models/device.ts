@@ -69,7 +69,7 @@ export class Device {
      */
     public update(callback: CallbackFn<Device>): void;
     public update(callback?: CallbackFn<Device>): Promise<Device> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.updateDevice(this, done);
         }, callback);
     }
@@ -85,7 +85,7 @@ export class Device {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.deleteDevice(this.id, done);
         }, callback);
     }

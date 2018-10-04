@@ -23,13 +23,11 @@
         "object-literal-sort-keys": false,
         "ordered-imports": [true, { "import-sources-order": "any", "named-imports-order": "any" }],
         "semicolon": [true, "always"],
-        "ter-indent": [true, 4],
+        "ter-indent": [true, 4, { "SwitchCase": 1}],
         "ter-no-irregular-whitespace": [true],
         "trailing-comma": [true, "never"],
         "triple-equals": [true],
         "variable-name": [true, "allow-leading-underscore"],
-        "jsdoc-format": false, //TODO revert to true when formatting fixed
-        "object-literal-key-quotes": false, //TODO revert to true when formatting fixed
-        "eofline": false //TODO revert to true when formatting fixed
+        "jsdoc-format": false //TODO revert to true when formatting fixed
     }
 }

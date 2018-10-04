@@ -19,7 +19,7 @@ import { ConnectApi } from "../../../src/connect/connectApi";
 const { suite, test } = intern.getInterface("tdd");
 const { assert } = intern.getPlugin("chai");
 
-suite("connectSnippet[skipci]", () => {
+suite("connectSnippet", () => {
 
     test("subscribeToDeviceState", () => {
         try {
@@ -28,7 +28,7 @@ suite("connectSnippet[skipci]", () => {
 
             const observer = connect.subscribe.deviceStateChanges({ event: "registration" });
 
-            observer.addListener(_res => {
+            observer.addListener( _res => {
                 // do something here
             });
             // end of example
@@ -45,7 +45,7 @@ suite("connectSnippet[skipci]", () => {
 
             const observer = connect.subscribe.resourceValues({ deviceId: "016*", resourcePaths: [ "/3/0/*" ] });
 
-            observer.addListener(_res => {
+            observer.addListener( _res => {
                 // do something here
             });
             // end of example

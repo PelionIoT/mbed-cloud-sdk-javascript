@@ -211,12 +211,12 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "multipart/form-data"
+            "multipart/form-data",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<BulkResponse>({
@@ -255,12 +255,12 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<EnrollmentIdentity>({
@@ -300,12 +300,12 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<null>({
@@ -344,12 +344,12 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<BulkResponse>({
@@ -388,12 +388,12 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<EnrollmentIdentity>({
@@ -440,12 +440,12 @@ export class PublicAPIApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<EnrollmentIdentities>({
