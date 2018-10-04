@@ -65,8 +65,10 @@
     "test:unit:node": "intern config=@node",
     "test:unit:browser": "intern config@browser",
     "test:unit:snippets": "intern config=@snippets",
-    "watch:unit": "tsc-watch -p unit.tsconfig.json --onSuccess \"intern config=@node\"",
-    "watch:integration": "tsc-watch -p integration.tsconfig.json --onSuccess \"node test/integration/build/test/integration/codeCoverage.js\"",
+    "watch:unit": "npm-run-all clean:unit watch:unit:start",
+    "watch:unit:start": "tsc-watch -p unit.tsconfig.json --onSuccess \"intern config=@node\"",
+    "watch:integration": "npm-run-all clean:integration watch:integration:start",
+    "watch:integration:start": "tsc-watch -p integration.tsconfig.json --onSuccess \"node test/integration/build/test/integration/codeCoverage.js\"",
     "tpip": "node scripts/generate-tpip.js"
   },
   "devDependencies": {
