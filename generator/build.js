@@ -19,7 +19,7 @@ const typeMap = {
     int64: "number",
     int32: "number",
     object: "any",
-    file: "ReadableStream | File | Blob",
+    file: "ReadStream | Buffer | File | Blob",
 }
 
 const getType = (type, items) => {
@@ -90,6 +90,7 @@ entities.forEach(entity => {
     let clientCalls = false;
     let paginators = false;
     let customMethods = false;
+    let fsNeeded = false;
     // get types
     const types = {};
     entity.fields.forEach(f => {
@@ -176,6 +177,10 @@ entities.forEach(entity => {
 
                 if (external) {
                     type = getType(field.type, field.items);
+                    console.log(type);
+                    if (type === typeMap.file) {
+                        fsNeeded = true;
+                    }
                 }
 
                 if (deferToForeignKey) {
@@ -230,7 +235,6 @@ entities.forEach(entity => {
                         external,
                         required,
                     };
-                    console.log(formParams[fieldName]);
                 }
             });
 
@@ -265,7 +269,7 @@ entities.forEach(entity => {
     }
 
     const filteredImports = imports.concat(foreignKeyTypes).filter((fk, index, self) => index === self.findIndex((t) => (t.propName === fk.propName))).filter(fk => fk.type !== entityName);
-    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, enums, clientCalls, paginators, customMethods, unpackParams, snakeToCamel, snakeToPascal }, { rmWhitespace: false })
+    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, enums, clientCalls, paginators, customMethods, fsNeeded, unpackParams, snakeToCamel, snakeToPascal }, { rmWhitespace: false })
         .then(contents => {
             const path = `${generatedFolder}/${snakeToCamel(entity.group_id)}/${snakeToCamel(entity._key)}/${snakeToCamel(entity._key)}.ts`;
             fs.createFileSync(path);

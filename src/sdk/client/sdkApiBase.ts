@@ -152,7 +152,7 @@ export class SdkApiBase {
         return url;
     }
 
-    protected request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean }, instance?: T, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
+    protected request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean }, instance?: T, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
         const requestOptions: { [key: string]: any } = {};
         requestOptions.timeout = 60000;
         requestOptions.method = options.method;
@@ -184,22 +184,16 @@ export class SdkApiBase {
 
         let body = null;
         if (Object.keys(requestOptions.formParams).length > 0) {
-            if (options.useFormData) {
-                const formParams = SdkApiBase.normalizeParams(requestOptions.formParams);
-                for (const key in formParams) {
-                    if (formParams.hasOwnProperty(key)) {
-                        if (SdkApiBase.isFileParam(formParams[key])) {
-                            // file field
-                            request.attach(key, formParams[key]);
-                        } else {
-                            request.field(key, formParams[key]);
-                        }
+            const formParams = SdkApiBase.normalizeParams(requestOptions.formParams);
+            for (const key in formParams) {
+                if (formParams.hasOwnProperty(key)) {
+                    if (SdkApiBase.isFileParam(formParams[key])) {
+                        // file field
+                        request.attach(key, formParams[key]);
+                    } else {
+                        request.field(key, formParams[key]);
                     }
                 }
-            } else {
-                requestOptions.contentType = requestOptions.contentType || "application/x-www-form-urlencoded";
-                request.type(requestOptions.contentType);
-                request.send(SdkApiBase.normalizeParams(requestOptions.formParams));
             }
         } else if (options.body) {
 

@@ -25,15 +25,12 @@ export class Client extends SdkApiBase {
 
         const { url, method, pathParams, headers, query, formParams, body, paginated, contentTypes, acceptTypes } = options;
 
-        const useFormData = !!formParams;
-
         return this.request({
             url: url,
             method: method,
             headers: headers,
             query: query,
             formParams: formParams,
-            useFormData: useFormData,
             contentTypes: contentTypes || [ "application/json" ],
             acceptTypes: acceptTypes || [ "application/json" ],
             body: body,

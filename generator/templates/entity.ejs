@@ -1,3 +1,6 @@
+<% if (fsNeeded) { -%>
+import { ReadStream } from "fs";
+<% } -%>
 import { EntityBase } from "../../../common/entityBase";
 <% if (customMethods) { -%>
     import * as privateFunctions from "../../../common/privateFunctions";

@@ -1,3 +1,4 @@
+import { ReadStream } from "fs";
 import { EntityBase } from "../../../common/entityBase";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
@@ -60,7 +61,7 @@ export class EnrollmentBulkCreateTask extends EntityBase {
      * creates a EnrollmentBulkCreateTask.
      * @returns Promise containing EnrollmentBulkCreateTask.
      */
-    public create(enrollmentIdentities: ReadableStream | File | Blob): Promise<EnrollmentBulkCreateTask> {
+    public create(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<EnrollmentBulkCreateTask> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<EnrollmentBulkCreateTask>(

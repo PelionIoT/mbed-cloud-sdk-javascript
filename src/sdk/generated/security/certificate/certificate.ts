@@ -89,6 +89,16 @@ export class Certificate extends EntityBase {
     public securityFileContent?: string;
 
     /**
+     * The type of the certificate.
+     */
+    public serverCertificate?: string;
+
+    /**
+     * The type of the certificate.
+     */
+    public serverUri?: string;
+
+    /**
      * Service name where the certificate is to be used.
      */
     public service?: CertificateServiceEnum;

@@ -1,4 +1,4 @@
-import { User, Certificate, CertificateCertificateTypeEnum, MyAccount } from "../entities";
+import { User, Certificate, CertificateCertificateTypeEnum, MyAccount, ServerCredentials } from "../entities";
 
 export async function subtenantAccountSwitchCreate(self: User, action: string) {
     const myAccount = await new MyAccount().get();
@@ -61,5 +61,25 @@ export function getAnyCertificate(self: Certificate) {
 }
 
 export function extendUpdateResponse(self: Certificate, signature: string) {
+    extendCertificate(self);
     return self.update(signature);
+}
+
+async function extendCertificate(self: Certificate) {
+    if (self.deviceExecutionMode === 1) {
+        // tslint:disable-next-line:no-string-literal
+        return self["getDeveloper"](self.id);
+    }
+
+    if (self.service === "bootstrap") {
+        const credentials = await new ServerCredentials().getBootstrap();
+        self.certificate = credentials.serverCertificate;
+        return self;
+    }
+
+    if (self.service === "lwm2m") {
+        const credentials = await new ServerCredentials().getLwm2m();
+        self.certificate = credentials.serverCertificate;
+        return self;
+    }
 }

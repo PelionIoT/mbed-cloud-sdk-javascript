@@ -1,3 +1,4 @@
+import { ReadStream } from "fs";
 import { EntityBase } from "../../../common/entityBase";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
@@ -60,7 +61,7 @@ export class EnrollmentBulkDeleteTask extends EntityBase {
      * deletes a EnrollmentBulkDeleteTask.
      * @returns Promise containing EnrollmentBulkDeleteTask.
      */
-    public delete(enrollmentIdentities: ReadableStream | File | Blob): Promise<EnrollmentBulkDeleteTask> {
+    public delete(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<EnrollmentBulkDeleteTask> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<EnrollmentBulkDeleteTask>(
