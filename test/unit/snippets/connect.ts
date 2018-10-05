@@ -16,10 +16,8 @@
 */
 
 import { ConnectApi } from "../../../src/connect/connectApi";
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
 
-suite("connectSnippet", () => {
+describe("connectSnippet", () => {
 
     test("subscribeToDeviceState", () => {
         try {
@@ -32,7 +30,6 @@ suite("connectSnippet", () => {
                 // do something here
             });
             // end of example
-            assert.isOk(true);
         } catch (e) {
             throw e;
         }

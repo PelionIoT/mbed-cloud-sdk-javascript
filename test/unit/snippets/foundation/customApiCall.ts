@@ -17,17 +17,14 @@ import { Client } from "../../../../src/sdk";
 * limitations under the License.
 */
 
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
-
-suite("customApiCall", () => {
+describe("customApiCall", () => {
     test("customApiCall", async () => {
         try {
             // an example: custom api call
             const client = new Client();
             const users = await client.CallApi({ url: "/v3/users", method: "GET", query: { limit: 2 } });
             // end of example
-            assert.hasAnyKeys(users, [ "data" ]);
+            expect(users).toHaveProperty("data");
         } catch (e) {
             throw e;
         }

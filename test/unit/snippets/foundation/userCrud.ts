@@ -18,10 +18,8 @@
 import { User, LoginHistory, PolicyGroup } from "../../../../src/sdk/entities";
 import { Config } from "../../../../src/sdk";
 import { AccountManagementApi } from "../../../../src/accountManagement/accountManagementApi";
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
 
-suite("userCrud", () => {
+describe("userCrud", () => {
 
     test("user get", () => {
         const iam = new AccountManagementApi(new Config());
@@ -36,10 +34,10 @@ suite("userCrud", () => {
                 user.get()
                 .then( u => {
 
-                    assert.instanceOf(u, User);
+                    expect(u instanceof User).toBeTruthy();
 
                     const l = u.loginHistory[0];
-                    assert.instanceOf(l, LoginHistory);
+                    expect(l instanceof LoginHistory).toBeTruthy();
                 });
             })
             .catch( e => {
@@ -53,7 +51,7 @@ suite("userCrud", () => {
         return user.list()
             .first()
             .then( first => {
-                assert.instanceOf(first, User);
+                expect(first instanceof User).toBeTruthy();
             })
             .catch( e => {
                 throw e;
@@ -85,7 +83,7 @@ suite("userCrud", () => {
             }).then( groups => {
                 const firstGroup = groups[0];
 
-                assert.instanceOf(firstGroup, PolicyGroup);
+                expect(firstGroup instanceof PolicyGroup).toBeTruthy();
             })
             .catch( e => {
                 throw e;
@@ -109,8 +107,8 @@ suite("userCrud", () => {
 
                 return user.update();
             })
-            .then( user => {
-                assert.strictEqual("118118", user.phoneNumber);
+            .then(user => {
+                expect(user.phoneNumber).toEqual("118118");
 
                 return user.delete();
             })

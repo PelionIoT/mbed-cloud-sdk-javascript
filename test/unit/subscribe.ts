@@ -15,14 +15,11 @@
 * limitations under the License.
 */
 
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
-
 import { Subscribe } from "../../src/subscribe/subscribe";
 import { DeviceEvent } from "../../src/connect/types";
 import { Resource } from "../../src/connect/models/resource";
 
-suite("testSubscribe", () => {
+describe("subscribe", () => {
 
     test("allEvents", () => {
         const subscribe = new Subscribe();
@@ -30,9 +27,9 @@ suite("testSubscribe", () => {
         const observer = subscribe.deviceStateChanges();
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 36);
+        expect(items).toHaveLength(36);
         mockNotify(subscribe);
-        assert.lengthOf(items, 72);
+        expect(items).toHaveLength(72);
     });
 
     test("oneDeviceId", () => {
@@ -41,9 +38,9 @@ suite("testSubscribe", () => {
         const observer = subscribe.deviceStateChanges({ id: "1" });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 8);
+        expect(items).toHaveLength(8);
         mockNotify(subscribe);
-        assert.lengthOf(items, 16);
+        expect(items).toHaveLength(16);
     });
 
     test("multipleDeviceId", () => {
@@ -52,9 +49,9 @@ suite("testSubscribe", () => {
         const observer = subscribe.deviceStateChanges({ id: [ "1", "2" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 16);
+        expect(items).toHaveLength(16);
         mockNotify(subscribe);
-        assert.lengthOf(items, 32);
+        expect(items).toHaveLength(32);
     });
 
     test("oneState", () => {
@@ -63,9 +60,9 @@ suite("testSubscribe", () => {
         const observer = subscribe.deviceStateChanges({ event: "registration" });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 9);
+        expect(items).toHaveLength(9);
         mockNotify(subscribe);
-        assert.lengthOf(items, 18);
+        expect(items).toHaveLength(18);
     });
 
     test("multipleStates", () => {
@@ -74,9 +71,9 @@ suite("testSubscribe", () => {
         const observer = subscribe.deviceStateChanges({ event: [ "registration", "deregistration" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 18);
+        expect(items).toHaveLength(18);
         mockNotify(subscribe);
-        assert.lengthOf(items, 36);
+        expect(items).toHaveLength(36);
     });
 
     test("specific", () => {
@@ -85,9 +82,9 @@ suite("testSubscribe", () => {
         const observer = subscribe.deviceStateChanges({ id: "1", event: "registration" });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 2);
+        expect(items).toHaveLength(2);
         mockNotify(subscribe);
-        assert.lengthOf(items, 4);
+        expect(items).toHaveLength(4);
     });
 
     test("multipleSpecific", () => {
@@ -96,9 +93,9 @@ suite("testSubscribe", () => {
         const observer = subscribe.deviceStateChanges({ id: [ "1", "3" ], event: [ "registration", "deregistration" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 8);
+        expect(items).toHaveLength(8);
         mockNotify(subscribe);
-        assert.lengthOf(items, 16);
+        expect(items).toHaveLength(16);
     });
 });
 

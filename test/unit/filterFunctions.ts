@@ -15,17 +15,14 @@
 * limitations under the License.
 */
 
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
-
 import { extractFilter, encodeFilter, decodeFilter } from "../../src/common/functions";
 
-suite("extractFilter", () => {
+describe("extractFilter", () => {
 
     test("should return default", () => {
         const string = "dee folt";
         const result = extractFilter(null, null, null, string);
-        assert.strictEqual(result, string);
+        expect(result).toBe(string);
     });
 
     test("should extract from eq", () => {
@@ -35,7 +32,7 @@ suite("extractFilter", () => {
         };
 
         const result = extractFilter(filter, "filter");
-        assert.strictEqual(result, value);
+        expect(result).toBe(value);
     });
 
     test("should extract from ne", () => {
@@ -45,7 +42,7 @@ suite("extractFilter", () => {
         };
 
         const result = extractFilter(filter, "filter", "$ne");
-        assert.strictEqual(result, value);
+        expect(result).toBe(value);
     });
 
     test("should extract without eq", () => {
@@ -55,20 +52,20 @@ suite("extractFilter", () => {
         };
 
         const result = extractFilter(filter, "filter");
-        assert.strictEqual(result, value);
+        expect(result).toBe(value);
     });
 });
 
-suite("encodeFilter", () => {
+describe("encodeFilter", () => {
 
     test("should return empty", () => {
         const result = encodeFilter(null);
-        assert.strictEqual(result, "");
+        expect(result).toBe("");
     });
 
     test("should still return empty", () => {
         const result = encodeFilter({});
-        assert.strictEqual(result, "");
+        expect(result).toBe("");
     });
 
     test("should encode filter", () => {
@@ -77,7 +74,7 @@ suite("encodeFilter", () => {
             error: { $ne: "found" },
             range: { $lte: 10, $gte: 2 },
         });
-        assert.strictEqual(result, "key=value&error__neq=found&range__lte=10&range__gte=2");
+        expect(result).toBe("key=value&error__neq=found&range__lte=10&range__gte=2");
     });
 
     test("should encode camel filter", () => {
@@ -86,7 +83,7 @@ suite("encodeFilter", () => {
             error: { $ne: "found" },
             theRange: { $lte: 10, $gte: 2 },
         });
-        assert.strictEqual(result, "key=value&error__neq=found&the_range__lte=10&the_range__gte=2");
+        expect(result).toBe("key=value&error__neq=found&the_range__lte=10&the_range__gte=2");
     });
 
     test("should encode bare filter", () => {
@@ -95,7 +92,7 @@ suite("encodeFilter", () => {
             error: { $ne: "found" },
             range: { $lte: 10, $gte: 2 },
         });
-        assert.strictEqual(result, "key=value&error__neq=found&range__lte=10&range__gte=2");
+        expect(result).toBe("key=value&error__neq=found&range__lte=10&range__gte=2");
     });
 
     test("should encode filter with map", () => {
@@ -111,7 +108,7 @@ suite("encodeFilter", () => {
                 "switch",
             ],
         });
-        assert.strictEqual(result, "switch=value&error__neq=found&range__lte=10&range__gte=2");
+        expect(result).toBe("switch=value&error__neq=found&range__lte=10&range__gte=2");
     });
 
     test("should encode filter with nest", () => {
@@ -133,20 +130,20 @@ suite("encodeFilter", () => {
         }, [
             "custom",
         ]);
-        assert.strictEqual(result, "switch=value&error__neq=found&range__lte=10&range__gte=2&custom__custom_1=custom_value_1&custom__custom_2__neq=custom_value_2");
+        expect(result).toBe("switch=value&error__neq=found&range__lte=10&range__gte=2&custom__custom_1=custom_value_1&custom__custom_2__neq=custom_value_2");
     });
 });
 
-suite("decodeFilter", () => {
+describe("decodeFilter", () => {
 
     test("should return object", () => {
         const result = decodeFilter(null);
-        assert.deepEqual(result, {});
+        expect(result).toEqual({});
     });
 
     test("should decode string", () => {
         const result = decodeFilter("key=value&error__neq=found&range__lte=10&range__gte=2");
-        assert.deepEqual(result, {
+        expect(result).toEqual({
             key: { $eq: "value" },
             error: { $ne: "found" },
             range: { $lte: "10", $gte: "2" },
@@ -155,7 +152,7 @@ suite("decodeFilter", () => {
 
     test("should decode snake string", () => {
         const result = decodeFilter("key=value&error__neq=found&the_range__lte=10&the_range__gte=2");
-        assert.deepEqual(result, {
+        expect(result).toEqual({
             key: { $eq: "value" },
             error: { $ne: "found" },
             theRange: { $lte: "10", $gte: "2" },
@@ -171,7 +168,7 @@ suite("decodeFilter", () => {
                 "switch",
             ],
         });
-        assert.deepEqual(result, {
+        expect(result).toEqual({
             key: { $eq: "value" },
             error: { $ne: "found" },
             range: { $lte: "10", $gte: "2" },
@@ -189,7 +186,7 @@ suite("decodeFilter", () => {
         }, [
             "custom",
         ]);
-        assert.deepEqual(result, {
+        expect(result).toEqual({
             key: { $eq: "value" },
             error: { $ne: "found" },
             range: { $lte: "10", $gte: "2" },

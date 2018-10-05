@@ -19,53 +19,50 @@ import { Config } from "../../../src/sdk/client/config";
 * limitations under the License.
 */
 
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
-
-suite("singleEntryPoint", () => {
+describe("singleEntryPoint", () => {
 
     test("global config", () => {
         const sdk = new SDK();
-        assert.exists(sdk.getConfig());
-        assert.isString(sdk.getConfig().apiKey);
+        expect(sdk.getConfig()).not.toBeNull();
+        expect(sdk.getConfig().apiKey).toBeDefined();
     });
 
     test("global config from entity", () => {
         const user = new User();
-        assert.exists(user.config);
-        assert.isString(user.config.apiKey);
+        expect(user.config).not.toBeNull();
+        expect(user.config.apiKey).toBeDefined();
     });
 
     test("sdk instance", () => {
         const sdk = new SDK({ apiKey: "ak_1" });
-        assert.strictEqual("Bearer ak_1", sdk.getConfig().apiKey);
+        expect("Bearer ak_1").toEqual(sdk.getConfig().apiKey);
 
         const user = sdk.entities.User();
 
-        assert.strictEqual("Bearer ak_1", user.config.apiKey);
+        expect("Bearer ak_1").toEqual(user.config.apiKey);
     });
 
     test("multiple sdk instances", () => {
         const sdk1 = new SDK({ apiKey: "ak_1" });
-        assert.strictEqual("Bearer ak_1", sdk1.getConfig().apiKey);
+        expect("Bearer ak_1").toEqual(sdk1.getConfig().apiKey);
 
         const sdk2 = new SDK({ apiKey: "ak_2" });
-        assert.strictEqual("Bearer ak_2", sdk2.getConfig().apiKey);
+        expect("Bearer ak_2").toEqual(sdk2.getConfig().apiKey);
     });
 
     test("reusable config", () => {
         const config = new Config({ apiKey: "ak_1" });
         const sdk = new SDK(config);
 
-        assert.strictEqual("Bearer ak_1", sdk.getConfig().apiKey);
+        expect("Bearer ak_1").toEqual(sdk.getConfig().apiKey);
 
         const user = new User(config);
-        assert.strictEqual("Bearer ak_1", user.config.apiKey);
+        expect("Bearer ak_1").toEqual(user.config.apiKey);
 
         const sdk2 = new SDK(config);
-        assert.strictEqual("Bearer ak_1", sdk2.getConfig().apiKey);
+        expect("Bearer ak_1").toEqual(sdk2.getConfig().apiKey);
 
         const user2 = sdk.entities.User();
-        assert.strictEqual("Bearer ak_1", user2.config.apiKey);
+        expect("Bearer ak_1").toEqual(user2.config.apiKey);
     });
 });

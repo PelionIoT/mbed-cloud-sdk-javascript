@@ -16,17 +16,14 @@
 */
 
 import { DeviceDirectoryApi } from "../../../src/deviceDirectory/deviceDirectoryApi";
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
 
-suite("configurationSnippet", () => {
-
+describe("configurationSnippet", () => {
     test("configureSDK", () => {
         try {
             // an example: configuring the SDK
             const deviceDirectory = new DeviceDirectoryApi();
             // end of example
-            assert.isOk(deviceDirectory);
+            expect(deviceDirectory).not.toBeNull();
         } catch (e) {
             throw e;
         }

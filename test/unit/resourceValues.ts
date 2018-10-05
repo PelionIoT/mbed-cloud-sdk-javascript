@@ -15,25 +15,23 @@
 * limitations under the License.
 */
 
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
 import { Subscribe } from "../../src/subscribe/subscribe";
 import { PresubscriptionObject, NotificationData } from "../../src/connect/types";
 
-suite("testResourceValues", () => {
+describe("resourceValues", () => {
 
     test("presubscriptionConstruction", () => {
         const subscribe = new Subscribe();
         const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "3/0/*", "4/0/1" ] });
         const presub: PresubscriptionObject = { deviceId: "2", resourcePaths: [ "3/0/*", "4/0/1" ] };
-        assert.deepEqual(presub, observer.localPresubscriptions[0]);
+        expect(presub).toEqual(observer.localPresubscriptions[0]);
     });
 
     test("multiplePresubscriptionConstruction", () => {
         const subscribe = new Subscribe();
         const observer = subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "3/0/*", "4/0/1" ] });
         const presubs: Array<PresubscriptionObject> = [ { deviceId: "2", resourcePaths: [ "3/0/*", "4/0/1" ] }, { deviceId: "3", resourcePaths: [ "3/0/*", "4/0/1" ] } ];
-        assert.deepEqual(presubs, observer.localPresubscriptions);
+        expect(presubs).toEqual(observer.localPresubscriptions);
     });
 
     test("subscribingToOneDevice", () => {
@@ -42,9 +40,9 @@ suite("testResourceValues", () => {
         const observer = subscribe.resourceValues({ deviceId: "1" });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 3);
+        expect(items).toHaveLength(3);
         mockNotify(subscribe);
-        assert.lengthOf(items, 6);
+        expect(items).toHaveLength(6);
     });
 
     test("subscribingToMultipleDevices", () => {
@@ -53,9 +51,9 @@ suite("testResourceValues", () => {
         const observer = subscribe.resourceValues({ deviceId: [ "1", "2" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 6);
+        expect(items).toHaveLength(6);
         mockNotify(subscribe);
-        assert.lengthOf(items, 12);
+        expect(items).toHaveLength(12);
     });
 
     test("subscribingToResourcePath", () => {
@@ -64,9 +62,9 @@ suite("testResourceValues", () => {
         const observer = subscribe.resourceValues({ resourcePaths: [ "/3/0/0" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 5);
+        expect(items).toHaveLength(5);
         mockNotify(subscribe);
-        assert.lengthOf(items, 10);
+        expect(items).toHaveLength(10);
     });
 
     test("subscribingToOneDeviceAndResourcePath", () => {
@@ -75,9 +73,9 @@ suite("testResourceValues", () => {
         const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/0/0" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 1);
+        expect(items).toHaveLength(1);
         mockNotify(subscribe);
-        assert.lengthOf(items, 2);
+        expect(items).toHaveLength(2);
     });
 
     test("subscribingToOneDeviceAndResourcePaths", () => {
@@ -86,9 +84,9 @@ suite("testResourceValues", () => {
         const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/0/0", "/3/0/1" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 2);
+        expect(items).toHaveLength(2);
         mockNotify(subscribe);
-        assert.lengthOf(items, 4);
+        expect(items).toHaveLength(4);
     });
 
     test("subscribingToMultipleDevicesAndResourcePath", () => {
@@ -97,9 +95,9 @@ suite("testResourceValues", () => {
         const observer = subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "/3/0/0" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 2);
+        expect(items).toHaveLength(2);
         mockNotify(subscribe);
-        assert.lengthOf(items, 4);
+        expect(items).toHaveLength(4);
     });
 
     test("subscribingToMultipleDevicesAndResourcePaths", () => {
@@ -108,9 +106,9 @@ suite("testResourceValues", () => {
         const observer = subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "/3/0/0", "/3/0/1" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 4);
+        expect(items).toHaveLength(4);
         mockNotify(subscribe);
-        assert.lengthOf(items, 8);
+        expect(items).toHaveLength(8);
     });
 
     test("subscribingToOneDeviceWildcard", () => {
@@ -119,9 +117,9 @@ suite("testResourceValues", () => {
         const observer = subscribe.resourceValues({ deviceId: "*" });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 15);
+        expect(items).toHaveLength(15);
         mockNotify(subscribe);
-        assert.lengthOf(items, 30);
+        expect(items).toHaveLength(30);
     });
 
     test("subscribingToOneDeviceAndResourcePathWildcard", () => {
@@ -130,9 +128,9 @@ suite("testResourceValues", () => {
         const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/*" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
-        assert.lengthOf(items, 3);
+        expect(items).toHaveLength(3);
         mockNotify(subscribe);
-        assert.lengthOf(items, 6);
+        expect(items).toHaveLength(6);
     });
 });
 

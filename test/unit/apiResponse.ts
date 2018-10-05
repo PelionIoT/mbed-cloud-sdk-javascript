@@ -15,9 +15,6 @@
 * limitations under the License.
 */
 
-const { suite, test, beforeEach } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
-
 import { ApiBase } from "../../src/common/apiBase";
 import { SDKError } from "../../src/common/sdkError";
 
@@ -27,7 +24,7 @@ class Api extends ApiBase {
     }
 }
 
-suite("apiBase", () => {
+describe("apiBase", () => {
 
     let api: Api;
 
@@ -38,7 +35,7 @@ suite("apiBase", () => {
     test("should execute callback", () => {
 
         api.complete(null, null, null, (_error, _data) => {
-            assert(true);
+            expect(true).toBeTruthy();
         });
     });
 
@@ -51,7 +48,7 @@ suite("apiBase", () => {
             body: body,
             text: text,
         }, null, (_error, data) => {
-            assert.strictEqual(data, body);
+            expect(data).toBe(body);
         });
     });
 
@@ -62,7 +59,7 @@ suite("apiBase", () => {
         api.complete(null, {
             text: text,
         }, "application/json", (_error, data) => {
-            assert.strictEqual(data, text);
+            expect(data).toBe(text);
         });
     });
 
@@ -75,10 +72,10 @@ suite("apiBase", () => {
                 birthday: date,
             },
         }, "application/json", (_error, data) => {
-            assert.typeOf(data.birthday, "date");
-            assert.strictEqual(data.birthday.getDate(), 12);
-            assert.strictEqual(data.birthday.getMonth(), 0);
-            assert.strictEqual(data.birthday.getFullYear(), 1977);
+            expect(data.birthday instanceof Date).toBeTruthy();
+            expect(data.birthday.getDate()).toBe(12);
+            expect(data.birthday.getMonth()).toBe(0);
+            expect(data.birthday.getFullYear()).toBe(1977);
         });
     });
 
@@ -91,8 +88,8 @@ suite("apiBase", () => {
                 birthday: date,
             },
         }, "application/json", (_error, data) => {
-            assert.typeOf(data.birthday, "string");
-            assert.strictEqual(data.birthday, date);
+            expect(typeof data.birthday).toBe("string");
+            expect(data.birthday).toBe(date);
         });
     });
 
@@ -105,8 +102,8 @@ suite("apiBase", () => {
                 birthday: date,
             },
         }, null, (_error, data) => {
-            assert.typeOf(data.birthday, "string");
-            assert.notEqual(data, date);
+            expect(typeof data.birthday).toBe("string");
+            expect(data.birthday).toBe(date);
         });
     });
 
@@ -117,7 +114,7 @@ suite("apiBase", () => {
         api.complete({
             message: message,
         }, null, null, error => {
-            assert.strictEqual(error.message, message);
+            expect(error.message).toEqual(message);
         });
     });
 
@@ -131,8 +128,8 @@ suite("apiBase", () => {
         }, {
             body: details,
         }, null, error => {
-            assert.strictEqual(error.message, message);
-            assert.strictEqual(error.details, details);
+            expect(error.message).toEqual(message);
+            expect(error.details).toEqual(details);
         });
     });
 
@@ -150,8 +147,8 @@ suite("apiBase", () => {
                 message: responseError,
             },
         }, null, error => {
-            assert.strictEqual(error.message, responseError);
-            assert.strictEqual(error.details, details);
+            expect(error.message).toEqual(responseError);
+            expect(error.details).toEqual(details);
         });
     });
 
@@ -167,7 +164,7 @@ suite("apiBase", () => {
                 message: bodyError,
             },
         }, null, error => {
-            assert.strictEqual(error.message, bodyError);
+            expect(error.message).toEqual(bodyError);
         });
     });
 
@@ -185,7 +182,7 @@ suite("apiBase", () => {
                 },
             },
         }, null, error => {
-            assert.strictEqual(error.message, bodyError);
+            expect(error.message).toEqual(bodyError);
         });
     });
 });

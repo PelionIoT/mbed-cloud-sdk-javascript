@@ -15,12 +15,9 @@
 * limitations under the License.
 */
 
-const { suite, test, beforeEach } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
-
 import { ConnectApi } from "../../src/connect/connectApi";
 
-suite("connectEvents", () => {
+describe("connectEvents", () => {
 
     let api: ConnectApi;
 
@@ -30,25 +27,22 @@ suite("connectEvents", () => {
         });
     });
 
-    test("should emit notification", ctx => {
-
-        const dfd = ctx.async(1000);
-
+    test("should emit notification", done => {
         api.on(ConnectApi.EVENT_NOTIFICATION, device => {
-            assert.strictEqual(device.id, "device-id");
-            dfd.resolve();
+            expect(device.id).toBe("device-id");
+            done();
         });
         api.on(ConnectApi.EVENT_REGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_REREGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_EXPIRED, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
 
         api.notify({
@@ -56,111 +50,99 @@ suite("connectEvents", () => {
         });
     });
 
-    test("should emit registration", ctx => {
-
-        const dfd = ctx.async(1000);
-
+    test("should emit registration", done => {
         api.on(ConnectApi.EVENT_NOTIFICATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_REGISTRATION, device => {
-            assert.strictEqual(device.id, "device-id");
-            dfd.resolve();
+            expect(device.id).toBe("device-id");
+            done();
         });
         api.on(ConnectApi.EVENT_REREGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_EXPIRED, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
 
         api.notify({
             registrations: [ { ep: "device-id" } ],
         });
-    });
+    }, 1000);
 
-    test("should emit re-registration", ctx => {
-
-        const dfd = ctx.async(1000);
-
+    test("should emit re-registration", done => {
         api.on(ConnectApi.EVENT_NOTIFICATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_REGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_REREGISTRATION, device => {
-            assert.strictEqual(device.id, "device-id");
-            dfd.resolve();
+            expect(device.id).toBe("device-id");
+            done();
         });
         api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_EXPIRED, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
 
         api.notify({
             "reg-updates": [ { ep: "device-id" } ],
         });
-    });
+    }, 1000);
 
-    test("should emit de-registration", ctx => {
-
-        const dfd = ctx.async(1000);
-
+    test("should emit de-registration", done => {
         api.on(ConnectApi.EVENT_NOTIFICATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_REGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_REREGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_DEREGISTRATION, id => {
-            assert.strictEqual(id, "device-id");
-            dfd.resolve();
+            expect(id).toBe("device-id");
+            done();
         });
         api.on(ConnectApi.EVENT_EXPIRED, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
 
         api.notify({
             "de-registrations": [ "device-id" ],
         });
-    });
+    }, 1000);
 
-    test("should emit expired", ctx => {
-
-        const dfd = ctx.async(1000);
-
+    test("should emit expired", done => {
         api.on(ConnectApi.EVENT_NOTIFICATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_REGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_REREGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
-            assert(false);
+            expect(false).toBeTruthy();
         });
         api.on(ConnectApi.EVENT_EXPIRED, id => {
-            assert.strictEqual(id, "device-id");
-            dfd.resolve();
+            expect(id).toBe("device-id");
+            done();
         });
 
         api.notify({
             "registrations-expired": [ "device-id" ],
         });
-    });
+    }, 1000);
 
-    test("should emit multiple", ctx => {
+    test("should emit multiple", done => {
 
         const notifications = {
             "notifications": [ "1", "2" ],
@@ -170,30 +152,27 @@ suite("connectEvents", () => {
             "registrations-expired": [ "1", "2" ],
         };
 
-        const notificationCount = Object.keys(notifications).length * 2;
-        const dfd = ctx.async(1000, notificationCount);
-
         api.on(ConnectApi.EVENT_NOTIFICATION, () => {
-            dfd.resolve();
+            done();
         });
         api.on(ConnectApi.EVENT_REGISTRATION, () => {
-            dfd.resolve();
+            done();
         });
         api.on(ConnectApi.EVENT_REREGISTRATION, () => {
-            dfd.resolve();
+            done();
         });
         api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
-            dfd.resolve();
+            done();
         });
         api.on(ConnectApi.EVENT_EXPIRED, () => {
-            dfd.resolve();
+            done();
         });
 
         api.notify(notifications);
     });
 });
 
-suite("notifications", () => {
+describe("notifications", () => {
 
     let api: ConnectApi;
 
@@ -208,17 +187,16 @@ suite("notifications", () => {
         });
     });
 
-    test("should notify", ctx => {
+    test("should notify", done => {
 
-        const dfd = ctx.async(1000);
         const deviceId = "device-id";
         const devicePath = "test";
         const payload = "test-payload";
         const notifyFns = {};
 
         notifyFns[`${deviceId}${devicePath}`] = value => {
-            assert.strictEqual(value, payload);
-            dfd.resolve();
+            expect(value).toBe(payload);
+            done();
         };
 
         // tslint:disable-next-line:no-string-literal
@@ -233,16 +211,15 @@ suite("notifications", () => {
         });
     });
 
-    test("should respond to async", ctx => {
+    test("should respond to async", done => {
 
-        const dfd = ctx.async(1000);
         const asyncId = "async-id";
         const payload = "test-payload";
         const asyncFns = {};
 
         asyncFns[asyncId] = (_error, value) => {
-            assert.strictEqual(value, payload);
-            dfd.resolve();
+            expect(value).toBe(payload);
+            done();
         };
 
         // tslint:disable-next-line:no-string-literal

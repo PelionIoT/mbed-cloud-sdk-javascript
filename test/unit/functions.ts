@@ -15,86 +15,84 @@
 * limitations under the License.
 */
 
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
 import { matchWithWildcard, decodeBase64, dateToBillingMonth } from "../../src/common/functions";
 
-suite("testFunctions", () => {
+describe("testFunctions", () => {
 
     test("nullWildcardString", () => {
         const wildcard = null;
         const match = matchWithWildcard(wildcard, "3/0/0");
-        assert.isTrue(match);
+        expect(match).toBeTruthy();
     });
 
     test("undefinedWildcardString", () => {
         const wildcard = undefined;
         const match = matchWithWildcard(wildcard, "3/0/0");
-        assert.isTrue(match);
+        expect(match).toBeTruthy();
     });
 
     test("emptyWildcardString", () => {
         const wildcard = "";
         const match = matchWithWildcard(wildcard, "3/0/0");
-        assert.isTrue(match);
+        expect(match).toBeTruthy();
     });
 
     test("correctWildcarsString", () => {
         const wildcard = "3/0/0";
         const match = matchWithWildcard(wildcard, "3/0/0");
-        assert.isTrue(match);
+        expect(match).toBeTruthy();
     });
 
     test("wildcardString", () => {
         let wildcard = "3/*";
         let match = matchWithWildcard(wildcard, "3/0/0");
-        assert.isTrue(match);
+        expect(match).toBeTruthy();
 
         wildcard = "3/0/*";
         match = matchWithWildcard(wildcard, "3/0/0");
-        assert.isTrue(match);
+        expect(match).toBeTruthy();
 
         wildcard = "3/0/*";
         match = matchWithWildcard(wildcard, "3/1/0");
-        assert.isFalse(match);
+        expect(match).toBeFalsy();
 
         wildcard = "*";
         match = matchWithWildcard(wildcard, "3/1/0");
-        assert.isTrue(match);
+        expect(match).toBeTruthy();
     });
 
 });
 
-suite("testPayloadDecoding", () => {
+describe("testPayloadDecoding", () => {
 
     test("string", () => {
         const payload = decodeBase64("dGVzdA==", "text/plain");
-        assert.isString(payload);
+        expect(typeof payload).toBe("string");
     });
 
     test("number", () => {
         const payload = decodeBase64("NQ==", "text/plain");
-        assert.isNumber(payload);
+        expect(typeof payload).toBe("number");
     });
 
     test("tlv", () => {
         const payload = decodeBase64("AAA=", "tlv");
-        assert.deepEqual(payload, {
+        expect(payload).toEqual({
             "/0": "",
         });
     });
 });
 
-suite("testBillingMonth", () => {
+describe("testBillingMonth", () => {
     test("singleDigitMonth", () => {
         const date = new Date(2018, 4);
         const string = dateToBillingMonth(date);
-        assert.strictEqual("2018-05", string);
+        expect(string).toBe("2018-05");
     });
 
     test("doubleDigitMonth", () => {
         const date = new Date(2018, 11);
         const string = dateToBillingMonth(date);
-        assert.strictEqual("2018-12", string);
+        expect(string).toBe("2018-12");
     });
 });

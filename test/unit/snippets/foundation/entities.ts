@@ -18,17 +18,15 @@
 import { MyAccount, ApiKey } from "../../../../src/sdk/entities";
 import { Config, SDK } from "../../../../src/sdk";
 import { SDKError } from "../../../../src/common/sdkError";
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
 
-suite("entities", () => {
+describe("entities", () => {
     test("quick", async () => {
         try {
             // an example: checking account status
             const myAccount = await new MyAccount().get();
             const isActive = myAccount.status === "ACTIVE";
             // end of example
-            assert.isOk(isActive);
+            expect(isActive).toBeTruthy();
         } catch (e) {
             throw e;
         }
@@ -40,36 +38,40 @@ suite("entities", () => {
             const allKeys = await new ApiKey().list().all();
             const names = allKeys.map( k => k.name);
             // end of example
-            assert.isAtLeast(names.length, 1);
+            expect(names.length).toBeGreaterThan(1);
         } catch (e) {
             throw e;
         }
     });
 
     test("customConfig", () => {
-        assert.throws(() => {
+        expect(() => {
             try {
                 // an example: using multiple api keys
                 const allUsers = [];
                 [ "ak_1", "ak_2" ].forEach(async k => allUsers.concat(await new SDK({ apiKey: k }).entities.User().list().all()));
                 // end of example
             } catch (e) {
+                // tslint:disable-next-line:no-console
+                console.log(e);
                 throw e;
             }
-        }, SDKError);
+        }).toThrow(SDKError);
     });
 
     test("realyCustomConfig", () => {
-        assert.throws(() => {
+        expect(() => {
             try {
                 // an example: using custom hosts
                 const config = new Config({ apiKey: "ak_1", host: "http://example" });
                 const allUsers = new SDK(config).entities.User().list().all();
                 // end of example
-                assert.isOk(allUsers);
+                expect(allUsers).not.toBeNull();
             } catch (e) {
+                // tslint:disable-next-line:no-console
+                console.log(e);
                 throw e;
             }
-        }, SDKError);
+        }).toThrow(SDKError);
     });
 });

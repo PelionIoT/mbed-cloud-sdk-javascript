@@ -16,11 +16,8 @@
  */
 
 import { generateId } from "../../src/common/idGenerator";
-const { assert } = intern.getPlugin("chai");
 
-const { suite, test } = intern.getInterface("tdd");
-
-suite("idGenerator", () => {
+describe("idGenerator", () => {
     test("generates three unique IDs", () => {
         const ids = [ generateId(), generateId(), generateId() ];
 
@@ -28,6 +25,6 @@ suite("idGenerator", () => {
             return ids.filter( otherId => id === otherId).length > 1;
         });
 
-        assert.strictEqual(hasDuplicates, false);
+        expect(hasDuplicates).toBeFalsy();
     });
 });

@@ -19,9 +19,6 @@ import { executeForAll, Paginator } from "../../src/common/pagination";
 import { ListResponse } from "../../src/common/listResponse";
 import { ListOptions } from "../../src/common/interfaces";
 
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
-
 interface Call<O> {
     resolve: (o: O) => Promise<void>;
     reject: () => Promise<void>;
@@ -68,21 +65,21 @@ const checkPromise = <T>(promise: Promise<T>): { resolved: boolean, rejected: bo
     return tracker;
 };
 
-suite("executeForAll", () => {
+describe("executeForAll", () => {
     test("never runs execute if there are no items", () => {
         const { calls: executeCalls, mock: execute } = mockAsync<string, void>();
         const { calls: getPageCalls, mock: getPage } = mockAsync<{ after: string }, ListResponse<{ id: string }>>();
 
         const tracker = checkPromise(executeForAll(getPage, execute));
 
-        assert.strictEqual(getPageCalls.length, 1);
+        expect(getPageCalls.length).toEqual(1);
 
         return getPageCalls[0].resolve(new ListResponse({ has_more: false }, []))
             .then(() => {
-                assert.strictEqual(executeCalls.length, 0);
+                expect(executeCalls.length).toEqual(0);
 
-                assert.strictEqual(tracker.resolved, true);
-                assert.strictEqual(tracker.rejected, false);
+                expect(tracker.resolved).toEqual(true);
+                expect(tracker.rejected).toEqual(false);
             });
     });
 
@@ -92,16 +89,16 @@ suite("executeForAll", () => {
 
         const tracker = checkPromise(executeForAll(getPage, execute));
 
-        assert.strictEqual(getPageCalls.length, 1);
+        expect(getPageCalls.length).toEqual(1);
 
         return getPageCalls[0].resolve(new ListResponse({ has_more: false }, [ { id: "1" }, { id: "2" } ]))
             .then(() => {
-                assert.strictEqual(executeCalls.length, 2);
+                expect(executeCalls.length).toEqual(2);
 
                 return Promise.all(executeCalls.map(({ resolve }) => resolve(null)))
                     .then(() => {
-                        assert.strictEqual(tracker.resolved, true);
-                        assert.strictEqual(tracker.rejected, false);
+                        expect(tracker.resolved).toEqual(true);
+                        expect(tracker.rejected).toEqual(false);
                     });
             });
     });
@@ -112,24 +109,24 @@ suite("executeForAll", () => {
 
         const tracker = checkPromise(executeForAll(getPage, execute));
 
-        assert.strictEqual(getPageCalls.length, 1);
+        expect(getPageCalls.length).toEqual(1);
 
         return getPageCalls[0].resolve(new ListResponse({ has_more: true }, [ { id: "1" }, { id: "2" } ]))
             .then(() => {
-                assert.strictEqual(executeCalls.length, 2);
+                expect(executeCalls.length).toEqual(2);
 
                 return Promise.all(executeCalls.map(({ resolve }) => resolve(null)))
                     .then(() => {
                         return getPageCalls[1].resolve(new ListResponse({ has_more: false }, [ { id: "3" }, { id: "4" } ]))
                             .then(() => {
-                                assert.strictEqual(executeCalls.length, 4);
+                                expect(executeCalls.length).toEqual(4);
 
                                 return Promise.all([
                                     executeCalls[2].resolve(null), executeCalls[3].resolve(null),
                                 ])
                                     .then(() => {
-                                        assert.strictEqual(tracker.resolved, true);
-                                        assert.strictEqual(tracker.rejected, false);
+                                        expect(tracker.resolved).toEqual(true);
+                                        expect(tracker.rejected).toEqual(false);
                                     });
                             });
                     });
@@ -142,14 +139,14 @@ suite("executeForAll", () => {
 
         const tracker = checkPromise(executeForAll(getPage, execute));
 
-        assert.strictEqual(getPageCalls.length, 1);
+        expect(getPageCalls.length).toEqual(1);
 
         return getPageCalls[0].reject()
             .then(() => {
-                assert.strictEqual(executeCalls.length, 0);
+                expect(executeCalls.length).toEqual(0);
 
-                assert.strictEqual(tracker.resolved, false);
-                assert.strictEqual(tracker.rejected, true);
+                expect(tracker.resolved).toEqual(false);
+                expect(tracker.rejected).toEqual(true);
             });
     });
 
@@ -159,18 +156,18 @@ suite("executeForAll", () => {
 
         const tracker = checkPromise(executeForAll(getPage, execute));
 
-        assert.strictEqual(getPageCalls.length, 1);
+        expect(getPageCalls.length).toEqual(1);
 
         return getPageCalls[0].resolve(new ListResponse({ has_more: true }, [ { id: "1" }, { id: "2" } ]))
             .then(() => {
-                assert.strictEqual(executeCalls.length, 2);
+                expect(executeCalls.length).toEqual(2);
 
                 return Promise.all([
                     executeCalls[0].resolve(null), executeCalls[1].reject(),
                 ])
                     .then(() => {
-                        assert.strictEqual(tracker.resolved, false);
-                        assert.strictEqual(tracker.rejected, true);
+                        expect(tracker.resolved).toEqual(false);
+                        expect(tracker.rejected).toEqual(true);
                     });
             });
     });
@@ -181,31 +178,31 @@ suite("executeForAll", () => {
 
         const tracker = checkPromise(executeForAll(getPage, execute));
 
-        assert.strictEqual(getPageCalls.length, 1);
+        expect(getPageCalls.length).toEqual(1);
 
         return getPageCalls[0].resolve(new ListResponse({ has_more: true }, [ { id: "1" }, { id: "2" } ]))
             .then(() => {
-                assert.strictEqual(executeCalls.length, 2);
+                expect(executeCalls.length).toEqual(2);
 
                 return Promise.all([
                     executeCalls[0].resolve(null), executeCalls[1].resolve(null),
                 ])
                     .then(() => {
-                        assert.strictEqual(getPageCalls.length, 2);
+                        expect(getPageCalls.length).toEqual(2);
 
                         return getPageCalls[1].reject()
                             .then(() => {
-                                assert.strictEqual(executeCalls.length, 2);
+                                expect(executeCalls.length).toEqual(2);
 
-                                assert.strictEqual(tracker.resolved, false);
-                                assert.strictEqual(tracker.rejected, true);
+                                expect(tracker.resolved).toEqual(false);
+                                expect(tracker.rejected).toEqual(true);
                             });
                     });
             });
     });
 });
 
-suite("paginator", () => {
+describe("paginator", () => {
     test("Checking element navigation - one page", () => {
         const pageData = [ 1, 2, 3, 4, 5, 6, 7, 8 ];
         function getPage(_: ListOptions): Promise<ListResponse<number>> {
@@ -221,22 +218,22 @@ suite("paginator", () => {
         }
         const options: ListOptions = {};
         const paginator = new Paginator(getPage, options);
-        assert.isTrue(paginator.hasNext());
+        expect(paginator.hasNext()).toBeTruthy();
         // Moving to the next element (first)
-        return paginator.next().then( element => {
-            assert.isNotNull(element);
-            assert.equal(element, pageData[0]);
-            assert.isTrue(paginator.hasNext());
+        return paginator.next().then(element => {
+            expect(element).not.toBeNull();
+            expect(element).toEqual(pageData[0]);
+            expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
             // Moving to the next element
         }).then(() => paginator.next().then( element => {
-            assert.isNotNull(element);
-            assert.equal(element, pageData[1]);
-            assert.isTrue(paginator.hasNext());
+            expect(element).not.toBeNull();
+            expect(element).toEqual(pageData[1]);
+            expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
         })).then(() => paginator.all().then( all => {
-            assert.isNotNull(all);
-            assert.deepEqual(all, pageData);
+            expect(all).not.toBeNull();
+            expect(all).toEqual(pageData);
             return Promise.resolve();
         }));
     });
@@ -257,27 +254,27 @@ suite("paginator", () => {
         }
         const options: ListOptions = {};
         const paginator = new Paginator(getPage, options);
-        assert.isTrue(paginator.hasNext());
+        expect(paginator.hasNext()).toBeTruthy();
         // Moving to the next element (first)
 
         return paginator.next().then( element => {
-            assert.isNotNull(element);
-            assert.equal(element, firstPageData[0]);
-            assert.isTrue(paginator.hasNext());
+            expect(element).not.toBeNull();
+            expect(element).toEqual(firstPageData[0]);
+            expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
             // Moving to the next element
         }).then(() => paginator.next().then( element => {
-            assert.isNotNull(element);
-            assert.equal(element, firstPageData[1]);
-            assert.isTrue(paginator.hasNext());
+            expect(element).not.toBeNull();
+            expect(element).toEqual(firstPageData[1]);
+            expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
         })).then(() => paginator.all().then( all => {
-            assert.isNotNull(all);
-            assert.deepEqual(all, firstPageData.concat(secondPageData));
+            expect(all).not.toBeNull();
+            expect(all).toEqual(firstPageData.concat(secondPageData));
             return Promise.resolve();
         })).then(() => paginator.first().then( first => {
-            assert.isNotNull(first);
-            assert.equal(first, firstPageData[0]);
+            expect(first).not.toBeNull();
+            expect(first).toEqual(firstPageData[0]);
             return Promise.resolve();
         }));
     });
@@ -303,26 +300,26 @@ suite("paginator", () => {
         const maxResult = firstPageData.length - 3;
         options.maxSize = maxResult;
         const paginator = new Paginator(getPage, options);
-        assert.isTrue(paginator.hasNext());
+        expect(paginator.hasNext()).toBeTruthy();
         // Moving to the next element (first)
         return paginator.next().then( element => {
-            assert.isNotNull(element);
-            assert.equal(element, firstPageData[0]);
-            assert.isTrue(paginator.hasNext());
+            expect(element).not.toBeNull();
+            expect(element).toEqual(firstPageData[0]);
+            expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
             // Moving to the next element
         }).then(() => paginator.next().then( element => {
-            assert.isNotNull(element);
-            assert.equal(element, firstPageData[1]);
-            assert.isTrue(paginator.hasNext());
+            expect(element).not.toBeNull();
+            expect(element).toEqual(firstPageData[1]);
+            expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
         })).then(() => paginator.all().then( all => {
-            assert.isNotNull(all);
-            assert.deepEqual(all, firstPageData.slice(0, maxResult));
+            expect(all).not.toBeNull();
+            expect(all).toEqual(firstPageData.slice(0, maxResult));
             return Promise.resolve();
         })).then(() => paginator.totalCount().then( total => {
-            assert.isNotNull(total);
-            assert.equal(total, totalElementCount);
+            expect(total).not.toBeNull();
+            expect(total).toEqual(totalElementCount);
             return Promise.resolve();
         }));
     });
@@ -351,6 +348,6 @@ suite("paginator", () => {
         options.maxSize = maxResult;
         const expectedResult = firstPageData.concat(secondPageData.slice(0, maxResult - firstPageData.length));
         const paginator = new Paginator(getPage, options);
-        return paginator.executeForAll(execute).then(() => assert.deepEqual(resultsExecution, expectedResult));
+        return paginator.executeForAll(execute).then(() => expect(resultsExecution).toEqual(expectedResult));
     });
 });

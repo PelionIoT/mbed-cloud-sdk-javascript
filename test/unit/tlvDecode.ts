@@ -15,13 +15,9 @@
 * limitations under the License.
 */
 
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
-
 import { decodeTlv } from "../../src/common/tlvDecoder";
 
-suite("decodeTlv", () => {
-
+describe("decodeTlv", () => {
     function decode(payload) {
         if (typeof atob === "function") { return atob(payload); }
         return new Buffer(payload, "base64").toString("binary");
@@ -29,7 +25,7 @@ suite("decodeTlv", () => {
 
     test("should decode nothing", () => {
         const result = decodeTlv("");
-        assert.deepEqual(result, {});
+        expect(result).toEqual({});
     });
 
     test("should decode simple", () => {
@@ -38,7 +34,7 @@ suite("decodeTlv", () => {
 
         const result = decodeTlv(tlv);
 
-        assert.deepEqual(result, {
+        expect(result).toEqual({
             "/0": "",
         });
     });
@@ -49,7 +45,7 @@ suite("decodeTlv", () => {
 
         const result = decodeTlv(tlv);
 
-        assert.deepEqual(result, {
+        expect(result).toEqual({
             "/0": 0,
             "/1": 0,
             "/11/0": 0,

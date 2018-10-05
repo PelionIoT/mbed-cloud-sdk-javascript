@@ -18,10 +18,7 @@ import { Config } from "../../../../src/sdk";
 * limitations under the License.
 */
 
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
-
-suite("subTenants", () => {
+describe("subTenants", () => {
     test("subTenant", async () => {
         try {
             // an example: creating and managing a subtenant account
@@ -49,7 +46,7 @@ suite("subTenants", () => {
             const users = await newSubtenant.list().all();
             // end of example
 
-            assert.isAtLeast(users.length, 1);
+            expect(users.length).toBeGreaterThanOrEqual(1);
             await user.delete();
         } catch (e) {
             // tslint:disable-next-line:no-console

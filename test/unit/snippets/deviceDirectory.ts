@@ -16,10 +16,8 @@
 */
 
 import { DeviceDirectoryApi } from "../../../src/deviceDirectory/deviceDirectoryApi";
-const { suite, test } = intern.getInterface("tdd");
-const { assert } = intern.getPlugin("chai");
 
-suite("deviceDirectorySnippet", () => {
+describe("deviceDirectorySnippet", () => {
 
     test("listDevices", () => {
         try {
@@ -35,7 +33,6 @@ suite("deviceDirectorySnippet", () => {
                     });
             });
             // end of example
-            assert.isOk(true);
         } catch (e) {
             throw e;
         }
