@@ -1,4 +1,9 @@
 module.exports = {
+    "rootDir": ",",
+    "projects": [
+        "test/unit/configs/node*.js",
+        "test/unit/configs/browser*.js"
+    ],
     "transform": {
         "^.+\\.tsx?$": "ts-jest"
     },

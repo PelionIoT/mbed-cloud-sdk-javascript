@@ -1,5 +1,7 @@
 const config = require("../../../jest.config");
 
+config.projects = null;
+
 config.rootDir = "../../../";
 
 config.testEnvironment = "node";
