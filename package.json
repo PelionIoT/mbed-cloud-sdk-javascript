@@ -50,7 +50,7 @@
     "lint": "tslint -c tslint.json 'src/**/**/*.ts'",
     "lint:fix": "tslint --fix -c tslint.json 'src/**/**/*.ts'",
     "start-proxy": "node examples/proxy/server.js",
-    "test": "jest --projects test/unit/configs/browser*.js test/unit/configs/node*.js",
+    "test": "jest --projects test/unit/configs/browser*.js test/unit/configs/node*.js --runInBand",
     "test:snippets": "jest --projects test/unit/configs/snippets*.js",
     "test:man": "jest --projects test/unit/configs/man*.js",
     "watch:integration": "npm-run-all clean:integration watch:integration:start",
