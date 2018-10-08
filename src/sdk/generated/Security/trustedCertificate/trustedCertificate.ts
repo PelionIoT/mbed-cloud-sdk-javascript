@@ -5,16 +5,15 @@ import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
-import { CertificateCertificateTypeEnum } from "../../enums";
-import { CertificateServiceEnum } from "../../enums";
-import { CertificateStatusEnum } from "../../enums";
+import { DeveloperCertificate } from "../../index";
+import { TrustedCertificateServiceEnum } from "../../enums";
+import { TrustedCertificateStatusEnum } from "../../enums";
 
 /**
- * Certificate
+ * TrustedCertificate
  */
-export class Certificate extends EntityBase {
+export class TrustedCertificate extends EntityBase {
     public readonly _renames: { [key: string]: string } = {
-        "developerCertificateId": "developerCertificateId",
         "cert-id": "id",
     };
 
@@ -29,16 +28,6 @@ export class Certificate extends EntityBase {
     public certificate?: string;
 
     /**
-     * The type of the certificate.
-     */
-    get certificateType(): CertificateCertificateTypeEnum {
-        return privateFunctions.certificateTypeGetter(this);
-    }
-    set certificateType(value: CertificateCertificateTypeEnum) {
-        privateFunctions.certificateTypeSetter(this, value);
-    }
-
-    /**
      * Creation UTC time RFC3339.
      */
     public createdAt?: Date;
@@ -49,14 +38,14 @@ export class Certificate extends EntityBase {
     public description?: string;
 
     /**
-     * PEM format X.509 developer certificate.
+     * The type of the certificate.
      */
-    public developerCertificate?: string;
-
-    /**
-     * PEM format developer private key associated to the certificate.
-     */
-    public developerPrivateKey?: string;
+    get developer(): boolean {
+        return privateFunctions.developerCertificateGetter(this);
+    }
+    set developer(value: boolean) {
+        privateFunctions.developerCertificateSetter(this, value);
+    }
 
     /**
      * Device execution mode where 1 means a developer certificate.
@@ -84,29 +73,14 @@ export class Certificate extends EntityBase {
     public ownerId?: string;
 
     /**
-     * Content of the security.c file that will be flashed into the device to provide the security credentials
-     */
-    public securityFileContent?: string;
-
-    /**
-     * The type of the certificate.
-     */
-    public serverCertificate?: string;
-
-    /**
-     * The type of the certificate.
-     */
-    public serverUri?: string;
-
-    /**
      * Service name where the certificate is to be used.
      */
-    public service?: CertificateServiceEnum;
+    public service?: TrustedCertificateServiceEnum;
 
     /**
      * Status of the certificate.
      */
-    public status?: CertificateStatusEnum;
+    public status?: TrustedCertificateStatusEnum;
 
     /**
      * Subject of the certificate.
@@ -128,45 +102,10 @@ export class Certificate extends EntityBase {
     }
 
     /**
-     * creates a Certificate.
-     * @returns Promise containing Certificate.
+     * creates a TrustedCertificate.
+     * @returns Promise containing TrustedCertificate.
      */
-    public create(signature?: string): Promise<Certificate> {
-        return privateFunctions.createAnyCertificate(this, signature);
-    }
-
-    /**
-     * createDevelopers a Certificate.
-     * @returns Promise containing Certificate.
-     */
-    protected createDeveloper(): Promise<Certificate> {
-        const body = {
-            description: this.description,
-            name: this.name,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<Certificate>(
-                    {
-                        url: "/v3/developer-certificates",
-                        method: "POST",
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * createStandards a Certificate.
-     * @returns Promise containing Certificate.
-     */
-    protected createStandard(signature?: string): Promise<Certificate> {
+    public create(signature?: string): Promise<TrustedCertificate> {
         const body = {
             certificate: this.certificate,
             description: this.description,
@@ -178,7 +117,7 @@ export class Certificate extends EntityBase {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<Certificate>(
+                this.client._CallApi<TrustedCertificate>(
                     {
                         url: "/v3/trusted-certificates",
                         method: "POST",
@@ -195,13 +134,13 @@ export class Certificate extends EntityBase {
     }
 
     /**
-     * deletes a Certificate.
-     * @returns Promise containing Certificate.
+     * deletes a TrustedCertificate.
+     * @returns Promise containing TrustedCertificate.
      */
-    public delete(): Promise<Certificate> {
+    public delete(): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<Certificate>(
+                this.client._CallApi<TrustedCertificate>(
                     {
                         url: "/v3/trusted-certificates/{cert-id}",
                         method: "DELETE",
@@ -220,29 +159,21 @@ export class Certificate extends EntityBase {
     }
 
     /**
-     * gets a Certificate.
-     * @returns Promise containing Certificate.
+     * developerCertificateInfos a DeveloperCertificate.
+     * @returns Promise containing DeveloperCertificate.
      */
-    public get(): Promise<Certificate> {
-        return privateFunctions.getAnyCertificate(this);
-    }
-
-    /**
-     * getDevelopers a Certificate.
-     * @returns Promise containing Certificate.
-     */
-    protected getDeveloper(developerCertificateId: string): Promise<Certificate> {
+    public developerCertificateInfo(): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<Certificate>(
+                this.client._CallApi<DeveloperCertificate>(
                     {
                         url: "/v3/developer-certificates/{developerCertificateId}",
                         method: "GET",
                         pathParams: {
-                            developerCertificateId: developerCertificateId,
+                            developerCertificateId: this.id,
                         },
                     },
-                    this,
+                    new DeveloperCertificate(),
                     resultsFn
                 );
             },
@@ -253,23 +184,19 @@ export class Certificate extends EntityBase {
     }
 
     /**
-     * getStandards a Certificate.
-     * @returns Promise containing Certificate.
+     * gets a TrustedCertificate.
+     * @returns Promise containing TrustedCertificate.
      */
-    protected getStandard(): Promise<Certificate> {
-        const body = {
-            service: this.service,
-        };
+    public get(): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<Certificate>(
+                this.client._CallApi<TrustedCertificate>(
                     {
                         url: "/v3/trusted-certificates/{cert-id}",
                         method: "GET",
                         pathParams: {
                             "cert-id": this.id,
                         },
-                        body: body,
                     },
                     this,
                     resultsFn
@@ -282,26 +209,26 @@ export class Certificate extends EntityBase {
     }
 
     /**
-     * List Certificates
+     * List TrustedCertificates
      * @param options filter options
      */
-    public list(options?: ListOptions): Paginator<Certificate, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Certificate>> => {
+    public list(options?: ListOptions): Paginator<TrustedCertificate, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<TrustedCertificate>> => {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<Certificate>(
+                    this.client._CallApi<TrustedCertificate>(
                         {
                             url: "/v3/trusted-certificates",
                             method: "GET",
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new Certificate(),
+                        new TrustedCertificate(),
                         resultsFn
                     );
                 },
-                (data: ListResponse<Certificate>, done) => {
+                (data: ListResponse<TrustedCertificate>, done) => {
                     done(null, new ListResponse(data, data.data));
                 }
             );
@@ -310,18 +237,10 @@ export class Certificate extends EntityBase {
     }
 
     /**
-     * updates a Certificate.
-     * @returns Promise containing Certificate.
+     * updates a TrustedCertificate.
+     * @returns Promise containing TrustedCertificate.
      */
-    public update(signature?: string): Promise<Certificate> {
-        return privateFunctions.extendUpdateResponse(this, signature);
-    }
-
-    /**
-     * updateCertificates a Certificate.
-     * @returns Promise containing Certificate.
-     */
-    protected updateCertificate(signature?: string): Promise<Certificate> {
+    public update(signature?: string): Promise<TrustedCertificate> {
         const body = {
             certificate: this.certificate,
             description: this.description,
@@ -333,7 +252,7 @@ export class Certificate extends EntityBase {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<Certificate>(
+                this.client._CallApi<TrustedCertificate>(
                     {
                         url: "/v3/trusted-certificates/{cert-id}",
                         method: "PUT",

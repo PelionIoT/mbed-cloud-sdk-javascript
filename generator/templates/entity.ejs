@@ -88,7 +88,7 @@ super(config);
         <%- include('methodTemplates/custom.ejs', { method, snakeToCamel }) %>
     <% } else { -%>
 
-        <%- include('methodTemplates/default.ejs', { method }) %>
+        <%- include('methodTemplates/default.ejs', { method, entity, snakeToPascal }) %>
     <% } -%>
 <% }); -%>
 }

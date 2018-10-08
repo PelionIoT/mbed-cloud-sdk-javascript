@@ -6,25 +6,24 @@ var istanbulHook = require("istanbul-lib-hook");
 var istanbulMaps = require("istanbul-lib-source-maps");
 var istanbulCoverage = require("istanbul-lib-coverage");
 var istanbulInstrument = require("istanbul-lib-instrument");
-var sourceMapMerger = require("source-map-merger");
-var intern = require("../../../../../intern.json");
-
 
 // Variables
-var root = path.join(__dirname, "..");
+var root = path.join(__dirname, "../..");
 var builtSdkDir = path.join(root, "../src");
 var projectRoot = path.join(__dirname, "../../../../..");
-var projectRootBuild = builtSdkDir;
+var projectRootBuild = path.join(projectRoot, "./lib");
 var projectRootSrc = path.join(projectRoot, "./src");
 var coverageDir = path.join(projectRoot, "coverage");
 var coverageFile = path.join(coverageDir, "int_coverage.json");
 
-console.log(builtSdkDir);
-console.log(projectRoot);
-console.log(projectRootBuild);
-console.log(projectRootSrc);
-console.log(coverageDir);
-console.log(coverageFile);
+var collectCoverageFrom = ["src/**/*.js", "!src/_api/**"];
+
+console.log("root " + root);
+console.log("buildSdkDir " + builtSdkDir);
+console.log("projectRoot " + projectRoot);
+console.log("projectRootBuild " + projectRootBuild);
+console.log("projectRootSrc " + projectRootSrc);
+console.log("coverageDir" + coverageDir);
 
 if (!fs.existsSync(coverageDir)) {
     fs.mkdirSync(coverageDir);
@@ -36,9 +35,12 @@ var reporter = new nyc({
     reporter: ["html", "lcov", "cobertura"]
 });
 
+console.log(collectCoverageFrom);
 
 // Determine files to cover
-var coverageFiles = expandFiles(intern.coverage);
+var coverageFiles = expandFiles(collectCoverageFrom);
+
+console.log(coverageFiles);
 
 function expandFiles(patterns) {
     var excludes = [];
@@ -67,39 +69,9 @@ var instrumenter = istanbulInstrument.createInstrumenter({
     produceSourceMap: true
 });
 
-function findAndCorrectMapFile(sourceFile, mapFileName) {
-    // Method to find the correct SDK map files which maps the "built" javascript to the corresponding typescript.
-    var dirPath = path.normalize(path.dirname(sourceFile));
-    var relativePathFromTop = path.relative(builtSdkDir, dirPath);
-    var relativePathToSrc = path.relative(dirPath, projectRootSrc);
-    var relatedProjectBuildFolder = path.normalize(path.join(projectRootBuild, relativePathFromTop));
-    var correctMapFile = path.normalize(path.join(relatedProjectBuildFolder, mapFileName));
-    var mapFileToChange = path.normalize(path.join(dirPath, mapFileName));
-    // load correct map file and modify path fields.
-    var correctSourceMap = JSON.parse(fs.readFileSync(correctMapFile, {
-        encoding: "utf8"
-    }));
-    // Merge source maps.
-    var mergedMapStr = sourceMapMerger.createMergedSourceMapFromFiles([
-        correctMapFile,
-        mapFileToChange
-    ], true /* Ignore missing statements */ );
-    var mergedMap = JSON.parse(mergedMapStr);
-    // Fix source paths.
-    if (correctSourceMap.sourceRoot) {
-        mergedMap.sourceRoot = relativePathToSrc;
-    }
-    if (correctSourceMap.sources) {
-        mergedMap.sources = correctSourceMap.sources;
-    }
-    // Override current source map file content.
-    fs.writeFileSync(mapFileToChange, JSON.stringify(mergedMap));
-    return mapFileToChange;
-}
-
 function instrumentCode(code, sourceFile) {
     var sourceMapRegEx = /^(?:\/{2}[#@]{1,2}|\/\*)\s+sourceMappingURL\s*=\s*(data:(?:[^;]+;)+base64,)?(\S+)/;
-    if (!code) code = fs.readFileSync(sourceFile, {
+    if (!code) code = fs.readFileSync(sourceFile.filename, {
         encoding: "utf8"
     });
     var lastNewline = code.lastIndexOf("\n", code.length - 2);
@@ -109,19 +81,21 @@ function instrumentCode(code, sourceFile) {
 
     if ((match = sourceMapRegEx.exec(lastLine))) {
         if (match[1]) { //It is a data URI.
+            console.log("what???");
             sourceMap = JSON.parse(new Buffer(match[2], "base64").toString("utf8"));
         } else {
-            // The mapping is defined in a different file.
-            var mapFile = findAndCorrectMapFile(sourceFile, match[2]);
-            sourceMap = JSON.parse(fs.readFileSync(mapFile, {
+            sourceMap = JSON.parse(fs.readFileSync(sourceFile.filename + ".map", {
                 encoding: "utf8"
             }));
         }
     }
 
     try {
-        return instrumenter.instrumentSync(code, path.normalize(sourceFile), sourceMap);
+        var x = instrumenter.instrumentSync(code, path.normalize(sourceFile.filename), sourceMap);
+        // console.log(x);
+        return x;
     } catch (error) {
+        console.log(error);
         return code;
     }
 }
@@ -138,7 +112,7 @@ var server = require("./server")
 server.addExitCallback(function () {
     if (unhookRequire) unhookRequire();
 
-    var coverageMap = istanbulCoverage.createCoverageMap();
+    var coverageMap = istanbulCoverage.createCoverageMap(__coverage__);
     var sourceMaps = istanbulMaps.createSourceMapStore();
     var transformed = sourceMaps.transformCoverage(coverageMap);
     fs.writeFileSync(coverageFile, JSON.stringify(transformed.map));

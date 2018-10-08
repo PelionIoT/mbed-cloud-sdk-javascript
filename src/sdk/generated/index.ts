@@ -1,12 +1,12 @@
 export * from "./Accounts/apiKey/apiKey";
 
-export * from "./Security/certificate/certificate";
-
 export * from "./Security/certificateEnrollment/certificateEnrollment";
 
 export * from "./Security/certificateIssuer/certificateIssuer";
 
 export * from "./Security/certificateIssuerConfig/certificateIssuerConfig";
+
+export * from "./Security/developerCertificate/developerCertificate";
 
 export * from "./Devices/enrollmentBulkCreateTask/enrollmentBulkCreateTask";
 
@@ -27,6 +27,8 @@ export * from "./Accounts/policyGroup/policyGroup";
 export * from "./Security/serverCredentials/serverCredentials";
 
 export * from "./Accounts/subtenantAccount/subtenantAccount";
+
+export * from "./Security/trustedCertificate/trustedCertificate";
 
 export * from "./Accounts/user/user";
 

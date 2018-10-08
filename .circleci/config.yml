@@ -29,10 +29,10 @@ jobs:
           paths:
             - node_modules
             - .venv
-      - run:
-          name: Set version
-          # set the version (dev)
-          command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news
+      # - run:
+      #     name: Set version
+      #     # set the version (dev)
+      #     command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news
       - run:
           name: Build the SDK
           command: npm run build
@@ -81,10 +81,10 @@ jobs:
           name: Set version
           # set the version as if this was a production release
           command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news --release
-      - run:
-          name: Generate changelog
-          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml)
-          working_directory: docs/news
+      # - run:
+      #     name: Generate changelog
+      #     command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml)
+      #     working_directory: docs/news
       - store_artifacts:
           path: CHANGELOG.md
   integration_test:
@@ -128,7 +128,7 @@ jobs:
       - run:
           name: Run the tests
           command: set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ~/build/integration.html
-          working_directory: tests
+          working_directory: test/integration
       - run:
           name: Run any post-test result aggregators
           when: always
@@ -190,14 +190,14 @@ jobs:
           # pipenv is currently poorly behaved when installing from remote subdirectory
           # so we simply use it as a proxy for the virtualenv
           command: pipenv run pip install -r scripts/requirements.txt
-      - run:
-          name: Set version
-          # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version_beta.toml --news
-      - run:
-          name: Generate changelog
-          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version_beta.toml)
-          working_directory: docs/news
+      # - run:
+      #     name: Set version
+      #     # set the version as if this was a production release
+      #     command: pipenv run auto_version --config=scripts/auto_version_beta.toml --news
+      # - run:
+      #     name: Generate changelog
+      #     command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version_beta.toml)
+      #     working_directory: docs/news
       - run:
           name: Tag and Release
           command: |
@@ -221,14 +221,14 @@ jobs:
           # pipenv is currently poorly behaved when installing from remote subdirectory
           # so we simply use it as a proxy for the virtualenv
           command: pipenv run pip install -r scripts/requirements.txt
-      - run:
-          name: Set version
-          # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version.toml --news --release
-      - run:
-          name: Generate changelog
-          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml)
-          working_directory: docs/news
+      # - run:
+      #     name: Set version
+      #     # set the version as if this was a production release
+      #     command: pipenv run auto_version --config=scripts/auto_version.toml --news --release
+      # - run:
+      #     name: Generate changelog
+      #     command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml)
+      #     working_directory: docs/news
       - run:
           name: Tag and Release
           command: |

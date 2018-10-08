@@ -21,14 +21,14 @@ import dotenv = require("dotenv");
 
 import { SDKError } from "./sdkError";
 import { ConnectionOptions } from "./interfaces";
+import { Version } from "../version";
 
 // tslint:disable-next-line:no-var-requires
-const packageInformation = require("../../package.json");
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 const JSON_REGEX = /^application\/json(;.*)?$/i;
 const MIME_REGEX = /^text\/plain(;.*)?$/i;
-const VERSION = packageInformation.is_published ? packageInformation.version : `${packageInformation.version}+dev`;
-const userAgent = `${packageInformation.name}-javascript / ${VERSION}`;
+const VERSION = Version.isPublished ? Version.version : `${Version.version}+dev`;
+const userAgent = `${Version.packageName}-javascript / ${VERSION}`;
 
 export class ApiBase {
 

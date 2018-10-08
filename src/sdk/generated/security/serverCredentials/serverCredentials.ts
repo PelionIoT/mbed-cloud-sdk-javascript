@@ -36,6 +36,28 @@ export class ServerCredentials extends EntityBase {
     }
 
     /**
+     * getAlls a ServerCredentials.
+     * @returns Promise containing ServerCredentials.
+     */
+    public getAll(): Promise<ServerCredentials> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<ServerCredentials>(
+                    {
+                        url: "/v3/server-credentials",
+                        method: "GET",
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
+    }
+
+    /**
      * getBootstraps a ServerCredentials.
      * @returns Promise containing ServerCredentials.
      */
@@ -67,28 +89,6 @@ export class ServerCredentials extends EntityBase {
                 this.client._CallApi<ServerCredentials>(
                     {
                         url: "/v3/server-credentials/lwm2m",
-                        method: "GET",
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * lists a ServerCredentials.
-     * @returns Promise containing ServerCredentials.
-     */
-    public list(): Promise<ServerCredentials> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<ServerCredentials>(
-                    {
-                        url: "/v3/server-credentials",
                         method: "GET",
                     },
                     this,

@@ -1,9 +1,9 @@
 import { Config } from "../client/config";
 import { ApiKey } from "./index";
-import { Certificate } from "./index";
 import { CertificateEnrollment } from "./index";
 import { CertificateIssuer } from "./index";
 import { CertificateIssuerConfig } from "./index";
+import { DeveloperCertificate } from "./index";
 import { EnrollmentBulkCreateTask } from "./index";
 import { EnrollmentBulkDeleteTask } from "./index";
 import { EnrollmentClaim } from "./index";
@@ -12,6 +12,7 @@ import { MyApiKey } from "./index";
 import { PolicyGroup } from "./index";
 import { ServerCredentials } from "./index";
 import { SubtenantAccount } from "./index";
+import { TrustedCertificate } from "./index";
 import { User } from "./index";
 export class Factory {
     private readonly _config: Config;
@@ -21,9 +22,6 @@ export class Factory {
     public ApiKey(): ApiKey {
         return new ApiKey(this._config);
     }
-    public Certificate(): Certificate {
-        return new Certificate(this._config);
-    }
     public CertificateEnrollment(): CertificateEnrollment {
         return new CertificateEnrollment(this._config);
     }
@@ -32,6 +30,9 @@ export class Factory {
     }
     public CertificateIssuerConfig(): CertificateIssuerConfig {
         return new CertificateIssuerConfig(this._config);
+    }
+    public DeveloperCertificate(): DeveloperCertificate {
+        return new DeveloperCertificate(this._config);
     }
     public EnrollmentBulkCreateTask(): EnrollmentBulkCreateTask {
         return new EnrollmentBulkCreateTask(this._config);
@@ -56,6 +57,9 @@ export class Factory {
     }
     public SubtenantAccount(): SubtenantAccount {
         return new SubtenantAccount(this._config);
+    }
+    public TrustedCertificate(): TrustedCertificate {
+        return new TrustedCertificate(this._config);
     }
     public User(): User {
         return new User(this._config);
