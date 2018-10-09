@@ -85,7 +85,7 @@ export class CertificateEnrollment extends EntityBase {
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new CertificateEnrollment(),
+                        CertificateEnrollment,
                         resultsFn
                     );
                 },

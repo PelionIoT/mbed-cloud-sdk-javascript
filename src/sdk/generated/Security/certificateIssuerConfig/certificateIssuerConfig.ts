@@ -136,7 +136,7 @@ Null if Device Management internal HSM is used.
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new CertificateIssuerConfig(),
+                        CertificateIssuerConfig,
                         resultsFn
                     );
                 },

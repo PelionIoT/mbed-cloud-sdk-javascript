@@ -341,7 +341,7 @@ export class User extends EntityBase {
                             },
                             paginated: true,
                         },
-                        new PolicyGroup(),
+                        PolicyGroup,
                         resultsFn
                     );
                 },
@@ -369,7 +369,7 @@ export class User extends EntityBase {
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new User(),
+                        User,
                         resultsFn
                     );
                 },

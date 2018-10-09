@@ -162,7 +162,7 @@ export class ApiKey extends EntityBase {
                             },
                             paginated: true,
                         },
-                        new PolicyGroup(),
+                        PolicyGroup,
                         resultsFn
                     );
                 },
@@ -190,7 +190,7 @@ export class ApiKey extends EntityBase {
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new ApiKey(),
+                        ApiKey,
                         resultsFn
                     );
                 },

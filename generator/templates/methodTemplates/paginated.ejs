@@ -18,7 +18,7 @@ query: { after, include, order, limit },
     },
 <% } -%>
 paginated: true,
-}, new <%= method.returns %>(), resultsFn);
+}, <%= method.returns %>, resultsFn);
 }, (data: ListResponse<<%= method.returns %>>, done) => {
 done(null, new ListResponse(data, data.data));
 });

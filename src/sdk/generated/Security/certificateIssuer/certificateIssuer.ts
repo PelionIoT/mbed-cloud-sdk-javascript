@@ -151,7 +151,7 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new CertificateIssuer(),
+                        CertificateIssuer,
                         resultsFn
                     );
                 },

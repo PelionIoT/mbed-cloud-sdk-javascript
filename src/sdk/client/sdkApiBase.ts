@@ -152,7 +152,7 @@ export class SdkApiBase {
         return url;
     }
 
-    protected request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean }, instance?: T, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
+    protected request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean }, instance?: T | { new(): T; }, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
         const requestOptions: { [key: string]: any } = {};
         requestOptions.timeout = 60000;
         requestOptions.method = options.method;
@@ -223,7 +223,7 @@ export class SdkApiBase {
         return request;
     }
 
-    protected complete<T extends EntityBase>(error: any, response: any, acceptHeader: string, paginated: boolean, instance?: T, callback?: (sdkError: SDKError, data) => any) {
+    protected complete<T extends EntityBase>(error: any, response: any, acceptHeader: string, paginated: boolean, instance?: T | { new(): T; }, callback?: (sdkError: SDKError, data) => any) {
         let sdkError = null;
 
         if (error) {
@@ -260,14 +260,18 @@ export class SdkApiBase {
                 });
 
                 if (instance) {
-                    if (!paginated) {
+                    if (!paginated && instance instanceof EntityBase) {
                         data = instance._fromApi(instance, data);
                     } else {
                         const arr: Array<T> = [];
-                        Object.keys(data.data).forEach( d => {
-                            const inst = instance._fromApi(instance, data.data[d]);
-                            arr.push(inst);
-                        });
+                        if (data.data) {
+                            Object.keys(data.data).forEach(d => {
+                                if (!(instance instanceof EntityBase)) {
+                                    const t = this.activator(instance);
+                                    arr.push(t._fromApi(t, data.data[d]));
+                                }
+                            });
+                        }
                         data.data = arr;
                     }
                 }
@@ -275,5 +279,9 @@ export class SdkApiBase {
 
             callback(sdkError, data);
         }
+    }
+
+    public activator<T extends EntityBase>(type: { new(): T; }): T {
+        return new type();
     }
 }

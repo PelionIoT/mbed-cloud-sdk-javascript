@@ -173,7 +173,7 @@ export class TrustedCertificate extends EntityBase {
                             developerCertificateId: this.id,
                         },
                     },
-                    new DeveloperCertificate(),
+                    DeveloperCertificate,
                     resultsFn
                 );
             },
@@ -224,7 +224,7 @@ export class TrustedCertificate extends EntityBase {
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new TrustedCertificate(),
+                        TrustedCertificate,
                         resultsFn
                     );
                 },

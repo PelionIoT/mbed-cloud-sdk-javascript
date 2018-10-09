@@ -44,7 +44,7 @@ method: "<%= method.httpMethod %>",
     body: body,
 <% } -%>
 },
-<% if (method.returns === snakeToPascal(entity._key)) { %>this<% } else { %>new <%= method.returns %>()<% } %>,
+<% if (method.returns === snakeToPascal(entity._key)) { %>this<% } else { %><%= method.returns %><% } %>,
 resultsFn);
 }, (data, done) => {
 done(null, data);

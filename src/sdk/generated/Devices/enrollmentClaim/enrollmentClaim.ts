@@ -135,7 +135,7 @@ export class EnrollmentClaim extends EntityBase {
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new EnrollmentClaim(),
+                        EnrollmentClaim,
                         resultsFn
                     );
                 },

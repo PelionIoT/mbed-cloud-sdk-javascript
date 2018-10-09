@@ -64,7 +64,7 @@ export class PolicyGroup extends EntityBase {
                             },
                             paginated: true,
                         },
-                        new ApiKey(),
+                        ApiKey,
                         resultsFn
                     );
                 },
@@ -117,7 +117,7 @@ export class PolicyGroup extends EntityBase {
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new PolicyGroup(),
+                        PolicyGroup,
                         resultsFn
                     );
                 },
@@ -148,7 +148,7 @@ export class PolicyGroup extends EntityBase {
                             },
                             paginated: true,
                         },
-                        new User(),
+                        User,
                         resultsFn
                     );
                 },

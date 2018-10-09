@@ -102,7 +102,7 @@ export class MyApiKey extends EntityBase {
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new PolicyGroup(),
+                        PolicyGroup,
                         resultsFn
                     );
                 },

@@ -23,7 +23,7 @@ export async function subtenantAccountSwitchGet(self: User) {
 }
 
 export function developerCertificateGetter(self: TrustedCertificate) {
-    return !!self.deviceExecutionMode;
+    return self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
 }
 
 export function developerCertificateSetter(self: TrustedCertificate, value: boolean): void {

@@ -244,7 +244,7 @@ export class SubtenantAccount extends EntityBase {
                             },
                             paginated: true,
                         },
-                        new ApiKey(),
+                        ApiKey,
                         resultsFn
                     );
                 },
@@ -359,7 +359,7 @@ export class SubtenantAccount extends EntityBase {
                             },
                             paginated: true,
                         },
-                        new PolicyGroup(),
+                        PolicyGroup,
                         resultsFn
                     );
                 },
@@ -387,7 +387,7 @@ export class SubtenantAccount extends EntityBase {
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        new SubtenantAccount(),
+                        SubtenantAccount,
                         resultsFn
                     );
                 },
@@ -468,7 +468,7 @@ export class SubtenantAccount extends EntityBase {
                             },
                             paginated: true,
                         },
-                        new User(),
+                        User,
                         resultsFn
                     );
                 },

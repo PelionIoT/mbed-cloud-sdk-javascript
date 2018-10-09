@@ -142,7 +142,7 @@ export class DeveloperCertificate extends EntityBase {
                             "cert-id": this.id,
                         },
                     },
-                    new TrustedCertificate(),
+                    TrustedCertificate,
                     resultsFn
                 );
             },
