@@ -1,5 +1,5 @@
 {
-    "out": "docs/_docs",
+    "out": "docs/docs",
     "mode": "file",
     "include": [
         "src/**/*.ts"
@@ -14,8 +14,8 @@
     "module": "commonjs",
     "target": "es6",
     "name": "Mbed Cloud SDK for JavaScript",
-    "readme": "src/documentation.md",
-    "theme": "src/theme",
+    "readme": "docs/documentation.md",
+    "theme": "docs/theme",
     "ignoreCompilerErrors": true,
     "toc": "AccountManagementApi,BillingApi,BootstrapApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,EnrollmentApi,Subscribe,UpdateApi,ConnectionOptions,SDKError,ListResponse,Paginator"
 }
