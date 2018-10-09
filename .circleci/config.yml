@@ -109,7 +109,7 @@ jobs:
           command: sudo pip install -U setuptools==40.4.1 pip pipenv==2018.7.1
       - run:
           name: Install extra dependencies (python)
-          command: pipenv install awscli --python=python3
+          command: pipenv install awscli==1.16.17 --python=python3
       - run:
           name: Install SDK dependencies
           command: npm install
