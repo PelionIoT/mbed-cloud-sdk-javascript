@@ -57,7 +57,8 @@ export class ListResponse<T> {
         this.hasMore = from.has_more || from.hasMore;
         this.pageSize = ("limit" in from) ? from.limit : ("pageSize" in from) ? from.pageSize : undefined;
         this.order = from.order;
-        this.totalCount = from.total_count || from.totalCount;
+        // default to 0 if either is undefined
+        this.totalCount = from.total_count || from.totalCount || 0;
         this.continuationMarker = from.continuation_marker || from.continuationMarker;
         this.data = data || [];
         // Setting limit for backward compatibility
