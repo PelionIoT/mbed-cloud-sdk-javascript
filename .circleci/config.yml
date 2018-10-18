@@ -98,7 +98,7 @@ jobs:
       - attach_workspace:
           at: ./
       - restore_cache:
-          key: v2-package-cache-{{ checksum "package.json" }}
+          key: v3-package-cache-{{ checksum "package.json" }}
       - run:
           name: Install node and python
           command: |
@@ -106,7 +106,7 @@ jobs:
             sudo apt-get install -y nodejs python3 openssl libffi-dev libssl-dev
       - run:
           name: Update Python Installers
-          command: sudo pip install -U setuptools pip==18.0 pipenv==2018.7.1
+          command: sudo pip install -U setuptools pip==18.0 pipenv
       - run:
           name: Install extra dependencies (python)
           command: pipenv install awscli --python=python3
