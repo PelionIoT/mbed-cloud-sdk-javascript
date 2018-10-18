@@ -98,18 +98,21 @@ jobs:
       - attach_workspace:
           at: ./
       - restore_cache:
-          key: v4-package-cache-{{ checksum "package.json" }}
+          key: v5-package-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install python3
+          command: sudo bash -c "yes | add-apt-repository ppa:jonathonf/python-3.6 && apt-get update && apt-get install -y python3.6"
       - run:
           name: Install node and python
           command: |
             sudo apt-get update -qq
-            sudo apt-get install -y nodejs python3 openssl libffi-dev libssl-dev
+            sudo apt-get install -y nodejs openssl python3.6-dev libffi-dev libssl-dev
       - run:
           name: Update Python Installers
           command: sudo pip install -U setuptools pip pipenv
       - run:
           name: Install extra dependencies (python)
-          command: pipenv install awscli --python=python3
+          command: pipenv install awscli --python=python3.6
       - run:
           name: Install SDK dependencies
           command: npm install
