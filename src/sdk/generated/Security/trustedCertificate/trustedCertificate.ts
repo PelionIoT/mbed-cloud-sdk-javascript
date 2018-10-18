@@ -38,16 +38,6 @@ export class TrustedCertificate extends EntityBase {
     public description?: string;
 
     /**
-     * The type of the certificate.
-     */
-    get developer(): boolean {
-        return privateFunctions.developerCertificateGetter(this);
-    }
-    set developer(value: boolean) {
-        privateFunctions.developerCertificateSetter(this, value);
-    }
-
-    /**
      * Device execution mode where 1 means a developer certificate.
      */
     public deviceExecutionMode?: number;
@@ -56,6 +46,16 @@ export class TrustedCertificate extends EntityBase {
      * If true, signature is not required. Default value false.
      */
     public enrollmentMode?: boolean;
+
+    /**
+     * Whether or not this certificate is a developer certificate.
+     */
+    get isDeveloperCertificate(): boolean {
+        return privateFunctions.isDeveloperCertificateGetter(this);
+    }
+    set isDeveloperCertificate(value: boolean) {
+        privateFunctions.isDeveloperCertificateSetter(this, value);
+    }
 
     /**
      * Issuer of the certificate.
@@ -105,14 +105,13 @@ export class TrustedCertificate extends EntityBase {
      * creates a TrustedCertificate.
      * @returns Promise containing TrustedCertificate.
      */
-    public create(signature?: string): Promise<TrustedCertificate> {
+    public create(): Promise<TrustedCertificate> {
         const body = {
             certificate: this.certificate,
             description: this.description,
             enrollment_mode: this.enrollmentMode,
             name: this.name,
             service: this.service,
-            signature: signature,
             status: this.status,
         };
         return apiWrapper(
@@ -240,14 +239,13 @@ export class TrustedCertificate extends EntityBase {
      * updates a TrustedCertificate.
      * @returns Promise containing TrustedCertificate.
      */
-    public update(signature?: string): Promise<TrustedCertificate> {
+    public update(): Promise<TrustedCertificate> {
         const body = {
             certificate: this.certificate,
             description: this.description,
             enrollment_mode: this.enrollmentMode,
             name: this.name,
             service: this.service,
-            signature: signature,
             status: this.status,
         };
         return apiWrapper(

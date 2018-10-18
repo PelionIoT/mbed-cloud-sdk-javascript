@@ -8,13 +8,20 @@ import { TrustedCertificate } from "../../index";
  */
 export class DeveloperCertificate extends EntityBase {
     public readonly _renames: { [key: string]: string } = {
+        developer_certificate: "certificate",
         developerCertificateId: "id",
+        developer_private_key: "privateKey",
     };
 
     /**
      * account to which the developer certificate belongs
      */
     public accountId?: string;
+
+    /**
+     * PEM format X.509 developer certificate.
+     */
+    public certificate?: string;
 
     /**
      * Creation UTC time RFC3339.
@@ -27,19 +34,14 @@ export class DeveloperCertificate extends EntityBase {
     public description?: string;
 
     /**
-     * PEM format X.509 developer certificate.
+     * Name of the developer certificate.
      */
-    public developerCertificate?: string;
+    public name?: string;
 
     /**
      * PEM format developer private key associated to the certificate.
      */
-    public developerPrivateKey?: string;
-
-    /**
-     * Name of the developer certificate.
-     */
-    public name?: string;
+    public privateKey?: string;
 
     /**
      * Content of the security.c file that will be flashed into the device to provide the security credentials

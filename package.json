@@ -41,7 +41,7 @@
     "compile:integration": "tsc -p integration.tsconfig.json",
     "docs": "npm-run-all clean:docs docs:build",
     "docs:build": "typedoc --options typedoc.json ./src/**/*.ts",
-    "generate": "npm-run-all generate:** lint:fix compile:build",
+    "generate": "npm-run-all generate:** lint:fix compile:node",
     "generate:run": "node generator/build.js",
     "generate:format": "prettier --write --tab-width 4 --print-width 120 --trailing-comma es5 './src/sdk/generated/**/**/*.ts' './src/sdk/generated/*.ts'",
     "integration": "npm-run-all clean:integration compile:integration integration:run",

@@ -22,11 +22,11 @@ export async function subtenantAccountSwitchGet(self: User) {
     return self["getOnAggregator"]();
 }
 
-export function developerCertificateGetter(self: TrustedCertificate) {
+export function isDeveloperCertificateGetter(self: TrustedCertificate) {
     return self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
 }
 
-export function developerCertificateSetter(self: TrustedCertificate, value: boolean): void {
+export function isDeveloperCertificateSetter(self: TrustedCertificate, value: boolean): void {
     self.deviceExecutionMode = value ? 1 : 0;
-    self.developer = value;
+    self.isDeveloperCertificate = value;
 }
