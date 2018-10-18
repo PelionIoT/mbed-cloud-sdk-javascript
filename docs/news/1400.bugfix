@@ -1,0 +1,1 @@
+Stop overriding User-Agent header as this breaks in most browsers.

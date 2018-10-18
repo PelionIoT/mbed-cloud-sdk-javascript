@@ -175,7 +175,8 @@ export class ApiBase {
 
         // set header parameters
         requestOptions.headers.Authorization = this.apiKey;
-        requestOptions.headers["User-Agent"] = userAgent;
+        // don't set user agent. Stops SDK working in most browsers
+        // requestOptions.headers["User-Agent"] = userAgent;
         request.set(requestOptions.headers);
 
         // set request timeout
