@@ -267,7 +267,7 @@ export class SdkApiBase {
                         if (data.data) {
                             Object.keys(data.data).forEach(d => {
                                 if (!(instance instanceof EntityBase)) {
-                                    const t = this.activator(instance);
+                                    const t = this.activator(instance, this.config);
                                     arr.push(t._fromApi(t, data.data[d]));
                                 }
                             });
@@ -281,7 +281,7 @@ export class SdkApiBase {
         }
     }
 
-    public activator<T extends EntityBase>(type: { new(): T; }): T {
-        return new type();
+    public activator<T extends EntityBase>(type: { new(config: Config): T; }, config: Config): T {
+        return new type(config);
     }
 }
