@@ -6,7 +6,7 @@ export DEBUG_COLORS=true
 
 npm run clean:integration
 npm run compile:integration
-node test/integration/build/test/integration/codeCoverage.js &
+node build/test/integration/codeCoverage.js &
 pid=$!
 
 function finish {
