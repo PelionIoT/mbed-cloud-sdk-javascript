@@ -98,7 +98,7 @@ jobs:
       - attach_workspace:
           at: ./
       - restore_cache:
-          key: v0-package-cache-{{ checksum "package.json" }}
+          key: v1-package-cache-{{ checksum "package.json" }}
       - run:
           name: Install node and python
           command: |
