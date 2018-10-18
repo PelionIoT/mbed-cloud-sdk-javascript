@@ -9,21 +9,11 @@ var istanbulInstrument = require("istanbul-lib-instrument");
 
 // Variables
 var root = path.join(__dirname, "../..");
-var builtSdkDir = path.join(root, "../src");
 var projectRoot = path.join(__dirname, "../../../../..");
-var projectRootBuild = path.join(projectRoot, "./lib");
-var projectRootSrc = path.join(projectRoot, "./src");
 var coverageDir = path.join(projectRoot, "coverage");
 var coverageFile = path.join(coverageDir, "int_coverage.json");
 
 var collectCoverageFrom = ["src/**/*.js", "!src/_api/**"];
-
-console.log("root " + root);
-console.log("buildSdkDir " + builtSdkDir);
-console.log("projectRoot " + projectRoot);
-console.log("projectRootBuild " + projectRootBuild);
-console.log("projectRootSrc " + projectRootSrc);
-console.log("coverageDir" + coverageDir);
 
 if (!fs.existsSync(coverageDir)) {
     fs.mkdirSync(coverageDir);
@@ -35,12 +25,8 @@ var reporter = new nyc({
     reporter: ["html", "lcov", "cobertura"]
 });
 
-console.log(collectCoverageFrom);
-
 // Determine files to cover
 var coverageFiles = expandFiles(collectCoverageFrom);
-
-console.log(coverageFiles);
 
 function expandFiles(patterns) {
     var excludes = [];
@@ -81,7 +67,6 @@ function instrumentCode(code, sourceFile) {
 
     if ((match = sourceMapRegEx.exec(lastLine))) {
         if (match[1]) { //It is a data URI.
-            console.log("what???");
             sourceMap = JSON.parse(new Buffer(match[2], "base64").toString("utf8"));
         } else {
             sourceMap = JSON.parse(fs.readFileSync(sourceFile.filename + ".map", {
@@ -91,9 +76,7 @@ function instrumentCode(code, sourceFile) {
     }
 
     try {
-        var x = instrumenter.instrumentSync(code, path.normalize(sourceFile.filename), sourceMap);
-        // console.log(x);
-        return x;
+        return instrumenter.instrumentSync(code, path.normalize(sourceFile.filename), sourceMap);
     } catch (error) {
         console.log(error);
         return code;
