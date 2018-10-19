@@ -1,2 +1,2 @@
 towncrier==18.5.0
--e git+ssh://git@github.com/ARMmbed/autoversion.git&egg=auto_version
+-e git+ssh://git@github.com/ARMmbed/autoversion.git#egg=auto_version
