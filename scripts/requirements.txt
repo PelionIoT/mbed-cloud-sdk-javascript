@@ -1,2 +1,2 @@
 towncrier==18.5.0
--e git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git@master#subdirectory=scripts/auto_version/&egg=auto_version
+-e git+git@github.com:ARMmbed/autoversion.git&egg=auto_version
