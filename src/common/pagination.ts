@@ -48,7 +48,7 @@ export class Paginator<T, U extends ListOptions> {
     private listOptions: U;
     private currentPageIndex: number;
     private currentPageData: ListResponse<T>;
-    private hasBrowsedFullCollection: boolean;
+    private isFirstRequest: boolean;
     private currentElementIndex: number;
     private collectionTotalCount: number;
 
@@ -77,7 +77,7 @@ export class Paginator<T, U extends ListOptions> {
     private reset(): void {
         this.currentPageIndex = -1;
         this.currentElementIndex = -1;
-        this.hasBrowsedFullCollection = false;
+        this.isFirstRequest = true;
         this.currentPageData = null;
     }
 
@@ -103,7 +103,8 @@ export class Paginator<T, U extends ListOptions> {
         if (this.maxResults && this.pageSize() * (this.currentPageIndex + 1) > this.maxResults) {
             return false;
         }
-        return this.currentPageData ? this.currentPageData.hasMore : !this.hasBrowsedFullCollection;
+        const nextPage = this.currentPageData ? this.currentPageData.hasMore : this.isFirstRequest;
+        return nextPage;
     }
 
     private nextPage(): Promise<ListResponse<T>> {
@@ -112,14 +113,22 @@ export class Paginator<T, U extends ListOptions> {
             const after: string = this.currentPageIndex < 0 ? null : this.fetchNextPageCursor(this.currentPageData);
             const newPageOptions: U = Object.create(this.listOptions || null);
             newPageOptions.after = after;
-            const newPage = this.pageRequester(newPageOptions);
-            return newPage.then( page => { this.setCurrentPage(page); return page; }).then( page => {
-                if (page && page.data.length !== 0) {
-                    return new ListResponse<T>(page, page.data.slice(0, this.remainingElementsNumber()));
-                } else {
-                    return null;
-                }
-            });
+            return this.pageRequester(newPageOptions)
+                .then(page => {
+                    this.setCurrentPage(page);
+                    this.isFirstRequest = false;
+                    return page;
+                })
+                .then(page => {
+                    if (page && page.data.length !== 0) {
+                        return new ListResponse<T>(page, page.data.slice(0, this.remainingElementsNumber()));
+                    } else {
+                        return null;
+                    }
+                })
+                .catch(e => {
+                    throw e;
+                });
         } else {
             return Promise.resolve(null);
         }
@@ -142,8 +151,14 @@ export class Paginator<T, U extends ListOptions> {
             } else {
                 newPageOptions.include = [ "totalCount" ];
             }
-            const newPage = this.pageRequester(newPageOptions);
-            return newPage.then( page => { this.collectionTotalCount = page ? page.totalCount : undefined; return this.collectionTotalCount; });
+            return this.pageRequester(newPageOptions)
+                .then(page => {
+                    this.collectionTotalCount = page ? page.totalCount : undefined;
+                    return this.collectionTotalCount;
+                })
+                .catch(e => {
+                    throw e;
+                });
         }
     }
     /**
