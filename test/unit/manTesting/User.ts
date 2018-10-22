@@ -4,29 +4,52 @@ describe("test suntenants", () => {
 
     it("should get user", async () => {
 
-        const myAccount = await new MyAccount().get();
+        try {
+            const myAccount = await new MyAccount().get();
+            // myAccount.id = "";
 
-        // tslint:disable-next-line:no-console
-        console.log(myAccount);
+            const user = new User();
+            user.accountId = myAccount.id;
+            // user.id = "0160220bab144212f02c240e00000000";
+            // await user.get();
+            // tslint:disable-next-line:no-console
+            // console.log(user);
+            // user.accountId = myAccount.id;
 
-        const newUser = new User();
-        newUser.accountId = myAccount.id;
-        newUser.username = "alexSubtenantTest";
-        newUser.email = "alex@alexlogan.io";
-        newUser.fullName = "Alex Logan";
+            // const allUsers = await user.list().all();
+            const allAggUsers = await user.listSubtenant().all();
+            // tslint:disable-next-line:no-console
+            console.log(allAggUsers);
 
-        await newUser.createOnSubtenant();
+            // expect(allAggUsers).toEqual(allUsers);
+        } catch (e) {
+            // tslint:disable-next-line:no-console
+            console.log(e);
+        }
 
-        // tslint:disable-next-line:no-console
-        console.log(newUser);
+        // const myAccount = await new MyAccount().get();
 
-        await newUser.delete();
+        // // tslint:disable-next-line:no-console
+        // console.log(myAccount);
 
-        const user = await new User().list().first();
+        // const newUser = new User();
+        // newUser.accountId = myAccount.id;
+        // newUser.username = "alexSubtenantTest";
+        // newUser.email = "alex@alexlogan.io";
+        // newUser.fullName = "Alex Logan";
 
-        // tslint:disable-next-line:no-console
-        console.log(await user.getOnSubtenant());
+        // await newUser.createOnSubtenant();
 
-    }, 10000);
+        // // tslint:disable-next-line:no-console
+        // console.log(newUser);
+
+        // await newUser.delete();
+
+        // const user = await new User().list().first();
+
+        // // tslint:disable-next-line:no-console
+        // console.log(await user.getOnSubtenant());
+
+    }, 100000);
 
 });
