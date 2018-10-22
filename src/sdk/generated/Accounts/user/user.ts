@@ -165,7 +165,7 @@ export class User extends EntityBase {
      * createOnAggregators a User.
      * @returns Promise containing User.
      */
-    protected createOnAggregator(action?: string): Promise<User> {
+    public createOnAggregator(action?: string): Promise<User> {
         const body = {
             address: this.address,
             email: this.email,
@@ -202,7 +202,7 @@ export class User extends EntityBase {
      * createOnSubtenants a User.
      * @returns Promise containing User.
      */
-    protected createOnSubtenant(action?: string): Promise<User> {
+    public createOnSubtenant(action?: string): Promise<User> {
         const body = {
             address: this.address,
             email: this.email,
@@ -275,7 +275,7 @@ export class User extends EntityBase {
      * getOnAggregators a User.
      * @returns Promise containing User.
      */
-    protected getOnAggregator(): Promise<User> {
+    public getOnAggregator(): Promise<User> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<User>(
@@ -300,7 +300,7 @@ export class User extends EntityBase {
      * getOnSubtenants a User.
      * @returns Promise containing User.
      */
-    protected getOnSubtenant(): Promise<User> {
+    public getOnSubtenant(): Promise<User> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<User>(
