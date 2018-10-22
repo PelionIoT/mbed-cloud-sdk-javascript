@@ -165,6 +165,14 @@ export class ConnectApi extends EventEmitter {
         return path;
     }
 
+    private reverseNormalizePath(path?: string): string {
+        if (path && path.charAt(0) !== "/") {
+            return `/${path}`;
+        }
+
+        return path;
+    }
+
     private handleAsync<T>(data: any, done: (error: SDKError, result: T) => void): void {
         if (data && data[ConnectApi.ASYNC_KEY]) {
             this._asyncFns[data[ConnectApi.ASYNC_KEY]] = done;
@@ -185,7 +193,7 @@ export class ConnectApi extends EventEmitter {
      *
      * ```JavaScript
      * var deviceID = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * var payload = "Q2hhbmdlIG1lIQ==";
      *
      * var notification = {notifications: [{ep: deviceID, path: resourceURI, payload: payload}]};
@@ -934,7 +942,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.getResource(deviceId, resourceURI)
      * .then(resource => {
      *     // Utilize resource here
@@ -955,7 +963,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.getResource(deviceId, resourceURI, function(error, resource) {
      *     if (error) throw error;
      *     // Utilize resource here
@@ -993,7 +1001,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.getResourceValue(deviceId, resourceURI)
      * .then(data => {
      *     // Utilize data here
@@ -1019,7 +1027,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.getResourceValue(deviceId, resourceURI, function(error, data) {
      *     if (error) throw error;
      *     // Utilize data here
@@ -1046,6 +1054,7 @@ export class ConnectApi extends EventEmitter {
             mimeType = null;
         }
 
+        resourcePath = this.reverseNormalizePath(resourcePath);
         const asyncId = generateId();
 
         return apiWrapper(resultsFn => {
@@ -1071,7 +1080,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * var payload = "ChangeMe!";
      * connect.setResourceValue(deviceId, resourceURI, payload)
      * .then(response => {
@@ -1098,7 +1107,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * var payload = "ChangeMe!";
      * connect.setResourceValue(deviceId, resourceURI, payload, function(error, response) {
      *     if (error) throw error;
@@ -1145,7 +1154,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.executeResource(deviceId, resourceURI)
      * .then(response => {
      *     // Utilize response here
@@ -1171,7 +1180,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.executeResource(deviceId, resourceURI, function(error, response) {
      *     if (error) throw error;
      *     // Utilize response here
@@ -1219,7 +1228,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.getResourceSubscription(deviceId, resourceURI)
      * .then(res_exists => {
      *     // Utilize res_exists here
@@ -1240,7 +1249,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.getResourceSubscription(deviceId, resourceURI, function(error, res_exists) {
      *     if (error) throw error;
      *     // Utilize res_exists here
@@ -1270,7 +1279,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.addResourceSubscription(deviceId, resourceURI, data => {
      *     // Utilize data here - which is the updated value in resourceURI
      * })
@@ -1296,7 +1305,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.addResourceSubscription(deviceId, resourceURI, function(data) {
      *      // Utilize data here - which is the updated value in resourceURI
      * }, function(error, asyncId) {
@@ -1336,7 +1345,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.deleteResourceSubscription(deviceId, resourceURI)
      * .then(response => {
      *     // Utilize response here
@@ -1359,7 +1368,7 @@ export class ConnectApi extends EventEmitter {
      * Example:
      * ```JavaScript
      * var deviceId = "015bb66a92a30000000000010010006d";
-     * var resourceURI = "3200/0/5500";
+     * var resourceURI = "/3200/0/5500";
      * connect.deleteResourceSubscription(deviceId, resourceURI, function(error, response) {
      *     if (error) throw error;
      *     // Utilize response here
