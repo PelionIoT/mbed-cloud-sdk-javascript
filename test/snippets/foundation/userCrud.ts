@@ -15,9 +15,9 @@
 * limitations under the License.
 */
 
-import { User, LoginHistory, PolicyGroup } from "../../../../src/sdk/entities";
-import { Config } from "../../../../src/sdk";
-import { AccountManagementApi } from "../../../../src/accountManagement/accountManagementApi";
+import { User, LoginHistory, PolicyGroup } from "../../../src/sdk/entities";
+import { Config } from "../../../src/sdk";
+import { AccountManagementApi } from "../../../src/accountManagement/accountManagementApi";
 
 describe("userCrud", () => {
 

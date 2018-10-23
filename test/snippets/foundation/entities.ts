@@ -15,9 +15,9 @@
 * limitations under the License.
 */
 
-import { MyAccount, ApiKey } from "../../../../src/sdk/entities";
-import { Config, SDK } from "../../../../src/sdk";
-import { SDKError } from "../../../../src/common/sdkError";
+import { MyAccount, ApiKey } from "../../../src/sdk/entities";
+import { Config, SDK } from "../../../src/sdk";
+import { SDKError } from "../../../src/common/sdkError";
 
 describe("entities", () => {
     test("quick", async () => {

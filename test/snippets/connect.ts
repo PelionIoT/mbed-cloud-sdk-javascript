@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { ConnectApi } from "../../../src/connect/connectApi";
+import { ConnectApi } from "../../src/connect/connectApi";
 
 describe("connectSnippet", () => {
 

@@ -1,4 +1,4 @@
-import { TrustedCertificate, DeveloperCertificate } from "../../../src/sdk/entities";
+import { TrustedCertificate, DeveloperCertificate } from "../../src/sdk/entities";
 
 describe("certificates", () => {
 
