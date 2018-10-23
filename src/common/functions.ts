@@ -291,3 +291,7 @@ export function dateToBillingMonth(date: Date) {
     // javascript uses 0-indexed months
     return `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}`;
 }
+
+export function isThisNode(): boolean {
+    return typeof window === "undefined" && typeof require === "function";
+}

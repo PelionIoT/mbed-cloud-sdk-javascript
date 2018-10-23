@@ -21,6 +21,7 @@ import dotenv = require("dotenv");
 
 import { SDKError } from "./sdkError";
 import { ConnectionOptions } from "./interfaces";
+import { isThisNode } from "./functions";
 
 // tslint:disable-next-line:no-var-requires
 const packageInformation = require("../../package.json");
@@ -80,8 +81,7 @@ export class ApiBase {
      */
     private static isFileParam(param: any) {
         // fs.ReadStream in Node.js (but not in runtime like browserify)
-        if (typeof window === "undefined" &&
-            typeof require === "function" &&
+        if (isThisNode() &&
             require("fs") &&
             param instanceof require("fs").ReadStream) {
             return true;
@@ -176,7 +176,7 @@ export class ApiBase {
         // set header parameters
         requestOptions.headers.Authorization = this.apiKey;
         // only override in node
-        if (typeof window === "undefined") {
+        if (isThisNode()) {
             requestOptions.headers["User-Agent"] = userAgent;
         }
 
