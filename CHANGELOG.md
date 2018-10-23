@@ -11,6 +11,18 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.0.2 (2018-10-23)
+==================
+
+### Bugfixes
+
+- Stop overriding User-Agent header as this breaks in most browsers. (#1400)
+
+- Default value of total count to 0 in the constructor (#1715)
+
+- Add leading / to ConnectAPI inline documentation (#1782)
+
+
 2.0.1 (2018-09-06)
 ==================
 
