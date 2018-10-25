@@ -9,7 +9,6 @@ import { TrustedCertificate } from "../../index";
 export class DeveloperCertificate extends EntityBase {
     public readonly _renames: { [key: string]: string } = {
         developer_certificate: "certificate",
-        developerCertificateId: "id",
         developer_private_key: "privateKey",
     };
 

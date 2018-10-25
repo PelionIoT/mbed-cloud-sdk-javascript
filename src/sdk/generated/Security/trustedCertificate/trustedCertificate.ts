@@ -13,10 +13,6 @@ import { TrustedCertificateStatusEnum } from "../../enums";
  * TrustedCertificate
  */
 export class TrustedCertificate extends EntityBase {
-    public readonly _renames: { [key: string]: string } = {
-        "cert-id": "id",
-    };
-
     /**
      * The UUID of the account.
      */

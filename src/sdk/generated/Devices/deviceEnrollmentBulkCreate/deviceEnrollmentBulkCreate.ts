@@ -2,12 +2,12 @@ import { ReadStream } from "fs";
 import { EntityBase } from "../../../common/entityBase";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
-import { EnrollmentBulkDeleteTaskStatusEnum } from "../../enums";
+import { DeviceEnrollmentBulkCreateStatusEnum } from "../../enums";
 
 /**
- * EnrollmentBulkDeleteTask
+ * DeviceEnrollmentBulkCreate
  */
-export class EnrollmentBulkDeleteTask extends EntityBase {
+export class DeviceEnrollmentBulkCreate extends EntityBase {
     /**
      * ID
      */
@@ -46,7 +46,7 @@ export class EnrollmentBulkDeleteTask extends EntityBase {
     /**
      * The state of the process is &#39;new&#39; at the time of creation. If the creation is still in progress, the state is shown as &#39;processing&#39;. When the request has been fully processed, the state changes to &#39;completed&#39;.
      */
-    public status?: EnrollmentBulkDeleteTaskStatusEnum;
+    public status?: DeviceEnrollmentBulkCreateStatusEnum;
 
     /**
      * Total number of enrollment identities found in the input CSV.
@@ -58,15 +58,15 @@ export class EnrollmentBulkDeleteTask extends EntityBase {
     }
 
     /**
-     * deletes a EnrollmentBulkDeleteTask.
-     * @returns Promise containing EnrollmentBulkDeleteTask.
+     * creates a DeviceEnrollmentBulkCreate.
+     * @returns Promise containing DeviceEnrollmentBulkCreate.
      */
-    public delete(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<EnrollmentBulkDeleteTask> {
+    public create(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<DeviceEnrollmentBulkCreate> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<EnrollmentBulkDeleteTask>(
+                this.client._CallApi<DeviceEnrollmentBulkCreate>(
                     {
-                        url: "/v3/device-enrollments-bulk-deletes",
+                        url: "/v3/device-enrollments-bulk-uploads",
                         method: "POST",
                         formParams: {
                             enrollment_identities: enrollmentIdentities,
@@ -84,15 +84,15 @@ export class EnrollmentBulkDeleteTask extends EntityBase {
     }
 
     /**
-     * gets a EnrollmentBulkDeleteTask.
-     * @returns Promise containing EnrollmentBulkDeleteTask.
+     * gets a DeviceEnrollmentBulkCreate.
+     * @returns Promise containing DeviceEnrollmentBulkCreate.
      */
-    public get(): Promise<EnrollmentBulkDeleteTask> {
+    public get(): Promise<DeviceEnrollmentBulkCreate> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<EnrollmentBulkDeleteTask>(
+                this.client._CallApi<DeviceEnrollmentBulkCreate>(
                     {
-                        url: "/v3/device-enrollments-bulk-deletes/{id}",
+                        url: "/v3/device-enrollments-bulk-uploads/{id}",
                         method: "GET",
                         pathParams: {
                             id: this.id,

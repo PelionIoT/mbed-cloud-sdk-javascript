@@ -10,10 +10,6 @@ import { CertificateIssuerIssuerTypeEnum } from "../../enums";
  * CertificateIssuer
  */
 export class CertificateIssuer extends EntityBase {
-    public readonly _renames: { [key: string]: string } = {
-        "certificate-issuer-id": "id",
-    };
-
     /**
      * Creation UTC time RFC3339.
      */

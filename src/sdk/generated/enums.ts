@@ -6,13 +6,15 @@ export type CertificateEnrollmentEnrollResultEnum = "failure" | "forbidden" | "n
 
 export type CertificateEnrollmentEnrollStatusEnum = "completed" | "new";
 
+export type CertificateEnrollmentIncludeEnum = "total_count";
+
+export type CertificateEnrollmentOrderEnum = "ASC" | "DESC";
+
 export type CertificateIssuerIssuerTypeEnum = "CFSSL_AUTH" | "GLOBAL_SIGN";
 
-export type EnrollmentBulkCreateTaskStatusEnum = "completed" | "new" | "processing";
+export type DeviceEnrollmentBulkCreateStatusEnum = "completed" | "new" | "processing";
 
-export type EnrollmentBulkDeleteTaskStatusEnum = "completed" | "new" | "processing";
-
-export type EnrollmentClaimOrderEnum = "ASC" | "DESC";
+export type DeviceEnrollmentOrderEnum = "ASC" | "DESC";
 
 export type MyAccountMfaStatusEnum = "enforced" | "optional";
 

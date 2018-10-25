@@ -11,10 +11,6 @@ import { CertificateEnrollmentEnrollStatusEnum } from "../../enums";
  * CertificateEnrollment
  */
 export class CertificateEnrollment extends EntityBase {
-    public readonly _renames: { [key: string]: string } = {
-        "certificate-enrollment-id": "certificateEnrollmentId",
-    };
-
     /**
      * The certificate name.
      */
@@ -40,6 +36,11 @@ export class CertificateEnrollment extends EntityBase {
      */
     public enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
 
+    /**
+     * Update UTC time RFC3339.
+     */
+    public updatedAt?: Date;
+
     constructor(config?: Config) {
         super(config);
     }
@@ -48,7 +49,7 @@ export class CertificateEnrollment extends EntityBase {
      * gets a CertificateEnrollment.
      * @returns Promise containing CertificateEnrollment.
      */
-    public get(certificateEnrollmentId: string): Promise<CertificateEnrollment> {
+    public get(): Promise<CertificateEnrollment> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<CertificateEnrollment>(
@@ -56,7 +57,7 @@ export class CertificateEnrollment extends EntityBase {
                         url: "/v3/certificate-enrollments/{certificate-enrollment-id}",
                         method: "GET",
                         pathParams: {
-                            "certificate-enrollment-id": certificateEnrollmentId,
+                            "certificate-enrollment-id": this.id,
                         },
                     },
                     this,

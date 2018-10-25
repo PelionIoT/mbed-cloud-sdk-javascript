@@ -9,10 +9,6 @@ import { apiWrapper } from "../../../../common/functions";
  * CertificateIssuerConfig
  */
 export class CertificateIssuerConfig extends EntityBase {
-    public readonly _renames: { [key: string]: string } = {
-        "certificate-issuer-configuration-id": "id",
-    };
-
     /**
             * The ID of the certificate issuer.
 Null if Device Management internal HSM is used.
