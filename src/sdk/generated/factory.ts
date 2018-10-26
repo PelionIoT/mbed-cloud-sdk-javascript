@@ -4,8 +4,10 @@ import { CertificateEnrollment } from "./index";
 import { CertificateIssuer } from "./index";
 import { CertificateIssuerConfig } from "./index";
 import { DeveloperCertificate } from "./index";
+import { Device } from "./index";
 import { DeviceEnrollment } from "./index";
 import { DeviceEnrollmentBulkCreate } from "./index";
+import { DeviceEvents } from "./index";
 import { MyAccount } from "./index";
 import { MyApiKey } from "./index";
 import { PolicyGroup } from "./index";
@@ -33,11 +35,17 @@ export class Factory {
     public DeveloperCertificate(): DeveloperCertificate {
         return new DeveloperCertificate(this._config);
     }
+    public Device(): Device {
+        return new Device(this._config);
+    }
     public DeviceEnrollment(): DeviceEnrollment {
         return new DeviceEnrollment(this._config);
     }
     public DeviceEnrollmentBulkCreate(): DeviceEnrollmentBulkCreate {
         return new DeviceEnrollmentBulkCreate(this._config);
+    }
+    public DeviceEvents(): DeviceEvents {
+        return new DeviceEvents(this._config);
     }
     public MyAccount(): MyAccount {
         return new MyAccount(this._config);

@@ -12,9 +12,15 @@ export type CertificateEnrollmentOrderEnum = "ASC" | "DESC";
 
 export type CertificateIssuerIssuerTypeEnum = "CFSSL_AUTH" | "GLOBAL_SIGN";
 
+export type DeviceDeployedStateEnum = "development" | "production";
+
 export type DeviceEnrollmentBulkCreateStatusEnum = "completed" | "new" | "processing";
 
 export type DeviceEnrollmentOrderEnum = "ASC" | "DESC";
+
+export type DeviceMechanismEnum = "connector" | "direct";
+
+export type DeviceStateEnum = "bootstrapped" | "cloud_enrolling" | "deregistered" | "registered" | "unenrolled";
 
 export type MyAccountMfaStatusEnum = "enforced" | "optional";
 

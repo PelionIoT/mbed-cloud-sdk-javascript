@@ -108,7 +108,9 @@ export class MyApiKey extends EntityBase {
                 },
                 (data: ListResponse<PolicyGroup>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);

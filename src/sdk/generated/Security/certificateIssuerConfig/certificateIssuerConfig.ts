@@ -138,7 +138,9 @@ Null if Device Management internal HSM is used.
                 },
                 (data: ListResponse<CertificateIssuerConfig>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);

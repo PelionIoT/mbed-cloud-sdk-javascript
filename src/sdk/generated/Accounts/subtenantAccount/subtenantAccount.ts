@@ -250,7 +250,9 @@ export class SubtenantAccount extends EntityBase {
                 },
                 (data: ListResponse<ApiKey>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);
@@ -365,7 +367,9 @@ export class SubtenantAccount extends EntityBase {
                 },
                 (data: ListResponse<PolicyGroup>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);
@@ -393,7 +397,9 @@ export class SubtenantAccount extends EntityBase {
                 },
                 (data: ListResponse<SubtenantAccount>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);
@@ -474,7 +480,9 @@ export class SubtenantAccount extends EntityBase {
                 },
                 (data: ListResponse<User>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);

@@ -94,7 +94,7 @@ entities.forEach(entity => {
     // get types
     const types = {};
     entity.fields.forEach(f => {
-        const t = f.enum ? getEnumType(f, enums) : getType(f.format) || getType(f.type, f.items) || "any";
+        const t = (f.enum && f.enum_reference) ? getEnumType(f, enums) : getType(f.format) || getType(f.type, f.items) || "any";
         const k = snakeToCamel(f._key)
         types[k] = t;
     });

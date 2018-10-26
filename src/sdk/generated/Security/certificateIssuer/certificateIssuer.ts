@@ -153,7 +153,9 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
                 },
                 (data: ListResponse<CertificateIssuer>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);

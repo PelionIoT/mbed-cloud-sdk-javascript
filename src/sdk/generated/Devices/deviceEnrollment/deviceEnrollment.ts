@@ -141,7 +141,9 @@ export class DeviceEnrollment extends EntityBase {
                 },
                 (data: ListResponse<DeviceEnrollment>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);

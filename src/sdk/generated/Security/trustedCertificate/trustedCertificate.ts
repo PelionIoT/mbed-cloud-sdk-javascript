@@ -225,7 +225,9 @@ export class TrustedCertificate extends EntityBase {
                 },
                 (data: ListResponse<TrustedCertificate>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);
