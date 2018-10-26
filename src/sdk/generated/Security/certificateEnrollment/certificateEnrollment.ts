@@ -57,7 +57,7 @@ export class CertificateEnrollment extends EntityBase {
                         url: "/v3/certificate-enrollments/{certificate-enrollment-id}",
                         method: "GET",
                         pathParams: {
-                            "device-id": this.id,
+                            "certificate-enrollment-id": this.id,
                         },
                     },
                     this,
