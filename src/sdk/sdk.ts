@@ -1,6 +1,7 @@
 import { Config } from "./client/config";
 import { Factory } from "./entities";
 import { ConnectionOptions } from "../common/interfaces";
+import { Client } from "./client/client";
 
 export class SDK {
     private static _config: Config;
@@ -8,6 +9,8 @@ export class SDK {
     private _instanceConfig: Config;
 
     public entities: Factory;
+
+    public client: Client;
 
     constructor(config?: Config | ConnectionOptions) {
         if (config) {
@@ -19,6 +22,7 @@ export class SDK {
         }
 
         this.entities = new Factory(this.getConfig());
+        this.client = new Client(this.getConfig());
     }
 
     public static get config(): Config {

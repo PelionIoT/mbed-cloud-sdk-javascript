@@ -21,16 +21,24 @@ import superagent = require("superagent");
 import { SDKError } from "../../common/sdkError";
 import { Config } from "./config";
 import { EntityBase } from "../common/entityBase";
+import { SDK } from "../sdk";
+import { Version } from "../../version";
 
 // tslint:disable-next-line:no-var-requires
-const packageInformation = require("../../../package.json");
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 const JSON_REGEX = /^application\/json(;.*)?$/i;
 const MIME_REGEX = /^text\/plain(;.*)?$/i;
-const VERSION = packageInformation.is_published ? packageInformation.version : `${packageInformation.version}+dev`;
-const userAgent = `${packageInformation.name}-javascript / ${VERSION}`;
+const VERSION = Version.isPublished ? Version.version : `${Version.version}+dev`;
+const userAgent = `${Version.packageName}-javascript / ${VERSION}`;
 
 export class SdkApiBase {
+
+    private config: Config;
+
+    constructor(config?: Config) {
+        this.config = config || SDK.config;
+    }
+
     /**
      * Normalizes parameter values:
      * <ul>
@@ -110,13 +118,13 @@ export class SdkApiBase {
 
     private static chooseType(types: Array<string>, defaultType: string = null): string {
         // No type
-        if (!types.length) return defaultType;
+        if (!types.length) { return defaultType; }
 
         // Default to first entry or default
         let result = types[0] || defaultType;
 
         // Find first preferred type
-        types.some(type => {
+        types.some( type => {
             if (MIME_REGEX.test(type)) {
                 result = type;
                 return true;
@@ -136,7 +144,7 @@ export class SdkApiBase {
 
     private static buildUrl(url: string, pathParams: { [key: string]: string }): string {
         if (pathParams) {
-            Object.keys(pathParams).forEach(param => {
+            Object.keys(pathParams).forEach( param => {
                 url = url.replace(`{${param}}`, pathParams[param]);
             });
         }
@@ -144,29 +152,25 @@ export class SdkApiBase {
         return url;
     }
 
-    protected static request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, useFormData: boolean, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean, config?: Config }, instance?: T, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
-
+    protected request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean }, instance?: T | { new(): T; }, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
         const requestOptions: { [key: string]: any } = {};
         requestOptions.timeout = 60000;
         requestOptions.method = options.method;
         requestOptions.query = SdkApiBase.normalizeParams(options.query);
         requestOptions.headers = SdkApiBase.normalizeParams(options.headers);
         requestOptions.acceptHeader = SdkApiBase.chooseType(options.acceptTypes);
-        requestOptions.url = this.buildUrl(options.url, options.pathParams).replace(/([:])?\/+/g, ($0, $1) => {
+        requestOptions.url = SdkApiBase.buildUrl(options.url, options.pathParams).replace(/([:])?\/+/g, ($0, $1) => {
             return $1 ? $0 : "/";
         });
         requestOptions.formParams = options.formParams || {};
 
-        const request = superagent(requestOptions.method, options.config.host + requestOptions.url);
+        const request = superagent(requestOptions.method, this.config.host + requestOptions.url);
 
         // set query parameters
         request.query(requestOptions.query);
 
-        let apiKey: string;
-        if (options.config.apiKey.substr(0, 6).toLowerCase() !== "bearer") apiKey = `Bearer ${options.config.apiKey}`;
-
         // set header parameters
-        requestOptions.headers.Authorization = apiKey;
+        requestOptions.headers.Authorization = this.config.apiKey;
         requestOptions.headers["User-Agent"] = userAgent;
         request.set(requestOptions.headers);
 
@@ -180,22 +184,16 @@ export class SdkApiBase {
 
         let body = null;
         if (Object.keys(requestOptions.formParams).length > 0) {
-            if (options.useFormData) {
-                const formParams = SdkApiBase.normalizeParams(requestOptions.formParams);
-                for (const key in formParams) {
-                    if (formParams.hasOwnProperty(key)) {
-                        if (SdkApiBase.isFileParam(formParams[key])) {
-                            // file field
-                            request.attach(key, formParams[key]);
-                        } else {
-                            request.field(key, formParams[key]);
-                        }
+            const formParams = SdkApiBase.normalizeParams(requestOptions.formParams);
+            for (const key in formParams) {
+                if (formParams.hasOwnProperty(key)) {
+                    if (SdkApiBase.isFileParam(formParams[key])) {
+                        // file field
+                        request.attach(key, formParams[key]);
+                    } else {
+                        request.field(key, formParams[key]);
                     }
                 }
-            } else {
-                requestOptions.contentType = requestOptions.contentType || "application/x-www-form-urlencoded";
-                request.type(requestOptions.contentType);
-                request.send(SdkApiBase.normalizeParams(requestOptions.formParams));
             }
         } else if (options.body) {
 
@@ -208,7 +206,7 @@ export class SdkApiBase {
             // Remove empty or undefined json parameters
             if (body && body.constructor === {}.constructor && JSON_REGEX.test(requestOptions.contentType)) {
                 body = Object.keys(body).reduce((val, key) => {
-                    if (body[key] !== null && body[key] !== undefined) val[key] = body[key];
+                    if (body[key] !== null && body[key] !== undefined) { val[key] = body[key]; }
                     return val;
                 }, {});
             }
@@ -216,7 +214,7 @@ export class SdkApiBase {
             request.send(body);
         }
 
-        if (body) SdkApiBase.debugLog("body", body);
+        if (body) { SdkApiBase.debugLog("body", body); }
 
         request.end((error, response) => {
             this.complete(error, response, requestOptions.acceptHeader, options.paginated, instance, callback);
@@ -225,7 +223,7 @@ export class SdkApiBase {
         return request;
     }
 
-    protected static complete<T extends EntityBase>(error: any, response: any, acceptHeader: string, paginated: boolean, instance?: T, callback?: (sdkError: SDKError, data) => any) {
+    protected complete<T extends EntityBase>(error: any, response: any, acceptHeader: string, paginated: boolean, instance?: T | { new(): T; }, callback?: (sdkError: SDKError, data) => any) {
         let sdkError = null;
 
         if (error) {
@@ -234,10 +232,10 @@ export class SdkApiBase {
             let details = "";
 
             if (response) {
-                if (response.error) message = response.error.message;
+                if (response.error) { message = response.error.message; }
                 if (response.body && response.body.message) {
                     message = response.body.message;
-                    if (message.error) message = message.error;
+                    if (message.error) { message = message.error; }
                 }
                 innerError = response.error || error;
                 details = response.body || response.text;
@@ -257,19 +255,23 @@ export class SdkApiBase {
             if (data && data.constructor === {}.constructor && JSON_REGEX.test(acceptHeader)) {
                 data = JSON.parse(JSON.stringify(data), (_key, value) => {
                     // revive a date object
-                    if (DATE_REGEX.test(value)) return new Date(value);
+                    if (DATE_REGEX.test(value)) { return new Date(value); }
                     return value;
                 });
 
                 if (instance) {
-                    if (!paginated) {
+                    if (!paginated && instance instanceof EntityBase) {
                         data = instance._fromApi(instance, data);
                     } else {
                         const arr: Array<T> = [];
-                        Object.keys(data.data).forEach(d => {
-                            const inst = instance._fromApi(instance, data.data[d]);
-                            arr.push(inst);
-                        });
+                        if (data.data) {
+                            Object.keys(data.data).forEach(d => {
+                                if (!(instance instanceof EntityBase)) {
+                                    const t = this.activator(instance, this.config);
+                                    arr.push(t._fromApi(t, data.data[d]));
+                                }
+                            });
+                        }
                         data.data = arr;
                     }
                 }
@@ -277,5 +279,9 @@ export class SdkApiBase {
 
             callback(sdkError, data);
         }
+    }
+
+    public activator<T extends EntityBase>(type: { new(config: Config): T; }, config: Config): T {
+        return new type(config);
     }
 }

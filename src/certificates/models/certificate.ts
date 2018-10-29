@@ -110,7 +110,7 @@ export class Certificate {
      */
     public update(signature: string, callback: CallbackFn<Certificate>): void;
     public update(signature: string, callback?: CallbackFn<Certificate>): Promise<Certificate> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.updateCertificate({
                 id:                 this.id,
                 signature:          signature,
@@ -118,7 +118,7 @@ export class Certificate {
                 status:             this.status,
                 certificateData:    this.certificateData,
                 name:               this.name,
-                description:        this.description
+                description:        this.description,
             }, done);
         }, callback);
     }
@@ -134,7 +134,7 @@ export class Certificate {
      */
     public delete(callback?: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.deleteCertificate(this.id, done);
         }, callback);
     }

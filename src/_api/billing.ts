@@ -727,7 +727,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<ReportResponse>({
@@ -773,7 +773,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<BillingReportRawDataResponse>({
@@ -819,7 +819,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<BillingReportRawDataResponse>({
@@ -854,7 +854,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<ServicePackageQuota>({
@@ -897,7 +897,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<ServicePackageQuotaHistoryResponse>({
@@ -932,7 +932,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<ServicePackagesResponse>({

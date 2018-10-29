@@ -57,7 +57,7 @@ export class Query {
      */
     public update(callback: CallbackFn<Query>): void;
     public update(callback?: CallbackFn<Query>): Promise<Query> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.updateQuery(this, done);
         }, callback);
     }
@@ -73,7 +73,7 @@ export class Query {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.deleteQuery(this.id, done);
         }, callback);
     }

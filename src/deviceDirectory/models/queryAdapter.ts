@@ -44,14 +44,14 @@ export class QueryAdapter {
     public static addMap(from: AddQueryObject): apiQueryAdd {
         return {
             name:           from.name,
-            query:          encodeFilter(from.filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null
+            query:          encodeFilter(from.filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null,
         };
     }
 
     public static updateMap(from: UpdateQueryObject): apiQueryUpdate {
         return {
             name:           from.name,
-            query:          encodeFilter(from.filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null
+            query:          encodeFilter(from.filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS) || null,
         };
     }
 }

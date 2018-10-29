@@ -558,12 +558,12 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "multipart/form-data"
+            "multipart/form-data",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<FirmwareImage>({
@@ -606,7 +606,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<null>({
@@ -661,7 +661,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<FirmwareImagePage>({
@@ -704,7 +704,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<FirmwareImage>({
@@ -771,12 +771,12 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "multipart/form-data"
+            "multipart/form-data",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<FirmwareManifest>({
@@ -819,7 +819,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<null>({
@@ -874,7 +874,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<FirmwareManifestPage>({
@@ -917,7 +917,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<FirmwareManifest>({
@@ -960,7 +960,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<UpdateCampaign>({
@@ -1004,7 +1004,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<null>({
@@ -1059,7 +1059,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<UpdateCampaignPage>({
@@ -1118,7 +1118,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<CampaignDeviceMetadataPage>({
@@ -1169,7 +1169,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<CampaignDeviceMetadata>({
@@ -1212,7 +1212,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<null>({
@@ -1255,7 +1255,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<UpdateCampaign>({
@@ -1306,7 +1306,7 @@ export class DefaultApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<UpdateCampaign>({

@@ -46,7 +46,7 @@ export class ConnectedDevice extends Device {
      */
     public listResources(callback: CallbackFn<Array<Resource>>): void;
     public listResources(callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._connectApi.listResources(this.id, done);
         }, callback);
     }
@@ -67,7 +67,7 @@ export class ConnectedDevice extends Device {
     public getResource(resourcePath: string, callback?: CallbackFn<Resource>): void;
     public getResource(resourcePath: string, callback?: CallbackFn<Resource>): Promise<Resource> {
 
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._connectApi.getResource(this.id, resourcePath, done);
         }, callback);
     }
@@ -83,7 +83,7 @@ export class ConnectedDevice extends Device {
      */
     public listSubscriptions(callback: CallbackFn<string>): void;
     public listSubscriptions(callback?: CallbackFn<string>): Promise<string> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._connectApi.listDeviceSubscriptions(this.id, done);
         }, callback);
     }
@@ -99,7 +99,7 @@ export class ConnectedDevice extends Device {
      */
     public deleteSubscriptions(callback: CallbackFn<void>): void;
     public deleteSubscriptions(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._connectApi.deleteDeviceSubscriptions(this.id, done);
         }, callback);
     }
@@ -142,7 +142,7 @@ export class ConnectedDevice extends Device {
             cacheOnly = false;
         }
 
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._connectApi.getResourceValue(this.id, resourcePath, cacheOnly, noResponse, mimeType, done);
         }, callback);
     }
@@ -180,7 +180,7 @@ export class ConnectedDevice extends Device {
             noResponse = false;
         }
 
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._connectApi.setResourceValue(this.id, resourcePath, value, noResponse, mimeType, done);
         }, callback);
     }
@@ -222,7 +222,7 @@ export class ConnectedDevice extends Device {
             functionName = null;
         }
 
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._connectApi.executeResource(this.id, resourcePath, functionName, noResponse, mimeType, done);
         }, callback);
     }
@@ -240,7 +240,7 @@ export class ConnectedDevice extends Device {
      */
     public getResourceSubscription(resourcePath: string, callback: CallbackFn<boolean>): void;
     public getResourceSubscription(resourcePath: string, callback?: CallbackFn<boolean>): Promise<boolean> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._connectApi.getResourceSubscription(this.id, resourcePath, done);
         }, callback);
     }
@@ -264,7 +264,7 @@ export class ConnectedDevice extends Device {
      */
     public addResourceSubscription(resourcePath: string, notifyFn?: (any) => any, callback?: CallbackFn<void>): void;
     public addResourceSubscription(resourcePath: string, notifyFn?: (any) => any, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._connectApi.addResourceSubscription(this.id, resourcePath, notifyFn, done);
         }, callback);
     }
@@ -286,7 +286,7 @@ export class ConnectedDevice extends Device {
      */
     public deleteResourceSubscription(resourcePath: string, callback: CallbackFn<void>): void;
     public deleteResourceSubscription(resourcePath: string, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._connectApi.deleteResourceSubscription(this.id, resourcePath, done);
         }, callback);
     }

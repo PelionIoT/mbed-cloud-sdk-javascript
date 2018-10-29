@@ -23,7 +23,7 @@ import {
     EndpointsApi,
     NotificationsApi,
     ResourcesApi,
-    SubscriptionsApi
+    SubscriptionsApi,
 } from "../_api/mds";
 
 export class Endpoints extends EndpointsBase {

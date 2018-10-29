@@ -199,10 +199,10 @@ export class Observer<T> {
     }
 
     private runLocalFilter(data: T): boolean {
-        return this.filters.length > 0 ? this.filters.some(f => f(data)) : true;
+        return this.filters.length > 0 ? this.filters.some( f => f(data)) : true;
     }
 
     private _notifyCallbacks(data: T) {
-        this.callbacks.forEach(fn => fn(data));
+        this.callbacks.forEach( fn => fn(data));
     }
 }

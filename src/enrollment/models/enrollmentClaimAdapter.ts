@@ -26,7 +26,7 @@ export const map = (from: ApiEnrollmentIdentity, api: EnrollmentApi): Enrollment
         createdAt: from.created_at,
         deviceId: from.enrolled_device_id,
         expiresAt: from.expires_at,
-        id: from.id
+        id: from.id,
     }, api);
 };
 

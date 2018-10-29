@@ -30,7 +30,7 @@ export class ResourceAdapter {
             observable:     from.obs,
             type:           from.rt,
             path:           from.uri,
-            deviceId:       deviceId
+            deviceId:       deviceId,
         }, api);
     }
 }

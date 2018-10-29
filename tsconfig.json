@@ -4,9 +4,6 @@
         "module": "commonjs",
         "outDir": "lib",
         "sourceMap": true,
-        "types": [
-            "intern"
-        ],
         "lib": [
             "dom",
             "es5",
@@ -17,10 +14,7 @@
         "alwaysStrict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "declaration": true,
-        "declarationDir": "types",
-        "noEmitOnError": true,
-        "newLine": "LF"
+        "noEmitOnError": true
     },
     "include": [
         "src/**/*"

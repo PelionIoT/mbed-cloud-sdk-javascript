@@ -1,124 +1,94 @@
+<% if (fsNeeded) { -%>
+import { ReadStream } from "fs";
+<% } -%>
 import { EntityBase } from "../../../common/entityBase";
-<% if (paginators) { %>
+<% if (customMethods) { -%>
+    import * as privateFunctions from "../../../common/privateFunctions";
+<% } -%>
+<% if (paginators) { -%>
     import { Paginator } from "../../../../common/pagination";
     import { ListResponse } from "../../../../common/listResponse";
     import { ListOptions } from "../../../../common/interfaces";
-<% } %>
-<% if (clientCalls || paginators) { %>
-    import { ConnectionOptions } from "../../../../common/interfaces";
+<% } -%>
+<% if (clientCalls || paginators) { -%>
     import { Config } from "../../../client/config";
     import { apiWrapper } from "../../../../common/functions";
-    import { Client } from "../../../client/client";
-<% } %>
-<% filteredImports.forEach(function(fk) { %>
+<% } -%>
+<% filteredImports.forEach(function(fk) { -%>
     import { <%= fk.type %> } from "../../index";
-<% }); %>
+<% }); -%>
+<% enums.forEach(function(en) { -%>
+    import { <%= en %> } from "../../enums";
+<% }); -%>
+
 /**
-* <%= entity._key.pascal %>.
-*/
-export class <%= entity._key.pascal %> extends EntityBase {
-<% if (entity.field_renames.length > 0) { %>
+ * <%= snakeToPascal(entity._key) %>
+ */
+export class <%= snakeToPascal(entity._key) %> extends EntityBase {
+
+<% if (entity.field_renames.length > 0) { -%>
     public readonly _renames: { [key: string]: string } = {
-    <% entity.field_renames.forEach(function(rename){ %>
-        <%= rename.api_fieldname %>: "<%= rename._key.lower_camel %>",
-    <% }); %>
+    <% entity.field_renames.forEach(function(rename){ -%>
+        "<%= rename.api_fieldname %>": "<%= snakeToCamel(rename._key) %>",
+    <% }); -%>
     };
-<% } %>
-<% if (foreignKeyTypes.length > 0) { %>
+<% } -%>
+
+<% if (foreignKeyTypes.length > 0) { -%>
     public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
-    <% foreignKeyTypes.forEach(function(f) { %>
+    <% foreignKeyTypes.forEach(function(f) { -%>
         <%= f.propName %>: {
         type: <%= f.type %>,
         array: true,
-    <% }); %>
+    <% }); -%>
     }
     };
-<% } %>
-<% entity.fields.forEach(function(field) { %>
-    <% if (field._key.name !== "id") {%>
-        /**
-        * <%= (field.description || field._key.lower_camel).replace('.','') %>.
-        */
-        public <%= field._key.lower_camel %>?: <%- types[field._key.lower_camel]%>;
+<% } -%>
+
+<% entity.fields.forEach(function(field) { -%>
+    <% if (field._override && !field.private_field) { -%>
+        <% if (field.getter_custom_method) { -%>
+            /**
+            * <%= (field.description || field._key).replace(/^\s+|\s+$/g, '').trim(); %>
+            */
+            get <%= snakeToCamel(field._key) %>(): <%- types[snakeToCamel(field._key)]%> {
+            return privateFunctions.<%= snakeToCamel(field.getter_custom_method) %>(this);
+            }
+        <% } -%>
+        <% if (field.setter_custom_method) { -%>
+            set <%= snakeToCamel(field._key) %>(value: <%- types[snakeToCamel(field._key)]%>) {
+            privateFunctions.<%= snakeToCamel(field.setter_custom_method) %>(this, value);
+            }
+        <% } -%>
+    <% } else { -%>
+        <% if (field._key !== "id") { -%>
+
+            /**
+            * <%= (field.description || field._key).replace(/^\s+|\s+$/g, '').trim(); %>
+            */
+            public <%= snakeToCamel(field._key) %>?: <%- types[snakeToCamel(field._key)]%>;
+        <% } -%>
     <% } %>
-<%});%>
-<% if (clientCalls || paginators) { %>
-constructor(config?: ConnectionOptions | Config) {
-super();
-if (config instanceof Config) {
-this.config = config;
-} else {
-this.config = new Config(config);
+<% }); -%>
+
+<% if (clientCalls || paginators) { -%>
+constructor(config?: Config) {
+super(config);
 }
-}
-<% } %>
-<% methods.forEach(function(method) { %>
-    <% if (method.paginated) { %>
-        /**
-        * List <%= method.returns %>s
-        * @param options filter options
-        */
-        public <%= method.methodName %>(options?: ListOptions): Paginator<<%= method.returns %>, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<<%= method.returns %>>> => {
-        return apiWrapper(resultsFn => {
-        const { limit, after, order, include } = pageOptions as ListOptions;
-        Client._CallApi<<%= method.returns %>>({
-        url: "<%= method.path %>",
-        method: "<%= method.httpMethod %>",
-        query: { after, include, order, limit },
-        <% if (Object.keys(method.pathParams).length > 0) { %>
-            pathParams: {
-            <% for (var key in method.pathParams){%>
-                "<%= key %>":<% if (!method.pathParams[key].external) { %>this.<% } %><%= method.pathParams[key].key %>,
-            <% } %> },
-        <% } %>
-        config: this.config,
-        paginated: true,
-        }, new <%= method.returns %>(), resultsFn);
-        }, (data: ListResponse<<%= method.returns %>>, done) => {
-        done(null, new ListResponse(data, data.data));
-        });
-        };
-        return new Paginator(pageFunc, options);
-        }
-    <% } else { %>
-        /**
-        * <%= method.methodName %>s a <%= method.returns %>.
-        * @returns Promise containing <%= method.returns %>.
-        */
-        public <%= method.methodName %>(<% method.methodParams.forEach(function(param, i) {%><%= param.key %><% if (!param.required) { %>?<% } %>: <%= param.type %><% if (i < method.methodParams.length - 1) { %>,<% } %><% }); %>): Promise<<%= method.returns %>> {
-        <% if (Object.keys(method.bodyParams).length > 0) { %>
-            const body = {
-            <% for (var key in method.bodyParams) { %>
-                <%= key %>: this.<%= method.bodyParams[key].key %>,
-            <% } %>
-            };
-        <% } %>
-        return apiWrapper(resultsFn => {
-        Client._CallApi<<%= method.returns %>>({
-        url: "<%= method.path %>",
-        method: "<%= method.httpMethod %>",
-        <% if (Object.keys(method.queryParams).length > 0) { %>
-            query: {
-            <% for (var key in method.queryParams){%>
-                "<%= key %>":<% if (!method.queryParams[key].external) { %>this.<% } %><%= method.queryParams[key].key %>,
-            <% } %> },
-        <% } %>
-        <% if (Object.keys(method.pathParams).length > 0) { %>
-            pathParams: {
-            <% for (var key in method.pathParams){%>
-                "<%= key %>":<% if (!method.pathParams[key].external) { %>this.<% } %><%= method.pathParams[key].key %>,
-            <% } %> },
-        <% } %>
-        <% if (Object.keys(method.bodyParams).length > 0) { %>
-            body: body,
-        <% } %>
-        config: this.config,
-        }, this, resultsFn);
-        }, (data, done) => {
-        done(null, data);
-        });
-        }
-    <% } %>
-<% }); %>
+<% } -%>
+<% methods.forEach(function(method) { -%>
+    <% if (method.deferToForeignKey) { -%>
+
+        <%- include('methodTemplates/defered.ejs', { method, snakeToCamel }); %>
+    <% } else if (method.paginated) { -%>
+
+        <%- include('methodTemplates/paginated.ejs', { method, unpackParams }) %>
+    <% } else if (method.customMethodCall) { -%>
+
+        <%- include('methodTemplates/custom.ejs', { method, snakeToCamel }) %>
+    <% } else { -%>
+
+        <%- include('methodTemplates/default.ejs', { method, entity, snakeToPascal }) %>
+    <% } -%>
+<% }); -%>
 }

@@ -1,0 +1,52 @@
+/**
+ * <%= method.methodName %>s a <%= method.returns %>.
+ * @returns Promise containing <%= method.returns %>.
+ */
+<% if (method.privateMethod) {%>protected<% } else { %>public<% } %> <%= method.methodName %>(<% method.methodParams.forEach(function(param, i) {%><%= param.key %><% if (!param.required) { %>?<% } %>: <%- param.type %><% if (i < method.methodParams.length - 1) { %>,<% } %><% }); %>): Promise<<%= method.returns %>> {
+<% if (Object.keys(method.bodyParams).length > 0) { -%>
+    <% if (method.bodyParams[Object.keys(method.bodyParams)[0]].replaceBody ) { -%>
+        const body = <% if (!method.bodyParams[Object.keys(method.bodyParams)[0]].external) { %>this.<% } %><%= method.bodyParams[Object.keys(method.bodyParams)[0]].key -%>;
+    <% } else { -%>
+        const body = {
+        <% for (var key in method.bodyParams) { -%>
+            <%= key %>: <% if (!method.bodyParams[key].external) { %>this.<% } %><%= method.bodyParams[key].key %>,
+        <% } -%>
+        };
+    <% } -%>
+<% } -%>
+return apiWrapper(resultsFn => {
+this.client._CallApi<<%= method.returns %>>({
+url: "<%= method.path %>",
+method: "<%= method.httpMethod %>",
+<% if (Object.keys(method.queryParams).length > 0) { -%>
+    query: {
+    <% for (var key in method.queryParams){ -%>
+        <%- unpackParams(key, method.queryParams[key]) %>,
+    <% } -%>
+    },
+<% } -%>
+<% if (Object.keys(method.pathParams).length > 0) { -%>
+    pathParams: {
+    <% for (var key in method.pathParams){ -%>
+        <%- unpackParams(key, method.pathParams[key]) -%>,
+    <% } -%>
+    },
+<% } -%>
+<% if (Object.keys(method.formParams).length > 0) { -%>
+    formParams: {
+    <% for (var key in method.formParams){ -%>
+        <%- unpackParams(key, method.formParams[key]) -%>,
+    <% } -%>
+    },
+    contentTypes: [ "multipart/form-data" ],
+<% } -%>
+<% if (Object.keys(method.bodyParams).length > 0) { -%>
+    body: body,
+<% } -%>
+},
+<% if (method.returns === snakeToPascal(entity._key)) { %>this<% } else { %><%= method.returns %><% } %>,
+resultsFn);
+}, (data, done) => {
+done(null, data);
+});
+}

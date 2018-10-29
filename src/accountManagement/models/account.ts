@@ -102,7 +102,7 @@ export class Account {
      */
     public update(callback: CallbackFn<Account>): void;
     public update(callback?: CallbackFn<Account>): Promise<Account> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.updateAccount(this, done);
         }, callback);
     }
