@@ -14,21 +14,25 @@
 After cloning this repository, install the npm dependencies:
 
 ```bash
-> npm install
+$ npm install
 ```
 
 ## Building
 
-Simply use the default ```gulp``` task to build the SDK and docs:
+To build and bundle the SDK:
 
 ```bash
-> npm run gulp
+$ npm run build
 ```
 
-## Watching
-
-To continually watch for changes, use the gulp `watch` task:
+## Watching (Unit Tests)
 
 ```bash
-> npm run gulp watch
+$ npm run watch
+```
+
+## Watching (Integration Tests)
+
+```bash
+$ npm run watch:integration
 ```

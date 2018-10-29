@@ -3,7 +3,8 @@ const ejs = require("ejs");
 
 const templatesPath = "./generator/templates";
 const generatedFolder = "./src/sdk/generated";
-const generatedConfigPath = "/Users/alelog01/git/mbed-cloud-api-contract/out/sdk_gen_intermediate.json";
+// todo currently default to location on my disk. Remove once flow is implemented
+const generatedConfigPath = process.argv[2] || "/Users/alelog01/git/mbed-cloud-api-contract/out/sdk_gen_intermediate.json";
 
 const generatedConfig = JSON.parse(fs.readFileSync(generatedConfigPath));
 const enums = generatedConfig.enums;
