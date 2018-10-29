@@ -1,6 +1,3 @@
-import { User, SubtenantAccount } from "../../../../src/sdk/entities";
-import { Config } from "../../../../src/sdk";
-
 /*
 * Mbed Cloud JavaScript SDK
 * Copyright Arm Limited 2017
@@ -17,6 +14,9 @@ import { Config } from "../../../../src/sdk";
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+
+import { User, SubtenantAccount } from "../../../src/sdk/entities";
+import { Config } from "../../../src/sdk";
 
 describe("subTenants", () => {
     test("subTenant", async () => {

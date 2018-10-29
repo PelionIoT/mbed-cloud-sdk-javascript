@@ -8,11 +8,13 @@ export * from "./Security/certificateIssuerConfig/certificateIssuerConfig";
 
 export * from "./Security/developerCertificate/developerCertificate";
 
-export * from "./Devices/enrollmentBulkCreateTask/enrollmentBulkCreateTask";
+export * from "./Devices/device/device";
 
-export * from "./Devices/enrollmentBulkDeleteTask/enrollmentBulkDeleteTask";
+export * from "./Devices/deviceEnrollment/deviceEnrollment";
 
-export * from "./Devices/enrollmentClaim/enrollmentClaim";
+export * from "./Devices/deviceEnrollmentBulkCreate/deviceEnrollmentBulkCreate";
+
+export * from "./Devices/deviceEvents/deviceEvents";
 
 export * from "./Accounts/loginHistory/loginHistory";
 

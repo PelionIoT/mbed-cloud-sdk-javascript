@@ -13,10 +13,6 @@ import { TrustedCertificateStatusEnum } from "../../enums";
  * TrustedCertificate
  */
 export class TrustedCertificate extends EntityBase {
-    public readonly _renames: { [key: string]: string } = {
-        "cert-id": "id",
-    };
-
     /**
      * The UUID of the account.
      */
@@ -229,7 +225,9 @@ export class TrustedCertificate extends EntityBase {
                 },
                 (data: ListResponse<TrustedCertificate>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);

@@ -1,6 +1,6 @@
-const config = require("../../../jest.config");
+const config = require("../../jest.config");
 
-config.rootDir = "../../../";
+config.rootDir = "../../";
 
 config.testEnvironment = "node";
 

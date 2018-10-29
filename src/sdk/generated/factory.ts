@@ -4,9 +4,10 @@ import { CertificateEnrollment } from "./index";
 import { CertificateIssuer } from "./index";
 import { CertificateIssuerConfig } from "./index";
 import { DeveloperCertificate } from "./index";
-import { EnrollmentBulkCreateTask } from "./index";
-import { EnrollmentBulkDeleteTask } from "./index";
-import { EnrollmentClaim } from "./index";
+import { Device } from "./index";
+import { DeviceEnrollment } from "./index";
+import { DeviceEnrollmentBulkCreate } from "./index";
+import { DeviceEvents } from "./index";
 import { MyAccount } from "./index";
 import { MyApiKey } from "./index";
 import { PolicyGroup } from "./index";
@@ -34,14 +35,17 @@ export class Factory {
     public DeveloperCertificate(): DeveloperCertificate {
         return new DeveloperCertificate(this._config);
     }
-    public EnrollmentBulkCreateTask(): EnrollmentBulkCreateTask {
-        return new EnrollmentBulkCreateTask(this._config);
+    public Device(): Device {
+        return new Device(this._config);
     }
-    public EnrollmentBulkDeleteTask(): EnrollmentBulkDeleteTask {
-        return new EnrollmentBulkDeleteTask(this._config);
+    public DeviceEnrollment(): DeviceEnrollment {
+        return new DeviceEnrollment(this._config);
     }
-    public EnrollmentClaim(): EnrollmentClaim {
-        return new EnrollmentClaim(this._config);
+    public DeviceEnrollmentBulkCreate(): DeviceEnrollmentBulkCreate {
+        return new DeviceEnrollmentBulkCreate(this._config);
+    }
+    public DeviceEvents(): DeviceEvents {
+        return new DeviceEvents(this._config);
     }
     public MyAccount(): MyAccount {
         return new MyAccount(this._config);

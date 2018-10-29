@@ -168,7 +168,9 @@ export class ApiKey extends EntityBase {
                 },
                 (data: ListResponse<PolicyGroup>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);
@@ -196,7 +198,9 @@ export class ApiKey extends EntityBase {
                 },
                 (data: ListResponse<ApiKey>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);
@@ -206,7 +210,7 @@ export class ApiKey extends EntityBase {
      * resetSecrets a ApiKey.
      * @returns Promise containing ApiKey.
      */
-    public resetSecret(accountID: string): Promise<ApiKey> {
+    public resetSecret(accountId: string): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<ApiKey>(
@@ -214,7 +218,7 @@ export class ApiKey extends EntityBase {
                         url: "/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret",
                         method: "POST",
                         pathParams: {
-                            accountID: accountID,
+                            accountID: accountId,
                             apiKey: this.id,
                         },
                     },

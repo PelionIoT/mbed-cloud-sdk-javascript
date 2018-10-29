@@ -15,7 +15,7 @@ jobs:
           name: Update Python Installers
           command: sudo python -m pip install -U setuptools pip pipenv
       - restore_cache:
-          key: v0-package-cache-{{ checksum "package.json" }}
+          key: v1-package-cache-{{ checksum "package.json" }}
       - run:
           name: Install Python Libraries
           # pipenv is currently poorly behaved when installing from remote subdirectory
@@ -25,7 +25,7 @@ jobs:
           name: Install SDK dependencies
           command: npm install
       - save_cache:
-          key: v0-package-cache-{{ checksum "package.json" }}
+          key: v1-package-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
             - .venv

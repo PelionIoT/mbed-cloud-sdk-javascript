@@ -15,15 +15,16 @@
 * limitations under the License.
 */
 
-import { DeviceDirectoryApi } from "../../../src/deviceDirectory/deviceDirectoryApi";
+import { Client } from "../../../src/sdk";
 
-describe("configurationSnippet", () => {
-    test("configureSDK", () => {
+describe("customApiCall", () => {
+    test("customApiCall", async () => {
         try {
-            // an example: configuring the SDK
-            const deviceDirectory = new DeviceDirectoryApi();
+            // an example: custom api call
+            const client = new Client();
+            const users = await client.CallApi({ url: "/v3/users", method: "GET", query: { limit: 2 } });
             // end of example
-            expect(deviceDirectory).not.toBeNull();
+            expect(users).toHaveProperty("data");
         } catch (e) {
             throw e;
         }

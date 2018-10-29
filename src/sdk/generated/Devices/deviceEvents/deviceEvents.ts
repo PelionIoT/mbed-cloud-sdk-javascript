@@ -4,60 +4,78 @@ import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
-import { CertificateEnrollmentEnrollResultEnum } from "../../enums";
-import { CertificateEnrollmentEnrollStatusEnum } from "../../enums";
 
 /**
- * CertificateEnrollment
+ * DeviceEvents
  */
-export class CertificateEnrollment extends EntityBase {
+export class DeviceEvents extends EntityBase {
     /**
-     * The certificate name.
+     * Additional data relevant to the event.
      */
-    public certificateName?: string;
+    public changes?: any;
 
     /**
-     * Creation UTC time RFC3339.
+     * created_at
      */
     public createdAt?: Date;
 
     /**
-     * The device ID.
+     * data
+     */
+    public data?: any;
+
+    /**
+     * date_time
+     */
+    public dateTime?: Date;
+
+    /**
+     * description
+     */
+    public description?: string;
+
+    /**
+     * device_id
      */
     public deviceId?: string;
 
     /**
-     * enroll_result
+     * Event code
      */
-    public enrollResult?: CertificateEnrollmentEnrollResultEnum;
+    public eventType?: string;
 
     /**
-     * enroll_status
+     * Category code which groups the event type by a summary category.
      */
-    public enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
+    public eventTypeCategory?: string;
 
     /**
-     * Update UTC time RFC3339.
+     * Generic description of the event
      */
-    public updatedAt?: Date;
+    public eventTypeDescription?: string;
+
+    /**
+     * state_change
+     */
+    public stateChange?: boolean;
 
     constructor(config?: Config) {
         super(config);
     }
 
     /**
-     * gets a CertificateEnrollment.
-     * @returns Promise containing CertificateEnrollment.
+     * gets a DeviceEvents.
+     * @returns Promise containing DeviceEvents.
      */
-    public get(): Promise<CertificateEnrollment> {
+    public get(): Promise<DeviceEvents> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<CertificateEnrollment>(
+                this.client._CallApi<DeviceEvents>(
                     {
-                        url: "/v3/certificate-enrollments/{certificate-enrollment-id}",
+                        url: "/v3/device-events/{device_event_id}/",
                         method: "GET",
                         pathParams: {
-                            "certificate-enrollment-id": this.id,
+                            device_event_id: this.id,
                         },
                     },
                     this,
@@ -71,26 +89,26 @@ export class CertificateEnrollment extends EntityBase {
     }
 
     /**
-     * List CertificateEnrollments
+     * List DeviceEventss
      * @param options filter options
      */
-    public list(options?: ListOptions): Paginator<CertificateEnrollment, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateEnrollment>> => {
+    public list(options?: ListOptions): Paginator<DeviceEvents, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEvents>> => {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<CertificateEnrollment>(
+                    this.client._CallApi<DeviceEvents>(
                         {
-                            url: "/v3/certificate-enrollments",
+                            url: "/v3/device-events/",
                             method: "GET",
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        CertificateEnrollment,
+                        DeviceEvents,
                         resultsFn
                     );
                 },
-                (data: ListResponse<CertificateEnrollment>, done) => {
+                (data: ListResponse<DeviceEvents>, done) => {
                     done(null, new ListResponse(data, data.data));
                 },
                 null,

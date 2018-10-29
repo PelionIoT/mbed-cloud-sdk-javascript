@@ -1,5 +1,3 @@
-import { Client } from "../../../../src/sdk";
-
 /*
 * Mbed Cloud JavaScript SDK
 * Copyright Arm Limited 2017
@@ -17,14 +15,15 @@ import { Client } from "../../../../src/sdk";
 * limitations under the License.
 */
 
-describe("customApiCall", () => {
-    test("customApiCall", async () => {
+import { DeviceDirectoryApi } from "../../src/deviceDirectory/deviceDirectoryApi";
+
+describe("configurationSnippet", () => {
+    test("configureSDK", () => {
         try {
-            // an example: custom api call
-            const client = new Client();
-            const users = await client.CallApi({ url: "/v3/users", method: "GET", query: { limit: 2 } });
+            // an example: configuring the SDK
+            const deviceDirectory = new DeviceDirectoryApi();
             // end of example
-            expect(users).toHaveProperty("data");
+            expect(deviceDirectory).not.toBeNull();
         } catch (e) {
             throw e;
         }

@@ -6,9 +6,9 @@ import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 
 /**
- * EnrollmentClaim
+ * DeviceEnrollment
  */
-export class EnrollmentClaim extends EntityBase {
+export class DeviceEnrollment extends EntityBase {
     /**
      * ID
      */
@@ -35,7 +35,7 @@ export class EnrollmentClaim extends EntityBase {
     public enrollmentIdentity?: string;
 
     /**
-     * The enrollment claim expiration time. If the device does not connect to Device Management before the expiration, the claim is removed without a separate notice
+     * The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
      */
     public expiresAt?: Date;
 
@@ -44,16 +44,16 @@ export class EnrollmentClaim extends EntityBase {
     }
 
     /**
-     * creates a EnrollmentClaim.
-     * @returns Promise containing EnrollmentClaim.
+     * creates a DeviceEnrollment.
+     * @returns Promise containing DeviceEnrollment.
      */
-    public create(): Promise<EnrollmentClaim> {
+    public create(): Promise<DeviceEnrollment> {
         const body = {
             enrollment_identity: this.enrollmentIdentity,
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<EnrollmentClaim>(
+                this.client._CallApi<DeviceEnrollment>(
                     {
                         url: "/v3/device-enrollments",
                         method: "POST",
@@ -70,13 +70,13 @@ export class EnrollmentClaim extends EntityBase {
     }
 
     /**
-     * deletes a EnrollmentClaim.
-     * @returns Promise containing EnrollmentClaim.
+     * deletes a DeviceEnrollment.
+     * @returns Promise containing DeviceEnrollment.
      */
-    public delete(): Promise<EnrollmentClaim> {
+    public delete(): Promise<DeviceEnrollment> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<EnrollmentClaim>(
+                this.client._CallApi<DeviceEnrollment>(
                     {
                         url: "/v3/device-enrollments/{id}",
                         method: "DELETE",
@@ -95,13 +95,13 @@ export class EnrollmentClaim extends EntityBase {
     }
 
     /**
-     * gets a EnrollmentClaim.
-     * @returns Promise containing EnrollmentClaim.
+     * gets a DeviceEnrollment.
+     * @returns Promise containing DeviceEnrollment.
      */
-    public get(): Promise<EnrollmentClaim> {
+    public get(): Promise<DeviceEnrollment> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<EnrollmentClaim>(
+                this.client._CallApi<DeviceEnrollment>(
                     {
                         url: "/v3/device-enrollments/{id}",
                         method: "GET",
@@ -120,28 +120,30 @@ export class EnrollmentClaim extends EntityBase {
     }
 
     /**
-     * List EnrollmentClaims
+     * List DeviceEnrollments
      * @param options filter options
      */
-    public list(options?: ListOptions): Paginator<EnrollmentClaim, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<EnrollmentClaim>> => {
+    public list(options?: ListOptions): Paginator<DeviceEnrollment, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEnrollment>> => {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<EnrollmentClaim>(
+                    this.client._CallApi<DeviceEnrollment>(
                         {
                             url: "/v3/device-enrollments",
                             method: "GET",
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        EnrollmentClaim,
+                        DeviceEnrollment,
                         resultsFn
                     );
                 },
-                (data: ListResponse<EnrollmentClaim>, done) => {
+                (data: ListResponse<DeviceEnrollment>, done) => {
                     done(null, new ListResponse(data, data.data));
-                }
+                },
+                null,
+                true
             );
         };
         return new Paginator(pageFunc, options);
