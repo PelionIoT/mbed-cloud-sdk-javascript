@@ -6,8 +6,7 @@
     ],
     "exclude": [
         "node_modules",
-        "src/_tests/*.ts",
-        "src/_apis/**/*.ts"
+        "src/_api/**/*.ts"
     ],
     "excludeExternals": true,
     "excludePrivate": true,
