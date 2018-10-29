@@ -17,7 +17,7 @@
 
 import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { apiWrapper, dateToBillingMonth } from "../common/functions";
+import { apiWrapper, dateToBillingMonth, isThisNode } from "../common/functions";
 import { QuotaHistory } from "./models/quotaHistory";
 import { mapQuotaHistory } from "./models/quotaHistoryAdapter";
 import { ListResponse } from "../common/listResponse";
@@ -93,7 +93,7 @@ export class BillingApi {
             this._endpoints.billing.getBillingReport(dateToBillingMonth(month), resultsFn);
         }, (data, done) => {
             const string = JSON.stringify(data);
-            if (typeof window === "undefined") {
+            if (isThisNode()) {
                 // we're in node
                 if (filepath) {
                     writeFile(filepath, string, "utf8", error => {
@@ -198,8 +198,7 @@ export class BillingApi {
      * @param done callback
      */
     private streamToFile(filepath: string, url: string, done: any) {
-        // tslint:disable-next-line:no-console
-        if (typeof window === "undefined" && filepath) {
+        if (isThisNode() && filepath) {
             // we're in node and want to stream a file
             const fileStream = createWriteStream(filepath, { flags: "a+" });
             const req = http_get(url);
