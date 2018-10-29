@@ -237,6 +237,16 @@ jobs:
           command: |
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             pipenv run python scripts/tag_and_release.py
+  build_documentation:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - run:
+          name: Trigger documentation build
+          command: |
+              curl -X POST --header "Content-Type: application/json" \
+               -d '{"branch":"master"}' \
+               https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/build?circle-token=${CIRCLE_TOKEN}
 
 workflows:
   version: 2
@@ -245,6 +255,14 @@ workflows:
       - build
       - tpip
       - news
+      - build_documentation:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+                - beta
       - integration_test:
           requires:
             - build
