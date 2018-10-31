@@ -4,7 +4,7 @@ describe("cert renew snippets", async () => {
 
     it("should renew device certificate", async () => {
         // an example: certificate renew
-        const myConfig = await (await new CertificateIssuerConfig().list().all()).find(c => c.reference === "LWM2M");
+        const myConfig = (await new CertificateIssuerConfig().list().all()).find(c => c.reference === "LWM2M");
 
         const connectedDevices = (await new Device().list().all()).filter(device => device.state === "registered");
 
