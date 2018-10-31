@@ -14,6 +14,6 @@ describe("cert renew snippets", async () => {
         // end of example
 
         return connectedDevices;
-    }, 100000);
+    });
 
 });
