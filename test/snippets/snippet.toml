@@ -1,5 +1,5 @@
 [snippet]
-input_glob=['test/unit/snippets/**/*.ts', 'test/unit/snippets/setup_example.md']
+input_glob=['test/snippets/**/*.ts', 'test/snippets/setup_example.md']
 log_level=10
 language_name = 'javascript'
 comment_prefix = '// '
