@@ -16,104 +16,76 @@
 */
 
 import { User, LoginHistory, PolicyGroup } from "../../../src/sdk/entities";
-import { Config } from "../../../src/sdk";
-import { AccountManagementApi } from "../../../src/accountManagement/accountManagementApi";
 
 describe("userCrud", () => {
 
-    test("user get", () => {
-        const iam = new AccountManagementApi(new Config());
+    test("user get", async () => {
+        try {
+            const user = await new User().list().first();
 
-        return iam.listUsers()
-            .then( users => {
-                const firstUserId = users.data[0].id;
+            expect(user instanceof User).toBeTruthy();
 
-                const user = new User();
-                user.id = firstUserId;
+            const gotUser = new User();
+            gotUser.id = user.id;
+            await gotUser.get();
 
-                user.get()
-                .then( u => {
+            expect(gotUser instanceof User).toBeTruthy();
+            expect(gotUser.createdAt).toEqual(user.createdAt);
 
-                    expect(u instanceof User).toBeTruthy();
-
-                    const l = u.loginHistory[0];
-                    expect(l instanceof LoginHistory).toBeTruthy();
-                });
-            })
-            .catch( e => {
-                throw e;
-            });
+            const loginHistory = gotUser.loginHistory[0];
+            expect(loginHistory instanceof LoginHistory).toBeTruthy();
+        } catch (e) {
+            throw e;
+        }
     });
 
-    test("user list", () => {
-        const user = new User();
-
-        return user.list()
-            .first()
-            .then( first => {
-                expect(first instanceof User).toBeTruthy();
-            })
-            .catch( e => {
-                throw e;
-            });
+    test("user list", async () => {
+        try {
+            const user = await new User().list().first();
+            expect(user instanceof User).toBeTruthy();
+        } catch (e) {
+            throw e;
+        }
     });
 
-    test("user list foreignKey", () => {
-        return Promise.resolve()
-            .then( _ => {
-                const group = new PolicyGroup();
+    test("user list foreignKey", async () => {
+        try {
+            const groups = await new PolicyGroup().list().all();
 
-                return group.list().all();
-            })
-            .then( groups => {
-                const user = new User();
+            const user = await new User().list().first();
 
-                return user.list()
-                    .first()
-                    .then( first => {
-                        const groupId = groups[0].id;
-                        if (first.groupIds.indexOf(groupId) === -1) {
-                            first.groupIds.push(groupId);
-                        }
-                        return first.update();
-                    });
-            })
-            .then( user => {
-                return user.groups().all();
-            }).then( groups => {
-                const firstGroup = groups[0];
+            const newGroup = groups.find(g => user.groupIds.indexOf(g.id) === -1);
+            if (newGroup) {
+                user.groupIds.push(newGroup.id);
 
-                expect(firstGroup instanceof PolicyGroup).toBeTruthy();
-            })
-            .catch( e => {
-                throw e;
-            });
+                await user.update();
+
+                const userGroupIds = (await user.groups().all()).map(g => g.id);
+
+                expect(userGroupIds).toContain(newGroup.id);
+            }
+        } catch (e) {
+            throw e;
+        }
     });
 
-    test("phone demo", () => {
-        return Promise.resolve()
-            .then( _ => {
-                const user = new User();
+    test("phone demo", async () => {
+        try {
+            const user = new User();
+            user.username = "alexjs";
+            user.email = "alex@alex.alex";
+            user.phoneNumber = "01638742452";
+            user.fullName = "Alex Logan";
+            await user.create();
 
-                user.username = "alexjs";
-                user.email = "alex@alex.alex";
-                user.phoneNumber = "01638742452";
-                user.fullName = "Alex Logan";
+            user.phoneNumber = "118118";
 
-                return user.create();
-            })
-            .then( user => {
-                user.phoneNumber = "118118";
+            await user.update();
+            expect(user.phoneNumber).toEqual("118118");
 
-                return user.update();
-            })
-            .then(user => {
-                expect(user.phoneNumber).toEqual("118118");
-
-                return user.delete();
-            })
-            .catch( e => {
-                throw e;
-            });
+            await user.delete();
+        } catch (e) {
+            throw e;
+        }
     });
 });

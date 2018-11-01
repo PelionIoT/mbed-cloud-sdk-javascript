@@ -49,8 +49,11 @@ describe("subTenants", () => {
             expect(users.length).toBeGreaterThanOrEqual(1);
             await user.delete();
         } catch (e) {
-            // tslint:disable-next-line:no-console
-            console.log(e);
+            // should throw 403, subtenant account limit reached
+            if (e.details && e.details.code === 403) {
+                return;
+            }
+
             throw e;
         }
     });
