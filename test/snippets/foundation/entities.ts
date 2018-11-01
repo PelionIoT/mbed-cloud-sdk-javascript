@@ -17,7 +17,6 @@
 
 import { MyAccount, ApiKey } from "../../../src/sdk/entities";
 import { Config, SDK } from "../../../src/sdk";
-import { SDKError } from "../../../src/common/sdkError";
 
 describe("entities", () => {
     test("quick", async () => {
@@ -45,33 +44,25 @@ describe("entities", () => {
     });
 
     test("customConfig", () => {
-        expect(() => {
-            try {
-                // an example: using multiple api keys
-                const allUsers = [];
-                [ "ak_1", "ak_2" ].forEach(async k => allUsers.concat(await new SDK({ apiKey: k }).entities.User().list().all()));
-                // end of example
-            } catch (e) {
-                // tslint:disable-next-line:no-console
-                console.log(e);
-                throw e;
-            }
-        }).toThrow(SDKError);
+        try {
+            // an example: using multiple api keys
+            const allUsers = [];
+            [ "ak_1", "ak_2" ].forEach(async k => allUsers.concat(await new SDK({ apiKey: k }).entities.User().list().all()));
+            // end of example
+        } catch (e) {
+            throw e;
+        }
     });
 
     test("realyCustomConfig", () => {
-        expect(() => {
-            try {
-                // an example: using custom hosts
-                const config = new Config({ apiKey: "ak_1", host: "http://example" });
-                const allUsers = new SDK(config).entities.User().list().all();
-                // end of example
-                expect(allUsers).not.toBeNull();
-            } catch (e) {
-                // tslint:disable-next-line:no-console
-                console.log(e);
-                throw e;
-            }
-        }).toThrow(SDKError);
+        try {
+            // an example: using custom hosts
+            const config = new Config({ apiKey: "ak_1", host: "http://example" });
+            const allUsers = new SDK(config).entities.User().list().all();
+            // end of example
+            expect(allUsers).not.toBeNull();
+        } catch (e) {
+            throw e;
+        }
     });
 });
