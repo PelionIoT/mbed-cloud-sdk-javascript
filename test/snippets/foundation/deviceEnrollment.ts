@@ -23,15 +23,17 @@ describe("Device Enrollment examples", () => {
 
     it("should bulk enroll devices", async () => {
         try {
+            const pathToCsv = "/Users/alelog01/git/mbed-cloud-sdk-javascript/test/snippets/foundation/test.csv";
             // an example: device enrollment bulk
             const bulk = new DeviceEnrollmentBulkCreate();
             // use fs readStream
-            const csv = createReadStream("/Users/alelog01/git/mbed-cloud-sdk-javascript/test/manualTesting/test.csv");
+            const csv = createReadStream(pathToCsv);
             await bulk.create(csv);
             // cloak
             expect(bulk.status).toBe("new");
             // uncloak
 
+            // call get to see current state of bule enrollment
             await bulk.get();
             // end of example
             expect(bulk.status === "completed" || bulk.status === "processing").toBeTruthy();
