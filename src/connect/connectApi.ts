@@ -1212,7 +1212,7 @@ export class ConnectApi extends EventEmitter {
                     "method": "POST",
                     "uri": resourcePath,
                     "content-type": mimeType
-                });
+                }, resultsFn);
             });
         }, (_data, resultsFn) => {
             this._asyncFns[asyncId] = resultsFn;

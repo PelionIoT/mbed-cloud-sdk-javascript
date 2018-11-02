@@ -153,35 +153,28 @@ export class ConnectedDevice extends Device {
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
      * @param value The value of the resource
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
      * @returns empty Promise
      */
-    public setResourceValue(resourcePath: string, value: string, noResponse?: boolean, mimeType?: string): Promise<void>;
+    public setResourceValue(resourcePath: string, value: string, mimeType?: string): Promise<void>;
     /**
      * Sets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
      * @param value The value of the resource
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setResourceValue(resourcePath: string, value: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
-    public setResourceValue(resourcePath: string, value: string, noResponse?: any, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
-        noResponse = noResponse || false;
+    public setResourceValue(resourcePath: string, value: string, mimeType?: string, callback?: CallbackFn<void>): void;
+    public setResourceValue(resourcePath: string, value: string, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
 
         return asyncStyle(done => {
-            this._connectApi.setResourceValue(this.id, resourcePath, value, noResponse, mimeType, done);
+            this._connectApi.setResourceValue(this.id, resourcePath, value, mimeType, done);
         }, callback);
     }
 
@@ -190,40 +183,27 @@ export class ConnectedDevice extends Device {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
-     * @param functionName The function to trigger
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
      * @returns empty Promise
      */
-    public executeResource(resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string): Promise<void>;
+    public executeResource(resourcePath: string, mimeType?: string): Promise<void>;
     /**
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
-     * @param functionName The function to trigger
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public executeResource(resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
-    public executeResource(resourcePath: string, functionName?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
-        noResponse = noResponse || false;
+    public executeResource(resourcePath: string, mimeType?: string, callback?: CallbackFn<void>): void;
+    public executeResource(resourcePath: string, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
-        if (typeof functionName === "function") {
-            callback = functionName;
-            functionName = null;
-        }
 
         return asyncStyle(done => {
-            this._connectApi.executeResource(this.id, resourcePath, functionName, noResponse, mimeType, done);
+            this._connectApi.executeResource(this.id, resourcePath, mimeType, done);
         }, callback);
     }
 
