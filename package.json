@@ -9,6 +9,13 @@
   "license": "Apache-2.0",
   "types": "./types/index.d.ts",
   "main": "./index.js",
+  "files": [
+    "bundles",
+    "lib",
+    "examples",
+    "types",
+    "index.js"
+  ],
   "browser": {
     "./index.js": "./bundles/index.min.js"
   },
