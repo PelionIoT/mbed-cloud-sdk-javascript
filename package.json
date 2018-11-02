@@ -12,7 +12,8 @@
   "files": [
     "bundles",
     "lib",
-    "examples"
+    "examples",
+    "index.js"
   ],
   "browser": {
     "./index.js": "./bundles/index.min.js"
