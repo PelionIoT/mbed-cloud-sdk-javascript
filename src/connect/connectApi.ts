@@ -1018,12 +1018,10 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param cacheOnly Deprecated, has no effect
-     * @param noResponse Deprecated, has no effect
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string): Promise<string | number | void>;
+    public getResourceValue(deviceId: string, resourcePath: string, mimeType?: string): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
@@ -1041,20 +1039,12 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param cacheOnly Deprecated, has no effect
-     * @param noResponse Deprecated, has no effect
      * @param mimeType The requested mime type format of the value
      * @param callback A function that is passed the arguments (error, value)
      */
-    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
-    public getResourceValue(deviceId: string, resourcePath: string, cacheOnly?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
-        if (typeof cacheOnly === "function") {
-            callback = cacheOnly;
-            mimeType = null;
-        } else if (typeof noResponse === "function") {
-            callback = noResponse;
-            mimeType = null;
-        } else if (typeof mimeType === "function") {
+    public getResourceValue(deviceId: string, resourcePath: string, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
+    public getResourceValue(deviceId: string, resourcePath: string, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+        if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
@@ -1099,7 +1089,6 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param value The value of the resource
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
      * @returns the AsyncResponse
      */
@@ -1172,8 +1161,6 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param functionName The function to trigger
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
      * @returns the AsyncResponse
      */
@@ -1195,8 +1182,6 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param functionName The function to trigger
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */

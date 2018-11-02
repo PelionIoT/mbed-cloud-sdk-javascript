@@ -123,40 +123,26 @@ export class Resource extends EventEmitter {
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getValue(cacheOnly?: boolean, noResponse?: boolean, mimeType?: string): Promise<string | number | void>;
+    public getValue(mimeType?: string): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The requested mime type format of the value
      * @param callback A function that is passed the arguments (error, value) where value is the resource value
      */
-    public getValue(cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
-    public getValue(cacheOnly?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
-        cacheOnly = cacheOnly || false;
-        noResponse = noResponse || false;
+    public getValue(mimeType?: string, callback?: CallbackFn<string | number | void>): void;
+    public getValue(mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
-        if (typeof cacheOnly === "function") {
-            callback = cacheOnly;
-            cacheOnly = false;
-        }
 
         return asyncStyle(done => {
-            this._api.getResourceValue(this.deviceId, this.path, cacheOnly, noResponse, mimeType, done);
+            this._api.getResourceValue(this.deviceId, this.path, mimeType, done);
         }, callback);
     }
 
