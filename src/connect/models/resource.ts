@@ -19,6 +19,7 @@ import { EventEmitter } from "events";
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
 import { ConnectApi } from "../connectApi";
+import { AsyncResponse } from "../types";
 
 /**
  * Resource
@@ -165,9 +166,9 @@ export class Resource extends EventEmitter {
      * __Note:__ This method requires a notification channel to be set up
      * @param value The value of the resource
      * @param mimeType The mime type format of the value
-     * @returns empty Promise
+     * @returns the AsyncResponse
      */
-    public setValue(value: string, mimeType?: string): Promise<void>;
+    public setValue(value: string, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Sets the value of a resource
      *
@@ -176,8 +177,8 @@ export class Resource extends EventEmitter {
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setValue(value: string, mimeType?: string, callback?: CallbackFn<void>): void;
-    public setValue(value: string, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
+    public setValue(value: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public setValue(value: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -193,9 +194,9 @@ export class Resource extends EventEmitter {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param mimeType The mime type format of the value
-     * @returns empty Promise
+     * @returns the AsyncResponse
      */
-    public execute(mimeType?: string): Promise<void>;
+    public execute(mimeType?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
@@ -203,8 +204,8 @@ export class Resource extends EventEmitter {
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public execute(mimeType?: string, callback?: CallbackFn<void>): void;
-    public execute(mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
+    public execute(mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public execute(mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;

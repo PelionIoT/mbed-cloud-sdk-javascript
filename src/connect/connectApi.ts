@@ -22,7 +22,7 @@ import { asyncStyle, apiWrapper, decodeBase64, encodeBase64 } from "../common/fu
 import { CallbackFn } from "../common/interfaces";
 import { SDKError } from "../common/sdkError";
 import { Endpoints } from "./endpoints";
-import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject } from "./types";
+import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject, AsyncResponse } from "./types";
 import { Webhook } from "./models/webhook";
 import { WebhookAdapter } from "./models/webhookAdapter";
 import { PresubscriptionAdapter } from "./models/presubscriptionAdapter";
@@ -280,7 +280,12 @@ export class ConnectApi extends EventEmitter {
                         fn(error, null);
                     } else {
                         const body = response.payload ? decodeBase64(response.payload, response.ct) : null;
-                        fn(null, body);
+                        // if body is null, might be more useful to return the whole response
+                        if (body) {
+                            fn(null, body);
+                        } else {
+                            fn(null, response);
+                        }
                     }
                     delete this._asyncFns[asyncID];
                 }
@@ -1096,9 +1101,9 @@ export class ConnectApi extends EventEmitter {
      * @param value The value of the resource
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @returns empty Promise
+     * @returns the AsyncResponse
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: string): Promise<void>;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Sets the value of a resource
      *
@@ -1121,8 +1126,8 @@ export class ConnectApi extends EventEmitter {
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: string, callback?: CallbackFn<void>): void;
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -1170,9 +1175,9 @@ export class ConnectApi extends EventEmitter {
      * @param functionName The function to trigger
      * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @returns empty Promise
+     * @returns the AsyncResponse
      */
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: string): Promise<void>;
+    public executeResource(deviceId: string, resourcePath: string, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
@@ -1195,8 +1200,8 @@ export class ConnectApi extends EventEmitter {
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: string, callback?: CallbackFn<void>): void;
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
+    public executeResource(deviceId: string, resourcePath: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public executeResource(deviceId: string, resourcePath: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;

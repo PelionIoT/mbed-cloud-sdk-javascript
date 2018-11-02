@@ -20,6 +20,7 @@ import { asyncStyle } from "../../common/functions";
 import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
 import { Device } from "../../deviceDirectory/models/device";
+import { AsyncResponse } from "../types";
 
 /**
  * Connected Device
@@ -154,9 +155,9 @@ export class ConnectedDevice extends Device {
      * @param resourcePath Resource path
      * @param value The value of the resource
      * @param mimeType The mime type format of the value
-     * @returns empty Promise
+     * @returns the AsyncResponse
      */
-    public setResourceValue(resourcePath: string, value: string, mimeType?: string): Promise<void>;
+    public setResourceValue(resourcePath: string, value: string, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Sets the value of a resource
      *
@@ -166,8 +167,8 @@ export class ConnectedDevice extends Device {
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setResourceValue(resourcePath: string, value: string, mimeType?: string, callback?: CallbackFn<void>): void;
-    public setResourceValue(resourcePath: string, value: string, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
+    public setResourceValue(resourcePath: string, value: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public setResourceValue(resourcePath: string, value: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -184,9 +185,9 @@ export class ConnectedDevice extends Device {
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
      * @param mimeType The mime type format of the value
-     * @returns empty Promise
+     * @returns the AsyncResponse
      */
-    public executeResource(resourcePath: string, mimeType?: string): Promise<void>;
+    public executeResource(resourcePath: string, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
@@ -195,8 +196,8 @@ export class ConnectedDevice extends Device {
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public executeResource(resourcePath: string, mimeType?: string, callback?: CallbackFn<void>): void;
-    public executeResource(resourcePath: string, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
+    public executeResource(resourcePath: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public executeResource(resourcePath: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
