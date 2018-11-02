@@ -13,6 +13,7 @@
     "bundles",
     "lib",
     "examples",
+    "types",
     "index.js"
   ],
   "browser": {
