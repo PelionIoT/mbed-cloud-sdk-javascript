@@ -18,7 +18,7 @@
 import superagent = require("superagent");
 import { EventEmitter } from "events";
 import { ListResponse } from "../common/listResponse";
-import { asyncStyle, apiWrapper, decodeBase64 } from "../common/functions";
+import { asyncStyle, apiWrapper, decodeBase64, encodeBase64 } from "../common/functions";
 import { CallbackFn } from "../common/interfaces";
 import { SDKError } from "../common/sdkError";
 import { Endpoints } from "./endpoints";
@@ -1098,7 +1098,7 @@ export class ConnectApi extends EventEmitter {
      * @param mimeType The mime type format of the value
      * @returns empty Promise
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string): Promise<void>;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: string): Promise<void>;
     /**
      * Sets the value of a resource
      *
@@ -1118,32 +1118,33 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param value The value of the resource
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
-    public setResourceValue(deviceId: string, resourcePath: string, value: string, noResponse?: any, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
-        resourcePath = this.normalizePath(resourcePath);
-
-        noResponse = noResponse || false;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: string, callback?: CallbackFn<void>): void;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
+
+        resourcePath = this.reverseNormalizePath(resourcePath);
+        const asyncId = generateId();
+        const payload = encodeBase64(value);
 
         return apiWrapper(resultsFn => {
             this.startNotifications(null, error => {
                 if (error) return resultsFn(error, null);
-                this._endpoints.resources.updateResourceValue(deviceId, resourcePath, value, noResponse, resultsFn, {
-                    contentType: mimeType
-                });
+                this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
+                    "method": "PUT",
+                    "uri": resourcePath,
+                    "content-type": mimeType,
+                    "payload-b64": payload,
+                }, resultsFn);
             });
-        }, this.handleAsync.bind(this), callback);
+        }, (_data, resultsFn) => {
+            this._asyncFns[asyncId] = resultsFn;
+        }, callback);
     }
 
     /**
@@ -1171,7 +1172,7 @@ export class ConnectApi extends EventEmitter {
      * @param mimeType The mime type format of the value
      * @returns empty Promise
      */
-    public executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string): Promise<void>;
+    public executeResource(deviceId: string, resourcePath: string, mimeType?: string): Promise<void>;
     /**
      * Execute a function on a resource
      *
@@ -1194,32 +1195,28 @@ export class ConnectApi extends EventEmitter {
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public executeResource(deviceId: string, resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
-    public executeResource(deviceId: string, resourcePath: string, functionName?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
-        resourcePath = this.normalizePath(resourcePath);
-
-        noResponse = noResponse || false;
+    public executeResource(deviceId: string, resourcePath: string, mimeType?: string, callback?: CallbackFn<void>): void;
+    public executeResource(deviceId: string, resourcePath: string, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
-        if (typeof functionName === "function") {
-            callback = functionName;
-            functionName = null;
-        }
+
+        resourcePath = this.reverseNormalizePath(resourcePath);
+        const asyncId = generateId();
 
         return apiWrapper(resultsFn => {
             this.startNotifications(null, error => {
                 if (error) return resultsFn(error, null);
-                this._endpoints.resources.executeOrCreateResource(deviceId, resourcePath, functionName, noResponse, resultsFn, {
-                    contentType: mimeType
+                this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
+                    "method": "POST",
+                    "uri": resourcePath,
+                    "content-type": mimeType
                 });
             });
-        }, this.handleAsync.bind(this), callback);
+        }, (_data, resultsFn) => {
+            this._asyncFns[asyncId] = resultsFn;
+        }, callback);
     }
 
     /**
