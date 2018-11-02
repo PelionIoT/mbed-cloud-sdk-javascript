@@ -80,6 +80,14 @@ export function apiWrapper<T>(
     }, callbackFn);
 }
 
+export function encodeBase64(payload): string {
+    if (typeof btoa === "function") {
+        return btoa(payload);
+    }
+
+    return Buffer.from(payload).toString("base64");
+}
+
 export function decodeBase64(payload, contentType): string | number | { [key: string]: string | number } {
     // any so can be used in .isNaN method
     let result: any = "";

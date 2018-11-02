@@ -20,6 +20,7 @@ import { asyncStyle } from "../../common/functions";
 import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
 import { Device } from "../../deviceDirectory/models/device";
+import { AsyncResponse } from "../types";
 
 /**
  * Connected Device
@@ -109,41 +110,27 @@ export class ConnectedDevice extends Device {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
-     * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getResourceValue(resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string): Promise<string | number | void>;
+    public getResourceValue(resourcePath: string, mimeType?: string): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
-     * @param cacheOnly If true, the response will come only from the cache
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The requested mime type format of the value
      * @param callback A function that is passed the arguments (error, value) where value is the resource value
      */
-    public getResourceValue(resourcePath: string, cacheOnly?: boolean, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
-    public getResourceValue(resourcePath: string, cacheOnly?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
-        cacheOnly = cacheOnly || false;
-        noResponse = noResponse || false;
+    public getResourceValue(resourcePath: string, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
+    public getResourceValue(resourcePath: string, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
-        if (typeof cacheOnly === "function") {
-            callback = cacheOnly;
-            cacheOnly = false;
-        }
 
         return asyncStyle(done => {
-            this._connectApi.getResourceValue(this.id, resourcePath, cacheOnly, noResponse, mimeType, done);
+            this._connectApi.getResourceValue(this.id, resourcePath, mimeType, done);
         }, callback);
     }
 
@@ -153,35 +140,28 @@ export class ConnectedDevice extends Device {
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
      * @param value The value of the resource
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @returns empty Promise
+     * @returns the AsyncResponse
      */
-    public setResourceValue(resourcePath: string, value: string, noResponse?: boolean, mimeType?: string): Promise<void>;
+    public setResourceValue(resourcePath: string, value: string, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Sets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
      * @param value The value of the resource
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setResourceValue(resourcePath: string, value: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
-    public setResourceValue(resourcePath: string, value: string, noResponse?: any, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
-        noResponse = noResponse || false;
+    public setResourceValue(resourcePath: string, value: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public setResourceValue(resourcePath: string, value: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
 
         return asyncStyle(done => {
-            this._connectApi.setResourceValue(this.id, resourcePath, value, noResponse, mimeType, done);
+            this._connectApi.setResourceValue(this.id, resourcePath, value, mimeType, done);
         }, callback);
     }
 
@@ -190,40 +170,27 @@ export class ConnectedDevice extends Device {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
-     * @param functionName The function to trigger
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
-     * @returns empty Promise
+     * @returns the AsyncResponse
      */
-    public executeResource(resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string): Promise<void>;
+    public executeResource(resourcePath: string, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
-     * @param functionName The function to trigger
-     * @param noResponse If true, Mbed Device Connector will not wait for a response
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public executeResource(resourcePath: string, functionName?: string, noResponse?: boolean, mimeType?: string, callback?: CallbackFn<void>): void;
-    public executeResource(resourcePath: string, functionName?: any, noResponse?: any, mimeType?: any, callback?: CallbackFn<void>): Promise<void> {
-        noResponse = noResponse || false;
+    public executeResource(resourcePath: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public executeResource(resourcePath: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
-        if (typeof noResponse === "function") {
-            callback = noResponse;
-            noResponse = false;
-        }
-        if (typeof functionName === "function") {
-            callback = functionName;
-            functionName = null;
-        }
 
         return asyncStyle(done => {
-            this._connectApi.executeResource(this.id, resourcePath, functionName, noResponse, mimeType, done);
+            this._connectApi.executeResource(this.id, resourcePath, mimeType, done);
         }, callback);
     }
 
