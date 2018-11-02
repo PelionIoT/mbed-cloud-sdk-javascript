@@ -11,6 +11,15 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.0.3 (2018-11-02)
+==================
+
+### Bugfixes
+
+- setResourceValue and executeResourceValue now return the asyncResponse.
+  (#1766)
+
+
 2.0.2 (2018-10-23)
 ==================
 
