@@ -4,17 +4,12 @@ import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
-import { PolicyGroup } from "../../index";
 import { ApiKeyStatusEnum } from "../../enums";
 
 /**
  * ApiKey
  */
 export class ApiKey extends EntityBase {
-    public readonly _renames: { [key: string]: string } = {
-        groups: "groupIds",
-    };
-
     /**
      * Creation UTC time RFC3339.
      */
@@ -28,7 +23,7 @@ export class ApiKey extends EntityBase {
     /**
      * A list of group IDs this API key belongs to.
      */
-    public groupIds?: Array<string>;
+    public groups?: Array<string>;
 
     /**
      * The API key.
@@ -65,60 +60,6 @@ export class ApiKey extends EntityBase {
     }
 
     /**
-     * creates a ApiKey.
-     * @returns Promise containing ApiKey.
-     */
-    public create(): Promise<ApiKey> {
-        const body = {
-            groups: this.groupIds,
-            name: this.name,
-            owner: this.owner,
-            status: this.status,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<ApiKey>(
-                    {
-                        url: "/v3/api-keys",
-                        method: "POST",
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * deletes a ApiKey.
-     * @returns Promise containing ApiKey.
-     */
-    public delete(): Promise<ApiKey> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<ApiKey>(
-                    {
-                        url: "/v3/api-keys/{apiKey}",
-                        method: "DELETE",
-                        pathParams: {
-                            apiKey: this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
      * gets a ApiKey.
      * @returns Promise containing ApiKey.
      */
@@ -141,39 +82,6 @@ export class ApiKey extends EntityBase {
                 done(null, data);
             }
         );
-    }
-
-    /**
-     * List PolicyGroups
-     * @param options filter options
-     */
-    public groups(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<PolicyGroup>(
-                        {
-                            url: "/v3/api-keys/{apiKey}/groups",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            pathParams: {
-                                apiKey: this.id,
-                            },
-                            paginated: true,
-                        },
-                        PolicyGroup,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<PolicyGroup>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
     }
 
     /**
@@ -204,63 +112,5 @@ export class ApiKey extends EntityBase {
             );
         };
         return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * resetSecrets a ApiKey.
-     * @returns Promise containing ApiKey.
-     */
-    public resetSecret(accountId: string): Promise<ApiKey> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<ApiKey>(
-                    {
-                        url: "/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret",
-                        method: "POST",
-                        pathParams: {
-                            accountID: accountId,
-                            apiKey: this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * updates a ApiKey.
-     * @returns Promise containing ApiKey.
-     */
-    public update(): Promise<ApiKey> {
-        const body = {
-            groups: this.groupIds,
-            name: this.name,
-            owner: this.owner,
-            status: this.status,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<ApiKey>(
-                    {
-                        url: "/v3/api-keys/{apiKey}",
-                        method: "PUT",
-                        pathParams: {
-                            apiKey: this.id,
-                        },
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
     }
 }

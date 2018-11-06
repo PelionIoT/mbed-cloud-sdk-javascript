@@ -12,7 +12,7 @@ export class DeviceEvents extends EntityBase {
     /**
      * Additional data relevant to the event.
      */
-    public changes?: any;
+    public changes?: { [key: string]: string };
 
     /**
      * created_at

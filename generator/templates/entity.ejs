@@ -39,9 +39,9 @@ export class <%= snakeToPascal(entity._key) %> extends EntityBase {
     <% foreignKeyTypes.forEach(function(f) { -%>
         <%= f.propName %>: {
         type: <%= f.type %>,
-        array: true,
+        array: <%= f.array %>,
+        },
     <% }); -%>
-    }
     };
 <% } -%>
 

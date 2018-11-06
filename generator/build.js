@@ -43,6 +43,22 @@ const getEnumType = (field, enums) => {
     return enumName;
 }
 
+const getForeignKeyType = (field) => {
+    if (field.foreign_key) {
+        return snakeToPascal(field.foreign_key.entity);
+    }
+
+    return undefined;
+}
+
+const getAdditionalProperties = (field) => {
+    if (field.additionalProperties) {
+        return "{ [key: string]: string }"
+    }
+
+    return undefined;
+}
+
 const unpackParams = (key, params) => {
     if (key && params) {
         return '"' + key + '"' + ":" + (!params.external ? "this." : "") + params.key;
@@ -95,7 +111,7 @@ entities.forEach(entity => {
     // get types
     const types = {};
     entity.fields.forEach(f => {
-        const t = (f.enum && f.enum_reference) ? getEnumType(f, enums) : getType(f.format) || getType(f.type, f.items) || "any";
+        const t = (f.enum && f.enum_reference) ? getEnumType(f, enums) : getForeignKeyType(f) || getAdditionalProperties(f) || getType(f.format) || getType(f.type, f.items) || "any";
         const k = snakeToCamel(f._key)
         types[k] = t;
     });
@@ -108,8 +124,17 @@ entities.forEach(entity => {
                 const fk = {}
                 fk["propName"] = snakeToCamel(f.items.foreign_key.entity);
                 fk["type"] = snakeToPascal(f.items.foreign_key.entity);
+                fk["array"] = true;
                 foreignKeyTypes.push(fk);
             }
+        }
+
+        if (f.foreign_key) {
+            const fk = {}
+            fk["propName"] = snakeToCamel(f.foreign_key.entity);
+            fk["type"] = snakeToPascal(f.foreign_key.entity);
+            fk["array"] = false;
+            foreignKeyTypes.push(fk);
         }
 
         if (f._override) {
@@ -177,7 +202,7 @@ entities.forEach(entity => {
                 const replaceBody = !!field.__REPLACE_BODY;
 
                 if (external) {
-                    type = getType(field.type, field.items);
+                    type = getAdditionalProperties(field) || getType(field.type, field.items);
                     console.log(type);
                     if (type === typeMap.file) {
                         fsNeeded = true;

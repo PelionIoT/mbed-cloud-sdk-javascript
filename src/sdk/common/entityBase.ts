@@ -1,5 +1,4 @@
 import { Config } from "../client/config";
-import { SDK } from "../sdk";
 import { snakeToCamel } from "../../common/functions";
 import { Client } from "../client/client";
 
@@ -10,7 +9,7 @@ export class EntityBase {
 
     private _config: Config;
 
-    public client: Client;
+    protected client: Client;
 
     /**
      * The id of the entity
@@ -18,7 +17,7 @@ export class EntityBase {
     public id: string;
 
     public get config(): Config {
-        return this._config || SDK.config;
+        return this._config;
     }
 
     public set config(c: Config) {
@@ -28,6 +27,8 @@ export class EntityBase {
     constructor(config?: Config) {
         if (config) {
             this.config = config;
+        } else {
+            this.config = new Config();
         }
 
         this.client = new Client(this.config);
@@ -49,12 +50,14 @@ export class EntityBase {
                 if (foreignKeys[newKey].array === true) {
                     // populate list of foreign keys
                     const arr = [];
-                    Object.keys(data[key]).forEach( k => {
-                        arr.push(type._fromApi(type, data[key][k]));
-                    });
+                    if (data[key]) {
+                        Object.keys(data[key]).forEach(k => {
+                            arr.push(type._fromApi(type, data[key][k]));
+                        });
+                    }
                     return { [newKey]: arr };
                 } else {
-                    return { [newKey]: foreignKeys[newKey].type._fromApi(type, data) };
+                    return { [newKey]: type._fromApi(type, data) };
                 }
             }
             return { [newKey]: data[key] };

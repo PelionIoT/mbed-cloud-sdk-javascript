@@ -15,18 +15,17 @@
 * limitations under the License.
 */
 
-import { User, LoginHistory, PolicyGroup } from "../../../src/sdk/entities";
+import { User, LoginHistory, Account } from "../../../src/sdk/entities";
 
 describe("userCrud", () => {
 
     test("user get", async () => {
         try {
-            const user = await new User().list().first();
-
-            expect(user instanceof User).toBeTruthy();
+            const user = await new Account().myUsers().first();
 
             const gotUser = new User();
             gotUser.id = user.id;
+            gotUser.accountId = user.accountId;
             await gotUser.get();
 
             expect(gotUser instanceof User).toBeTruthy();
@@ -41,29 +40,8 @@ describe("userCrud", () => {
 
     test("user list", async () => {
         try {
-            const user = await new User().list().first();
+            const user = await new Account().myUsers().first();
             expect(user instanceof User).toBeTruthy();
-        } catch (e) {
-            throw e;
-        }
-    });
-
-    test("user list foreignKey", async () => {
-        try {
-            const groups = await new PolicyGroup().list().all();
-
-            const user = await new User().list().first();
-
-            const newGroup = groups.find(g => user.groupIds.indexOf(g.id) === -1);
-            if (newGroup) {
-                user.groupIds.push(newGroup.id);
-
-                await user.update();
-
-                const userGroupIds = (await user.groups().all()).map(g => g.id);
-
-                expect(userGroupIds).toContain(newGroup.id);
-            }
         } catch (e) {
             throw e;
         }
@@ -71,7 +49,10 @@ describe("userCrud", () => {
 
     test("phone demo", async () => {
         try {
+            const myAccount = await new Account().me();
+
             const user = new User();
+            user.accountId = myAccount.id;
             user.username = "alexjs";
             user.email = "alex@alex.alex";
             user.phoneNumber = "01638742452";

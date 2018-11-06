@@ -25,7 +25,7 @@ export class CertificateIssuer extends EntityBase {
 When the issuer_type is GLOBAL_SIGN, the value shall be empty.
 When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
             */
-    public issuerAttributes?: any;
+    public issuerAttributes?: { [key: string]: string };
 
     /**
             * The type of the certificate issuer.
@@ -55,7 +55,7 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
      * creates a CertificateIssuer.
      * @returns Promise containing CertificateIssuer.
      */
-    public create(issuerCredentials?: any): Promise<CertificateIssuer> {
+    public create(issuerCredentials?: { [key: string]: string }): Promise<CertificateIssuer> {
         const body = {
             description: this.description,
             issuer_attributes: this.issuerAttributes,
@@ -165,7 +165,7 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
      * updates a CertificateIssuer.
      * @returns Promise containing CertificateIssuer.
      */
-    public update(issuerCredentials?: any): Promise<CertificateIssuer> {
+    public update(issuerCredentials?: { [key: string]: string }): Promise<CertificateIssuer> {
         const body = {
             description: this.description,
             issuer_attributes: this.issuerAttributes,

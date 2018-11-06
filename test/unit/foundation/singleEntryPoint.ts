@@ -34,7 +34,7 @@ describe("singleEntryPoint", () => {
     });
 
     test("sdk instance", () => {
-        const sdk = new SDK({ apiKey: "ak_1" });
+        const sdk = new SDK(new Config({ apiKey: "ak_1" }));
         expect("Bearer ak_1").toEqual(sdk.getConfig().apiKey);
 
         const user = sdk.entities.User();
@@ -43,10 +43,10 @@ describe("singleEntryPoint", () => {
     });
 
     test("multiple sdk instances", () => {
-        const sdk1 = new SDK({ apiKey: "ak_1" });
+        const sdk1 = new SDK(new Config({ apiKey: "ak_1" }));
         expect("Bearer ak_1").toEqual(sdk1.getConfig().apiKey);
 
-        const sdk2 = new SDK({ apiKey: "ak_2" });
+        const sdk2 = new SDK(new Config({ apiKey: "ak_2" }));
         expect("Bearer ak_2").toEqual(sdk2.getConfig().apiKey);
     });
 

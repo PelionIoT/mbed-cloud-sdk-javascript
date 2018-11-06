@@ -15,14 +15,14 @@
 * limitations under the License.
 */
 
-import { User, SubtenantAccount } from "../../../src/sdk/entities";
+import { User, Account } from "../../../src/sdk/entities";
 import { Config } from "../../../src/sdk";
 
 describe("subTenants", () => {
     test("subTenant", async () => {
         try {
             // an example: creating and managing a subtenant account
-            const newSubtenant = new SubtenantAccount();
+            const newSubtenant = new Account();
             newSubtenant.displayName = "sdk test dan";
             newSubtenant.endMarket = "connected warrens";
             newSubtenant.adminFullName = "dan the wombat";

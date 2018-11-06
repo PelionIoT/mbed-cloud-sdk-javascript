@@ -51,7 +51,7 @@ export class Device extends EntityBase {
     /**
      * Up to five custom key-value attributes.
      */
-    public customAttributes?: any;
+    public customAttributes?: { [key: string]: string };
 
     /**
      * DEPRECATED: The state of the device&#39;s deployment.

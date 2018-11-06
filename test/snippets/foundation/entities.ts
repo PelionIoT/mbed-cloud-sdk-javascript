@@ -15,14 +15,14 @@
 * limitations under the License.
 */
 
-import { MyAccount, ApiKey } from "../../../src/sdk/entities";
+import { Account, ApiKey } from "../../../src/sdk/entities";
 import { Config, SDK } from "../../../src/sdk";
 
 describe("entities", () => {
     test("quick", async () => {
         try {
             // an example: checking account status
-            const myAccount = await new MyAccount().get();
+            const myAccount = await new Account().me();
             const isActive = myAccount.status === "ACTIVE";
             // end of example
             expect(isActive).toBeTruthy();
@@ -47,7 +47,7 @@ describe("entities", () => {
         try {
             // an example: using multiple api keys
             const allUsers = [];
-            [ "ak_1", "ak_2" ].forEach(async k => allUsers.concat(await new SDK({ apiKey: k }).entities.User().list().all()));
+            [ "ak_1", "ak_2" ].forEach(async k => allUsers.concat(await new SDK(new Config({ apiKey: k })).entities.User().list().all()));
             // end of example
         } catch (e) {
             throw e;
