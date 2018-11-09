@@ -40,6 +40,11 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
     public issuerType?: CertificateIssuerIssuerTypeEnum;
 
     /**
+     * Provides details in case of failure.
+     */
+    public message?: string;
+
+    /**
      * Certificate issuer name, unique per account.
      */
     public name?: string;
