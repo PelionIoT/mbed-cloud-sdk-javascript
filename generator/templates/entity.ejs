@@ -20,11 +20,14 @@ import { EntityBase } from "../../../common/entityBase";
 <% enums.forEach(function(en) { -%>
     import { <%= en %> } from "../../enums";
 <% }); -%>
+<% if (isCrudEntity) { %>
+import { CrudEntity } from "../../../common/crudEntity";
+<% } %>
 
 /**
  * <%= snakeToPascal(entity._key) %>
  */
-export class <%= snakeToPascal(entity._key) %> extends EntityBase {
+export class <%= snakeToPascal(entity._key) %> extends EntityBase <% if (isCrudEntity) { %>implements CrudEntity<<%= snakeToPascal(entity._key) %>><% } %> {
 
 <% if (entity.field_renames.length > 0) { -%>
     public readonly _renames: { [key: string]: string } = {

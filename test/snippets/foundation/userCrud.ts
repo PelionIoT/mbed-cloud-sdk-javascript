@@ -28,11 +28,11 @@ describe("userCrud", () => {
             gotUser.accountId = user.accountId;
             await gotUser.get();
 
-            expect(gotUser instanceof User).toBeTruthy();
+            expect(gotUser).toBeInstanceOf(User);
             expect(gotUser.createdAt).toEqual(user.createdAt);
 
             const loginHistory = gotUser.loginHistory[0];
-            expect(loginHistory instanceof LoginHistory).toBeTruthy();
+            expect(loginHistory).toBeInstanceOf(LoginHistory);
         } catch (e) {
             throw e;
         }
@@ -41,7 +41,7 @@ describe("userCrud", () => {
     test("user list", async () => {
         try {
             const user = await new Account().myUsers().first();
-            expect(user instanceof User).toBeTruthy();
+            expect(user).toBeInstanceOf(User);
         } catch (e) {
             throw e;
         }

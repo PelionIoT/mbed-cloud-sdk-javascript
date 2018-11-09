@@ -4,11 +4,11 @@ describe("certificate examples", () => {
     it("should get developer info", async () => {
         const certificate = (await new TrustedCertificate().list().all()).filter(t => t.isDeveloperCertificate === true)[0];
 
-        expect(certificate instanceof TrustedCertificate).toBeTruthy();
+        expect(certificate).toBeInstanceOf(TrustedCertificate);
 
         const devInfo = await certificate.developerCertificateInfo();
 
-        expect(devInfo instanceof DeveloperCertificate).toBeTruthy();
+        expect(devInfo).toBeInstanceOf(DeveloperCertificate);
     });
 
     it("should get trusted cert info", async () => {
@@ -19,6 +19,6 @@ describe("certificate examples", () => {
         await devCertificate.get();
 
         const trustedCertInfo = await devCertificate.trustedCertificateInfo();
-        expect(trustedCertInfo instanceof TrustedCertificate).toBeTruthy();
-    })
+        expect(trustedCertInfo).toBeInstanceOf(TrustedCertificate);
+    });
 });

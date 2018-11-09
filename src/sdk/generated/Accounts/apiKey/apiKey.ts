@@ -6,10 +6,12 @@ import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { ApiKeyStatusEnum } from "../../enums";
 
+import { CrudEntity } from "../../../common/crudEntity";
+
 /**
  * ApiKey
  */
-export class ApiKey extends EntityBase {
+export class ApiKey extends EntityBase implements CrudEntity<ApiKey> {
     /**
      * Creation UTC time RFC3339.
      */

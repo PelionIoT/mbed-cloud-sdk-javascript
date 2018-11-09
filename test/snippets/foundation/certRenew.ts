@@ -1,4 +1,4 @@
-import { CertificateIssuerConfig, Device } from "../../../src/sdk/entities";
+import { CertificateIssuerConfig, Device, CertificateEnrollment } from "../../../src/sdk/entities";
 
 describe("cert renew snippets", async () => {
 
@@ -7,7 +7,7 @@ describe("cert renew snippets", async () => {
             // an example: certificate renew
             const myConfig = (await new CertificateIssuerConfig().list().all()).find(c => c.reference === "LWM2M");
             // cloak
-            expect(myConfig instanceof CertificateIssuerConfig).toBeTruthy();
+            expect(myConfig).toBeInstanceOf(CertificateIssuerConfig);
             // uncloak
 
             const connectedDevices = (await new Device().list().all()).filter(device => device.state === "registered");
@@ -30,6 +30,16 @@ describe("cert renew snippets", async () => {
             throw e;
         }
 
+    });
+
+    it("should list enrollments", async () => {
+        try {
+            const enrollment = await new CertificateEnrollment().list().first();
+
+            expect(enrollment).toBeInstanceOf(CertificateEnrollment);
+        } catch (e) {
+            throw e;
+        }
     });
 
 });

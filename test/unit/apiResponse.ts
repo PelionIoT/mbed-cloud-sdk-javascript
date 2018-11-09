@@ -72,7 +72,7 @@ describe("apiBase", () => {
                 birthday: date,
             },
         }, "application/json", (_error, data) => {
-            expect(data.birthday instanceof Date).toBeTruthy();
+            expect(data.birthday).toBeInstanceOf(Date);
             expect(data.birthday.getDate()).toBe(12);
             expect(data.birthday.getMonth()).toBe(0);
             expect(data.birthday.getFullYear()).toBe(1977);

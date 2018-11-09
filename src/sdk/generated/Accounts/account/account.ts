@@ -13,10 +13,12 @@ import { Policy } from "../../index";
 import { AccountMfaStatusEnum } from "../../enums";
 import { AccountStatusEnum } from "../../enums";
 
+import { CrudEntity } from "../../../common/crudEntity";
+
 /**
  * Account
  */
-export class Account extends EntityBase {
+export class Account extends EntityBase implements CrudEntity<Account> {
     public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
         passwordPolicy: {
             type: PasswordPolicy,

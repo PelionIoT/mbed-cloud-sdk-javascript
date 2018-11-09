@@ -17,6 +17,7 @@ const typeMap = {
     boolean: "boolean",
     array: (items) => "Array<" + items + ">",
     "date-time": "Date",
+    "date": "Date",
     int64: "number",
     int32: "number",
     object: "any",
@@ -114,6 +115,7 @@ entities.forEach(entity => {
         const t = (f.enum && f.enum_reference) ? getEnumType(f, enums) : getForeignKeyType(f) || getAdditionalProperties(f) || getType(f.format) || getType(f.type, f.items) || "any";
         const k = snakeToCamel(f._key)
         types[k] = t;
+        console.log(k + ": " + t);
     });
 
     // get foreign keys
@@ -203,7 +205,6 @@ entities.forEach(entity => {
 
                 if (external) {
                     type = getAdditionalProperties(field) || getType(field.type, field.items);
-                    console.log(type);
                     if (type === typeMap.file) {
                         fsNeeded = true;
                     }
@@ -291,11 +292,19 @@ entities.forEach(entity => {
                 customMethodName,
                 privateMethod
             });
+
+            console.log(methodName + ": " + returns);
         });
     }
 
+    const isCrudEntity = methods.filter(m => m.methodName === "get" || m.methodName === "list").length === 2;
+
+    if (!isCrudEntity) {
+        console.log(entityName + " is not a crud entity!");
+    }
+
     const filteredImports = imports.concat(foreignKeyTypes).filter((fk, index, self) => index === self.findIndex((t) => (t.propName === fk.propName))).filter(fk => fk.type !== entityName);
-    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, enums, clientCalls, paginators, customMethods, fsNeeded, unpackParams, snakeToCamel, snakeToPascal }, { rmWhitespace: false })
+    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, enums, clientCalls, paginators, customMethods, fsNeeded, unpackParams, snakeToCamel, snakeToPascal, isCrudEntity }, { rmWhitespace: false })
         .then(contents => {
             const path = `${generatedFolder}/${snakeToCamel(entity.group_id)}/${snakeToCamel(entity._key)}/${snakeToCamel(entity._key)}.ts`;
             fs.createFileSync(path);
