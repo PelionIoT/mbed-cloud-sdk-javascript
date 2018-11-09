@@ -1,49 +1,6 @@
 version: 2
 jobs:
-  build:
-    working_directory: ~/build
-    environment:
-      PIPENV_VENV_IN_PROJECT: TRUE
-    docker:
-      - image: circleci/python:3.7.0-stretch-node-browsers
-    steps:
-      - checkout
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
-      - run:
-          name: Update Python Installers
-          command: sudo python -m pip install -U setuptools pip pipenv
-      - restore_cache:
-          key: v1-package-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install Python Libraries
-          # pipenv is currently poorly behaved when installing from remote subdirectory
-          # so we simply use it as a proxy for the virtualenv
-          command: pipenv run pip install -r scripts/requirements.txt
-      - run:
-          name: Install SDK dependencies
-          command: npm install
-      - save_cache:
-          key: v1-package-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-            - .venv
-      - run:
-          name: Set version
-          # set the version (dev)
-          command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news
-      - run:
-          name: Build the SDK
-          command: npm run build
-      - store_artifacts:
-          path: package.json
-      - persist_to_workspace:
-          root: ./
-          paths:
-            - bundles
-            - lib
-            - types
+  $ref: "build.yml#/build"
   tpip:
     working_directory: ~/build
     docker:
