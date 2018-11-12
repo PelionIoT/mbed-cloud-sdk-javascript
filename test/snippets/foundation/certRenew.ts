@@ -5,7 +5,7 @@ describe("cert renew snippets", async () => {
     it("should renew device certificate", async () => {
         try {
             // an example: certificate renew
-            const myConfig = (await new CertificateIssuerConfig().list().all()).find(c => c.reference === "LWM2M");
+            const myConfig = (await new CertificateIssuerConfig().list().all()).find(c => c.certificateReference === "LWM2M");
             // cloak
             expect(myConfig).toBeInstanceOf(CertificateIssuerConfig);
             // uncloak
@@ -16,14 +16,14 @@ describe("cert renew snippets", async () => {
             // uncloak
 
             for (const device of connectedDevices) {
-                await device.renewCertificate(myConfig.reference);
+                await device.renewCertificate(myConfig.certificateReference);
             }
             // end of example
 
             return connectedDevices;
         } catch (e) {
             // should throw 400, device cert cannot be renewed
-            if (e.details && e.details.code === 400) {
+            if (e.details && e.details.code === 400 || e.details.code === 423) {
                 return;
             }
 
