@@ -34,5 +34,7 @@ export * from "./Accounts/user/user";
 
 export * from "./Accounts/userInvitation/userInvitation";
 
+export * from "./Security/verificationResponse/verificationResponse";
+
 export * from "./enums";
 export * from "./factory";

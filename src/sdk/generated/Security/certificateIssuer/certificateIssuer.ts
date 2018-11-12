@@ -4,6 +4,7 @@ import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
+import { VerificationResponse } from "../../index";
 import { CertificateIssuerIssuerTypeEnum } from "../../enums";
 
 /**
@@ -38,19 +39,9 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
     public issuerType?: CertificateIssuerIssuerTypeEnum;
 
     /**
-     * Provides details in case of failure.
-     */
-    public message?: string;
-
-    /**
      * Certificate issuer name, unique per account.
      */
     public name?: string;
-
-    /**
-     * Indicates whether the certificate issuer was verified successfully.
-     */
-    public successful?: boolean;
 
     constructor(config?: Config) {
         super(config);
@@ -199,13 +190,13 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
     }
 
     /**
-     * verifys a CertificateIssuer.
-     * @returns Promise containing CertificateIssuer.
+     * verifys a VerificationResponse.
+     * @returns Promise containing VerificationResponse.
      */
-    public verify(): Promise<CertificateIssuer> {
+    public verify(): Promise<VerificationResponse> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<CertificateIssuer>(
+                this.client._CallApi<VerificationResponse>(
                     {
                         url: "/v3/certificate-issuers/{certificate-issuer-id}/verify",
                         method: "POST",
@@ -213,7 +204,7 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
                             "certificate-issuer-id": this.id,
                         },
                     },
-                    this,
+                    VerificationResponse,
                     resultsFn
                 );
             },

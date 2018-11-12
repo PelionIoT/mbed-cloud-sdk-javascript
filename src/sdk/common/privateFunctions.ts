@@ -2,8 +2,6 @@ import { TrustedCertificate, DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDel
 import { ReadStream, createWriteStream, createReadStream } from "fs";
 import { isThisNode } from "../../common/functions";
 import { get as http_get } from "superagent";
-import { SDKError } from "../../common/sdkError";
-import { fstat } from "fs-extra";
 
 export function isDeveloperCertificateGetter(self: TrustedCertificate) {
     return self.deviceExecutionMode ? !!self.deviceExecutionMode : false;

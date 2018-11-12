@@ -9,11 +9,20 @@ import { apiWrapper } from "../../../../common/functions";
  * CertificateIssuerConfig
  */
 export class CertificateIssuerConfig extends EntityBase {
+    public readonly _renames: { [key: string]: string } = {
+        reference: "certificateReference",
+    };
+
     /**
             * The ID of the certificate issuer.
 Null if Device Management internal HSM is used.
             */
     public certificateIssuerId?: string;
+
+    /**
+     * The certificate name to which the certificate issuer configuration applies.
+     */
+    public certificateReference?: string;
 
     /**
      * Created UTC time RFC3339.
@@ -24,11 +33,6 @@ Null if Device Management internal HSM is used.
      * is_custom
      */
     public isCustom?: boolean;
-
-    /**
-     * The certificate name to which the certificate issuer configuration applies.
-     */
-    public reference?: string;
 
     /**
      * Updated UTC time RFC3339.
@@ -46,7 +50,7 @@ Null if Device Management internal HSM is used.
     public create(): Promise<CertificateIssuerConfig> {
         const body = {
             certificate_issuer_id: this.certificateIssuerId,
-            reference: this.reference,
+            reference: this.certificateReference,
         };
         return apiWrapper(
             resultsFn => {
