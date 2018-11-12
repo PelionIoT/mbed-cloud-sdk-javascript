@@ -1,5 +1,6 @@
 import { ReadStream } from "fs";
 import { EntityBase } from "../../../common/entityBase";
+import * as privateFunctions from "../../../common/privateFunctions";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { DeviceEnrollmentBulkDeleteStatusEnum } from "../../enums";
@@ -106,5 +107,21 @@ export class DeviceEnrollmentBulkDelete extends EntityBase {
                 done(null, data);
             }
         );
+    }
+
+    /**
+     * getErrorsReportFiles a ReadStream | Buffer | File | Blob.
+     * @returns Promise containing ReadStream | Buffer | File | Blob.
+     */
+    public getErrorsReportFile(): Promise<ReadStream | Buffer | File | Blob> {
+        return privateFunctions.getErrorsReportFile(this);
+    }
+
+    /**
+     * getFullReportFiles a ReadStream | Buffer | File | Blob.
+     * @returns Promise containing ReadStream | Buffer | File | Blob.
+     */
+    public getFullReportFile(): Promise<ReadStream | Buffer | File | Blob> {
+        return privateFunctions.getFullReportFile(this);
     }
 }

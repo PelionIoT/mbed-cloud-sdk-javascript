@@ -171,7 +171,7 @@ entities.forEach(entity => {
             if (paginated) paginators = true;
             // if a foreign key exists and its not the same as the enity
             const foreignKey = method.foreign_key ? (snakeToPascal(method.foreign_key.entity) != entityName) : false;
-            const returns = deferToForeignKey ? snakeToPascal(method.defer_to_foreign_key_field.foreign_key.entity) : foreignKey ? snakeToPascal(method.foreign_key.entity) : entityName;
+            const returns = deferToForeignKey ? snakeToPascal(method.defer_to_foreign_key_field.foreign_key.entity) : foreignKey ? snakeToPascal(method.foreign_key.entity) : method.type ? getType(method.type) : entityName;
 
             if (foreignKey) {
                 const fk = {};
