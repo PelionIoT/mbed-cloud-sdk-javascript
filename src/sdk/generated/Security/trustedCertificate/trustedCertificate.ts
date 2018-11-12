@@ -9,12 +9,10 @@ import { DeveloperCertificate } from "../../index";
 import { TrustedCertificateServiceEnum } from "../../enums";
 import { TrustedCertificateStatusEnum } from "../../enums";
 
-import { CrudEntity } from "../../../common/crudEntity";
-
 /**
  * TrustedCertificate
  */
-export class TrustedCertificate extends EntityBase implements CrudEntity<TrustedCertificate> {
+export class TrustedCertificate extends EntityBase {
     /**
      * The UUID of the account.
      */

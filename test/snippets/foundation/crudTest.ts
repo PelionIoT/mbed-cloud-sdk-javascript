@@ -1,6 +1,4 @@
-import { CrudEntity } from "../../../src/sdk/common/crudEntity";
-
-export class CrudTest<T extends CrudEntity<T>> {
+export class CrudTest<T> {
     constructor(
         private type: { new(): T },
         private commonProperty: string = "createdAt",
@@ -23,7 +21,8 @@ export class CrudTest<T extends CrudEntity<T>> {
                 this.options.preListFunc(entity);
             }
 
-            const first = await entity.list().first();
+            // tslint:disable-next-line:no-string-literal
+            const first = await entity["list"]()["first"]();
 
             if (!first) {
                 // tslint:disable-next-line:no-console
@@ -39,8 +38,10 @@ export class CrudTest<T extends CrudEntity<T>> {
                 this.options.preGetFunc(gotEntity);
             }
 
-            gotEntity.id = first.id;
-            await gotEntity.get();
+            // tslint:disable-next-line:no-string-literal
+            gotEntity["id"] = first.id;
+            // tslint:disable-next-line:no-string-literal
+            await gotEntity["get"]();
 
             expect(gotEntity[this.commonProperty]).toEqual(first[this.commonProperty]);
         } catch (e) {

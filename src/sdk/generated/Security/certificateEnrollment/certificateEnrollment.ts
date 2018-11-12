@@ -7,12 +7,10 @@ import { apiWrapper } from "../../../../common/functions";
 import { CertificateEnrollmentEnrollResultEnum } from "../../enums";
 import { CertificateEnrollmentEnrollStatusEnum } from "../../enums";
 
-import { CrudEntity } from "../../../common/crudEntity";
-
 /**
  * CertificateEnrollment
  */
-export class CertificateEnrollment extends EntityBase implements CrudEntity<CertificateEnrollment> {
+export class CertificateEnrollment extends EntityBase {
     /**
      * The certificate name.
      */

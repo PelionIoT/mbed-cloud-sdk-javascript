@@ -6,12 +6,10 @@ import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { CertificateIssuerIssuerTypeEnum } from "../../enums";
 
-import { CrudEntity } from "../../../common/crudEntity";
-
 /**
  * CertificateIssuer
  */
-export class CertificateIssuer extends EntityBase implements CrudEntity<CertificateIssuer> {
+export class CertificateIssuer extends EntityBase {
     /**
      * Creation UTC time RFC3339.
      */

@@ -7,12 +7,10 @@ import { apiWrapper } from "../../../../common/functions";
 import { LoginHistory } from "../../index";
 import { UserStatusEnum } from "../../enums";
 
-import { CrudEntity } from "../../../common/crudEntity";
-
 /**
  * User
  */
-export class User extends EntityBase implements CrudEntity<User> {
+export class User extends EntityBase {
     public readonly _renames: { [key: string]: string } = {
         is_marketing_accepted: "marketingAccepted",
         is_gtc_accepted: "termsAccepted",

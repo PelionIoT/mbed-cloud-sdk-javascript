@@ -38,12 +38,14 @@ const getType = (type, items) => {
     return t;
 };
 
+// get the type of enum usinf the enum_reference
 const getEnumType = (field, enums) => {
     const enumName = snakeToPascal(field.enum_reference);
     enums.push(enumName);
     return enumName;
 }
 
+// if field has a foreign_key at root, it is standalone foreign_key
 const getForeignKeyType = (field) => {
     if (field.foreign_key) {
         return snakeToPascal(field.foreign_key.entity);
@@ -52,6 +54,7 @@ const getForeignKeyType = (field) => {
     return undefined;
 }
 
+// type is additional_properties as defined in swagger
 const getAdditionalProperties = (field) => {
     if (field.additionalProperties) {
         return "{ [key: string]: string }"
@@ -60,6 +63,7 @@ const getAdditionalProperties = (field) => {
     return undefined;
 }
 
+// helper method to generate list of parameters
 const unpackParams = (key, params) => {
     if (key && params) {
         return '"' + key + '"' + ":" + (!params.external ? "this." : "") + params.key;
@@ -67,6 +71,7 @@ const unpackParams = (key, params) => {
     return "";
 };
 
+// convert snake to camelCase
 const snakeToCamel = (snake) => {
     if (snake) {
         const out = snake.replace(/((\_|\-)\w)/g, match => {
@@ -79,6 +84,7 @@ const snakeToCamel = (snake) => {
     return "";
 }
 
+// conver snake to PascalCase
 const snakeToPascal = (snake) => {
     const camel = snakeToCamel(snake);
     return camel.charAt(0).toUpperCase() + camel.slice(1);
@@ -297,14 +303,8 @@ entities.forEach(entity => {
         });
     }
 
-    const isCrudEntity = methods.filter(m => m.methodName === "get" || m.methodName === "list").length === 2;
-
-    if (!isCrudEntity) {
-        console.log(entityName + " is not a crud entity!");
-    }
-
     const filteredImports = imports.concat(foreignKeyTypes).filter((fk, index, self) => index === self.findIndex((t) => (t.propName === fk.propName))).filter(fk => fk.type !== entityName);
-    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, enums, clientCalls, paginators, customMethods, fsNeeded, unpackParams, snakeToCamel, snakeToPascal, isCrudEntity }, { rmWhitespace: false })
+    ejs.renderFile(`${templatesPath}/entity.ejs`, { entity, types, foreignKeyTypes, methods, filteredImports, enums, clientCalls, paginators, customMethods, fsNeeded, unpackParams, snakeToCamel, snakeToPascal }, { rmWhitespace: false })
         .then(contents => {
             const path = `${generatedFolder}/${snakeToCamel(entity.group_id)}/${snakeToCamel(entity._key)}/${snakeToCamel(entity._key)}.ts`;
             fs.createFileSync(path);

@@ -5,12 +5,10 @@ import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 
-import { CrudEntity } from "../../../common/crudEntity";
-
 /**
  * UserInvitation
  */
-export class UserInvitation extends EntityBase implements CrudEntity<UserInvitation> {
+export class UserInvitation extends EntityBase {
     /**
      * The UUID of the account the user is invited to.
      */

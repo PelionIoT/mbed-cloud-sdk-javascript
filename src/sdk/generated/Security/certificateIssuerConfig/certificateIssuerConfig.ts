@@ -5,12 +5,10 @@ import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 
-import { CrudEntity } from "../../../common/crudEntity";
-
 /**
  * CertificateIssuerConfig
  */
-export class CertificateIssuerConfig extends EntityBase implements CrudEntity<CertificateIssuerConfig> {
+export class CertificateIssuerConfig extends EntityBase {
     /**
             * The ID of the certificate issuer.
 Null if Device Management internal HSM is used.

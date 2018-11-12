@@ -5,12 +5,10 @@ import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 
-import { CrudEntity } from "../../../common/crudEntity";
-
 /**
  * DeviceEnrollment
  */
-export class DeviceEnrollment extends EntityBase implements CrudEntity<DeviceEnrollment> {
+export class DeviceEnrollment extends EntityBase {
     /**
      * ID
      */

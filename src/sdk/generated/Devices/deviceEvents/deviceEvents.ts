@@ -5,12 +5,10 @@ import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 
-import { CrudEntity } from "../../../common/crudEntity";
-
 /**
  * DeviceEvents
  */
-export class DeviceEvents extends EntityBase implements CrudEntity<DeviceEvents> {
+export class DeviceEvents extends EntityBase {
     /**
      * Additional data relevant to the event.
      */

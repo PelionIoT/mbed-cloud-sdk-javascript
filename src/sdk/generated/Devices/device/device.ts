@@ -9,12 +9,10 @@ import { DeviceDeployedStateEnum } from "../../enums";
 import { DeviceMechanismEnum } from "../../enums";
 import { DeviceStateEnum } from "../../enums";
 
-import { CrudEntity } from "../../../common/crudEntity";
-
 /**
  * Device
  */
-export class Device extends EntityBase implements CrudEntity<Device> {
+export class Device extends EntityBase {
     /**
      * The ID of the associated account.
      */
