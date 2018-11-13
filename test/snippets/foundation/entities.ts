@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { Account, ApiKey } from "../../../src/sdk/entities";
+import { Account, ApiKey, User } from "../../../src/sdk/entities";
 import { Config, SDK } from "../../../src/sdk";
 
 describe("entities", () => {
@@ -61,6 +61,10 @@ describe("entities", () => {
             const allUsers = new SDK(config).entities.User().list().all();
             // end of example
             expect(allUsers).not.toBeNull();
+
+            const user = new User();
+            expect(user.config.apiKey).not.toEqual(config.apiKey);
+            expect(user.config.host).not.toEqual(config.host);
         } catch (e) {
             throw e;
         }

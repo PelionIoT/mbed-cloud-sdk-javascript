@@ -5,8 +5,8 @@ import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { SubtenantTrustedCertificate } from "../../index";
-import { UserInvitation } from "../../index";
-import { User } from "../../index";
+import { SubtenantUserInvitation } from "../../index";
+import { SubtenantUser } from "../../index";
 import { PasswordPolicy } from "../../index";
 import { Policy } from "../../index";
 import { AccountMfaStatusEnum } from "../../enums";
@@ -447,15 +447,15 @@ export class Account extends EntityBase {
     }
 
     /**
-     * List UserInvitations
+     * List SubtenantUserInvitations
      * @param options filter options
      */
-    public userInvitations(options?: ListOptions): Paginator<UserInvitation, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<UserInvitation>> => {
+    public userInvitations(options?: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUserInvitation>> => {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<UserInvitation>(
+                    this.client._CallApi<SubtenantUserInvitation>(
                         {
                             url: "/v3/accounts/{account-id}/user-invitations",
                             method: "GET",
@@ -465,11 +465,11 @@ export class Account extends EntityBase {
                             },
                             paginated: true,
                         },
-                        UserInvitation,
+                        SubtenantUserInvitation,
                         resultsFn
                     );
                 },
-                (data: ListResponse<UserInvitation>, done) => {
+                (data: ListResponse<SubtenantUserInvitation>, done) => {
                     done(null, new ListResponse(data, data.data));
                 },
                 null,
@@ -480,15 +480,15 @@ export class Account extends EntityBase {
     }
 
     /**
-     * List Users
+     * List SubtenantUsers
      * @param options filter options
      */
-    public users(options?: ListOptions): Paginator<User, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+    public users(options?: ListOptions): Paginator<SubtenantUser, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUser>> => {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<User>(
+                    this.client._CallApi<SubtenantUser>(
                         {
                             url: "/v3/accounts/{accountID}/users",
                             method: "GET",
@@ -498,11 +498,11 @@ export class Account extends EntityBase {
                             },
                             paginated: true,
                         },
-                        User,
+                        SubtenantUser,
                         resultsFn
                     );
                 },
-                (data: ListResponse<User>, done) => {
+                (data: ListResponse<SubtenantUser>, done) => {
                     done(null, new ListResponse(data, data.data));
                 },
                 null,
