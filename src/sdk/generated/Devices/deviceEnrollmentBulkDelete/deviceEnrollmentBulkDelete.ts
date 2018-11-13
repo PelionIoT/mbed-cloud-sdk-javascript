@@ -85,6 +85,22 @@ export class DeviceEnrollmentBulkDelete extends EntityBase {
     }
 
     /**
+     * downloadErrorsReportFiles a ReadStream | Buffer | File | Blob.
+     * @returns Promise containing ReadStream | Buffer | File | Blob.
+     */
+    public downloadErrorsReportFile(): Promise<ReadStream | Buffer | File | Blob> {
+        return privateFunctions.downloadErrorsReportFile(this);
+    }
+
+    /**
+     * downloadFullReportFiles a ReadStream | Buffer | File | Blob.
+     * @returns Promise containing ReadStream | Buffer | File | Blob.
+     */
+    public downloadFullReportFile(): Promise<ReadStream | Buffer | File | Blob> {
+        return privateFunctions.downloadFullReportFile(this);
+    }
+
+    /**
      * gets a DeviceEnrollmentBulkDelete.
      * @returns Promise containing DeviceEnrollmentBulkDelete.
      */
@@ -107,21 +123,5 @@ export class DeviceEnrollmentBulkDelete extends EntityBase {
                 done(null, data);
             }
         );
-    }
-
-    /**
-     * getErrorsReportFiles a ReadStream | Buffer | File | Blob.
-     * @returns Promise containing ReadStream | Buffer | File | Blob.
-     */
-    public getErrorsReportFile(): Promise<ReadStream | Buffer | File | Blob> {
-        return privateFunctions.getErrorsReportFile(this);
-    }
-
-    /**
-     * getFullReportFiles a ReadStream | Buffer | File | Blob.
-     * @returns Promise containing ReadStream | Buffer | File | Blob.
-     */
-    public getFullReportFile(): Promise<ReadStream | Buffer | File | Blob> {
-        return privateFunctions.getFullReportFile(this);
     }
 }

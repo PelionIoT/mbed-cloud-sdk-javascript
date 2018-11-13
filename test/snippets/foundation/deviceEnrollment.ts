@@ -1,5 +1,6 @@
+/* tslint:disable: no-console */
 import { DeviceEnrollment, DeviceEnrollmentBulkCreate } from "../../../src/sdk/entities";
-import { createReadStream } from "fs";
+import { createReadStream, ReadStream } from "fs";
 
 describe("Device Enrollment examples", () => {
 
@@ -35,11 +36,26 @@ describe("Device Enrollment examples", () => {
 
             // call get to see current state of bulk enrollment
             await bulk.get();
-            // end of example
+
+            // cloak
             expect(bulk.status === "completed" || bulk.status === "processing").toBeTruthy();
+            // uncloak
+
+            const reportFile = await bulk.downloadFullReportFile() as ReadStream;
+
+            // stream report file into string and print it
+            let data = "";
+            reportFile.on("data", chunk => {
+                data += chunk;
+            }).on("end", () => {
+                console.log(data);
+            });
+            // end of example
+
+            expect(reportFile.readable).toBeTruthy();
         } catch (e) {
             throw e;
         }
-    });
+    }, 15000);
 
 });

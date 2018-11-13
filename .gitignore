@@ -13,3 +13,4 @@ rpc_fixtures
 docs/docs
 .env
 test/**/build
+report.csv

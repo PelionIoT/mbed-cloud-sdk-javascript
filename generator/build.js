@@ -25,7 +25,7 @@ const typeMap = {
 }
 
 const getType = (type, items) => {
-    const t = typeMap[type];
+    const t = typeMap[type] || snakeToPascal(type);
     // if type is array
     if (typeof t === "function") {
         if (items.foreign_key) {
@@ -33,6 +33,11 @@ const getType = (type, items) => {
         }
 
         return t(getType(items.type));
+    }
+
+    // if type is PaginatedResponse, the type isn't actually PaginatedResponse so we should return undefined
+    if (t === "PaginatedResponse") {
+        return undefined;
     }
 
     return t;
@@ -159,7 +164,7 @@ entities.forEach(entity => {
             let deferToForeignKey = false;
             let deferedMethodCall = {};
             const methodName = snakeToCamel(method._key);
-            const httpMethod = method.method ? method.method.toUpperCase() : deferToForeignKey = true;
+            const httpMethod = method.method ? method.method.toUpperCase() : method.defer_to_foreign_key_field ? deferToForeignKey = true : "GET";
             const path = method.path;
             const paginated = !!method.pagination;
             const privateMethod = !!method.private_method;
@@ -171,7 +176,9 @@ entities.forEach(entity => {
             if (paginated) paginators = true;
             // if a foreign key exists and its not the same as the enity
             const foreignKey = method.foreign_key ? (snakeToPascal(method.foreign_key.entity) != entityName) : false;
-            const returns = deferToForeignKey ? snakeToPascal(method.defer_to_foreign_key_field.foreign_key.entity) : foreignKey ? snakeToPascal(method.foreign_key.entity) : method.type ? getType(method.type) : entityName;
+            const isDeferToForeignKey = deferToForeignKey ? snakeToPascal(method.defer_to_foreign_key_field.foreign_key.entity) : foreignKey;
+            const returnType = isDeferToForeignKey ? snakeToPascal(method.foreign_key.entity) : method.return_type;
+            const returns = getType(returnType) || entityName;
 
             if (foreignKey) {
                 const fk = {};

@@ -2,6 +2,7 @@ import { TrustedCertificate, DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDel
 import { ReadStream, createWriteStream, createReadStream } from "fs";
 import { isThisNode } from "../../common/functions";
 import { get as http_get } from "superagent";
+import { Config } from "../client/config";
 
 export function isDeveloperCertificateGetter(self: TrustedCertificate) {
     return self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
@@ -12,33 +13,38 @@ export function isDeveloperCertificateSetter(self: TrustedCertificate, value: bo
     self.isDeveloperCertificate = value;
 }
 
-export function getErrorsReportFile(self: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
-    return new Promise<ReadStream>(() => {
-        return streamToFile(self.errorsReportFile);
+export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
+    return new Promise<ReadStream>((resolve, reject) => {
+        return streamToFile(self.config, self.errorsReportFile, resolve, reject);
     });
 }
 
-export function getFullReportFile(_self: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
-    return null;
+export function downloadFullReportFile(self: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
+    return new Promise<ReadStream>((resolve, reject) => {
+        return streamToFile(self.config, self.fullReportFile, resolve, reject);
+    });
 }
 
-function streamToFile(url: string, filePath?: string) {
+function streamToFile(config: Config, url: string, resolve: (value: ReadStream) => void, reject: (reason: any) => void,  filePath?: string) {
     if (isThisNode()) {
-        const tempPath = filePath || "/temp/reports/report.csv";
-        // we're in node and want to stream a file
-        const fileStream = createWriteStream(tempPath, { flags: "a+" });
-        const req = http_get(url);
-        req.set("auth", "Bearer soomeshit");
+        const tempPath = filePath || "report.csv";
+        const fileStream = createWriteStream(tempPath);
+        fileStream.on("open", () => {
+            const req = http_get(url);
+            req.set("Authorization", `${config.apiKey}`);
 
-        req.pipe(fileStream).on("finish", _ => {
-            fileStream.close();
-            const file = createReadStream(tempPath);
-            return file;
+            req.pipe(fileStream).on("finish", _ => {
+                fileStream.close();
+            });
+            req.on("error", error => {
+                reject(error);
+            });
         });
-        req.on("error", error => {
-            throw error;
+        fileStream.on("close", () => {
+            const file = createReadStream(tempPath);
+            return resolve(file);
         });
     } else {
-        return;
+        return reject("Can only download file in Node environment!");
     }
 }
