@@ -11,6 +11,9 @@ import { DeviceEnrollmentBulkCreate } from "./index";
 import { DeviceEnrollmentBulkDelete } from "./index";
 import { DeviceEvents } from "./index";
 import { ServerCredentials } from "./index";
+import { SubtenantTrustedCertificate } from "./index";
+import { SubtenantUser } from "./index";
+import { SubtenantUserInvitation } from "./index";
 import { TrustedCertificate } from "./index";
 import { User } from "./index";
 import { UserInvitation } from "./index";
@@ -54,6 +57,15 @@ export class Factory {
     }
     public ServerCredentials(): ServerCredentials {
         return new ServerCredentials(this._config);
+    }
+    public SubtenantTrustedCertificate(): SubtenantTrustedCertificate {
+        return new SubtenantTrustedCertificate(this._config);
+    }
+    public SubtenantUser(): SubtenantUser {
+        return new SubtenantUser(this._config);
+    }
+    public SubtenantUserInvitation(): SubtenantUserInvitation {
+        return new SubtenantUserInvitation(this._config);
     }
     public TrustedCertificate(): TrustedCertificate {
         return new TrustedCertificate(this._config);

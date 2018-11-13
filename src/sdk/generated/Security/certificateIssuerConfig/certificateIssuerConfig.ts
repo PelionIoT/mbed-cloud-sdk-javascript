@@ -151,6 +151,28 @@ Null if Device Management internal HSM is used.
     }
 
     /**
+     * lwm2ms a CertificateIssuerConfig.
+     * @returns Promise containing CertificateIssuerConfig.
+     */
+    public lwm2m(): Promise<CertificateIssuerConfig> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<CertificateIssuerConfig>(
+                    {
+                        url: "/v3/certificate-issuer-configurations/lwm2m",
+                        method: "GET",
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
+    }
+
+    /**
      * updates a CertificateIssuerConfig.
      * @returns Promise containing CertificateIssuerConfig.
      */

@@ -3,12 +3,13 @@ import { ReadStream, createWriteStream, createReadStream } from "fs";
 import { isThisNode } from "../../common/functions";
 import { get as http_get } from "superagent";
 import { Config } from "../client/config";
+import { SubtenantTrustedCertificate } from "../generated/Security/subtenantTrustedCertificate/subtenantTrustedCertificate";
 
-export function isDeveloperCertificateGetter(self: TrustedCertificate) {
+export function isDeveloperCertificateGetter(self: TrustedCertificate | SubtenantTrustedCertificate) {
     return self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
 }
 
-export function isDeveloperCertificateSetter(self: TrustedCertificate, value: boolean): void {
+export function isDeveloperCertificateSetter(self: TrustedCertificate | SubtenantTrustedCertificate, value: boolean): void {
     self.deviceExecutionMode = value ? 1 : 0;
     self.isDeveloperCertificate = value;
 }

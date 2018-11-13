@@ -28,6 +28,12 @@ export * from "./Accounts/policy/policy";
 
 export * from "./Security/serverCredentials/serverCredentials";
 
+export * from "./Security/subtenantTrustedCertificate/subtenantTrustedCertificate";
+
+export * from "./Accounts/subtenantUser/subtenantUser";
+
+export * from "./Accounts/subtenantUserInvitation/subtenantUserInvitation";
+
 export * from "./Security/trustedCertificate/trustedCertificate";
 
 export * from "./Accounts/user/user";

@@ -4,8 +4,7 @@ import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
-import { ApiKey } from "../../index";
-import { TrustedCertificate } from "../../index";
+import { SubtenantTrustedCertificate } from "../../index";
 import { UserInvitation } from "../../index";
 import { User } from "../../index";
 import { PasswordPolicy } from "../../index";
@@ -104,11 +103,6 @@ export class Account extends EntityBase {
     public createdAt?: Date;
 
     /**
-     * The timestamp of the API key creation in the storage, in milliseconds.
-     */
-    public creationTime?: number;
-
-    /**
      * Account&#39;s custom properties as key-value pairs.
      */
     public customFields?: { [key: string]: string };
@@ -139,24 +133,9 @@ export class Account extends EntityBase {
     public expirationWarningThreshold?: string;
 
     /**
-     * A list of group IDs this API key belongs to.
-     */
-    public groups?: Array<string>;
-
-    /**
      * The reference token expiration time in minutes for this account.
      */
     public idleTimeout?: string;
-
-    /**
-     * The API key.
-     */
-    public key?: string;
-
-    /**
-     * The timestamp of the latest API key usage, in milliseconds.
-     */
-    public lastLoginTime?: number;
 
     /**
      * List of limits as key-value pairs if requested.
@@ -169,19 +148,9 @@ export class Account extends EntityBase {
     public mfaStatus?: AccountMfaStatusEnum;
 
     /**
-     * The display name for the API key.
-     */
-    public name?: string;
-
-    /**
      * A list of notification email addresses.
      */
     public notificationEmails?: Array<string>;
-
-    /**
-     * The owner of this API key, who is the creator by default.
-     */
-    public owner?: string;
 
     /**
      * The ID of the parent account, if it has any.
@@ -395,157 +364,15 @@ export class Account extends EntityBase {
     }
 
     /**
-     * myApiKeys a Account.
-     * @returns Promise containing Account.
-     */
-    public myApiKey(): Promise<Account> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<Account>(
-                    {
-                        url: "/v3/api-keys/me",
-                        method: "GET",
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * List ApiKeys
+     * List SubtenantTrustedCertificates
      * @param options filter options
      */
-    public myApiKeys(options?: ListOptions): Paginator<ApiKey, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
+    public trustedCertificates(options?: ListOptions): Paginator<SubtenantTrustedCertificate, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantTrustedCertificate>> => {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<ApiKey>(
-                        {
-                            url: "/v3/api-keys",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        ApiKey,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<ApiKey>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * List TrustedCertificates
-     * @param options filter options
-     */
-    public myTrustedCertificates(options?: ListOptions): Paginator<TrustedCertificate, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<TrustedCertificate>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<TrustedCertificate>(
-                        {
-                            url: "/v3/trusted-certificates",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        TrustedCertificate,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<TrustedCertificate>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * List UserInvitations
-     * @param options filter options
-     */
-    public myUserInvitations(options?: ListOptions): Paginator<UserInvitation, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<UserInvitation>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<UserInvitation>(
-                        {
-                            url: "/v3/user-invitations",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        UserInvitation,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<UserInvitation>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * List Users
-     * @param options filter options
-     */
-    public myUsers(options?: ListOptions): Paginator<User, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<User>(
-                        {
-                            url: "/v3/users",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        User,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<User>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * List TrustedCertificates
-     * @param options filter options
-     */
-    public trustedCertificates(options?: ListOptions): Paginator<TrustedCertificate, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<TrustedCertificate>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<TrustedCertificate>(
+                    this.client._CallApi<SubtenantTrustedCertificate>(
                         {
                             url: "/v3/accounts/{accountID}/trusted-certificates",
                             method: "GET",
@@ -555,11 +382,11 @@ export class Account extends EntityBase {
                             },
                             paginated: true,
                         },
-                        TrustedCertificate,
+                        SubtenantTrustedCertificate,
                         resultsFn
                     );
                 },
-                (data: ListResponse<TrustedCertificate>, done) => {
+                (data: ListResponse<SubtenantTrustedCertificate>, done) => {
                     done(null, new ListResponse(data, data.data));
                 },
                 null,

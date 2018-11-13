@@ -2,7 +2,7 @@ export type AccountMfaStatusEnum = "enforced" | "optional";
 
 export type AccountOrderEnum = "ASC" | "DESC";
 
-export type AccountStatusEnum = "ACTIVE" | "ENROLLING" | "INACTIVE" | "RESTRICTED" | "SUSPENDED";
+export type AccountStatusEnum = "ACTIVE" | "ENROLLING" | "RESTRICTED" | "SUSPENDED";
 
 export type ApiKeyOrderEnum = "ASC" | "DESC";
 
@@ -29,6 +29,12 @@ export type DeviceEnrollmentOrderEnum = "ASC" | "DESC";
 export type DeviceMechanismEnum = "connector" | "direct";
 
 export type DeviceStateEnum = "bootstrapped" | "cloud_enrolling" | "deregistered" | "registered" | "unenrolled";
+
+export type SubtenantTrustedCertificateServiceEnum = "bootstrap" | "lwm2m";
+
+export type SubtenantTrustedCertificateStatusEnum = "ACTIVE" | "INACTIVE";
+
+export type SubtenantUserStatusEnum = "ACTIVE" | "ENROLLING" | "INACTIVE" | "INVITED" | "RESET";
 
 export type TrustedCertificateOrderEnum = "ASC" | "DESC";
 

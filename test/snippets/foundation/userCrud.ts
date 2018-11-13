@@ -15,13 +15,13 @@
 * limitations under the License.
 */
 
-import { User, LoginHistory, Account } from "../../../src/sdk/entities";
+import { User, LoginHistory } from "../../../src/sdk/entities";
 
 describe("userCrud", () => {
 
     test("user get", async () => {
         try {
-            const user = await new Account().myUsers().first();
+            const user = await new User().list().first();
 
             const gotUser = new User();
             gotUser.id = user.id;
@@ -40,7 +40,7 @@ describe("userCrud", () => {
 
     test("user list", async () => {
         try {
-            const user = await new Account().myUsers().first();
+            const user = await new User().list().first();
             expect(user).toBeInstanceOf(User);
         } catch (e) {
             throw e;
@@ -49,10 +49,7 @@ describe("userCrud", () => {
 
     test("phone demo", async () => {
         try {
-            const myAccount = await new Account().me();
-
             const user = new User();
-            user.accountId = myAccount.id;
             user.username = "alexjs";
             user.email = "alex@alex.alex";
             user.phoneNumber = "01638742452";

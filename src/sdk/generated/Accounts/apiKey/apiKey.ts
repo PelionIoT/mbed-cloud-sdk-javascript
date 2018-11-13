@@ -60,6 +60,60 @@ export class ApiKey extends EntityBase {
     }
 
     /**
+     * creates a ApiKey.
+     * @returns Promise containing ApiKey.
+     */
+    public create(): Promise<ApiKey> {
+        const body = {
+            groups: this.groups,
+            name: this.name,
+            owner: this.owner,
+            status: this.status,
+        };
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<ApiKey>(
+                    {
+                        url: "/v3/api-keys",
+                        method: "POST",
+                        body: body,
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
+    }
+
+    /**
+     * deletes a ApiKey.
+     * @returns Promise containing ApiKey.
+     */
+    public delete(): Promise<ApiKey> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<ApiKey>(
+                    {
+                        url: "/v3/api-keys/{apiKey}",
+                        method: "DELETE",
+                        pathParams: {
+                            apiKey: this.id,
+                        },
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
+    }
+
+    /**
      * gets a ApiKey.
      * @returns Promise containing ApiKey.
      */
@@ -112,5 +166,59 @@ export class ApiKey extends EntityBase {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+
+    /**
+     * mes a ApiKey.
+     * @returns Promise containing ApiKey.
+     */
+    public me(): Promise<ApiKey> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<ApiKey>(
+                    {
+                        url: "/v3/api-keys/me",
+                        method: "GET",
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
+    }
+
+    /**
+     * updates a ApiKey.
+     * @returns Promise containing ApiKey.
+     */
+    public update(): Promise<ApiKey> {
+        const body = {
+            groups: this.groups,
+            name: this.name,
+            owner: this.owner,
+            status: this.status,
+        };
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<ApiKey>(
+                    {
+                        url: "/v3/api-keys/{apiKey}",
+                        method: "PUT",
+                        pathParams: {
+                            apiKey: this.id,
+                        },
+                        body: body,
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
     }
 }

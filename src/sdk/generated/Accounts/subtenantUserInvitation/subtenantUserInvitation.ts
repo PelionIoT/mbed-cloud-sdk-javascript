@@ -1,14 +1,11 @@
 import { EntityBase } from "../../../common/entityBase";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 
 /**
- * UserInvitation
+ * SubtenantUserInvitation
  */
-export class UserInvitation extends EntityBase {
+export class SubtenantUserInvitation extends EntityBase {
     /**
      * The UUID of the account the user is invited to.
      */
@@ -49,19 +46,22 @@ export class UserInvitation extends EntityBase {
     }
 
     /**
-     * creates a UserInvitation.
-     * @returns Promise containing UserInvitation.
+     * creates a SubtenantUserInvitation.
+     * @returns Promise containing SubtenantUserInvitation.
      */
-    public create(): Promise<UserInvitation> {
+    public create(): Promise<SubtenantUserInvitation> {
         const body = {
             email: this.email,
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<UserInvitation>(
+                this.client._CallApi<SubtenantUserInvitation>(
                     {
-                        url: "/v3/user-invitations",
+                        url: "/v3/accounts/{account-id}/user-invitations",
                         method: "POST",
+                        pathParams: {
+                            "account-id": this.accountId,
+                        },
                         body: body,
                     },
                     this,
@@ -75,17 +75,18 @@ export class UserInvitation extends EntityBase {
     }
 
     /**
-     * deletes a UserInvitation.
-     * @returns Promise containing UserInvitation.
+     * deletes a SubtenantUserInvitation.
+     * @returns Promise containing SubtenantUserInvitation.
      */
-    public delete(): Promise<UserInvitation> {
+    public delete(): Promise<SubtenantUserInvitation> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<UserInvitation>(
+                this.client._CallApi<SubtenantUserInvitation>(
                     {
-                        url: "/v3/user-invitations/{invitation-id}",
+                        url: "/v3/accounts/{account-id}/user-invitations/{invitation-id}",
                         method: "DELETE",
                         pathParams: {
+                            "account-id": this.accountId,
                             "invitation-id": this.id,
                         },
                     },
@@ -100,17 +101,18 @@ export class UserInvitation extends EntityBase {
     }
 
     /**
-     * gets a UserInvitation.
-     * @returns Promise containing UserInvitation.
+     * gets a SubtenantUserInvitation.
+     * @returns Promise containing SubtenantUserInvitation.
      */
-    public get(): Promise<UserInvitation> {
+    public get(): Promise<SubtenantUserInvitation> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<UserInvitation>(
+                this.client._CallApi<SubtenantUserInvitation>(
                     {
-                        url: "/v3/user-invitations/{invitation-id}",
+                        url: "/v3/accounts/{account-id}/user-invitations/{invitation-id}",
                         method: "GET",
                         pathParams: {
+                            "account-id": this.accountId,
                             "invitation-id": this.id,
                         },
                     },
@@ -122,35 +124,5 @@ export class UserInvitation extends EntityBase {
                 done(null, data);
             }
         );
-    }
-
-    /**
-     * List UserInvitations
-     * @param options filter options
-     */
-    public list(options?: ListOptions): Paginator<UserInvitation, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<UserInvitation>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<UserInvitation>(
-                        {
-                            url: "/v3/user-invitations",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        UserInvitation,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<UserInvitation>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
     }
 }
