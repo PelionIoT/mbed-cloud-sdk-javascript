@@ -65,6 +65,10 @@ describe("entities", () => {
             const user = new User();
             expect(user.config.apiKey).not.toEqual(config.apiKey);
             expect(user.config.host).not.toEqual(config.host);
+
+            const sdk = new SDK();
+            expect(sdk.config.apiKey).not.toEqual(config.apiKey);
+            expect(sdk.config.host).not.toEqual(config.host);
         } catch (e) {
             throw e;
         }

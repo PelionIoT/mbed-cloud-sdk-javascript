@@ -280,6 +280,11 @@ export class SdkApiBase {
                 }
             }
 
+            // no data and instance has been activated
+            if (!data && instance instanceof EntityBase) {
+                callback(sdkError, instance);
+            }
+
             callback(sdkError, data);
         }
     }
