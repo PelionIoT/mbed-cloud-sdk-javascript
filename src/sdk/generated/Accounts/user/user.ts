@@ -60,11 +60,6 @@ export class User extends EntityBase {
     public fullName?: string;
 
     /**
-     * A list of IDs of the groups this user belongs to.
-     */
-    public groups?: Array<string>;
-
-    /**
      * A timestamp of the latest login of the user, in milliseconds.
      */
     public lastLoginTime?: number;
@@ -132,7 +127,6 @@ export class User extends EntityBase {
             address: this.address,
             email: this.email,
             full_name: this.fullName,
-            groups: this.groups,
             is_marketing_accepted: this.marketingAccepted,
             password: this.password,
             phone_number: this.phoneNumber,
@@ -248,7 +242,6 @@ export class User extends EntityBase {
         const body = {
             address: this.address,
             full_name: this.fullName,
-            groups: this.groups,
             is_marketing_accepted: this.marketingAccepted,
             phone_number: this.phoneNumber,
             is_gtc_accepted: this.termsAccepted,

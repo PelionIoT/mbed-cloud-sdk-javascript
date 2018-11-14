@@ -203,11 +203,6 @@ export class Account extends EntityBase {
     public status?: AccountStatusEnum;
 
     /**
-     * List of sub accounts. Not available for developer users.
-     */
-    public subAccounts?: Array<any>;
-
-    /**
      * Account template ID.
      */
     public templateId?: string;

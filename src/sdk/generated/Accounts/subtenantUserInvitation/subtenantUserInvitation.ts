@@ -27,11 +27,6 @@ export class SubtenantUserInvitation extends EntityBase {
     public expiration?: Date;
 
     /**
-     * A list of IDs of the groups the user is invited to.
-     */
-    public groups?: Array<string>;
-
-    /**
      * Last update UTC time RFC3339.
      */
     public updatedAt?: Date;

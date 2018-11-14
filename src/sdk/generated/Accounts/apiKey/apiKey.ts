@@ -21,11 +21,6 @@ export class ApiKey extends EntityBase {
     public creationTime?: number;
 
     /**
-     * A list of group IDs this API key belongs to.
-     */
-    public groups?: Array<string>;
-
-    /**
      * The API key.
      */
     public key?: string;
@@ -65,7 +60,6 @@ export class ApiKey extends EntityBase {
      */
     public create(): Promise<ApiKey> {
         const body = {
-            groups: this.groups,
             name: this.name,
             owner: this.owner,
             status: this.status,
@@ -196,7 +190,6 @@ export class ApiKey extends EntityBase {
      */
     public update(): Promise<ApiKey> {
         const body = {
-            groups: this.groups,
             name: this.name,
             owner: this.owner,
             status: this.status,

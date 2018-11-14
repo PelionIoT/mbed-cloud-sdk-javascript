@@ -69,11 +69,6 @@ export class TrustedCertificate extends EntityBase {
     public ownerId?: string;
 
     /**
-     * Private key of the certificate in PEM or base64 encoded DER format.
-     */
-    public privateKey?: string;
-
-    /**
      * Service name where the certificate is to be used.
      */
     public service?: TrustedCertificateServiceEnum;

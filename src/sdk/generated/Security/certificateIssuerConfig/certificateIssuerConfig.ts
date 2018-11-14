@@ -30,11 +30,6 @@ Null if Device Management internal HSM is used.
     public createdAt?: Date;
 
     /**
-     * is_custom
-     */
-    public isCustom?: boolean;
-
-    /**
      * Updated UTC time RFC3339.
      */
     public updatedAt?: Date;

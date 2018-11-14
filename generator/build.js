@@ -36,7 +36,7 @@ const getType = (type, items) => {
     }
 
     // if type is PaginatedResponse, the type isn't actually PaginatedResponse so we should return undefined
-    if (t === "PaginatedResponse") {
+    if (t.indexOf("PaginatedResponse(") > -1) {
         return undefined;
     }
 
