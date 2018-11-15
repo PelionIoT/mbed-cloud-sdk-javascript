@@ -39,14 +39,23 @@ describe("subTenants", () => {
     });
 
     test("subTenant", async () => {
+        let myAccount: Account = null;
         try {
+            const newAccount = new Account();
+            newAccount.displayName = "";
+            newAccount.aliases = [ "" ];
+            newAccount.endMarket = "";
+            newAccount.adminFullName = "";
+            newAccount.adminEmail = "";
+
+            await newAccount.create();
+        } catch (e) {
+            // should throw 403, subtenant account limit reached
+            if (e.details && e.details.code === 403) {
+                myAccount = (await new Account().list().all()).filter(a => a.displayName === "sdk_test_bob")[0];
+            }
+        } finally {
             // an example: creating and managing a subtenant account
-            const myAccount = (await new Account().list().all()).filter(a => a.displayName === "sdk_test_bob")[0];
-
-            const users = await myAccount.users().all();
-            expect(users.length).toBeGreaterThanOrEqual(1);
-
-            // now log in as this subtenant using the `admin_key`
             const user = new SubtenantUser();
             user.accountId = myAccount.id;
             user.fullName = "tommi the wombat";
@@ -54,8 +63,10 @@ describe("subTenants", () => {
             user.phoneNumber = "0800001066";
             user.email = "tommi_wombat@email.com";
 
-            // and add another user
+            // create the new user
             await user.create();
+
+            // end of example
 
             expect(user).toBeInstanceOf(SubtenantUser);
             expect(user.createdAt).not.toBeUndefined();
@@ -64,19 +75,7 @@ describe("subTenants", () => {
             expect(userInList).toBeInstanceOf(SubtenantUser);
             expect(userInList.createdAt).toEqual(user.createdAt);
 
-            user.phoneNumber = "118118";
-            await user.update();
-
-            expect(user.phoneNumber).toEqual("118118");
-
             await user.delete();
-        } catch (e) {
-            // should throw 403, subtenant account limit reached
-            if (e.details && e.details.code === 403) {
-                return;
-            }
-
-            throw e;
         }
     });
 
