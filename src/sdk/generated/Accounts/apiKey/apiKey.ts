@@ -4,17 +4,12 @@ import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
-import { PolicyGroup } from "../../index";
 import { ApiKeyStatusEnum } from "../../enums";
 
 /**
  * ApiKey
  */
 export class ApiKey extends EntityBase {
-    public readonly _renames: { [key: string]: string } = {
-        groups: "groupIds",
-    };
-
     /**
      * Creation UTC time RFC3339.
      */
@@ -24,11 +19,6 @@ export class ApiKey extends EntityBase {
      * The timestamp of the API key creation in the storage, in milliseconds.
      */
     public creationTime?: number;
-
-    /**
-     * A list of group IDs this API key belongs to.
-     */
-    public groupIds?: Array<string>;
 
     /**
      * The API key.
@@ -70,7 +60,6 @@ export class ApiKey extends EntityBase {
      */
     public create(): Promise<ApiKey> {
         const body = {
-            groups: this.groupIds,
             name: this.name,
             owner: this.owner,
             status: this.status,
@@ -144,39 +133,6 @@ export class ApiKey extends EntityBase {
     }
 
     /**
-     * List PolicyGroups
-     * @param options filter options
-     */
-    public groups(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<PolicyGroup>(
-                        {
-                            url: "/v3/api-keys/{apiKey}/groups",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            pathParams: {
-                                apiKey: this.id,
-                            },
-                            paginated: true,
-                        },
-                        PolicyGroup,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<PolicyGroup>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
      * List ApiKeys
      * @param options filter options
      */
@@ -207,20 +163,16 @@ export class ApiKey extends EntityBase {
     }
 
     /**
-     * resetSecrets a ApiKey.
+     * mes a ApiKey.
      * @returns Promise containing ApiKey.
      */
-    public resetSecret(accountId: string): Promise<ApiKey> {
+    public me(): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<ApiKey>(
                     {
-                        url: "/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret",
-                        method: "POST",
-                        pathParams: {
-                            accountID: accountId,
-                            apiKey: this.id,
-                        },
+                        url: "/v3/api-keys/me",
+                        method: "GET",
                     },
                     this,
                     resultsFn
@@ -238,7 +190,6 @@ export class ApiKey extends EntityBase {
      */
     public update(): Promise<ApiKey> {
         const body = {
-            groups: this.groupIds,
             name: this.name,
             owner: this.owner,
             status: this.status,

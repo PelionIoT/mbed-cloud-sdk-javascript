@@ -4,19 +4,25 @@ import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
-import { ApiKey } from "../../index";
-import { User } from "../../index";
-import { PolicyGroup } from "../../index";
-import { SubtenantAccountMfaStatusEnum } from "../../enums";
-import { SubtenantAccountStatusEnum } from "../../enums";
+import { SubtenantTrustedCertificate } from "../../index";
+import { SubtenantUserInvitation } from "../../index";
+import { SubtenantUser } from "../../index";
+import { PasswordPolicy } from "../../index";
+import { Policy } from "../../index";
+import { AccountMfaStatusEnum } from "../../enums";
+import { AccountStatusEnum } from "../../enums";
 
 /**
- * SubtenantAccount
+ * Account
  */
-export class SubtenantAccount extends EntityBase {
+export class Account extends EntityBase {
     public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
-        subtenantAccount: {
-            type: SubtenantAccount,
+        passwordPolicy: {
+            type: PasswordPolicy,
+            array: false,
+        },
+        policy: {
+            type: Policy,
             array: true,
         },
     };
@@ -99,7 +105,7 @@ export class SubtenantAccount extends EntityBase {
     /**
      * Account&#39;s custom properties as key-value pairs.
      */
-    public customFields?: any;
+    public customFields?: { [key: string]: string };
 
     /**
      * Customer number of the customer.
@@ -134,12 +140,12 @@ export class SubtenantAccount extends EntityBase {
     /**
      * List of limits as key-value pairs if requested.
      */
-    public limits?: any;
+    public limits?: { [key: string]: string };
 
     /**
      * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
      */
-    public mfaStatus?: SubtenantAccountMfaStatusEnum;
+    public mfaStatus?: AccountMfaStatusEnum;
 
     /**
      * A list of notification email addresses.
@@ -154,7 +160,7 @@ export class SubtenantAccount extends EntityBase {
     /**
      * password_policy
      */
-    public passwordPolicy?: any;
+    public passwordPolicy?: PasswordPolicy;
 
     /**
      * The phone number of a representative of the company.
@@ -164,7 +170,7 @@ export class SubtenantAccount extends EntityBase {
     /**
      * List of policies if requested.
      */
-    public policies?: Array<any>;
+    public policies?: Array<Policy>;
 
     /**
      * The postal code part of the postal address.
@@ -194,12 +200,7 @@ export class SubtenantAccount extends EntityBase {
     /**
      * The status of the account.
      */
-    public status?: SubtenantAccountStatusEnum;
-
-    /**
-     * List of sub accounts. Not available for developer users.
-     */
-    public subAccounts?: Array<SubtenantAccount>;
+    public status?: AccountStatusEnum;
 
     /**
      * Account template ID.
@@ -226,43 +227,10 @@ export class SubtenantAccount extends EntityBase {
     }
 
     /**
-     * List ApiKeys
-     * @param options filter options
+     * creates a Account.
+     * @returns Promise containing Account.
      */
-    public apiKeys(options?: ListOptions): Paginator<ApiKey, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<ApiKey>(
-                        {
-                            url: "/v3/accounts/{accountID}/api-keys",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            pathParams: {
-                                accountID: this.id,
-                            },
-                            paginated: true,
-                        },
-                        ApiKey,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<ApiKey>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * creates a SubtenantAccount.
-     * @returns Promise containing SubtenantAccount.
-     */
-    public create(action?: string): Promise<SubtenantAccount> {
+    public create(action?: string): Promise<Account> {
         const body = {
             address_line1: this.addressLine1,
             address_line2: this.addressLine2,
@@ -286,7 +254,7 @@ export class SubtenantAccount extends EntityBase {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<SubtenantAccount>(
+                this.client._CallApi<Account>(
                     {
                         url: "/v3/accounts",
                         method: "POST",
@@ -306,21 +274,13 @@ export class SubtenantAccount extends EntityBase {
     }
 
     /**
-     * createUser a User.
+     * gets a Account.
+     * @returns Promise containing Account.
      */
-    public createUser(user: User): Promise<User> {
-        user.accountId = this.id;
-        return user.create();
-    }
-
-    /**
-     * gets a SubtenantAccount.
-     * @returns Promise containing SubtenantAccount.
-     */
-    public get(include?: string, properties?: string): Promise<SubtenantAccount> {
+    public get(include?: string, properties?: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<SubtenantAccount>(
+                this.client._CallApi<Account>(
                     {
                         url: "/v3/accounts/{accountID}",
                         method: "GET",
@@ -343,17 +303,73 @@ export class SubtenantAccount extends EntityBase {
     }
 
     /**
-     * List PolicyGroups
+     * List Accounts
      * @param options filter options
      */
-    public groups(options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PolicyGroup>> => {
+    public list(options?: ListOptions): Paginator<Account, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Account>> => {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<PolicyGroup>(
+                    this.client._CallApi<Account>(
                         {
-                            url: "/v3/accounts/{accountID}/policy-groups",
+                            url: "/v3/accounts",
+                            method: "GET",
+                            query: { after, include, order, limit },
+                            paginated: true,
+                        },
+                        Account,
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<Account>, done) => {
+                    done(null, new ListResponse(data, data.data));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+
+    /**
+     * mes a Account.
+     * @returns Promise containing Account.
+     */
+    public me(include?: string, properties?: string): Promise<Account> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<Account>(
+                    {
+                        url: "/v3/accounts/me",
+                        method: "GET",
+                        query: {
+                            include: include,
+                            properties: properties,
+                        },
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
+    }
+
+    /**
+     * List SubtenantTrustedCertificates
+     * @param options filter options
+     */
+    public trustedCertificates(options?: ListOptions): Paginator<SubtenantTrustedCertificate, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantTrustedCertificate>> => {
+            return apiWrapper(
+                resultsFn => {
+                    const { limit, after, order, include } = pageOptions as ListOptions;
+                    this.client._CallApi<SubtenantTrustedCertificate>(
+                        {
+                            url: "/v3/accounts/{accountID}/trusted-certificates",
                             method: "GET",
                             query: { after, include, order, limit },
                             pathParams: {
@@ -361,11 +377,11 @@ export class SubtenantAccount extends EntityBase {
                             },
                             paginated: true,
                         },
-                        PolicyGroup,
+                        SubtenantTrustedCertificate,
                         resultsFn
                     );
                 },
-                (data: ListResponse<PolicyGroup>, done) => {
+                (data: ListResponse<SubtenantTrustedCertificate>, done) => {
                     done(null, new ListResponse(data, data.data));
                 },
                 null,
@@ -376,40 +392,10 @@ export class SubtenantAccount extends EntityBase {
     }
 
     /**
-     * List SubtenantAccounts
-     * @param options filter options
+     * updates a Account.
+     * @returns Promise containing Account.
      */
-    public list(options?: ListOptions): Paginator<SubtenantAccount, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantAccount>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<SubtenantAccount>(
-                        {
-                            url: "/v3/accounts",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        SubtenantAccount,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<SubtenantAccount>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * updates a SubtenantAccount.
-     * @returns Promise containing SubtenantAccount.
-     */
-    public update(): Promise<SubtenantAccount> {
+    public update(): Promise<Account> {
         const body = {
             address_line1: this.addressLine1,
             address_line2: this.addressLine2,
@@ -436,7 +422,7 @@ export class SubtenantAccount extends EntityBase {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<SubtenantAccount>(
+                this.client._CallApi<Account>(
                     {
                         url: "/v3/accounts/{accountID}",
                         method: "PUT",
@@ -456,15 +442,48 @@ export class SubtenantAccount extends EntityBase {
     }
 
     /**
-     * List Users
+     * List SubtenantUserInvitations
      * @param options filter options
      */
-    public users(options?: ListOptions): Paginator<User, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+    public userInvitations(options?: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUserInvitation>> => {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<User>(
+                    this.client._CallApi<SubtenantUserInvitation>(
+                        {
+                            url: "/v3/accounts/{account-id}/user-invitations",
+                            method: "GET",
+                            query: { after, include, order, limit },
+                            pathParams: {
+                                "account-id": this.id,
+                            },
+                            paginated: true,
+                        },
+                        SubtenantUserInvitation,
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantUserInvitation>, done) => {
+                    done(null, new ListResponse(data, data.data));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+
+    /**
+     * List SubtenantUsers
+     * @param options filter options
+     */
+    public users(options?: ListOptions): Paginator<SubtenantUser, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUser>> => {
+            return apiWrapper(
+                resultsFn => {
+                    const { limit, after, order, include } = pageOptions as ListOptions;
+                    this.client._CallApi<SubtenantUser>(
                         {
                             url: "/v3/accounts/{accountID}/users",
                             method: "GET",
@@ -474,11 +493,11 @@ export class SubtenantAccount extends EntityBase {
                             },
                             paginated: true,
                         },
-                        User,
+                        SubtenantUser,
                         resultsFn
                     );
                 },
-                (data: ListResponse<User>, done) => {
+                (data: ListResponse<SubtenantUser>, done) => {
                     done(null, new ListResponse(data, data.data));
                 },
                 null,

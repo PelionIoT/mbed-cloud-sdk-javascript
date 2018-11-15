@@ -17,6 +17,7 @@ const typeMap = {
     boolean: "boolean",
     array: (items) => "Array<" + items + ">",
     "date-time": "Date",
+    "date": "Date",
     int64: "number",
     int32: "number",
     object: "any",
@@ -24,7 +25,7 @@ const typeMap = {
 }
 
 const getType = (type, items) => {
-    const t = typeMap[type];
+    const t = typeMap[type] || snakeToPascal(type);
     // if type is array
     if (typeof t === "function") {
         if (items.foreign_key) {
@@ -34,15 +35,40 @@ const getType = (type, items) => {
         return t(getType(items.type));
     }
 
+    // if type is PaginatedResponse, the type isn't actually PaginatedResponse so we should return undefined
+    if (t.indexOf("PaginatedResponse(") > -1) {
+        return undefined;
+    }
+
     return t;
 };
 
+// get the type of enum usinf the enum_reference
 const getEnumType = (field, enums) => {
     const enumName = snakeToPascal(field.enum_reference);
     enums.push(enumName);
     return enumName;
 }
 
+// if field has a foreign_key at root, it is standalone foreign_key
+const getForeignKeyType = (field) => {
+    if (field.foreign_key) {
+        return snakeToPascal(field.foreign_key.entity);
+    }
+
+    return undefined;
+}
+
+// type is additional_properties as defined in swagger
+const getAdditionalProperties = (field) => {
+    if (field.additionalProperties) {
+        return "{ [key: string]: string }"
+    }
+
+    return undefined;
+}
+
+// helper method to generate list of parameters
 const unpackParams = (key, params) => {
     if (key && params) {
         return '"' + key + '"' + ":" + (!params.external ? "this." : "") + params.key;
@@ -50,6 +76,7 @@ const unpackParams = (key, params) => {
     return "";
 };
 
+// convert snake to camelCase
 const snakeToCamel = (snake) => {
     if (snake) {
         const out = snake.replace(/((\_|\-)\w)/g, match => {
@@ -62,6 +89,7 @@ const snakeToCamel = (snake) => {
     return "";
 }
 
+// conver snake to PascalCase
 const snakeToPascal = (snake) => {
     const camel = snakeToCamel(snake);
     return camel.charAt(0).toUpperCase() + camel.slice(1);
@@ -95,9 +123,10 @@ entities.forEach(entity => {
     // get types
     const types = {};
     entity.fields.forEach(f => {
-        const t = (f.enum && f.enum_reference) ? getEnumType(f, enums) : getType(f.format) || getType(f.type, f.items) || "any";
+        const t = (f.enum && f.enum_reference) ? getEnumType(f, enums) : getForeignKeyType(f) || getAdditionalProperties(f) || getType(f.format) || getType(f.type, f.items) || "any";
         const k = snakeToCamel(f._key)
         types[k] = t;
+        console.log(k + ": " + t);
     });
 
     // get foreign keys
@@ -108,8 +137,17 @@ entities.forEach(entity => {
                 const fk = {}
                 fk["propName"] = snakeToCamel(f.items.foreign_key.entity);
                 fk["type"] = snakeToPascal(f.items.foreign_key.entity);
+                fk["array"] = true;
                 foreignKeyTypes.push(fk);
             }
+        }
+
+        if (f.foreign_key) {
+            const fk = {}
+            fk["propName"] = snakeToCamel(f.foreign_key.entity);
+            fk["type"] = snakeToPascal(f.foreign_key.entity);
+            fk["array"] = false;
+            foreignKeyTypes.push(fk);
         }
 
         if (f._override) {
@@ -126,7 +164,7 @@ entities.forEach(entity => {
             let deferToForeignKey = false;
             let deferedMethodCall = {};
             const methodName = snakeToCamel(method._key);
-            const httpMethod = method.method ? method.method.toUpperCase() : deferToForeignKey = true;
+            const httpMethod = method.method ? method.method.toUpperCase() : method.defer_to_foreign_key_field ? deferToForeignKey = true : "GET";
             const path = method.path;
             const paginated = !!method.pagination;
             const privateMethod = !!method.private_method;
@@ -138,7 +176,9 @@ entities.forEach(entity => {
             if (paginated) paginators = true;
             // if a foreign key exists and its not the same as the enity
             const foreignKey = method.foreign_key ? (snakeToPascal(method.foreign_key.entity) != entityName) : false;
-            const returns = deferToForeignKey ? snakeToPascal(method.defer_to_foreign_key_field.foreign_key.entity) : foreignKey ? snakeToPascal(method.foreign_key.entity) : entityName;
+            const isDeferToForeignKey = deferToForeignKey ? snakeToPascal(method.defer_to_foreign_key_field.foreign_key.entity) : foreignKey;
+            const returnType = isDeferToForeignKey ? snakeToPascal(method.foreign_key.entity) : method.return_type;
+            const returns = getType(returnType) || entityName;
 
             if (foreignKey) {
                 const fk = {};
@@ -177,8 +217,7 @@ entities.forEach(entity => {
                 const replaceBody = !!field.__REPLACE_BODY;
 
                 if (external) {
-                    type = getType(field.type, field.items);
-                    console.log(type);
+                    type = getAdditionalProperties(field) || getType(field.type, field.items);
                     if (type === typeMap.file) {
                         fsNeeded = true;
                     }
@@ -266,6 +305,8 @@ entities.forEach(entity => {
                 customMethodName,
                 privateMethod
             });
+
+            console.log(methodName + ": " + returns);
         });
     }
 

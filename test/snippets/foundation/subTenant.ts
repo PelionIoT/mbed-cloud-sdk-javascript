@@ -1,60 +1,108 @@
-/*
-* Mbed Cloud JavaScript SDK
-* Copyright Arm Limited 2017
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-
-import { User, SubtenantAccount } from "../../../src/sdk/entities";
-import { Config } from "../../../src/sdk";
+import { Account, SubtenantUser, SubtenantTrustedCertificate, PasswordPolicy } from "../../../src/sdk/entities";
 
 describe("subTenants", () => {
-    test("subTenant", async () => {
+    it("should update user as subtenant", async () => {
+        let myAccount: Account = null;
         try {
+            const newAccount = new Account();
+            newAccount.displayName = "";
+            newAccount.aliases = [ "" ];
+            newAccount.endMarket = "";
+            newAccount.adminFullName = "";
+            newAccount.adminEmail = "";
+
+            await newAccount.create();
+        } catch (e) {
+            // should throw 403, subtenant account limit reached
+            if (e.details && e.details.code === 403) {
+                myAccount = (await new Account().list().all()).filter(a => a.displayName === "sdk_test_bob")[0];
+            }
+        } finally {
+            expect(myAccount).toBeInstanceOf(Account);
+
+            // get first subtenant user
+            const firstUser = await myAccount.users().first();
+
+            const phoneNumber = firstUser.phoneNumber;
+
+            firstUser.phoneNumber = "117117";
+            await firstUser.update();
+
+            expect(firstUser.phoneNumber).not.toEqual(phoneNumber);
+            expect(firstUser.phoneNumber).toEqual("117117");
+
+            firstUser.phoneNumber = phoneNumber;
+            await firstUser.update();
+
+            expect(firstUser.phoneNumber).not.toEqual("117117");
+        }
+    });
+
+    test("subTenant", async () => {
+        let myAccount: Account = null;
+        try {
+            const newAccount = new Account();
+            newAccount.displayName = "";
+            newAccount.aliases = [ "" ];
+            newAccount.endMarket = "";
+            newAccount.adminFullName = "";
+            newAccount.adminEmail = "";
+
+            await newAccount.create();
+        } catch (e) {
+            // should throw 403, subtenant account limit reached
+            if (e.details && e.details.code === 403) {
+                myAccount = (await new Account().list().all()).filter(a => a.displayName === "sdk_test_bob")[0];
+            }
+        } finally {
             // an example: creating and managing a subtenant account
-            const newSubtenant = new SubtenantAccount();
-            newSubtenant.displayName = "sdk test dan";
-            newSubtenant.endMarket = "connected warrens";
-            newSubtenant.adminFullName = "dan the wombat";
-            newSubtenant.adminEmail = "dan@example.com";
-
-            // when creating a new subtenant, this is the only opportunity to obtain
-            // the `admin_key` for that subtenant account
-            await newSubtenant.create();
-
-            // now log in as this subtenant using the `admin_key`
-            const user = new User(new Config({ apiKey: newSubtenant.adminKey }));
+            const user = new SubtenantUser();
+            user.accountId = myAccount.id;
             user.fullName = "tommi the wombat";
             user.username = "tommi_wombat";
             user.phoneNumber = "0800001066";
             user.email = "tommi_wombat@email.com";
 
-            // and add another user
+            // create the new user
             await user.create();
 
-            // back as the aggregator again ...
-            const users = await newSubtenant.list().all();
             // end of example
 
-            expect(users.length).toBeGreaterThanOrEqual(1);
-            await user.delete();
-        } catch (e) {
-            // should throw 403, subtenant account limit reached
-            if (e.details && e.details.code === 403) {
-                return;
-            }
+            expect(user).toBeInstanceOf(SubtenantUser);
+            expect(user.createdAt).not.toBeUndefined();
 
-            throw e;
+            const userInList = (await myAccount.users().all()).filter(u => u.id === user.id)[0];
+            expect(userInList).toBeInstanceOf(SubtenantUser);
+            expect(userInList.createdAt).toEqual(user.createdAt);
+
+            await user.delete();
         }
+    });
+
+    it("should get account lists", async () => {
+        const myAccount = await new Account().me();
+
+        const user = await myAccount.users().first();
+        if (user) {
+            expect(user).toBeInstanceOf(SubtenantUser);
+        }
+
+        const trustedCert = await myAccount.trustedCertificates().first();
+        if (trustedCert) {
+            expect(trustedCert).toBeInstanceOf(SubtenantTrustedCertificate);
+        }
+
+        const invitation = await myAccount.userInvitations().first();
+        if (invitation) {
+            expect(invitation).toBeInstanceOf(SubtenantTrustedCertificate);
+        }
+    });
+
+    it("should check account password policies", async () => {
+        (await new Account().list().all()).forEach(a => {
+            if (a.passwordPolicy) {
+                expect(a.passwordPolicy).toBeInstanceOf(PasswordPolicy);
+            }
+        });
     });
 });

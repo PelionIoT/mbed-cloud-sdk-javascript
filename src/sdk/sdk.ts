@@ -1,31 +1,26 @@
 import { Config } from "./client/config";
 import { Factory } from "./entities";
-import { ConnectionOptions } from "../common/interfaces";
 import { Client } from "./client/client";
 
 export class SDK {
-    private static _config: Config;
-
-    private _instanceConfig: Config;
+    private _config: Config;
 
     public entities: Factory;
 
     public client: Client;
 
-    constructor(config?: Config | ConnectionOptions) {
+    constructor(config?: Config) {
         if (config) {
-            if (config instanceof Config) {
-                this._instanceConfig = config;
-            } else {
-                this._instanceConfig = new Config(config);
-            }
+            this._config = config;
+        } else {
+            this._config = new Config(config);
         }
 
         this.entities = new Factory(this.getConfig());
         this.client = new Client(this.getConfig());
     }
 
-    public static get config(): Config {
+    public get config(): Config {
         if (this._config) {
             return this._config;
         }
@@ -35,6 +30,6 @@ export class SDK {
     }
 
     public getConfig() {
-        return this._instanceConfig || SDK.config;
+        return this._config;
     }
 }

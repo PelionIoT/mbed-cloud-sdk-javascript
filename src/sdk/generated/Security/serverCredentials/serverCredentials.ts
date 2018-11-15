@@ -7,19 +7,9 @@ import { apiWrapper } from "../../../../common/functions";
  */
 export class ServerCredentials extends EntityBase {
     /**
-     * bootstrap
-     */
-    public bootstrap?: any;
-
-    /**
      * Creation UTC time RFC3339.
      */
     public createdAt?: Date;
-
-    /**
-     * lwm2m
-     */
-    public lwm2m?: any;
 
     /**
      * PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
@@ -33,28 +23,6 @@ export class ServerCredentials extends EntityBase {
 
     constructor(config?: Config) {
         super(config);
-    }
-
-    /**
-     * getAlls a ServerCredentials.
-     * @returns Promise containing ServerCredentials.
-     */
-    public getAll(): Promise<ServerCredentials> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<ServerCredentials>(
-                    {
-                        url: "/v3/server-credentials",
-                        method: "GET",
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
     }
 
     /**

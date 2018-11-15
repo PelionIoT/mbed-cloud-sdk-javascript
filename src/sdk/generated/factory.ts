@@ -1,4 +1,5 @@
 import { Config } from "../client/config";
+import { Account } from "./index";
 import { ApiKey } from "./index";
 import { CertificateEnrollment } from "./index";
 import { CertificateIssuer } from "./index";
@@ -7,18 +8,22 @@ import { DeveloperCertificate } from "./index";
 import { Device } from "./index";
 import { DeviceEnrollment } from "./index";
 import { DeviceEnrollmentBulkCreate } from "./index";
+import { DeviceEnrollmentBulkDelete } from "./index";
 import { DeviceEvents } from "./index";
-import { MyAccount } from "./index";
-import { MyApiKey } from "./index";
-import { PolicyGroup } from "./index";
 import { ServerCredentials } from "./index";
-import { SubtenantAccount } from "./index";
+import { SubtenantTrustedCertificate } from "./index";
+import { SubtenantUser } from "./index";
+import { SubtenantUserInvitation } from "./index";
 import { TrustedCertificate } from "./index";
 import { User } from "./index";
+import { UserInvitation } from "./index";
 export class Factory {
     private readonly _config: Config;
     constructor(config: Config) {
         this._config = config;
+    }
+    public Account(): Account {
+        return new Account(this._config);
     }
     public ApiKey(): ApiKey {
         return new ApiKey(this._config);
@@ -44,28 +49,31 @@ export class Factory {
     public DeviceEnrollmentBulkCreate(): DeviceEnrollmentBulkCreate {
         return new DeviceEnrollmentBulkCreate(this._config);
     }
+    public DeviceEnrollmentBulkDelete(): DeviceEnrollmentBulkDelete {
+        return new DeviceEnrollmentBulkDelete(this._config);
+    }
     public DeviceEvents(): DeviceEvents {
         return new DeviceEvents(this._config);
-    }
-    public MyAccount(): MyAccount {
-        return new MyAccount(this._config);
-    }
-    public MyApiKey(): MyApiKey {
-        return new MyApiKey(this._config);
-    }
-    public PolicyGroup(): PolicyGroup {
-        return new PolicyGroup(this._config);
     }
     public ServerCredentials(): ServerCredentials {
         return new ServerCredentials(this._config);
     }
-    public SubtenantAccount(): SubtenantAccount {
-        return new SubtenantAccount(this._config);
+    public SubtenantTrustedCertificate(): SubtenantTrustedCertificate {
+        return new SubtenantTrustedCertificate(this._config);
+    }
+    public SubtenantUser(): SubtenantUser {
+        return new SubtenantUser(this._config);
+    }
+    public SubtenantUserInvitation(): SubtenantUserInvitation {
+        return new SubtenantUserInvitation(this._config);
     }
     public TrustedCertificate(): TrustedCertificate {
         return new TrustedCertificate(this._config);
     }
     public User(): User {
         return new User(this._config);
+    }
+    public UserInvitation(): UserInvitation {
+        return new UserInvitation(this._config);
     }
 }

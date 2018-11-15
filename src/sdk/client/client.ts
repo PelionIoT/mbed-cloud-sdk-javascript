@@ -5,7 +5,7 @@ import { EntityBase } from "../common/entityBase";
 
 export class Client extends SdkApiBase {
 
-    constructor(config?: Config) {
+    constructor(config: Config) {
         super(config);
     }
 

@@ -1,16 +1,13 @@
 import { EntityBase } from "../../../common/entityBase";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
 import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 import { LoginHistory } from "../../index";
-import { UserStatusEnum } from "../../enums";
+import { SubtenantUserStatusEnum } from "../../enums";
 
 /**
- * User
+ * SubtenantUser
  */
-export class User extends EntityBase {
+export class SubtenantUser extends EntityBase {
     public readonly _renames: { [key: string]: string } = {
         is_marketing_accepted: "marketingAccepted",
         is_gtc_accepted: "termsAccepted",
@@ -92,7 +89,7 @@ export class User extends EntityBase {
     /**
      * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
-    public status?: UserStatusEnum;
+    public status?: SubtenantUserStatusEnum;
 
     /**
      * A flag indicating that the General Terms and Conditions has been accepted.
@@ -119,10 +116,10 @@ export class User extends EntityBase {
     }
 
     /**
-     * creates a User.
-     * @returns Promise containing User.
+     * creates a SubtenantUser.
+     * @returns Promise containing SubtenantUser.
      */
-    public create(action?: string): Promise<User> {
+    public create(action?: string): Promise<SubtenantUser> {
         const body = {
             address: this.address,
             email: this.email,
@@ -135,12 +132,15 @@ export class User extends EntityBase {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<User>(
+                this.client._CallApi<SubtenantUser>(
                     {
-                        url: "/v3/users",
+                        url: "/v3/accounts/{accountID}/users",
                         method: "POST",
                         query: {
                             action: action,
+                        },
+                        pathParams: {
+                            accountID: this.accountId,
                         },
                         body: body,
                     },
@@ -155,17 +155,18 @@ export class User extends EntityBase {
     }
 
     /**
-     * deletes a User.
-     * @returns Promise containing User.
+     * deletes a SubtenantUser.
+     * @returns Promise containing SubtenantUser.
      */
-    public delete(): Promise<User> {
+    public delete(): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<User>(
+                this.client._CallApi<SubtenantUser>(
                     {
-                        url: "/v3/users/{user-id}",
+                        url: "/v3/accounts/{accountID}/users/{user-id}",
                         method: "DELETE",
                         pathParams: {
+                            "accountID": this.accountId,
                             "user-id": this.id,
                         },
                     },
@@ -180,17 +181,18 @@ export class User extends EntityBase {
     }
 
     /**
-     * gets a User.
-     * @returns Promise containing User.
+     * gets a SubtenantUser.
+     * @returns Promise containing SubtenantUser.
      */
-    public get(): Promise<User> {
+    public get(): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<User>(
+                this.client._CallApi<SubtenantUser>(
                     {
-                        url: "/v3/users/{user-id}",
+                        url: "/v3/accounts/{accountID}/users/{user-id}",
                         method: "GET",
                         pathParams: {
+                            "accountID": this.accountId,
                             "user-id": this.id,
                         },
                     },
@@ -205,40 +207,10 @@ export class User extends EntityBase {
     }
 
     /**
-     * List Users
-     * @param options filter options
+     * updates a SubtenantUser.
+     * @returns Promise containing SubtenantUser.
      */
-    public list(options?: ListOptions): Paginator<User, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<User>(
-                        {
-                            url: "/v3/users",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        User,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<User>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * updates a User.
-     * @returns Promise containing User.
-     */
-    public update(): Promise<User> {
+    public update(): Promise<SubtenantUser> {
         const body = {
             address: this.address,
             full_name: this.fullName,
@@ -250,14 +222,41 @@ export class User extends EntityBase {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<User>(
+                this.client._CallApi<SubtenantUser>(
                     {
-                        url: "/v3/users/{user-id}",
+                        url: "/v3/accounts/{accountID}/users/{user-id}",
                         method: "PUT",
                         pathParams: {
+                            "accountID": this.accountId,
                             "user-id": this.id,
                         },
                         body: body,
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
+    }
+
+    /**
+     * validateEmails a SubtenantUser.
+     * @returns Promise containing SubtenantUser.
+     */
+    public validateEmail(): Promise<SubtenantUser> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<SubtenantUser>(
+                    {
+                        url: "/v3/accounts/{accountID}/users/{user-id}/validate-email",
+                        method: "POST",
+                        pathParams: {
+                            "accountID": this.accountId,
+                            "user-id": this.id,
+                        },
                     },
                     this,
                     resultsFn

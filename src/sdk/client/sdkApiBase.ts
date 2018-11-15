@@ -21,7 +21,6 @@ import superagent = require("superagent");
 import { SDKError } from "../../common/sdkError";
 import { Config } from "./config";
 import { EntityBase } from "../common/entityBase";
-import { SDK } from "../sdk";
 import { Version } from "../../version";
 
 // tslint:disable-next-line:no-var-requires
@@ -35,8 +34,8 @@ export class SdkApiBase {
 
     private config: Config;
 
-    constructor(config?: Config) {
-        this.config = config || SDK.config;
+    constructor(config: Config) {
+        this.config = config;
     }
 
     /**
@@ -262,6 +261,10 @@ export class SdkApiBase {
                 if (instance) {
                     if (!paginated && instance instanceof EntityBase) {
                         data = instance._fromApi(instance, data);
+                    // if not instance of EntityBase, then must be a type. This is slightly janky!
+                    } else if (!paginated && !(instance instanceof EntityBase)) {
+                        const t = this.activator(instance, this.config);
+                        data = t._fromApi(t, data);
                     } else {
                         const arr: Array<T> = [];
                         if (data.data) {
@@ -275,6 +278,11 @@ export class SdkApiBase {
                         data.data = arr;
                     }
                 }
+            }
+
+            // no data and instance has been activated
+            if (!data && instance instanceof EntityBase) {
+                callback(sdkError, instance);
             }
 
             callback(sdkError, data);

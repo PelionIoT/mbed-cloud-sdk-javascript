@@ -9,6 +9,10 @@ import { apiWrapper } from "../../../../common/functions";
  * CertificateIssuerConfig
  */
 export class CertificateIssuerConfig extends EntityBase {
+    public readonly _renames: { [key: string]: string } = {
+        reference: "certificateReference",
+    };
+
     /**
             * The ID of the certificate issuer.
 Null if Device Management internal HSM is used.
@@ -16,19 +20,14 @@ Null if Device Management internal HSM is used.
     public certificateIssuerId?: string;
 
     /**
+     * The certificate name to which the certificate issuer configuration applies.
+     */
+    public certificateReference?: string;
+
+    /**
      * Created UTC time RFC3339.
      */
     public createdAt?: Date;
-
-    /**
-     * is_custom
-     */
-    public isCustom?: boolean;
-
-    /**
-     * The certificate name to which the certificate issuer configuration applies.
-     */
-    public reference?: string;
 
     /**
      * Updated UTC time RFC3339.
@@ -46,7 +45,7 @@ Null if Device Management internal HSM is used.
     public create(): Promise<CertificateIssuerConfig> {
         const body = {
             certificate_issuer_id: this.certificateIssuerId,
-            reference: this.reference,
+            reference: this.certificateReference,
         };
         return apiWrapper(
             resultsFn => {
@@ -144,6 +143,28 @@ Null if Device Management internal HSM is used.
             );
         };
         return new Paginator(pageFunc, options);
+    }
+
+    /**
+     * lwm2ms a CertificateIssuerConfig.
+     * @returns Promise containing CertificateIssuerConfig.
+     */
+    public lwm2m(): Promise<CertificateIssuerConfig> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi<CertificateIssuerConfig>(
+                    {
+                        url: "/v3/certificate-issuer-configurations/lwm2m",
+                        method: "GET",
+                    },
+                    this,
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, data);
+            }
+        );
     }
 
     /**

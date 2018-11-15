@@ -38,11 +38,6 @@ export class DeveloperCertificate extends EntityBase {
     public name?: string;
 
     /**
-     * PEM format developer private key associated to the certificate.
-     */
-    public privateKey?: string;
-
-    /**
      * Content of the security.c file that will be flashed into the device to provide the security credentials
      */
     public securityFileContent?: string;

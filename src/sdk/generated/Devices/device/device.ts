@@ -26,7 +26,7 @@ export class Device extends EntityBase {
     /**
      * The expiration date of the certificate used to connect to bootstrap server.
      */
-    public bootstrapExpirationDate?: string;
+    public bootstrapExpirationDate?: Date;
 
     /**
      * The timestamp of the device&#39;s most recent bootstrap process.
@@ -41,7 +41,7 @@ export class Device extends EntityBase {
     /**
      * The expiration date of the certificate used to connect to LwM2M server.
      */
-    public connectorExpirationDate?: string;
+    public connectorExpirationDate?: Date;
 
     /**
      * The timestamp of when the device was created in the device directory.
@@ -51,7 +51,7 @@ export class Device extends EntityBase {
     /**
      * Up to five custom key-value attributes.
      */
-    public customAttributes?: any;
+    public customAttributes?: { [key: string]: string };
 
     /**
      * DEPRECATED: The state of the device&#39;s deployment.

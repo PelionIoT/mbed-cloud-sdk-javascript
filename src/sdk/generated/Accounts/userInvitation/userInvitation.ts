@@ -6,56 +6,56 @@ import { Config } from "../../../client/config";
 import { apiWrapper } from "../../../../common/functions";
 
 /**
- * DeviceEnrollment
+ * UserInvitation
  */
-export class DeviceEnrollment extends EntityBase {
+export class UserInvitation extends EntityBase {
     /**
-     * ID
+     * The UUID of the account the user is invited to.
      */
     public accountId?: string;
 
     /**
-     * The time of claiming the device to be assigned to the account.
-     */
-    public claimedAt?: Date;
-
-    /**
-     * The time of the enrollment identity creation.
+     * Creation UTC time RFC3339.
      */
     public createdAt?: Date;
 
     /**
-     * The ID of the device in the Device Directory once it has been registered.
+     * Email address of the invited user.
      */
-    public enrolledDeviceId?: string;
+    public email?: string;
 
     /**
-     * Enrollment identity.
+     * Invitation expiration as UTC time RFC3339.
      */
-    public enrollmentIdentity?: string;
+    public expiration?: Date;
 
     /**
-     * The enrollment claim expiration time. If the device does not connect to Device Management before the expiration, the claim is removed without a separate notice
+     * Last update UTC time RFC3339.
      */
-    public expiresAt?: Date;
+    public updatedAt?: Date;
+
+    /**
+     * The UUID of the invited user.
+     */
+    public userId?: string;
 
     constructor(config?: Config) {
         super(config);
     }
 
     /**
-     * creates a DeviceEnrollment.
-     * @returns Promise containing DeviceEnrollment.
+     * creates a UserInvitation.
+     * @returns Promise containing UserInvitation.
      */
-    public create(): Promise<DeviceEnrollment> {
+    public create(): Promise<UserInvitation> {
         const body = {
-            enrollment_identity: this.enrollmentIdentity,
+            email: this.email,
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<DeviceEnrollment>(
+                this.client._CallApi<UserInvitation>(
                     {
-                        url: "/v3/device-enrollments",
+                        url: "/v3/user-invitations",
                         method: "POST",
                         body: body,
                     },
@@ -70,18 +70,18 @@ export class DeviceEnrollment extends EntityBase {
     }
 
     /**
-     * deletes a DeviceEnrollment.
-     * @returns Promise containing DeviceEnrollment.
+     * deletes a UserInvitation.
+     * @returns Promise containing UserInvitation.
      */
-    public delete(): Promise<DeviceEnrollment> {
+    public delete(): Promise<UserInvitation> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<DeviceEnrollment>(
+                this.client._CallApi<UserInvitation>(
                     {
-                        url: "/v3/device-enrollments/{id}",
+                        url: "/v3/user-invitations/{invitation-id}",
                         method: "DELETE",
                         pathParams: {
-                            id: this.id,
+                            "invitation-id": this.id,
                         },
                     },
                     this,
@@ -95,18 +95,18 @@ export class DeviceEnrollment extends EntityBase {
     }
 
     /**
-     * gets a DeviceEnrollment.
-     * @returns Promise containing DeviceEnrollment.
+     * gets a UserInvitation.
+     * @returns Promise containing UserInvitation.
      */
-    public get(): Promise<DeviceEnrollment> {
+    public get(): Promise<UserInvitation> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<DeviceEnrollment>(
+                this.client._CallApi<UserInvitation>(
                     {
-                        url: "/v3/device-enrollments/{id}",
+                        url: "/v3/user-invitations/{invitation-id}",
                         method: "GET",
                         pathParams: {
-                            id: this.id,
+                            "invitation-id": this.id,
                         },
                     },
                     this,
@@ -120,26 +120,26 @@ export class DeviceEnrollment extends EntityBase {
     }
 
     /**
-     * List DeviceEnrollments
+     * List UserInvitations
      * @param options filter options
      */
-    public list(options?: ListOptions): Paginator<DeviceEnrollment, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEnrollment>> => {
+    public list(options?: ListOptions): Paginator<UserInvitation, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<UserInvitation>> => {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<DeviceEnrollment>(
+                    this.client._CallApi<UserInvitation>(
                         {
-                            url: "/v3/device-enrollments",
+                            url: "/v3/user-invitations",
                             method: "GET",
                             query: { after, include, order, limit },
                             paginated: true,
                         },
-                        DeviceEnrollment,
+                        UserInvitation,
                         resultsFn
                     );
                 },
-                (data: ListResponse<DeviceEnrollment>, done) => {
+                (data: ListResponse<UserInvitation>, done) => {
                     done(null, new ListResponse(data, data.data));
                 },
                 null,
