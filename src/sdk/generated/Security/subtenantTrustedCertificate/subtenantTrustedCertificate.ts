@@ -98,7 +98,7 @@ export class SubtenantTrustedCertificate extends EntityBase {
      * creates a SubtenantTrustedCertificate.
      * @returns Promise containing SubtenantTrustedCertificate.
      */
-    public create(accountID: string): Promise<SubtenantTrustedCertificate> {
+    public create(): Promise<SubtenantTrustedCertificate> {
         const body = {
             certificate: this.certificate,
             description: this.description,
@@ -114,7 +114,7 @@ export class SubtenantTrustedCertificate extends EntityBase {
                         url: "/v3/accounts/{accountID}/trusted-certificates",
                         method: "POST",
                         pathParams: {
-                            accountID: accountID,
+                            accountID: this.accountId,
                         },
                         body: body,
                     },
@@ -132,7 +132,7 @@ export class SubtenantTrustedCertificate extends EntityBase {
      * deletes a SubtenantTrustedCertificate.
      * @returns Promise containing SubtenantTrustedCertificate.
      */
-    public delete(accountID: string): Promise<SubtenantTrustedCertificate> {
+    public delete(): Promise<SubtenantTrustedCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<SubtenantTrustedCertificate>(
@@ -140,7 +140,7 @@ export class SubtenantTrustedCertificate extends EntityBase {
                         url: "/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
                         method: "DELETE",
                         pathParams: {
-                            "accountID": accountID,
+                            "accountID": this.accountId,
                             "cert-id": this.id,
                         },
                     },
@@ -183,7 +183,7 @@ export class SubtenantTrustedCertificate extends EntityBase {
      * gets a SubtenantTrustedCertificate.
      * @returns Promise containing SubtenantTrustedCertificate.
      */
-    public get(accountID: string): Promise<SubtenantTrustedCertificate> {
+    public get(): Promise<SubtenantTrustedCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi<SubtenantTrustedCertificate>(
@@ -191,7 +191,7 @@ export class SubtenantTrustedCertificate extends EntityBase {
                         url: "/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
                         method: "GET",
                         pathParams: {
-                            "accountID": accountID,
+                            "accountID": this.accountId,
                             "cert-id": this.id,
                         },
                     },
@@ -209,7 +209,7 @@ export class SubtenantTrustedCertificate extends EntityBase {
      * updates a SubtenantTrustedCertificate.
      * @returns Promise containing SubtenantTrustedCertificate.
      */
-    public update(accountID: string): Promise<SubtenantTrustedCertificate> {
+    public update(): Promise<SubtenantTrustedCertificate> {
         const body = {
             certificate: this.certificate,
             description: this.description,
@@ -225,7 +225,7 @@ export class SubtenantTrustedCertificate extends EntityBase {
                         url: "/v3/accounts/{accountID}/trusted-certificates/{cert-id}",
                         method: "PUT",
                         pathParams: {
-                            "accountID": accountID,
+                            "accountID": this.accountId,
                             "cert-id": this.id,
                         },
                         body: body,

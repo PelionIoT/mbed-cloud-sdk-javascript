@@ -57,7 +57,9 @@ export class EntityBase {
                     }
                     return { [newKey]: arr };
                 } else {
-                    return { [newKey]: type._fromApi(type, data) };
+                    if (data[key]) {
+                        return { [newKey]: type._fromApi(type, data[key]) };
+                    }
                 }
             }
             return { [newKey]: data[key] };

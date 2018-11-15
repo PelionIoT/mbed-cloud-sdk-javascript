@@ -16,7 +16,7 @@ export function isDeveloperCertificateSetter(self: TrustedCertificate | Subtenan
 
 export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
-        return streamToFile(self.config, self.errorsReportFile, resolve, reject);
+        return streamToFile(self.config, self.errorsReportFile, resolve, reject, "error-report.csv");
     });
 }
 
@@ -26,9 +26,13 @@ export function downloadFullReportFile(self: DeviceEnrollmentBulkCreate | Device
     });
 }
 
-function streamToFile(config: Config, url: string, resolve: (value: ReadStream) => void, reject: (reason: any) => void,  filePath?: string) {
-    if (isThisNode()) {
-        const tempPath = filePath || "report.csv";
+function streamToFile(config: Config, url: string, resolve: (value: ReadStream) => void, reject: (reason: any) => void, filePath?: string) {
+    if (!isThisNode()) {
+        return reject("Can only download file in Node environment!");
+    }
+
+    const tempPath = filePath || "report.csv";
+    if (url && config) {
         const fileStream = createWriteStream(tempPath);
         fileStream.on("open", () => {
             const req = http_get(url);
@@ -46,6 +50,7 @@ function streamToFile(config: Config, url: string, resolve: (value: ReadStream) 
             return resolve(file);
         });
     } else {
-        return reject("Can only download file in Node environment!");
+        const file = createReadStream(tempPath);
+        return resolve(file);
     }
 }

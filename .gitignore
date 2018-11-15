@@ -14,3 +14,6 @@ docs/docs
 .env
 test/**/build
 report.csv
+error-report.csv
+lcov-report
+lcov.info
