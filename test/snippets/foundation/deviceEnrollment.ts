@@ -93,8 +93,6 @@ describe("Device Enrollment examples", () => {
             }
             printFile(errorFile);
 
-            // end of example
-
             expect(reportFile.readable).toBeTruthy();
         } catch (e) {
             throw e;
