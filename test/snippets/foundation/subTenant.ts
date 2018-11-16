@@ -5,11 +5,12 @@ describe("subTenants", () => {
         let myAccount: Account = null;
         try {
             const newAccount = new Account();
-            newAccount.displayName = "";
-            newAccount.aliases = [ "" ];
-            newAccount.endMarket = "";
-            newAccount.adminFullName = "";
-            newAccount.adminEmail = "";
+            newAccount.displayName = "new test account";
+            newAccount.aliases = [ "alex_test_account" ];
+            newAccount.endMarket = "IOT";
+            // Admin user details
+            newAccount.adminFullName = "Alex Logan";
+            newAccount.adminEmail = "alexadmin@admin.com";
 
             await newAccount.create();
         } catch (e) {
@@ -41,23 +42,29 @@ describe("subTenants", () => {
     test("subTenant", async () => {
         let myAccount: Account = null;
         try {
+            // an example: creating and managing a subtenant account
             const newAccount = new Account();
-            newAccount.displayName = "";
-            newAccount.aliases = [ "" ];
-            newAccount.endMarket = "";
-            newAccount.adminFullName = "";
-            newAccount.adminEmail = "";
+            newAccount.displayName = "new test account";
+            newAccount.aliases = [ "alex_test_account" ];
+            newAccount.endMarket = "IOT";
+            // Admin user details
+            newAccount.adminFullName = "Alex Logan";
+            newAccount.adminEmail = "alexadmin@admin.com";
 
             await newAccount.create();
+            // cloak
         } catch (e) {
             // should throw 403, subtenant account limit reached
             if (e.details && e.details.code === 403) {
                 myAccount = (await new Account().list().all()).filter(a => a.displayName === "sdk_test_bob")[0];
             }
         } finally {
-            // an example: creating and managing a subtenant account
+            // uncloak
+            // Populate the new user details
             const user = new SubtenantUser();
+            // Link this user to the account
             user.accountId = myAccount.id;
+            // User details
             user.fullName = "tommi the wombat";
             user.username = "tommi_wombat";
             user.phoneNumber = "0800001066";

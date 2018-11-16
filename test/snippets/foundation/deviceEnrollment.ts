@@ -69,37 +69,28 @@ describe("Device Enrollment examples", () => {
     it("should bulk delete devices", async () => {
         try {
             const pathToCsv = "/Users/alelog01/git/mbed-cloud-sdk-javascript/test/snippets/foundation/test.csv";
-            // an example: device enrollment bulk
             const bulk = new DeviceEnrollmentBulkDelete();
             // uses fs readStream so this is a node only example.
             const csv = createReadStream(pathToCsv);
             await bulk.delete(csv);
-            // cloak
             expect(bulk.status).toBe("new");
-            // uncloak
 
             // call get to see current state of bulk enrollment
             await bulk.get();
 
-            // cloak
             expect(bulk.status === "completed" || bulk.status === "processing").toBeTruthy();
-            // uncloak
 
             const reportFile = await bulk.downloadFullReportFile() as ReadStream;
-            // cloak
             if (reportFile) {
                 expect(reportFile.readable).toBeTruthy();
             }
-            // uncloak
             // stream report file into string and print it
             printFile(reportFile);
 
             const errorFile = await bulk.downloadErrorsReportFile() as ReadStream;
-            // cloak
             if (errorFile) {
                 expect(errorFile.readable).toBeTruthy();
             }
-            // uncloak
             printFile(errorFile);
 
             // end of example
