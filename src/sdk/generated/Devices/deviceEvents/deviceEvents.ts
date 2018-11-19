@@ -10,7 +10,7 @@ import { apiWrapper } from "../../../../common/functions";
  */
 export class DeviceEvents extends EntityBase {
     /**
-     * Additional data relevant to the event.
+     * changes
      */
     public changes?: { [key: string]: string };
 
@@ -20,9 +20,9 @@ export class DeviceEvents extends EntityBase {
     public createdAt?: Date;
 
     /**
-     * data
+     * Additional data relevant to the event.
      */
-    public data?: any;
+    public data?: { [key: string]: string };
 
     /**
      * date_time
