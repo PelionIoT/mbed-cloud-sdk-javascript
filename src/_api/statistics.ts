@@ -233,7 +233,7 @@ export class AccountApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<SuccessfulResponse>({
@@ -320,7 +320,7 @@ export class StatisticsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<SuccessfulResponse>({

@@ -18,7 +18,7 @@
 import {
     DeviceData as apiDevice,
     DeviceDataPostRequest as apiDeviceAdd,
-    DeviceDataPutRequest as apiDeviceUpdate
+    DeviceDataPutRequest as apiDeviceUpdate,
 } from "../../_api/device_directory";
 import { DeviceDirectoryApi } from "../deviceDirectoryApi";
 import { AddDeviceObject, UpdateDeviceObject } from "../types";

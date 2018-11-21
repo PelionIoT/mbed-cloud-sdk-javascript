@@ -69,7 +69,7 @@ export class FirmwareImage {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.deleteFirmwareImage(this.id, done);
         }, callback);
     }

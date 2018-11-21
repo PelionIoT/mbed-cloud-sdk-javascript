@@ -36,7 +36,7 @@ export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
     private filterFunc(data: DeviceEvent<Resource>): boolean {
         if (this.filter) {
             for (const key in this.filter) {
-                if (ensureArray(this.filter[key]).indexOf(data[key]) === -1) return false;
+                if (ensureArray(this.filter[key]).indexOf(data[key]) === -1) { return false; }
             }
         }
         return true;
@@ -48,7 +48,7 @@ export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
      */
     public notify(data: DeviceEvent<Resource>): void {
         if (this._subscribed) {
-            if (this.filterFunc(data)) super.notify(data);
+            if (this.filterFunc(data)) { super.notify(data); }
         }
     }
 

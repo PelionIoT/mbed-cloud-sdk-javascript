@@ -33,7 +33,7 @@ export class FirmwareImageAdapter {
             description:        from.description,
             id:                 from.id,
             name:               from.name,
-            updatedAt:          from.updated_at
+            updatedAt:          from.updated_at,
         }, api);
     }
 }

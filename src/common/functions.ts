@@ -32,8 +32,7 @@ export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn
         return new Promise((resolve, reject) => {
             try {
                 asyncFn((error: SDKError, response: T) => {
-                    if (error) reject(error);
-                    else resolve(response);
+                    if (error) { reject(error); } else { resolve(response); }
                 });
             } catch (error) {
                 reject(new SDKError(error.message, error));
@@ -48,10 +47,10 @@ export function apiWrapper<T>(
     apiFn: (resultsFn: (error: any, data: any) => void) => void,
     transformFn?: (data: any, resultsFn: (error: SDKError, result: T) => void) => void,
     callbackFn?: CallbackFn<T>,
-    failOnNotFound = false
+    failOnNotFound = false,
 ): Promise<T> {
     // Use async style
-    return asyncStyle(done => {
+    return asyncStyle( done => {
         try {
             // Call the api function
             apiFn((error, data) => {
@@ -63,7 +62,7 @@ export function apiWrapper<T>(
                     }
                 }
 
-                if (!transformFn) return done(null, data);
+                if (!transformFn) { return done(null, data); }
 
                 try {
                     // Call the transformation function
@@ -135,7 +134,7 @@ export function decodeBase64(payload, contentType): string | number | { [key: st
 }
 
 export function encodeInclude(include) {
-    if (!include || !include.length) return null;
+    if (!include || !include.length) { return null; }
     return include.map(camelToSnake).join(",");
 }
 
@@ -155,33 +154,33 @@ export function extractFilter(filter: { [key: string]: ComparisonObject<any> | s
 
     if (filter && filter[name]) {
         const value = filter[name];
-        if (value.constructor !== {}.constructor) return value;
+        if (value.constructor !== {}.constructor) { return value; }
 
         switch (operator) {
-        case "$ne": {
-            if ((value as ComparisonObject<any>).$ne) return (value as ComparisonObject<any>).$ne;
-            break;
-        }
-        case "$gte": {
-            if ((value as ComparisonObject<any>).$gte) return (value as ComparisonObject<any>).$gte;
-            break;
-        }
-        case "$lte": {
-            if ((value as ComparisonObject<any>).$lte) return (value as ComparisonObject<any>).$lte;
-            break;
-        }
-        case "$in": {
-            if ((value as ComparisonObject<any>).$in) return (value as ComparisonObject<any>).$in;
-            break;
-        }
-        case "$nin": {
-            if ((value as ComparisonObject<any>).$nin) return (value as ComparisonObject<any>).$nin;
-            break;
-        }
-        default: {
-            if ((value as ComparisonObject<any>).$eq) return (value as ComparisonObject<any>).$eq;
-            break;
-        }
+            case "$ne": {
+                if ((value as ComparisonObject<any>).$ne) { return (value as ComparisonObject<any>).$ne; }
+                break;
+            }
+            case "$gte": {
+                if ((value as ComparisonObject<any>).$gte) { return (value as ComparisonObject<any>).$gte; }
+                break;
+            }
+            case "$lte": {
+                if ((value as ComparisonObject<any>).$lte) { return (value as ComparisonObject<any>).$lte; }
+                break;
+            }
+            case "$in": {
+                if ((value as ComparisonObject<any>).$in) { return (value as ComparisonObject<any>).$in; }
+                break;
+            }
+            case "$nin": {
+                if ((value as ComparisonObject<any>).$nin) { return (value as ComparisonObject<any>).$nin; }
+                break;
+            }
+            default: {
+                if ((value as ComparisonObject<any>).$eq) { return (value as ComparisonObject<any>).$eq; }
+                break;
+            }
         }
     }
 
@@ -189,11 +188,11 @@ export function extractFilter(filter: { [key: string]: ComparisonObject<any> | s
 }
 
 export function encodeFilter(filter: { [key: string]: ComparisonObject<any> | string | {} }, map: { from: Array<string>, to: Array<string> } = { from: [], to: [] }, nested: Array<string> = []): string {
-    if (!filter) return "";
+    if (!filter) { return ""; }
 
     function encode(name, operator, value, prefix: string = "") {
-        if (value instanceof Date) value = value.toISOString();
-        if (typeof value === "boolean") value = value.toString();
+        if (value instanceof Date) { value = value.toISOString(); }
+        if (typeof value === "boolean") { value = value.toString(); }
 
         if (prefix) {
             prefix = camelToSnake(prefix);
@@ -205,23 +204,23 @@ export function encodeFilter(filter: { [key: string]: ComparisonObject<any> | st
         }
 
         let suffix = operator.replace("$", "");
-        if (suffix === "ne") suffix = "neq";
-        if (suffix === "eq") suffix = ""; // Needs to removed when implemented properly in APIs
-        if (suffix) suffix = `__${suffix}`;
+        if (suffix === "ne") { suffix = "neq"; }
+        if (suffix === "eq") { suffix = ""; } // Needs to removed when implemented properly in APIs
+        if (suffix) { suffix = `__${suffix}`; }
 
         return `${prefix}${name}${suffix}=${value}`;
     }
 
-    return Object.keys(filter).map(key => {
+    return Object.keys(filter).map( key => {
         // Support bare { key: value }
-        if (filter[key].constructor !== {}.constructor) return encode(key, "", filter[key]);
+        if (filter[key].constructor !== {}.constructor) { return encode(key, "", filter[key]); }
 
-        return Object.keys(filter[key]).map(operator => {
+        return Object.keys(filter[key]).map( operator => {
             if (nested.indexOf(key) > -1) {
                 // Support bare { key: value }
-                if (filter[key][operator].constructor !== {}.constructor) return encode(operator, "", filter[key][operator], key);
+                if (filter[key][operator].constructor !== {}.constructor) { return encode(operator, "", filter[key][operator], key); }
 
-                return Object.keys(filter[key][operator]).map(sub => {
+                return Object.keys(filter[key][operator]).map( sub => {
                     return encode(operator, sub, filter[key][operator][sub], key);
                 }).join("&");
             }
@@ -239,25 +238,25 @@ export function decodeFilter(from: string, map: { from: Array<string>, to: Array
     }
 
     function addOperator(comparisonObject: {}, operator: string, value: string) {
-        if (!operator) operator = "eq"; // Needs to removed when implemented properly in APIs
-        if (operator === "neq") operator = "ne";
+        if (!operator) { operator = "eq"; } // Needs to removed when implemented properly in APIs
+        if (operator === "neq") { operator = "ne"; }
         operator = `$${operator}`;
         comparisonObject[operator] = value;
     }
 
     from = decodeURIComponent(from);
-    from.split("&").forEach(attrib => {
+    from.split("&").forEach( attrib => {
         const match = attrib.match(/^(.+)=(.+)$/);
         if (match) {
             const value = match[2];
             const bits = match[1].split("__");
 
             const name = decodeName(bits[0]);
-            if (!filter[name]) filter[name] = {};
+            if (!filter[name]) { filter[name] = {}; }
 
             if (nested.indexOf(name) > -1) {
                 const nestedName = bits[1]; // Don't decode nested names
-                if (!filter[name][nestedName]) filter[name][nestedName] = {};
+                if (!filter[name][nestedName]) { filter[name][nestedName] = {}; }
                 addOperator(filter[name][nestedName], bits[2], value);
                 return;
             }

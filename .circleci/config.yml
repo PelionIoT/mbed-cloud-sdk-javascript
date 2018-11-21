@@ -15,7 +15,7 @@ jobs:
           name: Update Python Installers
           command: sudo python -m pip install -U setuptools pip pipenv
       - restore_cache:
-          key: v0-package-cache-{{ checksum "package.json" }}
+          key: v1-package-cache-{{ checksum "package.json" }}
       - run:
           name: Install Python Libraries
           # pipenv is currently poorly behaved when installing from remote subdirectory
@@ -25,7 +25,7 @@ jobs:
           name: Install SDK dependencies
           command: npm install
       - save_cache:
-          key: v0-package-cache-{{ checksum "package.json" }}
+          key: v1-package-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
             - .venv
@@ -35,15 +35,15 @@ jobs:
           command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news
       - run:
           name: Build the SDK
-          command: npm run gulp
+          command: npm run build
       - store_artifacts:
-          path: docs
+          path: package.json
       - persist_to_workspace:
           root: ./
           paths:
-            - package.json
             - bundles
             - lib
+            - types
   tpip:
     working_directory: ~/build
     docker:
@@ -83,7 +83,7 @@ jobs:
           command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news --release
       - run:
           name: Generate changelog
-          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && auto_version --config=scripts/auto_version.toml)
+          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml)
           working_directory: docs/news
       - store_artifacts:
           path: CHANGELOG.md
@@ -129,12 +129,9 @@ jobs:
           name: Fetch the test runner
           command: docker pull ${TESTRUNNER_DOCKER_IMAGE}
       - run:
-          name: Build the SDK test server
-          command: npm run build-test-server
-      - run:
           name: Run the tests
           command: set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ~/build/integration.html
-          working_directory: tests
+          working_directory: test/integration
       - run:
           name: Run any post-test result aggregators
           when: always
@@ -171,13 +168,44 @@ jobs:
           command: sudo npm install -g codecov ansi-html-stream --unsafe-perm
       - run:
           name: Run the tests
-          command: set -o pipefail && npm run testci 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
+          command: set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
       - store_artifacts:
           path: unit_tests.html
       - persist_to_workspace:
           root: ./
           paths:
             - unit_tests.html
+  beta_release:
+    working_directory: ~/build
+    environment:
+      PIPENV_VENV_IN_PROJECT: TRUE
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Update Python Installers
+          command: sudo python -m pip install -U setuptools pip pipenv
+      - run:
+          name: Install Python Libraries
+          # pipenv is currently poorly behaved when installing from remote subdirectory
+          # so we simply use it as a proxy for the virtualenv
+          command: pipenv run pip install -r scripts/requirements.txt
+      - run:
+          name: Set version
+          # set the version as if this was a production release
+          command: pipenv run auto_version --config=scripts/auto_version_beta.toml --news
+      - run:
+          name: Generate changelog
+          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version_beta.toml)
+          working_directory: docs/news
+      - run:
+          name: Tag and Release
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            pipenv run python scripts/tag_and_release.py beta
   release:
     working_directory: ~/build
     environment:
@@ -199,7 +227,7 @@ jobs:
       - run:
           name: Set version
           # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version.toml --release
+          command: pipenv run auto_version --config=scripts/auto_version.toml --news --release
       - run:
           name: Generate changelog
           command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml)
@@ -209,6 +237,16 @@ jobs:
           command: |
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             pipenv run python scripts/tag_and_release.py
+  build_documentation:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - run:
+          name: Trigger documentation build
+          command: |
+              curl -X POST --header "Content-Type: application/json" \
+               -d '{"branch":"master"}' \
+               https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/build?circle-token=${CIRCLE_TOKEN}
 
 workflows:
   version: 2
@@ -217,19 +255,39 @@ workflows:
       - build
       - tpip
       - news
+      - build_documentation:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+                - beta
       - integration_test:
           requires:
             - build
       - unit_test:
           requires:
             - build
+      - beta_release_gate:
+          type: approval
+          filters:
+            branches:
+              only: beta
+          requires:
+            - integration_test
+            - unit_test
+      - beta_release:
+          requires:
+            - beta_release_gate
       - release_gate:
           type: approval
           filters:
             branches:
               only: master
           requires:
-            - build
+            - integration_test
+            - unit_test
       - release:
           requires:
             - release_gate

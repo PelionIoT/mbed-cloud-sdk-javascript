@@ -71,7 +71,7 @@ export class Subscribe {
      * @param data
      */
     public notifyDeviceEvents(data: DeviceEvent<Resource>): void {
-        this.deviceStateObservers.forEach(observer => observer.notify(data));
+        this.deviceStateObservers.forEach( observer => observer.notify(data));
     }
 
     /**
@@ -79,7 +79,7 @@ export class Subscribe {
      * @param data
      */
     public notifyResourceValues(data: NotificationData): void {
-        this.resourceValueObservers.forEach(observer => observer.notify(data));
+        this.resourceValueObservers.forEach( observer => observer.notify(data));
     }
 
     private startNotifications(): void {

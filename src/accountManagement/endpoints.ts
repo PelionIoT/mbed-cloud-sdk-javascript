@@ -19,7 +19,7 @@ import { ConnectionOptions } from "../common/interfaces";
 import { EndpointsBase } from "../common/endpointsBase";
 import {
     DeveloperApi,
-    AccountAdminApi
+    AccountAdminApi,
 } from "../_api/iam";
 
 export class Endpoints extends EndpointsBase {

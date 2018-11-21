@@ -191,12 +191,12 @@ export class PreSharedKeysApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<ListOfPreSharedKeysWithoutSecret>({
@@ -235,12 +235,12 @@ export class PreSharedKeysApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<null>({

@@ -79,7 +79,7 @@ export class Group {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.listGroupUsers(this.id, options, done);
         }, callback);
     }
@@ -103,7 +103,7 @@ export class Group {
             options = {};
         }
 
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.listGroupApiKeys(this.id, options, done);
         }, callback);
     }

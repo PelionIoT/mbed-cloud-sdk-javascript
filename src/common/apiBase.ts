@@ -21,15 +21,15 @@ import dotenv = require("dotenv");
 
 import { SDKError } from "./sdkError";
 import { ConnectionOptions } from "./interfaces";
+import { Version } from "../version";
 import { isThisNode } from "./functions";
 
 // tslint:disable-next-line:no-var-requires
-const packageInformation = require("../../package.json");
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 const JSON_REGEX = /^application\/json(;.*)?$/i;
 const MIME_REGEX = /^text\/plain(;.*)?$/i;
-const VERSION = packageInformation.is_published ? packageInformation.version : `${packageInformation.version}+dev`;
-const userAgent = `${packageInformation.name}-javascript / ${VERSION}`;
+const VERSION = Version.isPublished ? Version.version : `${Version.version}+dev`;
+const userAgent = `${Version.packageName}-javascript / ${VERSION}`;
 
 export class ApiBase {
 
@@ -40,11 +40,11 @@ export class ApiBase {
 
     constructor(options?: ConnectionOptions, private responseHandler: (sdkError: SDKError, response: superagent.Response) => any = null) {
         options = options || {};
-        if (dotenv && typeof dotenv.config === "function") dotenv.config();
+        if (dotenv && typeof dotenv.config === "function") { dotenv.config(); }
         this.apiKey = options.apiKey || (process && process.env[this.ENV_API_KEY]);
         this.host = options.host || (process && process.env[this.ENV_HOST]) || "https://api.us-east-1.mbedcloud.com";
-        if (!this.apiKey) throw new SDKError("no api key provided");
-        if (this.apiKey.substr(0, 6).toLowerCase() !== "bearer") this.apiKey = `Bearer ${this.apiKey}`;
+        if (!this.apiKey) { throw new SDKError("no api key provided"); }
+        if (this.apiKey.substr(0, 6).toLowerCase() !== "bearer") { this.apiKey = `Bearer ${this.apiKey}`; }
     }
 
     /**
@@ -124,13 +124,13 @@ export class ApiBase {
 
     private static chooseType(types: Array<string>, defaultType: string = null): string {
         // No type
-        if (!types.length) return defaultType;
+        if (!types.length) { return defaultType; }
 
         // Default to first entry or default
         let result = types[0] || defaultType;
 
         // Find first preferred type
-        types.some(type => {
+        types.some( type => {
             if (MIME_REGEX.test(type)) {
                 result = type;
                 return true;
@@ -220,7 +220,7 @@ export class ApiBase {
             // Remove empty or undefined json parameters
             if (body && body.constructor === {}.constructor && JSON_REGEX.test(requestOptions.contentType)) {
                 body = Object.keys(body).reduce((val, key) => {
-                    if (body[key] !== null && body[key] !== undefined) val[key] = body[key];
+                    if (body[key] !== null && body[key] !== undefined) { val[key] = body[key]; }
                     return val;
                 }, {});
             }
@@ -228,7 +228,7 @@ export class ApiBase {
             request.send(body);
         }
 
-        if (body) ApiBase.debugLog("body", body);
+        if (body) { ApiBase.debugLog("body", body); }
 
         request.end((error, response) => {
             this.complete(error, response, requestOptions.acceptHeader, callback);
@@ -246,10 +246,10 @@ export class ApiBase {
             let details = "";
 
             if (response) {
-                if (response.error) message = response.error.message;
+                if (response.error) { message = response.error.message; }
                 if (response.body && response.body.message) {
                     message = response.body.message;
-                    if (message.error) message = message.error;
+                    if (message.error) { message = message.error; }
                 }
                 innerError = response.error || error;
                 details = response.body || response.text;
@@ -273,7 +273,7 @@ export class ApiBase {
             if (data && data.constructor === {}.constructor && JSON_REGEX.test(acceptHeader)) {
                 data = JSON.parse(JSON.stringify(data), (_key, value) => {
                     // Check for date
-                    if (DATE_REGEX.test(value)) return new Date(value);
+                    if (DATE_REGEX.test(value)) { return new Date(value); }
                     return value;
                 });
             }

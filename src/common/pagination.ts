@@ -21,7 +21,7 @@ import { ListOptions } from "./interfaces";
 // Run `execute` for all items returned from getPage, one page at a time. If any call to getPage or execute fails, the resulting promise is rejected.
 export const executeForAll = <T extends { id: string }>(
     getPage: (options: { after?: string }) => Promise<ListResponse<T>>,
-    execute: (id: string) => Promise<void>
+    execute: (id: string) => Promise<void>,
 ) => {
     const recur = (after?: string): Promise<void> => {
         return getPage({ after })
@@ -48,17 +48,21 @@ export class Paginator<T, U extends ListOptions> {
     private listOptions: U;
     private currentPageIndex: number;
     private currentPageData: ListResponse<T>;
-    private hasBrowsedFullCollection: boolean;
+    private isFirstRequest: boolean;
     private currentElementIndex: number;
     private collectionTotalCount: number;
+
+    public maxResults?: number;
+
     /**
      * Constructor
      * @param getPage Method returning a page of results ([ListResponse](./listresponse.html))
      * @param maxResults The maximum number of results to return
      * @param options List options
      */
-    constructor(getPage: (options: U) => Promise<ListResponse<T>>, public maxResults?: number | null, options?: U) {
-        this.listOptions = Object.create(options);
+    constructor(getPage: (options: U) => Promise<ListResponse<T>>, options?: U) {
+        this.maxResults = options ? options.maxSize || options.limit || 50 : 50;
+        this.listOptions = Object.create(options || null);
         const pageSizeParameterName = "pageSize";
         if (pageSizeParameterName in this.listOptions) {
             this.listOptions.limit = this.listOptions[pageSizeParameterName];
@@ -73,7 +77,7 @@ export class Paginator<T, U extends ListOptions> {
     private reset(): void {
         this.currentPageIndex = -1;
         this.currentElementIndex = -1;
-        this.hasBrowsedFullCollection = false;
+        this.isFirstRequest = true;
         this.currentPageData = null;
     }
 
@@ -99,23 +103,32 @@ export class Paginator<T, U extends ListOptions> {
         if (this.maxResults && this.pageSize() * (this.currentPageIndex + 1) > this.maxResults) {
             return false;
         }
-        return this.currentPageData ? this.currentPageData.hasMore : !this.hasBrowsedFullCollection;
+        const nextPage = this.currentPageData ? this.currentPageData.hasMore : this.isFirstRequest;
+        return nextPage;
     }
 
     private nextPage(): Promise<ListResponse<T>> {
         if (this.hasNewPage()) {
             this.currentElementIndex = -1;
             const after: string = this.currentPageIndex < 0 ? null : this.fetchNextPageCursor(this.currentPageData);
-            const newPageOptions: U = Object.create(this.listOptions);
+            const newPageOptions: U = Object.create(this.listOptions || null);
             newPageOptions.after = after;
-            const newPage = this.pageRequester(newPageOptions);
-            return newPage.then(page => { this.setCurrentPage(page); return page; }).then(page => {
-                if (page && page.data.length !== 0) {
-                    return new ListResponse<T>(page, page.data.slice(0, this.remainingElementsNumber()));
-                } else {
-                    return null;
-                }
-            });
+            return this.pageRequester(newPageOptions)
+                .then(page => {
+                    this.setCurrentPage(page);
+                    this.isFirstRequest = false;
+                    return page;
+                })
+                .then(page => {
+                    if (page && page.data.length !== 0) {
+                        return new ListResponse<T>(page, page.data.slice(0, this.remainingElementsNumber()));
+                    } else {
+                        return null;
+                    }
+                })
+                .catch(e => {
+                    throw e;
+                });
         } else {
             return Promise.resolve(null);
         }
@@ -132,14 +145,20 @@ export class Paginator<T, U extends ListOptions> {
             this.collectionTotalCount = this.currentPageData.totalCount;
             return Promise.resolve(this.collectionTotalCount);
         } else {
-            const newPageOptions: U = Object.create(this.listOptions);
+            const newPageOptions: U = Object.create(this.listOptions || null);
             if (newPageOptions.include) {
                 newPageOptions.include.push("totalCount");
             } else {
                 newPageOptions.include = [ "totalCount" ];
             }
-            const newPage = this.pageRequester(newPageOptions);
-            return newPage.then(page => { this.collectionTotalCount = page ? page.totalCount : undefined; return this.collectionTotalCount; });
+            return this.pageRequester(newPageOptions)
+                .then(page => {
+                    this.collectionTotalCount = page ? page.totalCount : undefined;
+                    return this.collectionTotalCount;
+                })
+                .catch(e => {
+                    throw e;
+                });
         }
     }
     /**
@@ -190,22 +209,22 @@ export class Paginator<T, U extends ListOptions> {
         this.currentElementIndex++;
         if (this.currentPageData) {
             const nextElement = this.fetchElementInPage(this.currentPageData, this.currentElementIndex, this.remainingElementsNumber(), false);
-            return nextElement ? Promise.resolve(nextElement) : this.nextPage().then(page => page ? this.next() : null);
+            return nextElement ? Promise.resolve(nextElement) : this.nextPage().then( page => page ? this.next() : null);
         } else {
-            return this.nextPage().then(page => page ? this.next() : null);
+            return this.nextPage().then( page => page ? this.next() : null);
         }
     }
 
     private browseAndConcatenateAllPages(): Promise<Array<T>> {
         if (this.hasNewPage()) {
-            return this.nextPage().then(page => this.browseAndConcatenateAllPages().then(data => page.data.length === 0 ? data : page.data.concat(data)));
+            return this.nextPage().then( page => this.browseAndConcatenateAllPages().then( data => page.data.length === 0 ? data : page.data.concat(data)));
         }
         return Promise.resolve([]);
     }
 
     private executeOnAllElements(execute: (element: T) => Promise<void>) {
         if (this.hasNext()) {
-            return this.next().then(element => execute(element)).then(() => this.executeOnAllElements(execute));
+            return this.next().then( element => execute(element)).then(() => this.executeOnAllElements(execute));
         }
         return Promise.resolve();
     }

@@ -34,7 +34,7 @@ export class CampaignDeviceStateAdapter {
             createdAt:      from.created_at,
             updatedAt:      from.updated_at,
             mechanism:      from.mechanism,
-            mechanismUrl:   from.mechanism_url
+            mechanismUrl:   from.mechanism_url,
         });
     }
 }

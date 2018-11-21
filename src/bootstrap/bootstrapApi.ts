@@ -106,13 +106,13 @@ export class BootstrapApi {
             options = {};
         }
 
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             const { limit, after } = options as PskListOptions;
             this._endpoints.bootstrap.listPreSharedKeys(limit, after, resultsFn);
         }, (data, done) => {
             let keys: Array<PreSharedKey>;
             if (data && data.data && data.data.length) {
-                keys = data.data.map(key => {
+                keys = data.data.map( key => {
                     return mapToSDK(key, this);
                 });
             }
@@ -156,7 +156,7 @@ export class BootstrapApi {
      */
     public addPsk(preSharedKey: AddPreSharedKey, callback: CallbackFn<PreSharedKey>): void;
     public addPsk(preSharedKey: AddPreSharedKey, callback?: CallbackFn<PreSharedKey>): Promise<PreSharedKey> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.bootstrap.uploadPreSharedKey(mapToSpec(preSharedKey), resultsFn);
         }, (_data, done) => {
             done(null, mapFrom(preSharedKey, this));
@@ -202,7 +202,7 @@ export class BootstrapApi {
      */
     public getPsk(preSharedKey: string, callback: CallbackFn<PreSharedKey>): void;
     public getPsk(preSharedKey: string, callback?: CallbackFn<PreSharedKey>): Promise<PreSharedKey> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.bootstrap.getPreSharedKey(preSharedKey, resultsFn);
         }, (data, done) => {
             done(null, mapToSDK(data, this));
@@ -244,7 +244,7 @@ export class BootstrapApi {
      */
     public deletePsk(preSharedKey: string, callback: CallbackFn<void>): void;
     public deletePsk(preSharedKey: string, callback?: CallbackFn<void>): Promise<void> {
-        return apiWrapper(resultsFn => {
+        return apiWrapper( resultsFn => {
             this._endpoints.bootstrap.deletePreSharedKey(preSharedKey, resultsFn);
         }, (_data, done) => {
             done(null, null);
@@ -262,7 +262,7 @@ export class BootstrapApi {
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;
     public getLastApiMetadata(callback?: CallbackFn<ApiMetadata>): Promise<ApiMetadata> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
     }

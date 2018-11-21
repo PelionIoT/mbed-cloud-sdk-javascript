@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "outDir": "lib",
+        "sourceMap": true,
+        "lib": [
+            "dom",
+            "es5",
+            "es2015.promise",
+            "es2015.symbol.wellknown",
+            "es2015.core"
+        ],
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noEmitOnError": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

@@ -21,12 +21,12 @@ import { AddCertificateObject, AddDeveloperCertificateObject, UpdateCertificateO
 import {
     TrustedCertificateReq as iamCertificateRequest,
     TrustedCertificateUpdateReq as iamCertificateUpdate,
-    TrustedCertificateResp as iamCertificate
+    TrustedCertificateResp as iamCertificate,
 } from "../../_api/iam";
 import {
     DeveloperCertificateRequestData as caCertificateRequest,
     CredentialsResponseData as serverResponse,
-    DeveloperCertificateResponseData as developerResponse
+    DeveloperCertificateResponseData as developerResponse,
 } from "../../_api/connector_ca";
 
 /**
@@ -88,7 +88,7 @@ export class CertificateAdapter {
             status:          from.status,
             signature:       from.signature,
             enrollment_mode: from.enrollmentMode,
-            description:     from.description
+            description:     from.description,
         };
     }
 
@@ -100,14 +100,14 @@ export class CertificateAdapter {
             status:          from.status,
             signature:       from.signature,
             enrollment_mode: from.enrollmentMode,
-            description:     from.description
+            description:     from.description,
         };
     }
 
     public static reverseDeveloperMap(from: AddDeveloperCertificateObject): caCertificateRequest {
         return {
             name:           from.name,
-            description:    from.description
+            description:    from.description,
         };
     }
 }

@@ -24,14 +24,14 @@ const types = {
     OBJECT_INSTAN: parseInt("00000000", 2), // Object Instance with one or more TLVs
     RESOURCE_INST: parseInt("01000000", 2), // Resource Instance with Value in multi Resource TLV
     MULT_RESOURCE: parseInt("10000000", 2), // Multiple Resource, Value contains one or more Resource Instance
-    RESOURCE_VALU: parseInt("11000000", 2)  // Resource with Value
+    RESOURCE_VALU: parseInt("11000000", 2),  // Resource with Value
 };
 
 const lengthType = {
     ONE_BYTE: parseInt("00001000", 2), // Length is 8-bits
     TWO_BYTE: parseInt("00010000", 2), // Length is 16-bits
     TRE_BYTE: parseInt("00011000", 2), // Length is 24-bits
-    OTR_BYTE: parseInt("00000000", 2)  // Length is in bits 2-0
+    OTR_BYTE: parseInt("00000000", 2),  // Length is in bits 2-0
 };
 
 function findIdLength(byte): number {
@@ -86,7 +86,7 @@ function decode(bytes, result: {} = {}, path: string = "") {
         decode(bytes.slice(offset, offset + valueLength), result, `${path}/${id}`);
     } else {
         const valueBytes = bytes.slice(offset, offset + valueLength);
-        const hasZero = valueBytes.some(b => {
+        const hasZero = valueBytes.some( b => {
             return b === 0;
         });
 
@@ -101,7 +101,7 @@ function decode(bytes, result: {} = {}, path: string = "") {
 }
 
 export function decodeTlv(value: string): string | number | { [key: string]: string | number } {
-    const bytes = value.split("").map(char => {
+    const bytes = value.split("").map( char => {
         return char.charCodeAt(0);
     });
 

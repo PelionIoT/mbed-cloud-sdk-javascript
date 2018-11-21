@@ -18,7 +18,7 @@
 import {
     ApiKeyInfoReq as apiApiKeyAdd,
     ApiKeyUpdateReq as apiApiKeyUpdate,
-    ApiKeyInfoResp as apiApiKey
+    ApiKeyInfoResp as apiApiKey,
 } from "../../_api/iam";
 import { AddApiKeyObject, UpdateApiKeyObject } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
@@ -39,7 +39,7 @@ export class ApiKeyAdapter {
             status           : from.status,
             createdAt        : from.created_at,
             creationTime     : from.creation_time,
-            lastLoginTime    : from.last_login_time
+            lastLoginTime    : from.last_login_time,
         }, api);
     }
 

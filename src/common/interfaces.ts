@@ -60,6 +60,10 @@ export interface ListOptions {
      * Optional fields to include
      */
     include?: Array<IncludeEnum>;
+    /**
+     * Number of results to retrieve
+     */
+    maxSize?: number;
 }
 
 /**

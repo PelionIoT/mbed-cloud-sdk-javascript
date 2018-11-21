@@ -17,7 +17,7 @@
 
 import {
     EndpointData as apiDeviceEvent,
-    ResourcesData as apiResourceEvent
+    ResourcesData as apiResourceEvent,
 } from "../../_api/mds";
 import { DeviceEvent, DeviceEventEnum } from "../types";
 import { ConnectApi } from "../connectApi";
@@ -34,7 +34,7 @@ export class DeviceEventAdapter {
             observable:     from.obs,
             type:           from.rt,
             path:           from.path,
-            deviceId:       deviceId
+            deviceId:       deviceId,
         }, api);
     }
 
@@ -42,7 +42,7 @@ export class DeviceEventAdapter {
         let resources = [];
 
         if (from && from.resources) {
-            resources = from.resources.map(resource => {
+            resources = from.resources.map( resource => {
                 return DeviceEventAdapter.mapResource(resource, from.ep, api);
             });
         }
