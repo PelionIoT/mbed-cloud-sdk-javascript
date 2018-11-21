@@ -1,1 +1,0 @@
-Fix issue with paginator getting stuck in infinite loop if max results not set.

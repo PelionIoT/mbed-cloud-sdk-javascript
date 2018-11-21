@@ -11,6 +11,19 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.0.5-dev.619 (2018-11-21)
+==========================
+
+### Bugfixes
+
+- Fix issue with paginator getting stuck in infinite loop if max results not
+  set. (#100)
+
+### Misc
+
+- #1, #2
+
+
 2.0.4 (2018-11-02)
 ==================
 
