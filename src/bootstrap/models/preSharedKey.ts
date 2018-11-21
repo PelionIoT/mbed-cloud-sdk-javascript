@@ -27,7 +27,7 @@ export class PreSharedKey {
     public readonly createdAt?: Date;
 
     constructor(init: Partial<PreSharedKey>, private readonly _api: BootstrapApi) {
-        Object.keys(init).forEach(key => {
+        Object.keys(init).forEach( key => {
             this[key] = init[key];
         });
     }
@@ -43,7 +43,7 @@ export class PreSharedKey {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.deletePsk(this.endpointName, done);
         }, callback);
     }

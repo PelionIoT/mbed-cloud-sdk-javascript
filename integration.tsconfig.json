@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./test/integration/build",
+        "allowJs": true
+    },
+    "include": [
+        "test/integration/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

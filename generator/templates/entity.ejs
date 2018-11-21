@@ -1,0 +1,94 @@
+<% if (fsNeeded) { -%>
+import { ReadStream } from "fs";
+<% } -%>
+import { EntityBase } from "../../../common/entityBase";
+<% if (customMethods) { -%>
+    import * as privateFunctions from "../../../common/privateFunctions";
+<% } -%>
+<% if (paginators) { -%>
+    import { Paginator } from "../../../../common/pagination";
+    import { ListResponse } from "../../../../common/listResponse";
+    import { ListOptions } from "../../../../common/interfaces";
+<% } -%>
+<% if (clientCalls || paginators) { -%>
+    import { Config } from "../../../client/config";
+    import { apiWrapper } from "../../../../common/functions";
+<% } -%>
+<% filteredImports.forEach(function(fk) { -%>
+    import { <%= fk.type %> } from "../../index";
+<% }); -%>
+<% enums.forEach(function(en) { -%>
+    import { <%= en %> } from "../../enums";
+<% }); -%>
+
+/**
+ * <%= snakeToPascal(entity._key) %>
+ */
+export class <%= snakeToPascal(entity._key) %> extends EntityBase {
+
+<% if (entity.field_renames.length > 0) { -%>
+    public readonly _renames: { [key: string]: string } = {
+    <% entity.field_renames.forEach(function(rename){ -%>
+        "<%= rename.api_fieldname %>": "<%= snakeToCamel(rename._key) %>",
+    <% }); -%>
+    };
+<% } -%>
+
+<% if (foreignKeyTypes.length > 0) { -%>
+    public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
+    <% foreignKeyTypes.forEach(function(f) { -%>
+        <%= f.propName %>: {
+        type: <%= f.type %>,
+        array: <%= f.array %>,
+        },
+    <% }); -%>
+    };
+<% } -%>
+
+<% entity.fields.forEach(function(field) { -%>
+    <% if (field._override && !field.private_field) { -%>
+        <% if (field.getter_custom_method) { -%>
+            /**
+            * <%= (field.description || field._key).replace(/^\s+|\s+$/g, '').trim(); %>
+            */
+            get <%= snakeToCamel(field._key) %>(): <%- types[snakeToCamel(field._key)]%> {
+            return privateFunctions.<%= snakeToCamel(field.getter_custom_method) %>(this);
+            }
+        <% } -%>
+        <% if (field.setter_custom_method) { -%>
+            set <%= snakeToCamel(field._key) %>(value: <%- types[snakeToCamel(field._key)]%>) {
+            privateFunctions.<%= snakeToCamel(field.setter_custom_method) %>(this, value);
+            }
+        <% } -%>
+    <% } else { -%>
+        <% if (field._key !== "id") { -%>
+
+            /**
+            * <%= (field.description || field._key).replace(/^\s+|\s+$/g, '').trim(); %>
+            */
+            public <%= snakeToCamel(field._key) %>?: <%- types[snakeToCamel(field._key)]%>;
+        <% } -%>
+    <% } %>
+<% }); -%>
+
+<% if (clientCalls || paginators) { -%>
+constructor(config?: Config) {
+super(config);
+}
+<% } -%>
+<% methods.forEach(function(method) { -%>
+    <% if (method.deferToForeignKey) { -%>
+
+        <%- include('methodTemplates/defered.ejs', { method, snakeToCamel }); %>
+    <% } else if (method.paginated) { -%>
+
+        <%- include('methodTemplates/paginated.ejs', { method, unpackParams }) %>
+    <% } else if (method.customMethodCall) { -%>
+
+        <%- include('methodTemplates/custom.ejs', { method, snakeToCamel }) %>
+    <% } else { -%>
+
+        <%- include('methodTemplates/default.ejs', { method, entity, snakeToPascal }) %>
+    <% } -%>
+<% }); -%>
+}

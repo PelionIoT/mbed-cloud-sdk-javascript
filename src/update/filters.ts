@@ -22,18 +22,18 @@ export class Filters {
             "finishedAt",
             "manifestId",
             "manifestUrl",
-            "scheduledAt"
+            "scheduledAt",
         ],
         to: [
             "finished",
             "root_manifest_id",
             "root_manifest_url",
-            "when"
-        ]
+            "when",
+        ],
     };
 
     public static readonly EMPTY_FILTER_MAP = {
         from: [],
-        to: []
+        to: [],
     };
 }

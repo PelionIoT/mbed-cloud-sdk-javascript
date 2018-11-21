@@ -63,7 +63,7 @@ export class Resource extends EventEmitter {
 
         this.on("newListener", eventName => {
             if (eventName === Resource.EVENT_NOTIFICATION) {
-                this.addSubscription(data => this.emit(Resource.EVENT_NOTIFICATION, data));
+                this.addSubscription( data => this.emit(Resource.EVENT_NOTIFICATION, data));
             }
         });
 
@@ -93,8 +93,8 @@ export class Resource extends EventEmitter {
      */
     private addSubscription(notifyFn?: (any) => any, callback?: CallbackFn<void>): void;
     private addSubscription(notifyFn?: (any) => any, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
-            if (!this.observable) return done(null, null);
+        return asyncStyle( done => {
+            if (!this.observable) { return done(null, null); }
             this._api.addResourceSubscription(this.deviceId, this.path, notifyFn, done);
         }, callback);
     }
@@ -114,7 +114,7 @@ export class Resource extends EventEmitter {
      */
     private deleteSubscription(callback: CallbackFn<void>): void;
     private deleteSubscription(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle(done => {
+        return asyncStyle( done => {
             this._api.deleteResourceSubscription(this.deviceId, this.path, done);
         }, callback);
     }
@@ -213,8 +213,8 @@ export class Resource extends EventEmitter {
      */
     public getSubscription(callback: CallbackFn<boolean>): void;
     public getSubscription(callback?: CallbackFn<boolean>): Promise<boolean> {
-        return asyncStyle(done => {
-            if (!this.observable) return done(null, false);
+        return asyncStyle( done => {
+            if (!this.observable) { return done(null, false); }
             this._api.getResourceSubscription(this.deviceId, this.path, done);
         }, callback);
     }

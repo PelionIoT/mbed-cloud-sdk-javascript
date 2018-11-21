@@ -278,12 +278,12 @@ export class DeviceRequestsApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<null>({
@@ -329,7 +329,7 @@ export class EndpointsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<Array<Endpoint>>({
@@ -372,7 +372,7 @@ export class EndpointsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<Array<Resource>>({
@@ -481,7 +481,7 @@ export class NotificationsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<Webhook>({
@@ -516,7 +516,7 @@ export class NotificationsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<NotificationMessage>({
@@ -555,7 +555,7 @@ export class NotificationsApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         // Determine the Accept header
@@ -683,7 +683,7 @@ export class ResourcesApi extends ApiBase {
             "application/vnd.oma.lwm2m+text", 
             "application/vnd.oma.lwm2m+opaq", 
             "application/vnd.oma.lwm2m+tlv", 
-            "application/vnd.oma.lwm2m+json"
+            "application/vnd.oma.lwm2m+json",
         ];
 
         // Determine the Accept header
@@ -816,7 +816,7 @@ export class ResourcesApi extends ApiBase {
             "application/vnd.oma.lwm2m+text", 
             "application/vnd.oma.lwm2m+opaq", 
             "application/vnd.oma.lwm2m+tlv", 
-            "application/vnd.oma.lwm2m+json"
+            "application/vnd.oma.lwm2m+json",
         ];
 
         // Determine the Accept header
@@ -878,7 +878,7 @@ export class SubscriptionsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<null>({
@@ -1096,7 +1096,7 @@ export class SubscriptionsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "text/uri-list"
+            "text/uri-list",
         ];
 
         return this.request<string>({
@@ -1131,7 +1131,7 @@ export class SubscriptionsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<PresubscriptionArray>({
@@ -1170,12 +1170,12 @@ export class SubscriptionsApi extends ApiBase {
 
         // Determine the Content-Type header
         const contentTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "text/plain"
+            "text/plain",
         ];
 
         return this.request<null>({

@@ -1,0 +1,9 @@
+/**
+ * <%= method.methodName %> a <%= method.returns %>.
+ */
+public <%= method.methodName %>(<% method.methodParams.forEach(function(param, i) {%><%= param.key %><% if (!param.required) { %>?<% } %>: <%- param.type %><% if (i < method.methodParams.length - 1) { %>,<% } %><% }); %>): Promise<<%= method.returns %>> {
+<% method.setForeignKeyProps.forEach(function(prop) { -%>
+    <%= method.deferedMethodCall.field%>.<%= snakeToCamel(prop.externalKey) %> = this.<%= prop.selfKey %>;
+<% }); -%>
+return <%= method.deferedMethodCall.field%>.<%= method.deferedMethodCall.method%>();
+}

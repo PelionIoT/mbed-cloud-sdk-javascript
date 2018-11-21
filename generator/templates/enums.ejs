@@ -1,0 +1,3 @@
+<% enums.forEach(function(_enum) { %>
+export type <%= snakeToPascal(_enum.enum_name) %> = <% _enum.values.forEach(function(value) { %> "<%= value %>"<% if (_enum.values.indexOf(value) < _enum.values.length - 1) { %> |<% } %><% }); %>;
+<% }); %>

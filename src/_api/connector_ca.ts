@@ -209,7 +209,7 @@ export class DeveloperCertificateApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeveloperCertificateResponseData>({
@@ -264,7 +264,7 @@ export class DeveloperCertificateApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<DeveloperCertificateResponseData>({
@@ -316,7 +316,7 @@ export class ServerCredentialsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<AllServerCredentialsResponseData>({
@@ -362,7 +362,7 @@ export class ServerCredentialsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<ServerCredentialsResponseData>({
@@ -408,7 +408,7 @@ export class ServerCredentialsApi extends ApiBase {
 
         // Determine the Accept header
         const acceptTypes: Array<string> = [
-            "application/json"
+            "application/json",
         ];
 
         return this.request<ServerCredentialsResponseData>({
