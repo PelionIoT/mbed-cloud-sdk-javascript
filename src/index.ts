@@ -23,5 +23,3 @@ export { ConnectApi } from "./connect/connectApi";
 export { DeviceDirectoryApi } from "./deviceDirectory/deviceDirectoryApi";
 export { EnrollmentApi } from "./enrollment/enrollmentApi";
 export { UpdateApi } from "./update/updateApi";
-export { SDK } from "./sdk/sdk";
-export * from "./sdk/entities";
