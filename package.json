@@ -38,7 +38,7 @@
     "clean:docs": "rimraf ./docs/docs",
     "clean:integration": "rimraf test/integration/build",
     "compile": "npm-run-all compile:node compile:browser",
-    "compile:node": "tsc --declaration --declarationDir 'types'",
+    "compile:node": "tsc --declaration --declarationDir types",
     "compile:browser": "gulp",
     "compile:integration": "tsc -p integration.tsconfig.json",
     "docs": "npm-run-all clean:docs docs:build",
