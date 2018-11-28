@@ -1054,18 +1054,25 @@ export class ConnectApi extends EventEmitter {
         const asyncId = generateId();
 
         return apiWrapper( resultsFn => {
+            this._asyncFns[asyncId] = resultsFn;
+
+            const handleError = error => {
+                if (error) {
+                    delete this._asyncFns[asyncId];
+                    resultsFn(error, null);
+                }
+            };
+
             this.startNotifications(null, error => {
-                if (error) { return resultsFn(error, null); }
+                if (error) return handleError(error);
 
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     method: "GET",
                     uri: resourcePath,
                     accept: mimeType,
-                }, resultsFn);
+                }, handleError);
             });
-        }, (_data, resultsFn) => {
-            this._asyncFns[asyncId] = resultsFn;
-        }, callback);
+        }, null, callback);
     }
 
     /**
@@ -1128,18 +1135,26 @@ export class ConnectApi extends EventEmitter {
         const payload = encodeBase64(value);
 
         return apiWrapper(resultsFn => {
+            this._asyncFns[asyncId] = resultsFn;
+
+            const handleError = error => {
+                if (error) {
+                    delete this._asyncFns[asyncId];
+                    resultsFn(error, null);
+                }
+            };
+
             this.startNotifications(null, error => {
-                if (error) return resultsFn(error, null);
+                if (error) return handleError(error);
+
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     "method": "PUT",
                     "uri": resourcePath,
                     "content-type": mimeType,
                     "payload-b64": payload,
-                }, resultsFn);
+                }, handleError);
             });
-        }, (_data, resultsFn) => {
-            this._asyncFns[asyncId] = resultsFn;
-        }, callback);
+        }, null, callback);
     }
 
     /**
@@ -1197,17 +1212,25 @@ export class ConnectApi extends EventEmitter {
         const asyncId = generateId();
 
         return apiWrapper(resultsFn => {
+            this._asyncFns[asyncId] = resultsFn;
+
+            const handleError = error => {
+                if (error) {
+                    delete this._asyncFns[asyncId];
+                    return resultsFn(error, null);
+                }
+            };
+
             this.startNotifications(null, error => {
-                if (error) return resultsFn(error, null);
+                if (error) return handleError(error);
+
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     "method": "POST",
                     "uri": resourcePath,
                     "content-type": mimeType
-                }, resultsFn);
+                }, handleError);
             });
-        }, (_data, resultsFn) => {
-            this._asyncFns[asyncId] = resultsFn;
-        }, callback);
+        }, null, callback);
     }
 
     /**
