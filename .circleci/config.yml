@@ -290,7 +290,7 @@ workflows:
       - build_sync:
           requires:
             - unit_test
-            - integration_test
+            # - integration_test
       - beta_release_gate:
           type: approval
           filters:
