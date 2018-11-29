@@ -265,6 +265,16 @@ jobs:
       - checkout
       - attach_workspace:
           at: ./
+      - run:
+          name: sync to build branch
+          command: |
+              git add --force lib bundles types package.json
+              git stash save
+              git checkout -b build/${CIRCLE_BRANCH}
+              git merge ${CIRCLE_BRANCH} --no-commit
+              git checkout stash -- .
+              git commit --allow-empty --message "Sync Build [skip ci]"
+              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-javascript.git build/${CIRCLE_BRANCH}
 
 workflows:
   version: 2
