@@ -1,4 +1,14 @@
 version: 2
+
+references:
+   main_branches_only: &main_branches_only
+    filters:
+      branches:
+        only:
+        - master
+        - beta
+        - f/reinstate-build-branches
+
 jobs:
   build:
     working_directory: ~/build
@@ -44,6 +54,7 @@ jobs:
             - bundles
             - lib
             - types
+            - package.json
   tpip:
     working_directory: ~/build
     docker:
@@ -247,6 +258,13 @@ jobs:
               curl -X POST --header "Content-Type: application/json" \
                -d '{"branch":"master"}' \
                https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/build?circle-token=${CIRCLE_TOKEN}
+  build_sync:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
 
 workflows:
   version: 2
@@ -269,6 +287,10 @@ workflows:
       - unit_test:
           requires:
             - build
+      - build_sync:
+          requires:
+            - unit_test
+            - integration_test
       - beta_release_gate:
           type: approval
           filters:
