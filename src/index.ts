@@ -24,4 +24,4 @@ export { DeviceDirectoryApi } from "./deviceDirectory/deviceDirectoryApi";
 export { EnrollmentApi } from "./enrollment/enrollmentApi";
 export { UpdateApi } from "./update/updateApi";
 export * from "./sdk/entities";
-export { SDK, Config } from "./sdk";
+export { SDK, Config, PortalPoc } from "./sdk";
