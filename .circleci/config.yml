@@ -7,7 +7,6 @@ references:
         only:
         - master
         - beta
-        - f/reinstate-build-branches
 
 jobs:
   build:
@@ -270,11 +269,11 @@ jobs:
           command: |
               git add --force lib bundles types package.json
               git stash save
-              git checkout build-build/${CIRCLE_BRANCH}
+              git checkout build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
               git checkout stash -- .
               git commit --allow-empty --message "Sync Build [skip ci]"
-              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-javascript.git build-build/${CIRCLE_BRANCH}
+              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-javascript.git build/${CIRCLE_BRANCH}
 
 workflows:
   version: 2
