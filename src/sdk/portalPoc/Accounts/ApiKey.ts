@@ -14,15 +14,15 @@ export interface ApiKey {
 }
 
 export interface ApiKeyUpdateRequest {
-    name: string;
-    owner?: string;
-    groups?: string[];
-    status?: ApiKeyStatus;
+    readonly name: string;
+    readonly owner?: string;
+    readonly groups?: string[];
+    readonly status?: ApiKeyStatus;
 }
 
 export interface ApiKeyCreateRequest {
-    name: string;
-    owner?: string;
-    groups?: string[];
-    status?: ApiKeyStatus;
+    readonly name: string;
+    readonly owner?: string;
+    readonly groups?: string[];
+    readonly status?: ApiKeyStatus;
 }

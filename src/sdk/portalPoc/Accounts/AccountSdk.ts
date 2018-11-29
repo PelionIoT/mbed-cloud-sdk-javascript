@@ -14,7 +14,7 @@ export interface ListResponse<A> {
 }
 
 // TODO: Use this for all APIs as a generic "list request" interface, and come up with a nice pattern for generic filters
-export interface ListApiKeysRequest {
+export interface ListApiKeysParameters {
     limit?: number;
     after?: string;
     order?: Order;
@@ -23,31 +23,31 @@ export interface ListApiKeysRequest {
     ownerEq?: string;
 }
 
-export class AccountSdk {
+export class ApiKeyRepository {
     constructor(
         private readonly config: Config
     ) {}
 
-    public listApiKeys(request: ListApiKeysRequest = {}): Promise<ListResponse<ApiKey>> {
+    public list(parameters: ListApiKeysParameters = {}): Promise<ListResponse<ApiKey>> {
         // TODO: Make API call and parse response & error here
-        return Promise.reject("Not implemented" + request);
+        return Promise.reject("Not implemented." + parameters);
     }
 
-    public getApiKey(id: string): Promise<ApiKey> {
+    public get(id: string): Promise<ApiKey> {
         // TODO: Make API call and parse response & error here
         const entity = new ApiKeyEntity(this.config);
         entity.id = id;
         return entity.get().then(this.mapEntity);
     }
 
-    public deleteApiKey(id: string): Promise<void> {
+    public delete(id: string): Promise<void> {
         // TODO: Make API call and parse response & error here
         const entity = new ApiKeyEntity(this.config);
         entity.id = id;
         return entity.delete().then(() => {});
     }
 
-    public createApiKey(request: ApiKeyCreateRequest): Promise<ApiKey> {
+    public create(request: ApiKeyCreateRequest): Promise<ApiKey> {
         // TODO: Make API call and parse response & error here
         const entity = new ApiKeyEntity(this.config);
         entity.name = request.name;
@@ -57,7 +57,7 @@ export class AccountSdk {
         return entity.create().then(this.mapEntity);
     }
 
-    public updateApiKey(id: string, request: ApiKeyUpdateRequest): Promise<ApiKey> {
+    public update(id: string, request: ApiKeyUpdateRequest): Promise<ApiKey> {
         // TODO: Make API call and parse response & error here
         const entity = new ApiKeyEntity(this.config);
         entity.id = id;
