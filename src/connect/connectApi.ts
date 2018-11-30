@@ -354,7 +354,18 @@ export class ConnectApi extends EventEmitter {
             let networkErrorCount = 0;
             const poll = () => {
                 this._pollRequest = this._endpoints.notifications.longPollNotifications((error, data) => {
-                    if (error) { return; }
+                    // If there is an error here it might be a connectivity error (for example ERR_NETWORK_CHANGED
+                    // may happen when switching between different networks, say between 4G and WiFi). We cannot
+                    // determine (in a portable way) the exact error then we retry a few times for all of them.
+                    if (error) {
+                        ++networkErrorCount;
+
+                        if (networkErrorCount <= ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
+                            setTimeout(poll, ConnectApi.DELAY_BETWEEN_RETRIES);
+                        }
+
+                        return;
+                    }
 
                     // Check for server errors, 4xx errors raise an exception (see notify()) but we want to give
                     // a chance to 5xx errors because they might be caused by a temporary condition. Note that
