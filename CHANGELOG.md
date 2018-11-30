@@ -11,6 +11,17 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.0.6 (2018-11-30)
+==================
+
+### Bugfixes
+
+- Fixed race condition where resource value async responses could be missed.
+  (#1822)
+
+- Implement retry on polling channel for 5** status codes (#1893)
+
+
 2.0.5 (2018-11-21)
 ==========================
 
