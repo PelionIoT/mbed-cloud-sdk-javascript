@@ -1,10 +1,17 @@
 version: 2
 
 references:
-   main_branches_only: &main_branches_only
+  main_branches_only: &main_branches_only
     filters:
       branches:
         only:
+        - master
+        - beta
+        - f/reinstate-build-branches
+  ignore_main_branches: &ignore_main_branches
+    filters:
+      branches:
+        ignore:
         - master
         - beta
         - f/reinstate-build-branches
@@ -270,6 +277,23 @@ jobs:
           command: |
               git add --force lib bundles types package.json
               git stash save
+              git checkout build/${CIRCLE_BRANCH}
+              git merge ${CIRCLE_BRANCH} --no-commit
+              git checkout stash -- .
+              git commit --allow-empty --message "Sync Build [skip ci]"
+              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-javascript.git build/${CIRCLE_BRANCH}
+  arbitury_build_sync:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: sync to build branch
+          command: |
+              git add --force lib bundles types package.json
+              git stash save
               git checkout -B build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
               git checkout stash -- .
@@ -291,6 +315,14 @@ workflows:
               only:
                 - master
                 - beta
+      - create_build_branch_gate:
+          <<: *ignore_main_branches
+          requires:
+            - build
+      - create_build_branch:
+          <<: *ignore_main_branches
+          requires:
+            - create_build_branch_gate
       - integration_test:
           requires:
             - build
@@ -300,9 +332,8 @@ workflows:
       - build_sync:
           <<: *main_branches_only
           requires:
-            - build
-            # - unit_test
-            # - integration_test
+            - unit_test
+            - integration_test
       - beta_release_gate:
           type: approval
           filters:
