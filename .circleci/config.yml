@@ -271,6 +271,7 @@ jobs:
               git add --force lib bundles types package.json
               git stash save
               git checkout -B build/${CIRCLE_BRANCH}
+              git push https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-javascript.git --set-upstream origin build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
               git checkout stash -- .
               git commit --allow-empty --message "Sync Build [skip ci]"
