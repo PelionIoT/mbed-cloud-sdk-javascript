@@ -6,7 +6,7 @@ export interface ApiKey {
     readonly name: string;
     readonly createdAt?: Date;
     readonly updatedAt?: Date;
-    readonly groups?: string[];
+    readonly groups?: Array<string>;
     readonly owner?: string;
     readonly lastLoginTime?: number;
     readonly status?: ApiKeyStatus;
@@ -16,13 +16,13 @@ export interface ApiKey {
 export interface ApiKeyUpdateRequest {
     readonly name: string;
     readonly owner?: string;
-    readonly groups?: string[];
+    readonly groups?: Array<string>;
     readonly status?: ApiKeyStatus;
 }
 
 export interface ApiKeyCreateRequest {
     readonly name: string;
     readonly owner?: string;
-    readonly groups?: string[];
+    readonly groups?: Array<string>;
     readonly status?: ApiKeyStatus;
 }
