@@ -270,8 +270,7 @@ jobs:
           command: |
               git add --force lib bundles types package.json
               git stash save
-              git checkout -b build/${CIRCLE_BRANCH}
-              git pull build/${CIRCLE_BRANCH}
+              git checkout -B build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
               git checkout stash -- .
               git commit --allow-empty --message "Sync Build [skip ci]"
@@ -301,7 +300,8 @@ workflows:
       - build_sync:
           <<: *main_branches_only
           requires:
-            - unit_test
+            - build
+            # - unit_test
             # - integration_test
       - beta_release_gate:
           type: approval
