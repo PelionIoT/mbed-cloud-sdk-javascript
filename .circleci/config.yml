@@ -315,6 +315,7 @@ workflows:
                 - beta
       - create_build_branch_gate:
           <<: *ignore_main_branches
+          type: approval
           requires:
             - build
       - create_build_branch:
