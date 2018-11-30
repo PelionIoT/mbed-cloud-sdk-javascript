@@ -7,14 +7,12 @@ references:
         only:
         - master
         - beta
-        - f/reinstate-build-branches
   ignore_main_branches: &ignore_main_branches
     filters:
       branches:
         ignore:
         - master
         - beta
-        - f/reinstate-build-branches
 
 jobs:
   build:
