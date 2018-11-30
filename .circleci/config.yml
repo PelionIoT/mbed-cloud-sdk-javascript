@@ -280,7 +280,7 @@ jobs:
               git checkout stash -- .
               git commit --allow-empty --message "Sync Build [skip ci]"
               git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-javascript.git build/${CIRCLE_BRANCH}
-  arbitury_build_sync:
+  create_build_branch:
     docker:
       - image: circleci/node:jessie-browsers
     steps:
@@ -288,7 +288,7 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
-          name: sync to build branch
+          name: sync to build branch if exists or create new one
           command: |
               git add --force lib bundles types package.json
               git stash save
