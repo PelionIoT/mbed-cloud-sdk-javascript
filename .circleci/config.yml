@@ -297,6 +297,7 @@ workflows:
           requires:
             - build
       - build_sync:
+          <<: *main_branches_only
           requires:
             - unit_test
             - integration_test
