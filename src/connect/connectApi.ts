@@ -119,6 +119,8 @@ export class ConnectApi extends EventEmitter {
     public static readonly EVENT_EXPIRED: string = "expired";
 
     private static readonly ASYNC_KEY = "async-response-id";
+    private static readonly DELAY_BETWEEN_RETRIES = 1000; // milliseconds
+    private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
 
     /**
      * Gives you access to the subscribe manager
@@ -293,10 +295,6 @@ export class ConnectApi extends EventEmitter {
             });
         }
     }
-
-    private static readonly DELAY_BETWEEN_RETRIES = 1000;
-    private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
-
 
     /**
      * Begins pull notifications
