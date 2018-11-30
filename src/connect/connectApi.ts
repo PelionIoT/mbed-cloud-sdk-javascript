@@ -294,6 +294,10 @@ export class ConnectApi extends EventEmitter {
         }
     }
 
+    private static readonly DELAY_BETWEEN_RETRIES = 1000;
+    private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
+
+
     /**
      * Begins pull notifications
      *
@@ -345,11 +349,41 @@ export class ConnectApi extends EventEmitter {
             this._pollRequest = true;
             const { interval, requestCallback, forceClear } = options;
 
+
+            let serverErrorCount = 0;
+            let networkErrorCount = 0;
             const poll = () => {
                 this._pollRequest = this._endpoints.notifications.longPollNotifications((error, data) => {
                     if (error) { return; }
+
+                    // Check for server errors, 4xx errors raise an exception (see notify()) but we want to give
+                    // a chance to 5xx errors because they might be caused by a temporary condition. Note that
+                    // delay is "progressive", T for the first attempt, 2T for the second and so on.
+                    if (data["async-responses"]) {
+                        const errors = data["async-responses"].filter(response => response.status >= 400);
+                        const onlyServerErrors = errors.every(response => response.status >= 500);
+
+                        if (errors.length > 0 && onlyServerErrors) { 
+                            ++serverErrorCount;
+
+                            if (serverErrorCount <= ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
+                                setTimeout(poll, ConnectApi.DELAY_BETWEEN_RETRIES * serverErrorCount);
+                                return;
+                            }
+                        }
+
+                        // We already reached the maximum number of retries or it's a 4xx error, notify()
+                        // will throw the appropriate exception.
+                    }
+
                     this.notify(data);
                     if (requestCallback && data["async-responses"]) { requestCallback(error, data["async-responses"]); }
+
+                    // Each successful request resets these counters. TODO: we may want to keep track of them to stop trying
+                    // if they occurr to often but decision is arbitrary, we may expose an ErrorHandler object (which will also
+                    // include all the relevant stats) to let the caller decide what to do.
+                    serverErrorCount = 0;
+                    networkErrorCount = 0;
 
                     setTimeout(poll, interval || 500);
                 });
