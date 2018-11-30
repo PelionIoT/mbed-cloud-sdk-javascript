@@ -7,6 +7,7 @@ references:
         only:
         - master
         - beta
+        - f/reinstate-build-branches
 
 jobs:
   build:
@@ -269,7 +270,7 @@ jobs:
           command: |
               git add --force lib bundles types package.json
               git stash save
-              git checkout build/${CIRCLE_BRANCH}
+              git checkout -b build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
               git checkout stash -- .
               git commit --allow-empty --message "Sync Build [skip ci]"
@@ -300,7 +301,7 @@ workflows:
           <<: *main_branches_only
           requires:
             - unit_test
-            - integration_test
+            # - integration_test
       - beta_release_gate:
           type: approval
           filters:
