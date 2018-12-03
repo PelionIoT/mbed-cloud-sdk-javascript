@@ -50,6 +50,8 @@ export class ApiKey extends EntityBase {
      */
     public updatedAt?: Date;
 
+    public groups?: Array<string>;
+
     constructor(config?: Config) {
         super(config);
     }

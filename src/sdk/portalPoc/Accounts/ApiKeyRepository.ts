@@ -71,7 +71,7 @@ export class ApiKeyRepository {
         return {
             createdAt: entity.createdAt,
             creationTime: entity.creationTime,
-            groups: [],
+            groups: entity.groups,
             id: entity.id,
             key: entity.key,
             lastLoginTime: entity.lastLoginTime,
