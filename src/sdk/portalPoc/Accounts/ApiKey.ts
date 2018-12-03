@@ -2,8 +2,8 @@ import { ApiKeyStatus } from "./ApiKeyStatus";
 
 export interface ApiKey {
     readonly id: string;
-    readonly key: string;
-    readonly name: string;
+    readonly key?: string;
+    readonly name?: string;
     readonly createdAt?: Date;
     readonly updatedAt?: Date;
     readonly groups?: Array<string>;
