@@ -21715,7 +21715,7 @@ entities:
     api_fieldname: is_marketing_accepted
   - _key: terms_accepted
     api_fieldname: is_gtc_accepted
-  - _key: two_factor_authentication
+  - _key: two_factor_authentication_changed
     api_fieldname: is_totp_enabled
   fields:
   - _key: account_id
@@ -21898,7 +21898,7 @@ entities:
     in: body
     parameter_fieldname: is_gtc_accepted
     type: boolean
-  - _key: two_factor_authentication
+  - _key: two_factor_authentication_changed
     api_fieldname: is_totp_enabled
     description: A flag indicating whether 2-factor authentication (TOTP) has been
       enabled.
@@ -21950,13 +21950,13 @@ entities:
     - last_login_time
     - password_changed_time
     - login_history
-    - two_factor_authentication
+    - two_factor_authentication_changed
     field_renames:
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
+    - _key: two_factor_authentication_changed
       api_fieldname: is_totp_enabled
     fields:
     - _key: account_id
@@ -22206,7 +22206,7 @@ entities:
           api_fieldname: is_totp_enabled
           description: A flag indicating whether 2-factor authentication (TOTP) has
             been enabled.
-          entity_fieldname: two_factor_authentication
+          entity_fieldname: two_factor_authentication_changed
           example: true
           in: body
           parameter_fieldname: is_totp_enabled
@@ -22635,7 +22635,7 @@ entities:
       api_fieldname: is_marketing_accepted
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
+    - _key: two_factor_authentication_changed
       api_fieldname: is_totp_enabled
     fields:
     - _key: account_id
@@ -22897,7 +22897,7 @@ entities:
     - password_changed_time
     - login_history
     - login_profiles
-    - two_factor_authentication
+    - two_factor_authentication_changed
     - terms_accepted
     - marketing_accepted
     field_renames:
@@ -22905,7 +22905,7 @@ entities:
       api_fieldname: is_marketing_accepted
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
+    - _key: two_factor_authentication_changed
       api_fieldname: is_totp_enabled
     fields:
     - _key: account_id
@@ -23048,7 +23048,7 @@ entities:
           api_fieldname: is_totp_enabled
           description: A flag indicating whether 2-factor authentication (TOTP) has
             been enabled.
-          entity_fieldname: two_factor_authentication
+          entity_fieldname: two_factor_authentication_changed
           example: true
           in: body
           parameter_fieldname: is_totp_enabled
@@ -23394,7 +23394,7 @@ entities:
       api_fieldname: is_marketing_accepted
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
+    - _key: two_factor_authentication_changed
       api_fieldname: is_totp_enabled
     fields:
     - _key: account_id
@@ -23477,11 +23477,11 @@ entities:
       parameter_fieldname: is_gtc_accepted
       required: false
       type: boolean
-    - _key: two_factor_authentication
+    - _key: two_factor_authentication_changed
       api_fieldname: is_totp_enabled
       description: A flag indicating whether 2-factor authentication (TOTP) has been
         enabled.
-      entity_fieldname: two_factor_authentication
+      entity_fieldname: two_factor_authentication_changed
       example: true
       in: body
       parameter_fieldname: is_totp_enabled
@@ -23627,7 +23627,7 @@ entities:
           api_fieldname: is_totp_enabled
           description: A flag indicating whether 2-factor authentication (TOTP) has
             been enabled.
-          entity_fieldname: two_factor_authentication
+          entity_fieldname: two_factor_authentication_changed
           example: true
           in: body
           parameter_fieldname: is_totp_enabled
@@ -24056,7 +24056,7 @@ entities:
       api_fieldname: is_marketing_accepted
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
-    - _key: two_factor_authentication
+    - _key: two_factor_authentication_changed
       api_fieldname: is_totp_enabled
     fields:
     - _key: account_id
