@@ -279,7 +279,7 @@ jobs:
               git merge ${CIRCLE_BRANCH} --no-commit
               git checkout stash -- .
               git commit --allow-empty --message "Sync Build [skip ci]"
-              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-javascript.git build/${CIRCLE_BRANCH}
+              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git build/${CIRCLE_BRANCH}
   create_build_branch:
     docker:
       - image: circleci/node:jessie-browsers
@@ -296,7 +296,7 @@ jobs:
               git merge ${CIRCLE_BRANCH} --no-commit
               git checkout stash -- .
               git commit --allow-empty --message "Sync Build [skip ci]"
-              git push -f -q https://${GITHUB_TOKEN}@github.com/ARMmbed/mbed-cloud-sdk-javascript.git build/${CIRCLE_BRANCH}
+              git push -f -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git build/${CIRCLE_BRANCH}
 
 workflows:
   version: 2
