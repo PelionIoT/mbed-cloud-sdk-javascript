@@ -59,6 +59,8 @@ export class User extends EntityBase {
      */
     public fullName?: string;
 
+    public groups?: Array<string>;
+
     /**
      * A timestamp of the latest login of the user, in milliseconds.
      */
