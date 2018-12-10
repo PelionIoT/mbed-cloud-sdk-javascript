@@ -4,7 +4,8 @@ module.exports = {
     },
     "testMatch": [
         "**/test/unit/*.ts",
-        "**/test/unit/foundation/*.ts"
+        "**/test/unit/foundation/*.ts",
+        "**/src/sdk/alexPortalPoc/tests/testAdapter.ts"
     ],
     "moduleFileExtensions": [
         "js",

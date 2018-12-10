@@ -1,24 +1,12 @@
 export * from "./Accounts/account/account";
+export * from "./Accounts/account/accountAdapter";
+export * from "./Accounts/account/accountRepository";
+export * from "./Accounts/account/types";
 
 export * from "./Accounts/apiKey/apiKey";
-
-export * from "./Security/certificateEnrollment/certificateEnrollment";
-
-export * from "./Security/certificateIssuer/certificateIssuer";
-
-export * from "./Security/certificateIssuerConfig/certificateIssuerConfig";
-
-export * from "./Security/developerCertificate/developerCertificate";
-
-export * from "./Devices/device/device";
-
-export * from "./Devices/deviceEnrollment/deviceEnrollment";
-
-export * from "./Devices/deviceEnrollmentBulkCreate/deviceEnrollmentBulkCreate";
-
-export * from "./Devices/deviceEnrollmentBulkDelete/deviceEnrollmentBulkDelete";
-
-export * from "./Devices/deviceEvents/deviceEvents";
+export * from "./Accounts/apiKey/apiKeyAdapter";
+export * from "./Accounts/apiKey/apiKeyRepository";
+export * from "./Accounts/apiKey/types";
 
 export * from "./Accounts/loginHistory/loginHistory";
 
@@ -26,21 +14,9 @@ export * from "./Accounts/passwordPolicy/passwordPolicy";
 
 export * from "./Accounts/policy/policy";
 
-export * from "./Security/serverCredentials/serverCredentials";
-
-export * from "./Security/subtenantTrustedCertificate/subtenantTrustedCertificate";
-
-export * from "./Accounts/subtenantUser/subtenantUser";
-
-export * from "./Accounts/subtenantUserInvitation/subtenantUserInvitation";
-
-export * from "./Security/trustedCertificate/trustedCertificate";
-
 export * from "./Accounts/user/user";
+export * from "./Accounts/user/userAdapter";
+export * from "./Accounts/user/userRepository";
+export * from "./Accounts/user/types";
 
-export * from "./Accounts/userInvitation/userInvitation";
-
-export * from "./Security/verificationResponse/verificationResponse";
-
-export * from "./enums";
 export * from "./factory";

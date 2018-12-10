@@ -1,11 +1,11 @@
-import { EntityBase } from "../../../common/entityBase";
+import { Entity } from "../../../common/entity";
 
 /**
  * PasswordPolicy
  */
-export class PasswordPolicy extends EntityBase {
+export interface PasswordPolicy extends Entity {
     /**
      * Minimum length for the password. A number between 8 and 512.
      */
-    public minimumLength?: string;
+    readonly minimumLength?: string;
 }

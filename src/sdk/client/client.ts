@@ -1,7 +1,7 @@
 import superagent = require("superagent");
 import { SdkApiBase } from "./sdkApiBase";
 import { Config } from "./config";
-import { EntityBase } from "../common/entityBase";
+import { Entity } from "../common/entity";
 
 export class Client extends SdkApiBase {
 
@@ -21,7 +21,7 @@ export class Client extends SdkApiBase {
         });
     }
 
-    public _CallApi<T extends EntityBase>(options: CallApiOptions, instance?: T | { new(): T; }, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public _CallApi<T extends Entity>(options: CallApiOptions, instance?: T | { new(): T; }, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
         const { url, method, pathParams, headers, query, formParams, body, paginated, contentTypes, acceptTypes } = options;
 
