@@ -4,6 +4,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { apiWrapper } from "../../../../common/functions";
 import { Repository } from "../../../common/repository";
+import { ApiKeyAdapter } from "./apiKeyAdapter";
 
 export class ApiKeyRepository extends Repository {
 
@@ -12,19 +13,17 @@ export class ApiKeyRepository extends Repository {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include, keyEq, ownerEq } = pageOptions as ApiKeyListOptions;
-                    this.client._CallApi<ApiKey>(
+                    this.client._CallApi(
                         {
                             url: "/v3/api-keys",
                             method: "GET",
                             query: { after, include, order, limit, keyEq, ownerEq },
-                            paginated: true,
                         },
-                        undefined,
                         resultsFn
                     );
                 },
                 (data: ListResponse<ApiKey>, done) => {
-                    done(null, new ListResponse(data, data.data));
+                    done(null, new ListResponse(data, data.data, ApiKeyAdapter.fromApi));
                 },
                 null,
                 true
@@ -36,7 +35,7 @@ export class ApiKeyRepository extends Repository {
     public get(id: string): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<ApiKey>(
+                this.client._CallApi(
                     {
                         url: "/v3/api-keys/{apikey_id}",
                         method: "GET",
@@ -44,12 +43,11 @@ export class ApiKeyRepository extends Repository {
                             apikey_id: id,
                         },
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, ApiKeyAdapter.fromApi(data));
             }
         );
     }
@@ -57,7 +55,7 @@ export class ApiKeyRepository extends Repository {
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<ApiKey>(
+                this.client._CallApi(
                     {
                         url: "/v3/api-keys/{apikey_id}",
                         method: "DELETE",
@@ -65,12 +63,11 @@ export class ApiKeyRepository extends Repository {
                             apikey_id: id,
                         },
                     },
-                    undefined,
                     resultsFn
                 );
             },
-            (data, done) => {
-                done(null, data);
+            (_data, done) => {
+                done(null, null);
             }
         );
     }
@@ -84,18 +81,17 @@ export class ApiKeyRepository extends Repository {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<ApiKey>(
+                this.client._CallApi(
                     {
                         url: "/v3/api-keys",
                         method: "POST",
                         body: body,
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, ApiKeyAdapter.fromApi(data, request));
             }
         );
     }
@@ -109,7 +105,7 @@ export class ApiKeyRepository extends Repository {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<ApiKey>(
+                this.client._CallApi(
                     {
                         url: "/v3/api-keys/{apikey_id}",
                         method: "PUT",
@@ -118,12 +114,11 @@ export class ApiKeyRepository extends Repository {
                         },
                         body: body,
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, ApiKeyAdapter.fromApi(data, request));
             }
         );
     }
@@ -131,17 +126,16 @@ export class ApiKeyRepository extends Repository {
     public me(): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<ApiKey>(
+                this.client._CallApi(
                     {
                         url: "/v3/api-keys/me",
                         method: "GET",
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, ApiKeyAdapter.fromApi(data));
             }
         );
     }

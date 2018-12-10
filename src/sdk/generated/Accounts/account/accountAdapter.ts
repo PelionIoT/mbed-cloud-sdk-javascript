@@ -1,10 +1,10 @@
 import { Adapter } from "../../../common/adapter";
+import { Account } from "./account";
 
 export class AccountAdapter extends Adapter {
     public static fromApi(data: any, instance?: Account): Account {
         return this.assignDefined(instance || {},
             {
-                id: data.id,
                 key: data.key,
                 name: data.name,
                 createdAt: new Date(data.created_at),

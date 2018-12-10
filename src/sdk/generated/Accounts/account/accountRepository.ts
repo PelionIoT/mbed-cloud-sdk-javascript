@@ -5,6 +5,9 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { User } from "../user/user";
 import { AccountCreateRequest, AccountUpdateRequest } from "./types";
+import { AccountAdapter } from "./accountAdapter";
+import { Account } from "./account";
+import { UserAdapter } from "../../../entities";
 
 export class AccountRepository extends Repository {
     /**
@@ -35,7 +38,7 @@ export class AccountRepository extends Repository {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<Account>(
+                this.client._CallApi(
                     {
                         url: "/v3/accounts",
                         method: "POST",
@@ -44,12 +47,11 @@ export class AccountRepository extends Repository {
                         },
                         body: body,
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, AccountAdapter.fromApi(data, request));
             }
         );
     }
@@ -61,7 +63,7 @@ export class AccountRepository extends Repository {
     public get(id: string, include?: string, properties?: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<Account>(
+                this.client._CallApi(
                     {
                         url: "/v3/accounts/{account_id}",
                         method: "GET",
@@ -73,12 +75,11 @@ export class AccountRepository extends Repository {
                             account_id: id,
                         },
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, AccountAdapter.fromApi(data));
             }
         );
     }
@@ -92,19 +93,17 @@ export class AccountRepository extends Repository {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<Account>(
+                    this.client._CallApi(
                         {
                             url: "/v3/accounts",
                             method: "GET",
                             query: { after, include, order, limit },
-                            paginated: true,
                         },
-                        undefined,
                         resultsFn
                     );
                 },
                 (data: ListResponse<Account>, done) => {
-                    done(null, new ListResponse(data, data.data));
+                    done(null, new ListResponse(data, data.data, AccountAdapter.fromApi));
                 },
                 null,
                 true
@@ -120,7 +119,7 @@ export class AccountRepository extends Repository {
     public me(include?: string, properties?: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<Account>(
+                this.client._CallApi(
                     {
                         url: "/v3/accounts/me",
                         method: "GET",
@@ -129,12 +128,11 @@ export class AccountRepository extends Repository {
                             properties: properties,
                         },
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, AccountAdapter.fromApi(data));
             }
         );
     }
@@ -170,7 +168,7 @@ export class AccountRepository extends Repository {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<Account>(
+                this.client._CallApi(
                     {
                         url: "/v3/accounts/{account_id}",
                         method: "PUT",
@@ -179,12 +177,11 @@ export class AccountRepository extends Repository {
                         },
                         body: body,
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, AccountAdapter.fromApi(data, request));
             }
         );
     }
@@ -198,7 +195,7 @@ export class AccountRepository extends Repository {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<User>(
+                    this.client._CallApi(
                         {
                             url: "/v3/accounts/{account_id}/users",
                             method: "GET",
@@ -206,14 +203,12 @@ export class AccountRepository extends Repository {
                             pathParams: {
                                 account_id: id,
                             },
-                            paginated: true,
                         },
-                        undefined,
                         resultsFn
                     );
                 },
                 (data: ListResponse<User>, done) => {
-                    done(null, new ListResponse(data, data.data));
+                    done(null, new ListResponse(data, data.data, UserAdapter.fromApi));
                 },
                 null,
                 true

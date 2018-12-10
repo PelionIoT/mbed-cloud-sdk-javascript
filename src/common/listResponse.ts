@@ -52,7 +52,7 @@ export class ListResponse<T> {
      */
     public readonly continuationMarker?: string;
 
-    constructor(from: any, data?: Array<T>) {
+    constructor(from: any, data?: Array<T>, mapper?: (key) => T) {
         this.after = from.after;
         this.hasMore = from.has_more || from.hasMore;
         this.pageSize = ("limit" in from) ? from.limit : ("pageSize" in from) ? from.pageSize : undefined;
@@ -60,9 +60,16 @@ export class ListResponse<T> {
         // default to 0 if either is undefined
         this.totalCount = from.total_count || from.totalCount || 0;
         this.continuationMarker = from.continuation_marker || from.continuationMarker;
-        this.data = data || [];
         // Setting limit for backward compatibility
         const limitParameterName = "limit";
         this[limitParameterName] = this.pageSize;
+
+        let keys: Array<T> = [];
+        if (data && data.length) {
+            keys = from.data.map(key => {
+                return mapper(key);
+            });
+        }
+        this.data = data || keys;
     }
 }

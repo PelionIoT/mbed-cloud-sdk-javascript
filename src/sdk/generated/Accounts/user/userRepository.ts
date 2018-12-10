@@ -4,6 +4,7 @@ import { apiWrapper } from "../../../../common/functions";
 import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { UserCreateRequest, UserUpdateRequest, UserListOptions } from "./types";
+import { UserAdapter } from "./userAdapter";
 
 export class UserRepository extends Repository {
 
@@ -26,7 +27,7 @@ export class UserRepository extends Repository {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<User>(
+                this.client._CallApi(
                     {
                         url: "/v3/users",
                         method: "POST",
@@ -35,12 +36,11 @@ export class UserRepository extends Repository {
                         },
                         body: body,
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, UserAdapter.fromApi(data, request));
             }
         );
     }
@@ -52,7 +52,7 @@ export class UserRepository extends Repository {
     public delete(id: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<User>(
+                this.client._CallApi(
                     {
                         url: "/v3/users/{user_id}",
                         method: "DELETE",
@@ -60,12 +60,11 @@ export class UserRepository extends Repository {
                             user_id: id,
                         },
                     },
-                    undefined,
                     resultsFn
                 );
             },
-            (data, done) => {
-                done(null, data);
+            (_data, done) => {
+                done(null, null);
             }
         );
     }
@@ -77,7 +76,7 @@ export class UserRepository extends Repository {
     public get(id: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<User>(
+                this.client._CallApi(
                     {
                         url: "/v3/users/{user_id}",
                         method: "GET",
@@ -85,12 +84,11 @@ export class UserRepository extends Repository {
                             user_id: id,
                         },
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, UserAdapter.fromApi(data));
             }
         );
     }
@@ -104,19 +102,17 @@ export class UserRepository extends Repository {
             return apiWrapper(
                 resultsFn => {
                     const { limit, after, order, include, statusEq } = pageOptions as UserListOptions;
-                    this.client._CallApi<User>(
+                    this.client._CallApi(
                         {
                             url: "/v3/users",
                             method: "GET",
                             query: { after, include, order, limit, statusEq },
-                            paginated: true,
                         },
-                        undefined,
                         resultsFn
                     );
                 },
                 (data: ListResponse<User>, done) => {
-                    done(null, new ListResponse(data, data.data));
+                    done(null, new ListResponse(data, data.data, UserAdapter.fromApi));
                 },
                 null,
                 true
@@ -143,7 +139,7 @@ export class UserRepository extends Repository {
         };
         return apiWrapper(
             resultsFn => {
-                this.client._CallApi<User>(
+                this.client._CallApi(
                     {
                         url: "/v3/users/{user_id}",
                         method: "PUT",
@@ -152,12 +148,11 @@ export class UserRepository extends Repository {
                         },
                         body: body,
                     },
-                    undefined,
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, data);
+                done(null, UserAdapter.fromApi(data, request));
             }
         );
     }
