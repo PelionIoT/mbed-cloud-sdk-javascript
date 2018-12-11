@@ -5,6 +5,7 @@ export class ApiKeyAdapter extends Adapter {
     public static fromApi(data: any, instance?: ApiKey): ApiKey {
         return this.assignDefined(instance || {},
             {
+                discriminator: "APIKEY",
                 id: data.id,
                 key: data.key,
                 name: data.name,

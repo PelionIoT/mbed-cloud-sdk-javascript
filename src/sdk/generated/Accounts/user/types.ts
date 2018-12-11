@@ -3,8 +3,8 @@ import { ListOptions } from "../../../../common/interfaces";
 export type UserStatusEnum = "ACTIVE" | "ENROLLING" | "INACTIVE" | "INVITED" | "RESET";
 
 export interface UserCreateRequest {
+    readonly email: string;
     readonly address?: string;
-    readonly email?: string;
     readonly fullName?: string;
     readonly groups?: Array<string>;
     readonly loginProfiles?: Array<any>;
