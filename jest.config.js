@@ -3,9 +3,7 @@ module.exports = {
         "^.+\\.tsx?$": "ts-jest"
     },
     "testMatch": [
-        "**/test/unit/*.ts",
-        "**/test/unit/foundation/*.ts",
-        "**/src/sdk/alexPortalPoc/tests/testAdapter.ts"
+        "**/generator/v2/tests/**/*.ts"
     ],
     "moduleFileExtensions": [
         "js",

@@ -43,6 +43,7 @@
     "compile:integration": "tsc -p integration.tsconfig.json",
     "docs": "npm-run-all clean:docs docs:build",
     "docs:build": "typedoc --options typedoc.json ./src/**/*.ts",
+    "generate-v2": "ts-node generator/v2/app.ts",
     "generate": "npm-run-all \"generate:run -- {1}\" generate:format lint:fix compile:node --",
     "generate:run": "node generator/build.js",
     "generate:format": "prettier --write --tab-width 4 --print-width 120 --trailing-comma es5 './src/sdk/generated/**/**/*.ts' './src/sdk/generated/*.ts'",
@@ -61,10 +62,12 @@
     "tpip": "node scripts/generate-tpip.js"
   },
   "devDependencies": {
+    "@types/ejs": "^2.6.1",
     "@types/express": "^4.0.37",
     "@types/jest": "^23.3.3",
     "@types/memory-cache": "^0.2.0",
     "@types/node": "^7.0.67",
+    "@types/prettier": "^1.15.2",
     "@types/superagent": "^2.0.36",
     "body-parser": "^1.18.2",
     "browserify": "^14.0.0",
@@ -90,6 +93,7 @@
     "prettier": "^1.14.3",
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.3",
+    "ts-node": "^7.0.1",
     "tsc-watch": "^1.0.26",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
