@@ -1,5 +1,11 @@
 /**
 *<%= classContainer.description %>
 */
-export class <%= classContainer.name %><%= classContainer.extendsClass ? " extends " + classContainer.extendsClass : "" %><%= classContainer.implementsClasses.length > 0 ? " implements " + classContainer.implementsClasses.join() : "" %> {
+export <%= classContainer.isAbstract ? "abstract " : "" %><%= classContainer.isInterface ? "interface" : "class" %> <%= classContainer.name %><%= classContainer.extendsClass.length > 0 ? " extends " + classContainer.extendsClass.join() : "" %><%= classContainer.implementsClasses.length > 0 ? " implements " + classContainer.implementsClasses.join() : "" %> {
+
+<%_ if (properties.length > 0) { _%>
+<%_ properties.forEach(function(property) { _%>
+<%= property %>
+<%_ }); _%>
+<%_ } _%>
 }

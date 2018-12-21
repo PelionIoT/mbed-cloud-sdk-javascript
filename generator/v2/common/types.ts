@@ -1,1 +1,1 @@
-export type Modifiers = "public" | "private" | "protected";
+export type Modifiers = "public" | "private" | "protected" | "abstract";

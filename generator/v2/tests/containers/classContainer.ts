@@ -1,10 +1,12 @@
 import { ClassContainer } from "../../containers/classContainer/classContainer";
+import { PropertyContainer } from "../../containers/propertyContainer/propertyContainer";
 
 const emptyClassExpected =
 `/**
 *TestClass
 */
 export class TestClass {
+
 }`;
 
 const extendsClassExpected =
@@ -12,6 +14,7 @@ const extendsClassExpected =
 *TestClass
 */
 export class TestClass extends AnotherClass {
+
 }`;
 
 const implementsClassExpected =
@@ -19,6 +22,7 @@ const implementsClassExpected =
 *TestClass
 */
 export class TestClass implements AnotherClass {
+
 }`;
 
 const implementsMultipleClassExpected =
@@ -26,6 +30,7 @@ const implementsMultipleClassExpected =
 *TestClass
 */
 export class TestClass implements AnotherClass,YetAnotherClass {
+
 }`;
 
 const implementsMultipleAnExtendsClassExpected =
@@ -33,6 +38,7 @@ const implementsMultipleAnExtendsClassExpected =
 *TestClass
 */
 export class TestClass extends BaseClass implements AnotherClass,YetAnotherClass {
+
 }`;
 
 describe("class container tests", () => {
@@ -70,6 +76,115 @@ describe("class container tests", () => {
         const r = await implementsClass.render();
 
         expect(r).toBe(implementsMultipleAnExtendsClassExpected);
+    });
+
+});
+
+const emptyInterfaceExpected =
+`/**
+*TestInterface
+*/
+export interface TestInterface {
+
+}`;
+
+const extendsInterfaceExpected =
+`/**
+*TestInterface
+*/
+export interface TestInterface extends SomeInterface {
+
+}`;
+
+const extendsMultipleInterfaceExpected =
+`/**
+*TestInterface
+*/
+export interface TestInterface extends SomeInterface,AnotherInterface {
+
+}`;
+
+describe("interface container tests", () => {
+
+    it("should render basic interface", async () => {
+        const emptyInterface = new ClassContainer("TestInterface", { isInterface: true });
+        const r = await emptyInterface.render();
+
+        expect(r).toBe(emptyInterfaceExpected);
+    });
+
+    it("should render extends interface", async () => {
+        const extendsInterface = new ClassContainer("TestInterface", { isInterface: true, extendsClass: "SomeInterface" });
+        const r = await extendsInterface.render();
+
+        expect(r).toBe(extendsInterfaceExpected);
+    });
+
+    it("should render multiple extends interface", async () => {
+        const extendsInterface = new ClassContainer("TestInterface", { isInterface: true, extendsClass: [ "SomeInterface", "AnotherInterface" ] });
+        const r = await extendsInterface.render();
+
+        expect(r).toBe(extendsMultipleInterfaceExpected);
+    });
+
+});
+
+const classWithPropertyExpected =
+`/**
+*TestClass
+*/
+export class TestClass {
+
+/**
+*testProperty
+*/
+public testProperty: string;
+
+}`;
+
+const classWithMultiplePropertyExpected =
+`/**
+*TestClass
+*/
+export class TestClass {
+
+/**
+*testProperty
+*/
+public testProperty: string;
+
+/**
+*anotherTestProperty
+*/
+public anotherTestProperty: string;
+
+}`;
+
+describe("class with properties", () => {
+
+    it("should render class with properties", async () => {
+        const classWithProperty = new ClassContainer("TestClass");
+
+        const property = new PropertyContainer("testProperty", "string");
+        classWithProperty.addProperty(property);
+
+        const r = await classWithProperty.render();
+
+        expect(r).toBe(classWithPropertyExpected);
+    });
+
+    it("should render class with multiple properties", async () => {
+        const classWithMultipleProperty = new ClassContainer("TestClass");
+
+        const property = new PropertyContainer("testProperty", "string");
+        classWithMultipleProperty.addProperty(property);
+
+        const secondProperty = new PropertyContainer("anotherTestProperty", "string");
+        classWithMultipleProperty.addProperty(secondProperty);
+
+        const r = await classWithMultipleProperty.render();
+
+        expect(r).toBe(classWithMultiplePropertyExpected);
     });
 
 });
