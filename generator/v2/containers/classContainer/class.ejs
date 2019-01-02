@@ -1,3 +1,8 @@
+<%_ if (imports.length > 0) { _%>
+<%_ imports.forEach(function(i) { _%>
+<%- i %>
+<%_ }); _%>
+<%_ } _%>
 /**
 *<%= classContainer.description %>
 */
@@ -5,7 +10,7 @@ export <%= classContainer.isAbstract ? "abstract " : "" %><%= classContainer.isI
 
 <%_ if (properties.length > 0) { _%>
 <%_ properties.forEach(function(property) { _%>
-<%= property %>
+<%- property %>
 <%_ }); _%>
 <%_ } _%>
 }

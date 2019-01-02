@@ -186,5 +186,64 @@ describe("class with properties", () => {
 
         expect(r).toBe(classWithMultiplePropertyExpected);
     });
+});
+
+const interfaceWithPropertyExpected =
+`/**
+*TestInterface
+*/
+export interface TestInterface {
+
+/**
+*testProperty
+*/
+ testProperty: string;
+
+}`;
+
+const interfaceWithMultiplePropertyExpected =
+`/**
+*TestInterface
+*/
+export interface TestInterface {
+
+/**
+*testProperty
+*/
+ testProperty: string;
+
+/**
+*anotherTestProperty
+*/
+ anotherTestProperty: string;
+
+}`;
+
+describe("class with properties", () => {
+
+    it("should render interface with property", async () => {
+        const interfaceWithProperty = new ClassContainer("TestInterface", { isInterface: true });
+
+        const property = new PropertyContainer("testProperty", "string", { isInterface: true });
+        interfaceWithProperty.addProperty(property);
+
+        const r = await interfaceWithProperty.render();
+
+        expect(r).toBe(interfaceWithPropertyExpected);
+    });
+
+    it("should render interface with multiple properties", async () => {
+        const interfaceWithMultipleProperty = new ClassContainer("TestInterface", { isInterface: true });
+
+        const property = new PropertyContainer("testProperty", "string", { isInterface: true });
+        interfaceWithMultipleProperty.addProperty(property);
+
+        const secondProperty = new PropertyContainer("anotherTestProperty", "string", { isInterface: true });
+        interfaceWithMultipleProperty.addProperty(secondProperty);
+
+        const r = await interfaceWithMultipleProperty.render();
+
+        expect(r).toBe(interfaceWithMultiplePropertyExpected);
+    });
 
 });
