@@ -1,24 +1,25 @@
+import { Entity } from "../../../common/entity";
 /**
  *LoginHistory
  */
-export interface LoginHistory {
+export interface LoginHistory extends Entity {
     /**
      *date
      */
-    date: Date;
+    date?: Date;
 
     /**
      *ipAddress
      */
-    ipAddress: string;
+    ipAddress?: string;
 
     /**
      *success
      */
-    success: boolean;
+    success?: boolean;
 
     /**
      *userAgent
      */
-    userAgent: string;
+    userAgent?: string;
 }

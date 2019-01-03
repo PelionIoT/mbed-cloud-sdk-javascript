@@ -1,5 +1,6 @@
 import { ParameterContainer } from "../../containers/parameterContainer/parameterContainer";
 import { ParameterListContainer } from "../../containers/parameterListContainer/parameterListContainer";
+import { ParameterBucketContainer } from "../../containers/parameterBucketContainer/parameterBucketContainer";
 
 const singleParameterExpected = "name: string";
 
@@ -8,6 +9,10 @@ const multipleParameterExpected = "name: string,email: string,username: string";
 const multipleParameterWithOptionalExpected = "name: string,username: string,email?: string";
 
 const multipleParameterWithMultipleOptionalExpected = "username: string,name?: string,email?: string";
+
+const multipleParametersWithBucket = "name: string,email: string,options?: { username: string }";
+
+const bucketOnlyExpected = "options?: { username: string }";
 
 describe("parameter list tests", () => {
 
@@ -47,6 +52,26 @@ describe("parameter list tests", () => {
         const r = await parameterList.render();
 
         expect(r).toBe(multipleParameterWithMultipleOptionalExpected);
+    });
+
+    it("should list multiple parameters with bucket", async () => {
+        const parameter = new ParameterContainer("name", "string");
+        const secomndParameter = new ParameterContainer("email", "string");
+        const thirdParameter = new ParameterContainer("username", "string");
+        const bucket = new ParameterBucketContainer("options", thirdParameter);
+        const parameterList = new ParameterListContainer({ parameters: [ parameter, secomndParameter ], bucket });
+        const r = await parameterList.render();
+
+        expect(r).toBe(multipleParametersWithBucket);
+    });
+
+    it("should list only bucket", async () => {
+        const parameter = new ParameterContainer("username", "string");
+        const bucket = new ParameterBucketContainer("options", parameter);
+        const parameterList = new ParameterListContainer({ bucket });
+        const r = await parameterList.render();
+
+        expect(r).toBe(bucketOnlyExpected);
     });
 
 });

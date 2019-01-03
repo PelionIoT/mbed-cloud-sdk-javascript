@@ -1,90 +1,91 @@
+import { Entity } from "../../../common/entity";
 import { TrustedCertificateServiceEnum, TrustedCertificateStatusEnum } from "./types";
 /**
  *TrustedCertificate
  */
-export interface TrustedCertificate {
+export interface TrustedCertificate extends Entity {
     /**
      *accountId
      */
-    accountId: string;
+    accountId?: string;
 
     /**
      *certificate
      */
-    certificate: string;
+    certificate?: string;
 
     /**
      *certificateFingerprint
      */
-    certificateFingerprint: string;
+    certificateFingerprint?: string;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *description
      */
-    description: string;
+    description?: string;
 
     /**
      *deviceExecutionMode
      */
-    deviceExecutionMode: number;
+    deviceExecutionMode?: number;
 
     /**
      *enrollmentMode
      */
-    enrollmentMode: boolean;
+    enrollmentMode?: boolean;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *isDeveloperCertificate
      */
-    isDeveloperCertificate: boolean;
+    isDeveloperCertificate?: boolean;
 
     /**
      *issuer
      */
-    issuer: string;
+    issuer?: string;
 
     /**
      *name
      */
-    name: string;
+    name?: string;
 
     /**
      *ownerId
      */
-    ownerId: string;
+    ownerId?: string;
 
     /**
      *service
      */
-    service: TrustedCertificateServiceEnum;
+    service?: TrustedCertificateServiceEnum;
 
     /**
      *status
      */
-    status: TrustedCertificateStatusEnum;
+    status?: TrustedCertificateStatusEnum;
 
     /**
      *subject
      */
-    subject: string;
+    subject?: string;
 
     /**
      *updatedAt
      */
-    updatedAt: Date;
+    updatedAt?: Date;
 
     /**
      *validity
      */
-    validity: Date;
+    validity?: Date;
 }

@@ -1,55 +1,56 @@
+import { Entity } from "../../../common/entity";
 import { ApiKeyStatusEnum } from "./types";
 /**
  *ApiKey
  */
-export interface ApiKey {
+export interface ApiKey extends Entity {
     /**
      *accountId
      */
-    accountId: string;
+    accountId?: string;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *creationTime
      */
-    creationTime: number;
+    creationTime?: number;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *key
      */
-    key: string;
+    key?: string;
 
     /**
      *lastLoginTime
      */
-    lastLoginTime: number;
+    lastLoginTime?: number;
 
     /**
      *name
      */
-    name: string;
+    name?: string;
 
     /**
      *owner
      */
-    owner: string;
+    owner?: string;
 
     /**
      *status
      */
-    status: ApiKeyStatusEnum;
+    status?: ApiKeyStatusEnum;
 
     /**
      *updatedAt
      */
-    updatedAt: Date;
+    updatedAt?: Date;
 }

@@ -1,39 +1,40 @@
+import { Entity } from "../../../common/entity";
 /**
  *DeveloperCertificate
  */
-export interface DeveloperCertificate {
+export interface DeveloperCertificate extends Entity {
     /**
      *accountId
      */
-    accountId: string;
+    accountId?: string;
 
     /**
      *certificate
      */
-    certificate: string;
+    certificate?: string;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *description
      */
-    description: string;
+    description?: string;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *name
      */
-    name: string;
+    name?: string;
 
     /**
      *securityFileContent
      */
-    securityFileContent: string;
+    securityFileContent?: string;
 }

@@ -1,44 +1,45 @@
+import { Entity } from "../../../common/entity";
 /**
  *SubtenantUserInvitation
  */
-export interface SubtenantUserInvitation {
+export interface SubtenantUserInvitation extends Entity {
     /**
      *accountId
      */
-    accountId: string;
+    accountId?: string;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *email
      */
-    email: string;
+    email?: string;
 
     /**
      *expiration
      */
-    expiration: Date;
+    expiration?: Date;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *loginProfiles
      */
-    loginProfiles: Array<any>;
+    loginProfiles?: Array<any>;
 
     /**
      *updatedAt
      */
-    updatedAt: Date;
+    updatedAt?: Date;
 
     /**
      *userId
      */
-    userId: string;
+    userId?: string;
 }

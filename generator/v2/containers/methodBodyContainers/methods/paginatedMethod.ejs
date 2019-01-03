@@ -1,0 +1,21 @@
+const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<<%= returns %>>> => {
+return apiWrapper(
+resultsFn => {
+const { limit, after, order, include } = pageOptions as ListOptions;
+this.client._CallApi(
+{
+url: "<%= path %>",
+method: "GET",
+query: { after, include, order, limit },
+},
+resultsFn
+);
+},
+(data: ListResponse<<%= returns %>>, done) => {
+done(null, new ListResponse(data, data.data, <%= returns %>Adapter.fromApi));
+},
+null,
+true
+);
+};
+return new Paginator(pageFunc, options);

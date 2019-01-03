@@ -1,24 +1,25 @@
+import { Entity } from "../../../common/entity";
 /**
  *ServerCredentials
  */
-export interface ServerCredentials {
+export interface ServerCredentials extends Entity {
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *serverCertificate
      */
-    serverCertificate: string;
+    serverCertificate?: string;
 
     /**
      *serverUri
      */
-    serverUri: string;
+    serverUri?: string;
 }

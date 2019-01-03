@@ -1,59 +1,60 @@
+import { Entity } from "../../../common/entity";
 /**
  *DeviceEvents
  */
-export interface DeviceEvents {
+export interface DeviceEvents extends Entity {
     /**
      *changes
      */
-    changes: { [key: string]: string };
+    changes?: { [key: string]: string };
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *data
      */
-    data: { [key: string]: string };
+    data?: { [key: string]: string };
 
     /**
      *dateTime
      */
-    dateTime: Date;
+    dateTime?: Date;
 
     /**
      *description
      */
-    description: string;
+    description?: string;
 
     /**
      *deviceId
      */
-    deviceId: string;
+    deviceId?: string;
 
     /**
      *eventType
      */
-    eventType: string;
+    eventType?: string;
 
     /**
      *eventTypeCategory
      */
-    eventTypeCategory: string;
+    eventTypeCategory?: string;
 
     /**
      *eventTypeDescription
      */
-    eventTypeDescription: string;
+    eventTypeDescription?: string;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *stateChange
      */
-    stateChange: boolean;
+    stateChange?: boolean;
 }

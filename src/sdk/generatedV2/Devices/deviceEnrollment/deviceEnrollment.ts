@@ -1,39 +1,40 @@
+import { Entity } from "../../../common/entity";
 /**
  *DeviceEnrollment
  */
-export interface DeviceEnrollment {
+export interface DeviceEnrollment extends Entity {
     /**
      *accountId
      */
-    accountId: string;
+    accountId?: string;
 
     /**
      *claimedAt
      */
-    claimedAt: Date;
+    claimedAt?: Date;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *enrolledDeviceId
      */
-    enrolledDeviceId: string;
+    enrolledDeviceId?: string;
 
     /**
      *enrollmentIdentity
      */
-    enrollmentIdentity: string;
+    enrollmentIdentity?: string;
 
     /**
      *expiresAt
      */
-    expiresAt: Date;
+    expiresAt?: Date;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 }

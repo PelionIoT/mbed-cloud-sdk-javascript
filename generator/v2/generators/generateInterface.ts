@@ -13,7 +13,7 @@ export async function generateInterface(entity: any, enums: any): Promise<string
         const type = getPropertyType(f, enums);
         const name = snakeToCamel(f._key);
 
-        const property = new PropertyContainer(name, type, { isInterface: true });
+        const property = new PropertyContainer(name, type, { isInterface: true, isOptional: true });
         properties.push(property);
 
         if (f.enum_reference) {
@@ -38,7 +38,13 @@ export async function generateInterface(entity: any, enums: any): Promise<string
         imports.push(enumImport);
     }
 
-    const interfaceContainer = new ClassContainer(snakeToPascal(entity._key), { isInterface: true });
+    const interfaceContainer = new ClassContainer(snakeToPascal(entity._key), {
+        isInterface: true,
+        extendsClass: [ "Entity" ],
+        imports: [
+            new ImportContainer("../../../common/entity", [ "Entity" ])
+        ]
+    });
     interfaceContainer.addProperty(properties);
     interfaceContainer.addImport(imports);
     return await interfaceContainer.render();

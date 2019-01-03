@@ -1,0 +1,9 @@
+return <%= enclosingClass %>.assignDefined<<%= returns %>>(instance || {},
+{
+<%# ---------- PROPERTIES ---------- _%>
+<%_ if (fields.length > 0) { _%>
+<%_ fields.forEach(function(field) { _%>
+<%- field %>
+<%_ }); _%>
+<%_ } _%>
+});

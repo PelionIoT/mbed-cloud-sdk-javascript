@@ -1,150 +1,151 @@
+import { Entity } from "../../../common/entity";
 import { DeviceDeployedStateEnum, DeviceMechanismEnum, DeviceStateEnum } from "./types";
 /**
  *Device
  */
-export interface Device {
+export interface Device extends Entity {
     /**
      *accountId
      */
-    accountId: string;
+    accountId?: string;
 
     /**
      *autoUpdate
      */
-    autoUpdate: boolean;
+    autoUpdate?: boolean;
 
     /**
      *bootstrapExpirationDate
      */
-    bootstrapExpirationDate: Date;
+    bootstrapExpirationDate?: Date;
 
     /**
      *bootstrappedTimestamp
      */
-    bootstrappedTimestamp: Date;
+    bootstrappedTimestamp?: Date;
 
     /**
      *caId
      */
-    caId: string;
+    caId?: string;
 
     /**
      *connectorExpirationDate
      */
-    connectorExpirationDate: Date;
+    connectorExpirationDate?: Date;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *customAttributes
      */
-    customAttributes: { [key: string]: string };
+    customAttributes?: { [key: string]: string };
 
     /**
      *deployedState
      */
-    deployedState: DeviceDeployedStateEnum;
+    deployedState?: DeviceDeployedStateEnum;
 
     /**
      *deployment
      */
-    deployment: string;
+    deployment?: string;
 
     /**
      *description
      */
-    description: string;
+    description?: string;
 
     /**
      *deviceClass
      */
-    deviceClass: string;
+    deviceClass?: string;
 
     /**
      *deviceExecutionMode
      */
-    deviceExecutionMode: number;
+    deviceExecutionMode?: number;
 
     /**
      *deviceKey
      */
-    deviceKey: string;
+    deviceKey?: string;
 
     /**
      *endpointName
      */
-    endpointName: string;
+    endpointName?: string;
 
     /**
      *endpointType
      */
-    endpointType: string;
+    endpointType?: string;
 
     /**
      *enrolmentListTimestamp
      */
-    enrolmentListTimestamp: Date;
+    enrolmentListTimestamp?: Date;
 
     /**
      *firmwareChecksum
      */
-    firmwareChecksum: string;
+    firmwareChecksum?: string;
 
     /**
      *hostGateway
      */
-    hostGateway: string;
+    hostGateway?: string;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *manifest
      */
-    manifest: string;
+    manifest?: string;
 
     /**
      *manifestTimestamp
      */
-    manifestTimestamp: Date;
+    manifestTimestamp?: Date;
 
     /**
      *mechanism
      */
-    mechanism: DeviceMechanismEnum;
+    mechanism?: DeviceMechanismEnum;
 
     /**
      *mechanismUrl
      */
-    mechanismUrl: string;
+    mechanismUrl?: string;
 
     /**
      *name
      */
-    name: string;
+    name?: string;
 
     /**
      *serialNumber
      */
-    serialNumber: string;
+    serialNumber?: string;
 
     /**
      *state
      */
-    state: DeviceStateEnum;
+    state?: DeviceStateEnum;
 
     /**
      *updatedAt
      */
-    updatedAt: Date;
+    updatedAt?: Date;
 
     /**
      *vendorId
      */
-    vendorId: string;
+    vendorId?: string;
 }

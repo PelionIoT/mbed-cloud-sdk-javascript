@@ -1,106 +1,107 @@
+import { Entity } from "../../../common/entity";
 import { LoginHistory } from "../loginHistory/loginHistory";
 import { SubtenantUserStatusEnum } from "./types";
 /**
  *SubtenantUser
  */
-export interface SubtenantUser {
+export interface SubtenantUser extends Entity {
     /**
      *accountId
      */
-    accountId: string;
+    accountId?: string;
 
     /**
      *address
      */
-    address: string;
+    address?: string;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *creationTime
      */
-    creationTime: number;
+    creationTime?: number;
 
     /**
      *email
      */
-    email: string;
+    email?: string;
 
     /**
      *emailVerified
      */
-    emailVerified: boolean;
+    emailVerified?: boolean;
 
     /**
      *fullName
      */
-    fullName: string;
+    fullName?: string;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *lastLoginTime
      */
-    lastLoginTime: number;
+    lastLoginTime?: number;
 
     /**
      *loginHistory
      */
-    loginHistory: Array<LoginHistory>;
+    loginHistory?: Array<LoginHistory>;
 
     /**
      *loginProfiles
      */
-    loginProfiles: Array<any>;
+    loginProfiles?: Array<any>;
 
     /**
      *marketingAccepted
      */
-    marketingAccepted: boolean;
+    marketingAccepted?: boolean;
 
     /**
      *password
      */
-    password: string;
+    password?: string;
 
     /**
      *passwordChangedTime
      */
-    passwordChangedTime: number;
+    passwordChangedTime?: number;
 
     /**
      *phoneNumber
      */
-    phoneNumber: string;
+    phoneNumber?: string;
 
     /**
      *status
      */
-    status: SubtenantUserStatusEnum;
+    status?: SubtenantUserStatusEnum;
 
     /**
      *termsAccepted
      */
-    termsAccepted: boolean;
+    termsAccepted?: boolean;
 
     /**
      *twoFactorAuthentication
      */
-    twoFactorAuthentication: boolean;
+    twoFactorAuthentication?: boolean;
 
     /**
      *updatedAt
      */
-    updatedAt: Date;
+    updatedAt?: Date;
 
     /**
      *username
      */
-    username: string;
+    username?: string;
 }

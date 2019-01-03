@@ -1,35 +1,36 @@
+import { Entity } from "../../../common/entity";
 import { CertificateIssuerIssuerTypeEnum } from "./types";
 /**
  *CertificateIssuer
  */
-export interface CertificateIssuer {
+export interface CertificateIssuer extends Entity {
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *description
      */
-    description: string;
+    description?: string;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *issuerAttributes
      */
-    issuerAttributes: { [key: string]: string };
+    issuerAttributes?: { [key: string]: string };
 
     /**
      *issuerType
      */
-    issuerType: CertificateIssuerIssuerTypeEnum;
+    issuerType?: CertificateIssuerIssuerTypeEnum;
 
     /**
      *name
      */
-    name: string;
+    name?: string;
 }

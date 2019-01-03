@@ -49,7 +49,7 @@ export class UserRepository extends Repository {
      * deletes a User.
      * @returns Promise containing User.
      */
-    public delete(id: string): Promise<User> {
+    public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(

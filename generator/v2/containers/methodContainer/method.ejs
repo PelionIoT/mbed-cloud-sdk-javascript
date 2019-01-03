@@ -1,0 +1,6 @@
+<%= modifier %><%= isStatic ? " static" : "" %> <%= name %>(<%- parameterList %>): <%- returns %> {
+<%# ---------- METHOD_BODY ---------- _%>
+<%_ if (methodBody) { _%>
+<%- methodBody %>
+<%_ } _%>
+}

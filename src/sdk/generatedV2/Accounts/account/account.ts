@@ -1,212 +1,213 @@
+import { Entity } from "../../../common/entity";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
 import { Policy } from "../policy/policy";
 import { AccountMfaStatusEnum, AccountStatusEnum } from "./types";
 /**
  *Account
  */
-export interface Account {
+export interface Account extends Entity {
     /**
      *addressLine1
      */
-    addressLine1: string;
+    addressLine1?: string;
 
     /**
      *addressLine2
      */
-    addressLine2: string;
+    addressLine2?: string;
 
     /**
      *adminEmail
      */
-    adminEmail: string;
+    adminEmail?: string;
 
     /**
      *adminFullName
      */
-    adminFullName: string;
+    adminFullName?: string;
 
     /**
      *adminId
      */
-    adminId: string;
+    adminId?: string;
 
     /**
      *adminKey
      */
-    adminKey: string;
+    adminKey?: string;
 
     /**
      *adminName
      */
-    adminName: string;
+    adminName?: string;
 
     /**
      *adminPassword
      */
-    adminPassword: string;
+    adminPassword?: string;
 
     /**
      *aliases
      */
-    aliases: Array<string>;
+    aliases?: Array<string>;
 
     /**
      *city
      */
-    city: string;
+    city?: string;
 
     /**
      *company
      */
-    company: string;
+    company?: string;
 
     /**
      *contact
      */
-    contact: string;
+    contact?: string;
 
     /**
      *contractNumber
      */
-    contractNumber: string;
+    contractNumber?: string;
 
     /**
      *country
      */
-    country: string;
+    country?: string;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *customFields
      */
-    customFields: { [key: string]: string };
+    customFields?: { [key: string]: string };
 
     /**
      *customerNumber
      */
-    customerNumber: string;
+    customerNumber?: string;
 
     /**
      *displayName
      */
-    displayName: string;
+    displayName?: string;
 
     /**
      *email
      */
-    email: string;
+    email?: string;
 
     /**
      *endMarket
      */
-    endMarket: string;
+    endMarket?: string;
 
     /**
      *expirationWarningThreshold
      */
-    expirationWarningThreshold: string;
+    expirationWarningThreshold?: string;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *idleTimeout
      */
-    idleTimeout: string;
+    idleTimeout?: string;
 
     /**
      *limits
      */
-    limits: { [key: string]: string };
+    limits?: { [key: string]: string };
 
     /**
      *mfaStatus
      */
-    mfaStatus: AccountMfaStatusEnum;
+    mfaStatus?: AccountMfaStatusEnum;
 
     /**
      *notificationEmails
      */
-    notificationEmails: Array<string>;
+    notificationEmails?: Array<string>;
 
     /**
      *parentAccount
      */
-    parentAccount: any;
+    parentAccount?: any;
 
     /**
      *parentId
      */
-    parentId: string;
+    parentId?: string;
 
     /**
      *passwordPolicy
      */
-    passwordPolicy: PasswordPolicy;
+    passwordPolicy?: PasswordPolicy;
 
     /**
      *phoneNumber
      */
-    phoneNumber: string;
+    phoneNumber?: string;
 
     /**
      *policies
      */
-    policies: Array<Policy>;
+    policies?: Array<Policy>;
 
     /**
      *postalCode
      */
-    postalCode: string;
+    postalCode?: string;
 
     /**
      *reason
      */
-    reason: string;
+    reason?: string;
 
     /**
      *referenceNote
      */
-    referenceNote: string;
+    referenceNote?: string;
 
     /**
      *salesContact
      */
-    salesContact: string;
+    salesContact?: string;
 
     /**
      *state
      */
-    state: string;
+    state?: string;
 
     /**
      *status
      */
-    status: AccountStatusEnum;
+    status?: AccountStatusEnum;
 
     /**
      *templateId
      */
-    templateId: string;
+    templateId?: string;
 
     /**
      *tier
      */
-    tier: string;
+    tier?: string;
 
     /**
      *updatedAt
      */
-    updatedAt: Date;
+    updatedAt?: Date;
 
     /**
      *upgradedAt
      */
-    upgradedAt: Date;
+    upgradedAt?: Date;
 }

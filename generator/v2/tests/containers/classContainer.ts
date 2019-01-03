@@ -1,5 +1,6 @@
 import { ClassContainer } from "../../containers/classContainer/classContainer";
 import { PropertyContainer } from "../../containers/propertyContainer/propertyContainer";
+import { MethodContainer } from "../../containers/methodContainer/methodContainer";
 
 const emptyClassExpected =
 `/**
@@ -244,6 +245,76 @@ describe("class with properties", () => {
         const r = await interfaceWithMultipleProperty.render();
 
         expect(r).toBe(interfaceWithMultiplePropertyExpected);
+    });
+
+});
+
+const classWithSingleMethodExpected =
+`/**
+*MyClass
+*/
+export class MyClass {
+
+public getName(): void {
+}
+}`;
+
+const classWithMultipleMethodsExpected =
+`/**
+*MyClass
+*/
+export class MyClass {
+
+public getName(): void {
+}
+public getUsername(): void {
+}
+}`;
+
+const classWithMultipleMethodsAndPropertyExpected =
+`/**
+*MyClass
+*/
+export class MyClass {
+
+/**
+*username
+*/
+public username: string;
+
+public getName(): void {
+}
+public getUsername(): void {
+}
+}`;
+
+describe("class with methods", () => {
+
+    it("should render class with single method", async () => {
+        const method = new MethodContainer("getName");
+        const myClass = new ClassContainer("MyClass", { methods: [ method ] });
+        const r = await myClass.render();
+
+        expect(r).toBe(classWithSingleMethodExpected);
+    });
+
+    it("should render class with multiple methods", async () => {
+        const method = new MethodContainer("getName");
+        const secondMethod = new MethodContainer("getUsername");
+        const myClass = new ClassContainer("MyClass", { methods: [ method, secondMethod ] });
+        const r = await myClass.render();
+
+        expect(r).toBe(classWithMultipleMethodsExpected);
+    });
+
+    it("should render class with multiple methods and properties", async () => {
+        const method = new MethodContainer("getName");
+        const secondMethod = new MethodContainer("getUsername");
+        const property = new PropertyContainer("username", "string");
+        const myClass = new ClassContainer("MyClass", { methods: [ method, secondMethod ], properties: [ property ] });
+        const r = await myClass.render();
+
+        expect(r).toBe(classWithMultipleMethodsAndPropertyExpected);
     });
 
 });

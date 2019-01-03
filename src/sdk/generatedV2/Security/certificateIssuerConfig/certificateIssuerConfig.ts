@@ -1,29 +1,30 @@
+import { Entity } from "../../../common/entity";
 /**
  *CertificateIssuerConfig
  */
-export interface CertificateIssuerConfig {
+export interface CertificateIssuerConfig extends Entity {
     /**
      *certificateIssuerId
      */
-    certificateIssuerId: string;
+    certificateIssuerId?: string;
 
     /**
      *certificateReference
      */
-    certificateReference: string;
+    certificateReference?: string;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *updatedAt
      */
-    updatedAt: Date;
+    updatedAt?: Date;
 }

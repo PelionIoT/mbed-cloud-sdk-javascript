@@ -1,55 +1,56 @@
+import { Entity } from "../../../common/entity";
 import { DeviceEnrollmentBulkDeleteStatusEnum } from "./types";
 /**
  *DeviceEnrollmentBulkDelete
  */
-export interface DeviceEnrollmentBulkDelete {
+export interface DeviceEnrollmentBulkDelete extends Entity {
     /**
      *accountId
      */
-    accountId: string;
+    accountId?: string;
 
     /**
      *completedAt
      */
-    completedAt: Date;
+    completedAt?: Date;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *errorsCount
      */
-    errorsCount: number;
+    errorsCount?: number;
 
     /**
      *errorsReportFile
      */
-    errorsReportFile: string;
+    errorsReportFile?: string;
 
     /**
      *fullReportFile
      */
-    fullReportFile: string;
+    fullReportFile?: string;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *processedCount
      */
-    processedCount: number;
+    processedCount?: number;
 
     /**
      *status
      */
-    status: DeviceEnrollmentBulkDeleteStatusEnum;
+    status?: DeviceEnrollmentBulkDeleteStatusEnum;
 
     /**
      *totalCount
      */
-    totalCount: number;
+    totalCount?: number;
 }

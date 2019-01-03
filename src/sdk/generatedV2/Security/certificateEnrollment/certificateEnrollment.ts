@@ -1,40 +1,41 @@
+import { Entity } from "../../../common/entity";
 import { CertificateEnrollmentEnrollResultEnum, CertificateEnrollmentEnrollStatusEnum } from "./types";
 /**
  *CertificateEnrollment
  */
-export interface CertificateEnrollment {
+export interface CertificateEnrollment extends Entity {
     /**
      *certificateName
      */
-    certificateName: string;
+    certificateName?: string;
 
     /**
      *createdAt
      */
-    createdAt: Date;
+    createdAt?: Date;
 
     /**
      *deviceId
      */
-    deviceId: string;
+    deviceId?: string;
 
     /**
      *enrollResult
      */
-    enrollResult: CertificateEnrollmentEnrollResultEnum;
+    enrollResult?: CertificateEnrollmentEnrollResultEnum;
 
     /**
      *enrollStatus
      */
-    enrollStatus: CertificateEnrollmentEnrollStatusEnum;
+    enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
 
     /**
      *id
      */
-    id: string;
+    id?: string;
 
     /**
      *updatedAt
      */
-    updatedAt: Date;
+    updatedAt?: Date;
 }

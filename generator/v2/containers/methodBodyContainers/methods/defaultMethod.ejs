@@ -1,0 +1,14 @@
+return apiWrapper(
+resultsFn => {
+this.client._CallApi(
+{
+url: "<%= path %>",
+method: "<%= method %>",
+},
+resultsFn
+);
+},
+(_data, done) => {
+done(null, null);
+}
+);
