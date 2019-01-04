@@ -22,19 +22,19 @@ export async function generateInterface(entity: any, enums: any): Promise<string
 
         if ((f.items && f.items.foreign_key)) {
             const key = snakeToCamel(f.items.foreign_key.entity);
-            const importContainer = new ImportContainer(`../${key}/${key}`, [ snakeToPascal(f.items.foreign_key.entity) ]);
+            const importContainer = new ImportContainer(`${key}_FOREIGN_KEY_IMPORT`, `../${key}/${key}`, [ snakeToPascal(f.items.foreign_key.entity) ]);
             imports.push(importContainer);
         }
 
         if (f.foreign_key) {
             const key = snakeToCamel(f.foreign_key.entity);
-            const importContainer = new ImportContainer(`../${key}/${key}`, [ snakeToPascal(f.foreign_key.entity) ]);
+            const importContainer = new ImportContainer(`${key}_FOREIGN_KEY_IMPORT`, `../${key}/${key}`, [ snakeToPascal(f.foreign_key.entity) ]);
             imports.push(importContainer);
         }
     }
 
     if (enumImports.length > 0) {
-        const enumImport = new ImportContainer("./types", enumImports);
+        const enumImport = new ImportContainer("ENUM_IMPORT", "./types", enumImports);
         imports.push(enumImport);
     }
 
@@ -42,7 +42,7 @@ export async function generateInterface(entity: any, enums: any): Promise<string
         isInterface: true,
         extendsClass: [ "Entity" ],
         imports: [
-            new ImportContainer("../../../common/entity", [ "Entity" ])
+            new ImportContainer("ENTITY_BASE", "../../../common/entity", [ "Entity" ])
         ]
     });
     interfaceContainer.addProperty(properties);

@@ -5,7 +5,7 @@ export class UserAdapter extends Adapter {
     public static fromApi(data: any, instance?: User): User {
         return UserAdapter.assignDefined<User>(instance || {},
             {
-                discriminator: "USER",
+                _discriminator: "USER",
                 fullName: data.full_name,
                 username: data.username,
                 password: data.password,

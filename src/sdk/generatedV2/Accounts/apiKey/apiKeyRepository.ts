@@ -1,8 +1,12 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { ApiKey } from "./apiKey";
+import { ApiKeyAdapter } from "../../index";
 import { ApiKeyCreateRequest } from "./types";
 import { ApiKeyUpdateRequest } from "./types";
+import { Paginator } from "../../../../common/pagination";
+import { ListResponse } from "../../../../common/listResponse";
+import { ListOptions } from "../../../../common/interfaces";
 /**
  *ApiKey repository
  */
@@ -23,8 +27,8 @@ export class ApiKeyRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, ApiKeyAdapter.fromApi(data));
             }
         );
     }
@@ -61,10 +65,38 @@ export class ApiKeyRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, ApiKeyAdapter.fromApi(data));
             }
         );
+    }
+    public list(options: ListOptions): Paginator<ApiKey, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/api-keys",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                include: options.include,
+                                limit: options.limit,
+                                order: options.order,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<ApiKey>, done) => {
+                    done(null, new ListResponse(data, data.data, ApiKeyAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     public me(): Promise<ApiKey> {
         return apiWrapper(
@@ -77,8 +109,8 @@ export class ApiKeyRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, ApiKeyAdapter.fromApi(data));
             }
         );
     }
@@ -101,8 +133,8 @@ export class ApiKeyRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, ApiKeyAdapter.fromApi(data));
             }
         );
     }

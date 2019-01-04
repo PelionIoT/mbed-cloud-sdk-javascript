@@ -1,6 +1,9 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { DeviceEnrollmentBulkDelete } from "./deviceEnrollmentBulkDelete";
+import { DeviceEnrollmentBulkDeleteAdapter } from "../../index";
+import { downloadErrorsReportFile } from "../../../common/privateFunctions";
+import { downloadFullReportFile } from "../../../common/privateFunctions";
 import { ReadStream } from "fs";
 /**
  *DeviceEnrollmentBulkDelete repository
@@ -21,42 +24,16 @@ export class DeviceEnrollmentBulkDeleteRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, DeviceEnrollmentBulkDeleteAdapter.fromApi(data));
             }
         );
     }
-    public downloadErrorsReportFile(): Promise<ReadStream | Buffer | File | Blob> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "",
-                        method: "GET",
-                    },
-                    resultsFn
-                );
-            },
-            (_data, done) => {
-                done(null, null);
-            }
-        );
+    public downloadErrorsReportFile(model: DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
+        return downloadErrorsReportFile(this, model);
     }
-    public downloadFullReportFile(): Promise<ReadStream | Buffer | File | Blob> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "",
-                        method: "GET",
-                    },
-                    resultsFn
-                );
-            },
-            (_data, done) => {
-                done(null, null);
-            }
-        );
+    public downloadFullReportFile(model: DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
+        return downloadFullReportFile(this, model);
     }
     public get(id: string): Promise<DeviceEnrollmentBulkDelete> {
         return apiWrapper(
@@ -72,8 +49,8 @@ export class DeviceEnrollmentBulkDeleteRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, DeviceEnrollmentBulkDeleteAdapter.fromApi(data));
             }
         );
     }

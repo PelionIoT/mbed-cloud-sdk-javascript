@@ -1,9 +1,14 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { TrustedCertificate } from "./trustedCertificate";
+import { TrustedCertificateAdapter } from "../../index";
 import { TrustedCertificateCreateRequest } from "./types";
-import { DeveloperCertificate } from "../../Security/developerCertificate";
+import { DeveloperCertificate } from "../../index";
+import { DeveloperCertificateAdapter } from "../../index";
 import { TrustedCertificateUpdateRequest } from "./types";
+import { Paginator } from "../../../../common/pagination";
+import { ListResponse } from "../../../../common/listResponse";
+import { ListOptions } from "../../../../common/interfaces";
 /**
  *TrustedCertificate repository
  */
@@ -27,8 +32,8 @@ export class TrustedCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, TrustedCertificateAdapter.fromApi(data));
             }
         );
     }
@@ -65,8 +70,8 @@ export class TrustedCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, DeveloperCertificateAdapter.fromApi(data));
             }
         );
     }
@@ -84,10 +89,38 @@ export class TrustedCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, TrustedCertificateAdapter.fromApi(data));
             }
         );
+    }
+    public list(options: ListOptions): Paginator<TrustedCertificate, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<TrustedCertificate>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/trusted-certificates",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                include: options.include,
+                                limit: options.limit,
+                                order: options.order,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<TrustedCertificate>, done) => {
+                    done(null, new ListResponse(data, data.data, TrustedCertificateAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     public update(request: TrustedCertificateUpdateRequest, id: string): Promise<TrustedCertificate> {
         return apiWrapper(
@@ -111,8 +144,8 @@ export class TrustedCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, TrustedCertificateAdapter.fromApi(data));
             }
         );
     }

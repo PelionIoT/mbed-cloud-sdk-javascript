@@ -1,8 +1,19 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { Account } from "./account";
+import { AccountAdapter } from "../../index";
 import { AccountCreateRequest } from "./types";
+import { AccountListOptions } from "./types";
+import { SubtenantTrustedCertificate } from "../../index";
+import { SubtenantTrustedCertificateAdapter } from "../../index";
 import { AccountUpdateRequest } from "./types";
+import { SubtenantUserInvitation } from "../../index";
+import { SubtenantUserInvitationAdapter } from "../../index";
+import { SubtenantUser } from "../../index";
+import { SubtenantUserAdapter } from "../../index";
+import { Paginator } from "../../../../common/pagination";
+import { ListResponse } from "../../../../common/listResponse";
+import { ListOptions } from "../../../../common/interfaces";
 /**
  *Account repository
  */
@@ -42,8 +53,8 @@ export class AccountRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, AccountAdapter.fromApi(data));
             }
         );
     }
@@ -66,10 +77,40 @@ export class AccountRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, AccountAdapter.fromApi(data));
             }
         );
+    }
+    public list(options: AccountListOptions): Paginator<Account, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Account>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                format: options.format,
+                                include: options.include,
+                                limit: options.limit,
+                                order: options.order,
+                                properties: options.properties,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<Account>, done) => {
+                    done(null, new ListResponse(data, data.data, AccountAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     public me(options?: { include?: string; properties?: string }): Promise<Account> {
         options = options || {};
@@ -87,10 +128,41 @@ export class AccountRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, AccountAdapter.fromApi(data));
             }
         );
+    }
+    public trustedCertificates(id: string, options: ListOptions): Paginator<SubtenantTrustedCertificate, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantTrustedCertificate>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/trusted-certificates",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                include: options.include,
+                                limit: options.limit,
+                                order: options.order,
+                            },
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantTrustedCertificate>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantTrustedCertificateAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     public update(request: AccountUpdateRequest, id: string): Promise<Account> {
         return apiWrapper(
@@ -130,9 +202,70 @@ export class AccountRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, AccountAdapter.fromApi(data));
             }
         );
+    }
+    public userInvitations(id: string, options: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUserInvitation>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/user-invitations",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                limit: options.limit,
+                                order: options.order,
+                            },
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantUserInvitation>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantUserInvitationAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    public users(id: string, options: ListOptions): Paginator<SubtenantUser, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUser>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/users",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                include: options.include,
+                                limit: options.limit,
+                                order: options.order,
+                            },
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantUser>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantUserAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
 }

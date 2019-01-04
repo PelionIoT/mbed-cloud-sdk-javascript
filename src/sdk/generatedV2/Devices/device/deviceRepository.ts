@@ -1,9 +1,14 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { Device } from "./device";
+import { DeviceAdapter } from "../../index";
 import { DeviceCreateRequest } from "./types";
-import { CertificateEnrollment } from "../../Security/certificateEnrollment";
+import { CertificateEnrollment } from "../../index";
+import { CertificateEnrollmentAdapter } from "../../index";
 import { DeviceUpdateRequest } from "./types";
+import { Paginator } from "../../../../common/pagination";
+import { ListResponse } from "../../../../common/listResponse";
+import { ListOptions } from "../../../../common/interfaces";
 /**
  *Device repository
  */
@@ -43,8 +48,8 @@ export class DeviceRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, DeviceAdapter.fromApi(data));
             }
         );
     }
@@ -81,10 +86,38 @@ export class DeviceRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, DeviceAdapter.fromApi(data));
             }
         );
+    }
+    public list(options: ListOptions): Paginator<Device, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Device>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/devices/",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                include: options.include,
+                                limit: options.limit,
+                                order: options.order,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<Device>, done) => {
+                    done(null, new ListResponse(data, data.data, DeviceAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     public renewCertificate(certificateName: string, id: string): Promise<CertificateEnrollment> {
         return apiWrapper(
@@ -101,8 +134,8 @@ export class DeviceRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, CertificateEnrollmentAdapter.fromApi(data));
             }
         );
     }
@@ -131,8 +164,8 @@ export class DeviceRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, DeviceAdapter.fromApi(data));
             }
         );
     }

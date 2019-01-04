@@ -1,6 +1,7 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { SubtenantUserInvitation } from "./subtenantUserInvitation";
+import { SubtenantUserInvitationAdapter } from "../../index";
 import { SubtenantUserInvitationCreateRequest } from "./types";
 /**
  *SubtenantUserInvitation repository
@@ -25,8 +26,8 @@ export class SubtenantUserInvitationRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, SubtenantUserInvitationAdapter.fromApi(data));
             }
         );
     }
@@ -65,8 +66,8 @@ export class SubtenantUserInvitationRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, SubtenantUserInvitationAdapter.fromApi(data));
             }
         );
     }

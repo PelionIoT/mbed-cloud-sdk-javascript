@@ -1,6 +1,7 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { ServerCredentials } from "./serverCredentials";
+import { ServerCredentialsAdapter } from "../../index";
 /**
  *ServerCredentials repository
  */
@@ -16,8 +17,8 @@ export class ServerCredentialsRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, ServerCredentialsAdapter.fromApi(data));
             }
         );
     }
@@ -32,8 +33,8 @@ export class ServerCredentialsRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, ServerCredentialsAdapter.fromApi(data));
             }
         );
     }

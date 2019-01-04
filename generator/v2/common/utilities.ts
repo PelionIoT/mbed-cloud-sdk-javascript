@@ -1,3 +1,5 @@
+import { Container } from "../containers/container";
+
 // map swagger types to typescript types
 const typeMap = {
     "string": "string",
@@ -87,6 +89,12 @@ const snakeToPascal = snake => {
     return camel.charAt(0).toUpperCase() + camel.slice(1);
 };
 
+const safeAddToList = (list: Array<Container>, item: Container): void => {
+    if (list.filter(c => c.key === item.key).length === 0) {
+        list.push(item);
+    }
+};
+
 export {
     typeMap,
     getType,
@@ -96,5 +104,6 @@ export {
     getPropertyType,
     unpackParams,
     snakeToCamel,
-    snakeToPascal
+    snakeToPascal,
+    safeAddToList
 };

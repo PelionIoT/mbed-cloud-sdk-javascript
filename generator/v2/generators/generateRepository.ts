@@ -1,6 +1,6 @@
 import { ImportContainer } from "../containers/importContainer/importContainer";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
-import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList } from "../common/utilities";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
 import { ParameterBucketContainer } from "../containers/parameterBucketContainer/parameterBucketContainer";
@@ -10,12 +10,15 @@ import { DefaultMethodBody } from "../containers/methodBodyContainers/methods/de
 import { ClassContainer } from "../containers/classContainer/classContainer";
 import { File as GeneratedFile } from "../common/file";
 import { MethodBodyParameterContainer } from "../containers/methodBodyContainers/methods/parameters/methodBodyParameterContainer";
+import { ExportContainer } from "../containers/exportContainer/exportContainer";
+import { FileContainer } from "../containers/fileContainer/fileContainer";
+import { CustomMethodBody } from "../containers/methodBodyContainers/methods/customMethodBody";
 
-export async function generateRepository(entity, pascalKey, currentGroup, camelKey, outputFolder) {
+export async function generateRepository(entity, pascalKey, currentGroup, camelKey, outputFolder, entityIndex: FileContainer) {
     if (entity.methods.length > 0) {
         // entity has methods
         let fsNeeded = false;
-        // let hasPaginator = false;
+        let hasPaginator = false;
         const repositoryImports = new Array<ImportContainer>();
         const repositoryMethods = new Array<MethodContainer>();
         for (const method of entity.methods) {
@@ -25,35 +28,40 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
             const path = method.path;
             const paginated = !!method.pagination;
             const privateMethod = !!method.private_method;
-            // const customMethodCall = !!method.custom_method;
-            // const customMethodName = method.custom_method;
+            const customMethodCall = !!method.custom_method;
             // if a foreign key exists and its not the same as the enity
             const foreignKey = method.foreign_key ? (snakeToPascal(method.foreign_key.entity) !== pascalKey) : false;
             if (foreignKey) {
                 // add import for foreign key
-                repositoryImports.push(new ImportContainer(`../../${snakeToCamel(method.foreign_key.group) || currentGroup}/${snakeToCamel(method.foreign_key.entity)}`,
+                repositoryImports.push(new ImportContainer(
+                    `${(method.foreign_key.group || method.foreign_key.entity).toUpperCase()}_${method.foreign_key.entity} _FOREIGN_KEY_IMPORT`,
+                    `../../index`,
                     [
                         snakeToPascal(method.foreign_key.entity)
                     ]
                 ));
-                // if (paginated) {
-                //     repositoryImports.push(new ImportContainer(`../../${snakeToCamel(method.foreign_key.group) || currentGroup}/${snakeToCamel(method.foreign_key.entity)}/${snakeToCamel(method.foreign_key.entity)}Adapter`,
-                //         [
-                //             `${snakeToPascal(method.foreign_key.entity)}Adapter`
-                //         ]
-                //     ));
-                // }
-            } else {
-                // if (paginated) {
-                //     repositoryImports.push(new ImportContainer(`./${camelKey}Adapter`,
-                //         [
-                //             `${pascalKey}Adapter`
-                //         ]
-                //     ));
-                // }
+                if (paginated) {
+                    repositoryImports.push(new ImportContainer(
+                        `${(snakeToCamel(method.foreign_key.group) || currentGroup).toUpperCase()}_ADAPTER`,
+                        `../../index`,
+                        [
+                            `${snakeToPascal(method.foreign_key.entity)}Adapter`
+                        ]
+                    ));
+                }
             }
             const returnType = foreignKey ? snakeToPascal(method.foreign_key.entity) : method.return_type;
-            const returns = httpMethod === "DELETE" ? "void" : getType(returnType) || pascalKey;
+            const returns: string = httpMethod === "DELETE" ? "void" : getType(returnType) || pascalKey;
+
+            if (returns.indexOf("ReadStream") === -1 && returns !== "void" && !paginated) {
+                safeAddToList(repositoryImports, new ImportContainer(
+                    `${returns.toUpperCase()}_ADAPTER`,
+                    `../../index`,
+                    [
+                        `${snakeToPascal(returns)}Adapter`
+                    ]
+                ));
+            }
 
             const parameterList = new ParameterListContainer();
 
@@ -64,6 +72,7 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
                     `${pascalKey}${snakeToPascal(method._key)}Request`
                 ));
                 repositoryImports.push(new ImportContainer(
+                    `${pascalKey.toUpperCase()}_${method._key.toUpperCase()}_REQUEST`,
                     "./types",
                     [
                         `${pascalKey}${snakeToPascal(method._key)}Request`
@@ -75,10 +84,11 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
             let externalParams = new Array<ParameterContainer>();
             const ep = method.fields.filter(m => m.in && m.in !== "body");
             for (const field of ep) {
-                // if (paginated && (field._key === "after" || field._key === "limit" || field._key === "include" || field._key === "order")) {
-                //     console.log("skip default pagination params");
-                //     continue;
-                // }
+                if (paginated && field.in === "query") {
+                    // tslint:disable-next-line:no-console
+                    console.log("skip paginated query params");
+                    continue;
+                }
                 const fieldType = field._key === "order" ? "OrderEnum" : getAdditionalProperties(field) || getType(field.type, field.items);
                 if (fieldType === typeMap.file) {
                     // import fs
@@ -104,6 +114,34 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
 
             parameterList.addParameters(externalParams);
 
+            if (paginated) {
+                const extraQueryParams = ep.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
+                if (extraQueryParams.length > 0) {
+                    parameterList.addParameters(
+                        new ParameterContainer(
+                            "options",
+                            `${returns}ListOptions`
+                        )
+                    );
+                    repositoryImports.push(
+                        new ImportContainer(
+                            `${returns.toUpperCase()}_LIST_OPTIONS`,
+                            "./types",
+                            [
+                                `${returns}ListOptions`
+                            ]
+                        )
+                    );
+                } else {
+                    parameterList.addParameters(
+                        new ParameterContainer(
+                            "options",
+                            "ListOptions"
+                        )
+                    );
+                }
+            }
+
             const queryParams = [];
             const pathParams = [];
             const fileParams = [];
@@ -115,7 +153,7 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
                     const queryParam = new MethodBodyParameterContainer(
                         snakeToCamel(field.entity_fieldname),
                         field.api_fieldname,
-                        hasBucket && !!!field.required ? "options" : ""
+                        paginated ? "options" : hasBucket && !!!field.required ? "options" : ""
                     );
                     queryParams.push(queryParam);
                 }
@@ -150,8 +188,40 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
 
             let methodBody: MethodBodyContainer;
             if (paginated) {
-                // hasPaginator = true;
-                methodBody = new PaginatedMethodBody(returns, path);
+                hasPaginator = true;
+                methodBody = new PaginatedMethodBody(returns, path, {
+                    parameters: {
+                        queryParams,
+                        pathParams,
+                        fileParams,
+                        bodyParams
+                    },
+                    adapter: returns
+                });
+            } else if (customMethodCall) {
+                if (parameterList.parameters.length === 0 && !parameterList.bucket) {
+                    parameterList.addParameters(
+                        new ParameterContainer("model", pascalKey)
+                    );
+                }
+                const allParams = [
+                    new ParameterContainer("model", pascalKey)
+                ].concat(queryParams)
+                    .concat(pathParams)
+                    .concat(fileParams)
+                    .concat(bodyParams)
+                    .map(m => m.name);
+                methodBody = new CustomMethodBody(
+                    snakeToCamel(method.custom_method),
+                    allParams
+                );
+                repositoryImports.push(new ImportContainer(
+                    `${method.custom_method.toUpperCase()}_CUSTOM_METHOD_IMPORT`,
+                    "../../../common/privateFunctions",
+                    [
+                        snakeToCamel(method.custom_method)
+                    ]
+                ));
             } else {
                 methodBody = new DefaultMethodBody(httpMethod, path, returns, {
                     parameters: {
@@ -160,23 +230,22 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
                         fileParams,
                         bodyParams
                     },
-                    hasBucket
+                    hasBucket,
+                    adapter: returns !== "void" && returns.indexOf("File") === -1 ? `${returns}Adapter` : ""
                 });
             }
 
-            if (!paginated) {
-                const methodContainer = new MethodContainer(
-                    methodName,
-                    {
-                        returns: paginated ? `Paginator<${returns}, ListOptions>` : returns,
-                        promise: !paginated,
-                        parameterList: parameterList,
-                        modifier: privateMethod ? "private" : "public",
-                        methodBody: methodBody
-                    }
-                );
-                repositoryMethods.push(methodContainer);
-            }
+            const methodContainer = new MethodContainer(
+                methodName,
+                {
+                    returns: paginated ? `Paginator<${returns}, ListOptions>` : returns,
+                    promise: !paginated,
+                    parameterList: parameterList,
+                    modifier: privateMethod ? "private" : "public",
+                    methodBody: methodBody
+                }
+            );
+            repositoryMethods.push(methodContainer);
         }
 
         // generate repositories
@@ -186,37 +255,64 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
                 description: `${pascalKey} repository`,
                 extendsClass: "Repository",
                 imports: [
-                    new ImportContainer("../../../common/repository", [
-                        "Repository"
-                    ]),
-                    new ImportContainer("../../../../common/functions", [
-                        "apiWrapper"
-                    ]),
-                    new ImportContainer(`./${camelKey}`, [
-                        pascalKey
-                    ])
+                    new ImportContainer(
+                        `REPOSITORY`,
+                        "../../../common/repository",
+                        [
+                            "Repository"
+                        ]
+                    ),
+                    new ImportContainer(
+                        "API_WRAPPER",
+                        "../../../../common/functions",
+                        [
+                            "apiWrapper"
+                        ]
+                    ),
+                    new ImportContainer(
+                        `${camelKey.toUpperCase()}_CLASS`,
+                        `./${camelKey}`,
+                        [
+                            pascalKey
+                        ]
+                    )
                 ],
                 methods: repositoryMethods
             }
         );
         repositoryClass.addImport(repositoryImports);
         if (fsNeeded) {
-            repositoryClass.addImport(new ImportContainer("fs", [
-                "ReadStream"
-            ]));
+            repositoryClass.addImport(new ImportContainer(
+                "FS",
+                "fs",
+                [
+                    "ReadStream"
+                ]
+            ));
         }
-        // if (hasPaginator) {
-        //     repositoryClass.addImport(new ImportContainer("../../../../common/pagination", [
-        //         "Paginator"
-        //     ]));
-        //     repositoryClass.addImport(new ImportContainer("../../../../common/listResponse", [
-        //         "ListResponse"
-        //     ]));
-        //     repositoryClass.addImport(new ImportContainer("../../../../common/interfaces", [
-        //         "ListOptions",
-        //         "OrderEnum"
-        //     ]));
-        // }
+        if (hasPaginator) {
+            repositoryClass.addImport(new ImportContainer(
+                `PAGINATOR`,
+                "../../../../common/pagination",
+                [
+                    "Paginator"
+                ]
+            ));
+            repositoryClass.addImport(new ImportContainer(
+                `LIST_RESPONSE`,
+                "../../../../common/listResponse",
+                [
+                    "ListResponse"
+                ]
+            ));
+            repositoryClass.addImport(new ImportContainer(
+                `LIST_OPTIONS`,
+                "../../../../common/interfaces",
+                [
+                    "ListOptions"
+                ]
+            ));
+        }
 
         const repositoryFile = new GeneratedFile(
             `${camelKey}Repository`,
@@ -224,5 +320,8 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
             await repositoryClass.render()
         );
         repositoryFile.writeFile();
+
+        const typeExport = new ExportContainer(`./${camelKey}Repository`);
+        entityIndex.addContainer(typeExport);
     }
 }

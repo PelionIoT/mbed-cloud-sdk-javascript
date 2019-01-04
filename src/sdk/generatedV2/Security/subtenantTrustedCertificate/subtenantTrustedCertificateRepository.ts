@@ -1,8 +1,10 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { SubtenantTrustedCertificate } from "./subtenantTrustedCertificate";
+import { SubtenantTrustedCertificateAdapter } from "../../index";
 import { SubtenantTrustedCertificateCreateRequest } from "./types";
-import { DeveloperCertificate } from "../../Security/developerCertificate";
+import { DeveloperCertificate } from "../../index";
+import { DeveloperCertificateAdapter } from "../../index";
 import { SubtenantTrustedCertificateUpdateRequest } from "./types";
 /**
  *SubtenantTrustedCertificate repository
@@ -33,8 +35,8 @@ export class SubtenantTrustedCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, SubtenantTrustedCertificateAdapter.fromApi(data));
             }
         );
     }
@@ -72,8 +74,8 @@ export class SubtenantTrustedCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, DeveloperCertificateAdapter.fromApi(data));
             }
         );
     }
@@ -92,8 +94,8 @@ export class SubtenantTrustedCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, SubtenantTrustedCertificateAdapter.fromApi(data));
             }
         );
     }
@@ -124,8 +126,8 @@ export class SubtenantTrustedCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, SubtenantTrustedCertificateAdapter.fromApi(data));
             }
         );
     }

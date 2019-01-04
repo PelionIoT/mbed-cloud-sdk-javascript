@@ -5,7 +5,7 @@ export class AccountAdapter extends Adapter {
     public static fromApi(data: any, instance?: Account): Account {
         return AccountAdapter.assignDefined<Account>(instance || {},
             {
-                discriminator: "ACCOUNT",
+                _discriminator: "ACCOUNT",
                 displayName: data.display_name,
                 aliases: data.aliases,
                 company: data.company,

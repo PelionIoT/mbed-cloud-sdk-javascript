@@ -1,3 +1,4 @@
+import { ListOptions } from "../../../../common/interfaces";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
 export type AccountMfaStatusEnum = "enforced" | "optional";
 export type AccountStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
@@ -213,4 +214,18 @@ export interface AccountUpdateRequest {
      *state
      */
     readonly state?: string;
+}
+/**
+ *AccountListOptions
+ */
+export interface AccountListOptions extends ListOptions {
+    /**
+     *format
+     */
+    format?: string;
+
+    /**
+     *properties
+     */
+    properties?: string;
 }

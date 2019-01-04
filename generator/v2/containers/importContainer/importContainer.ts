@@ -6,8 +6,9 @@ export class ImportContainer extends Container {
     public importFrom: string;
     public imports: string | Array<string>;
 
-    constructor(importFrom: string, imports?: Array<string>) {
+    constructor(key: string, importFrom: string, imports?: Array<string>) {
         super();
+        this.key = key;
         this.importFrom = importFrom;
         this.imports = imports || "*";
     }

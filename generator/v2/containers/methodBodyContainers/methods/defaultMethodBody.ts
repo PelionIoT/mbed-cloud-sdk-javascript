@@ -17,7 +17,8 @@ export class DefaultMethodBody extends MethodBodyContainer {
                 fileParams?: Array<MethodBodyParameterContainer>,
                 bodyParams?: Array<MethodBodyParameterContainer>
             },
-            hasBucket?: boolean
+            hasBucket?: boolean,
+            adapter?: string
         }
     ) {
         super();
@@ -25,8 +26,9 @@ export class DefaultMethodBody extends MethodBodyContainer {
         this.path = path;
         this.returns = returns;
         options = options || {};
-        const { parameters, hasBucket } = options;
+        const { parameters, hasBucket, adapter } = options;
         this.hasBucket = hasBucket;
+        this.adapter = adapter;
 
         const params = parameters || {};
         const { queryParams, pathParams, fileParams, bodyParams } = params;
@@ -44,7 +46,8 @@ export class DefaultMethodBody extends MethodBodyContainer {
             pathParams: await this.getPathParams(),
             fileParams: await this.getFileParams(),
             bodyParams: await this.getBodyParams(),
-            hasBucket: this.hasBucket
+            hasBucket: this.hasBucket,
+            adapter: this.adapter,
         });
     }
 }

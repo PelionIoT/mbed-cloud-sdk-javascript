@@ -1,4 +1,4 @@
 export interface Entity {
     readonly id?: string;
-    readonly discriminator?: string;
+    readonly _discriminator?: string;
 }

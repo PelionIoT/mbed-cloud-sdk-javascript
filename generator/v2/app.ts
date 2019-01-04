@@ -48,18 +48,18 @@ async function main() {
         // generate types
         await generateTypes(entity, enums, pascalKey, outputFolder, camelKey, entityIndex);
 
+        // generate adapters
+        await generateAdapters(entity, pascalKey, camelKey, outputFolder, entityIndex);
+
+        // generate repository
+        await generateRepository(entity, pascalKey, currentGroup, camelKey, outputFolder, entityIndex);
+
         const indexFile = new GeneratedFile(
             "index",
             `${outputFolder}/${snakeToCamel(entity.group_id)}/${camelKey}`,
             await entityIndex.render()
         );
         indexFile.writeFile();
-
-        // generate adapters
-        await generateAdapters(entity, pascalKey, camelKey, outputFolder);
-
-        // generate repository
-        await generateRepository(entity, pascalKey, currentGroup, camelKey, outputFolder);
     }
 
     // main export file

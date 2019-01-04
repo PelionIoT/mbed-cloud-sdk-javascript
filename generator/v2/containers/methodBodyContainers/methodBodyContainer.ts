@@ -10,6 +10,7 @@ export class MethodBodyContainer extends Container {
     public pathParams: Array<MethodBodyParameterContainer>;
     public fileParams: Array<MethodBodyParameterContainer>;
     public bodyParams: Array<MethodBodyParameterContainer>;
+    public adapter: string;
     public async render(): Promise<string> {
         throw new Error("Method not implemented.");
     }

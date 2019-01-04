@@ -1,9 +1,14 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { CertificateIssuer } from "./certificateIssuer";
+import { CertificateIssuerAdapter } from "../../index";
 import { CertificateIssuerCreateRequest } from "./types";
 import { CertificateIssuerUpdateRequest } from "./types";
-import { VerificationResponse } from "../../Security/verificationResponse";
+import { VerificationResponse } from "../../index";
+import { VerificationResponseAdapter } from "../../index";
+import { Paginator } from "../../../../common/pagination";
+import { ListResponse } from "../../../../common/listResponse";
+import { ListOptions } from "../../../../common/interfaces";
 /**
  *CertificateIssuer repository
  */
@@ -26,8 +31,8 @@ export class CertificateIssuerRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, CertificateIssuerAdapter.fromApi(data));
             }
         );
     }
@@ -64,10 +69,38 @@ export class CertificateIssuerRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, CertificateIssuerAdapter.fromApi(data));
             }
         );
+    }
+    public list(options: ListOptions): Paginator<CertificateIssuer, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateIssuer>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/certificate-issuers",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                include: options.include,
+                                limit: options.limit,
+                                order: options.order,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<CertificateIssuer>, done) => {
+                    done(null, new ListResponse(data, data.data, CertificateIssuerAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     public update(request: CertificateIssuerUpdateRequest, id: string): Promise<CertificateIssuer> {
         return apiWrapper(
@@ -89,8 +122,8 @@ export class CertificateIssuerRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, CertificateIssuerAdapter.fromApi(data));
             }
         );
     }
@@ -108,8 +141,8 @@ export class CertificateIssuerRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, VerificationResponseAdapter.fromApi(data));
             }
         );
     }

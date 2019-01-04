@@ -32,13 +32,24 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
 
                 if ((field.items && field.items.foreign_key)) {
                     const k = snakeToCamel(field.items.foreign_key.entity);
-                    const importContainer = new ImportContainer(`../${k}/${k}`, [ snakeToPascal(field.items.foreign_key.entity) ]);
+                    const importContainer = new ImportContainer(
+                        `${k.toUpperCase()}_FOREIGN_KEY_IMPORT`,
+                        `../${k}/${k}`,
+                        [
+                            snakeToPascal(field.items.foreign_key.entity)
+                        ]
+                    );
                     imports.push(importContainer);
                 }
 
                 if (field.foreign_key) {
                     const k = snakeToCamel(field.foreign_key.entity);
-                    const importContainer = new ImportContainer(`../${k}/${k}`, [ snakeToPascal(field.foreign_key.entity) ]);
+                    const importContainer = new ImportContainer(
+                        `${k.toUpperCase()}_FOREIGN_KEY_IMPORT`,
+                        `../${k}/${k}`,
+                        [
+                            snakeToPascal(field.foreign_key.entity)
+                        ]);
                     imports.push(importContainer);
                 }
             }
@@ -48,6 +59,43 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
             const methodInterface = new ClassContainer(`${pascalKey}${methodName}Request`, { isInterface: true });
             methodInterface.addProperty(bodyParams);
             typeContainer.addContainer(methodInterface);
+        }
+    }
+
+    const paginatedMethods = entity.methods.filter(p => !!p.pagination);
+    for (const method of paginatedMethods) {
+        const extraQueryParams = method.fields.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
+        if (extraQueryParams.length > 0) {
+            const listOptions = new ClassContainer(
+                `${pascalKey}ListOptions`,
+                {
+                    isInterface: true,
+                    extendsClass: [
+                        "ListOptions"
+                    ]
+                });
+            extraQueryParams.forEach(q => {
+                listOptions.addProperty(
+                    new PropertyContainer(
+                        snakeToCamel(q._key),
+                        getPropertyType(q, enums),
+                        {
+                            isInterface: true,
+                            isOptional: true,
+                        }
+                    )
+                );
+            });
+            typeContainer.addContainer(listOptions);
+            imports.push(
+                new ImportContainer(
+                    "LIST_OPTIONS",
+                    "../../../../common/interfaces",
+                    [
+                        "ListOptions"
+                    ]
+                )
+            );
         }
     }
 

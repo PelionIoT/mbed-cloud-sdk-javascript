@@ -1,7 +1,11 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { UserInvitation } from "./userInvitation";
+import { UserInvitationAdapter } from "../../index";
 import { UserInvitationCreateRequest } from "./types";
+import { Paginator } from "../../../../common/pagination";
+import { ListResponse } from "../../../../common/listResponse";
+import { ListOptions } from "../../../../common/interfaces";
 /**
  *UserInvitation repository
  */
@@ -22,8 +26,8 @@ export class UserInvitationRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, UserInvitationAdapter.fromApi(data));
             }
         );
     }
@@ -60,9 +64,36 @@ export class UserInvitationRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, UserInvitationAdapter.fromApi(data));
             }
         );
+    }
+    public list(options: ListOptions): Paginator<UserInvitation, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<UserInvitation>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/user-invitations",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                limit: options.limit,
+                                order: options.order,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<UserInvitation>, done) => {
+                    done(null, new ListResponse(data, data.data, UserInvitationAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
 }

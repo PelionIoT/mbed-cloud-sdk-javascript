@@ -38,7 +38,7 @@ method: "<%= method %>",
 resultsFn
 );
 },
-(_data, done) => {
-done(null, null);
+(<%= adapter ? "" : "_" %>data, done) => {
+done(null, <%= adapter ? adapter + ".fromApi(data)" : "null" %>);
 }
 );

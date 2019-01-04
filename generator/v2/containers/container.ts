@@ -2,6 +2,8 @@ import * as prettier from "prettier";
 
 export abstract class Container {
 
+    public key: string;
+
     public abstract render(): Promise<string>;
 
     public prettify(code: string): string {

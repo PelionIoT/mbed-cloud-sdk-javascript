@@ -1,8 +1,12 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { CertificateIssuerConfig } from "./certificateIssuerConfig";
+import { CertificateIssuerConfigAdapter } from "../../index";
 import { CertificateIssuerConfigCreateRequest } from "./types";
 import { CertificateIssuerConfigUpdateRequest } from "./types";
+import { Paginator } from "../../../../common/pagination";
+import { ListResponse } from "../../../../common/listResponse";
+import { ListOptions } from "../../../../common/interfaces";
 /**
  *CertificateIssuerConfig repository
  */
@@ -22,8 +26,8 @@ export class CertificateIssuerConfigRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, CertificateIssuerConfigAdapter.fromApi(data));
             }
         );
     }
@@ -60,10 +64,38 @@ export class CertificateIssuerConfigRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, CertificateIssuerConfigAdapter.fromApi(data));
             }
         );
+    }
+    public list(options: ListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateIssuerConfig>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/certificate-issuer-configurations",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                include: options.include,
+                                limit: options.limit,
+                                order: options.order,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<CertificateIssuerConfig>, done) => {
+                    done(null, new ListResponse(data, data.data, CertificateIssuerConfigAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     public lwm2m(): Promise<CertificateIssuerConfig> {
         return apiWrapper(
@@ -76,8 +108,8 @@ export class CertificateIssuerConfigRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, CertificateIssuerConfigAdapter.fromApi(data));
             }
         );
     }
@@ -98,8 +130,8 @@ export class CertificateIssuerConfigRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, CertificateIssuerConfigAdapter.fromApi(data));
             }
         );
     }

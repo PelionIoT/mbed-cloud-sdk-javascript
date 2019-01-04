@@ -10,4 +10,8 @@ export abstract class Repository {
         this.config = config;
         this.client = client || new Client(config);
     }
+
+    public getConfig(): Config {
+        return this.config;
+    }
 }

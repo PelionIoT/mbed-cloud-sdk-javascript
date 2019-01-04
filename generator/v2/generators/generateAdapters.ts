@@ -8,8 +8,10 @@ import { AdapterMethodBody } from "../containers/methodBodyContainers/adapter/ad
 import { ClassContainer } from "../containers/classContainer/classContainer";
 import { ImportContainer } from "../containers/importContainer/importContainer";
 import { File as GeneratedFile } from "../common/file";
+import { ExportContainer } from "../containers/exportContainer/exportContainer";
+import { FileContainer } from "../containers/fileContainer/fileContainer";
 
-export async function generateAdapters(entity, pascalKey, camelKey, outputFolder) {
+export async function generateAdapters(entity, pascalKey: string, camelKey: string, outputFolder: string, entityIndex: FileContainer) {
     const adapterFields = new Array<AdapterFieldContainer>();
 
     for (const field of entity.fields) {
@@ -47,10 +49,10 @@ export async function generateAdapters(entity, pascalKey, camelKey, outputFolder
             description: `${pascalKey} adapter`,
             extendsClass: "Adapter",
             imports: [
-                new ImportContainer("../../../common/adapter", [
+                new ImportContainer("ADAPTER_BASE", "../../../common/adapter", [
                     "Adapter"
                 ]),
-                new ImportContainer(`./${camelKey}`, [
+                new ImportContainer(`${pascalKey.toUpperCase()}_INTERFACE`, `./${camelKey}`, [
                     pascalKey
                 ])
             ],
@@ -66,4 +68,7 @@ export async function generateAdapters(entity, pascalKey, camelKey, outputFolder
         await adapterClass.render()
     );
     adapterFile.writeFile();
+
+    const typeExport = new ExportContainer(`./${camelKey}Adapter`);
+    entityIndex.addContainer(typeExport);
 }

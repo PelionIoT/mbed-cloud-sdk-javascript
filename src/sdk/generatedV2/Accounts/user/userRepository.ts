@@ -1,8 +1,12 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { User } from "./user";
+import { UserAdapter } from "../../index";
 import { UserCreateRequest } from "./types";
 import { UserUpdateRequest } from "./types";
+import { Paginator } from "../../../../common/pagination";
+import { ListResponse } from "../../../../common/listResponse";
+import { ListOptions } from "../../../../common/interfaces";
 /**
  *User repository
  */
@@ -32,8 +36,8 @@ export class UserRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, UserAdapter.fromApi(data));
             }
         );
     }
@@ -70,10 +74,38 @@ export class UserRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, UserAdapter.fromApi(data));
             }
         );
+    }
+    public list(options: ListOptions): Paginator<User, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/users",
+                            method: "GET",
+                            query: {
+                                after: options.after,
+                                include: options.include,
+                                limit: options.limit,
+                                order: options.order,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<User>, done) => {
+                    done(null, new ListResponse(data, data.data, UserAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     public update(request: UserUpdateRequest, id: string): Promise<User> {
         return apiWrapper(
@@ -99,8 +131,8 @@ export class UserRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, UserAdapter.fromApi(data));
             }
         );
     }

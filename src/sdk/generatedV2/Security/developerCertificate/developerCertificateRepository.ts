@@ -1,8 +1,10 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { DeveloperCertificate } from "./developerCertificate";
+import { DeveloperCertificateAdapter } from "../../index";
 import { DeveloperCertificateCreateRequest } from "./types";
-import { TrustedCertificate } from "../../Security/trustedCertificate";
+import { TrustedCertificate } from "../../index";
+import { TrustedCertificateAdapter } from "../../index";
 /**
  *DeveloperCertificate repository
  */
@@ -22,8 +24,8 @@ export class DeveloperCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, DeveloperCertificateAdapter.fromApi(data));
             }
         );
     }
@@ -60,8 +62,8 @@ export class DeveloperCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, DeveloperCertificateAdapter.fromApi(data));
             }
         );
     }
@@ -79,8 +81,8 @@ export class DeveloperCertificateRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, TrustedCertificateAdapter.fromApi(data));
             }
         );
     }

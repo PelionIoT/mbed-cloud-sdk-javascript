@@ -1,6 +1,7 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { SubtenantUser } from "./subtenantUser";
+import { SubtenantUserAdapter } from "../../index";
 import { SubtenantUserCreateRequest } from "./types";
 import { SubtenantUserUpdateRequest } from "./types";
 /**
@@ -35,8 +36,8 @@ export class SubtenantUserRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, SubtenantUserAdapter.fromApi(data));
             }
         );
     }
@@ -75,8 +76,8 @@ export class SubtenantUserRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, SubtenantUserAdapter.fromApi(data));
             }
         );
     }
@@ -105,8 +106,8 @@ export class SubtenantUserRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, SubtenantUserAdapter.fromApi(data));
             }
         );
     }
@@ -125,8 +126,8 @@ export class SubtenantUserRepository extends Repository {
                     resultsFn
                 );
             },
-            (_data, done) => {
-                done(null, null);
+            (data, done) => {
+                done(null, SubtenantUserAdapter.fromApi(data));
             }
         );
     }
