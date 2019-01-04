@@ -10,9 +10,7 @@ import { SubtenantTrustedCertificateUpdateRequest } from "./types";
 export class SubtenantTrustedCertificateRepository extends Repository {
     public create(
         request: SubtenantTrustedCertificateCreateRequest,
-        accountId: string,
-        deviceExecutionMode: number,
-        isDeveloperCertificate: boolean
+        accountId: string
     ): Promise<SubtenantTrustedCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -20,6 +18,17 @@ export class SubtenantTrustedCertificateRepository extends Repository {
                     {
                         url: "/v3/accounts/{account_id}/trusted-certificates",
                         method: "POST",
+                        pathParams: {
+                            account_id: accountId,
+                        },
+                        body: {
+                            certificate: request.certificate,
+                            description: request.description,
+                            enrollment_mode: request.enrollmentMode,
+                            name: request.name,
+                            service: request.service,
+                            status: request.status,
+                        },
                     },
                     resultsFn
                 );
@@ -29,18 +38,17 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
-    public delete(
-        accountId: string,
-        deviceExecutionMode: number,
-        id: string,
-        isDeveloperCertificate: boolean
-    ): Promise<void> {
+    public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
                         url: "/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
                         method: "DELETE",
+                        pathParams: {
+                            account_id: accountId,
+                            cert_id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -50,17 +58,16 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
-    public developerCertificateInfo(
-        deviceExecutionMode: number,
-        id: string,
-        isDeveloperCertificate: boolean
-    ): Promise<DeveloperCertificate> {
+    public developerCertificateInfo(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
                         url: "/v3/developer-certificates/{developerCertificateId}",
                         method: "GET",
+                        pathParams: {
+                            developerCertificateId: id,
+                        },
                     },
                     resultsFn
                 );
@@ -70,18 +77,17 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
-    public get(
-        accountId: string,
-        deviceExecutionMode: number,
-        id: string,
-        isDeveloperCertificate: boolean
-    ): Promise<SubtenantTrustedCertificate> {
+    public get(accountId: string, id: string): Promise<SubtenantTrustedCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
                         url: "/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
                         method: "GET",
+                        pathParams: {
+                            account_id: accountId,
+                            cert_id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -94,9 +100,7 @@ export class SubtenantTrustedCertificateRepository extends Repository {
     public update(
         request: SubtenantTrustedCertificateUpdateRequest,
         accountId: string,
-        deviceExecutionMode: number,
-        id: string,
-        isDeveloperCertificate: boolean
+        id: string
     ): Promise<SubtenantTrustedCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -104,6 +108,18 @@ export class SubtenantTrustedCertificateRepository extends Repository {
                     {
                         url: "/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
                         method: "PUT",
+                        pathParams: {
+                            account_id: accountId,
+                            cert_id: id,
+                        },
+                        body: {
+                            certificate: request.certificate,
+                            description: request.description,
+                            enrollment_mode: request.enrollmentMode,
+                            name: request.name,
+                            service: request.service,
+                            status: request.status,
+                        },
                     },
                     resultsFn
                 );

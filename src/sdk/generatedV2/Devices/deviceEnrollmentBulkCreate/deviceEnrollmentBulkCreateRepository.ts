@@ -13,6 +13,10 @@ export class DeviceEnrollmentBulkCreateRepository extends Repository {
                     {
                         url: "/v3/device-enrollments-bulk-uploads",
                         method: "POST",
+                        formParams: {
+                            enrollment_identities: enrollmentIdentities,
+                        },
+                        contentTypes: [ "multipart/form-data" ],
                     },
                     resultsFn
                 );
@@ -61,6 +65,9 @@ export class DeviceEnrollmentBulkCreateRepository extends Repository {
                     {
                         url: "/v3/device-enrollments-bulk-uploads/{id}",
                         method: "GET",
+                        pathParams: {
+                            id: id,
+                        },
                     },
                     resultsFn
                 );

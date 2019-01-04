@@ -14,6 +14,23 @@ export class SubtenantUserRepository extends Repository {
                     {
                         url: "/v3/accounts/{account_id}/users",
                         method: "POST",
+                        query: {
+                            action: action,
+                        },
+                        pathParams: {
+                            account_id: accountId,
+                        },
+                        body: {
+                            address: request.address,
+                            email: request.email,
+                            full_name: request.fullName,
+                            login_profiles: request.loginProfiles,
+                            is_marketing_accepted: request.marketingAccepted,
+                            password: request.password,
+                            phone_number: request.phoneNumber,
+                            is_gtc_accepted: request.termsAccepted,
+                            username: request.username,
+                        },
                     },
                     resultsFn
                 );
@@ -30,6 +47,10 @@ export class SubtenantUserRepository extends Repository {
                     {
                         url: "/v3/accounts/{account_id}/users/{user_id}",
                         method: "DELETE",
+                        pathParams: {
+                            account_id: accountId,
+                            user_id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -46,6 +67,10 @@ export class SubtenantUserRepository extends Repository {
                     {
                         url: "/v3/accounts/{account_id}/users/{user_id}",
                         method: "GET",
+                        pathParams: {
+                            account_id: accountId,
+                            user_id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -62,6 +87,20 @@ export class SubtenantUserRepository extends Repository {
                     {
                         url: "/v3/accounts/{account_id}/users/{user_id}",
                         method: "PUT",
+                        pathParams: {
+                            account_id: accountId,
+                            user_id: id,
+                        },
+                        body: {
+                            address: request.address,
+                            full_name: request.fullName,
+                            login_profiles: request.loginProfiles,
+                            is_marketing_accepted: request.marketingAccepted,
+                            phone_number: request.phoneNumber,
+                            is_gtc_accepted: request.termsAccepted,
+                            is_totp_enabled: request.twoFactorAuthentication,
+                            username: request.username,
+                        },
                     },
                     resultsFn
                 );
@@ -78,6 +117,10 @@ export class SubtenantUserRepository extends Repository {
                     {
                         url: "/v3/accounts/{account_id}/users/{user_id}/validate-email",
                         method: "POST",
+                        pathParams: {
+                            account_id: accountId,
+                            user_id: id,
+                        },
                     },
                     resultsFn
                 );

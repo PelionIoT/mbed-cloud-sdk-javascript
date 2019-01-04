@@ -2,12 +2,8 @@ import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { Device } from "./device";
 import { DeviceCreateRequest } from "./types";
-import { DeviceAdapter } from "./deviceAdapter";
 import { CertificateEnrollment } from "../../Security/certificateEnrollment";
 import { DeviceUpdateRequest } from "./types";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions, OrderEnum } from "../../../../common/interfaces";
 /**
  *Device repository
  */
@@ -19,6 +15,30 @@ export class DeviceRepository extends Repository {
                     {
                         url: "/v3/devices/",
                         method: "POST",
+                        body: {
+                            auto_update: request.autoUpdate,
+                            bootstrap_expiration_date: request.bootstrapExpirationDate,
+                            bootstrapped_timestamp: request.bootstrappedTimestamp,
+                            ca_id: request.caId,
+                            connector_expiration_date: request.connectorExpirationDate,
+                            custom_attributes: request.customAttributes,
+                            deployment: request.deployment,
+                            description: request.description,
+                            device_class: request.deviceClass,
+                            device_execution_mode: request.deviceExecutionMode,
+                            device_key: request.deviceKey,
+                            endpoint_name: request.endpointName,
+                            endpoint_type: request.endpointType,
+                            firmware_checksum: request.firmwareChecksum,
+                            host_gateway: request.hostGateway,
+                            manifest: request.manifest,
+                            mechanism: request.mechanism,
+                            mechanism_url: request.mechanismUrl,
+                            name: request.name,
+                            serial_number: request.serialNumber,
+                            state: request.state,
+                            vendor_id: request.vendorId,
+                        },
                     },
                     resultsFn
                 );
@@ -35,6 +55,9 @@ export class DeviceRepository extends Repository {
                     {
                         url: "/v3/devices/{id}/",
                         method: "DELETE",
+                        pathParams: {
+                            id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -51,6 +74,9 @@ export class DeviceRepository extends Repository {
                     {
                         url: "/v3/devices/{id}/",
                         method: "GET",
+                        pathParams: {
+                            id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -60,34 +86,6 @@ export class DeviceRepository extends Repository {
             }
         );
     }
-    public list(options?: {
-        after?: string;
-        include?: string;
-        limit?: number;
-        order?: OrderEnum;
-    }): Paginator<Device, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Device>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi(
-                        {
-                            url: "/v3/devices/",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                        },
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<Device>, done) => {
-                    done(null, new ListResponse(data, data.data, DeviceAdapter.fromApi));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
     public renewCertificate(certificateName: string, id: string): Promise<CertificateEnrollment> {
         return apiWrapper(
             resultsFn => {
@@ -95,6 +93,10 @@ export class DeviceRepository extends Repository {
                     {
                         url: "/v3/devices/{device-id}/certificates/{certificate-name}/renew",
                         method: "POST",
+                        pathParams: {
+                            "certificate-name": certificateName,
+                            "device-id": id,
+                        },
                     },
                     resultsFn
                 );
@@ -111,6 +113,20 @@ export class DeviceRepository extends Repository {
                     {
                         url: "/v3/devices/{id}/",
                         method: "PUT",
+                        pathParams: {
+                            id: id,
+                        },
+                        body: {
+                            auto_update: request.autoUpdate,
+                            ca_id: request.caId,
+                            custom_attributes: request.customAttributes,
+                            description: request.description,
+                            device_key: request.deviceKey,
+                            endpoint_name: request.endpointName,
+                            endpoint_type: request.endpointType,
+                            host_gateway: request.hostGateway,
+                            name: request.name,
+                        },
                     },
                     resultsFn
                 );

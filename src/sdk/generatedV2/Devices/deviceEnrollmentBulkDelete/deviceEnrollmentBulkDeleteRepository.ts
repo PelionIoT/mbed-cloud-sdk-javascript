@@ -13,6 +13,10 @@ export class DeviceEnrollmentBulkDeleteRepository extends Repository {
                     {
                         url: "/v3/device-enrollments-bulk-deletes",
                         method: "POST",
+                        formParams: {
+                            enrollment_identities: enrollmentIdentities,
+                        },
+                        contentTypes: [ "multipart/form-data" ],
                     },
                     resultsFn
                 );
@@ -61,6 +65,9 @@ export class DeviceEnrollmentBulkDeleteRepository extends Repository {
                     {
                         url: "/v3/device-enrollments-bulk-deletes/{id}",
                         method: "GET",
+                        pathParams: {
+                            id: id,
+                        },
                     },
                     resultsFn
                 );

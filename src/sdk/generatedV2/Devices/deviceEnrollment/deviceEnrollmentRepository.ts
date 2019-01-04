@@ -2,10 +2,6 @@ import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { DeviceEnrollment } from "./deviceEnrollment";
 import { DeviceEnrollmentCreateRequest } from "./types";
-import { DeviceEnrollmentAdapter } from "./deviceEnrollmentAdapter";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions, OrderEnum } from "../../../../common/interfaces";
 /**
  *DeviceEnrollment repository
  */
@@ -17,6 +13,9 @@ export class DeviceEnrollmentRepository extends Repository {
                     {
                         url: "/v3/device-enrollments",
                         method: "POST",
+                        body: {
+                            enrollment_identity: request.enrollmentIdentity,
+                        },
                     },
                     resultsFn
                 );
@@ -33,6 +32,9 @@ export class DeviceEnrollmentRepository extends Repository {
                     {
                         url: "/v3/device-enrollments/{id}",
                         method: "DELETE",
+                        pathParams: {
+                            id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -49,6 +51,9 @@ export class DeviceEnrollmentRepository extends Repository {
                     {
                         url: "/v3/device-enrollments/{id}",
                         method: "GET",
+                        pathParams: {
+                            id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -57,33 +62,5 @@ export class DeviceEnrollmentRepository extends Repository {
                 done(null, null);
             }
         );
-    }
-    public list(options?: {
-        after?: string;
-        include?: string;
-        limit?: number;
-        order?: OrderEnum;
-    }): Paginator<DeviceEnrollment, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEnrollment>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi(
-                        {
-                            url: "/v3/device-enrollments",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                        },
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<DeviceEnrollment>, done) => {
-                    done(null, new ListResponse(data, data.data, DeviceEnrollmentAdapter.fromApi));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
     }
 }

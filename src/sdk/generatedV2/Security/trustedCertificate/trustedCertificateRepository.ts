@@ -3,26 +3,26 @@ import { apiWrapper } from "../../../../common/functions";
 import { TrustedCertificate } from "./trustedCertificate";
 import { TrustedCertificateCreateRequest } from "./types";
 import { DeveloperCertificate } from "../../Security/developerCertificate";
-import { TrustedCertificateAdapter } from "./trustedCertificateAdapter";
 import { TrustedCertificateUpdateRequest } from "./types";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions, OrderEnum } from "../../../../common/interfaces";
 /**
  *TrustedCertificate repository
  */
 export class TrustedCertificateRepository extends Repository {
-    public create(
-        request: TrustedCertificateCreateRequest,
-        deviceExecutionMode: number,
-        isDeveloperCertificate: boolean
-    ): Promise<TrustedCertificate> {
+    public create(request: TrustedCertificateCreateRequest): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
                         url: "/v3/trusted-certificates",
                         method: "POST",
+                        body: {
+                            certificate: request.certificate,
+                            description: request.description,
+                            enrollment_mode: request.enrollmentMode,
+                            name: request.name,
+                            service: request.service,
+                            status: request.status,
+                        },
                     },
                     resultsFn
                 );
@@ -32,13 +32,16 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
-    public delete(deviceExecutionMode: number, id: string, isDeveloperCertificate: boolean): Promise<void> {
+    public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "DELETE",
+                        pathParams: {
+                            cert_id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -48,17 +51,16 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
-    public developerCertificateInfo(
-        deviceExecutionMode: number,
-        id: string,
-        isDeveloperCertificate: boolean
-    ): Promise<DeveloperCertificate> {
+    public developerCertificateInfo(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
                         url: "/v3/developer-certificates/{developerCertificateId}",
                         method: "GET",
+                        pathParams: {
+                            developerCertificateId: id,
+                        },
                     },
                     resultsFn
                 );
@@ -68,13 +70,16 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
-    public get(deviceExecutionMode: number, id: string, isDeveloperCertificate: boolean): Promise<TrustedCertificate> {
+    public get(id: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "GET",
+                        pathParams: {
+                            cert_id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -84,45 +89,24 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
-    public list(
-        deviceExecutionMode: number,
-        isDeveloperCertificate: boolean,
-        options?: { after?: string; include?: string; limit?: number; order?: OrderEnum }
-    ): Paginator<TrustedCertificate, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<TrustedCertificate>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi(
-                        {
-                            url: "/v3/trusted-certificates",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                        },
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<TrustedCertificate>, done) => {
-                    done(null, new ListResponse(data, data.data, TrustedCertificateAdapter.fromApi));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-    public update(
-        request: TrustedCertificateUpdateRequest,
-        deviceExecutionMode: number,
-        id: string,
-        isDeveloperCertificate: boolean
-    ): Promise<TrustedCertificate> {
+    public update(request: TrustedCertificateUpdateRequest, id: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "PUT",
+                        pathParams: {
+                            cert_id: id,
+                        },
+                        body: {
+                            certificate: request.certificate,
+                            description: request.description,
+                            enrollment_mode: request.enrollmentMode,
+                            name: request.name,
+                            service: request.service,
+                            status: request.status,
+                        },
                     },
                     resultsFn
                 );

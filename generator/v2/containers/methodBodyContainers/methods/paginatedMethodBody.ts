@@ -3,13 +3,11 @@ import { MethodBodyContainer } from "../methodBodyContainer";
 
 export class PaginatedMethodBody extends MethodBodyContainer {
 
-    public returns: string;
-    public path: string;
-
     constructor(returns: string, path: string) {
         super();
         this.returns = returns;
         this.path = path;
+        this.method = "GET";
     }
 
     public async render(): Promise<string> {

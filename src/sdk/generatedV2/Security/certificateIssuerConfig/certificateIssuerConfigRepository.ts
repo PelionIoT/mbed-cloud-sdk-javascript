@@ -2,11 +2,7 @@ import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
 import { CertificateIssuerConfig } from "./certificateIssuerConfig";
 import { CertificateIssuerConfigCreateRequest } from "./types";
-import { CertificateIssuerConfigAdapter } from "./certificateIssuerConfigAdapter";
 import { CertificateIssuerConfigUpdateRequest } from "./types";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions, OrderEnum } from "../../../../common/interfaces";
 /**
  *CertificateIssuerConfig repository
  */
@@ -18,6 +14,10 @@ export class CertificateIssuerConfigRepository extends Repository {
                     {
                         url: "/v3/certificate-issuer-configurations",
                         method: "POST",
+                        body: {
+                            certificate_issuer_id: request.certificateIssuerId,
+                            reference: request.certificateReference,
+                        },
                     },
                     resultsFn
                 );
@@ -34,6 +34,9 @@ export class CertificateIssuerConfigRepository extends Repository {
                     {
                         url: "/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
                         method: "DELETE",
+                        pathParams: {
+                            "certificate-issuer-configuration-id": id,
+                        },
                     },
                     resultsFn
                 );
@@ -50,6 +53,9 @@ export class CertificateIssuerConfigRepository extends Repository {
                     {
                         url: "/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
                         method: "GET",
+                        pathParams: {
+                            "certificate-issuer-configuration-id": id,
+                        },
                     },
                     resultsFn
                 );
@@ -58,34 +64,6 @@ export class CertificateIssuerConfigRepository extends Repository {
                 done(null, null);
             }
         );
-    }
-    public list(options?: {
-        after?: string;
-        include?: string;
-        limit?: number;
-        order?: OrderEnum;
-    }): Paginator<CertificateIssuerConfig, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateIssuerConfig>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi(
-                        {
-                            url: "/v3/certificate-issuer-configurations",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                        },
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<CertificateIssuerConfig>, done) => {
-                    done(null, new ListResponse(data, data.data, CertificateIssuerConfigAdapter.fromApi));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
     }
     public lwm2m(): Promise<CertificateIssuerConfig> {
         return apiWrapper(
@@ -110,6 +88,12 @@ export class CertificateIssuerConfigRepository extends Repository {
                     {
                         url: "/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
                         method: "PUT",
+                        pathParams: {
+                            "certificate-issuer-configuration-id": id,
+                        },
+                        body: {
+                            certificate_issuer_id: request.certificateIssuerId,
+                        },
                     },
                     resultsFn
                 );

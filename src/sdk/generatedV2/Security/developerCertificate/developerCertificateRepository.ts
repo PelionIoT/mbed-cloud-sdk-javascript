@@ -14,6 +14,10 @@ export class DeveloperCertificateRepository extends Repository {
                     {
                         url: "/v3/developer-certificates",
                         method: "POST",
+                        body: {
+                            description: request.description,
+                            name: request.name,
+                        },
                     },
                     resultsFn
                 );
@@ -30,6 +34,9 @@ export class DeveloperCertificateRepository extends Repository {
                     {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "DELETE",
+                        pathParams: {
+                            cert_id: id,
+                        },
                     },
                     resultsFn
                 );
@@ -46,6 +53,9 @@ export class DeveloperCertificateRepository extends Repository {
                     {
                         url: "/v3/developer-certificates/{developerCertificateId}",
                         method: "GET",
+                        pathParams: {
+                            developerCertificateId: id,
+                        },
                     },
                     resultsFn
                 );
@@ -55,13 +65,16 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
-    public trustedCertificateInfo(deviceExecutionMode: number, id: string): Promise<TrustedCertificate> {
+    public trustedCertificateInfo(id: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "GET",
+                        pathParams: {
+                            cert_id: id,
+                        },
                     },
                     resultsFn
                 );
