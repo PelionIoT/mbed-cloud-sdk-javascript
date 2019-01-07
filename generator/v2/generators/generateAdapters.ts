@@ -22,6 +22,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
         let mapsForeignKey = false;
         let foreignKeyAdapter = "";
         if (field.items && field.items.foreign_key) {
+            // field is an array of foreign keys
             // hard code for now to cope with plurality of policy/policies
             const adapter = field._key === "policies" ? "PolicyAdapter" : `${snakeToPascal(field._key)}Adapter`;
             mapsForeignKeyArray = true;
@@ -31,6 +32,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
                 adapter
             );
             adapterMappers.push(mapper);
+            // add import for adapter
             adapterImports.push(new ImportContainer(
                 `${field._key.toUpperCase()}_ADAPTER`,
                 "../..",
@@ -40,6 +42,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
             ));
         }
         if (field.foreign_key) {
+            // field is foreing key
             mapsForeignKey = true;
             foreignKeyAdapter = `${snakeToPascal(field._key)}Adapter`;
             adapterImports.push(new ImportContainer(
@@ -51,7 +54,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
             ));
         }
         if (field.format === "date-time") {
-            // console.log(`${field._key} should map date`);
+            // TODO map date times here to remove data regex from client and stop doing hard copy
         }
         const adapterField = new AdapterFieldContainer(
             snakeToCamel(field._key),

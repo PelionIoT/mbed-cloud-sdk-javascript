@@ -25,7 +25,7 @@ describe("ApiKey crud tests", () => {
 
         // update
 
-        const updated = await repo.update(read.id, { name: "alex api new name" });
+        const updated = await repo.update({ name: "alex api new name" }, read.id);
 
         expect(instanceOfApiKey(updated)).toBeTruthy();
         expect(updated.name).toEqual("alex api new name");

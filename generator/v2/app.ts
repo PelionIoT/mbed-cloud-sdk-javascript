@@ -8,6 +8,9 @@ import { ExportContainer } from "./containers/exportContainer/exportContainer";
 import { generateTypes } from "./generators/generateTypes";
 import { generateAdapters } from "./generators/generateAdapters";
 import { generateRepository } from "./generators/generateRepository";
+import { ImportContainer } from "./containers/importContainer/importContainer";
+import { FactoryMethodContainer } from "./containers/factoryContainer/factoryMethodContainer";
+import { FactoryContainer } from "./containers/factoryContainer/factoryContainer";
 
 async function main() {
     const outputFolder = "./src/sdk/generatedV2";
@@ -62,11 +65,44 @@ async function main() {
         indexFile.writeFile();
     }
 
+    // generateFactory
+    const factoryImports = new Array<ImportContainer>();
+    const factoryMethods = new Array<FactoryMethodContainer>();
+    for (const entity of entities) {
+        if (entity.methods.length > 0) {
+            const factoryMethod = new FactoryMethodContainer(
+                snakeToCamel(entity._key),
+                snakeToPascal(entity._key)
+            );
+            factoryMethods.push(factoryMethod);
+            factoryImports.push(new ImportContainer(
+                `${snakeToPascal(entity._key).toUpperCase()}_REPOSITORY`,
+                ".",
+                [
+                    `${snakeToPascal(entity._key)}Repository`
+                ]
+            ));
+        }
+    }
+    const factory = new FactoryContainer(factoryMethods, factoryImports);
+    entityExports.push(new ExportContainer(
+        "./factory",
+        [
+            "Factory"
+        ]
+    ));
+    const factoryFile = new GeneratedFile(
+        "factory",
+        outputFolder,
+        await factory.render()
+    );
+    factoryFile.writeFile();
+
     // main export file
     const generatedIndex = new FileContainer(entityExports);
     const generatedIndexFile = new GeneratedFile(
         "index",
-        `${outputFolder}`,
+        outputFolder,
         await generatedIndex.render()
     );
     generatedIndexFile.writeFile();

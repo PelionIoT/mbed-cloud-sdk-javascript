@@ -20,3 +20,4 @@ export * from "./Security/trustedCertificate";
 export * from "./Accounts/user";
 export * from "./Accounts/userInvitation";
 export * from "./Security/verificationResponse";
+export { Factory } from "./factory";

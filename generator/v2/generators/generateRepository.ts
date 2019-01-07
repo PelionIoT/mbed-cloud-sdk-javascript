@@ -85,8 +85,6 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
             const ep = method.fields.filter(m => m.in && m.in !== "body");
             for (const field of ep) {
                 if (paginated && field.in === "query") {
-                    // tslint:disable-next-line:no-console
-                    console.log("skip paginated query params");
                     continue;
                 }
                 const fieldType = field._key === "order" ? "OrderEnum" : getAdditionalProperties(field) || getType(field.type, field.items);
@@ -136,7 +134,10 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
                     parameterList.addParameters(
                         new ParameterContainer(
                             "options",
-                            "ListOptions"
+                            "ListOptions",
+                            {
+                                isRequired: false
+                            }
                         )
                     );
                 }

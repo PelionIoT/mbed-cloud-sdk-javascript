@@ -1,0 +1,19 @@
+import { Config } from "../client/config";
+<%_ if (imports.length > 0) { _%>
+<%_ imports.forEach(function(i) { _%>
+<%- i %>
+<%_ }); _%>
+<%_ } _%>
+
+export class Factory {
+private readonly _config: Config;
+constructor(config: Config) {
+this._config = config;
+}
+<%# ---------- METHODS ---------- _%>
+<%_ if (methods.length > 0) { _%>
+<%_ methods.forEach(function(method) { _%>
+<%- method %>
+<%_ }); _%>
+<%_ } _%>
+}
