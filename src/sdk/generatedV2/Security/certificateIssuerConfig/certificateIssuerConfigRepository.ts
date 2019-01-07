@@ -69,7 +69,7 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
-    public list(options: ListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
+    public list(options?: ListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateIssuerConfig>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -79,10 +79,10 @@ export class CertificateIssuerConfigRepository extends Repository {
                             url: "/v3/certificate-issuer-configurations",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                include: options.include,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                         },
                         resultsFn

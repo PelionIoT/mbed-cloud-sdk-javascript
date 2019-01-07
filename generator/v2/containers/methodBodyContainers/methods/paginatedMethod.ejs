@@ -1,4 +1,4 @@
-const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<<%= returns %>>> => {
+const pageFunc = (pageOptions: <%= listOptionsType %>): Promise<ListResponse<<%= returns %>>> => {
 pageOptions = pageOptions || {}
 return apiWrapper(
 resultsFn => {

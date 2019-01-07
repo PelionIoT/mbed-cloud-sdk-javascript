@@ -28,7 +28,7 @@ export class CertificateEnrollmentRepository extends Repository {
             }
         );
     }
-    public list(options: ListOptions): Paginator<CertificateEnrollment, ListOptions> {
+    public list(options?: ListOptions): Paginator<CertificateEnrollment, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateEnrollment>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -38,10 +38,10 @@ export class CertificateEnrollmentRepository extends Repository {
                             url: "/v3/certificate-enrollments",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                include: options.include,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                         },
                         resultsFn

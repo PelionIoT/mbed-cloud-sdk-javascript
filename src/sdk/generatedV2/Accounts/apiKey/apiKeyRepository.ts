@@ -70,7 +70,7 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    public list(options: ListOptions): Paginator<ApiKey, ListOptions> {
+    public list(options?: ListOptions): Paginator<ApiKey, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -80,10 +80,10 @@ export class ApiKeyRepository extends Repository {
                             url: "/v3/api-keys",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                include: options.include,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                         },
                         resultsFn

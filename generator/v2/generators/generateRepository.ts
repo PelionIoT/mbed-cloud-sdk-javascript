@@ -63,6 +63,8 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
                 ));
             }
 
+            // default list options is ListOptions. Different if paginated and has more query params
+            let listOptionsType = "ListOptions";
             const parameterList = new ParameterListContainer();
 
             // request param
@@ -115,6 +117,7 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
             if (paginated) {
                 const extraQueryParams = ep.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
                 if (extraQueryParams.length > 0) {
+                    listOptionsType = `${returns}ListOptions`;
                     parameterList.addParameters(
                         new ParameterContainer(
                             "options",
@@ -154,7 +157,7 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
                     const queryParam = new MethodBodyParameterContainer(
                         snakeToCamel(field.entity_fieldname),
                         field.api_fieldname,
-                        paginated ? "options" : hasBucket && !!!field.required ? "options" : ""
+                        paginated ? "pageOptions" : hasBucket && !!!field.required ? "options" : ""
                     );
                     queryParams.push(queryParam);
                 }
@@ -197,7 +200,8 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
                         fileParams,
                         bodyParams
                     },
-                    adapter: returns
+                    adapter: returns,
+                    listOptionsType
                 });
             } else if (customMethodCall) {
                 if (parameterList.parameters.length === 0 && !parameterList.bucket) {

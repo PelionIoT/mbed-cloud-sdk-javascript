@@ -94,7 +94,7 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
-    public list(options: ListOptions): Paginator<TrustedCertificate, ListOptions> {
+    public list(options?: ListOptions): Paginator<TrustedCertificate, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<TrustedCertificate>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -104,10 +104,10 @@ export class TrustedCertificateRepository extends Repository {
                             url: "/v3/trusted-certificates",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                include: options.include,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                         },
                         resultsFn

@@ -28,7 +28,7 @@ export class DeviceEventsRepository extends Repository {
             }
         );
     }
-    public list(options: ListOptions): Paginator<DeviceEvents, ListOptions> {
+    public list(options?: ListOptions): Paginator<DeviceEvents, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEvents>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -38,10 +38,10 @@ export class DeviceEventsRepository extends Repository {
                             url: "/v3/device-events/",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                include: options.include,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                         },
                         resultsFn

@@ -4,6 +4,8 @@ import { MethodBodyParameterContainer } from "./parameters/methodBodyParameterCo
 
 export class PaginatedMethodBody extends MethodBodyContainer {
 
+    public listOptionsType: string;
+
     constructor(
         returns: string,
         path: string,
@@ -14,7 +16,8 @@ export class PaginatedMethodBody extends MethodBodyContainer {
                 fileParams?: Array<MethodBodyParameterContainer>,
                 bodyParams?: Array<MethodBodyParameterContainer>
             },
-            adapter?: string
+            adapter?: string,
+            listOptionsType?: string
         }
     ) {
         super();
@@ -23,8 +26,9 @@ export class PaginatedMethodBody extends MethodBodyContainer {
         this.method = "GET";
 
         options = options || {};
-        const { parameters, adapter } = options;
+        const { parameters, adapter, listOptionsType } = options;
         this.adapter = adapter;
+        this.listOptionsType = listOptionsType || "ListOptions";
 
         const params = parameters || {};
         const { queryParams, pathParams, fileParams, bodyParams } = params;
@@ -43,6 +47,7 @@ export class PaginatedMethodBody extends MethodBodyContainer {
             fileParams: await this.getFileParams(),
             bodyParams: await this.getBodyParams(),
             adapter: this.adapter,
+            listOptionsType: this.listOptionsType,
         });
     }
 }

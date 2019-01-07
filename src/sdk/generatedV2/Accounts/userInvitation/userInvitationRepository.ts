@@ -69,7 +69,7 @@ export class UserInvitationRepository extends Repository {
             }
         );
     }
-    public list(options: ListOptions): Paginator<UserInvitation, ListOptions> {
+    public list(options?: ListOptions): Paginator<UserInvitation, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<UserInvitation>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -79,9 +79,9 @@ export class UserInvitationRepository extends Repository {
                             url: "/v3/user-invitations",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                         },
                         resultsFn

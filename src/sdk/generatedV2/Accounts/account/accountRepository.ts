@@ -83,7 +83,7 @@ export class AccountRepository extends Repository {
         );
     }
     public list(options: AccountListOptions): Paginator<Account, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Account>> => {
+        const pageFunc = (pageOptions: AccountListOptions): Promise<ListResponse<Account>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -92,12 +92,12 @@ export class AccountRepository extends Repository {
                             url: "/v3/accounts",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                format: options.format,
-                                include: options.include,
-                                limit: options.limit,
-                                order: options.order,
-                                properties: options.properties,
+                                after: pageOptions.after,
+                                format: pageOptions.format,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                                properties: pageOptions.properties,
                             },
                         },
                         resultsFn
@@ -133,7 +133,7 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public trustedCertificates(id: string, options: ListOptions): Paginator<SubtenantTrustedCertificate, ListOptions> {
+    public trustedCertificates(id: string, options?: ListOptions): Paginator<SubtenantTrustedCertificate, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantTrustedCertificate>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -143,10 +143,10 @@ export class AccountRepository extends Repository {
                             url: "/v3/accounts/{account_id}/trusted-certificates",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                include: options.include,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                             pathParams: {
                                 account_id: id,
@@ -207,7 +207,7 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public userInvitations(id: string, options: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
+    public userInvitations(id: string, options?: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUserInvitation>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -217,9 +217,9 @@ export class AccountRepository extends Repository {
                             url: "/v3/accounts/{account_id}/user-invitations",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                             pathParams: {
                                 account_id: id,
@@ -237,7 +237,7 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-    public users(id: string, options: ListOptions): Paginator<SubtenantUser, ListOptions> {
+    public users(id: string, options?: ListOptions): Paginator<SubtenantUser, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUser>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -247,10 +247,10 @@ export class AccountRepository extends Repository {
                             url: "/v3/accounts/{account_id}/users",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                include: options.include,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                             pathParams: {
                                 account_id: id,

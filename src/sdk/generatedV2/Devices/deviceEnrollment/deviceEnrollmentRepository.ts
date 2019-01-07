@@ -67,7 +67,7 @@ export class DeviceEnrollmentRepository extends Repository {
             }
         );
     }
-    public list(options: ListOptions): Paginator<DeviceEnrollment, ListOptions> {
+    public list(options?: ListOptions): Paginator<DeviceEnrollment, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEnrollment>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -77,10 +77,10 @@ export class DeviceEnrollmentRepository extends Repository {
                             url: "/v3/device-enrollments",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                include: options.include,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                         },
                         resultsFn

@@ -1,7 +1,6 @@
-import { ApiKeyRepository, UserRepository } from "../entities";
+import { ApiKeyRepository, UserRepository, ApiKey, User } from "../entities";
 import { Config } from "../client/config";
-import { instanceOfApiKey } from "../generated/Accounts/apiKey/apiKeyFunctions";
-import { instanceOfUser } from "../generated/Accounts/user/userFunctions";
+import { Entity } from "../common/entity";
 // import { instanceOfAccount } from "../generated/Accounts/account/accountFunctions";
 
 describe("ApiKey crud tests", () => {
@@ -14,20 +13,23 @@ describe("ApiKey crud tests", () => {
             name: "alex new api key",
         });
 
-        expect(instanceOfApiKey(created)).toBeTruthy();
+        // tslint:disable-next-line:no-console
+        console.log(created);
+
+        expect(instanceOf<ApiKey>(created, "API_KEY")).toBeTruthy();
 
         // read
 
         const read = await repo.get(created.id);
 
-        expect(instanceOfApiKey(read)).toBeTruthy();
+        expect(instanceOf<ApiKey>(read, "API_KEY")).toBeTruthy();
         expect(read.id).toEqual(created.id);
 
         // update
 
         const updated = await repo.update({ name: "alex api new name" }, read.id);
 
-        expect(instanceOfApiKey(updated)).toBeTruthy();
+        expect(instanceOf<ApiKey>(updated, "API_KEY")).toBeTruthy();
         expect(updated.name).toEqual("alex api new name");
 
         // delete
@@ -41,7 +43,7 @@ describe("ApiKey crud tests", () => {
         // tslint:disable-next-line:no-console
         console.log(first);
 
-        expect(instanceOfApiKey(first)).toBeTruthy();
+        expect(instanceOf<ApiKey>(first, "API_KEY")).toBeTruthy();
     });
 
     it("should perform user crud test", async () => {
@@ -52,16 +54,16 @@ describe("ApiKey crud tests", () => {
             email: "alex@alextest.co.ck",
         });
 
-        expect(instanceOfUser(created)).toBeTruthy();
+        expect(instanceOf<User>(created, "USER")).toBeTruthy();
 
         // read
         const read = await repo.get(created.id);
-        expect(instanceOfUser(read)).toBeTruthy();
+        expect(instanceOf<User>(read, "USER")).toBeTruthy();
         expect(read.id).toEqual(created.id);
 
         // update
-        const updated = await repo.update(read.id, { fullName: "Alex Logan" });
-        expect(instanceOfUser(updated)).toBeTruthy();
+        const updated = await repo.update({ fullName: "Alex Logan" }, read.id);
+        expect(instanceOf<User>(updated, "USER")).toBeTruthy();
         expect(updated.fullName).toEqual("Alex Logan");
 
         // delete
@@ -69,7 +71,7 @@ describe("ApiKey crud tests", () => {
 
         // list
         const first = await repo.list().first();
-        expect(instanceOfUser(first)).toBeTruthy();
+        expect(instanceOf<User>(first, "USER")).toBeTruthy();
     });
 
     // it("should perform account crud test", async () => {
@@ -97,3 +99,7 @@ describe("ApiKey crud tests", () => {
     // });
 
 });
+
+function instanceOf<T extends Entity>(object: any, discriminator: string): object is T {
+    return object._discriminator === discriminator;
+}

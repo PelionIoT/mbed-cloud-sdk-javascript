@@ -79,7 +79,7 @@ export class UserRepository extends Repository {
             }
         );
     }
-    public list(options: ListOptions): Paginator<User, ListOptions> {
+    public list(options?: ListOptions): Paginator<User, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -89,10 +89,10 @@ export class UserRepository extends Repository {
                             url: "/v3/users",
                             method: "GET",
                             query: {
-                                after: options.after,
-                                include: options.include,
-                                limit: options.limit,
-                                order: options.order,
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
                             },
                         },
                         resultsFn
