@@ -2,16 +2,11 @@ import { ReadStream, createWriteStream, createReadStream } from "fs";
 import { isThisNode } from "../../common/functions";
 import { get as http_get } from "superagent";
 import { Config } from "../client/config";
-import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository } from "../generatedV2";
+import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate } from "../generatedV2";
 
-// export function isDeveloperCertificateGetter(self: TrustedCertificate | SubtenantTrustedCertificate) {
-//     return self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
-// }
-
-// export function isDeveloperCertificateSetter(self: TrustedCertificate | SubtenantTrustedCertificate, value: boolean): void {
-//     self.deviceExecutionMode = value ? 1 : 0;
-//     self.isDeveloperCertificate = value;
-// }
+export function isDeveloperCertificateSetter(self: TrustedCertificate): void {
+    self.isDeveloperCertificate = self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
+}
 
 export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {

@@ -5,7 +5,10 @@ import { DeviceEnrollment } from "./deviceEnrollment";
  */
 export class DeviceEnrollmentAdapter extends Adapter {
     public static fromApi(data: any, instance?: DeviceEnrollment): DeviceEnrollment {
-        return DeviceEnrollmentAdapter.assignDefined<DeviceEnrollment>(instance || {}, {
+        if (!data) {
+            return null;
+        }
+        const mappedEntity = DeviceEnrollmentAdapter.assignDefined<DeviceEnrollment>(instance || {}, {
             _discriminator: "DEVICE_ENROLLMENT",
             accountId: data.account_id,
             claimedAt: data.claimed_at,
@@ -15,5 +18,6 @@ export class DeviceEnrollmentAdapter extends Adapter {
             expiresAt: data.expires_at,
             id: data.id,
         });
+        return mappedEntity;
     }
 }

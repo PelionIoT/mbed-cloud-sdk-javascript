@@ -6,11 +6,14 @@ import { LoginHistoryAdapter } from "../..";
  */
 export class UserAdapter extends Adapter {
     public static fromApi(data: any, instance?: User): User {
+        if (!data) {
+            return null;
+        }
         let loginHistory = [];
         if (data.login_history) {
             loginHistory = data.login_history.map(i => LoginHistoryAdapter.fromApi(i));
         }
-        return UserAdapter.assignDefined<User>(instance || {}, {
+        const mappedEntity = UserAdapter.assignDefined<User>(instance || {}, {
             _discriminator: "USER",
             accountId: data.account_id,
             address: data.address,
@@ -33,5 +36,6 @@ export class UserAdapter extends Adapter {
             updatedAt: data.updated_at,
             username: data.username,
         });
+        return mappedEntity;
     }
 }

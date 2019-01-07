@@ -1,10 +1,13 @@
+if (!data) {
+return null;
+}
 <%# ---------- PROPERTIES ---------- _%>
 <%_ if (mapperMethods.length > 0) { _%>
 <%_ mapperMethods.forEach(function(method) { _%>
 <%- method %>
 <%_ }); _%>
 <%_ } _%>
-return <%= enclosingClass %>.assignDefined<<%= returns %>>(instance || {},
+const mappedEntity = <%= enclosingClass %>.assignDefined<<%= returns %>>(instance || {},
 {
 _discriminator: "<%= discriminator.toUpperCase() %>",
 <%# ---------- PROPERTIES ---------- _%>
@@ -14,3 +17,10 @@ _discriminator: "<%= discriminator.toUpperCase() %>",
 <%_ }); _%>
 <%_ } _%>
 });
+<%# ---------- CUSTOM_FUNCTION_CALLS ---------- _%>
+<%_ if (customFunctionCalls.length > 0) { _%>
+<%_ customFunctionCalls.forEach(function(c) { _%>
+<%- c %>
+<%_ }); _%>
+<%_ } _%>
+return mappedEntity;

@@ -5,7 +5,10 @@ import { ApiKey } from "./apiKey";
  */
 export class ApiKeyAdapter extends Adapter {
     public static fromApi(data: any, instance?: ApiKey): ApiKey {
-        return ApiKeyAdapter.assignDefined<ApiKey>(instance || {}, {
+        if (!data) {
+            return null;
+        }
+        const mappedEntity = ApiKeyAdapter.assignDefined<ApiKey>(instance || {}, {
             _discriminator: "API_KEY",
             accountId: data.account_id,
             createdAt: data.created_at,
@@ -18,5 +21,6 @@ export class ApiKeyAdapter extends Adapter {
             status: data.status,
             updatedAt: data.updated_at,
         });
+        return mappedEntity;
     }
 }

@@ -5,7 +5,10 @@ import { DeviceEvents } from "./deviceEvents";
  */
 export class DeviceEventsAdapter extends Adapter {
     public static fromApi(data: any, instance?: DeviceEvents): DeviceEvents {
-        return DeviceEventsAdapter.assignDefined<DeviceEvents>(instance || {}, {
+        if (!data) {
+            return null;
+        }
+        const mappedEntity = DeviceEventsAdapter.assignDefined<DeviceEvents>(instance || {}, {
             _discriminator: "DEVICE_EVENTS",
             changes: data.changes,
             createdAt: data.created_at,
@@ -19,5 +22,6 @@ export class DeviceEventsAdapter extends Adapter {
             id: data.id,
             stateChange: data.state_change,
         });
+        return mappedEntity;
     }
 }

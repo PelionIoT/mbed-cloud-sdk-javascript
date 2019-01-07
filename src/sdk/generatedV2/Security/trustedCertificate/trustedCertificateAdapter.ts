@@ -1,11 +1,15 @@
 import { Adapter } from "../../../common/adapter";
 import { TrustedCertificate } from "./trustedCertificate";
+import { isDeveloperCertificateSetter } from "../../../common/privateFunctions";
 /**
  *TrustedCertificate adapter
  */
 export class TrustedCertificateAdapter extends Adapter {
     public static fromApi(data: any, instance?: TrustedCertificate): TrustedCertificate {
-        return TrustedCertificateAdapter.assignDefined<TrustedCertificate>(instance || {}, {
+        if (!data) {
+            return null;
+        }
+        const mappedEntity = TrustedCertificateAdapter.assignDefined<TrustedCertificate>(instance || {}, {
             _discriminator: "TRUSTED_CERTIFICATE",
             accountId: data.account_id,
             certificate: data.certificate,
@@ -25,5 +29,7 @@ export class TrustedCertificateAdapter extends Adapter {
             updatedAt: data.updated_at,
             validity: data.validity,
         });
+        isDeveloperCertificateSetter(mappedEntity);
+        return mappedEntity;
     }
 }

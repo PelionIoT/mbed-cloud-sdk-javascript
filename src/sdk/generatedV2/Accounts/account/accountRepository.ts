@@ -82,7 +82,7 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public list(options: AccountListOptions): Paginator<Account, ListOptions> {
+    public list(options?: AccountListOptions): Paginator<Account, ListOptions> {
         const pageFunc = (pageOptions: AccountListOptions): Promise<ListResponse<Account>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(

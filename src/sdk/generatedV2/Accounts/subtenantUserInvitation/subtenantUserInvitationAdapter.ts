@@ -5,7 +5,10 @@ import { SubtenantUserInvitation } from "./subtenantUserInvitation";
  */
 export class SubtenantUserInvitationAdapter extends Adapter {
     public static fromApi(data: any, instance?: SubtenantUserInvitation): SubtenantUserInvitation {
-        return SubtenantUserInvitationAdapter.assignDefined<SubtenantUserInvitation>(instance || {}, {
+        if (!data) {
+            return null;
+        }
+        const mappedEntity = SubtenantUserInvitationAdapter.assignDefined<SubtenantUserInvitation>(instance || {}, {
             _discriminator: "SUBTENANT_USER_INVITATION",
             accountId: data.account_id,
             createdAt: data.created_at,
@@ -16,5 +19,6 @@ export class SubtenantUserInvitationAdapter extends Adapter {
             updatedAt: data.updated_at,
             userId: data.user_id,
         });
+        return mappedEntity;
     }
 }

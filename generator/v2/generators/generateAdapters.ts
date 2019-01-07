@@ -11,11 +11,13 @@ import { File as GeneratedFile } from "../common/file";
 import { ExportContainer } from "../containers/exportContainer/exportContainer";
 import { FileContainer } from "../containers/fileContainer/fileContainer";
 import { AdapterMapperContainer } from "../containers/methodBodyContainers/adapter/adapterMapperContainer";
+import { AdapterCustomFunctionCallContainer } from "../containers/methodBodyContainers/adapter/adapterCustomFunctionCallContainer";
 
 export async function generateAdapters(entity, pascalKey: string, camelKey: string, outputFolder: string, entityIndex: FileContainer, snakeKey: string) {
     const adapterMappers = new Array<AdapterMapperContainer>();
     const adapterImports = new Array<ImportContainer>();
     const adapterFields = new Array<AdapterFieldContainer>();
+    const adapterCustomFunctions = new Array<AdapterCustomFunctionCallContainer>();
 
     for (const field of entity.fields) {
         let mapsForeignKeyArray = false;
@@ -56,6 +58,18 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
         if (field.format === "date-time") {
             // TODO map date times here to remove data regex from client and stop doing hard copy
         }
+        if (field.getter_custom_method || field.setter_custom_method) {
+            const customFunctionCall = new AdapterCustomFunctionCallContainer(snakeToCamel(field._key));
+            adapterCustomFunctions.push(customFunctionCall);
+            adapterImports.push((new ImportContainer(
+                "PRIVATE_FUNCTIONS",
+                "../../../common/privateFunctions",
+                [
+                    `${snakeToCamel(field._key)}Setter`
+                ]
+            )));
+        }
+
         const adapterField = new AdapterFieldContainer(
             snakeToCamel(field._key),
             field.api_fieldname,
@@ -83,8 +97,9 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
             `${pascalKey}Adapter`,
             {
                 fields: adapterFields,
-                mapperMethods: adapterMappers
-            })
+                mapperMethods: adapterMappers,
+                customFunctionCalls: adapterCustomFunctions
+            }),
     });
 
     const adapterClass = new ClassContainer(

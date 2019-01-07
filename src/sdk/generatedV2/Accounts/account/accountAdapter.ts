@@ -7,11 +7,14 @@ import { PolicyAdapter } from "../..";
  */
 export class AccountAdapter extends Adapter {
     public static fromApi(data: any, instance?: Account): Account {
+        if (!data) {
+            return null;
+        }
         let policies = [];
         if (data.policies) {
             policies = data.policies.map(i => PolicyAdapter.fromApi(i));
         }
-        return AccountAdapter.assignDefined<Account>(instance || {}, {
+        const mappedEntity = AccountAdapter.assignDefined<Account>(instance || {}, {
             _discriminator: "ACCOUNT",
             addressLine1: data.address_line1,
             addressLine2: data.address_line2,
@@ -55,5 +58,6 @@ export class AccountAdapter extends Adapter {
             updatedAt: data.updated_at,
             upgradedAt: data.upgraded_at,
         });
+        return mappedEntity;
     }
 }

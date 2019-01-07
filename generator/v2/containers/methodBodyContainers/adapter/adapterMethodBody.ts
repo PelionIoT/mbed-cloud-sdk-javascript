@@ -2,6 +2,7 @@ import * as ejs from "ejs";
 import { MethodBodyContainer } from "../methodBodyContainer";
 import { AdapterFieldContainer } from "./adapterFieldContainer";
 import { AdapterMapperContainer } from "./adapterMapperContainer";
+import { AdapterCustomFunctionCallContainer } from "./adapterCustomFunctionCallContainer";
 
 export class AdapterMethodBody extends MethodBodyContainer {
 
@@ -10,6 +11,7 @@ export class AdapterMethodBody extends MethodBodyContainer {
     public enclosingClass: string;
     public mapperMethods: Array<AdapterMapperContainer>;
     public fields: Array<AdapterFieldContainer>;
+    public customFunctionCalls: Array<AdapterCustomFunctionCallContainer>;
 
     constructor(
         returns: string,
@@ -17,7 +19,8 @@ export class AdapterMethodBody extends MethodBodyContainer {
         enclosingClass: string,
         options: {
             fields?: AdapterFieldContainer | Array<AdapterFieldContainer>,
-            mapperMethods?: AdapterMapperContainer | Array<AdapterMapperContainer>
+            mapperMethods?: AdapterMapperContainer | Array<AdapterMapperContainer>,
+            customFunctionCalls?: Array<AdapterCustomFunctionCallContainer>
         }) {
         super();
         this.returns = returns;
@@ -43,6 +46,15 @@ export class AdapterMethodBody extends MethodBodyContainer {
                 this.mapperMethods.push(options.mapperMethods);
             }
         }
+
+        this.customFunctionCalls = [];
+        if (options.customFunctionCalls) {
+            if (options.customFunctionCalls instanceof Array) {
+                this.customFunctionCalls = options.customFunctionCalls;
+            } else {
+                this.customFunctionCalls.push(options.customFunctionCalls);
+            }
+        }
     }
 
     public addField(fields: AdapterFieldContainer | Array<AdapterFieldContainer>): void {
@@ -50,6 +62,22 @@ export class AdapterMethodBody extends MethodBodyContainer {
             this.fields = this.fields.concat(fields);
         } else {
             this.fields.push(fields);
+        }
+    }
+
+    public addMapper(mapper: AdapterMapperContainer | Array<AdapterMapperContainer>): void {
+        if (mapper instanceof Array) {
+            this.mapperMethods = this.mapperMethods.concat(mapper);
+        } else {
+            this.mapperMethods.push(mapper);
+        }
+    }
+
+    public addCustomFunctionCall(customCall: AdapterCustomFunctionCallContainer | Array<AdapterCustomFunctionCallContainer>): void {
+        if (customCall instanceof Array) {
+            this.customFunctionCalls = this.customFunctionCalls.concat(customCall);
+        } else {
+            this.customFunctionCalls.push(customCall);
         }
     }
 
@@ -61,6 +89,10 @@ export class AdapterMethodBody extends MethodBodyContainer {
         return Promise.all(this.mapperMethods.map(async m => m.render()));
     }
 
+    public getCustomFunctionCalls(): Promise<Array<string>> {
+        return Promise.all(this.customFunctionCalls.map(async c => c.render()));
+    }
+
     public async render(): Promise<string> {
         return await ejs.renderFile<string>("generator/v2/containers/methodBodyContainers/adapter/adapter.ejs", {
             returns: this.returns,
@@ -68,6 +100,7 @@ export class AdapterMethodBody extends MethodBodyContainer {
             enclosingClass: this.enclosingClass,
             fields: this.fields ? await this.getFields() : "",
             mapperMethods: this.mapperMethods ? await this.getMappers() : "",
+            customFunctionCalls: this.customFunctionCalls ? await this.getCustomFunctionCalls() : ""
         });
     }
 

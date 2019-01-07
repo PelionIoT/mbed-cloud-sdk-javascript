@@ -5,7 +5,10 @@ import { UserInvitation } from "./userInvitation";
  */
 export class UserInvitationAdapter extends Adapter {
     public static fromApi(data: any, instance?: UserInvitation): UserInvitation {
-        return UserInvitationAdapter.assignDefined<UserInvitation>(instance || {}, {
+        if (!data) {
+            return null;
+        }
+        const mappedEntity = UserInvitationAdapter.assignDefined<UserInvitation>(instance || {}, {
             _discriminator: "USER_INVITATION",
             accountId: data.account_id,
             createdAt: data.created_at,
@@ -16,5 +19,6 @@ export class UserInvitationAdapter extends Adapter {
             updatedAt: data.updated_at,
             userId: data.user_id,
         });
+        return mappedEntity;
     }
 }

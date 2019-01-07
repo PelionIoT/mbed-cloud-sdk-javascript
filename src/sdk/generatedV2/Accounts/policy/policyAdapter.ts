@@ -5,7 +5,10 @@ import { Policy } from "./policy";
  */
 export class PolicyAdapter extends Adapter {
     public static fromApi(data: any, instance?: Policy): Policy {
-        return PolicyAdapter.assignDefined<Policy>(instance || {}, {
+        if (!data) {
+            return null;
+        }
+        const mappedEntity = PolicyAdapter.assignDefined<Policy>(instance || {}, {
             _discriminator: "POLICY",
             action: data.action,
             allow: data.allow,
@@ -13,5 +16,6 @@ export class PolicyAdapter extends Adapter {
             inherited: data.inherited,
             resource: data.resource,
         });
+        return mappedEntity;
     }
 }

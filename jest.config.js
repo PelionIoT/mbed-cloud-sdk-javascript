@@ -3,8 +3,8 @@ module.exports = {
         "^.+\\.tsx?$": "ts-jest"
     },
     "testMatch": [
-        "**/generator/v2/tests/**/*.ts",
-        "**/src/sdk/__tests__/*.ts"
+        "**/test/unit/*.ts",
+        "**/test/unit/foundation/*.ts",
     ],
     "moduleFileExtensions": [
         "js",
