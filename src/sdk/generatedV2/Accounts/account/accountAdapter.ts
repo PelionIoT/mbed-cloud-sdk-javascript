@@ -1,10 +1,16 @@
 import { Adapter } from "../../../common/adapter";
 import { Account } from "./account";
+import { PasswordPolicyAdapter } from "../..";
+import { PolicyAdapter } from "../..";
 /**
  *Account adapter
  */
 export class AccountAdapter extends Adapter {
     public static fromApi(data: any, instance?: Account): Account {
+        let policies = [];
+        if (data.policies) {
+            policies = data.policies.map(i => PolicyAdapter.fromApi(i));
+        }
         return AccountAdapter.assignDefined<Account>(instance || {}, {
             _discriminator: "ACCOUNT",
             addressLine1: data.address_line1,
@@ -35,9 +41,9 @@ export class AccountAdapter extends Adapter {
             notificationEmails: data.notification_emails,
             parentAccount: data.parent_account,
             parentId: data.parent_id,
-            passwordPolicy: data.password_policy,
+            passwordPolicy: PasswordPolicyAdapter.fromApi(data.password_policy),
             phoneNumber: data.phone_number,
-            policies: data.policies,
+            policies: policies,
             postalCode: data.postal_code,
             reason: data.reason,
             referenceNote: data.reference_note,

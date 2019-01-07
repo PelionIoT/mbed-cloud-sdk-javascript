@@ -57,12 +57,17 @@ export class AdapterMethodBody extends MethodBodyContainer {
         return Promise.all(this.fields.map(async f => f.render()));
     }
 
+    public getMappers(): Promise<Array<string>> {
+        return Promise.all(this.mapperMethods.map(async m => m.render()));
+    }
+
     public async render(): Promise<string> {
         return await ejs.renderFile<string>("generator/v2/containers/methodBodyContainers/adapter/adapter.ejs", {
             returns: this.returns,
             discriminator: this.discriminator,
             enclosingClass: this.enclosingClass,
-            fields: this.fields ? await this.getFields() : ""
+            fields: this.fields ? await this.getFields() : "",
+            mapperMethods: this.mapperMethods ? await this.getMappers() : "",
         });
     }
 

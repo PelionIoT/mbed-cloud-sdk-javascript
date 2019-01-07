@@ -1,10 +1,15 @@
 import { Adapter } from "../../../common/adapter";
 import { SubtenantUser } from "./subtenantUser";
+import { LoginHistoryAdapter } from "../..";
 /**
  *SubtenantUser adapter
  */
 export class SubtenantUserAdapter extends Adapter {
     public static fromApi(data: any, instance?: SubtenantUser): SubtenantUser {
+        let loginHistory = [];
+        if (data.login_history) {
+            loginHistory = data.login_history.map(i => LoginHistoryAdapter.fromApi(i));
+        }
         return SubtenantUserAdapter.assignDefined<SubtenantUser>(instance || {}, {
             _discriminator: "SUBTENANT_USER",
             accountId: data.account_id,
@@ -16,7 +21,7 @@ export class SubtenantUserAdapter extends Adapter {
             fullName: data.full_name,
             id: data.id,
             lastLoginTime: data.last_login_time,
-            loginHistory: data.login_history,
+            loginHistory: loginHistory,
             loginProfiles: data.login_profiles,
             marketingAccepted: data.is_marketing_accepted,
             password: data.password,

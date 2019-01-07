@@ -1,3 +1,9 @@
+<%# ---------- PROPERTIES ---------- _%>
+<%_ if (mapperMethods.length > 0) { _%>
+<%_ mapperMethods.forEach(function(method) { _%>
+<%- method %>
+<%_ }); _%>
+<%_ } _%>
 return <%= enclosingClass %>.assignDefined<<%= returns %>>(instance || {},
 {
 _discriminator: "<%= discriminator.toUpperCase() %>",

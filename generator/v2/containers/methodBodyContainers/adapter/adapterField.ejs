@@ -1,1 +1,1 @@
-<%= entityName %>: data.<%= apiName %>,
+<%= entityName %>: <%= mapsForeignKey ? foreignKeyAdapter + ".fromApi(data." + apiName + ")" : mapsForeignKeyArray ? entityName : "data." + apiName %>,

@@ -1,6 +1,6 @@
 import { Adapter } from "../../../common/adapter";
 import { User } from "./user";
-import { LoginHistoryAdapter } from "../loginHistory";
+import { LoginHistoryAdapter } from "../..";
 /**
  *User adapter
  */
@@ -8,7 +8,7 @@ export class UserAdapter extends Adapter {
     public static fromApi(data: any, instance?: User): User {
         let loginHistory = [];
         if (data.login_history) {
-            loginHistory = data.login_history.map(i => LoginHistoryAdapter.map(i));
+            loginHistory = data.login_history.map(i => LoginHistoryAdapter.fromApi(i));
         }
         return UserAdapter.assignDefined<User>(instance || {}, {
             _discriminator: "USER",
@@ -21,7 +21,7 @@ export class UserAdapter extends Adapter {
             fullName: data.full_name,
             id: data.id,
             lastLoginTime: data.last_login_time,
-            loginHistory: data.login_history,
+            loginHistory: loginHistory,
             loginProfiles: data.login_profiles,
             marketingAccepted: data.is_marketing_accepted,
             password: data.password,
