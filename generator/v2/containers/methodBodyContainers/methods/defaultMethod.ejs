@@ -39,6 +39,6 @@ resultsFn
 );
 },
 (<%= adapter ? "" : "_" %>data, done) => {
-done(null, <%= adapter ? adapter + ".fromApi(data)" : "null" %>);
+done(null, <%= adapter ? adapter + ".fromApi(data" + (hasRequest ? ", request" : "") + ")" : "null" %>);
 }
 );

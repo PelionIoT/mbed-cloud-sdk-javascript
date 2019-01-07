@@ -65,12 +65,10 @@ export class ListResponse<T> {
         const limitParameterName = "limit";
         this[limitParameterName] = this.pageSize;
 
-        let keys: Array<T> = [];
         if (mapper && data && data.length) {
-            keys = from.data.map(key => {
-                return mapper(key);
-            });
+            this.data = from.data.map(key => mapper(key));
+        } else {
+            this.data = data;
         }
-        this.data = data || keys;
     }
 }

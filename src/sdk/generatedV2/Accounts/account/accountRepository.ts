@@ -54,7 +54,7 @@ export class AccountRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, AccountAdapter.fromApi(data));
+                done(null, AccountAdapter.fromApi(data, request));
             }
         );
     }
@@ -203,7 +203,7 @@ export class AccountRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, AccountAdapter.fromApi(data));
+                done(null, AccountAdapter.fromApi(data, request));
             }
         );
     }

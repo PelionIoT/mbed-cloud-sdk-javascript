@@ -37,7 +37,7 @@ export class SubtenantUserRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, SubtenantUserAdapter.fromApi(data));
+                done(null, SubtenantUserAdapter.fromApi(data, request));
             }
         );
     }
@@ -107,7 +107,7 @@ export class SubtenantUserRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, SubtenantUserAdapter.fromApi(data));
+                done(null, SubtenantUserAdapter.fromApi(data, request));
             }
         );
     }

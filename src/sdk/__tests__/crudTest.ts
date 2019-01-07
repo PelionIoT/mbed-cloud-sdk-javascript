@@ -13,9 +13,6 @@ describe("ApiKey crud tests", () => {
             name: "alex new api key",
         });
 
-        // tslint:disable-next-line:no-console
-        console.log(created);
-
         expect(instanceOf<ApiKey>(created, "API_KEY")).toBeTruthy();
 
         // read
@@ -43,6 +40,9 @@ describe("ApiKey crud tests", () => {
         // tslint:disable-next-line:no-console
         console.log(first);
 
+        // tslint:disable-next-line:no-console
+        console.log(first);
+
         expect(instanceOf<ApiKey>(first, "API_KEY")).toBeTruthy();
     });
 
@@ -66,6 +66,10 @@ describe("ApiKey crud tests", () => {
         expect(instanceOf<User>(updated, "USER")).toBeTruthy();
         expect(updated.fullName).toEqual("Alex Logan");
 
+        // tslint:disable-next-line:no-console
+        console.log(created);
+        expect(false).toBeTruthy();
+
         // delete
         await repo.delete(updated.id);
 
@@ -73,31 +77,6 @@ describe("ApiKey crud tests", () => {
         const first = await repo.list().first();
         expect(instanceOf<User>(first, "USER")).toBeTruthy();
     });
-
-    // it("should perform account crud test", async () => {
-    //     const repo = new AccountRepository(new Config());
-
-    //     // create
-    //     const created = await repo.create({
-    //         email: "alex@alextest.co.ck",
-    //     });
-
-    //     expect(instanceOfAccount(created)).toBeTruthy();
-
-    //     // read
-    //     const read = await repo.get(created.id);
-    //     expect(instanceOfAccount(read)).toBeTruthy();
-    //     expect(read.id).toEqual(created.id);
-
-    //     // update
-    //     const updated = await repo.update(read.id, { displayName: "new display name" });
-    //     expect(instanceOfAccount(updated)).toBeTruthy();
-    //     expect(updated.displayName).toEqual("new display name");
-
-    //     // delete
-    //     await repo.
-    // });
-
 });
 
 function instanceOf<T extends Entity>(object: any, discriminator: string): object is T {

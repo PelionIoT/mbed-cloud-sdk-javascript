@@ -27,7 +27,7 @@ export class UserInvitationRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, UserInvitationAdapter.fromApi(data));
+                done(null, UserInvitationAdapter.fromApi(data, request));
             }
         );
     }

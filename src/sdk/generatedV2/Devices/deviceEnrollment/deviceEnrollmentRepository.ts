@@ -25,7 +25,7 @@ export class DeviceEnrollmentRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, DeviceEnrollmentAdapter.fromApi(data));
+                done(null, DeviceEnrollmentAdapter.fromApi(data, request));
             }
         );
     }

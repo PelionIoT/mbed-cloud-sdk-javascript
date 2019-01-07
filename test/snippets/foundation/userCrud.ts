@@ -1,21 +1,22 @@
-import { User, LoginHistory } from "../../../src/sdk/entities";
+import { User, LoginHistory, UserRepository } from "../../../src/sdk/entities";
+import { Config } from "../../../src/sdk/client/config";
+import { instanceOf } from "./functions";
 
 describe("userCrud", () => {
 
     test("user get", async () => {
         try {
-            const user = await new User().list().first();
+            const userContext = new UserRepository(new Config());
 
-            const gotUser = new User();
-            gotUser.id = user.id;
-            gotUser.accountId = user.accountId;
-            await gotUser.get();
+            const user = await userContext.list().first();
 
-            expect(gotUser).toBeInstanceOf(User);
+            const gotUser = await userContext.get(user.id);
+
+            expect(instanceOf<User>(gotUser, "USER")).toBeTruthy();
             expect(gotUser.createdAt).toEqual(user.createdAt);
 
             const loginHistory = gotUser.loginHistory[0];
-            expect(loginHistory).toBeInstanceOf(LoginHistory);
+            expect(instanceOf<LoginHistory>(loginHistory, "LOGIN_HISTORY")).toBeTruthy();
         } catch (e) {
             throw e;
         }
@@ -23,8 +24,10 @@ describe("userCrud", () => {
 
     test("user list", async () => {
         try {
-            const user = await new User().list().first();
-            expect(user).toBeInstanceOf(User);
+            const userContext = new UserRepository(new Config());
+
+            const user = await userContext.list().first();
+            expect(instanceOf<User>(user, "USER")).toBeTruthy();
         } catch (e) {
             throw e;
         }
@@ -32,19 +35,23 @@ describe("userCrud", () => {
 
     test("phone demo", async () => {
         try {
-            const user = new User();
-            user.username = "alexjs";
-            user.email = "alex@alex.alex";
-            user.phoneNumber = "01638742452";
-            user.fullName = "Alex Logan";
-            await user.create();
+            const userContext = new UserRepository(new Config());
+
+            const user: User = {
+                username: "alexjs",
+                email: "alex@alex.alex",
+                phoneNumber: "01638742452",
+                fullName: "Alex Logan",
+            };
+
+            await userContext.create(user);
 
             user.phoneNumber = "118118";
+            await userContext.update(user, user.id);
 
-            await user.update();
             expect(user.phoneNumber).toEqual("118118");
 
-            await user.delete();
+            await userContext.delete(user.id);
         } catch (e) {
             throw e;
         }

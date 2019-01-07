@@ -49,7 +49,7 @@ export class DeviceRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, DeviceAdapter.fromApi(data));
+                done(null, DeviceAdapter.fromApi(data, request));
             }
         );
     }
@@ -165,7 +165,7 @@ export class DeviceRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, DeviceAdapter.fromApi(data));
+                done(null, DeviceAdapter.fromApi(data, request));
             }
         );
     }

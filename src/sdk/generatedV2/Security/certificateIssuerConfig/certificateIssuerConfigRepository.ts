@@ -27,7 +27,7 @@ export class CertificateIssuerConfigRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, CertificateIssuerConfigAdapter.fromApi(data));
+                done(null, CertificateIssuerConfigAdapter.fromApi(data, request));
             }
         );
     }
@@ -131,7 +131,7 @@ export class CertificateIssuerConfigRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, CertificateIssuerConfigAdapter.fromApi(data));
+                done(null, CertificateIssuerConfigAdapter.fromApi(data, request));
             }
         );
     }

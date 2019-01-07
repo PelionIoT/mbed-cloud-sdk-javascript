@@ -36,7 +36,7 @@ export class SubtenantTrustedCertificateRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, SubtenantTrustedCertificateAdapter.fromApi(data));
+                done(null, SubtenantTrustedCertificateAdapter.fromApi(data, request));
             }
         );
     }
@@ -127,7 +127,7 @@ export class SubtenantTrustedCertificateRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, SubtenantTrustedCertificateAdapter.fromApi(data));
+                done(null, SubtenantTrustedCertificateAdapter.fromApi(data, request));
             }
         );
     }

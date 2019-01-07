@@ -1,114 +1,128 @@
-import { Account, SubtenantUser, SubtenantTrustedCertificate, PasswordPolicy } from "../../../src/sdk/entities";
+import { Account, SubtenantUser, SubtenantTrustedCertificate, PasswordPolicy, AccountRepository, UserRepository, SubtenantUserRepository } from "../../../src/sdk/entities";
+import { Config } from "../../../src/sdk/client/config";
 
 describe("subTenants", () => {
     it("should update user as subtenant", async () => {
+        const accountContext = new AccountRepository(new Config());
         let myAccount: Account = null;
         try {
-            const newAccount = new Account();
-            newAccount.displayName = "new test account";
-            newAccount.aliases = [ "alex_test_account" ];
-            newAccount.endMarket = "IOT";
-            // Admin user details
-            newAccount.adminFullName = "Alex Logan";
-            newAccount.adminEmail = "alexadmin@admin.com";
+            const newAccount: Account = {
+                displayName: "new test account",
+                aliases: [
+                    "alex_test_account"
+                ],
+                endMarket: "IOT",
+                // Admin user details
+                adminFullName: "Alex Logan",
+                adminEmail: "alexadmin@admin.com",
+            };
 
-            await newAccount.create();
+            await accountContext.create(newAccount);
         } catch (e) {
             // should throw 403, subtenant account limit reached
             if (e.details && e.details.code === 403) {
-                myAccount = (await new Account().list().all()).filter(a => a.displayName === "sdk_test_bob")[0];
+                myAccount = (await accountContext.list({}).all()).filter(a => a.displayName === "sdk_test_bob")[0];
             }
         } finally {
-            expect(myAccount).toBeInstanceOf(Account);
+            // expect(myAccount).toBeInstanceOf(Account);
 
             // get first subtenant user
-            const firstUser = await myAccount.users().first();
+            const firstUser = await accountContext.users(myAccount.id).first();
+            const userContext = new UserRepository(new Config());
 
             const phoneNumber = firstUser.phoneNumber;
 
             firstUser.phoneNumber = "117117";
-            await firstUser.update();
+            await userContext.update(firstUser, firstUser.id);
 
             expect(firstUser.phoneNumber).not.toEqual(phoneNumber);
             expect(firstUser.phoneNumber).toEqual("117117");
 
             firstUser.phoneNumber = phoneNumber;
-            await firstUser.update();
+            await userContext.update(firstUser, firstUser.id);
 
             expect(firstUser.phoneNumber).not.toEqual("117117");
         }
     });
 
     test("subTenant", async () => {
+        const accountContext = new AccountRepository(new Config());
         let myAccount: Account = null;
         try {
             // an example: creating and managing a subtenant account
-            const newAccount = new Account();
-            newAccount.displayName = "new test account";
-            newAccount.aliases = [ "alex_test_account" ];
-            newAccount.endMarket = "IOT";
-            // Admin user details
-            newAccount.adminFullName = "Alex Logan";
-            newAccount.adminEmail = "alexadmin@admin.com";
+            const newAccount: Account = {
+                displayName: "new test account",
+                aliases: [
+                    "alex_test_account"
+                ],
+                endMarket: "IOT",
+                // Admin user details
+                adminFullName: "Alex Logan",
+                adminEmail: "alexadmin@admin.com",
+            };
 
-            await newAccount.create();
+            await accountContext.create(newAccount);
             // cloak
         } catch (e) {
             // should throw 403, subtenant account limit reached
             if (e.details && e.details.code === 403) {
-                myAccount = (await new Account().list().all()).filter(a => a.displayName === "sdk_test_bob")[0];
+                myAccount = (await accountContext.list({}).all()).filter(a => a.displayName === "sdk_test_bob")[0];
             }
         } finally {
             // uncloak
+            const subtenantUserContext = new SubtenantUserRepository(new Config());
             // Populate the new user details
-            const user = new SubtenantUser();
-            // Link this user to the account
-            user.accountId = myAccount.id;
-            // User details
-            user.fullName = "tommi the wombat";
-            user.username = "tommi_wombat";
-            user.phoneNumber = "0800001066";
-            user.email = "tommi_wombat@email.com";
+            const user: SubtenantUser = {
+                // Link this user to the account
+                accountId: myAccount.id,
+                // User details
+                fullName: "tommi the wombat",
+                username: "tommi_wombat",
+                phoneNumber: "0800001066",
+                email: "tommi_wombat@email.com",
+            };
 
             // create the new user
-            await user.create();
+            await subtenantUserContext.create(user, myAccount.id);
 
             // end of example
 
-            expect(user).toBeInstanceOf(SubtenantUser);
+            // expect(user).toBeInstanceOf(SubtenantUser);
             expect(user.createdAt).not.toBeUndefined();
 
-            const userInList = (await myAccount.users().all()).filter(u => u.id === user.id)[0];
-            expect(userInList).toBeInstanceOf(SubtenantUser);
+            const userInList = (await accountContext.users(myAccount.id).all()).filter(u => u.id === user.id)[0];
+            // expect(userInList).toBeInstanceOf(SubtenantUser);
             expect(userInList.createdAt).toEqual(user.createdAt);
 
-            await user.delete();
+            await subtenantUserContext.delete(myAccount.id, user.id);
         }
     });
 
     it("should get account lists", async () => {
-        const myAccount = await new Account().me();
+        const accountContext = new AccountRepository(new Config());
+        const myAccount = await accountContext.me();
 
-        const user = await myAccount.users().first();
+        const user = await accountContext.users(myAccount.id).first();
         if (user) {
-            expect(user).toBeInstanceOf(SubtenantUser);
+            // expect(user).toBeInstanceOf(SubtenantUser);
         }
 
-        const trustedCert = await myAccount.trustedCertificates().first();
+        const trustedCert = await accountContext.trustedCertificates(myAccount.id).first();
         if (trustedCert) {
-            expect(trustedCert).toBeInstanceOf(SubtenantTrustedCertificate);
+            // expect(trustedCert).toBeInstanceOf(SubtenantTrustedCertificate);
         }
 
-        const invitation = await myAccount.userInvitations().first();
+        const invitation = await accountContext.userInvitations(myAccount.id).first();
         if (invitation) {
-            expect(invitation).toBeInstanceOf(SubtenantTrustedCertificate);
+            // expect(invitation).toBeInstanceOf(SubtenantTrustedCertificate);
         }
     });
 
     it("should check account password policies", async () => {
-        (await new Account().list().all()).forEach(a => {
+        const accountContext = new AccountRepository(new Config());
+        (await accountContext.list({}).all()).forEach(a => {
             if (a.passwordPolicy) {
-                expect(a.passwordPolicy).toBeInstanceOf(PasswordPolicy);
+                // expect(a.passwordPolicy).toBeInstanceOf(PasswordPolicy);
             }
         });
     });

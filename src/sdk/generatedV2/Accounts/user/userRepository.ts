@@ -37,7 +37,7 @@ export class UserRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, UserAdapter.fromApi(data));
+                done(null, UserAdapter.fromApi(data, request));
             }
         );
     }
@@ -132,7 +132,7 @@ export class UserRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, UserAdapter.fromApi(data));
+                done(null, UserAdapter.fromApi(data, request));
             }
         );
     }

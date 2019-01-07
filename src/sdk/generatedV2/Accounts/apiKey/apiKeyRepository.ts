@@ -28,7 +28,7 @@ export class ApiKeyRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, ApiKeyAdapter.fromApi(data));
+                done(null, ApiKeyAdapter.fromApi(data, request));
             }
         );
     }
@@ -134,7 +134,7 @@ export class ApiKeyRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, ApiKeyAdapter.fromApi(data));
+                done(null, ApiKeyAdapter.fromApi(data, request));
             }
         );
     }

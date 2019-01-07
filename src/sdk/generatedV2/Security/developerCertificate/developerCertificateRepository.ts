@@ -25,7 +25,7 @@ export class DeveloperCertificateRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, DeveloperCertificateAdapter.fromApi(data));
+                done(null, DeveloperCertificateAdapter.fromApi(data, request));
             }
         );
     }

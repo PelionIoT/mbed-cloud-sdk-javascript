@@ -27,7 +27,7 @@ export class SubtenantUserInvitationRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, SubtenantUserInvitationAdapter.fromApi(data));
+                done(null, SubtenantUserInvitationAdapter.fromApi(data, request));
             }
         );
     }

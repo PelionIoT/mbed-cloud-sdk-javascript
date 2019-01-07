@@ -33,7 +33,7 @@ export class TrustedCertificateRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, TrustedCertificateAdapter.fromApi(data));
+                done(null, TrustedCertificateAdapter.fromApi(data, request));
             }
         );
     }
@@ -145,7 +145,7 @@ export class TrustedCertificateRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, TrustedCertificateAdapter.fromApi(data));
+                done(null, TrustedCertificateAdapter.fromApi(data, request));
             }
         );
     }

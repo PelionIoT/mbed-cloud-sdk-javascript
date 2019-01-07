@@ -67,8 +67,10 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
             let listOptionsType = "ListOptions";
             const parameterList = new ParameterListContainer();
 
+            let hasRequest = false;
             // request param
             if (method.fields.filter(m => m.in === "body").length >= 1) {
+                hasRequest = true;
                 parameterList.addParameters(new ParameterContainer(
                     "request",
                     `${pascalKey}${snakeToPascal(method._key)}Request`
@@ -121,7 +123,10 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
                     parameterList.addParameters(
                         new ParameterContainer(
                             "options",
-                            `${returns}ListOptions`
+                            `${returns}ListOptions`,
+                            {
+                                isRequired: false
+                            }
                         )
                     );
                     repositoryImports.push(
@@ -235,6 +240,7 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
                         fileParams,
                         bodyParams
                     },
+                    hasRequest,
                     hasBucket,
                     adapter: returns !== "void" && returns.indexOf("File") === -1 ? `${returns}Adapter` : ""
                 });

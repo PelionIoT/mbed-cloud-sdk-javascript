@@ -5,6 +5,7 @@ import { MethodBodyParameterContainer } from "./parameters/methodBodyParameterCo
 export class DefaultMethodBody extends MethodBodyContainer {
 
     public hasBucket: boolean;
+    public hasRequest: boolean;
 
     constructor(
         method: string,
@@ -18,6 +19,7 @@ export class DefaultMethodBody extends MethodBodyContainer {
                 bodyParams?: Array<MethodBodyParameterContainer>
             },
             hasBucket?: boolean,
+            hasRequest?: boolean,
             adapter?: string
         }
     ) {
@@ -26,8 +28,9 @@ export class DefaultMethodBody extends MethodBodyContainer {
         this.path = path;
         this.returns = returns;
         options = options || {};
-        const { parameters, hasBucket, adapter } = options;
+        const { parameters, hasRequest, hasBucket, adapter } = options;
         this.hasBucket = hasBucket;
+        this.hasRequest = hasRequest || false;
         this.adapter = adapter;
 
         const params = parameters || {};
@@ -48,6 +51,7 @@ export class DefaultMethodBody extends MethodBodyContainer {
             bodyParams: await this.getBodyParams(),
             hasBucket: this.hasBucket,
             adapter: this.adapter,
+            hasRequest: this.hasRequest,
         });
     }
 }
