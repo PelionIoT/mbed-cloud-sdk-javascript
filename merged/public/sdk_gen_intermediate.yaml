@@ -30,11 +30,13 @@ entities:
     api_fieldname: admin_id
     description: The ID of the admin user created.
     example: 01619571e2e89242ac12000600000000
+    readOnly: false
     type: string
   - _key: admin_key
     api_fieldname: admin_key
     description: The admin API key created for the account.
     example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+    readOnly: false
     type: string
   - _key: admin_name
     api_fieldname: admin_name
@@ -93,6 +95,7 @@ entities:
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: custom_fields
     additionalProperties:
@@ -149,6 +152,7 @@ entities:
       type: string
     api_fieldname: limits
     description: List of limits as key-value pairs if requested.
+    readOnly: false
     type: object
   - _key: mfa_status
     api_fieldname: mfa_status
@@ -194,11 +198,13 @@ entities:
       entity_fieldname: id
       example: 01619571dad80242ac12000600000000
       type: string
+    readOnly: false
     type: object
   - _key: parent_id
     api_fieldname: parent_id
     description: The ID of the parent account, if it has any.
     example: 01619571dad80242ac12000600000000
+    readOnly: false
     type: string
   - _key: password_policy
     api_fieldname: password_policy
@@ -265,6 +271,7 @@ entities:
         example: /v3/update-campaign
         type: string
       type: object
+    readOnly: false
     type: array
   - _key: postal_code
     api_fieldname: postal_code
@@ -276,11 +283,13 @@ entities:
     api_fieldname: reason
     description: A reason note for updating the status of the account
     example: Subscription paid.
+    readOnly: false
     type: string
   - _key: reference_note
     api_fieldname: reference_note
     description: A reference note for updating the status of the account
     example: ARM-INT-0001
+    readOnly: false
     type: string
   - _key: sales_contact
     api_fieldname: sales_contact
@@ -304,29 +313,34 @@ entities:
     - SUSPENDED
     enum_reference: account_status_enum
     example: ACTIVE
+    readOnly: false
     type: string
   - _key: template_id
     api_fieldname: template_id
     description: Account template ID.
     example: 01619571e7160242ac12000600000000
+    readOnly: false
     type: string
   - _key: tier
     api_fieldname: tier
     description: 'The tier level of the account; ''0'': free tier, ''1'': commercial
       account, ''2'': partner tier. Other values are reserved for the future.'
     example: '1'
+    readOnly: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: upgraded_at
     api_fieldname: upgraded_at
     description: Time when upgraded to commercial account in UTC format RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   group_id: Accounts
   methods:
@@ -5780,18 +5794,21 @@ entities:
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
     pattern: '[a-f0-9]{32}'
+    readOnly: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: creation_time
     api_fieldname: creation_time
     description: The timestamp of the API key creation in the storage, in milliseconds.
     example: 1518630727683
     format: int64
+    readOnly: false
     type: integer
   - _key: id
     api_fieldname: id
@@ -5803,12 +5820,14 @@ entities:
     api_fieldname: key
     description: The API key.
     example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000
+    readOnly: false
     type: string
   - _key: last_login_time
     api_fieldname: last_login_time
     description: The timestamp of the latest API key usage, in milliseconds.
     example: 1518630727688
     format: int64
+    readOnly: false
     type: integer
   - _key: name
     api_fieldname: name
@@ -5837,6 +5856,7 @@ entities:
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   group_id: Accounts
   methods:
@@ -7618,24 +7638,21 @@ entities:
     api_fieldname: certificate_name
     description: The certificate name.
     example: customer.dlms
-    external_param: true
-    in: path
     maxLength: 50
-    name: certificate-name
-    parameter_fieldname: certificate-name
-    pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
-    required: true
+    readOnly: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2017-01-01T00:00:00Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: device_id
     api_fieldname: device_id
     description: The device ID.
     example: 01625daa23230a580a0100bd00000000
+    readOnly: false
     type: string
   - _key: enroll_result
     api_fieldname: enroll_result
@@ -7645,6 +7662,7 @@ entities:
     - forbidden
     - failure
     enum_reference: certificate_enrollment_enroll_result_enum
+    readOnly: false
     type: string
   - _key: enroll_status
     api_fieldname: enroll_status
@@ -7652,21 +7670,20 @@ entities:
     - new
     - completed
     enum_reference: certificate_enrollment_enroll_status_enum
+    readOnly: false
     type: string
   - _key: id
     api_fieldname: id
     description: The ID of the certificate enrollment.
     example: 01612df56f3b0a580a010fc700000000
-    in: path
-    parameter_fieldname: device-id
     readOnly: false
-    required: true
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: Update UTC time RFC3339.
     example: '2017-01-01T00:00:00Z'
     format: date-time
+    readOnly: false
     type: string
   group_id: Security
   methods:
@@ -7733,13 +7750,7 @@ entities:
           description: The certificate name.
           entity_fieldname: certificate_name
           example: customer.dlms
-          external_param: true
-          in: path
           maxLength: 50
-          name: certificate-name
-          parameter_fieldname: certificate-name
-          pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
-          required: true
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -7781,9 +7792,6 @@ entities:
           description: The ID of the certificate enrollment.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
-          in: path
-          parameter_fieldname: device-id
-          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -8118,34 +8126,20 @@ entities:
               group: Security
             properties:
             - _key: certificate_name
-              api_fieldname: certificate-name
               description: The certificate name.
-              entity_fieldname: certificate_name
               example: customer.dlms
-              external_param: true
-              in: path
               maxLength: 50
-              name: certificate-name
-              parameter_fieldname: certificate-name
-              pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
-              required: true
               type: string
             - _key: created_at
-              api_fieldname: created_at
               description: Creation UTC time RFC3339.
-              entity_fieldname: created_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
             - _key: device_id
-              api_fieldname: device_id
               description: The device ID.
-              entity_fieldname: device_id
               example: 01625daa23230a580a0100bd00000000
               type: string
             - _key: enroll_result
-              api_fieldname: enroll_result
-              entity_fieldname: enroll_result
               enum:
               - success
               - not_found
@@ -8153,37 +8147,24 @@ entities:
               - failure
               type: string
             - _key: enroll_status
-              api_fieldname: enroll_status
-              entity_fieldname: enroll_status
               enum:
               - new
               - completed
               type: string
             - _key: etag
-              api_fieldname: etag
               description: Entity instance signature.
-              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
-              api_fieldname: id
               description: The ID of the certificate enrollment.
-              entity_fieldname: id
               example: 01612df56f3b0a580a010fc700000000
-              in: path
-              parameter_fieldname: device-id
-              required: true
               type: string
             - _key: object
-              api_fieldname: object
-              entity_fieldname: object
               enum:
               - certificate-enrollment
               type: string
             - _key: updated_at
-              api_fieldname: updated_at
               description: Update UTC time RFC3339.
-              entity_fieldname: updated_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
@@ -8371,6 +8352,7 @@ entities:
     description: Creation UTC time RFC3339.
     example: '2017-01-01T00:00:00Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: description
     api_fieldname: description
@@ -8410,6 +8392,7 @@ entities:
     - CFSSL_AUTH
     enum_reference: certificate_issuer_issuer_type_enum
     example: GLOBAL_SIGN
+    readOnly: false
     type: string
   - _key: name
     api_fieldname: name
@@ -10384,6 +10367,7 @@ entities:
     description: Created UTC time RFC3339.
     example: '2017-01-01T00:00:00Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: id
     api_fieldname: id
@@ -10398,6 +10382,7 @@ entities:
     description: Updated UTC time RFC3339.
     example: '2017-02-01T00:00:00Z'
     format: date-time
+    readOnly: false
     type: string
   group_id: Security
   methods:
@@ -12039,15 +12024,18 @@ entities:
   - _key: account_id
     api_fieldname: account_id
     description: account to which the developer certificate belongs
+    readOnly: false
     type: string
   - _key: certificate
     api_fieldname: developer_certificate
     description: PEM format X.509 developer certificate.
+    readOnly: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     format: date-time
+    readOnly: false
     type: string
   - _key: description
     api_fieldname: description
@@ -12071,6 +12059,7 @@ entities:
     api_fieldname: security_file_content
     description: Content of the security.c file that will be flashed into the device
       to provide the security credentials
+    readOnly: false
     type: string
   group_id: Security
   methods:
@@ -13680,6 +13669,7 @@ entities:
     api_fieldname: account_id
     description: The ID of the associated account.
     example: '00000000000000000000000000000000'
+    readOnly: false
     type: string
   - _key: auto_update
     api_fieldname: auto_update
@@ -13718,6 +13708,7 @@ entities:
     description: The timestamp of when the device was created in the device directory.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: custom_attributes
     additionalProperties:
@@ -13740,6 +13731,7 @@ entities:
     - development
     - production
     enum_reference: device_deployed_state_enum
+    readOnly: false
     type: string
   - _key: deployment
     api_fieldname: deployment
@@ -13799,6 +13791,7 @@ entities:
     description: The claim date/time.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: firmware_checksum
     api_fieldname: firmware_checksum
@@ -13832,6 +13825,7 @@ entities:
     description: The reference of the block category.
     example: maintenance
     pattern: '[a-f0-9_]{32}'
+    readOnly: false
     type: string
   - _key: last_operator_suspended_description
     api_fieldname: last_operator_suspended_description
@@ -13839,18 +13833,21 @@ entities:
       to service.
     example: Suspended for maintenance.
     maxLength: 2000
+    readOnly: false
     type: string
   - _key: last_operator_suspended_updated_at
     api_fieldname: last_operator_suspended_updated_at
     description: The timestamp of the most recent suspension activity.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: last_system_suspended_category
     api_fieldname: last_system_suspended_category
     description: The reference of the block category.
     example: maintenance
     pattern: '[a-f0-9_]{32}'
+    readOnly: false
     type: string
   - _key: last_system_suspended_description
     api_fieldname: last_system_suspended_description
@@ -13859,12 +13856,14 @@ entities:
     example: A certificate in the device's certificate chain was blacklisted by the
       system.
     maxLength: 2000
+    readOnly: false
     type: string
   - _key: last_system_suspended_updated_at
     api_fieldname: last_system_suspended_updated_at
     description: The timestamp of the most recent system block activity.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: lifecycle_status
     api_fieldname: lifecycle_status
@@ -13874,6 +13873,7 @@ entities:
     - blocked
     enum_reference: device_lifecycle_status_enum
     example: enabled
+    readOnly: false
     type: string
   - _key: manifest
     api_fieldname: manifest
@@ -13886,6 +13886,7 @@ entities:
     description: The timestamp of the current manifest version.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: mechanism
     api_fieldname: mechanism
@@ -13912,6 +13913,7 @@ entities:
   - _key: operator_suspended
     api_fieldname: operator_suspended
     description: Is the device suspended by the operator?
+    readOnly: false
     type: boolean
   - _key: serial_number
     api_fieldname: serial_number
@@ -13934,12 +13936,14 @@ entities:
   - _key: system_suspended
     api_fieldname: system_suspended
     description: Is the device suspended by the system?
+    readOnly: false
     type: boolean
   - _key: updated_at
     api_fieldname: updated_at
     description: The time the object was updated.
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: vendor_id
     api_fieldname: vendor_id
@@ -15494,6 +15498,9 @@ entities:
           description: The ID of the certificate enrollment.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
+          in: path
+          parameter_fieldname: certificate-enrollment-id
+          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -16266,22 +16273,26 @@ entities:
     api_fieldname: account_id
     description: ID
     example: 00005a4e027f0a580a01081c00000000
+    readOnly: false
     type: string
   - _key: claimed_at
     api_fieldname: claimed_at
     description: The time of claiming the device to be assigned to the account.
     format: date-time
+    readOnly: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: The time of the enrollment identity creation.
     format: date-time
+    readOnly: false
     type: string
   - _key: enrolled_device_id
     api_fieldname: enrolled_device_id
     description: The ID of the device in the Device Directory once it has been registered.
     example: 00005a4e027f0a580a01081c00000000
     pattern: ^[A-Za-z0-9]{32}
+    readOnly: false
     type: string
   - _key: enrollment_identity
     api_fieldname: enrollment_identity
@@ -16296,6 +16307,7 @@ entities:
       to Device Management before the expiration, the claim is removed without a separate
       notice
     format: date-time
+    readOnly: false
     type: string
   - _key: id
     api_fieldname: id
@@ -17323,6 +17335,7 @@ entities:
     api_fieldname: account_id
     description: ID
     example: 00005a4e027f0a580a01081c00000000
+    readOnly: false
     type: string
   - _key: completed_at
     api_fieldname: completed_at
@@ -17332,6 +17345,7 @@ entities:
 
       '
     format: date-time
+    readOnly: false
     type: string
   - _key: created_at
     api_fieldname: created_at
@@ -17339,6 +17353,7 @@ entities:
 
       '
     format: date-time
+    readOnly: false
     type: string
   - _key: errors_count
     api_fieldname: errors_count
@@ -17346,6 +17361,7 @@ entities:
 
       '
     example: 0
+    readOnly: false
     type: integer
   - _key: errors_report_file
     api_fieldname: errors_report_file
@@ -17355,6 +17371,7 @@ entities:
 
       '
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
+    readOnly: false
     type: string
   - _key: full_report_file
     api_fieldname: full_report_file
@@ -17364,6 +17381,7 @@ entities:
 
       '
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
+    readOnly: false
     type: string
   - _key: id
     api_fieldname: id
@@ -17377,6 +17395,7 @@ entities:
 
       '
     example: 0
+    readOnly: false
     type: integer
   - _key: status
     api_fieldname: status
@@ -17392,6 +17411,7 @@ entities:
     - completed
     enum_reference: device_enrollment_bulk_create_status_enum
     example: new
+    readOnly: false
     type: string
   - _key: total_count
     api_fieldname: total_count
@@ -17399,6 +17419,7 @@ entities:
 
       '
     example: 10
+    readOnly: false
     type: integer
   group_id: Devices
   methods:
@@ -18135,6 +18156,7 @@ entities:
     api_fieldname: account_id
     description: ID
     example: 00005a4e027f0a580a01081c00000000
+    readOnly: false
     type: string
   - _key: completed_at
     api_fieldname: completed_at
@@ -18144,6 +18166,7 @@ entities:
 
       '
     format: date-time
+    readOnly: false
     type: string
   - _key: created_at
     api_fieldname: created_at
@@ -18151,6 +18174,7 @@ entities:
 
       '
     format: date-time
+    readOnly: false
     type: string
   - _key: errors_count
     api_fieldname: errors_count
@@ -18158,6 +18182,7 @@ entities:
 
       '
     example: 0
+    readOnly: false
     type: integer
   - _key: errors_report_file
     api_fieldname: errors_report_file
@@ -18167,6 +18192,7 @@ entities:
 
       '
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
+    readOnly: false
     type: string
   - _key: full_report_file
     api_fieldname: full_report_file
@@ -18176,6 +18202,7 @@ entities:
 
       '
     example: https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
+    readOnly: false
     type: string
   - _key: id
     api_fieldname: id
@@ -18192,6 +18219,7 @@ entities:
 
       '
     example: 0
+    readOnly: false
     type: integer
   - _key: status
     api_fieldname: status
@@ -18207,6 +18235,7 @@ entities:
     - completed
     enum_reference: device_enrollment_bulk_delete_status_enum
     example: new
+    readOnly: false
     type: string
   - _key: total_count
     api_fieldname: total_count
@@ -18214,6 +18243,7 @@ entities:
 
       '
     example: 10
+    readOnly: false
     type: integer
   group_id: Devices
   methods:
@@ -18957,11 +18987,13 @@ entities:
       type: string
     api_fieldname: changes
     example: []
+    readOnly: false
     type: object
   - _key: created_at
     api_fieldname: created_at
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: data
     additionalProperties:
@@ -18970,35 +19002,42 @@ entities:
     description: Additional data relevant to the event.
     example:
       campaign_id: '00000000000000000000000000000000'
+    readOnly: false
     type: object
   - _key: date_time
     api_fieldname: date_time
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: description
     api_fieldname: description
     example: Device record created
+    readOnly: false
     type: string
   - _key: device_id
     api_fieldname: device_id
     example: '00000000000000000000000000000000'
+    readOnly: false
     type: string
   - _key: event_type
     api_fieldname: event_type
     description: Event code
     example: UPD2_100
     maxLength: 100
+    readOnly: false
     type: string
   - _key: event_type_category
     api_fieldname: event_type_category
     description: Category code which groups the event type by a summary category.
     example: FAIL_MANIFEST_REJECTED
+    readOnly: false
     type: string
   - _key: event_type_description
     api_fieldname: event_type_description
     description: Generic description of the event
     example: FAIL
+    readOnly: false
     type: string
   - _key: id
     api_fieldname: id
@@ -19007,6 +19046,7 @@ entities:
     type: string
   - _key: state_change
     api_fieldname: state_change
+    readOnly: false
     type: boolean
   group_id: Devices
   methods:
@@ -19355,22 +19395,26 @@ entities:
     description: UTC time RFC3339 for this login attempt.
     example: '2018-02-14T17:52:07Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: ip_address
     api_fieldname: ip_address
     description: IP address of the client.
     example: 127.0.0.1
+    readOnly: false
     type: string
   - _key: success
     api_fieldname: success
     description: Flag indicating whether login attempt was successful or not.
     example: true
+    readOnly: false
     type: boolean
   - _key: user_agent
     api_fieldname: user_agent
     description: User Agent header from the login request.
     example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML,
       like Gecko) Chrome/41.0.2227.1 Safari/537.36
+    readOnly: false
     type: string
   group_id: Accounts
   methods: []
@@ -19386,17 +19430,20 @@ entities:
     description: The email address of the admin user who is the contact person of
       the parent account.
     example: info@arm.com
+    readOnly: false
     type: string
   - _key: admin_name
     api_fieldname: admin_name
     description: The name of the admin user who is the contact person of the parent
       account.
     example: J. Doe
+    readOnly: false
     type: string
   - _key: id
     api_fieldname: id
     description: The ID of the parent account
     example: 01619571dad80242ac12000600000000
+    readOnly: false
     type: string
   group_id: Accounts
   methods: []
@@ -19411,6 +19458,7 @@ entities:
     api_fieldname: minimum_length
     description: Minimum length for the password. A number between 8 and 512.
     example: '8'
+    readOnly: false
     type: string
   group_id: Accounts
   methods: []
@@ -19425,27 +19473,32 @@ entities:
     api_fieldname: action
     description: Comma separated list of actions, empty string represents all actions.
     example: GET
+    readOnly: false
     type: string
   - _key: allow
     api_fieldname: allow
     description: True or false controlling whether an action is allowed or not.
     example: true
+    readOnly: false
     type: boolean
   - _key: feature
     api_fieldname: feature
     description: Feature name corresponding to this policy.
     example: update-campaigns
+    readOnly: false
     type: string
   - _key: inherited
     api_fieldname: inherited
     description: Flag indicating whether this feature is inherited or overwritten
       specifically.
     example: false
+    readOnly: false
     type: boolean
   - _key: resource
     api_fieldname: resource
     description: Resource that is protected by this policy.
     example: /v3/update-campaign
+    readOnly: false
     type: string
   group_id: Accounts
   methods: []
@@ -19460,19 +19513,23 @@ entities:
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     format: date-time
+    readOnly: false
     type: string
   - _key: id
     api_fieldname: id
     description: mUUID that uniquely identifies the entity.
+    readOnly: false
     type: string
   - _key: server_certificate
     api_fieldname: server_certificate
     description: PEM format X.509 server certificate that will be used to validate
       the server certificate that will be received during the TLS/DTLS handshake.
+    readOnly: false
     type: string
   - _key: server_uri
     api_fieldname: server_uri
     description: Server URI to which the client needs to connect to.
+    readOnly: false
     type: string
   group_id: Security
   methods:
@@ -19895,12 +19952,14 @@ entities:
     api_fieldname: certificate_fingerprint
     description: A SHA-256 fingerprint of the certificate.
     example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
+    readOnly: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: description
     api_fieldname: description
@@ -19918,6 +19977,7 @@ entities:
     example: 1
     format: int32
     private_field: true
+    readOnly: false
     type: integer
   - _key: enrollment_mode
     api_fieldname: enrollment_mode
@@ -19940,12 +20000,14 @@ entities:
     description: Whether or not this certificate is a developer certificate.
     example: true
     getter_custom_method: is_developer_certificate_getter
+    readOnly: false
     setter_custom_method: is_developer_certificate_setter
     type: boolean
   - _key: issuer
     api_fieldname: issuer
     description: Issuer of the certificate.
     example: CN=issuer
+    readOnly: false
     type: string
   - _key: name
     api_fieldname: name
@@ -19960,6 +20022,7 @@ entities:
     api_fieldname: owner_id
     description: The ID of the owner.
     example: 01619571dad80242ac12000600000000
+    readOnly: false
     type: string
   - _key: service
     api_fieldname: service
@@ -19990,18 +20053,21 @@ entities:
     api_fieldname: subject
     description: Subject of the certificate.
     example: CN=subject
+    readOnly: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: validity
     api_fieldname: validity
     description: Expiration time in UTC formatted as RFC3339.
     example: '2038-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   group_id: Security
   methods:
@@ -22098,12 +22164,14 @@ entities:
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: creation_time
     api_fieldname: creation_time
     description: A timestamp of the user creation in the storage, in milliseconds.
     example: 1518630727683
     format: int64
+    readOnly: false
     type: integer
   - _key: email
     api_fieldname: email
@@ -22119,6 +22187,7 @@ entities:
     description: A flag indicating whether the user's email address has been verified
       or not.
     example: true
+    readOnly: false
     type: boolean
   - _key: full_name
     api_fieldname: full_name
@@ -22143,6 +22212,7 @@ entities:
     description: A timestamp of the latest login of the user, in milliseconds.
     example: 1518630727688
     format: int64
+    readOnly: false
     type: integer
   - _key: login_history
     api_fieldname: login_history
@@ -22186,6 +22256,7 @@ entities:
       - success
       - user_agent
       type: object
+    readOnly: false
     type: array
   - _key: login_profiles
     api_fieldname: login_profiles
@@ -22242,6 +22313,7 @@ entities:
     description: A timestamp of the latest change of the user password, in milliseconds.
     example: 1518630727688
     format: int64
+    readOnly: false
     type: integer
   - _key: phone_number
     api_fieldname: phone_number
@@ -22296,6 +22368,7 @@ entities:
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: username
     api_fieldname: username
@@ -24665,6 +24738,7 @@ entities:
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: email
     api_fieldname: email
@@ -24680,6 +24754,7 @@ entities:
     description: Invitation expiration as UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: id
     api_fieldname: id
@@ -24726,11 +24801,13 @@ entities:
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: user_id
     api_fieldname: user_id
     description: The ID of the invited user.
     example: 01619571e2e90242ac12000600000000
+    readOnly: false
     type: string
   group_id: Accounts
   methods:
@@ -25645,6 +25722,7 @@ entities:
     api_fieldname: account_id
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
+    readOnly: false
     type: string
   - _key: certificate
     api_fieldname: certificate
@@ -25656,12 +25734,14 @@ entities:
     api_fieldname: certificate_fingerprint
     description: A SHA-256 fingerprint of the certificate.
     example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
+    readOnly: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: description
     api_fieldname: description
@@ -25676,6 +25756,7 @@ entities:
     example: 1
     format: int32
     private_field: true
+    readOnly: false
     type: integer
   - _key: enrollment_mode
     api_fieldname: enrollment_mode
@@ -25695,12 +25776,14 @@ entities:
     description: Whether or not this certificate is a developer certificate.
     example: true
     getter_custom_method: is_developer_certificate_getter
+    readOnly: false
     setter_custom_method: is_developer_certificate_setter
     type: boolean
   - _key: issuer
     api_fieldname: issuer
     description: Issuer of the certificate.
     example: CN=issuer
+    readOnly: false
     type: string
   - _key: name
     api_fieldname: name
@@ -25712,6 +25795,7 @@ entities:
     api_fieldname: owner_id
     description: The ID of the owner.
     example: 01619571dad80242ac12000600000000
+    readOnly: false
     type: string
   - _key: service
     api_fieldname: service
@@ -25736,18 +25820,21 @@ entities:
     api_fieldname: subject
     description: Subject of the certificate.
     example: CN=subject
+    readOnly: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: validity
     api_fieldname: validity
     description: Expiration time in UTC formatted as RFC3339.
     example: '2038-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   group_id: Security
   methods:
@@ -28192,6 +28279,7 @@ entities:
     api_fieldname: account_id
     description: The ID of the account.
     example: 01619571e2e90242ac12000600000000
+    readOnly: false
     type: string
   - _key: address
     api_fieldname: address
@@ -28204,12 +28292,14 @@ entities:
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: creation_time
     api_fieldname: creation_time
     description: A timestamp of the user creation in the storage, in milliseconds.
     example: 1518630727683
     format: int64
+    readOnly: false
     type: integer
   - _key: email
     api_fieldname: email
@@ -28222,6 +28312,7 @@ entities:
     description: A flag indicating whether the user's email address has been verified
       or not.
     example: true
+    readOnly: false
     type: boolean
   - _key: full_name
     api_fieldname: full_name
@@ -28240,6 +28331,7 @@ entities:
     description: A timestamp of the latest login of the user, in milliseconds.
     example: 1518630727688
     format: int64
+    readOnly: false
     type: integer
   - _key: login_history
     api_fieldname: login_history
@@ -28283,6 +28375,7 @@ entities:
       - success
       - user_agent
       type: object
+    readOnly: false
     type: array
   - _key: login_profiles
     api_fieldname: login_profiles
@@ -28330,6 +28423,7 @@ entities:
     description: A timestamp of the latest change of the user password, in milliseconds.
     example: 1518630727688
     format: int64
+    readOnly: false
     type: integer
   - _key: phone_number
     api_fieldname: phone_number
@@ -28372,6 +28466,7 @@ entities:
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: username
     api_fieldname: username
@@ -30773,12 +30868,14 @@ entities:
     api_fieldname: account_id
     description: The ID of the account the user is invited to.
     example: 01619571e2e90242ac12000600000000
+    readOnly: false
     type: string
   - _key: created_at
     api_fieldname: created_at
     description: Creation UTC time RFC3339.
     example: '2018-02-13T09:35:20Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: email
     api_fieldname: email
@@ -30791,6 +30888,7 @@ entities:
     description: Invitation expiration as UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: id
     api_fieldname: id
@@ -30831,11 +30929,13 @@ entities:
     description: Last update UTC time RFC3339.
     example: '2018-02-14T15:24:14Z'
     format: date-time
+    readOnly: false
     type: string
   - _key: user_id
     api_fieldname: user_id
     description: The ID of the invited user.
     example: 01619571e2e90242ac12000600000000
+    readOnly: false
     type: string
   group_id: Accounts
   methods:
@@ -32026,6 +32126,7 @@ entities:
 
       '
     example: message describing the verification failure
+    readOnly: false
     type: string
   - _key: successful
     api_fieldname: successful
@@ -32033,6 +32134,7 @@ entities:
 
       '
     example: false
+    readOnly: false
     type: boolean
   group_id: Security
   methods: []
