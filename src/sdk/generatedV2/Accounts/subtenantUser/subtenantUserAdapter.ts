@@ -6,6 +6,7 @@ import { SubtenantUser } from "./subtenantUser";
 export class SubtenantUserAdapter extends Adapter {
     public static fromApi(data: any, instance?: SubtenantUser): SubtenantUser {
         return SubtenantUserAdapter.assignDefined<SubtenantUser>(instance || {}, {
+            _discriminator: "SUBTENANT_USER",
             accountId: data.account_id,
             address: data.address,
             createdAt: data.created_at,

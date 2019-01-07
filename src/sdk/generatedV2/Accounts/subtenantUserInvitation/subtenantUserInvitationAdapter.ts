@@ -6,6 +6,7 @@ import { SubtenantUserInvitation } from "./subtenantUserInvitation";
 export class SubtenantUserInvitationAdapter extends Adapter {
     public static fromApi(data: any, instance?: SubtenantUserInvitation): SubtenantUserInvitation {
         return SubtenantUserInvitationAdapter.assignDefined<SubtenantUserInvitation>(instance || {}, {
+            _discriminator: "SUBTENANT_USER_INVITATION",
             accountId: data.account_id,
             createdAt: data.created_at,
             email: data.email,

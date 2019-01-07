@@ -6,6 +6,7 @@ import { TrustedCertificate } from "./trustedCertificate";
 export class TrustedCertificateAdapter extends Adapter {
     public static fromApi(data: any, instance?: TrustedCertificate): TrustedCertificate {
         return TrustedCertificateAdapter.assignDefined<TrustedCertificate>(instance || {}, {
+            _discriminator: "TRUSTED_CERTIFICATE",
             accountId: data.account_id,
             certificate: data.certificate,
             certificateFingerprint: data.certificate_fingerprint,

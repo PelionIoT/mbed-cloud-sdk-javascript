@@ -6,6 +6,7 @@ import { ApiKey } from "./apiKey";
 export class ApiKeyAdapter extends Adapter {
     public static fromApi(data: any, instance?: ApiKey): ApiKey {
         return ApiKeyAdapter.assignDefined<ApiKey>(instance || {}, {
+            _discriminator: "API_KEY",
             accountId: data.account_id,
             createdAt: data.created_at,
             creationTime: data.creation_time,

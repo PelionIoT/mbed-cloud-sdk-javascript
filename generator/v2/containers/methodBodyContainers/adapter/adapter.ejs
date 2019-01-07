@@ -1,5 +1,6 @@
 return <%= enclosingClass %>.assignDefined<<%= returns %>>(instance || {},
 {
+_discriminator: "<%= discriminator.toUpperCase() %>",
 <%# ---------- PROPERTIES ---------- _%>
 <%_ if (fields.length > 0) { _%>
 <%_ fields.forEach(function(field) { _%>

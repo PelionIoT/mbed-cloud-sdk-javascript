@@ -49,7 +49,7 @@ async function main() {
         await generateTypes(entity, enums, pascalKey, outputFolder, camelKey, entityIndex);
 
         // generate adapters
-        await generateAdapters(entity, pascalKey, camelKey, outputFolder, entityIndex);
+        await generateAdapters(entity, pascalKey, camelKey, outputFolder, entityIndex, entity._key);
 
         // generate repository
         await generateRepository(entity, pascalKey, currentGroup, camelKey, outputFolder, entityIndex);

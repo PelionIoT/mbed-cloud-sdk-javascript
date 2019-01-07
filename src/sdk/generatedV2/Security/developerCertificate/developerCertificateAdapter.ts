@@ -6,6 +6,7 @@ import { DeveloperCertificate } from "./developerCertificate";
 export class DeveloperCertificateAdapter extends Adapter {
     public static fromApi(data: any, instance?: DeveloperCertificate): DeveloperCertificate {
         return DeveloperCertificateAdapter.assignDefined<DeveloperCertificate>(instance || {}, {
+            _discriminator: "DEVELOPER_CERTIFICATE",
             accountId: data.account_id,
             certificate: data.developer_certificate,
             createdAt: data.created_at,

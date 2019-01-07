@@ -1,11 +1,17 @@
 import { Adapter } from "../../../common/adapter";
 import { User } from "./user";
+import { LoginHistoryAdapter } from "../loginHistory";
 /**
  *User adapter
  */
 export class UserAdapter extends Adapter {
     public static fromApi(data: any, instance?: User): User {
+        let loginHistory = [];
+        if (data.login_history) {
+            loginHistory = data.login_history.map(i => LoginHistoryAdapter.map(i));
+        }
         return UserAdapter.assignDefined<User>(instance || {}, {
+            _discriminator: "USER",
             accountId: data.account_id,
             address: data.address,
             createdAt: data.created_at,

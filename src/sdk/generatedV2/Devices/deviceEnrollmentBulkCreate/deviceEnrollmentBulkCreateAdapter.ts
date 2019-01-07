@@ -6,6 +6,7 @@ import { DeviceEnrollmentBulkCreate } from "./deviceEnrollmentBulkCreate";
 export class DeviceEnrollmentBulkCreateAdapter extends Adapter {
     public static fromApi(data: any, instance?: DeviceEnrollmentBulkCreate): DeviceEnrollmentBulkCreate {
         return DeviceEnrollmentBulkCreateAdapter.assignDefined<DeviceEnrollmentBulkCreate>(instance || {}, {
+            _discriminator: "DEVICE_ENROLLMENT_BULK_CREATE",
             accountId: data.account_id,
             completedAt: data.completed_at,
             createdAt: data.created_at,

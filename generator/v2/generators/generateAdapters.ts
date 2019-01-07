@@ -11,7 +11,7 @@ import { File as GeneratedFile } from "../common/file";
 import { ExportContainer } from "../containers/exportContainer/exportContainer";
 import { FileContainer } from "../containers/fileContainer/fileContainer";
 
-export async function generateAdapters(entity, pascalKey: string, camelKey: string, outputFolder: string, entityIndex: FileContainer) {
+export async function generateAdapters(entity, pascalKey: string, camelKey: string, outputFolder: string, entityIndex: FileContainer, snakeKey: string) {
     const adapterFields = new Array<AdapterFieldContainer>();
 
     for (const field of entity.fields) {
@@ -40,7 +40,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
                 new ParameterContainer("instance", pascalKey, { isRequired: false })
             ]
         }),
-        methodBody: new AdapterMethodBody(pascalKey, `${pascalKey}Adapter`, adapterFields)
+        methodBody: new AdapterMethodBody(pascalKey, snakeKey, `${pascalKey}Adapter`, { fields: adapterFields })
     });
 
     const adapterClass = new ClassContainer(

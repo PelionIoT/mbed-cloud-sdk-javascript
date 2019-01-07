@@ -6,6 +6,7 @@ import { SubtenantTrustedCertificate } from "./subtenantTrustedCertificate";
 export class SubtenantTrustedCertificateAdapter extends Adapter {
     public static fromApi(data: any, instance?: SubtenantTrustedCertificate): SubtenantTrustedCertificate {
         return SubtenantTrustedCertificateAdapter.assignDefined<SubtenantTrustedCertificate>(instance || {}, {
+            _discriminator: "SUBTENANT_TRUSTED_CERTIFICATE",
             accountId: data.account_id,
             certificate: data.certificate,
             certificateFingerprint: data.certificate_fingerprint,

@@ -6,6 +6,7 @@ import { DeviceEnrollmentBulkDelete } from "./deviceEnrollmentBulkDelete";
 export class DeviceEnrollmentBulkDeleteAdapter extends Adapter {
     public static fromApi(data: any, instance?: DeviceEnrollmentBulkDelete): DeviceEnrollmentBulkDelete {
         return DeviceEnrollmentBulkDeleteAdapter.assignDefined<DeviceEnrollmentBulkDelete>(instance || {}, {
+            _discriminator: "DEVICE_ENROLLMENT_BULK_DELETE",
             accountId: data.account_id,
             completedAt: data.completed_at,
             createdAt: data.created_at,

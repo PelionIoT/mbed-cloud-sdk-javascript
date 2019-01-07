@@ -6,6 +6,7 @@ import { Account } from "./account";
 export class AccountAdapter extends Adapter {
     public static fromApi(data: any, instance?: Account): Account {
         return AccountAdapter.assignDefined<Account>(instance || {}, {
+            _discriminator: "ACCOUNT",
             addressLine1: data.address_line1,
             addressLine2: data.address_line2,
             adminEmail: data.admin_email,

@@ -6,6 +6,7 @@ import { LoginHistory } from "./loginHistory";
 export class LoginHistoryAdapter extends Adapter {
     public static fromApi(data: any, instance?: LoginHistory): LoginHistory {
         return LoginHistoryAdapter.assignDefined<LoginHistory>(instance || {}, {
+            _discriminator: "LOGIN_HISTORY",
             date: data.date,
             ipAddress: data.ip_address,
             success: data.success,

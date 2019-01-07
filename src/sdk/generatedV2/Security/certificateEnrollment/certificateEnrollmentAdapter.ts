@@ -6,6 +6,7 @@ import { CertificateEnrollment } from "./certificateEnrollment";
 export class CertificateEnrollmentAdapter extends Adapter {
     public static fromApi(data: any, instance?: CertificateEnrollment): CertificateEnrollment {
         return CertificateEnrollmentAdapter.assignDefined<CertificateEnrollment>(instance || {}, {
+            _discriminator: "CERTIFICATE_ENROLLMENT",
             certificateName: data.certificate_name,
             createdAt: data.created_at,
             deviceId: data.device_id,

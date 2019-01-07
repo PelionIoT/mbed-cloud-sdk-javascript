@@ -6,6 +6,7 @@ import { UserInvitation } from "./userInvitation";
 export class UserInvitationAdapter extends Adapter {
     public static fromApi(data: any, instance?: UserInvitation): UserInvitation {
         return UserInvitationAdapter.assignDefined<UserInvitation>(instance || {}, {
+            _discriminator: "USER_INVITATION",
             accountId: data.account_id,
             createdAt: data.created_at,
             email: data.email,

@@ -6,6 +6,7 @@ import { ServerCredentials } from "./serverCredentials";
 export class ServerCredentialsAdapter extends Adapter {
     public static fromApi(data: any, instance?: ServerCredentials): ServerCredentials {
         return ServerCredentialsAdapter.assignDefined<ServerCredentials>(instance || {}, {
+            _discriminator: "SERVER_CREDENTIALS",
             createdAt: data.created_at,
             id: data.id,
             serverCertificate: data.server_certificate,

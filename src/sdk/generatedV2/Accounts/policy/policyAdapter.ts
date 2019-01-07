@@ -6,6 +6,7 @@ import { Policy } from "./policy";
 export class PolicyAdapter extends Adapter {
     public static fromApi(data: any, instance?: Policy): Policy {
         return PolicyAdapter.assignDefined<Policy>(instance || {}, {
+            _discriminator: "POLICY",
             action: data.action,
             allow: data.allow,
             feature: data.feature,

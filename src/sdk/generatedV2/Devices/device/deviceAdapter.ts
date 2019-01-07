@@ -6,6 +6,7 @@ import { Device } from "./device";
 export class DeviceAdapter extends Adapter {
     public static fromApi(data: any, instance?: Device): Device {
         return DeviceAdapter.assignDefined<Device>(instance || {}, {
+            _discriminator: "DEVICE",
             accountId: data.account_id,
             autoUpdate: data.auto_update,
             bootstrapExpirationDate: data.bootstrap_expiration_date,
