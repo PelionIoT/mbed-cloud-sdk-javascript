@@ -412,7 +412,7 @@
               "entity_fieldname": "address_line1",
               "parameter_fieldname": "address_line1",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "address_line1"
             },
             {
@@ -423,7 +423,7 @@
               "entity_fieldname": "address_line2",
               "parameter_fieldname": "address_line2",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "address_line2"
             },
             {
@@ -434,7 +434,7 @@
               "entity_fieldname": "admin_email",
               "parameter_fieldname": "admin_email",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "admin_email"
             },
             {
@@ -445,7 +445,7 @@
               "entity_fieldname": "admin_full_name",
               "parameter_fieldname": "admin_full_name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "admin_full_name"
             },
             {
@@ -456,7 +456,7 @@
               "entity_fieldname": "admin_name",
               "parameter_fieldname": "admin_name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "admin_name"
             },
             {
@@ -467,7 +467,7 @@
               "entity_fieldname": "admin_password",
               "parameter_fieldname": "admin_password",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "admin_password"
             },
             {
@@ -480,7 +480,7 @@
               "entity_fieldname": "aliases",
               "parameter_fieldname": "aliases",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "aliases"
             },
             {
@@ -491,7 +491,7 @@
               "entity_fieldname": "city",
               "parameter_fieldname": "city",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "city"
             },
             {
@@ -502,7 +502,7 @@
               "entity_fieldname": "company",
               "parameter_fieldname": "company",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "company"
             },
             {
@@ -513,7 +513,7 @@
               "entity_fieldname": "contact",
               "parameter_fieldname": "contact",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "contact"
             },
             {
@@ -524,7 +524,7 @@
               "entity_fieldname": "contract_number",
               "parameter_fieldname": "contract_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "contract_number"
             },
             {
@@ -535,7 +535,7 @@
               "entity_fieldname": "country",
               "parameter_fieldname": "country",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "country"
             },
             {
@@ -546,7 +546,7 @@
               "entity_fieldname": "customer_number",
               "parameter_fieldname": "customer_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "customer_number"
             },
             {
@@ -557,7 +557,7 @@
               "entity_fieldname": "display_name",
               "parameter_fieldname": "display_name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "display_name"
             },
             {
@@ -568,7 +568,7 @@
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "email"
             },
             {
@@ -590,7 +590,7 @@
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "phone_number"
             },
             {
@@ -601,7 +601,7 @@
               "entity_fieldname": "postal_code",
               "parameter_fieldname": "postal_code",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "postal_code"
             },
             {
@@ -612,7 +612,7 @@
               "entity_fieldname": "state",
               "parameter_fieldname": "state",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "state"
             }
           ],
@@ -4413,18 +4413,30 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The ID of the account.",
+                          "api_fieldname": "account_id",
+                          "entity_fieldname": "account_id",
+                          "parameter_fieldname": "account_id",
+                          "in": "path",
+                          "required": true,
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
                           "description": "X509.v3 trusted certificate in PEM format.",
+                          "api_fieldname": "certificate",
+                          "entity_fieldname": "certificate",
+                          "parameter_fieldname": "certificate",
+                          "in": "body",
+                          "required": false,
                           "_key": "certificate"
                         },
                         {
                           "type": "string",
                           "example": "a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1",
                           "description": "A SHA-256 fingerprint of the certificate.",
+                          "api_fieldname": "certificate_fingerprint",
+                          "entity_fieldname": "certificate_fingerprint",
                           "_key": "certificate_fingerprint"
                         },
                         {
@@ -4432,12 +4444,19 @@
                           "format": "date-time",
                           "example": "2018-02-13T09:35:20Z",
                           "description": "Creation UTC time RFC3339.",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "example": "Certificate created by me.",
                           "description": "Human readable description of this certificate.",
+                          "api_fieldname": "description",
+                          "entity_fieldname": "description",
+                          "parameter_fieldname": "description",
+                          "in": "body",
+                          "required": false,
                           "_key": "description"
                         },
                         {
@@ -4447,36 +4466,54 @@
                           "description": "Device execution mode where 1 means a developer certificate.",
                           "private_field": true,
                           "_override": true,
+                          "api_fieldname": "device_execution_mode",
+                          "entity_fieldname": "device_execution_mode",
                           "_key": "device_execution_mode"
                         },
                         {
                           "type": "boolean",
                           "example": false,
                           "description": "If true, signature is not required. Default value false.",
+                          "api_fieldname": "enrollment_mode",
+                          "entity_fieldname": "enrollment_mode",
+                          "parameter_fieldname": "enrollment_mode",
+                          "in": "body",
+                          "required": false,
                           "_key": "enrollment_mode"
                         },
                         {
                           "type": "string",
                           "example": "1",
                           "description": "API resource entity version.",
+                          "api_fieldname": "etag",
+                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "example": "01619571d01d0242ac12000600000000",
                           "description": "Entity ID.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
                           "example": "CN=issuer",
                           "description": "Issuer of the certificate.",
+                          "api_fieldname": "issuer",
+                          "entity_fieldname": "issuer",
                           "_key": "issuer"
                         },
                         {
                           "type": "string",
                           "example": "My certificate",
                           "description": "Certificate name.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
+                          "parameter_fieldname": "name",
+                          "in": "body",
+                          "required": false,
                           "_key": "name"
                         },
                         {
@@ -4485,18 +4522,24 @@
                           "enum": [
                             "trusted-cert"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "01619571dad80242ac12000600000000",
                           "description": "The ID of the owner.",
+                          "api_fieldname": "owner_id",
+                          "entity_fieldname": "owner_id",
                           "_key": "owner_id"
                         },
                         {
                           "type": "string",
                           "example": "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...",
                           "description": "Private key of the certificate in PEM or base64 encoded DER format.",
+                          "api_fieldname": "private_key",
+                          "entity_fieldname": "private_key",
                           "_key": "private_key"
                         },
                         {
@@ -4506,6 +4549,12 @@
                             "lwm2m",
                             "bootstrap"
                           ],
+                          "api_fieldname": "service",
+                          "entity_fieldname": "service",
+                          "parameter_fieldname": "service",
+                          "in": "body",
+                          "required": false,
+                          "enum_reference": "subtenant_trusted_certificate_service_enum",
                           "_key": "service"
                         },
                         {
@@ -4516,12 +4565,20 @@
                             "ACTIVE",
                             "INACTIVE"
                           ],
+                          "api_fieldname": "status",
+                          "entity_fieldname": "status",
+                          "parameter_fieldname": "status",
+                          "in": "body",
+                          "required": false,
+                          "enum_reference": "subtenant_trusted_certificate_status_enum",
                           "_key": "status"
                         },
                         {
                           "type": "string",
                           "example": "CN=subject",
                           "description": "Subject of the certificate.",
+                          "api_fieldname": "subject",
+                          "entity_fieldname": "subject",
                           "_key": "subject"
                         },
                         {
@@ -4529,6 +4586,8 @@
                           "format": "date-time",
                           "example": "2018-02-14T15:24:14Z",
                           "description": "Last update UTC time RFC3339.",
+                          "api_fieldname": "updated_at",
+                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         },
                         {
@@ -4536,6 +4595,8 @@
                           "format": "date-time",
                           "example": "2038-02-14T15:24:14Z",
                           "description": "Expiration time in UTC formatted as RFC3339.",
+                          "api_fieldname": "validity",
+                          "entity_fieldname": "validity",
                           "_key": "validity"
                         }
                       ],
@@ -4880,7 +4941,7 @@
               "entity_fieldname": "address_line1",
               "parameter_fieldname": "address_line1",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "address_line1"
             },
             {
@@ -4891,7 +4952,7 @@
               "entity_fieldname": "address_line2",
               "parameter_fieldname": "address_line2",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "address_line2"
             },
             {
@@ -4904,7 +4965,7 @@
               "entity_fieldname": "aliases",
               "parameter_fieldname": "aliases",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "aliases"
             },
             {
@@ -4915,7 +4976,7 @@
               "entity_fieldname": "city",
               "parameter_fieldname": "city",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "city"
             },
             {
@@ -4926,7 +4987,7 @@
               "entity_fieldname": "company",
               "parameter_fieldname": "company",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "company"
             },
             {
@@ -4937,7 +4998,7 @@
               "entity_fieldname": "contact",
               "parameter_fieldname": "contact",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "contact"
             },
             {
@@ -4948,7 +5009,7 @@
               "entity_fieldname": "contract_number",
               "parameter_fieldname": "contract_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "contract_number"
             },
             {
@@ -4959,7 +5020,7 @@
               "entity_fieldname": "country",
               "parameter_fieldname": "country",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "country"
             },
             {
@@ -4972,7 +5033,7 @@
               "entity_fieldname": "custom_fields",
               "parameter_fieldname": "custom_fields",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "custom_fields"
             },
             {
@@ -4983,7 +5044,7 @@
               "entity_fieldname": "customer_number",
               "parameter_fieldname": "customer_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "customer_number"
             },
             {
@@ -4994,7 +5055,7 @@
               "entity_fieldname": "display_name",
               "parameter_fieldname": "display_name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "display_name"
             },
             {
@@ -5005,7 +5066,7 @@
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "email"
             },
             {
@@ -5016,7 +5077,7 @@
               "entity_fieldname": "end_market",
               "parameter_fieldname": "end_market",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "end_market"
             },
             {
@@ -5027,7 +5088,7 @@
               "entity_fieldname": "expiration_warning_threshold",
               "parameter_fieldname": "expiration_warning_threshold",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "expiration_warning_threshold"
             },
             {
@@ -5049,7 +5110,7 @@
               "entity_fieldname": "idle_timeout",
               "parameter_fieldname": "idle_timeout",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "idle_timeout"
             },
             {
@@ -5063,7 +5124,7 @@
               "entity_fieldname": "mfa_status",
               "parameter_fieldname": "mfa_status",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "account_mfa_status_enum",
               "_key": "mfa_status"
             },
@@ -5077,7 +5138,7 @@
               "entity_fieldname": "notification_emails",
               "parameter_fieldname": "notification_emails",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "notification_emails"
             },
             {
@@ -5113,7 +5174,7 @@
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "phone_number"
             },
             {
@@ -5124,7 +5185,7 @@
               "entity_fieldname": "postal_code",
               "parameter_fieldname": "postal_code",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "postal_code"
             },
             {
@@ -5135,7 +5196,7 @@
               "entity_fieldname": "sales_contact",
               "parameter_fieldname": "sales_contact",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "sales_contact"
             },
             {
@@ -5146,7 +5207,7 @@
               "entity_fieldname": "state",
               "parameter_fieldname": "state",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "state"
             }
           ],
@@ -7524,7 +7585,7 @@
           "description": "Postal address line 1.",
           "api_fieldname": "address_line1",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "address_line1"
         },
         {
@@ -7533,7 +7594,7 @@
           "description": "Postal address line 2.",
           "api_fieldname": "address_line2",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "address_line2"
         },
         {
@@ -7542,7 +7603,7 @@
           "description": "The email address of the account admin, not longer than 254 characters.",
           "api_fieldname": "admin_email",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "admin_email"
         },
         {
@@ -7551,7 +7612,7 @@
           "description": "The full name of the admin user to be created.",
           "api_fieldname": "admin_full_name",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "admin_full_name"
         },
         {
@@ -7578,7 +7639,7 @@
           "description": "The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.",
           "api_fieldname": "admin_name",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "admin_name"
         },
         {
@@ -7587,7 +7648,7 @@
           "description": "The password when creating a new user. It will be generated when not present in the request.",
           "api_fieldname": "admin_password",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "admin_password"
         },
         {
@@ -7598,7 +7659,7 @@
           },
           "api_fieldname": "aliases",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "aliases"
         },
         {
@@ -7607,7 +7668,7 @@
           "description": "The city part of the postal address.",
           "api_fieldname": "city",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "city"
         },
         {
@@ -7616,7 +7677,7 @@
           "description": "The name of the company.",
           "api_fieldname": "company",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "company"
         },
         {
@@ -7625,7 +7686,7 @@
           "description": "The name of the contact person for this account.",
           "api_fieldname": "contact",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "contact"
         },
         {
@@ -7634,7 +7695,7 @@
           "description": "Contract number of the customer.",
           "api_fieldname": "contract_number",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "contract_number"
         },
         {
@@ -7643,7 +7704,7 @@
           "description": "The country part of the postal address.",
           "api_fieldname": "country",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "country"
         },
         {
@@ -7664,7 +7725,7 @@
           },
           "api_fieldname": "custom_fields",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "custom_fields"
         },
         {
@@ -7673,7 +7734,7 @@
           "description": "Customer number of the customer.",
           "api_fieldname": "customer_number",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "customer_number"
         },
         {
@@ -7682,7 +7743,7 @@
           "description": "The display name for the account.",
           "api_fieldname": "display_name",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "display_name"
         },
         {
@@ -7691,7 +7752,7 @@
           "description": "The company email address for this account.",
           "api_fieldname": "email",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "email"
         },
         {
@@ -7709,7 +7770,7 @@
           "description": "Indicates how many days (1-180) before account expiration a notification email should be sent.",
           "api_fieldname": "expiration_warning_threshold",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "expiration_warning_threshold"
         },
         {
@@ -7727,7 +7788,7 @@
           "description": "The reference token expiration time in minutes for this account.",
           "api_fieldname": "idle_timeout",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "idle_timeout"
         },
         {
@@ -7750,7 +7811,7 @@
           ],
           "api_fieldname": "mfa_status",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "enum_reference": "account_mfa_status_enum",
           "_key": "mfa_status"
         },
@@ -7762,7 +7823,7 @@
           },
           "api_fieldname": "notification_emails",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "notification_emails"
         },
         {
@@ -7839,7 +7900,7 @@
           "description": "The phone number of a representative of the company.",
           "api_fieldname": "phone_number",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "phone_number"
         },
         {
@@ -7906,7 +7967,7 @@
           "description": "The postal code part of the postal address.",
           "api_fieldname": "postal_code",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "postal_code"
         },
         {
@@ -7933,7 +7994,7 @@
           "description": "Email address of the sales contact.",
           "api_fieldname": "sales_contact",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "sales_contact"
         },
         {
@@ -7942,7 +8003,7 @@
           "description": "The state part of the postal address.",
           "api_fieldname": "state",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "state"
         },
         {
@@ -8040,7 +8101,7 @@
               "entity_fieldname": "owner",
               "parameter_fieldname": "owner",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "owner"
             },
             {
@@ -8055,7 +8116,7 @@
               "entity_fieldname": "status",
               "parameter_fieldname": "status",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "api_key_status_enum",
               "_key": "status"
             }
@@ -9939,7 +10000,7 @@
               "entity_fieldname": "owner",
               "parameter_fieldname": "owner",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "owner"
             },
             {
@@ -9954,7 +10015,7 @@
               "entity_fieldname": "status",
               "parameter_fieldname": "status",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "api_key_status_enum",
               "_key": "status"
             }
@@ -10506,7 +10567,7 @@
           "description": "The owner of this API key, who is the creator by default.",
           "api_fieldname": "owner",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "owner"
         },
         {
@@ -10519,7 +10580,7 @@
           ],
           "api_fieldname": "status",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "enum_reference": "api_key_status_enum",
           "_key": "status"
         },
@@ -10579,12 +10640,6 @@
                     "example": "customer.dlms",
                     "api_fieldname": "certificate_name",
                     "entity_fieldname": "certificate_name",
-                    "in": "path",
-                    "name": "certificate-name",
-                    "required": true,
-                    "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
-                    "external_param": true,
-                    "parameter_fieldname": "certificate-name",
                     "_key": "certificate_name"
                   },
                   {
@@ -10640,9 +10695,6 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
-                    "parameter_fieldname": "device-id",
-                    "in": "path",
-                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -11054,14 +11106,6 @@
                           "maxLength": 50,
                           "description": "The certificate name.",
                           "example": "customer.dlms",
-                          "api_fieldname": "certificate-name",
-                          "entity_fieldname": "certificate_name",
-                          "in": "path",
-                          "name": "certificate-name",
-                          "required": true,
-                          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
-                          "external_param": true,
-                          "parameter_fieldname": "certificate-name",
                           "_key": "certificate_name"
                         },
                         {
@@ -11069,16 +11113,12 @@
                           "format": "date-time",
                           "description": "Creation UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
-                          "api_fieldname": "created_at",
-                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "description": "The device ID.",
                           "example": "01625daa23230a580a0100bd00000000",
-                          "api_fieldname": "device_id",
-                          "entity_fieldname": "device_id",
                           "_key": "device_id"
                         },
                         {
@@ -11089,8 +11129,6 @@
                             "forbidden",
                             "failure"
                           ],
-                          "api_fieldname": "enroll_result",
-                          "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
@@ -11099,27 +11137,18 @@
                             "new",
                             "completed"
                           ],
-                          "api_fieldname": "enroll_status",
-                          "entity_fieldname": "enroll_status",
                           "_key": "enroll_status"
                         },
                         {
                           "type": "string",
                           "description": "Entity instance signature.",
                           "example": "1",
-                          "api_fieldname": "etag",
-                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "description": "The ID of the certificate enrollment.",
                           "example": "01612df56f3b0a580a010fc700000000",
-                          "api_fieldname": "id",
-                          "entity_fieldname": "id",
-                          "parameter_fieldname": "device-id",
-                          "in": "path",
-                          "required": true,
                           "_key": "id"
                         },
                         {
@@ -11127,8 +11156,6 @@
                           "enum": [
                             "certificate-enrollment"
                           ],
-                          "api_fieldname": "object",
-                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
@@ -11136,8 +11163,6 @@
                           "format": "date-time",
                           "description": "Update UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
-                          "api_fieldname": "updated_at",
-                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         }
                       ],
@@ -11453,13 +11478,8 @@
           "description": "The certificate name.",
           "example": "customer.dlms",
           "api_fieldname": "certificate_name",
-          "in": "path",
-          "name": "certificate-name",
-          "required": true,
-          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
-          "external_param": true,
-          "parameter_fieldname": "certificate-name",
           "readOnly": true,
+          "required": false,
           "_key": "certificate_name"
         },
         {
@@ -11512,10 +11532,8 @@
           "description": "The ID of the certificate enrollment.",
           "example": "01612df56f3b0a580a010fc700000000",
           "api_fieldname": "id",
-          "parameter_fieldname": "device-id",
-          "in": "path",
-          "required": true,
           "readOnly": false,
+          "required": true,
           "_key": "id"
         },
         {
@@ -11559,7 +11577,7 @@
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "description"
             },
             {
@@ -11573,7 +11591,7 @@
               "entity_fieldname": "issuer_attributes",
               "parameter_fieldname": "issuer_attributes",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "issuer_attributes"
             },
             {
@@ -11590,7 +11608,7 @@
               "api_fieldname": "issuer_credentials",
               "external_param": true,
               "parameter_fieldname": "issuer_credentials",
-              "required": true,
+              "required": false,
               "_key": "issuer_credentials"
             },
             {
@@ -11602,7 +11620,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             }
           ],
@@ -13138,7 +13156,7 @@
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "description"
             },
             {
@@ -13163,7 +13181,7 @@
               "entity_fieldname": "issuer_attributes",
               "parameter_fieldname": "issuer_attributes",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "issuer_attributes"
             },
             {
@@ -13180,7 +13198,7 @@
               "api_fieldname": "issuer_credentials",
               "external_param": true,
               "parameter_fieldname": "issuer_credentials",
-              "required": true,
+              "required": false,
               "_key": "issuer_credentials"
             },
             {
@@ -13192,7 +13210,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             }
           ],
@@ -14116,7 +14134,7 @@
           "example": "GlobalSign sample issuer",
           "api_fieldname": "description",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "description"
         },
         {
@@ -14137,7 +14155,7 @@
           "example": [],
           "api_fieldname": "issuer_attributes",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "issuer_attributes"
         },
         {
@@ -14198,7 +14216,7 @@
               "entity_fieldname": "certificate_issuer_id",
               "parameter_fieldname": "certificate_issuer_id",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "certificate_issuer_id"
             },
             {
@@ -16021,7 +16039,7 @@
               "entity_fieldname": "certificate_issuer_id",
               "parameter_fieldname": "certificate_issuer_id",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "certificate_issuer_id"
             },
             {
@@ -16496,7 +16514,7 @@
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "description"
             },
             {
@@ -18194,7 +18212,7 @@
           "description": "Description for the developer certificate.",
           "api_fieldname": "description",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "description"
         },
         {
@@ -18262,7 +18280,7 @@
               "entity_fieldname": "auto_update",
               "parameter_fieldname": "auto_update",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "auto_update"
             },
             {
@@ -18273,7 +18291,7 @@
               "entity_fieldname": "bootstrap_expiration_date",
               "parameter_fieldname": "bootstrap_expiration_date",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "bootstrap_expiration_date"
             },
             {
@@ -18285,7 +18303,7 @@
               "entity_fieldname": "bootstrapped_timestamp",
               "parameter_fieldname": "bootstrapped_timestamp",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "bootstrapped_timestamp"
             },
             {
@@ -18297,7 +18315,7 @@
               "entity_fieldname": "ca_id",
               "parameter_fieldname": "ca_id",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "ca_id"
             },
             {
@@ -18308,7 +18326,7 @@
               "entity_fieldname": "connector_expiration_date",
               "parameter_fieldname": "connector_expiration_date",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "connector_expiration_date"
             },
             {
@@ -18327,7 +18345,7 @@
               "entity_fieldname": "custom_attributes",
               "parameter_fieldname": "custom_attributes",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "custom_attributes"
             },
             {
@@ -18338,7 +18356,7 @@
               "entity_fieldname": "deployment",
               "parameter_fieldname": "deployment",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "deployment"
             },
             {
@@ -18350,7 +18368,7 @@
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "description"
             },
             {
@@ -18362,7 +18380,7 @@
               "entity_fieldname": "device_class",
               "parameter_fieldname": "device_class",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "device_class"
             },
             {
@@ -18378,7 +18396,7 @@
               "entity_fieldname": "device_execution_mode",
               "parameter_fieldname": "device_execution_mode",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "device_execution_mode"
             },
             {
@@ -18390,7 +18408,7 @@
               "entity_fieldname": "device_key",
               "parameter_fieldname": "device_key",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "device_key"
             },
             {
@@ -18402,7 +18420,7 @@
               "entity_fieldname": "endpoint_name",
               "parameter_fieldname": "endpoint_name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "endpoint_name"
             },
             {
@@ -18414,7 +18432,7 @@
               "entity_fieldname": "endpoint_type",
               "parameter_fieldname": "endpoint_type",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "endpoint_type"
             },
             {
@@ -18425,7 +18443,7 @@
               "entity_fieldname": "firmware_checksum",
               "parameter_fieldname": "firmware_checksum",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "firmware_checksum"
             },
             {
@@ -18436,7 +18454,7 @@
               "entity_fieldname": "host_gateway",
               "parameter_fieldname": "host_gateway",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "host_gateway"
             },
             {
@@ -18448,7 +18466,7 @@
               "entity_fieldname": "issuer_fingerprint",
               "parameter_fieldname": "issuer_fingerprint",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "issuer_fingerprint"
             },
             {
@@ -18459,7 +18477,7 @@
               "entity_fieldname": "manifest",
               "parameter_fieldname": "manifest",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "manifest"
             },
             {
@@ -18473,7 +18491,7 @@
               "entity_fieldname": "mechanism",
               "parameter_fieldname": "mechanism",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "device_mechanism_enum",
               "_key": "mechanism"
             },
@@ -18485,7 +18503,7 @@
               "entity_fieldname": "mechanism_url",
               "parameter_fieldname": "mechanism_url",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "mechanism_url"
             },
             {
@@ -18497,7 +18515,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -18508,7 +18526,7 @@
               "entity_fieldname": "serial_number",
               "parameter_fieldname": "serial_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "serial_number"
             },
             {
@@ -18525,7 +18543,7 @@
               "entity_fieldname": "state",
               "parameter_fieldname": "state",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "device_state_enum",
               "_key": "state"
             },
@@ -18537,7 +18555,7 @@
               "entity_fieldname": "vendor_id",
               "parameter_fieldname": "vendor_id",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "vendor_id"
             }
           ],
@@ -20011,6 +20029,9 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "certificate-enrollment-id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -20473,7 +20494,7 @@
               "entity_fieldname": "auto_update",
               "parameter_fieldname": "auto_update",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "auto_update"
             },
             {
@@ -20485,7 +20506,7 @@
               "entity_fieldname": "ca_id",
               "parameter_fieldname": "ca_id",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "ca_id"
             },
             {
@@ -20504,7 +20525,7 @@
               "entity_fieldname": "custom_attributes",
               "parameter_fieldname": "custom_attributes",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "custom_attributes"
             },
             {
@@ -20516,7 +20537,7 @@
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "description"
             },
             {
@@ -20528,7 +20549,7 @@
               "entity_fieldname": "device_key",
               "parameter_fieldname": "device_key",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "device_key"
             },
             {
@@ -20540,7 +20561,7 @@
               "entity_fieldname": "endpoint_name",
               "parameter_fieldname": "endpoint_name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "endpoint_name"
             },
             {
@@ -20552,7 +20573,7 @@
               "entity_fieldname": "endpoint_type",
               "parameter_fieldname": "endpoint_type",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "endpoint_type"
             },
             {
@@ -20563,7 +20584,7 @@
               "entity_fieldname": "host_gateway",
               "parameter_fieldname": "host_gateway",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "host_gateway"
             },
             {
@@ -20586,7 +20607,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             }
           ],
@@ -21031,7 +21052,7 @@
           "description": "DEPRECATED: Mark this device for automatic firmware update.",
           "api_fieldname": "auto_update",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "auto_update"
         },
         {
@@ -21040,7 +21061,7 @@
           "description": "The expiration date of the certificate used to connect to bootstrap server.",
           "api_fieldname": "bootstrap_expiration_date",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "bootstrap_expiration_date"
         },
         {
@@ -21050,7 +21071,7 @@
           "description": "The timestamp of the device's most recent bootstrap process.",
           "api_fieldname": "bootstrapped_timestamp",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "bootstrapped_timestamp"
         },
         {
@@ -21060,7 +21081,7 @@
           "example": "00000000000000000000000000000000",
           "api_fieldname": "ca_id",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "ca_id"
         },
         {
@@ -21069,7 +21090,7 @@
           "description": "The expiration date of the certificate used to connect to LwM2M server.",
           "api_fieldname": "connector_expiration_date",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "connector_expiration_date"
         },
         {
@@ -21096,7 +21117,7 @@
           },
           "api_fieldname": "custom_attributes",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "custom_attributes"
         },
         {
@@ -21118,7 +21139,7 @@
           "example": "",
           "api_fieldname": "deployment",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "deployment"
         },
         {
@@ -21128,7 +21149,7 @@
           "example": "description",
           "api_fieldname": "description",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "description"
         },
         {
@@ -21138,7 +21159,7 @@
           "example": "",
           "api_fieldname": "device_class",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "device_class"
         },
         {
@@ -21152,7 +21173,7 @@
           "example": 0,
           "api_fieldname": "device_execution_mode",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "device_execution_mode"
         },
         {
@@ -21162,7 +21183,7 @@
           "example": "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00",
           "api_fieldname": "device_key",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "device_key"
         },
         {
@@ -21171,7 +21192,7 @@
           "example": "00000000-0000-0000-0000-000000000000",
           "readOnly": true,
           "api_fieldname": "endpoint_name",
-          "required": true,
+          "required": false,
           "_key": "endpoint_name"
         },
         {
@@ -21181,7 +21202,7 @@
           "example": "",
           "api_fieldname": "endpoint_type",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "endpoint_type"
         },
         {
@@ -21200,7 +21221,7 @@
           "example": "0000000000000000000000000000000000000000000000000000000000000000",
           "api_fieldname": "firmware_checksum",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "firmware_checksum"
         },
         {
@@ -21209,7 +21230,7 @@
           "example": "",
           "api_fieldname": "host_gateway",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "host_gateway"
         },
         {
@@ -21228,7 +21249,7 @@
           "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
           "api_fieldname": "issuer_fingerprint",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "issuer_fingerprint"
         },
         {
@@ -21311,7 +21332,7 @@
           "example": "",
           "api_fieldname": "manifest",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "manifest"
         },
         {
@@ -21333,7 +21354,7 @@
           "description": "The ID of the channel used to communicate with the device.",
           "api_fieldname": "mechanism",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "enum_reference": "device_mechanism_enum",
           "_key": "mechanism"
         },
@@ -21343,7 +21364,7 @@
           "example": "",
           "api_fieldname": "mechanism_url",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "mechanism_url"
         },
         {
@@ -21353,7 +21374,7 @@
           "example": "00000000-0000-0000-0000-000000000000",
           "api_fieldname": "name",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "name"
         },
         {
@@ -21370,7 +21391,7 @@
           "example": "00000000-0000-0000-0000-000000000000",
           "api_fieldname": "serial_number",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "serial_number"
         },
         {
@@ -21385,7 +21406,7 @@
           "description": "The current state of the device.",
           "api_fieldname": "state",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "enum_reference": "device_state_enum",
           "_key": "state"
         },
@@ -21413,7 +21434,7 @@
           "example": "00000000-0000-0000-0000-000000000000",
           "api_fieldname": "vendor_id",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "vendor_id"
         }
       ],
@@ -25978,7 +25999,7 @@
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "description"
             },
             {
@@ -26000,7 +26021,7 @@
               "entity_fieldname": "enrollment_mode",
               "parameter_fieldname": "enrollment_mode",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "enrollment_mode"
             },
             {
@@ -26052,7 +26073,7 @@
               "entity_fieldname": "status",
               "parameter_fieldname": "status",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "subtenant_trusted_certificate_status_enum",
               "_key": "status"
             }
@@ -26094,7 +26115,7 @@
                     "entity_fieldname": "certificate",
                     "parameter_fieldname": "certificate",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "certificate"
                   },
                   {
@@ -26122,7 +26143,7 @@
                     "entity_fieldname": "description",
                     "parameter_fieldname": "description",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "description"
                   },
                   {
@@ -26144,7 +26165,7 @@
                     "entity_fieldname": "enrollment_mode",
                     "parameter_fieldname": "enrollment_mode",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "enrollment_mode"
                   },
                   {
@@ -26179,7 +26200,7 @@
                     "entity_fieldname": "name",
                     "parameter_fieldname": "name",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "name"
                   },
                   {
@@ -26211,7 +26232,7 @@
                     "entity_fieldname": "service",
                     "parameter_fieldname": "service",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "enum_reference": "trusted_certificate_service_enum",
                     "_key": "service"
                   },
@@ -26227,7 +26248,7 @@
                     "entity_fieldname": "status",
                     "parameter_fieldname": "status",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "enum_reference": "trusted_certificate_status_enum",
                     "_key": "status"
                   },
@@ -27851,7 +27872,7 @@
               "entity_fieldname": "certificate",
               "parameter_fieldname": "certificate",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "certificate"
             },
             {
@@ -27862,7 +27883,7 @@
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "description"
             },
             {
@@ -27884,7 +27905,7 @@
               "entity_fieldname": "enrollment_mode",
               "parameter_fieldname": "enrollment_mode",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "enrollment_mode"
             },
             {
@@ -27906,7 +27927,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -27920,7 +27941,7 @@
               "entity_fieldname": "service",
               "parameter_fieldname": "service",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "subtenant_trusted_certificate_service_enum",
               "_key": "service"
             },
@@ -27936,7 +27957,7 @@
               "entity_fieldname": "status",
               "parameter_fieldname": "status",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "subtenant_trusted_certificate_status_enum",
               "_key": "status"
             }
@@ -28514,7 +28535,7 @@
           "api_fieldname": "description",
           "parameter_fieldname": "description",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "description"
         },
@@ -28537,7 +28558,7 @@
           "api_fieldname": "enrollment_mode",
           "parameter_fieldname": "enrollment_mode",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "enrollment_mode"
         },
@@ -28617,7 +28638,7 @@
           "api_fieldname": "status",
           "parameter_fieldname": "status",
           "in": "body",
-          "required": true,
+          "required": false,
           "enum_reference": "subtenant_trusted_certificate_status_enum",
           "readOnly": false,
           "_key": "status"
@@ -28717,7 +28738,7 @@
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "address"
             },
             {
@@ -28728,7 +28749,7 @@
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "email"
             },
             {
@@ -28739,7 +28760,7 @@
               "entity_fieldname": "full_name",
               "parameter_fieldname": "full_name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "full_name"
             },
             {
@@ -28781,7 +28802,7 @@
               "entity_fieldname": "login_profiles",
               "parameter_fieldname": "login_profiles",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "login_profiles"
             },
             {
@@ -28792,7 +28813,7 @@
               "entity_fieldname": "marketing_accepted",
               "parameter_fieldname": "is_marketing_accepted",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "marketing_accepted"
             },
             {
@@ -28803,7 +28824,7 @@
               "entity_fieldname": "password",
               "parameter_fieldname": "password",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "password"
             },
             {
@@ -28814,7 +28835,7 @@
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "phone_number"
             },
             {
@@ -28825,7 +28846,7 @@
               "entity_fieldname": "terms_accepted",
               "parameter_fieldname": "is_gtc_accepted",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "terms_accepted"
             },
             {
@@ -28836,7 +28857,7 @@
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "username"
             }
           ],
@@ -28872,7 +28893,7 @@
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "address"
                   },
                   {
@@ -28901,7 +28922,7 @@
                     "entity_fieldname": "email",
                     "parameter_fieldname": "email",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "email"
                   },
                   {
@@ -28928,7 +28949,7 @@
                     "entity_fieldname": "full_name",
                     "parameter_fieldname": "full_name",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "full_name"
                   },
                   {
@@ -28944,7 +28965,7 @@
                     "schema_param": true,
                     "external_param": true,
                     "parameter_fieldname": "groups",
-                    "required": true,
+                    "required": false,
                     "_key": "groups"
                   },
                   {
@@ -28966,7 +28987,7 @@
                     "entity_fieldname": "terms_accepted",
                     "parameter_fieldname": "is_gtc_accepted",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "is_gtc_accepted"
                   },
                   {
@@ -28977,7 +28998,7 @@
                     "entity_fieldname": "marketing_accepted",
                     "parameter_fieldname": "is_marketing_accepted",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "is_marketing_accepted"
                   },
                   {
@@ -28988,7 +29009,7 @@
                     "entity_fieldname": "two_factor_authentication",
                     "parameter_fieldname": "is_totp_enabled",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "is_totp_enabled"
                   },
                   {
@@ -29095,7 +29116,7 @@
                     "entity_fieldname": "login_profiles",
                     "parameter_fieldname": "login_profiles",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "login_profiles"
                   },
                   {
@@ -29116,7 +29137,7 @@
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "password"
                   },
                   {
@@ -29136,7 +29157,7 @@
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "phone_number"
                   },
                   {
@@ -29154,7 +29175,7 @@
                     "entity_fieldname": "status",
                     "parameter_fieldname": "status",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "status"
                   },
                   {
@@ -29174,7 +29195,7 @@
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "username"
                   }
                 ],
@@ -30028,7 +30049,7 @@
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "address"
                   },
                   {
@@ -30057,7 +30078,7 @@
                     "entity_fieldname": "email",
                     "parameter_fieldname": "email",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "email"
                   },
                   {
@@ -30084,7 +30105,7 @@
                     "entity_fieldname": "full_name",
                     "parameter_fieldname": "full_name",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "full_name"
                   },
                   {
@@ -30100,7 +30121,7 @@
                     "schema_param": true,
                     "external_param": true,
                     "parameter_fieldname": "groups",
-                    "required": true,
+                    "required": false,
                     "_key": "groups"
                   },
                   {
@@ -30122,7 +30143,7 @@
                     "entity_fieldname": "terms_accepted",
                     "parameter_fieldname": "is_gtc_accepted",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "is_gtc_accepted"
                   },
                   {
@@ -30133,7 +30154,7 @@
                     "entity_fieldname": "marketing_accepted",
                     "parameter_fieldname": "is_marketing_accepted",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "is_marketing_accepted"
                   },
                   {
@@ -30144,7 +30165,7 @@
                     "entity_fieldname": "two_factor_authentication",
                     "parameter_fieldname": "is_totp_enabled",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "is_totp_enabled"
                   },
                   {
@@ -30251,7 +30272,7 @@
                     "entity_fieldname": "login_profiles",
                     "parameter_fieldname": "login_profiles",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "login_profiles"
                   },
                   {
@@ -30272,7 +30293,7 @@
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "password"
                   },
                   {
@@ -30292,7 +30313,7 @@
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "phone_number"
                   },
                   {
@@ -30310,7 +30331,7 @@
                     "entity_fieldname": "status",
                     "parameter_fieldname": "status",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "status"
                   },
                   {
@@ -30330,7 +30351,7 @@
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "username"
                   }
                 ],
@@ -30642,7 +30663,7 @@
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "address"
             },
             {
@@ -30653,7 +30674,7 @@
               "entity_fieldname": "full_name",
               "parameter_fieldname": "full_name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "full_name"
             },
             {
@@ -30706,7 +30727,7 @@
               "entity_fieldname": "login_profiles",
               "parameter_fieldname": "login_profiles",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "login_profiles"
             },
             {
@@ -30717,7 +30738,7 @@
               "entity_fieldname": "marketing_accepted",
               "parameter_fieldname": "is_marketing_accepted",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "marketing_accepted"
             },
             {
@@ -30728,7 +30749,7 @@
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "phone_number"
             },
             {
@@ -30739,7 +30760,7 @@
               "entity_fieldname": "terms_accepted",
               "parameter_fieldname": "is_gtc_accepted",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "terms_accepted"
             },
             {
@@ -30750,7 +30771,7 @@
               "entity_fieldname": "two_factor_authentication",
               "parameter_fieldname": "is_totp_enabled",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "two_factor_authentication"
             },
             {
@@ -30761,7 +30782,7 @@
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "username"
             }
           ],
@@ -30797,7 +30818,7 @@
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "address"
                   },
                   {
@@ -30826,7 +30847,7 @@
                     "entity_fieldname": "email",
                     "parameter_fieldname": "email",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "email"
                   },
                   {
@@ -30853,7 +30874,7 @@
                     "entity_fieldname": "full_name",
                     "parameter_fieldname": "full_name",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "full_name"
                   },
                   {
@@ -30869,7 +30890,7 @@
                     "schema_param": true,
                     "external_param": true,
                     "parameter_fieldname": "groups",
-                    "required": true,
+                    "required": false,
                     "_key": "groups"
                   },
                   {
@@ -30891,7 +30912,7 @@
                     "entity_fieldname": "terms_accepted",
                     "parameter_fieldname": "is_gtc_accepted",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "is_gtc_accepted"
                   },
                   {
@@ -30902,7 +30923,7 @@
                     "entity_fieldname": "marketing_accepted",
                     "parameter_fieldname": "is_marketing_accepted",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "is_marketing_accepted"
                   },
                   {
@@ -30913,7 +30934,7 @@
                     "entity_fieldname": "two_factor_authentication",
                     "parameter_fieldname": "is_totp_enabled",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "is_totp_enabled"
                   },
                   {
@@ -31020,7 +31041,7 @@
                     "entity_fieldname": "login_profiles",
                     "parameter_fieldname": "login_profiles",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "login_profiles"
                   },
                   {
@@ -31041,7 +31062,7 @@
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "password"
                   },
                   {
@@ -31061,7 +31082,7 @@
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "phone_number"
                   },
                   {
@@ -31079,7 +31100,7 @@
                     "entity_fieldname": "status",
                     "parameter_fieldname": "status",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "status"
                   },
                   {
@@ -31099,7 +31120,7 @@
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "username"
                   }
                 ],
@@ -31827,7 +31848,7 @@
           "api_fieldname": "address",
           "parameter_fieldname": "address",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "address"
         },
@@ -31878,7 +31899,7 @@
           "api_fieldname": "full_name",
           "parameter_fieldname": "full_name",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "full_name"
         },
@@ -31998,7 +32019,7 @@
           "api_fieldname": "login_profiles",
           "parameter_fieldname": "login_profiles",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "login_profiles"
         },
@@ -32009,7 +32030,7 @@
           "api_fieldname": "is_marketing_accepted",
           "parameter_fieldname": "is_marketing_accepted",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "marketing_accepted"
         },
@@ -32020,7 +32041,7 @@
           "api_fieldname": "password",
           "parameter_fieldname": "password",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "password"
         },
@@ -32041,7 +32062,7 @@
           "api_fieldname": "phone_number",
           "parameter_fieldname": "phone_number",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "phone_number"
         },
@@ -32059,7 +32080,7 @@
           "api_fieldname": "status",
           "parameter_fieldname": "status",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "enum_reference": "subtenant_user_status_enum",
           "_key": "status"
@@ -32071,7 +32092,7 @@
           "api_fieldname": "is_gtc_accepted",
           "parameter_fieldname": "is_gtc_accepted",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "terms_accepted"
         },
@@ -32082,7 +32103,7 @@
           "api_fieldname": "is_totp_enabled",
           "parameter_fieldname": "is_totp_enabled",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "two_factor_authentication"
         },
@@ -32103,7 +32124,7 @@
           "api_fieldname": "username",
           "parameter_fieldname": "username",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "username"
         }
@@ -32200,7 +32221,7 @@
               "entity_fieldname": "login_profiles",
               "parameter_fieldname": "login_profiles",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "login_profiles"
             },
             {
@@ -32214,7 +32235,7 @@
               "api_fieldname": "valid_for_days",
               "external_param": true,
               "parameter_fieldname": "valid_for_days",
-              "required": true,
+              "required": false,
               "_key": "valid_for_days"
             }
           ],
@@ -32292,7 +32313,7 @@
                     "schema_param": true,
                     "external_param": true,
                     "parameter_fieldname": "groups",
-                    "required": true,
+                    "required": false,
                     "_key": "groups"
                   },
                   {
@@ -32345,7 +32366,7 @@
                     "entity_fieldname": "login_profiles",
                     "parameter_fieldname": "login_profiles",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "login_profiles"
                   },
                   {
@@ -33018,7 +33039,7 @@
                     "schema_param": true,
                     "external_param": true,
                     "parameter_fieldname": "groups",
-                    "required": true,
+                    "required": false,
                     "_key": "groups"
                   },
                   {
@@ -33071,7 +33092,7 @@
                     "entity_fieldname": "login_profiles",
                     "parameter_fieldname": "login_profiles",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "login_profiles"
                   },
                   {
@@ -33453,7 +33474,7 @@
           "api_fieldname": "login_profiles",
           "parameter_fieldname": "login_profiles",
           "in": "body",
-          "required": true,
+          "required": false,
           "readOnly": false,
           "_key": "login_profiles"
         },
@@ -33507,7 +33528,7 @@
               "entity_fieldname": "certificate",
               "parameter_fieldname": "certificate",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "certificate"
             },
             {
@@ -33518,7 +33539,7 @@
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "description"
             },
             {
@@ -33540,7 +33561,7 @@
               "entity_fieldname": "enrollment_mode",
               "parameter_fieldname": "enrollment_mode",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "enrollment_mode"
             },
             {
@@ -33562,7 +33583,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -33576,7 +33597,7 @@
               "entity_fieldname": "service",
               "parameter_fieldname": "service",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "trusted_certificate_service_enum",
               "_key": "service"
             },
@@ -33592,7 +33613,7 @@
               "entity_fieldname": "status",
               "parameter_fieldname": "status",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "trusted_certificate_status_enum",
               "_key": "status"
             }
@@ -35846,7 +35867,7 @@
               "entity_fieldname": "certificate",
               "parameter_fieldname": "certificate",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "certificate"
             },
             {
@@ -35857,7 +35878,7 @@
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "description"
             },
             {
@@ -35879,7 +35900,7 @@
               "entity_fieldname": "enrollment_mode",
               "parameter_fieldname": "enrollment_mode",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "enrollment_mode"
             },
             {
@@ -35901,7 +35922,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -35915,7 +35936,7 @@
               "entity_fieldname": "service",
               "parameter_fieldname": "service",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "trusted_certificate_service_enum",
               "_key": "service"
             },
@@ -35931,7 +35952,7 @@
               "entity_fieldname": "status",
               "parameter_fieldname": "status",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "trusted_certificate_status_enum",
               "_key": "status"
             }
@@ -36574,7 +36595,7 @@
           "description": "Human readable description of this certificate.",
           "api_fieldname": "description",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "description"
         },
         {
@@ -36595,7 +36616,7 @@
           "description": "If true, signature is not required. Default value false.",
           "api_fieldname": "enrollment_mode",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "enrollment_mode"
         },
         {
@@ -36669,7 +36690,7 @@
           ],
           "api_fieldname": "status",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "enum_reference": "trusted_certificate_status_enum",
           "_key": "status"
         },
@@ -36759,7 +36780,7 @@
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "address"
             },
             {
@@ -36770,7 +36791,7 @@
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "email"
             },
             {
@@ -36781,7 +36802,7 @@
               "entity_fieldname": "full_name",
               "parameter_fieldname": "full_name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "full_name"
             },
             {
@@ -36823,7 +36844,7 @@
               "entity_fieldname": "login_profiles",
               "parameter_fieldname": "login_profiles",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "login_profiles"
             },
             {
@@ -36834,7 +36855,7 @@
               "entity_fieldname": "marketing_accepted",
               "parameter_fieldname": "is_marketing_accepted",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "marketing_accepted"
             },
             {
@@ -36845,7 +36866,7 @@
               "entity_fieldname": "password",
               "parameter_fieldname": "password",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "password"
             },
             {
@@ -36856,7 +36877,7 @@
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "phone_number"
             },
             {
@@ -36867,7 +36888,7 @@
               "entity_fieldname": "terms_accepted",
               "parameter_fieldname": "is_gtc_accepted",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "terms_accepted"
             },
             {
@@ -36878,7 +36899,7 @@
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "username"
             }
           ],
@@ -39094,7 +39115,7 @@
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "address"
             },
             {
@@ -39105,7 +39126,7 @@
               "entity_fieldname": "full_name",
               "parameter_fieldname": "full_name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "full_name"
             },
             {
@@ -39158,7 +39179,7 @@
               "entity_fieldname": "login_profiles",
               "parameter_fieldname": "login_profiles",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "login_profiles"
             },
             {
@@ -39169,7 +39190,7 @@
               "entity_fieldname": "marketing_accepted",
               "parameter_fieldname": "is_marketing_accepted",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "marketing_accepted"
             },
             {
@@ -39180,7 +39201,7 @@
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "phone_number"
             },
             {
@@ -39191,7 +39212,7 @@
               "entity_fieldname": "terms_accepted",
               "parameter_fieldname": "is_gtc_accepted",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "terms_accepted"
             },
             {
@@ -39202,7 +39223,7 @@
               "entity_fieldname": "two_factor_authentication",
               "parameter_fieldname": "is_totp_enabled",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "two_factor_authentication"
             },
             {
@@ -39213,7 +39234,7 @@
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "username"
             }
           ],
@@ -39942,7 +39963,7 @@
           "description": "Address.",
           "api_fieldname": "address",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "address"
         },
         {
@@ -39989,7 +40010,7 @@
           "description": "The full name of the user.",
           "api_fieldname": "full_name",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "full_name"
         },
         {
@@ -40105,7 +40126,7 @@
           },
           "api_fieldname": "login_profiles",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "login_profiles"
         },
         {
@@ -40114,7 +40135,7 @@
           "description": "A flag indicating that receiving marketing information has been accepted.",
           "api_fieldname": "is_marketing_accepted",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "marketing_accepted"
         },
         {
@@ -40123,7 +40144,7 @@
           "description": "The password when creating a new user. It will be generated when not present in the request.",
           "api_fieldname": "password",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "password"
         },
         {
@@ -40142,7 +40163,7 @@
           "description": "Phone number.",
           "api_fieldname": "phone_number",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "phone_number"
         },
         {
@@ -40158,7 +40179,7 @@
           ],
           "api_fieldname": "status",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "enum_reference": "user_status_enum",
           "_key": "status"
         },
@@ -40168,7 +40189,7 @@
           "description": "A flag indicating that the General Terms and Conditions has been accepted.",
           "api_fieldname": "is_gtc_accepted",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "terms_accepted"
         },
         {
@@ -40177,7 +40198,7 @@
           "description": "A flag indicating whether 2-factor authentication (TOTP) has been enabled.",
           "api_fieldname": "is_totp_enabled",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "two_factor_authentication"
         },
         {
@@ -40196,7 +40217,7 @@
           "description": "A username containing alphanumerical letters and -,._@+= characters.",
           "api_fieldname": "username",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "username"
         }
       ],
@@ -40282,7 +40303,7 @@
               "entity_fieldname": "login_profiles",
               "parameter_fieldname": "login_profiles",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "login_profiles"
             },
             {
@@ -40296,7 +40317,7 @@
               "api_fieldname": "valid_for_days",
               "external_param": true,
               "parameter_fieldname": "valid_for_days",
-              "required": true,
+              "required": false,
               "_key": "valid_for_days"
             }
           ],
@@ -41920,7 +41941,7 @@
           },
           "api_fieldname": "login_profiles",
           "readOnly": false,
-          "required": true,
+          "required": false,
           "_key": "login_profiles"
         },
         {

@@ -7,28 +7,28 @@ entities:
     description: Postal address line 1.
     example: 110 Fulbourn Rd
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: address_line2
     api_fieldname: address_line2
     description: Postal address line 2.
     example: ' '
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: admin_email
     api_fieldname: admin_email
     description: The email address of the account admin, not longer than 254 characters.
     example: admin@arm.com
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: admin_full_name
     api_fieldname: admin_full_name
     description: The full name of the admin user to be created.
     example: Admin Doe
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: admin_id
     api_fieldname: admin_id
@@ -51,7 +51,7 @@ entities:
       long.
     example: admin
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: admin_password
     api_fieldname: admin_password
@@ -59,7 +59,7 @@ entities:
       not present in the request.
     example: PZf9eEUH43DAPE9ULINFeuj
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: aliases
     api_fieldname: aliases
@@ -67,42 +67,42 @@ entities:
     items:
       type: string
     readOnly: false
-    required: true
+    required: false
     type: array
   - _key: city
     api_fieldname: city
     description: The city part of the postal address.
     example: Cambridge
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: company
     api_fieldname: company
     description: The name of the company.
     example: ARM Holdings Plc
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: contact
     api_fieldname: contact
     description: The name of the contact person for this account.
     example: J. Doe
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: contract_number
     api_fieldname: contract_number
     description: Contract number of the customer.
     example: 1NX25_0001
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: country
     api_fieldname: country
     description: The country part of the postal address.
     example: United Kingdom
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
@@ -118,28 +118,28 @@ entities:
     api_fieldname: custom_fields
     description: Account's custom properties as key-value pairs.
     readOnly: false
-    required: true
+    required: false
     type: object
   - _key: customer_number
     api_fieldname: customer_number
     description: Customer number of the customer.
     example: 1NC25_0001
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: display_name
     api_fieldname: display_name
     description: The display name for the account.
     example: ARM
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: email
     api_fieldname: email
     description: The company email address for this account.
     example: info@arm.com
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: end_market
     api_fieldname: end_market
@@ -154,7 +154,7 @@ entities:
       email should be sent.
     example: '180'
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -168,7 +168,7 @@ entities:
     description: The reference token expiration time in minutes for this account.
     example: '30'
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: limits
     additionalProperties:
@@ -187,7 +187,7 @@ entities:
     - optional
     enum_reference: account_mfa_status_enum
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: notification_emails
     api_fieldname: notification_emails
@@ -195,7 +195,7 @@ entities:
     items:
       type: string
     readOnly: false
-    required: true
+    required: false
     type: array
   - _key: parent_account
     api_fieldname: parent_account
@@ -254,7 +254,7 @@ entities:
     description: The phone number of a representative of the company.
     example: +44 (1223) 400 400
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: policies
     api_fieldname: policies
@@ -307,7 +307,7 @@ entities:
     description: The postal code part of the postal address.
     example: CB1 9NJ
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: reason
     api_fieldname: reason
@@ -328,14 +328,14 @@ entities:
     description: Email address of the sales contact.
     example: sales@arm.com
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: state
     api_fieldname: state
     description: The state part of the postal address.
     example: ' '
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: status
     api_fieldname: status
@@ -434,7 +434,7 @@ entities:
       example: 110 Fulbourn Rd
       in: body
       parameter_fieldname: address_line1
-      required: true
+      required: false
       type: string
     - _key: address_line2
       api_fieldname: address_line2
@@ -443,7 +443,7 @@ entities:
       example: ' '
       in: body
       parameter_fieldname: address_line2
-      required: true
+      required: false
       type: string
     - _key: admin_email
       api_fieldname: admin_email
@@ -452,7 +452,7 @@ entities:
       example: admin@arm.com
       in: body
       parameter_fieldname: admin_email
-      required: true
+      required: false
       type: string
     - _key: admin_full_name
       api_fieldname: admin_full_name
@@ -461,7 +461,7 @@ entities:
       example: Admin Doe
       in: body
       parameter_fieldname: admin_full_name
-      required: true
+      required: false
       type: string
     - _key: admin_name
       api_fieldname: admin_name
@@ -472,7 +472,7 @@ entities:
       example: admin
       in: body
       parameter_fieldname: admin_name
-      required: true
+      required: false
       type: string
     - _key: admin_password
       api_fieldname: admin_password
@@ -482,7 +482,7 @@ entities:
       example: PZf9eEUH43DAPE9ULINFeuj
       in: body
       parameter_fieldname: admin_password
-      required: true
+      required: false
       type: string
     - _key: aliases
       api_fieldname: aliases
@@ -493,7 +493,7 @@ entities:
       items:
         type: string
       parameter_fieldname: aliases
-      required: true
+      required: false
       type: array
     - _key: city
       api_fieldname: city
@@ -503,7 +503,7 @@ entities:
       example: Cambridge
       in: body
       parameter_fieldname: city
-      required: true
+      required: false
       type: string
     - _key: company
       api_fieldname: company
@@ -513,7 +513,7 @@ entities:
       example: ARM Holdings Plc
       in: body
       parameter_fieldname: company
-      required: true
+      required: false
       type: string
     - _key: contact
       api_fieldname: contact
@@ -523,7 +523,7 @@ entities:
       example: J. Doe
       in: body
       parameter_fieldname: contact
-      required: true
+      required: false
       type: string
     - _key: contract_number
       api_fieldname: contract_number
@@ -532,7 +532,7 @@ entities:
       example: 1NX25_0001
       in: body
       parameter_fieldname: contract_number
-      required: true
+      required: false
       type: string
     - _key: country
       api_fieldname: country
@@ -542,7 +542,7 @@ entities:
       example: United Kingdom
       in: body
       parameter_fieldname: country
-      required: true
+      required: false
       type: string
     - _key: customer_number
       api_fieldname: customer_number
@@ -551,7 +551,7 @@ entities:
       example: 1NC25_0001
       in: body
       parameter_fieldname: customer_number
-      required: true
+      required: false
       type: string
     - _key: display_name
       api_fieldname: display_name
@@ -560,7 +560,7 @@ entities:
       example: ARM
       in: body
       parameter_fieldname: display_name
-      required: true
+      required: false
       type: string
     - _key: email
       api_fieldname: email
@@ -570,7 +570,7 @@ entities:
       example: info@arm.com
       in: body
       parameter_fieldname: email
-      required: true
+      required: false
       type: string
     - _key: end_market
       api_fieldname: end_market
@@ -589,7 +589,7 @@ entities:
       example: +44 (1223) 400 400
       in: body
       parameter_fieldname: phone_number
-      required: true
+      required: false
       type: string
     - _key: postal_code
       api_fieldname: postal_code
@@ -599,7 +599,7 @@ entities:
       example: CB1 9NJ
       in: body
       parameter_fieldname: postal_code
-      required: true
+      required: false
       type: string
     - _key: state
       api_fieldname: state
@@ -608,7 +608,7 @@ entities:
       example: ' '
       in: body
       parameter_fieldname: state
-      required: true
+      required: false
       type: string
     group_id: Accounts
     method: post
@@ -3468,91 +3468,152 @@ entities:
               group: Security
             properties:
             - _key: account_id
+              api_fieldname: account_id
               description: The ID of the account.
+              entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
+              in: path
+              parameter_fieldname: account_id
+              required: true
               type: string
             - _key: certificate
+              api_fieldname: certificate
               description: X509.v3 trusted certificate in PEM format.
+              entity_fieldname: certificate
               example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
+              in: body
+              parameter_fieldname: certificate
+              required: false
               type: string
             - _key: certificate_fingerprint
+              api_fieldname: certificate_fingerprint
               description: A SHA-256 fingerprint of the certificate.
+              entity_fieldname: certificate_fingerprint
               example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
               type: string
             - _key: created_at
+              api_fieldname: created_at
               description: Creation UTC time RFC3339.
+              entity_fieldname: created_at
               example: '2018-02-13T09:35:20Z'
               format: date-time
               type: string
             - _key: description
+              api_fieldname: description
               description: Human readable description of this certificate.
+              entity_fieldname: description
               example: Certificate created by me.
+              in: body
+              parameter_fieldname: description
+              required: false
               type: string
             - _key: device_execution_mode
               _override: true
+              api_fieldname: device_execution_mode
               description: Device execution mode where 1 means a developer certificate.
+              entity_fieldname: device_execution_mode
               example: 1
               format: int32
               private_field: true
               type: integer
             - _key: enrollment_mode
+              api_fieldname: enrollment_mode
               description: If true, signature is not required. Default value false.
+              entity_fieldname: enrollment_mode
               example: false
+              in: body
+              parameter_fieldname: enrollment_mode
+              required: false
               type: boolean
             - _key: etag
+              api_fieldname: etag
               description: API resource entity version.
+              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
+              api_fieldname: id
               description: Entity ID.
+              entity_fieldname: id
               example: 01619571d01d0242ac12000600000000
               type: string
             - _key: issuer
+              api_fieldname: issuer
               description: Issuer of the certificate.
+              entity_fieldname: issuer
               example: CN=issuer
               type: string
             - _key: name
+              api_fieldname: name
               description: Certificate name.
+              entity_fieldname: name
               example: My certificate
+              in: body
+              parameter_fieldname: name
+              required: false
               type: string
             - _key: object
+              api_fieldname: object
               description: 'Entity name: always ''trusted-cert'''
+              entity_fieldname: object
               enum:
               - trusted-cert
               type: string
             - _key: owner_id
+              api_fieldname: owner_id
               description: The ID of the owner.
+              entity_fieldname: owner_id
               example: 01619571dad80242ac12000600000000
               type: string
             - _key: private_key
+              api_fieldname: private_key
               description: Private key of the certificate in PEM or base64 encoded
                 DER format.
+              entity_fieldname: private_key
               example: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...
               type: string
             - _key: service
+              api_fieldname: service
               description: Service name where the certificate is to be used.
+              entity_fieldname: service
               enum:
               - lwm2m
               - bootstrap
+              enum_reference: subtenant_trusted_certificate_service_enum
+              in: body
+              parameter_fieldname: service
+              required: false
               type: string
             - _key: status
+              api_fieldname: status
               description: Status of the certificate.
+              entity_fieldname: status
               enum:
               - ACTIVE
               - INACTIVE
+              enum_reference: subtenant_trusted_certificate_status_enum
               example: ACTIVE
+              in: body
+              parameter_fieldname: status
+              required: false
               type: string
             - _key: subject
+              api_fieldname: subject
               description: Subject of the certificate.
+              entity_fieldname: subject
               example: CN=subject
               type: string
             - _key: updated_at
+              api_fieldname: updated_at
               description: Last update UTC time RFC3339.
+              entity_fieldname: updated_at
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
             - _key: validity
+              api_fieldname: validity
               description: Expiration time in UTC formatted as RFC3339.
+              entity_fieldname: validity
               example: '2038-02-14T15:24:14Z'
               format: date-time
               type: string
@@ -3809,7 +3870,7 @@ entities:
       example: 110 Fulbourn Rd
       in: body
       parameter_fieldname: address_line1
-      required: true
+      required: false
       type: string
     - _key: address_line2
       api_fieldname: address_line2
@@ -3818,7 +3879,7 @@ entities:
       example: ' '
       in: body
       parameter_fieldname: address_line2
-      required: true
+      required: false
       type: string
     - _key: aliases
       api_fieldname: aliases
@@ -3828,7 +3889,7 @@ entities:
       items:
         type: string
       parameter_fieldname: aliases
-      required: true
+      required: false
       type: array
     - _key: city
       api_fieldname: city
@@ -3837,7 +3898,7 @@ entities:
       example: Cambridge
       in: body
       parameter_fieldname: city
-      required: true
+      required: false
       type: string
     - _key: company
       api_fieldname: company
@@ -3846,7 +3907,7 @@ entities:
       example: ARM Holdings Plc
       in: body
       parameter_fieldname: company
-      required: true
+      required: false
       type: string
     - _key: contact
       api_fieldname: contact
@@ -3855,7 +3916,7 @@ entities:
       example: J. Doe
       in: body
       parameter_fieldname: contact
-      required: true
+      required: false
       type: string
     - _key: contract_number
       api_fieldname: contract_number
@@ -3864,7 +3925,7 @@ entities:
       example: 1NX25_0001
       in: body
       parameter_fieldname: contract_number
-      required: true
+      required: false
       type: string
     - _key: country
       api_fieldname: country
@@ -3873,7 +3934,7 @@ entities:
       example: United Kingdom
       in: body
       parameter_fieldname: country
-      required: true
+      required: false
       type: string
     - _key: custom_fields
       additionalProperties:
@@ -3883,7 +3944,7 @@ entities:
       entity_fieldname: custom_fields
       in: body
       parameter_fieldname: custom_fields
-      required: true
+      required: false
       type: object
     - _key: customer_number
       api_fieldname: customer_number
@@ -3892,7 +3953,7 @@ entities:
       example: 1NC25_0001
       in: body
       parameter_fieldname: customer_number
-      required: true
+      required: false
       type: string
     - _key: display_name
       api_fieldname: display_name
@@ -3901,7 +3962,7 @@ entities:
       example: ARM
       in: body
       parameter_fieldname: display_name
-      required: true
+      required: false
       type: string
     - _key: email
       api_fieldname: email
@@ -3910,7 +3971,7 @@ entities:
       example: info@arm.com
       in: body
       parameter_fieldname: email
-      required: true
+      required: false
       type: string
     - _key: end_market
       api_fieldname: end_market
@@ -3919,7 +3980,7 @@ entities:
       example: IT
       in: body
       parameter_fieldname: end_market
-      required: true
+      required: false
       type: string
     - _key: expiration_warning_threshold
       api_fieldname: expiration_warning_threshold
@@ -3929,7 +3990,7 @@ entities:
       example: '180'
       in: body
       parameter_fieldname: expiration_warning_threshold
-      required: true
+      required: false
       type: string
     - _key: id
       api_fieldname: id
@@ -3947,7 +4008,7 @@ entities:
       example: '30'
       in: body
       parameter_fieldname: idle_timeout
-      required: true
+      required: false
       type: string
     - _key: mfa_status
       api_fieldname: mfa_status
@@ -3960,7 +4021,7 @@ entities:
       enum_reference: account_mfa_status_enum
       in: body
       parameter_fieldname: mfa_status
-      required: true
+      required: false
       type: string
     - _key: notification_emails
       api_fieldname: notification_emails
@@ -3970,7 +4031,7 @@ entities:
       items:
         type: string
       parameter_fieldname: notification_emails
-      required: true
+      required: false
       type: array
     - _key: password_policy
       api_fieldname: password_policy
@@ -3997,7 +4058,7 @@ entities:
       example: +44 (1223) 400 400
       in: body
       parameter_fieldname: phone_number
-      required: true
+      required: false
       type: string
     - _key: postal_code
       api_fieldname: postal_code
@@ -4006,7 +4067,7 @@ entities:
       example: CB1 9NJ
       in: body
       parameter_fieldname: postal_code
-      required: true
+      required: false
       type: string
     - _key: sales_contact
       api_fieldname: sales_contact
@@ -4015,7 +4076,7 @@ entities:
       example: sales@arm.com
       in: body
       parameter_fieldname: sales_contact
-      required: true
+      required: false
       type: string
     - _key: state
       api_fieldname: state
@@ -4024,7 +4085,7 @@ entities:
       example: ' '
       in: body
       parameter_fieldname: state
-      required: true
+      required: false
       type: string
     group_id: Accounts
     method: put
@@ -5825,7 +5886,7 @@ entities:
     description: The owner of this API key, who is the creator by default.
     example: 01619571e2e89242ac12000600000000
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: status
     api_fieldname: status
@@ -5836,7 +5897,7 @@ entities:
     enum_reference: api_key_status_enum
     example: ACTIVE
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: updated_at
     api_fieldname: updated_at
@@ -5891,7 +5952,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: body
       parameter_fieldname: owner
-      required: true
+      required: false
       type: string
     - _key: status
       api_fieldname: status
@@ -5904,7 +5965,7 @@ entities:
       example: ACTIVE
       in: body
       parameter_fieldname: status
-      required: true
+      required: false
       type: string
     group_id: Accounts
     method: post
@@ -7288,7 +7349,7 @@ entities:
       example: 01619571e2e89242ac12000600000000
       in: body
       parameter_fieldname: owner
-      required: true
+      required: false
       type: string
     - _key: status
       api_fieldname: status
@@ -7299,7 +7360,7 @@ entities:
       example: ACTIVE
       in: body
       parameter_fieldname: status
-      required: true
+      required: false
       type: string
     group_id: Accounts
     method: put
@@ -7626,14 +7687,9 @@ entities:
     api_fieldname: certificate_name
     description: The certificate name.
     example: customer.dlms
-    external_param: true
-    in: path
     maxLength: 50
-    name: certificate-name
-    parameter_fieldname: certificate-name
-    pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
     readOnly: true
-    required: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
@@ -7674,8 +7730,6 @@ entities:
     api_fieldname: id
     description: The ID of the certificate enrollment.
     example: 01612df56f3b0a580a010fc700000000
-    in: path
-    parameter_fieldname: device-id
     readOnly: false
     required: true
     type: string
@@ -7752,13 +7806,7 @@ entities:
           description: The certificate name.
           entity_fieldname: certificate_name
           example: customer.dlms
-          external_param: true
-          in: path
           maxLength: 50
-          name: certificate-name
-          parameter_fieldname: certificate-name
-          pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
-          required: true
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -7800,9 +7848,6 @@ entities:
           description: The ID of the certificate enrollment.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
-          in: path
-          parameter_fieldname: device-id
-          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -8137,34 +8182,20 @@ entities:
               group: Security
             properties:
             - _key: certificate_name
-              api_fieldname: certificate-name
               description: The certificate name.
-              entity_fieldname: certificate_name
               example: customer.dlms
-              external_param: true
-              in: path
               maxLength: 50
-              name: certificate-name
-              parameter_fieldname: certificate-name
-              pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
-              required: true
               type: string
             - _key: created_at
-              api_fieldname: created_at
               description: Creation UTC time RFC3339.
-              entity_fieldname: created_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
             - _key: device_id
-              api_fieldname: device_id
               description: The device ID.
-              entity_fieldname: device_id
               example: 01625daa23230a580a0100bd00000000
               type: string
             - _key: enroll_result
-              api_fieldname: enroll_result
-              entity_fieldname: enroll_result
               enum:
               - success
               - not_found
@@ -8172,37 +8203,24 @@ entities:
               - failure
               type: string
             - _key: enroll_status
-              api_fieldname: enroll_status
-              entity_fieldname: enroll_status
               enum:
               - new
               - completed
               type: string
             - _key: etag
-              api_fieldname: etag
               description: Entity instance signature.
-              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
-              api_fieldname: id
               description: The ID of the certificate enrollment.
-              entity_fieldname: id
               example: 01612df56f3b0a580a010fc700000000
-              in: path
-              parameter_fieldname: device-id
-              required: true
               type: string
             - _key: object
-              api_fieldname: object
-              entity_fieldname: object
               enum:
               - certificate-enrollment
               type: string
             - _key: updated_at
-              api_fieldname: updated_at
               description: Update UTC time RFC3339.
-              entity_fieldname: updated_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
@@ -8399,7 +8417,7 @@ entities:
     example: GlobalSign sample issuer
     maxLength: 100
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -8421,7 +8439,7 @@ entities:
       '
     example: []
     readOnly: false
-    required: true
+    required: false
     type: object
   - _key: issuer_type
     api_fieldname: issuer_type
@@ -8497,7 +8515,7 @@ entities:
       in: body
       maxLength: 100
       parameter_fieldname: description
-      required: true
+      required: false
       type: string
     - _key: issuer_attributes
       additionalProperties:
@@ -8514,7 +8532,7 @@ entities:
       example: []
       in: body
       parameter_fieldname: issuer_attributes
-      required: true
+      required: false
       type: object
     - _key: issuer_credentials
       additionalProperties:
@@ -8533,7 +8551,7 @@ entities:
       in: body
       name: issuer_credentials
       parameter_fieldname: issuer_credentials
-      required: true
+      required: false
       schema_param: true
       type: object
     - _key: name
@@ -8544,7 +8562,7 @@ entities:
       in: body
       maxLength: 50
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     group_id: Security
     method: post
@@ -9674,7 +9692,7 @@ entities:
       in: body
       maxLength: 100
       parameter_fieldname: description
-      required: true
+      required: false
       type: string
     - _key: id
       api_fieldname: id
@@ -9700,7 +9718,7 @@ entities:
       example: []
       in: body
       parameter_fieldname: issuer_attributes
-      required: true
+      required: false
       type: object
     - _key: issuer_credentials
       additionalProperties:
@@ -9719,7 +9737,7 @@ entities:
       in: body
       name: issuer_credentials
       parameter_fieldname: issuer_credentials
-      required: true
+      required: false
       schema_param: true
       type: object
     - _key: name
@@ -9730,7 +9748,7 @@ entities:
       in: body
       maxLength: 50
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     group_id: Security
     method: put
@@ -10469,7 +10487,7 @@ entities:
       example: 01648415a2a30242ac18000500000000
       in: body
       parameter_fieldname: certificate_issuer_id
-      required: true
+      required: false
       type: string
     - _key: certificate_reference
       api_fieldname: reference
@@ -11803,7 +11821,7 @@ entities:
       example: 01648415a2a30242ac18000500000000
       in: body
       parameter_fieldname: certificate_issuer_id
-      required: true
+      required: false
       type: string
     - _key: id
       api_fieldname: id
@@ -12093,7 +12111,7 @@ entities:
     api_fieldname: description
     description: Description for the developer certificate.
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -12162,7 +12180,7 @@ entities:
       entity_fieldname: description
       in: body
       parameter_fieldname: description
-      required: true
+      required: false
       type: string
     - _key: name
       api_fieldname: name
@@ -13731,7 +13749,7 @@ entities:
     api_fieldname: auto_update
     description: 'DEPRECATED: Mark this device for automatic firmware update.'
     readOnly: false
-    required: true
+    required: false
     type: boolean
   - _key: bootstrap_expiration_date
     api_fieldname: bootstrap_expiration_date
@@ -13739,7 +13757,7 @@ entities:
       server.
     format: date
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: bootstrapped_timestamp
     api_fieldname: bootstrapped_timestamp
@@ -13747,7 +13765,7 @@ entities:
     example: '2017-05-22T12:37:55.576563Z'
     format: date-time
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: ca_id
     api_fieldname: ca_id
@@ -13755,14 +13773,14 @@ entities:
     example: '00000000000000000000000000000000'
     maxLength: 500
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: connector_expiration_date
     api_fieldname: connector_expiration_date
     description: The expiration date of the certificate used to connect to LwM2M server.
     format: date
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
@@ -13785,7 +13803,7 @@ entities:
       key: value
     maxProperties: 5
     readOnly: false
-    required: true
+    required: false
     type: object
   - _key: deployed_state
     api_fieldname: deployed_state
@@ -13802,7 +13820,7 @@ entities:
     description: 'DEPRECATED: The last deployment used on the device.'
     example: ''
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: description
     api_fieldname: description
@@ -13810,7 +13828,7 @@ entities:
     example: description
     maxLength: 2000
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: device_class
     api_fieldname: device_class
@@ -13818,7 +13836,7 @@ entities:
     example: ''
     maxLength: 32
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: device_execution_mode
     api_fieldname: device_execution_mode
@@ -13832,7 +13850,7 @@ entities:
     - 5
     example: 0
     readOnly: false
-    required: true
+    required: false
     type: integer
   - _key: device_key
     api_fieldname: device_key
@@ -13840,14 +13858,14 @@ entities:
     example: 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
     maxLength: 512
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: endpoint_name
     api_fieldname: endpoint_name
     description: The endpoint name given to the device.
     example: 00000000-0000-0000-0000-000000000000
     readOnly: true
-    required: true
+    required: false
     type: string
   - _key: endpoint_type
     api_fieldname: endpoint_type
@@ -13855,7 +13873,7 @@ entities:
     example: ''
     maxLength: 64
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: enrolment_list_timestamp
     api_fieldname: enrolment_list_timestamp
@@ -13870,14 +13888,14 @@ entities:
     description: The SHA256 checksum of the current firmware image.
     example: '0000000000000000000000000000000000000000000000000000000000000000'
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: host_gateway
     api_fieldname: host_gateway
     description: The `endpoint_name` of the host gateway, if appropriate.
     example: ''
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -13894,7 +13912,7 @@ entities:
     example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
     pattern: '[A-Fa-f0-9]{64}'
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: last_operator_suspended_category
     api_fieldname: last_operator_suspended_category
@@ -13963,7 +13981,7 @@ entities:
     description: 'DEPRECATED: The URL for the current device manifest.'
     example: ''
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: manifest_timestamp
     api_fieldname: manifest_timestamp
@@ -13981,14 +13999,14 @@ entities:
     - direct
     enum_reference: device_mechanism_enum
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: mechanism_url
     api_fieldname: mechanism_url
     description: The address of the connector to use.
     example: ''
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: name
     api_fieldname: name
@@ -13996,7 +14014,7 @@ entities:
     example: 00000000-0000-0000-0000-000000000000
     maxLength: 128
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: operator_suspended
     api_fieldname: operator_suspended
@@ -14009,7 +14027,7 @@ entities:
     description: The serial number of the device.
     example: 00000000-0000-0000-0000-000000000000
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: state
     api_fieldname: state
@@ -14022,7 +14040,7 @@ entities:
     - deregistered
     enum_reference: device_state_enum
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: system_suspended
     api_fieldname: system_suspended
@@ -14043,7 +14061,7 @@ entities:
     description: The device vendor ID.
     example: 00000000-0000-0000-0000-000000000000
     readOnly: false
-    required: true
+    required: false
     type: string
   group_id: Devices
   methods:
@@ -14082,7 +14100,7 @@ entities:
       entity_fieldname: auto_update
       in: body
       parameter_fieldname: auto_update
-      required: true
+      required: false
       type: boolean
     - _key: bootstrap_expiration_date
       api_fieldname: bootstrap_expiration_date
@@ -14092,7 +14110,7 @@ entities:
       format: date
       in: body
       parameter_fieldname: bootstrap_expiration_date
-      required: true
+      required: false
       type: string
     - _key: bootstrapped_timestamp
       api_fieldname: bootstrapped_timestamp
@@ -14102,7 +14120,7 @@ entities:
       format: date-time
       in: body
       parameter_fieldname: bootstrapped_timestamp
-      required: true
+      required: false
       type: string
     - _key: ca_id
       api_fieldname: ca_id
@@ -14112,7 +14130,7 @@ entities:
       in: body
       maxLength: 500
       parameter_fieldname: ca_id
-      required: true
+      required: false
       type: string
     - _key: connector_expiration_date
       api_fieldname: connector_expiration_date
@@ -14122,7 +14140,7 @@ entities:
       format: date
       in: body
       parameter_fieldname: connector_expiration_date
-      required: true
+      required: false
       type: string
     - _key: custom_attributes
       additionalProperties:
@@ -14139,7 +14157,7 @@ entities:
       in: body
       maxProperties: 5
       parameter_fieldname: custom_attributes
-      required: true
+      required: false
       type: object
     - _key: deployment
       api_fieldname: deployment
@@ -14148,7 +14166,7 @@ entities:
       example: ''
       in: body
       parameter_fieldname: deployment
-      required: true
+      required: false
       type: string
     - _key: description
       api_fieldname: description
@@ -14158,7 +14176,7 @@ entities:
       in: body
       maxLength: 2000
       parameter_fieldname: description
-      required: true
+      required: false
       type: string
     - _key: device_class
       api_fieldname: device_class
@@ -14168,7 +14186,7 @@ entities:
       in: body
       maxLength: 32
       parameter_fieldname: device_class
-      required: true
+      required: false
       type: string
     - _key: device_execution_mode
       api_fieldname: device_execution_mode
@@ -14184,7 +14202,7 @@ entities:
       example: 0
       in: body
       parameter_fieldname: device_execution_mode
-      required: true
+      required: false
       type: integer
     - _key: device_key
       api_fieldname: device_key
@@ -14194,7 +14212,7 @@ entities:
       in: body
       maxLength: 512
       parameter_fieldname: device_key
-      required: true
+      required: false
       type: string
     - _key: endpoint_name
       api_fieldname: endpoint_name
@@ -14204,7 +14222,7 @@ entities:
       in: body
       parameter_fieldname: endpoint_name
       readOnly: true
-      required: true
+      required: false
       type: string
     - _key: endpoint_type
       api_fieldname: endpoint_type
@@ -14214,7 +14232,7 @@ entities:
       in: body
       maxLength: 64
       parameter_fieldname: endpoint_type
-      required: true
+      required: false
       type: string
     - _key: firmware_checksum
       api_fieldname: firmware_checksum
@@ -14223,7 +14241,7 @@ entities:
       example: '0000000000000000000000000000000000000000000000000000000000000000'
       in: body
       parameter_fieldname: firmware_checksum
-      required: true
+      required: false
       type: string
     - _key: host_gateway
       api_fieldname: host_gateway
@@ -14232,7 +14250,7 @@ entities:
       example: ''
       in: body
       parameter_fieldname: host_gateway
-      required: true
+      required: false
       type: string
     - _key: issuer_fingerprint
       api_fieldname: issuer_fingerprint
@@ -14243,7 +14261,7 @@ entities:
       in: body
       parameter_fieldname: issuer_fingerprint
       pattern: '[A-Fa-f0-9]{64}'
-      required: true
+      required: false
       type: string
     - _key: manifest
       api_fieldname: manifest
@@ -14252,7 +14270,7 @@ entities:
       example: ''
       in: body
       parameter_fieldname: manifest
-      required: true
+      required: false
       type: string
     - _key: mechanism
       api_fieldname: mechanism
@@ -14264,7 +14282,7 @@ entities:
       enum_reference: device_mechanism_enum
       in: body
       parameter_fieldname: mechanism
-      required: true
+      required: false
       type: string
     - _key: mechanism_url
       api_fieldname: mechanism_url
@@ -14273,7 +14291,7 @@ entities:
       example: ''
       in: body
       parameter_fieldname: mechanism_url
-      required: true
+      required: false
       type: string
     - _key: name
       api_fieldname: name
@@ -14283,7 +14301,7 @@ entities:
       in: body
       maxLength: 128
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     - _key: serial_number
       api_fieldname: serial_number
@@ -14292,7 +14310,7 @@ entities:
       example: 00000000-0000-0000-0000-000000000000
       in: body
       parameter_fieldname: serial_number
-      required: true
+      required: false
       type: string
     - _key: state
       api_fieldname: state
@@ -14307,7 +14325,7 @@ entities:
       enum_reference: device_state_enum
       in: body
       parameter_fieldname: state
-      required: true
+      required: false
       type: string
     - _key: vendor_id
       api_fieldname: vendor_id
@@ -14316,7 +14334,7 @@ entities:
       example: 00000000-0000-0000-0000-000000000000
       in: body
       parameter_fieldname: vendor_id
-      required: true
+      required: false
       type: string
     group_id: Devices
     method: post
@@ -15592,6 +15610,9 @@ entities:
           description: The ID of the certificate enrollment.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
+          in: path
+          parameter_fieldname: certificate-enrollment-id
+          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -15914,7 +15935,7 @@ entities:
       entity_fieldname: auto_update
       in: body
       parameter_fieldname: auto_update
-      required: true
+      required: false
       type: boolean
     - _key: ca_id
       api_fieldname: ca_id
@@ -15924,7 +15945,7 @@ entities:
       in: body
       maxLength: 500
       parameter_fieldname: ca_id
-      required: true
+      required: false
       type: string
     - _key: custom_attributes
       additionalProperties:
@@ -15941,7 +15962,7 @@ entities:
       in: body
       maxProperties: 5
       parameter_fieldname: custom_attributes
-      required: true
+      required: false
       type: object
     - _key: description
       api_fieldname: description
@@ -15951,7 +15972,7 @@ entities:
       in: body
       maxLength: 2000
       parameter_fieldname: description
-      required: true
+      required: false
       type: string
     - _key: device_key
       api_fieldname: device_key
@@ -15961,7 +15982,7 @@ entities:
       in: body
       maxLength: 512
       parameter_fieldname: device_key
-      required: true
+      required: false
       type: string
     - _key: endpoint_name
       api_fieldname: endpoint_name
@@ -15971,7 +15992,7 @@ entities:
       in: body
       parameter_fieldname: endpoint_name
       readOnly: true
-      required: true
+      required: false
       type: string
     - _key: endpoint_type
       api_fieldname: endpoint_type
@@ -15981,7 +16002,7 @@ entities:
       in: body
       maxLength: 64
       parameter_fieldname: endpoint_type
-      required: true
+      required: false
       type: string
     - _key: host_gateway
       api_fieldname: host_gateway
@@ -15990,7 +16011,7 @@ entities:
       example: ''
       in: body
       parameter_fieldname: host_gateway
-      required: true
+      required: false
       type: string
     - _key: id
       api_fieldname: id
@@ -16010,7 +16031,7 @@ entities:
       in: body
       maxLength: 128
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     group_id: Devices
     method: put
@@ -20116,7 +20137,7 @@ entities:
     in: body
     parameter_fieldname: description
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: device_execution_mode
     _override: true
@@ -20135,7 +20156,7 @@ entities:
     in: body
     parameter_fieldname: enrollment_mode
     readOnly: false
-    required: true
+    required: false
     type: boolean
   - _key: id
     api_fieldname: id
@@ -20200,7 +20221,7 @@ entities:
     in: body
     parameter_fieldname: status
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: subject
     api_fieldname: subject
@@ -20282,7 +20303,7 @@ entities:
       example: Certificate created by me.
       in: body
       parameter_fieldname: description
-      required: true
+      required: false
       type: string
     - _key: device_execution_mode
       _override: true
@@ -20300,7 +20321,7 @@ entities:
       example: false
       in: body
       parameter_fieldname: enrollment_mode
-      required: true
+      required: false
       type: boolean
     - _key: is_developer_certificate
       _override: true
@@ -20343,7 +20364,7 @@ entities:
       example: ACTIVE
       in: body
       parameter_fieldname: status
-      required: true
+      required: false
       type: string
     group_id: Security
     method: post
@@ -20375,7 +20396,7 @@ entities:
           example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
           in: body
           parameter_fieldname: certificate
-          required: true
+          required: false
           type: string
         - _key: certificate_fingerprint
           api_fieldname: certificate_fingerprint
@@ -20397,7 +20418,7 @@ entities:
           example: Certificate created by me.
           in: body
           parameter_fieldname: description
-          required: true
+          required: false
           type: string
         - _key: device_execution_mode
           _override: true
@@ -20415,7 +20436,7 @@ entities:
           example: false
           in: body
           parameter_fieldname: enrollment_mode
-          required: true
+          required: false
           type: boolean
         - _key: etag
           api_fieldname: etag
@@ -20442,7 +20463,7 @@ entities:
           example: My certificate
           in: body
           parameter_fieldname: name
-          required: true
+          required: false
           type: string
         - _key: object
           api_fieldname: object
@@ -20467,7 +20488,7 @@ entities:
           enum_reference: trusted_certificate_service_enum
           in: body
           parameter_fieldname: service
-          required: true
+          required: false
           type: string
         - _key: status
           api_fieldname: status
@@ -20480,7 +20501,7 @@ entities:
           example: ACTIVE
           in: body
           parameter_fieldname: status
-          required: true
+          required: false
           type: string
         - _key: subject
           api_fieldname: subject
@@ -21852,7 +21873,7 @@ entities:
       example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
       in: body
       parameter_fieldname: certificate
-      required: true
+      required: false
       type: string
     - _key: description
       api_fieldname: description
@@ -21861,7 +21882,7 @@ entities:
       example: Certificate created by me.
       in: body
       parameter_fieldname: description
-      required: true
+      required: false
       type: string
     - _key: device_execution_mode
       _override: true
@@ -21879,7 +21900,7 @@ entities:
       example: false
       in: body
       parameter_fieldname: enrollment_mode
-      required: true
+      required: false
       type: boolean
     - _key: is_developer_certificate
       _override: true
@@ -21897,7 +21918,7 @@ entities:
       example: My certificate
       in: body
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     - _key: service
       api_fieldname: service
@@ -21909,7 +21930,7 @@ entities:
       enum_reference: subtenant_trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
-      required: true
+      required: false
       type: string
     - _key: status
       api_fieldname: status
@@ -21922,7 +21943,7 @@ entities:
       example: ACTIVE
       in: body
       parameter_fieldname: status
-      required: true
+      required: false
       type: string
     group_id: Security
     method: put
@@ -22314,7 +22335,7 @@ entities:
     in: body
     parameter_fieldname: address
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
@@ -22356,7 +22377,7 @@ entities:
     in: body
     parameter_fieldname: full_name
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -22449,7 +22470,7 @@ entities:
       type: object
     parameter_fieldname: login_profiles
     readOnly: false
-    required: true
+    required: false
     type: array
   - _key: marketing_accepted
     api_fieldname: is_marketing_accepted
@@ -22458,7 +22479,7 @@ entities:
     in: body
     parameter_fieldname: is_marketing_accepted
     readOnly: false
-    required: true
+    required: false
     type: boolean
   - _key: password
     api_fieldname: password
@@ -22468,7 +22489,7 @@ entities:
     in: body
     parameter_fieldname: password
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: password_changed_time
     api_fieldname: password_changed_time
@@ -22485,7 +22506,7 @@ entities:
     in: body
     parameter_fieldname: phone_number
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: status
     api_fieldname: status
@@ -22504,7 +22525,7 @@ entities:
     in: body
     parameter_fieldname: status
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: terms_accepted
     api_fieldname: is_gtc_accepted
@@ -22514,7 +22535,7 @@ entities:
     in: body
     parameter_fieldname: is_gtc_accepted
     readOnly: false
-    required: true
+    required: false
     type: boolean
   - _key: two_factor_authentication
     api_fieldname: is_totp_enabled
@@ -22524,7 +22545,7 @@ entities:
     in: body
     parameter_fieldname: is_totp_enabled
     readOnly: false
-    required: true
+    required: false
     type: boolean
   - _key: updated_at
     api_fieldname: updated_at
@@ -22541,7 +22562,7 @@ entities:
     in: body
     parameter_fieldname: username
     readOnly: false
-    required: true
+    required: false
     type: string
   group_id: Accounts
   methods:
@@ -22610,7 +22631,7 @@ entities:
       example: 110 Fulbourn Rd, Cambridge, United Kingdom
       in: body
       parameter_fieldname: address
-      required: true
+      required: false
       type: string
     - _key: email
       api_fieldname: email
@@ -22619,7 +22640,7 @@ entities:
       example: user@arm.com
       in: body
       parameter_fieldname: email
-      required: true
+      required: false
       type: string
     - _key: full_name
       api_fieldname: full_name
@@ -22628,7 +22649,7 @@ entities:
       example: User Doe
       in: body
       parameter_fieldname: full_name
-      required: true
+      required: false
       type: string
     - _key: login_profiles
       api_fieldname: login_profiles
@@ -22659,7 +22680,7 @@ entities:
         - type
         type: object
       parameter_fieldname: login_profiles
-      required: true
+      required: false
       type: array
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
@@ -22669,7 +22690,7 @@ entities:
       example: true
       in: body
       parameter_fieldname: is_marketing_accepted
-      required: true
+      required: false
       type: boolean
     - _key: password
       api_fieldname: password
@@ -22679,7 +22700,7 @@ entities:
       example: PZf9eEUH43DAPE9ULINFeuj
       in: body
       parameter_fieldname: password
-      required: true
+      required: false
       type: string
     - _key: phone_number
       api_fieldname: phone_number
@@ -22688,7 +22709,7 @@ entities:
       example: +44 (1223) 400 400
       in: body
       parameter_fieldname: phone_number
-      required: true
+      required: false
       type: string
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
@@ -22698,7 +22719,7 @@ entities:
       example: true
       in: body
       parameter_fieldname: is_gtc_accepted
-      required: true
+      required: false
       type: boolean
     - _key: username
       api_fieldname: username
@@ -22707,7 +22728,7 @@ entities:
       example: admin
       in: body
       parameter_fieldname: username
-      required: true
+      required: false
       type: string
     group_id: Accounts
     method: post
@@ -22739,7 +22760,7 @@ entities:
           example: 110 Fulbourn Rd, Cambridge, United Kingdom
           in: body
           parameter_fieldname: address
-          required: true
+          required: false
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -22762,7 +22783,7 @@ entities:
           example: user@arm.com
           in: body
           parameter_fieldname: email
-          required: true
+          required: false
           type: string
         - _key: email_verified
           api_fieldname: email_verified
@@ -22784,7 +22805,7 @@ entities:
           example: User Doe
           in: body
           parameter_fieldname: full_name
-          required: true
+          required: false
           type: string
         - _key: groups
           api_fieldname: groups
@@ -22796,7 +22817,7 @@ entities:
             type: string
           name: groups
           parameter_fieldname: groups
-          required: true
+          required: false
           schema_param: true
           type: array
         - _key: id
@@ -22816,7 +22837,7 @@ entities:
           example: true
           in: body
           parameter_fieldname: is_gtc_accepted
-          required: true
+          required: false
           type: boolean
         - _key: is_marketing_accepted
           api_fieldname: is_marketing_accepted
@@ -22826,7 +22847,7 @@ entities:
           example: true
           in: body
           parameter_fieldname: is_marketing_accepted
-          required: true
+          required: false
           type: boolean
         - _key: is_totp_enabled
           api_fieldname: is_totp_enabled
@@ -22836,7 +22857,7 @@ entities:
           example: true
           in: body
           parameter_fieldname: is_totp_enabled
-          required: true
+          required: false
           type: boolean
         - _key: last_login_time
           api_fieldname: last_login_time
@@ -22919,7 +22940,7 @@ entities:
             - type
             type: object
           parameter_fieldname: login_profiles
-          required: true
+          required: false
           type: array
         - _key: object
           api_fieldname: object
@@ -22936,7 +22957,7 @@ entities:
           example: PZf9eEUH43DAPE9ULINFeuj
           in: body
           parameter_fieldname: password
-          required: true
+          required: false
           type: string
         - _key: password_changed_time
           api_fieldname: password_changed_time
@@ -22952,7 +22973,7 @@ entities:
           example: +44 (1223) 400 400
           in: body
           parameter_fieldname: phone_number
-          required: true
+          required: false
           type: string
         - _key: status
           api_fieldname: status
@@ -22971,7 +22992,7 @@ entities:
           example: ACTIVE
           in: body
           parameter_fieldname: status
-          required: true
+          required: false
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -22987,7 +23008,7 @@ entities:
           example: admin
           in: body
           parameter_fieldname: username
-          required: true
+          required: false
           type: string
         required:
         - account_id
@@ -23588,7 +23609,7 @@ entities:
           example: 110 Fulbourn Rd, Cambridge, United Kingdom
           in: body
           parameter_fieldname: address
-          required: true
+          required: false
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -23611,7 +23632,7 @@ entities:
           example: user@arm.com
           in: body
           parameter_fieldname: email
-          required: true
+          required: false
           type: string
         - _key: email_verified
           api_fieldname: email_verified
@@ -23633,7 +23654,7 @@ entities:
           example: User Doe
           in: body
           parameter_fieldname: full_name
-          required: true
+          required: false
           type: string
         - _key: groups
           api_fieldname: groups
@@ -23645,7 +23666,7 @@ entities:
             type: string
           name: groups
           parameter_fieldname: groups
-          required: true
+          required: false
           schema_param: true
           type: array
         - _key: id
@@ -23665,7 +23686,7 @@ entities:
           example: true
           in: body
           parameter_fieldname: is_gtc_accepted
-          required: true
+          required: false
           type: boolean
         - _key: is_marketing_accepted
           api_fieldname: is_marketing_accepted
@@ -23675,7 +23696,7 @@ entities:
           example: true
           in: body
           parameter_fieldname: is_marketing_accepted
-          required: true
+          required: false
           type: boolean
         - _key: is_totp_enabled
           api_fieldname: is_totp_enabled
@@ -23685,7 +23706,7 @@ entities:
           example: true
           in: body
           parameter_fieldname: is_totp_enabled
-          required: true
+          required: false
           type: boolean
         - _key: last_login_time
           api_fieldname: last_login_time
@@ -23768,7 +23789,7 @@ entities:
             - type
             type: object
           parameter_fieldname: login_profiles
-          required: true
+          required: false
           type: array
         - _key: object
           api_fieldname: object
@@ -23785,7 +23806,7 @@ entities:
           example: PZf9eEUH43DAPE9ULINFeuj
           in: body
           parameter_fieldname: password
-          required: true
+          required: false
           type: string
         - _key: password_changed_time
           api_fieldname: password_changed_time
@@ -23801,7 +23822,7 @@ entities:
           example: +44 (1223) 400 400
           in: body
           parameter_fieldname: phone_number
-          required: true
+          required: false
           type: string
         - _key: status
           api_fieldname: status
@@ -23820,7 +23841,7 @@ entities:
           example: ACTIVE
           in: body
           parameter_fieldname: status
-          required: true
+          required: false
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -23836,7 +23857,7 @@ entities:
           example: admin
           in: body
           parameter_fieldname: username
-          required: true
+          required: false
           type: string
         required:
         - account_id
@@ -24049,7 +24070,7 @@ entities:
       example: 110 Fulbourn Rd, Cambridge, United Kingdom
       in: body
       parameter_fieldname: address
-      required: true
+      required: false
       type: string
     - _key: full_name
       api_fieldname: full_name
@@ -24058,7 +24079,7 @@ entities:
       example: User Doe
       in: body
       parameter_fieldname: full_name
-      required: true
+      required: false
       type: string
     - _key: id
       api_fieldname: id
@@ -24091,7 +24112,7 @@ entities:
         required: *id003
         type: object
       parameter_fieldname: login_profiles
-      required: true
+      required: false
       type: array
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
@@ -24101,7 +24122,7 @@ entities:
       example: true
       in: body
       parameter_fieldname: is_marketing_accepted
-      required: true
+      required: false
       type: boolean
     - _key: phone_number
       api_fieldname: phone_number
@@ -24110,7 +24131,7 @@ entities:
       example: +44 (1223) 400 400
       in: body
       parameter_fieldname: phone_number
-      required: true
+      required: false
       type: string
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
@@ -24120,7 +24141,7 @@ entities:
       example: true
       in: body
       parameter_fieldname: is_gtc_accepted
-      required: true
+      required: false
       type: boolean
     - _key: two_factor_authentication
       api_fieldname: is_totp_enabled
@@ -24130,7 +24151,7 @@ entities:
       example: true
       in: body
       parameter_fieldname: is_totp_enabled
-      required: true
+      required: false
       type: boolean
     - _key: username
       api_fieldname: username
@@ -24139,7 +24160,7 @@ entities:
       example: admin
       in: body
       parameter_fieldname: username
-      required: true
+      required: false
       type: string
     group_id: Accounts
     method: put
@@ -24171,7 +24192,7 @@ entities:
           example: 110 Fulbourn Rd, Cambridge, United Kingdom
           in: body
           parameter_fieldname: address
-          required: true
+          required: false
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -24194,7 +24215,7 @@ entities:
           example: user@arm.com
           in: body
           parameter_fieldname: email
-          required: true
+          required: false
           type: string
         - _key: email_verified
           api_fieldname: email_verified
@@ -24216,7 +24237,7 @@ entities:
           example: User Doe
           in: body
           parameter_fieldname: full_name
-          required: true
+          required: false
           type: string
         - _key: groups
           api_fieldname: groups
@@ -24228,7 +24249,7 @@ entities:
             type: string
           name: groups
           parameter_fieldname: groups
-          required: true
+          required: false
           schema_param: true
           type: array
         - _key: id
@@ -24248,7 +24269,7 @@ entities:
           example: true
           in: body
           parameter_fieldname: is_gtc_accepted
-          required: true
+          required: false
           type: boolean
         - _key: is_marketing_accepted
           api_fieldname: is_marketing_accepted
@@ -24258,7 +24279,7 @@ entities:
           example: true
           in: body
           parameter_fieldname: is_marketing_accepted
-          required: true
+          required: false
           type: boolean
         - _key: is_totp_enabled
           api_fieldname: is_totp_enabled
@@ -24268,7 +24289,7 @@ entities:
           example: true
           in: body
           parameter_fieldname: is_totp_enabled
-          required: true
+          required: false
           type: boolean
         - _key: last_login_time
           api_fieldname: last_login_time
@@ -24351,7 +24372,7 @@ entities:
             - type
             type: object
           parameter_fieldname: login_profiles
-          required: true
+          required: false
           type: array
         - _key: object
           api_fieldname: object
@@ -24368,7 +24389,7 @@ entities:
           example: PZf9eEUH43DAPE9ULINFeuj
           in: body
           parameter_fieldname: password
-          required: true
+          required: false
           type: string
         - _key: password_changed_time
           api_fieldname: password_changed_time
@@ -24384,7 +24405,7 @@ entities:
           example: +44 (1223) 400 400
           in: body
           parameter_fieldname: phone_number
-          required: true
+          required: false
           type: string
         - _key: status
           api_fieldname: status
@@ -24403,7 +24424,7 @@ entities:
           example: ACTIVE
           in: body
           parameter_fieldname: status
-          required: true
+          required: false
           type: string
         - _key: updated_at
           api_fieldname: updated_at
@@ -24419,7 +24440,7 @@ entities:
           example: admin
           in: body
           parameter_fieldname: username
-          required: true
+          required: false
           type: string
         required:
         - account_id
@@ -24961,7 +24982,7 @@ entities:
       type: object
     parameter_fieldname: login_profiles
     readOnly: false
-    required: true
+    required: false
     type: array
   - _key: updated_at
     api_fieldname: updated_at
@@ -25052,7 +25073,7 @@ entities:
         - type
         type: object
       parameter_fieldname: login_profiles
-      required: true
+      required: false
       type: array
     - _key: valid_for_days
       api_fieldname: valid_for_days
@@ -25064,7 +25085,7 @@ entities:
       in: body
       name: valid_for_days
       parameter_fieldname: valid_for_days
-      required: true
+      required: false
       schema_param: true
       type: integer
     group_id: Accounts
@@ -25129,7 +25150,7 @@ entities:
             type: string
           name: groups
           parameter_fieldname: groups
-          required: true
+          required: false
           schema_param: true
           type: array
         - _key: id
@@ -25170,7 +25191,7 @@ entities:
             - type
             type: object
           parameter_fieldname: login_profiles
-          required: true
+          required: false
           type: array
         - _key: object
           api_fieldname: object
@@ -25657,7 +25678,7 @@ entities:
             type: string
           name: groups
           parameter_fieldname: groups
-          required: true
+          required: false
           schema_param: true
           type: array
         - _key: id
@@ -25698,7 +25719,7 @@ entities:
             - type
             type: object
           parameter_fieldname: login_profiles
-          required: true
+          required: false
           type: array
         - _key: object
           api_fieldname: object
@@ -25921,7 +25942,7 @@ entities:
     description: Human readable description of this certificate.
     example: Certificate created by me.
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: device_execution_mode
     _override: true
@@ -25938,7 +25959,7 @@ entities:
     description: If true, signature is not required. Default value false.
     example: false
     readOnly: false
-    required: true
+    required: false
     type: boolean
   - _key: id
     api_fieldname: id
@@ -25997,7 +26018,7 @@ entities:
     enum_reference: trusted_certificate_status_enum
     example: ACTIVE
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: subject
     api_fieldname: subject
@@ -26062,7 +26083,7 @@ entities:
       example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
       in: body
       parameter_fieldname: certificate
-      required: true
+      required: false
       type: string
     - _key: description
       api_fieldname: description
@@ -26071,7 +26092,7 @@ entities:
       example: Certificate created by me.
       in: body
       parameter_fieldname: description
-      required: true
+      required: false
       type: string
     - _key: device_execution_mode
       _override: true
@@ -26089,7 +26110,7 @@ entities:
       example: false
       in: body
       parameter_fieldname: enrollment_mode
-      required: true
+      required: false
       type: boolean
     - _key: is_developer_certificate
       _override: true
@@ -26107,7 +26128,7 @@ entities:
       example: My certificate
       in: body
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     - _key: service
       api_fieldname: service
@@ -26119,7 +26140,7 @@ entities:
       enum_reference: trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
-      required: true
+      required: false
       type: string
     - _key: status
       api_fieldname: status
@@ -26132,7 +26153,7 @@ entities:
       example: ACTIVE
       in: body
       parameter_fieldname: status
-      required: true
+      required: false
       type: string
     group_id: Security
     method: post
@@ -27974,7 +27995,7 @@ entities:
       example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
       in: body
       parameter_fieldname: certificate
-      required: true
+      required: false
       type: string
     - _key: description
       api_fieldname: description
@@ -27983,7 +28004,7 @@ entities:
       example: Certificate created by me.
       in: body
       parameter_fieldname: description
-      required: true
+      required: false
       type: string
     - _key: device_execution_mode
       _override: true
@@ -28001,7 +28022,7 @@ entities:
       example: false
       in: body
       parameter_fieldname: enrollment_mode
-      required: true
+      required: false
       type: boolean
     - _key: is_developer_certificate
       _override: true
@@ -28019,7 +28040,7 @@ entities:
       example: My certificate
       in: body
       parameter_fieldname: name
-      required: true
+      required: false
       type: string
     - _key: service
       api_fieldname: service
@@ -28029,7 +28050,7 @@ entities:
       enum_reference: trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
-      required: true
+      required: false
       type: string
     - _key: status
       api_fieldname: status
@@ -28040,7 +28061,7 @@ entities:
       example: ACTIVE
       in: body
       parameter_fieldname: status
-      required: true
+      required: false
       type: string
     group_id: Security
     method: put
@@ -28473,7 +28494,7 @@ entities:
     description: Address.
     example: 110 Fulbourn Rd, Cambridge, United Kingdom
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: created_at
     api_fieldname: created_at
@@ -28511,7 +28532,7 @@ entities:
     description: The full name of the user.
     example: User Doe
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: id
     api_fieldname: id
@@ -28600,14 +28621,14 @@ entities:
       - type
       type: object
     readOnly: false
-    required: true
+    required: false
     type: array
   - _key: marketing_accepted
     api_fieldname: is_marketing_accepted
     description: A flag indicating that receiving marketing information has been accepted.
     example: true
     readOnly: false
-    required: true
+    required: false
     type: boolean
   - _key: password
     api_fieldname: password
@@ -28615,7 +28636,7 @@ entities:
       not present in the request.
     example: PZf9eEUH43DAPE9ULINFeuj
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: password_changed_time
     api_fieldname: password_changed_time
@@ -28630,7 +28651,7 @@ entities:
     description: Phone number.
     example: +44 (1223) 400 400
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: status
     api_fieldname: status
@@ -28647,7 +28668,7 @@ entities:
     enum_reference: user_status_enum
     example: ACTIVE
     readOnly: false
-    required: true
+    required: false
     type: string
   - _key: terms_accepted
     api_fieldname: is_gtc_accepted
@@ -28655,7 +28676,7 @@ entities:
       accepted.
     example: true
     readOnly: false
-    required: true
+    required: false
     type: boolean
   - _key: two_factor_authentication
     api_fieldname: is_totp_enabled
@@ -28663,7 +28684,7 @@ entities:
       enabled.
     example: true
     readOnly: false
-    required: true
+    required: false
     type: boolean
   - _key: updated_at
     api_fieldname: updated_at
@@ -28678,7 +28699,7 @@ entities:
     description: A username containing alphanumerical letters and -,._@+= characters.
     example: admin
     readOnly: false
-    required: true
+    required: false
     type: string
   group_id: Accounts
   methods:
@@ -28739,7 +28760,7 @@ entities:
       example: 110 Fulbourn Rd, Cambridge, United Kingdom
       in: body
       parameter_fieldname: address
-      required: true
+      required: false
       type: string
     - _key: email
       api_fieldname: email
@@ -28748,7 +28769,7 @@ entities:
       example: user@arm.com
       in: body
       parameter_fieldname: email
-      required: true
+      required: false
       type: string
     - _key: full_name
       api_fieldname: full_name
@@ -28757,7 +28778,7 @@ entities:
       example: User Doe
       in: body
       parameter_fieldname: full_name
-      required: true
+      required: false
       type: string
     - _key: login_profiles
       api_fieldname: login_profiles
@@ -28788,7 +28809,7 @@ entities:
         - type
         type: object
       parameter_fieldname: login_profiles
-      required: true
+      required: false
       type: array
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
@@ -28798,7 +28819,7 @@ entities:
       example: true
       in: body
       parameter_fieldname: is_marketing_accepted
-      required: true
+      required: false
       type: boolean
     - _key: password
       api_fieldname: password
@@ -28808,7 +28829,7 @@ entities:
       example: PZf9eEUH43DAPE9ULINFeuj
       in: body
       parameter_fieldname: password
-      required: true
+      required: false
       type: string
     - _key: phone_number
       api_fieldname: phone_number
@@ -28817,7 +28838,7 @@ entities:
       example: +44 (1223) 400 400
       in: body
       parameter_fieldname: phone_number
-      required: true
+      required: false
       type: string
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
@@ -28827,7 +28848,7 @@ entities:
       example: true
       in: body
       parameter_fieldname: is_gtc_accepted
-      required: true
+      required: false
       type: boolean
     - _key: username
       api_fieldname: username
@@ -28836,7 +28857,7 @@ entities:
       example: admin
       in: body
       parameter_fieldname: username
-      required: true
+      required: false
       type: string
     group_id: Accounts
     method: post
@@ -30475,7 +30496,7 @@ entities:
       example: 110 Fulbourn Rd, Cambridge, United Kingdom
       in: body
       parameter_fieldname: address
-      required: true
+      required: false
       type: string
     - _key: full_name
       api_fieldname: full_name
@@ -30484,7 +30505,7 @@ entities:
       example: User Doe
       in: body
       parameter_fieldname: full_name
-      required: true
+      required: false
       type: string
     - _key: id
       api_fieldname: id
@@ -30517,7 +30538,7 @@ entities:
         required: *id007
         type: object
       parameter_fieldname: login_profiles
-      required: true
+      required: false
       type: array
     - _key: marketing_accepted
       api_fieldname: is_marketing_accepted
@@ -30527,7 +30548,7 @@ entities:
       example: true
       in: body
       parameter_fieldname: is_marketing_accepted
-      required: true
+      required: false
       type: boolean
     - _key: phone_number
       api_fieldname: phone_number
@@ -30536,7 +30557,7 @@ entities:
       example: +44 (1223) 400 400
       in: body
       parameter_fieldname: phone_number
-      required: true
+      required: false
       type: string
     - _key: terms_accepted
       api_fieldname: is_gtc_accepted
@@ -30546,7 +30567,7 @@ entities:
       example: true
       in: body
       parameter_fieldname: is_gtc_accepted
-      required: true
+      required: false
       type: boolean
     - _key: two_factor_authentication
       api_fieldname: is_totp_enabled
@@ -30556,7 +30577,7 @@ entities:
       example: true
       in: body
       parameter_fieldname: is_totp_enabled
-      required: true
+      required: false
       type: boolean
     - _key: username
       api_fieldname: username
@@ -30565,7 +30586,7 @@ entities:
       example: admin
       in: body
       parameter_fieldname: username
-      required: true
+      required: false
       type: string
     group_id: Accounts
     method: put
@@ -31134,7 +31155,7 @@ entities:
       - type
       type: object
     readOnly: false
-    required: true
+    required: false
     type: array
   - _key: updated_at
     api_fieldname: updated_at
@@ -31217,7 +31238,7 @@ entities:
         - type
         type: object
       parameter_fieldname: login_profiles
-      required: true
+      required: false
       type: array
     - _key: valid_for_days
       api_fieldname: valid_for_days
@@ -31229,7 +31250,7 @@ entities:
       in: body
       name: valid_for_days
       parameter_fieldname: valid_for_days
-      required: true
+      required: false
       schema_param: true
       type: integer
     group_id: Accounts
