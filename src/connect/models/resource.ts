@@ -179,26 +179,38 @@ export class Resource extends EventEmitter {
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param mimeType The mime type format of the value
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
+     * @param payload The payload to be sent to the device.
      * @returns the AsyncResponse
      */
-    public execute(mimeType?: string): Promise<AsyncResponse>;
+    public execute(mimeType?: string, accepts?: string, payload?: any): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param mimeType The mime type format of the value
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
+     * @param payload The payload to be sent to the device.
      * @param callback A function that is passed any error
      */
-    public execute(mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public execute(mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public execute(mimeType?: string, accepts?: string, payload?: any, callback?: CallbackFn<AsyncResponse>): void;
+    public execute(mimeType?: any, accepts?: string, payload?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+        if (typeof payload === "function") {
+            callback = payload;
+            payload = null;
+        }
+        if (typeof accepts === "function") {
+            callback = accepts;
+            accepts = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
 
         return asyncStyle(done => {
-            this._api.executeResource(this.deviceId, this.path, mimeType, done);
+            this._api.executeResource(this.deviceId, this.path, mimeType, accepts, payload, done);
         }, callback);
     }
 

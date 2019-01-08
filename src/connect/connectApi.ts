@@ -1219,7 +1219,9 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param mimeType The mime type format of the value
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
+     * @param payload The payload to be sent to the device.
      * @returns the AsyncResponse
      */
     public executeResource(deviceId: string, resourcePath: string, mimeType?: string, accepts?: string, payload?: any): Promise<AsyncResponse>;
