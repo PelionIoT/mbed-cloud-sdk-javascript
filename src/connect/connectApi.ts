@@ -347,7 +347,6 @@ export class ConnectApi extends EventEmitter {
             this._pollRequest = true;
             const { interval, requestCallback, forceClear } = options;
 
-
             let serverErrorCount = 0;
             let networkErrorCount = 0;
             const poll = () => {
@@ -372,7 +371,7 @@ export class ConnectApi extends EventEmitter {
                         const errors = data["async-responses"].filter(response => response.status >= 400);
                         const onlyServerErrors = errors.every(response => response.status >= 500);
 
-                        if (errors.length > 0 && onlyServerErrors) { 
+                        if (errors.length > 0 && onlyServerErrors) {
                             ++serverErrorCount;
 
                             if (serverErrorCount <= ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
@@ -1220,10 +1219,12 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param mimeType The mime type format of the value
+     * @param payload The payload to be sent to the device.
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
      * @returns the AsyncResponse
      */
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: string): Promise<AsyncResponse>;
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
@@ -1241,11 +1242,21 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
-     * @param mimeType The mime type format of the value
+     * @param payload The payload to be sent to the device.
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
      * @param callback A function that is passed any error
      */
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+        if (typeof payload === "function") {
+            callback = payload;
+            payload = null;
+        }
+        if (typeof accepts === "function") {
+            callback = accepts;
+            accepts = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -1270,7 +1281,9 @@ export class ConnectApi extends EventEmitter {
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     "method": "POST",
                     "uri": resourcePath,
-                    "content-type": mimeType
+                    "content-type": mimeType,
+                    "accept": accepts,
+                    "payload-b64": encodeBase64(payload)
                 }, handleError);
             });
         }, null, callback);
