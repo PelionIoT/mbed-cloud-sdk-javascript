@@ -4,7 +4,7 @@ module.exports = {
     },
     "testMatch": [
         "**/test/unit/*.ts",
-        "**/test/unit/foundation/*.ts"
+        "**/test/unit/foundation/*.ts",
     ],
     "moduleFileExtensions": [
         "js",

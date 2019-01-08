@@ -46,13 +46,14 @@ export class ListResponse<T> {
     /**
      * List of results.
      */
+    // TODO revert to readonly after portal arch is changed
     public readonly data: Array<T>;
     /**
      *  Entity id for fetch after it
      */
     public readonly continuationMarker?: string;
 
-    constructor(from: any, data?: Array<T>) {
+    constructor(from: any, data?: Array<T>, mapper?: (key) => T) {
         this.after = from.after;
         this.hasMore = from.has_more || from.hasMore;
         this.pageSize = ("limit" in from) ? from.limit : ("pageSize" in from) ? from.pageSize : undefined;
@@ -60,9 +61,16 @@ export class ListResponse<T> {
         // default to 0 if either is undefined
         this.totalCount = from.total_count || from.totalCount || 0;
         this.continuationMarker = from.continuation_marker || from.continuationMarker;
-        this.data = data || [];
         // Setting limit for backward compatibility
         const limitParameterName = "limit";
         this[limitParameterName] = this.pageSize;
+
+        if (mapper && data && data.length) {
+            // mapping function has been provided so map the data
+            this.data = from.data.map(key => mapper(key)) || [];
+        } else {
+            // data has already been mapped so just assign it
+            this.data = data || [];
+        }
     }
 }

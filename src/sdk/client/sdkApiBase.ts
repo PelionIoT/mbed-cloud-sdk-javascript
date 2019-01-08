@@ -20,7 +20,6 @@ import superagent = require("superagent");
 
 import { SDKError } from "../../common/sdkError";
 import { Config } from "./config";
-import { EntityBase } from "../common/entityBase";
 import { Version } from "../../version";
 
 // tslint:disable-next-line:no-var-requires
@@ -151,7 +150,7 @@ export class SdkApiBase {
         return url;
     }
 
-    protected request<T extends EntityBase>(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean, paginated?: boolean }, instance?: T | { new(): T; }, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
+    protected request(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean }, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
         const requestOptions: { [key: string]: any } = {};
         requestOptions.timeout = 60000;
         requestOptions.method = options.method;
@@ -216,13 +215,13 @@ export class SdkApiBase {
         if (body) { SdkApiBase.debugLog("body", body); }
 
         request.end((error, response) => {
-            this.complete(error, response, requestOptions.acceptHeader, options.paginated, instance, callback);
+            this.complete(error, response, requestOptions.acceptHeader, callback);
         });
 
         return request;
     }
 
-    protected complete<T extends EntityBase>(error: any, response: any, acceptHeader: string, paginated: boolean, instance?: T | { new(): T; }, callback?: (sdkError: SDKError, data) => any) {
+    protected complete(error: any, response: any, acceptHeader: string, callback?: (sdkError: SDKError, data) => any) {
         let sdkError = null;
 
         if (error) {
@@ -257,39 +256,9 @@ export class SdkApiBase {
                     if (DATE_REGEX.test(value)) { return new Date(value); }
                     return value;
                 });
-
-                if (instance) {
-                    if (!paginated && instance instanceof EntityBase) {
-                        data = instance._fromApi(instance, data);
-                    // if not instance of EntityBase, then must be a type. This is slightly janky!
-                    } else if (!paginated && !(instance instanceof EntityBase)) {
-                        const t = this.activator(instance, this.config);
-                        data = t._fromApi(t, data);
-                    } else {
-                        const arr: Array<T> = [];
-                        if (data.data) {
-                            Object.keys(data.data).forEach(d => {
-                                if (!(instance instanceof EntityBase)) {
-                                    const t = this.activator(instance, this.config);
-                                    arr.push(t._fromApi(t, data.data[d]));
-                                }
-                            });
-                        }
-                        data.data = arr;
-                    }
-                }
-            }
-
-            // no data and instance has been activated
-            if (!data && instance instanceof EntityBase) {
-                callback(sdkError, instance);
             }
 
             callback(sdkError, data);
         }
-    }
-
-    public activator<T extends EntityBase>(type: { new(config: Config): T; }, config: Config): T {
-        return new type(config);
     }
 }

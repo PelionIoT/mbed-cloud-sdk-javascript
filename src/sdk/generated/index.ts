@@ -1,46 +1,24 @@
-export * from "./Accounts/account/account";
-
-export * from "./Accounts/apiKey/apiKey";
-
-export * from "./Security/certificateEnrollment/certificateEnrollment";
-
-export * from "./Security/certificateIssuer/certificateIssuer";
-
-export * from "./Security/certificateIssuerConfig/certificateIssuerConfig";
-
-export * from "./Security/developerCertificate/developerCertificate";
-
-export * from "./Devices/device/device";
-
-export * from "./Devices/deviceEnrollment/deviceEnrollment";
-
-export * from "./Devices/deviceEnrollmentBulkCreate/deviceEnrollmentBulkCreate";
-
-export * from "./Devices/deviceEnrollmentBulkDelete/deviceEnrollmentBulkDelete";
-
-export * from "./Devices/deviceEvents/deviceEvents";
-
-export * from "./Accounts/loginHistory/loginHistory";
-
-export * from "./Accounts/passwordPolicy/passwordPolicy";
-
-export * from "./Accounts/policy/policy";
-
-export * from "./Security/serverCredentials/serverCredentials";
-
-export * from "./Security/subtenantTrustedCertificate/subtenantTrustedCertificate";
-
-export * from "./Accounts/subtenantUser/subtenantUser";
-
-export * from "./Accounts/subtenantUserInvitation/subtenantUserInvitation";
-
-export * from "./Security/trustedCertificate/trustedCertificate";
-
-export * from "./Accounts/user/user";
-
-export * from "./Accounts/userInvitation/userInvitation";
-
-export * from "./Security/verificationResponse/verificationResponse";
-
-export * from "./enums";
-export * from "./factory";
+export * from "./Accounts/account";
+export * from "./Accounts/apiKey";
+export * from "./Security/certificateEnrollment";
+export * from "./Security/certificateIssuer";
+export * from "./Security/certificateIssuerConfig";
+export * from "./Security/developerCertificate";
+export * from "./Devices/device";
+export * from "./Devices/deviceEnrollment";
+export * from "./Devices/deviceEnrollmentBulkCreate";
+export * from "./Devices/deviceEnrollmentBulkDelete";
+export * from "./Devices/deviceEvents";
+export * from "./Accounts/loginHistory";
+export * from "./Accounts/parentAccount";
+export * from "./Accounts/passwordPolicy";
+export * from "./Accounts/policy";
+export * from "./Security/serverCredentials";
+export * from "./Security/subtenantTrustedCertificate";
+export * from "./Accounts/subtenantUser";
+export * from "./Accounts/subtenantUserInvitation";
+export * from "./Security/trustedCertificate";
+export * from "./Accounts/user";
+export * from "./Accounts/userInvitation";
+export * from "./Security/verificationResponse";
+export { Factory } from "./factory";

@@ -31,7 +31,6 @@ export class AccountAdapter {
     public static map(from: apiAccount, api: AccountManagementApi): Account {
 
         let policies = [];
-
         if (from.policies) {
             policies = from.policies.map( policy => {
                 return PolicyAdapter.map(policy);

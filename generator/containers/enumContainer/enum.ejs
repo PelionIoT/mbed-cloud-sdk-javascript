@@ -1,0 +1,1 @@
+export type <%= _enum.name %> =<% _enum.values.forEach(function(value) { %> "<%= value %>"<% if (_enum.values.indexOf(value) < _enum.values.length - 1) { %> |<% } %><% }); %>;
