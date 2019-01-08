@@ -1,127 +1,56 @@
-import { ReadStream } from "fs";
-import { EntityBase } from "../../../common/entityBase";
-import * as privateFunctions from "../../../common/privateFunctions";
-import { Config } from "../../../client/config";
-import { apiWrapper } from "../../../../common/functions";
-import { DeviceEnrollmentBulkDeleteStatusEnum } from "../../enums";
-
+import { Entity } from "../../../common/entity";
+import { DeviceEnrollmentBulkDeleteStatusEnum } from "./types";
 /**
- * DeviceEnrollmentBulkDelete
+ *DeviceEnrollmentBulkDelete
  */
-export class DeviceEnrollmentBulkDelete extends EntityBase {
+export interface DeviceEnrollmentBulkDelete extends Entity {
     /**
-     * ID
+     *accountId
      */
-    public accountId?: string;
+    accountId?: string;
 
     /**
-     * The time of completing the bulk creation task.
+     *completedAt
      */
-    public completedAt?: Date;
+    completedAt?: Date;
 
     /**
-     * The time of receiving the bulk creation task.
+     *createdAt
      */
-    public createdAt?: Date;
+    createdAt?: Date;
 
     /**
-     * The number of enrollment identities with failed processing.
+     *errorsCount
      */
-    public errorsCount?: number;
+    errorsCount?: number;
 
     /**
-     * errors_report_file
+     *errorsReportFile
      */
-    public errorsReportFile?: string;
+    errorsReportFile?: string;
 
     /**
-     * full_report_file
+     *fullReportFile
      */
-    public fullReportFile?: string;
+    fullReportFile?: string;
 
     /**
-     * The number of enrollment identities processed until now.
+     *id
      */
-    public processedCount?: number;
+    id?: string;
 
     /**
-     * The state of the process is &#39;new&#39; at the time of creation. If the creation is still in progress, the state is shown as &#39;processing&#39;. When the request has been fully processed, the state changes to &#39;completed&#39;.
+     *processedCount
      */
-    public status?: DeviceEnrollmentBulkDeleteStatusEnum;
+    processedCount?: number;
 
     /**
-     * Total number of enrollment identities found in the input CSV.
+     *status
      */
-    public totalCount?: number;
-
-    constructor(config?: Config) {
-        super(config);
-    }
+    status?: DeviceEnrollmentBulkDeleteStatusEnum;
 
     /**
-     * deletes a DeviceEnrollmentBulkDelete.
-     * @returns Promise containing DeviceEnrollmentBulkDelete.
+     *totalCount
      */
-    public delete(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<DeviceEnrollmentBulkDelete> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<DeviceEnrollmentBulkDelete>(
-                    {
-                        url: "/v3/device-enrollments-bulk-deletes",
-                        method: "POST",
-                        formParams: {
-                            enrollment_identities: enrollmentIdentities,
-                        },
-                        contentTypes: [ "multipart/form-data" ],
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * downloadErrorsReportFiles a ReadStream | Buffer | File | Blob.
-     * @returns Promise containing ReadStream | Buffer | File | Blob.
-     */
-    public downloadErrorsReportFile(): Promise<ReadStream | Buffer | File | Blob> {
-        return privateFunctions.downloadErrorsReportFile(this);
-    }
-
-    /**
-     * downloadFullReportFiles a ReadStream | Buffer | File | Blob.
-     * @returns Promise containing ReadStream | Buffer | File | Blob.
-     */
-    public downloadFullReportFile(): Promise<ReadStream | Buffer | File | Blob> {
-        return privateFunctions.downloadFullReportFile(this);
-    }
-
-    /**
-     * gets a DeviceEnrollmentBulkDelete.
-     * @returns Promise containing DeviceEnrollmentBulkDelete.
-     */
-    public get(): Promise<DeviceEnrollmentBulkDelete> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<DeviceEnrollmentBulkDelete>(
-                    {
-                        url: "/v3/device-enrollments-bulk-deletes/{id}",
-                        method: "GET",
-                        pathParams: {
-                            id: this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    totalCount?: number;
 }

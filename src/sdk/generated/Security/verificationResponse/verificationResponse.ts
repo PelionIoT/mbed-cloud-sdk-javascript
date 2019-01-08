@@ -1,16 +1,15 @@
-import { EntityBase } from "../../../common/entityBase";
-
+import { Entity } from "../../../common/entity";
 /**
- * VerificationResponse
+ *VerificationResponse
  */
-export class VerificationResponse extends EntityBase {
+export interface VerificationResponse extends Entity {
     /**
-     * Provides details in case of failure.
+     *message
      */
-    public message?: string;
+    message?: string;
 
     /**
-     * Indicates whether the certificate issuer was verified successfully.
+     *successful
      */
-    public successful?: boolean;
+    successful?: boolean;
 }

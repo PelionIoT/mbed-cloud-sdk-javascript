@@ -1,509 +1,214 @@
-import { EntityBase } from "../../../common/entityBase";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
-import { Config } from "../../../client/config";
-import { apiWrapper } from "../../../../common/functions";
-import { SubtenantTrustedCertificate } from "../../index";
-import { SubtenantUserInvitation } from "../../index";
-import { SubtenantUser } from "../../index";
-import { PasswordPolicy } from "../../index";
-import { Policy } from "../../index";
-import { AccountMfaStatusEnum } from "../../enums";
-import { AccountStatusEnum } from "../../enums";
-
+import { Entity } from "../../../common/entity";
+import { ParentAccount } from "../parentAccount/parentAccount";
+import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
+import { Policy } from "../policy/policy";
+import { AccountMfaStatusEnum, AccountStatusEnum } from "./types";
 /**
- * Account
+ *Account
  */
-export class Account extends EntityBase {
-    public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
-        passwordPolicy: {
-            type: PasswordPolicy,
-            array: false,
-        },
-        policy: {
-            type: Policy,
-            array: true,
-        },
-    };
+export interface Account extends Entity {
+    /**
+     *addressLine1
+     */
+    addressLine1?: string;
 
     /**
-     * Postal address line 1.
+     *addressLine2
      */
-    public addressLine1?: string;
+    addressLine2?: string;
 
     /**
-     * Postal address line 2.
+     *adminEmail
      */
-    public addressLine2?: string;
+    adminEmail?: string;
 
     /**
-     * The email address of the account admin, not longer than 254 characters.
+     *adminFullName
      */
-    public adminEmail?: string;
+    adminFullName?: string;
 
     /**
-     * The full name of the admin user to be created.
+     *adminId
      */
-    public adminFullName?: string;
+    adminId?: string;
 
     /**
-     * The ID of the admin user created.
+     *adminKey
      */
-    public adminId?: string;
+    adminKey?: string;
 
     /**
-     * The admin API key created for the account.
+     *adminName
      */
-    public adminKey?: string;
+    adminName?: string;
 
     /**
-     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     *adminPassword
      */
-    public adminName?: string;
+    adminPassword?: string;
 
     /**
-     * The password when creating a new user. It will be generated when not present in the request.
+     *aliases
      */
-    public adminPassword?: string;
+    aliases?: Array<string>;
 
     /**
-     * An array of aliases.
+     *city
      */
-    public aliases?: Array<string>;
+    city?: string;
 
     /**
-     * The city part of the postal address.
+     *company
      */
-    public city?: string;
+    company?: string;
 
     /**
-     * The name of the company.
+     *contact
      */
-    public company?: string;
+    contact?: string;
 
     /**
-     * The name of the contact person for this account.
+     *contractNumber
      */
-    public contact?: string;
+    contractNumber?: string;
 
     /**
-     * Contract number of the customer.
+     *country
      */
-    public contractNumber?: string;
+    country?: string;
 
     /**
-     * The country part of the postal address.
+     *createdAt
      */
-    public country?: string;
+    createdAt?: Date;
 
     /**
-     * Creation UTC time RFC3339.
+     *customFields
      */
-    public createdAt?: Date;
+    customFields?: { [key: string]: string };
 
     /**
-     * Account&#39;s custom properties as key-value pairs.
+     *customerNumber
      */
-    public customFields?: { [key: string]: string };
+    customerNumber?: string;
 
     /**
-     * Customer number of the customer.
+     *displayName
      */
-    public customerNumber?: string;
+    displayName?: string;
 
     /**
-     * The display name for the account.
+     *email
      */
-    public displayName?: string;
+    email?: string;
 
     /**
-     * The company email address for this account.
+     *endMarket
      */
-    public email?: string;
+    endMarket?: string;
 
     /**
-     * Account end market.
+     *expirationWarningThreshold
      */
-    public endMarket?: string;
+    expirationWarningThreshold?: string;
 
     /**
-     * Indicates how many days (1-180) before account expiration a notification email should be sent.
+     *id
      */
-    public expirationWarningThreshold?: string;
+    id?: string;
 
     /**
-     * The reference token expiration time in minutes for this account.
+     *idleTimeout
      */
-    public idleTimeout?: string;
+    idleTimeout?: string;
 
     /**
-     * List of limits as key-value pairs if requested.
+     *limits
      */
-    public limits?: { [key: string]: string };
+    limits?: { [key: string]: string };
 
     /**
-     * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+     *mfaStatus
      */
-    public mfaStatus?: AccountMfaStatusEnum;
+    mfaStatus?: AccountMfaStatusEnum;
 
     /**
-     * A list of notification email addresses.
+     *notificationEmails
      */
-    public notificationEmails?: Array<string>;
+    notificationEmails?: Array<string>;
 
     /**
-     * The ID of the parent account, if it has any.
+     *parentAccount
      */
-    public parentId?: string;
+    parentAccount?: ParentAccount;
 
     /**
-     * password_policy
+     *parentId
      */
-    public passwordPolicy?: PasswordPolicy;
+    parentId?: string;
 
     /**
-     * The phone number of a representative of the company.
+     *passwordPolicy
      */
-    public phoneNumber?: string;
+    passwordPolicy?: PasswordPolicy;
 
     /**
-     * List of policies if requested.
+     *phoneNumber
      */
-    public policies?: Array<Policy>;
+    phoneNumber?: string;
 
     /**
-     * The postal code part of the postal address.
+     *policies
      */
-    public postalCode?: string;
+    policies?: Array<Policy>;
 
     /**
-     * A reason note for updating the status of the account
+     *postalCode
      */
-    public reason?: string;
+    postalCode?: string;
 
     /**
-     * A reference note for updating the status of the account
+     *reason
      */
-    public referenceNote?: string;
+    reason?: string;
 
     /**
-     * Email address of the sales contact.
+     *referenceNote
      */
-    public salesContact?: string;
+    referenceNote?: string;
 
     /**
-     * The state part of the postal address.
+     *salesContact
      */
-    public state?: string;
+    salesContact?: string;
 
     /**
-     * The status of the account.
+     *state
      */
-    public status?: AccountStatusEnum;
+    state?: string;
 
     /**
-     * Account template ID.
+     *status
      */
-    public templateId?: string;
+    status?: AccountStatusEnum;
 
     /**
-     * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier. Other values are reserved for the future.
+     *templateId
      */
-    public tier?: string;
+    templateId?: string;
 
     /**
-     * Last update UTC time RFC3339.
+     *tier
      */
-    public updatedAt?: Date;
+    tier?: string;
 
     /**
-     * Time when upgraded to commercial account in UTC format RFC3339.
+     *updatedAt
      */
-    public upgradedAt?: Date;
-
-    constructor(config?: Config) {
-        super(config);
-    }
+    updatedAt?: Date;
 
     /**
-     * creates a Account.
-     * @returns Promise containing Account.
+     *upgradedAt
      */
-    public create(action?: string): Promise<Account> {
-        const body = {
-            address_line1: this.addressLine1,
-            address_line2: this.addressLine2,
-            admin_email: this.adminEmail,
-            admin_full_name: this.adminFullName,
-            admin_name: this.adminName,
-            admin_password: this.adminPassword,
-            aliases: this.aliases,
-            city: this.city,
-            company: this.company,
-            contact: this.contact,
-            contract_number: this.contractNumber,
-            country: this.country,
-            customer_number: this.customerNumber,
-            display_name: this.displayName,
-            email: this.email,
-            end_market: this.endMarket,
-            phone_number: this.phoneNumber,
-            postal_code: this.postalCode,
-            state: this.state,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<Account>(
-                    {
-                        url: "/v3/accounts",
-                        method: "POST",
-                        query: {
-                            action: action,
-                        },
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * gets a Account.
-     * @returns Promise containing Account.
-     */
-    public get(include?: string, properties?: string): Promise<Account> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<Account>(
-                    {
-                        url: "/v3/accounts/{accountID}",
-                        method: "GET",
-                        query: {
-                            include: include,
-                            properties: properties,
-                        },
-                        pathParams: {
-                            accountID: this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * List Accounts
-     * @param options filter options
-     */
-    public list(options?: ListOptions): Paginator<Account, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Account>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<Account>(
-                        {
-                            url: "/v3/accounts",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        Account,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<Account>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * mes a Account.
-     * @returns Promise containing Account.
-     */
-    public me(include?: string, properties?: string): Promise<Account> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<Account>(
-                    {
-                        url: "/v3/accounts/me",
-                        method: "GET",
-                        query: {
-                            include: include,
-                            properties: properties,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * List SubtenantTrustedCertificates
-     * @param options filter options
-     */
-    public trustedCertificates(options?: ListOptions): Paginator<SubtenantTrustedCertificate, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantTrustedCertificate>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<SubtenantTrustedCertificate>(
-                        {
-                            url: "/v3/accounts/{accountID}/trusted-certificates",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            pathParams: {
-                                accountID: this.id,
-                            },
-                            paginated: true,
-                        },
-                        SubtenantTrustedCertificate,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<SubtenantTrustedCertificate>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * updates a Account.
-     * @returns Promise containing Account.
-     */
-    public update(): Promise<Account> {
-        const body = {
-            address_line1: this.addressLine1,
-            address_line2: this.addressLine2,
-            aliases: this.aliases,
-            city: this.city,
-            company: this.company,
-            contact: this.contact,
-            contract_number: this.contractNumber,
-            country: this.country,
-            custom_fields: this.customFields,
-            customer_number: this.customerNumber,
-            display_name: this.displayName,
-            email: this.email,
-            end_market: this.endMarket,
-            expiration_warning_threshold: this.expirationWarningThreshold,
-            idle_timeout: this.idleTimeout,
-            mfa_status: this.mfaStatus,
-            notification_emails: this.notificationEmails,
-            password_policy: this.passwordPolicy,
-            phone_number: this.phoneNumber,
-            postal_code: this.postalCode,
-            sales_contact: this.salesContact,
-            state: this.state,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<Account>(
-                    {
-                        url: "/v3/accounts/{accountID}",
-                        method: "PUT",
-                        pathParams: {
-                            accountID: this.id,
-                        },
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * List SubtenantUserInvitations
-     * @param options filter options
-     */
-    public userInvitations(options?: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUserInvitation>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<SubtenantUserInvitation>(
-                        {
-                            url: "/v3/accounts/{account-id}/user-invitations",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            pathParams: {
-                                "account-id": this.id,
-                            },
-                            paginated: true,
-                        },
-                        SubtenantUserInvitation,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<SubtenantUserInvitation>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * List SubtenantUsers
-     * @param options filter options
-     */
-    public users(options?: ListOptions): Paginator<SubtenantUser, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUser>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<SubtenantUser>(
-                        {
-                            url: "/v3/accounts/{accountID}/users",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            pathParams: {
-                                accountID: this.id,
-                            },
-                            paginated: true,
-                        },
-                        SubtenantUser,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<SubtenantUser>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
+    upgradedAt?: Date;
 }

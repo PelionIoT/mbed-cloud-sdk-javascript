@@ -146,7 +146,7 @@ export class Paginator<T, U extends ListOptions> {
             return Promise.resolve(this.collectionTotalCount);
         } else {
             const newPageOptions: U = Object.create(this.listOptions || null);
-            if (newPageOptions.include) {
+            if (newPageOptions.include && newPageOptions.include instanceof Array) {
                 newPageOptions.include.push("totalCount");
             } else {
                 newPageOptions.include = [ "totalCount" ];

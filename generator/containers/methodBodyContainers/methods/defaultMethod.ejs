@@ -1,0 +1,44 @@
+<%= hasBucket ? "options = options || {};" : "" -%>
+return apiWrapper(
+resultsFn => {
+this.client._CallApi(
+{
+url: "<%= path %>",
+method: "<%= method %>",
+<% if (queryParams.length > 0) { -%>
+    query: {
+    <% for (const queryParam of queryParams){ -%>
+        <%- queryParam %>,
+    <% } -%>
+    },
+<% } -%>
+<% if (pathParams.length > 0) { -%>
+    pathParams: {
+    <% for (const pathParam of pathParams){ -%>
+        <%- pathParam -%>,
+    <% } -%>
+    },
+<% } -%>
+<% if (fileParams.length > 0) { -%>
+    formParams: {
+    <% for (const fileParam of fileParams){ -%>
+        <%- fileParam -%>,
+    <% } -%>
+    },
+    contentTypes: [ "multipart/form-data" ],
+<% } -%>
+<% if (bodyParams.length > 0) { -%>
+    body: {
+    <% for (const bodyParam of bodyParams){ -%>
+        <%- bodyParam -%>,
+    <% } -%>
+    },
+<% } -%>
+},
+resultsFn
+);
+},
+(<%= adapter ? "" : "_" %>data, done) => {
+done(null, <%= adapter ? adapter + ".fromApi(data" + (hasRequest ? ", request" : "") + ")" : "null" %>);
+}
+);

@@ -1,7 +1,6 @@
 import superagent = require("superagent");
 import { SdkApiBase } from "./sdkApiBase";
 import { Config } from "./config";
-import { EntityBase } from "../common/entityBase";
 
 export class Client extends SdkApiBase {
 
@@ -11,7 +10,7 @@ export class Client extends SdkApiBase {
 
     public CallApi(options: CallApiOptions): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._CallApi(options, null, (err, data) => {
+            this._CallApi(options, (err, data) => {
                 if (err) {
                     return reject(err);
                 }
@@ -21,9 +20,9 @@ export class Client extends SdkApiBase {
         });
     }
 
-    public _CallApi<T extends EntityBase>(options: CallApiOptions, instance?: T | { new(): T; }, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
+    public _CallApi(options: CallApiOptions, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
 
-        const { url, method, pathParams, headers, query, formParams, body, paginated, contentTypes, acceptTypes } = options;
+        const { url, method, pathParams, headers, query, formParams, body, contentTypes, acceptTypes } = options;
 
         return this.request({
             url: url,
@@ -35,8 +34,7 @@ export class Client extends SdkApiBase {
             acceptTypes: acceptTypes || [ "application/json" ],
             body: body,
             pathParams: pathParams,
-            paginated: paginated || false,
-        }, instance, callback);
+        }, callback);
     }
 }
 
@@ -50,7 +48,6 @@ export interface CallApiOptions {
     body?: any;
     contentTypes?: Array<string>;
     acceptTypes?: Array<string>;
-    paginated?: boolean;
 }
 
 export interface ClientParams {

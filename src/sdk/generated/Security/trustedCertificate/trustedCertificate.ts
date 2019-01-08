@@ -1,269 +1,91 @@
-import { EntityBase } from "../../../common/entityBase";
-import * as privateFunctions from "../../../common/privateFunctions";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
-import { Config } from "../../../client/config";
-import { apiWrapper } from "../../../../common/functions";
-import { DeveloperCertificate } from "../../index";
-import { TrustedCertificateServiceEnum } from "../../enums";
-import { TrustedCertificateStatusEnum } from "../../enums";
-
+import { Entity } from "../../../common/entity";
+import { TrustedCertificateServiceEnum, TrustedCertificateStatusEnum } from "./types";
 /**
- * TrustedCertificate
+ *TrustedCertificate
  */
-export class TrustedCertificate extends EntityBase {
+export interface TrustedCertificate extends Entity {
     /**
-     * The UUID of the account.
+     *accountId
      */
-    public accountId?: string;
+    accountId?: string;
 
     /**
-     * X509.v3 trusted certificate in PEM format.
+     *certificate
      */
-    public certificate?: string;
+    certificate?: string;
 
     /**
-     * Creation UTC time RFC3339.
+     *certificateFingerprint
      */
-    public createdAt?: Date;
+    certificateFingerprint?: string;
 
     /**
-     * Human readable description of this certificate.
+     *createdAt
      */
-    public description?: string;
+    createdAt?: Date;
 
     /**
-     * Device execution mode where 1 means a developer certificate.
+     *description
      */
-    public deviceExecutionMode?: number;
+    description?: string;
 
     /**
-     * If true, signature is not required. Default value false.
+     *deviceExecutionMode
      */
-    public enrollmentMode?: boolean;
+    deviceExecutionMode?: number;
 
     /**
-     * Whether or not this certificate is a developer certificate.
+     *enrollmentMode
      */
-    get isDeveloperCertificate(): boolean {
-        return privateFunctions.isDeveloperCertificateGetter(this);
-    }
-    set isDeveloperCertificate(value: boolean) {
-        privateFunctions.isDeveloperCertificateSetter(this, value);
-    }
+    enrollmentMode?: boolean;
 
     /**
-     * Issuer of the certificate.
+     *id
      */
-    public issuer?: string;
+    id?: string;
 
     /**
-     * Certificate name.
+     *isDeveloperCertificate
      */
-    public name?: string;
+    isDeveloperCertificate?: boolean;
 
     /**
-     * The UUID of the owner.
+     *issuer
      */
-    public ownerId?: string;
+    issuer?: string;
 
     /**
-     * Service name where the certificate is to be used.
+     *name
      */
-    public service?: TrustedCertificateServiceEnum;
+    name?: string;
 
     /**
-     * Status of the certificate.
+     *ownerId
      */
-    public status?: TrustedCertificateStatusEnum;
+    ownerId?: string;
 
     /**
-     * Subject of the certificate.
+     *service
      */
-    public subject?: string;
+    service?: TrustedCertificateServiceEnum;
 
     /**
-     * Last update UTC time RFC3339.
+     *status
      */
-    public updatedAt?: Date;
+    status?: TrustedCertificateStatusEnum;
 
     /**
-     * Expiration time in UTC formatted as RFC3339.
+     *subject
      */
-    public validity?: Date;
-
-    constructor(config?: Config) {
-        super(config);
-    }
+    subject?: string;
 
     /**
-     * creates a TrustedCertificate.
-     * @returns Promise containing TrustedCertificate.
+     *updatedAt
      */
-    public create(): Promise<TrustedCertificate> {
-        const body = {
-            certificate: this.certificate,
-            description: this.description,
-            enrollment_mode: this.enrollmentMode,
-            name: this.name,
-            service: this.service,
-            status: this.status,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<TrustedCertificate>(
-                    {
-                        url: "/v3/trusted-certificates",
-                        method: "POST",
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    updatedAt?: Date;
 
     /**
-     * deletes a TrustedCertificate.
-     * @returns Promise containing TrustedCertificate.
+     *validity
      */
-    public delete(): Promise<TrustedCertificate> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<TrustedCertificate>(
-                    {
-                        url: "/v3/trusted-certificates/{cert-id}",
-                        method: "DELETE",
-                        pathParams: {
-                            "cert-id": this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * developerCertificateInfos a DeveloperCertificate.
-     * @returns Promise containing DeveloperCertificate.
-     */
-    public developerCertificateInfo(): Promise<DeveloperCertificate> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<DeveloperCertificate>(
-                    {
-                        url: "/v3/developer-certificates/{developerCertificateId}",
-                        method: "GET",
-                        pathParams: {
-                            developerCertificateId: this.id,
-                        },
-                    },
-                    DeveloperCertificate,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * gets a TrustedCertificate.
-     * @returns Promise containing TrustedCertificate.
-     */
-    public get(): Promise<TrustedCertificate> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<TrustedCertificate>(
-                    {
-                        url: "/v3/trusted-certificates/{cert-id}",
-                        method: "GET",
-                        pathParams: {
-                            "cert-id": this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * List TrustedCertificates
-     * @param options filter options
-     */
-    public list(options?: ListOptions): Paginator<TrustedCertificate, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<TrustedCertificate>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<TrustedCertificate>(
-                        {
-                            url: "/v3/trusted-certificates",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        TrustedCertificate,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<TrustedCertificate>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * updates a TrustedCertificate.
-     * @returns Promise containing TrustedCertificate.
-     */
-    public update(): Promise<TrustedCertificate> {
-        const body = {
-            certificate: this.certificate,
-            description: this.description,
-            enrollment_mode: this.enrollmentMode,
-            name: this.name,
-            service: this.service,
-            status: this.status,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<TrustedCertificate>(
-                    {
-                        url: "/v3/trusted-certificates/{cert-id}",
-                        method: "PUT",
-                        pathParams: {
-                            "cert-id": this.id,
-                        },
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    validity?: Date;
 }

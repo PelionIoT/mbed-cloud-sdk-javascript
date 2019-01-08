@@ -1,0 +1,4 @@
+let <%= to %> = [];
+if (data.<%= from %>) {
+<%= to %> = data.<%= from %>.map(i => <%= toAdapter %>.fromApi(i));
+}

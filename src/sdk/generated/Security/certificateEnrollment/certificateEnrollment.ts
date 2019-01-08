@@ -1,102 +1,41 @@
-import { EntityBase } from "../../../common/entityBase";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
-import { Config } from "../../../client/config";
-import { apiWrapper } from "../../../../common/functions";
-import { CertificateEnrollmentEnrollResultEnum } from "../../enums";
-import { CertificateEnrollmentEnrollStatusEnum } from "../../enums";
-
+import { Entity } from "../../../common/entity";
+import { CertificateEnrollmentEnrollResultEnum, CertificateEnrollmentEnrollStatusEnum } from "./types";
 /**
- * CertificateEnrollment
+ *CertificateEnrollment
  */
-export class CertificateEnrollment extends EntityBase {
+export interface CertificateEnrollment extends Entity {
     /**
-     * The certificate name.
+     *certificateName
      */
-    public certificateName?: string;
+    certificateName?: string;
 
     /**
-     * Creation UTC time RFC3339.
+     *createdAt
      */
-    public createdAt?: Date;
+    createdAt?: Date;
 
     /**
-     * The device ID.
+     *deviceId
      */
-    public deviceId?: string;
+    deviceId?: string;
 
     /**
-     * enroll_result
+     *enrollResult
      */
-    public enrollResult?: CertificateEnrollmentEnrollResultEnum;
+    enrollResult?: CertificateEnrollmentEnrollResultEnum;
 
     /**
-     * enroll_status
+     *enrollStatus
      */
-    public enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
+    enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
 
     /**
-     * Update UTC time RFC3339.
+     *id
      */
-    public updatedAt?: Date;
-
-    constructor(config?: Config) {
-        super(config);
-    }
+    id?: string;
 
     /**
-     * gets a CertificateEnrollment.
-     * @returns Promise containing CertificateEnrollment.
+     *updatedAt
      */
-    public get(): Promise<CertificateEnrollment> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<CertificateEnrollment>(
-                    {
-                        url: "/v3/certificate-enrollments/{certificate-enrollment-id}",
-                        method: "GET",
-                        pathParams: {
-                            "certificate-enrollment-id": this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * List CertificateEnrollments
-     * @param options filter options
-     */
-    public list(options?: ListOptions): Paginator<CertificateEnrollment, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateEnrollment>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<CertificateEnrollment>(
-                        {
-                            url: "/v3/certificate-enrollments",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        CertificateEnrollment,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<CertificateEnrollment>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
+    updatedAt?: Date;
 }

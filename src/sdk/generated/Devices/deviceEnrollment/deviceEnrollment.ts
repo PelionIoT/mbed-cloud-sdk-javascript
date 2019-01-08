@@ -1,151 +1,40 @@
-import { EntityBase } from "../../../common/entityBase";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
-import { Config } from "../../../client/config";
-import { apiWrapper } from "../../../../common/functions";
-
+import { Entity } from "../../../common/entity";
 /**
- * DeviceEnrollment
+ *DeviceEnrollment
  */
-export class DeviceEnrollment extends EntityBase {
+export interface DeviceEnrollment extends Entity {
     /**
-     * ID
+     *accountId
      */
-    public accountId?: string;
+    accountId?: string;
 
     /**
-     * The time of claiming the device to be assigned to the account.
+     *claimedAt
      */
-    public claimedAt?: Date;
+    claimedAt?: Date;
 
     /**
-     * The time of the enrollment identity creation.
+     *createdAt
      */
-    public createdAt?: Date;
+    createdAt?: Date;
 
     /**
-     * The ID of the device in the Device Directory once it has been registered.
+     *enrolledDeviceId
      */
-    public enrolledDeviceId?: string;
+    enrolledDeviceId?: string;
 
     /**
-     * Enrollment identity.
+     *enrollmentIdentity
      */
-    public enrollmentIdentity?: string;
+    enrollmentIdentity?: string;
 
     /**
-     * The enrollment claim expiration time. If the device does not connect to Device Management before the expiration, the claim is removed without a separate notice
+     *expiresAt
      */
-    public expiresAt?: Date;
-
-    constructor(config?: Config) {
-        super(config);
-    }
+    expiresAt?: Date;
 
     /**
-     * creates a DeviceEnrollment.
-     * @returns Promise containing DeviceEnrollment.
+     *id
      */
-    public create(): Promise<DeviceEnrollment> {
-        const body = {
-            enrollment_identity: this.enrollmentIdentity,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<DeviceEnrollment>(
-                    {
-                        url: "/v3/device-enrollments",
-                        method: "POST",
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * deletes a DeviceEnrollment.
-     * @returns Promise containing DeviceEnrollment.
-     */
-    public delete(): Promise<DeviceEnrollment> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<DeviceEnrollment>(
-                    {
-                        url: "/v3/device-enrollments/{id}",
-                        method: "DELETE",
-                        pathParams: {
-                            id: this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * gets a DeviceEnrollment.
-     * @returns Promise containing DeviceEnrollment.
-     */
-    public get(): Promise<DeviceEnrollment> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<DeviceEnrollment>(
-                    {
-                        url: "/v3/device-enrollments/{id}",
-                        method: "GET",
-                        pathParams: {
-                            id: this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * List DeviceEnrollments
-     * @param options filter options
-     */
-    public list(options?: ListOptions): Paginator<DeviceEnrollment, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEnrollment>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<DeviceEnrollment>(
-                        {
-                            url: "/v3/device-enrollments",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        DeviceEnrollment,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<DeviceEnrollment>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
+    id?: string;
 }
