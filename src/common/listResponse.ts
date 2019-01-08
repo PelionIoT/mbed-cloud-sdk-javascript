@@ -47,7 +47,7 @@ export class ListResponse<T> {
      * List of results.
      */
     // TODO revert to readonly after portal arch is changed
-    public data: Array<T>;
+    public readonly data: Array<T>;
     /**
      *  Entity id for fetch after it
      */
@@ -66,9 +66,11 @@ export class ListResponse<T> {
         this[limitParameterName] = this.pageSize;
 
         if (mapper && data && data.length) {
-            this.data = from.data.map(key => mapper(key));
+            // mapping function has been provided so map the data
+            this.data = from.data.map(key => mapper(key)) || [];
         } else {
-            this.data = data;
+            // data has already been mapped so just assign it
+            this.data = data || [];
         }
     }
 }
