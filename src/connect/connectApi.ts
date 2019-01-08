@@ -1219,12 +1219,12 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
+     * @param payload The payload to be sent to the device.
      * @param mimeType The content type of the payload
      * @param accepts The content type of an accepted response
-     * @param payload The payload to be sent to the device.
      * @returns the AsyncResponse
      */
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: string, accepts?: string, payload?: any): Promise<AsyncResponse>;
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
@@ -1242,13 +1242,13 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
+     * @param payload The payload to be sent to the device.
      * @param mimeType The content type of the payload
      * @param accepts The content type of an accepted response
-     * @param payload The payload to be sent to the device.
      * @param callback A function that is passed any error
      */
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: string, accepts?: string, payload?: any, callback?: CallbackFn<AsyncResponse>): void;
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: any, accepts?: string, payload?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof payload === "function") {
             callback = payload;
             payload = null;

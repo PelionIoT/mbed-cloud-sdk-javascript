@@ -179,23 +179,23 @@ export class Resource extends EventEmitter {
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
+     * @param payload The payload to be sent to the device.
      * @param mimeType The content type of the payload
      * @param accepts The content type of an accepted response
-     * @param payload The payload to be sent to the device.
      * @returns the AsyncResponse
      */
-    public execute(mimeType?: string, accepts?: string, payload?: any): Promise<AsyncResponse>;
+    public execute(payload?: any, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
+     * @param payload The payload to be sent to the device.
      * @param mimeType The content type of the payload
      * @param accepts The content type of an accepted response
-     * @param payload The payload to be sent to the device.
      * @param callback A function that is passed any error
      */
-    public execute(mimeType?: string, accepts?: string, payload?: any, callback?: CallbackFn<AsyncResponse>): void;
-    public execute(mimeType?: any, accepts?: string, payload?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public execute(payload?: any, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public execute(payload?: any, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof payload === "function") {
             callback = payload;
             payload = null;
