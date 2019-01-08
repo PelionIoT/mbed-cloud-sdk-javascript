@@ -347,7 +347,6 @@ export class ConnectApi extends EventEmitter {
             this._pollRequest = true;
             const { interval, requestCallback, forceClear } = options;
 
-
             let serverErrorCount = 0;
             let networkErrorCount = 0;
             const poll = () => {
@@ -372,7 +371,7 @@ export class ConnectApi extends EventEmitter {
                         const errors = data["async-responses"].filter(response => response.status >= 400);
                         const onlyServerErrors = errors.every(response => response.status >= 500);
 
-                        if (errors.length > 0 && onlyServerErrors) { 
+                        if (errors.length > 0 && onlyServerErrors) {
                             ++serverErrorCount;
 
                             if (serverErrorCount <= ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {

@@ -1,353 +1,201 @@
-import { EntityBase } from "../../../common/entityBase";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
-import { Config } from "../../../client/config";
-import { apiWrapper } from "../../../../common/functions";
-import { CertificateEnrollment } from "../../index";
-import { DeviceDeployedStateEnum } from "../../enums";
-import { DeviceMechanismEnum } from "../../enums";
-import { DeviceStateEnum } from "../../enums";
-
+import { Entity } from "../../../common/entity";
+import { DeviceDeployedStateEnum, DeviceLifecycleStatusEnum, DeviceMechanismEnum, DeviceStateEnum } from "./types";
 /**
- * Device
+ *Device
  */
-export class Device extends EntityBase {
+export interface Device extends Entity {
     /**
-     * The ID of the associated account.
+     *accountId
      */
-    public accountId?: string;
+    accountId?: string;
 
     /**
-     * DEPRECATED: Mark this device for automatic firmware update.
+     *autoUpdate
      */
-    public autoUpdate?: boolean;
+    autoUpdate?: boolean;
 
     /**
-     * The expiration date of the certificate used to connect to bootstrap server.
+     *bootstrapExpirationDate
      */
-    public bootstrapExpirationDate?: Date;
+    bootstrapExpirationDate?: Date;
 
     /**
-     * The timestamp of the device&#39;s most recent bootstrap process.
+     *bootstrappedTimestamp
      */
-    public bootstrappedTimestamp?: Date;
+    bootstrappedTimestamp?: Date;
 
     /**
-     * The certificate issuer&#39;s ID.
+     *caId
      */
-    public caId?: string;
+    caId?: string;
 
     /**
-     * The expiration date of the certificate used to connect to LwM2M server.
+     *connectorExpirationDate
      */
-    public connectorExpirationDate?: Date;
+    connectorExpirationDate?: Date;
 
     /**
-     * The timestamp of when the device was created in the device directory.
+     *createdAt
      */
-    public createdAt?: Date;
+    createdAt?: Date;
 
     /**
-     * Up to five custom key-value attributes.
+     *customAttributes
      */
-    public customAttributes?: { [key: string]: string };
+    customAttributes?: { [key: string]: string };
 
     /**
-     * DEPRECATED: The state of the device&#39;s deployment.
+     *deployedState
      */
-    public deployedState?: DeviceDeployedStateEnum;
+    deployedState?: DeviceDeployedStateEnum;
 
     /**
-     * DEPRECATED: The last deployment used on the device.
+     *deployment
      */
-    public deployment?: string;
+    deployment?: string;
 
     /**
-     * The description of the device.
+     *description
      */
-    public description?: string;
+    description?: string;
 
     /**
-     * An ID representing the model and hardware revision of the device.
+     *deviceClass
      */
-    public deviceClass?: string;
+    deviceClass?: string;
 
     /**
-            * The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.
-Permitted values:
-  - 0 - unspecified execution mode (default if host_gateway invalid or not set)
-  - 1 - development devices
-  - 5 - production devices
-            */
-    public deviceExecutionMode?: number;
-
-    /**
-     * The fingerprint of the device certificate.
+     *deviceExecutionMode
      */
-    public deviceKey?: string;
+    deviceExecutionMode?: number;
 
     /**
-     * The endpoint name given to the device.
+     *deviceKey
      */
-    public endpointName?: string;
+    deviceKey?: string;
 
     /**
-     * The endpoint type of the device. For example, the device is a gateway.
+     *endpointName
      */
-    public endpointType?: string;
+    endpointName?: string;
 
     /**
-     * The claim date/time.
+     *endpointType
      */
-    public enrolmentListTimestamp?: Date;
+    endpointType?: string;
 
     /**
-     * The SHA256 checksum of the current firmware image.
+     *enrolmentListTimestamp
      */
-    public firmwareChecksum?: string;
+    enrolmentListTimestamp?: Date;
 
     /**
-     * The `endpoint_name` of the host gateway, if appropriate.
+     *firmwareChecksum
      */
-    public hostGateway?: string;
+    firmwareChecksum?: string;
 
     /**
-     * DEPRECATED: The URL for the current device manifest.
+     *hostGateway
      */
-    public manifest?: string;
+    hostGateway?: string;
 
     /**
-     * The timestamp of the current manifest version.
+     *id
      */
-    public manifestTimestamp?: Date;
+    id?: string;
 
     /**
-     * The ID of the channel used to communicate with the device.
+     *issuerFingerprint
      */
-    public mechanism?: DeviceMechanismEnum;
+    issuerFingerprint?: string;
 
     /**
-     * The address of the connector to use.
+     *lastOperatorSuspendedCategory
      */
-    public mechanismUrl?: string;
+    lastOperatorSuspendedCategory?: string;
 
     /**
-     * The name of the device.
+     *lastOperatorSuspendedDescription
      */
-    public name?: string;
+    lastOperatorSuspendedDescription?: string;
 
     /**
-     * The serial number of the device.
+     *lastOperatorSuspendedUpdatedAt
      */
-    public serialNumber?: string;
+    lastOperatorSuspendedUpdatedAt?: Date;
 
     /**
-     * The current state of the device.
+     *lastSystemSuspendedCategory
      */
-    public state?: DeviceStateEnum;
+    lastSystemSuspendedCategory?: string;
 
     /**
-     * The time the object was updated.
+     *lastSystemSuspendedDescription
      */
-    public updatedAt?: Date;
+    lastSystemSuspendedDescription?: string;
 
     /**
-     * The device vendor ID.
+     *lastSystemSuspendedUpdatedAt
      */
-    public vendorId?: string;
-
-    constructor(config?: Config) {
-        super(config);
-    }
+    lastSystemSuspendedUpdatedAt?: Date;
 
     /**
-     * creates a Device.
-     * @returns Promise containing Device.
+     *lifecycleStatus
      */
-    public create(): Promise<Device> {
-        const body = {
-            auto_update: this.autoUpdate,
-            bootstrap_expiration_date: this.bootstrapExpirationDate,
-            bootstrapped_timestamp: this.bootstrappedTimestamp,
-            ca_id: this.caId,
-            connector_expiration_date: this.connectorExpirationDate,
-            custom_attributes: this.customAttributes,
-            deployment: this.deployment,
-            description: this.description,
-            device_class: this.deviceClass,
-            device_execution_mode: this.deviceExecutionMode,
-            device_key: this.deviceKey,
-            endpoint_name: this.endpointName,
-            endpoint_type: this.endpointType,
-            firmware_checksum: this.firmwareChecksum,
-            host_gateway: this.hostGateway,
-            manifest: this.manifest,
-            mechanism: this.mechanism,
-            mechanism_url: this.mechanismUrl,
-            name: this.name,
-            serial_number: this.serialNumber,
-            state: this.state,
-            vendor_id: this.vendorId,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<Device>(
-                    {
-                        url: "/v3/devices/",
-                        method: "POST",
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    lifecycleStatus?: DeviceLifecycleStatusEnum;
 
     /**
-     * deletes a Device.
-     * @returns Promise containing Device.
+     *manifest
      */
-    public delete(): Promise<Device> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<Device>(
-                    {
-                        url: "/v3/devices/{id}/",
-                        method: "DELETE",
-                        pathParams: {
-                            id: this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    manifest?: string;
 
     /**
-     * gets a Device.
-     * @returns Promise containing Device.
+     *manifestTimestamp
      */
-    public get(): Promise<Device> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<Device>(
-                    {
-                        url: "/v3/devices/{id}/",
-                        method: "GET",
-                        pathParams: {
-                            id: this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    manifestTimestamp?: Date;
 
     /**
-     * List Devices
-     * @param options filter options
+     *mechanism
      */
-    public list(options?: ListOptions): Paginator<Device, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Device>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<Device>(
-                        {
-                            url: "/v3/devices/",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        Device,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<Device>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
+    mechanism?: DeviceMechanismEnum;
 
     /**
-     * renewCertificates a CertificateEnrollment.
-     * @returns Promise containing CertificateEnrollment.
+     *mechanismUrl
      */
-    public renewCertificate(certificateName: string): Promise<CertificateEnrollment> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<CertificateEnrollment>(
-                    {
-                        url: "/v3/devices/{device-id}/certificates/{certificate-name}/renew",
-                        method: "POST",
-                        pathParams: {
-                            "certificate-name": certificateName,
-                            "device-id": this.id,
-                        },
-                    },
-                    CertificateEnrollment,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    mechanismUrl?: string;
 
     /**
-     * updates a Device.
-     * @returns Promise containing Device.
+     *name
      */
-    public update(): Promise<Device> {
-        const body = {
-            auto_update: this.autoUpdate,
-            ca_id: this.caId,
-            custom_attributes: this.customAttributes,
-            description: this.description,
-            device_key: this.deviceKey,
-            endpoint_name: this.endpointName,
-            endpoint_type: this.endpointType,
-            host_gateway: this.hostGateway,
-            name: this.name,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<Device>(
-                    {
-                        url: "/v3/devices/{id}/",
-                        method: "PUT",
-                        pathParams: {
-                            id: this.id,
-                        },
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    name?: string;
+
+    /**
+     *operatorSuspended
+     */
+    operatorSuspended?: boolean;
+
+    /**
+     *serialNumber
+     */
+    serialNumber?: string;
+
+    /**
+     *state
+     */
+    state?: DeviceStateEnum;
+
+    /**
+     *systemSuspended
+     */
+    systemSuspended?: boolean;
+
+    /**
+     *updatedAt
+     */
+    updatedAt?: Date;
+
+    /**
+     *vendorId
+     */
+    vendorId?: string;
 }

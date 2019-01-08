@@ -1,120 +1,60 @@
-import { EntityBase } from "../../../common/entityBase";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
-import { Config } from "../../../client/config";
-import { apiWrapper } from "../../../../common/functions";
-
+import { Entity } from "../../../common/entity";
 /**
- * DeviceEvents
+ *DeviceEvents
  */
-export class DeviceEvents extends EntityBase {
+export interface DeviceEvents extends Entity {
     /**
-     * changes
+     *changes
      */
-    public changes?: { [key: string]: string };
+    changes?: { [key: string]: string };
 
     /**
-     * created_at
+     *createdAt
      */
-    public createdAt?: Date;
+    createdAt?: Date;
 
     /**
-     * Additional data relevant to the event.
+     *data
      */
-    public data?: { [key: string]: string };
+    data?: { [key: string]: string };
 
     /**
-     * date_time
+     *dateTime
      */
-    public dateTime?: Date;
+    dateTime?: Date;
 
     /**
-     * description
+     *description
      */
-    public description?: string;
+    description?: string;
 
     /**
-     * device_id
+     *deviceId
      */
-    public deviceId?: string;
+    deviceId?: string;
 
     /**
-     * Event code
+     *eventType
      */
-    public eventType?: string;
+    eventType?: string;
 
     /**
-     * Category code which groups the event type by a summary category.
+     *eventTypeCategory
      */
-    public eventTypeCategory?: string;
+    eventTypeCategory?: string;
 
     /**
-     * Generic description of the event
+     *eventTypeDescription
      */
-    public eventTypeDescription?: string;
+    eventTypeDescription?: string;
 
     /**
-     * state_change
+     *id
      */
-    public stateChange?: boolean;
-
-    constructor(config?: Config) {
-        super(config);
-    }
+    id?: string;
 
     /**
-     * gets a DeviceEvents.
-     * @returns Promise containing DeviceEvents.
+     *stateChange
      */
-    public get(): Promise<DeviceEvents> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<DeviceEvents>(
-                    {
-                        url: "/v3/device-events/{device_event_id}/",
-                        method: "GET",
-                        pathParams: {
-                            device_event_id: this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * List DeviceEventss
-     * @param options filter options
-     */
-    public list(options?: ListOptions): Paginator<DeviceEvents, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEvents>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<DeviceEvents>(
-                        {
-                            url: "/v3/device-events/",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        DeviceEvents,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<DeviceEvents>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
+    stateChange?: boolean;
 }

@@ -1,5 +1,5 @@
 /* tslint:disable: no-console */
-import { DeviceEnrollment, DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete } from "../../../src/sdk/entities";
+import { DeviceEnrollment, DeviceEnrollmentRepository, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository } from "../../../src/sdk/entities";
 import { createReadStream, ReadStream } from "fs";
 
 describe("Device Enrollment examples", () => {
@@ -7,13 +7,15 @@ describe("Device Enrollment examples", () => {
     it("should enroll one device", async () => {
         try {
             // an example: device enrollment single
-            const enrollment = new DeviceEnrollment();
-            enrollment.enrollmentIdentity = "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12";
-            await enrollment.create();
+            const enrollmentContext = new DeviceEnrollmentRepository();
+            const enrollment: DeviceEnrollment = {
+                enrollmentIdentity: "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12",
+            };
+            await enrollmentContext.create(enrollment);
             // end of example
             expect(enrollment.claimedAt).not.toBeUndefined();
 
-            await enrollment.delete();
+            await enrollmentContext.delete(enrollment.id);
         } catch (e) {
             // expect to return 409, device already enrolled
             if (e.details && e.details.code === 409) {
@@ -28,22 +30,22 @@ describe("Device Enrollment examples", () => {
         try {
             const pathToCsv = "/Users/alelog01/git/mbed-cloud-sdk-javascript/test/snippets/foundation/test.csv";
             // an example: device enrollment bulk
-            const bulk = new DeviceEnrollmentBulkCreate();
+            const bulkCreateContext = new DeviceEnrollmentBulkCreateRepository();
             // uses fs readStream so this is a node only example.
             const csv = createReadStream(pathToCsv);
-            await bulk.create(csv);
+            let createTask = await bulkCreateContext.create(csv);
             // cloak
-            expect(bulk.status).toBe("new");
+            expect(createTask.status).toBe("new");
             // uncloak
 
             // call get to see current state of bulk enrollment
-            await bulk.get();
+            createTask = await bulkCreateContext.get(createTask.id);
 
             // cloak
-            expect(bulk.status === "completed" || bulk.status === "processing").toBeTruthy();
+            expect(createTask.status === "completed" || createTask.status === "processing").toBeTruthy();
             // uncloak
 
-            const reportFile = await bulk.downloadFullReportFile() as ReadStream;
+            const reportFile = await bulkCreateContext.downloadFullReportFile(createTask) as ReadStream;
             // cloak
             if (reportFile) {
                 expect(reportFile.readable).toBeTruthy();
@@ -52,7 +54,7 @@ describe("Device Enrollment examples", () => {
             // stream report file into string and print it
             printFile(reportFile);
 
-            const errorFile = await bulk.downloadErrorsReportFile() as ReadStream;
+            const errorFile = await bulkCreateContext.downloadErrorsReportFile(createTask) as ReadStream;
             // cloak
             if (errorFile) {
                 expect(errorFile.readable).toBeTruthy();
@@ -69,25 +71,25 @@ describe("Device Enrollment examples", () => {
     it("should bulk delete devices", async () => {
         try {
             const pathToCsv = "/Users/alelog01/git/mbed-cloud-sdk-javascript/test/snippets/foundation/test.csv";
-            const bulk = new DeviceEnrollmentBulkDelete();
+            const bulkDeleteContext = new DeviceEnrollmentBulkDeleteRepository();
             // uses fs readStream so this is a node only example.
             const csv = createReadStream(pathToCsv);
-            await bulk.delete(csv);
-            expect(bulk.status).toBe("new");
+            let deleteTask = await bulkDeleteContext.delete(csv);
+            expect(deleteTask.status).toBe("new");
 
             // call get to see current state of bulk enrollment
-            await bulk.get();
+            deleteTask = await bulkDeleteContext.get(deleteTask.id);
 
-            expect(bulk.status === "completed" || bulk.status === "processing").toBeTruthy();
+            expect(deleteTask.status === "completed" || deleteTask.status === "processing").toBeTruthy();
 
-            const reportFile = await bulk.downloadFullReportFile() as ReadStream;
+            const reportFile = await bulkDeleteContext.downloadFullReportFile(deleteTask) as ReadStream;
             if (reportFile) {
                 expect(reportFile.readable).toBeTruthy();
             }
             // stream report file into string and print it
             printFile(reportFile);
 
-            const errorFile = await bulk.downloadErrorsReportFile() as ReadStream;
+            const errorFile = await bulkDeleteContext.downloadErrorsReportFile(deleteTask) as ReadStream;
             if (errorFile) {
                 expect(errorFile.readable).toBeTruthy();
             }

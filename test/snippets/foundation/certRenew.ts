@@ -1,22 +1,25 @@
-import { CertificateIssuerConfig, Device, CertificateEnrollment } from "../../../src/sdk/entities";
+import { CertificateIssuerConfig, CertificateEnrollment, CertificateIssuerConfigRepository, DeviceRepository, CertificateEnrollmentRepository } from "../../../src/sdk/entities";
+import { instanceOf } from "../../functions";
 
 describe("cert renew snippets", async () => {
 
     it("should renew device certificate", async () => {
         try {
             // an example: certificate renew
-            const myConfig = (await new CertificateIssuerConfig().list().all()).find(c => c.certificateReference === "LWM2M");
+            const certificateIssuerConfigContext = new CertificateIssuerConfigRepository();
+            const myConfig = (await certificateIssuerConfigContext.list().all()).find(c => c.certificateReference === "LWM2M");
             // cloak
-            expect(myConfig).toBeInstanceOf(CertificateIssuerConfig);
+            expect(instanceOf<CertificateIssuerConfig>(myConfig, "CERTIFICATE_ISSUER_CONFIG")).toBeTruthy();
             // uncloak
 
-            const connectedDevices = (await new Device().list().all()).filter(device => device.state === "registered");
+            const deviceContext = new DeviceRepository();
+            const connectedDevices = (await deviceContext.list().all()).filter(device => device.state === "registered");
             // cloak
             expect(connectedDevices.length).toBeGreaterThanOrEqual(1);
             // uncloak
 
             for (const device of connectedDevices) {
-                await device.renewCertificate(myConfig.certificateReference);
+                await deviceContext.renewCertificate(myConfig.certificateReference, device.id);
             }
             // end of example
 
@@ -34,9 +37,10 @@ describe("cert renew snippets", async () => {
 
     it("should list enrollments", async () => {
         try {
-            const enrollment = await new CertificateEnrollment().list().first();
+            const certificateEnrollmentContext = new CertificateEnrollmentRepository();
+            const enrollment = await certificateEnrollmentContext.list().first();
 
-            expect(enrollment).toBeInstanceOf(CertificateEnrollment);
+            expect(instanceOf<CertificateEnrollment>(enrollment, "CERTIFICATE_ENROLLMENT")).toBeTruthy();
         } catch (e) {
             throw e;
         }

@@ -1,79 +1,80 @@
 import { Config } from "../client/config";
-import { Account } from "./index";
-import { ApiKey } from "./index";
-import { CertificateEnrollment } from "./index";
-import { CertificateIssuer } from "./index";
-import { CertificateIssuerConfig } from "./index";
-import { DeveloperCertificate } from "./index";
-import { Device } from "./index";
-import { DeviceEnrollment } from "./index";
-import { DeviceEnrollmentBulkCreate } from "./index";
-import { DeviceEnrollmentBulkDelete } from "./index";
-import { DeviceEvents } from "./index";
-import { ServerCredentials } from "./index";
-import { SubtenantTrustedCertificate } from "./index";
-import { SubtenantUser } from "./index";
-import { SubtenantUserInvitation } from "./index";
-import { TrustedCertificate } from "./index";
-import { User } from "./index";
-import { UserInvitation } from "./index";
+import { AccountRepository } from ".";
+import { ApiKeyRepository } from ".";
+import { CertificateEnrollmentRepository } from ".";
+import { CertificateIssuerRepository } from ".";
+import { CertificateIssuerConfigRepository } from ".";
+import { DeveloperCertificateRepository } from ".";
+import { DeviceRepository } from ".";
+import { DeviceEnrollmentRepository } from ".";
+import { DeviceEnrollmentBulkCreateRepository } from ".";
+import { DeviceEnrollmentBulkDeleteRepository } from ".";
+import { DeviceEventsRepository } from ".";
+import { ServerCredentialsRepository } from ".";
+import { SubtenantTrustedCertificateRepository } from ".";
+import { SubtenantUserRepository } from ".";
+import { SubtenantUserInvitationRepository } from ".";
+import { TrustedCertificateRepository } from ".";
+import { UserRepository } from ".";
+import { UserInvitationRepository } from ".";
+
 export class Factory {
     private readonly _config: Config;
     constructor(config: Config) {
         this._config = config;
     }
-    public Account(): Account {
-        return new Account(this._config);
+    public accountRepository(): AccountRepository {
+        return new AccountRepository(this._config);
     }
-    public ApiKey(): ApiKey {
-        return new ApiKey(this._config);
+    public apiKeyRepository(): ApiKeyRepository {
+        return new ApiKeyRepository(this._config);
     }
-    public CertificateEnrollment(): CertificateEnrollment {
-        return new CertificateEnrollment(this._config);
+    public certificateEnrollmentRepository(): CertificateEnrollmentRepository {
+        return new CertificateEnrollmentRepository(this._config);
     }
-    public CertificateIssuer(): CertificateIssuer {
-        return new CertificateIssuer(this._config);
+    public certificateIssuerRepository(): CertificateIssuerRepository {
+        return new CertificateIssuerRepository(this._config);
     }
-    public CertificateIssuerConfig(): CertificateIssuerConfig {
-        return new CertificateIssuerConfig(this._config);
+    public certificateIssuerConfigRepository(): CertificateIssuerConfigRepository {
+        return new CertificateIssuerConfigRepository(this._config);
     }
-    public DeveloperCertificate(): DeveloperCertificate {
-        return new DeveloperCertificate(this._config);
+    public developerCertificateRepository(): DeveloperCertificateRepository {
+        return new DeveloperCertificateRepository(this._config);
     }
-    public Device(): Device {
-        return new Device(this._config);
+    public deviceRepository(): DeviceRepository {
+        return new DeviceRepository(this._config);
     }
-    public DeviceEnrollment(): DeviceEnrollment {
-        return new DeviceEnrollment(this._config);
+    public deviceEnrollmentRepository(): DeviceEnrollmentRepository {
+        return new DeviceEnrollmentRepository(this._config);
     }
-    public DeviceEnrollmentBulkCreate(): DeviceEnrollmentBulkCreate {
-        return new DeviceEnrollmentBulkCreate(this._config);
+    public deviceEnrollmentBulkCreateRepository(): DeviceEnrollmentBulkCreateRepository {
+        return new DeviceEnrollmentBulkCreateRepository(this._config);
     }
-    public DeviceEnrollmentBulkDelete(): DeviceEnrollmentBulkDelete {
-        return new DeviceEnrollmentBulkDelete(this._config);
+    public deviceEnrollmentBulkDeleteRepository(): DeviceEnrollmentBulkDeleteRepository {
+        return new DeviceEnrollmentBulkDeleteRepository(this._config);
     }
-    public DeviceEvents(): DeviceEvents {
-        return new DeviceEvents(this._config);
+    public deviceEventsRepository(): DeviceEventsRepository {
+        return new DeviceEventsRepository(this._config);
     }
-    public ServerCredentials(): ServerCredentials {
-        return new ServerCredentials(this._config);
+    public serverCredentialsRepository(): ServerCredentialsRepository {
+        return new ServerCredentialsRepository(this._config);
     }
-    public SubtenantTrustedCertificate(): SubtenantTrustedCertificate {
-        return new SubtenantTrustedCertificate(this._config);
+    public subtenantTrustedCertificateRepository(): SubtenantTrustedCertificateRepository {
+        return new SubtenantTrustedCertificateRepository(this._config);
     }
-    public SubtenantUser(): SubtenantUser {
-        return new SubtenantUser(this._config);
+    public subtenantUserRepository(): SubtenantUserRepository {
+        return new SubtenantUserRepository(this._config);
     }
-    public SubtenantUserInvitation(): SubtenantUserInvitation {
-        return new SubtenantUserInvitation(this._config);
+    public subtenantUserInvitationRepository(): SubtenantUserInvitationRepository {
+        return new SubtenantUserInvitationRepository(this._config);
     }
-    public TrustedCertificate(): TrustedCertificate {
-        return new TrustedCertificate(this._config);
+    public trustedCertificateRepository(): TrustedCertificateRepository {
+        return new TrustedCertificateRepository(this._config);
     }
-    public User(): User {
-        return new User(this._config);
+    public userRepository(): UserRepository {
+        return new UserRepository(this._config);
     }
-    public UserInvitation(): UserInvitation {
-        return new UserInvitation(this._config);
+    public userInvitationRepository(): UserInvitationRepository {
+        return new UserInvitationRepository(this._config);
     }
 }

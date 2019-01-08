@@ -1,271 +1,107 @@
-import { EntityBase } from "../../../common/entityBase";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
-import { Config } from "../../../client/config";
-import { apiWrapper } from "../../../../common/functions";
-import { LoginHistory } from "../../index";
-import { UserStatusEnum } from "../../enums";
-
+import { Entity } from "../../../common/entity";
+import { LoginHistory } from "../loginHistory/loginHistory";
+import { UserStatusEnum } from "./types";
 /**
- * User
+ *User
  */
-export class User extends EntityBase {
-    public readonly _renames: { [key: string]: string } = {
-        is_marketing_accepted: "marketingAccepted",
-        is_gtc_accepted: "termsAccepted",
-        is_totp_enabled: "twoFactorAuthentication",
-    };
-
-    public readonly _foreignKeys: { [key: string]: { [key: string]: any } } = {
-        loginHistory: {
-            type: LoginHistory,
-            array: true,
-        },
-    };
+export interface User extends Entity {
+    /**
+     *accountId
+     */
+    accountId?: string;
 
     /**
-     * The UUID of the account.
+     *address
      */
-    public accountId?: string;
+    address?: string;
 
     /**
-     * Address.
+     *createdAt
      */
-    public address?: string;
+    createdAt?: Date;
 
     /**
-     * Creation UTC time RFC3339.
+     *creationTime
      */
-    public createdAt?: Date;
+    creationTime?: number;
 
     /**
-     * A timestamp of the user creation in the storage, in milliseconds.
+     *email
      */
-    public creationTime?: number;
+    email?: string;
 
     /**
-     * The email address.
+     *emailVerified
      */
-    public email?: string;
+    emailVerified?: boolean;
 
     /**
-     * A flag indicating whether the user&#39;s email address has been verified or not.
+     *fullName
      */
-    public emailVerified?: boolean;
+    fullName?: string;
 
     /**
-     * The full name of the user.
+     *id
      */
-    public fullName?: string;
+    id?: string;
 
     /**
-     * A timestamp of the latest login of the user, in milliseconds.
+     *lastLoginTime
      */
-    public lastLoginTime?: number;
+    lastLoginTime?: number;
 
     /**
-     * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+     *loginHistory
      */
-    public loginHistory?: Array<LoginHistory>;
+    loginHistory?: Array<LoginHistory>;
 
     /**
-     * A flag indicating that receiving marketing information has been accepted.
+     *loginProfiles
      */
-    public marketingAccepted?: boolean;
+    loginProfiles?: Array<any>;
 
     /**
-     * The password when creating a new user. It will be generated when not present in the request.
+     *marketingAccepted
      */
-    public password?: string;
+    marketingAccepted?: boolean;
 
     /**
-     * A timestamp of the latest change of the user password, in milliseconds.
+     *password
      */
-    public passwordChangedTime?: number;
+    password?: string;
 
     /**
-     * Phone number.
+     *passwordChangedTime
      */
-    public phoneNumber?: string;
+    passwordChangedTime?: number;
 
     /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     *phoneNumber
      */
-    public status?: UserStatusEnum;
+    phoneNumber?: string;
 
     /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
+     *status
      */
-    public termsAccepted?: boolean;
+    status?: UserStatusEnum;
 
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     *termsAccepted
      */
-    public twoFactorAuthentication?: boolean;
+    termsAccepted?: boolean;
 
     /**
-     * Last update UTC time RFC3339.
+     *twoFactorAuthentication
      */
-    public updatedAt?: Date;
+    twoFactorAuthentication?: boolean;
 
     /**
-     * A username containing alphanumerical letters and -,._@+= characters.
+     *updatedAt
      */
-    public username?: string;
-
-    constructor(config?: Config) {
-        super(config);
-    }
+    updatedAt?: Date;
 
     /**
-     * creates a User.
-     * @returns Promise containing User.
+     *username
      */
-    public create(action?: string): Promise<User> {
-        const body = {
-            address: this.address,
-            email: this.email,
-            full_name: this.fullName,
-            is_marketing_accepted: this.marketingAccepted,
-            password: this.password,
-            phone_number: this.phoneNumber,
-            is_gtc_accepted: this.termsAccepted,
-            username: this.username,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<User>(
-                    {
-                        url: "/v3/users",
-                        method: "POST",
-                        query: {
-                            action: action,
-                        },
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * deletes a User.
-     * @returns Promise containing User.
-     */
-    public delete(): Promise<User> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<User>(
-                    {
-                        url: "/v3/users/{user-id}",
-                        method: "DELETE",
-                        pathParams: {
-                            "user-id": this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * gets a User.
-     * @returns Promise containing User.
-     */
-    public get(): Promise<User> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<User>(
-                    {
-                        url: "/v3/users/{user-id}",
-                        method: "GET",
-                        pathParams: {
-                            "user-id": this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * List Users
-     * @param options filter options
-     */
-    public list(options?: ListOptions): Paginator<User, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
-            return apiWrapper(
-                resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
-                    this.client._CallApi<User>(
-                        {
-                            url: "/v3/users",
-                            method: "GET",
-                            query: { after, include, order, limit },
-                            paginated: true,
-                        },
-                        User,
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<User>, done) => {
-                    done(null, new ListResponse(data, data.data));
-                },
-                null,
-                true
-            );
-        };
-        return new Paginator(pageFunc, options);
-    }
-
-    /**
-     * updates a User.
-     * @returns Promise containing User.
-     */
-    public update(): Promise<User> {
-        const body = {
-            address: this.address,
-            full_name: this.fullName,
-            is_marketing_accepted: this.marketingAccepted,
-            phone_number: this.phoneNumber,
-            is_gtc_accepted: this.termsAccepted,
-            is_totp_enabled: this.twoFactorAuthentication,
-            username: this.username,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<User>(
-                    {
-                        url: "/v3/users/{user-id}",
-                        method: "PUT",
-                        pathParams: {
-                            "user-id": this.id,
-                        },
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    username?: string;
 }

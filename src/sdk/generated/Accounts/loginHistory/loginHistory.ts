@@ -1,26 +1,25 @@
-import { EntityBase } from "../../../common/entityBase";
-
+import { Entity } from "../../../common/entity";
 /**
- * LoginHistory
+ *LoginHistory
  */
-export class LoginHistory extends EntityBase {
+export interface LoginHistory extends Entity {
     /**
-     * UTC time RFC3339 for this login attempt.
+     *date
      */
-    public date?: Date;
+    date?: Date;
 
     /**
-     * IP address of the client.
+     *ipAddress
      */
-    public ipAddress?: string;
+    ipAddress?: string;
 
     /**
-     * Flag indicating whether login attempt was successful or not.
+     *success
      */
-    public success?: boolean;
+    success?: boolean;
 
     /**
-     * User Agent header from the login request.
+     *userAgent
      */
-    public userAgent?: string;
+    userAgent?: string;
 }

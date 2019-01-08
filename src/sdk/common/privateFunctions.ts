@@ -1,28 +1,22 @@
-import { TrustedCertificate, DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete } from "../entities";
 import { ReadStream, createWriteStream, createReadStream } from "fs";
 import { isThisNode } from "../../common/functions";
 import { get as http_get } from "superagent";
 import { Config } from "../client/config";
-import { SubtenantTrustedCertificate } from "../generated/Security/subtenantTrustedCertificate/subtenantTrustedCertificate";
+import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate } from "../generated";
 
-export function isDeveloperCertificateGetter(self: TrustedCertificate | SubtenantTrustedCertificate) {
-    return self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
+export function isDeveloperCertificateSetter(self: TrustedCertificate): void {
+    self.isDeveloperCertificate = self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
 }
 
-export function isDeveloperCertificateSetter(self: TrustedCertificate | SubtenantTrustedCertificate, value: boolean): void {
-    self.deviceExecutionMode = value ? 1 : 0;
-    self.isDeveloperCertificate = value;
-}
-
-export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
+export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
-        return streamToFile(self.config, self.errorsReportFile, resolve, reject, "error-report.csv");
+        return streamToFile(self.getConfig(), model.errorsReportFile, resolve, reject, "error-report.csv");
     });
 }
 
-export function downloadFullReportFile(self: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
+export function downloadFullReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
-        return streamToFile(self.config, self.fullReportFile, resolve, reject);
+        return streamToFile(self.getConfig(), model.fullReportFile, resolve, reject);
     });
 }
 

@@ -1,123 +1,45 @@
-import { EntityBase } from "../../../common/entityBase";
-import { Config } from "../../../client/config";
-import { apiWrapper } from "../../../../common/functions";
-
+import { Entity } from "../../../common/entity";
 /**
- * SubtenantUserInvitation
+ *SubtenantUserInvitation
  */
-export class SubtenantUserInvitation extends EntityBase {
+export interface SubtenantUserInvitation extends Entity {
     /**
-     * The UUID of the account the user is invited to.
+     *accountId
      */
-    public accountId?: string;
+    accountId?: string;
 
     /**
-     * Creation UTC time RFC3339.
+     *createdAt
      */
-    public createdAt?: Date;
+    createdAt?: Date;
 
     /**
-     * Email address of the invited user.
+     *email
      */
-    public email?: string;
+    email?: string;
 
     /**
-     * Invitation expiration as UTC time RFC3339.
+     *expiration
      */
-    public expiration?: Date;
+    expiration?: Date;
 
     /**
-     * Last update UTC time RFC3339.
+     *id
      */
-    public updatedAt?: Date;
+    id?: string;
 
     /**
-     * The UUID of the invited user.
+     *loginProfiles
      */
-    public userId?: string;
-
-    constructor(config?: Config) {
-        super(config);
-    }
+    loginProfiles?: Array<any>;
 
     /**
-     * creates a SubtenantUserInvitation.
-     * @returns Promise containing SubtenantUserInvitation.
+     *updatedAt
      */
-    public create(): Promise<SubtenantUserInvitation> {
-        const body = {
-            email: this.email,
-        };
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<SubtenantUserInvitation>(
-                    {
-                        url: "/v3/accounts/{account-id}/user-invitations",
-                        method: "POST",
-                        pathParams: {
-                            "account-id": this.accountId,
-                        },
-                        body: body,
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    updatedAt?: Date;
 
     /**
-     * deletes a SubtenantUserInvitation.
-     * @returns Promise containing SubtenantUserInvitation.
+     *userId
      */
-    public delete(): Promise<SubtenantUserInvitation> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<SubtenantUserInvitation>(
-                    {
-                        url: "/v3/accounts/{account-id}/user-invitations/{invitation-id}",
-                        method: "DELETE",
-                        pathParams: {
-                            "account-id": this.accountId,
-                            "invitation-id": this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
-
-    /**
-     * gets a SubtenantUserInvitation.
-     * @returns Promise containing SubtenantUserInvitation.
-     */
-    public get(): Promise<SubtenantUserInvitation> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi<SubtenantUserInvitation>(
-                    {
-                        url: "/v3/accounts/{account-id}/user-invitations/{invitation-id}",
-                        method: "GET",
-                        pathParams: {
-                            "account-id": this.accountId,
-                            "invitation-id": this.id,
-                        },
-                    },
-                    this,
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, data);
-            }
-        );
-    }
+    userId?: string;
 }

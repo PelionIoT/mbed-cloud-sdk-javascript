@@ -1,24 +1,26 @@
-import { TrustedCertificate, DeveloperCertificate } from "../../../src/sdk/entities";
+import { TrustedCertificate, DeveloperCertificate, TrustedCertificateRepository, DeveloperCertificateRepository } from "../../../src/sdk/entities";
+import { instanceOf } from "../../functions";
 
 describe("certificate examples", () => {
     it("should get developer info", async () => {
-        const certificate = (await new TrustedCertificate().list().all()).filter(t => t.isDeveloperCertificate === true)[0];
+        const trustedCertificateContext = new TrustedCertificateRepository();
+        const certificate = (await trustedCertificateContext.list().all()).filter(t => t.isDeveloperCertificate === true)[0];
 
-        expect(certificate).toBeInstanceOf(TrustedCertificate);
+        expect(instanceOf<TrustedCertificate>(certificate, "TRUSTED_CERTIFICATE")).toBeTruthy();
 
-        const devInfo = await certificate.developerCertificateInfo();
+        const devInfo = await trustedCertificateContext.developerCertificateInfo(certificate.id);
 
-        expect(devInfo).toBeInstanceOf(DeveloperCertificate);
+        expect(instanceOf<DeveloperCertificate>(devInfo, "DEVELOPER_CERTIFICATE")).toBeTruthy();
     });
 
     it("should get trusted cert info", async () => {
-        const certificate = (await new TrustedCertificate().list().all()).filter(t => t.isDeveloperCertificate === true)[0];
+        const trustedCertificateContext = new TrustedCertificateRepository();
+        const certificate = (await trustedCertificateContext.list().all()).filter(t => t.isDeveloperCertificate === true)[0];
 
-        const devCertificate = new DeveloperCertificate();
-        devCertificate.id = certificate.id;
-        await devCertificate.get();
+        const developerCertificateContext = new DeveloperCertificateRepository();
+        const devCertificate = await developerCertificateContext.get(certificate.id);
 
-        const trustedCertInfo = await devCertificate.trustedCertificateInfo();
-        expect(trustedCertInfo).toBeInstanceOf(TrustedCertificate);
+        const trustedCertInfo = await developerCertificateContext.trustedCertificateInfo(devCertificate.id);
+        expect(instanceOf<TrustedCertificate>(trustedCertInfo, "TRUSTED_CERTIFICATE")).toBeTruthy();
     });
 });
