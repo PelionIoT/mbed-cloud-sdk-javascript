@@ -2,7 +2,7 @@ import { ReadStream, createWriteStream, createReadStream } from "fs";
 import { isThisNode } from "../../common/functions";
 import { get as http_get } from "superagent";
 import { Config } from "../client/config";
-import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate } from "../generatedV2";
+import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate } from "../generated";
 
 export function isDeveloperCertificateSetter(self: TrustedCertificate): void {
     self.isDeveloperCertificate = self.deviceExecutionMode ? !!self.deviceExecutionMode : false;

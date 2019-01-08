@@ -1,52 +1,51 @@
 import { Entity } from "../../../common/entity";
 import { ApiKeyStatusEnum } from "./types";
-
 /**
- * ApiKey
+ *ApiKey
  */
 export interface ApiKey extends Entity {
     /**
-     * Creation UTC time RFC3339.
+     *createdAt
      */
-    readonly createdAt?: Date;
+    createdAt?: Date;
 
     /**
-     * The timestamp of the API key creation in the storage, in milliseconds.
+     *creationTime
      */
-    readonly creationTime?: number;
+    creationTime?: number;
 
     /**
-     * A list of group IDs this API key belongs to.
+     *id
      */
-    readonly groups?: Array<string>;
+    id?: string;
 
     /**
-     * The API key.
+     *key
      */
-    readonly key?: string;
+    key?: string;
 
     /**
-     * The timestamp of the latest API key usage, in milliseconds.
+     *lastLoginTime
      */
-    readonly lastLoginTime?: number;
+    lastLoginTime?: number;
 
     /**
-     * The display name for the API key.
+     *name
      */
-    readonly name?: string;
+    name?: string;
 
     /**
-     * The owner of this API key, who is the creator by default.
+     *owner
      */
-    readonly owner?: string;
+    owner?: string;
 
     /**
-     * The status of the API key.
+     *status
      */
-    readonly status?: ApiKeyStatusEnum;
+    status?: ApiKeyStatusEnum;
 
     /**
-     * Last update UTC time RFC3339.
+     *updatedAt
      */
-    readonly updatedAt?: Date;
+    updatedAt?: Date;
 }

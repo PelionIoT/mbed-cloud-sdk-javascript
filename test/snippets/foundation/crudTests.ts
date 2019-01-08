@@ -1,17 +1,24 @@
 // import { CrudTest } from "./crudTest";
-// import { CertificateIssuer, Account, ApiKey, User, Device, DeviceEnrollment, DeviceEvents, CertificateEnrollment, CertificateIssuerConfig, TrustedCertificate, UserInvitation, SubtenantUser, SubtenantTrustedCertificate, DeveloperCertificate } from "../../../src/sdk/entities";
+// import { CertificateIssuer, Account, ApiKey, User, Device, DeviceEnrollment, DeviceEvents, CertificateEnrollment, CertificateIssuerConfig, TrustedCertificate, UserInvitation, SubtenantUser, SubtenantTrustedCertificate, DeveloperCertificate, AccountRepository } from "../../../src/sdk/entities";
+// import { Config } from "../../../src/sdk";
+
+// const config = new Config();
 
 // describe("generic crud tests", () => {
 //     it("should crud account", async () => {
-//         const myAccount = await new Account().me();
+//         const myAccount = await new AccountRepository(config).me();
 //         const propsToUpdate = {
 //             phoneNumber: "118118"
 //         };
-//         const crudTest = new CrudTest<Account>(Account, {
-//             objectInstance: myAccount,
-//             propsToUpdate: propsToUpdate,
-//             update: true,
-//         });
+//         const crudTest = new CrudTest<AccountRepository, Account>(
+//             AccountRepository,
+//             config,
+//             {
+//                 objectInstance: myAccount,
+//                 propsToUpdate: propsToUpdate,
+//                 update: true,
+//             }
+//         );
 //         await crudTest.test();
 //     });
 

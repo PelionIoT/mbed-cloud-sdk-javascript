@@ -1,209 +1,213 @@
 import { Entity } from "../../../common/entity";
-import { AccountMfaStatusEnum, AccountStatusEnum } from "./types";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
 import { Policy } from "../policy/policy";
-
+import { AccountMfaStatusEnum, AccountStatusEnum } from "./types";
 /**
- * Account
+ *Account
  */
 export interface Account extends Entity {
     /**
-     * Postal address line 1.
+     *addressLine1
      */
-    readonly addressLine1?: string;
+    addressLine1?: string;
 
     /**
-     * Postal address line 2.
+     *addressLine2
      */
-    readonly addressLine2?: string;
+    addressLine2?: string;
 
     /**
-     * The email address of the account admin, not longer than 254 characters.
+     *adminEmail
      */
-    readonly adminEmail?: string;
+    adminEmail?: string;
 
     /**
-     * The full name of the admin user to be created.
+     *adminFullName
      */
-    readonly adminFullName?: string;
+    adminFullName?: string;
 
     /**
-     * The ID of the admin user created.
+     *adminId
      */
-    readonly adminId?: string;
+    adminId?: string;
 
     /**
-     * The admin API key created for the account.
+     *adminKey
      */
-    readonly adminKey?: string;
+    adminKey?: string;
 
     /**
-     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+     *adminName
      */
-    readonly adminName?: string;
+    adminName?: string;
 
     /**
-     * The password when creating a new user. It will be generated when not present in the request.
+     *adminPassword
      */
-    readonly adminPassword?: string;
+    adminPassword?: string;
 
     /**
-     * An array of aliases.
+     *aliases
      */
-    readonly aliases?: Array<string>;
+    aliases?: Array<string>;
 
     /**
-     * The city part of the postal address.
+     *city
      */
-    readonly city?: string;
+    city?: string;
 
     /**
-     * The name of the company.
+     *company
      */
-    readonly company?: string;
+    company?: string;
 
     /**
-     * The name of the contact person for this account.
+     *contact
      */
-    readonly contact?: string;
+    contact?: string;
 
     /**
-     * Contract number of the customer.
+     *contractNumber
      */
-    readonly contractNumber?: string;
+    contractNumber?: string;
 
     /**
-     * The country part of the postal address.
+     *country
      */
-    readonly country?: string;
+    country?: string;
 
     /**
-     * Creation UTC time RFC3339.
+     *createdAt
      */
-    readonly createdAt?: Date;
+    createdAt?: Date;
 
     /**
-     * Account&#39;s custom properties as key-value pairs.
+     *customFields
      */
-    readonly customFields?: { [key: string]: string };
+    customFields?: { [key: string]: string };
 
     /**
-     * Customer number of the customer.
+     *customerNumber
      */
-    readonly customerNumber?: string;
+    customerNumber?: string;
 
     /**
-     * The display name for the account.
+     *displayName
      */
-    readonly displayName?: string;
+    displayName?: string;
 
     /**
-     * The company email address for this account.
+     *email
      */
-    readonly email?: string;
+    email?: string;
 
     /**
-     * Account end market.
+     *endMarket
      */
-    readonly endMarket?: string;
+    endMarket?: string;
 
     /**
-     * Indicates how many days (1-180) before account expiration a notification email should be sent.
+     *expirationWarningThreshold
      */
-    readonly expirationWarningThreshold?: string;
+    expirationWarningThreshold?: string;
 
     /**
-     * The reference token expiration time in minutes for this account.
+     *id
      */
-    readonly idleTimeout?: string;
+    id?: string;
 
     /**
-     * List of limits as key-value pairs if requested.
+     *idleTimeout
      */
-    readonly limits?: { [key: string]: string };
+    idleTimeout?: string;
 
     /**
-     * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+     *limits
      */
-    readonly mfaStatus?: AccountMfaStatusEnum;
+    limits?: { [key: string]: string };
 
     /**
-     * A list of notification email addresses.
+     *mfaStatus
      */
-    readonly notificationEmails?: Array<string>;
+    mfaStatus?: AccountMfaStatusEnum;
 
     /**
-     * This object represents parent account contact details in responses.
+     *notificationEmails
      */
-    readonly parentAccount?: any;
+    notificationEmails?: Array<string>;
 
     /**
-     * The ID of the parent account, if it has any.
+     *parentAccount
      */
-    readonly parentId?: string;
+    parentAccount?: any;
 
     /**
-     * password_policy
+     *parentId
      */
-    readonly passwordPolicy?: PasswordPolicy;
+    parentId?: string;
 
     /**
-     * The phone number of a representative of the company.
+     *passwordPolicy
      */
-    readonly phoneNumber?: string;
+    passwordPolicy?: PasswordPolicy;
 
     /**
-     * List of policies if requested.
+     *phoneNumber
      */
-    readonly policies?: Array<Policy>;
+    phoneNumber?: string;
 
     /**
-     * The postal code part of the postal address.
+     *policies
      */
-    readonly postalCode?: string;
+    policies?: Array<Policy>;
 
     /**
-     * A reason note for updating the status of the account
+     *postalCode
      */
-    readonly reason?: string;
+    postalCode?: string;
 
     /**
-     * A reference note for updating the status of the account
+     *reason
      */
-    readonly referenceNote?: string;
+    reason?: string;
 
     /**
-     * Email address of the sales contact.
+     *referenceNote
      */
-    readonly salesContact?: string;
+    referenceNote?: string;
 
     /**
-     * The state part of the postal address.
+     *salesContact
      */
-    readonly state?: string;
+    salesContact?: string;
 
     /**
-     * The status of the account.
+     *state
      */
-    readonly status?: AccountStatusEnum;
+    state?: string;
 
     /**
-     * Account template ID.
+     *status
      */
-    readonly templateId?: string;
+    status?: AccountStatusEnum;
 
     /**
-     * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier. Other values are reserved for the future.
+     *templateId
      */
-    readonly tier?: string;
+    templateId?: string;
 
     /**
-     * Last update UTC time RFC3339.
+     *tier
      */
-    readonly updatedAt?: Date;
+    tier?: string;
 
     /**
-     * Time when upgraded to commercial account in UTC format RFC3339.
+     *updatedAt
      */
-    readonly upgradedAt?: Date;
+    updatedAt?: Date;
+
+    /**
+     *upgradedAt
+     */
+    upgradedAt?: Date;
 }

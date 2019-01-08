@@ -1,22 +1,39 @@
-import { ListOptions } from "../../../../common/interfaces";
-
 export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
-
-export interface ApiKeyUpdateRequest {
-    readonly name: string;
-    readonly owner?: string;
-    readonly groups?: Array<string>;
-    readonly status?: ApiKeyStatusEnum;
-}
-
+/**
+ *ApiKeyCreateRequest
+ */
 export interface ApiKeyCreateRequest {
-    readonly name: string;
+    /**
+     *name
+     */
+    readonly name?: string;
+
+    /**
+     *owner
+     */
     readonly owner?: string;
-    readonly groups?: Array<string>;
+
+    /**
+     *status
+     */
     readonly status?: ApiKeyStatusEnum;
 }
+/**
+ *ApiKeyUpdateRequest
+ */
+export interface ApiKeyUpdateRequest {
+    /**
+     *name
+     */
+    readonly name?: string;
 
-export interface ApiKeyListOptions extends ListOptions {
-    keyEq?: string;
-    ownerEq?: string;
+    /**
+     *owner
+     */
+    readonly owner?: string;
+
+    /**
+     *status
+     */
+    readonly status?: ApiKeyStatusEnum;
 }

@@ -1,1 +1,1 @@
-export * from "../generatedV2";
+export * from "../generated";

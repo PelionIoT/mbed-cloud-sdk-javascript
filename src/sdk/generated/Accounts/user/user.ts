@@ -1,108 +1,107 @@
 import { Entity } from "../../../common/entity";
 import { LoginHistory } from "../loginHistory/loginHistory";
 import { UserStatusEnum } from "./types";
-
 /**
- * User
+ *User
  */
 export interface User extends Entity {
     /**
-     * The ID of the account.
+     *accountId
      */
-    readonly accountId?: string;
+    accountId?: string;
 
     /**
-     * Address.
+     *address
      */
-    readonly address?: string;
+    address?: string;
 
     /**
-     * Creation UTC time RFC3339.
+     *createdAt
      */
-    readonly createdAt?: Date;
+    createdAt?: Date;
 
     /**
-     * A timestamp of the user creation in the storage, in milliseconds.
+     *creationTime
      */
-    readonly creationTime?: number;
+    creationTime?: number;
 
     /**
-     * The email address.
+     *email
      */
-    readonly email?: string;
+    email?: string;
 
     /**
-     * A flag indicating whether the user&#39;s email address has been verified or not.
+     *emailVerified
      */
-    readonly emailVerified?: boolean;
+    emailVerified?: boolean;
 
     /**
-     * The full name of the user.
+     *fullName
      */
-    readonly fullName?: string;
+    fullName?: string;
 
     /**
-     * A list of IDs of the groups this user belongs to.
+     *id
      */
-    readonly groups?: Array<string>;
+    id?: string;
 
     /**
-     * A timestamp of the latest login of the user, in milliseconds.
+     *lastLoginTime
      */
-    readonly lastLoginTime?: number;
+    lastLoginTime?: number;
 
     /**
-     * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+     *loginHistory
      */
-    readonly loginHistory?: Array<LoginHistory>;
+    loginHistory?: Array<LoginHistory>;
 
     /**
-     * A list of login profiles for the user. Specified as the identity providers the user is associated with.
+     *loginProfiles
      */
-    readonly loginProfiles?: Array<any>;
+    loginProfiles?: Array<any>;
 
     /**
-     * A flag indicating that receiving marketing information has been accepted.
+     *marketingAccepted
      */
-    readonly marketingAccepted?: boolean;
+    marketingAccepted?: boolean;
 
     /**
-     * The password when creating a new user. It will be generated when not present in the request.
+     *password
      */
-    readonly password?: string;
+    password?: string;
 
     /**
-     * A timestamp of the latest change of the user password, in milliseconds.
+     *passwordChangedTime
      */
-    readonly passwordChangedTime?: number;
+    passwordChangedTime?: number;
 
     /**
-     * Phone number.
+     *phoneNumber
      */
-    readonly phoneNumber?: string;
+    phoneNumber?: string;
 
     /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     *status
      */
-    readonly status?: UserStatusEnum;
+    status?: UserStatusEnum;
 
     /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
+     *termsAccepted
      */
-    readonly termsAccepted?: boolean;
+    termsAccepted?: boolean;
 
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     *twoFactorAuthentication
      */
-    readonly twoFactorAuthentication?: boolean;
+    twoFactorAuthentication?: boolean;
 
     /**
-     * Last update UTC time RFC3339.
+     *updatedAt
      */
-    readonly updatedAt?: Date;
+    updatedAt?: Date;
 
     /**
-     * A username containing alphanumerical letters and -,._@+= characters.
+     *username
      */
-    readonly username?: string;
+    username?: string;
 }

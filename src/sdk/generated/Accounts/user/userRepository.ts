@@ -1,30 +1,17 @@
 import { Repository } from "../../../common/repository";
-import { User } from "./user";
 import { apiWrapper } from "../../../../common/functions";
+import { User } from "./user";
+import { UserAdapter } from "../../index";
+import { UserCreateRequest } from "./types";
+import { UserUpdateRequest } from "./types";
 import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
-import { UserCreateRequest, UserUpdateRequest, UserListOptions } from "./types";
-import { UserAdapter } from "./userAdapter";
-
+import { ListOptions } from "../../../../common/interfaces";
+/**
+ *User repository
+ */
 export class UserRepository extends Repository {
-
-    /**
-         * creates a User.
-         * @returns Promise containing User.
-         */
     public create(request: UserCreateRequest, action?: string): Promise<User> {
-        const body = {
-            address: request.address,
-            email: request.email,
-            full_name: request.fullName,
-            groups: request.groups,
-            login_profiles: request.loginProfiles,
-            is_marketing_accepted: request.marketingAccepted,
-            password: request.password,
-            phone_number: request.phoneNumber,
-            is_gtc_accepted: request.termsAccepted,
-            username: request.username,
-        };
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -34,7 +21,17 @@ export class UserRepository extends Repository {
                         query: {
                             action: action,
                         },
-                        body: body,
+                        body: {
+                            address: request.address,
+                            email: request.email,
+                            full_name: request.fullName,
+                            login_profiles: request.loginProfiles,
+                            is_marketing_accepted: request.marketingAccepted,
+                            password: request.password,
+                            phone_number: request.phoneNumber,
+                            is_gtc_accepted: request.termsAccepted,
+                            username: request.username,
+                        },
                     },
                     resultsFn
                 );
@@ -44,12 +41,7 @@ export class UserRepository extends Repository {
             }
         );
     }
-
-    /**
-     * deletes a User.
-     * @returns Promise containing User.
-     */
-    public delete(id: string): Promise<void> {
+    public delete(userId: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -57,7 +49,7 @@ export class UserRepository extends Repository {
                         url: "/v3/users/{user_id}",
                         method: "DELETE",
                         pathParams: {
-                            user_id: id,
+                            user_id: userId,
                         },
                     },
                     resultsFn
@@ -68,12 +60,7 @@ export class UserRepository extends Repository {
             }
         );
     }
-
-    /**
-     * gets a User.
-     * @returns Promise containing User.
-     */
-    public get(id: string): Promise<User> {
+    public get(userId: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -81,7 +68,7 @@ export class UserRepository extends Repository {
                         url: "/v3/users/{user_id}",
                         method: "GET",
                         pathParams: {
-                            user_id: id,
+                            user_id: userId,
                         },
                     },
                     resultsFn
@@ -92,21 +79,21 @@ export class UserRepository extends Repository {
             }
         );
     }
-
-    /**
-     * List Users
-     * @param options filter options
-     */
-    public list(options?: UserListOptions): Paginator<User, UserListOptions> {
-        const pageFunc = (pageOptions: UserListOptions): Promise<ListResponse<User>> => {
+    public list(options?: ListOptions): Paginator<User, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+            pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
-                    const { limit, after, order, include, statusEq } = pageOptions as UserListOptions;
                     this.client._CallApi(
                         {
                             url: "/v3/users",
                             method: "GET",
-                            query: { after, include, order, limit, statusEq },
+                            query: {
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                            },
                         },
                         resultsFn
                     );
@@ -120,23 +107,7 @@ export class UserRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-
-    /**
-     * updates a User.
-     * @returns Promise containing User.
-     */
-    public update(id: string, request: UserUpdateRequest): Promise<User> {
-        const body = {
-            address: request.address,
-            full_name: request.fullName,
-            groups: request.groups,
-            login_profiles: request.loginProfiles,
-            is_marketing_accepted: request.marketingAccepted,
-            phone_number: request.phoneNumber,
-            is_gtc_accepted: request.termsAccepted,
-            is_totp_enabled: request.twoFactorAuthentication,
-            username: request.username,
-        };
+    public update(request: UserUpdateRequest, userId: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -144,9 +115,18 @@ export class UserRepository extends Repository {
                         url: "/v3/users/{user_id}",
                         method: "PUT",
                         pathParams: {
-                            user_id: id,
+                            user_id: userId,
                         },
-                        body: body,
+                        body: {
+                            address: request.address,
+                            full_name: request.fullName,
+                            login_profiles: request.loginProfiles,
+                            is_marketing_accepted: request.marketingAccepted,
+                            phone_number: request.phoneNumber,
+                            is_gtc_accepted: request.termsAccepted,
+                            is_totp_enabled: request.twoFactorAuthentication,
+                            username: request.username,
+                        },
                     },
                     resultsFn
                 );

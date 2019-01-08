@@ -1,11 +1,10 @@
 import { Entity } from "../../../common/entity";
-
 /**
- * PasswordPolicy
+ *PasswordPolicy
  */
 export interface PasswordPolicy extends Entity {
     /**
-     * Minimum length for the password. A number between 8 and 512.
+     *minimumLength
      */
-    readonly minimumLength?: string;
+    minimumLength?: string;
 }

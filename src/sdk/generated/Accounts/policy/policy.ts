@@ -1,31 +1,30 @@
 import { Entity } from "../../../common/entity";
-
 /**
- * Policy
+ *Policy
  */
 export interface Policy extends Entity {
     /**
-     * Comma separated list of actions, empty string represents all actions.
+     *action
      */
-    readonly action?: string;
+    action?: string;
 
     /**
-     * True or false controlling whether an action is allowed or not.
+     *allow
      */
-    readonly allow?: boolean;
+    allow?: boolean;
 
     /**
-     * Feature name corresponding to this policy.
+     *feature
      */
-    readonly feature?: string;
+    feature?: string;
 
     /**
-     * Flag indicating whether this feature is inherited or overwritten specifically.
+     *inherited
      */
-    readonly inherited?: boolean;
+    inherited?: boolean;
 
     /**
-     * Resource that is protected by this policy.
+     *resource
      */
-    readonly resource?: string;
+    resource?: string;
 }

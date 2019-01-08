@@ -1,18 +1,25 @@
-import { ApiKey } from "./apiKey";
 import { Adapter } from "../../../common/adapter";
-
+import { ApiKey } from "./apiKey";
+/**
+ *ApiKey adapter
+ */
 export class ApiKeyAdapter extends Adapter {
     public static fromApi(data: any, instance?: ApiKey): ApiKey {
-        return this.assignDefined(instance || {},
-            {
-                _discriminator: "APIKEY",
-                id: data.id,
-                key: data.key,
-                name: data.name,
-                createdAt: new Date(data.created_at),
-                updatedAt: new Date(data.updated_at),
-                groups: data.groups,
-                status: data.status,
-            });
+        if (!data) {
+            return null;
+        }
+        const mappedEntity = ApiKeyAdapter.assignDefined<ApiKey>(instance || {}, {
+            _discriminator: "API_KEY",
+            createdAt: data.created_at,
+            creationTime: data.creation_time,
+            id: data.id,
+            key: data.key,
+            lastLoginTime: data.last_login_time,
+            name: data.name,
+            owner: data.owner,
+            status: data.status,
+            updatedAt: data.updated_at,
+        });
+        return mappedEntity;
     }
 }

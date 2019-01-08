@@ -1,26 +1,25 @@
 import { Entity } from "../../../common/entity";
-
 /**
- * LoginHistory
+ *LoginHistory
  */
 export interface LoginHistory extends Entity {
     /**
-     * UTC time RFC3339 for this login attempt.
+     *date
      */
-    readonly date?: Date;
+    date?: Date;
 
     /**
-     * IP address of the client.
+     *ipAddress
      */
-    readonly ipAddress?: string;
+    ipAddress?: string;
 
     /**
-     * Flag indicating whether login attempt was successful or not.
+     *success
      */
-    readonly success?: boolean;
+    success?: boolean;
 
     /**
-     * User Agent header from the login request.
+     *userAgent
      */
-    readonly userAgent?: string;
+    userAgent?: string;
 }

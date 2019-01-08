@@ -1,32 +1,94 @@
-import { ListOptions } from "../../../../common/interfaces";
-
-export type UserStatusEnum = "ACTIVE" | "ENROLLING" | "INACTIVE" | "INVITED" | "RESET";
-
+export type UserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+/**
+ *UserCreateRequest
+ */
 export interface UserCreateRequest {
-    readonly email: string;
+    /**
+     *address
+     */
     readonly address?: string;
+
+    /**
+     *email
+     */
+    readonly email?: string;
+
+    /**
+     *fullName
+     */
     readonly fullName?: string;
-    readonly groups?: Array<string>;
+
+    /**
+     *loginProfiles
+     */
     readonly loginProfiles?: Array<any>;
+
+    /**
+     *marketingAccepted
+     */
     readonly marketingAccepted?: boolean;
+
+    /**
+     *password
+     */
     readonly password?: string;
+
+    /**
+     *phoneNumber
+     */
     readonly phoneNumber?: string;
+
+    /**
+     *termsAccepted
+     */
     readonly termsAccepted?: boolean;
+
+    /**
+     *username
+     */
     readonly username?: string;
 }
-
+/**
+ *UserUpdateRequest
+ */
 export interface UserUpdateRequest {
+    /**
+     *address
+     */
     readonly address?: string;
-    readonly fullName?: string;
-    readonly groups?: Array<string>;
-    readonly loginProfiles?: Array<any>;
-    readonly marketingAccepted?: boolean;
-    readonly phoneNumber?: string;
-    readonly termsAccepted?: boolean;
-    readonly twoFactorAuthentication?: boolean;
-    readonly username?: string;
-}
 
-export interface UserListOptions extends ListOptions {
-    statusEq?: string;
+    /**
+     *fullName
+     */
+    readonly fullName?: string;
+
+    /**
+     *loginProfiles
+     */
+    readonly loginProfiles?: Array<any>;
+
+    /**
+     *marketingAccepted
+     */
+    readonly marketingAccepted?: boolean;
+
+    /**
+     *phoneNumber
+     */
+    readonly phoneNumber?: string;
+
+    /**
+     *termsAccepted
+     */
+    readonly termsAccepted?: boolean;
+
+    /**
+     *twoFactorAuthentication
+     */
+    readonly twoFactorAuthentication?: boolean;
+
+    /**
+     *username
+     */
+    readonly username?: string;
 }

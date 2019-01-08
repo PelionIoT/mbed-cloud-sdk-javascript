@@ -1,5 +1,0 @@
-<% entities.forEach(function(entity) { %>
-export * from "./<%= snakeToCamel(entity.group_id) %>/<%= snakeToCamel(entity._key) %>/<%= snakeToCamel(entity._key) %>";
-<%}); %>
-export * from "./enums";
-export * from "./factory";

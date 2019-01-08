@@ -1,41 +1,24 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../../common/functions";
-import { ListOptions } from "../../../../common/interfaces";
+import { Account } from "./account";
+import { AccountAdapter } from "../../index";
+import { AccountCreateRequest } from "./types";
+import { AccountListOptions } from "./types";
+import { SubtenantTrustedCertificate } from "../../index";
+import { SubtenantTrustedCertificateAdapter } from "../../index";
+import { AccountUpdateRequest } from "./types";
+import { SubtenantUserInvitation } from "../../index";
+import { SubtenantUserInvitationAdapter } from "../../index";
+import { SubtenantUser } from "../../index";
+import { SubtenantUserAdapter } from "../../index";
 import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
-import { User } from "../user/user";
-import { AccountCreateRequest, AccountUpdateRequest } from "./types";
-import { AccountAdapter } from "./accountAdapter";
-import { Account } from "./account";
-import { UserAdapter } from "../../../entities";
-
+import { ListOptions } from "../../../../common/interfaces";
+/**
+ *Account repository
+ */
 export class AccountRepository extends Repository {
-    /**
-     * creates a Account.
-     * @returns Promise containing Account.
-     */
     public create(request: AccountCreateRequest, action?: string): Promise<Account> {
-        const body = {
-            address_line1: request.addressLine1,
-            address_line2: request.addressLine2,
-            admin_email: request.adminEmail,
-            admin_full_name: request.adminFullName,
-            admin_name: request.adminName,
-            admin_password: request.adminPassword,
-            aliases: request.aliases,
-            city: request.city,
-            company: request.company,
-            contact: request.contact,
-            contract_number: request.contractNumber,
-            country: request.country,
-            customer_number: request.customerNumber,
-            display_name: request.displayName,
-            email: request.email,
-            end_market: request.endMarket,
-            phone_number: request.phoneNumber,
-            postal_code: request.postalCode,
-            state: request.state,
-        };
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -45,7 +28,27 @@ export class AccountRepository extends Repository {
                         query: {
                             action: action,
                         },
-                        body: body,
+                        body: {
+                            address_line1: request.addressLine1,
+                            address_line2: request.addressLine2,
+                            admin_email: request.adminEmail,
+                            admin_full_name: request.adminFullName,
+                            admin_name: request.adminName,
+                            admin_password: request.adminPassword,
+                            aliases: request.aliases,
+                            city: request.city,
+                            company: request.company,
+                            contact: request.contact,
+                            contract_number: request.contractNumber,
+                            country: request.country,
+                            customer_number: request.customerNumber,
+                            display_name: request.displayName,
+                            email: request.email,
+                            end_market: request.endMarket,
+                            phone_number: request.phoneNumber,
+                            postal_code: request.postalCode,
+                            state: request.state,
+                        },
                     },
                     resultsFn
                 );
@@ -55,12 +58,8 @@ export class AccountRepository extends Repository {
             }
         );
     }
-
-    /**
-     * gets a Account.
-     * @returns Promise containing Account.
-     */
-    public get(id: string, include?: string, properties?: string): Promise<Account> {
+    public get(accountId: string, options?: { include?: string; properties?: string }): Promise<Account> {
+        options = options || {};
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -68,11 +67,11 @@ export class AccountRepository extends Repository {
                         url: "/v3/accounts/{account_id}",
                         method: "GET",
                         query: {
-                            include: include,
-                            properties: properties,
+                            include: options.include,
+                            properties: options.properties,
                         },
                         pathParams: {
-                            account_id: id,
+                            account_id: accountId,
                         },
                     },
                     resultsFn
@@ -83,21 +82,23 @@ export class AccountRepository extends Repository {
             }
         );
     }
-
-    /**
-     * List Accounts
-     * @param options filter options
-     */
-    public list(options?: ListOptions): Paginator<Account, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Account>> => {
+    public list(options?: AccountListOptions): Paginator<Account, ListOptions> {
+        const pageFunc = (pageOptions: AccountListOptions): Promise<ListResponse<Account>> => {
+            pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
                     this.client._CallApi(
                         {
                             url: "/v3/accounts",
                             method: "GET",
-                            query: { after, include, order, limit },
+                            query: {
+                                after: pageOptions.after,
+                                format: pageOptions.format,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                                properties: pageOptions.properties,
+                            },
                         },
                         resultsFn
                     );
@@ -111,12 +112,8 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-
-    /**
-     * mes a Account.
-     * @returns Promise containing Account.
-     */
-    public me(include?: string, properties?: string): Promise<Account> {
+    public me(options?: { include?: string; properties?: string }): Promise<Account> {
+        options = options || {};
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -124,8 +121,8 @@ export class AccountRepository extends Repository {
                         url: "/v3/accounts/me",
                         method: "GET",
                         query: {
-                            include: include,
-                            properties: properties,
+                            include: options.include,
+                            properties: options.properties,
                         },
                     },
                     resultsFn
@@ -136,36 +133,41 @@ export class AccountRepository extends Repository {
             }
         );
     }
-
-    /**
-     * updates a Account.
-     * @returns Promise containing Account.
-     */
-    public update(id: string, request: AccountUpdateRequest): Promise<Account> {
-        const body = {
-            address_line1: request.addressLine1,
-            address_line2: request.addressLine2,
-            aliases: request.aliases,
-            city: request.city,
-            company: request.company,
-            contact: request.contact,
-            contract_number: request.contractNumber,
-            country: request.country,
-            custom_fields: request.customFields,
-            customer_number: request.customerNumber,
-            display_name: request.displayName,
-            email: request.email,
-            end_market: request.endMarket,
-            expiration_warning_threshold: request.expirationWarningThreshold,
-            idle_timeout: request.idleTimeout,
-            mfa_status: request.mfaStatus,
-            notification_emails: request.notificationEmails,
-            password_policy: request.passwordPolicy,
-            phone_number: request.phoneNumber,
-            postal_code: request.postalCode,
-            sales_contact: request.salesContact,
-            state: request.state,
+    public trustedCertificates(
+        accountId: string,
+        options?: ListOptions
+    ): Paginator<SubtenantTrustedCertificate, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantTrustedCertificate>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/trusted-certificates",
+                            method: "GET",
+                            query: {
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                            },
+                            pathParams: {
+                                account_id: accountId,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantTrustedCertificate>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantTrustedCertificateAdapter.fromApi));
+                },
+                null,
+                true
+            );
         };
+        return new Paginator(pageFunc, options);
+    }
+    public update(request: AccountUpdateRequest, accountId: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -173,9 +175,32 @@ export class AccountRepository extends Repository {
                         url: "/v3/accounts/{account_id}",
                         method: "PUT",
                         pathParams: {
-                            account_id: id,
+                            account_id: accountId,
                         },
-                        body: body,
+                        body: {
+                            address_line1: request.addressLine1,
+                            address_line2: request.addressLine2,
+                            aliases: request.aliases,
+                            city: request.city,
+                            company: request.company,
+                            contact: request.contact,
+                            contract_number: request.contractNumber,
+                            country: request.country,
+                            custom_fields: request.customFields,
+                            customer_number: request.customerNumber,
+                            display_name: request.displayName,
+                            email: request.email,
+                            end_market: request.endMarket,
+                            expiration_warning_threshold: request.expirationWarningThreshold,
+                            idle_timeout: request.idleTimeout,
+                            mfa_status: request.mfaStatus,
+                            notification_emails: request.notificationEmails,
+                            password_policy: request.passwordPolicy,
+                            phone_number: request.phoneNumber,
+                            postal_code: request.postalCode,
+                            sales_contact: request.salesContact,
+                            state: request.state,
+                        },
                     },
                     resultsFn
                 );
@@ -185,30 +210,60 @@ export class AccountRepository extends Repository {
             }
         );
     }
-
-    /**
-     * List Users
-     * @param options filter options
-     */
-    public users(id: string, options?: ListOptions): Paginator<User, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+    public userInvitations(accountId: string, options?: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUserInvitation>> => {
+            pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
-                    const { limit, after, order, include } = pageOptions as ListOptions;
                     this.client._CallApi(
                         {
-                            url: "/v3/accounts/{account_id}/users",
+                            url: "/v3/accounts/{account_id}/user-invitations",
                             method: "GET",
-                            query: { after, include, order, limit },
+                            query: {
+                                after: pageOptions.after,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                            },
                             pathParams: {
-                                account_id: id,
+                                account_id: accountId,
                             },
                         },
                         resultsFn
                     );
                 },
-                (data: ListResponse<User>, done) => {
-                    done(null, new ListResponse(data, data.data, UserAdapter.fromApi));
+                (data: ListResponse<SubtenantUserInvitation>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantUserInvitationAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    public users(accountId: string, options?: ListOptions): Paginator<SubtenantUser, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUser>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/users",
+                            method: "GET",
+                            query: {
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                            },
+                            pathParams: {
+                                account_id: accountId,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantUser>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantUserAdapter.fromApi));
                 },
                 null,
                 true
