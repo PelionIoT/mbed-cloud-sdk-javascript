@@ -35,7 +35,6 @@
         "device_enrollment"
       ],
       "enums": [
-        "device_lifecycle_status_enum",
         "device_deployed_state_enum",
         "device_mechanism_enum",
         "device_state_enum",
@@ -230,17 +229,6 @@
       ],
       "group_id": "Devices",
       "_key": "device_enrollment_order_enum"
-    },
-    {
-      "entity_name": "device",
-      "field_name": "lifecycle_status",
-      "enum_name": "device_lifecycle_status_enum",
-      "values": [
-        "blocked",
-        "enabled"
-      ],
-      "group_id": "Devices",
-      "_key": "device_lifecycle_status_enum"
     },
     {
       "entity_name": "device",
@@ -579,7 +567,7 @@
               "entity_fieldname": "end_market",
               "parameter_fieldname": "end_market",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "end_market"
             },
             {
@@ -7584,8 +7572,6 @@
           "example": "110 Fulbourn Rd",
           "description": "Postal address line 1.",
           "api_fieldname": "address_line1",
-          "readOnly": false,
-          "required": false,
           "_key": "address_line1"
         },
         {
@@ -7593,8 +7579,6 @@
           "example": " ",
           "description": "Postal address line 2.",
           "api_fieldname": "address_line2",
-          "readOnly": false,
-          "required": false,
           "_key": "address_line2"
         },
         {
@@ -7602,8 +7586,6 @@
           "example": "admin@arm.com",
           "description": "The email address of the account admin, not longer than 254 characters.",
           "api_fieldname": "admin_email",
-          "readOnly": false,
-          "required": false,
           "_key": "admin_email"
         },
         {
@@ -7611,8 +7593,6 @@
           "example": "Admin Doe",
           "description": "The full name of the admin user to be created.",
           "api_fieldname": "admin_full_name",
-          "readOnly": false,
-          "required": false,
           "_key": "admin_full_name"
         },
         {
@@ -7620,8 +7600,6 @@
           "example": "01619571e2e89242ac12000600000000",
           "description": "The ID of the admin user created.",
           "api_fieldname": "admin_id",
-          "readOnly": true,
-          "required": false,
           "_key": "admin_id"
         },
         {
@@ -7629,8 +7607,6 @@
           "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
           "description": "The admin API key created for the account.",
           "api_fieldname": "admin_key",
-          "readOnly": true,
-          "required": false,
           "_key": "admin_key"
         },
         {
@@ -7638,8 +7614,6 @@
           "example": "admin",
           "description": "The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.",
           "api_fieldname": "admin_name",
-          "readOnly": false,
-          "required": false,
           "_key": "admin_name"
         },
         {
@@ -7647,8 +7621,6 @@
           "example": "PZf9eEUH43DAPE9ULINFeuj",
           "description": "The password when creating a new user. It will be generated when not present in the request.",
           "api_fieldname": "admin_password",
-          "readOnly": false,
-          "required": false,
           "_key": "admin_password"
         },
         {
@@ -7658,8 +7630,6 @@
             "type": "string"
           },
           "api_fieldname": "aliases",
-          "readOnly": false,
-          "required": false,
           "_key": "aliases"
         },
         {
@@ -7667,8 +7637,6 @@
           "example": "Cambridge",
           "description": "The city part of the postal address.",
           "api_fieldname": "city",
-          "readOnly": false,
-          "required": false,
           "_key": "city"
         },
         {
@@ -7676,8 +7644,6 @@
           "example": "ARM Holdings Plc",
           "description": "The name of the company.",
           "api_fieldname": "company",
-          "readOnly": false,
-          "required": false,
           "_key": "company"
         },
         {
@@ -7685,8 +7651,6 @@
           "example": "J. Doe",
           "description": "The name of the contact person for this account.",
           "api_fieldname": "contact",
-          "readOnly": false,
-          "required": false,
           "_key": "contact"
         },
         {
@@ -7694,8 +7658,6 @@
           "example": "1NX25_0001",
           "description": "Contract number of the customer.",
           "api_fieldname": "contract_number",
-          "readOnly": false,
-          "required": false,
           "_key": "contract_number"
         },
         {
@@ -7703,8 +7665,6 @@
           "example": "United Kingdom",
           "description": "The country part of the postal address.",
           "api_fieldname": "country",
-          "readOnly": false,
-          "required": false,
           "_key": "country"
         },
         {
@@ -7713,8 +7673,6 @@
           "example": "2018-02-13T09:35:20Z",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -7724,8 +7682,6 @@
             "type": "string"
           },
           "api_fieldname": "custom_fields",
-          "readOnly": false,
-          "required": false,
           "_key": "custom_fields"
         },
         {
@@ -7733,8 +7689,6 @@
           "example": "1NC25_0001",
           "description": "Customer number of the customer.",
           "api_fieldname": "customer_number",
-          "readOnly": false,
-          "required": false,
           "_key": "customer_number"
         },
         {
@@ -7742,8 +7696,6 @@
           "example": "ARM",
           "description": "The display name for the account.",
           "api_fieldname": "display_name",
-          "readOnly": false,
-          "required": false,
           "_key": "display_name"
         },
         {
@@ -7751,8 +7703,6 @@
           "example": "info@arm.com",
           "description": "The company email address for this account.",
           "api_fieldname": "email",
-          "readOnly": false,
-          "required": false,
           "_key": "email"
         },
         {
@@ -7760,8 +7710,6 @@
           "example": "IT",
           "description": "Account end market.",
           "api_fieldname": "end_market",
-          "readOnly": false,
-          "required": true,
           "_key": "end_market"
         },
         {
@@ -7769,8 +7717,6 @@
           "example": "180",
           "description": "Indicates how many days (1-180) before account expiration a notification email should be sent.",
           "api_fieldname": "expiration_warning_threshold",
-          "readOnly": false,
-          "required": false,
           "_key": "expiration_warning_threshold"
         },
         {
@@ -7778,8 +7724,6 @@
           "example": "01619571e2e90242ac12000600000000",
           "description": "Account ID.",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         },
         {
@@ -7787,8 +7731,6 @@
           "example": "30",
           "description": "The reference token expiration time in minutes for this account.",
           "api_fieldname": "idle_timeout",
-          "readOnly": false,
-          "required": false,
           "_key": "idle_timeout"
         },
         {
@@ -7798,8 +7740,6 @@
             "type": "string"
           },
           "api_fieldname": "limits",
-          "readOnly": true,
-          "required": false,
           "_key": "limits"
         },
         {
@@ -7810,8 +7750,6 @@
             "optional"
           ],
           "api_fieldname": "mfa_status",
-          "readOnly": false,
-          "required": false,
           "enum_reference": "account_mfa_status_enum",
           "_key": "mfa_status"
         },
@@ -7822,8 +7760,6 @@
             "type": "string"
           },
           "api_fieldname": "notification_emails",
-          "readOnly": false,
-          "required": false,
           "_key": "notification_emails"
         },
         {
@@ -7860,8 +7796,6 @@
             "entity": "parent_account"
           },
           "api_fieldname": "parent_account",
-          "readOnly": true,
-          "required": false,
           "_key": "parent_account"
         },
         {
@@ -7869,13 +7803,10 @@
           "example": "01619571dad80242ac12000600000000",
           "description": "The ID of the parent account, if it has any.",
           "api_fieldname": "parent_id",
-          "readOnly": true,
-          "required": false,
           "_key": "parent_id"
         },
         {
           "type": "object",
-          "required": true,
           "properties": [
             {
               "type": "string",
@@ -7891,7 +7822,6 @@
             "entity": "password_policy"
           },
           "api_fieldname": "password_policy",
-          "readOnly": false,
           "_key": "password_policy"
         },
         {
@@ -7899,8 +7829,6 @@
           "example": "+44 (1223) 400 400",
           "description": "The phone number of a representative of the company.",
           "api_fieldname": "phone_number",
-          "readOnly": false,
-          "required": false,
           "_key": "phone_number"
         },
         {
@@ -7957,8 +7885,6 @@
             }
           },
           "api_fieldname": "policies",
-          "readOnly": true,
-          "required": false,
           "_key": "policies"
         },
         {
@@ -7966,8 +7892,6 @@
           "example": "CB1 9NJ",
           "description": "The postal code part of the postal address.",
           "api_fieldname": "postal_code",
-          "readOnly": false,
-          "required": false,
           "_key": "postal_code"
         },
         {
@@ -7975,8 +7899,6 @@
           "example": "Subscription paid.",
           "description": "A reason note for updating the status of the account",
           "api_fieldname": "reason",
-          "readOnly": true,
-          "required": false,
           "_key": "reason"
         },
         {
@@ -7984,8 +7906,6 @@
           "example": "ARM-INT-0001",
           "description": "A reference note for updating the status of the account",
           "api_fieldname": "reference_note",
-          "readOnly": true,
-          "required": false,
           "_key": "reference_note"
         },
         {
@@ -7993,8 +7913,6 @@
           "example": "sales@arm.com",
           "description": "Email address of the sales contact.",
           "api_fieldname": "sales_contact",
-          "readOnly": false,
-          "required": false,
           "_key": "sales_contact"
         },
         {
@@ -8002,8 +7920,6 @@
           "example": " ",
           "description": "The state part of the postal address.",
           "api_fieldname": "state",
-          "readOnly": false,
-          "required": false,
           "_key": "state"
         },
         {
@@ -8017,8 +7933,6 @@
             "SUSPENDED"
           ],
           "api_fieldname": "status",
-          "readOnly": true,
-          "required": false,
           "enum_reference": "account_status_enum",
           "_key": "status"
         },
@@ -8027,8 +7941,6 @@
           "example": "01619571e7160242ac12000600000000",
           "description": "Account template ID.",
           "api_fieldname": "template_id",
-          "readOnly": true,
-          "required": false,
           "_key": "template_id"
         },
         {
@@ -8036,8 +7948,6 @@
           "example": "1",
           "description": "The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.",
           "api_fieldname": "tier",
-          "readOnly": true,
-          "required": false,
           "_key": "tier"
         },
         {
@@ -8046,8 +7956,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Last update UTC time RFC3339.",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         },
         {
@@ -8056,8 +7964,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Time when upgraded to commercial account in UTC format RFC3339.",
           "api_fieldname": "upgraded_at",
-          "readOnly": true,
-          "required": false,
           "_key": "upgraded_at"
         }
       ],
@@ -8090,7 +7996,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -9989,7 +9895,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -10500,8 +10406,6 @@
           "description": "The ID of the account.",
           "pattern": "[a-f0-9]{32}",
           "api_fieldname": "account_id",
-          "readOnly": true,
-          "required": false,
           "_key": "account_id"
         },
         {
@@ -10510,8 +10414,6 @@
           "example": "2018-02-13T09:35:20Z",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -10520,8 +10422,6 @@
           "example": 1518630727683,
           "description": "The timestamp of the API key creation in the storage, in milliseconds.",
           "api_fieldname": "creation_time",
-          "readOnly": true,
-          "required": false,
           "_key": "creation_time"
         },
         {
@@ -10529,8 +10429,6 @@
           "example": "01619571f7020242ac12000600000000",
           "description": "The ID of the API key.",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         },
         {
@@ -10538,8 +10436,6 @@
           "example": "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000",
           "description": "The API key.",
           "api_fieldname": "key",
-          "readOnly": true,
-          "required": false,
           "_key": "key"
         },
         {
@@ -10548,8 +10444,6 @@
           "example": 1518630727688,
           "description": "The timestamp of the latest API key usage, in milliseconds.",
           "api_fieldname": "last_login_time",
-          "readOnly": true,
-          "required": false,
           "_key": "last_login_time"
         },
         {
@@ -10557,8 +10451,6 @@
           "example": "API key gorgon",
           "description": "The display name for the API key.",
           "api_fieldname": "name",
-          "readOnly": false,
-          "required": true,
           "_key": "name"
         },
         {
@@ -10566,8 +10458,6 @@
           "example": "01619571e2e89242ac12000600000000",
           "description": "The owner of this API key, who is the creator by default.",
           "api_fieldname": "owner",
-          "readOnly": false,
-          "required": false,
           "_key": "owner"
         },
         {
@@ -10579,8 +10469,6 @@
             "INACTIVE"
           ],
           "api_fieldname": "status",
-          "readOnly": false,
-          "required": false,
           "enum_reference": "api_key_status_enum",
           "_key": "status"
         },
@@ -10590,8 +10478,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Last update UTC time RFC3339.",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         }
       ],
@@ -10640,6 +10526,12 @@
                     "example": "customer.dlms",
                     "api_fieldname": "certificate_name",
                     "entity_fieldname": "certificate_name",
+                    "in": "path",
+                    "name": "certificate-name",
+                    "required": true,
+                    "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+                    "external_param": true,
+                    "parameter_fieldname": "certificate-name",
                     "_key": "certificate_name"
                   },
                   {
@@ -10695,6 +10587,9 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "device-id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -11106,6 +11001,14 @@
                           "maxLength": 50,
                           "description": "The certificate name.",
                           "example": "customer.dlms",
+                          "api_fieldname": "certificate-name",
+                          "entity_fieldname": "certificate_name",
+                          "in": "path",
+                          "name": "certificate-name",
+                          "required": true,
+                          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+                          "external_param": true,
+                          "parameter_fieldname": "certificate-name",
                           "_key": "certificate_name"
                         },
                         {
@@ -11113,12 +11016,16 @@
                           "format": "date-time",
                           "description": "Creation UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "description": "The device ID.",
                           "example": "01625daa23230a580a0100bd00000000",
+                          "api_fieldname": "device_id",
+                          "entity_fieldname": "device_id",
                           "_key": "device_id"
                         },
                         {
@@ -11129,6 +11036,8 @@
                             "forbidden",
                             "failure"
                           ],
+                          "api_fieldname": "enroll_result",
+                          "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
@@ -11137,18 +11046,27 @@
                             "new",
                             "completed"
                           ],
+                          "api_fieldname": "enroll_status",
+                          "entity_fieldname": "enroll_status",
                           "_key": "enroll_status"
                         },
                         {
                           "type": "string",
                           "description": "Entity instance signature.",
                           "example": "1",
+                          "api_fieldname": "etag",
+                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "description": "The ID of the certificate enrollment.",
                           "example": "01612df56f3b0a580a010fc700000000",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
+                          "parameter_fieldname": "device-id",
+                          "in": "path",
+                          "required": true,
                           "_key": "id"
                         },
                         {
@@ -11156,6 +11074,8 @@
                           "enum": [
                             "certificate-enrollment"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
@@ -11163,6 +11083,8 @@
                           "format": "date-time",
                           "description": "Update UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
+                          "api_fieldname": "updated_at",
+                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         }
                       ],
@@ -11478,8 +11400,11 @@
           "description": "The certificate name.",
           "example": "customer.dlms",
           "api_fieldname": "certificate_name",
-          "readOnly": true,
-          "required": false,
+          "in": "path",
+          "name": "certificate-name",
+          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+          "external_param": true,
+          "parameter_fieldname": "certificate-name",
           "_key": "certificate_name"
         },
         {
@@ -11488,8 +11413,6 @@
           "description": "Creation UTC time RFC3339.",
           "example": "2017-01-01T00:00:00Z",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -11497,8 +11420,6 @@
           "description": "The device ID.",
           "example": "01625daa23230a580a0100bd00000000",
           "api_fieldname": "device_id",
-          "readOnly": true,
-          "required": false,
           "_key": "device_id"
         },
         {
@@ -11510,8 +11431,6 @@
             "failure"
           ],
           "api_fieldname": "enroll_result",
-          "readOnly": true,
-          "required": false,
           "enum_reference": "certificate_enrollment_enroll_result_enum",
           "_key": "enroll_result"
         },
@@ -11522,8 +11441,6 @@
             "completed"
           ],
           "api_fieldname": "enroll_status",
-          "readOnly": true,
-          "required": false,
           "enum_reference": "certificate_enrollment_enroll_status_enum",
           "_key": "enroll_status"
         },
@@ -11532,8 +11449,8 @@
           "description": "The ID of the certificate enrollment.",
           "example": "01612df56f3b0a580a010fc700000000",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
+          "parameter_fieldname": "device-id",
+          "in": "path",
           "_key": "id"
         },
         {
@@ -11542,8 +11459,6 @@
           "description": "Update UTC time RFC3339.",
           "example": "2017-01-01T00:00:00Z",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         }
       ],
@@ -14123,8 +14038,6 @@
           "description": "Creation UTC time RFC3339.",
           "example": "2017-01-01T00:00:00Z",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -14133,8 +14046,6 @@
           "description": "General description for the certificate issuer.",
           "example": "GlobalSign sample issuer",
           "api_fieldname": "description",
-          "readOnly": false,
-          "required": false,
           "_key": "description"
         },
         {
@@ -14142,8 +14053,6 @@
           "description": "The ID of the certificate issuer.",
           "example": "01234567890ABCDEF01234567890ABCDEF",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         },
         {
@@ -14154,8 +14063,6 @@
           "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
           "example": [],
           "api_fieldname": "issuer_attributes",
-          "readOnly": false,
-          "required": false,
           "_key": "issuer_attributes"
         },
         {
@@ -14167,8 +14074,6 @@
           "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
           "example": "GLOBAL_SIGN",
           "api_fieldname": "issuer_type",
-          "readOnly": true,
-          "required": false,
           "enum_reference": "certificate_issuer_issuer_type_enum",
           "_key": "issuer_type"
         },
@@ -14178,8 +14083,6 @@
           "description": "Certificate issuer name, unique per account.",
           "example": "GS Issuer",
           "api_fieldname": "name",
-          "readOnly": false,
-          "required": true,
           "_key": "name"
         }
       ],
@@ -14227,7 +14130,7 @@
               "entity_fieldname": "certificate_reference",
               "parameter_fieldname": "reference",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "certificate_reference"
             }
           ],
@@ -16431,8 +16334,6 @@
           "description": "The ID of the certificate issuer.\nNull if Device Management internal HSM is used.\n",
           "example": "01648415a2a30242ac18000500000000",
           "api_fieldname": "certificate_issuer_id",
-          "readOnly": false,
-          "required": true,
           "_key": "certificate_issuer_id"
         },
         {
@@ -16440,8 +16341,6 @@
           "description": "The certificate name to which the certificate issuer configuration applies.",
           "example": "customer.dlms",
           "api_fieldname": "reference",
-          "readOnly": false,
-          "required": true,
           "_key": "certificate_reference"
         },
         {
@@ -16450,8 +16349,6 @@
           "description": "Created UTC time RFC3339.",
           "example": "2017-01-01T00:00:00Z",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -16459,8 +16356,6 @@
           "description": "The ID of the certificate issuer configuration.\n",
           "example": "01648415a2a30242ac18000500000000",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         },
         {
@@ -16469,8 +16364,6 @@
           "description": "Updated UTC time RFC3339.",
           "example": "2017-02-01T00:00:00Z",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         }
       ],
@@ -16524,7 +16417,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             }
           ],
@@ -18186,16 +18079,12 @@
           "type": "string",
           "description": "account to which the developer certificate belongs",
           "api_fieldname": "account_id",
-          "readOnly": true,
-          "required": false,
           "_key": "account_id"
         },
         {
           "type": "string",
           "description": "PEM format X.509 developer certificate.",
           "api_fieldname": "developer_certificate",
-          "readOnly": true,
-          "required": false,
           "_key": "certificate"
         },
         {
@@ -18203,16 +18092,12 @@
           "format": "date-time",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
           "type": "string",
           "description": "Description for the developer certificate.",
           "api_fieldname": "description",
-          "readOnly": false,
-          "required": false,
           "_key": "description"
         },
         {
@@ -18221,24 +18106,18 @@
           "api_fieldname": "id",
           "parameter_fieldname": "developerCertificateId",
           "in": "path",
-          "required": true,
-          "readOnly": false,
           "_key": "id"
         },
         {
           "type": "string",
           "description": "Name of the developer certificate.",
           "api_fieldname": "name",
-          "readOnly": false,
-          "required": true,
           "_key": "name"
         },
         {
           "type": "string",
           "description": "Content of the security.c file that will be flashed into the device to provide the security credentials",
           "api_fieldname": "security_file_content",
-          "readOnly": true,
-          "required": false,
           "_key": "security_file_content"
         }
       ],
@@ -18331,16 +18210,11 @@
             },
             {
               "type": "object",
-              "maxProperties": 5,
+              "description": "Up to five custom key-value attributes.",
               "additionalProperties": {
-                "type": "string",
-                "maxLength": 128,
-                "pattern": "^[A-Za-z].*"
+                "type": "string"
               },
-              "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-              "example": {
-                "key": "value"
-              },
+              "example": "{ 'key': 'value' }",
               "api_fieldname": "custom_attributes",
               "entity_fieldname": "custom_attributes",
               "parameter_fieldname": "custom_attributes",
@@ -18415,7 +18289,6 @@
               "type": "string",
               "description": "The endpoint name given to the device.",
               "example": "00000000-0000-0000-0000-000000000000",
-              "readOnly": true,
               "api_fieldname": "endpoint_name",
               "entity_fieldname": "endpoint_name",
               "parameter_fieldname": "endpoint_name",
@@ -18456,18 +18329,6 @@
               "in": "body",
               "required": false,
               "_key": "host_gateway"
-            },
-            {
-              "type": "string",
-              "pattern": "[A-Fa-f0-9]{64}",
-              "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-              "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
-              "api_fieldname": "issuer_fingerprint",
-              "entity_fieldname": "issuer_fingerprint",
-              "parameter_fieldname": "issuer_fingerprint",
-              "in": "body",
-              "required": false,
-              "_key": "issuer_fingerprint"
             },
             {
               "type": "string",
@@ -18581,85 +18442,6 @@
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
                   },
-                  "issuer_fingerprint": {
-                    "type": "string",
-                    "pattern": "[A-Fa-f0-9]{64}",
-                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
-                    "api_fieldname": "issuer_fingerprint",
-                    "entity_fieldname": "issuer_fingerprint"
-                  },
-                  "operator_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the operator?",
-                    "api_fieldname": "operator_suspended",
-                    "entity_fieldname": "operator_suspended"
-                  },
-                  "last_operator_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_operator_suspended_category",
-                    "entity_fieldname": "last_operator_suspended_category"
-                  },
-                  "last_operator_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description why the device was suspended or returned to service.",
-                    "example": "Suspended for maintenance.",
-                    "api_fieldname": "last_operator_suspended_description",
-                    "entity_fieldname": "last_operator_suspended_description"
-                  },
-                  "last_operator_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent suspension activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_operator_suspended_updated_at",
-                    "entity_fieldname": "last_operator_suspended_updated_at"
-                  },
-                  "system_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the system?",
-                    "api_fieldname": "system_suspended",
-                    "entity_fieldname": "system_suspended"
-                  },
-                  "last_system_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_system_suspended_category",
-                    "entity_fieldname": "last_system_suspended_category"
-                  },
-                  "last_system_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
-                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
-                    "api_fieldname": "last_system_suspended_description",
-                    "entity_fieldname": "last_system_suspended_description"
-                  },
-                  "last_system_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent system block activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_system_suspended_updated_at",
-                    "entity_fieldname": "last_system_suspended_updated_at"
-                  },
-                  "lifecycle_status": {
-                    "type": "string",
-                    "enum": [
-                      "enabled",
-                      "blocked"
-                    ],
-                    "description": "The lifecycle status of the device.",
-                    "example": "enabled",
-                    "api_fieldname": "lifecycle_status",
-                    "entity_fieldname": "lifecycle_status"
-                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
@@ -18725,16 +18507,11 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "maxProperties": 5,
+                    "description": "Up to five custom key-value attributes.",
                     "additionalProperties": {
-                      "type": "string",
-                      "maxLength": 128,
-                      "pattern": "^[A-Za-z].*"
+                      "type": "string"
                     },
-                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-                    "example": {
-                      "key": "value"
-                    },
+                    "example": "{ 'key': 'value' }",
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -18790,7 +18567,6 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
-                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -18953,15 +18729,6 @@
             "is_custom",
             "private_key",
             "sub_accounts",
-            "operator_suspended",
-            "last_operator_suspended_category",
-            "last_operator_suspended_description",
-            "last_operator_suspended_updated_at",
-            "system_suspended",
-            "last_system_suspended_category",
-            "last_system_suspended_description",
-            "last_system_suspended_updated_at",
-            "lifecycle_status",
             "account_id",
             "created_at",
             "deployed_state",
@@ -19072,85 +18839,6 @@
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
                   },
-                  "issuer_fingerprint": {
-                    "type": "string",
-                    "pattern": "[A-Fa-f0-9]{64}",
-                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
-                    "api_fieldname": "issuer_fingerprint",
-                    "entity_fieldname": "issuer_fingerprint"
-                  },
-                  "operator_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the operator?",
-                    "api_fieldname": "operator_suspended",
-                    "entity_fieldname": "operator_suspended"
-                  },
-                  "last_operator_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_operator_suspended_category",
-                    "entity_fieldname": "last_operator_suspended_category"
-                  },
-                  "last_operator_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description why the device was suspended or returned to service.",
-                    "example": "Suspended for maintenance.",
-                    "api_fieldname": "last_operator_suspended_description",
-                    "entity_fieldname": "last_operator_suspended_description"
-                  },
-                  "last_operator_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent suspension activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_operator_suspended_updated_at",
-                    "entity_fieldname": "last_operator_suspended_updated_at"
-                  },
-                  "system_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the system?",
-                    "api_fieldname": "system_suspended",
-                    "entity_fieldname": "system_suspended"
-                  },
-                  "last_system_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_system_suspended_category",
-                    "entity_fieldname": "last_system_suspended_category"
-                  },
-                  "last_system_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
-                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
-                    "api_fieldname": "last_system_suspended_description",
-                    "entity_fieldname": "last_system_suspended_description"
-                  },
-                  "last_system_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent system block activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_system_suspended_updated_at",
-                    "entity_fieldname": "last_system_suspended_updated_at"
-                  },
-                  "lifecycle_status": {
-                    "type": "string",
-                    "enum": [
-                      "enabled",
-                      "blocked"
-                    ],
-                    "description": "The lifecycle status of the device.",
-                    "example": "enabled",
-                    "api_fieldname": "lifecycle_status",
-                    "entity_fieldname": "lifecycle_status"
-                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
@@ -19216,16 +18904,11 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "maxProperties": 5,
+                    "description": "Up to five custom key-value attributes.",
                     "additionalProperties": {
-                      "type": "string",
-                      "maxLength": 128,
-                      "pattern": "^[A-Za-z].*"
+                      "type": "string"
                     },
-                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-                    "example": {
-                      "key": "value"
-                    },
+                    "example": "{ 'key': 'value' }",
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -19281,7 +18964,6 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
-                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -19440,16 +19122,6 @@
             "is_custom",
             "private_key",
             "sub_accounts",
-            "issuer_fingerprint",
-            "operator_suspended",
-            "last_operator_suspended_category",
-            "last_operator_suspended_description",
-            "last_operator_suspended_updated_at",
-            "system_suspended",
-            "last_system_suspended_category",
-            "last_system_suspended_description",
-            "last_system_suspended_updated_at",
-            "lifecycle_status",
             "account_id",
             "device_execution_mode",
             "auto_update",
@@ -19490,10 +19162,10 @@
           "fields": [
             {
               "type": "string",
-              "description": "The ID of The item after which to retrieve the next page.",
-              "example": "01631667477600000000000100100374",
+              "example": null,
               "api_fieldname": "after",
               "entity_fieldname": "after",
+              "description": "The ID of The item after which to retrieve the next page.",
               "in": "query",
               "name": "after",
               "external_param": true,
@@ -19515,14 +19187,14 @@
             },
             {
               "type": "integer",
-              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
-              "example": 50,
-              "minimum": 2,
-              "maximum": 1000,
+              "example": 1000,
               "api_fieldname": "limit",
               "entity_fieldname": "limit",
+              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
               "in": "query",
               "name": "limit",
+              "minimum": 2,
+              "maximum": 1000,
               "external_param": true,
               "parameter_fieldname": "limit",
               "required": false,
@@ -19530,10 +19202,10 @@
             },
             {
               "type": "string",
-              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
               "example": "DESC",
               "api_fieldname": "order",
               "entity_fieldname": "order",
+              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
               "in": "query",
               "name": "order",
               "external_param": true,
@@ -19551,8 +19223,7 @@
                 "properties": [
                   {
                     "type": "string",
-                    "description": "An offset token for current page.",
-                    "example": "01631667477600000000000100100374",
+                    "example": null,
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
                     "_key": "after"
@@ -19572,65 +19243,6 @@
                             "type": "string",
                             "example": "00000000000000000000000000000000"
                           }
-                        },
-                        "issuer_fingerprint": {
-                          "type": "string",
-                          "pattern": "[A-Fa-f0-9]{64}",
-                          "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-                          "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322"
-                        },
-                        "operator_suspended": {
-                          "type": "boolean",
-                          "description": "Is the device suspended by the operator?"
-                        },
-                        "last_operator_suspended_category": {
-                          "type": "string",
-                          "description": "The reference of the block category.",
-                          "pattern": "[a-f0-9_]{32}",
-                          "example": "maintenance"
-                        },
-                        "last_operator_suspended_description": {
-                          "type": "string",
-                          "maxLength": 2000,
-                          "description": "The most recent description why the device was suspended or returned to service.",
-                          "example": "Suspended for maintenance."
-                        },
-                        "last_operator_suspended_updated_at": {
-                          "type": "string",
-                          "format": "date-time",
-                          "description": "The timestamp of the most recent suspension activity.",
-                          "example": "2017-05-22T12:37:55.576563Z"
-                        },
-                        "system_suspended": {
-                          "type": "boolean",
-                          "description": "Is the device suspended by the system?"
-                        },
-                        "last_system_suspended_category": {
-                          "type": "string",
-                          "description": "The reference of the block category.",
-                          "pattern": "[a-f0-9_]{32}",
-                          "example": "maintenance"
-                        },
-                        "last_system_suspended_description": {
-                          "type": "string",
-                          "maxLength": 2000,
-                          "description": "The most recent description of why the device was blocked or unblocked by the system.",
-                          "example": "A certificate in the device's certificate chain was blacklisted by the system."
-                        },
-                        "last_system_suspended_updated_at": {
-                          "type": "string",
-                          "format": "date-time",
-                          "description": "The timestamp of the most recent system block activity.",
-                          "example": "2017-05-22T12:37:55.576563Z"
-                        },
-                        "lifecycle_status": {
-                          "type": "string",
-                          "enum": [
-                            "enabled",
-                            "blocked"
-                          ],
-                          "description": "The lifecycle status of the device.",
-                          "example": "enabled"
                         },
                         "account_id": {
                           "type": "string",
@@ -19681,16 +19293,11 @@
                         },
                         "custom_attributes": {
                           "type": "object",
-                          "maxProperties": 5,
+                          "description": "Up to five custom key-value attributes.",
                           "additionalProperties": {
-                            "type": "string",
-                            "maxLength": 128,
-                            "pattern": "^[A-Za-z].*"
+                            "type": "string"
                           },
-                          "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-                          "example": {
-                            "key": "value"
-                          }
+                          "example": "{ 'key': 'value' }"
                         },
                         "deployed_state": {
                           "enum": [
@@ -19731,8 +19338,7 @@
                         "endpoint_name": {
                           "type": "string",
                           "description": "The endpoint name given to the device.",
-                          "example": "00000000-0000-0000-0000-000000000000",
-                          "readOnly": true
+                          "example": "00000000-0000-0000-0000-000000000000"
                         },
                         "endpoint_type": {
                           "type": "string",
@@ -19828,13 +19434,13 @@
                       }
                     ],
                     "type": "array",
+                    "example": "[]",
                     "api_fieldname": "data",
                     "entity_fieldname": "data",
                     "_key": "data"
                   },
                   {
                     "type": "boolean",
-                    "description": "Are there more results available.",
                     "example": false,
                     "api_fieldname": "has_more",
                     "entity_fieldname": "has_more",
@@ -19842,17 +19448,13 @@
                   },
                   {
                     "type": "integer",
-                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
-                    "example": 50,
-                    "minimum": 2,
-                    "maximum": 1000,
+                    "example": 1000,
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
                     "type": "string",
-                    "description": "The type of this API object is a \"list\".",
                     "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
@@ -19860,14 +19462,12 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
                     "example": "DESC",
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
                     "_key": "order"
                   },
                   {
-                    "format": "integer",
                     "type": "integer",
                     "example": 1,
                     "api_fieldname": "total_count",
@@ -20029,9 +19629,6 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
-                    "parameter_fieldname": "certificate-enrollment-id",
-                    "in": "path",
-                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -20511,16 +20108,11 @@
             },
             {
               "type": "object",
-              "maxProperties": 5,
+              "description": "Up to five custom key-value attributes.",
               "additionalProperties": {
-                "type": "string",
-                "maxLength": 128,
-                "pattern": "^[A-Za-z].*"
+                "type": "string"
               },
-              "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-              "example": {
-                "key": "value"
-              },
+              "example": "{ 'key': 'value' }",
               "api_fieldname": "custom_attributes",
               "entity_fieldname": "custom_attributes",
               "parameter_fieldname": "custom_attributes",
@@ -20556,7 +20148,6 @@
               "type": "string",
               "description": "The endpoint name given to the device.",
               "example": "00000000-0000-0000-0000-000000000000",
-              "readOnly": true,
               "api_fieldname": "endpoint_name",
               "entity_fieldname": "endpoint_name",
               "parameter_fieldname": "endpoint_name",
@@ -20633,85 +20224,6 @@
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
                   },
-                  "issuer_fingerprint": {
-                    "type": "string",
-                    "pattern": "[A-Fa-f0-9]{64}",
-                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
-                    "api_fieldname": "issuer_fingerprint",
-                    "entity_fieldname": "issuer_fingerprint"
-                  },
-                  "operator_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the operator?",
-                    "api_fieldname": "operator_suspended",
-                    "entity_fieldname": "operator_suspended"
-                  },
-                  "last_operator_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_operator_suspended_category",
-                    "entity_fieldname": "last_operator_suspended_category"
-                  },
-                  "last_operator_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description why the device was suspended or returned to service.",
-                    "example": "Suspended for maintenance.",
-                    "api_fieldname": "last_operator_suspended_description",
-                    "entity_fieldname": "last_operator_suspended_description"
-                  },
-                  "last_operator_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent suspension activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_operator_suspended_updated_at",
-                    "entity_fieldname": "last_operator_suspended_updated_at"
-                  },
-                  "system_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the system?",
-                    "api_fieldname": "system_suspended",
-                    "entity_fieldname": "system_suspended"
-                  },
-                  "last_system_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_system_suspended_category",
-                    "entity_fieldname": "last_system_suspended_category"
-                  },
-                  "last_system_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
-                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
-                    "api_fieldname": "last_system_suspended_description",
-                    "entity_fieldname": "last_system_suspended_description"
-                  },
-                  "last_system_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent system block activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_system_suspended_updated_at",
-                    "entity_fieldname": "last_system_suspended_updated_at"
-                  },
-                  "lifecycle_status": {
-                    "type": "string",
-                    "enum": [
-                      "enabled",
-                      "blocked"
-                    ],
-                    "description": "The lifecycle status of the device.",
-                    "example": "enabled",
-                    "api_fieldname": "lifecycle_status",
-                    "entity_fieldname": "lifecycle_status"
-                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
@@ -20777,16 +20289,11 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "maxProperties": 5,
+                    "description": "Up to five custom key-value attributes.",
                     "additionalProperties": {
-                      "type": "string",
-                      "maxLength": 128,
-                      "pattern": "^[A-Za-z].*"
+                      "type": "string"
                     },
-                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-                    "example": {
-                      "key": "value"
-                    },
+                    "example": "{ 'key': 'value' }",
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -20842,7 +20349,6 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
-                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -21001,16 +20507,6 @@
             "is_custom",
             "private_key",
             "sub_accounts",
-            "issuer_fingerprint",
-            "operator_suspended",
-            "last_operator_suspended_category",
-            "last_operator_suspended_description",
-            "last_operator_suspended_updated_at",
-            "system_suspended",
-            "last_system_suspended_category",
-            "last_system_suspended_description",
-            "last_system_suspended_updated_at",
-            "lifecycle_status",
             "account_id",
             "device_execution_mode",
             "bootstrap_expiration_date",
@@ -21043,16 +20539,12 @@
           "description": "The ID of the associated account.",
           "example": "00000000000000000000000000000000",
           "api_fieldname": "account_id",
-          "readOnly": true,
-          "required": false,
           "_key": "account_id"
         },
         {
           "type": "boolean",
           "description": "DEPRECATED: Mark this device for automatic firmware update.",
           "api_fieldname": "auto_update",
-          "readOnly": false,
-          "required": false,
           "_key": "auto_update"
         },
         {
@@ -21060,8 +20552,6 @@
           "type": "string",
           "description": "The expiration date of the certificate used to connect to bootstrap server.",
           "api_fieldname": "bootstrap_expiration_date",
-          "readOnly": false,
-          "required": false,
           "_key": "bootstrap_expiration_date"
         },
         {
@@ -21070,8 +20560,6 @@
           "type": "string",
           "description": "The timestamp of the device's most recent bootstrap process.",
           "api_fieldname": "bootstrapped_timestamp",
-          "readOnly": false,
-          "required": false,
           "_key": "bootstrapped_timestamp"
         },
         {
@@ -21080,8 +20568,6 @@
           "description": "The certificate issuer's ID.",
           "example": "00000000000000000000000000000000",
           "api_fieldname": "ca_id",
-          "readOnly": false,
-          "required": false,
           "_key": "ca_id"
         },
         {
@@ -21089,8 +20575,6 @@
           "type": "string",
           "description": "The expiration date of the certificate used to connect to LwM2M server.",
           "api_fieldname": "connector_expiration_date",
-          "readOnly": false,
-          "required": false,
           "_key": "connector_expiration_date"
         },
         {
@@ -21099,25 +20583,16 @@
           "type": "string",
           "description": "The timestamp of when the device was created in the device directory.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
           "type": "object",
-          "maxProperties": 5,
+          "description": "Up to five custom key-value attributes.",
           "additionalProperties": {
-            "type": "string",
-            "maxLength": 128,
-            "pattern": "^[A-Za-z].*"
+            "type": "string"
           },
-          "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-          "example": {
-            "key": "value"
-          },
+          "example": "{ 'key': 'value' }",
           "api_fieldname": "custom_attributes",
-          "readOnly": false,
-          "required": false,
           "_key": "custom_attributes"
         },
         {
@@ -21128,8 +20603,6 @@
           "type": "string",
           "description": "DEPRECATED: The state of the device's deployment.",
           "api_fieldname": "deployed_state",
-          "readOnly": true,
-          "required": false,
           "enum_reference": "device_deployed_state_enum",
           "_key": "deployed_state"
         },
@@ -21138,8 +20611,6 @@
           "description": "DEPRECATED: The last deployment used on the device.",
           "example": "",
           "api_fieldname": "deployment",
-          "readOnly": false,
-          "required": false,
           "_key": "deployment"
         },
         {
@@ -21148,8 +20619,6 @@
           "description": "The description of the device.",
           "example": "description",
           "api_fieldname": "description",
-          "readOnly": false,
-          "required": false,
           "_key": "description"
         },
         {
@@ -21158,8 +20627,6 @@
           "description": "An ID representing the model and hardware revision of the device.",
           "example": "",
           "api_fieldname": "device_class",
-          "readOnly": false,
-          "required": false,
           "_key": "device_class"
         },
         {
@@ -21172,8 +20639,6 @@
           "description": "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.\nPermitted values:\n  - 0 - unspecified execution mode (default if host_gateway invalid or not set)\n  - 1 - development devices\n  - 5 - production devices",
           "example": 0,
           "api_fieldname": "device_execution_mode",
-          "readOnly": false,
-          "required": false,
           "_key": "device_execution_mode"
         },
         {
@@ -21182,17 +20647,13 @@
           "description": "The fingerprint of the device certificate.",
           "example": "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00",
           "api_fieldname": "device_key",
-          "readOnly": false,
-          "required": false,
           "_key": "device_key"
         },
         {
           "type": "string",
           "description": "The endpoint name given to the device.",
           "example": "00000000-0000-0000-0000-000000000000",
-          "readOnly": true,
           "api_fieldname": "endpoint_name",
-          "required": false,
           "_key": "endpoint_name"
         },
         {
@@ -21201,8 +20662,6 @@
           "maxLength": 64,
           "example": "",
           "api_fieldname": "endpoint_type",
-          "readOnly": false,
-          "required": false,
           "_key": "endpoint_type"
         },
         {
@@ -21211,8 +20670,6 @@
           "type": "string",
           "description": "The claim date/time.",
           "api_fieldname": "enrolment_list_timestamp",
-          "readOnly": true,
-          "required": false,
           "_key": "enrolment_list_timestamp"
         },
         {
@@ -21220,8 +20677,6 @@
           "description": "The SHA256 checksum of the current firmware image.",
           "example": "0000000000000000000000000000000000000000000000000000000000000000",
           "api_fieldname": "firmware_checksum",
-          "readOnly": false,
-          "required": false,
           "_key": "firmware_checksum"
         },
         {
@@ -21229,8 +20684,6 @@
           "description": "The `endpoint_name` of the host gateway, if appropriate.",
           "example": "",
           "api_fieldname": "host_gateway",
-          "readOnly": false,
-          "required": false,
           "_key": "host_gateway"
         },
         {
@@ -21238,101 +20691,13 @@
           "description": "The ID of the device. The device ID is used across all Device Management APIs.",
           "example": "00000000000000000000000000000000",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
-        },
-        {
-          "type": "string",
-          "pattern": "[A-Fa-f0-9]{64}",
-          "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-          "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
-          "api_fieldname": "issuer_fingerprint",
-          "readOnly": false,
-          "required": false,
-          "_key": "issuer_fingerprint"
-        },
-        {
-          "type": "string",
-          "description": "The reference of the block category.",
-          "pattern": "[a-f0-9_]{32}",
-          "example": "maintenance",
-          "api_fieldname": "last_operator_suspended_category",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_operator_suspended_category"
-        },
-        {
-          "type": "string",
-          "maxLength": 2000,
-          "description": "The most recent description why the device was suspended or returned to service.",
-          "example": "Suspended for maintenance.",
-          "api_fieldname": "last_operator_suspended_description",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_operator_suspended_description"
-        },
-        {
-          "type": "string",
-          "format": "date-time",
-          "description": "The timestamp of the most recent suspension activity.",
-          "example": "2017-05-22T12:37:55.576563Z",
-          "api_fieldname": "last_operator_suspended_updated_at",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_operator_suspended_updated_at"
-        },
-        {
-          "type": "string",
-          "description": "The reference of the block category.",
-          "pattern": "[a-f0-9_]{32}",
-          "example": "maintenance",
-          "api_fieldname": "last_system_suspended_category",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_system_suspended_category"
-        },
-        {
-          "type": "string",
-          "maxLength": 2000,
-          "description": "The most recent description of why the device was blocked or unblocked by the system.",
-          "example": "A certificate in the device's certificate chain was blacklisted by the system.",
-          "api_fieldname": "last_system_suspended_description",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_system_suspended_description"
-        },
-        {
-          "type": "string",
-          "format": "date-time",
-          "description": "The timestamp of the most recent system block activity.",
-          "example": "2017-05-22T12:37:55.576563Z",
-          "api_fieldname": "last_system_suspended_updated_at",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_system_suspended_updated_at"
-        },
-        {
-          "type": "string",
-          "enum": [
-            "enabled",
-            "blocked"
-          ],
-          "description": "The lifecycle status of the device.",
-          "example": "enabled",
-          "api_fieldname": "lifecycle_status",
-          "readOnly": true,
-          "required": false,
-          "enum_reference": "device_lifecycle_status_enum",
-          "_key": "lifecycle_status"
         },
         {
           "type": "string",
           "description": "DEPRECATED: The URL for the current device manifest.",
           "example": "",
           "api_fieldname": "manifest",
-          "readOnly": false,
-          "required": false,
           "_key": "manifest"
         },
         {
@@ -21341,8 +20706,6 @@
           "type": "string",
           "description": "The timestamp of the current manifest version.",
           "api_fieldname": "manifest_timestamp",
-          "readOnly": true,
-          "required": false,
           "_key": "manifest_timestamp"
         },
         {
@@ -21353,8 +20716,6 @@
           "type": "string",
           "description": "The ID of the channel used to communicate with the device.",
           "api_fieldname": "mechanism",
-          "readOnly": false,
-          "required": false,
           "enum_reference": "device_mechanism_enum",
           "_key": "mechanism"
         },
@@ -21363,8 +20724,6 @@
           "description": "The address of the connector to use.",
           "example": "",
           "api_fieldname": "mechanism_url",
-          "readOnly": false,
-          "required": false,
           "_key": "mechanism_url"
         },
         {
@@ -21373,25 +20732,13 @@
           "description": "The name of the device.",
           "example": "00000000-0000-0000-0000-000000000000",
           "api_fieldname": "name",
-          "readOnly": false,
-          "required": false,
           "_key": "name"
-        },
-        {
-          "type": "boolean",
-          "description": "Is the device suspended by the operator?",
-          "api_fieldname": "operator_suspended",
-          "readOnly": true,
-          "required": false,
-          "_key": "operator_suspended"
         },
         {
           "type": "string",
           "description": "The serial number of the device.",
           "example": "00000000-0000-0000-0000-000000000000",
           "api_fieldname": "serial_number",
-          "readOnly": false,
-          "required": false,
           "_key": "serial_number"
         },
         {
@@ -21405,18 +20752,8 @@
           "type": "string",
           "description": "The current state of the device.",
           "api_fieldname": "state",
-          "readOnly": false,
-          "required": false,
           "enum_reference": "device_state_enum",
           "_key": "state"
-        },
-        {
-          "type": "boolean",
-          "description": "Is the device suspended by the system?",
-          "api_fieldname": "system_suspended",
-          "readOnly": true,
-          "required": false,
-          "_key": "system_suspended"
         },
         {
           "format": "date-time",
@@ -21424,8 +20761,6 @@
           "type": "string",
           "description": "The time the object was updated.",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         },
         {
@@ -21433,8 +20768,6 @@
           "description": "The device vendor ID.",
           "example": "00000000-0000-0000-0000-000000000000",
           "api_fieldname": "vendor_id",
-          "readOnly": false,
-          "required": false,
           "_key": "vendor_id"
         }
       ],
@@ -21466,7 +20799,7 @@
               "entity_fieldname": "enrollment_identity",
               "parameter_fieldname": "enrollment_identity",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "enrollment_identity"
             }
           ],
@@ -21572,6 +20905,20 @@
                   "entity": "device_enrollment"
                 }
               },
+              "examples": [
+                {
+                  "object": "enrollment",
+                  "id": "015fee4431fd38c98640fbfb00000000",
+                  "etag": "1",
+                  "enrollment_identity": "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5",
+                  "claimed_at": "2017-12-13T14:35:10.000Z",
+                  "account_id": "015fee5d9b3538c98640fbfb00000000",
+                  "expires_at": "2018-01-11T14:22:20.009Z",
+                  "created_at": "2017-12-11T14:22:20.009Z",
+                  "enrolled_device_id": "00005a4e027f0a580a01081c00000000",
+                  "_key": "Success"
+                }
+              ],
               "_key": "201"
             },
             {
@@ -21718,10 +21065,20 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 401,
+                  "type": "invalid_auth",
+                  "message": "Provided access token is not valid.",
+                  "request_id": "015fee4431fd38c98640fbfb00000000",
+                  "_key": "Authentication Error"
+                }
+              ],
               "_key": "401"
             },
             {
-              "description": "Conflict. The identity requested to be added already exists either on this or another account.",
+              "description": "Conflict. The identity requested to be added already exists either on this or another account.\n",
               "schema": {
                 "type": "object",
                 "required": [
@@ -21791,6 +21148,34 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 409,
+                  "type": "duplicate",
+                  "message": "The requested enrollment identity has already been claimed.",
+                  "request_id": "015fee4431fd38c98640fbfb00000000",
+                  "fields": [
+                    {
+                      "enrollment_identity": "Enrollment identity already claimed"
+                    }
+                  ],
+                  "_key": "Already claimed"
+                },
+                {
+                  "object": "error",
+                  "code": 409,
+                  "type": "duplicate",
+                  "message": "The requested enrollment identity already exists.",
+                  "request_id": "015fee4431fd38c98640fbfb00000000",
+                  "fields": [
+                    {
+                      "enrollment_identity": "Enrollment identity already exists"
+                    }
+                  ],
+                  "_key": "Conflict"
+                }
+              ],
               "_key": "409"
             }
           ],
@@ -21991,6 +21376,17 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 404,
+                  "type": "not_found",
+                  "message": "Enrollment identity not found",
+                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
+                  "fields": [],
+                  "_key": "Not found"
+                }
+              ],
               "_key": "404"
             }
           ],
@@ -22282,6 +21678,17 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 404,
+                  "type": "not_found",
+                  "message": "Enrollment identity not found",
+                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
+                  "fields": [],
+                  "_key": "Not found"
+                }
+              ],
               "_key": "404"
             }
           ],
@@ -22545,6 +21952,40 @@
                   "entity": "device_enrollment"
                 }
               },
+              "examples": [
+                {
+                  "object": "list",
+                  "limit": 2,
+                  "after": "2d238a89038b4ddb84699dd36a901063",
+                  "order": "ASC",
+                  "has_more": true,
+                  "total_count": 55,
+                  "data": [
+                    {
+                      "object": "enrollment",
+                      "id": "sckv52bebji8dxnxuw3zvnon95u8gshm",
+                      "etag": "1",
+                      "created_at": "2017-12-11T14:35:20.009Z",
+                      "claimed_at": "2017-12-13T14:35:10.000Z",
+                      "enrollment_identity": "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5",
+                      "account_id": "015fee5d9b3538c98640fbfb00000000",
+                      "expires_at": "2018-01-11T14:35:20.009Z",
+                      "enrolled_device_id": "2d238a89038b4ddb84699dd36a901063"
+                    },
+                    {
+                      "object": "enrollment",
+                      "id": "000v52bebji8dxnxuw3zvnon95u8gshm",
+                      "etag": "1",
+                      "created_at": "2017-12-11T14:36:20.009Z",
+                      "enrollment_identity": "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5",
+                      "account_id": "015fee5d9b3538c98640fbfb00000000",
+                      "expires_at": "2018-01-11T14:35:20.009Z",
+                      "enrolled_device_id": "2d238a89038b4ddb84699dd36a901063"
+                    }
+                  ],
+                  "_key": "Success"
+                }
+              ],
               "_key": "200"
             },
             {
@@ -22618,6 +22059,15 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 400,
+                  "type": "validation_error",
+                  "message": "JWT couldn't be read",
+                  "_key": "Error"
+                }
+              ],
               "_key": "400"
             },
             {
@@ -22691,6 +22141,15 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 401,
+                  "type": "invalid_auth",
+                  "message": "The provided JWT was not valid",
+                  "_key": "Error"
+                }
+              ],
               "_key": "401"
             }
           ],
@@ -22732,8 +22191,6 @@
           "description": "ID",
           "example": "00005a4e027f0a580a01081c00000000",
           "api_fieldname": "account_id",
-          "readOnly": true,
-          "required": false,
           "_key": "account_id"
         },
         {
@@ -22741,8 +22198,6 @@
           "description": "The time of claiming the device to be assigned to the account.",
           "format": "date-time",
           "api_fieldname": "claimed_at",
-          "readOnly": true,
-          "required": false,
           "_key": "claimed_at"
         },
         {
@@ -22750,8 +22205,6 @@
           "description": "The time of the enrollment identity creation.",
           "format": "date-time",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -22760,8 +22213,6 @@
           "pattern": "^[A-Za-z0-9]{32}",
           "example": "00005a4e027f0a580a01081c00000000",
           "api_fieldname": "enrolled_device_id",
-          "readOnly": true,
-          "required": false,
           "_key": "enrolled_device_id"
         },
         {
@@ -22770,8 +22221,6 @@
           "pattern": "^A-[A-Za-z0-9:]{95}$",
           "example": "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5",
           "api_fieldname": "enrollment_identity",
-          "readOnly": false,
-          "required": true,
           "_key": "enrollment_identity"
         },
         {
@@ -22779,8 +22228,6 @@
           "description": "The enrollment claim expiration time. If the device does not connect to Device Management before the expiration, the claim is removed without a separate notice",
           "format": "date-time",
           "api_fieldname": "expires_at",
-          "readOnly": true,
-          "required": false,
           "_key": "expires_at"
         },
         {
@@ -22789,8 +22236,6 @@
           "pattern": "^[A-Za-z0-9]{32}",
           "example": "00005a4e027f0a580a01081c00000000",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         }
       ],
@@ -22816,7 +22261,7 @@
               "name": "enrollment_identities",
               "type": "file",
               "required": true,
-              "description": "The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.",
+              "description": "The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.\n",
               "entity_fieldname": "enrollment_identities",
               "api_fieldname": "enrollment_identities",
               "external_param": true,
@@ -22828,7 +22273,7 @@
           "mode": "create",
           "responses": [
             {
-              "description": "Bulk upload data has been received and asynchronous processing has been started.",
+              "description": "Bulk upload data has been received and asynchronous processing has been started.\n",
               "schema": {
                 "type": "object",
                 "required": [
@@ -22840,10 +22285,7 @@
                   "status",
                   "total_count",
                   "processed_count",
-                  "errors_count",
-                  "completet_at",
-                  "full_report_file",
-                  "errors_report_file"
+                  "errors_count"
                 ],
                 "properties": [
                   {
@@ -22856,7 +22298,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
+                    "description": "The time of completing the bulk creation task.\n",
                     "format": "date-time",
                     "api_fieldname": "completed_at",
                     "entity_fieldname": "completed_at",
@@ -22880,7 +22322,6 @@
                   },
                   {
                     "type": "string",
-                    "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
                     "entity_fieldname": "errors_report_file",
@@ -22897,7 +22338,6 @@
                   },
                   {
                     "type": "string",
-                    "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
                     "entity_fieldname": "full_report_file",
@@ -22957,6 +22397,23 @@
                   "entity": "device_enrollment_bulk_delete"
                 }
               },
+              "examples": [
+                {
+                  "object": "enrollment-identity-bulk-uploads",
+                  "id": "00005a4e017f0a667a01081c00000000",
+                  "account_id": "00005a4e027f0a580a01081c00000000",
+                  "etag": "1",
+                  "created_at": "2018-06-26T09:12:21.308Z",
+                  "status": "new",
+                  "total_count": 10,
+                  "processed_count": 0,
+                  "errors_count": 0,
+                  "completed_at": null,
+                  "full_report_file": null,
+                  "errors_report_file": null,
+                  "_key": "BulkResponse"
+                }
+              ],
               "_key": "201"
             },
             {
@@ -23030,6 +22487,16 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 400,
+                  "type": "bad_request",
+                  "message": "Invalid request. Check your request parameters and URL.",
+                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
+                  "_key": "Bad request"
+                }
+              ],
               "_key": "400"
             },
             {
@@ -23103,6 +22570,15 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 401,
+                  "type": "invalid_auth",
+                  "message": "The provided JWT was not valid",
+                  "_key": "Error"
+                }
+              ],
               "_key": "401"
             }
           ],
@@ -23239,10 +22715,7 @@
                   "status",
                   "total_count",
                   "processed_count",
-                  "errors_count",
-                  "completet_at",
-                  "full_report_file",
-                  "errors_report_file"
+                  "errors_count"
                 ],
                 "properties": [
                   {
@@ -23255,7 +22728,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
+                    "description": "The time of completing the bulk creation task.\n",
                     "format": "date-time",
                     "api_fieldname": "completed_at",
                     "entity_fieldname": "completed_at",
@@ -23279,7 +22752,6 @@
                   },
                   {
                     "type": "string",
-                    "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
                     "entity_fieldname": "errors_report_file",
@@ -23296,7 +22768,6 @@
                   },
                   {
                     "type": "string",
-                    "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
                     "entity_fieldname": "full_report_file",
@@ -23356,6 +22827,23 @@
                   "entity": "device_enrollment_bulk_delete"
                 }
               },
+              "examples": [
+                {
+                  "object": "enrollment-identity-bulk-uploads",
+                  "id": "2d238a89038b4ddb84699dd36a901063",
+                  "account_id": "00005a4e027f0a580a01081c00000000",
+                  "etag": "1",
+                  "created_at": "2018-06-26T09:12:21.308Z",
+                  "status": "completed",
+                  "total_count": 10,
+                  "processed_count": 10,
+                  "errors_count": 1,
+                  "completed_at": "2018-06-26T09:13:21.308Z",
+                  "full_report_file": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
+                  "errors_report_file": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
+                  "_key": "BulkResponse"
+                }
+              ],
               "_key": "200"
             },
             {
@@ -23429,6 +22917,21 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 400,
+                  "type": "validation_error",
+                  "message": "An error description.",
+                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
+                  "fields": [
+                    {
+                      "bulk_id": "Invalid bulk identity"
+                    }
+                  ],
+                  "_key": "Bad request"
+                }
+              ],
               "_key": "400"
             },
             {
@@ -23502,6 +23005,15 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 401,
+                  "type": "invalid_auth",
+                  "message": "The provided JWT was not valid",
+                  "_key": "Error"
+                }
+              ],
               "_key": "401"
             },
             {
@@ -23575,6 +23087,17 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 404,
+                  "type": "not_found",
+                  "message": "The requested resource could not be found",
+                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
+                  "fields": [],
+                  "_key": "Not found"
+                }
+              ],
               "_key": "404"
             }
           ],
@@ -23617,17 +23140,13 @@
           "description": "ID",
           "example": "00005a4e027f0a580a01081c00000000",
           "api_fieldname": "account_id",
-          "readOnly": true,
-          "required": false,
           "_key": "account_id"
         },
         {
           "type": "string",
-          "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
+          "description": "The time of completing the bulk creation task.\n",
           "format": "date-time",
           "api_fieldname": "completed_at",
-          "readOnly": true,
-          "required": false,
           "_key": "completed_at"
         },
         {
@@ -23635,8 +23154,6 @@
           "description": "The time of receiving the bulk creation task.\n",
           "format": "date-time",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -23644,26 +23161,18 @@
           "example": 0,
           "description": "The number of enrollment identities with failed processing.\n",
           "api_fieldname": "errors_count",
-          "readOnly": true,
-          "required": false,
           "_key": "errors_count"
         },
         {
           "type": "string",
-          "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
           "api_fieldname": "errors_report_file",
-          "readOnly": true,
-          "required": false,
           "_key": "errors_report_file"
         },
         {
           "type": "string",
-          "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
           "api_fieldname": "full_report_file",
-          "readOnly": true,
-          "required": false,
           "_key": "full_report_file"
         },
         {
@@ -23671,8 +23180,6 @@
           "description": "Bulk ID",
           "pattern": "^[A-Za-z0-9]{32}",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         },
         {
@@ -23680,8 +23187,6 @@
           "example": 0,
           "description": "The number of enrollment identities processed until now.\n",
           "api_fieldname": "processed_count",
-          "readOnly": true,
-          "required": false,
           "_key": "processed_count"
         },
         {
@@ -23695,8 +23200,6 @@
           "description": "The state of the process is 'new' at the time of creation. If the creation is still in progress, the state is shown as 'processing'. When the request has been fully processed, the state changes to 'completed'.\n",
           "type": "string",
           "api_fieldname": "status",
-          "readOnly": true,
-          "required": false,
           "enum_reference": "device_enrollment_bulk_create_status_enum",
           "_key": "status"
         },
@@ -23705,8 +23208,6 @@
           "example": 10,
           "description": "Total number of enrollment identities found in the input CSV.\n",
           "api_fieldname": "total_count",
-          "readOnly": true,
-          "required": false,
           "_key": "total_count"
         }
       ],
@@ -23732,7 +23233,7 @@
               "name": "enrollment_identities",
               "type": "file",
               "required": true,
-              "description": "The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.",
+              "description": "The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.\n",
               "entity_fieldname": "enrollment_identities",
               "api_fieldname": "enrollment_identities",
               "external_param": true,
@@ -23744,7 +23245,7 @@
           "mode": "delete",
           "responses": [
             {
-              "description": "Bulk delete data has been received and asynchronous processing has been started.",
+              "description": "Bulk delete data has been received and asynchronous processing has been started.\n",
               "schema": {
                 "type": "object",
                 "required": [
@@ -23756,10 +23257,7 @@
                   "status",
                   "total_count",
                   "processed_count",
-                  "errors_count",
-                  "completet_at",
-                  "full_report_file",
-                  "errors_report_file"
+                  "errors_count"
                 ],
                 "properties": [
                   {
@@ -23772,7 +23270,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
+                    "description": "The time of completing the bulk creation task.\n",
                     "format": "date-time",
                     "api_fieldname": "completed_at",
                     "entity_fieldname": "completed_at",
@@ -23796,7 +23294,6 @@
                   },
                   {
                     "type": "string",
-                    "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
                     "entity_fieldname": "errors_report_file",
@@ -23813,7 +23310,6 @@
                   },
                   {
                     "type": "string",
-                    "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
                     "entity_fieldname": "full_report_file",
@@ -23876,6 +23372,25 @@
                   "entity": "device_enrollment_bulk_create"
                 }
               },
+              "examples": [
+                {
+                  "properties": {
+                    "object": "enrollment-identity-bulk-deletes",
+                    "id": "00005a4e027f0a580a04567c00000000",
+                    "account_id": "00005a4e027f0a580a01081c00000000",
+                    "etag": "1",
+                    "created_at": "2018-06-26T07:41:47.217Z",
+                    "status": "new",
+                    "total_count": 10,
+                    "processed_count": 0,
+                    "errors_count": 0,
+                    "completed_at": null,
+                    "full_report_file": null,
+                    "errors_report_file": null
+                  },
+                  "_key": "BulkCreateResponse"
+                }
+              ],
               "_key": "201"
             },
             {
@@ -23949,6 +23464,16 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 400,
+                  "type": "bad_request",
+                  "message": "Invalid request. Check your request parameters and URL.",
+                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
+                  "_key": "Bad request"
+                }
+              ],
               "_key": "400"
             },
             {
@@ -24022,6 +23547,15 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 401,
+                  "type": "invalid_auth",
+                  "message": "The provided JWT was not valid",
+                  "_key": "Error"
+                }
+              ],
               "_key": "401"
             }
           ],
@@ -24158,10 +23692,7 @@
                   "status",
                   "total_count",
                   "processed_count",
-                  "errors_count",
-                  "completet_at",
-                  "full_report_file",
-                  "errors_report_file"
+                  "errors_count"
                 ],
                 "properties": [
                   {
@@ -24174,7 +23705,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
+                    "description": "The time of completing the bulk creation task.\n",
                     "format": "date-time",
                     "api_fieldname": "completed_at",
                     "entity_fieldname": "completed_at",
@@ -24198,7 +23729,6 @@
                   },
                   {
                     "type": "string",
-                    "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
                     "api_fieldname": "errors_report_file",
                     "entity_fieldname": "errors_report_file",
@@ -24215,7 +23745,6 @@
                   },
                   {
                     "type": "string",
-                    "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
                     "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
                     "api_fieldname": "full_report_file",
                     "entity_fieldname": "full_report_file",
@@ -24278,6 +23807,23 @@
                   "entity": "device_enrollment_bulk_create"
                 }
               },
+              "examples": [
+                {
+                  "object": "enrollment-identity-bulk-deletes",
+                  "id": "2d238a89038b4ddb84699dd36a901063",
+                  "account_id": "00005a4e027f0a580a01081c00000000",
+                  "etag": "1",
+                  "created_at": "2018-06-26T09:12:21.308Z",
+                  "status": "completed",
+                  "total_count": 10,
+                  "processed_count": 10,
+                  "errors_count": 1,
+                  "completed_at": "2018-06-26T09:13:21.308Z",
+                  "full_report_file": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/2d238a89038b4ddb84699dd36a901063/full_report.csv",
+                  "errors_report_file": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
+                  "_key": "BulkResponse"
+                }
+              ],
               "_key": "200"
             },
             {
@@ -24351,6 +23897,21 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 400,
+                  "type": "validation_error",
+                  "message": "An error description.",
+                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
+                  "fields": [
+                    {
+                      "bulk_id": "Invalid bulk identity"
+                    }
+                  ],
+                  "_key": "Bad request"
+                }
+              ],
               "_key": "400"
             },
             {
@@ -24424,6 +23985,15 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 401,
+                  "type": "invalid_auth",
+                  "message": "The provided JWT was not valid",
+                  "_key": "Error"
+                }
+              ],
               "_key": "401"
             },
             {
@@ -24497,6 +24067,17 @@
                   }
                 ]
               },
+              "examples": [
+                {
+                  "object": "error",
+                  "code": 404,
+                  "type": "not_found",
+                  "message": "The requested resource could not be found",
+                  "request_id": "73fb0bd3ec1d452383255dd9a336668c",
+                  "fields": [],
+                  "_key": "Not found"
+                }
+              ],
               "_key": "404"
             }
           ],
@@ -24539,17 +24120,13 @@
           "description": "ID",
           "example": "00005a4e027f0a580a01081c00000000",
           "api_fieldname": "account_id",
-          "readOnly": true,
-          "required": false,
           "_key": "account_id"
         },
         {
           "type": "string",
-          "description": "The time of completing the bulk creation task.\nNull when creating bulk upload or delete.\n",
+          "description": "The time of completing the bulk creation task.\n",
           "format": "date-time",
           "api_fieldname": "completed_at",
-          "readOnly": true,
-          "required": false,
           "_key": "completed_at"
         },
         {
@@ -24557,8 +24134,6 @@
           "description": "The time of receiving the bulk creation task.\n",
           "format": "date-time",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -24566,26 +24141,18 @@
           "example": 0,
           "description": "The number of enrollment identities with failed processing.\n",
           "api_fieldname": "errors_count",
-          "readOnly": true,
-          "required": false,
           "_key": "errors_count"
         },
         {
           "type": "string",
-          "description": "Link to error report file.\nNull when creating bulk upload or delete.\n",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
           "api_fieldname": "errors_report_file",
-          "readOnly": true,
-          "required": false,
           "_key": "errors_report_file"
         },
         {
           "type": "string",
-          "description": "Link to full report file.\nNull when creating bulk upload or delete.\n",
           "example": "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
           "api_fieldname": "full_report_file",
-          "readOnly": true,
-          "required": false,
           "_key": "full_report_file"
         },
         {
@@ -24595,8 +24162,6 @@
           "api_fieldname": "id",
           "parameter_fieldname": "id",
           "in": "path",
-          "required": true,
-          "readOnly": false,
           "_key": "id"
         },
         {
@@ -24604,8 +24169,6 @@
           "example": 0,
           "description": "The number of enrollment identities processed until now.\n",
           "api_fieldname": "processed_count",
-          "readOnly": true,
-          "required": false,
           "_key": "processed_count"
         },
         {
@@ -24619,8 +24182,6 @@
           "description": "The state of the process is 'new' at the time of creation. If the creation is still in progress, the state is shown as 'processing'. When the request has been fully processed, the state changes to 'completed'.\n",
           "type": "string",
           "api_fieldname": "status",
-          "readOnly": true,
-          "required": false,
           "enum_reference": "device_enrollment_bulk_delete_status_enum",
           "_key": "status"
         },
@@ -24629,8 +24190,6 @@
           "example": 10,
           "description": "Total number of enrollment identities found in the input CSV.\n",
           "api_fieldname": "total_count",
-          "readOnly": true,
-          "required": false,
           "_key": "total_count"
         }
       ],
@@ -25107,8 +24666,6 @@
           },
           "example": [],
           "api_fieldname": "changes",
-          "readOnly": true,
-          "required": false,
           "_key": "changes"
         },
         {
@@ -25116,8 +24673,6 @@
           "example": "2017-05-22T12:37:55.576563Z",
           "type": "string",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -25130,8 +24685,6 @@
             "type": "string"
           },
           "api_fieldname": "data",
-          "readOnly": true,
-          "required": false,
           "_key": "data"
         },
         {
@@ -25139,24 +24692,18 @@
           "example": "2017-05-22T12:37:55.576563Z",
           "type": "string",
           "api_fieldname": "date_time",
-          "readOnly": true,
-          "required": false,
           "_key": "date_time"
         },
         {
           "type": "string",
           "example": "Device record created",
           "api_fieldname": "description",
-          "readOnly": true,
-          "required": false,
           "_key": "description"
         },
         {
           "type": "string",
           "example": "00000000000000000000000000000000",
           "api_fieldname": "device_id",
-          "readOnly": true,
-          "required": false,
           "_key": "device_id"
         },
         {
@@ -25165,8 +24712,6 @@
           "example": "UPD2_100",
           "description": "Event code",
           "api_fieldname": "event_type",
-          "readOnly": true,
-          "required": false,
           "_key": "event_type"
         },
         {
@@ -25174,8 +24719,6 @@
           "example": "FAIL_MANIFEST_REJECTED",
           "description": "Category code which groups the event type by a summary category.",
           "api_fieldname": "event_type_category",
-          "readOnly": true,
-          "required": false,
           "_key": "event_type_category"
         },
         {
@@ -25183,23 +24726,17 @@
           "example": "FAIL",
           "description": "Generic description of the event",
           "api_fieldname": "event_type_description",
-          "readOnly": true,
-          "required": false,
           "_key": "event_type_description"
         },
         {
           "type": "string",
           "example": "00000000000000000000000000000000",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         },
         {
           "type": "boolean",
           "api_fieldname": "state_change",
-          "readOnly": true,
-          "required": false,
           "_key": "state_change"
         }
       ],
@@ -25221,8 +24758,6 @@
           "example": "2018-02-14T17:52:07Z",
           "description": "UTC time RFC3339 for this login attempt.",
           "api_fieldname": "date",
-          "readOnly": true,
-          "required": false,
           "_key": "date"
         },
         {
@@ -25230,8 +24765,6 @@
           "example": "127.0.0.1",
           "description": "IP address of the client.",
           "api_fieldname": "ip_address",
-          "readOnly": true,
-          "required": false,
           "_key": "ip_address"
         },
         {
@@ -25239,8 +24772,6 @@
           "example": true,
           "description": "Flag indicating whether login attempt was successful or not.",
           "api_fieldname": "success",
-          "readOnly": true,
-          "required": false,
           "_key": "success"
         },
         {
@@ -25248,8 +24779,6 @@
           "example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36",
           "description": "User Agent header from the login request.",
           "api_fieldname": "user_agent",
-          "readOnly": true,
-          "required": false,
           "_key": "user_agent"
         }
       ],
@@ -25270,8 +24799,6 @@
           "example": "info@arm.com",
           "description": "The email address of the admin user who is the contact person of the parent account.",
           "api_fieldname": "admin_email",
-          "readOnly": true,
-          "required": false,
           "_key": "admin_email"
         },
         {
@@ -25279,8 +24806,6 @@
           "example": "J. Doe",
           "description": "The name of the admin user who is the contact person of the parent account.",
           "api_fieldname": "admin_name",
-          "readOnly": true,
-          "required": false,
           "_key": "admin_name"
         },
         {
@@ -25288,8 +24813,6 @@
           "example": "01619571dad80242ac12000600000000",
           "description": "The ID of the parent account",
           "api_fieldname": "id",
-          "readOnly": true,
-          "required": false,
           "_key": "id"
         }
       ],
@@ -25310,8 +24833,6 @@
           "example": "8",
           "description": "Minimum length for the password. A number between 8 and 512.",
           "api_fieldname": "minimum_length",
-          "readOnly": true,
-          "required": false,
           "_key": "minimum_length"
         }
       ],
@@ -25332,8 +24853,6 @@
           "example": "GET",
           "description": "Comma separated list of actions, empty string represents all actions.",
           "api_fieldname": "action",
-          "readOnly": true,
-          "required": false,
           "_key": "action"
         },
         {
@@ -25341,8 +24860,6 @@
           "example": true,
           "description": "True or false controlling whether an action is allowed or not.",
           "api_fieldname": "allow",
-          "readOnly": true,
-          "required": false,
           "_key": "allow"
         },
         {
@@ -25350,8 +24867,6 @@
           "example": "update-campaigns",
           "description": "Feature name corresponding to this policy.",
           "api_fieldname": "feature",
-          "readOnly": true,
-          "required": false,
           "_key": "feature"
         },
         {
@@ -25359,8 +24874,6 @@
           "example": false,
           "description": "Flag indicating whether this feature is inherited or overwritten specifically.",
           "api_fieldname": "inherited",
-          "readOnly": true,
-          "required": false,
           "_key": "inherited"
         },
         {
@@ -25368,8 +24881,6 @@
           "example": "/v3/update-campaign",
           "description": "Resource that is protected by this policy.",
           "api_fieldname": "resource",
-          "readOnly": true,
-          "required": false,
           "_key": "resource"
         }
       ],
@@ -25919,32 +25430,24 @@
           "format": "date-time",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
           "type": "string",
           "description": "mUUID that uniquely identifies the entity.",
           "api_fieldname": "id",
-          "readOnly": true,
-          "required": false,
           "_key": "id"
         },
         {
           "type": "string",
           "description": "PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.",
           "api_fieldname": "server_certificate",
-          "readOnly": true,
-          "required": false,
           "_key": "server_certificate"
         },
         {
           "type": "string",
           "description": "Server URI to which the client needs to connect to.",
           "api_fieldname": "server_uri",
-          "readOnly": true,
-          "required": false,
           "_key": "server_uri"
         }
       ],
@@ -25988,7 +25491,7 @@
               "entity_fieldname": "certificate",
               "parameter_fieldname": "certificate",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "certificate"
             },
             {
@@ -26043,7 +25546,7 @@
               "entity_fieldname": "name",
               "parameter_fieldname": "name",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "name"
             },
             {
@@ -26057,7 +25560,7 @@
               "entity_fieldname": "service",
               "parameter_fieldname": "service",
               "in": "body",
-              "required": true,
+              "required": false,
               "enum_reference": "subtenant_trusted_certificate_service_enum",
               "_key": "service"
             },
@@ -28494,8 +27997,6 @@
           "example": "01619571e2e90242ac12000600000000",
           "description": "The ID of the account.",
           "api_fieldname": "account_id",
-          "readOnly": false,
-          "required": true,
           "_key": "account_id"
         },
         {
@@ -28505,8 +28006,6 @@
           "api_fieldname": "certificate",
           "parameter_fieldname": "certificate",
           "in": "body",
-          "required": true,
-          "readOnly": false,
           "_key": "certificate"
         },
         {
@@ -28514,8 +28013,6 @@
           "example": "a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1",
           "description": "A SHA-256 fingerprint of the certificate.",
           "api_fieldname": "certificate_fingerprint",
-          "readOnly": true,
-          "required": false,
           "_key": "certificate_fingerprint"
         },
         {
@@ -28524,8 +28021,6 @@
           "example": "2018-02-13T09:35:20Z",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -28535,8 +28030,6 @@
           "api_fieldname": "description",
           "parameter_fieldname": "description",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "description"
         },
         {
@@ -28547,8 +28040,6 @@
           "private_field": true,
           "_override": true,
           "api_fieldname": "device_execution_mode",
-          "readOnly": true,
-          "required": false,
           "_key": "device_execution_mode"
         },
         {
@@ -28558,8 +28049,6 @@
           "api_fieldname": "enrollment_mode",
           "parameter_fieldname": "enrollment_mode",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "enrollment_mode"
         },
         {
@@ -28567,8 +28056,6 @@
           "example": "01619571d01d0242ac12000600000000",
           "description": "Entity ID.",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         },
         {
@@ -28579,8 +28066,6 @@
           "setter_custom_method": "is_developer_certificate_setter",
           "_override": true,
           "api_fieldname": "is_developer_certificate",
-          "readOnly": true,
-          "required": false,
           "_key": "is_developer_certificate"
         },
         {
@@ -28588,8 +28073,6 @@
           "example": "CN=issuer",
           "description": "Issuer of the certificate.",
           "api_fieldname": "issuer",
-          "readOnly": true,
-          "required": false,
           "_key": "issuer"
         },
         {
@@ -28599,8 +28082,6 @@
           "api_fieldname": "name",
           "parameter_fieldname": "name",
           "in": "body",
-          "required": true,
-          "readOnly": false,
           "_key": "name"
         },
         {
@@ -28608,8 +28089,6 @@
           "example": "01619571dad80242ac12000600000000",
           "description": "The ID of the owner.",
           "api_fieldname": "owner_id",
-          "readOnly": true,
-          "required": false,
           "_key": "owner_id"
         },
         {
@@ -28622,9 +28101,7 @@
           "api_fieldname": "service",
           "parameter_fieldname": "service",
           "in": "body",
-          "required": true,
           "enum_reference": "subtenant_trusted_certificate_service_enum",
-          "readOnly": false,
           "_key": "service"
         },
         {
@@ -28638,9 +28115,7 @@
           "api_fieldname": "status",
           "parameter_fieldname": "status",
           "in": "body",
-          "required": false,
           "enum_reference": "subtenant_trusted_certificate_status_enum",
-          "readOnly": false,
           "_key": "status"
         },
         {
@@ -28648,8 +28123,6 @@
           "example": "CN=subject",
           "description": "Subject of the certificate.",
           "api_fieldname": "subject",
-          "readOnly": true,
-          "required": false,
           "_key": "subject"
         },
         {
@@ -28658,8 +28131,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Last update UTC time RFC3339.",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         },
         {
@@ -28668,8 +28139,6 @@
           "example": "2038-02-14T15:24:14Z",
           "description": "Expiration time in UTC formatted as RFC3339.",
           "api_fieldname": "validity",
-          "readOnly": true,
-          "required": false,
           "_key": "validity"
         }
       ],
@@ -31837,8 +31306,6 @@
           "example": "01619571e2e90242ac12000600000000",
           "description": "The ID of the account.",
           "api_fieldname": "account_id",
-          "readOnly": false,
-          "required": true,
           "_key": "account_id"
         },
         {
@@ -31848,8 +31315,6 @@
           "api_fieldname": "address",
           "parameter_fieldname": "address",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "address"
         },
         {
@@ -31858,8 +31323,6 @@
           "example": "2018-02-13T09:35:20Z",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -31868,8 +31331,6 @@
           "example": 1518630727683,
           "description": "A timestamp of the user creation in the storage, in milliseconds.",
           "api_fieldname": "creation_time",
-          "readOnly": true,
-          "required": false,
           "_key": "creation_time"
         },
         {
@@ -31879,8 +31340,6 @@
           "api_fieldname": "email",
           "parameter_fieldname": "email",
           "in": "body",
-          "required": true,
-          "readOnly": false,
           "_key": "email"
         },
         {
@@ -31888,8 +31347,6 @@
           "example": true,
           "description": "A flag indicating whether the user's email address has been verified or not.",
           "api_fieldname": "email_verified",
-          "readOnly": true,
-          "required": false,
           "_key": "email_verified"
         },
         {
@@ -31899,8 +31356,6 @@
           "api_fieldname": "full_name",
           "parameter_fieldname": "full_name",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "full_name"
         },
         {
@@ -31910,8 +31365,6 @@
           "api_fieldname": "id",
           "parameter_fieldname": "user_id",
           "in": "path",
-          "required": true,
-          "readOnly": false,
           "_key": "id"
         },
         {
@@ -31920,8 +31373,6 @@
           "example": 1518630727688,
           "description": "A timestamp of the latest login of the user, in milliseconds.",
           "api_fieldname": "last_login_time",
-          "readOnly": true,
-          "required": false,
           "_key": "last_login_time"
         },
         {
@@ -31977,8 +31428,6 @@
             }
           },
           "api_fieldname": "login_history",
-          "readOnly": true,
-          "required": false,
           "_key": "login_history"
         },
         {
@@ -32019,8 +31468,6 @@
           "api_fieldname": "login_profiles",
           "parameter_fieldname": "login_profiles",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "login_profiles"
         },
         {
@@ -32030,8 +31477,6 @@
           "api_fieldname": "is_marketing_accepted",
           "parameter_fieldname": "is_marketing_accepted",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "marketing_accepted"
         },
         {
@@ -32041,8 +31486,6 @@
           "api_fieldname": "password",
           "parameter_fieldname": "password",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "password"
         },
         {
@@ -32051,8 +31494,6 @@
           "example": 1518630727688,
           "description": "A timestamp of the latest change of the user password, in milliseconds.",
           "api_fieldname": "password_changed_time",
-          "readOnly": true,
-          "required": false,
           "_key": "password_changed_time"
         },
         {
@@ -32062,8 +31503,6 @@
           "api_fieldname": "phone_number",
           "parameter_fieldname": "phone_number",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "phone_number"
         },
         {
@@ -32080,8 +31519,6 @@
           "api_fieldname": "status",
           "parameter_fieldname": "status",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "enum_reference": "subtenant_user_status_enum",
           "_key": "status"
         },
@@ -32092,8 +31529,6 @@
           "api_fieldname": "is_gtc_accepted",
           "parameter_fieldname": "is_gtc_accepted",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "terms_accepted"
         },
         {
@@ -32103,8 +31538,6 @@
           "api_fieldname": "is_totp_enabled",
           "parameter_fieldname": "is_totp_enabled",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "two_factor_authentication"
         },
         {
@@ -32113,8 +31546,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Last update UTC time RFC3339.",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         },
         {
@@ -32124,8 +31555,6 @@
           "api_fieldname": "username",
           "parameter_fieldname": "username",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "username"
         }
       ],
@@ -32179,7 +31608,7 @@
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "email"
             },
             {
@@ -32280,7 +31709,7 @@
                     "entity_fieldname": "email",
                     "parameter_fieldname": "email",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "email"
                   },
                   {
@@ -33006,7 +32435,7 @@
                     "entity_fieldname": "email",
                     "parameter_fieldname": "email",
                     "in": "body",
-                    "required": true,
+                    "required": false,
                     "_key": "email"
                   },
                   {
@@ -33390,8 +32819,6 @@
           "example": "01619571e2e90242ac12000600000000",
           "description": "The ID of the account the user is invited to.",
           "api_fieldname": "account_id",
-          "readOnly": false,
-          "required": true,
           "_key": "account_id"
         },
         {
@@ -33400,8 +32827,6 @@
           "example": "2018-02-13T09:35:20Z",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -33411,8 +32836,6 @@
           "api_fieldname": "email",
           "parameter_fieldname": "email",
           "in": "body",
-          "required": true,
-          "readOnly": false,
           "_key": "email"
         },
         {
@@ -33421,8 +32844,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Invitation expiration as UTC time RFC3339.",
           "api_fieldname": "expiration",
-          "readOnly": true,
-          "required": false,
           "_key": "expiration"
         },
         {
@@ -33432,8 +32853,6 @@
           "api_fieldname": "id",
           "parameter_fieldname": "invitation_id",
           "in": "path",
-          "required": true,
-          "readOnly": false,
           "_key": "id"
         },
         {
@@ -33474,8 +32893,6 @@
           "api_fieldname": "login_profiles",
           "parameter_fieldname": "login_profiles",
           "in": "body",
-          "required": false,
-          "readOnly": false,
           "_key": "login_profiles"
         },
         {
@@ -33484,8 +32901,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Last update UTC time RFC3339.",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         },
         {
@@ -33493,8 +32908,6 @@
           "example": "01619571e2e90242ac12000600000000",
           "description": "The ID of the invited user.",
           "api_fieldname": "user_id",
-          "readOnly": true,
-          "required": false,
           "_key": "user_id"
         }
       ],
@@ -36557,8 +35970,6 @@
           "example": "01619571e2e90242ac12000600000000",
           "description": "The ID of the account.",
           "api_fieldname": "account_id",
-          "readOnly": true,
-          "required": false,
           "_key": "account_id"
         },
         {
@@ -36566,8 +35977,6 @@
           "example": "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
           "description": "X509.v3 trusted certificate in PEM format.",
           "api_fieldname": "certificate",
-          "readOnly": false,
-          "required": true,
           "_key": "certificate"
         },
         {
@@ -36575,8 +35984,6 @@
           "example": "a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1",
           "description": "A SHA-256 fingerprint of the certificate.",
           "api_fieldname": "certificate_fingerprint",
-          "readOnly": true,
-          "required": false,
           "_key": "certificate_fingerprint"
         },
         {
@@ -36585,8 +35992,6 @@
           "example": "2018-02-13T09:35:20Z",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -36594,8 +35999,6 @@
           "example": "Certificate created by me.",
           "description": "Human readable description of this certificate.",
           "api_fieldname": "description",
-          "readOnly": false,
-          "required": false,
           "_key": "description"
         },
         {
@@ -36606,8 +36009,6 @@
           "private_field": true,
           "_override": true,
           "api_fieldname": "device_execution_mode",
-          "readOnly": true,
-          "required": false,
           "_key": "device_execution_mode"
         },
         {
@@ -36615,8 +36016,6 @@
           "example": false,
           "description": "If true, signature is not required. Default value false.",
           "api_fieldname": "enrollment_mode",
-          "readOnly": false,
-          "required": false,
           "_key": "enrollment_mode"
         },
         {
@@ -36624,8 +36023,6 @@
           "example": "01619571d01d0242ac12000600000000",
           "description": "Entity ID.",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         },
         {
@@ -36636,8 +36033,6 @@
           "setter_custom_method": "is_developer_certificate_setter",
           "_override": true,
           "api_fieldname": "is_developer_certificate",
-          "readOnly": true,
-          "required": false,
           "_key": "is_developer_certificate"
         },
         {
@@ -36645,8 +36040,6 @@
           "example": "CN=issuer",
           "description": "Issuer of the certificate.",
           "api_fieldname": "issuer",
-          "readOnly": true,
-          "required": false,
           "_key": "issuer"
         },
         {
@@ -36654,8 +36047,6 @@
           "example": "My certificate",
           "description": "Certificate name.",
           "api_fieldname": "name",
-          "readOnly": false,
-          "required": true,
           "_key": "name"
         },
         {
@@ -36663,8 +36054,6 @@
           "example": "01619571dad80242ac12000600000000",
           "description": "The ID of the owner.",
           "api_fieldname": "owner_id",
-          "readOnly": true,
-          "required": false,
           "_key": "owner_id"
         },
         {
@@ -36675,8 +36064,6 @@
             "bootstrap"
           ],
           "api_fieldname": "service",
-          "readOnly": false,
-          "required": true,
           "enum_reference": "trusted_certificate_service_enum",
           "_key": "service"
         },
@@ -36689,8 +36076,6 @@
             "INACTIVE"
           ],
           "api_fieldname": "status",
-          "readOnly": false,
-          "required": false,
           "enum_reference": "trusted_certificate_status_enum",
           "_key": "status"
         },
@@ -36699,8 +36084,6 @@
           "example": "CN=subject",
           "description": "Subject of the certificate.",
           "api_fieldname": "subject",
-          "readOnly": true,
-          "required": false,
           "_key": "subject"
         },
         {
@@ -36709,8 +36092,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Last update UTC time RFC3339.",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         },
         {
@@ -36719,8 +36100,6 @@
           "example": "2038-02-14T15:24:14Z",
           "description": "Expiration time in UTC formatted as RFC3339.",
           "api_fieldname": "validity",
-          "readOnly": true,
-          "required": false,
           "_key": "validity"
         }
       ],
@@ -39953,8 +39332,6 @@
           "example": "01619571e2e90242ac12000600000000",
           "description": "The ID of the account.",
           "api_fieldname": "account_id",
-          "readOnly": true,
-          "required": false,
           "_key": "account_id"
         },
         {
@@ -39962,8 +39339,6 @@
           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
           "description": "Address.",
           "api_fieldname": "address",
-          "readOnly": false,
-          "required": false,
           "_key": "address"
         },
         {
@@ -39972,8 +39347,6 @@
           "example": "2018-02-13T09:35:20Z",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -39982,8 +39355,6 @@
           "example": 1518630727683,
           "description": "A timestamp of the user creation in the storage, in milliseconds.",
           "api_fieldname": "creation_time",
-          "readOnly": true,
-          "required": false,
           "_key": "creation_time"
         },
         {
@@ -39991,8 +39362,6 @@
           "example": "user@arm.com",
           "description": "The email address.",
           "api_fieldname": "email",
-          "readOnly": false,
-          "required": true,
           "_key": "email"
         },
         {
@@ -40000,8 +39369,6 @@
           "example": true,
           "description": "A flag indicating whether the user's email address has been verified or not.",
           "api_fieldname": "email_verified",
-          "readOnly": true,
-          "required": false,
           "_key": "email_verified"
         },
         {
@@ -40009,8 +39376,6 @@
           "example": "User Doe",
           "description": "The full name of the user.",
           "api_fieldname": "full_name",
-          "readOnly": false,
-          "required": false,
           "_key": "full_name"
         },
         {
@@ -40018,8 +39383,6 @@
           "example": "01619571e2e89242ac12000600000000",
           "description": "The ID of the user.",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         },
         {
@@ -40028,8 +39391,6 @@
           "example": 1518630727688,
           "description": "A timestamp of the latest login of the user, in milliseconds.",
           "api_fieldname": "last_login_time",
-          "readOnly": true,
-          "required": false,
           "_key": "last_login_time"
         },
         {
@@ -40085,8 +39446,6 @@
             }
           },
           "api_fieldname": "login_history",
-          "readOnly": true,
-          "required": false,
           "_key": "login_history"
         },
         {
@@ -40125,8 +39484,6 @@
             "description": "This object represents a user login profile in Device Management."
           },
           "api_fieldname": "login_profiles",
-          "readOnly": false,
-          "required": false,
           "_key": "login_profiles"
         },
         {
@@ -40134,8 +39491,6 @@
           "example": true,
           "description": "A flag indicating that receiving marketing information has been accepted.",
           "api_fieldname": "is_marketing_accepted",
-          "readOnly": false,
-          "required": false,
           "_key": "marketing_accepted"
         },
         {
@@ -40143,8 +39498,6 @@
           "example": "PZf9eEUH43DAPE9ULINFeuj",
           "description": "The password when creating a new user. It will be generated when not present in the request.",
           "api_fieldname": "password",
-          "readOnly": false,
-          "required": false,
           "_key": "password"
         },
         {
@@ -40153,8 +39506,6 @@
           "example": 1518630727688,
           "description": "A timestamp of the latest change of the user password, in milliseconds.",
           "api_fieldname": "password_changed_time",
-          "readOnly": true,
-          "required": false,
           "_key": "password_changed_time"
         },
         {
@@ -40162,8 +39513,6 @@
           "example": "+44 (1223) 400 400",
           "description": "Phone number.",
           "api_fieldname": "phone_number",
-          "readOnly": false,
-          "required": false,
           "_key": "phone_number"
         },
         {
@@ -40178,8 +39527,6 @@
             "INACTIVE"
           ],
           "api_fieldname": "status",
-          "readOnly": false,
-          "required": false,
           "enum_reference": "user_status_enum",
           "_key": "status"
         },
@@ -40188,8 +39535,6 @@
           "example": true,
           "description": "A flag indicating that the General Terms and Conditions has been accepted.",
           "api_fieldname": "is_gtc_accepted",
-          "readOnly": false,
-          "required": false,
           "_key": "terms_accepted"
         },
         {
@@ -40197,8 +39542,6 @@
           "example": true,
           "description": "A flag indicating whether 2-factor authentication (TOTP) has been enabled.",
           "api_fieldname": "is_totp_enabled",
-          "readOnly": false,
-          "required": false,
           "_key": "two_factor_authentication"
         },
         {
@@ -40207,8 +39550,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Last update UTC time RFC3339.",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         },
         {
@@ -40216,8 +39557,6 @@
           "example": "admin",
           "description": "A username containing alphanumerical letters and -,._@+= characters.",
           "api_fieldname": "username",
-          "readOnly": false,
-          "required": false,
           "_key": "username"
         }
       ],
@@ -40261,7 +39600,7 @@
               "entity_fieldname": "email",
               "parameter_fieldname": "email",
               "in": "body",
-              "required": true,
+              "required": false,
               "_key": "email"
             },
             {
@@ -41862,8 +41201,6 @@
           "example": "01619571e2e90242ac12000600000000",
           "description": "The ID of the account the user is invited to.",
           "api_fieldname": "account_id",
-          "readOnly": true,
-          "required": false,
           "_key": "account_id"
         },
         {
@@ -41872,8 +41209,6 @@
           "example": "2018-02-13T09:35:20Z",
           "description": "Creation UTC time RFC3339.",
           "api_fieldname": "created_at",
-          "readOnly": true,
-          "required": false,
           "_key": "created_at"
         },
         {
@@ -41881,8 +41216,6 @@
           "example": "friend@arm.com",
           "description": "Email address of the invited user.",
           "api_fieldname": "email",
-          "readOnly": false,
-          "required": true,
           "_key": "email"
         },
         {
@@ -41891,8 +41224,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Invitation expiration as UTC time RFC3339.",
           "api_fieldname": "expiration",
-          "readOnly": true,
-          "required": false,
           "_key": "expiration"
         },
         {
@@ -41900,8 +41231,6 @@
           "example": "01619571e2e89242ac12000600000000",
           "description": "The ID of the invitation.",
           "api_fieldname": "id",
-          "readOnly": false,
-          "required": true,
           "_key": "id"
         },
         {
@@ -41940,8 +41269,6 @@
             "description": "This object represents a user login profile in Device Management."
           },
           "api_fieldname": "login_profiles",
-          "readOnly": false,
-          "required": false,
           "_key": "login_profiles"
         },
         {
@@ -41950,8 +41277,6 @@
           "example": "2018-02-14T15:24:14Z",
           "description": "Last update UTC time RFC3339.",
           "api_fieldname": "updated_at",
-          "readOnly": true,
-          "required": false,
           "_key": "updated_at"
         },
         {
@@ -41959,8 +41284,6 @@
           "example": "01619571e2e90242ac12000600000000",
           "description": "The ID of the invited user.",
           "api_fieldname": "user_id",
-          "readOnly": true,
-          "required": false,
           "_key": "user_id"
         }
       ],
@@ -41983,8 +41306,6 @@
           "description": "Provides details in case of failure.\n",
           "example": "message describing the verification failure",
           "api_fieldname": "message",
-          "readOnly": true,
-          "required": false,
           "_key": "message"
         },
         {
@@ -41992,8 +41313,6 @@
           "description": "Indicates whether the certificate issuer was verified successfully.\n",
           "example": false,
           "api_fieldname": "successful",
-          "readOnly": true,
-          "required": false,
           "_key": "successful"
         }
       ],

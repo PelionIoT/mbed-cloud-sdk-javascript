@@ -11,8 +11,10 @@ import { generateRepository } from "./generators/generateRepository";
 import { ImportContainer } from "./containers/importContainer/importContainer";
 import { FactoryMethodContainer } from "./containers/factoryContainer/factoryMethodContainer";
 import { FactoryContainer } from "./containers/factoryContainer/factoryContainer";
+import { factory as loggerFactory } from "./logger";
 
 async function main() {
+    const log = loggerFactory.getLogger("default");
     const outputFolder = "./src/sdk/generated";
     const configPath = "/Users/alelog01/git/mbed-cloud-sdk-javascript/merged/public/sdk_gen_intermediate.json";
 
@@ -22,6 +24,7 @@ async function main() {
 
     // clear generated folder
     fs.emptyDirSync(outputFolder);
+    log.info(`Clearing directory ${outputFolder}`);
 
     const entityExports: Array<ExportContainer> = [];
 
@@ -29,15 +32,18 @@ async function main() {
         const currentGroup = snakeToPascal(entity.group_id);
         const camelKey = snakeToCamel(entity._key);
         const pascalKey = snakeToPascal(entity._key);
+        log.info(`Starting generation for ${pascalKey} in ${currentGroup}`);
 
         // generate interface
         const entityInterface = await generateInterface(entity, enums);
+        const interfaceFilePath = `${outputFolder}/${snakeToCamel(entity.group_id)}/${camelKey}`;
         const interfaceFile = new GeneratedFile(
             camelKey,
-            `${outputFolder}/${snakeToCamel(entity.group_id)}/${camelKey}`,
+            interfaceFilePath,
             entityInterface
         );
         interfaceFile.writeFile();
+        log.info(`Wrote interface file ${camelKey} to ${interfaceFilePath}`);
 
         // generate index file
         const entityIndex = new FileContainer(
@@ -63,6 +69,7 @@ async function main() {
             await entityIndex.render()
         );
         indexFile.writeFile();
+        log.info(`Wrote index file for ${pascalKey} in ${currentGroup}`);
     }
 
     // generateFactory
@@ -97,6 +104,7 @@ async function main() {
         await factory.render()
     );
     factoryFile.writeFile();
+    log.info(`Wrote factory class file`);
 
     // main export file
     const generatedIndex = new FileContainer(entityExports);
@@ -106,6 +114,7 @@ async function main() {
         await generatedIndex.render()
     );
     generatedIndexFile.writeFile();
+    log.info(`Wrote index file for SDK`);
 }
 
 main();

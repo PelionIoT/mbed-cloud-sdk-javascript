@@ -1,6 +1,5 @@
 export type DeviceDeployedStateEnum = "development" | "production";
 export type DeviceExecutionMode = "0" | "1" | "5";
-export type DeviceLifecycleStatusEnum = "enabled" | "blocked";
 export type DeviceMechanismEnum = "connector" | "direct";
 export type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 /**
@@ -81,11 +80,6 @@ export interface DeviceCreateRequest {
      *hostGateway
      */
     readonly hostGateway?: string;
-
-    /**
-     *issuerFingerprint
-     */
-    readonly issuerFingerprint?: string;
 
     /**
      *manifest
