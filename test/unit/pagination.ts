@@ -294,7 +294,7 @@ describe("paginator", () => {
             // The following returns the first page if after is not equal to the last element of the first page. Otherwise the second page is returned. The first page is filled with relevant values to stipulate that there are more pages available i.e. has_more and after are set.
             // The page also contains the total count if requested by the user.
             const pagePromise = (listOptions.after === "" + firstPageData[firstPageData.length - 1] ? Promise.resolve(new ListResponse(response, secondPageData)) : Promise.resolve(new ListResponse({ ...response, has_more: true, after: "" + firstPageData[firstPageData.length - 1] }, firstPageData)));
-            return pagePromise.then( pageResponse => listOptions.include && listOptions.include.indexOf("totalCount") > -1 ? new ListResponse({ ...pageResponse, totalCount: totalElementCount }, pageResponse.data) : pageResponse);
+            return pagePromise.then( pageResponse => listOptions.include && listOptions.include instanceof Array && listOptions.include.indexOf("totalCount") > -1 ? new ListResponse({ ...pageResponse, totalCount: totalElementCount }, pageResponse.data) : pageResponse);
         }
         const options: ListOptions = {};
         const maxResult = firstPageData.length - 3;

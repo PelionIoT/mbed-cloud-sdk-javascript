@@ -1,10 +1,9 @@
 import { TrustedCertificate, DeveloperCertificate, TrustedCertificateRepository, DeveloperCertificateRepository } from "../../../src/sdk/entities";
-import { Config } from "../../../src/sdk";
 import { instanceOf } from "../../functions";
 
 describe("certificate examples", () => {
     it("should get developer info", async () => {
-        const trustedCertificateContext = new TrustedCertificateRepository(new Config());
+        const trustedCertificateContext = new TrustedCertificateRepository();
         const certificate = (await trustedCertificateContext.list().all()).filter(t => t.isDeveloperCertificate === true)[0];
 
         expect(instanceOf<TrustedCertificate>(certificate, "TRUSTED_CERTIFICATE")).toBeTruthy();
@@ -15,10 +14,10 @@ describe("certificate examples", () => {
     });
 
     it("should get trusted cert info", async () => {
-        const trustedCertificateContext = new TrustedCertificateRepository(new Config());
+        const trustedCertificateContext = new TrustedCertificateRepository();
         const certificate = (await trustedCertificateContext.list().all()).filter(t => t.isDeveloperCertificate === true)[0];
 
-        const developerCertificateContext = new DeveloperCertificateRepository(new Config());
+        const developerCertificateContext = new DeveloperCertificateRepository();
         const devCertificate = await developerCertificateContext.get(certificate.id);
 
         const trustedCertInfo = await developerCertificateContext.trustedCertificateInfo(devCertificate.id);

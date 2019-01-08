@@ -6,7 +6,11 @@ export abstract class Repository {
 
     protected readonly client: Client;
 
-    constructor(config: Config, client?: Client) {
+    constructor(config?: Config, client?: Client) {
+        if (config === undefined) {
+            config = new Config();
+        }
+
         this.config = config;
         this.client = client || new Client(config);
     }

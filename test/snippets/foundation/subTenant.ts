@@ -1,10 +1,9 @@
 import { Account, SubtenantUser, SubtenantTrustedCertificate, PasswordPolicy, AccountRepository, SubtenantUserRepository, SubtenantUserInvitation } from "../../../src/sdk/entities";
-import { Config } from "../../../src/sdk/client/config";
 import { instanceOf } from "../../functions";
 
 describe("subTenants", () => {
     it("should update user as subtenant", async () => {
-        const accountContext = new AccountRepository(new Config());
+        const accountContext = new AccountRepository();
         let myAccount: Account = null;
         try {
             const newAccount: Account = {
@@ -30,7 +29,7 @@ describe("subTenants", () => {
             // TODO re enable when login profiles issue is fixed
             // // get first subtenant user
             // const firstUser = await accountContext.users(myAccount.id).first();
-            // const userContext = new UserRepository(new Config());
+            // const userContext = new UserRepository();
 
             // const phoneNumber = firstUser.phoneNumber;
 
@@ -48,7 +47,7 @@ describe("subTenants", () => {
     });
 
     test("subTenant", async () => {
-        const accountContext = new AccountRepository(new Config());
+        const accountContext = new AccountRepository();
         let myAccount: Account = null;
         try {
             // an example: creating and managing a subtenant account
@@ -72,7 +71,7 @@ describe("subTenants", () => {
             }
         } finally {
             // uncloak
-            const subtenantUserContext = new SubtenantUserRepository(new Config());
+            const subtenantUserContext = new SubtenantUserRepository();
             // Populate the new user details
             const user: SubtenantUser = {
                 // Link this user to the account
@@ -101,7 +100,7 @@ describe("subTenants", () => {
     });
 
     it("should get account lists", async () => {
-        const accountContext = new AccountRepository(new Config());
+        const accountContext = new AccountRepository();
         const myAccount = await accountContext.me();
 
         const user = await accountContext.users(myAccount.id).first();
@@ -121,7 +120,7 @@ describe("subTenants", () => {
     });
 
     it("should check account password policies", async () => {
-        const accountContext = new AccountRepository(new Config());
+        const accountContext = new AccountRepository();
         (await accountContext.list().all()).forEach(a => {
             if (a.passwordPolicy) {
                 expect(instanceOf<PasswordPolicy>(a, "PASSWORD_POLICY")).toBeTruthy();

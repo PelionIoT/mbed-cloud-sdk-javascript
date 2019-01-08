@@ -1,12 +1,11 @@
 import { User, LoginHistory, UserRepository } from "../../../src/sdk/entities";
-import { Config } from "../../../src/sdk/client/config";
 import { instanceOf } from "../../functions";
 
 describe("userCrud", () => {
 
     test("user get", async () => {
         try {
-            const userContext = new UserRepository(new Config());
+            const userContext = new UserRepository();
 
             const user = await userContext.list().first();
 
@@ -24,7 +23,7 @@ describe("userCrud", () => {
 
     test("user list", async () => {
         try {
-            const userContext = new UserRepository(new Config());
+            const userContext = new UserRepository();
 
             const user = await userContext.list().first();
             expect(instanceOf<User>(user, "USER")).toBeTruthy();
@@ -35,7 +34,7 @@ describe("userCrud", () => {
 
     test("phone demo", async () => {
         try {
-            const userContext = new UserRepository(new Config());
+            const userContext = new UserRepository();
 
             const user: User = {
                 username: "alexjs",

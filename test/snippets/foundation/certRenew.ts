@@ -1,5 +1,4 @@
 import { CertificateIssuerConfig, CertificateEnrollment, CertificateIssuerConfigRepository, DeviceRepository, CertificateEnrollmentRepository } from "../../../src/sdk/entities";
-import { Config } from "../../../src/sdk";
 import { instanceOf } from "../../functions";
 
 describe("cert renew snippets", async () => {
@@ -7,13 +6,13 @@ describe("cert renew snippets", async () => {
     it("should renew device certificate", async () => {
         try {
             // an example: certificate renew
-            const certificateIssuerConfigContext = new CertificateIssuerConfigRepository(new Config());
+            const certificateIssuerConfigContext = new CertificateIssuerConfigRepository();
             const myConfig = (await certificateIssuerConfigContext.list().all()).find(c => c.certificateReference === "LWM2M");
             // cloak
             expect(instanceOf<CertificateIssuerConfig>(myConfig, "CERTIFICATE_ISSUER_CONFIG")).toBeTruthy();
             // uncloak
 
-            const deviceContext = new DeviceRepository(new Config());
+            const deviceContext = new DeviceRepository();
             const connectedDevices = (await deviceContext.list().all()).filter(device => device.state === "registered");
             // cloak
             expect(connectedDevices.length).toBeGreaterThanOrEqual(1);
@@ -38,7 +37,7 @@ describe("cert renew snippets", async () => {
 
     it("should list enrollments", async () => {
         try {
-            const certificateEnrollmentContext = new CertificateEnrollmentRepository(new Config());
+            const certificateEnrollmentContext = new CertificateEnrollmentRepository();
             const enrollment = await certificateEnrollmentContext.list().first();
 
             expect(instanceOf<CertificateEnrollment>(enrollment, "CERTIFICATE_ENROLLMENT")).toBeTruthy();

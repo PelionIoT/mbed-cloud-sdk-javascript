@@ -1,14 +1,13 @@
 /* tslint:disable: no-console */
 import { DeviceEnrollment, DeviceEnrollmentRepository, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository } from "../../../src/sdk/entities";
 import { createReadStream, ReadStream } from "fs";
-import { Config } from "../../../src/sdk";
 
 describe("Device Enrollment examples", () => {
 
     it("should enroll one device", async () => {
         try {
             // an example: device enrollment single
-            const enrollmentContext = new DeviceEnrollmentRepository(new Config());
+            const enrollmentContext = new DeviceEnrollmentRepository();
             const enrollment: DeviceEnrollment = {
                 enrollmentIdentity: "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12",
             };
@@ -31,7 +30,7 @@ describe("Device Enrollment examples", () => {
         try {
             const pathToCsv = "/Users/alelog01/git/mbed-cloud-sdk-javascript/test/snippets/foundation/test.csv";
             // an example: device enrollment bulk
-            const bulkCreateContext = new DeviceEnrollmentBulkCreateRepository(new Config());
+            const bulkCreateContext = new DeviceEnrollmentBulkCreateRepository();
             // uses fs readStream so this is a node only example.
             const csv = createReadStream(pathToCsv);
             let createTask = await bulkCreateContext.create(csv);
@@ -72,7 +71,7 @@ describe("Device Enrollment examples", () => {
     it("should bulk delete devices", async () => {
         try {
             const pathToCsv = "/Users/alelog01/git/mbed-cloud-sdk-javascript/test/snippets/foundation/test.csv";
-            const bulkDeleteContext = new DeviceEnrollmentBulkDeleteRepository(new Config());
+            const bulkDeleteContext = new DeviceEnrollmentBulkDeleteRepository();
             // uses fs readStream so this is a node only example.
             const csv = createReadStream(pathToCsv);
             let deleteTask = await bulkDeleteContext.delete(csv);

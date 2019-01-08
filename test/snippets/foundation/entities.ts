@@ -5,7 +5,7 @@ describe("entities", () => {
     test("quick", async () => {
         try {
             // an example: checking account status
-            const myAccount = await new AccountRepository(new Config()).me();
+            const myAccount = await new AccountRepository().me();
             const isActive = myAccount.status === "ACTIVE";
             // end of example
             expect(isActive).toBeTruthy();
@@ -17,7 +17,7 @@ describe("entities", () => {
     test("listing", async () => {
         try {
             // an example: listing api keys
-            const allKeys = await new ApiKeyRepository(new Config()).list().all();
+            const allKeys = await new ApiKeyRepository().list().all();
             const names = allKeys.map( k => k.name);
             // end of example
             expect(names.length).toBeGreaterThan(1);
