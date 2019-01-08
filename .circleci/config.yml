@@ -1,4 +1,19 @@
 version: 2
+
+references:
+  main_branches_only: &main_branches_only
+    filters:
+      branches:
+        only:
+        - master
+        - beta
+  ignore_main_branches: &ignore_main_branches
+    filters:
+      branches:
+        ignore:
+        - master
+        - beta
+
 jobs:
   build:
     working_directory: ~/build
@@ -44,6 +59,7 @@ jobs:
             - bundles
             - lib
             - types
+            - package.json
   tpip:
     working_directory: ~/build
     docker:
@@ -83,7 +99,7 @@ jobs:
           command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news --release
       - run:
           name: Generate changelog
-          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml)
+          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml --release)
           working_directory: docs/news
       - store_artifacts:
           path: CHANGELOG.md
@@ -230,7 +246,7 @@ jobs:
           command: pipenv run auto_version --config=scripts/auto_version.toml --news --release
       - run:
           name: Generate changelog
-          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml)
+          command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml --release)
           working_directory: docs/news
       - run:
           name: Tag and Release
@@ -247,6 +263,40 @@ jobs:
               curl -X POST --header "Content-Type: application/json" \
                -d '{"branch":"master"}' \
                https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/build?circle-token=${CIRCLE_TOKEN}
+  build_sync:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: sync to build branch
+          command: |
+              git add --force lib bundles types package.json
+              git stash save
+              git checkout build/${CIRCLE_BRANCH}
+              git merge ${CIRCLE_BRANCH} --no-commit
+              git checkout stash -- .
+              git commit --allow-empty --message "Sync Build [skip ci]"
+              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git build/${CIRCLE_BRANCH}
+  create_build_branch:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: sync to build branch if exists or create new one
+          command: |
+              git add --force lib bundles types package.json
+              git stash save
+              git checkout -B build/${CIRCLE_BRANCH}
+              git merge ${CIRCLE_BRANCH} --no-commit
+              git checkout stash -- .
+              git commit --allow-empty --message "Sync Build [skip ci]"
+              git push -f -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git build/${CIRCLE_BRANCH}
 
 workflows:
   version: 2
@@ -263,12 +313,26 @@ workflows:
               only:
                 - master
                 - beta
+      - create_build_branch_gate:
+          <<: *ignore_main_branches
+          type: approval
+          requires:
+            - build
+      - create_build_branch:
+          <<: *ignore_main_branches
+          requires:
+            - create_build_branch_gate
       - integration_test:
           requires:
             - build
       - unit_test:
           requires:
             - build
+      - build_sync:
+          <<: *main_branches_only
+          requires:
+            - unit_test
+            - integration_test
       - beta_release_gate:
           type: approval
           filters:
