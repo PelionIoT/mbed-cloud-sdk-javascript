@@ -80,11 +80,13 @@ export function apiWrapper<T>(
 }
 
 export function encodeBase64(payload): string {
-    if (typeof btoa === "function") {
-        return btoa(payload);
-    }
+    if (payload) {
+        if (typeof btoa === "function") {
+            return btoa(payload);
+        }
 
-    return Buffer.from(payload).toString("base64");
+        return Buffer.from(payload).toString("base64");
+    }
 }
 
 export function decodeBase64(payload, contentType): string | number | { [key: string]: string | number } {
