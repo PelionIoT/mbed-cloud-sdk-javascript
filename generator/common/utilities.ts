@@ -15,7 +15,7 @@ const typeMap = {
 };
 
 const getType = (type: string, items?: any) => {
-    const t = typeMap[type] || snakeToPascal(type);
+    const t = typeMap[type];
     // if type is array
     if (typeof t === "function") {
         if (items.foreign_key) {
@@ -23,11 +23,6 @@ const getType = (type: string, items?: any) => {
         }
 
         return t(getType(items.type));
-    }
-
-    // if type is PaginatedResponse, the type isn't actually PaginatedResponse so we should return undefined
-    if (t.indexOf("PaginatedResponse(") > -1) {
-        return undefined;
     }
 
     return t;

@@ -14,7 +14,7 @@ import { ExportContainer } from "../containers/exportContainer/exportContainer";
 import { FileContainer } from "../containers/fileContainer/fileContainer";
 import { CustomMethodBody } from "../containers/methodBodyContainers/methods/customMethodBody";
 
-export async function generateRepository(entity, pascalKey, currentGroup, camelKey, outputFolder, entityIndex: FileContainer) {
+export async function generateRepository(entity, pascalKey, _currentGroup, camelKey, outputFolder, entityIndex: FileContainer) {
     if (entity.methods.length > 0) {
         // entity has methods
         let fsNeeded = false;
@@ -29,29 +29,29 @@ export async function generateRepository(entity, pascalKey, currentGroup, camelK
             const paginated = !!method.pagination;
             const privateMethod = !!method.private_method;
             const customMethodCall = !!method.custom_method;
-            // if a foreign key exists and its not the same as the enity
-            const foreignKey = method.foreign_key ? (snakeToPascal(method.foreign_key.entity) !== pascalKey) : false;
+            // if method doesn't return self or a primitive type
+            const foreignKey = method.return_info.self === false && getType(method.return_info.type) === undefined;
             if (foreignKey) {
                 // add import for foreign key
                 repositoryImports.push(new ImportContainer(
-                    `${(method.foreign_key.group || method.foreign_key.entity).toUpperCase()}_${method.foreign_key.entity} _FOREIGN_KEY_IMPORT`,
+                    `${method.return_info.type} _FOREIGN_KEY_IMPORT`,
                     `../../index`,
                     [
-                        snakeToPascal(method.foreign_key.entity)
+                        snakeToPascal(method.return_info.type)
                     ]
                 ));
                 if (paginated) {
                     repositoryImports.push(new ImportContainer(
-                        `${(snakeToCamel(method.foreign_key.group) || currentGroup).toUpperCase()}_ADAPTER`,
+                        `${method.return_info.type}_ADAPTER`,
                         `../../index`,
                         [
-                            `${snakeToPascal(method.foreign_key.entity)}Adapter`
+                            `${snakeToPascal(method.return_info.type)}Adapter`
                         ]
                     ));
                 }
             }
-            const returnType = foreignKey ? snakeToPascal(method.foreign_key.entity) : method.return_type;
-            const returns: string = httpMethod === "DELETE" ? "void" : getType(returnType) || pascalKey;
+            const returnType = method.return_info.type;
+            const returns: string = httpMethod === "DELETE" ? "void" : getType(returnType) || snakeToPascal(returnType);
 
             if (returns.indexOf("ReadStream") === -1 && returns !== "void" && !paginated) {
                 safeAddToList(repositoryImports, new ImportContainer(
