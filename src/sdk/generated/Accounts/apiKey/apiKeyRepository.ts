@@ -32,7 +32,7 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    public delete(apikeyId: string): Promise<void> {
+    public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -40,7 +40,7 @@ export class ApiKeyRepository extends Repository {
                         url: "/v3/api-keys/{apikey_id}",
                         method: "DELETE",
                         pathParams: {
-                            apikey_id: apikeyId,
+                            apikey_id: id,
                         },
                     },
                     resultsFn
@@ -51,7 +51,7 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    public get(apikeyId: string): Promise<ApiKey> {
+    public get(id: string): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -59,7 +59,7 @@ export class ApiKeyRepository extends Repository {
                         url: "/v3/api-keys/{apikey_id}",
                         method: "GET",
                         pathParams: {
-                            apikey_id: apikeyId,
+                            apikey_id: id,
                         },
                     },
                     resultsFn
@@ -114,7 +114,7 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    public update(request: ApiKeyUpdateRequest, apikeyId: string): Promise<ApiKey> {
+    public update(request: ApiKeyUpdateRequest, id: string): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -122,7 +122,7 @@ export class ApiKeyRepository extends Repository {
                         url: "/v3/api-keys/{apikey_id}",
                         method: "PUT",
                         pathParams: {
-                            apikey_id: apikeyId,
+                            apikey_id: id,
                         },
                         body: {
                             name: request.name,

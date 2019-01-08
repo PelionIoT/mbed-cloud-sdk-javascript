@@ -6,7 +6,7 @@ export interface ApiKeyCreateRequest {
     /**
      *name
      */
-    readonly name?: string;
+    readonly name: string;
 
     /**
      *owner
@@ -25,7 +25,7 @@ export interface ApiKeyUpdateRequest {
     /**
      *name
      */
-    readonly name?: string;
+    readonly name: string;
 
     /**
      *owner

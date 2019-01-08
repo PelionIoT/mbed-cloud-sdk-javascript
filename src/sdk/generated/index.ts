@@ -10,6 +10,7 @@ export * from "./Devices/deviceEnrollmentBulkCreate";
 export * from "./Devices/deviceEnrollmentBulkDelete";
 export * from "./Devices/deviceEvents";
 export * from "./Accounts/loginHistory";
+export * from "./Accounts/parentAccount";
 export * from "./Accounts/passwordPolicy";
 export * from "./Accounts/policy";
 export * from "./Security/serverCredentials";

@@ -91,9 +91,9 @@ export interface SubtenantUser extends Entity {
     termsAccepted?: boolean;
 
     /**
-     *twoFactorAuthenticationChanged
+     *twoFactorAuthentication
      */
-    twoFactorAuthenticationChanged?: boolean;
+    twoFactorAuthentication?: boolean;
 
     /**
      *updatedAt

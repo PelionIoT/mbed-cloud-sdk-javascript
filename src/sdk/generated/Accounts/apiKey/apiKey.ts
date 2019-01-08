@@ -5,6 +5,11 @@ import { ApiKeyStatusEnum } from "./types";
  */
 export interface ApiKey extends Entity {
     /**
+     *accountId
+     */
+    accountId?: string;
+
+    /**
      *createdAt
      */
     createdAt?: Date;

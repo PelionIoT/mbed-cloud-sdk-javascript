@@ -10,7 +10,7 @@ export interface CertificateIssuerConfigCreateRequest {
     /**
      *certificateReference
      */
-    readonly certificateReference?: string;
+    readonly certificateReference: string;
 }
 /**
  *CertificateIssuerConfigUpdateRequest

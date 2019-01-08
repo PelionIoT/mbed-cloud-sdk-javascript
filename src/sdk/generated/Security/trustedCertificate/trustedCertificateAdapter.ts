@@ -13,7 +13,7 @@ export class TrustedCertificateAdapter extends Adapter {
             _discriminator: "TRUSTED_CERTIFICATE",
             accountId: data.account_id,
             certificate: data.certificate,
-            certificateThumbprint: data.certificate_thumbprint,
+            certificateFingerprint: data.certificate_fingerprint,
             createdAt: data.created_at,
             description: data.description,
             deviceExecutionMode: data.device_execution_mode,

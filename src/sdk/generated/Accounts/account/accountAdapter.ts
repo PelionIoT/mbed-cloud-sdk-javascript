@@ -1,5 +1,6 @@
 import { Adapter } from "../../../common/adapter";
 import { Account } from "./account";
+import { ParentAccountAdapter } from "../..";
 import { PasswordPolicyAdapter } from "../..";
 import { PolicyAdapter } from "../..";
 /**
@@ -42,7 +43,7 @@ export class AccountAdapter extends Adapter {
             limits: data.limits,
             mfaStatus: data.mfa_status,
             notificationEmails: data.notification_emails,
-            parentAccount: data.parent_account,
+            parentAccount: ParentAccountAdapter.fromApi(data.parent_account),
             parentId: data.parent_id,
             passwordPolicy: PasswordPolicyAdapter.fromApi(data.password_policy),
             phoneNumber: data.phone_number,

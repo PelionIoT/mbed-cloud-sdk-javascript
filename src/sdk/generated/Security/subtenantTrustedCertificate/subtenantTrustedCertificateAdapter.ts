@@ -15,7 +15,7 @@ export class SubtenantTrustedCertificateAdapter extends Adapter {
                 _discriminator: "SUBTENANT_TRUSTED_CERTIFICATE",
                 accountId: data.account_id,
                 certificate: data.certificate,
-                certificateThumbprint: data.certificate_thumbprint,
+                certificateFingerprint: data.certificate_fingerprint,
                 createdAt: data.created_at,
                 description: data.description,
                 deviceExecutionMode: data.device_execution_mode,

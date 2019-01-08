@@ -41,7 +41,7 @@ export class UserRepository extends Repository {
             }
         );
     }
-    public delete(userId: string): Promise<void> {
+    public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -49,7 +49,7 @@ export class UserRepository extends Repository {
                         url: "/v3/users/{user_id}",
                         method: "DELETE",
                         pathParams: {
-                            user_id: userId,
+                            user_id: id,
                         },
                     },
                     resultsFn
@@ -60,7 +60,7 @@ export class UserRepository extends Repository {
             }
         );
     }
-    public get(userId: string): Promise<User> {
+    public get(id: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -68,7 +68,7 @@ export class UserRepository extends Repository {
                         url: "/v3/users/{user_id}",
                         method: "GET",
                         pathParams: {
-                            user_id: userId,
+                            user_id: id,
                         },
                     },
                     resultsFn
@@ -107,7 +107,7 @@ export class UserRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-    public update(request: UserUpdateRequest, userId: string): Promise<User> {
+    public update(request: UserUpdateRequest, id: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -115,7 +115,7 @@ export class UserRepository extends Repository {
                         url: "/v3/users/{user_id}",
                         method: "PUT",
                         pathParams: {
-                            user_id: userId,
+                            user_id: id,
                         },
                         body: {
                             address: request.address,

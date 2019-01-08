@@ -41,7 +41,7 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
-    public delete(accountId: string, userId: string): Promise<void> {
+    public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -50,7 +50,7 @@ export class SubtenantUserRepository extends Repository {
                         method: "DELETE",
                         pathParams: {
                             account_id: accountId,
-                            user_id: userId,
+                            user_id: id,
                         },
                     },
                     resultsFn
@@ -61,7 +61,7 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
-    public get(accountId: string, userId: string): Promise<SubtenantUser> {
+    public get(accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -70,7 +70,7 @@ export class SubtenantUserRepository extends Repository {
                         method: "GET",
                         pathParams: {
                             account_id: accountId,
-                            user_id: userId,
+                            user_id: id,
                         },
                     },
                     resultsFn
@@ -81,7 +81,7 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
-    public update(request: SubtenantUserUpdateRequest, accountId: string, userId: string): Promise<SubtenantUser> {
+    public update(request: SubtenantUserUpdateRequest, accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -90,7 +90,7 @@ export class SubtenantUserRepository extends Repository {
                         method: "PUT",
                         pathParams: {
                             account_id: accountId,
-                            user_id: userId,
+                            user_id: id,
                         },
                         body: {
                             address: request.address,
@@ -99,7 +99,7 @@ export class SubtenantUserRepository extends Repository {
                             is_marketing_accepted: request.marketingAccepted,
                             phone_number: request.phoneNumber,
                             is_gtc_accepted: request.termsAccepted,
-                            is_totp_enabled: request.twoFactorAuthenticationChanged,
+                            is_totp_enabled: request.twoFactorAuthentication,
                             username: request.username,
                         },
                     },
@@ -111,7 +111,7 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
-    public validateEmail(accountId: string, userId: string): Promise<SubtenantUser> {
+    public validateEmail(accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -120,7 +120,7 @@ export class SubtenantUserRepository extends Repository {
                         method: "POST",
                         pathParams: {
                             account_id: accountId,
-                            user_id: userId,
+                            user_id: id,
                         },
                     },
                     resultsFn

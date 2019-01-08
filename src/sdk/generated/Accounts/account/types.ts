@@ -84,7 +84,7 @@ export interface AccountCreateRequest {
     /**
      *endMarket
      */
-    readonly endMarket?: string;
+    readonly endMarket: string;
 
     /**
      *phoneNumber

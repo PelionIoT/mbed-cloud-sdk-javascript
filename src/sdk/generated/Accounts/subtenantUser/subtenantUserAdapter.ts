@@ -32,7 +32,7 @@ export class SubtenantUserAdapter extends Adapter {
             phoneNumber: data.phone_number,
             status: data.status,
             termsAccepted: data.is_gtc_accepted,
-            twoFactorAuthenticationChanged: data.is_totp_enabled,
+            twoFactorAuthentication: data.is_totp_enabled,
             updatedAt: data.updated_at,
             username: data.username,
         });

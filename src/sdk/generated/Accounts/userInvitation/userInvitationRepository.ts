@@ -31,7 +31,7 @@ export class UserInvitationRepository extends Repository {
             }
         );
     }
-    public delete(invitationId: string): Promise<void> {
+    public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -39,7 +39,7 @@ export class UserInvitationRepository extends Repository {
                         url: "/v3/user-invitations/{invitation_id}",
                         method: "DELETE",
                         pathParams: {
-                            invitation_id: invitationId,
+                            invitation_id: id,
                         },
                     },
                     resultsFn
@@ -50,7 +50,7 @@ export class UserInvitationRepository extends Repository {
             }
         );
     }
-    public get(invitationId: string): Promise<UserInvitation> {
+    public get(id: string): Promise<UserInvitation> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -58,7 +58,7 @@ export class UserInvitationRepository extends Repository {
                         url: "/v3/user-invitations/{invitation_id}",
                         method: "GET",
                         pathParams: {
-                            invitation_id: invitationId,
+                            invitation_id: id,
                         },
                     },
                     resultsFn

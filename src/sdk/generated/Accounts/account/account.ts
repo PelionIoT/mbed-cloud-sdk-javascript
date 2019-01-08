@@ -1,4 +1,5 @@
 import { Entity } from "../../../common/entity";
+import { ParentAccount } from "../parentAccount/parentAccount";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
 import { Policy } from "../policy/policy";
 import { AccountMfaStatusEnum, AccountStatusEnum } from "./types";
@@ -139,7 +140,7 @@ export interface Account extends Entity {
     /**
      *parentAccount
      */
-    parentAccount?: any;
+    parentAccount?: ParentAccount;
 
     /**
      *parentId

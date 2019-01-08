@@ -31,7 +31,7 @@ export class SubtenantUserInvitationRepository extends Repository {
             }
         );
     }
-    public delete(accountId: string, invitationId: string): Promise<void> {
+    public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -40,7 +40,7 @@ export class SubtenantUserInvitationRepository extends Repository {
                         method: "DELETE",
                         pathParams: {
                             account_id: accountId,
-                            invitation_id: invitationId,
+                            invitation_id: id,
                         },
                     },
                     resultsFn
@@ -51,7 +51,7 @@ export class SubtenantUserInvitationRepository extends Repository {
             }
         );
     }
-    public get(accountId: string, invitationId: string): Promise<SubtenantUserInvitation> {
+    public get(accountId: string, id: string): Promise<SubtenantUserInvitation> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -60,7 +60,7 @@ export class SubtenantUserInvitationRepository extends Repository {
                         method: "GET",
                         pathParams: {
                             account_id: accountId,
-                            invitation_id: invitationId,
+                            invitation_id: id,
                         },
                     },
                     resultsFn

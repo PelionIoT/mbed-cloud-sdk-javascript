@@ -83,9 +83,9 @@ export interface SubtenantUserUpdateRequest {
     readonly termsAccepted?: boolean;
 
     /**
-     *twoFactorAuthenticationChanged
+     *twoFactorAuthentication
      */
-    readonly twoFactorAuthenticationChanged?: boolean;
+    readonly twoFactorAuthentication?: boolean;
 
     /**
      *username

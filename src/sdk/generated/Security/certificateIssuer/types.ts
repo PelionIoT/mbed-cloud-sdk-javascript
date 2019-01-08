@@ -19,11 +19,6 @@ export interface CertificateIssuerCreateRequest {
     readonly issuerCredentials?: { [key: string]: string };
 
     /**
-     *issuerType
-     */
-    readonly issuerType?: CertificateIssuerIssuerTypeEnum;
-
-    /**
      *name
      */
     readonly name?: string;

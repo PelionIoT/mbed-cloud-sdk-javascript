@@ -15,9 +15,9 @@ export interface SubtenantTrustedCertificate extends Entity {
     certificate?: string;
 
     /**
-     *certificateThumbprint
+     *certificateFingerprint
      */
-    certificateThumbprint?: string;
+    certificateFingerprint?: string;
 
     /**
      *createdAt

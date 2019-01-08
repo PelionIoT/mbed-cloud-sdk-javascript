@@ -58,7 +58,7 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public get(accountId: string, options?: { include?: string; properties?: string }): Promise<Account> {
+    public get(id: string, options?: { include?: string; properties?: string }): Promise<Account> {
         options = options || {};
         return apiWrapper(
             resultsFn => {
@@ -71,7 +71,7 @@ export class AccountRepository extends Repository {
                             properties: options.properties,
                         },
                         pathParams: {
-                            account_id: accountId,
+                            account_id: id,
                         },
                     },
                     resultsFn
@@ -133,10 +133,7 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public trustedCertificates(
-        accountId: string,
-        options?: ListOptions
-    ): Paginator<SubtenantTrustedCertificate, ListOptions> {
+    public trustedCertificates(id: string, options?: ListOptions): Paginator<SubtenantTrustedCertificate, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantTrustedCertificate>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -152,7 +149,7 @@ export class AccountRepository extends Repository {
                                 order: pageOptions.order,
                             },
                             pathParams: {
-                                account_id: accountId,
+                                account_id: id,
                             },
                         },
                         resultsFn
@@ -167,7 +164,7 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-    public update(request: AccountUpdateRequest, accountId: string): Promise<Account> {
+    public update(request: AccountUpdateRequest, id: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -175,7 +172,7 @@ export class AccountRepository extends Repository {
                         url: "/v3/accounts/{account_id}",
                         method: "PUT",
                         pathParams: {
-                            account_id: accountId,
+                            account_id: id,
                         },
                         body: {
                             address_line1: request.addressLine1,
@@ -210,7 +207,7 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public userInvitations(accountId: string, options?: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
+    public userInvitations(id: string, options?: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUserInvitation>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -225,7 +222,7 @@ export class AccountRepository extends Repository {
                                 order: pageOptions.order,
                             },
                             pathParams: {
-                                account_id: accountId,
+                                account_id: id,
                             },
                         },
                         resultsFn
@@ -240,7 +237,7 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-    public users(accountId: string, options?: ListOptions): Paginator<SubtenantUser, ListOptions> {
+    public users(id: string, options?: ListOptions): Paginator<SubtenantUser, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUser>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -256,7 +253,7 @@ export class AccountRepository extends Repository {
                                 order: pageOptions.order,
                             },
                             pathParams: {
-                                account_id: accountId,
+                                account_id: id,
                             },
                         },
                         resultsFn

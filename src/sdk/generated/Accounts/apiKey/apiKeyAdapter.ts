@@ -10,6 +10,7 @@ export class ApiKeyAdapter extends Adapter {
         }
         const mappedEntity = ApiKeyAdapter.assignDefined<ApiKey>(instance || {}, {
             _discriminator: "API_KEY",
+            accountId: data.account_id,
             createdAt: data.created_at,
             creationTime: data.creation_time,
             id: data.id,
