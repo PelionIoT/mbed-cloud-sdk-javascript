@@ -297,6 +297,14 @@ jobs:
               git checkout stash -- .
               git commit --allow-empty --message "Sync Build [skip ci]"
               git push -f -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git build/${CIRCLE_BRANCH}
+  commit_back_generation:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - checkout
+      - run:
+          name: Run generator self tests
+          command: npm run test:
 
 workflows:
   version: 2
