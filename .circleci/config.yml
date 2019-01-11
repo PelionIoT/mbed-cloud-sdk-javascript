@@ -326,8 +326,8 @@ jobs:
           name: commit changes
           command: |
               git add src/sdk/generated
-              git commit --allow-empty --message "Generated code [skip ci]"
-              git push -f -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
+              git commit --message "Generated code"
+              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
