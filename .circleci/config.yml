@@ -308,6 +308,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: npm install
+      - run:
           name: Run generator self tests
           command: npm run test:generator
       - run:
