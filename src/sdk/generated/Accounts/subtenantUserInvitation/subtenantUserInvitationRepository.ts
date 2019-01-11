@@ -4,7 +4,7 @@ import { SubtenantUserInvitation } from "./subtenantUserInvitation";
 import { SubtenantUserInvitationAdapter } from "../../index";
 import { SubtenantUserInvitationCreateRequest } from "./types";
 /**
- *SubtenantUserInvitation repository
+ *SubtenantUserInvitation Repository
  */
 export class SubtenantUserInvitationRepository extends Repository {
     public create(request: SubtenantUserInvitationCreateRequest, accountId: string): Promise<SubtenantUserInvitation> {

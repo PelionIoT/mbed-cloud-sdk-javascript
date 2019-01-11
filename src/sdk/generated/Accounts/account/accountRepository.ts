@@ -15,7 +15,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *Account repository
+ *Account Repository
  */
 export class AccountRepository extends Repository {
     public create(request: AccountCreateRequest, action?: string): Promise<Account> {
