@@ -263,7 +263,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
         const repositoryClass = new ClassContainer(
             `${pascalKey}Repository`,
             {
-                description: `${pascalKey} repository`,
+                description: `${pascalKey} Repository`,
                 extendsClass: "Repository",
                 imports: [
                     new ImportContainer(
