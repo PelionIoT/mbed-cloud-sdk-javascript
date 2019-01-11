@@ -1,5 +1,5 @@
 import { FileContainer } from "../containers/fileContainer/fileContainer";
-import { snakeToPascal, getPropertyType, snakeToCamel } from "../common/utilities";
+import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList } from "../common/utilities";
 import { EnumContainer } from "../containers/enumContainer/enumContainer";
 import { PropertyContainer } from "../containers/propertyContainer/propertyContainer";
 import { ImportContainer } from "../containers/importContainer/importContainer";
@@ -39,7 +39,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                             snakeToPascal(field.items.foreign_key.entity)
                         ]
                     );
-                    imports.push(importContainer);
+                    safeAddToList(imports, importContainer);
                 }
 
                 if (field.foreign_key) {
@@ -50,7 +50,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                         [
                             snakeToPascal(field.foreign_key.entity)
                         ]);
-                    imports.push(importContainer);
+                    safeAddToList(imports, importContainer);
                 }
             }
         }

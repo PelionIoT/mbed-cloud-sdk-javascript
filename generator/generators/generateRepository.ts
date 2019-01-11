@@ -33,7 +33,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
             const foreignKey = method.return_info.self === false && getType(method.return_info.type) === undefined;
             if (foreignKey) {
                 // add import for foreign key
-                repositoryImports.push(new ImportContainer(
+                safeAddToList(repositoryImports, new ImportContainer(
                     `${method.return_info.type} _FOREIGN_KEY_IMPORT`,
                     `../../index`,
                     [
@@ -41,7 +41,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                     ]
                 ));
                 if (paginated) {
-                    repositoryImports.push(new ImportContainer(
+                    safeAddToList(repositoryImports, new ImportContainer(
                         `${method.return_info.type}_ADAPTER`,
                         `../../index`,
                         [
@@ -55,7 +55,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
             if (returns.indexOf("ReadStream") === -1 && returns !== "void" && !paginated) {
                 safeAddToList(repositoryImports, new ImportContainer(
-                    `${returns.toUpperCase()}_ADAPTER`,
+                    `${method.return_info.type}_ADAPTER`,
                     `../../index`,
                     [
                         `${snakeToPascal(returns)}Adapter`

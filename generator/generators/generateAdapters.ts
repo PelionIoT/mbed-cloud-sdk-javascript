@@ -26,7 +26,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
         if (field.items && field.items.foreign_key) {
             // field is an array of foreign keys
             // hard code for now to cope with plurality of policy/policies
-            const adapter = field._key === "policies" ? "PolicyAdapter" : `${snakeToPascal(field._key)}Adapter`;
+            const adapter = `${snakeToPascal(field.items.foreign_key.entity)}Adapter`;
             mapsForeignKeyArray = true;
             const mapper = new AdapterMapperContainer(
                 field._key,
