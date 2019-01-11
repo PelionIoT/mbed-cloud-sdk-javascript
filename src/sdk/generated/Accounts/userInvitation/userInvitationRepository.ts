@@ -7,7 +7,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *UserInvitation repository
+ *UserInvitation Repository
  */
 export class UserInvitationRepository extends Repository {
     public create(request: UserInvitationCreateRequest): Promise<UserInvitation> {

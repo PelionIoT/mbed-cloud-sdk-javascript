@@ -7,7 +7,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *DeviceEnrollment repository
+ *DeviceEnrollment Repository
  */
 export class DeviceEnrollmentRepository extends Repository {
     public create(request: DeviceEnrollmentCreateRequest): Promise<DeviceEnrollment> {

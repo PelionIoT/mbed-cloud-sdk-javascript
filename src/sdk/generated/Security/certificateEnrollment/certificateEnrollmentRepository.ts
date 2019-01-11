@@ -6,7 +6,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *CertificateEnrollment repository
+ *CertificateEnrollment Repository
  */
 export class CertificateEnrollmentRepository extends Repository {
     public get(id: string): Promise<CertificateEnrollment> {
