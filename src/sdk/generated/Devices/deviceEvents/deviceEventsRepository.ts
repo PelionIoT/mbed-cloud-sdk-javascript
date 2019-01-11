@@ -6,7 +6,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *DeviceEvents repository
+ *DeviceEvents Repository
  */
 export class DeviceEventsRepository extends Repository {
     public get(id: string): Promise<DeviceEvents> {

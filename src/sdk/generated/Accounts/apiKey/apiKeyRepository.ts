@@ -8,7 +8,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *ApiKey repository
+ *ApiKey Repository
  */
 export class ApiKeyRepository extends Repository {
     public create(request: ApiKeyCreateRequest): Promise<ApiKey> {

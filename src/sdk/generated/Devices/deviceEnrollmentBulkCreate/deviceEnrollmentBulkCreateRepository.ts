@@ -6,7 +6,7 @@ import { downloadErrorsReportFile } from "../../../common/privateFunctions";
 import { downloadFullReportFile } from "../../../common/privateFunctions";
 import { ReadStream } from "fs";
 /**
- *DeviceEnrollmentBulkCreate repository
+ *DeviceEnrollmentBulkCreate Repository
  */
 export class DeviceEnrollmentBulkCreateRepository extends Repository {
     public create(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<DeviceEnrollmentBulkCreate> {

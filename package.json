@@ -55,6 +55,7 @@
     "test:browser": "jest --projects test/configs/browser*.js",
     "test:node": "jest --projects test/configs/node*.js",
     "test:snippets": "jest --projects test/configs/snippets*.js",
+    "test:generator": "jest --projects generator/tests/*.config.js",
     "watch": "jest --watch",
     "watch:integration": "npm-run-all clean:integration watch:integration:start",
     "watch:integration:start": "tsc-watch -p integration.tsconfig.json --onSuccess \"node test/integration/build/test/integration/codeCoverage.js\"",
