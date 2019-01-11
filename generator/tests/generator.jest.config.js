@@ -4,16 +4,17 @@ config.testMatch = [
     "**/generator/tests/**/*.ts",
 ]
 
-// config.collectCoverage = true;
+config.collectCoverage = true;
 
-// config.collectCoverageFrom = [
-//     "**/generator/**",
-// ];
+config.collectCoverageFrom = [
+    "**/generator/**/*.ts",
+    "!**/generator/tests/**/*.ts",
+];
 
-// config.coverageReporters = [
-//     "lcov"
-// ]
+config.coverageReporters = [
+    "lcov"
+]
 
-// config.coverageDirectory = "coverage"
+config.coverageDirectory = "coverage"
 
 module.exports = config;
