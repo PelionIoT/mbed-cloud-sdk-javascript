@@ -330,8 +330,8 @@ workflows:
   version: 2
   generation_workflow:
     jobs:
-      <<: *contract_repo_branch
-      - commit_back_generation
+      - commit_back_generation:
+          <<: *contract_repo_branch
   javascript_workflow:
     jobs:
       - build
