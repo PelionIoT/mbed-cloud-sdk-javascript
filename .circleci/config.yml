@@ -17,7 +17,7 @@ references:
     filters:
       branches:
         only:
-        - /f/1873-.*/
+        - /api-contract.*/
 
 jobs:
   build:
