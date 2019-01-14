@@ -13,9 +13,7 @@ export async function generateInterface(entity: any, enums: any): Promise<string
         const type = getPropertyType(f, enums);
         const name = snakeToCamel(f._key);
 
-        const readOnly = !!f.readOnly;
-        const required = !!f.required;
-        const property = new PropertyContainer(name, type, { isInterface: true, isOptional: !required, isReadonly: readOnly });
+        const property = new PropertyContainer(name, type, { isInterface: true, isOptional: true });
         properties.push(property);
 
         if (f.enum_reference) {
