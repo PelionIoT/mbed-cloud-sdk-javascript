@@ -4,11 +4,11 @@ import { CertificateIssuer } from "./certificateIssuer";
  *CertificateIssuer adapter
  */
 export class CertificateIssuerAdapter extends Adapter {
-    public static fromApi(data: any, instance?: CertificateIssuer): CertificateIssuer {
+    public static fromApi(data: any, instance?: any): CertificateIssuer {
         if (!data) {
             return null;
         }
-        const mappedEntity = CertificateIssuerAdapter.assignDefined<CertificateIssuer>(instance || {}, {
+        const mappedEntity = CertificateIssuerAdapter.assignDefined(instance || {}, {
             _discriminator: "CERTIFICATE_ISSUER",
             createdAt: data.created_at,
             description: data.description,

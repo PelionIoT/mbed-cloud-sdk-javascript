@@ -20,11 +20,6 @@ export interface ApiKey extends Entity {
     creationTime?: number;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *key
      */
     key?: string;

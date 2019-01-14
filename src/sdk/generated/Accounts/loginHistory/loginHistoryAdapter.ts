@@ -4,11 +4,11 @@ import { LoginHistory } from "./loginHistory";
  *LoginHistory adapter
  */
 export class LoginHistoryAdapter extends Adapter {
-    public static fromApi(data: any, instance?: LoginHistory): LoginHistory {
+    public static fromApi(data: any, instance?: any): LoginHistory {
         if (!data) {
             return null;
         }
-        const mappedEntity = LoginHistoryAdapter.assignDefined<LoginHistory>(instance || {}, {
+        const mappedEntity = LoginHistoryAdapter.assignDefined(instance || {}, {
             _discriminator: "LOGIN_HISTORY",
             date: data.date,
             ipAddress: data.ip_address,

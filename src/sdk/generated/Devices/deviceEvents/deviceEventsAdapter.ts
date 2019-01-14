@@ -4,11 +4,11 @@ import { DeviceEvents } from "./deviceEvents";
  *DeviceEvents adapter
  */
 export class DeviceEventsAdapter extends Adapter {
-    public static fromApi(data: any, instance?: DeviceEvents): DeviceEvents {
+    public static fromApi(data: any, instance?: any): DeviceEvents {
         if (!data) {
             return null;
         }
-        const mappedEntity = DeviceEventsAdapter.assignDefined<DeviceEvents>(instance || {}, {
+        const mappedEntity = DeviceEventsAdapter.assignDefined(instance || {}, {
             _discriminator: "DEVICE_EVENTS",
             changes: data.changes,
             createdAt: data.created_at,

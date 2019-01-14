@@ -37,7 +37,7 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
-    public delete(id: string): Promise<void> {
+    public delete(certId: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -45,7 +45,7 @@ export class TrustedCertificateRepository extends Repository {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "DELETE",
                         pathParams: {
-                            cert_id: id,
+                            cert_id: certId,
                         },
                     },
                     resultsFn
@@ -56,26 +56,7 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
-    public get(id: string): Promise<TrustedCertificate> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/trusted-certificates/{cert_id}",
-                        method: "GET",
-                        pathParams: {
-                            cert_id: id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, TrustedCertificateAdapter.fromApi(data));
-            }
-        );
-    }
-    public getDeveloperCertificateInfo(id: string): Promise<DeveloperCertificate> {
+    public developerCertificateInfo(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -91,6 +72,25 @@ export class TrustedCertificateRepository extends Repository {
             },
             (data, done) => {
                 done(null, DeveloperCertificateAdapter.fromApi(data));
+            }
+        );
+    }
+    public get(certId: string): Promise<TrustedCertificate> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/trusted-certificates/{cert_id}",
+                        method: "GET",
+                        pathParams: {
+                            cert_id: certId,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, TrustedCertificateAdapter.fromApi(data));
             }
         );
     }
@@ -122,7 +122,7 @@ export class TrustedCertificateRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-    public update(request: TrustedCertificateUpdateRequest, id: string): Promise<TrustedCertificate> {
+    public update(request: TrustedCertificateUpdateRequest, certId: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -130,7 +130,7 @@ export class TrustedCertificateRepository extends Repository {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "PUT",
                         pathParams: {
-                            cert_id: id,
+                            cert_id: certId,
                         },
                         body: {
                             certificate: request.certificate,

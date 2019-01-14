@@ -30,11 +30,6 @@ export interface CertificateEnrollment extends Entity {
     enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *updatedAt
      */
     updatedAt?: Date;

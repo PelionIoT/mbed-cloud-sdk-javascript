@@ -35,11 +35,6 @@ export interface DeviceEnrollmentBulkCreate extends Entity {
     fullReportFile?: string;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *processedCount
      */
     processedCount?: number;

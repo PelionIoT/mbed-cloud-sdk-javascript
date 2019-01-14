@@ -12,9 +12,4 @@ export interface ParentAccount extends Entity {
      *adminName
      */
     adminName?: string;
-
-    /**
-     *id
-     */
-    id?: string;
 }

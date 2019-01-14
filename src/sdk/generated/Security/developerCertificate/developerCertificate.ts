@@ -24,11 +24,6 @@ export interface DeveloperCertificate extends Entity {
     description?: string;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *name
      */
     name?: string;

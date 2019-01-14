@@ -19,11 +19,6 @@ export interface CertificateIssuerConfig extends Entity {
     createdAt?: Date;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *updatedAt
      */
     updatedAt?: Date;

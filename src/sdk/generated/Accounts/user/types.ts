@@ -1,4 +1,3 @@
-import { LoginProfile } from "../loginProfile/loginProfile";
 export type UserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
 /**
  *UserCreateRequest
@@ -22,7 +21,7 @@ export interface UserCreateRequest {
     /**
      *loginProfiles
      */
-    readonly loginProfiles?: Array<LoginProfile>;
+    readonly loginProfiles?: Array<any>;
 
     /**
      *marketingAccepted
@@ -66,7 +65,7 @@ export interface UserUpdateRequest {
     /**
      *loginProfiles
      */
-    readonly loginProfiles?: Array<LoginProfile>;
+    readonly loginProfiles?: Array<any>;
 
     /**
      *marketingAccepted

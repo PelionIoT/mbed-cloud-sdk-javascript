@@ -4,14 +4,12 @@ import { ApiKeyRepository } from ".";
 import { CertificateEnrollmentRepository } from ".";
 import { CertificateIssuerRepository } from ".";
 import { CertificateIssuerConfigRepository } from ".";
-import { ColorRepository } from ".";
 import { DeveloperCertificateRepository } from ".";
 import { DeviceRepository } from ".";
 import { DeviceEnrollmentRepository } from ".";
 import { DeviceEnrollmentBulkCreateRepository } from ".";
 import { DeviceEnrollmentBulkDeleteRepository } from ".";
 import { DeviceEventsRepository } from ".";
-import { ImageRepository } from ".";
 import { ServerCredentialsRepository } from ".";
 import { SubtenantTrustedCertificateRepository } from ".";
 import { SubtenantUserRepository } from ".";
@@ -40,9 +38,6 @@ export class Factory {
     public certificateIssuerConfigRepository(): CertificateIssuerConfigRepository {
         return new CertificateIssuerConfigRepository(this._config);
     }
-    public colorRepository(): ColorRepository {
-        return new ColorRepository(this._config);
-    }
     public developerCertificateRepository(): DeveloperCertificateRepository {
         return new DeveloperCertificateRepository(this._config);
     }
@@ -60,9 +55,6 @@ export class Factory {
     }
     public deviceEventsRepository(): DeviceEventsRepository {
         return new DeviceEventsRepository(this._config);
-    }
-    public imageRepository(): ImageRepository {
-        return new ImageRepository(this._config);
     }
     public serverCredentialsRepository(): ServerCredentialsRepository {
         return new ServerCredentialsRepository(this._config);

@@ -1,6 +1,5 @@
 import { Entity } from "../../../common/entity";
 import { LoginHistory } from "../loginHistory/loginHistory";
-import { LoginProfile } from "../loginProfile/loginProfile";
 import { SubtenantUserStatusEnum } from "./types";
 /**
  *SubtenantUser
@@ -42,11 +41,6 @@ export interface SubtenantUser extends Entity {
     fullName?: string;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *lastLoginTime
      */
     lastLoginTime?: number;
@@ -59,7 +53,7 @@ export interface SubtenantUser extends Entity {
     /**
      *loginProfiles
      */
-    loginProfiles?: Array<LoginProfile>;
+    loginProfiles?: Array<any>;
 
     /**
      *marketingAccepted

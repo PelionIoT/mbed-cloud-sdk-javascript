@@ -4,11 +4,11 @@ import { DeviceEnrollment } from "./deviceEnrollment";
  *DeviceEnrollment adapter
  */
 export class DeviceEnrollmentAdapter extends Adapter {
-    public static fromApi(data: any, instance?: DeviceEnrollment): DeviceEnrollment {
+    public static fromApi(data: any, instance?: any): DeviceEnrollment {
         if (!data) {
             return null;
         }
-        const mappedEntity = DeviceEnrollmentAdapter.assignDefined<DeviceEnrollment>(instance || {}, {
+        const mappedEntity = DeviceEnrollmentAdapter.assignDefined(instance || {}, {
             _discriminator: "DEVICE_ENROLLMENT",
             accountId: data.account_id,
             claimedAt: data.claimed_at,

@@ -4,11 +4,11 @@ import { Device } from "./device";
  *Device adapter
  */
 export class DeviceAdapter extends Adapter {
-    public static fromApi(data: any, instance?: Device): Device {
+    public static fromApi(data: any, instance?: any): Device {
         if (!data) {
             return null;
         }
-        const mappedEntity = DeviceAdapter.assignDefined<Device>(instance || {}, {
+        const mappedEntity = DeviceAdapter.assignDefined(instance || {}, {
             _discriminator: "DEVICE",
             accountId: data.account_id,
             autoUpdate: data.auto_update,
@@ -30,23 +30,13 @@ export class DeviceAdapter extends Adapter {
             firmwareChecksum: data.firmware_checksum,
             hostGateway: data.host_gateway,
             id: data.id,
-            issuerFingerprint: data.issuer_fingerprint,
-            lastOperatorSuspendedCategory: data.last_operator_suspended_category,
-            lastOperatorSuspendedDescription: data.last_operator_suspended_description,
-            lastOperatorSuspendedUpdatedAt: data.last_operator_suspended_updated_at,
-            lastSystemSuspendedCategory: data.last_system_suspended_category,
-            lastSystemSuspendedDescription: data.last_system_suspended_description,
-            lastSystemSuspendedUpdatedAt: data.last_system_suspended_updated_at,
-            lifecycleStatus: data.lifecycle_status,
             manifest: data.manifest,
             manifestTimestamp: data.manifest_timestamp,
             mechanism: data.mechanism,
             mechanismUrl: data.mechanism_url,
             name: data.name,
-            operatorSuspended: data.operator_suspended,
             serialNumber: data.serial_number,
             state: data.state,
-            systemSuspended: data.system_suspended,
             updatedAt: data.updated_at,
             vendorId: data.vendor_id,
         });

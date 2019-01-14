@@ -1,12 +1,11 @@
 import { Adapter } from "../../../common/adapter";
 import { SubtenantUser } from "./subtenantUser";
 import { LoginHistoryAdapter } from "../..";
-import { LoginProfileAdapter } from "../..";
 /**
  *SubtenantUser adapter
  */
 export class SubtenantUserAdapter extends Adapter {
-    public static fromApi(data: any, instance?: SubtenantUser): SubtenantUser {
+    public static fromApi(data: any, instance?: any): SubtenantUser {
         if (!data) {
             return null;
         }
@@ -14,11 +13,7 @@ export class SubtenantUserAdapter extends Adapter {
         if (data.login_history) {
             loginHistory = data.login_history.map(i => LoginHistoryAdapter.fromApi(i));
         }
-        let loginProfiles = [];
-        if (data.login_profiles) {
-            loginProfiles = data.login_profiles.map(i => LoginProfileAdapter.fromApi(i));
-        }
-        const mappedEntity = SubtenantUserAdapter.assignDefined<SubtenantUser>(instance || {}, {
+        const mappedEntity = SubtenantUserAdapter.assignDefined(instance || {}, {
             _discriminator: "SUBTENANT_USER",
             accountId: data.account_id,
             address: data.address,
@@ -30,7 +25,7 @@ export class SubtenantUserAdapter extends Adapter {
             id: data.id,
             lastLoginTime: data.last_login_time,
             loginHistory: loginHistory,
-            loginProfiles: loginProfiles,
+            loginProfiles: data.login_profiles,
             marketingAccepted: data.is_marketing_accepted,
             password: data.password,
             passwordChangedTime: data.password_changed_time,

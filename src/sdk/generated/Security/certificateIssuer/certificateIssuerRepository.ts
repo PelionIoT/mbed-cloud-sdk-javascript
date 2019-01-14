@@ -24,7 +24,6 @@ export class CertificateIssuerRepository extends Repository {
                             description: request.description,
                             issuer_attributes: request.issuerAttributes,
                             issuer_credentials: request.issuerCredentials,
-                            issuer_type: request.issuerType,
                             name: request.name,
                         },
                     },

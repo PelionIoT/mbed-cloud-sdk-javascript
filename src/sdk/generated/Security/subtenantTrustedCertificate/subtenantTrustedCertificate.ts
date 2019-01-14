@@ -40,11 +40,6 @@ export interface SubtenantTrustedCertificate extends Entity {
     enrollmentMode?: boolean;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *isDeveloperCertificate
      */
     isDeveloperCertificate?: boolean;

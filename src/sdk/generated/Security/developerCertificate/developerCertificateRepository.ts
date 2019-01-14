@@ -29,7 +29,7 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
-    public delete(id: string): Promise<void> {
+    public delete(certId: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -37,7 +37,7 @@ export class DeveloperCertificateRepository extends Repository {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "DELETE",
                         pathParams: {
-                            cert_id: id,
+                            cert_id: certId,
                         },
                     },
                     resultsFn
@@ -67,7 +67,7 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
-    public getTrustedCertificateInfo(id: string): Promise<TrustedCertificate> {
+    public trustedCertificateInfo(certId: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -75,7 +75,7 @@ export class DeveloperCertificateRepository extends Repository {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "GET",
                         pathParams: {
-                            cert_id: id,
+                            cert_id: certId,
                         },
                     },
                     resultsFn
