@@ -5,7 +5,7 @@ import { SubtenantUserAdapter } from "../../index";
 import { SubtenantUserCreateRequest } from "./types";
 import { SubtenantUserUpdateRequest } from "./types";
 /**
- *SubtenantUser Repository
+ *SubtenantUser repository
  */
 export class SubtenantUserRepository extends Repository {
     public create(request: SubtenantUserCreateRequest, accountId: string, action?: string): Promise<SubtenantUser> {

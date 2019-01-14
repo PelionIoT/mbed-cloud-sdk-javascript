@@ -3,7 +3,7 @@ import { apiWrapper } from "../../../../common/functions";
 import { ServerCredentials } from "./serverCredentials";
 import { ServerCredentialsAdapter } from "../../index";
 /**
- *ServerCredentials Repository
+ *ServerCredentials repository
  */
 export class ServerCredentialsRepository extends Repository {
     public getBootstrap(): Promise<ServerCredentials> {

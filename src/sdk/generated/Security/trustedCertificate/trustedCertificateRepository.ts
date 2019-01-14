@@ -10,7 +10,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *TrustedCertificate Repository
+ *TrustedCertificate repository
  */
 export class TrustedCertificateRepository extends Repository {
     public create(request: TrustedCertificateCreateRequest): Promise<TrustedCertificate> {

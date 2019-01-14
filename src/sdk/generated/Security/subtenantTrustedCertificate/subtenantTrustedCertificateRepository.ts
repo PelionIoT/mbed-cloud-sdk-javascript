@@ -7,7 +7,7 @@ import { DeveloperCertificate } from "../../index";
 import { DeveloperCertificateAdapter } from "../../index";
 import { SubtenantTrustedCertificateUpdateRequest } from "./types";
 /**
- *SubtenantTrustedCertificate Repository
+ *SubtenantTrustedCertificate repository
  */
 export class SubtenantTrustedCertificateRepository extends Repository {
     public create(

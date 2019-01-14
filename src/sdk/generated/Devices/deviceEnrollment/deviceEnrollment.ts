@@ -32,9 +32,4 @@ export interface DeviceEnrollment extends Entity {
      *expiresAt
      */
     expiresAt?: Date;
-
-    /**
-     *id
-     */
-    id?: string;
 }

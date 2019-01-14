@@ -5,11 +5,11 @@ import { isDeveloperCertificateSetter } from "../../../common/privateFunctions";
  *TrustedCertificate adapter
  */
 export class TrustedCertificateAdapter extends Adapter {
-    public static fromApi(data: any, instance?: TrustedCertificate): TrustedCertificate {
+    public static fromApi(data: any, instance?: any): TrustedCertificate {
         if (!data) {
             return null;
         }
-        const mappedEntity = TrustedCertificateAdapter.assignDefined<TrustedCertificate>(instance || {}, {
+        const mappedEntity = TrustedCertificateAdapter.assignDefined(instance || {}, {
             _discriminator: "TRUSTED_CERTIFICATE",
             accountId: data.account_id,
             certificate: data.certificate,

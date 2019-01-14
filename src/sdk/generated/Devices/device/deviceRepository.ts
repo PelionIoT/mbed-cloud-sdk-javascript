@@ -10,7 +10,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *Device Repository
+ *Device repository
  */
 export class DeviceRepository extends Repository {
     public create(request: DeviceCreateRequest): Promise<Device> {

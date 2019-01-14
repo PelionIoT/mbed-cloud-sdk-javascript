@@ -8,7 +8,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *CertificateIssuerConfig Repository
+ *CertificateIssuerConfig repository
  */
 export class CertificateIssuerConfigRepository extends Repository {
     public create(request: CertificateIssuerConfigCreateRequest): Promise<CertificateIssuerConfig> {

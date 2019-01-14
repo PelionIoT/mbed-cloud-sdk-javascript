@@ -41,11 +41,6 @@ export interface User extends Entity {
     fullName?: string;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *lastLoginTime
      */
     lastLoginTime?: number;

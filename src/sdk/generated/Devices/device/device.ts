@@ -100,11 +100,6 @@ export interface Device extends Entity {
     hostGateway?: string;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *manifest
      */
     manifest?: string;

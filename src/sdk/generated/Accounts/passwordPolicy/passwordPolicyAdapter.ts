@@ -4,11 +4,11 @@ import { PasswordPolicy } from "./passwordPolicy";
  *PasswordPolicy adapter
  */
 export class PasswordPolicyAdapter extends Adapter {
-    public static fromApi(data: any, instance?: PasswordPolicy): PasswordPolicy {
+    public static fromApi(data: any, instance?: any): PasswordPolicy {
         if (!data) {
             return null;
         }
-        const mappedEntity = PasswordPolicyAdapter.assignDefined<PasswordPolicy>(instance || {}, {
+        const mappedEntity = PasswordPolicyAdapter.assignDefined(instance || {}, {
             _discriminator: "PASSWORD_POLICY",
             minimumLength: data.minimum_length,
         });

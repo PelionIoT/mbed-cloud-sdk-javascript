@@ -49,11 +49,6 @@ export interface DeviceEvents extends Entity {
     eventTypeDescription?: string;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *stateChange
      */
     stateChange?: boolean;

@@ -113,11 +113,6 @@ export interface Account extends Entity {
     expirationWarningThreshold?: string;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *idleTimeout
      */
     idleTimeout?: string;

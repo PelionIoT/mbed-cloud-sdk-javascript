@@ -24,11 +24,6 @@ export interface SubtenantUserInvitation extends Entity {
     expiration?: Date;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *loginProfiles
      */
     loginProfiles?: Array<any>;

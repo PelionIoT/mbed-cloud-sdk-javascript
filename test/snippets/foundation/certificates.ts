@@ -8,7 +8,7 @@ describe("certificate examples", () => {
 
         expect(instanceOf<TrustedCertificate>(certificate, "TRUSTED_CERTIFICATE")).toBeTruthy();
 
-        const devInfo = await trustedCertificateContext.developerCertificateInfo(certificate.id);
+        const devInfo = await trustedCertificateContext.getDeveloperCertificateInfo(certificate.id);
 
         expect(instanceOf<DeveloperCertificate>(devInfo, "DEVELOPER_CERTIFICATE")).toBeTruthy();
     });
@@ -20,7 +20,7 @@ describe("certificate examples", () => {
         const developerCertificateContext = new DeveloperCertificateRepository();
         const devCertificate = await developerCertificateContext.get(certificate.id);
 
-        const trustedCertInfo = await developerCertificateContext.trustedCertificateInfo(devCertificate.id);
+        const trustedCertInfo = await developerCertificateContext.getTrustedCertificateInfo(devCertificate.id);
         expect(instanceOf<TrustedCertificate>(trustedCertInfo, "TRUSTED_CERTIFICATE")).toBeTruthy();
     });
 });

@@ -4,11 +4,11 @@ import { DeveloperCertificate } from "./developerCertificate";
  *DeveloperCertificate adapter
  */
 export class DeveloperCertificateAdapter extends Adapter {
-    public static fromApi(data: any, instance?: DeveloperCertificate): DeveloperCertificate {
+    public static fromApi(data: any, instance?: any): DeveloperCertificate {
         if (!data) {
             return null;
         }
-        const mappedEntity = DeveloperCertificateAdapter.assignDefined<DeveloperCertificate>(instance || {}, {
+        const mappedEntity = DeveloperCertificateAdapter.assignDefined(instance || {}, {
             _discriminator: "DEVELOPER_CERTIFICATE",
             accountId: data.account_id,
             certificate: data.developer_certificate,

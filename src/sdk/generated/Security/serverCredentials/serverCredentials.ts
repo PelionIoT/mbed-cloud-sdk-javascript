@@ -9,11 +9,6 @@ export interface ServerCredentials extends Entity {
     createdAt?: Date;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *serverCertificate
      */
     serverCertificate?: string;

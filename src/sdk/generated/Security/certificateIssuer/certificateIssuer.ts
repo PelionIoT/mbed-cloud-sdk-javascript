@@ -15,11 +15,6 @@ export interface CertificateIssuer extends Entity {
     description?: string;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *issuerAttributes
      */
     issuerAttributes?: { [key: string]: string };

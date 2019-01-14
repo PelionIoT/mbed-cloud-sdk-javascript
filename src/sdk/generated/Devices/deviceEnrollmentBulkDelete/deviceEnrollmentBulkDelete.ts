@@ -35,11 +35,6 @@ export interface DeviceEnrollmentBulkDelete extends Entity {
     fullReportFile?: string;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *processedCount
      */
     processedCount?: number;

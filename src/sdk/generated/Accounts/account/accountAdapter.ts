@@ -7,7 +7,7 @@ import { PolicyAdapter } from "../..";
  *Account adapter
  */
 export class AccountAdapter extends Adapter {
-    public static fromApi(data: any, instance?: Account): Account {
+    public static fromApi(data: any, instance?: any): Account {
         if (!data) {
             return null;
         }
@@ -15,7 +15,7 @@ export class AccountAdapter extends Adapter {
         if (data.policies) {
             policies = data.policies.map(i => PolicyAdapter.fromApi(i));
         }
-        const mappedEntity = AccountAdapter.assignDefined<Account>(instance || {}, {
+        const mappedEntity = AccountAdapter.assignDefined(instance || {}, {
             _discriminator: "ACCOUNT",
             addressLine1: data.address_line1,
             addressLine2: data.address_line2,

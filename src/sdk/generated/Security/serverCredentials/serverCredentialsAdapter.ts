@@ -4,11 +4,11 @@ import { ServerCredentials } from "./serverCredentials";
  *ServerCredentials adapter
  */
 export class ServerCredentialsAdapter extends Adapter {
-    public static fromApi(data: any, instance?: ServerCredentials): ServerCredentials {
+    public static fromApi(data: any, instance?: any): ServerCredentials {
         if (!data) {
             return null;
         }
-        const mappedEntity = ServerCredentialsAdapter.assignDefined<ServerCredentials>(instance || {}, {
+        const mappedEntity = ServerCredentialsAdapter.assignDefined(instance || {}, {
             _discriminator: "SERVER_CREDENTIALS",
             createdAt: data.created_at,
             id: data.id,

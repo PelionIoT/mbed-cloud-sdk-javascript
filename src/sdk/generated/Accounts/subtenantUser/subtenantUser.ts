@@ -41,11 +41,6 @@ export interface SubtenantUser extends Entity {
     fullName?: string;
 
     /**
-     *id
-     */
-    id?: string;
-
-    /**
      *lastLoginTime
      */
     lastLoginTime?: number;

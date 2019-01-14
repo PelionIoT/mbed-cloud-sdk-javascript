@@ -5,7 +5,7 @@ import { LoginHistoryAdapter } from "../..";
  *User adapter
  */
 export class UserAdapter extends Adapter {
-    public static fromApi(data: any, instance?: User): User {
+    public static fromApi(data: any, instance?: any): User {
         if (!data) {
             return null;
         }
@@ -13,7 +13,7 @@ export class UserAdapter extends Adapter {
         if (data.login_history) {
             loginHistory = data.login_history.map(i => LoginHistoryAdapter.fromApi(i));
         }
-        const mappedEntity = UserAdapter.assignDefined<User>(instance || {}, {
+        const mappedEntity = UserAdapter.assignDefined(instance || {}, {
             _discriminator: "USER",
             accountId: data.account_id,
             address: data.address,

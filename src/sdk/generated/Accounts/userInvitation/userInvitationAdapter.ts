@@ -4,11 +4,11 @@ import { UserInvitation } from "./userInvitation";
  *UserInvitation adapter
  */
 export class UserInvitationAdapter extends Adapter {
-    public static fromApi(data: any, instance?: UserInvitation): UserInvitation {
+    public static fromApi(data: any, instance?: any): UserInvitation {
         if (!data) {
             return null;
         }
-        const mappedEntity = UserInvitationAdapter.assignDefined<UserInvitation>(instance || {}, {
+        const mappedEntity = UserInvitationAdapter.assignDefined(instance || {}, {
             _discriminator: "USER_INVITATION",
             accountId: data.account_id,
             createdAt: data.created_at,

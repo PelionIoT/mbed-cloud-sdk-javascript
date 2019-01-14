@@ -4,11 +4,11 @@ import { Device } from "./device";
  *Device adapter
  */
 export class DeviceAdapter extends Adapter {
-    public static fromApi(data: any, instance?: Device): Device {
+    public static fromApi(data: any, instance?: any): Device {
         if (!data) {
             return null;
         }
-        const mappedEntity = DeviceAdapter.assignDefined<Device>(instance || {}, {
+        const mappedEntity = DeviceAdapter.assignDefined(instance || {}, {
             _discriminator: "DEVICE",
             accountId: data.account_id,
             autoUpdate: data.auto_update,

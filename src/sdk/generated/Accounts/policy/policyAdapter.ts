@@ -4,11 +4,11 @@ import { Policy } from "./policy";
  *Policy adapter
  */
 export class PolicyAdapter extends Adapter {
-    public static fromApi(data: any, instance?: Policy): Policy {
+    public static fromApi(data: any, instance?: any): Policy {
         if (!data) {
             return null;
         }
-        const mappedEntity = PolicyAdapter.assignDefined<Policy>(instance || {}, {
+        const mappedEntity = PolicyAdapter.assignDefined(instance || {}, {
             _discriminator: "POLICY",
             action: data.action,
             allow: data.allow,

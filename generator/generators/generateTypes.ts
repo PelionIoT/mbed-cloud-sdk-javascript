@@ -26,8 +26,8 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
             if (field.in === "body") {
                 const propType = getPropertyType(field, enums);
                 const key = snakeToCamel(field._key);
-                // const isRequired = field.required || false;
-                const propertyContainer = new PropertyContainer(key, propType, { isInterface: true, isReadonly: true, isOptional: true });
+                const isRequired = field.required || false;
+                const propertyContainer = new PropertyContainer(key, propType, { isInterface: true, isReadonly: true, isOptional: !isRequired });
                 bodyParams.push(propertyContainer);
 
                 if ((field.items && field.items.foreign_key)) {

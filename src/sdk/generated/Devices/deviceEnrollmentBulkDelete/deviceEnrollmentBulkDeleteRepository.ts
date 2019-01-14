@@ -6,7 +6,7 @@ import { downloadErrorsReportFile } from "../../../common/privateFunctions";
 import { downloadFullReportFile } from "../../../common/privateFunctions";
 import { ReadStream } from "fs";
 /**
- *DeviceEnrollmentBulkDelete Repository
+ *DeviceEnrollmentBulkDelete repository
  */
 export class DeviceEnrollmentBulkDeleteRepository extends Repository {
     public delete(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<DeviceEnrollmentBulkDelete> {

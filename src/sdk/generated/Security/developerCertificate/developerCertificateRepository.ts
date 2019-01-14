@@ -6,7 +6,7 @@ import { DeveloperCertificateCreateRequest } from "./types";
 import { TrustedCertificate } from "../../index";
 import { TrustedCertificateAdapter } from "../../index";
 /**
- *DeveloperCertificate Repository
+ *DeveloperCertificate repository
  */
 export class DeveloperCertificateRepository extends Repository {
     public create(request: DeveloperCertificateCreateRequest): Promise<DeveloperCertificate> {
