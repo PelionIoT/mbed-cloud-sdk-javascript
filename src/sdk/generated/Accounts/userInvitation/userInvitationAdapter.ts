@@ -1,5 +1,6 @@
 import { Adapter } from "../../../common/adapter";
 import { UserInvitation } from "./userInvitation";
+import { LoginProfileAdapter } from "../..";
 /**
  *UserInvitation adapter
  */
@@ -8,6 +9,10 @@ export class UserInvitationAdapter extends Adapter {
         if (!data) {
             return null;
         }
+        let loginProfiles = [];
+        if (data.login_profiles) {
+            loginProfiles = data.login_profiles.map(i => LoginProfileAdapter.fromApi(i));
+        }
         const mappedEntity = UserInvitationAdapter.assignDefined<UserInvitation>(instance || {}, {
             _discriminator: "USER_INVITATION",
             accountId: data.account_id,
@@ -15,7 +20,7 @@ export class UserInvitationAdapter extends Adapter {
             email: data.email,
             expiration: data.expiration,
             id: data.id,
-            loginProfiles: data.login_profiles,
+            loginProfiles: loginProfiles,
             updatedAt: data.updated_at,
             userId: data.user_id,
         });

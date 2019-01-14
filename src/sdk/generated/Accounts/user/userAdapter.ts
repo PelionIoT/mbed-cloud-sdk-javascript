@@ -1,6 +1,7 @@
 import { Adapter } from "../../../common/adapter";
 import { User } from "./user";
 import { LoginHistoryAdapter } from "../..";
+import { LoginProfileAdapter } from "../..";
 /**
  *User adapter
  */
@@ -12,6 +13,10 @@ export class UserAdapter extends Adapter {
         let loginHistory = [];
         if (data.login_history) {
             loginHistory = data.login_history.map(i => LoginHistoryAdapter.fromApi(i));
+        }
+        let loginProfiles = [];
+        if (data.login_profiles) {
+            loginProfiles = data.login_profiles.map(i => LoginProfileAdapter.fromApi(i));
         }
         const mappedEntity = UserAdapter.assignDefined<User>(instance || {}, {
             _discriminator: "USER",
@@ -25,7 +30,7 @@ export class UserAdapter extends Adapter {
             id: data.id,
             lastLoginTime: data.last_login_time,
             loginHistory: loginHistory,
-            loginProfiles: data.login_profiles,
+            loginProfiles: loginProfiles,
             marketingAccepted: data.is_marketing_accepted,
             password: data.password,
             passwordChangedTime: data.password_changed_time,

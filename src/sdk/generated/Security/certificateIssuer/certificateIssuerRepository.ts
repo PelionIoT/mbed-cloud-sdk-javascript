@@ -10,7 +10,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *CertificateIssuer Repository
+ *CertificateIssuer repository
  */
 export class CertificateIssuerRepository extends Repository {
     public create(request: CertificateIssuerCreateRequest): Promise<CertificateIssuer> {
@@ -24,6 +24,7 @@ export class CertificateIssuerRepository extends Repository {
                             description: request.description,
                             issuer_attributes: request.issuerAttributes,
                             issuer_credentials: request.issuerCredentials,
+                            issuer_type: request.issuerType,
                             name: request.name,
                         },
                     },

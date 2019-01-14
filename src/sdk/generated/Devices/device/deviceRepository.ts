@@ -10,7 +10,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *Device Repository
+ *Device repository
  */
 export class DeviceRepository extends Repository {
     public create(request: DeviceCreateRequest): Promise<Device> {
@@ -36,6 +36,7 @@ export class DeviceRepository extends Repository {
                             endpoint_type: request.endpointType,
                             firmware_checksum: request.firmwareChecksum,
                             host_gateway: request.hostGateway,
+                            issuer_fingerprint: request.issuerFingerprint,
                             manifest: request.manifest,
                             mechanism: request.mechanism,
                             mechanism_url: request.mechanismUrl,

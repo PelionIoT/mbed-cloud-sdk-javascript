@@ -1,5 +1,6 @@
 import { Entity } from "../../../common/entity";
 import { LoginHistory } from "../loginHistory/loginHistory";
+import { LoginProfile } from "../loginProfile/loginProfile";
 import { SubtenantUserStatusEnum } from "./types";
 /**
  *SubtenantUser
@@ -58,7 +59,7 @@ export interface SubtenantUser extends Entity {
     /**
      *loginProfiles
      */
-    loginProfiles?: Array<any>;
+    loginProfiles?: Array<LoginProfile>;
 
     /**
      *marketingAccepted

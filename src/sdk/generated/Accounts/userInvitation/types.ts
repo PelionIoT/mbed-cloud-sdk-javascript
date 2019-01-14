@@ -1,3 +1,4 @@
+import { LoginProfile } from "../loginProfile/loginProfile";
 /**
  *UserInvitationCreateRequest
  */
@@ -10,7 +11,7 @@ export interface UserInvitationCreateRequest {
     /**
      *loginProfiles
      */
-    readonly loginProfiles?: Array<any>;
+    readonly loginProfiles?: Array<LoginProfile>;
 
     /**
      *validForDays

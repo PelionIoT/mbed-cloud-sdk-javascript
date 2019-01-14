@@ -6,7 +6,7 @@ import { DeveloperCertificateCreateRequest } from "./types";
 import { TrustedCertificate } from "../../index";
 import { TrustedCertificateAdapter } from "../../index";
 /**
- *DeveloperCertificate Repository
+ *DeveloperCertificate repository
  */
 export class DeveloperCertificateRepository extends Repository {
     public create(request: DeveloperCertificateCreateRequest): Promise<DeveloperCertificate> {
@@ -29,7 +29,7 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
-    public delete(certId: string): Promise<void> {
+    public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -37,7 +37,7 @@ export class DeveloperCertificateRepository extends Repository {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "DELETE",
                         pathParams: {
-                            cert_id: certId,
+                            cert_id: id,
                         },
                     },
                     resultsFn
@@ -67,7 +67,7 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
-    public trustedCertificateInfo(certId: string): Promise<TrustedCertificate> {
+    public getTrustedCertificateInfo(id: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -75,7 +75,7 @@ export class DeveloperCertificateRepository extends Repository {
                         url: "/v3/trusted-certificates/{cert_id}",
                         method: "GET",
                         pathParams: {
-                            cert_id: certId,
+                            cert_id: id,
                         },
                     },
                     resultsFn

@@ -37,6 +37,7 @@ export class AccountAdapter extends Adapter {
             displayName: data.display_name,
             email: data.email,
             endMarket: data.end_market,
+            expiration: data.expiration,
             expirationWarningThreshold: data.expiration_warning_threshold,
             id: data.id,
             idleTimeout: data.idle_timeout,

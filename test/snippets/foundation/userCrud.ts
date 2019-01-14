@@ -1,5 +1,6 @@
-import { User, LoginHistory, UserRepository } from "../../../src/sdk/entities";
+import { User, LoginHistory, UserRepository, ApiKey } from "../../../src/sdk/entities";
 import { instanceOf } from "../../functions";
+import { SDK } from "../../../src/sdk";
 
 describe("userCrud", () => {
 
@@ -55,5 +56,16 @@ describe("userCrud", () => {
         } catch (e) {
             throw e;
         }
+    });
+
+    test("apiKey", () => {
+        const sdk = new SDK();
+
+        const apiKey: ApiKey = {
+            name: "my api key",
+            createdAt: new Date(),
+        };
+
+        sdk.entities.apiKeyRepository().create(apiKey);
     });
 });

@@ -8,7 +8,7 @@ import { Paginator } from "../../../../common/pagination";
 import { ListResponse } from "../../../../common/listResponse";
 import { ListOptions } from "../../../../common/interfaces";
 /**
- *User Repository
+ *User repository
  */
 export class UserRepository extends Repository {
     public create(request: UserCreateRequest, action?: string): Promise<User> {
