@@ -6,7 +6,7 @@ export interface UserInvitationCreateRequest {
     /**
      *email
      */
-    readonly email?: string;
+    readonly email: string;
 
     /**
      *loginProfiles

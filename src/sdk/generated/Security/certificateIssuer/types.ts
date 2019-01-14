@@ -21,7 +21,7 @@ export interface CertificateIssuerCreateRequest {
     /**
      *issuerType
      */
-    readonly issuerType?: CertificateIssuerTypeEnum;
+    readonly issuerType: CertificateIssuerTypeEnum;
 
     /**
      *name

@@ -193,7 +193,7 @@ export interface AccountUpdateRequest {
     /**
      *passwordPolicy
      */
-    readonly passwordPolicy?: PasswordPolicy;
+    readonly passwordPolicy: PasswordPolicy;
 
     /**
      *phoneNumber

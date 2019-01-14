@@ -6,7 +6,7 @@ export interface SubtenantUserInvitationCreateRequest {
     /**
      *email
      */
-    readonly email?: string;
+    readonly email: string;
 
     /**
      *loginProfiles
