@@ -9,11 +9,13 @@ export async function generateInterface(entity: any, enums: any): Promise<string
     const enumImports = new Array<string>();
     const properties = new Array<PropertyContainer>();
 
-    for (const f of entity.fields) {
+    for (const f of entity.fields.filter(i => i._key !== "id")) {
         const type = getPropertyType(f, enums);
         const name = snakeToCamel(f._key);
 
-        const property = new PropertyContainer(name, type, { isInterface: true, isOptional: true });
+        const readOnly = !!f.readOnly;
+        const required = !!f.required;
+        const property = new PropertyContainer(name, type, { isInterface: true, isOptional: !required, isReadonly: readOnly });
         properties.push(property);
 
         if (f.enum_reference) {

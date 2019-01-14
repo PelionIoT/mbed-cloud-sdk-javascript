@@ -88,7 +88,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
         parameterList: new ParameterListContainer({
             parameters: [
                 new ParameterContainer("data", "any"),
-                new ParameterContainer("instance", pascalKey, { isRequired: false })
+                new ParameterContainer("instance", "any", { isRequired: false })
             ]
         }),
         methodBody: new AdapterMethodBody(

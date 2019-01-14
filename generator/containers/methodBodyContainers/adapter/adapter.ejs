@@ -7,7 +7,7 @@ return null;
 <%- method %>
 <%_ }); _%>
 <%_ } _%>
-const mappedEntity = <%= enclosingClass %>.assignDefined<<%= returns %>>(instance || {},
+const mappedEntity = <%= enclosingClass %>.assignDefined(instance || {},
 {
 _discriminator: "<%= discriminator.toUpperCase() %>",
 <%# ---------- PROPERTIES ---------- _%>

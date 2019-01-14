@@ -1,5 +1,5 @@
 export abstract class Adapter {
-    protected static assignDefined<T>(target: T, source: T) {
+    protected static assignDefined(target, source) {
 
         Object.keys(source).map((key, _index) => {
             if (source[key] !== undefined) {
