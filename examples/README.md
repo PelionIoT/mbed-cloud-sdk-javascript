@@ -83,9 +83,6 @@ The web bundles support the [Universal Module Definition](https://github.com/umd
 
 The web examples don't use a module loader, so each bundle is available as a browser global under the `MbedCloudSDK` namespace.
 
-__Note:__ [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) protects Mbed Cloud. CORS rules are a browser security feature which restricts cross-origin calls from unknown domains and is only a concern when you use the SDKs directly in a browser (not Node.js).
-If using the SDKs in a browser (perhaps for a single page web application), the domain `localhost` has been whitelisted for Mbed Cloud to enable local development. Before deploying to production, any public domain will need to be whitelisted to avoid CORS restrictions. To do this, please contact Mbed Cloud support.
-
 ### API Keys
 
 These examples utilise a [config.js](web/config.js) file which can read an API Key (and optionally a host) from a cookie, the query string or from the file itself.
