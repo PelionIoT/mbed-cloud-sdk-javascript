@@ -16,7 +16,7 @@ import { factory as loggerFactory } from "./logger";
 async function main() {
     const log = loggerFactory.getLogger("default");
     const outputFolder = "./src/sdk/generated";
-    const configPath = "merged/public/sdk_gen_intermediate.json";
+    const configPath = "api_specifications/public/pelion_dm_public_openapi.yaml";
 
     const generatedConfig = JSON.parse(fs.readFileSync(configPath, "utf-8"));
     const enums = generatedConfig.enums;
