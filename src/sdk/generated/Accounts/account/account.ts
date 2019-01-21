@@ -108,6 +108,11 @@ export interface Account extends Entity {
     endMarket: string;
 
     /**
+     *expiration
+     */
+    readonly expiration?: Date;
+
+    /**
      *expirationWarningThreshold
      */
     expirationWarningThreshold?: string;

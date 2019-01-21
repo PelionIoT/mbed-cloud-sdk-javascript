@@ -7,7 +7,7 @@ export interface SubtenantTrustedCertificateCreateRequest {
     /**
      *certificate
      */
-    readonly certificate: string;
+    readonly certificate?: string;
 
     /**
      *description
@@ -22,12 +22,12 @@ export interface SubtenantTrustedCertificateCreateRequest {
     /**
      *name
      */
-    readonly name: string;
+    readonly name?: string;
 
     /**
      *service
      */
-    readonly service: SubtenantTrustedCertificateServiceEnum;
+    readonly service?: SubtenantTrustedCertificateServiceEnum;
 
     /**
      *status
