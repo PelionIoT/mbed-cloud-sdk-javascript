@@ -1,4 +1,5 @@
 import { Entity } from "../../../common/entity";
+import { LoginProfile } from "../loginProfile/loginProfile";
 /**
  *UserInvitation
  */
@@ -26,7 +27,7 @@ export interface UserInvitation extends Entity {
     /**
      *loginProfiles
      */
-    loginProfiles?: Array<any>;
+    loginProfiles?: Array<LoginProfile>;
 
     /**
      *updatedAt

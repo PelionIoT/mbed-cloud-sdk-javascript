@@ -1,5 +1,6 @@
 import { Entity } from "../../../common/entity";
 import { LoginHistory } from "../loginHistory/loginHistory";
+import { LoginProfile } from "../loginProfile/loginProfile";
 import { UserStatusEnum } from "./types";
 /**
  *User
@@ -53,7 +54,7 @@ export interface User extends Entity {
     /**
      *loginProfiles
      */
-    loginProfiles?: Array<any>;
+    loginProfiles?: Array<LoginProfile>;
 
     /**
      *marketingAccepted

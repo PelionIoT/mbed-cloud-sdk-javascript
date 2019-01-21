@@ -10,6 +10,8 @@ export class LoginProfileAdapter extends Adapter {
         }
         const mappedEntity = LoginProfileAdapter.assignDefined(instance || {}, {
             _discriminator: "LOGIN_PROFILE",
+            id: data.id,
+            name: data.name,
         });
         return mappedEntity;
     }
