@@ -7,32 +7,32 @@ export interface ApiKey extends Entity {
     /**
      *accountId
      */
-    accountId?: string;
+    readonly accountId?: string;
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *creationTime
      */
-    creationTime?: number;
+    readonly creationTime?: number;
 
     /**
      *key
      */
-    key?: string;
+    readonly key?: string;
 
     /**
      *lastLoginTime
      */
-    lastLoginTime?: number;
+    readonly lastLoginTime?: number;
 
     /**
      *name
      */
-    name?: string;
+    name: string;
 
     /**
      *owner
@@ -47,5 +47,5 @@ export interface ApiKey extends Entity {
     /**
      *updatedAt
      */
-    updatedAt?: Date;
+    readonly updatedAt?: Date;
 }

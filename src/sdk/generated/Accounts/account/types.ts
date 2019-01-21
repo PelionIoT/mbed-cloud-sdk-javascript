@@ -84,7 +84,7 @@ export interface AccountCreateRequest {
     /**
      *endMarket
      */
-    readonly endMarket?: string;
+    readonly endMarket: string;
 
     /**
      *phoneNumber
@@ -193,7 +193,7 @@ export interface AccountUpdateRequest {
     /**
      *passwordPolicy
      */
-    readonly passwordPolicy: PasswordPolicy;
+    readonly passwordPolicy?: PasswordPolicy;
 
     /**
      *phoneNumber

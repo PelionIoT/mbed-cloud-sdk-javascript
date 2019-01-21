@@ -6,50 +6,50 @@ export interface DeviceEvents extends Entity {
     /**
      *changes
      */
-    changes?: { [key: string]: string };
+    readonly changes?: { [key: string]: string };
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *data
      */
-    data?: { [key: string]: string };
+    readonly data?: { [key: string]: string };
 
     /**
      *dateTime
      */
-    dateTime?: Date;
+    readonly dateTime?: Date;
 
     /**
      *description
      */
-    description?: string;
+    readonly description?: string;
 
     /**
      *deviceId
      */
-    deviceId?: string;
+    readonly deviceId?: string;
 
     /**
      *eventType
      */
-    eventType?: string;
+    readonly eventType?: string;
 
     /**
      *eventTypeCategory
      */
-    eventTypeCategory?: string;
+    readonly eventTypeCategory?: string;
 
     /**
      *eventTypeDescription
      */
-    eventTypeDescription?: string;
+    readonly eventTypeDescription?: string;
 
     /**
      *stateChange
      */
-    stateChange?: boolean;
+    readonly stateChange?: boolean;
 }

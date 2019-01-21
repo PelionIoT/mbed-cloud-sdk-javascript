@@ -6,10 +6,10 @@ export interface ParentAccount extends Entity {
     /**
      *adminEmail
      */
-    adminEmail?: string;
+    readonly adminEmail?: string;
 
     /**
      *adminName
      */
-    adminName?: string;
+    readonly adminName?: string;
 }

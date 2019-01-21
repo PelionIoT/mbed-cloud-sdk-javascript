@@ -7,22 +7,22 @@ export interface TrustedCertificate extends Entity {
     /**
      *accountId
      */
-    accountId?: string;
+    readonly accountId?: string;
 
     /**
      *certificate
      */
-    certificate?: string;
+    certificate: string;
 
     /**
      *certificateFingerprint
      */
-    certificateFingerprint?: string;
+    readonly certificateFingerprint?: string;
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *description
@@ -47,22 +47,22 @@ export interface TrustedCertificate extends Entity {
     /**
      *issuer
      */
-    issuer?: string;
+    readonly issuer?: string;
 
     /**
      *name
      */
-    name?: string;
+    name: string;
 
     /**
      *ownerId
      */
-    ownerId?: string;
+    readonly ownerId?: string;
 
     /**
      *service
      */
-    service?: TrustedCertificateServiceEnum;
+    service: TrustedCertificateServiceEnum;
 
     /**
      *status
@@ -72,15 +72,15 @@ export interface TrustedCertificate extends Entity {
     /**
      *subject
      */
-    subject?: string;
+    readonly subject?: string;
 
     /**
      *updatedAt
      */
-    updatedAt?: Date;
+    readonly updatedAt?: Date;
 
     /**
      *validity
      */
-    validity?: Date;
+    readonly validity?: Date;
 }

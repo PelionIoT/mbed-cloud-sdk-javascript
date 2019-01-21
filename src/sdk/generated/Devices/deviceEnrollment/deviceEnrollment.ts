@@ -6,30 +6,30 @@ export interface DeviceEnrollment extends Entity {
     /**
      *accountId
      */
-    accountId?: string;
+    readonly accountId?: string;
 
     /**
      *claimedAt
      */
-    claimedAt?: Date;
+    readonly claimedAt?: Date;
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *enrolledDeviceId
      */
-    enrolledDeviceId?: string;
+    readonly enrolledDeviceId?: string;
 
     /**
      *enrollmentIdentity
      */
-    enrollmentIdentity?: string;
+    enrollmentIdentity: string;
 
     /**
      *expiresAt
      */
-    expiresAt?: Date;
+    readonly expiresAt?: Date;
 }

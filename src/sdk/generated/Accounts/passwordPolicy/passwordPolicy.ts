@@ -6,5 +6,5 @@ export interface PasswordPolicy extends Entity {
     /**
      *minimumLength
      */
-    minimumLength?: string;
+    readonly minimumLength?: string;
 }

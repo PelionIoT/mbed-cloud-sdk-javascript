@@ -7,30 +7,30 @@ export interface CertificateEnrollment extends Entity {
     /**
      *certificateName
      */
-    certificateName?: string;
+    readonly certificateName?: string;
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *deviceId
      */
-    deviceId?: string;
+    readonly deviceId?: string;
 
     /**
      *enrollResult
      */
-    enrollResult?: CertificateEnrollmentEnrollResultEnum;
+    readonly enrollResult?: CertificateEnrollmentEnrollResultEnum;
 
     /**
      *enrollStatus
      */
-    enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
+    readonly enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
 
     /**
      *updatedAt
      */
-    updatedAt?: Date;
+    readonly updatedAt?: Date;
 }

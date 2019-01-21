@@ -6,22 +6,22 @@ export interface UserInvitation extends Entity {
     /**
      *accountId
      */
-    accountId?: string;
+    readonly accountId?: string;
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *email
      */
-    email?: string;
+    email: string;
 
     /**
      *expiration
      */
-    expiration?: Date;
+    readonly expiration?: Date;
 
     /**
      *loginProfiles
@@ -31,10 +31,10 @@ export interface UserInvitation extends Entity {
     /**
      *updatedAt
      */
-    updatedAt?: Date;
+    readonly updatedAt?: Date;
 
     /**
      *userId
      */
-    userId?: string;
+    readonly userId?: string;
 }

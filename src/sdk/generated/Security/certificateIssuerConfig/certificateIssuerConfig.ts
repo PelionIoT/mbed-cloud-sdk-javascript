@@ -6,20 +6,20 @@ export interface CertificateIssuerConfig extends Entity {
     /**
      *certificateIssuerId
      */
-    certificateIssuerId?: string;
+    certificateIssuerId: string;
 
     /**
      *certificateReference
      */
-    certificateReference?: string;
+    certificateReference: string;
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *updatedAt
      */
-    updatedAt?: Date;
+    readonly updatedAt?: Date;
 }

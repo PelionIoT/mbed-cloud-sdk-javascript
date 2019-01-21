@@ -30,12 +30,12 @@ export interface Account extends Entity {
     /**
      *adminId
      */
-    adminId?: string;
+    readonly adminId?: string;
 
     /**
      *adminKey
      */
-    adminKey?: string;
+    readonly adminKey?: string;
 
     /**
      *adminName
@@ -80,7 +80,7 @@ export interface Account extends Entity {
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *customFields
@@ -105,7 +105,7 @@ export interface Account extends Entity {
     /**
      *endMarket
      */
-    endMarket?: string;
+    endMarket: string;
 
     /**
      *expirationWarningThreshold
@@ -120,7 +120,7 @@ export interface Account extends Entity {
     /**
      *limits
      */
-    limits?: { [key: string]: string };
+    readonly limits?: { [key: string]: string };
 
     /**
      *mfaStatus
@@ -135,12 +135,12 @@ export interface Account extends Entity {
     /**
      *parentAccount
      */
-    parentAccount?: ParentAccount;
+    readonly parentAccount?: ParentAccount;
 
     /**
      *parentId
      */
-    parentId?: string;
+    readonly parentId?: string;
 
     /**
      *passwordPolicy
@@ -155,7 +155,7 @@ export interface Account extends Entity {
     /**
      *policies
      */
-    policies?: Array<Policy>;
+    readonly policies?: Array<Policy>;
 
     /**
      *postalCode
@@ -165,12 +165,12 @@ export interface Account extends Entity {
     /**
      *reason
      */
-    reason?: string;
+    readonly reason?: string;
 
     /**
      *referenceNote
      */
-    referenceNote?: string;
+    readonly referenceNote?: string;
 
     /**
      *salesContact
@@ -185,25 +185,25 @@ export interface Account extends Entity {
     /**
      *status
      */
-    status?: AccountStatusEnum;
+    readonly status?: AccountStatusEnum;
 
     /**
      *templateId
      */
-    templateId?: string;
+    readonly templateId?: string;
 
     /**
      *tier
      */
-    tier?: string;
+    readonly tier?: string;
 
     /**
      *updatedAt
      */
-    updatedAt?: Date;
+    readonly updatedAt?: Date;
 
     /**
      *upgradedAt
      */
-    upgradedAt?: Date;
+    readonly upgradedAt?: Date;
 }
