@@ -60,7 +60,7 @@
     "watch": "jest --watch",
     "watch:integration": "npm-run-all clean:integration watch:integration:start",
     "watch:integration:start": "tsc-watch -p integration.tsconfig.json --onSuccess \"node test/integration/build/test/integration/codeCoverage.js\"",
-    "watch:integration:debug": "tsc-watch -p integration.tsconfig.json --onSuccess \"ts-node test/integration/server/server.ts\"",
+    "watch:integration:debug": "ts-node-dev test/integration/server/server.ts",
     "tpip": "node scripts/generate-tpip.js"
   },
   "devDependencies": {
@@ -96,6 +96,7 @@
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.3",
     "ts-node": "^7.0.1",
+    "ts-node-dev": "^1.0.0-pre.32",
     "tsc-watch": "^1.0.26",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",

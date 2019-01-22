@@ -2,8 +2,6 @@ import express = require("express");
 import { FoundationInstanceCache } from "../../cache/foundationInstanceCache";
 import { logMessage } from "../../logger";
 import { sendException } from "../utilities";
-import { SDKInstance } from "../../Instance/SDKInstance";
-import { EntityInstance } from "../../Instance/EntityInstance";
 
 export const allInstances = (app: express.Application, foundationCache: FoundationInstanceCache) => {
 
