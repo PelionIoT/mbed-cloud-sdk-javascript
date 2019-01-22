@@ -1,6 +1,6 @@
-import { TestResult, TestError } from "./serverMessages";
+import { TestResult, TestError } from "./server/serverMessages";
 import { SDKError } from "../../src/common/sdkError";
-import { ServerError } from "./error";
+import { ServerError } from "./server/error";
 interface SdkModule {
     name: string | undefined;
     pythonName: string | undefined;

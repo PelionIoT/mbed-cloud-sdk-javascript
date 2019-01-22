@@ -109,22 +109,26 @@ const specialMethodsMapping: any = {
         }
     }
 };
+
 function snakeToCamel(snake: string) {
     return snake.replace(/(\_\w)/g, match => {
         return match[1].toUpperCase();
     });
 }
+
 function camelToSnake(camel: string) {
     return camel.replace(/([A-Z]+?)/g, (match, _, i) => {
         return `${i === 0 ? "" : "_"}${match.toLowerCase()}`;
     });
 }
+
 function isSpecialMappingMethod(sdkModule: string | undefined, methodName: string | undefined): boolean {
     if (!sdkModule || !methodName) {
         return false;
     }
     return specialMethodsMapping[sdkModule] && specialMethodsMapping[sdkModule][methodName];
 }
+
 function mapSpecialMethodsArg(sdkModule: string | undefined, methodName: string | undefined, arg: any): any {
     if (!arg || !sdkModule || !methodName) {
         return arg;
@@ -134,12 +138,15 @@ function mapSpecialMethodsArg(sdkModule: string | undefined, methodName: string 
     }
     return arg;
 }
+
 function reverseMap(value: string | undefined): string {
     return (value) ? camelToSnake(value) : "";
 }
+
 function map(value: string | undefined): string {
     return (value) ? snakeToCamel(value) : "";
 }
+
 function convertObjectCase(obj: any, fromCamelToSnake: boolean): any {
     if (obj && typeof obj === "object") {
         if (!Array.isArray(obj)) {
@@ -154,6 +161,7 @@ function convertObjectCase(obj: any, fromCamelToSnake: boolean): any {
         return convertDateToUTC(obj);
     }
 }
+
 function convertDateToUTC(value: string): string {
     if (dateRegex.test(value)) {
         const date: number | undefined = Date.parse(value);
@@ -163,6 +171,7 @@ function convertDateToUTC(value: string): string {
     }
     return value;
 }
+
 function mapMethod(method: string): string {
     // Async function calls just use normal functions
     method = method.replace(/_async$/, "");
@@ -170,6 +179,7 @@ function mapMethod(method: string): string {
     // Camel-case the method
     return map(method);
 }
+
 function mapModule(module: string): string {
     // Camel-case the method
     module = map(module);
@@ -177,10 +187,12 @@ function mapModule(module: string): string {
     module = module[0].toUpperCase() + module.slice(1);
     return `${module}Api`;
 }
+
 function reverseMapModule(module: string): string {
     // Snake-case the module
     return reverseMap(module.replace("Api", ""));
 }
+
 function reverseMapMethod(method: string): string {
     // Snake-case the method
     return reverseMap(method);
@@ -199,6 +211,7 @@ function mapJsonArgs(snakeObject: any): Array<any> {
         return [];
     }
 }
+
 function mapResult(result: any): any {
     if (!result) return result;
 

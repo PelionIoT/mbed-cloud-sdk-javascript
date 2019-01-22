@@ -1,7 +1,7 @@
-import { SdkModule, Instance, Method, SuccessCallback, ErrorCallback, Exception } from "./types";
-import { ServerError } from "./error";
+import { SdkModule, Instance, Method, SuccessCallback, ErrorCallback, Exception } from "../types";
+import { ServerError } from "../server/error";
 import { isSpecialMappingMethod, mapSpecialMethodsArg, mapResult, reverseMapMethod } from "./argumentMapping";
-import { MethodDescription } from "./serverMessages";
+import { MethodDescription } from "../server/serverMessages";
 
 function retrieveRelatedObject(methodName: string | undefined): string | undefined {
     // Hack to determine from its name, the objects type the API deals with.
@@ -36,7 +36,6 @@ function flattenArguments(args: any): Array<any> {
 }
 
 export class SdkApi {
-
     public name: string | undefined;
     public relatedObject: string | undefined;
     public argNumber: number;
