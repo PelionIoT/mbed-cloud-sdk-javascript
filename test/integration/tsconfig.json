@@ -5,5 +5,10 @@
     "allowJs": true,
     "sourceMap": true,
     "outDir": "server",
+    "lib": [
+      "es2015",
+      "es2017",
+      "dom"
+    ]
   }
 }

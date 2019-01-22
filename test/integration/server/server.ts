@@ -2,16 +2,23 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import { logMessage } from "../logger";
 import * as  http from "http";
-import { apiModules } from "./apiModules";
-import { apiInstances } from "./apiInstances";
+import { apiModules } from "./api/apiModules";
+import { apiInstances } from "./api/apiInstances";
 import { ModuleInstanceCache } from "../cache/moduleInstanceCache";
+import { FoundationInstanceCache } from "../cache/foundationInstanceCache";
+import { sdkInstances } from "./foundation/sdkInstances";
+import { entityInstances } from "./foundation/entityInstances";
+import { allInstances } from "./foundation/allInstances";
 
 const port: number = 5000;
 
-const app = express();
-app.use(bodyParser.json());
-
+// set up caches
 const moduleInstanceCache = new ModuleInstanceCache();
+const foundationInstanceCache = new FoundationInstanceCache();
+
+// set up server app
+const app: express.Application = express();
+app.use(bodyParser.json());
 
 app.get("/ping", (_req, res, _next) => {
     logMessage("Ping ---> <--- Pong");
@@ -34,6 +41,15 @@ apiModules(app, moduleInstanceCache);
 
 // api instance endpoints
 apiInstances(app, port, moduleInstanceCache);
+
+// sdk instances
+sdkInstances(app, foundationInstanceCache);
+
+// entity instances
+entityInstances(app, foundationInstanceCache);
+
+// all instances
+allInstances(app, foundationInstanceCache);
 
 process.on("SIGINT", () => {
     quit();
@@ -60,3 +76,6 @@ export function quit(): void {
     }
     process.exit();
 }
+
+// Start the SDK test server.
+start();

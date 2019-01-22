@@ -3,7 +3,7 @@ import { ServerError } from "../server/error";
 import * as MbedCloudSDK from "../../../src";
 import { reverseMapModule, mapModule } from "../mapping/argumentMapping";
 import { ConnectionOptions } from "../../../src/common/interfaces";
-import { ModuleInstance } from "../Instance/ModuleInstance";
+import { ModuleInstance } from "../Instance/moduleInstance";
 
 export class ModuleInstanceCache extends Cache<ModuleInstance> {
     private moduleList: Array<string>;
@@ -25,7 +25,7 @@ export class ModuleInstanceCache extends Cache<ModuleInstance> {
         if (!instance.isValid()) {
             throw new ServerError(500, `Instance ("${instance.id}") of module ["${instance.sdkModule}"] cannot be stored, as invalid`);
         }
-        super.addInstance(instance.id, instance);
+        super.addInstance(instance);
         return instance;
     }
 

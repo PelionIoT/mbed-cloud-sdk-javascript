@@ -1,4 +1,3 @@
-
 export class Cache<T> {
 
     private instanceCache: {
@@ -17,12 +16,14 @@ export class Cache<T> {
         return this.instanceCache[key];
     }
 
-    public addInstance(key: string, instance: T): void {
-        this.instanceCache[key] = instance;
+    public addInstance(instance: T): void {
+        // tslint:disable-next-line:no-string-literal
+        this.instanceCache[instance["id"]] = instance;
     }
 
-    public deleteInstance(key: string): void {
+    public deleteInstance(key: string): boolean {
         delete this.instanceCache[key];
+        return true;
     }
 
     public deleteAllInstances(): void {

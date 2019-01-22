@@ -1,4 +1,4 @@
-import { Instance } from "./Instance";
+import { Instance } from "./instance";
 import { ConnectionOptions } from "../../../src/common/interfaces";
 import { mapModule, mapMethod } from "../mapping/argumentMapping";
 import { SdkModule, SuccessCallback, ErrorCallback } from "../types";
@@ -6,7 +6,7 @@ import { TestStubApi } from "../test/testStub";
 import * as MbedCloudSDK from "../../../src";
 import { SdkApi } from "../mapping/sdkMethod";
 import { ServerError } from "../server/error";
-import { ModuleDescription } from "../server/serverMessages";
+import { ModuleDescription } from "../server/api/serverMessages";
 
 export class ModuleInstance extends Instance<any> {
 

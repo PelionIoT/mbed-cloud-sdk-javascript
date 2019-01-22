@@ -1,10 +1,10 @@
-import { logMessage } from "../logger";
-import { sendException, sendApiError } from "./utilities";
-import { ServerError } from "./error";
+import { logMessage } from "../../logger";
+import { sendException, sendApiError } from "../utilities";
+import { ServerError } from "../error";
 import { TestResult, TestError } from "./serverMessages";
-import { mapJsonArgs } from "../mapping/argumentMapping";
-import { ModuleInstanceCache } from "../cache/moduleInstanceCache";
-import { ModuleInstance } from "../Instance/ModuleInstance";
+import { mapJsonArgs } from "../../mapping/argumentMapping";
+import { ModuleInstanceCache } from "../../cache/moduleInstanceCache";
+import { ModuleInstance } from "../../Instance/moduleInstance";
 
 const instanceIdParam: string = "instanceId";
 const methodIdParam: string = "methodId";
@@ -20,7 +20,7 @@ export const apiInstances = (app, port, instanceCache: ModuleInstanceCache) => {
     });
 
     app.get("/instances/:instanceId", (req, res, _next) => {
-        const instanceId: string | undefined = req.params[instanceIdParam];
+        const instanceId: string = req.params[instanceIdParam];
         logMessage(`Fetching instance ("${instanceId}")`);
         if (!instanceId) {
             sendException(res, new ServerError(400, "The instance id has not been specified"));
@@ -34,7 +34,7 @@ export const apiInstances = (app, port, instanceCache: ModuleInstanceCache) => {
     });
 
     app.delete("/instances/:instanceId", (req, res, _next) => {
-        const instanceId: string | undefined = req.params[instanceIdParam];
+        const instanceId: string = req.params[instanceIdParam];
         logMessage(`Deleting instance ("${instanceId}")`);
         if (!instanceId) {
             sendException(res, new ServerError(400, "The instance id has not been specified"));
@@ -49,13 +49,13 @@ export const apiInstances = (app, port, instanceCache: ModuleInstanceCache) => {
     });
 
     app.get("/instances/:instanceId/methods", (req, res, _next) => {
-        const instanceId: string | undefined = req.params[instanceIdParam];
+        const instanceId: string = req.params[instanceIdParam];
         logMessage(`Listing instance ("${instanceId}") methods`);
         if (!instanceId) {
             sendException(res, new ServerError(400, "The instance id has not been specified"));
             return;
         }
-        let instance: ModuleInstance | undefined;
+        let instance: ModuleInstance;
         try {
             instance = instanceCache.getModuleInstance(instanceId);
             res.json(instance.listApis().map(m => m.toJson()));
@@ -68,13 +68,13 @@ export const apiInstances = (app, port, instanceCache: ModuleInstanceCache) => {
         logMessage(`TEST http://localhost:${port}${req.url} at ${new Date().toISOString()}`);
 
         // Instance
-        const instanceId: string | undefined = req.params[instanceIdParam];
+        const instanceId: string = req.params[instanceIdParam];
         if (!instanceId) {
             sendException(res, new ServerError(400, "The instance id has not been specified"));
             return;
         }
         // Method
-        const methodId: string | undefined = req.params[methodIdParam];
+        const methodId: string = req.params[methodIdParam];
         if (!methodId) {
             sendException(res, new ServerError(400, "The method id has not been specified"));
             return;
@@ -87,11 +87,11 @@ export const apiInstances = (app, port, instanceCache: ModuleInstanceCache) => {
                 const argsStr: string = JSON.stringify(args);
                 logMessage(`USING ${argsStr}`);
             }
-            instance.executeMethod(methodId, args, (result: TestResult | undefined) => {
+            instance.executeMethod(methodId, args, (result: TestResult) => {
                 if (result) {
                     res.json(result);
                 }
-            }, (error: TestError | undefined) => {
+            }, (error: TestError) => {
                 if (error) {
                     sendApiError(res, error);
                 }

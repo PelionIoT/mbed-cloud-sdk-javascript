@@ -1,4 +1,4 @@
-import { TestResult, TestError } from "./server/serverMessages";
+import { TestResult, TestError } from "./server/api/serverMessages";
 import { SDKError } from "../../src/common/sdkError";
 import { ServerError } from "./server/error";
 interface SdkModule {

@@ -1,5 +1,7 @@
+import { SDK } from "../../../src";
+import { Repository } from "../../../src/sdk/common/repository";
 
-export class Instance<T> {
+export class Instance<T extends Repository | SDK> {
     public id: string;
     public createdAt: Date;
     public instance: T;

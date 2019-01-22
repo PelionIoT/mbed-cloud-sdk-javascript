@@ -1,6 +1,6 @@
 import { logMessage } from "../logger";
 import { ConnectionOptions } from "../../../src/common/interfaces";
-import { TestError } from "./serverMessages";
+import { TestError } from "./api/serverMessages";
 import { ServerError } from "./error";
 import { Exception } from "../types";
 import { RunnerConnectionOptions } from "./types";

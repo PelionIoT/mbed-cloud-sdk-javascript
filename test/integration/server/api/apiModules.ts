@@ -1,9 +1,9 @@
-import { logMessage } from "../logger";
-import { sendException, determineInstanceConfig } from "./utilities";
-import { ServerError } from "./error";
-import { ConnectionOptions } from "../../../src/common/interfaces";
-import { ModuleInstanceCache } from "../cache/moduleInstanceCache";
-import { ModuleInstance } from "../Instance/ModuleInstance";
+import { logMessage } from "../../logger";
+import { sendException, determineInstanceConfig } from "../utilities";
+import { ServerError } from "../error";
+import { ConnectionOptions } from "../../../../src/common/interfaces";
+import { ModuleInstanceCache } from "../../cache/moduleInstanceCache";
+import { ModuleInstance } from "../../Instance/moduleInstance";
 
 const moduleIdParam: string = "moduleId";
 
