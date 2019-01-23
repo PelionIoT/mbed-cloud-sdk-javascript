@@ -6,6 +6,9 @@ import { Config } from "../../../../src";
 
 export const sdkInstances = (app: express.Application, foundationCache: FoundationInstanceCache) => {
 
+    /**
+     * Get all SDK instances
+     */
     app.get("/foundation/sdk/instances", (_req, res) => {
         logMessage("Listing all foundation sdk instances");
         try {
@@ -15,6 +18,9 @@ export const sdkInstances = (app: express.Application, foundationCache: Foundati
         }
     });
 
+    /**
+     * Create a new SDK instance
+     */
     app.post("/foundation/sdk/instances", (req, res) => {
         logMessage("Creating new SDK instance");
         try {

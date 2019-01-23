@@ -5,6 +5,9 @@ import { sendException } from "../utilities";
 
 export const allInstances = (app: express.Application, foundationCache: FoundationInstanceCache) => {
 
+    /**
+     * Get all foundation instances
+     */
     app.get("/foundation/instances", (_req, res) => {
         logMessage("List all foundation instances");
         try {
@@ -14,6 +17,9 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
         }
     });
 
+    /**
+     * Get information of particular instance
+     */
     app.get("/foundation/instances/:instanceId", (req, res) => {
         const instanceId = req.param("instanceId");
         logMessage(`Get Instance Information for ${instanceId}`);
@@ -24,6 +30,9 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
         }
     });
 
+    /**
+     * Delete an instance
+     */
     app.delete("/foundation/instances/:instanceId", (req, res) => {
         const instanceId = req.param("instanceId");
         logMessage(`Delete instance ${instanceId}`);
@@ -34,6 +43,9 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
         }
     });
 
+    /**
+     * Get list of methods on an instance
+     */
     app.get("/foundation/instances/:instanceId/methods", (req, res) => {
         const instanceId = req.param("instanceId");
         logMessage(`List instance Methods for ${instanceId}`);
@@ -45,6 +57,9 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
         }
     });
 
+    /**
+     * Executre a method on an instance
+     */
     app.post("/foundation/instances/:instanceId:/methods/:methodId", (req, res) => {
         const instanceId = req.param("instanceId");
         const methodId = req.param("methodId");

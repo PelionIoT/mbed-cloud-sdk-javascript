@@ -25,7 +25,7 @@ export class ModuleInstanceCache extends Cache<ModuleInstance> {
         if (!instance.isValid()) {
             throw new ServerError(500, `Instance ("${instance.id}") of module ["${instance.sdkModule}"] cannot be stored, as invalid`);
         }
-        super.addInstance(instance);
+        super.addInstance(instance.id, instance);
         return instance;
     }
 

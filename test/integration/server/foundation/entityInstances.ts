@@ -7,6 +7,9 @@ import { Config } from "../../../../src/sdk";
 
 export const entityInstances = (app: express.Application, foundationCache: FoundationInstanceCache) => {
 
+    /**
+     * Get list of all entity instances
+     */
     app.get("/foundation/entities", (_req, res) => {
         logMessage("List all foundation entities");
         try {
@@ -16,6 +19,9 @@ export const entityInstances = (app: express.Application, foundationCache: Found
         }
     });
 
+    /**
+     * Get all instances for a particular entity
+     */
     app.get("/foundation/entities/:entityId/instances", (req, res) => {
         const entityId = req.param("entityId");
         try {
@@ -25,6 +31,9 @@ export const entityInstances = (app: express.Application, foundationCache: Found
         }
     });
 
+    /**
+     * Create a new entity instance
+     */
     app.post("/foundation/entities/:entityId/instances", (req, res) => {
         const entityId = req.param("entityId");
         try {
