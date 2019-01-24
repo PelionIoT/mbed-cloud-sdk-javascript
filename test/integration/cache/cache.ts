@@ -29,7 +29,7 @@ export class Cache<T> {
      * @param instance The instance to store in cache
      */
     public addInstance(key: string, instance: T): void {
-        this.instanceCache[instance[key]] = instance;
+        this.instanceCache[key] = instance;
     }
 
     /**

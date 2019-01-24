@@ -1,0 +1,1 @@
+export { userSchema } from "./User";

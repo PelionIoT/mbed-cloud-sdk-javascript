@@ -36,12 +36,12 @@ function flattenArguments(args: any): Array<any> {
 }
 
 export class SdkApi {
-    public name: string | undefined;
-    public relatedObject: string | undefined;
+    public name: string;
+    public relatedObject: string;
     public argNumber: number;
-    public method: Method | undefined;
+    public method: Method;
 
-    public constructor(methodName: string | undefined, method: Method | undefined) {
+    public constructor(methodName: string, method: Method) {
         this.name = methodName;
         this.relatedObject = retrieveRelatedObject(methodName);
         if (method) {

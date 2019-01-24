@@ -24,6 +24,7 @@ export const entityInstances = (app: express.Application, foundationCache: Found
      */
     app.get("/foundation/entities/:entityId/instances", (req, res) => {
         const entityId = req.param("entityId");
+        logMessage(`List all ${entityId} foundation entities`);
         try {
             res.json(foundationCache.listEntityInstances().filter(e => e.name === entityId).map(e => e.toJson()));
         } catch (exception) {
@@ -39,7 +40,8 @@ export const entityInstances = (app: express.Application, foundationCache: Found
         try {
             const config = new Config(determineInstanceConfig(req.body));
             const instance = foundationCache.createEntityInstance(entityId, config);
-            return instance.toJson();
+            res.status(201);
+            res.send(instance.toJson());
         } catch (exception) {
             sendException(res, exception);
         }

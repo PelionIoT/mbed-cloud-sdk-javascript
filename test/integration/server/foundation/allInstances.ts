@@ -60,13 +60,13 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
     /**
      * Executre a method on an instance
      */
-    app.post("/foundation/instances/:instanceId:/methods/:methodId", (req, res) => {
+    app.post("/foundation/instances/:instanceId/methods/:methodId", async (req, res) => {
         const instanceId = req.param("instanceId");
         const methodId = req.param("methodId");
         logMessage(`Execute ${methodId} on ${instanceId}`);
         try {
             const instance = foundationCache.getInstance(instanceId);
-            res.json(instance);
+            res.json(await instance.executeMethod(methodId, req.body));
         } catch (exception) {
             sendException(res, exception);
         }

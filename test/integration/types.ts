@@ -14,6 +14,12 @@ type SuccessCallback = (result: TestResult | undefined) => void;
 type ErrorCallback = (error: TestError | undefined) => void;
 type Exception = SDKError | ServerError;
 
+export function pascalToCamel(string: string) {
+    if (string) {
+        return string.charAt(0).toLowerCase() + string.slice(1);
+    }
+}
+
 export {
     Method,
     SuccessCallback,

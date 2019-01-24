@@ -26,6 +26,7 @@ export const sdkInstances = (app: express.Application, foundationCache: Foundati
         try {
             const config = new Config(determineInstanceConfig(req.body));
             const instance = foundationCache.createSDKInstance(config);
+            res.status(201);
             res.json(instance.toJson());
         } catch (exception) {
             sendException(res, exception);

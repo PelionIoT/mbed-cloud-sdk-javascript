@@ -9,7 +9,7 @@ import { ModuleInstance } from "../../Instance/moduleInstance";
 const instanceIdParam: string = "instanceId";
 const methodIdParam: string = "methodId";
 
-export const apiInstances = (app, port, instanceCache: ModuleInstanceCache) => {
+export const apiInstances = (app, instanceCache: ModuleInstanceCache) => {
     app.get("/instances", (_req, res, _next) => {
         logMessage("Listing all module instances");
         try {
@@ -65,7 +65,7 @@ export const apiInstances = (app, port, instanceCache: ModuleInstanceCache) => {
     });
 
     app.post("/instances/:instanceId/methods/:methodId", (req, res, _next) => {
-        logMessage(`TEST http://localhost:${port}${req.url} at ${new Date().toISOString()}`);
+        logMessage(`TEST http://localhost/${req.url} at ${new Date().toISOString()}`);
 
         // Instance
         const instanceId: string = req.params[instanceIdParam];
@@ -81,6 +81,8 @@ export const apiInstances = (app, port, instanceCache: ModuleInstanceCache) => {
         }
         try {
             const instance: ModuleInstance = instanceCache.getModuleInstance(instanceId);
+            // tslint:disable-next-line:no-console
+            console.log(req.body);
             const args: Array<any> = mapJsonArgs(req.body);
             logMessage(`CALLING method ("${methodId}") on instance ("${instanceId}")`);
             if (args.length) {
