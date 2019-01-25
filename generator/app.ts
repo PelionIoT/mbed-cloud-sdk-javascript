@@ -74,7 +74,7 @@ async function main() {
         log.info(`Wrote index file for ${pascalKey} in ${currentGroup}`);
 
         // generate schema files
-        generateSchemas();
+        generateSchemas(typesFile, adaptersFile, repositoryFile);
     }
 
     // generateFactory
