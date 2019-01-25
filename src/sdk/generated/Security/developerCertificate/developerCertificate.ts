@@ -6,17 +6,17 @@ export interface DeveloperCertificate extends Entity {
     /**
      *accountId
      */
-    accountId?: string;
+    readonly accountId?: string;
 
     /**
      *certificate
      */
-    certificate?: string;
+    readonly certificate?: string;
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *description
@@ -26,10 +26,10 @@ export interface DeveloperCertificate extends Entity {
     /**
      *name
      */
-    name?: string;
+    name: string;
 
     /**
      *securityFileContent
      */
-    securityFileContent?: string;
+    readonly securityFileContent?: string;
 }

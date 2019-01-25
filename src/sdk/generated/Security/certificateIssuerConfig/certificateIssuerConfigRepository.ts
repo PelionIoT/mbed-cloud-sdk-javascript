@@ -69,6 +69,22 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
+    public getDefault(): Promise<CertificateIssuerConfig> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/certificate-issuer-configurations/lwm2m",
+                        method: "GET",
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, CertificateIssuerConfigAdapter.fromApi(data));
+            }
+        );
+    }
     public list(options?: ListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateIssuerConfig>> => {
             pageOptions = pageOptions || {};
@@ -96,22 +112,6 @@ export class CertificateIssuerConfigRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
-    }
-    public lwm2m(): Promise<CertificateIssuerConfig> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/certificate-issuer-configurations/lwm2m",
-                        method: "GET",
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, CertificateIssuerConfigAdapter.fromApi(data));
-            }
-        );
     }
     public update(request: CertificateIssuerConfigUpdateRequest, id: string): Promise<CertificateIssuerConfig> {
         return apiWrapper(

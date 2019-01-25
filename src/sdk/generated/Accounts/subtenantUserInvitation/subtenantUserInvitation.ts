@@ -1,4 +1,5 @@
 import { Entity } from "../../../common/entity";
+import { LoginProfile } from "../loginProfile/loginProfile";
 /**
  *SubtenantUserInvitation
  */
@@ -6,35 +7,35 @@ export interface SubtenantUserInvitation extends Entity {
     /**
      *accountId
      */
-    accountId?: string;
+    accountId: string;
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *email
      */
-    email?: string;
+    email: string;
 
     /**
      *expiration
      */
-    expiration?: Date;
+    readonly expiration?: Date;
 
     /**
      *loginProfiles
      */
-    loginProfiles?: Array<any>;
+    loginProfiles?: Array<LoginProfile>;
 
     /**
      *updatedAt
      */
-    updatedAt?: Date;
+    readonly updatedAt?: Date;
 
     /**
      *userId
      */
-    userId?: string;
+    readonly userId?: string;
 }

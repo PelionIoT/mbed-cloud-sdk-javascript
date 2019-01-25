@@ -1,5 +1,6 @@
 import { Entity } from "../../../common/entity";
 import { LoginHistory } from "../loginHistory/loginHistory";
+import { LoginProfile } from "../loginProfile/loginProfile";
 import { SubtenantUserStatusEnum } from "./types";
 /**
  *SubtenantUser
@@ -8,7 +9,7 @@ export interface SubtenantUser extends Entity {
     /**
      *accountId
      */
-    accountId?: string;
+    accountId: string;
 
     /**
      *address
@@ -18,22 +19,22 @@ export interface SubtenantUser extends Entity {
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *creationTime
      */
-    creationTime?: number;
+    readonly creationTime?: number;
 
     /**
      *email
      */
-    email?: string;
+    email: string;
 
     /**
      *emailVerified
      */
-    emailVerified?: boolean;
+    readonly emailVerified?: boolean;
 
     /**
      *fullName
@@ -43,17 +44,17 @@ export interface SubtenantUser extends Entity {
     /**
      *lastLoginTime
      */
-    lastLoginTime?: number;
+    readonly lastLoginTime?: number;
 
     /**
      *loginHistory
      */
-    loginHistory?: Array<LoginHistory>;
+    readonly loginHistory?: Array<LoginHistory>;
 
     /**
      *loginProfiles
      */
-    loginProfiles?: Array<any>;
+    loginProfiles?: Array<LoginProfile>;
 
     /**
      *marketingAccepted
@@ -68,7 +69,7 @@ export interface SubtenantUser extends Entity {
     /**
      *passwordChangedTime
      */
-    passwordChangedTime?: number;
+    readonly passwordChangedTime?: number;
 
     /**
      *phoneNumber
@@ -93,7 +94,7 @@ export interface SubtenantUser extends Entity {
     /**
      *updatedAt
      */
-    updatedAt?: Date;
+    readonly updatedAt?: Date;
 
     /**
      *username

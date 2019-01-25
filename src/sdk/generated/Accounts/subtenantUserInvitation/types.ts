@@ -1,3 +1,4 @@
+import { LoginProfile } from "../loginProfile/loginProfile";
 /**
  *SubtenantUserInvitationCreateRequest
  */
@@ -5,12 +6,12 @@ export interface SubtenantUserInvitationCreateRequest {
     /**
      *email
      */
-    readonly email?: string;
+    readonly email: string;
 
     /**
      *loginProfiles
      */
-    readonly loginProfiles?: Array<any>;
+    readonly loginProfiles?: Array<LoginProfile>;
 
     /**
      *validForDays

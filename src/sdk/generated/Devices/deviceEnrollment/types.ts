@@ -5,5 +5,5 @@ export interface DeviceEnrollmentCreateRequest {
     /**
      *enrollmentIdentity
      */
-    readonly enrollmentIdentity?: string;
+    readonly enrollmentIdentity: string;
 }
