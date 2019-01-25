@@ -3,47 +3,47 @@ import { Schema } from "../../../schema/schema"
 export const <%= key %>Schema = (): Schema => {
     return Object.assign(new Schema(), {
         name: "<%= pascalKey %>",
-        <% if (fields.length > 0 ) { %>
+        <% if (fields.length > 0 ) { _%>
             fields: [
-            <% fields.forEach(function(field) { %>
+            <% fields.forEach(function(field) { _%>
                 {
                     name: "<%= field.name %>",
                     apiName: "<%= field.apiName %>",
                     type: "<%- field.type %>",
                 },
-            <% }); %>
+            <% }); _%>
             ],
         <% } %>
         <% if (methods.length > 0 ) { _%>
             methods: [
-                <% methods.forEach(function(method) { %>
+                <% methods.forEach(function(method) { _%>
                 {
                     name: "<%= method.name %>",
                     returnType: "<%- method.returnType %>",
                     parameters: [
-                        <% if (method.parameters.length > 0) { %>
-                            <% method.parameters.forEach(function(parameter) { %>
+                        <% if (method.parameters.length > 0) { _%>
+                            <% method.parameters.forEach(function(parameter) { _%>
                                 {
                                     name: "<%= parameter.name %>",
                                     position: <%= parameter.position %>,
                                     type: "<%- parameter.type %>",
-                                    <% if (parameter.subParams.length > 0) { %>
+                                    <% if (parameter.subParams.length > 0) { _%>
                                         subParams: [
-                                            <% parameter.subParams.forEach(function(subParam) { %>
+                                            <% parameter.subParams.forEach(function(subParam) { _%>
                                                 {
                                                     name: "<%= subParam.name %>",
                                                     type: "<%- subParam.type %>",
                                                 },
-                                            <% }); %>
+                                            <% }); _%>
                                         ],
-                                    <% } %>
+                                    <% } _%>
                                 },
-                            <% });%>
-                        <% } %>
+                            <% }); _%>
+                        <% } _%>
                     ],
                 },
-                <% }); %>
+                <% }); _%>
             ],
-        <% } %>
+        <% } _%>
     });
 }

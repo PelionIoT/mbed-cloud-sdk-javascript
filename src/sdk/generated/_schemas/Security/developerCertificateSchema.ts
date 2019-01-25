@@ -3,38 +3,32 @@ import { Schema } from "../../../schema/schema";
 export const developerCertificateSchema = (): Schema => {
     return Object.assign(new Schema(), {
         name: "DeveloperCertificate",
-
         fields: [
             {
                 name: "accountId",
                 apiName: "account_id",
                 type: "string",
             },
-
             {
                 name: "certificate",
                 apiName: "developer_certificate",
                 type: "string",
             },
-
             {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
             },
-
             {
                 name: "description",
                 apiName: "description",
                 type: "string",
             },
-
             {
                 name: "name",
                 apiName: "name",
                 type: "string",
             },
-
             {
                 name: "securityFileContent",
                 apiName: "security_file_content",
@@ -51,13 +45,11 @@ export const developerCertificateSchema = (): Schema => {
                         name: "request",
                         position: 0,
                         type: "Object",
-
                         subParams: [
                             {
                                 name: "description",
                                 type: "string",
                             },
-
                             {
                                 name: "name",
                                 type: "string",
@@ -66,7 +58,6 @@ export const developerCertificateSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "delete",
                 returnType: "Promise<void>",
@@ -78,7 +69,6 @@ export const developerCertificateSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "get",
                 returnType: "Promise<DeveloperCertificate>",
@@ -90,7 +80,6 @@ export const developerCertificateSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "getTrustedCertificateInfo",
                 returnType: "Promise<TrustedCertificate>",

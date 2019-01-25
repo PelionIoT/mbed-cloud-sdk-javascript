@@ -3,26 +3,22 @@ import { Schema } from "../../../schema/schema";
 export const certificateIssuerConfigSchema = (): Schema => {
     return Object.assign(new Schema(), {
         name: "CertificateIssuerConfig",
-
         fields: [
             {
                 name: "certificateIssuerId",
                 apiName: "certificate_issuer_id",
                 type: "string",
             },
-
             {
                 name: "certificateReference",
                 apiName: "reference",
                 type: "string",
             },
-
             {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
             },
-
             {
                 name: "updatedAt",
                 apiName: "updated_at",
@@ -39,13 +35,11 @@ export const certificateIssuerConfigSchema = (): Schema => {
                         name: "request",
                         position: 0,
                         type: "Object",
-
                         subParams: [
                             {
                                 name: "certificateIssuerId",
                                 type: "string",
                             },
-
                             {
                                 name: "certificateReference",
                                 type: "string",
@@ -54,7 +48,6 @@ export const certificateIssuerConfigSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "delete",
                 returnType: "Promise<void>",
@@ -66,7 +59,6 @@ export const certificateIssuerConfigSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "get",
                 returnType: "Promise<CertificateIssuerConfig>",
@@ -78,13 +70,11 @@ export const certificateIssuerConfigSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "getDefault",
                 returnType: "Promise<CertificateIssuerConfig>",
                 parameters: [],
             },
-
             {
                 name: "list",
                 returnType: "Paginator<CertificateIssuerConfig, ListOptions>",
@@ -92,11 +82,28 @@ export const certificateIssuerConfigSchema = (): Schema => {
                     {
                         name: "options",
                         position: 0,
-                        type: "ListOptions",
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                        ],
                     },
                 ],
             },
-
             {
                 name: "update",
                 returnType: "Promise<CertificateIssuerConfig>",
@@ -105,7 +112,6 @@ export const certificateIssuerConfigSchema = (): Schema => {
                         name: "request",
                         position: 0,
                         type: "Object",
-
                         subParams: [
                             {
                                 name: "certificateIssuerId",
@@ -113,7 +119,6 @@ export const certificateIssuerConfigSchema = (): Schema => {
                             },
                         ],
                     },
-
                     {
                         name: "id",
                         position: 1,

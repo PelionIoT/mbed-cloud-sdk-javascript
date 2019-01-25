@@ -3,44 +3,37 @@ import { Schema } from "../../../schema/schema";
 export const subtenantUserInvitationSchema = (): Schema => {
     return Object.assign(new Schema(), {
         name: "SubtenantUserInvitation",
-
         fields: [
             {
                 name: "accountId",
                 apiName: "account_id",
                 type: "string",
             },
-
             {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
             },
-
             {
                 name: "email",
                 apiName: "email",
                 type: "string",
             },
-
             {
                 name: "expiration",
                 apiName: "expiration",
                 type: "Date",
             },
-
             {
                 name: "loginProfiles",
                 apiName: "login_profiles",
                 type: "Array<LoginProfile>",
             },
-
             {
                 name: "updatedAt",
                 apiName: "updated_at",
                 type: "Date",
             },
-
             {
                 name: "userId",
                 apiName: "user_id",
@@ -57,25 +50,21 @@ export const subtenantUserInvitationSchema = (): Schema => {
                         name: "request",
                         position: 0,
                         type: "Object",
-
                         subParams: [
                             {
                                 name: "email",
                                 type: "string",
                             },
-
                             {
                                 name: "loginProfiles",
                                 type: "Array<LoginProfile>",
                             },
-
                             {
                                 name: "validForDays",
                                 type: "number",
                             },
                         ],
                     },
-
                     {
                         name: "accountId",
                         position: 1,
@@ -83,7 +72,6 @@ export const subtenantUserInvitationSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "delete",
                 returnType: "Promise<void>",
@@ -93,7 +81,6 @@ export const subtenantUserInvitationSchema = (): Schema => {
                         position: 0,
                         type: "string",
                     },
-
                     {
                         name: "id",
                         position: 1,
@@ -101,7 +88,6 @@ export const subtenantUserInvitationSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "get",
                 returnType: "Promise<SubtenantUserInvitation>",
@@ -111,7 +97,6 @@ export const subtenantUserInvitationSchema = (): Schema => {
                         position: 0,
                         type: "string",
                     },
-
                     {
                         name: "id",
                         position: 1,

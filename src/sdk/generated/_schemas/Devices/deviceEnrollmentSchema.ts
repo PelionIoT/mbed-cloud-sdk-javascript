@@ -3,38 +3,32 @@ import { Schema } from "../../../schema/schema";
 export const deviceEnrollmentSchema = (): Schema => {
     return Object.assign(new Schema(), {
         name: "DeviceEnrollment",
-
         fields: [
             {
                 name: "accountId",
                 apiName: "account_id",
                 type: "string",
             },
-
             {
                 name: "claimedAt",
                 apiName: "claimed_at",
                 type: "Date",
             },
-
             {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
             },
-
             {
                 name: "enrolledDeviceId",
                 apiName: "enrolled_device_id",
                 type: "string",
             },
-
             {
                 name: "enrollmentIdentity",
                 apiName: "enrollment_identity",
                 type: "string",
             },
-
             {
                 name: "expiresAt",
                 apiName: "expires_at",
@@ -51,7 +45,6 @@ export const deviceEnrollmentSchema = (): Schema => {
                         name: "request",
                         position: 0,
                         type: "Object",
-
                         subParams: [
                             {
                                 name: "enrollmentIdentity",
@@ -61,7 +54,6 @@ export const deviceEnrollmentSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "delete",
                 returnType: "Promise<void>",
@@ -73,7 +65,6 @@ export const deviceEnrollmentSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "get",
                 returnType: "Promise<DeviceEnrollment>",
@@ -85,7 +76,6 @@ export const deviceEnrollmentSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "list",
                 returnType: "Paginator<DeviceEnrollment, ListOptions>",
@@ -93,7 +83,25 @@ export const deviceEnrollmentSchema = (): Schema => {
                     {
                         name: "options",
                         position: 0,
-                        type: "ListOptions",
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                        ],
                     },
                 ],
             },

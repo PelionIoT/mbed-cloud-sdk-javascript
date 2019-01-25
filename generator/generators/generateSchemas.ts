@@ -28,16 +28,7 @@ export async function generateSchemas(entity, pascalKey, _currentGroup, camelKey
             const parameters: Array<Parameter> = [];
             for (const param of method.parameterList.parameters) {
                 let type = param.type;
-                const subParams: Array<Parameter> = [];
-                if (method.parameterList.bucket) {
-                    type = "Object";
-                    for (const subParam of method.parameterList.bucket.parameters) {
-                        subParams.push({
-                            name: subParam.name,
-                            type: subParam.type
-                        });
-                    }
-                }
+                let subParams: Array<Parameter> = [];
                 if (param.type.indexOf("Request") > -1) {
                     type = "Object";
                     // has a request
@@ -48,7 +39,23 @@ export async function generateSchemas(entity, pascalKey, _currentGroup, camelKey
                             type: subParam.type,
                         });
                     }
+                } else if (param.type === "ListOptions") {
+                    type = "Object";
+                    subParams = subParams.concat(getDefaultListOptions());
+                } else if (param.type.endsWith("ListOptions")) {
+                    type = "Object";
+                    subParams = subParams.concat(getDefaultListOptions());
+                    // tslint:disable-next-line:no-console
+                    console.log("create some custom list options");
+                    const customListOptions = types.containers.filter(c => c instanceof ClassContainer && c.name.endsWith("ListOptions")).pop() as ClassContainer;
+                    for (const subParam of customListOptions.properties) {
+                        subParams.push({
+                            name: subParam.name,
+                            type: subParam.type,
+                        });
+                    }
                 }
+
                 parameters.push({
                     name: param.name,
                     type: type,
@@ -56,6 +63,24 @@ export async function generateSchemas(entity, pascalKey, _currentGroup, camelKey
                     subParams
                 });
             }
+
+            // if we have a bucket, add it to end of parameters
+            if (method.parameterList.bucket) {
+                const subParams: Array<Parameter> = [];
+                for (const subParam of method.parameterList.bucket.parameters) {
+                    subParams.push({
+                        name: subParam.name,
+                        type: subParam.type
+                    });
+                }
+                parameters.push({
+                    name: "options",
+                    type: "Object",
+                    position: parameters.length,
+                    subParams,
+                });
+            }
+
             methods.push({
                 name: method.name,
                 returnType: method.returns,
@@ -72,3 +97,24 @@ export async function generateSchemas(entity, pascalKey, _currentGroup, camelKey
     );
     schemaFile.writeFile();
 }
+
+const getDefaultListOptions = (): Array<Parameter> => {
+    return [
+        {
+            name: "after",
+            type: "string",
+        },
+        {
+            name: "limit",
+            type: "number",
+        },
+        {
+            name: "order",
+            type: "string",
+        },
+        {
+            name: "include",
+            type: "string",
+        },
+    ];
+};

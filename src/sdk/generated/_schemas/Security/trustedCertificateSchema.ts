@@ -3,98 +3,82 @@ import { Schema } from "../../../schema/schema";
 export const trustedCertificateSchema = (): Schema => {
     return Object.assign(new Schema(), {
         name: "TrustedCertificate",
-
         fields: [
             {
                 name: "accountId",
                 apiName: "account_id",
                 type: "string",
             },
-
             {
                 name: "certificate",
                 apiName: "certificate",
                 type: "string",
             },
-
             {
                 name: "certificateFingerprint",
                 apiName: "certificate_fingerprint",
                 type: "string",
             },
-
             {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
             },
-
             {
                 name: "description",
                 apiName: "description",
                 type: "string",
             },
-
             {
                 name: "deviceExecutionMode",
                 apiName: "device_execution_mode",
                 type: "number",
             },
-
             {
                 name: "enrollmentMode",
                 apiName: "enrollment_mode",
                 type: "boolean",
             },
-
             {
                 name: "isDeveloperCertificate",
                 apiName: "is_developer_certificate",
                 type: "boolean",
             },
-
             {
                 name: "issuer",
                 apiName: "issuer",
                 type: "string",
             },
-
             {
                 name: "name",
                 apiName: "name",
                 type: "string",
             },
-
             {
                 name: "ownerId",
                 apiName: "owner_id",
                 type: "string",
             },
-
             {
                 name: "service",
                 apiName: "service",
                 type: "TrustedCertificateServiceEnum",
             },
-
             {
                 name: "status",
                 apiName: "status",
                 type: "TrustedCertificateStatusEnum",
             },
-
             {
                 name: "subject",
                 apiName: "subject",
                 type: "string",
             },
-
             {
                 name: "updatedAt",
                 apiName: "updated_at",
                 type: "Date",
             },
-
             {
                 name: "validity",
                 apiName: "validity",
@@ -111,33 +95,27 @@ export const trustedCertificateSchema = (): Schema => {
                         name: "request",
                         position: 0,
                         type: "Object",
-
                         subParams: [
                             {
                                 name: "certificate",
                                 type: "string",
                             },
-
                             {
                                 name: "description",
                                 type: "string",
                             },
-
                             {
                                 name: "enrollmentMode",
                                 type: "boolean",
                             },
-
                             {
                                 name: "name",
                                 type: "string",
                             },
-
                             {
                                 name: "service",
                                 type: "TrustedCertificateServiceEnum",
                             },
-
                             {
                                 name: "status",
                                 type: "TrustedCertificateStatusEnum",
@@ -146,7 +124,6 @@ export const trustedCertificateSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "delete",
                 returnType: "Promise<void>",
@@ -158,7 +135,6 @@ export const trustedCertificateSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "get",
                 returnType: "Promise<TrustedCertificate>",
@@ -170,7 +146,6 @@ export const trustedCertificateSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "getDeveloperCertificateInfo",
                 returnType: "Promise<DeveloperCertificate>",
@@ -182,7 +157,6 @@ export const trustedCertificateSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "list",
                 returnType: "Paginator<TrustedCertificate, ListOptions>",
@@ -190,11 +164,28 @@ export const trustedCertificateSchema = (): Schema => {
                     {
                         name: "options",
                         position: 0,
-                        type: "ListOptions",
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                        ],
                     },
                 ],
             },
-
             {
                 name: "update",
                 returnType: "Promise<TrustedCertificate>",
@@ -203,40 +194,33 @@ export const trustedCertificateSchema = (): Schema => {
                         name: "request",
                         position: 0,
                         type: "Object",
-
                         subParams: [
                             {
                                 name: "certificate",
                                 type: "string",
                             },
-
                             {
                                 name: "description",
                                 type: "string",
                             },
-
                             {
                                 name: "enrollmentMode",
                                 type: "boolean",
                             },
-
                             {
                                 name: "name",
                                 type: "string",
                             },
-
                             {
                                 name: "service",
                                 type: "TrustedCertificateServiceEnum",
                             },
-
                             {
                                 name: "status",
                                 type: "TrustedCertificateStatusEnum",
                             },
                         ],
                     },
-
                     {
                         name: "id",
                         position: 1,

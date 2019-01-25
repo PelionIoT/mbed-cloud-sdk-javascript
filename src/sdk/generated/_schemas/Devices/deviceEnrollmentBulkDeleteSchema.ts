@@ -3,56 +3,47 @@ import { Schema } from "../../../schema/schema";
 export const deviceEnrollmentBulkDeleteSchema = (): Schema => {
     return Object.assign(new Schema(), {
         name: "DeviceEnrollmentBulkDelete",
-
         fields: [
             {
                 name: "accountId",
                 apiName: "account_id",
                 type: "string",
             },
-
             {
                 name: "completedAt",
                 apiName: "completed_at",
                 type: "Date",
             },
-
             {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
             },
-
             {
                 name: "errorsCount",
                 apiName: "errors_count",
                 type: "number",
             },
-
             {
                 name: "errorsReportFile",
                 apiName: "errors_report_file",
                 type: "string",
             },
-
             {
                 name: "fullReportFile",
                 apiName: "full_report_file",
                 type: "string",
             },
-
             {
                 name: "processedCount",
                 apiName: "processed_count",
                 type: "number",
             },
-
             {
                 name: "status",
                 apiName: "status",
                 type: "DeviceEnrollmentBulkDeleteStatusEnum",
             },
-
             {
                 name: "totalCount",
                 apiName: "total_count",
@@ -72,7 +63,6 @@ export const deviceEnrollmentBulkDeleteSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "downloadErrorsReportFile",
                 returnType: "Promise<ReadStream | Buffer | File | Blob>",
@@ -84,7 +74,6 @@ export const deviceEnrollmentBulkDeleteSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "downloadFullReportFile",
                 returnType: "Promise<ReadStream | Buffer | File | Blob>",
@@ -96,7 +85,6 @@ export const deviceEnrollmentBulkDeleteSchema = (): Schema => {
                     },
                 ],
             },
-
             {
                 name: "get",
                 returnType: "Promise<DeviceEnrollmentBulkDelete>",
