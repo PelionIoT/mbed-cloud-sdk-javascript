@@ -4,7 +4,7 @@ import { snakeToCamel, snakeToPascal, getPropertyType } from "../common/utilitie
 import { ClassContainer } from "../containers/classContainer/classContainer";
 import { ImportContainer } from "../containers/importContainer/importContainer";
 
-export async function generateInterface(entity: any, enums: any): Promise<string> {
+export function generateInterface(entity: any, enums: any): ClassContainer {
     const imports = new Array<ImportContainer>();
     const enumImports = new Array<string>();
     const properties = new Array<PropertyContainer>();
@@ -49,5 +49,5 @@ export async function generateInterface(entity: any, enums: any): Promise<string
     });
     interfaceContainer.addProperty(properties);
     interfaceContainer.addImport(imports);
-    return await interfaceContainer.render();
+    return interfaceContainer;
 }

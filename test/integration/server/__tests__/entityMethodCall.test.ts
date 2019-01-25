@@ -42,8 +42,8 @@ describe("Test entity method calling", () => {
                 phone_number: "PrEqPqVUNwSYMIIwxGAV",
                 address: "305 Russell Plaza",
                 full_name: "zxYrsMGPhumzIXZSqWcx",
-                terms_accepted: false,
-                marketing_accepted: false
+                terms_accepted: true,
+                marketing_accepted: false,
             })
             .expect(200);
 

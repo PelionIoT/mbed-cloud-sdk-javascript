@@ -4,7 +4,7 @@ import { SDK } from "../../../src";
 import { Repository } from "../../../src/sdk/common/repository";
 import { Method } from "../method/method";
 import * as schemas from "../schema/__schemas__";
-import { Schema } from "../schema/schema";
+import { Schema } from "../../../src/sdk/schema/schema";
 import { pascalToCamel } from "../types";
 
 /**

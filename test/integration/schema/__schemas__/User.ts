@@ -1,4 +1,4 @@
-import { Schema } from "../schema";
+import { Schema } from "../../../../src/sdk/schema/schema";
 
 export const userSchema = (): Schema => {
     return Object.assign(new Schema(), {
@@ -72,6 +72,10 @@ export const userSchema = (): Schema => {
                             },
                             {
                                 name: "termsAccepted",
+                                type: "boolean"
+                            },
+                            {
+                                name: "marketingAccepted",
                                 type: "boolean"
                             },
                         ]

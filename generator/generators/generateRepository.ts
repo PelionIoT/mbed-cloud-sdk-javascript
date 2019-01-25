@@ -14,7 +14,7 @@ import { ExportContainer } from "../containers/exportContainer/exportContainer";
 import { FileContainer } from "../containers/fileContainer/fileContainer";
 import { CustomMethodBody } from "../containers/methodBodyContainers/methods/customMethodBody";
 
-export async function generateRepository(entity, pascalKey, _currentGroup, camelKey, outputFolder, entityIndex: FileContainer) {
+export async function generateRepository(entity, pascalKey, _currentGroup, camelKey, outputFolder, entityIndex: FileContainer): Promise<ClassContainer> {
     if (entity.methods.length > 0) {
         // entity has methods
         let fsNeeded = false;
@@ -334,5 +334,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
         const typeExport = new ExportContainer(`./${camelKey}Repository`);
         entityIndex.addContainer(typeExport);
+
+        return repositoryClass;
     }
 }
