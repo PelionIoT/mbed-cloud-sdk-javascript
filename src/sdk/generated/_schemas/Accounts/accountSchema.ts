@@ -311,7 +311,7 @@ export const accountSchema = (): Schema => {
                 returnType: "Promise<Account>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "account_id",
                         position: 0,
                         type: "string",
                     },
@@ -395,7 +395,7 @@ export const accountSchema = (): Schema => {
                 returnType: "Paginator<SubtenantTrustedCertificate, ListOptions>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "account_id",
                         position: 0,
                         type: "string",
                     },
@@ -524,7 +524,7 @@ export const accountSchema = (): Schema => {
                         ],
                     },
                     {
-                        name: "id",
+                        name: "account_id",
                         position: 1,
                         type: "string",
                     },
@@ -535,7 +535,7 @@ export const accountSchema = (): Schema => {
                 returnType: "Paginator<SubtenantUserInvitation, ListOptions>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "account_id",
                         position: 0,
                         type: "string",
                     },
@@ -569,7 +569,7 @@ export const accountSchema = (): Schema => {
                 returnType: "Paginator<SubtenantUser, ListOptions>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "account_id",
                         position: 0,
                         type: "string",
                     },

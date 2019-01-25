@@ -72,7 +72,7 @@ export const userInvitationSchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "user_invitation_id",
                         position: 0,
                         type: "string",
                     },
@@ -83,7 +83,7 @@ export const userInvitationSchema = (): Schema => {
                 returnType: "Promise<UserInvitation>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "user_invitation_id",
                         position: 0,
                         type: "string",
                     },

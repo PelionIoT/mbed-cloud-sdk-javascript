@@ -171,7 +171,7 @@ export const subtenantUserSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "id",
+                        name: "subtenant_user_id",
                         position: 1,
                         type: "string",
                     },
@@ -187,7 +187,7 @@ export const subtenantUserSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "id",
+                        name: "subtenant_user_id",
                         position: 1,
                         type: "string",
                     },
@@ -242,7 +242,7 @@ export const subtenantUserSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "id",
+                        name: "subtenant_user_id",
                         position: 2,
                         type: "string",
                     },
@@ -258,7 +258,7 @@ export const subtenantUserSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "id",
+                        name: "subtenant_user_id",
                         position: 1,
                         type: "string",
                     },

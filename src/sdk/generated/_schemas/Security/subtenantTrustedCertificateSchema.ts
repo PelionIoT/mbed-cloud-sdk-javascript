@@ -139,7 +139,7 @@ export const subtenantTrustedCertificateSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "id",
+                        name: "subtenant_trusted_certificate_id",
                         position: 1,
                         type: "string",
                     },
@@ -155,7 +155,7 @@ export const subtenantTrustedCertificateSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "id",
+                        name: "subtenant_trusted_certificate_id",
                         position: 1,
                         type: "string",
                     },
@@ -166,7 +166,7 @@ export const subtenantTrustedCertificateSchema = (): Schema => {
                 returnType: "Promise<DeveloperCertificate>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "subtenant_trusted_certificate_id",
                         position: 0,
                         type: "string",
                     },
@@ -213,7 +213,7 @@ export const subtenantTrustedCertificateSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "id",
+                        name: "subtenant_trusted_certificate_id",
                         position: 2,
                         type: "string",
                     },

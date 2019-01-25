@@ -53,7 +53,7 @@ export const certificateIssuerConfigSchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "certificate_issuer_config_id",
                         position: 0,
                         type: "string",
                     },
@@ -64,7 +64,7 @@ export const certificateIssuerConfigSchema = (): Schema => {
                 returnType: "Promise<CertificateIssuerConfig>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "certificate_issuer_config_id",
                         position: 0,
                         type: "string",
                     },
@@ -120,7 +120,7 @@ export const certificateIssuerConfigSchema = (): Schema => {
                         ],
                     },
                     {
-                        name: "id",
+                        name: "certificate_issuer_config_id",
                         position: 1,
                         type: "string",
                     },

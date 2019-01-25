@@ -82,7 +82,7 @@ export const apiKeySchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "api_key_id",
                         position: 0,
                         type: "string",
                     },
@@ -93,7 +93,7 @@ export const apiKeySchema = (): Schema => {
                 returnType: "Promise<ApiKey>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "api_key_id",
                         position: 0,
                         type: "string",
                     },
@@ -157,7 +157,7 @@ export const apiKeySchema = (): Schema => {
                         ],
                     },
                     {
-                        name: "id",
+                        name: "api_key_id",
                         position: 1,
                         type: "string",
                     },

@@ -62,7 +62,7 @@ export const deviceEventsSchema = (): Schema => {
                 returnType: "Promise<DeviceEvents>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "device_events_id",
                         position: 0,
                         type: "string",
                     },

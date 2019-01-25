@@ -161,7 +161,7 @@ export const userSchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "user_id",
                         position: 0,
                         type: "string",
                     },
@@ -172,7 +172,7 @@ export const userSchema = (): Schema => {
                 returnType: "Promise<User>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "user_id",
                         position: 0,
                         type: "string",
                     },
@@ -251,7 +251,7 @@ export const userSchema = (): Schema => {
                         ],
                     },
                     {
-                        name: "id",
+                        name: "user_id",
                         position: 1,
                         type: "string",
                     },

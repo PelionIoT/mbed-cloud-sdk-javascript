@@ -42,7 +42,7 @@ export const certificateEnrollmentSchema = (): Schema => {
                 returnType: "Promise<CertificateEnrollment>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "certificate_enrollment_id",
                         position: 0,
                         type: "string",
                     },

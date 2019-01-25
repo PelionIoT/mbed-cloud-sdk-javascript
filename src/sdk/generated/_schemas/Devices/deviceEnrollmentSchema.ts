@@ -59,7 +59,7 @@ export const deviceEnrollmentSchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "device_enrollment_id",
                         position: 0,
                         type: "string",
                     },
@@ -70,7 +70,7 @@ export const deviceEnrollmentSchema = (): Schema => {
                 returnType: "Promise<DeviceEnrollment>",
                 parameters: [
                     {
-                        name: "id",
+                        name: "device_enrollment_id",
                         position: 0,
                         type: "string",
                     },
