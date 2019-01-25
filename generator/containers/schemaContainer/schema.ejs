@@ -1,0 +1,49 @@
+import { Schema } from "../../../schema/schema"
+
+export const <%= key %>Schema = (): Schema => {
+    return Object.assign(new Schema(), {
+        name: "<%= pascalKey %>",
+        <% if (fields.length > 0 ) { %>
+            fields: [
+            <% fields.forEach(function(field) { %>
+                {
+                    name: "<%= field.name %>",
+                    apiName: "<%= field.apiName %>",
+                    type: "<%- field.type %>",
+                },
+            <% }); %>
+            ],
+        <% } %>
+        <% if (methods.length > 0 ) { _%>
+            methods: [
+                <% methods.forEach(function(method) { %>
+                {
+                    name: "<%= method.name %>",
+                    returnType: "<%- method.returnType %>",
+                    parameters: [
+                        <% if (method.parameters.length > 0) { %>
+                            <% method.parameters.forEach(function(parameter) { %>
+                                {
+                                    name: "<%= parameter.name %>",
+                                    position: <%= parameter.position %>,
+                                    type: "<%- parameter.type %>",
+                                    <% if (parameter.subParams.length > 0) { %>
+                                        subParams: [
+                                            <% parameter.subParams.forEach(function(subParam) { %>
+                                                {
+                                                    name: "<%= subParam.name %>",
+                                                    type: "<%- subParam.type %>",
+                                                },
+                                            <% }); %>
+                                        ],
+                                    <% } %>
+                                },
+                            <% });%>
+                        <% } %>
+                    ],
+                },
+                <% }); %>
+            ],
+        <% } %>
+    });
+}

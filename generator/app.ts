@@ -29,6 +29,8 @@ async function main() {
 
     const entityExports: Array<ExportContainer> = [];
 
+    const schemaExports: Array<ExportContainer> = [];
+
     for (const entity of entities) {
         const currentGroup = snakeToPascal(entity.group_id);
         const camelKey = snakeToCamel(entity._key);
@@ -74,8 +76,19 @@ async function main() {
         log.info(`Wrote index file for ${pascalKey} in ${currentGroup}`);
 
         // generate schema files
-        generateSchemas(typesFile, adaptersFile, repositoryFile);
+        generateSchemas(entity, pascalKey, currentGroup, camelKey, outputFolder, typesFile, adaptersFile, repositoryFile, entityInterface);
+        schemaExports.push(new ExportContainer(`./${currentGroup}/${camelKey}Schema`, [
+            `${camelKey}Schema`
+        ]));
     }
+
+    const schemaIndex = new FileContainer(schemaExports);
+    const schemaIndexFile = new GeneratedFile(
+        "index",
+        `${outputFolder}/_schemas`,
+        await schemaIndex.render()
+    );
+    schemaIndexFile.writeFile();
 
     // generateFactory
     const factoryImports = new Array<ImportContainer>();

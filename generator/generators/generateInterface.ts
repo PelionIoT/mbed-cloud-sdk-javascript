@@ -12,10 +12,11 @@ export function generateInterface(entity: any, enums: any): ClassContainer {
     for (const f of entity.fields.filter(i => i._key !== "id")) {
         const type = getPropertyType(f, enums);
         const name = snakeToCamel(f._key);
+        const apiFieldname = f.api_fieldname;
 
         const readOnly = !!f.readOnly;
         const required = !!f.required;
-        const property = new PropertyContainer(name, type, { isInterface: true, isOptional: !required, isReadonly: readOnly });
+        const property = new PropertyContainer(name, type, { isInterface: true, isOptional: !required, isReadonly: readOnly, apiFieldname });
         properties.push(property);
 
         if (f.enum_reference) {

@@ -1,5 +1,5 @@
 import { Method as SchemaMethod, Parameter } from "../../../src/sdk/schema/types";
-import * as schemas from "../schema/__schemas__";
+import * as schemas from "../../../src/sdk/generated/_schemas";
 import { Schema } from "../../../src/sdk/schema/schema";
 import { pascalToCamel } from "../types";
 import { TestRunnerMethodInfo, TestRunnerParameters, TestRunnerMethodCallResult } from "../foundation/types";
@@ -32,8 +32,6 @@ export class Method {
 
     public async call(testRunnerParameters: TestRunnerParameters, instance: Repository): Promise<TestRunnerMethodCallResult> {
         testRunnerParameters = this.convertObjectCase(testRunnerParameters, true);
-        // tslint:disable-next-line:no-console
-        console.log(testRunnerParameters);
         const unorderedParameterDict = {};
         for (const parameter of this.metadata.parameters) {
             unorderedParameterDict[parameter.position] = this.mapParameters(parameter, testRunnerParameters);
@@ -43,9 +41,6 @@ export class Method {
         Object.keys(unorderedParameterDict).sort().forEach(key => {
             parameterDict[key] = unorderedParameterDict[key];
         });
-
-        // tslint:disable-next-line:no-console
-        console.log(parameterDict);
 
         const flatParams = [];
         Object.keys(parameterDict).map(k => flatParams.push(parameterDict[k]));
@@ -93,7 +88,7 @@ export class Method {
                     paramObject[subParam.name] = this.mapParameters(subParam, testRunnerParameters);
                 } else {
                     logMessage(`${subParam.name} not in testrunner parameters`);
-                    return "";
+                    paramObject[subParam.name] = null;
                 }
             }
             return paramObject;

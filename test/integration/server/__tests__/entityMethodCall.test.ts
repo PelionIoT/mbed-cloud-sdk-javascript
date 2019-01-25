@@ -44,6 +44,7 @@ describe("Test entity method calling", () => {
                 full_name: "zxYrsMGPhumzIXZSqWcx",
                 terms_accepted: true,
                 marketing_accepted: false,
+                password: "unsafe_password"
             })
             .expect(200);
 
