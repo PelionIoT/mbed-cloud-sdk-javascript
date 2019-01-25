@@ -27,7 +27,12 @@ export const apiInstances = (app, instanceCache: ModuleInstanceCache) => {
             return;
         }
         try {
-            res.json(instanceCache.getModuleInstance(instanceId).toJson());
+            const instance = instanceCache.getModuleInstance(instanceId);
+            if (!instance) {
+                sendException(res, new ServerError(404, `no such instance ${instanceId}`));
+                return;
+            }
+            res.json(instance.toJson());
         } catch (exception) {
             sendException(res, exception);
         }

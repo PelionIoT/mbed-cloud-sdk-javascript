@@ -48,3 +48,9 @@ export const sendApiError = (res: any, error: TestError | undefined): void => {
     }
     res.status(500).send(error);
 };
+
+export function uniq(a: Array<string>) {
+    return a.sort().filter((item, pos, ary) => {
+        return !pos || item !== ary[pos - 1];
+    });
+}

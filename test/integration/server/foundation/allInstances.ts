@@ -2,6 +2,7 @@ import express = require("express");
 import { FoundationInstanceCache } from "../../cache/foundationInstanceCache";
 import { logMessage } from "../../logger";
 import { sendException } from "../utilities";
+import { ServerError } from "../error";
 
 export const allInstances = (app: express.Application, foundationCache: FoundationInstanceCache) => {
 
@@ -21,10 +22,20 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
      * Get information of particular instance
      */
     app.get("/foundation/instances/:instanceId", (req, res) => {
-        const instanceId = req.param("instanceId");
+        if (!req.params.instanceId) {
+            sendException(res, new ServerError(400, "The instance id has not been specified"));
+            return;
+        }
+
+        const instanceId = req.params.instanceId;
         logMessage(`Get Instance Information for ${instanceId}`);
         try {
-            res.json(foundationCache.getInstance(instanceId));
+            const instance = foundationCache.getInstance(instanceId);
+            if (!instance) {
+                sendException(res, new ServerError(404, `no such instance ${instanceId}`));
+                return;
+            }
+            res.json(instance.toJson());
         } catch (exception) {
             sendException(res, exception);
         }
@@ -34,10 +45,16 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
      * Delete an instance
      */
     app.delete("/foundation/instances/:instanceId", (req, res) => {
-        const instanceId = req.param("instanceId");
+        if (!req.params.instanceId) {
+            sendException(res, new ServerError(400, "The instance id has not been specified"));
+            return;
+        }
+
+        const instanceId = req.params.instanceId;
         logMessage(`Delete instance ${instanceId}`);
         try {
-            res.json(foundationCache.deleteInstance(instanceId));
+            foundationCache.deleteInstance(instanceId);
+            res.status(204).end();
         } catch (exception) {
             sendException(res, exception);
         }
@@ -47,7 +64,12 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
      * Get list of methods on an instance
      */
     app.get("/foundation/instances/:instanceId/methods", (req, res) => {
-        const instanceId = req.param("instanceId");
+        if (!req.params.instanceId) {
+            sendException(res, new ServerError(400, "The instance id has not been specified"));
+            return;
+        }
+
+        const instanceId = req.params.instanceId;
         logMessage(`List instance Methods for ${instanceId}`);
         try {
             const instance = foundationCache.getInstance(instanceId);
@@ -61,12 +83,27 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
      * Executre a method on an instance
      */
     app.post("/foundation/instances/:instanceId/methods/:methodId", async (req, res) => {
-        const instanceId = req.param("instanceId");
-        const methodId = req.param("methodId");
+        if (!req.params.instanceId) {
+            sendException(res, new ServerError(400, "The instance id has not been specified"));
+            return;
+        }
+
+        if (!req.params.methodId) {
+            sendException(res, new ServerError(400, "The method id has not been specified"));
+            return;
+        }
+
+        const instanceId = req.params.instanceId;
+        const methodId = req.params.methodId;
         logMessage(`Execute ${methodId} on ${instanceId}`);
         try {
             const instance = foundationCache.getInstance(instanceId);
-            res.json(await instance.executeMethod(methodId, req.body));
+            if (instance) {
+                res.json(await instance.executeMethod(methodId, req.body));
+            } else {
+                sendException(res, new ServerError(400, `no such instance`));
+                return;
+            }
         } catch (exception) {
             sendException(res, exception);
         }

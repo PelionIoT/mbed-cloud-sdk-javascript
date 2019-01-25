@@ -21,7 +21,7 @@ describe("test sdk instance endpoints", () => {
             .expect(201);
 
         const createBody: TestRunnerFoundationInstance = create.body;
-        expect(createBody.entity).toBe("sdk");
+        expect(createBody.entity).toBe("Sdk");
 
         const list = await request(app)
             .get("/foundation/sdk/instances")

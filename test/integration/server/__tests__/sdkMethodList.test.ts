@@ -22,7 +22,7 @@ describe("Test sdk method listing", () => {
             .expect(201);
 
         const createBody: TestRunnerFoundationInstance = create.body;
-        expect(createBody.entity).toBe("sdk");
+        expect(createBody.entity).toBe("Sdk");
 
         const methods = await request(app)
             .get(`/foundation/instances/${createBody.id}/methods`)

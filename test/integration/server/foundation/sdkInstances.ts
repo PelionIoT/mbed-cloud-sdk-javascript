@@ -3,6 +3,7 @@ import { FoundationInstanceCache } from "../../cache/foundationInstanceCache";
 import { logMessage } from "../../logger";
 import { sendException, determineInstanceConfig } from "../utilities";
 import { Config } from "../../../../src";
+import { ServerError } from "../error";
 
 export const sdkInstances = (app: express.Application, foundationCache: FoundationInstanceCache) => {
 
@@ -26,6 +27,9 @@ export const sdkInstances = (app: express.Application, foundationCache: Foundati
         try {
             const config = new Config(determineInstanceConfig(req.body));
             const instance = foundationCache.createSDKInstance(config);
+            if (!instance) {
+                sendException(res, new ServerError(404, `no such instance`));
+            }
             res.status(201);
             res.json(instance.toJson());
         } catch (exception) {

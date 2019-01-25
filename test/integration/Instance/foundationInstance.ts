@@ -6,6 +6,7 @@ import { Method } from "../method/method";
 import * as schemas from "../../../src/sdk/generated/_schemas";
 import { Schema } from "../../../src/sdk/schema/schema";
 import { pascalToCamel } from "../types";
+import { ServerError } from "../server/error";
 
 /**
  * Foundation Instance, wraps an instance of a Repository or SDK
@@ -53,7 +54,7 @@ export class FoundationInstance extends Instance<Repository | SDK> {
         return {
             id: this.id,
             created_at: this.createdAt,
-            entity: "sdk"
+            entity: "Sdk"
         };
     }
 
@@ -66,8 +67,12 @@ export class FoundationInstance extends Instance<Repository | SDK> {
 
     public async executeMethod(name: string, parameters: TestRunnerParameters): Promise<TestRunnerMethodCallResult> {
         const method = this.methods[name];
-        if (this.instance instanceof Repository) {
-            return await method.call(parameters, this.instance);
+        if (method) {
+            if (this.instance instanceof Repository) {
+                return await method.call(parameters, this.instance);
+            }
+        } else {
+            throw new ServerError(404, `no such method ${name}`);
         }
     }
 }

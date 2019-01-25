@@ -8,7 +8,7 @@ export class SDKInstance extends FoundationInstance {
 
     constructor(config: Config) {
         const newSdkInstance = new SDK(config);
-        super(newSdkInstance, "sdk");
-        this.name = "sdk";
+        super(newSdkInstance, "Sdk");
+        this.name = "Sdk";
     }
 }
