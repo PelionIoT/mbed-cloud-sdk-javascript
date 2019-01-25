@@ -90,7 +90,7 @@ export const deviceEnrollmentBulkCreateSchema = (): Schema => {
                 returnType: "Promise<DeviceEnrollmentBulkCreate>",
                 parameters: [
                     {
-                        name: "device_enrollment_bulk_create_id",
+                        name: "deviceEnrollmentBulkCreateId",
                         position: 0,
                         type: "string",
                     },

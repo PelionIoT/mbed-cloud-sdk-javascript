@@ -7,6 +7,8 @@ import { Repository } from "../../../src/sdk/common/repository";
 import { snakeToCamel, camelToSnake } from "../../../src/common/functions";
 import { logMessage } from "../logger";
 import * as fs from "fs-extra";
+import { ServerError } from "../server/error";
+import { Paginator } from "../../../src/common/pagination";
 
 export class Method {
 
@@ -32,6 +34,8 @@ export class Method {
 
     public async call(testRunnerParameters: TestRunnerParameters, instance: Repository): Promise<TestRunnerMethodCallResult> {
         testRunnerParameters = this.convertObjectCase(testRunnerParameters, true);
+        // tslint:disable-next-line:no-console
+        console.log(testRunnerParameters);
         const unorderedParameterDict = {};
         for (const parameter of this.metadata.parameters) {
             unorderedParameterDict[parameter.position] = this.mapParameters(parameter, testRunnerParameters);
@@ -49,13 +53,20 @@ export class Method {
         console.log(flatParams);
 
         try {
-            const result = await this.methodFunction.apply(instance, flatParams);
+            let result = await this.methodFunction.apply(instance, flatParams);
+
+            // return all data from a paginator
+            if (result instanceof Paginator) {
+                result = await result.all();
+            }
+
             return {
                 payload: this.mapResult(result)
             };
         } catch (e) {
             // tslint:disable-next-line:no-console
             console.log(e);
+            throw new ServerError(500, e);
         }
     }
 

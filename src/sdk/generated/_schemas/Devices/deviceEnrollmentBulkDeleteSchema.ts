@@ -90,7 +90,7 @@ export const deviceEnrollmentBulkDeleteSchema = (): Schema => {
                 returnType: "Promise<DeviceEnrollmentBulkDelete>",
                 parameters: [
                     {
-                        name: "device_enrollment_bulk_delete_id",
+                        name: "deviceEnrollmentBulkDeleteId",
                         position: 0,
                         type: "string",
                     },

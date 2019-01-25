@@ -311,7 +311,7 @@ export const accountSchema = (): Schema => {
                 returnType: "Promise<Account>",
                 parameters: [
                     {
-                        name: "account_id",
+                        name: "accountId",
                         position: 0,
                         type: "string",
                     },
@@ -358,6 +358,10 @@ export const accountSchema = (): Schema => {
                                 type: "string",
                             },
                             {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                            {
                                 name: "format",
                                 type: "string",
                             },
@@ -395,7 +399,7 @@ export const accountSchema = (): Schema => {
                 returnType: "Paginator<SubtenantTrustedCertificate, ListOptions>",
                 parameters: [
                     {
-                        name: "account_id",
+                        name: "accountId",
                         position: 0,
                         type: "string",
                     },
@@ -418,6 +422,10 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
                                 type: "string",
                             },
                         ],
@@ -524,7 +532,7 @@ export const accountSchema = (): Schema => {
                         ],
                     },
                     {
-                        name: "account_id",
+                        name: "accountId",
                         position: 1,
                         type: "string",
                     },
@@ -535,7 +543,7 @@ export const accountSchema = (): Schema => {
                 returnType: "Paginator<SubtenantUserInvitation, ListOptions>",
                 parameters: [
                     {
-                        name: "account_id",
+                        name: "accountId",
                         position: 0,
                         type: "string",
                     },
@@ -558,6 +566,10 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
                                 type: "string",
                             },
                         ],
@@ -569,7 +581,7 @@ export const accountSchema = (): Schema => {
                 returnType: "Paginator<SubtenantUser, ListOptions>",
                 parameters: [
                     {
-                        name: "account_id",
+                        name: "accountId",
                         position: 0,
                         type: "string",
                     },
@@ -592,6 +604,10 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
                                 type: "string",
                             },
                         ],

@@ -62,7 +62,7 @@ export const deviceEventsSchema = (): Schema => {
                 returnType: "Promise<DeviceEvents>",
                 parameters: [
                     {
-                        name: "device_events_id",
+                        name: "deviceEventsId",
                         position: 0,
                         type: "string",
                     },
@@ -91,6 +91,10 @@ export const deviceEventsSchema = (): Schema => {
                             },
                             {
                                 name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
                                 type: "string",
                             },
                         ],

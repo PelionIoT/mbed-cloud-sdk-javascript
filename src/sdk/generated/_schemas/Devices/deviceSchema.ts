@@ -253,7 +253,7 @@ export const deviceSchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "device_id",
+                        name: "deviceId",
                         position: 0,
                         type: "string",
                     },
@@ -264,7 +264,7 @@ export const deviceSchema = (): Schema => {
                 returnType: "Promise<Device>",
                 parameters: [
                     {
-                        name: "device_id",
+                        name: "deviceId",
                         position: 0,
                         type: "string",
                     },
@@ -295,6 +295,10 @@ export const deviceSchema = (): Schema => {
                                 name: "include",
                                 type: "string",
                             },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
                         ],
                     },
                 ],
@@ -309,7 +313,7 @@ export const deviceSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "device_id",
+                        name: "deviceId",
                         position: 1,
                         type: "string",
                     },
@@ -363,7 +367,7 @@ export const deviceSchema = (): Schema => {
                         ],
                     },
                     {
-                        name: "device_id",
+                        name: "deviceId",
                         position: 1,
                         type: "string",
                     },

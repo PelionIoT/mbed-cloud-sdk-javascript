@@ -129,7 +129,7 @@ export const trustedCertificateSchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "trusted_certificate_id",
+                        name: "trustedCertificateId",
                         position: 0,
                         type: "string",
                     },
@@ -140,7 +140,7 @@ export const trustedCertificateSchema = (): Schema => {
                 returnType: "Promise<TrustedCertificate>",
                 parameters: [
                     {
-                        name: "trusted_certificate_id",
+                        name: "trustedCertificateId",
                         position: 0,
                         type: "string",
                     },
@@ -151,7 +151,7 @@ export const trustedCertificateSchema = (): Schema => {
                 returnType: "Promise<DeveloperCertificate>",
                 parameters: [
                     {
-                        name: "trusted_certificate_id",
+                        name: "trustedCertificateId",
                         position: 0,
                         type: "string",
                     },
@@ -180,6 +180,10 @@ export const trustedCertificateSchema = (): Schema => {
                             },
                             {
                                 name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
                                 type: "string",
                             },
                         ],
@@ -222,7 +226,7 @@ export const trustedCertificateSchema = (): Schema => {
                         ],
                     },
                     {
-                        name: "trusted_certificate_id",
+                        name: "trustedCertificateId",
                         position: 1,
                         type: "string",
                     },

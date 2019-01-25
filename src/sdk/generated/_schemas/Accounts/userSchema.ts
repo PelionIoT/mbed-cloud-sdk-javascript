@@ -161,7 +161,7 @@ export const userSchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "user_id",
+                        name: "userId",
                         position: 0,
                         type: "string",
                     },
@@ -172,7 +172,7 @@ export const userSchema = (): Schema => {
                 returnType: "Promise<User>",
                 parameters: [
                     {
-                        name: "user_id",
+                        name: "userId",
                         position: 0,
                         type: "string",
                     },
@@ -201,6 +201,10 @@ export const userSchema = (): Schema => {
                             },
                             {
                                 name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
                                 type: "string",
                             },
                         ],
@@ -251,7 +255,7 @@ export const userSchema = (): Schema => {
                         ],
                     },
                     {
-                        name: "user_id",
+                        name: "userId",
                         position: 1,
                         type: "string",
                     },

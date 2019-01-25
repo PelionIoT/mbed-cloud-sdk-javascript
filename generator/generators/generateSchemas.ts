@@ -4,7 +4,6 @@ import { snakeToCamel, snakeToPascal } from "../common/utilities";
 import { ClassContainer } from "../containers/classContainer/classContainer";
 import { Field, Method, Parameter } from "../../src/sdk/schema/types";
 import { FileContainer } from "../containers/fileContainer/fileContainer";
-import { camelToSnake } from "../../src/common/functions";
 
 export async function generateSchemas(entity, pascalKey, _currentGroup, camelKey, outputFolder, types: FileContainer, _adapters, repos: ClassContainer, entityInterface: ClassContainer) {
     const schemaContainer = new SchemaContainer();
@@ -102,7 +101,7 @@ export async function generateSchemas(entity, pascalKey, _currentGroup, camelKey
 const appendId = (id: string, entity: string) => {
     if (id === "id") {
         const cat = entity.concat(snakeToPascal(id));
-        return camelToSnake(cat);
+        return cat;
     }
     return id;
 };
@@ -123,6 +122,10 @@ const getDefaultListOptions = (): Array<Parameter> => {
         },
         {
             name: "include",
+            type: "string",
+        },
+        {
+            name: "maxResults",
             type: "string",
         },
     ];

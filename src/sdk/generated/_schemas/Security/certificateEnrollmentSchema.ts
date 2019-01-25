@@ -42,7 +42,7 @@ export const certificateEnrollmentSchema = (): Schema => {
                 returnType: "Promise<CertificateEnrollment>",
                 parameters: [
                     {
-                        name: "certificate_enrollment_id",
+                        name: "certificateEnrollmentId",
                         position: 0,
                         type: "string",
                     },
@@ -71,6 +71,10 @@ export const certificateEnrollmentSchema = (): Schema => {
                             },
                             {
                                 name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
                                 type: "string",
                             },
                         ],

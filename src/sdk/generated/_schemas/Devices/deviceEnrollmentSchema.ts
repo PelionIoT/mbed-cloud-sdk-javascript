@@ -59,7 +59,7 @@ export const deviceEnrollmentSchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "device_enrollment_id",
+                        name: "deviceEnrollmentId",
                         position: 0,
                         type: "string",
                     },
@@ -70,7 +70,7 @@ export const deviceEnrollmentSchema = (): Schema => {
                 returnType: "Promise<DeviceEnrollment>",
                 parameters: [
                     {
-                        name: "device_enrollment_id",
+                        name: "deviceEnrollmentId",
                         position: 0,
                         type: "string",
                     },
@@ -99,6 +99,10 @@ export const deviceEnrollmentSchema = (): Schema => {
                             },
                             {
                                 name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
                                 type: "string",
                             },
                         ],

@@ -82,7 +82,7 @@ export const subtenantUserInvitationSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "subtenant_user_invitation_id",
+                        name: "subtenantUserInvitationId",
                         position: 1,
                         type: "string",
                     },
@@ -98,7 +98,7 @@ export const subtenantUserInvitationSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "subtenant_user_invitation_id",
+                        name: "subtenantUserInvitationId",
                         position: 1,
                         type: "string",
                     },

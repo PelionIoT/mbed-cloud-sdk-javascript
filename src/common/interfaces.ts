@@ -63,7 +63,7 @@ export interface ListOptions {
     /**
      * Number of results to retrieve
      */
-    maxSize?: number;
+    maxResults?: number;
 }
 
 /**
