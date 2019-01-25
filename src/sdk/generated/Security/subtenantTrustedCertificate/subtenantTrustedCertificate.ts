@@ -7,22 +7,22 @@ export interface SubtenantTrustedCertificate extends Entity {
     /**
      *accountId
      */
-    accountId?: string;
+    accountId: string;
 
     /**
      *certificate
      */
-    certificate?: string;
+    certificate: string;
 
     /**
      *certificateFingerprint
      */
-    certificateFingerprint?: string;
+    readonly certificateFingerprint?: string;
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *description
@@ -47,22 +47,22 @@ export interface SubtenantTrustedCertificate extends Entity {
     /**
      *issuer
      */
-    issuer?: string;
+    readonly issuer?: string;
 
     /**
      *name
      */
-    name?: string;
+    name: string;
 
     /**
      *ownerId
      */
-    ownerId?: string;
+    readonly ownerId?: string;
 
     /**
      *service
      */
-    service?: SubtenantTrustedCertificateServiceEnum;
+    service: SubtenantTrustedCertificateServiceEnum;
 
     /**
      *status
@@ -72,15 +72,15 @@ export interface SubtenantTrustedCertificate extends Entity {
     /**
      *subject
      */
-    subject?: string;
+    readonly subject?: string;
 
     /**
      *updatedAt
      */
-    updatedAt?: Date;
+    readonly updatedAt?: Date;
 
     /**
      *validity
      */
-    validity?: Date;
+    readonly validity?: Date;
 }

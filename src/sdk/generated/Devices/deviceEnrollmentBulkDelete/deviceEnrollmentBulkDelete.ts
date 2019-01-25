@@ -7,45 +7,45 @@ export interface DeviceEnrollmentBulkDelete extends Entity {
     /**
      *accountId
      */
-    accountId?: string;
+    readonly accountId?: string;
 
     /**
      *completedAt
      */
-    completedAt?: Date;
+    readonly completedAt?: Date;
 
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *errorsCount
      */
-    errorsCount?: number;
+    readonly errorsCount?: number;
 
     /**
      *errorsReportFile
      */
-    errorsReportFile?: string;
+    readonly errorsReportFile?: string;
 
     /**
      *fullReportFile
      */
-    fullReportFile?: string;
+    readonly fullReportFile?: string;
 
     /**
      *processedCount
      */
-    processedCount?: number;
+    readonly processedCount?: number;
 
     /**
      *status
      */
-    status?: DeviceEnrollmentBulkDeleteStatusEnum;
+    readonly status?: DeviceEnrollmentBulkDeleteStatusEnum;
 
     /**
      *totalCount
      */
-    totalCount?: number;
+    readonly totalCount?: number;
 }

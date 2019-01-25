@@ -1,3 +1,4 @@
+import { LoginProfile } from "../loginProfile/loginProfile";
 export type SubtenantUserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
 /**
  *SubtenantUserCreateRequest
@@ -21,7 +22,7 @@ export interface SubtenantUserCreateRequest {
     /**
      *loginProfiles
      */
-    readonly loginProfiles?: Array<any>;
+    readonly loginProfiles?: Array<LoginProfile>;
 
     /**
      *marketingAccepted
@@ -65,7 +66,7 @@ export interface SubtenantUserUpdateRequest {
     /**
      *loginProfiles
      */
-    readonly loginProfiles?: Array<any>;
+    readonly loginProfiles?: Array<LoginProfile>;
 
     /**
      *marketingAccepted

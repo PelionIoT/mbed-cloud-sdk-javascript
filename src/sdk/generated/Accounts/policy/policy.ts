@@ -6,25 +6,25 @@ export interface Policy extends Entity {
     /**
      *action
      */
-    action?: string;
+    readonly action?: string;
 
     /**
      *allow
      */
-    allow?: boolean;
+    readonly allow?: boolean;
 
     /**
      *feature
      */
-    feature?: string;
+    readonly feature?: string;
 
     /**
      *inherited
      */
-    inherited?: boolean;
+    readonly inherited?: boolean;
 
     /**
      *resource
      */
-    resource?: string;
+    readonly resource?: string;
 }

@@ -7,7 +7,7 @@ export interface Device extends Entity {
     /**
      *accountId
      */
-    accountId?: string;
+    readonly accountId?: string;
 
     /**
      *autoUpdate
@@ -37,7 +37,7 @@ export interface Device extends Entity {
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *customAttributes
@@ -47,7 +47,7 @@ export interface Device extends Entity {
     /**
      *deployedState
      */
-    deployedState?: DeviceDeployedStateEnum;
+    readonly deployedState?: DeviceDeployedStateEnum;
 
     /**
      *deployment
@@ -87,7 +87,7 @@ export interface Device extends Entity {
     /**
      *enrolmentListTimestamp
      */
-    enrolmentListTimestamp?: Date;
+    readonly enrolmentListTimestamp?: Date;
 
     /**
      *firmwareChecksum
@@ -107,7 +107,7 @@ export interface Device extends Entity {
     /**
      *manifestTimestamp
      */
-    manifestTimestamp?: Date;
+    readonly manifestTimestamp?: Date;
 
     /**
      *mechanism
@@ -137,7 +137,7 @@ export interface Device extends Entity {
     /**
      *updatedAt
      */
-    updatedAt?: Date;
+    readonly updatedAt?: Date;
 
     /**
      *vendorId

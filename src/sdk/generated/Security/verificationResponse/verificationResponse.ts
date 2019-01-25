@@ -6,10 +6,10 @@ export interface VerificationResponse extends Entity {
     /**
      *message
      */
-    message?: string;
+    readonly message?: string;
 
     /**
      *successful
      */
-    successful?: boolean;
+    readonly successful?: boolean;
 }

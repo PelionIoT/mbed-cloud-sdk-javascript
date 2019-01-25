@@ -10,5 +10,5 @@ export interface DeveloperCertificateCreateRequest {
     /**
      *name
      */
-    readonly name?: string;
+    readonly name: string;
 }

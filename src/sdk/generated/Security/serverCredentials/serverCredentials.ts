@@ -6,15 +6,15 @@ export interface ServerCredentials extends Entity {
     /**
      *createdAt
      */
-    createdAt?: Date;
+    readonly createdAt?: Date;
 
     /**
      *serverCertificate
      */
-    serverCertificate?: string;
+    readonly serverCertificate?: string;
 
     /**
      *serverUri
      */
-    serverUri?: string;
+    readonly serverUri?: string;
 }

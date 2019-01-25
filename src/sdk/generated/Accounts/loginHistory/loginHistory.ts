@@ -6,20 +6,20 @@ export interface LoginHistory extends Entity {
     /**
      *date
      */
-    date?: Date;
+    readonly date?: Date;
 
     /**
      *ipAddress
      */
-    ipAddress?: string;
+    readonly ipAddress?: string;
 
     /**
      *success
      */
-    success?: boolean;
+    readonly success?: boolean;
 
     /**
      *userAgent
      */
-    userAgent?: string;
+    readonly userAgent?: string;
 }
