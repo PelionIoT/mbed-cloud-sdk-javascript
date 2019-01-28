@@ -1,8 +1,7 @@
 import express = require("express");
 import { logMessage } from "../../logger";
-import { sendException, uniq } from "../utilities";
+import { sendException, uniq, determineInstanceConfig } from "../utilities";
 import { FoundationInstanceCache } from "../../cache/foundationInstanceCache";
-import { determineInstanceConfig } from "../../build/test/integration/server/utilities";
 import { Config } from "../../../../src/sdk";
 import { ServerError } from "../error";
 import * as entities from "../../../../src/sdk/entities";
