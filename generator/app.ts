@@ -67,6 +67,7 @@ async function main() {
         // generate repository
         const repositoryFile = await generateRepository(entity, pascalKey, currentGroup, camelKey, outputFolder, entityIndex);
 
+        // generate index file for the entity
         const indexFile = new GeneratedFile(
             "index",
             `${outputFolder}/${snakeToCamel(entity.group_id)}/${camelKey}`,
@@ -82,6 +83,7 @@ async function main() {
         ]));
     }
 
+    // generate schema index file
     const schemaIndex = new FileContainer(schemaExports);
     const schemaIndexFile = new GeneratedFile(
         "index",

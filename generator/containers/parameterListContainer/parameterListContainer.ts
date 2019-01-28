@@ -32,6 +32,7 @@ export class ParameterListContainer extends Container {
         this.parameters = this.parameters.sort((a, b) => {
             return (a.isRequired === b.isRequired) ? 0 : a.isRequired ? -1 : 1;
         });
+        // parameters are inserted in order from config so give them position number here for use by the schema file
         for (let i = 0; i < this.parameters.length; i++) {
             this.parameters[i].position = i;
         }
