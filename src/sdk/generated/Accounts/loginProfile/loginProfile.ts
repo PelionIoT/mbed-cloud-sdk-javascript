@@ -6,5 +6,5 @@ export interface LoginProfile extends Entity {
     /**
      *name
      */
-    readonly name?: string;
+    name?: string;
 }
