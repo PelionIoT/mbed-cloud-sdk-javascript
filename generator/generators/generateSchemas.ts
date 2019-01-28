@@ -45,8 +45,6 @@ export async function generateSchemas(entity, pascalKey, _currentGroup, camelKey
                 } else if (param.type.endsWith("ListOptions")) {
                     type = "Object";
                     subParams = subParams.concat(getDefaultListOptions());
-                    // tslint:disable-next-line:no-console
-                    console.log("create some custom list options");
                     const customListOptions = types.containers.filter(c => c instanceof ClassContainer && c.name.endsWith("ListOptions")).pop() as ClassContainer;
                     for (const subParam of customListOptions.properties) {
                         subParams.push({

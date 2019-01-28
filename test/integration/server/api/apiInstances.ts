@@ -1,5 +1,5 @@
 import { logMessage } from "../../logger";
-import { sendException, sendApiError } from "../utilities";
+import { sendException, sendApiError, sendSDKError } from "../utilities";
 import { ServerError } from "../error";
 import { TestResult, TestError } from "./serverMessages";
 import { mapJsonArgs } from "../../mapping/argumentMapping";
@@ -86,8 +86,6 @@ export const apiInstances = (app, instanceCache: ModuleInstanceCache) => {
         }
         try {
             const instance: ModuleInstance = instanceCache.getModuleInstance(instanceId);
-            // tslint:disable-next-line:no-console
-            console.log(req.body);
             const args: Array<any> = mapJsonArgs(req.body);
             logMessage(`CALLING method ("${methodId}") on instance ("${instanceId}")`);
             if (args.length) {
@@ -104,7 +102,7 @@ export const apiInstances = (app, instanceCache: ModuleInstanceCache) => {
                 }
             });
         } catch (exception) {
-            sendException(res, exception);
+            sendSDKError(res, exception);
         }
     });
 };

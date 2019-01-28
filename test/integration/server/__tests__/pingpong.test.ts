@@ -15,8 +15,6 @@ describe("Test basic server endpoints", () => {
         request(app)
             .get("/ping")
             .expect(200);
-        // tslint:disable-next-line:no-console
-        // console.log(app.routes);
         // const res = await request(app).get("/ping");
         // expect(res.status).toBe(200);
     });
@@ -25,8 +23,6 @@ describe("Test basic server endpoints", () => {
         request(app)
             .get("/reset")
             .expect(205);
-        // tslint:disable-next-line:no-console
-        // console.log(app.routes);
         // const res = await request(app).get("/reset");
         // expect(res.status).toBe(205);
     });
@@ -36,8 +32,6 @@ describe("Test basic server endpoints", () => {
             .get("/quit")
             .query("test")
             .expect(202);
-        // tslint:disable-next-line:no-console
-        // console.log(app.routes);
         // const res = await request(app).get("/quit").query("test");
         // expect(res.status).toBe(202);
     });

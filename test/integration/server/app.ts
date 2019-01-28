@@ -8,6 +8,8 @@ import { apiInstances } from "./api/apiInstances";
 import { sdkInstances } from "./foundation/sdkInstances";
 import { entityInstances } from "./foundation/entityInstances";
 import { allInstances } from "./foundation/allInstances";
+import * as expressWinston from "express-winston";
+import * as winston from "winston";
 
 export const getApp = (): express.Application => {
     const moduleInstanceCache = new ModuleInstanceCache();
@@ -15,6 +17,19 @@ export const getApp = (): express.Application => {
 
     const app: express.Application = express();
     app.use(bodyParser.json());
+
+    app.use(expressWinston.logger({
+        transports: [
+            new winston.transports.Console()
+        ],
+        colorize: true,
+        requestWhitelist: [
+            "body"
+        ],
+        responseWhitelist: [
+            "body"
+        ],
+    }));
 
     app.get("/ping", (_req, res, _next) => {
         logMessage("Ping ---> <--- Pong");
@@ -31,8 +46,6 @@ export const getApp = (): express.Application => {
         res.status(202).end();
         // don't call quit if self test
         if (!req.param("test", false)) {
-            // tslint:disable-next-line:no-console
-            console.log("this worked");
             quit();
         }
     });

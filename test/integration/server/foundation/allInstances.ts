@@ -1,7 +1,7 @@
 import express = require("express");
 import { FoundationInstanceCache } from "../../cache/foundationInstanceCache";
 import { logMessage } from "../../logger";
-import { sendException } from "../utilities";
+import { sendException, sendSDKError } from "../utilities";
 import { ServerError } from "../error";
 
 export const allInstances = (app: express.Application, foundationCache: FoundationInstanceCache) => {
@@ -105,7 +105,11 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
                 return;
             }
         } catch (exception) {
-            sendException(res, exception);
+            if (exception && exception.innerError) {
+                sendSDKError(res, exception);
+            } else {
+                sendException(res, exception);
+            }
         }
     });
 

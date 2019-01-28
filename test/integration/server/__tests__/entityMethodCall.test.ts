@@ -50,9 +50,6 @@ describe("Test entity method calling", () => {
 
         const createBody: TestRunnerMethodCallResult = create.body;
 
-        // tslint:disable-next-line:no-console
-        console.log(createBody);
-
         expect(createBody).toBeUndefined();
     });
 });

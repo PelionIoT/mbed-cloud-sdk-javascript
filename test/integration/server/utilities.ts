@@ -4,8 +4,9 @@ import { TestError } from "./api/serverMessages";
 import { ServerError } from "./error";
 import { Exception } from "../types";
 import { RunnerConnectionOptions } from "./types";
+import { SDKError } from "../../../src/common/sdkError";
 
-export const sendException = (res: any, exception: Exception | undefined): void => {
+export const sendException = (res: any, exception: Exception): void => {
     let exceptionCode: number = 500;
     const errorMessage: TestError = { message: `${exception}`, traceback: "" };
     if (exception && (exception as ServerError).fromTestServer) {
@@ -16,6 +17,22 @@ export const sendException = (res: any, exception: Exception | undefined): void 
     }
     logMessage(`Exception: (${exceptionCode}) ${errorMessage.message}`);
     res.status(exceptionCode).send(errorMessage);
+};
+
+export const sendSDKError = (res: any, error: SDKError): void => {
+    if (error.code === 400) {
+        logMessage(`Validation Error : (${error.code}) ${error.innerError}`);
+        res.status(500).send({
+            message: error.message,
+            traceback: error.innerError
+        });
+    } else {
+        logMessage(`Error : (${error.code}) ${error.message}`);
+        res.status(500).send({
+            message: error.message,
+            traceback: error
+        });
+    }
 };
 
 export const determineInstanceConfig = (config: RunnerConnectionOptions): ConnectionOptions => {
@@ -42,9 +59,9 @@ export const determineInstanceConfig = (config: RunnerConnectionOptions): Connec
     return instanceConfig;
 };
 
-export const sendApiError = (res: any, error: TestError | undefined): void => {
+export const sendApiError = (res: any, error: TestError): void => {
     if (error) {
-        logMessage(`Error: ${error.message}`);
+        logMessage(`Error: ${error}`);
     }
     res.status(500).send(error);
 };
