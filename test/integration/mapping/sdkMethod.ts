@@ -1,4 +1,4 @@
-import { SdkModule, Instance, Method, SuccessCallback, ErrorCallback, Exception } from "../types";
+import { SdkModule, SdkModuleInstance, Method, SuccessCallback, ErrorCallback, Exception } from "../types";
 import { ServerError } from "../server/error";
 import { isSpecialMappingMethod, mapSpecialMethodsArg, mapResult, reverseMapMethod } from "./argumentMapping";
 import { MethodDescription } from "../server/api/serverMessages";
@@ -116,7 +116,7 @@ export class SdkApi {
         }
         return methodArgs;
     }
-    public execute(instance: Instance, args: any, onResult: SuccessCallback, onError: ErrorCallback): void {
+    public execute(instance: SdkModuleInstance, args: any, onResult: SuccessCallback, onError: ErrorCallback): void {
         if (!this.isValid()) {
             throw new ServerError(500, `Invalid method ("${this.name}")`);
         }

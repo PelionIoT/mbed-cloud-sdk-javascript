@@ -5,7 +5,7 @@ interface SdkModule {
     name: string | undefined;
     pythonName: string | undefined;
 }
-interface Instance {
+interface SdkModuleInstance {
     instance: any;
     sdkModule: SdkModule;
 }
@@ -25,6 +25,6 @@ export {
     SuccessCallback,
     ErrorCallback,
     SdkModule,
-    Instance,
+    SdkModuleInstance,
     Exception
 };
