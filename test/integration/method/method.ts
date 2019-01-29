@@ -46,6 +46,8 @@ export class Method {
         const flatParams = [];
         Object.keys(parameterDict).map(k => flatParams.push(parameterDict[k]));
 
+        logMessage(`Parameters ${JSON.stringify(flatParams)}`);
+
         try {
             let result = await this.methodFunction.apply(instance, flatParams);
 

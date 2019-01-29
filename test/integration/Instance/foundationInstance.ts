@@ -1,4 +1,4 @@
-import { Instance } from "./instance";
+import { BaseInstance } from "./baseInstance";
 import { TestRunnerFoundationInstance, TestRunnerMethodInfo, TestRunnerParameters, TestRunnerMethodCallResult } from "../foundation/types";
 import { SDK } from "../../../src";
 import { Repository } from "../../../src/sdk/common/repository";
@@ -11,7 +11,7 @@ import { ServerError } from "../server/error";
 /**
  * Foundation Instance, wraps an instance of a Repository or SDK
  */
-export class FoundationInstance extends Instance<Repository | SDK> {
+export class FoundationInstance extends BaseInstance<Repository | SDK> {
 
     /**
      * Name of the foundation instance. Will be entity name or SDK
