@@ -4,7 +4,7 @@ import { Repository } from "../../../src/sdk/common/repository";
 /**
  * Instance class. Can derrive from Repository or SDK
  */
-export class BaseInstance<T extends Repository | SDK> {
+export class Instance<T extends Repository | SDK> {
     /**
      * The id of the instance
      */
