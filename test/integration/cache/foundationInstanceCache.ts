@@ -1,7 +1,7 @@
-import { FoundationInstance } from "../Instance/foundationInstance";
+import { FoundationInstance } from "../instance/foundationInstance";
 import { Cache } from "./cache";
-import { SDKInstance } from "../Instance/sdkInstance";
-import { EntityInstance } from "../Instance/entityInstance";
+import { SDKInstance } from "../instance/sdkInstance";
+import { EntityInstance } from "../instance/entityInstance";
 import { Config } from "../../../src";
 
 export class FoundationInstanceCache extends Cache<FoundationInstance> {
