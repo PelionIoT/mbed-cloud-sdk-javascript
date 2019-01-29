@@ -23,5 +23,8 @@ export {
     addExitCallback
 };
 
-// Start the SDK test server.
-start();
+// don't start the server if we're doing a coverage run on CI.
+if (process.env.MBED_CLOUD_SDK_TEST_SERVER_DEBUG && process.env.MBED_CLOUD_SDK_TEST_SERVER_DEBUG !== "false") {
+    // Start the SDK test server.
+    start();
+}

@@ -47,8 +47,8 @@
     "generate:run": "ts-node generator/app.ts",
     "generate:format": "prettier --write --tab-width 4 --print-width 120 --trailing-comma es5 './src/sdk/generated/**/**/*.ts' './src/sdk/generated/*.ts'",
     "integration": "npm-run-all clean:integration compile:integration integration:run",
-    "integration:run": "node test/integration/build/test/integration/codeCoverage.js",
-    "integration:debug": "ts-node test/integration/server/server.ts",
+    "integration:run": "cross-env MBED_CLOUD_SDK_TEST_SERVER_DEBUG=false node test/integration/build/test/integration/codeCoverage.js",
+    "integration:debug": "cross-env MBED_CLOUD_SDK_TEST_SERVER_DEBUG=true ts-node test/integration/server/server.ts",
     "lint": "tslint -c tslint.json 'src/**/**/*.ts'",
     "lint:fix": "npm run lint -- --fix",
     "start-proxy": "node examples/proxy/server.js",
@@ -61,7 +61,7 @@
     "watch": "jest --watch",
     "watch:integration": "npm-run-all clean:integration watch:integration:start",
     "watch:integration:start": "tsc-watch -p integration.tsconfig.json --onSuccess \"node test/integration/build/test/integration/codeCoverage.js\"",
-    "watch:integration:debug": "ts-node-dev test/integration/server/server.ts",
+    "watch:integration:debug": "cross-env MBED_CLOUD_SDK_TEST_SERVER_DEBUG=true ts-node-dev test/integration/server/server.ts",
     "tpip": "node scripts/generate-tpip.js"
   },
   "devDependencies": {
@@ -76,6 +76,7 @@
     "@types/supertest": "^2.0.7",
     "body-parser": "^1.18.2",
     "browserify": "^14.0.0",
+    "cross-env": "^5.2.0",
     "csv-write-stream": "2.0.0",
     "ejs": "^2.6.1",
     "express": "^4.14.1",
