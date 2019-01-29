@@ -11,17 +11,29 @@ import { allInstances } from "./foundation/allInstances";
 import * as expressWinston from "express-winston";
 import * as winston from "winston";
 
+/**
+ * Get a new instance of an app
+ */
 export const getApp = (): express.Application => {
+    // init caches
     const moduleInstanceCache = new ModuleInstanceCache();
     const foundationInstanceCache = new FoundationInstanceCache();
 
+    // init the app
     const app: express.Application = express();
     app.use(bodyParser.json());
 
+    const winny = winston.createLogger(
+        {
+            transports: [
+                new winston.transports.Console(),
+            ],
+            format: winston.format.prettyPrint(),
+        }
+    );
+
+    // add loging of request and response bodies
     app.use(expressWinston.logger({
-        transports: [
-            new winston.transports.Console()
-        ],
         colorize: true,
         requestWhitelist: [
             "body"
@@ -29,6 +41,7 @@ export const getApp = (): express.Application => {
         responseWhitelist: [
             "body"
         ],
+        winstonInstance: winny
     }));
 
     app.get("/ping", (_req, res, _next) => {

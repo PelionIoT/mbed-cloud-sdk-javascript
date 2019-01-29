@@ -80,7 +80,7 @@ const snakeToCamel = snake => {
 
 // const camelToSnake = camel => {
 //     return camel.replace(/([A-Z])/g, match => "_" + match.toLowerCase());
-// }
+// };
 
 // conver snake to PascalCase
 const snakeToPascal = snake => {

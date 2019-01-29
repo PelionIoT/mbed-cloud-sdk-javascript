@@ -14,7 +14,7 @@ export class ModuleInstanceCache extends Cache<ModuleInstance> {
 
     public getModuleInstance(key: string): ModuleInstance {
         const instance = super.getInstance(key);
-        if (!instance || instance === null) {
+        if (!instance) {
             throw new ServerError(404, `No such instance ["${key}"] in cache`);
         }
         return instance;

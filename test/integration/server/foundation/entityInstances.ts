@@ -9,7 +9,7 @@ import * as entities from "../../../../src/sdk/entities";
 export const entityInstances = (app: express.Application, foundationCache: FoundationInstanceCache) => {
 
     /**
-     * Get list of all entity instances
+     * Get list all available entities
      */
     app.get("/foundation/entities", (_req, res) => {
         logMessage("List all foundation entities");

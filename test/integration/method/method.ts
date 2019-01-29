@@ -9,15 +9,42 @@ import { logMessage } from "../logger";
 import * as fs from "fs-extra";
 import { Paginator } from "../../../src/common/pagination";
 
+/**
+ * Method
+ */
 export class Method {
 
+    /**
+     * Regex for detecting a date in a response
+     */
     private dateRegex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/;
 
+    /**
+     * Name of the method
+     */
     public name: string;
+
+    /**
+     * Entity this method belongs to
+     */
     public entity: string;
+
+    /**
+     * Schema definition for this method
+     */
     public metadata: SchemaMethod;
+
+    /**
+     * The method function
+     */
     public methodFunction: () => any;
 
+    /**
+     * Construct a new Method
+     * @param name Name of the method
+     * @param entity Entity this method belongs to
+     * @param methodFunction The method function to execute
+     */
     constructor(name: string, entity: string, methodFunction?: () => any) {
         this.name = name;
         this.entity = entity;
@@ -31,6 +58,11 @@ export class Method {
         }
     }
 
+    /**
+     * Call the method
+     * @param testRunnerParameters parameters from the testrunner
+     * @param instance instance of the repository to pass a this to the method function
+     */
     public async call(testRunnerParameters: TestRunnerParameters, instance: Repository): Promise<TestRunnerMethodCallResult> {
         testRunnerParameters = this.convertObjectCase(testRunnerParameters, true);
         const unorderedParameterDict = {};
@@ -64,6 +96,9 @@ export class Method {
         }
     }
 
+    /**
+     * Return json representation of the method
+     */
     public toJson(): TestRunnerMethodInfo {
         return {
             name: this.name

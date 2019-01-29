@@ -18,15 +18,24 @@ export class FoundationInstance extends Instance<Repository | SDK> {
      */
     public name: string;
 
+    /**
+     * Methods of the foundation instance
+     */
     public methods: {
         [key: string]: Method
     };
 
+    /**
+     * Create a new FoundationInstance Instance
+     * @param instance Instance, either a repository or top level SDK
+     * @param name name of the instance
+     */
     constructor(instance: Repository | SDK, name: string) {
         super(instance);
         this.name = name;
         this.methods = {};
 
+        // if the instance is a top level sdk, get methods from top level
         if (this.instance instanceof SDK) {
             for (const prop in this.instance) {
                 if (typeof this.instance[prop] === "function") {
@@ -36,6 +45,7 @@ export class FoundationInstance extends Instance<Repository | SDK> {
             }
         }
 
+        // otherwise instance is a repository so inly include methods that are relevant to testrunner
         if (this.instance instanceof Repository) {
             const schema = schemas[`${pascalToCamel(name)}Schema`]() as Schema;
             for (const prop in this.instance) {
@@ -65,6 +75,11 @@ export class FoundationInstance extends Instance<Repository | SDK> {
         return Object.keys(this.methods).map(k => this.methods[k].toJson());
     }
 
+    /**
+     * Execute a method on this isntance
+     * @param name name of method to execute
+     * @param parameters parameters from TestRunner
+     */
     public async executeMethod(name: string, parameters: TestRunnerParameters): Promise<TestRunnerMethodCallResult> {
         const method = this.methods[name];
         if (method) {
