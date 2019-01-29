@@ -4,7 +4,7 @@ import { ServerError } from "../error";
 import { TestResult, TestError } from "./serverMessages";
 import { mapJsonArgs } from "../../mapping/argumentMapping";
 import { ModuleInstanceCache } from "../../cache/moduleInstanceCache";
-import { ModuleInstance } from "../../Instance/moduleInstance";
+import { ModuleInstance } from "../../instance/moduleInstance";
 
 const instanceIdParam: string = "instanceId";
 const methodIdParam: string = "methodId";
