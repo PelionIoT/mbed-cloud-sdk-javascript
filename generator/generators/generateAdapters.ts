@@ -13,7 +13,7 @@ import { FileContainer } from "../containers/fileContainer/fileContainer";
 import { AdapterMapperContainer } from "../containers/methodBodyContainers/adapter/adapterMapperContainer";
 import { AdapterCustomFunctionCallContainer } from "../containers/methodBodyContainers/adapter/adapterCustomFunctionCallContainer";
 
-export async function generateAdapters(entity, pascalKey: string, camelKey: string, outputFolder: string, entityIndex: FileContainer, snakeKey: string) {
+export async function generateAdapters(entity, pascalKey: string, camelKey: string, outputFolder: string, entityIndex: FileContainer, snakeKey: string): Promise<ClassContainer> {
     const adapterMappers = new Array<AdapterMapperContainer>();
     const adapterImports = new Array<ImportContainer>();
     const adapterFields = new Array<AdapterFieldContainer>();
@@ -131,4 +131,6 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
 
     const typeExport = new ExportContainer(`./${camelKey}Adapter`);
     entityIndex.addContainer(typeExport);
+
+    return adapterClass;
 }

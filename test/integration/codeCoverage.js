@@ -89,7 +89,7 @@ var unhookRequire = istanbulHook.hookRequire(file => {
 }, instrumentCode);
 
 // The server cannot be required so that it gets hooked by Istanbul
-var server = require("./server")
+var server = require("./server/server")
 
 // Add an exit callback to the server so that a coverage report gets generated.
 server.addExitCallback(function () {

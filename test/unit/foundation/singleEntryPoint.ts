@@ -20,7 +20,7 @@ describe("singleEntryPoint", () => {
         const sdk = new SDK(new Config({ apiKey: "ak_1" }));
         expect("Bearer ak_1").toEqual(sdk.getConfig().apiKey);
 
-        const user = sdk.entities.userRepository();
+        const user = sdk.entities().userRepository();
 
         expect("Bearer ak_1").toEqual(user.getConfig().apiKey);
     });
@@ -45,7 +45,7 @@ describe("singleEntryPoint", () => {
         const sdk2 = new SDK(config);
         expect("Bearer ak_1").toEqual(sdk2.getConfig().apiKey);
 
-        const user2 = sdk.entities.userRepository();
+        const user2 = sdk.entities().userRepository();
         expect("Bearer ak_1").toEqual(user2.getConfig().apiKey);
     });
 });

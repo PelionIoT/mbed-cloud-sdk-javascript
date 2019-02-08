@@ -10,20 +10,22 @@ export class PropertyContainer extends Container {
     public isOptional: boolean;
     public isInterface: boolean;
     public description: string;
+    public apiFieldname: string;
 
-    constructor(name: string, type: string, options?: { modifier?: Modifiers, isReadonly?: boolean, isOptional?: boolean, description?: string, isInterface?: boolean }) {
+    constructor(name: string, type: string, options?: { modifier?: Modifiers, isReadonly?: boolean, isOptional?: boolean, description?: string, isInterface?: boolean, apiFieldname?: string }) {
         super();
         this.name = name;
         this.type = type;
 
         options = options || {};
-        const { modifier, isReadonly, isOptional, description, isInterface } = options;
+        const { modifier, isReadonly, isOptional, description, isInterface, apiFieldname } = options;
 
         this.modifier = modifier || "public";
         this.isReadonly = isReadonly || false;
         this.isOptional = isOptional || false;
         this.description = description || this.name;
         this.isInterface = isInterface || false;
+        this.apiFieldname = apiFieldname;
     }
 
     public async render(): Promise<string> {

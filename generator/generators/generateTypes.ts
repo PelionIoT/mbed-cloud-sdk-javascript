@@ -7,7 +7,7 @@ import { ClassContainer } from "../containers/classContainer/classContainer";
 import { ExportContainer } from "../containers/exportContainer/exportContainer";
 import { File as GeneratedFile } from "../common/file";
 
-export async function generateTypes(entity, enums, pascalKey: string, outputFolder: string, camelKey: string, entityIndex: FileContainer) {
+export async function generateTypes(entity, enums, pascalKey: string, outputFolder: string, camelKey: string, entityIndex: FileContainer): Promise<FileContainer> {
     const typeContainer = new FileContainer();
 
     const entityEnums = entity.fields.filter(f => f.enum);
@@ -109,5 +109,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
         typeFile.writeFile();
         const typeExport = new ExportContainer("./types");
         entityIndex.addContainer(typeExport);
+
+        return typeContainer;
     }
 }

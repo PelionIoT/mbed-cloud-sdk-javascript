@@ -5,7 +5,7 @@ import { Client } from "./client/client";
 export class SDK {
     private _config: Config;
 
-    public entities: Factory;
+    public entities: () => Factory;
 
     public client: Client;
 
@@ -16,7 +16,7 @@ export class SDK {
             this._config = new Config(config);
         }
 
-        this.entities = new Factory(this.getConfig());
+        this.entities = () => new Factory(this.getConfig());
         this.client = new Client(this.getConfig());
     }
 

@@ -298,7 +298,7 @@ describe("paginator", () => {
         }
         const options: ListOptions = {};
         const maxResult = firstPageData.length - 3;
-        options.maxSize = maxResult;
+        options.maxResults = maxResult;
         const paginator = new Paginator(getPage, options);
         expect(paginator.hasNext()).toBeTruthy();
         // Moving to the next element (first)
@@ -345,7 +345,7 @@ describe("paginator", () => {
         }
         const options: ListOptions = {};
         const maxResult = firstPageData.length + 1;
-        options.maxSize = maxResult;
+        options.maxResults = maxResult;
         const expectedResult = firstPageData.concat(secondPageData.slice(0, maxResult - firstPageData.length));
         const paginator = new Paginator(getPage, options);
         return paginator.executeForAll(execute).then(() => expect(resultsExecution).toEqual(expectedResult));

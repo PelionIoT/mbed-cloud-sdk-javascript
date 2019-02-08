@@ -1,7 +1,7 @@
-import { SdkModule, Instance, Method, SuccessCallback, ErrorCallback, Exception } from "./types";
-import { ServerError } from "./error";
+import { SdkModule, SdkModuleInstance, Method, SuccessCallback, ErrorCallback, Exception } from "../types";
+import { ServerError } from "../server/error";
 import { isSpecialMappingMethod, mapSpecialMethodsArg, mapResult, reverseMapMethod } from "./argumentMapping";
-import { MethodDescription } from "./serverMessages";
+import { MethodDescription } from "../server/api/serverMessages";
 
 function retrieveRelatedObject(methodName: string | undefined): string | undefined {
     // Hack to determine from its name, the objects type the API deals with.
@@ -36,13 +36,12 @@ function flattenArguments(args: any): Array<any> {
 }
 
 export class SdkApi {
-
-    public name: string | undefined;
-    public relatedObject: string | undefined;
+    public name: string;
+    public relatedObject: string;
     public argNumber: number;
-    public method: Method | undefined;
+    public method: Method;
 
-    public constructor(methodName: string | undefined, method: Method | undefined) {
+    public constructor(methodName: string, method: Method) {
         this.name = methodName;
         this.relatedObject = retrieveRelatedObject(methodName);
         if (method) {
@@ -117,7 +116,7 @@ export class SdkApi {
         }
         return methodArgs;
     }
-    public execute(instance: Instance, args: any, onResult: SuccessCallback, onError: ErrorCallback): void {
+    public execute(instance: SdkModuleInstance, args: any, onResult: SuccessCallback, onError: ErrorCallback): void {
         if (!this.isValid()) {
             throw new ServerError(500, `Invalid method ("${this.name}")`);
         }

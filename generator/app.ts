@@ -12,6 +12,7 @@ import { ImportContainer } from "./containers/importContainer/importContainer";
 import { FactoryMethodContainer } from "./containers/factoryContainer/factoryMethodContainer";
 import { FactoryContainer } from "./containers/factoryContainer/factoryContainer";
 import { factory as loggerFactory } from "./logger";
+import { generateSchemas } from "./generators/generateSchemas";
 
 async function main() {
     const log = loggerFactory.getLogger("default");
@@ -28,6 +29,8 @@ async function main() {
 
     const entityExports: Array<ExportContainer> = [];
 
+    const schemaExports: Array<ExportContainer> = [];
+
     for (const entity of entities) {
         const currentGroup = snakeToPascal(entity.group_id);
         const camelKey = snakeToCamel(entity._key);
@@ -35,12 +38,13 @@ async function main() {
         log.info(`Starting generation for ${pascalKey} in ${currentGroup}`);
 
         // generate interface
-        const entityInterface = await generateInterface(entity, enums);
+        const entityInterface = generateInterface(entity, enums);
+        const entityInterfaceFile = await entityInterface.render();
         const interfaceFilePath = `${outputFolder}/${snakeToCamel(entity.group_id)}/${camelKey}`;
         const interfaceFile = new GeneratedFile(
             camelKey,
             interfaceFilePath,
-            entityInterface
+            entityInterfaceFile
         );
         interfaceFile.writeFile();
         log.info(`Wrote interface file ${camelKey} to ${interfaceFilePath}`);
@@ -55,14 +59,15 @@ async function main() {
         entityExports.push(new ExportContainer(`./${snakeToCamel(entity.group_id)}/${camelKey}`));
 
         // generate types
-        await generateTypes(entity, enums, pascalKey, outputFolder, camelKey, entityIndex);
+        const typesFile = await generateTypes(entity, enums, pascalKey, outputFolder, camelKey, entityIndex);
 
         // generate adapters
-        await generateAdapters(entity, pascalKey, camelKey, outputFolder, entityIndex, entity._key);
+        const adaptersFile = await generateAdapters(entity, pascalKey, camelKey, outputFolder, entityIndex, entity._key);
 
         // generate repository
-        await generateRepository(entity, pascalKey, currentGroup, camelKey, outputFolder, entityIndex);
+        const repositoryFile = await generateRepository(entity, pascalKey, currentGroup, camelKey, outputFolder, entityIndex);
 
+        // generate index file for the entity
         const indexFile = new GeneratedFile(
             "index",
             `${outputFolder}/${snakeToCamel(entity.group_id)}/${camelKey}`,
@@ -70,7 +75,22 @@ async function main() {
         );
         indexFile.writeFile();
         log.info(`Wrote index file for ${pascalKey} in ${currentGroup}`);
+
+        // generate schema files
+        generateSchemas(entity, pascalKey, currentGroup, camelKey, outputFolder, typesFile, adaptersFile, repositoryFile, entityInterface);
+        schemaExports.push(new ExportContainer(`./${currentGroup}/${camelKey}Schema`, [
+            `${camelKey}Schema`
+        ]));
     }
+
+    // generate schema index file
+    const schemaIndex = new FileContainer(schemaExports);
+    const schemaIndexFile = new GeneratedFile(
+        "index",
+        `${outputFolder}/_schemas`,
+        await schemaIndex.render()
+    );
+    schemaIndexFile.writeFile();
 
     // generateFactory
     const factoryImports = new Array<ImportContainer>();
