@@ -15,14 +15,14 @@
 * limitations under the License.
 */
 
-import superagent = require("superagent");
+// import superagent = require("superagent");
 import { EventEmitter } from "events";
 import { ListResponse } from "../common/listResponse";
 import { asyncStyle, apiWrapper, decodeBase64, encodeBase64 } from "../common/functions";
 import { CallbackFn } from "../common/interfaces";
 import { SDKError } from "../common/sdkError";
 import { Endpoints } from "./endpoints";
-import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject, AsyncResponse } from "./types";
+import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject, AsyncResponse, DeliveryMethod } from "./types";
 import { Webhook } from "./models/webhook";
 import { WebhookAdapter } from "./models/webhookAdapter";
 import { PresubscriptionAdapter } from "./models/presubscriptionAdapter";
@@ -39,6 +39,10 @@ import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
 import { generateId } from "../common/idGenerator";
 import { executeForAll } from "../common/pagination";
 import { Subscribe } from "../subscribe/subscribe";
+import { w3cwebsocket as WebsocketClient } from "websocket";
+import { factory } from "../common/logger";
+
+const log = factory.getLogger("ConnectApi");
 
 /**
  * ## Connect API
@@ -119,8 +123,9 @@ export class ConnectApi extends EventEmitter {
     public static readonly EVENT_EXPIRED: string = "expired";
 
     private static readonly ASYNC_KEY = "async-response-id";
-    private static readonly DELAY_BETWEEN_RETRIES = 1000; // milliseconds
-    private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
+    // private static readonly DELAY_BETWEEN_RETRIES = 1000; // milliseconds
+    // private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
+    private readonly WEBSOCKET_URL = "wss://api-ns-websocket.mbedcloudintegration.net/v2/notification/websocket-connect";
 
     /**
      * Gives you access to the subscribe manager
@@ -129,18 +134,27 @@ export class ConnectApi extends EventEmitter {
 
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
-    private _pollRequest: superagent.SuperAgentRequest | boolean;
+    // private _pollRequest: superagent.SuperAgentRequest | boolean;
     private _handleNotifications: boolean = false;
     private _asyncFns: { [key: string]: (error: any, data: any) => any; } = {};
     private _notifyFns: { [key: string]: (data: any) => any; } = {};
+    private deliveryMethod: DeliveryMethod;
+    private forceClear: boolean;
+    private connectOptions: ConnectOptions;
+    private webSocketClient: WebsocketClient;
+    private requestCallback: CallbackFn<Array<AsyncResponse>>;
+    private isClosing: boolean;
 
     /**
-     * Whether the user will handle notifications
-     * This suppresses pull notifications for when another method is being used (such as webhooks)
+     * @deprecated please set deliveryMethod at instantiation
      */
     public get handleNotifications(): boolean {
         return this._handleNotifications;
     }
+
+    /**
+     * @deprecated please set deliveryMethod at instantiation
+     */
     public set handleNotifications(value: boolean) {
         if (value === true) {
             this.stopNotifications();
@@ -154,9 +168,12 @@ export class ConnectApi extends EventEmitter {
     constructor(options?: ConnectOptions) {
         super();
         options = options || {};
+        this.connectOptions = options;
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
         this._handleNotifications = options.handleNotifications || false;
+        this.deliveryMethod = options.deliveryMethod || "CLIENT_INITIATED";
+        this.forceClear = options.forceClear !== false;
         this.subscribe = new Subscribe(this);
     }
 
@@ -215,10 +232,15 @@ export class ConnectApi extends EventEmitter {
      * @param data The notification data to inject
      */
     public notify(data: NotificationObject) {
+        // tslint:disable-next-line:no-console
+        console.log("notified!");
+        // tslint:disable-next-line:no-console
+        console.log(data);
         // Data can be null
         if (!data) { return; }
 
         if (data.notifications) {
+            log.debug("got some notifications");
             data.notifications.forEach( notification => {
                 const body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
                 const path = `${notification.ep}${notification.path}`;
@@ -340,76 +362,158 @@ export class ConnectApi extends EventEmitter {
             options = {};
         }
 
-        return asyncStyle( done => {
-            // Don't start notifications if they are handled elsewhere or already running
-            if (this._handleNotifications || this._pollRequest) { return done(null, null); }
+        if (options.requestCallback) {
+            this.requestCallback = options.requestCallback;
+        }
 
-            this._pollRequest = true;
-            const { interval, requestCallback, forceClear } = options;
-
-            let serverErrorCount = 0;
-            let networkErrorCount = 0;
-            const poll = () => {
-                this._pollRequest = this._endpoints.notifications.longPollNotifications((error, data) => {
-                    // If there is an error here it might be a connectivity error (for example ERR_NETWORK_CHANGED
-                    // may happen when switching between different networks, say between 4G and WiFi). We cannot
-                    // determine (in a portable way) the exact error then we retry a few times for all of them.
-                    if (error) {
-                        ++networkErrorCount;
-
-                        if (networkErrorCount <= ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
-                            setTimeout(poll, ConnectApi.DELAY_BETWEEN_RETRIES);
-                        }
-
-                        return;
-                    }
-
-                    // Check for server errors, 4xx errors raise an exception (see notify()) but we want to give
-                    // a chance to 5xx errors because they might be caused by a temporary condition. Note that
-                    // delay is "progressive", T for the first attempt, 2T for the second and so on.
-                    if (data["async-responses"]) {
-                        const errors = data["async-responses"].filter(response => response.status >= 400);
-                        const onlyServerErrors = errors.every(response => response.status >= 500);
-
-                        if (errors.length > 0 && onlyServerErrors) {
-                            ++serverErrorCount;
-
-                            if (serverErrorCount <= ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
-                                setTimeout(poll, ConnectApi.DELAY_BETWEEN_RETRIES * serverErrorCount);
-                                return;
-                            }
-                        }
-
-                        // We already reached the maximum number of retries or it's a 4xx error, notify()
-                        // will throw the appropriate exception.
-                    }
-
-                    this.notify(data);
-                    if (requestCallback && data["async-responses"]) { requestCallback(error, data["async-responses"]); }
-
-                    // Each successful request resets these counters. TODO: we may want to keep track of them to stop trying
-                    // if they occurr to often but decision is arbitrary, we may expose an ErrorHandler object (which will also
-                    // include all the relevant stats) to let the caller decide what to do.
-                    serverErrorCount = 0;
-                    networkErrorCount = 0;
-
-                    setTimeout(poll, interval || 500);
-                });
-            };
-
-            function start() {
-                poll();
-                done(null, null);
+        return asyncStyle(async done => {
+            // cannot call start notifications if using webhooks
+            if (this.deliveryMethod === "SERVER_INITIATED") {
+                return done(new SDKError("cannot call start notifications if delivery method is server initiated"), null);
             }
 
-            if (forceClear) { return this.deleteWebhook(start); }
+            log.debug("starting notifications...");
 
-            this.getWebhook((error, webhook) => {
-                if (error) { return done(error, null); }
-                if (webhook) { return done(new SDKError(`Webhook already exists at ${webhook.url}`), null); }
-                start();
-            });
+            // websocket has been initalised and opened
+            if (this.webSocketClient && this.webSocketClient.OPEN) {
+                log.debug("notifications already started");
+                return done(null, null);
+            }
+
+            // websocket hasn't been started so lets set it up
+            if (this.forceClear) {
+                log.debug("force clear any webhook");
+                // force clear
+                await this.forceClearWebhook();
+            }
+
+            // start websocket
+            await this.initiateWebSocket();
+
+            return done(null, null);
         }, callback);
+    }
+
+    private initiateWebSocket(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this._endpoints.websockets.getWebsocket(async (error, _data) => {
+                log.debug("check if channel has been registered");
+                if (error) {
+                    // if 404
+                    if (error.code === 404) {
+                        log.debug("no channel found so need to register a websocket");
+                        try {
+                            await this.registerWebSocket();
+                        } catch (e) {
+                            return reject(e);
+                        }
+                    } else {
+                        return reject(error);
+                    }
+                }
+
+                log.debug("we have a channel sp start websocket");
+                this.startWebSocket();
+                return resolve();
+            });
+        });
+    }
+
+    private registerWebSocket(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this._endpoints.websockets.registerWebsocket(async (error, _data) => {
+                if (error) {
+                    if (error.code === 400) {
+                        // if code is not 404 then reject
+                        log.debug("another channel already exists so force clear and re register websocket");
+                        await this.forceClearWebhook();
+                        return resolve(await this.registerWebSocket());
+                    } else {
+                        return reject(error);
+                    }
+                }
+
+                log.debug("registered websocket successfully");
+                // registration was successful so resolve
+                return resolve();
+            });
+        });
+    }
+
+    private async forceClearWebhook(): Promise<void> {
+        await this.deleteWebhook();
+    }
+
+    private startWebSocket() {
+        // start the websocket
+        this.webSocketClient = new WebsocketClient(
+            this.WEBSOCKET_URL,
+            [
+                `pelion_${this.connectOptions.apiKey}`,
+                `wss`
+            ],
+        );
+
+        this.webSocketClient.onerror = async error => {
+            log.error("error from websocket", error);
+            await this.stopNotifications();
+        };
+
+        this.webSocketClient.onopen = () => {
+            log.info("notifications started...");
+        };
+
+        this.webSocketClient.onclose = async () => {
+            const connectionInfo = (this.webSocketClient as any)._connection;
+            const closeStatus: number = connectionInfo.closeReasonCode;
+            const closeDescription: string = connectionInfo.closeDescription;
+            log.debug(`received close message - ${closeStatus} - ${closeDescription}`);
+
+            if (closeStatus === 1000) {
+                if (this.isClosing) {
+                    log.debug("we are closing so this is expected - do nothing");
+                } else {
+                    // need a retry here maybe?
+                    log.warn("received close message - attempting to restart websocket");
+                    await this.stopWebSocket();
+                    await this.startWebSocket();
+                }
+            }
+            if (closeStatus === 1001 || closeStatus === 1011) {
+                log.warn("received close message - attempting to restart websocket");
+                await this.stopWebSocket();
+                await this.registerWebSocket();
+                await this.startWebSocket();
+            } else {
+                // an error we cannot recover from so just stop!
+                await this.stopNotifications();
+            }
+        };
+
+        this.webSocketClient.onmessage = message => {
+            const data = JSON.parse(message.data);
+            this.notify(data);
+            if (this.requestCallback && data["async-responses"]) { this.requestCallback(null, data["async-responses"]); }
+        };
+    }
+
+    private stopWebSocket(): Promise<void> {
+        this.isClosing = true;
+        log.debug("close the websocket");
+        this.webSocketClient.close(1000, "");
+
+        // delete the channel
+        log.debug("delete the websocket channel");
+        return new Promise((resolve, reject) => {
+            this._endpoints.websockets.deleteWebsocket((error, _data) => {
+                if (error && error.code !== 404) {
+                    return reject(error);
+                }
+
+                this.isClosing = false;
+                return resolve();
+            });
+        });
     }
 
     /**
@@ -444,16 +548,22 @@ export class ConnectApi extends EventEmitter {
      */
     public stopNotifications(callback: CallbackFn<void>): void;
     public stopNotifications(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle( done => {
-            this._endpoints.notifications.deleteLongPollChannel(() => {
-                if (this._pollRequest) {
-                    // tslint:disable-next-line:no-string-literal
-                    if (this._pollRequest["abort"]) { this._pollRequest["abort"](); }
-                    this._pollRequest = null;
-                }
+        return asyncStyle( async done => {
+            // cannot call stop notifications if using webhooks
+            if (this.deliveryMethod === "SERVER_INITIATED") {
+                return done(new SDKError("cannot call stop notifications if delivery method is server initiated"), null);
+            }
 
-                done(null, null);
-            });
+            log.debug("stopping notifications");
+
+            // websocket is null or has been closed
+            if (!this.webSocketClient || (this.webSocketClient && this.webSocketClient.CLOSED)) {
+                log.debug("nothing to stop");
+                return done(null, null);
+            }
+
+            await this.stopWebSocket();
+            return done(null, null);
         }, callback);
     }
 
@@ -568,7 +678,6 @@ export class ConnectApi extends EventEmitter {
             }
 
             if (forceClear) {
-                this._handleNotifications = true;
                 this.stopNotifications(update.bind(this));
             // } else if (this._pollRequest) {
             //    return done(new SDKError("Pull notifications are already running"), null);

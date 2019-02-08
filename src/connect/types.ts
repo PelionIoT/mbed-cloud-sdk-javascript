@@ -19,11 +19,20 @@ import { OrderEnum, CallbackFn, ConnectionOptions } from "../common/interfaces";
 
 export interface ConnectOptions extends ConnectionOptions {
     /**
-     * Whether the user will handle notifications
-     * This suppresses pull notifications for when another method is being used (such as webhooks)
+     * @deprecated please use deliveryMethod instead
      */
     handleNotifications?: boolean;
+    /**
+     * Set the desired delivery method for notifications
+     */
+    deliveryMethod?: DeliveryMethod;
+    /**
+     * Whether to clear any existing notification channel
+     */
+    forceClear?: boolean;
 }
+
+export type DeliveryMethod = "SERVER_INITIATED" | "CLIENT_INITIATED";
 
 export interface NotificationObject {
     /**
@@ -142,7 +151,7 @@ export interface AsyncResponse {
 
 export interface NotificationOptions {
     /**
-     * A polling interval in milliseconds
+     * @deprecated not needed as long polling is no longer used
      */
     interval?: number;
     /**
@@ -150,7 +159,7 @@ export interface NotificationOptions {
      */
     requestCallback?: CallbackFn<Array<AsyncResponse>>;
     /**
-     * Whether to clear any existing notification channel
+     * @deprecated please use forceClear on ConnectionOptions
      */
     forceClear?: boolean;
 }

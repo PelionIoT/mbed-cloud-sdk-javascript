@@ -79,6 +79,8 @@ export class Subscribe {
      * @param data
      */
     public notifyResourceValues(data: NotificationData): void {
+        // tslint:disable-next-line:no-console
+        console.log("notify resource values");
         this.resourceValueObservers.forEach( observer => observer.notify(data));
     }
 
