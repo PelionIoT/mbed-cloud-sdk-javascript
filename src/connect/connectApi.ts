@@ -42,7 +42,6 @@ import { Subscribe } from "../subscribe/subscribe";
 import { w3cwebsocket as WebsocketClient } from "websocket";
 import { factory } from "../common/logger";
 import { Websocket } from "./models/websocket";
-import { doesNotThrow } from "assert";
 
 const log = factory.getLogger("ConnectApi");
 
@@ -393,11 +392,11 @@ export class ConnectApi extends EventEmitter {
 
             // websocket hasn't been started so lets set it up
             if (this.forceClear) {
-                log.debug("force clear any webhook");
-                // force clear
                 await this.forceClearWebhook();
             } else {
-                // TODO check for webhook and error if exists
+                if (await this.getWebhook()) {
+                    return done(new SDKError("cannot call start notifications as a webhook already exists"), null);
+                }
             }
 
             // start websocket
