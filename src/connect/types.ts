@@ -30,6 +30,10 @@ export interface ConnectOptions extends ConnectionOptions {
      * Whether to clear any existing notification channel
      */
     forceClear?: boolean;
+    /**
+     * If true, notifications will start notifications
+     */
+    autostartNotifications?: boolean;
 }
 
 export type DeliveryMethod = "SERVER_INITIATED" | "CLIENT_INITIATED";
@@ -234,3 +238,5 @@ export interface MetricsPeriodListOptions extends MetricsListOptions {
      */
     period: TimePeriod;
 }
+
+export type websocketStatus = "CONNECTED" | "DISCONNECTED";

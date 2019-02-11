@@ -41,6 +41,8 @@ import { executeForAll } from "../common/pagination";
 import { Subscribe } from "../subscribe/subscribe";
 import { w3cwebsocket as WebsocketClient } from "websocket";
 import { factory } from "../common/logger";
+import { Websocket } from "./models/websocket";
+import { doesNotThrow } from "assert";
 
 const log = factory.getLogger("ConnectApi");
 
@@ -125,42 +127,30 @@ export class ConnectApi extends EventEmitter {
     private static readonly ASYNC_KEY = "async-response-id";
     // private static readonly DELAY_BETWEEN_RETRIES = 1000; // milliseconds
     // private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
-    private readonly WEBSOCKET_URL = "wss://api-ns-websocket.mbedcloudintegration.net/v2/notification/websocket-connect";
 
     /**
      * Gives you access to the subscribe manager
      */
     public subscribe: Subscribe;
 
+    public readonly deliveryMethod?: DeliveryMethod;
+
+    public readonly forceClear: boolean;
+
+    public readonly autostartNotifications?: boolean;
+
+    public readonly handleNotifications?: boolean;
+
+    private readonly WEBSOCKET_URL = "wss://api-ns-websocket.mbedcloudintegration.net/v2/notification/websocket-connect";
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
     // private _pollRequest: superagent.SuperAgentRequest | boolean;
-    private _handleNotifications: boolean = false;
     private _asyncFns: { [key: string]: (error: any, data: any) => any; } = {};
     private _notifyFns: { [key: string]: (data: any) => any; } = {};
-    private deliveryMethod: DeliveryMethod;
-    private forceClear: boolean;
     private connectOptions: ConnectOptions;
     private webSocketClient: WebsocketClient;
     private requestCallback: CallbackFn<Array<AsyncResponse>>;
     private isClosing: boolean;
-
-    /**
-     * @deprecated please set deliveryMethod at instantiation
-     */
-    public get handleNotifications(): boolean {
-        return this._handleNotifications;
-    }
-
-    /**
-     * @deprecated please set deliveryMethod at instantiation
-     */
-    public set handleNotifications(value: boolean) {
-        if (value === true) {
-            this.stopNotifications();
-        }
-        this._handleNotifications = value;
-    }
 
     /**
      * @param options connection objects
@@ -171,9 +161,35 @@ export class ConnectApi extends EventEmitter {
         this.connectOptions = options;
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
-        this._handleNotifications = options.handleNotifications || false;
-        this.deliveryMethod = options.deliveryMethod || "CLIENT_INITIATED";
-        this.forceClear = options.forceClear !== false;
+
+        // make sure handle notifications keeps working
+        if (options.handleNotifications) {
+            options.deliveryMethod = "SERVER_INITIATED";
+            options.autostartNotifications = false;
+        }
+
+        // default force clear to false;
+        this.forceClear = options.forceClear === true;
+        this.autostartNotifications = options.autostartNotifications;
+        this.deliveryMethod = options.deliveryMethod;
+
+        // if delivery method is not defined then default autostart notifications to true
+        if (!this.deliveryMethod) {
+            this.autostartNotifications = true;
+        }
+
+        if (this.autostartNotifications === true && !this.deliveryMethod) {
+            this.deliveryMethod = "CLIENT_INITIATED";
+        }
+
+        if (this.deliveryMethod === "CLIENT_INITIATED" && this.autostartNotifications === undefined) {
+            this.autostartNotifications = true;
+        } else if (this.deliveryMethod === "SERVER_INITIATED" && this.autostartNotifications === undefined) {
+            this.autostartNotifications = false;
+        } else if (this.deliveryMethod === "SERVER_INITIATED" && this.autostartNotifications === true) {
+            throw new SDKError("autostartNotifications cannot be true if server initiated");
+        }
+
         this.subscribe = new Subscribe(this);
     }
 
@@ -232,15 +248,10 @@ export class ConnectApi extends EventEmitter {
      * @param data The notification data to inject
      */
     public notify(data: NotificationObject) {
-        // tslint:disable-next-line:no-console
-        console.log("notified!");
-        // tslint:disable-next-line:no-console
-        console.log(data);
         // Data can be null
         if (!data) { return; }
 
         if (data.notifications) {
-            log.debug("got some notifications");
             data.notifications.forEach( notification => {
                 const body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
                 const path = `${notification.ep}${notification.path}`;
@@ -385,6 +396,8 @@ export class ConnectApi extends EventEmitter {
                 log.debug("force clear any webhook");
                 // force clear
                 await this.forceClearWebhook();
+            } else {
+                // TODO check for webhook and error if exists
             }
 
             // start websocket
@@ -441,6 +454,7 @@ export class ConnectApi extends EventEmitter {
     }
 
     private async forceClearWebhook(): Promise<void> {
+        log.warn("deleting any existing webhook connection");
         await this.deleteWebhook();
     }
 
@@ -551,10 +565,11 @@ export class ConnectApi extends EventEmitter {
         return asyncStyle( async done => {
             // cannot call stop notifications if using webhooks
             if (this.deliveryMethod === "SERVER_INITIATED") {
-                return done(new SDKError("cannot call stop notifications if delivery method is server initiated"), null);
+                log.warn("should not call stop notifications if delivery method is server initiated");
+                return done(null, null);
             }
 
-            log.debug("stopping notifications");
+            log.debug("stopping notifications...");
 
             // websocket is null or has been closed
             if (!this.webSocketClient || (this.webSocketClient && this.webSocketClient.CLOSED)) {
@@ -665,7 +680,11 @@ export class ConnectApi extends EventEmitter {
             headers = {};
         }
 
-        return asyncStyle( done => {
+        return asyncStyle(done => {
+
+            if (this.deliveryMethod === "CLIENT_INITIATED") {
+                return done(new SDKError("cannot update webhook if delivery method is client initiated"), null);
+            }
 
             function update() {
                 this._endpoints.notifications.registerWebhook({
@@ -1204,7 +1223,11 @@ export class ConnectApi extends EventEmitter {
         resourcePath = this.reverseNormalizePath(resourcePath);
         const asyncId = generateId();
 
-        return apiWrapper( resultsFn => {
+        return apiWrapper( async resultsFn => {
+            if (await this.getWebhook() && !this.forceClear) {
+                return resultsFn(new SDKError("webhook in use"), null);
+            }
+
             this._asyncFns[asyncId] = resultsFn;
 
             const handleError = error => {
@@ -1214,15 +1237,23 @@ export class ConnectApi extends EventEmitter {
                 }
             };
 
-            this.startNotifications(null, error => {
-                if (error) return handleError(error);
+            if (this.autostartNotifications) {
+                this.startNotifications(null, error => {
+                    if (error) return handleError(error);
 
+                    this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
+                        method: "GET",
+                        uri: resourcePath,
+                        accept: mimeType,
+                    }, handleError);
+                });
+            } else {
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     method: "GET",
                     uri: resourcePath,
                     accept: mimeType,
                 }, handleError);
-            });
+            }
         }, null, callback);
     }
 
@@ -1285,26 +1316,39 @@ export class ConnectApi extends EventEmitter {
         const asyncId = generateId();
         const payload = encodeBase64(value);
 
-        return apiWrapper(resultsFn => {
+        return apiWrapper(async resultsFn => {
+            if (await this.getWebhook() && !this.forceClear) {
+                return resultsFn(new SDKError("webhook in use"), null);
+            }
+
             this._asyncFns[asyncId] = resultsFn;
 
             const handleError = error => {
                 if (error) {
                     delete this._asyncFns[asyncId];
-                    resultsFn(error, null);
+                    return resultsFn(error, null);
                 }
             };
 
-            this.startNotifications(null, error => {
-                if (error) return handleError(error);
+            if (this.autostartNotifications) {
+                this.startNotifications(null, error => {
+                    if (error) return handleError(error);
 
+                    this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
+                        "method": "PUT",
+                        "uri": resourcePath,
+                        "content-type": mimeType,
+                        "payload-b64": payload,
+                    }, handleError);
+                });
+            } else {
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     "method": "PUT",
                     "uri": resourcePath,
                     "content-type": mimeType,
                     "payload-b64": payload,
                 }, handleError);
-            });
+            }
         }, null, callback);
     }
 
@@ -1362,7 +1406,11 @@ export class ConnectApi extends EventEmitter {
         resourcePath = this.reverseNormalizePath(resourcePath);
         const asyncId = generateId();
 
-        return apiWrapper(resultsFn => {
+        return apiWrapper(async resultsFn => {
+            if (await this.getWebhook() && !this.forceClear) {
+                return resultsFn(new SDKError("webhook in use"), null);
+            }
+
             this._asyncFns[asyncId] = resultsFn;
 
             const handleError = error => {
@@ -1372,15 +1420,23 @@ export class ConnectApi extends EventEmitter {
                 }
             };
 
-            this.startNotifications(null, error => {
-                if (error) return handleError(error);
+            if (this.autostartNotifications) {
+                this.startNotifications(null, error => {
+                    if (error) return handleError(error);
 
+                    this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
+                        "method": "POST",
+                        "uri": resourcePath,
+                        "content-type": mimeType
+                    }, handleError);
+                });
+            } else {
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     "method": "POST",
                     "uri": resourcePath,
                     "content-type": mimeType
                 }, handleError);
-            });
+            }
         }, null, callback);
     }
 
@@ -1628,6 +1684,147 @@ export class ConnectApi extends EventEmitter {
             }
 
             done(null, new ListResponse<Metric>(data, metrics));
+        }, callback);
+    }
+
+    /**
+     * Get the current websocket connection if it exists
+     * @see advanced functionality, please use startNotifications or autostartNotifications instead
+     *
+     * Example:
+     * ```JavaScript
+     * connect.getWebsocket()
+     * .then(websocket => {
+     *     // Utilize websocket here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * @returns Promise containing the websocket data
+     */
+    public getWebsocket(): Promise<Websocket>;
+    /**
+     * Get the current websocket connection if it exists
+     * @see advanced functionality, please use startNotifications or autostartNotifications instead
+     *
+     * Example:
+     * ```JavaScript
+     * connect.getWebsocket(function(error, websocket) {
+     *     if (error) throw error;
+     *     // Utilize websocket here
+     * });
+     * ```
+     *
+     * @param callback A function that is passed the arguments (error, websocket)
+     */
+    public getWebsocket(callback: CallbackFn<Websocket>): void;
+    public getWebsocket(callback?: CallbackFn<Websocket>): Promise<Websocket> {
+        return asyncStyle(done => {
+            this._endpoints.websockets.getWebsocket((error, data) => {
+
+                if (error) {
+                    if (error.code === 404) {
+                        // No websocket
+                        return done(null, null);
+                    }
+                    return done(error);
+                }
+
+                // TODO map properly here
+                done(null, data);
+            });
+        }, callback);
+    }
+
+    /**
+     * Register a websocket connection
+     * @see advanced functionality, please use startNotifications or autostartNotifications instead
+     *
+     * Example:
+     * ```JavaScript
+     * connect.registerWebsocket()
+     * .then(websocket => {
+     *     // Utilize websocket here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * @returns Promise containing the websocket data
+     */
+    public registerWebsocket(): Promise<Websocket>;
+    /**
+     * Register a websocket connection
+     * @see advanced functionality, please use startNotifications or autostartNotifications instead
+     *
+     * Example:
+     * ```JavaScript
+     * connect.registerWebsocket(function(error, websocket) {
+     *     if (error) throw error;
+     *     // Utilize websocket here
+     * });
+     * ```
+     *
+     * @param callback A function that is passed the arguments (error, websocket)
+     */
+    public registerWebsocket(callback: CallbackFn<Websocket>): void;
+    public registerWebsocket(callback?: CallbackFn<Websocket>): Promise<Websocket> {
+        return asyncStyle(done => {
+            this._endpoints.websockets.registerWebsocket((error, data) => {
+
+                if (error) {
+                    return done(error);
+                }
+
+                // TODO map properly here
+                done(null, data);
+            });
+        }, callback);
+    }
+
+    /**
+     * Delete a websocket connection
+     * @see advanced functionality, please use startNotifications or autostartNotifications instead
+     *
+     * Example:
+     * ```JavaScript
+     * connect.deleteWebsocket()
+     * .then(websocket => {
+     *     // next
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     */
+    public deleteWebsocket(): Promise<void>;
+    /**
+     * Delete a websocket connection
+     * @see advanced functionality, please use startNotifications or autostartNotifications instead
+     *
+     * Example:
+     * ```JavaScript
+     * connect.deleteWebsocket(function(error, websocket) {
+     *     if (error) throw error;
+     *     // next
+     * });
+     * ```
+     *
+     * @param callback A function that is passed the arguments (error, websocket)
+     */
+    public deleteWebsocket(callback: CallbackFn<void>): void;
+    public deleteWebsocket(callback?: CallbackFn<void>): Promise<void> {
+        return asyncStyle(done => {
+            this._endpoints.websockets.deleteWebsocket((error, _data) => {
+                if (error) {
+                    return done(error);
+                }
+
+                done(null, null);
+            });
         }, callback);
     }
 
