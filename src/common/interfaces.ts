@@ -16,6 +16,7 @@
 */
 
 import { SDKError } from "./sdkError";
+import { SDKLogLevel } from "./logger";
 
 export interface ConnectionOptions {
     /**
@@ -26,6 +27,10 @@ export interface ConnectionOptions {
      * URL for Mbed Cloud API
      */
     host?: string;
+    /**
+     * configure the log level for this api instance
+     */
+    logLevel?: SDKLogLevel;
 }
 
 export type CallbackFn<T> = (error: SDKError, data?: T) => any;

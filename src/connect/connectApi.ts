@@ -15,7 +15,6 @@
 * limitations under the License.
 */
 
-// import superagent = require("superagent");
 import { EventEmitter } from "events";
 import { ListResponse } from "../common/listResponse";
 import { asyncStyle, apiWrapper, decodeBase64, encodeBase64 } from "../common/functions";
@@ -40,10 +39,9 @@ import { generateId } from "../common/idGenerator";
 import { executeForAll } from "../common/pagination";
 import { Subscribe } from "../subscribe/subscribe";
 import { w3cwebsocket as WebsocketClient } from "websocket";
-import { factory } from "../common/logger";
+import { loggerFactory } from "../common/logger";
 import { Websocket } from "./models/websocket";
-
-const log = factory.getLogger("ConnectApi");
+import { Logger } from "typescript-logging";
 
 /**
  * ## Connect API
@@ -124,15 +122,12 @@ export class ConnectApi extends EventEmitter {
     public static readonly EVENT_EXPIRED: string = "expired";
 
     private static readonly ASYNC_KEY = "async-response-id";
-    // private static readonly DELAY_BETWEEN_RETRIES = 1000; // milliseconds
     private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
 
     /**
      * Gives you access to the subscribe manager
      */
     public subscribe: Subscribe;
-
-    public readonly deliveryMethod?: DeliveryMethod;
 
     public readonly forceClear: boolean;
 
@@ -141,16 +136,26 @@ export class ConnectApi extends EventEmitter {
     public readonly handleNotifications?: boolean;
 
     private readonly WEBSOCKET_URL = "wss://api-ns-websocket.mbedcloudintegration.net/v2/notification/websocket-connect";
+    private _instanceId: string;
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
-    // private _pollRequest: superagent.SuperAgentRequest | boolean;
     private _asyncFns: { [key: string]: (error: any, data: any) => any; } = {};
     private _notifyFns: { [key: string]: (data: any) => any; } = {};
-    private connectOptions: ConnectOptions;
-    private webSocketClient: WebsocketClient;
-    private requestCallback: CallbackFn<Array<AsyncResponse>>;
-    private isClosing: boolean;
-    private restartCount: number;
+    private _connectOptions: ConnectOptions;
+    private _webSocketClient: WebsocketClient;
+    private _requestCallback: CallbackFn<Array<AsyncResponse>>;
+    private _deliveryMethod?: DeliveryMethod;
+    private _isClosing: boolean;
+    private _restartCount: number;
+    private _log: Logger;
+
+    public get deliveryMethod(): DeliveryMethod {
+        return this._deliveryMethod;
+    }
+
+    public get instanceId(): string {
+        return this._instanceId;
+    }
 
     /**
      * @param options connection objects
@@ -158,37 +163,24 @@ export class ConnectApi extends EventEmitter {
     constructor(options?: ConnectOptions) {
         super();
         options = options || {};
-        this.connectOptions = options;
+        this._instanceId = generateId();
+        this._connectOptions = options;
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
-        this.restartCount = 0;
+        this._log = loggerFactory(`connectApi${this._instanceId}`, options.logLevel).getLogger("ConnectApi");
+        this._restartCount = 0;
 
         // make sure handle notifications keeps working
         if (options.handleNotifications) {
-            options.deliveryMethod = "SERVER_INITIATED";
             options.autostartNotifications = false;
         }
 
         // default force clear to false;
         this.forceClear = options.forceClear === true;
-        this.autostartNotifications = options.autostartNotifications;
-        this.deliveryMethod = options.deliveryMethod;
+        this.autostartNotifications = options.autostartNotifications !== false;
 
-        // if delivery method is not defined then default autostart notifications to true
-        if (!this.deliveryMethod) {
-            this.autostartNotifications = true;
-        }
-
-        if (this.autostartNotifications === true && !this.deliveryMethod) {
-            this.deliveryMethod = "CLIENT_INITIATED";
-        }
-
-        if (this.deliveryMethod === "CLIENT_INITIATED" && this.autostartNotifications === undefined) {
-            this.autostartNotifications = true;
-        } else if (this.deliveryMethod === "SERVER_INITIATED" && this.autostartNotifications === undefined) {
-            this.autostartNotifications = false;
-        } else if (this.deliveryMethod === "SERVER_INITIATED" && this.autostartNotifications === true) {
-            throw new SDKError("autostartNotifications cannot be true if server initiated");
+        if (this.autostartNotifications === true) {
+            this._deliveryMethod = "CLIENT_INITIATED";
         }
 
         this.subscribe = new Subscribe(this);
@@ -375,20 +367,24 @@ export class ConnectApi extends EventEmitter {
         }
 
         if (options.requestCallback) {
-            this.requestCallback = options.requestCallback;
+            this._requestCallback = options.requestCallback;
+        }
+
+        if (!this._deliveryMethod) {
+            this._deliveryMethod = "CLIENT_INITIATED";
         }
 
         return asyncStyle(async done => {
             // cannot call start notifications if using webhooks
-            if (this.deliveryMethod === "SERVER_INITIATED") {
+            if (this._deliveryMethod === "SERVER_INITIATED") {
                 return done(new SDKError("cannot call start notifications if delivery method is server initiated"), null);
             }
 
-            log.debug("starting notifications...");
+            this._log.debug("starting notifications...");
 
             // websocket has been initalised and opened
-            if (this.webSocketClient && this.webSocketClient.OPEN) {
-                log.debug("notifications already started");
+            if (this._webSocketClient && this._webSocketClient.OPEN) {
+                this._log.debug("notifications already started");
                 return done(null, null);
             }
 
@@ -411,11 +407,11 @@ export class ConnectApi extends EventEmitter {
     private initiateWebSocket(): Promise<void> {
         return new Promise((resolve, reject) => {
             this._endpoints.websockets.getWebsocket(async (error, _data) => {
-                log.debug("check if channel has been registered");
+                this._log.debug("check if channel has been registered");
                 if (error) {
                     // if 404
                     if (error.code === 404) {
-                        log.debug("no channel found so need to register a websocket");
+                        this._log.debug("no channel found so need to register a websocket");
                         try {
                             await this.registerWebSocket();
                         } catch (e) {
@@ -426,7 +422,7 @@ export class ConnectApi extends EventEmitter {
                     }
                 }
 
-                log.debug("we have a channel so start websocket");
+                this._log.debug("we have a channel so start websocket");
                 this.startWebSocket();
                 return resolve();
             });
@@ -439,7 +435,7 @@ export class ConnectApi extends EventEmitter {
                 if (error) {
                     if (error.code === 400) {
                         // if code is not 404 then reject
-                        log.debug("another channel already exists so force clear and re register websocket");
+                        this._log.debug("another channel already exists so force clear and re register websocket");
                         await this.forceClearWebhook();
                         return resolve(await this.registerWebSocket());
                     } else {
@@ -447,7 +443,7 @@ export class ConnectApi extends EventEmitter {
                     }
                 }
 
-                log.debug("registered websocket successfully");
+                this._log.debug("registered websocket successfully");
                 // registration was successful so resolve
                 return resolve();
             });
@@ -455,60 +451,60 @@ export class ConnectApi extends EventEmitter {
     }
 
     private async forceClearWebhook(): Promise<void> {
-        log.warn("deleting any existing webhook connection");
+        this._log.warn("deleting any existing webhook connection");
         await this.deleteWebhook();
     }
 
     private startWebSocket() {
         // start the websocket
-        this.webSocketClient = new WebsocketClient(
+        this._webSocketClient = new WebsocketClient(
             this.WEBSOCKET_URL,
             [
-                `pelion_${this.connectOptions.apiKey}`,
+                `pelion_${this._connectOptions.apiKey}`,
                 `wss`
             ],
         );
 
-        this.webSocketClient.onerror = async error => {
-            log.error("error from websocket", error);
+        this._webSocketClient.onerror = async error => {
+            this._log.error("error from websocket", error);
             await this.stopNotifications();
         };
 
-        this.webSocketClient.onopen = () => {
-            log.info("notifications started...");
+        this._webSocketClient.onopen = () => {
+            this._log.info("notifications started...");
         };
 
-        this.webSocketClient.onclose = async () => {
-            const connectionInfo = (this.webSocketClient as any)._connection;
+        this._webSocketClient.onclose = async () => {
+            const connectionInfo = (this._webSocketClient as any)._connection;
             const closeStatus: number = connectionInfo.closeReasonCode;
             const closeDescription: string = connectionInfo.closeDescription;
-            log.debug(`received close message - ${closeStatus} - ${closeDescription}`);
+            this._log.debug(`received close message - ${closeStatus} - ${closeDescription}`);
 
             if (closeStatus === 1000) {
-                if (this.isClosing) {
-                    log.debug("we are closing so this is expected - do nothing");
+                if (this._isClosing) {
+                    this._log.debug("we are closing so this is expected - do nothing");
                 } else {
-                    if (this.restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
-                        log.error("exceeded the limit of restart attempts so stopping notifications");
+                    if (this._restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
+                        this._log.error("exceeded the limit of restart attempts so stopping notifications");
                         await this.stopNotifications();
                     } else {
-                        log.warn("attempting to restart websocket");
+                        this._log.warn("attempting to restart websocket");
                         await this.stopWebSocket();
                         await this.startWebSocket();
-                        this.restartCount++;
+                        this._restartCount++;
                     }
                 }
             }
             if (closeStatus === 1001 || closeStatus === 1011) {
-                if (this.restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
-                    log.error("exceeded the limit of restart attempts so stopping notifications");
+                if (this._restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
+                    this._log.error("exceeded the limit of restart attempts so stopping notifications");
                     await this.stopNotifications();
                 } else {
-                    log.warn("attempting to restart and re-register websocket");
+                    this._log.warn("attempting to restart and re-register websocket");
                     await this.stopWebSocket();
                     await this.registerWebSocket();
                     await this.startWebSocket();
-                    this.restartCount++;
+                    this._restartCount++;
                 }
             } else {
                 // an error we cannot recover from so just stop!
@@ -516,29 +512,29 @@ export class ConnectApi extends EventEmitter {
             }
         };
 
-        this.webSocketClient.onmessage = message => {
+        this._webSocketClient.onmessage = message => {
             // reset restart count, we're recieving messages now so things should be ok
-            this.restartCount = 0;
+            this._restartCount = 0;
             const data = JSON.parse(message.data);
             this.notify(data);
-            if (this.requestCallback && data["async-responses"]) { this.requestCallback(null, data["async-responses"]); }
+            if (this._requestCallback && data["async-responses"]) { this._requestCallback(null, data["async-responses"]); }
         };
     }
 
     private stopWebSocket(): Promise<void> {
-        this.isClosing = true;
-        log.debug("closing the websocket with 1000 - normal closure");
-        this.webSocketClient.close(1000, "");
+        this._isClosing = true;
+        this._log.debug("closing the websocket with 1000 - normal closure");
+        this._webSocketClient.close(1000, "");
 
         // delete the channel
-        log.debug("deleting the websocket channel");
+        this._log.debug("deleting the websocket channel");
         return new Promise((resolve, reject) => {
             this._endpoints.websockets.deleteWebsocket((error, _data) => {
                 if (error && error.code !== 404) {
                     return reject(error);
                 }
 
-                this.isClosing = false;
+                this._isClosing = false;
                 return resolve();
             });
         });
@@ -578,16 +574,16 @@ export class ConnectApi extends EventEmitter {
     public stopNotifications(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle( async done => {
             // cannot call stop notifications if using webhooks
-            if (this.deliveryMethod === "SERVER_INITIATED") {
-                log.warn("should not call stop notifications if delivery method is server initiated");
+            if (this._deliveryMethod === "SERVER_INITIATED") {
+                this._log.warn("should not call stop notifications if delivery method is server initiated");
                 return done(null, null);
             }
 
-            log.debug("stopping notifications...");
+            this._log.debug("stopping notifications...");
 
             // websocket is null or has been closed
-            if (!this.webSocketClient || (this.webSocketClient && (this.webSocketClient as any)._connection.state !== "open")) {
-                log.debug("nothing to stop");
+            if (!this._webSocketClient || (this._webSocketClient && (this._webSocketClient as any)._connection.state !== "open")) {
+                this._log.debug("nothing to stop");
                 return done(null, null);
             }
 
@@ -694,9 +690,13 @@ export class ConnectApi extends EventEmitter {
             headers = {};
         }
 
+        if (!this._deliveryMethod) {
+            this._deliveryMethod = "SERVER_INITIATED";
+        }
+
         return asyncStyle(done => {
 
-            if (this.deliveryMethod === "CLIENT_INITIATED") {
+            if (this._deliveryMethod === "CLIENT_INITIATED") {
                 return done(new SDKError("cannot update webhook if delivery method is client initiated"), null);
             }
 

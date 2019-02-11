@@ -23,10 +23,6 @@ export interface ConnectOptions extends ConnectionOptions {
      */
     handleNotifications?: boolean;
     /**
-     * Set the desired delivery method for notifications
-     */
-    deliveryMethod?: DeliveryMethod;
-    /**
      * Whether to clear any existing notification channel
      */
     forceClear?: boolean;
