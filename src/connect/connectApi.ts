@@ -125,7 +125,7 @@ export class ConnectApi extends EventEmitter {
 
     private static readonly ASYNC_KEY = "async-response-id";
     // private static readonly DELAY_BETWEEN_RETRIES = 1000; // milliseconds
-    // private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
+    private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
 
     /**
      * Gives you access to the subscribe manager
@@ -150,6 +150,7 @@ export class ConnectApi extends EventEmitter {
     private webSocketClient: WebsocketClient;
     private requestCallback: CallbackFn<Array<AsyncResponse>>;
     private isClosing: boolean;
+    private restartCount: number;
 
     /**
      * @param options connection objects
@@ -160,6 +161,7 @@ export class ConnectApi extends EventEmitter {
         this.connectOptions = options;
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
+        this.restartCount = 0;
 
         // make sure handle notifications keeps working
         if (options.handleNotifications) {
@@ -424,7 +426,7 @@ export class ConnectApi extends EventEmitter {
                     }
                 }
 
-                log.debug("we have a channel sp start websocket");
+                log.debug("we have a channel so start websocket");
                 this.startWebSocket();
                 return resolve();
             });
@@ -486,17 +488,28 @@ export class ConnectApi extends EventEmitter {
                 if (this.isClosing) {
                     log.debug("we are closing so this is expected - do nothing");
                 } else {
-                    // need a retry here maybe?
-                    log.warn("received close message - attempting to restart websocket");
-                    await this.stopWebSocket();
-                    await this.startWebSocket();
+                    if (this.restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
+                        log.error("exceeded the limit of restart attempts so stopping notifications");
+                        await this.stopNotifications();
+                    } else {
+                        log.warn("attempting to restart websocket");
+                        await this.stopWebSocket();
+                        await this.startWebSocket();
+                        this.restartCount++;
+                    }
                 }
             }
             if (closeStatus === 1001 || closeStatus === 1011) {
-                log.warn("received close message - attempting to restart websocket");
-                await this.stopWebSocket();
-                await this.registerWebSocket();
-                await this.startWebSocket();
+                if (this.restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
+                    log.error("exceeded the limit of restart attempts so stopping notifications");
+                    await this.stopNotifications();
+                } else {
+                    log.warn("attempting to restart and re-register websocket");
+                    await this.stopWebSocket();
+                    await this.registerWebSocket();
+                    await this.startWebSocket();
+                    this.restartCount++;
+                }
             } else {
                 // an error we cannot recover from so just stop!
                 await this.stopNotifications();
@@ -504,6 +517,8 @@ export class ConnectApi extends EventEmitter {
         };
 
         this.webSocketClient.onmessage = message => {
+            // reset restart count, we're recieving messages now so things should be ok
+            this.restartCount = 0;
             const data = JSON.parse(message.data);
             this.notify(data);
             if (this.requestCallback && data["async-responses"]) { this.requestCallback(null, data["async-responses"]); }
@@ -512,11 +527,11 @@ export class ConnectApi extends EventEmitter {
 
     private stopWebSocket(): Promise<void> {
         this.isClosing = true;
-        log.debug("close the websocket");
+        log.debug("closing the websocket with 1000 - normal closure");
         this.webSocketClient.close(1000, "");
 
         // delete the channel
-        log.debug("delete the websocket channel");
+        log.debug("deleting the websocket channel");
         return new Promise((resolve, reject) => {
             this._endpoints.websockets.deleteWebsocket((error, _data) => {
                 if (error && error.code !== 404) {
@@ -571,7 +586,7 @@ export class ConnectApi extends EventEmitter {
             log.debug("stopping notifications...");
 
             // websocket is null or has been closed
-            if (!this.webSocketClient || (this.webSocketClient && this.webSocketClient.CLOSED)) {
+            if (!this.webSocketClient || (this.webSocketClient && (this.webSocketClient as any)._connection.state !== "open")) {
                 log.debug("nothing to stop");
                 return done(null, null);
             }
