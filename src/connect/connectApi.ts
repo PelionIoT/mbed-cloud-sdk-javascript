@@ -17,7 +17,7 @@
 
 import { EventEmitter } from "events";
 import { ListResponse } from "../common/listResponse";
-import { asyncStyle, apiWrapper, decodeBase64, encodeBase64 } from "../common/functions";
+import { asyncStyle, apiWrapper, decodeBase64, encodeBase64, isThisNode } from "../common/functions";
 import { CallbackFn } from "../common/interfaces";
 import { SDKError } from "../common/sdkError";
 import { Endpoints } from "./endpoints";
@@ -135,7 +135,7 @@ export class ConnectApi extends EventEmitter {
 
     public readonly handleNotifications?: boolean;
 
-    private readonly WEBSOCKET_URL = "wss://api-ns-websocket.mbedcloudintegration.net/v2/notification/websocket-connect";
+    private readonly _websockerUrl = "wss://api-ns-websocket.mbedcloudintegration.net/v2/notification/websocket-connect";
     private _instanceId: string;
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
@@ -173,17 +173,34 @@ export class ConnectApi extends EventEmitter {
         // make sure handle notifications keeps working
         if (options.handleNotifications) {
             options.autostartNotifications = false;
+            this._deliveryMethod = "SERVER_INITIATED";
         }
 
         // default force clear to false;
         this.forceClear = options.forceClear === true;
-        this.autostartNotifications = options.autostartNotifications !== false;
+        this.autostartNotifications = options.autostartNotifications === true;
 
         if (this.autostartNotifications === true) {
             this._deliveryMethod = "CLIENT_INITIATED";
         }
 
         this.subscribe = new Subscribe(this);
+
+        if (isThisNode() && !options.skipCleanup) {
+            [ "SIGHUP", "SIGINT", "SIGQUIT", "SIGILL", "SIGTRAP", "SIGABRT", "SIGBUS", "SIGFPE", "SIGUSR1", "SIGSEGV", "SIGUSR2", "SIGTERM" ]
+                .forEach(sig => {
+                    process.on(sig, async () => {
+                        this._log.debug(`received ${sig} - tearing down connectApi...`);
+                        await this.terminate();
+                        process.exit(1);
+                    });
+                });
+        }
+    }
+
+    private async terminate() {
+        // teardown operations for when node process quits
+        await this.stopNotifications();
     }
 
     private normalizePath(path?: string): string {
@@ -409,7 +426,6 @@ export class ConnectApi extends EventEmitter {
             this._endpoints.websockets.getWebsocket(async (error, _data) => {
                 this._log.debug("check if channel has been registered");
                 if (error) {
-                    // if 404
                     if (error.code === 404) {
                         this._log.debug("no channel found so need to register a websocket");
                         try {
@@ -434,7 +450,6 @@ export class ConnectApi extends EventEmitter {
             this._endpoints.websockets.registerWebsocket(async (error, _data) => {
                 if (error) {
                     if (error.code === 400) {
-                        // if code is not 404 then reject
                         this._log.debug("another channel already exists so force clear and re register websocket");
                         await this.forceClearWebhook();
                         return resolve(await this.registerWebSocket());
@@ -444,7 +459,6 @@ export class ConnectApi extends EventEmitter {
                 }
 
                 this._log.debug("registered websocket successfully");
-                // registration was successful so resolve
                 return resolve();
             });
         });
@@ -458,7 +472,7 @@ export class ConnectApi extends EventEmitter {
     private startWebSocket() {
         // start the websocket
         this._webSocketClient = new WebsocketClient(
-            this.WEBSOCKET_URL,
+            this._websockerUrl,
             [
                 `pelion_${this._connectOptions.apiKey}`,
                 `wss`
@@ -674,7 +688,7 @@ export class ConnectApi extends EventEmitter {
      *
      * @param url The URL to which the notifications must be sent
      * @param headers Any headers (key/value) that must be sent with the request
-     * @param forceClear Whether to clear any existing notification channel
+     * @param forceClear @deprecated please use force clear on initalisation instead
      * @param callback A function that is passed any error
      */
     public updateWebhook(url: string, headers?: { [key: string]: string; }, forceClear?: boolean, callback?: CallbackFn<void>): void;
@@ -710,10 +724,8 @@ export class ConnectApi extends EventEmitter {
                 });
             }
 
-            if (forceClear) {
+            if (this.forceClear || forceClear) {
                 this.stopNotifications(update.bind(this));
-            // } else if (this._pollRequest) {
-            //    return done(new SDKError("Pull notifications are already running"), null);
             } else {
                 update.call(this);
             }

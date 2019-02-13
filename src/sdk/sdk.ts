@@ -9,27 +9,14 @@ export class SDK {
 
     public client: Client;
 
-    constructor(config?: Config) {
-        if (config) {
-            this._config = config;
-        } else {
-            this._config = new Config(config);
-        }
+    constructor(config?: Config, client?: Client) {
+        this._config = config || new Config(config);
 
-        this.entities = () => new Factory(this.getConfig());
-        this.client = new Client(this.getConfig());
+        this.entities = () => new Factory(this.config);
+        this.client = client || new Client(this.config);
     }
 
-    public get config(): Config {
-        if (this._config) {
-            return this._config;
-        }
-
-        this._config = new Config();
-        return this._config;
-    }
-
-    public getConfig() {
+    public get config() {
         return this._config;
     }
 }

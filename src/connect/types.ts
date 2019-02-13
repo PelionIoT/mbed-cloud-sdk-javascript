@@ -19,17 +19,21 @@ import { OrderEnum, CallbackFn, ConnectionOptions } from "../common/interfaces";
 
 export interface ConnectOptions extends ConnectionOptions {
     /**
-     * @deprecated please use deliveryMethod instead
+     * @deprecated will detect webhook usage with a call to updateWebhook
      */
     handleNotifications?: boolean;
     /**
-     * Whether to clear any existing notification channel
+     * Whether to clear any existing notification channel or webhook
      */
     forceClear?: boolean;
     /**
-     * If true, notifications will start notifications
+     * If true, will start receiving notifications automatically. Otherwise explicit calls to startNotifications or updateWebhook are required
      */
     autostartNotifications?: boolean;
+    /**
+     * If true and running in node, sdk will not cleanup channels on exit of program
+     */
+    skipCleanup?: boolean;
 }
 
 export type DeliveryMethod = "SERVER_INITIATED" | "CLIENT_INITIATED";
