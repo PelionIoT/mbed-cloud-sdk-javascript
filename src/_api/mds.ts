@@ -231,9 +231,20 @@ export interface Webhook {
 }
 
 export namespace WebsocketChannel {
-    export type StatusEnum = "CONNECTED" | "DISCONNECTED";
+    export type StatusEnum = "connected" | "disconnected";
 }
 export interface WebsocketChannel {
+    /**
+     * Unique identifier of the channel
+     */
+    "channelId"?: string;
+    /**
+     * Number of events in the channel's event queue waiting to be delivered.
+     */
+    "queueSize"?: number;
+    /**
+     * Channel status will be 'connected' when the channel has an active WebSocket bound to it. The state will be 'disconnected' when either the channel or the WebSocket bound to it is closed. 
+     */
     "status"?: WebsocketChannel.StatusEnum;
 }
 
@@ -401,6 +412,73 @@ export class EndpointsApi extends ApiBase {
 export class NotificationsApi extends ApiBase {
 
     /**
+     * Open the websocket.
+     *  A websocket channel can have only one active websocket connection at a time. If a websocket connection for a channel exists and a new connection to the same channel is made the connection is accepted and the older connection will be closed.&lt;br/&gt; Once the socket has been opened, it may be closed with one of the following status codes&lt;br/&gt; **1000**: Socket closed by the client. **1001**: Going away. set when another socket was opened on the used channel, or if the channel was deleted with a REST call, or if the server is shutting down. **1006**: Abnormal loss of connection. This code is never set by the service. **1008**: Policy violation. Set when the API key is missing or invalid. **1011**: Unexpected condition. Socket will be closed with this status at an attempt to open a socket to an unexisting channel (without a prior REST PUT). This code is also used to indicate closing socket for any other unexpected condition in the server. 
+     * @param connection 
+     * @param upgrade 
+     * @param secWebSocketProtocol ApiKey must be present in the &#x60;Sec-WebSocket-Protocol&#x60; header &#x60;\&quot;Sec-WebSocket-Protocol\&quot;:\&quot;wss,pelion_ak_{api_key}\&quot;&#x60; Refer to the notification service documentation for examples of usage. 
+     */
+    public connectWebsocket(connection: string, upgrade: string, secWebSocketProtocol: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+        // verify required parameter "connection" is set
+        if (connection === null || connection === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'connection' missing."));
+            }
+            return;
+        }
+        // verify required parameter "upgrade" is set
+        if (upgrade === null || upgrade === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'upgrade' missing."));
+            }
+            return;
+        }
+        // verify required parameter "secWebSocketProtocol" is set
+        if (secWebSocketProtocol === null || secWebSocketProtocol === undefined) {
+            if (callback) {
+                callback(new SDKError("Required parameter 'secWebSocketProtocol' missing."));
+            }
+            return;
+        }
+
+        const headerParams: any = {};
+        if (connection !== undefined) {
+            headerParams["Connection"] = connection;
+        }
+        if (upgrade !== undefined) {
+            headerParams["Upgrade"] = upgrade;
+        }
+        if (secWebSocketProtocol !== undefined) {
+            headerParams["Sec-WebSocket-Protocol"] = secWebSocketProtocol;
+        }
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
+        return this.request<null>({
+            url: "/v2/notification/websocket-connect",
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
      * Delete notification Long Poll channel
      * To delete a notification Long Poll channel. This is required to change the channel from Long Poll to another type. You should not make a GET &#x60;/v2/notification/pull&#x60; call for 2 minutes after channel was deleted, because it can implicitly recreate the pull channel. You can also have some random responses with payload or 410 GONE with \&quot;CHANNEL_DELETED\&quot; as a payload or 200/204 until the old channel is purged.  **Example usage:**     curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39; 
      */
@@ -424,6 +502,40 @@ export class NotificationsApi extends ApiBase {
 
         return this.request<null>({
             url: "/v2/notification/pull",
+            method: "DELETE",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
+     * Delete websocket channel.
+     * To delete a notification websocket channel bound to the API key. This is required to change the channel from websocket to another type.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer {api-key}&#39; 
+     */
+    public deleteWebsocket(callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
+        return this.request<null>({
+            url: "/v2/notification/websocket",
             method: "DELETE",
             headers: headerParams,
             query: queryParameters,
@@ -504,8 +616,43 @@ export class NotificationsApi extends ApiBase {
         }, callback);
     }
     /**
+     * Get websocket channel information.
+     * Returns 200 with websocket connection status if websocket channel exists.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer {api-key}&#39; 
+     */
+    public getWebsocket(callback?: (error: any, data?: WebsocketChannel, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+            "application/json"
+        ];
+
+        return this.request<WebsocketChannel>({
+            url: "/v2/notification/websocket",
+            method: "GET",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
+        }, callback);
+    }
+    /**
      * Get notifications using Long Poll
-     * In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. Only a single long polling connection per API key can be ongoing at any given time. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  The pull channel is implicitly created by the first GET call to &#x60;/v2/notification/pull&#x60;. It is refreshed on each GET call. If the channel is not polled for a long time (10 minutes) - it expires and will be deleted. This means that no notifications will stay in the queue between polls. A channel can be also deleted explicitly by a DELETE call.  **Note:** If you cannot have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, **long polling is deprecated** and will likely be replaced in future. It is meant only for experimentation and not for commercial usage. The proper method to receive notifications is a **notification callback**. There can only be one notification channel per API key at a time in Device Management Connect. If a notification channel  of other type already exists for the API key, you need to delete it before creating a long poll notification channel.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39; 
+     * In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. Only a single long polling connection per API key can be ongoing at any given time. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  The pull channel is implicitly created by the first GET call to &#x60;/v2/notification/pull&#x60;. It is refreshed on each GET call. If the channel is not polled for a long time (10 minutes) - it expires and will be deleted. This means that no notifications will stay in the queue between polls. A channel can be also deleted explicitly by a DELETE call.  **Note:** If you cannot have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, **long polling is deprecated** and will likely be replaced in future. It is meant only for experimentation and not for commercial usage. The proper method to receive notifications is a **notification callback**. There can only be one notification channel per API key at a time in Device Management Connect. If a notification channel of other type already exists for the API key, you need to delete it before creating a long poll notification channel.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39; 
      */
     public longPollNotifications(callback?: (error: any, data?: NotificationMessage, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
 
@@ -580,6 +727,41 @@ export class NotificationsApi extends ApiBase {
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
             body: webhook,
+        }, callback);
+    }
+    /**
+     * Register a websocket channel
+     * Register (or update) a channel which will use websocket connection to deliver notifications. The websocket channel should be opened by client using &#x60;/v2/notification/websocket-connect&#x60; endpoint. To get notifications pushed, you also need to place the subscriptions. For more information on notification messages, see [NotificationMessage](#NotificationMessage).  A websocket channel can have only one active websocket connection at a time. If a websocket connection for a channel exists and a new connection to the same channel is made the connection is accepted and the older connection will be closed.  **Expiration of a websocket:**  A websocket channel will be expired if the channel does not have an opened websocket connection for 24 hour period. Channel expiration means the channel will be deleted and any undelivered notifications stored in its internal queue will be removed. As long as the channel has an opened websocket connection or time between successive websocket connections is less than 24 hours, the channel is considered active, notifications are stored in its internal queue and delivered when a websocket connection is active. A channel can be also deleted explicitly by a DELETE call.  More about [notification sending logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic).  **Example usage:**      curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer {api-key}&#39; 
+     */
+    public registerWebsocket(callback?: (error: any, data?: WebsocketChannel, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
+
+        const headerParams: any = {};
+
+        const queryParameters: any = {};
+
+        // tslint:disable-next-line:prefer-const
+        let useFormData = false;
+        const formParams: any = {};
+
+        // Determine the Content-Type header
+        const contentTypes: Array<string> = [
+            "application/json"
+        ];
+
+        // Determine the Accept header
+        const acceptTypes: Array<string> = [
+        ];
+
+        return this.request<WebsocketChannel>({
+            url: "/v2/notification/websocket",
+            method: "PUT",
+            headers: headerParams,
+            query: queryParameters,
+            formParams: formParams,
+            useFormData: useFormData,
+            contentTypes: contentTypes,
+            acceptTypes: acceptTypes,
+            requestOptions: requestOptions,
         }, callback);
     }
 }
@@ -712,7 +894,7 @@ export class ResourcesApi extends ApiBase {
     }
     /**
      * Read from a resource
-     * Requests the resource value either from the device or cache. If the value is not in the cache, the request goes all the way to the device. When the response is available, an &#x60;AsyncIDResponse&#x60; json object is received in the notification channel.  The resource values can be also in cache based on &#x60;max_age&#x60; defined by the device side. The value found from the cache is returned  immediately in the response.  The preferred way to get resource values is to use the **subscribe** and **callback** methods.  All resource APIs are asynchronous. These APIs only respond if the device is turned on and connected to Device Management.   See also how [resource caching](/docs/current/connecting/device-guidelines.html#resource-cache) works.  Please refer to [Lightweight Machine to Machine Technical specification](http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf) for more inforamtion.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+     * Requests the resource value either from the device or cache. If the value is not in the cache, the request goes all the way to the device. When the response is available, an &#x60;AsyncIDResponse&#x60; json object is received in the notification channel. The resource values can be also in cache based on &#x60;max_age&#x60; defined by the device side. The value found from the cache is returned immediately in the response.  The preferred way to get resource values is to use the **subscribe** and **callback** methods.  All resource APIs are asynchronous. These APIs only respond if the device is turned on and connected to Device Management.  See also how [resource caching](/docs/current/connecting/device-guidelines.html#resource-cache) works.  Please refer to [Lightweight Machine to Machine Technical specification](http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf) for more inforamtion.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
      * @param deviceId Unique Device Management device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
      * @param resourcePath The URL of the resource. 
      * @param cacheOnly If true, the response comes only from the cache. Default: false. Device Management Connect caches the received resource values for the time of [max_age](/docs/current/connecting/working-with-the-resources.html) defined in the client side. 
@@ -770,7 +952,7 @@ export class ResourcesApi extends ApiBase {
     }
     /**
      * Write to a Resource or use write-attributes (notification rules) for a Resource
-     * With this API, you can [write a new value to existing Resources](/docs/current/connecting/handle-resource-webapp.html) or use the **write** attributes to set the [notification rules](/docs/current/connecting/resource-change-webapp.html#notification-rules)  for the Resources. The notification rules only work on the device client side and may not be supported by all clients.  This API can also be used to transfer files to the device. Device Management Connect LwM2M server implements the Option 1 from RFC7959. The maximum block size is 1024 bytes. The block size versus transferred file size is something to note in low quality networks. The customer application needs to know what type of file is transferred (for example txt) and the payload can be encrypted by the customer. The maximum size of payload is 1048576 bytes.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Device Management Connect and there is an active notification channel.  Supported content types depend on the device and its resource. Device Management translates HTTP to equivalent CoAP content type.  **Example usage:**  This example sets the alarm on a buzzer. The command writes the [Buzzer](http://www.openmobilealliance.org/tech/profiles/lwm2m/3338.xml) instance 0, \&quot;On/Off\&quot; boolean resource to &#39;1&#39;.      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3338/0/5850 -H \&quot;content-type: text/plain\&quot; \\       -H &#39;authorization: Bearer {api-key}&#39; -d &#39;1&#39; 
+     * With this API, you can [write a new value to existing Resources](/docs/current/connecting/handle-resource-webapp.html) or use the **write** attributes to set the [notification rules](/docs/current/connecting/resource-change-webapp.html#notification-rules) for the Resources. The notification rules only work on the device client side and may not be supported by all clients.  This API can also be used to transfer files to the device. Device Management Connect LwM2M server implements the Option 1 from RFC7959. The maximum block size is 1024 bytes. The block size versus transferred file size is something to note in low quality networks. The customer application needs to know what type of file is transferred (for example txt) and the payload can be encrypted by the customer. The maximum size of payload is 1048576 bytes.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Device Management Connect and there is an active notification channel.  Supported content types depend on the device and its resource. Device Management translates HTTP to equivalent CoAP content type.  **Example usage:**  This example sets the alarm on a buzzer. The command writes the [Buzzer](http://www.openmobilealliance.org/tech/profiles/lwm2m/3338.xml) instance 0, \&quot;On/Off\&quot; boolean resource to &#39;1&#39;.      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3338/0/5850 -H \&quot;content-type: text/plain\&quot; \\       -H &#39;authorization: Bearer {api-key}&#39; -d &#39;1&#39; 
      * @param deviceId A unique Device Management device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
      * @param resourcePath Resource URL.
      * @param resourceValue The value to be set to the resource. 
@@ -1196,172 +1378,6 @@ export class SubscriptionsApi extends ApiBase {
             acceptTypes: acceptTypes,
             requestOptions: requestOptions,
             body: presubsription,
-        }, callback);
-    }
-}
-/**
- * WebsocketApi
- */
-export class WebsocketApi extends ApiBase {
-
-    /**
-     * Open the websocket.
-     * Opens the websocket connection.  A websocket channel can have only one active websocket connection at a time. If a websocket connection for a channel exists and a new connection to the same channel is made the connection is accepted and the older connection will be closed.  
-     * @param connection 
-     * @param upgrade 
-     */
-    public connectWebsocket(connection: string, upgrade: string, callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-        // verify required parameter "connection" is set
-        if (connection === null || connection === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'connection' missing."));
-            }
-            return;
-        }
-        // verify required parameter "upgrade" is set
-        if (upgrade === null || upgrade === undefined) {
-            if (callback) {
-                callback(new SDKError("Required parameter 'upgrade' missing."));
-            }
-            return;
-        }
-
-        const headerParams: any = {};
-        if (connection !== undefined) {
-            headerParams["Connection"] = connection;
-        }
-        if (upgrade !== undefined) {
-            headerParams["Upgrade"] = upgrade;
-        }
-
-        const queryParameters: any = {};
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-        ];
-
-        return this.request<null>({
-            url: "/v2/notification/websocket-connect",
-            method: "GET",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
-        }, callback);
-    }
-    /**
-     * Delete websocket channel.
-     * To delete a notification websocket channel bound to the API key.  This is required to change the channel from websocket to another type.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer {api-key}&#39; 
-     */
-    public deleteWebsocket(callback?: (error: any, data?: any, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-        ];
-
-        return this.request<null>({
-            url: "/v2/notification/websocket",
-            method: "DELETE",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
-        }, callback);
-    }
-    /**
-     * Get websocket channel information.
-     * Returns 200 with websocket connection status if websocket channel exists.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer {api-key}&#39; 
-     */
-    public getWebsocket(callback?: (error: any, data?: WebsocketChannel, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-            "application/json"
-        ];
-
-        return this.request<WebsocketChannel>({
-            url: "/v2/notification/websocket",
-            method: "GET",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
-        }, callback);
-    }
-    /**
-     * Register a websocket channel
-     * Register (or update) a channel which will use websocket connection to deliver notifications. The websocket channel should be opened by client using &#x60;/v2/notification/websocket-connect&#x60; endpoint. To get notifications pushed, you also need to place  the subscriptions. For more information on notification messages, see [NotificationMessage](#NotificationMessage).  A websocket channel can have only one active websocket connection at a time. If a websocket connection for a channel exists and a new connection to the same channel is made the connection is accepted and the older connection will be closed.   **Expiration of a websocket:**  A websocket channel will be expired if the channel does not have an opened websocket connection for 24 hour period. Channel expiration means the channel will be deleted and any undelivered notifications stored in its internal queue will be removed. As long as the channel has an opened websocket connection or time between successive websocket connections is less than 24 hours, the channel is considered active, notifications are stored in its internal queue and delivered when a websocket connection is active. A channel can be also deleted explicitly by a DELETE call.  More about [notification sending logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic).  **Example usage:**      curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer {api-key}&#39; 
-     */
-    public registerWebsocket(callback?: (error: any, data?: WebsocketChannel, response?: superagent.Response) => any, requestOptions?: { [key: string]: any }): superagent.SuperAgentRequest {
-
-        const headerParams: any = {};
-
-        const queryParameters: any = {};
-
-        // tslint:disable-next-line:prefer-const
-        let useFormData = false;
-        const formParams: any = {};
-
-        // Determine the Content-Type header
-        const contentTypes: Array<string> = [
-            "application/json"
-        ];
-
-        // Determine the Accept header
-        const acceptTypes: Array<string> = [
-        ];
-
-        return this.request<WebsocketChannel>({
-            url: "/v2/notification/websocket",
-            method: "PUT",
-            headers: headerParams,
-            query: queryParameters,
-            formParams: formParams,
-            useFormData: useFormData,
-            contentTypes: contentTypes,
-            acceptTypes: acceptTypes,
-            requestOptions: requestOptions,
         }, callback);
     }
 }
