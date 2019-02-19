@@ -150,6 +150,11 @@ export const accountSchema = (): Schema => {
                 type: "PasswordPolicy",
             },
             {
+                name: "passwordRecoveryExpiration",
+                apiName: "password_recovery_expiration",
+                type: "number",
+            },
+            {
                 name: "phoneNumber",
                 apiName: "phone_number",
                 type: "string",
@@ -512,6 +517,10 @@ export const accountSchema = (): Schema => {
                             {
                                 name: "passwordPolicy",
                                 type: "PasswordPolicy",
+                            },
+                            {
+                                name: "passwordRecoveryExpiration",
+                                type: "number",
                             },
                             {
                                 name: "phoneNumber",

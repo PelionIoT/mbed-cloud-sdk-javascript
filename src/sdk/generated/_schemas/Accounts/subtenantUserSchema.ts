@@ -10,6 +10,11 @@ export const subtenantUserSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "activeSessions",
+                apiName: "active_sessions",
+                type: "Array<any>",
+            },
+            {
                 name: "address",
                 apiName: "address",
                 type: "string",
@@ -23,6 +28,11 @@ export const subtenantUserSchema = (): Schema => {
                 name: "creationTime",
                 apiName: "creation_time",
                 type: "number",
+            },
+            {
+                name: "customFields",
+                apiName: "custom_fields",
+                type: "{ [key: string]: string }",
             },
             {
                 name: "email",
@@ -83,6 +93,11 @@ export const subtenantUserSchema = (): Schema => {
                 name: "termsAccepted",
                 apiName: "is_gtc_accepted",
                 type: "boolean",
+            },
+            {
+                name: "totpScratchCodes",
+                apiName: "totp_scratch_codes",
+                type: "Array<string>",
             },
             {
                 name: "twoFactorAuthentication",

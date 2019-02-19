@@ -80,6 +80,11 @@ export interface SubtenantTrustedCertificate extends Entity {
     readonly updatedAt?: Date;
 
     /**
+     *valid
+     */
+    readonly valid?: boolean;
+
+    /**
      *validity
      */
     readonly validity?: Date;

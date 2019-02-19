@@ -12,6 +12,11 @@ export interface SubtenantUser extends Entity {
     accountId: string;
 
     /**
+     *activeSessions
+     */
+    readonly activeSessions?: Array<any>;
+
+    /**
      *address
      */
     address?: string;
@@ -25,6 +30,11 @@ export interface SubtenantUser extends Entity {
      *creationTime
      */
     readonly creationTime?: number;
+
+    /**
+     *customFields
+     */
+    readonly customFields?: { [key: string]: string };
 
     /**
      *email
@@ -85,6 +95,11 @@ export interface SubtenantUser extends Entity {
      *termsAccepted
      */
     termsAccepted?: boolean;
+
+    /**
+     *totpScratchCodes
+     */
+    readonly totpScratchCodes?: Array<string>;
 
     /**
      *twoFactorAuthentication
