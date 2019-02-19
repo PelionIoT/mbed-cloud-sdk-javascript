@@ -45,12 +45,4 @@ describe("test configuration for connect api", () => {
 
     });
 
-    it("should set autostart to true if delivery method is undefined", () => {
-        const api = new ConnectApi({
-            apiKey: "ak_1",
-        });
-
-        expect(api.autostartNotifications).toBeTruthy();
-    });
-
 });

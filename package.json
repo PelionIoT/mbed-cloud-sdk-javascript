@@ -57,7 +57,7 @@
     "test:node": "jest --projects test/configs/node*.js",
     "test:snippets": "jest --projects test/configs/snippets*.js",
     "test:generator": "jest --projects generator/tests/*.config.js",
-    "test:integration": "jest --projects test/configs/integration*.js",
+    "test:integration": "cross-env MBED_CLOUD_SDK_TEST_SERVER_SELF_TEST=true jest --projects test/configs/integration*.js",
     "watch": "jest --watch",
     "watch:integration": "npm-run-all clean:integration watch:integration:start",
     "watch:integration:start": "tsc-watch -p integration.tsconfig.json --onSuccess \"node test/integration/build/test/integration/codeCoverage.js\"",

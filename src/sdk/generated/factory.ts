@@ -1,4 +1,4 @@
-import { Config } from "../client/config";
+import { Config } from "../common/config";
 import { AccountRepository } from ".";
 import { ApiKeyRepository } from ".";
 import { CertificateEnrollmentRepository } from ".";

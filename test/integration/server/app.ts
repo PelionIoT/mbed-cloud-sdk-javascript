@@ -54,11 +54,11 @@ export const getApp = (): express.Application => {
         res.status(205).end();
     });
 
-    app.post("/shutdown", (req, res, _next) => {
+    app.post("/shutdown", (_req, res, _next) => {
         logMessage("Shutting down.");
         res.status(202).end();
         // don't call quit if self test
-        if (!req.param("test", false)) {
+        if (!process.env.MBED_CLOUD_SDK_TEST_SERVER_SELF_TEST) {
             quit();
         }
     });

@@ -302,3 +302,17 @@ export function dateToBillingMonth(date: Date) {
 export function isThisNode(): boolean {
     return typeof window === "undefined" && typeof require === "function";
 }
+
+export function promiseTimeout(ms: number, promise) {
+    const timeout = new Promise((_resolve, reject) => {
+        const id = setTimeout(() => {
+            clearTimeout(id);
+            reject(`timed out in ${ms} ms`);
+        }, ms);
+    });
+
+    return Promise.race([
+        promise,
+        timeout,
+    ]);
+}

@@ -1,7 +1,7 @@
 import { ReadStream, createWriteStream, createReadStream } from "fs";
 import { isThisNode } from "../../common/functions";
 import { get as http_get } from "superagent";
-import { Config } from "../client/config";
+import { Config } from "./config";
 import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate } from "../generated";
 
 export function isDeveloperCertificateSetter(self: TrustedCertificate): void {
@@ -10,13 +10,13 @@ export function isDeveloperCertificateSetter(self: TrustedCertificate): void {
 
 export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
-        return streamToFile(self.getConfig(), model.errorsReportFile, resolve, reject, "error-report.csv");
+        return streamToFile(self.config, model.errorsReportFile, resolve, reject, "error-report.csv");
     });
 }
 
 export function downloadFullReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
-        return streamToFile(self.getConfig(), model.fullReportFile, resolve, reject);
+        return streamToFile(self.config, model.fullReportFile, resolve, reject);
     });
 }
 

@@ -19,7 +19,7 @@
 import superagent = require("superagent");
 
 import { SDKError } from "../../common/sdkError";
-import { Config } from "./config";
+import { Config } from "../common/config";
 import { Version } from "../../version";
 
 // tslint:disable-next-line:no-var-requires
