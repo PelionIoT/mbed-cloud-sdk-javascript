@@ -1595,7 +1595,7 @@ export class ConnectApi extends EventEmitter {
     public getWebsocket(callback: CallbackFn<Websocket>): void;
     public getWebsocket(callback?: CallbackFn<Websocket>): Promise<Websocket> {
         return asyncStyle(done => {
-            this._endpoints.websockets.getWebsocket((error, data) => {
+            this._endpoints.notifications.getWebsocket((error, data) => {
 
                 if (error) {
                     if (error.code === 404) {
@@ -1646,7 +1646,7 @@ export class ConnectApi extends EventEmitter {
     public registerWebsocket(callback: CallbackFn<Websocket>): void;
     public registerWebsocket(callback?: CallbackFn<Websocket>): Promise<Websocket> {
         return asyncStyle(done => {
-            this._endpoints.websockets.registerWebsocket((error, data) => {
+            this._endpoints.notifications.registerWebsocket((error, data) => {
 
                 if (error) {
                     return done(error);
@@ -1691,7 +1691,7 @@ export class ConnectApi extends EventEmitter {
     public deleteWebsocket(callback: CallbackFn<void>): void;
     public deleteWebsocket(callback?: CallbackFn<void>): Promise<void> {
         return asyncStyle(done => {
-            this._endpoints.websockets.deleteWebsocket((error, _data) => {
+            this._endpoints.notifications.deleteWebsocket((error, _data) => {
                 if (error) {
                     return done(error);
                 }
@@ -1751,7 +1751,7 @@ export class ConnectApi extends EventEmitter {
 
     private initiateWebSocket(): Promise<void> {
         return new Promise((resolve, reject) => {
-            this._endpoints.websockets.getWebsocket(async (error, _data) => {
+            this._endpoints.notifications.getWebsocket(async (error, _data) => {
                 this._log.debug("check if channel has been registered");
                 if (error) {
                     if (error.code === 404) {
@@ -1767,15 +1767,19 @@ export class ConnectApi extends EventEmitter {
                 }
 
                 this._log.debug("we have a channel so start websocket");
-                this.startWebSocket();
-                return resolve();
+                try {
+                    this.startWebSocket();
+                    return resolve();
+                } catch (e) {
+                    return reject(e);
+                }
             });
         });
     }
 
     private registerWebSocket(): Promise<void> {
         return new Promise((resolve, reject) => {
-            this._endpoints.websockets.registerWebsocket(async (error, _data) => {
+            this._endpoints.notifications.registerWebsocket(async (error, _data) => {
                 if (error) {
                     if (error.code === 400) {
                         this._log.debug("another channel already exists so force clear and re register websocket");
@@ -1797,7 +1801,7 @@ export class ConnectApi extends EventEmitter {
         await this.deleteWebhook();
     }
 
-    private startWebSocket() {
+    private startWebSocket(): void {
         // start the websocket
         this._webSocketClient = new WebsocketClient(
             this._websockerUrl,
@@ -1827,8 +1831,8 @@ export class ConnectApi extends EventEmitter {
                     this._log.debug("we are closing so this is expected - do nothing");
                 } else {
                     if (this._restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
-                        this._log.error("exceeded the limit of restart attempts so stopping notifications");
                         await this.stopNotifications();
+                        throw new SDKError("exceeded the limit of restart attempts");
                     } else {
                         this.restartWebsocket();
                     }
@@ -1836,8 +1840,8 @@ export class ConnectApi extends EventEmitter {
             }
             if (closeStatus === 1001 || closeStatus === 1011) {
                 if (this._restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
-                    this._log.error("exceeded the limit of restart attempts so stopping notifications");
                     await this.stopNotifications();
+                    throw new SDKError("exceeded the limit of restart attempts");
                 } else {
                     this.restartWebsocket(true);
                 }
@@ -1876,7 +1880,7 @@ export class ConnectApi extends EventEmitter {
         // delete the channel
         this._log.debug("deleting the websocket channel");
         return new Promise((resolve, reject) => {
-            this._endpoints.websockets.deleteWebsocket((error, _data) => {
+            this._endpoints.notifications.deleteWebsocket((error, _data) => {
                 if (error && error.code !== 404) {
                     return reject(error);
                 }

@@ -24,7 +24,6 @@ import {
     NotificationsApi,
     ResourcesApi,
     SubscriptionsApi,
-    WebsocketApi,
 } from "../_api/mds";
 
 export class Endpoints extends EndpointsBase {
@@ -36,7 +35,6 @@ export class Endpoints extends EndpointsBase {
     public subscriptions: SubscriptionsApi;
     public account: AccountApi;
     public statistics: StatisticsApi;
-    public websockets: WebsocketApi;
 
     constructor(options?: ConnectionOptions) {
         super();
@@ -47,6 +45,5 @@ export class Endpoints extends EndpointsBase {
         this.subscriptions = new SubscriptionsApi(options, this.responseHandler.bind(this));
         this.account = new AccountApi(options, this.responseHandler.bind(this));
         this.statistics = new StatisticsApi(options, this.responseHandler.bind(this));
-        this.websockets = new WebsocketApi(options, this.responseHandler.bind(this));
     }
 }

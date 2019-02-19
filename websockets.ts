@@ -6,6 +6,7 @@ const host = "https://api-ns-websocket.mbedcloudintegration.net";
 const api = new ConnectApi({
     apiKey,
     host,
+    logLevel: "ALL",
 });
 
 async function main() {
