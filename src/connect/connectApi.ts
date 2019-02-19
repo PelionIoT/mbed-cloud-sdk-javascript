@@ -39,7 +39,7 @@ import { generateId } from "../common/idGenerator";
 import { executeForAll } from "../common/pagination";
 import { Subscribe } from "../subscribe/subscribe";
 import { w3cwebsocket as WebsocketClient } from "websocket";
-import { loggerFactory } from "../common/logger";
+import { loggerFactory } from "../sdk/common/logger";
 import { Websocket } from "./models/websocket";
 import { Logger } from "typescript-logging";
 
@@ -122,17 +122,27 @@ export class ConnectApi extends EventEmitter {
     public static readonly EVENT_EXPIRED: string = "expired";
 
     private static readonly ASYNC_KEY = "async-response-id";
+    private static readonly DELAY_BETWEEN_RETRIES = 1000;
     private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
 
     /**
-     * Gives you access to the subscribe manager
+     * Gives you access to the subscribe interface
      */
-    public subscribe: Subscribe;
+    public readonly subscribe: Subscribe;
 
+    /**
+     * Clear any existing channels before receiving notifications
+     */
     public readonly forceClear: boolean;
 
+    /**
+     * Start receiving notifications on the client without calling start notifications
+     */
     public readonly autostartNotifications?: boolean;
 
+    /**
+     * @deprecated webhook will work if updateWebhook is called or if startNotifications is not called
+     */
     public readonly handleNotifications?: boolean;
 
     private readonly _websockerUrl = "wss://api-ns-websocket.mbedcloudintegration.net/v2/notification/websocket-connect";
@@ -176,7 +186,7 @@ export class ConnectApi extends EventEmitter {
             this._deliveryMethod = "SERVER_INITIATED";
         }
 
-        // default force clear to false;
+        // default force clear and autostart to false;
         this.forceClear = options.forceClear === true;
         this.autostartNotifications = options.autostartNotifications === true;
 
@@ -186,6 +196,7 @@ export class ConnectApi extends EventEmitter {
 
         this.subscribe = new Subscribe(this);
 
+        // by default, sdk will teardown channel on exit (node only)
         if (isThisNode() && !options.skipCleanup) {
             [ "SIGHUP", "SIGINT", "SIGQUIT", "SIGILL", "SIGTRAP", "SIGABRT", "SIGBUS", "SIGFPE", "SIGUSR1", "SIGSEGV", "SIGUSR2", "SIGTERM" ]
                 .forEach(sig => {
@@ -196,37 +207,6 @@ export class ConnectApi extends EventEmitter {
                     });
                 });
         }
-    }
-
-    private async terminate() {
-        // teardown operations for when node process quits
-        await this.stopNotifications();
-    }
-
-    private normalizePath(path?: string): string {
-        if (path && path.charAt(0) === "/") {
-            return path.substr(1);
-        }
-
-        return path;
-    }
-
-    private reverseNormalizePath(path?: string): string {
-        if (path && path.charAt(0) !== "/") {
-            return `/${path}`;
-        }
-
-        return path;
-    }
-
-    private handleAsync<T>(data: any, done: (error: SDKError, result: T) => void): void {
-        if (data && data[ConnectApi.ASYNC_KEY]) {
-            this._asyncFns[data[ConnectApi.ASYNC_KEY]] = done;
-            return;
-        }
-
-        // Cached value may be returned
-        done(null, data);
     }
 
     /**
@@ -419,139 +399,6 @@ export class ConnectApi extends EventEmitter {
 
             return done(null, null);
         }, callback);
-    }
-
-    private initiateWebSocket(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this._endpoints.websockets.getWebsocket(async (error, _data) => {
-                this._log.debug("check if channel has been registered");
-                if (error) {
-                    if (error.code === 404) {
-                        this._log.debug("no channel found so need to register a websocket");
-                        try {
-                            await this.registerWebSocket();
-                        } catch (e) {
-                            return reject(e);
-                        }
-                    } else {
-                        return reject(error);
-                    }
-                }
-
-                this._log.debug("we have a channel so start websocket");
-                this.startWebSocket();
-                return resolve();
-            });
-        });
-    }
-
-    private registerWebSocket(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this._endpoints.websockets.registerWebsocket(async (error, _data) => {
-                if (error) {
-                    if (error.code === 400) {
-                        this._log.debug("another channel already exists so force clear and re register websocket");
-                        await this.forceClearWebhook();
-                        return resolve(await this.registerWebSocket());
-                    } else {
-                        return reject(error);
-                    }
-                }
-
-                this._log.debug("registered websocket successfully");
-                return resolve();
-            });
-        });
-    }
-
-    private async forceClearWebhook(): Promise<void> {
-        this._log.warn("deleting any existing webhook connection");
-        await this.deleteWebhook();
-    }
-
-    private startWebSocket() {
-        // start the websocket
-        this._webSocketClient = new WebsocketClient(
-            this._websockerUrl,
-            [
-                `pelion_${this._connectOptions.apiKey}`,
-                `wss`
-            ],
-        );
-
-        this._webSocketClient.onerror = async error => {
-            this._log.error("error from websocket", error);
-            await this.stopNotifications();
-        };
-
-        this._webSocketClient.onopen = () => {
-            this._log.info("notifications started...");
-        };
-
-        this._webSocketClient.onclose = async () => {
-            const connectionInfo = (this._webSocketClient as any)._connection;
-            const closeStatus: number = connectionInfo.closeReasonCode;
-            const closeDescription: string = connectionInfo.closeDescription;
-            this._log.debug(`received close message - ${closeStatus} - ${closeDescription}`);
-
-            if (closeStatus === 1000) {
-                if (this._isClosing) {
-                    this._log.debug("we are closing so this is expected - do nothing");
-                } else {
-                    if (this._restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
-                        this._log.error("exceeded the limit of restart attempts so stopping notifications");
-                        await this.stopNotifications();
-                    } else {
-                        this._log.warn("attempting to restart websocket");
-                        await this.stopWebSocket();
-                        await this.startWebSocket();
-                        this._restartCount++;
-                    }
-                }
-            }
-            if (closeStatus === 1001 || closeStatus === 1011) {
-                if (this._restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
-                    this._log.error("exceeded the limit of restart attempts so stopping notifications");
-                    await this.stopNotifications();
-                } else {
-                    this._log.warn("attempting to restart and re-register websocket");
-                    await this.stopWebSocket();
-                    await this.registerWebSocket();
-                    await this.startWebSocket();
-                    this._restartCount++;
-                }
-            } else {
-                // an error we cannot recover from so just stop!
-                await this.stopNotifications();
-            }
-        };
-
-        this._webSocketClient.onmessage = message => {
-            // reset restart count, we're recieving messages now so things should be ok
-            this._restartCount = 0;
-            const data = JSON.parse(message.data);
-            this.notify(data);
-            if (this._requestCallback && data["async-responses"]) { this._requestCallback(null, data["async-responses"]); }
-        };
-    }
-
-    private stopWebSocket(): Promise<void> {
-        this._isClosing = true;
-        this._log.debug("closing the websocket with 1000 - normal closure");
-        this._webSocketClient.close(1000, "");
-
-        // delete the channel
-        this._log.debug("deleting the websocket channel");
-        return new Promise((resolve, reject) => {
-            this._endpoints.websockets.deleteWebsocket((error, _data) => {
-                if (error && error.code !== 404) {
-                    return reject(error);
-                }
-
-                this._isClosing = false;
-                return resolve();
-            });
-        });
     }
 
     /**
@@ -1868,5 +1715,175 @@ export class ConnectApi extends EventEmitter {
         return asyncStyle( done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
+    }
+
+    private async terminate() {
+        // teardown operations for when node process quits
+        await this.stopNotifications();
+        // some other jobs may come here
+    }
+
+    private normalizePath(path?: string): string {
+        if (path && path.charAt(0) === "/") {
+            return path.substr(1);
+        }
+
+        return path;
+    }
+
+    private reverseNormalizePath(path?: string): string {
+        if (path && path.charAt(0) !== "/") {
+            return `/${path}`;
+        }
+
+        return path;
+    }
+
+    private handleAsync<T>(data: any, done: (error: SDKError, result: T) => void): void {
+        if (data && data[ConnectApi.ASYNC_KEY]) {
+            this._asyncFns[data[ConnectApi.ASYNC_KEY]] = done;
+            return;
+        }
+
+        // Cached value may be returned
+        done(null, data);
+    }
+
+    private initiateWebSocket(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this._endpoints.websockets.getWebsocket(async (error, _data) => {
+                this._log.debug("check if channel has been registered");
+                if (error) {
+                    if (error.code === 404) {
+                        this._log.debug("no channel found so need to register a websocket");
+                        try {
+                            await this.registerWebSocket();
+                        } catch (e) {
+                            return reject(e);
+                        }
+                    } else {
+                        return reject(error);
+                    }
+                }
+
+                this._log.debug("we have a channel so start websocket");
+                this.startWebSocket();
+                return resolve();
+            });
+        });
+    }
+
+    private registerWebSocket(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this._endpoints.websockets.registerWebsocket(async (error, _data) => {
+                if (error) {
+                    if (error.code === 400) {
+                        this._log.debug("another channel already exists so force clear and re register websocket");
+                        await this.forceClearWebhook();
+                        return resolve(await this.registerWebSocket());
+                    } else {
+                        return reject(error);
+                    }
+                }
+
+                this._log.debug("registered websocket successfully");
+                return resolve();
+            });
+        });
+    }
+
+    private async forceClearWebhook(): Promise<void> {
+        this._log.warn("deleting any existing webhook connection");
+        await this.deleteWebhook();
+    }
+
+    private startWebSocket() {
+        // start the websocket
+        this._webSocketClient = new WebsocketClient(
+            this._websockerUrl,
+            [
+                `pelion_${this._connectOptions.apiKey}`,
+                `wss`
+            ],
+        );
+
+        this._webSocketClient.onerror = async error => {
+            this._log.error("error from websocket", error);
+            await this.stopNotifications();
+        };
+
+        this._webSocketClient.onopen = () => {
+            this._log.info("notifications started...");
+        };
+
+        this._webSocketClient.onclose = async () => {
+            const connectionInfo = (this._webSocketClient as any)._connection;
+            const closeStatus: number = connectionInfo.closeReasonCode;
+            const closeDescription: string = connectionInfo.closeDescription;
+            this._log.debug(`received close message - ${closeStatus} - ${closeDescription}`);
+
+            if (closeStatus === 1000) {
+                if (this._isClosing) {
+                    this._log.debug("we are closing so this is expected - do nothing");
+                } else {
+                    if (this._restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
+                        this._log.error("exceeded the limit of restart attempts so stopping notifications");
+                        await this.stopNotifications();
+                    } else {
+                        this.restartWebsocket();
+                    }
+                }
+            }
+            if (closeStatus === 1001 || closeStatus === 1011) {
+                if (this._restartCount > ConnectApi.MAXIMUM_NUMBER_OF_RETRIES) {
+                    this._log.error("exceeded the limit of restart attempts so stopping notifications");
+                    await this.stopNotifications();
+                } else {
+                    this.restartWebsocket(true);
+                }
+            } else {
+                // an error we cannot recover from so just stop!
+                await this.stopNotifications();
+            }
+        };
+
+        this._webSocketClient.onmessage = message => {
+            // reset restart count, we're recieving messages now so things should be ok
+            this._restartCount = 0;
+            const data = JSON.parse(message.data);
+            this.notify(data);
+            if (this._requestCallback && data["async-responses"]) { this._requestCallback(null, data["async-responses"]); }
+        };
+    }
+
+    private restartWebsocket(register?: boolean): void {
+        setTimeout(async () => {
+            this._log.warn("attempting to restart " + register ? "and re-register " : "" + "websocket");
+            await this.stopWebSocket();
+            if (register) {
+                await this.registerWebSocket();
+            }
+            await this.startWebSocket();
+            this._restartCount++;
+        }, ConnectApi.DELAY_BETWEEN_RETRIES * this._restartCount);
+    }
+
+    private stopWebSocket(): Promise<void> {
+        this._isClosing = true;
+        this._log.debug("closing the websocket with 1000 - normal closure");
+        this._webSocketClient.close(1000, "");
+
+        // delete the channel
+        this._log.debug("deleting the websocket channel");
+        return new Promise((resolve, reject) => {
+            this._endpoints.websockets.deleteWebsocket((error, _data) => {
+                if (error && error.code !== 404) {
+                    return reject(error);
+                }
+
+                this._isClosing = false;
+                return resolve();
+            });
+        });
     }
 }

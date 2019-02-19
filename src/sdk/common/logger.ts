@@ -3,8 +3,6 @@ import { LoggerFactoryOptions, LFService, LogGroupRule, LogLevel } from "typescr
 export const loggerFactory = (name: string, level: SDKLogLevel) => {
     const options = new LoggerFactoryOptions();
     switch (level) {
-        case "OFF":
-            break;
         case "FATAL":
             options.addLogGroupRule(new LogGroupRule(new RegExp(".+"), LogLevel.Fatal));
             break;
@@ -24,11 +22,11 @@ export const loggerFactory = (name: string, level: SDKLogLevel) => {
             options.addLogGroupRule(new LogGroupRule(new RegExp(".+"), LogLevel.Trace));
             break;
         default:
-            options.addLogGroupRule(new LogGroupRule(new RegExp(".+"), LogLevel.Trace));
+            options.addLogGroupRule(new LogGroupRule(new RegExp(".+"), LogLevel.Fatal));
             break;
     }
 
     return LFService.createNamedLoggerFactory(`${name}SDKLogger`, options);
 };
 
-export type SDKLogLevel = "OFF" | "FATAL" | "ERROR" | "WARN" | "INFO" | "DEBUG" | "ALL";
+export type SDKLogLevel = "FATAL" | "ERROR" | "WARN" | "INFO" | "DEBUG" | "ALL";

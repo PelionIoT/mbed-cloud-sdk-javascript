@@ -1,6 +1,6 @@
 import { ConnectionOptions } from "../../common/interfaces";
 import dotenv = require("dotenv");
-import { SDKLogLevel } from "../../common/logger";
+import { SDKLogLevel } from "./logger";
 
 export class Config {
     private readonly ENV_API_KEY = "MBED_CLOUD_SDK_API_KEY";

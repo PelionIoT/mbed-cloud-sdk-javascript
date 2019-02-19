@@ -16,7 +16,7 @@
 */
 
 import { SDKError } from "./sdkError";
-import { SDKLogLevel } from "./logger";
+import { SDKLogLevel } from "../sdk/common/logger";
 
 export interface ConnectionOptions {
     /**
