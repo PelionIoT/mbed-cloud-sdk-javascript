@@ -12,7 +12,7 @@ export const userSchema = (): Schema => {
             {
                 name: "activeSessions",
                 apiName: "active_sessions",
-                type: "Array<any>",
+                type: "Array<ActiveSession>",
             },
             {
                 name: "address",

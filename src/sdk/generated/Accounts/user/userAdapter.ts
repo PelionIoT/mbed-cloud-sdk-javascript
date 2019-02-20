@@ -1,5 +1,6 @@
 import { Adapter } from "../../../common/adapter";
 import { User } from "./user";
+import { ActiveSessionAdapter } from "../..";
 import { LoginHistoryAdapter } from "../..";
 import { LoginProfileAdapter } from "../..";
 /**
@@ -9,6 +10,10 @@ export class UserAdapter extends Adapter {
     public static fromApi(data: any, instance?: any): User {
         if (!data) {
             return null;
+        }
+        let activeSessions = [];
+        if (data.active_sessions) {
+            activeSessions = data.active_sessions.map(i => ActiveSessionAdapter.fromApi(i));
         }
         let loginHistory = [];
         if (data.login_history) {
@@ -21,7 +26,7 @@ export class UserAdapter extends Adapter {
         const mappedEntity = UserAdapter.assignDefined(instance || {}, {
             _discriminator: "USER",
             accountId: data.account_id,
-            activeSessions: data.active_sessions,
+            activeSessions: activeSessions,
             address: data.address,
             createdAt: data.created_at,
             creationTime: data.creation_time,

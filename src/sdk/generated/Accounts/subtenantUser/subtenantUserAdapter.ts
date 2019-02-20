@@ -1,5 +1,6 @@
 import { Adapter } from "../../../common/adapter";
 import { SubtenantUser } from "./subtenantUser";
+import { ActiveSessionAdapter } from "../..";
 import { LoginHistoryAdapter } from "../..";
 import { LoginProfileAdapter } from "../..";
 /**
@@ -9,6 +10,10 @@ export class SubtenantUserAdapter extends Adapter {
     public static fromApi(data: any, instance?: any): SubtenantUser {
         if (!data) {
             return null;
+        }
+        let activeSessions = [];
+        if (data.active_sessions) {
+            activeSessions = data.active_sessions.map(i => ActiveSessionAdapter.fromApi(i));
         }
         let loginHistory = [];
         if (data.login_history) {
@@ -21,7 +26,7 @@ export class SubtenantUserAdapter extends Adapter {
         const mappedEntity = SubtenantUserAdapter.assignDefined(instance || {}, {
             _discriminator: "SUBTENANT_USER",
             accountId: data.account_id,
-            activeSessions: data.active_sessions,
+            activeSessions: activeSessions,
             address: data.address,
             createdAt: data.created_at,
             creationTime: data.creation_time,
