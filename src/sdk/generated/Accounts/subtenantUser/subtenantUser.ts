@@ -1,4 +1,5 @@
 import { Entity } from "../../../common/entity";
+import { ActiveSession } from "../activeSession/activeSession";
 import { LoginHistory } from "../loginHistory/loginHistory";
 import { LoginProfile } from "../loginProfile/loginProfile";
 import { SubtenantUserStatusEnum } from "./types";
@@ -10,6 +11,11 @@ export interface SubtenantUser extends Entity {
      *accountId
      */
     accountId: string;
+
+    /**
+     *activeSessions
+     */
+    readonly activeSessions?: Array<ActiveSession>;
 
     /**
      *address
@@ -25,6 +31,11 @@ export interface SubtenantUser extends Entity {
      *creationTime
      */
     readonly creationTime?: number;
+
+    /**
+     *customFields
+     */
+    readonly customFields?: { [key: string]: string };
 
     /**
      *email
@@ -85,6 +96,11 @@ export interface SubtenantUser extends Entity {
      *termsAccepted
      */
     termsAccepted?: boolean;
+
+    /**
+     *totpScratchCodes
+     */
+    readonly totpScratchCodes?: Array<string>;
 
     /**
      *twoFactorAuthentication

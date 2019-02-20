@@ -27,6 +27,7 @@ export class TrustedCertificateAdapter extends Adapter {
             status: data.status,
             subject: data.subject,
             updatedAt: data.updated_at,
+            valid: data.valid,
             validity: data.validity,
         });
         isDeveloperCertificateSetter(mappedEntity);
