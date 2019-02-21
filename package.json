@@ -106,7 +106,7 @@
     "tsc-watch": "^1.0.26",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
-    "typedoc": "^0.13.0",
+    "typedoc": "^0.14.2",
     "typescript": "^3.1.1",
     "typescript-logging": "^0.5.0",
     "winston": "^3.1.0"
