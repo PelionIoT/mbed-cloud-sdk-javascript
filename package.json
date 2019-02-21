@@ -72,7 +72,7 @@
     "@types/memory-cache": "^0.2.0",
     "@types/node": "^7.0.67",
     "@types/prettier": "^1.15.2",
-    "@types/superagent": "^2.0.36",
+    "@types/superagent": "^3.8.6",
     "@types/supertest": "^2.0.7",
     "body-parser": "^1.18.2",
     "browserify": "^14.0.0",
