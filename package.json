@@ -91,7 +91,7 @@
     "istanbul-lib-coverage": "^2.0.1",
     "istanbul-lib-hook": "^2.0.1",
     "istanbul-lib-instrument": "^2.3.2",
-    "istanbul-lib-source-maps": "^2.0.1",
+    "istanbul-lib-source-maps": "^3.0.2",
     "jest": "^23.6.0",
     "memory-cache": "^0.2.0",
     "nlf": "^2.0.0",
