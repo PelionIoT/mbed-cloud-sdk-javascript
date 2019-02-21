@@ -90,7 +90,7 @@
     "gulp-uglify": "^2.0.1",
     "istanbul-lib-coverage": "^2.0.1",
     "istanbul-lib-hook": "^2.0.1",
-    "istanbul-lib-instrument": "^2.3.2",
+    "istanbul-lib-instrument": "^3.1.0",
     "istanbul-lib-source-maps": "^3.0.2",
     "jest": "^23.6.0",
     "memory-cache": "^0.2.0",
