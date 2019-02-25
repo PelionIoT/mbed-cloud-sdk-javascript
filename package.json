@@ -87,7 +87,7 @@
     "gulp-buffer": "0.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-tap": "^1.0.1",
-    "gulp-uglify": "^2.0.1",
+    "gulp-uglify": "^3.0.1",
     "istanbul-lib-coverage": "^2.0.3",
     "istanbul-lib-hook": "^2.0.3",
     "istanbul-lib-instrument": "^3.1.0",
