@@ -1,4 +1,5 @@
 export { accountSchema } from "./Accounts/accountSchema";
+export { activeSessionSchema } from "./Accounts/activeSessionSchema";
 export { apiKeySchema } from "./Accounts/apiKeySchema";
 export { certificateEnrollmentSchema } from "./Security/certificateEnrollmentSchema";
 export { certificateIssuerSchema } from "./Security/certificateIssuerSchema";

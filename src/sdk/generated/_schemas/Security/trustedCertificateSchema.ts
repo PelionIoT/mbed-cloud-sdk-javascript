@@ -80,6 +80,11 @@ export const trustedCertificateSchema = (): Schema => {
                 type: "Date",
             },
             {
+                name: "valid",
+                apiName: "valid",
+                type: "boolean",
+            },
+            {
                 name: "validity",
                 apiName: "validity",
                 type: "Date",

@@ -153,6 +153,11 @@ export interface Account extends Entity {
     passwordPolicy?: PasswordPolicy;
 
     /**
+     *passwordRecoveryExpiration
+     */
+    passwordRecoveryExpiration?: number;
+
+    /**
      *phoneNumber
      */
     phoneNumber?: string;

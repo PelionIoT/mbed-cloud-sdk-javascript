@@ -193,6 +193,7 @@ export class AccountRepository extends Repository {
                             mfa_status: request.mfaStatus,
                             notification_emails: request.notificationEmails,
                             password_policy: request.passwordPolicy,
+                            password_recovery_expiration: request.passwordRecoveryExpiration,
                             phone_number: request.phoneNumber,
                             postal_code: request.postalCode,
                             sales_contact: request.salesContact,

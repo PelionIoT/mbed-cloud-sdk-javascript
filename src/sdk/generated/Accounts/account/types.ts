@@ -196,6 +196,11 @@ export interface AccountUpdateRequest {
     readonly passwordPolicy?: PasswordPolicy;
 
     /**
+     *passwordRecoveryExpiration
+     */
+    readonly passwordRecoveryExpiration?: number;
+
+    /**
      *phoneNumber
      */
     readonly phoneNumber?: string;

@@ -1,4 +1,5 @@
 export * from "./Accounts/account";
+export * from "./Accounts/activeSession";
 export * from "./Accounts/apiKey";
 export * from "./Security/certificateEnrollment";
 export * from "./Security/certificateIssuer";
