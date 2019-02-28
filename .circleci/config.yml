@@ -113,7 +113,7 @@ jobs:
       - image: circleci/python:3.7.0-stretch-node-browsers
     steps:
       - attach_workspace:
-          at: ~/docs
+          at: ./
       - run:
           name: Installing aws cli
           command: |
