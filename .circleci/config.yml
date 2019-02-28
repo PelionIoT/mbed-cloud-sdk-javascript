@@ -123,7 +123,7 @@ jobs:
       - run:
           command: |
                   . venv/bin/activate
-                  aws s3 sync --delete --cache-control max-age=3600 ~/docs s3://mbed-cloud-sdk-javascript/${CIRCLE_BRANCH}/docs
+                  aws s3 sync --delete --cache-control max-age=3600 ~/build/docs/docs s3://mbed-cloud-sdk-javascript/${CIRCLE_BRANCH}/docs
           name: upload docs to s3
   news:
     working_directory: ~/build
