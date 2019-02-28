@@ -383,6 +383,7 @@ workflows:
       - news
       - docs
       - upload_docs:
+          <<: *main_branches_only
           requires:
             - docs
       - build_documentation:
