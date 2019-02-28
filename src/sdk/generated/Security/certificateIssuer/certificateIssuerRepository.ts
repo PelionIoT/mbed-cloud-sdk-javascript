@@ -1,14 +1,14 @@
 import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../../common/functions";
+import { apiWrapper } from "../../../../legacy/common/functions";
 import { CertificateIssuer } from "./certificateIssuer";
 import { CertificateIssuerAdapter } from "../../index";
 import { CertificateIssuerCreateRequest } from "./types";
 import { CertificateIssuerUpdateRequest } from "./types";
 import { VerificationResponse } from "../../index";
 import { VerificationResponseAdapter } from "../../index";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
+import { Paginator } from "../../../../legacy/common/pagination";
+import { ListResponse } from "../../../../legacy/common/listResponse";
+import { ListOptions } from "../../../../legacy/common/interfaces";
 /**
  *CertificateIssuer repository
  */

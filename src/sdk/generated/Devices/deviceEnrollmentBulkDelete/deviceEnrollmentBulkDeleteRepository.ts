@@ -1,5 +1,5 @@
 import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../../common/functions";
+import { apiWrapper } from "../../../../legacy/common/functions";
 import { DeviceEnrollmentBulkDelete } from "./deviceEnrollmentBulkDelete";
 import { DeviceEnrollmentBulkDeleteAdapter } from "../../index";
 import { downloadErrorsReportFile } from "../../../common/privateFunctions";

@@ -1,5 +1,5 @@
 import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../../common/functions";
+import { apiWrapper } from "../../../../legacy/common/functions";
 import { ServerCredentials } from "./serverCredentials";
 import { ServerCredentialsAdapter } from "../../index";
 /**

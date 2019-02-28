@@ -1,5 +1,5 @@
 import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../../common/functions";
+import { apiWrapper } from "../../../../legacy/common/functions";
 import { DeviceEnrollmentBulkCreate } from "./deviceEnrollmentBulkCreate";
 import { DeviceEnrollmentBulkCreateAdapter } from "../../index";
 import { downloadErrorsReportFile } from "../../../common/privateFunctions";

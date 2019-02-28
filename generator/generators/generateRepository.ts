@@ -275,7 +275,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                     ),
                     new ImportContainer(
                         "API_WRAPPER",
-                        "../../../../common/functions",
+                        "../../../../legacy/common/functions",
                         [
                             "apiWrapper"
                         ]
@@ -304,21 +304,21 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
         if (hasPaginator) {
             repositoryClass.addImport(new ImportContainer(
                 `PAGINATOR`,
-                "../../../../common/pagination",
+                "../../../../legacy/common/pagination",
                 [
                     "Paginator"
                 ]
             ));
             repositoryClass.addImport(new ImportContainer(
                 `LIST_RESPONSE`,
-                "../../../../common/listResponse",
+                "../../../../legacy/common/listResponse",
                 [
                     "ListResponse"
                 ]
             ));
             repositoryClass.addImport(new ImportContainer(
                 `LIST_OPTIONS`,
-                "../../../../common/interfaces",
+                "../../../../legacy/common/interfaces",
                 [
                     "ListOptions"
                 ]

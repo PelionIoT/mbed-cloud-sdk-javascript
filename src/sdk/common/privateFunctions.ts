@@ -1,5 +1,5 @@
 import { ReadStream, createWriteStream, createReadStream } from "fs";
-import { isThisNode } from "../../common/functions";
+import { isThisNode } from "./../../legacy/common/functions";
 import { get as http_get } from "superagent";
 import { Config } from "../client/config";
 import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate } from "../generated";

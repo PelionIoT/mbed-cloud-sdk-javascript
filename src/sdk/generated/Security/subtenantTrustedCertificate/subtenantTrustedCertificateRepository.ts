@@ -1,5 +1,5 @@
 import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../../common/functions";
+import { apiWrapper } from "../../../../legacy/common/functions";
 import { SubtenantTrustedCertificate } from "./subtenantTrustedCertificate";
 import { SubtenantTrustedCertificateAdapter } from "../../index";
 import { SubtenantTrustedCertificateCreateRequest } from "./types";

@@ -26,7 +26,8 @@ function bundle(srcFiles, destDir, optionsFn) {
     .pipe(tap(function(file) {
         var options = {};
         if (optionsFn) options = optionsFn(file);
-        var fileName = options.fileName || path.basename(file.path);
+        // strip legacy from filename to preserve old bundles
+        var fileName = (options.fileName || path.basename(file.path)).replace("legacy/", "");
 
         if (options.standalone)
             console.log(`Creating ${options.standalone} in ${destDir}/${fileName}`);

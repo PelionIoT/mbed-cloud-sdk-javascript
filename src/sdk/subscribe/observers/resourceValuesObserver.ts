@@ -1,7 +1,7 @@
 import { Observer } from "./observer";
-import { ResourceValuesFilter, NotificationData, PresubscriptionObject, FirstValueEnum } from "../../connect/types";
-import { ensureArray, matchWithWildcard } from "../../common/functions";
-import { ConnectApi } from "../../connect/connectApi";
+import { ResourceValuesFilter, NotificationData, PresubscriptionObject, FirstValueEnum } from "../../../legacy/connect/types";
+import { ensureArray, matchWithWildcard } from "../../../legacy/common/functions";
+import { ConnectApi } from "../../../legacy/connect/connectApi";
 
 /*
 * Mbed Cloud JavaScript SDK

@@ -1,10 +1,10 @@
 import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../../common/functions";
+import { apiWrapper } from "../../../../legacy/common/functions";
 import { DeviceEvents } from "./deviceEvents";
 import { DeviceEventsAdapter } from "../../index";
-import { Paginator } from "../../../../common/pagination";
-import { ListResponse } from "../../../../common/listResponse";
-import { ListOptions } from "../../../../common/interfaces";
+import { Paginator } from "../../../../legacy/common/pagination";
+import { ListResponse } from "../../../../legacy/common/listResponse";
+import { ListOptions } from "../../../../legacy/common/interfaces";
 /**
  *DeviceEvents repository
  */

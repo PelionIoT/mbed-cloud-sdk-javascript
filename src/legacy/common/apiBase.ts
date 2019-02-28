@@ -21,7 +21,7 @@ import dotenv = require("dotenv");
 
 import { SDKError } from "./sdkError";
 import { ConnectionOptions } from "./interfaces";
-import { Version } from "../version";
+import { Version } from "../../version";
 import { isThisNode } from "./functions";
 
 // tslint:disable-next-line:no-var-requires

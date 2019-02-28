@@ -1,4 +1,4 @@
-import { ListOptions } from "../../../../common/interfaces";
+import { ListOptions } from "../../../../legacy/common/interfaces";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
 export type AccountMfaStatusEnum = "enforced" | "optional";
 export type AccountStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";

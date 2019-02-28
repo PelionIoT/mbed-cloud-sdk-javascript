@@ -1,5 +1,5 @@
 import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../../common/functions";
+import { apiWrapper } from "../../../../legacy/common/functions";
 import { SubtenantUser } from "./subtenantUser";
 import { SubtenantUserAdapter } from "../../index";
 import { SubtenantUserCreateRequest } from "./types";

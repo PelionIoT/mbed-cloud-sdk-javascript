@@ -38,7 +38,7 @@ import { DeviceListOptions } from "../deviceDirectory/types";
 import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
 import { generateId } from "../common/idGenerator";
 import { executeForAll } from "../common/pagination";
-import { Subscribe } from "../subscribe/subscribe";
+import { Subscribe } from "../../sdk/subscribe/subscribe";
 
 /**
  * ## Connect API
