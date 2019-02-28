@@ -1,7 +1,7 @@
 import { ConnectApi } from "./src";
 
-const apiKey = "ak_1MDE2ODVjNzVjOTdjMjJjMTFjMDQ0ZDUzMDAwMDAwMDA0168b97683d6f65f42b0f3e100000000lt4PeToNqJ3ZvguwsxoxH7tadJci8qYv";
-const host = "https://api-ns-websocket.mbedcloudintegration.net";
+const apiKey = "ak_1MDE1NzUyOGJiODQxMDI0MjBhMDEzMjE0MDAwMDAwMDA0169254e4db55a82adfc304900000000zdp6NwljkgC6AlbUnIwpVNsaVvKPPhxW";
+const host = "https://lab-api.mbedcloudintegration.net";
 
 const api = new ConnectApi({
     apiKey,
@@ -10,48 +10,19 @@ const api = new ConnectApi({
 });
 
 async function main() {
-
-    // // tslint:disable-next-line:no-console
-    // console.log("------------------- start --------------");
-    // await api.startNotifications();
-
-    // // tslint:disable-next-line:no-console
-    // console.log("------------------- start --------------");
-    // await api.startNotifications();
-
-    // // tslint:disable-next-line:no-console
-    // console.log("------------------- start --------------");
-    // await api.startNotifications();
-
-    // // tslint:disable-next-line:no-console
-    // console.log("------------------- stop --------------");
-    // await api.stopNotifications();
-
-    // // tslint:disable-next-line:no-console
-    // console.log("------------------- stop --------------");
-    // await api.stopNotifications();
-
-    // // tslint:disable-next-line:no-console
-    // console.log("------------------- start --------------");
-    // await api.startNotifications();
-
-    // tslint:disable-next-line:no-console
-    console.log("------------------- start --------------");
-    await api.startNotifications();
-
-    // tslint:disable-next-line:no-console
-    console.log("------------------- subscribe --------------");
-    const myDevice = (await api.listConnectedDevices()).data.pop();
+    const myDevice = (await api.listConnectedDevices()).data.filter(d => d.id === "01681908e1ba00000000000100100089").pop();
 
     const obs = api.subscribe.resourceValues({
         deviceId: myDevice.id,
         resourcePaths: [
-            "/3200/0/5501"
+            "/3202/0/5600"
         ],
     });
 
-    // tslint:disable-next-line:no-console
-    obs.addListener(message => console.log(message));
+    for (let index = 0; index < 4000; index++) {
+        // tslint:disable-next-line:no-console
+        console.log(await obs.once());
+    }
 }
 
 main();

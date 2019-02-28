@@ -17,7 +17,7 @@
 
 import { EventEmitter } from "events";
 import { ListResponse } from "../common/listResponse";
-import { asyncStyle, apiWrapper, decodeBase64, encodeBase64, isThisNode } from "../common/functions";
+import { asyncStyle, apiWrapper, decodeBase64, encodeBase64 } from "../common/functions";
 import { CallbackFn } from "../common/interfaces";
 import { SDKError } from "../common/sdkError";
 import { Endpoints } from "./endpoints";
@@ -145,7 +145,7 @@ export class ConnectApi extends EventEmitter {
      */
     public readonly handleNotifications?: boolean;
 
-    private readonly _websockerUrl = "wss://api-ns-websocket.mbedcloudintegration.net/v2/notification/websocket-connect";
+    private readonly _websockerUrl: string = "";
     private _instanceId: string;
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
@@ -179,6 +179,7 @@ export class ConnectApi extends EventEmitter {
         this._deviceDirectory = new DeviceDirectoryApi(options);
         this._log = loggerFactory(`connectApi${this._instanceId}`, options.logLevel).getLogger("ConnectApi");
         this._restartCount = 0;
+        this._websockerUrl = `${options.host.replace("https", "wss")}/v2/notification/websocket-connect`;
 
         // make sure handle notifications keeps working
         if (options.handleNotifications) {
@@ -196,17 +197,17 @@ export class ConnectApi extends EventEmitter {
 
         this.subscribe = new Subscribe(this);
 
-        // by default, sdk will teardown channel on exit (node only)
-        if (isThisNode() && !options.skipCleanup) {
-            [ "SIGHUP", "SIGINT", "SIGQUIT", "SIGILL", "SIGTRAP", "SIGABRT", "SIGBUS", "SIGFPE", "SIGUSR1", "SIGSEGV", "SIGUSR2", "SIGTERM" ]
-                .forEach(sig => {
-                    process.on(sig, async () => {
-                        this._log.debug(`received ${sig} - tearing down connectApi...`);
-                        await this.terminate();
-                        process.exit(1);
-                    });
-                });
-        }
+        // // by default, sdk will teardown channel on exit (node only)
+        // if (isThisNode() && !options.skipCleanup) {
+        //     [ "SIGHUP", "SIGINT", "SIGQUIT", "SIGILL", "SIGTRAP", "SIGABRT", "SIGBUS", "SIGFPE", "SIGUSR1", "SIGSEGV", "SIGUSR2", "SIGTERM" ]
+        //         .forEach(sig => {
+        //             process.on(sig, async () => {
+        //                 this._log.debug(`received ${sig} - tearing down connectApi...`);
+        //                 await this.terminate();
+        //                 process.exit(1);
+        //             });
+        //         });
+        // }
     }
 
     /**
@@ -395,7 +396,11 @@ export class ConnectApi extends EventEmitter {
             }
 
             // start websocket
-            await this.initiateWebSocket();
+            try {
+                await this.initiateWebSocket();
+            } catch (e) {
+                return done(e, null);
+            }
 
             return done(null, null);
         }, callback);
@@ -1717,11 +1722,11 @@ export class ConnectApi extends EventEmitter {
         }, callback);
     }
 
-    private async terminate() {
-        // teardown operations for when node process quits
-        await this.stopNotifications();
-        // some other jobs may come here
-    }
+    // private async terminate() {
+    //     // teardown operations for when node process quits
+    //     await this.stopNotifications();
+    //     // some other jobs may come here
+    // }
 
     private normalizePath(path?: string): string {
         if (path && path.charAt(0) === "/") {
