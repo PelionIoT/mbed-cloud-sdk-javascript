@@ -1,11 +1,6 @@
 import { ConnectApi } from "./src";
 
-const apiKey = "ak_1MDE1NzUyOGJiODQxMDI0MjBhMDEzMjE0MDAwMDAwMDA0169254e4db55a82adfc304900000000zdp6NwljkgC6AlbUnIwpVNsaVvKPPhxW";
-const host = "https://lab-api.mbedcloudintegration.net";
-
 const api = new ConnectApi({
-    apiKey,
-    host,
     logLevel: "ALL",
 });
 

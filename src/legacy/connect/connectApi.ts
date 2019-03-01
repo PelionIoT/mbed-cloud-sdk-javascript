@@ -18,7 +18,7 @@
 import { EventEmitter } from "events";
 import { ListResponse } from "../common/listResponse";
 import { asyncStyle, apiWrapper, decodeBase64, encodeBase64 } from "../common/functions";
-import { CallbackFn } from "../../common/interfaces";
+import { CallbackFn } from "../../legacy/common/interfaces";
 import { SDKError } from "../common/sdkError";
 import { Endpoints } from "./endpoints";
 import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject, AsyncResponse, DeliveryMethod } from "./types";
