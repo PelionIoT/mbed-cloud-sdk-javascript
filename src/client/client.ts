@@ -1,6 +1,6 @@
 import superagent = require("superagent");
 import { SdkApiBase } from "./sdkApiBase";
-import { Config } from "./config";
+import { Config } from "../common/config";
 
 export class Client extends SdkApiBase {
 

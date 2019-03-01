@@ -84,9 +84,7 @@ export class Subscribe {
 
     private startNotifications(): void {
         if (this.connect) {
-            if (!this.connect.handleNotifications) {
-                this.connect.startNotifications();
-            }
+            this.connect.startNotifications();
         }
     }
 }

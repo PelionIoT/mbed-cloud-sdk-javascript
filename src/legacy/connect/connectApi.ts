@@ -22,7 +22,7 @@ import { asyncStyle, apiWrapper, decodeBase64, encodeBase64 } from "../common/fu
 import { CallbackFn } from "../common/interfaces";
 import { SDKError } from "../common/sdkError";
 import { Endpoints } from "./endpoints";
-import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject, AsyncResponse } from "./types";
+import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject, AsyncResponse, DeliveryMethod } from "./types";
 import { Webhook } from "./models/webhook";
 import { WebhookAdapter } from "./models/webhookAdapter";
 import { PresubscriptionAdapter } from "./models/presubscriptionAdapter";
@@ -38,6 +38,8 @@ import { DeviceListOptions } from "../deviceDirectory/types";
 import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
 import { generateId } from "../common/idGenerator";
 import { executeForAll } from "../common/pagination";
+import { loggerFactory } from "../../common/logger";
+import { Logger } from "typescript-logging";
 
 /**
  * ## Connect API
@@ -121,26 +123,40 @@ export class ConnectApi extends EventEmitter {
     private static readonly DELAY_BETWEEN_RETRIES = 1000; // milliseconds
     private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
 
+    private _instanceId: string;
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
     private _pollRequest: superagent.SuperAgentRequest | boolean;
     private _handleNotifications: boolean = false;
     private _asyncFns: { [key: string]: (error: any, data: any) => any; } = {};
     private _notifyFns: { [key: string]: (data: any) => any; } = {};
+    // private _connectOptions: ConnectOptions;
+    // private _requestCallback: CallbackFn<Array<AsyncResponse>>;
+    private _deliveryMethod?: DeliveryMethod;
+    private _log: Logger;
+
+    public get deliveryMethod(): DeliveryMethod {
+        return this._deliveryMethod;
+    }
+
+    public get instanceId(): string {
+        return this._instanceId;
+    }
 
     /**
-     * Whether the user will handle notifications
-     * This suppresses pull notifications for when another method is being used (such as webhooks)
+     * Clear any existing channels before receiving notifications
      */
-    public get handleNotifications(): boolean {
-        return this._handleNotifications;
-    }
-    public set handleNotifications(value: boolean) {
-        if (value === true) {
-            this.stopNotifications();
-        }
-        this._handleNotifications = value;
-    }
+    public readonly forceClear: boolean;
+
+    /**
+     * Start receiving notifications on the client without calling start notifications
+     */
+    public readonly autostartNotifications?: boolean;
+
+    /**
+     * @deprecated webhook will work if updateWebhook is called or if startNotifications is not called
+     */
+    public handleNotifications?: boolean;
 
     /**
      * @param options connection objects
@@ -148,9 +164,27 @@ export class ConnectApi extends EventEmitter {
     constructor(options?: ConnectOptions) {
         super();
         options = options || {};
+        this._instanceId = generateId();
+        // this._connectOptions = options;
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
         this._handleNotifications = options.handleNotifications || false;
+        this._log = loggerFactory(`connectApi${this._instanceId}`, options.logLevel).getLogger("ConnectApi");
+
+        // make sure handle notifications keeps working
+        if (options.handleNotifications) {
+            options.autostartNotifications = false;
+            this._deliveryMethod = "SERVER_INITIATED";
+        }
+
+        // default force clear and autostart to false;
+        this.forceClear = options.forceClear === true;
+        this.autostartNotifications = options.autostartNotifications === true;
+
+        if (this.autostartNotifications === true) {
+            this._deliveryMethod = "CLIENT_INITIATED";
+        }
+
     }
 
     private normalizePath(path?: string): string {
@@ -333,12 +367,32 @@ export class ConnectApi extends EventEmitter {
             options = {};
         }
 
-        return asyncStyle( done => {
+        // if (options.requestCallback) {
+        //     this._requestCallback = options.requestCallback;
+        // }
+
+        return asyncStyle(async done => {
+            // cannot call start notifications if using webhooks
+            if (this._deliveryMethod === "SERVER_INITIATED") {
+                return done(new SDKError("cannot call start notifications if delivery method is server initiated"), null);
+            }
+
             // Don't start notifications if they are handled elsewhere or already running
             if (this._handleNotifications || this._pollRequest) { return done(null, null); }
 
+            // websocket hasn't been started so lets set it up
+            if (this.forceClear) {
+                await this.forceClearWebhook();
+            } else {
+                if (await this.getWebhook()) {
+                    return done(new SDKError("cannot call start notifications as a webhook already exists"), null);
+                }
+            }
+
+            this._log.debug("starting notifications...");
+
             this._pollRequest = true;
-            const { interval, requestCallback, forceClear } = options;
+            const { interval, requestCallback } = options;
 
             let serverErrorCount = 0;
             let networkErrorCount = 0;
@@ -395,13 +449,9 @@ export class ConnectApi extends EventEmitter {
                 done(null, null);
             }
 
-            if (forceClear) { return this.deleteWebhook(start); }
+            start();
 
-            this.getWebhook((error, webhook) => {
-                if (error) { return done(error, null); }
-                if (webhook) { return done(new SDKError(`Webhook already exists at ${webhook.url}`), null); }
-                start();
-            });
+            return done(null, null);
         }, callback);
     }
 
@@ -437,7 +487,15 @@ export class ConnectApi extends EventEmitter {
      */
     public stopNotifications(callback: CallbackFn<void>): void;
     public stopNotifications(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
+            // cannot call stop notifications if using webhooks
+            if (this._deliveryMethod === "SERVER_INITIATED") {
+                this._log.warn("should not call stop notifications if delivery method is server initiated");
+                return done(null, null);
+            }
+
+            this._log.debug("stopping notifications...");
+
             this._endpoints.notifications.deleteLongPollChannel(() => {
                 if (this._pollRequest) {
                     // tslint:disable-next-line:no-string-literal
@@ -445,7 +503,7 @@ export class ConnectApi extends EventEmitter {
                     this._pollRequest = null;
                 }
 
-                done(null, null);
+                return done(null, null);
             });
         }, callback);
     }
@@ -514,7 +572,7 @@ export class ConnectApi extends EventEmitter {
      *
      * @param url The URL to which the notifications must be sent
      * @param headers Any headers (key/value) that must be sent with the request
-     * @param forceClear Whether to clear any existing notification channel
+     * @param forceClear @deprecated please use force clear on initalisation instead
      * @returns Promise containing any error
      */
     public updateWebhook(url: string, headers?: { [key: string]: string; }, forceClear?: boolean): Promise<void>;
@@ -548,7 +606,15 @@ export class ConnectApi extends EventEmitter {
             headers = {};
         }
 
-        return asyncStyle( done => {
+        if (!this._deliveryMethod) {
+            this._deliveryMethod = "SERVER_INITIATED";
+        }
+
+        return asyncStyle(done => {
+
+            if (this._deliveryMethod === "CLIENT_INITIATED") {
+                return done(new SDKError("cannot update webhook if delivery method is client initiated"), null);
+            }
 
             function update() {
                 this._endpoints.notifications.registerWebhook({
@@ -560,11 +626,9 @@ export class ConnectApi extends EventEmitter {
                 });
             }
 
-            if (forceClear) {
+            if (this.forceClear || forceClear) {
                 this._handleNotifications = true;
                 this.stopNotifications(update.bind(this));
-            // } else if (this._pollRequest) {
-            //    return done(new SDKError("Pull notifications are already running"), null);
             } else {
                 update.call(this);
             }
@@ -1088,7 +1152,11 @@ export class ConnectApi extends EventEmitter {
         resourcePath = this.reverseNormalizePath(resourcePath);
         const asyncId = generateId();
 
-        return apiWrapper( resultsFn => {
+        return apiWrapper(async resultsFn => {
+            if (await this.getWebhook() && !this.forceClear) {
+                return resultsFn(new SDKError("webhook in use"), null);
+            }
+
             this._asyncFns[asyncId] = resultsFn;
 
             const handleError = error => {
@@ -1098,15 +1166,23 @@ export class ConnectApi extends EventEmitter {
                 }
             };
 
-            this.startNotifications(null, error => {
-                if (error) return handleError(error);
+            if (this.autostartNotifications) {
+                this.startNotifications(null, error => {
+                    if (error) return handleError(error);
 
+                    this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
+                        method: "GET",
+                        uri: resourcePath,
+                        accept: mimeType,
+                    }, handleError);
+                });
+            } else {
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     method: "GET",
                     uri: resourcePath,
                     accept: mimeType,
                 }, handleError);
-            });
+            }
         }, null, callback);
     }
 
@@ -1169,26 +1245,39 @@ export class ConnectApi extends EventEmitter {
         const asyncId = generateId();
         const payload = encodeBase64(value);
 
-        return apiWrapper(resultsFn => {
+        return apiWrapper(async resultsFn => {
+            if (await this.getWebhook() && !this.forceClear) {
+                return resultsFn(new SDKError("webhook in use"), null);
+            }
+
             this._asyncFns[asyncId] = resultsFn;
 
             const handleError = error => {
                 if (error) {
                     delete this._asyncFns[asyncId];
-                    resultsFn(error, null);
+                    return resultsFn(error, null);
                 }
             };
 
-            this.startNotifications(null, error => {
-                if (error) return handleError(error);
+            if (this.autostartNotifications) {
+                this.startNotifications(null, error => {
+                    if (error) return handleError(error);
 
+                    this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
+                        "method": "PUT",
+                        "uri": resourcePath,
+                        "content-type": mimeType,
+                        "payload-b64": payload,
+                    }, handleError);
+                });
+            } else {
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     "method": "PUT",
                     "uri": resourcePath,
                     "content-type": mimeType,
                     "payload-b64": payload,
                 }, handleError);
-            });
+            }
         }, null, callback);
     }
 
@@ -1246,7 +1335,11 @@ export class ConnectApi extends EventEmitter {
         resourcePath = this.reverseNormalizePath(resourcePath);
         const asyncId = generateId();
 
-        return apiWrapper(resultsFn => {
+        return apiWrapper(async resultsFn => {
+            if (await this.getWebhook() && !this.forceClear) {
+                return resultsFn(new SDKError("webhook in use"), null);
+            }
+
             this._asyncFns[asyncId] = resultsFn;
 
             const handleError = error => {
@@ -1256,15 +1349,23 @@ export class ConnectApi extends EventEmitter {
                 }
             };
 
-            this.startNotifications(null, error => {
-                if (error) return handleError(error);
+            if (this.autostartNotifications) {
+                this.startNotifications(null, error => {
+                    if (error) return handleError(error);
 
+                    this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
+                        "method": "POST",
+                        "uri": resourcePath,
+                        "content-type": mimeType
+                    }, handleError);
+                });
+            } else {
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     "method": "POST",
                     "uri": resourcePath,
                     "content-type": mimeType
                 }, handleError);
-            });
+            }
         }, null, callback);
     }
 
@@ -1529,5 +1630,10 @@ export class ConnectApi extends EventEmitter {
         return asyncStyle( done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
+    }
+
+    private async forceClearWebhook(): Promise<void> {
+        this._log.warn("deleting any existing webhook connection");
+        await this.deleteWebhook();
     }
 }
