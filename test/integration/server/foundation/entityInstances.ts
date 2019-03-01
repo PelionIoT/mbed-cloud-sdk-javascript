@@ -2,9 +2,9 @@ import express = require("express");
 import { logMessage } from "../../logger";
 import { sendException, uniq, determineInstanceConfig } from "../utilities";
 import { FoundationInstanceCache } from "../../cache/foundationInstanceCache";
-import { Config } from "../../../../src/sdk";
+import { Config } from "../../../../src";
 import { ServerError } from "../error";
-import * as entities from "../../../../src/sdk/entities";
+import * as entities from "../../../../src/foundation";
 
 export const entityInstances = (app: express.Application, foundationCache: FoundationInstanceCache) => {
 

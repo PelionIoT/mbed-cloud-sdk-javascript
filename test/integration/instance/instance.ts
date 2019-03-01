@@ -1,5 +1,5 @@
 import { SDK } from "../../../src";
-import { Repository } from "../../../src/sdk/common/repository";
+import { Repository } from "../../../src/common/repository";
 
 /**
  * Instance class. Can derrive from Repository or SDK

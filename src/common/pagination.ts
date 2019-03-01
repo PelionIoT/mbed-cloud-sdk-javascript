@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-import { ListResponse } from "./listResponse";
-import { ListOptions } from "./interfaces";
+import { ListResponse } from "../legacy/common/listResponse";
+import { ListOptions } from "../legacy/common/interfaces";
 
 // Run `execute` for all items returned from getPage, one page at a time. If any call to getPage or execute fails, the resulting promise is rejected.
 export const executeForAll = <T extends { id: string }>(

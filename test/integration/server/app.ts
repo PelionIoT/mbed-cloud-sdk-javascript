@@ -23,26 +23,28 @@ export const getApp = (): express.Application => {
     const app: express.Application = express();
     app.use(bodyParser.json());
 
-    const winny = winston.createLogger(
-        {
-            transports: [
-                new winston.transports.Console(),
-            ],
-            format: winston.format.prettyPrint(),
-        }
-    );
+    if (process.env.MBED_CLOUD_SDK_TEST_SERVER_LOG_BODDY) {
+        const winny = winston.createLogger(
+            {
+                transports: [
+                    new winston.transports.Console(),
+                ],
+                format: winston.format.prettyPrint(),
+            }
+        );
 
-    // add loging of request and response bodies
-    app.use(expressWinston.logger({
-        colorize: true,
-        requestWhitelist: [
-            "body"
-        ],
-        responseWhitelist: [
-            "body"
-        ],
-        winstonInstance: winny
-    }));
+        // add loging of request and response bodies
+        app.use(expressWinston.logger({
+            colorize: true,
+            requestWhitelist: [
+                "body"
+            ],
+            responseWhitelist: [
+                "body"
+            ],
+            winstonInstance: winny
+        }));
+    }
 
     app.get("/ping", (_req, res, _next) => {
         logMessage("Ping ---> <--- Pong");
@@ -54,11 +56,11 @@ export const getApp = (): express.Application => {
         res.status(205).end();
     });
 
-    app.post("/shutdown", (req, res, _next) => {
+    app.post("/shutdown", (_req, res, _next) => {
         logMessage("Shutting down.");
         res.status(202).end();
         // don't call quit if self test
-        if (!req.param("test", false)) {
+        if (!process.env.MBED_CLOUD_SDK_TEST_SERVER_SELF_TEST) {
             quit();
         }
     });

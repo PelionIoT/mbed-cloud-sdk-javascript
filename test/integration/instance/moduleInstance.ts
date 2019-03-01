@@ -1,5 +1,5 @@
 import { Instance } from "./instance";
-import { ConnectionOptions } from "../../../src/common/interfaces";
+import { ConnectionOptions } from "../../../src/legacy/common/interfaces";
 import { mapModule, mapMethod } from "../mapping/argumentMapping";
 import { SdkModule, SuccessCallback, ErrorCallback } from "../types";
 import { TestStubApi } from "../test/testStub";

@@ -229,14 +229,18 @@ jobs:
           name: Install extra dependencies (node)
           command: sudo npm install -g codecov ansi-html-stream --unsafe-perm
       - run:
+          name: Run browser tests
+          command: npm run test:browser
+      - run:
           name: Run the tests
-          command: set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
+          command: set -o pipefail && npm run test:node 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
       - store_artifacts:
           path: unit_tests.html
       - persist_to_workspace:
           root: ./
           paths:
             - unit_tests.html
+            - coverage
   beta_release:
     working_directory: ~/build
     environment:
@@ -336,7 +340,7 @@ jobs:
       - run:
           name: sync to build branch if exists or create new one
           command: |
-              git add --force lib bundles types package.json
+              git add --force lib types package.json
               git stash save
               git checkout -B build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
@@ -403,12 +407,12 @@ workflows:
           <<: *ignore_main_branches
           requires:
             - create_build_branch_gate
-      - integration_test:
-          requires:
-            - build
       - unit_test:
           requires:
             - build
+      - integration_test:
+          requires:
+            - unit_test
       - build_sync:
           <<: *main_branches_only
           requires:

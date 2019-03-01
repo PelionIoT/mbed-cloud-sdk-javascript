@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { extractFilter, encodeFilter, decodeFilter } from "../../src/common/functions";
+import { extractFilter, encodeFilter, decodeFilter } from "../../src/legacy/common/functions";
 
 describe("extractFilter", () => {
 

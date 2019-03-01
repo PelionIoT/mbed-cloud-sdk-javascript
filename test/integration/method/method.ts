@@ -1,10 +1,10 @@
-import { Method as SchemaMethod, Parameter } from "../../../src/sdk/schema/types";
-import * as schemas from "../../../src/sdk/generated/_schemas";
-import { Schema } from "../../../src/sdk/schema/schema";
+import { Method as SchemaMethod, Parameter } from "../../../src/schema/types";
+import * as schemas from "../../../src/foundation/_schemas";
+import { Schema } from "../../../src/schema/schema";
 import { pascalToCamel } from "../types";
 import { TestRunnerMethodInfo, TestRunnerParameters, TestRunnerMethodCallResult } from "../foundation/types";
-import { Repository } from "../../../src/sdk/common/repository";
-import { snakeToCamel, camelToSnake } from "../../../src/common/functions";
+import { Repository } from "../../../src/common/repository";
+import { snakeToCamel, camelToSnake } from "../../../src/legacy/common/functions";
 import { logMessage } from "../logger";
 import * as fs from "fs-extra";
 import { Paginator } from "../../../src/common/pagination";

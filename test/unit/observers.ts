@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { Observer } from "../../src/subscribe/observers/observer";
+import { Observer } from "../../src/primary/subscribe/observers/observer";
 
 describe("testObserver", () => {
 

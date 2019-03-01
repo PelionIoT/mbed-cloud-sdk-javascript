@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { decodeTlv } from "../../src/common/tlvDecoder";
+import { decodeTlv } from "../../src/legacy/common/tlvDecoder";
 
 describe("decodeTlv", () => {
     function decode(payload) {

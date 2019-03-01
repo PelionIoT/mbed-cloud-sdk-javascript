@@ -16,8 +16,8 @@
  */
 
 import { executeForAll, Paginator } from "../../src/common/pagination";
-import { ListResponse } from "../../src/common/listResponse";
-import { ListOptions } from "../../src/common/interfaces";
+import { ListResponse } from "../../src/legacy/common/listResponse";
+import { ListOptions } from "../../src/legacy/common/interfaces";
 
 interface Call<O> {
     resolve: (o: O) => Promise<void>;
