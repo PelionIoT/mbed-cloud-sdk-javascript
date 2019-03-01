@@ -240,6 +240,7 @@ jobs:
           root: ./
           paths:
             - unit_tests.html
+            - coverage
   beta_release:
     working_directory: ~/build
     environment:
@@ -406,12 +407,12 @@ workflows:
           <<: *ignore_main_branches
           requires:
             - create_build_branch_gate
-      - integration_test:
-          requires:
-            - build
       - unit_test:
           requires:
             - build
+      - integration_test:
+          requires:
+            - unit-test
       - build_sync:
           <<: *main_branches_only
           requires:
