@@ -14,7 +14,6 @@ export class CertificateEnrollmentAdapter extends Adapter {
             createdAt: data.created_at,
             deviceId: data.device_id,
             enrollResult: data.enroll_result,
-            enrollResultDetail: data.enroll_result_detail,
             enrollStatus: data.enroll_status,
             id: data.id,
             updatedAt: data.updated_at,
