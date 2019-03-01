@@ -10,7 +10,6 @@
   "types": "./types/index.d.ts",
   "main": "./index.js",
   "files": [
-    "bundles",
     "lib",
     "examples",
     "types",
