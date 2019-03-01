@@ -2,7 +2,7 @@ import { SchemaContainer } from "../containers/schemaContainer/schemaContainer";
 import { File as GeneratedFile } from "../common/file";
 import { snakeToCamel, snakeToPascal } from "../common/utilities";
 import { ClassContainer } from "../containers/classContainer/classContainer";
-import { Field, Method, Parameter } from "../../src/sdk/schema/types";
+import { Field, Method, Parameter } from "../../src/schema/types";
 import { FileContainer } from "../containers/fileContainer/fileContainer";
 
 export async function generateSchemas(entity, pascalKey, _currentGroup, camelKey, outputFolder, types: FileContainer, _adapters, repos: ClassContainer, entityInterface: ClassContainer) {

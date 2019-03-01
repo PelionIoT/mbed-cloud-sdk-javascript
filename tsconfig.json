@@ -14,12 +14,18 @@
         "alwaysStrict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noEmitOnError": true
+        "noEmitOnError": true,
+        "baseUrl": "src",
+        "paths": {
+            "common/*": [ "common/*", "legacy/common/*" ],
+            "version": [ "version" ],
+            "legacy-connect/*": [ "legacy/connect/*" ]
+        }
     },
     "include": [
         "src/**/*"
     ],
     "exclude": [
-        "node_modules"
+        "src/legacy/**/*"
     ]
 }

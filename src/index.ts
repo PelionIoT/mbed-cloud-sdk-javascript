@@ -15,13 +15,8 @@
 * limitations under the License.
 */
 
-export { AccountManagementApi } from "./legacy/accountManagement/accountManagementApi";
-export { BillingApi } from "./legacy/billing/billingApi";
-export { BootstrapApi } from "./legacy/bootstrap/bootstrapApi";
-export { CertificatesApi } from "./legacy/certificates/certificatesApi";
-export { ConnectApi } from "./legacy/connect/connectApi";
-export { DeviceDirectoryApi } from "./legacy/deviceDirectory/deviceDirectoryApi";
-export { EnrollmentApi } from "./legacy/enrollment/enrollmentApi";
-export { UpdateApi } from "./legacy/update/updateApi";
-export * from "./sdk/entities";
-export { SDK, Config } from "./sdk";
+export * from "./legacy";
+export * from "./foundation";
+export { SDK } from "./sdk";
+export { Client } from "./client/client";
+export { Config } from "./client/config";

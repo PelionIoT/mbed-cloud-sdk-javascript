@@ -227,7 +227,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 );
                 repositoryImports.push(new ImportContainer(
                     `${method.custom_method.toUpperCase()}_CUSTOM_METHOD_IMPORT`,
-                    "../../../common/privateFunctions",
+                    "common/privateFunctions",
                     [
                         snakeToCamel(method.custom_method)
                     ]
@@ -268,14 +268,14 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 imports: [
                     new ImportContainer(
                         `REPOSITORY`,
-                        "../../../common/repository",
+                        "common/repository",
                         [
                             "Repository"
                         ]
                     ),
                     new ImportContainer(
                         "API_WRAPPER",
-                        "../../../../legacy/common/functions",
+                        "common/functions",
                         [
                             "apiWrapper"
                         ]
@@ -304,21 +304,21 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
         if (hasPaginator) {
             repositoryClass.addImport(new ImportContainer(
                 `PAGINATOR`,
-                "../../../../legacy/common/pagination",
+                "common/pagination",
                 [
                     "Paginator"
                 ]
             ));
             repositoryClass.addImport(new ImportContainer(
                 `LIST_RESPONSE`,
-                "../../../../legacy/common/listResponse",
+                "common/listResponse",
                 [
                     "ListResponse"
                 ]
             ));
             repositoryClass.addImport(new ImportContainer(
                 `LIST_OPTIONS`,
-                "../../../../legacy/common/interfaces",
+                "common/interfaces",
                 [
                     "ListOptions"
                 ]

@@ -38,7 +38,6 @@ import { DeviceListOptions } from "../deviceDirectory/types";
 import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
 import { generateId } from "../common/idGenerator";
 import { executeForAll } from "../common/pagination";
-import { Subscribe } from "../../sdk/subscribe/subscribe";
 
 /**
  * ## Connect API
@@ -122,11 +121,6 @@ export class ConnectApi extends EventEmitter {
     private static readonly DELAY_BETWEEN_RETRIES = 1000; // milliseconds
     private static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;
 
-    /**
-     * Gives you access to the subscribe manager
-     */
-    public subscribe: Subscribe;
-
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
     private _pollRequest: superagent.SuperAgentRequest | boolean;
@@ -157,7 +151,6 @@ export class ConnectApi extends EventEmitter {
         this._endpoints = new Endpoints(options);
         this._deviceDirectory = new DeviceDirectoryApi(options);
         this._handleNotifications = options.handleNotifications || false;
-        this.subscribe = new Subscribe(this);
     }
 
     private normalizePath(path?: string): string {
@@ -231,44 +224,44 @@ export class ConnectApi extends EventEmitter {
                     payload: body,
                 });
 
-                this.subscribe.notifyResourceValues({
-                    deviceId: notification.ep,
-                    path: notification.path,
-                    payload: body,
-                    maxAge: notification["max-age"],
-                    contentType: notification.ct,
-                });
+                // this.subscribe.notifyResourceValues({
+                //     deviceId: notification.ep,
+                //     path: notification.path,
+                //     payload: body,
+                //     maxAge: notification["max-age"],
+                //     contentType: notification.ct,
+                // });
             });
         }
 
         if (data.registrations) {
             data.registrations.forEach( device => {
                 const map = DeviceEventAdapter.map(device, this, "registration");
-                this.subscribe.notifyDeviceEvents(map);
+                // this.subscribe.notifyDeviceEvents(map);
                 this.emit(ConnectApi.EVENT_REGISTRATION, map);
             });
         }
 
         if (data["reg-updates"]) {
-            data["reg-updates"].forEach( device => {
+            data["reg-updates"].forEach(device => {
                 const map = DeviceEventAdapter.map(device, this, "reregistration");
-                this.subscribe.notifyDeviceEvents(map);
+                // this.subscribe.notifyDeviceEvents(map);
                 this.emit(ConnectApi.EVENT_REREGISTRATION, map);
             });
         }
 
         if (data["de-registrations"]) {
             data["de-registrations"].forEach( deviceId => {
-                const map = DeviceEventAdapter.mapId(deviceId, "deregistration");
-                this.subscribe.notifyDeviceEvents(map);
+                // const map = DeviceEventAdapter.mapId(deviceId, "deregistration");
+                // this.subscribe.notifyDeviceEvents(map);
                 this.emit(ConnectApi.EVENT_DEREGISTRATION, deviceId);
             });
         }
 
         if (data["registrations-expired"]) {
             data["registrations-expired"].forEach( deviceId => {
-                const map = DeviceEventAdapter.mapId(deviceId, "expired");
-                this.subscribe.notifyDeviceEvents(map);
+                // const map = DeviceEventAdapter.mapId(deviceId, "expired");
+                // this.subscribe.notifyDeviceEvents(map);
                 this.emit(ConnectApi.EVENT_EXPIRED, deviceId);
             });
         }

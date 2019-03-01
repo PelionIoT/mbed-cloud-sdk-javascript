@@ -90,7 +90,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
             imports.push(
                 new ImportContainer(
                     "LIST_OPTIONS",
-                    "../../../../legacy/common/interfaces",
+                    "common/interfaces",
                     [
                         "ListOptions"
                     ]

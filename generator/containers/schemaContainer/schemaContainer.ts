@@ -1,6 +1,6 @@
 import * as ejs from "ejs";
 import { Container } from "../container";
-import { Field, Method } from "../../../src/sdk/schema/types";
+import { Field, Method } from "../../../src/schema/types";
 
 export class SchemaContainer extends Container {
     public pascalKey: string;
