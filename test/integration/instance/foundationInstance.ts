@@ -1,10 +1,10 @@
 import { Instance } from "./instance";
 import { TestRunnerFoundationInstance, TestRunnerMethodInfo, TestRunnerParameters, TestRunnerMethodCallResult } from "../foundation/types";
 import { SDK } from "../../../src";
-import { Repository } from "../../../src/sdk/common/repository";
+import { Repository } from "../../../src/common/repository";
 import { Method } from "../method/method";
-import * as schemas from "../../../src/sdk/generated/_schemas";
-import { Schema } from "../../../src/sdk/schema/schema";
+import * as schemas from "../../../src/foundation/_schemas";
+import { Schema } from "../../../src/schema/schema";
 import { pascalToCamel } from "../types";
 import { ServerError } from "../server/error";
 

@@ -1,10 +1,10 @@
 import { logMessage } from "../logger";
-import { ConnectionOptions } from "../../../src/common/interfaces";
+import { ConnectionOptions } from "../../../src/legacy/common/interfaces";
 import { TestError } from "./api/serverMessages";
 import { ServerError } from "./error";
 import { Exception } from "../types";
 import { RunnerConnectionOptions } from "./types";
-import { SDKError } from "../../../src/common/sdkError";
+import { SDKError } from "../../../src/legacy/common/sdkError";
 
 export const sendException = (res: any, exception: Exception): void => {
     let exceptionCode: number = 500;

@@ -1,7 +1,7 @@
 import { logMessage } from "../../logger";
 import { sendException, determineInstanceConfig } from "../utilities";
 import { ServerError } from "../error";
-import { ConnectionOptions } from "../../../../src/common/interfaces";
+import { ConnectionOptions } from "../../../../src/legacy/common/interfaces";
 import { ModuleInstanceCache } from "../../cache/moduleInstanceCache";
 import { ModuleInstance } from "../../instance/moduleInstance";
 

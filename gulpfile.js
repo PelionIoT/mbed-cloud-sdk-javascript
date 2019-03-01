@@ -13,7 +13,7 @@ var srcDir = "src";
 
 // Node
 var nodeDir = "lib";
-var bundleFiles = nodeDir + "/**/index.js";
+var bundleFiles = nodeDir + "/legacy/**/index.js";
 
 // Browser bundles
 var bundleDir = "bundles";
@@ -27,7 +27,7 @@ function bundle(srcFiles, destDir, optionsFn) {
         var options = {};
         if (optionsFn) options = optionsFn(file);
         // strip legacy from filename to preserve old bundles
-        var fileName = (options.fileName || path.basename(file.path)).replace("legacy/", "");
+        var fileName = options.fileName || path.basename(file.path);
 
         if (options.standalone)
             console.log(`Creating ${options.standalone} in ${destDir}/${fileName}`);

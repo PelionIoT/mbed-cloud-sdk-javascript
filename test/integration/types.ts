@@ -1,5 +1,5 @@
 import { TestResult, TestError } from "./server/api/serverMessages";
-import { SDKError } from "../../src/common/sdkError";
+import { SDKError } from "../../src/legacy/common/sdkError";
 import { ServerError } from "./server/error";
 
 export interface SdkModule {

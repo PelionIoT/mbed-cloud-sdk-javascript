@@ -1,7 +1,7 @@
 import { FoundationInstance } from "./foundationInstance";
 import { TestRunnerFoundationInstance } from "../foundation/types";
-import { Config } from "../../../src/sdk";
-import * as FoundationSDK from "../../../src/sdk/entities";
+import { Config } from "../../../src";
+import * as FoundationSDK from "../../../src/foundation";
 
 /**
  * Instance of an Entity
