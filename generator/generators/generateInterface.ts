@@ -45,7 +45,7 @@ export function generateInterface(entity: any, enums: any): ClassContainer {
         isInterface: true,
         extendsClass: [ "Entity" ],
         imports: [
-            new ImportContainer("ENTITY_BASE", "common/entity", [ "Entity" ])
+            new ImportContainer("ENTITY_BASE", "../../../common/entity", [ "Entity" ])
         ]
     });
     interfaceContainer.addProperty(properties);

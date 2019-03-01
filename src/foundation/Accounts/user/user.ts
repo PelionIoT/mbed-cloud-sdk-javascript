@@ -1,4 +1,4 @@
-import { Entity } from "common/entity";
+import { Entity } from "../../../common/entity";
 import { ActiveSession } from "../activeSession/activeSession";
 import { LoginHistory } from "../loginHistory/loginHistory";
 import { LoginProfile } from "../loginProfile/loginProfile";

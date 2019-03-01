@@ -63,7 +63,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
             adapterCustomFunctions.push(customFunctionCall);
             adapterImports.push((new ImportContainer(
                 "PRIVATE_FUNCTIONS",
-                "common/privateFunctions",
+                "../../../common/privateFunctions",
                 [
                     `${snakeToCamel(field._key)}Setter`
                 ]
@@ -108,7 +108,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
             description: `${pascalKey} adapter`,
             extendsClass: "Adapter",
             imports: [
-                new ImportContainer("ADAPTER_BASE", "common/adapter", [
+                new ImportContainer("ADAPTER_BASE", "../../../common/adapter", [
                     "Adapter"
                 ]),
                 new ImportContainer(`${pascalKey.toUpperCase()}_INTERFACE`, `./${camelKey}`, [

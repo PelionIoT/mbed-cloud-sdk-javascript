@@ -1,4 +1,4 @@
-import { Adapter } from "common/adapter";
+import { Adapter } from "../../../common/adapter";
 import { SubtenantUserInvitation } from "./subtenantUserInvitation";
 import { LoginProfileAdapter } from "../..";
 /**

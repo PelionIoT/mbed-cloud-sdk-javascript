@@ -1,4 +1,4 @@
-import { Adapter } from "common/adapter";
+import { Adapter } from "../../../common/adapter";
 import { Policy } from "./policy";
 /**
  *Policy adapter

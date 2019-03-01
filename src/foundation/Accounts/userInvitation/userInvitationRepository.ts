@@ -1,11 +1,11 @@
-import { Repository } from "common/repository";
-import { apiWrapper } from "common/functions";
+import { Repository } from "../../../common/repository";
+import { apiWrapper } from "../../../legacy/common/functions";
 import { UserInvitation } from "./userInvitation";
 import { UserInvitationAdapter } from "../../index";
 import { UserInvitationCreateRequest } from "./types";
-import { Paginator } from "common/pagination";
-import { ListResponse } from "common/listResponse";
-import { ListOptions } from "common/interfaces";
+import { Paginator } from "../../../legacy/common/pagination";
+import { ListResponse } from "../../../legacy/common/listResponse";
+import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *UserInvitation repository
  */

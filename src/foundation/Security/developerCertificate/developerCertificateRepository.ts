@@ -1,5 +1,5 @@
-import { Repository } from "common/repository";
-import { apiWrapper } from "common/functions";
+import { Repository } from "../../../common/repository";
+import { apiWrapper } from "../../../legacy/common/functions";
 import { DeveloperCertificate } from "./developerCertificate";
 import { DeveloperCertificateAdapter } from "../../index";
 import { DeveloperCertificateCreateRequest } from "./types";

@@ -1,4 +1,4 @@
-import { Adapter } from "common/adapter";
+import { Adapter } from "../../../common/adapter";
 import { Account } from "./account";
 import { ParentAccountAdapter } from "../..";
 import { PasswordPolicyAdapter } from "../..";

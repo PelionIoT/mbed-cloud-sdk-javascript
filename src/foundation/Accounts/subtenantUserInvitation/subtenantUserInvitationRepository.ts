@@ -1,5 +1,5 @@
-import { Repository } from "common/repository";
-import { apiWrapper } from "common/functions";
+import { Repository } from "../../../common/repository";
+import { apiWrapper } from "../../../legacy/common/functions";
 import { SubtenantUserInvitation } from "./subtenantUserInvitation";
 import { SubtenantUserInvitationAdapter } from "../../index";
 import { SubtenantUserInvitationCreateRequest } from "./types";

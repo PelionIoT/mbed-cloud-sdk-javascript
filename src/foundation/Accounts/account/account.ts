@@ -1,4 +1,4 @@
-import { Entity } from "common/entity";
+import { Entity } from "../../../common/entity";
 import { ParentAccount } from "../parentAccount/parentAccount";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
 import { Policy } from "../policy/policy";

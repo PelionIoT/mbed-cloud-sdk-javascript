@@ -1,12 +1,12 @@
-import { Repository } from "common/repository";
-import { apiWrapper } from "common/functions";
+import { Repository } from "../../../common/repository";
+import { apiWrapper } from "../../../legacy/common/functions";
 import { User } from "./user";
 import { UserAdapter } from "../../index";
 import { UserCreateRequest } from "./types";
 import { UserUpdateRequest } from "./types";
-import { Paginator } from "common/pagination";
-import { ListResponse } from "common/listResponse";
-import { ListOptions } from "common/interfaces";
+import { Paginator } from "../../../legacy/common/pagination";
+import { ListResponse } from "../../../legacy/common/listResponse";
+import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *User repository
  */

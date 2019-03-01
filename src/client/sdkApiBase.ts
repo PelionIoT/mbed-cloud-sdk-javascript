@@ -18,9 +18,9 @@
 // this style of import is needed for third party packages that are being ignored by browserify
 import superagent = require("superagent");
 
-import { SDKError } from "common/sdkError";
+import { SDKError } from "../legacy/common/sdkError";
 import { Config } from "./config";
-import { Version } from "version";
+import { Version } from "../version";
 
 // tslint:disable-next-line:no-var-requires
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;

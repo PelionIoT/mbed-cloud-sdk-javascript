@@ -14,13 +14,7 @@
         "alwaysStrict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noEmitOnError": true,
-        "baseUrl": "src",
-        "paths": {
-            "common/*": [ "common/*", "legacy/common/*" ],
-            "version": [ "version" ],
-            "legacy-connect/*": [ "legacy/connect/*" ]
-        }
+        "noEmitOnError": true
     },
     "include": [
         "src/**/*"

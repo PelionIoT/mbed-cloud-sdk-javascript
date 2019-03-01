@@ -1,4 +1,4 @@
-import { Adapter } from "common/adapter";
+import { Adapter } from "../../../common/adapter";
 import { User } from "./user";
 import { ActiveSessionAdapter } from "../..";
 import { LoginHistoryAdapter } from "../..";

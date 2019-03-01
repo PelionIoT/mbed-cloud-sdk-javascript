@@ -1,4 +1,4 @@
-import { Adapter } from "common/adapter";
+import { Adapter } from "../../../common/adapter";
 import { ServerCredentials } from "./serverCredentials";
 /**
  *ServerCredentials adapter

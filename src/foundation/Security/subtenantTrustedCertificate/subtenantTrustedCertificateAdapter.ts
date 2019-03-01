@@ -1,6 +1,6 @@
-import { Adapter } from "common/adapter";
+import { Adapter } from "../../../common/adapter";
 import { SubtenantTrustedCertificate } from "./subtenantTrustedCertificate";
-import { isDeveloperCertificateSetter } from "common/privateFunctions";
+import { isDeveloperCertificateSetter } from "../../../common/privateFunctions";
 /**
  *SubtenantTrustedCertificate adapter
  */

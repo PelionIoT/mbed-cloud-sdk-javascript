@@ -1,4 +1,4 @@
-import { Adapter } from "common/adapter";
+import { Adapter } from "../../../common/adapter";
 import { SubtenantUser } from "./subtenantUser";
 import { ActiveSessionAdapter } from "../..";
 import { LoginHistoryAdapter } from "../..";

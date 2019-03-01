@@ -15,10 +15,10 @@
 * limitations under the License.
 */
 
-import { ConnectApi } from "legacy-connect/connectApi";
+import { ConnectApi } from "../legacy/connect/connectApi";
 import { DeviceStateObserver } from "./observers/deviceStateObserver";
-import { DeviceEvent, DeviceEventFilter, ResourceValuesFilter, NotificationData, FirstValueEnum } from "legacy-connect/types";
-import { Resource } from "legacy-connect/models/resource";
+import { DeviceEvent, DeviceEventFilter, ResourceValuesFilter, NotificationData, FirstValueEnum } from "../legacy/connect/types";
+import { Resource } from "../legacy/connect/models/resource";
 import { ResourceValuesObserver } from "./observers/resourceValuesObserver";
 
 export class Subscribe {

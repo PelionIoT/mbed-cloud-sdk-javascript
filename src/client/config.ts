@@ -1,4 +1,4 @@
-import { ConnectionOptions } from "common/interfaces";
+import { ConnectionOptions } from "../legacy/common/interfaces";
 import dotenv = require("dotenv");
 
 export class Config {
