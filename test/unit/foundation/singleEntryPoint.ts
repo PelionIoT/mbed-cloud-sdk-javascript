@@ -1,6 +1,6 @@
 import { SDK } from "../../../src/sdk";
-import { UserRepository } from "../../../src/sdk/entities";
-import { Config } from "../../../src/sdk/client/config";
+import { UserRepository } from "../../../src/foundation";
+import { Config } from "../../../src";
 
 describe("singleEntryPoint", () => {
 

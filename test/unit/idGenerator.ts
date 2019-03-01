@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { generateId } from "../../src/common/idGenerator";
+import { generateId } from "../../src/legacy/common/idGenerator";
 
 describe("idGenerator", () => {
     test("generates three unique IDs", () => {

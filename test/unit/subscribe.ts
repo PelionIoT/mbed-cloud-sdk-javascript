@@ -16,8 +16,8 @@
 */
 
 import { Subscribe } from "../../src/subscribe/subscribe";
-import { DeviceEvent } from "../../src/connect/types";
-import { Resource } from "../../src/connect/models/resource";
+import { DeviceEvent } from "../../src/legacy/connect/types";
+import { Resource } from "../../src/legacy/connect/models/resource";
 
 describe("subscribe", () => {
 

@@ -15,8 +15,8 @@
 * limitations under the License.
 */
 
-import { ApiBase } from "../../src/common/apiBase";
-import { SDKError } from "../../src/common/sdkError";
+import { ApiBase } from "../../src/legacy/common/apiBase";
+import { SDKError } from "../../src/legacy/common/sdkError";
 
 class Api extends ApiBase {
     public complete(error: any, response: any, acceptHeader: string, callback?: (sdkError: SDKError, data) => any) {

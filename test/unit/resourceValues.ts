@@ -16,7 +16,7 @@
 */
 
 import { Subscribe } from "../../src/subscribe/subscribe";
-import { PresubscriptionObject, NotificationData } from "../../src/connect/types";
+import { PresubscriptionObject, NotificationData } from "../../src/legacy/connect/types";
 
 describe("resourceValues", () => {
 

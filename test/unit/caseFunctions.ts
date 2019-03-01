@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { snakeToCamel, camelToSnake } from "../../src/common/functions";
+import { snakeToCamel, camelToSnake } from "../../src/legacy/common/functions";
 
 describe("snakeToCamel", () => {
 
