@@ -183,17 +183,6 @@ export const userSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<User>",
-                parameters: [
-                    {
-                        name: "userId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "list",
                 returnType: "Paginator<User, ListOptions>",
                 parameters: [
@@ -223,6 +212,17 @@ export const userSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<User>",
+                parameters: [
+                    {
+                        name: "userId",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

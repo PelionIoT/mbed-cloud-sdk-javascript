@@ -35,7 +35,7 @@ export class DeviceEnrollmentBulkDeleteRepository extends Repository {
     public downloadFullReportFile(model: DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
         return downloadFullReportFile(this, model);
     }
-    public get(id: string): Promise<DeviceEnrollmentBulkDelete> {
+    public read(id: string): Promise<DeviceEnrollmentBulkDelete> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(

@@ -70,8 +70,8 @@ export const developerCertificateSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<DeveloperCertificate>",
+                name: "getTrustedCertificateInfo",
+                returnType: "Promise<TrustedCertificate>",
                 parameters: [
                     {
                         name: "developerCertificateId",
@@ -81,8 +81,8 @@ export const developerCertificateSchema = (): Schema => {
                 ],
             },
             {
-                name: "getTrustedCertificateInfo",
-                returnType: "Promise<TrustedCertificate>",
+                name: "read",
+                returnType: "Promise<DeveloperCertificate>",
                 parameters: [
                     {
                         name: "developerCertificateId",

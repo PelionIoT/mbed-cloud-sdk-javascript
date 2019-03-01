@@ -89,7 +89,7 @@ export const subtenantUserInvitationSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
+                name: "read",
                 returnType: "Promise<SubtenantUserInvitation>",
                 parameters: [
                     {

@@ -56,25 +56,6 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
-    public get(id: string): Promise<TrustedCertificate> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/trusted-certificates/{cert_id}",
-                        method: "GET",
-                        pathParams: {
-                            cert_id: id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, TrustedCertificateAdapter.fromApi(data));
-            }
-        );
-    }
     public getDeveloperCertificateInfo(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -121,6 +102,25 @@ export class TrustedCertificateRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    public read(id: string): Promise<TrustedCertificate> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/trusted-certificates/{cert_id}",
+                        method: "GET",
+                        pathParams: {
+                            cert_id: id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, TrustedCertificateAdapter.fromApi(data));
+            }
+        );
     }
     public update(request: TrustedCertificateUpdateRequest, id: string): Promise<TrustedCertificate> {
         return apiWrapper(

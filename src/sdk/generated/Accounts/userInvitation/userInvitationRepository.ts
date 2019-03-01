@@ -50,25 +50,6 @@ export class UserInvitationRepository extends Repository {
             }
         );
     }
-    public get(id: string): Promise<UserInvitation> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/user-invitations/{invitation_id}",
-                        method: "GET",
-                        pathParams: {
-                            invitation_id: id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, UserInvitationAdapter.fromApi(data));
-            }
-        );
-    }
     public list(options?: ListOptions): Paginator<UserInvitation, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<UserInvitation>> => {
             pageOptions = pageOptions || {};
@@ -95,5 +76,24 @@ export class UserInvitationRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    public read(id: string): Promise<UserInvitation> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/user-invitations/{invitation_id}",
+                        method: "GET",
+                        pathParams: {
+                            invitation_id: id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, UserInvitationAdapter.fromApi(data));
+            }
+        );
     }
 }

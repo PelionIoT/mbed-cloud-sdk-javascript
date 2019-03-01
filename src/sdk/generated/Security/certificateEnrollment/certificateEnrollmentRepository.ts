@@ -9,25 +9,6 @@ import { ListOptions } from "../../../../common/interfaces";
  *CertificateEnrollment repository
  */
 export class CertificateEnrollmentRepository extends Repository {
-    public get(id: string): Promise<CertificateEnrollment> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/certificate-enrollments/{certificate-enrollment-id}",
-                        method: "GET",
-                        pathParams: {
-                            "certificate-enrollment-id": id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, CertificateEnrollmentAdapter.fromApi(data));
-            }
-        );
-    }
     public list(options?: ListOptions): Paginator<CertificateEnrollment, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateEnrollment>> => {
             pageOptions = pageOptions || {};
@@ -55,5 +36,24 @@ export class CertificateEnrollmentRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    public read(id: string): Promise<CertificateEnrollment> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/certificate-enrollments/{certificate-enrollment-id}",
+                        method: "GET",
+                        pathParams: {
+                            "certificate-enrollment-id": id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, CertificateEnrollmentAdapter.fromApi(data));
+            }
+        );
     }
 }

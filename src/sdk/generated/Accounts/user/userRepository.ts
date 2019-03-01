@@ -60,25 +60,6 @@ export class UserRepository extends Repository {
             }
         );
     }
-    public get(id: string): Promise<User> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/users/{user_id}",
-                        method: "GET",
-                        pathParams: {
-                            user_id: id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, UserAdapter.fromApi(data));
-            }
-        );
-    }
     public list(options?: ListOptions): Paginator<User, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
             pageOptions = pageOptions || {};
@@ -106,6 +87,25 @@ export class UserRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    public read(id: string): Promise<User> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/users/{user_id}",
+                        method: "GET",
+                        pathParams: {
+                            user_id: id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, UserAdapter.fromApi(data));
+            }
+        );
     }
     public update(request: UserUpdateRequest, id: string): Promise<User> {
         return apiWrapper(

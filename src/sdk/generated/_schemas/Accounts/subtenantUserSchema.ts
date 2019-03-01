@@ -193,7 +193,7 @@ export const subtenantUserSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
+                name: "read",
                 returnType: "Promise<SubtenantUser>",
                 parameters: [
                     {

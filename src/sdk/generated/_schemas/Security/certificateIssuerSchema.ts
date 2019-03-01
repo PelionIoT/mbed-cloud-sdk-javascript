@@ -77,17 +77,6 @@ export const certificateIssuerSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<CertificateIssuer>",
-                parameters: [
-                    {
-                        name: "certificateIssuerId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "list",
                 returnType: "Paginator<CertificateIssuer, ListOptions>",
                 parameters: [
@@ -117,6 +106,17 @@ export const certificateIssuerSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<CertificateIssuer>",
+                parameters: [
+                    {
+                        name: "certificateIssuerId",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

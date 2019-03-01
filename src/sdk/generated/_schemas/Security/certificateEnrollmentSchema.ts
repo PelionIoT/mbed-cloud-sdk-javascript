@@ -25,6 +25,11 @@ export const certificateEnrollmentSchema = (): Schema => {
                 type: "CertificateEnrollmentEnrollResultEnum",
             },
             {
+                name: "enrollResultDetail",
+                apiName: "enroll_result_detail",
+                type: "string",
+            },
+            {
                 name: "enrollStatus",
                 apiName: "enroll_status",
                 type: "CertificateEnrollmentEnrollStatusEnum",
@@ -37,17 +42,6 @@ export const certificateEnrollmentSchema = (): Schema => {
         ],
 
         methods: [
-            {
-                name: "get",
-                returnType: "Promise<CertificateEnrollment>",
-                parameters: [
-                    {
-                        name: "certificateEnrollmentId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
             {
                 name: "list",
                 returnType: "Paginator<CertificateEnrollment, ListOptions>",
@@ -78,6 +72,17 @@ export const certificateEnrollmentSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<CertificateEnrollment>",
+                parameters: [
+                    {
+                        name: "certificateEnrollmentId",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

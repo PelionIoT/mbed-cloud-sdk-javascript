@@ -50,25 +50,6 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
-    public get(id: string): Promise<CertificateIssuerConfig> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
-                        method: "GET",
-                        pathParams: {
-                            "certificate-issuer-configuration-id": id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, CertificateIssuerConfigAdapter.fromApi(data));
-            }
-        );
-    }
     public getDefault(): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {
@@ -112,6 +93,25 @@ export class CertificateIssuerConfigRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    public read(id: string): Promise<CertificateIssuerConfig> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
+                        method: "GET",
+                        pathParams: {
+                            "certificate-issuer-configuration-id": id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, CertificateIssuerConfigAdapter.fromApi(data));
+            }
+        );
     }
     public update(request: CertificateIssuerConfigUpdateRequest, id: string): Promise<CertificateIssuerConfig> {
         return apiWrapper(

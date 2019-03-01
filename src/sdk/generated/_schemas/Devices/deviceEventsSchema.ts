@@ -58,17 +58,6 @@ export const deviceEventsSchema = (): Schema => {
 
         methods: [
             {
-                name: "get",
-                returnType: "Promise<DeviceEvents>",
-                parameters: [
-                    {
-                        name: "deviceEventsId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "list",
                 returnType: "Paginator<DeviceEvents, ListOptions>",
                 parameters: [
@@ -98,6 +87,17 @@ export const deviceEventsSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<DeviceEvents>",
+                parameters: [
+                    {
+                        name: "deviceEventsId",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

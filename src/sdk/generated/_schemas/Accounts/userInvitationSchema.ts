@@ -79,17 +79,6 @@ export const userInvitationSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<UserInvitation>",
-                parameters: [
-                    {
-                        name: "userInvitationId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "list",
                 returnType: "Paginator<UserInvitation, ListOptions>",
                 parameters: [
@@ -119,6 +108,17 @@ export const userInvitationSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<UserInvitation>",
+                parameters: [
+                    {
+                        name: "userInvitationId",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

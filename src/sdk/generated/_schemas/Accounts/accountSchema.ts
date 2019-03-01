@@ -312,32 +312,6 @@ export const accountSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<Account>",
-                parameters: [
-                    {
-                        name: "accountId",
-                        position: 0,
-                        type: "string",
-                    },
-                    {
-                        name: "options",
-                        position: 1,
-                        type: "Object",
-                        subParams: [
-                            {
-                                name: "include",
-                                type: "string",
-                            },
-                            {
-                                name: "properties",
-                                type: "string",
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
                 name: "list",
                 returnType: "Paginator<Account, ListOptions>",
                 parameters: [
@@ -385,6 +359,32 @@ export const accountSchema = (): Schema => {
                     {
                         name: "options",
                         position: 0,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "properties",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<Account>",
+                parameters: [
+                    {
+                        name: "accountId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
                         type: "Object",
                         subParams: [
                             {

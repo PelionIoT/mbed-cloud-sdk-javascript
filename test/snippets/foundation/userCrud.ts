@@ -9,7 +9,7 @@ describe("userCrud", () => {
 
             const user = await userContext.list().first();
 
-            const gotUser = await userContext.get(user.id);
+            const gotUser = await userContext.read(user.id);
 
             expect(instanceOf<User>(gotUser, "USER")).toBeTruthy();
             expect(gotUser.createdAt).toEqual(user.createdAt);

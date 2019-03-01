@@ -86,7 +86,7 @@ export const deviceEnrollmentBulkDeleteSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
+                name: "read",
                 returnType: "Promise<DeviceEnrollmentBulkDelete>",
                 parameters: [
                     {
