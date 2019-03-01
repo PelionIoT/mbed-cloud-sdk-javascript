@@ -37,8 +37,6 @@ export interface ConnectOptions extends ConnectionOptions {
 }
 export type DeliveryMethod = "SERVER_INITIATED" | "CLIENT_INITIATED";
 
-export type DeliveryMethod = "SERVER_INITIATED" | "CLIENT_INITIATED";
-
 export interface NotificationObject {
     /**
      * Notifications
