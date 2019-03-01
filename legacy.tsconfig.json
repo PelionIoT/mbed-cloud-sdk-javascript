@@ -11,8 +11,7 @@
         "outDir": "lib",
         "rootDirs": [
             "src/legacy"
-        ],
-        "declaration": true
+        ]
     },
     "include": [
         "src/legacy/**/*"
