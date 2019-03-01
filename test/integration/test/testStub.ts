@@ -1,6 +1,6 @@
-import { SDKError } from "../../../src/common/sdkError";
+import { SDKError } from "../../../src/legacy/common/sdkError";
 import { ServerError } from "../server/error";
-import { ConnectionOptions } from "../../../src/common/interfaces";
+import { ConnectionOptions } from "../../../src/legacy/common/interfaces";
 
 export class TestStubApi {
 

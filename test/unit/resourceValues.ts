@@ -15,8 +15,8 @@
 * limitations under the License.
 */
 
-import { Subscribe } from "../../src/subscribe/subscribe";
-import { PresubscriptionObject, NotificationData } from "../../src/connect/types";
+import { Subscribe } from "../../src/primary/subscribe/subscribe";
+import { PresubscriptionObject, NotificationData } from "../../src/legacy/connect/types";
 
 describe("resourceValues", () => {
 

@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { ConnectApi } from "../../src/connect/connectApi";
+import { ConnectApi } from "../../src/legacy/connect/connectApi";
 
 describe("connectEvents", () => {
 

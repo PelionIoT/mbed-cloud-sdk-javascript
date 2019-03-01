@@ -1,6 +1,6 @@
 import { SDK } from "../../../src/sdk";
-import { UserRepository } from "../../../src/sdk/entities";
-import { Config } from "../../../src/sdk/common/config";
+import { UserRepository } from "../../../src/foundation";
+import { Config } from "../../../src";
 
 describe("singleEntryPoint", () => {
 
@@ -20,7 +20,7 @@ describe("singleEntryPoint", () => {
         const sdk = new SDK(new Config({ apiKey: "ak_1" }));
         expect("Bearer ak_1").toEqual(sdk.config.apiKey);
 
-        const user = sdk.entities().userRepository();
+        const user = sdk.foundation().userRepository();
 
         expect("Bearer ak_1").toEqual(user.config.apiKey);
     });
@@ -45,7 +45,7 @@ describe("singleEntryPoint", () => {
         const sdk2 = new SDK(config);
         expect("Bearer ak_1").toEqual(sdk2.config.apiKey);
 
-        const user2 = sdk.entities().userRepository();
+        const user2 = sdk.foundation().userRepository();
         expect("Bearer ak_1").toEqual(user2.config.apiKey);
     });
 });

@@ -18,7 +18,7 @@ describe("certificate examples", () => {
         const certificate = (await trustedCertificateContext.list().all()).filter(t => t.isDeveloperCertificate === true)[0];
 
         const developerCertificateContext = new DeveloperCertificateRepository();
-        const devCertificate = await developerCertificateContext.get(certificate.id);
+        const devCertificate = await developerCertificateContext.read(certificate.id);
 
         const trustedCertInfo = await developerCertificateContext.getTrustedCertificateInfo(devCertificate.id);
         expect(instanceOf<TrustedCertificate>(trustedCertInfo, "TRUSTED_CERTIFICATE")).toBeTruthy();

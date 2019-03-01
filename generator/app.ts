@@ -16,7 +16,7 @@ import { generateSchemas } from "./generators/generateSchemas";
 
 async function main() {
     const log = loggerFactory.getLogger("default");
-    const outputFolder = "./src/sdk/generated";
+    const outputFolder = "./src/foundation";
     const configPath = "api_specifications/public/sdk_foundation_definition.json";
 
     const generatedConfig = JSON.parse(fs.readFileSync(configPath, "utf-8"));

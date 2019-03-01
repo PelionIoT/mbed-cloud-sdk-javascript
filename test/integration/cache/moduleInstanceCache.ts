@@ -2,7 +2,7 @@ import { Cache } from "./cache";
 import { ServerError } from "../server/error";
 import * as MbedCloudSDK from "../../../src";
 import { reverseMapModule, mapModule } from "../mapping/argumentMapping";
-import { ConnectionOptions } from "../../../src/common/interfaces";
+import { ConnectionOptions } from "../../../src/legacy/common/interfaces";
 import { ModuleInstance } from "../instance/moduleInstance";
 
 export class ModuleInstanceCache extends Cache<ModuleInstance> {

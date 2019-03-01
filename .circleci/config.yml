@@ -84,6 +84,47 @@ jobs:
           command: npm run tpip
       - store_artifacts:
           path: tpip.csv
+  docs:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: v0-package-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install SDK dependencies
+          command: npm install
+      - run:
+          name: Generate documentation
+          command: npm run docs
+      - store_artifacts:
+          path: docs/docs
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - docs/docs
+  upload_docs:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Installing aws cli
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install awscli
+      - run:
+          command: |
+                  . venv/bin/activate
+                  aws s3 sync --delete --cache-control max-age=3600 ~/build/docs/docs s3://mbed-cloud-sdk-javascript/${CIRCLE_BRANCH}/docs
+          name: upload docs to s3
   news:
     working_directory: ~/build
     docker:
@@ -188,14 +229,18 @@ jobs:
           name: Install extra dependencies (node)
           command: sudo npm install -g codecov ansi-html-stream --unsafe-perm
       - run:
+          name: Run browser tests
+          command: npm run test:browser
+      - run:
           name: Run the tests
-          command: set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
+          command: set -o pipefail && npm run test:node 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
       - store_artifacts:
           path: unit_tests.html
       - persist_to_workspace:
           root: ./
           paths:
             - unit_tests.html
+            - coverage
   beta_release:
     working_directory: ~/build
     environment:
@@ -295,7 +340,7 @@ jobs:
       - run:
           name: sync to build branch if exists or create new one
           command: |
-              git add --force lib bundles types package.json
+              git add --force lib types package.json
               git stash save
               git checkout -B build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
@@ -340,6 +385,11 @@ workflows:
       - build
       - tpip
       - news
+      - docs
+      - upload_docs:
+          <<: *main_branches_only
+          requires:
+            - docs
       - build_documentation:
           requires:
             - build
@@ -357,12 +407,12 @@ workflows:
           <<: *ignore_main_branches
           requires:
             - create_build_branch_gate
-      - integration_test:
-          requires:
-            - build
       - unit_test:
           requires:
             - build
+      - integration_test:
+          requires:
+            - unit_test
       - build_sync:
           <<: *main_branches_only
           requires:
