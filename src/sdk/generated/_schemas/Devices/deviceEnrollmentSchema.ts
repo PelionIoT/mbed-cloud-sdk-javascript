@@ -66,17 +66,6 @@ export const deviceEnrollmentSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<DeviceEnrollment>",
-                parameters: [
-                    {
-                        name: "deviceEnrollmentId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "list",
                 returnType: "Paginator<DeviceEnrollment, ListOptions>",
                 parameters: [
@@ -106,6 +95,17 @@ export const deviceEnrollmentSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<DeviceEnrollment>",
+                parameters: [
+                    {
+                        name: "deviceEnrollmentId",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

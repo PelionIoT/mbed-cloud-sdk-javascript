@@ -51,7 +51,7 @@ export class SubtenantUserInvitationRepository extends Repository {
             }
         );
     }
-    public get(accountId: string, id: string): Promise<SubtenantUserInvitation> {
+    public read(accountId: string, id: string): Promise<SubtenantUserInvitation> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(

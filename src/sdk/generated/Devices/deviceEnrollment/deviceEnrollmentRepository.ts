@@ -48,25 +48,6 @@ export class DeviceEnrollmentRepository extends Repository {
             }
         );
     }
-    public get(id: string): Promise<DeviceEnrollment> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/device-enrollments/{id}",
-                        method: "GET",
-                        pathParams: {
-                            id: id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, DeviceEnrollmentAdapter.fromApi(data));
-            }
-        );
-    }
     public list(options?: ListOptions): Paginator<DeviceEnrollment, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEnrollment>> => {
             pageOptions = pageOptions || {};
@@ -94,5 +75,24 @@ export class DeviceEnrollmentRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    public read(id: string): Promise<DeviceEnrollment> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/device-enrollments/{id}",
+                        method: "GET",
+                        pathParams: {
+                            id: id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, DeviceEnrollmentAdapter.fromApi(data));
+            }
+        );
     }
 }

@@ -60,26 +60,6 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
-    public get(accountId: string, id: string): Promise<SubtenantTrustedCertificate> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
-                        method: "GET",
-                        pathParams: {
-                            account_id: accountId,
-                            cert_id: id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, SubtenantTrustedCertificateAdapter.fromApi(data));
-            }
-        );
-    }
     public getDeveloperCertificateInfo(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -96,6 +76,26 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             },
             (data, done) => {
                 done(null, DeveloperCertificateAdapter.fromApi(data));
+            }
+        );
+    }
+    public read(accountId: string, id: string): Promise<SubtenantTrustedCertificate> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
+                        method: "GET",
+                        pathParams: {
+                            account_id: accountId,
+                            cert_id: id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, SubtenantTrustedCertificateAdapter.fromApi(data));
             }
         );
     }

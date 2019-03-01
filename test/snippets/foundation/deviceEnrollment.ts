@@ -39,7 +39,7 @@ describe("Device Enrollment examples", () => {
             // uncloak
 
             // call get to see current state of bulk enrollment
-            createTask = await bulkCreateContext.get(createTask.id);
+            createTask = await bulkCreateContext.read(createTask.id);
 
             // cloak
             expect(createTask.status === "completed" || createTask.status === "processing").toBeTruthy();
@@ -78,7 +78,7 @@ describe("Device Enrollment examples", () => {
             expect(deleteTask.status).toBe("new");
 
             // call get to see current state of bulk enrollment
-            deleteTask = await bulkDeleteContext.get(deleteTask.id);
+            deleteTask = await bulkDeleteContext.read(deleteTask.id);
 
             expect(deleteTask.status === "completed" || deleteTask.status === "processing").toBeTruthy();
 

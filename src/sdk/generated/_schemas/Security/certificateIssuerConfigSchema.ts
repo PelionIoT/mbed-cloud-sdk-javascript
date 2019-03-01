@@ -60,17 +60,6 @@ export const certificateIssuerConfigSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<CertificateIssuerConfig>",
-                parameters: [
-                    {
-                        name: "certificateIssuerConfigId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "getDefault",
                 returnType: "Promise<CertificateIssuerConfig>",
                 parameters: [],
@@ -105,6 +94,17 @@ export const certificateIssuerConfigSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<CertificateIssuerConfig>",
+                parameters: [
+                    {
+                        name: "certificateIssuerConfigId",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

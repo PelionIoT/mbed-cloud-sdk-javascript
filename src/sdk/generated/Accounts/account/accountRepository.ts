@@ -58,30 +58,6 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public get(id: string, options?: { include?: string; properties?: string }): Promise<Account> {
-        options = options || {};
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/accounts/{account_id}",
-                        method: "GET",
-                        query: {
-                            include: options.include,
-                            properties: options.properties,
-                        },
-                        pathParams: {
-                            account_id: id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, AccountAdapter.fromApi(data));
-            }
-        );
-    }
     public list(options?: AccountListOptions): Paginator<Account, ListOptions> {
         const pageFunc = (pageOptions: AccountListOptions): Promise<ListResponse<Account>> => {
             pageOptions = pageOptions || {};
@@ -123,6 +99,30 @@ export class AccountRepository extends Repository {
                         query: {
                             include: options.include,
                             properties: options.properties,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, AccountAdapter.fromApi(data));
+            }
+        );
+    }
+    public read(id: string, options?: { include?: string; properties?: string }): Promise<Account> {
+        options = options || {};
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/accounts/{account_id}",
+                        method: "GET",
+                        query: {
+                            include: options.include,
+                            properties: options.properties,
+                        },
+                        pathParams: {
+                            account_id: id,
                         },
                     },
                     resultsFn

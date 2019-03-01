@@ -55,25 +55,6 @@ export class CertificateIssuerRepository extends Repository {
             }
         );
     }
-    public get(id: string): Promise<CertificateIssuer> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/certificate-issuers/{certificate-issuer-id}",
-                        method: "GET",
-                        pathParams: {
-                            "certificate-issuer-id": id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, CertificateIssuerAdapter.fromApi(data));
-            }
-        );
-    }
     public list(options?: ListOptions): Paginator<CertificateIssuer, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateIssuer>> => {
             pageOptions = pageOptions || {};
@@ -101,6 +82,25 @@ export class CertificateIssuerRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    public read(id: string): Promise<CertificateIssuer> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/certificate-issuers/{certificate-issuer-id}",
+                        method: "GET",
+                        pathParams: {
+                            "certificate-issuer-id": id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, CertificateIssuerAdapter.fromApi(data));
+            }
+        );
     }
     public update(request: CertificateIssuerUpdateRequest, id: string): Promise<CertificateIssuer> {
         return apiWrapper(

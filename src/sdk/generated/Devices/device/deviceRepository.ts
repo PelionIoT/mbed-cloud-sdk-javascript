@@ -72,25 +72,6 @@ export class DeviceRepository extends Repository {
             }
         );
     }
-    public get(id: string): Promise<Device> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/devices/{id}/",
-                        method: "GET",
-                        pathParams: {
-                            id: id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, DeviceAdapter.fromApi(data));
-            }
-        );
-    }
     public list(options?: ListOptions): Paginator<Device, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Device>> => {
             pageOptions = pageOptions || {};
@@ -118,6 +99,25 @@ export class DeviceRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    public read(id: string): Promise<Device> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/devices/{id}/",
+                        method: "GET",
+                        pathParams: {
+                            id: id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, DeviceAdapter.fromApi(data));
+            }
+        );
     }
     public renewCertificate(certificateName: string, id: string): Promise<CertificateEnrollment> {
         return apiWrapper(

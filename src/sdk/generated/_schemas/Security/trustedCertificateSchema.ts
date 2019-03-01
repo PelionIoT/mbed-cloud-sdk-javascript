@@ -141,17 +141,6 @@ export const trustedCertificateSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<TrustedCertificate>",
-                parameters: [
-                    {
-                        name: "trustedCertificateId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "getDeveloperCertificateInfo",
                 returnType: "Promise<DeveloperCertificate>",
                 parameters: [
@@ -192,6 +181,17 @@ export const trustedCertificateSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<TrustedCertificate>",
+                parameters: [
+                    {
+                        name: "trustedCertificateId",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

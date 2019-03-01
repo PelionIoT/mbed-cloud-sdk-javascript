@@ -51,25 +51,6 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    public get(id: string): Promise<ApiKey> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/api-keys/{apikey_id}",
-                        method: "GET",
-                        pathParams: {
-                            apikey_id: id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, ApiKeyAdapter.fromApi(data));
-            }
-        );
-    }
     public list(options?: ListOptions): Paginator<ApiKey, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
             pageOptions = pageOptions || {};
@@ -105,6 +86,25 @@ export class ApiKeyRepository extends Repository {
                     {
                         url: "/v3/api-keys/me",
                         method: "GET",
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, ApiKeyAdapter.fromApi(data));
+            }
+        );
+    }
+    public read(id: string): Promise<ApiKey> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/api-keys/{apikey_id}",
+                        method: "GET",
+                        pathParams: {
+                            apikey_id: id,
+                        },
                     },
                     resultsFn
                 );

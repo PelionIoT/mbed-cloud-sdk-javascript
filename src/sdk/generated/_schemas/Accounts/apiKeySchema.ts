@@ -89,17 +89,6 @@ export const apiKeySchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<ApiKey>",
-                parameters: [
-                    {
-                        name: "apiKeyId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "list",
                 returnType: "Paginator<ApiKey, ListOptions>",
                 parameters: [
@@ -136,6 +125,17 @@ export const apiKeySchema = (): Schema => {
                 name: "me",
                 returnType: "Promise<ApiKey>",
                 parameters: [],
+            },
+            {
+                name: "read",
+                returnType: "Promise<ApiKey>",
+                parameters: [
+                    {
+                        name: "apiKeyId",
+                        position: 0,
+                        type: "string",
+                    },
+                ],
             },
             {
                 name: "update",

@@ -260,17 +260,6 @@ export const deviceSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<Device>",
-                parameters: [
-                    {
-                        name: "deviceId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "list",
                 returnType: "Paginator<Device, ListOptions>",
                 parameters: [
@@ -300,6 +289,17 @@ export const deviceSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<Device>",
+                parameters: [
+                    {
+                        name: "deviceId",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

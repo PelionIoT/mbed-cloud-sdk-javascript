@@ -61,7 +61,7 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
-    public get(accountId: string, id: string): Promise<SubtenantUser> {
+    public read(accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
