@@ -33,4 +33,4 @@ docker run --rm --net=host --name=testrunner_container \
 -e "TEST_SERVER_URL=http://127.0.0.1:5000" \
 -e "TEST_FIXTURES_DIR=/home/circleci/build/test_fixtures" \
 -v /home/circleci/build/test_fixtures:/runner/test_fixtures \
-${TESTRUNNER_DOCKER_IMAGE}
+test_runner
