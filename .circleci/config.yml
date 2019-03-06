@@ -190,7 +190,7 @@ jobs:
             ${login}
       - run:
           name: Fetch the test runner
-          command: docker pull ${TESTRUNNER_DOCKER_IMAGE}
+          command: docker pull ${TESTRUNNER_DOCKER_IMAGE} || docker pull ${DEFAULT_TESTRUNNER_DOCKER_IMAGE}
       - run:
           name: Run the tests
           command: set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ~/build/integration.html
