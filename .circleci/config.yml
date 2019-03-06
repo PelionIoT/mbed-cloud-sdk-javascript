@@ -152,8 +152,7 @@ jobs:
   integration_test:
     working_directory: ~/build
     environment:
-      DEFAULT_TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-      TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+      TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner
       PIPENV_VENV_IN_PROJECT: TRUE
     machine: true
     steps:
@@ -190,8 +189,12 @@ jobs:
             ${login}
       - run:
           name: Fetch the test runner
-          # if no tag matching the current branch is found, fallback to the default branch and overwrite TESTRUNNER_DOCKER_IMAGE environment variable
-          command: docker pull ${TESTRUNNER_DOCKER_IMAGE} || docker pull ${DEFAULT_TESTRUNNER_DOCKER_IMAGE} && export TESTRUNNER_DOCKER_IMAGE=${DEFAULT_TESTRUNNER_DOCKER_IMAGE} && echo "export TESTRUNNER_DOCKER_IMAGE=${TESTRUNNER_DOCKER_IMAGE}" >> ${BASH_ENV}
+          command: (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+              && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+              104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
+              || (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+              && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+              104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
       - run:
           name: Run the tests
           command: set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ~/build/integration.html
