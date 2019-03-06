@@ -304,7 +304,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
         if (hasPaginator) {
             repositoryClass.addImport(new ImportContainer(
                 `PAGINATOR`,
-                "../../../legacy/common/pagination",
+                "../../../common/pagination",
                 [
                     "Paginator"
                 ]
