@@ -6,7 +6,7 @@ import { DeviceCreateRequest } from "./types";
 import { CertificateEnrollment } from "../../index";
 import { CertificateEnrollmentAdapter } from "../../index";
 import { DeviceUpdateRequest } from "./types";
-import { Paginator } from "../../../legacy/common/pagination";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**

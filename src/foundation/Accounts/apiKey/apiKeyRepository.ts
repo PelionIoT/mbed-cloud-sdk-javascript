@@ -4,7 +4,7 @@ import { ApiKey } from "./apiKey";
 import { ApiKeyAdapter } from "../../index";
 import { ApiKeyCreateRequest } from "./types";
 import { ApiKeyUpdateRequest } from "./types";
-import { Paginator } from "../../../legacy/common/pagination";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**

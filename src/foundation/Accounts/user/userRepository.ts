@@ -4,7 +4,7 @@ import { User } from "./user";
 import { UserAdapter } from "../../index";
 import { UserCreateRequest } from "./types";
 import { UserUpdateRequest } from "./types";
-import { Paginator } from "../../../legacy/common/pagination";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
