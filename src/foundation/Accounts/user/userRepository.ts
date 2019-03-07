@@ -3,6 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { User } from "./user";
 import { UserAdapter } from "../../index";
 import { UserCreateRequest } from "./types";
+import { UserListOptions } from "./types";
 import { UserUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -60,8 +61,8 @@ export class UserRepository extends Repository {
             }
         );
     }
-    public list(options?: ListOptions): Paginator<User, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+    public list(options?: UserListOptions): Paginator<User, ListOptions> {
+        const pageFunc = (pageOptions: UserListOptions): Promise<ListResponse<User>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

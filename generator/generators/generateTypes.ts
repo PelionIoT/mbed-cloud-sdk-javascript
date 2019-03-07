@@ -1,5 +1,5 @@
 import { FileContainer } from "../containers/fileContainer/fileContainer";
-import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList, ensureArray } from "../common/utilities";
+import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList, ensureArray, isEmpty } from "../common/utilities";
 import { EnumContainer } from "../containers/enumContainer/enumContainer";
 import { PropertyContainer } from "../containers/propertyContainer/propertyContainer";
 import { ImportContainer } from "../containers/importContainer/importContainer";
@@ -10,6 +10,7 @@ import { File as GeneratedFile } from "../common/file";
 export async function generateTypes(entity, enums, pascalKey: string, outputFolder: string, camelKey: string, entityIndex: FileContainer): Promise<FileContainer> {
     const typeContainer = new FileContainer();
 
+    // any enums for this entity
     const entityEnums = ensureArray(entity.fields).filter(f => f.enum);
     for (const _enum of entityEnums) {
         const key = snakeToPascal(_enum.enum_reference) || snakeToPascal(_enum.api_fieldname);
@@ -18,6 +19,8 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
     }
 
     const imports = [];
+
+    // add and update interfaces
     const methodsWithBodyParams = ensureArray(entity.methods).filter(m => ensureArray(m.fields).filter(f => f.in === "body"));
     for (const method of methodsWithBodyParams) {
         const methodName = snakeToPascal(method._key);
@@ -62,12 +65,15 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
         }
     }
 
+    // list options
     const paginatedMethods = ensureArray(entity.methods).filter(p => !!p.pagination);
     for (const method of paginatedMethods) {
+        const filters = method.x_filter;
+        const returns = snakeToPascal(method.return_info.type);
         const extraQueryParams = method.fields.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
-        if (extraQueryParams.length > 0) {
+        if (extraQueryParams.length > 0 || !isEmpty(filters)) {
             const listOptions = new ClassContainer(
-                `${pascalKey}ListOptions`,
+                `${returns}ListOptions`,
                 {
                     isInterface: true,
                     extendsClass: [
@@ -86,8 +92,64 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                     )
                 );
             });
+            // tslint:disable-next-line:no-console
+            console.log(filters);
+            if (!isEmpty(filters)) {
+                const filterType = `${returns}Filter`;
+                const filterObj = new ClassContainer(
+                    filterType,
+                    {
+                        isInterface: true,
+                    }
+                );
+                Object.keys(filters).forEach(k => {
+                    const filterComparisonType = snakeToCamel(`${returns}_${k}_filter`);
+                    const filterComparisonObject = new ClassContainer(
+                        filterComparisonType,
+                        {
+                            isInterface: true,
+                        }
+                    );
+                    filters[k].forEach(f => {
+                        // tslint:disable-next-line:no-console
+                        console.log(f);
+                        filterComparisonObject.addProperty(
+                            new PropertyContainer(
+                                f,
+                                "string",
+                                {
+                                    isInterface: true,
+                                    isOptional: true,
+                                }
+                            )
+                        );
+                    });
+                    typeContainer.addContainer(filterComparisonObject);
+                    filterObj.addProperty(
+                        new PropertyContainer(
+                            k,
+                            filterComparisonType,
+                            {
+                                isInterface: true,
+                                isOptional: true,
+                            }
+                        )
+                    );
+                });
+                typeContainer.addContainer(filterObj);
+                listOptions.addProperty(
+                    new PropertyContainer(
+                        "filter",
+                        filterType,
+                        {
+                            isInterface: true,
+                            isOptional: true,
+                        }
+                    )
+                );
+            }
             typeContainer.addContainer(listOptions);
-            imports.push(
+            safeAddToList(imports,
                 new ImportContainer(
                     "LIST_OPTIONS",
                     "../../../legacy/common/interfaces",

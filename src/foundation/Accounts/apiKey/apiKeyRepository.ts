@@ -3,6 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { ApiKey } from "./apiKey";
 import { ApiKeyAdapter } from "../../index";
 import { ApiKeyCreateRequest } from "./types";
+import { ApiKeyListOptions } from "./types";
 import { ApiKeyUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -51,8 +52,8 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    public list(options?: ListOptions): Paginator<ApiKey, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
+    public list(options?: ApiKeyListOptions): Paginator<ApiKey, ListOptions> {
+        const pageFunc = (pageOptions: ApiKeyListOptions): Promise<ListResponse<ApiKey>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

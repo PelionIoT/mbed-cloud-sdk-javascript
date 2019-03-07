@@ -1,3 +1,4 @@
+import { ListOptions } from "../../../legacy/common/interfaces";
 export type TrustedCertificateServiceEnum = "lwm2m" | "bootstrap";
 export type TrustedCertificateStatusEnum = "ACTIVE" | "INACTIVE";
 /**
@@ -67,4 +68,162 @@ export interface TrustedCertificateUpdateRequest {
      *status
      */
     readonly status?: TrustedCertificateStatusEnum;
+}
+/**
+ *TrustedCertificateNameFilter
+ */
+export interface TrustedCertificateNameFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *TrustedCertificateServiceFilter
+ */
+export interface TrustedCertificateServiceFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *TrustedCertificateExpireFilter
+ */
+export interface TrustedCertificateExpireFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *TrustedCertificateDeviceExecutionModeFilter
+ */
+export interface TrustedCertificateDeviceExecutionModeFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+
+    /**
+     *neq
+     */
+    neq?: string;
+}
+/**
+ *TrustedCertificateOwnerFilter
+ */
+export interface TrustedCertificateOwnerFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *TrustedCertificateEnrollmentModeFilter
+ */
+export interface TrustedCertificateEnrollmentModeFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *TrustedCertificateStatusFilter
+ */
+export interface TrustedCertificateStatusFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *TrustedCertificateIssuerFilter
+ */
+export interface TrustedCertificateIssuerFilter {
+    /**
+     *like
+     */
+    like?: string;
+}
+/**
+ *TrustedCertificateSubjectFilter
+ */
+export interface TrustedCertificateSubjectFilter {
+    /**
+     *like
+     */
+    like?: string;
+}
+/**
+ *TrustedCertificateValidFilter
+ */
+export interface TrustedCertificateValidFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *TrustedCertificateFilter
+ */
+export interface TrustedCertificateFilter {
+    /**
+     *name
+     */
+    name?: TrustedCertificateNameFilter;
+
+    /**
+     *service
+     */
+    service?: TrustedCertificateServiceFilter;
+
+    /**
+     *expire
+     */
+    expire?: TrustedCertificateExpireFilter;
+
+    /**
+     *device_execution_mode
+     */
+    device_execution_mode?: TrustedCertificateDeviceExecutionModeFilter;
+
+    /**
+     *owner
+     */
+    owner?: TrustedCertificateOwnerFilter;
+
+    /**
+     *enrollment_mode
+     */
+    enrollment_mode?: TrustedCertificateEnrollmentModeFilter;
+
+    /**
+     *status
+     */
+    status?: TrustedCertificateStatusFilter;
+
+    /**
+     *issuer
+     */
+    issuer?: TrustedCertificateIssuerFilter;
+
+    /**
+     *subject
+     */
+    subject?: TrustedCertificateSubjectFilter;
+
+    /**
+     *valid
+     */
+    valid?: TrustedCertificateValidFilter;
+}
+/**
+ *TrustedCertificateListOptions
+ */
+export interface TrustedCertificateListOptions extends ListOptions {
+    /**
+     *filter
+     */
+    filter?: TrustedCertificateFilter;
 }

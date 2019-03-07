@@ -5,6 +5,7 @@ import { TrustedCertificateAdapter } from "../../index";
 import { TrustedCertificateCreateRequest } from "./types";
 import { DeveloperCertificate } from "../../index";
 import { DeveloperCertificateAdapter } from "../../index";
+import { TrustedCertificateListOptions } from "./types";
 import { TrustedCertificateUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -75,8 +76,8 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
-    public list(options?: ListOptions): Paginator<TrustedCertificate, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<TrustedCertificate>> => {
+    public list(options?: TrustedCertificateListOptions): Paginator<TrustedCertificate, ListOptions> {
+        const pageFunc = (pageOptions: TrustedCertificateListOptions): Promise<ListResponse<TrustedCertificate>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

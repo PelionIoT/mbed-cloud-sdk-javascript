@@ -3,6 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { CertificateIssuerConfig } from "./certificateIssuerConfig";
 import { CertificateIssuerConfigAdapter } from "../../index";
 import { CertificateIssuerConfigCreateRequest } from "./types";
+import { CertificateIssuerConfigListOptions } from "./types";
 import { CertificateIssuerConfigUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -66,8 +67,10 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
-    public list(options?: ListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateIssuerConfig>> => {
+    public list(options?: CertificateIssuerConfigListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
+        const pageFunc = (
+            pageOptions: CertificateIssuerConfigListOptions
+        ): Promise<ListResponse<CertificateIssuerConfig>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

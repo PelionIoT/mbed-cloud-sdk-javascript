@@ -1,3 +1,4 @@
+import { ListOptions } from "../../../legacy/common/interfaces";
 export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
 /**
  *ApiKeyCreateRequest
@@ -36,4 +37,45 @@ export interface ApiKeyUpdateRequest {
      *status
      */
     readonly status?: ApiKeyStatusEnum;
+}
+/**
+ *ApiKeyKeyFilter
+ */
+export interface ApiKeyKeyFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *ApiKeyOwnerFilter
+ */
+export interface ApiKeyOwnerFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *ApiKeyFilter
+ */
+export interface ApiKeyFilter {
+    /**
+     *key
+     */
+    key?: ApiKeyKeyFilter;
+
+    /**
+     *owner
+     */
+    owner?: ApiKeyOwnerFilter;
+}
+/**
+ *ApiKeyListOptions
+ */
+export interface ApiKeyListOptions extends ListOptions {
+    /**
+     *filter
+     */
+    filter?: ApiKeyFilter;
 }

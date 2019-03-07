@@ -117,6 +117,10 @@ export const apiKeySchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                            {
+                                name: "filter",
+                                type: "ApiKeyFilter",
+                            },
                         ],
                     },
                 ],

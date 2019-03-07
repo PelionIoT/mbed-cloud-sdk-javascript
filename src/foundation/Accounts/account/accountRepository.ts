@@ -6,11 +6,14 @@ import { AccountCreateRequest } from "./types";
 import { AccountListOptions } from "./types";
 import { SubtenantTrustedCertificate } from "../../index";
 import { SubtenantTrustedCertificateAdapter } from "../../index";
+import { SubtenantTrustedCertificateListOptions } from "./types";
 import { AccountUpdateRequest } from "./types";
 import { SubtenantUserInvitation } from "../../index";
 import { SubtenantUserInvitationAdapter } from "../../index";
+import { SubtenantUserInvitationListOptions } from "./types";
 import { SubtenantUser } from "../../index";
 import { SubtenantUserAdapter } from "../../index";
+import { SubtenantUserListOptions } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
@@ -133,8 +136,13 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public trustedCertificates(id: string, options?: ListOptions): Paginator<SubtenantTrustedCertificate, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantTrustedCertificate>> => {
+    public trustedCertificates(
+        id: string,
+        options?: SubtenantTrustedCertificateListOptions
+    ): Paginator<SubtenantTrustedCertificate, ListOptions> {
+        const pageFunc = (
+            pageOptions: SubtenantTrustedCertificateListOptions
+        ): Promise<ListResponse<SubtenantTrustedCertificate>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -208,8 +216,13 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public userInvitations(id: string, options?: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUserInvitation>> => {
+    public userInvitations(
+        id: string,
+        options?: SubtenantUserInvitationListOptions
+    ): Paginator<SubtenantUserInvitation, ListOptions> {
+        const pageFunc = (
+            pageOptions: SubtenantUserInvitationListOptions
+        ): Promise<ListResponse<SubtenantUserInvitation>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -238,8 +251,8 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-    public users(id: string, options?: ListOptions): Paginator<SubtenantUser, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUser>> => {
+    public users(id: string, options?: SubtenantUserListOptions): Paginator<SubtenantUser, ListOptions> {
+        const pageFunc = (pageOptions: SubtenantUserListOptions): Promise<ListResponse<SubtenantUser>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

@@ -3,6 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { UserInvitation } from "./userInvitation";
 import { UserInvitationAdapter } from "../../index";
 import { UserInvitationCreateRequest } from "./types";
+import { UserInvitationListOptions } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
@@ -50,8 +51,8 @@ export class UserInvitationRepository extends Repository {
             }
         );
     }
-    public list(options?: ListOptions): Paginator<UserInvitation, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<UserInvitation>> => {
+    public list(options?: UserInvitationListOptions): Paginator<UserInvitation, ListOptions> {
+        const pageFunc = (pageOptions: UserInvitationListOptions): Promise<ListResponse<UserInvitation>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
