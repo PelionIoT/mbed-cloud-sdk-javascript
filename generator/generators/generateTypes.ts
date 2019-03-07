@@ -18,7 +18,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
     }
 
     const imports = [];
-    const methodsWithBodyParams = ensureArray(entity.methods).filter(m => m.fields.filter(f => f.in === "body"));
+    const methodsWithBodyParams = ensureArray(entity.methods).filter(m => ensureArray(m.fields).filter(f => f.in === "body"));
     for (const method of methodsWithBodyParams) {
         const methodName = snakeToPascal(method._key);
         const bodyParams = [];

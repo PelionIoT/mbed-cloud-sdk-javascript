@@ -69,7 +69,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
             let hasRequest = false;
             // request param
-            if (method.fields.filter(m => m.in === "body").length >= 1) {
+            if (ensureArray(method.fields).filter(m => m.in === "body").length >= 1) {
                 hasRequest = true;
                 parameterList.addParameters(new ParameterContainer(
                     "request",
@@ -86,7 +86,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
             // external params
             let externalParams = new Array<ParameterContainer>();
-            const ep = method.fields.filter(m => m.in && m.in !== "body");
+            const ep = ensureArray(method.fields).filter(m => m.in && m.in !== "body");
             for (const field of ep) {
                 if (paginated && field.in === "query") {
                     continue;
@@ -156,7 +156,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
             const fileParams = [];
             const bodyParams = [];
             // internal params
-            const ip = method.fields.filter(m => m.in !== undefined);
+            const ip = ensureArray(method.fields).filter(m => m.in !== undefined);
             for (const field of ip) {
                 if (field.in === "query") {
                     const queryParam = new MethodBodyParameterContainer(
