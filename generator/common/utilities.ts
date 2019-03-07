@@ -94,6 +94,23 @@ const safeAddToList = (list: Array<Container>, item: Container): void => {
     }
 };
 
+const ensureArray = obj => {
+    if (isEmpty(obj)) {
+        return [];
+    } else {
+        return obj;
+    }
+};
+
+const isEmpty = obj => {
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            return false;
+        }
+    }
+    return true;
+};
+
 export {
     typeMap,
     getType,
@@ -104,5 +121,6 @@ export {
     unpackParams,
     snakeToCamel,
     snakeToPascal,
-    safeAddToList
+    safeAddToList,
+    ensureArray,
 };

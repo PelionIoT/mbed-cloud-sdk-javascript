@@ -1,6 +1,6 @@
 import { ImportContainer } from "../containers/importContainer/importContainer";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
-import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, ensureArray } from "../common/utilities";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
 import { ParameterBucketContainer } from "../containers/parameterBucketContainer/parameterBucketContainer";
@@ -15,13 +15,13 @@ import { FileContainer } from "../containers/fileContainer/fileContainer";
 import { CustomMethodBody } from "../containers/methodBodyContainers/methods/customMethodBody";
 
 export async function generateRepository(entity, pascalKey, _currentGroup, camelKey, outputFolder, entityIndex: FileContainer): Promise<ClassContainer> {
-    if (entity.methods.length > 0) {
+    if (ensureArray(entity.methods).length > 0) {
         // entity has methods
         let fsNeeded = false;
         let hasPaginator = false;
         const repositoryImports = new Array<ImportContainer>();
         const repositoryMethods = new Array<MethodContainer>();
-        for (const method of entity.methods) {
+        for (const method of ensureArray(entity.methods)) {
             let hasBucket = false;
             const methodName = snakeToCamel(method._key);
             const httpMethod = method.method ? method.method.toUpperCase() : "GET";

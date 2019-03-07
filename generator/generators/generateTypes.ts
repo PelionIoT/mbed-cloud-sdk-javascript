@@ -1,5 +1,5 @@
 import { FileContainer } from "../containers/fileContainer/fileContainer";
-import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList } from "../common/utilities";
+import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList, ensureArray } from "../common/utilities";
 import { EnumContainer } from "../containers/enumContainer/enumContainer";
 import { PropertyContainer } from "../containers/propertyContainer/propertyContainer";
 import { ImportContainer } from "../containers/importContainer/importContainer";
@@ -10,7 +10,7 @@ import { File as GeneratedFile } from "../common/file";
 export async function generateTypes(entity, enums, pascalKey: string, outputFolder: string, camelKey: string, entityIndex: FileContainer): Promise<FileContainer> {
     const typeContainer = new FileContainer();
 
-    const entityEnums = entity.fields.filter(f => f.enum);
+    const entityEnums = ensureArray(entity.fields).filter(f => f.enum);
     for (const _enum of entityEnums) {
         const key = snakeToPascal(_enum.enum_reference) || snakeToPascal(_enum.api_fieldname);
         const enumContainer = new EnumContainer(key, _enum.enum);
@@ -18,7 +18,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
     }
 
     const imports = [];
-    const methodsWithBodyParams = entity.methods.filter(m => m.fields.filter(f => f.in === "body"));
+    const methodsWithBodyParams = ensureArray(entity.methods).filter(m => m.fields.filter(f => f.in === "body"));
     for (const method of methodsWithBodyParams) {
         const methodName = snakeToPascal(method._key);
         const bodyParams = [];
@@ -62,7 +62,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
         }
     }
 
-    const paginatedMethods = entity.methods.filter(p => !!p.pagination);
+    const paginatedMethods = ensureArray(entity.methods).filter(p => !!p.pagination);
     for (const method of paginatedMethods) {
         const extraQueryParams = method.fields.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
         if (extraQueryParams.length > 0) {
