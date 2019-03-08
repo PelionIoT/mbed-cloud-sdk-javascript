@@ -1,6 +1,7 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { CertificateEnrollment } from "./certificateEnrollment";
+import { extractFilter } from "../../../common/filters";
 import { CertificateEnrollmentListOptions } from "./types";
 import { CertificateEnrollmentAdapter } from "../../index";
 import { Paginator } from "../../../common/pagination";
@@ -22,6 +23,16 @@ export class CertificateEnrollmentRepository extends Repository {
                             url: "/v3/certificate-enrollments",
                             method: "GET",
                             query: {
+                                device_id__eq: extractFilter(options.filter, "device_id", "eq"),
+                                certificate_name__eq: extractFilter(options.filter, "certificate_name", "eq"),
+                                enroll_status__neq: extractFilter(options.filter, "enroll_status", "neq"),
+                                enroll_status__eq: extractFilter(options.filter, "enroll_status", "eq"),
+                                enroll_result__neq: extractFilter(options.filter, "enroll_result", "neq"),
+                                enroll_result__eq: extractFilter(options.filter, "enroll_result", "eq"),
+                                created_at__lte: extractFilter(options.filter, "created_at", "lte"),
+                                created_at__gte: extractFilter(options.filter, "created_at", "gte"),
+                                updated_at__lte: extractFilter(options.filter, "updated_at", "lte"),
+                                updated_at__gte: extractFilter(options.filter, "updated_at", "gte"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

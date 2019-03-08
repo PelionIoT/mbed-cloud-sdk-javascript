@@ -116,8 +116,36 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
             parameterList.addParameters(externalParams);
 
+            const queryParams = [];
+            const pathParams = [];
+            const fileParams = [];
+            const bodyParams = [];
+
             if (paginated) {
                 const filters = method.x_filter;
+                if (!isEmpty(filters)) {
+                    // add import for extract filter
+                    safeAddToList(repositoryImports, new ImportContainer(
+                        "API_WRAPPER",
+                        "../../../common/filters",
+                        [
+                            "extractFilter",
+                        ]
+                    ));
+                    Object.keys(filters).forEach(filterName => {
+                        filters[filterName].forEach(filterOperator => {
+                            const apiFilterName = `${filterName}__${filterOperator}`;
+                            // abuse of the MethodBodyParameterContainer to create the extract filter call
+                            const queryParam = new MethodBodyParameterContainer(
+                                "",
+                                apiFilterName,
+                                `extractFilter(options.filter,"${apiFilterName}","${filterOperator}")`
+                            );
+                            queryParams.push(queryParam);
+                        });
+                    });
+                }
+
                 const extraQueryParams = ep.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
                 if (extraQueryParams.length > 0 || !isEmpty(filters)) {
                     listOptionsType = `${returns}ListOptions`;
@@ -152,10 +180,6 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 }
             }
 
-            const queryParams = [];
-            const pathParams = [];
-            const fileParams = [];
-            const bodyParams = [];
             // internal params
             const ip = ensureArray(method.fields).filter(m => m.in !== undefined);
             for (const field of ip) {
@@ -278,7 +302,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                         "API_WRAPPER",
                         "../../../legacy/common/functions",
                         [
-                            "apiWrapper"
+                            "apiWrapper",
                         ]
                     ),
                     new ImportContainer(

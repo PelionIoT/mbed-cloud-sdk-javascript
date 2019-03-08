@@ -92,9 +92,8 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                     )
                 );
             });
-            // tslint:disable-next-line:no-console
-            console.log(filters);
             if (!isEmpty(filters)) {
+                // creat top level filter interface
                 const filterType = `${returns}Filter`;
                 const filterObj = new ClassContainer(
                     filterType,
@@ -102,21 +101,22 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                         isInterface: true,
                     }
                 );
-                Object.keys(filters).forEach(k => {
-                    const filterComparisonType = snakeToCamel(`${returns}_${k}_filter`);
+                Object.keys(filters).forEach(filterName => {
+                    // get the corresponding field
+                    const field = ensureArray(entity.fields).filter(p => p._key === filterName).pop();
+                    const filterObjType = field ? getPropertyType(field, enums) : "string";
+                    const filterComparisonType = snakeToCamel(`${returns}_${filterName}_filter`);
                     const filterComparisonObject = new ClassContainer(
                         filterComparisonType,
                         {
                             isInterface: true,
                         }
                     );
-                    filters[k].forEach(f => {
-                        // tslint:disable-next-line:no-console
-                        console.log(f);
+                    filters[filterName].forEach(filterOperator => {
                         filterComparisonObject.addProperty(
                             new PropertyContainer(
-                                f,
-                                "string",
+                                filterOperator,
+                                filterObjType,
                                 {
                                     isInterface: true,
                                     isOptional: true,
@@ -127,7 +127,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                     typeContainer.addContainer(filterComparisonObject);
                     filterObj.addProperty(
                         new PropertyContainer(
-                            k,
+                            filterName,
                             filterComparisonType,
                             {
                                 isInterface: true,

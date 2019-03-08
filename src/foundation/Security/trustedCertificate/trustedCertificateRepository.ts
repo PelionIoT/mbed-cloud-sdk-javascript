@@ -5,6 +5,7 @@ import { TrustedCertificateAdapter } from "../../index";
 import { TrustedCertificateCreateRequest } from "./types";
 import { DeveloperCertificate } from "../../index";
 import { DeveloperCertificateAdapter } from "../../index";
+import { extractFilter } from "../../../common/filters";
 import { TrustedCertificateListOptions } from "./types";
 import { TrustedCertificateUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
@@ -86,6 +87,21 @@ export class TrustedCertificateRepository extends Repository {
                             url: "/v3/trusted-certificates",
                             method: "GET",
                             query: {
+                                name__eq: extractFilter(options.filter, "name", "eq"),
+                                service__eq: extractFilter(options.filter, "service", "eq"),
+                                expire__eq: extractFilter(options.filter, "expire", "eq"),
+                                device_execution_mode__eq: extractFilter(options.filter, "device_execution_mode", "eq"),
+                                device_execution_mode__neq: extractFilter(
+                                    options.filter,
+                                    "device_execution_mode",
+                                    "neq"
+                                ),
+                                owner__eq: extractFilter(options.filter, "owner", "eq"),
+                                enrollment_mode__eq: extractFilter(options.filter, "enrollment_mode", "eq"),
+                                status__eq: extractFilter(options.filter, "status", "eq"),
+                                issuer__like: extractFilter(options.filter, "issuer", "like"),
+                                subject__like: extractFilter(options.filter, "subject", "like"),
+                                valid__eq: extractFilter(options.filter, "valid", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

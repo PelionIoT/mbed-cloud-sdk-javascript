@@ -3,6 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { User } from "./user";
 import { UserAdapter } from "../../index";
 import { UserCreateRequest } from "./types";
+import { extractFilter } from "../../../common/filters";
 import { UserListOptions } from "./types";
 import { UserUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
@@ -71,6 +72,11 @@ export class UserRepository extends Repository {
                             url: "/v3/users",
                             method: "GET",
                             query: {
+                                email__eq: extractFilter(options.filter, "email", "eq"),
+                                status__eq: extractFilter(options.filter, "status", "eq"),
+                                status__in: extractFilter(options.filter, "status", "in"),
+                                status__nin: extractFilter(options.filter, "status", "nin"),
+                                login_profile__eq: extractFilter(options.filter, "login_profile", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

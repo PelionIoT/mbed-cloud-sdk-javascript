@@ -110,17 +110,17 @@ export interface UserStatusFilter {
     /**
      *eq
      */
-    eq?: string;
+    eq?: UserStatusEnum;
 
     /**
      *in
      */
-    in?: string;
+    in?: UserStatusEnum;
 
     /**
      *nin
      */
-    nin?: string;
+    nin?: UserStatusEnum;
 }
 /**
  *UserLoginProfileFilter

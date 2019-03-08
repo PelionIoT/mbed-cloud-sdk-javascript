@@ -3,6 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { ApiKey } from "./apiKey";
 import { ApiKeyAdapter } from "../../index";
 import { ApiKeyCreateRequest } from "./types";
+import { extractFilter } from "../../../common/filters";
 import { ApiKeyListOptions } from "./types";
 import { ApiKeyUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
@@ -62,6 +63,8 @@ export class ApiKeyRepository extends Repository {
                             url: "/v3/api-keys",
                             method: "GET",
                             query: {
+                                key__eq: extractFilter(options.filter, "key", "eq"),
+                                owner__eq: extractFilter(options.filter, "owner", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

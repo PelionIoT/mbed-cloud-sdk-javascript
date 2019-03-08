@@ -85,7 +85,7 @@ export interface TrustedCertificateServiceFilter {
     /**
      *eq
      */
-    eq?: string;
+    eq?: TrustedCertificateServiceEnum;
 }
 /**
  *TrustedCertificateExpireFilter
@@ -103,12 +103,12 @@ export interface TrustedCertificateDeviceExecutionModeFilter {
     /**
      *eq
      */
-    eq?: string;
+    eq?: number;
 
     /**
      *neq
      */
-    neq?: string;
+    neq?: number;
 }
 /**
  *TrustedCertificateOwnerFilter
@@ -126,7 +126,7 @@ export interface TrustedCertificateEnrollmentModeFilter {
     /**
      *eq
      */
-    eq?: string;
+    eq?: boolean;
 }
 /**
  *TrustedCertificateStatusFilter
@@ -135,7 +135,7 @@ export interface TrustedCertificateStatusFilter {
     /**
      *eq
      */
-    eq?: string;
+    eq?: TrustedCertificateStatusEnum;
 }
 /**
  *TrustedCertificateIssuerFilter
@@ -162,7 +162,7 @@ export interface TrustedCertificateValidFilter {
     /**
      *eq
      */
-    eq?: string;
+    eq?: boolean;
 }
 /**
  *TrustedCertificateFilter

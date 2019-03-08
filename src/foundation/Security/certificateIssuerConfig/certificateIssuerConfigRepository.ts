@@ -3,6 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { CertificateIssuerConfig } from "./certificateIssuerConfig";
 import { CertificateIssuerConfigAdapter } from "../../index";
 import { CertificateIssuerConfigCreateRequest } from "./types";
+import { extractFilter } from "../../../common/filters";
 import { CertificateIssuerConfigListOptions } from "./types";
 import { CertificateIssuerConfigUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
@@ -79,6 +80,7 @@ export class CertificateIssuerConfigRepository extends Repository {
                             url: "/v3/certificate-issuer-configurations",
                             method: "GET",
                             query: {
+                                certificate_reference__eq: extractFilter(options.filter, "certificate_reference", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

@@ -3,6 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { UserInvitation } from "./userInvitation";
 import { UserInvitationAdapter } from "../../index";
 import { UserInvitationCreateRequest } from "./types";
+import { extractFilter } from "../../../common/filters";
 import { UserInvitationListOptions } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -61,6 +62,7 @@ export class UserInvitationRepository extends Repository {
                             url: "/v3/user-invitations",
                             method: "GET",
                             query: {
+                                login_profile__eq: extractFilter(options.filter, "login_profile", "eq"),
                                 after: pageOptions.after,
                                 limit: pageOptions.limit,
                                 order: pageOptions.order,

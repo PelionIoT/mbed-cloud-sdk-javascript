@@ -26,12 +26,12 @@ export interface CertificateEnrollmentEnrollStatusFilter {
     /**
      *neq
      */
-    neq?: string;
+    neq?: CertificateEnrollmentEnrollStatusEnum;
 
     /**
      *eq
      */
-    eq?: string;
+    eq?: CertificateEnrollmentEnrollStatusEnum;
 }
 /**
  *CertificateEnrollmentEnrollResultFilter
@@ -40,12 +40,12 @@ export interface CertificateEnrollmentEnrollResultFilter {
     /**
      *neq
      */
-    neq?: string;
+    neq?: CertificateEnrollmentEnrollResultEnum;
 
     /**
      *eq
      */
-    eq?: string;
+    eq?: CertificateEnrollmentEnrollResultEnum;
 }
 /**
  *CertificateEnrollmentCreatedAtFilter
@@ -54,12 +54,12 @@ export interface CertificateEnrollmentCreatedAtFilter {
     /**
      *lte
      */
-    lte?: string;
+    lte?: Date;
 
     /**
      *gte
      */
-    gte?: string;
+    gte?: Date;
 }
 /**
  *CertificateEnrollmentUpdatedAtFilter
@@ -68,12 +68,12 @@ export interface CertificateEnrollmentUpdatedAtFilter {
     /**
      *lte
      */
-    lte?: string;
+    lte?: Date;
 
     /**
      *gte
      */
-    gte?: string;
+    gte?: Date;
 }
 /**
  *CertificateEnrollmentFilter

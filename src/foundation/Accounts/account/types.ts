@@ -227,17 +227,17 @@ export interface AccountStatusFilter {
     /**
      *eq
      */
-    eq?: string;
+    eq?: AccountStatusEnum;
 
     /**
      *in
      */
-    in?: string;
+    in?: AccountStatusEnum;
 
     /**
      *nin
      */
-    nin?: string;
+    nin?: AccountStatusEnum;
 }
 /**
  *AccountTierFilter
@@ -389,7 +389,7 @@ export interface SubtenantTrustedCertificateStatusFilter {
     /**
      *eq
      */
-    eq?: string;
+    eq?: AccountStatusEnum;
 }
 /**
  *SubtenantTrustedCertificateIssuerFilter
@@ -524,17 +524,17 @@ export interface SubtenantUserStatusFilter {
     /**
      *eq
      */
-    eq?: string;
+    eq?: AccountStatusEnum;
 
     /**
      *in
      */
-    in?: string;
+    in?: AccountStatusEnum;
 
     /**
      *nin
      */
-    nin?: string;
+    nin?: AccountStatusEnum;
 }
 /**
  *SubtenantUserLoginProfileFilter
