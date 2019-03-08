@@ -139,7 +139,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                             const queryParam = new MethodBodyParameterContainer(
                                 "",
                                 apiFilterName,
-                                `extractFilter(options.filter,"${apiFilterName}","${filterOperator}")`
+                                `extractFilter(pageOptions.filter,"${filterName}","${filterOperator}")`
                             );
                             queryParams.push(queryParam);
                         });

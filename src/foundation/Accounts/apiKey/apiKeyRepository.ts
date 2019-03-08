@@ -63,8 +63,8 @@ export class ApiKeyRepository extends Repository {
                             url: "/v3/api-keys",
                             method: "GET",
                             query: {
-                                key__eq: extractFilter(options.filter, "key", "eq"),
-                                owner__eq: extractFilter(options.filter, "owner", "eq"),
+                                key__eq: extractFilter(pageOptions.filter, "key", "eq"),
+                                owner__eq: extractFilter(pageOptions.filter, "owner", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,
