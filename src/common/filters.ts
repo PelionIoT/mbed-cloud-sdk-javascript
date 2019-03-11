@@ -26,7 +26,7 @@ const decode = (value: unknown) => {
     }
 
     if (value instanceof Date) {
-        return value.toISOString();
+        return new Date(value.toUTCString()).toISOString();
     }
 
     if (Array.isArray(value)) {
