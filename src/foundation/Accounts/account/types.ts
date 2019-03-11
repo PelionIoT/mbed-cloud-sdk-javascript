@@ -232,12 +232,12 @@ export interface AccountStatusFilter {
     /**
      *in
      */
-    in?: AccountStatusEnum;
+    in?: Array<AccountStatusEnum>;
 
     /**
      *nin
      */
-    nin?: AccountStatusEnum;
+    nin?: Array<AccountStatusEnum>;
 }
 /**
  *AccountTierFilter
@@ -529,12 +529,12 @@ export interface SubtenantUserStatusFilter {
     /**
      *in
      */
-    in?: AccountStatusEnum;
+    in?: Array<AccountStatusEnum>;
 
     /**
      *nin
      */
-    nin?: AccountStatusEnum;
+    nin?: Array<AccountStatusEnum>;
 }
 /**
  *SubtenantUserLoginProfileFilter
