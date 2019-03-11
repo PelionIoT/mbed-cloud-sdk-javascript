@@ -1,35 +1,41 @@
-export function extractFilter(_filter: any, _name: string, _operator: string): string {
-    // needs a rewrite for new filters
-    return "";
-    // if (filter && filter[name]) {
-    //     const value = filter[name];
-    //     if (value.constructor !== {}.constructor) { return value; }
+export function extractFilter(filter, name: string, operator: string): string | number {
+    if (filter && name && operator) {
+        const filterObject = filter[name];
+        if (filterObject) {
+            // if filter object is an object, the decode contents of operator key
+            if ((filterObject as object).constructor === {}.constructor) {
+                const filterObjectValue = filterObject[operator];
+                return decode(filterObjectValue);
+            // if not an object and operator is equals, decode directly
+            } else if (operator === "eq") {
+                return decode(filterObject);
+            }
+        }
+    }
 
-    //     switch (operator) {
-    //         case "$ne": {
-    //             if ((value as ComparisonObject<any>).$ne) { return (value as ComparisonObject<any>).$ne; }
-    //             break;
-    //         }
-    //         case "$gte": {
-    //             if ((value as ComparisonObject<any>).$gte) { return (value as ComparisonObject<any>).$gte; }
-    //             break;
-    //         }
-    //         case "$lte": {
-    //             if ((value as ComparisonObject<any>).$lte) { return (value as ComparisonObject<any>).$lte; }
-    //             break;
-    //         }
-    //         case "$in": {
-    //             if ((value as ComparisonObject<any>).$in) { return (value as ComparisonObject<any>).$in; }
-    //             break;
-    //         }
-    //         case "$nin": {
-    //             if ((value as ComparisonObject<any>).$nin) { return (value as ComparisonObject<any>).$nin; }
-    //             break;
-    //         }
-    //         default: {
-    //             if ((value as ComparisonObject<any>).$eq) { return (value as ComparisonObject<any>).$eq; }
-    //             break;
-    //         }
-    //     }
-    // }
+    return "";
 }
+
+const decode = (value: unknown) => {
+    if (typeof value === "string" || typeof value === "number") {
+        return value;
+    }
+
+    if (typeof value === "boolean") {
+        return value.toString();
+    }
+
+    if (value instanceof Date) {
+        return value.toISOString();
+    }
+
+    if (Array.isArray(value)) {
+        return value.join();
+    }
+
+    if (value && (value as object).constructor === {}.constructor) {
+        return JSON.stringify(value);
+    }
+
+    return "null";
+};
