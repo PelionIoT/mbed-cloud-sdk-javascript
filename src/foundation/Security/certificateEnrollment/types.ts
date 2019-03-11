@@ -80,34 +80,34 @@ export interface CertificateEnrollmentUpdatedAtFilter {
  */
 export interface CertificateEnrollmentFilter {
     /**
-     *device_id
+     *deviceId
      */
-    device_id?: CertificateEnrollmentDeviceIdFilter;
+    deviceId?: CertificateEnrollmentDeviceIdFilter;
 
     /**
-     *certificate_name
+     *certificateName
      */
-    certificate_name?: CertificateEnrollmentCertificateNameFilter;
+    certificateName?: CertificateEnrollmentCertificateNameFilter;
 
     /**
-     *enroll_status
+     *enrollStatus
      */
-    enroll_status?: CertificateEnrollmentEnrollStatusFilter;
+    enrollStatus?: CertificateEnrollmentEnrollStatusFilter;
 
     /**
-     *enroll_result
+     *enrollResult
      */
-    enroll_result?: CertificateEnrollmentEnrollResultFilter;
+    enrollResult?: CertificateEnrollmentEnrollResultFilter;
 
     /**
-     *created_at
+     *createdAt
      */
-    created_at?: CertificateEnrollmentCreatedAtFilter;
+    createdAt?: CertificateEnrollmentCreatedAtFilter;
 
     /**
-     *updated_at
+     *updatedAt
      */
-    updated_at?: CertificateEnrollmentUpdatedAtFilter;
+    updatedAt?: CertificateEnrollmentUpdatedAtFilter;
 }
 /**
  *CertificateEnrollmentListOptions

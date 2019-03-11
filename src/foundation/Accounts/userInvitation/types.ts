@@ -33,9 +33,9 @@ export interface UserInvitationLoginProfileFilter {
  */
 export interface UserInvitationFilter {
     /**
-     *login_profile
+     *loginProfile
      */
-    login_profile?: UserInvitationLoginProfileFilter;
+    loginProfile?: UserInvitationLoginProfileFilter;
 }
 /**
  *UserInvitationListOptions

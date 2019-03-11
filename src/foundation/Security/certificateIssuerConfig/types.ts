@@ -36,9 +36,9 @@ export interface CertificateIssuerConfigCertificateReferenceFilter {
  */
 export interface CertificateIssuerConfigFilter {
     /**
-     *certificate_reference
+     *certificateReference
      */
-    certificate_reference?: CertificateIssuerConfigCertificateReferenceFilter;
+    certificateReference?: CertificateIssuerConfigCertificateReferenceFilter;
 }
 /**
  *CertificateIssuerConfigListOptions

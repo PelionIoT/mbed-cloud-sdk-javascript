@@ -146,9 +146,9 @@ export interface UserFilter {
     status?: UserStatusFilter;
 
     /**
-     *login_profile
+     *loginProfile
      */
-    login_profile?: UserLoginProfileFilter;
+    loginProfile?: UserLoginProfileFilter;
 }
 /**
  *UserListOptions

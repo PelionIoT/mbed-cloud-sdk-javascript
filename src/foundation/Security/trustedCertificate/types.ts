@@ -184,9 +184,9 @@ export interface TrustedCertificateFilter {
     expire?: TrustedCertificateExpireFilter;
 
     /**
-     *device_execution_mode
+     *deviceExecutionMode
      */
-    device_execution_mode?: TrustedCertificateDeviceExecutionModeFilter;
+    deviceExecutionMode?: TrustedCertificateDeviceExecutionModeFilter;
 
     /**
      *owner
@@ -194,9 +194,9 @@ export interface TrustedCertificateFilter {
     owner?: TrustedCertificateOwnerFilter;
 
     /**
-     *enrollment_mode
+     *enrollmentMode
      */
-    enrollment_mode?: TrustedCertificateEnrollmentModeFilter;
+    enrollmentMode?: TrustedCertificateEnrollmentModeFilter;
 
     /**
      *status

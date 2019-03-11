@@ -92,16 +92,16 @@ export class TrustedCertificateRepository extends Repository {
                                 expire__eq: extractFilter(pageOptions.filter, "expire", "eq"),
                                 device_execution_mode__eq: extractFilter(
                                     pageOptions.filter,
-                                    "device_execution_mode",
+                                    "deviceExecutionMode",
                                     "eq"
                                 ),
                                 device_execution_mode__neq: extractFilter(
                                     pageOptions.filter,
-                                    "device_execution_mode",
+                                    "deviceExecutionMode",
                                     "neq"
                                 ),
                                 owner__eq: extractFilter(pageOptions.filter, "owner", "eq"),
-                                enrollment_mode__eq: extractFilter(pageOptions.filter, "enrollment_mode", "eq"),
+                                enrollment_mode__eq: extractFilter(pageOptions.filter, "enrollmentMode", "eq"),
                                 status__eq: extractFilter(pageOptions.filter, "status", "eq"),
                                 issuer__like: extractFilter(pageOptions.filter, "issuer", "like"),
                                 subject__like: extractFilter(pageOptions.filter, "subject", "like"),

@@ -140,7 +140,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                             const queryParam = new MethodBodyParameterContainer(
                                 "",
                                 apiFilterName,
-                                `extractFilter(pageOptions.filter,"${filterName}","${filterOperator}")`
+                                `extractFilter(pageOptions.filter,"${snakeToCamel(filterName)}","${filterOperator}")`
                             );
                             queryParams.push(queryParam);
                         });

@@ -295,9 +295,9 @@ export interface AccountFilter {
     parent?: AccountParentFilter;
 
     /**
-     *end_market
+     *endMarket
      */
-    end_market?: AccountEndMarketFilter;
+    endMarket?: AccountEndMarketFilter;
 
     /**
      *country
@@ -438,9 +438,9 @@ export interface SubtenantTrustedCertificateFilter {
     expire?: SubtenantTrustedCertificateExpireFilter;
 
     /**
-     *device_execution_mode
+     *deviceExecutionMode
      */
-    device_execution_mode?: SubtenantTrustedCertificateDeviceExecutionModeFilter;
+    deviceExecutionMode?: SubtenantTrustedCertificateDeviceExecutionModeFilter;
 
     /**
      *owner
@@ -448,9 +448,9 @@ export interface SubtenantTrustedCertificateFilter {
     owner?: SubtenantTrustedCertificateOwnerFilter;
 
     /**
-     *enrollment_mode
+     *enrollmentMode
      */
-    enrollment_mode?: SubtenantTrustedCertificateEnrollmentModeFilter;
+    enrollmentMode?: SubtenantTrustedCertificateEnrollmentModeFilter;
 
     /**
      *status
@@ -495,9 +495,9 @@ export interface SubtenantUserInvitationLoginProfileFilter {
  */
 export interface SubtenantUserInvitationFilter {
     /**
-     *login_profile
+     *loginProfile
      */
-    login_profile?: SubtenantUserInvitationLoginProfileFilter;
+    loginProfile?: SubtenantUserInvitationLoginProfileFilter;
 }
 /**
  *SubtenantUserInvitationListOptions
@@ -560,9 +560,9 @@ export interface SubtenantUserFilter {
     status?: SubtenantUserStatusFilter;
 
     /**
-     *login_profile
+     *loginProfile
      */
-    login_profile?: SubtenantUserLoginProfileFilter;
+    loginProfile?: SubtenantUserLoginProfileFilter;
 }
 /**
  *SubtenantUserListOptions

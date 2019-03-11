@@ -77,7 +77,7 @@ export class AccountRepository extends Repository {
                                 status__nin: extractFilter(pageOptions.filter, "status", "nin"),
                                 tier__eq: extractFilter(pageOptions.filter, "tier", "eq"),
                                 parent__eq: extractFilter(pageOptions.filter, "parent", "eq"),
-                                end_market__eq: extractFilter(pageOptions.filter, "end_market", "eq"),
+                                end_market__eq: extractFilter(pageOptions.filter, "endMarket", "eq"),
                                 country__like: extractFilter(pageOptions.filter, "country", "like"),
                                 after: pageOptions.after,
                                 format: pageOptions.format,
@@ -164,16 +164,16 @@ export class AccountRepository extends Repository {
                                 expire__eq: extractFilter(pageOptions.filter, "expire", "eq"),
                                 device_execution_mode__eq: extractFilter(
                                     pageOptions.filter,
-                                    "device_execution_mode",
+                                    "deviceExecutionMode",
                                     "eq"
                                 ),
                                 device_execution_mode__neq: extractFilter(
                                     pageOptions.filter,
-                                    "device_execution_mode",
+                                    "deviceExecutionMode",
                                     "neq"
                                 ),
                                 owner__eq: extractFilter(pageOptions.filter, "owner", "eq"),
-                                enrollment_mode__eq: extractFilter(pageOptions.filter, "enrollment_mode", "eq"),
+                                enrollment_mode__eq: extractFilter(pageOptions.filter, "enrollmentMode", "eq"),
                                 status__eq: extractFilter(pageOptions.filter, "status", "eq"),
                                 issuer__like: extractFilter(pageOptions.filter, "issuer", "like"),
                                 subject__like: extractFilter(pageOptions.filter, "subject", "like"),
@@ -258,7 +258,7 @@ export class AccountRepository extends Repository {
                             url: "/v3/accounts/{account_id}/user-invitations",
                             method: "GET",
                             query: {
-                                login_profile__eq: extractFilter(pageOptions.filter, "login_profile", "eq"),
+                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
                                 after: pageOptions.after,
                                 limit: pageOptions.limit,
                                 order: pageOptions.order,
@@ -293,7 +293,7 @@ export class AccountRepository extends Repository {
                                 status__eq: extractFilter(pageOptions.filter, "status", "eq"),
                                 status__in: extractFilter(pageOptions.filter, "status", "in"),
                                 status__nin: extractFilter(pageOptions.filter, "status", "nin"),
-                                login_profile__eq: extractFilter(pageOptions.filter, "login_profile", "eq"),
+                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

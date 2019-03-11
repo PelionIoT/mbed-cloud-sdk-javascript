@@ -130,7 +130,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                     typeContainer.addContainer(filterComparisonObject);
                     filterObj.addProperty(
                         new PropertyContainer(
-                            filterName,
+                            snakeToCamel(filterName),
                             filterComparisonType,
                             {
                                 isInterface: true,
