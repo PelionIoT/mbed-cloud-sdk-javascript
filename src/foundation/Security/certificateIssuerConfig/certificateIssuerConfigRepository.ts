@@ -80,11 +80,7 @@ export class CertificateIssuerConfigRepository extends Repository {
                             url: "/v3/certificate-issuer-configurations",
                             method: "GET",
                             query: {
-                                certificate_reference__eq: extractFilter(
-                                    pageOptions.filter,
-                                    "certificate_reference",
-                                    "eq"
-                                ),
+                                reference__eq: extractFilter(pageOptions.filter, "certificate_reference", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

@@ -133,8 +133,9 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                         ]
                     ));
                     Object.keys(filters).forEach(filterName => {
+                        const field = ensureArray(entity.fields).filter(p => p._key === filterName).pop();
                         filters[filterName].forEach(filterOperator => {
-                            const apiFilterName = `${filterName}__${filterOperator}`;
+                            const apiFilterName = `${field ? field.api_fieldname : filterName}__${filterOperator}`;
                             // abuse of the MethodBodyParameterContainer to create the extract filter call
                             const queryParam = new MethodBodyParameterContainer(
                                 "",
