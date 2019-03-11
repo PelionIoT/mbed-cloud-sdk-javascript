@@ -26,10 +26,7 @@ const decode = (value: unknown) => {
     }
 
     if (value instanceof Date) {
-        const milli = Date.parse(value.toUTCString());
-        const offset = value.getTimezoneOffset() + 60;
-        const offsetMilli = offset + milli;
-        return new Date(offsetMilli).toISOString();
+        return value.toISOString();
     }
 
     if (Array.isArray(value)) {

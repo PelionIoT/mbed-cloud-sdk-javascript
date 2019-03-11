@@ -2,6 +2,8 @@ import { extractFilter } from "../../../src/common/filters";
 
 describe("Test filter encoding", () => {
 
+    const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
+
     it("should encode string", () => {
         const filter = { name: { eq: "Badger" } };
         const expectedValue = "Badger";
@@ -25,9 +27,8 @@ describe("Test filter encoding", () => {
 
     it("should encode date", () => {
         const filter = { name: { eq: new Date(2019, 3, 7, 13, 33, 47) } };
-        const expectedValue = "2019-04-07T12:33:47.000Z";
 
-        expect(extractFilter(filter, "name", "eq")).toBe(expectedValue);
+        expect(extractFilter(filter, "name", "eq")).toMatch(DATE_REGEX);
     });
 
     it("should encode list", () => {
@@ -53,9 +54,8 @@ describe("Test filter encoding", () => {
 
     it("should encode missing operator", () => {
         const filter = { name: new Date(2019, 3, 7) };
-        const expectedValue = "2019-04-06T23:00:00.000Z";
 
-        expect(extractFilter(filter, "name", "eq")).toBe(expectedValue);
+        expect(extractFilter(filter, "name", "eq")).toMatch(DATE_REGEX);
     });
 
 });
