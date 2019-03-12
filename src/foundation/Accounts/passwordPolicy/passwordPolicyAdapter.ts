@@ -4,6 +4,12 @@ import { PasswordPolicy } from "./passwordPolicy";
  *PasswordPolicy adapter
  */
 export class PasswordPolicyAdapter extends Adapter {
+    /**
+     * fromApi
+     * @returns PasswordPolicy
+     * @param data *required*
+     * @param instance
+     */
     public static fromApi(data: any, instance?: any): PasswordPolicy {
         if (!data) {
             return null;

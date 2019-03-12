@@ -8,6 +8,13 @@ import { SubtenantUserUpdateRequest } from "./types";
  *SubtenantUser repository
  */
 export class SubtenantUserRepository extends Repository {
+    /**
+     * create
+     * @returns Promise<SubtenantUser>
+     * @param request *required*
+     * @param accountId *required*
+     * @param action
+     */
     public create(request: SubtenantUserCreateRequest, accountId: string, action?: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
@@ -41,6 +48,12 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @returns Promise<void>
+     * @param accountId *required*
+     * @param id *required*
+     */
     public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -61,6 +74,12 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
+    /**
+     * read
+     * @returns Promise<SubtenantUser>
+     * @param accountId *required*
+     * @param id *required*
+     */
     public read(accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
@@ -81,6 +100,13 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @returns Promise<SubtenantUser>
+     * @param request *required*
+     * @param accountId *required*
+     * @param id *required*
+     */
     public update(request: SubtenantUserUpdateRequest, accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
@@ -111,6 +137,12 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
+    /**
+     * validateEmail
+     * @returns Promise<SubtenantUser>
+     * @param accountId *required*
+     * @param id *required*
+     */
     public validateEmail(accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {

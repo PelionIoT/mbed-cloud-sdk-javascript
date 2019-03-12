@@ -9,6 +9,11 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *DeviceEvents repository
  */
 export class DeviceEventsRepository extends Repository {
+    /**
+     * list
+     * @returns Paginator<DeviceEvents, ListOptions>
+     * @param options
+     */
     public list(options?: ListOptions): Paginator<DeviceEvents, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEvents>> => {
             pageOptions = pageOptions || {};
@@ -37,6 +42,11 @@ export class DeviceEventsRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @returns Promise<DeviceEvents>
+     * @param id *required*
+     */
     public read(id: string): Promise<DeviceEvents> {
         return apiWrapper(
             resultsFn => {

@@ -42,7 +42,7 @@
     "compile:integration": "tsc -p integration.tsconfig.json",
     "compile:unit": "tsc --noEmit --target 'es5'",
     "docs": "npm-run-all clean:docs docs:build",
-    "docs:build": "typedoc --options typedoc.json ./src/**/*.ts",
+    "docs:build": "typedoc --options typedoc.json",
     "generate": "npm-run-all \"generate:run -- {1}\" generate:format lint:fix compile:node --",
     "generate:run": "ts-node generator/app.ts",
     "generate:format": "prettier --write --tab-width 4 --print-width 120 --trailing-comma es5 './src/foundation/**/**/*.ts' './src/foundation/*.ts'",

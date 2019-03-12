@@ -1,3 +1,12 @@
+/**
+* <%= name %>
+* @returns <%- returns %>
+<%_ if (params.length > 0) { _%>
+<%_ params.forEach(function(param) { _%>
+* @param <%- param.name %> <%- param.isRequired ? "*required*" : ""%>
+<%_ }); _%>
+<%_ } _%>
+*/
 <%= modifier %><%= isStatic ? " static" : "" %> <%= name %>(<%- parameterList %>): <%- returns %> {
 <%# ---------- METHOD_BODY ---------- _%>
 <%_ if (methodBody) { _%>

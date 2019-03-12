@@ -4,6 +4,12 @@ import { DeviceEnrollment } from "./deviceEnrollment";
  *DeviceEnrollment adapter
  */
 export class DeviceEnrollmentAdapter extends Adapter {
+    /**
+     * fromApi
+     * @returns DeviceEnrollment
+     * @param data *required*
+     * @param instance
+     */
     public static fromApi(data: any, instance?: any): DeviceEnrollment {
         if (!data) {
             return null;

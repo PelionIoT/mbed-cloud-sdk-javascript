@@ -12,6 +12,11 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *UserInvitation repository
  */
 export class UserInvitationRepository extends Repository {
+    /**
+     * create
+     * @returns Promise<UserInvitation>
+     * @param request *required*
+     */
     public create(request: UserInvitationCreateRequest): Promise<UserInvitation> {
         return apiWrapper(
             resultsFn => {
@@ -33,6 +38,11 @@ export class UserInvitationRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @returns Promise<void>
+     * @param id *required*
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -52,6 +62,11 @@ export class UserInvitationRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @returns Paginator<UserInvitation, ListOptions>
+     * @param options
+     */
     public list(options?: UserInvitationListOptions): Paginator<UserInvitation, ListOptions> {
         const pageFunc = (pageOptions: UserInvitationListOptions): Promise<ListResponse<UserInvitation>> => {
             pageOptions = pageOptions || {};
@@ -80,6 +95,11 @@ export class UserInvitationRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @returns Promise<UserInvitation>
+     * @param id *required*
+     */
     public read(id: string): Promise<UserInvitation> {
         return apiWrapper(
             resultsFn => {

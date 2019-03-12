@@ -9,6 +9,11 @@ import { ReadStream } from "fs";
  *DeviceEnrollmentBulkCreate repository
  */
 export class DeviceEnrollmentBulkCreateRepository extends Repository {
+    /**
+     * create
+     * @returns Promise<DeviceEnrollmentBulkCreate>
+     * @param enrollmentIdentities *required*
+     */
     public create(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<DeviceEnrollmentBulkCreate> {
         return apiWrapper(
             resultsFn => {
@@ -29,12 +34,27 @@ export class DeviceEnrollmentBulkCreateRepository extends Repository {
             }
         );
     }
+    /**
+     * downloadErrorsReportFile
+     * @returns Promise<ReadStream | Buffer | File | Blob>
+     * @param model *required*
+     */
     public downloadErrorsReportFile(model: DeviceEnrollmentBulkCreate): Promise<ReadStream | Buffer | File | Blob> {
         return downloadErrorsReportFile(this, model);
     }
+    /**
+     * downloadFullReportFile
+     * @returns Promise<ReadStream | Buffer | File | Blob>
+     * @param model *required*
+     */
     public downloadFullReportFile(model: DeviceEnrollmentBulkCreate): Promise<ReadStream | Buffer | File | Blob> {
         return downloadFullReportFile(this, model);
     }
+    /**
+     * read
+     * @returns Promise<DeviceEnrollmentBulkCreate>
+     * @param id *required*
+     */
     public read(id: string): Promise<DeviceEnrollmentBulkCreate> {
         return apiWrapper(
             resultsFn => {

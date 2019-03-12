@@ -13,6 +13,11 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *Device repository
  */
 export class DeviceRepository extends Repository {
+    /**
+     * create
+     * @returns Promise<Device>
+     * @param request *required*
+     */
     public create(request: DeviceCreateRequest): Promise<Device> {
         return apiWrapper(
             resultsFn => {
@@ -53,6 +58,11 @@ export class DeviceRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @returns Promise<void>
+     * @param id *required*
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -72,6 +82,11 @@ export class DeviceRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @returns Paginator<Device, ListOptions>
+     * @param options
+     */
     public list(options?: ListOptions): Paginator<Device, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<Device>> => {
             pageOptions = pageOptions || {};
@@ -100,6 +115,11 @@ export class DeviceRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @returns Promise<Device>
+     * @param id *required*
+     */
     public read(id: string): Promise<Device> {
         return apiWrapper(
             resultsFn => {
@@ -119,6 +139,12 @@ export class DeviceRepository extends Repository {
             }
         );
     }
+    /**
+     * renewCertificate
+     * @returns Promise<CertificateEnrollment>
+     * @param certificateName *required*
+     * @param id *required*
+     */
     public renewCertificate(certificateName: string, id: string): Promise<CertificateEnrollment> {
         return apiWrapper(
             resultsFn => {
@@ -139,6 +165,12 @@ export class DeviceRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @returns Promise<Device>
+     * @param request *required*
+     * @param id *required*
+     */
     public update(request: DeviceUpdateRequest, id: string): Promise<Device> {
         return apiWrapper(
             resultsFn => {

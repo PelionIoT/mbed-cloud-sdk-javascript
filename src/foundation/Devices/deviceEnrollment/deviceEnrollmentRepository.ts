@@ -10,6 +10,11 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *DeviceEnrollment repository
  */
 export class DeviceEnrollmentRepository extends Repository {
+    /**
+     * create
+     * @returns Promise<DeviceEnrollment>
+     * @param request *required*
+     */
     public create(request: DeviceEnrollmentCreateRequest): Promise<DeviceEnrollment> {
         return apiWrapper(
             resultsFn => {
@@ -29,6 +34,11 @@ export class DeviceEnrollmentRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @returns Promise<void>
+     * @param id *required*
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -48,6 +58,11 @@ export class DeviceEnrollmentRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @returns Paginator<DeviceEnrollment, ListOptions>
+     * @param options
+     */
     public list(options?: ListOptions): Paginator<DeviceEnrollment, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEnrollment>> => {
             pageOptions = pageOptions || {};
@@ -76,6 +91,11 @@ export class DeviceEnrollmentRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @returns Promise<DeviceEnrollment>
+     * @param id *required*
+     */
     public read(id: string): Promise<DeviceEnrollment> {
         return apiWrapper(
             resultsFn => {

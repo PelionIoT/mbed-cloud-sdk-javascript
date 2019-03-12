@@ -22,6 +22,12 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *Account repository
  */
 export class AccountRepository extends Repository {
+    /**
+     * create
+     * @returns Promise<Account>
+     * @param request *required*
+     * @param action
+     */
     public create(request: AccountCreateRequest, action?: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
@@ -62,6 +68,11 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @returns Paginator<Account, ListOptions>
+     * @param options
+     */
     public list(options?: AccountListOptions): Paginator<Account, ListOptions> {
         const pageFunc = (pageOptions: AccountListOptions): Promise<ListResponse<Account>> => {
             pageOptions = pageOptions || {};
@@ -99,6 +110,10 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * me
+     * @returns Promise<Account>
+     */
     public me(options?: { include?: string; properties?: string }): Promise<Account> {
         options = options || {};
         return apiWrapper(
@@ -120,6 +135,11 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * read
+     * @returns Promise<Account>
+     * @param id *required*
+     */
     public read(id: string, options?: { include?: string; properties?: string }): Promise<Account> {
         options = options || {};
         return apiWrapper(
@@ -144,6 +164,12 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * trustedCertificates
+     * @returns Paginator<SubtenantTrustedCertificate, ListOptions>
+     * @param id *required*
+     * @param options
+     */
     public trustedCertificates(
         id: string,
         options?: SubtenantTrustedCertificateListOptions
@@ -199,6 +225,12 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * update
+     * @returns Promise<Account>
+     * @param request *required*
+     * @param id *required*
+     */
     public update(request: AccountUpdateRequest, id: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
@@ -243,6 +275,12 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * userInvitations
+     * @returns Paginator<SubtenantUserInvitation, ListOptions>
+     * @param id *required*
+     * @param options
+     */
     public userInvitations(
         id: string,
         options?: SubtenantUserInvitationListOptions
@@ -279,6 +317,12 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * users
+     * @returns Paginator<SubtenantUser, ListOptions>
+     * @param id *required*
+     * @param options
+     */
     public users(id: string, options?: SubtenantUserListOptions): Paginator<SubtenantUser, ListOptions> {
         const pageFunc = (pageOptions: SubtenantUserListOptions): Promise<ListResponse<SubtenantUser>> => {
             pageOptions = pageOptions || {};

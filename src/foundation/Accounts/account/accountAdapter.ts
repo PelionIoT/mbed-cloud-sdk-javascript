@@ -7,6 +7,12 @@ import { PolicyAdapter } from "../..";
  *Account adapter
  */
 export class AccountAdapter extends Adapter {
+    /**
+     * fromApi
+     * @returns Account
+     * @param data *required*
+     * @param instance
+     */
     public static fromApi(data: any, instance?: any): Account {
         if (!data) {
             return null;

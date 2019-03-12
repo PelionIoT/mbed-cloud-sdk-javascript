@@ -4,6 +4,12 @@ import { VerificationResponse } from "./verificationResponse";
  *VerificationResponse adapter
  */
 export class VerificationResponseAdapter extends Adapter {
+    /**
+     * fromApi
+     * @returns VerificationResponse
+     * @param data *required*
+     * @param instance
+     */
     public static fromApi(data: any, instance?: any): VerificationResponse {
         if (!data) {
             return null;

@@ -4,6 +4,12 @@ import { DeviceEnrollmentBulkCreate } from "./deviceEnrollmentBulkCreate";
  *DeviceEnrollmentBulkCreate adapter
  */
 export class DeviceEnrollmentBulkCreateAdapter extends Adapter {
+    /**
+     * fromApi
+     * @returns DeviceEnrollmentBulkCreate
+     * @param data *required*
+     * @param instance
+     */
     public static fromApi(data: any, instance?: any): DeviceEnrollmentBulkCreate {
         if (!data) {
             return null;

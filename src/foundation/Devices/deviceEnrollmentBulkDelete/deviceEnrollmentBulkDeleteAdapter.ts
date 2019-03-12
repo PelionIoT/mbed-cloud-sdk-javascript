@@ -4,6 +4,12 @@ import { DeviceEnrollmentBulkDelete } from "./deviceEnrollmentBulkDelete";
  *DeviceEnrollmentBulkDelete adapter
  */
 export class DeviceEnrollmentBulkDeleteAdapter extends Adapter {
+    /**
+     * fromApi
+     * @returns DeviceEnrollmentBulkDelete
+     * @param data *required*
+     * @param instance
+     */
     public static fromApi(data: any, instance?: any): DeviceEnrollmentBulkDelete {
         if (!data) {
             return null;

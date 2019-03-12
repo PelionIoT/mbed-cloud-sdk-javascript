@@ -13,6 +13,12 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *User repository
  */
 export class UserRepository extends Repository {
+    /**
+     * create
+     * @returns Promise<User>
+     * @param request *required*
+     * @param action
+     */
     public create(request: UserCreateRequest, action?: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
@@ -43,6 +49,11 @@ export class UserRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @returns Promise<void>
+     * @param id *required*
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -62,6 +73,11 @@ export class UserRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @returns Paginator<User, ListOptions>
+     * @param options
+     */
     public list(options?: UserListOptions): Paginator<User, ListOptions> {
         const pageFunc = (pageOptions: UserListOptions): Promise<ListResponse<User>> => {
             pageOptions = pageOptions || {};
@@ -95,6 +111,11 @@ export class UserRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @returns Promise<User>
+     * @param id *required*
+     */
     public read(id: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
@@ -114,6 +135,12 @@ export class UserRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @returns Promise<User>
+     * @param request *required*
+     * @param id *required*
+     */
     public update(request: UserUpdateRequest, id: string): Promise<User> {
         return apiWrapper(
             resultsFn => {

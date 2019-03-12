@@ -15,6 +15,11 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *TrustedCertificate repository
  */
 export class TrustedCertificateRepository extends Repository {
+    /**
+     * create
+     * @returns Promise<TrustedCertificate>
+     * @param request *required*
+     */
     public create(request: TrustedCertificateCreateRequest): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -39,6 +44,11 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @returns Promise<void>
+     * @param id *required*
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -58,6 +68,11 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * getDeveloperCertificateInfo
+     * @returns Promise<DeveloperCertificate>
+     * @param id *required*
+     */
     public getDeveloperCertificateInfo(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -77,6 +92,11 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @returns Paginator<TrustedCertificate, ListOptions>
+     * @param options
+     */
     public list(options?: TrustedCertificateListOptions): Paginator<TrustedCertificate, ListOptions> {
         const pageFunc = (pageOptions: TrustedCertificateListOptions): Promise<ListResponse<TrustedCertificate>> => {
             pageOptions = pageOptions || {};
@@ -124,6 +144,11 @@ export class TrustedCertificateRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @returns Promise<TrustedCertificate>
+     * @param id *required*
+     */
     public read(id: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -143,6 +168,12 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @returns Promise<TrustedCertificate>
+     * @param request *required*
+     * @param id *required*
+     */
     public update(request: TrustedCertificateUpdateRequest, id: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
