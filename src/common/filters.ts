@@ -1,3 +1,5 @@
+import { Entity } from "./entity";
+
 export function extractFilter(filter, name: string, operator: string): string | number {
     if (filter && name && operator) {
         const filterObject = filter[name];
@@ -13,10 +15,15 @@ export function extractFilter(filter, name: string, operator: string): string | 
         }
     }
 
-    return "";
+    return null;
 }
 
 const decode = (value: unknown) => {
+    if ((value as Entity)._discriminator) {
+        // value is an entity so return the id
+        return (value as Entity).id;
+    }
+
     if (typeof value === "string" || typeof value === "number") {
         return value;
     }
@@ -37,5 +44,5 @@ const decode = (value: unknown) => {
         return JSON.stringify(value);
     }
 
-    return "null";
+    return null;
 };

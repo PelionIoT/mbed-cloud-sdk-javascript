@@ -35,7 +35,7 @@ export interface UserInvitationFilter {
     /**
      *loginProfile
      */
-    loginProfile?: UserInvitationLoginProfileFilter;
+    loginProfile?: string | UserInvitationLoginProfileFilter;
 }
 /**
  *UserInvitationListOptions

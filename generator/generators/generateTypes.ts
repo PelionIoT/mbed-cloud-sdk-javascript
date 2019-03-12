@@ -105,6 +105,8 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                     // get the corresponding field
                     const field = ensureArray(entity.fields).filter(p => p._key === filterName).pop();
                     let filterObjType = field ? getPropertyType(field, enums) : "string";
+                    let hasEqualsFilter = false;
+                    let equalsFilterType = "string";
                     const filterComparisonType = snakeToCamel(`${returns}_${filterName}_filter`);
                     const filterComparisonObject = new ClassContainer(
                         filterComparisonType,
@@ -115,6 +117,10 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                     filters[filterName].forEach(filterOperator => {
                         if (filterOperator === "in") {
                             filterObjType = `Array<${filterObjType}>`;
+                        }
+                        if (filterOperator === "eq") {
+                            hasEqualsFilter = true;
+                            equalsFilterType = filterObjType;
                         }
                         filterComparisonObject.addProperty(
                             new PropertyContainer(
@@ -131,7 +137,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                     filterObj.addProperty(
                         new PropertyContainer(
                             snakeToCamel(filterName),
-                            filterComparisonType,
+                            hasEqualsFilter ? `${equalsFilterType} | ${filterComparisonType}` : filterComparisonType,
                             {
                                 isInterface: true,
                                 isOptional: true,

@@ -138,17 +138,17 @@ export interface UserFilter {
     /**
      *email
      */
-    email?: UserEmailFilter;
+    email?: string | UserEmailFilter;
 
     /**
      *status
      */
-    status?: UserStatusFilter;
+    status?: UserStatusEnum | UserStatusFilter;
 
     /**
      *loginProfile
      */
-    loginProfile?: UserLoginProfileFilter;
+    loginProfile?: string | UserLoginProfileFilter;
 }
 /**
  *UserListOptions

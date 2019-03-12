@@ -171,37 +171,37 @@ export interface TrustedCertificateFilter {
     /**
      *name
      */
-    name?: TrustedCertificateNameFilter;
+    name?: string | TrustedCertificateNameFilter;
 
     /**
      *service
      */
-    service?: TrustedCertificateServiceFilter;
+    service?: TrustedCertificateServiceEnum | TrustedCertificateServiceFilter;
 
     /**
      *expire
      */
-    expire?: TrustedCertificateExpireFilter;
+    expire?: string | TrustedCertificateExpireFilter;
 
     /**
      *deviceExecutionMode
      */
-    deviceExecutionMode?: TrustedCertificateDeviceExecutionModeFilter;
+    deviceExecutionMode?: number | TrustedCertificateDeviceExecutionModeFilter;
 
     /**
      *owner
      */
-    owner?: TrustedCertificateOwnerFilter;
+    owner?: string | TrustedCertificateOwnerFilter;
 
     /**
      *enrollmentMode
      */
-    enrollmentMode?: TrustedCertificateEnrollmentModeFilter;
+    enrollmentMode?: boolean | TrustedCertificateEnrollmentModeFilter;
 
     /**
      *status
      */
-    status?: TrustedCertificateStatusFilter;
+    status?: TrustedCertificateStatusEnum | TrustedCertificateStatusFilter;
 
     /**
      *issuer
@@ -216,7 +216,7 @@ export interface TrustedCertificateFilter {
     /**
      *valid
      */
-    valid?: TrustedCertificateValidFilter;
+    valid?: boolean | TrustedCertificateValidFilter;
 }
 /**
  *TrustedCertificateListOptions

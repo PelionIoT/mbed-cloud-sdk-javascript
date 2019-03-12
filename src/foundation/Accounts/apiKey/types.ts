@@ -63,12 +63,12 @@ export interface ApiKeyFilter {
     /**
      *key
      */
-    key?: ApiKeyKeyFilter;
+    key?: string | ApiKeyKeyFilter;
 
     /**
      *owner
      */
-    owner?: ApiKeyOwnerFilter;
+    owner?: string | ApiKeyOwnerFilter;
 }
 /**
  *ApiKeyListOptions

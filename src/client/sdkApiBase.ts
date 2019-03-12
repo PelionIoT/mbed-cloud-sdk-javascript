@@ -154,7 +154,11 @@ export class SdkApiBase {
         const requestOptions: { [key: string]: any } = {};
         requestOptions.timeout = 60000;
         requestOptions.method = options.method;
+        // tslint:disable-next-line:no-console
+        console.log(options.query);
         requestOptions.query = SdkApiBase.normalizeParams(options.query);
+        // tslint:disable-next-line:no-console
+        console.log(requestOptions.query);
         requestOptions.headers = SdkApiBase.normalizeParams(options.headers);
         requestOptions.acceptHeader = SdkApiBase.chooseType(options.acceptTypes);
         requestOptions.url = SdkApiBase.buildUrl(options.url, options.pathParams).replace(/([:])?\/+/g, ($0, $1) => {

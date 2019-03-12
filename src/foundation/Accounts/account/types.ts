@@ -282,22 +282,22 @@ export interface AccountFilter {
     /**
      *status
      */
-    status?: AccountStatusFilter;
+    status?: AccountStatusEnum | AccountStatusFilter;
 
     /**
      *tier
      */
-    tier?: AccountTierFilter;
+    tier?: string | AccountTierFilter;
 
     /**
      *parent
      */
-    parent?: AccountParentFilter;
+    parent?: string | AccountParentFilter;
 
     /**
      *endMarket
      */
-    endMarket?: AccountEndMarketFilter;
+    endMarket?: string | AccountEndMarketFilter;
 
     /**
      *country
@@ -425,37 +425,37 @@ export interface SubtenantTrustedCertificateFilter {
     /**
      *name
      */
-    name?: SubtenantTrustedCertificateNameFilter;
+    name?: string | SubtenantTrustedCertificateNameFilter;
 
     /**
      *service
      */
-    service?: SubtenantTrustedCertificateServiceFilter;
+    service?: string | SubtenantTrustedCertificateServiceFilter;
 
     /**
      *expire
      */
-    expire?: SubtenantTrustedCertificateExpireFilter;
+    expire?: string | SubtenantTrustedCertificateExpireFilter;
 
     /**
      *deviceExecutionMode
      */
-    deviceExecutionMode?: SubtenantTrustedCertificateDeviceExecutionModeFilter;
+    deviceExecutionMode?: string | SubtenantTrustedCertificateDeviceExecutionModeFilter;
 
     /**
      *owner
      */
-    owner?: SubtenantTrustedCertificateOwnerFilter;
+    owner?: string | SubtenantTrustedCertificateOwnerFilter;
 
     /**
      *enrollmentMode
      */
-    enrollmentMode?: SubtenantTrustedCertificateEnrollmentModeFilter;
+    enrollmentMode?: string | SubtenantTrustedCertificateEnrollmentModeFilter;
 
     /**
      *status
      */
-    status?: SubtenantTrustedCertificateStatusFilter;
+    status?: AccountStatusEnum | SubtenantTrustedCertificateStatusFilter;
 
     /**
      *issuer
@@ -470,7 +470,7 @@ export interface SubtenantTrustedCertificateFilter {
     /**
      *valid
      */
-    valid?: SubtenantTrustedCertificateValidFilter;
+    valid?: string | SubtenantTrustedCertificateValidFilter;
 }
 /**
  *SubtenantTrustedCertificateListOptions
@@ -497,7 +497,7 @@ export interface SubtenantUserInvitationFilter {
     /**
      *loginProfile
      */
-    loginProfile?: SubtenantUserInvitationLoginProfileFilter;
+    loginProfile?: string | SubtenantUserInvitationLoginProfileFilter;
 }
 /**
  *SubtenantUserInvitationListOptions
@@ -552,17 +552,17 @@ export interface SubtenantUserFilter {
     /**
      *email
      */
-    email?: SubtenantUserEmailFilter;
+    email?: string | SubtenantUserEmailFilter;
 
     /**
      *status
      */
-    status?: SubtenantUserStatusFilter;
+    status?: AccountStatusEnum | SubtenantUserStatusFilter;
 
     /**
      *loginProfile
      */
-    loginProfile?: SubtenantUserLoginProfileFilter;
+    loginProfile?: string | SubtenantUserLoginProfileFilter;
 }
 /**
  *SubtenantUserListOptions

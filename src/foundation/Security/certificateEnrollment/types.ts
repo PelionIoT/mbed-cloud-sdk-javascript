@@ -82,22 +82,22 @@ export interface CertificateEnrollmentFilter {
     /**
      *deviceId
      */
-    deviceId?: CertificateEnrollmentDeviceIdFilter;
+    deviceId?: string | CertificateEnrollmentDeviceIdFilter;
 
     /**
      *certificateName
      */
-    certificateName?: CertificateEnrollmentCertificateNameFilter;
+    certificateName?: string | CertificateEnrollmentCertificateNameFilter;
 
     /**
      *enrollStatus
      */
-    enrollStatus?: CertificateEnrollmentEnrollStatusFilter;
+    enrollStatus?: CertificateEnrollmentEnrollStatusEnum | CertificateEnrollmentEnrollStatusFilter;
 
     /**
      *enrollResult
      */
-    enrollResult?: CertificateEnrollmentEnrollResultFilter;
+    enrollResult?: CertificateEnrollmentEnrollResultEnum | CertificateEnrollmentEnrollResultFilter;
 
     /**
      *createdAt
