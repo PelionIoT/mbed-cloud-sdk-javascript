@@ -1,4 +1,5 @@
 import { extractFilter } from "../../../src/common/filters";
+import { Entity } from "../../../src/common/entity";
 
 describe("Test filter encoding", () => {
 
@@ -47,15 +48,29 @@ describe("Test filter encoding", () => {
 
     it("should encode null", () => {
         const filter = { name: { eq: null } };
-        const expectedValue = "null";
+        const expectedValue = null;
 
         expect(extractFilter(filter, "name", "eq")).toBe(expectedValue);
+    });
+
+    it("should return null for missing filter", () => {
+        const filter = { name: { eq: "Gopher" } };
+        const expectedValue = null;
+
+        expect(extractFilter(filter, "badger", "neq")).toBe(expectedValue);
     });
 
     it("should encode missing operator", () => {
         const filter = { name: new Date(2019, 3, 7) };
 
         expect(extractFilter(filter, "name", "eq")).toMatch(DATE_REGEX);
+    });
+
+    it("should encode entity", () => {
+        const filter: { [key: string]: { [operator: string]: Entity } } = { name: { eq: { id: "123456", _discriminator: "USER" } } };
+        const expectedValue = "123456";
+
+        expect(extractFilter(filter, "name", "eq")).toBe(expectedValue);
     });
 
 });
