@@ -1,6 +1,6 @@
 import { ImportContainer } from "../containers/importContainer/importContainer";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
-import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, ensureArray, isEmpty } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, isEmpty } from "../common/utilities";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
 import { ParameterBucketContainer } from "../containers/parameterBucketContainer/parameterBucketContainer";
@@ -15,13 +15,13 @@ import { FileContainer } from "../containers/fileContainer/fileContainer";
 import { CustomMethodBody } from "../containers/methodBodyContainers/methods/customMethodBody";
 
 export async function generateRepository(entity, pascalKey, _currentGroup, camelKey, outputFolder, entityIndex: FileContainer): Promise<ClassContainer> {
-    if (ensureArray(entity.methods).length > 0) {
+    if (entity.methods.length > 0) {
         // entity has methods
         let fsNeeded = false;
         let hasPaginator = false;
         const repositoryImports = new Array<ImportContainer>();
         const repositoryMethods = new Array<MethodContainer>();
-        for (const method of ensureArray(entity.methods)) {
+        for (const method of entity.methods) {
             let hasBucket = false;
             const methodName = snakeToCamel(method._key);
             const httpMethod = method.method ? method.method.toUpperCase() : "GET";
@@ -69,7 +69,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
             let hasRequest = false;
             // request param
-            if (ensureArray(method.fields).filter(m => m.in === "body").length >= 1) {
+            if (method.fields.filter(m => m.in === "body").length >= 1) {
                 hasRequest = true;
                 parameterList.addParameters(new ParameterContainer(
                     "request",
@@ -86,7 +86,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
             // external params
             let externalParams = new Array<ParameterContainer>();
-            const ep = ensureArray(method.fields).filter(m => m.in && m.in !== "body");
+            const ep = method.fields.filter(m => m.in && m.in !== "body");
             for (const field of ep) {
                 if (paginated && field.in === "query") {
                     continue;
@@ -133,7 +133,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                         ]
                     ));
                     Object.keys(filters).forEach(filterName => {
-                        const field = ensureArray(entity.fields).filter(p => p._key === filterName).pop();
+                        const field = entity.fields.filter(p => p._key === filterName).pop();
                         filters[filterName].forEach(filterOperator => {
                             const apiFilterName = `${field ? field.api_fieldname : filterName}__${filterOperator}`;
                             // abuse of the MethodBodyParameterContainer to create the extract filter call
@@ -182,7 +182,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
             }
 
             // internal params
-            const ip = ensureArray(method.fields).filter(m => m.in !== undefined);
+            const ip = method.fields.filter(m => m.in !== undefined);
             for (const field of ip) {
                 if (field.in === "query") {
                     const queryParam = new MethodBodyParameterContainer(

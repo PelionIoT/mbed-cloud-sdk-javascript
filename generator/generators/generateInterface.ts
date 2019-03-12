@@ -1,6 +1,6 @@
 /* tslint:disable: no-console */
 import { PropertyContainer } from "../containers/propertyContainer/propertyContainer";
-import { snakeToCamel, snakeToPascal, getPropertyType, ensureArray } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, getPropertyType } from "../common/utilities";
 import { ClassContainer } from "../containers/classContainer/classContainer";
 import { ImportContainer } from "../containers/importContainer/importContainer";
 
@@ -9,7 +9,7 @@ export function generateInterface(entity: any, enums: any): ClassContainer {
     const enumImports = new Array<string>();
     const properties = new Array<PropertyContainer>();
 
-    for (const f of ensureArray(entity.fields).filter(i => i._key !== "id")) {
+    for (const f of entity.fields.filter(i => i._key !== "id")) {
         const type = getPropertyType(f, enums);
         const name = snakeToCamel(f._key);
         const apiFieldname = f.api_fieldname;

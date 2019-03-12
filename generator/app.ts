@@ -2,7 +2,7 @@
 import * as fs from "fs-extra";
 import { File as GeneratedFile } from "./common/file";
 import { generateInterface } from "./generators/generateInterface";
-import { snakeToCamel, snakeToPascal, ensureArray } from "./common/utilities";
+import { snakeToCamel, snakeToPascal } from "./common/utilities";
 import { FileContainer } from "./containers/fileContainer/fileContainer";
 import { ExportContainer } from "./containers/exportContainer/exportContainer";
 import { generateTypes } from "./generators/generateTypes";
@@ -96,7 +96,7 @@ async function main() {
     const factoryImports = new Array<ImportContainer>();
     const factoryMethods = new Array<FactoryMethodContainer>();
     for (const entity of entities) {
-        if (ensureArray(entity.methods).length > 0) {
+        if (entity.methods.length > 0) {
             const factoryMethod = new FactoryMethodContainer(
                 snakeToCamel(entity._key),
                 snakeToPascal(entity._key)

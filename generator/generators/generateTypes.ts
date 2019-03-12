@@ -1,5 +1,5 @@
 import { FileContainer } from "../containers/fileContainer/fileContainer";
-import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList, ensureArray, isEmpty } from "../common/utilities";
+import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList, isEmpty } from "../common/utilities";
 import { EnumContainer } from "../containers/enumContainer/enumContainer";
 import { PropertyContainer } from "../containers/propertyContainer/propertyContainer";
 import { ImportContainer } from "../containers/importContainer/importContainer";
@@ -11,7 +11,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
     const typeContainer = new FileContainer();
 
     // any enums for this entity
-    const entityEnums = ensureArray(entity.fields).filter(f => f.enum);
+    const entityEnums = entity.fields.filter(f => f.enum);
     for (const _enum of entityEnums) {
         const key = snakeToPascal(_enum.enum_reference) || snakeToPascal(_enum.api_fieldname);
         const enumContainer = new EnumContainer(key, _enum.enum);
@@ -21,7 +21,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
     const imports = [];
 
     // add and update interfaces
-    const methodsWithBodyParams = ensureArray(entity.methods).filter(m => ensureArray(m.fields).filter(f => f.in === "body"));
+    const methodsWithBodyParams = entity.methods.filter(m => m.fields.filter(f => f.in === "body"));
     for (const method of methodsWithBodyParams) {
         const methodName = snakeToPascal(method._key);
         const bodyParams = [];
@@ -66,7 +66,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
     }
 
     // list options
-    const paginatedMethods = ensureArray(entity.methods).filter(p => !!p.pagination);
+    const paginatedMethods = entity.methods.filter(p => !!p.pagination);
     for (const method of paginatedMethods) {
         const filters = method.x_filter;
         const returns = snakeToPascal(method.return_info.type);
@@ -103,7 +103,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                 );
                 Object.keys(filters).forEach(filterName => {
                     // get the corresponding field
-                    const field = ensureArray(entity.fields).filter(p => p._key === filterName).pop();
+                    const field = entity.fields.filter(p => p._key === filterName).pop();
                     let filterObjType = field ? getPropertyType(field, enums) : "string";
                     let hasEqualsFilter = false;
                     let equalsFilterType = "string";
