@@ -4,12 +4,6 @@ import { ServerCredentials } from "./serverCredentials";
  *ServerCredentials adapter
  */
 export class ServerCredentialsAdapter extends Adapter {
-    /**
-     * fromApi
-     * @returns ServerCredentials
-     * @param data *required*
-     * @param instance
-     */
     public static fromApi(data: any, instance?: any): ServerCredentials {
         if (!data) {
             return null;

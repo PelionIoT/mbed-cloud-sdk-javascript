@@ -4,12 +4,6 @@ import { CertificateIssuer } from "./certificateIssuer";
  *CertificateIssuer adapter
  */
 export class CertificateIssuerAdapter extends Adapter {
-    /**
-     * fromApi
-     * @returns CertificateIssuer
-     * @param data *required*
-     * @param instance
-     */
     public static fromApi(data: any, instance?: any): CertificateIssuer {
         if (!data) {
             return null;

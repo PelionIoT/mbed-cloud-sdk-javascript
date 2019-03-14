@@ -4,12 +4,6 @@ import { ApiKey } from "./apiKey";
  *ApiKey adapter
  */
 export class ApiKeyAdapter extends Adapter {
-    /**
-     * fromApi
-     * @returns ApiKey
-     * @param data *required*
-     * @param instance
-     */
     public static fromApi(data: any, instance?: any): ApiKey {
         if (!data) {
             return null;

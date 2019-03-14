@@ -7,12 +7,6 @@ import { SubtenantUserInvitationCreateRequest } from "./types";
  *SubtenantUserInvitation repository
  */
 export class SubtenantUserInvitationRepository extends Repository {
-    /**
-     * create
-     * @returns Promise<SubtenantUserInvitation>
-     * @param request *required*
-     * @param accountId *required*
-     */
     public create(request: SubtenantUserInvitationCreateRequest, accountId: string): Promise<SubtenantUserInvitation> {
         return apiWrapper(
             resultsFn => {
@@ -37,12 +31,6 @@ export class SubtenantUserInvitationRepository extends Repository {
             }
         );
     }
-    /**
-     * delete
-     * @returns Promise<void>
-     * @param accountId *required*
-     * @param id *required*
-     */
     public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -63,12 +51,6 @@ export class SubtenantUserInvitationRepository extends Repository {
             }
         );
     }
-    /**
-     * read
-     * @returns Promise<SubtenantUserInvitation>
-     * @param accountId *required*
-     * @param id *required*
-     */
     public read(accountId: string, id: string): Promise<SubtenantUserInvitation> {
         return apiWrapper(
             resultsFn => {

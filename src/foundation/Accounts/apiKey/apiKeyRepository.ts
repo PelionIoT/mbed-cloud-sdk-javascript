@@ -13,11 +13,6 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *ApiKey repository
  */
 export class ApiKeyRepository extends Repository {
-    /**
-     * create
-     * @returns Promise<ApiKey>
-     * @param request *required*
-     */
     public create(request: ApiKeyCreateRequest): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
@@ -39,11 +34,6 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    /**
-     * delete
-     * @returns Promise<void>
-     * @param id *required*
-     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -63,11 +53,6 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    /**
-     * list
-     * @returns Paginator<ApiKey, ListOptions>
-     * @param options
-     */
     public list(options?: ApiKeyListOptions): Paginator<ApiKey, ListOptions> {
         const pageFunc = (pageOptions: ApiKeyListOptions): Promise<ListResponse<ApiKey>> => {
             pageOptions = pageOptions || {};
@@ -98,10 +83,6 @@ export class ApiKeyRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-    /**
-     * me
-     * @returns Promise<ApiKey>
-     */
     public me(): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
@@ -118,11 +99,6 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    /**
-     * read
-     * @returns Promise<ApiKey>
-     * @param id *required*
-     */
     public read(id: string): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
@@ -142,12 +118,6 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    /**
-     * update
-     * @returns Promise<ApiKey>
-     * @param request *required*
-     * @param id *required*
-     */
     public update(request: ApiKeyUpdateRequest, id: string): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {

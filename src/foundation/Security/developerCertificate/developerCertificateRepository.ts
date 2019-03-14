@@ -9,11 +9,6 @@ import { TrustedCertificateAdapter } from "../../index";
  *DeveloperCertificate repository
  */
 export class DeveloperCertificateRepository extends Repository {
-    /**
-     * create
-     * @returns Promise<DeveloperCertificate>
-     * @param request *required*
-     */
     public create(request: DeveloperCertificateCreateRequest): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -34,11 +29,6 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
-    /**
-     * delete
-     * @returns Promise<void>
-     * @param id *required*
-     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -58,11 +48,6 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
-    /**
-     * getTrustedCertificateInfo
-     * @returns Promise<TrustedCertificate>
-     * @param id *required*
-     */
     public getTrustedCertificateInfo(id: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -82,11 +67,6 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
-    /**
-     * read
-     * @returns Promise<DeveloperCertificate>
-     * @param id *required*
-     */
     public read(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {

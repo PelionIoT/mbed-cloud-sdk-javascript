@@ -13,11 +13,6 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *CertificateIssuerConfig repository
  */
 export class CertificateIssuerConfigRepository extends Repository {
-    /**
-     * create
-     * @returns Promise<CertificateIssuerConfig>
-     * @param request *required*
-     */
     public create(request: CertificateIssuerConfigCreateRequest): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {
@@ -38,11 +33,6 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
-    /**
-     * delete
-     * @returns Promise<void>
-     * @param id *required*
-     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -62,10 +52,6 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
-    /**
-     * getDefault
-     * @returns Promise<CertificateIssuerConfig>
-     */
     public getDefault(): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {
@@ -82,11 +68,6 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
-    /**
-     * list
-     * @returns Paginator<CertificateIssuerConfig, ListOptions>
-     * @param options
-     */
     public list(options?: CertificateIssuerConfigListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
         const pageFunc = (
             pageOptions: CertificateIssuerConfigListOptions
@@ -118,11 +99,6 @@ export class CertificateIssuerConfigRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-    /**
-     * read
-     * @returns Promise<CertificateIssuerConfig>
-     * @param id *required*
-     */
     public read(id: string): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {
@@ -142,12 +118,6 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
-    /**
-     * update
-     * @returns Promise<CertificateIssuerConfig>
-     * @param request *required*
-     * @param id *required*
-     */
     public update(request: CertificateIssuerConfigUpdateRequest, id: string): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {

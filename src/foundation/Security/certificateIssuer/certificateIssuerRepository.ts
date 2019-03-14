@@ -13,11 +13,6 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *CertificateIssuer repository
  */
 export class CertificateIssuerRepository extends Repository {
-    /**
-     * create
-     * @returns Promise<CertificateIssuer>
-     * @param request *required*
-     */
     public create(request: CertificateIssuerCreateRequest): Promise<CertificateIssuer> {
         return apiWrapper(
             resultsFn => {
@@ -41,11 +36,6 @@ export class CertificateIssuerRepository extends Repository {
             }
         );
     }
-    /**
-     * delete
-     * @returns Promise<void>
-     * @param id *required*
-     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -65,11 +55,6 @@ export class CertificateIssuerRepository extends Repository {
             }
         );
     }
-    /**
-     * list
-     * @returns Paginator<CertificateIssuer, ListOptions>
-     * @param options
-     */
     public list(options?: ListOptions): Paginator<CertificateIssuer, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateIssuer>> => {
             pageOptions = pageOptions || {};
@@ -98,11 +83,6 @@ export class CertificateIssuerRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-    /**
-     * read
-     * @returns Promise<CertificateIssuer>
-     * @param id *required*
-     */
     public read(id: string): Promise<CertificateIssuer> {
         return apiWrapper(
             resultsFn => {
@@ -122,12 +102,6 @@ export class CertificateIssuerRepository extends Repository {
             }
         );
     }
-    /**
-     * update
-     * @returns Promise<CertificateIssuer>
-     * @param request *required*
-     * @param id *required*
-     */
     public update(request: CertificateIssuerUpdateRequest, id: string): Promise<CertificateIssuer> {
         return apiWrapper(
             resultsFn => {
@@ -153,11 +127,6 @@ export class CertificateIssuerRepository extends Repository {
             }
         );
     }
-    /**
-     * verify
-     * @returns Promise<VerificationResponse>
-     * @param id *required*
-     */
     public verify(id: string): Promise<VerificationResponse> {
         return apiWrapper(
             resultsFn => {

@@ -4,12 +4,6 @@ import { ActiveSession } from "./activeSession";
  *ActiveSession adapter
  */
 export class ActiveSessionAdapter extends Adapter {
-    /**
-     * fromApi
-     * @returns ActiveSession
-     * @param data *required*
-     * @param instance
-     */
     public static fromApi(data: any, instance?: any): ActiveSession {
         if (!data) {
             return null;

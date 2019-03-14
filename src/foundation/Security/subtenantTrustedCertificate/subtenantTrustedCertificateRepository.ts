@@ -10,12 +10,6 @@ import { SubtenantTrustedCertificateUpdateRequest } from "./types";
  *SubtenantTrustedCertificate repository
  */
 export class SubtenantTrustedCertificateRepository extends Repository {
-    /**
-     * create
-     * @returns Promise<SubtenantTrustedCertificate>
-     * @param request *required*
-     * @param accountId *required*
-     */
     public create(
         request: SubtenantTrustedCertificateCreateRequest,
         accountId: string
@@ -46,12 +40,6 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
-    /**
-     * delete
-     * @returns Promise<void>
-     * @param accountId *required*
-     * @param id *required*
-     */
     public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -72,11 +60,6 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
-    /**
-     * getDeveloperCertificateInfo
-     * @returns Promise<DeveloperCertificate>
-     * @param id *required*
-     */
     public getDeveloperCertificateInfo(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -96,12 +79,6 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
-    /**
-     * read
-     * @returns Promise<SubtenantTrustedCertificate>
-     * @param accountId *required*
-     * @param id *required*
-     */
     public read(accountId: string, id: string): Promise<SubtenantTrustedCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -122,13 +99,6 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
-    /**
-     * update
-     * @returns Promise<SubtenantTrustedCertificate>
-     * @param request *required*
-     * @param accountId *required*
-     * @param id *required*
-     */
     public update(
         request: SubtenantTrustedCertificateUpdateRequest,
         accountId: string,
