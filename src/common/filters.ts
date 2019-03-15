@@ -6,10 +6,10 @@ export function extractFilter(filter, name: string, operator: string): string | 
         if (filterObject) {
             // if filter object is an object, the decode contents of operator key
             if ((filterObject as object).constructor === {}.constructor) {
-                const filterObjectValue = filterObject[operator];
+                const filterObjectValue = filterObject[operator] || filterObject[`$${operator}`];
                 return decode(filterObjectValue);
             // if not an object and operator is equals, decode directly
-            } else if (operator === "eq") {
+            } else if (operator === "eq" || operator === "$eq") {
                 return decode(filterObject);
             }
         }
