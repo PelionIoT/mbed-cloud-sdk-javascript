@@ -19,7 +19,7 @@ export function extractFilter(filter, name: string, operator: string): string | 
 }
 
 const decode = (value: unknown) => {
-    if (value) {
+    if (value !== null && value !== undefined) {
         if ((value as Entity)._discriminator) {
             // value is an entity so return the id
             return (value as Entity).id;
