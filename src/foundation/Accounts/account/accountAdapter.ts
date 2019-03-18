@@ -47,7 +47,7 @@ export class AccountAdapter extends Adapter {
             parentAccount: ParentAccountAdapter.fromApi(data.parent_account),
             parentId: data.parent_id,
             passwordPolicy: PasswordPolicyAdapter.fromApi(data.password_policy),
-            passwordRecoveryExpiration: data.password_recovery_expiration,
+            passwordRecoveryExpiration: data.password_recovery_expiration || 0,
             phoneNumber: data.phone_number,
             policies: policies,
             postalCode: data.postal_code,
