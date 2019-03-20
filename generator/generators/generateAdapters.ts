@@ -1,6 +1,6 @@
 /* tslint:disable: no-console */
 import { AdapterFieldContainer } from "../containers/methodBodyContainers/adapter/adapterFieldContainer";
-import { snakeToCamel, snakeToPascal, getPropertyType } from "../common/utilities";
+import { snakeToCamel, snakeToPascal } from "../common/utilities";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
@@ -77,7 +77,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
                 mapsForeignKeyArray,
                 mapsForeignKey,
                 foreignKeyAdapter,
-                defaultValue: getPropertyType(field, []) === "number" ? 0 : null,
+                defaultValue: getDefaultValue(field),
             }
         );
         adapterFields.push(adapterField);
@@ -135,3 +135,15 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
 
     return adapterClass;
 }
+
+const getDefaultValue = field => {
+    if (field.type === "string") {
+        return field.default ? `"${field.default}"` : null;
+    }
+
+    if (field.type === "integer") {
+        return field.default || 0;
+    }
+
+    return null;
+};

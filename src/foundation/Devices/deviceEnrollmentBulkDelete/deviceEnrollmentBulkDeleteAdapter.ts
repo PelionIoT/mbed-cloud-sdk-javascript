@@ -18,7 +18,7 @@ export class DeviceEnrollmentBulkDeleteAdapter extends Adapter {
             fullReportFile: data.full_report_file,
             id: data.id,
             processedCount: data.processed_count || 0,
-            status: data.status,
+            status: data.status || "new",
             totalCount: data.total_count || 0,
         });
         return mappedEntity;
