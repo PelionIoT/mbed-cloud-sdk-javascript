@@ -13,6 +13,7 @@ references:
         ignore:
         - master
         - beta
+        - /dependabot.*/
   contract_repo_branch: &contract_repo_branch
     filters:
       branches:
