@@ -5,142 +5,161 @@ import { DeviceDeployedState, DeviceMechanism, DeviceState } from "./types";
  */
 export interface Device extends Entity {
     /**
-     *accountId
+     *The ID of the associated account.
+     *@example 00000000000000000000000000000000
      */
     readonly accountId?: string;
 
     /**
-     *autoUpdate
+     *DEPRECATED: Mark this device for automatic firmware update.
      */
     autoUpdate?: boolean;
 
     /**
-     *bootstrapExpirationDate
+     *The expiration date of the certificate used to connect to bootstrap server.
      */
     bootstrapExpirationDate?: Date;
 
     /**
-     *bootstrappedTimestamp
+     *The timestamp of the device&#39;s most recent bootstrap process.
+     *@example 2017-05-22T12:37:55.576563Z
      */
     bootstrappedTimestamp?: Date;
 
     /**
-     *caId
+     *The certificate issuer&#39;s ID.
+     *@example 00000000000000000000000000000000
      */
     caId?: string;
 
     /**
-     *connectorExpirationDate
+     *The expiration date of the certificate used to connect to LwM2M server.
      */
     connectorExpirationDate?: Date;
 
     /**
-     *createdAt
+     *The timestamp of when the device was created in the device directory.
+     *@example 2017-05-22T12:37:55.576563Z
      */
     readonly createdAt?: Date;
 
     /**
-     *customAttributes
+     *Up to five custom key-value attributes.
+     *@example { &#39;key&#39;: &#39;value&#39; }
      */
     customAttributes?: { [key: string]: string };
 
     /**
-     *deployedState
+     *DEPRECATED: The state of the device&#39;s deployment.
      */
     readonly deployedState?: DeviceDeployedState;
 
     /**
-     *deployment
+     *DEPRECATED: The last deployment used on the device.
      */
     deployment?: string;
 
     /**
-     *description
+     *The description of the device.
+     *@example description
      */
     description?: string;
 
     /**
-     *deviceClass
+     *An ID representing the model and hardware revision of the device.
      */
     deviceClass?: string;
 
     /**
-     *deviceExecutionMode
-     */
+*The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.
+Permitted values:
+  - 0 - unspecified execution mode (default if host_gateway invalid or not set)
+  - 1 - development devices
+  - 5 - production devices
+*/
     deviceExecutionMode?: number;
 
     /**
-     *deviceKey
+     *The fingerprint of the device certificate.
+     *@example 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
      */
     deviceKey?: string;
 
     /**
-     *endpointName
+     *The endpoint name given to the device.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     endpointName?: string;
 
     /**
-     *endpointType
+     *The endpoint type of the device. For example, the device is a gateway.
      */
     endpointType?: string;
 
     /**
-     *enrolmentListTimestamp
+     *The claim date/time.
+     *@example 2017-05-22T12:37:55.576563Z
      */
     readonly enrolmentListTimestamp?: Date;
 
     /**
-     *firmwareChecksum
+     *The SHA256 checksum of the current firmware image.
+     *@example 0000000000000000000000000000000000000000000000000000000000000000
      */
     firmwareChecksum?: string;
 
     /**
-     *hostGateway
+     *The `endpoint_name` of the host gateway, if appropriate.
      */
     hostGateway?: string;
 
     /**
-     *manifest
+     *DEPRECATED: The URL for the current device manifest.
      */
     manifest?: string;
 
     /**
-     *manifestTimestamp
+     *The timestamp of the current manifest version.
+     *@example 2017-05-22T12:37:55.576563Z
      */
     readonly manifestTimestamp?: Date;
 
     /**
-     *mechanism
+     *The ID of the channel used to communicate with the device.
      */
     mechanism?: DeviceMechanism;
 
     /**
-     *mechanismUrl
+     *The address of the connector to use.
      */
     mechanismUrl?: string;
 
     /**
-     *name
+     *The name of the device.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     name?: string;
 
     /**
-     *serialNumber
+     *The serial number of the device.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     serialNumber?: string;
 
     /**
-     *state
+     *The current state of the device.
      */
     state?: DeviceState;
 
     /**
-     *updatedAt
+     *The time the object was updated.
+     *@example 2017-05-22T12:37:55.576563Z
      */
     readonly updatedAt?: Date;
 
     /**
-     *vendorId
+     *The device vendor ID.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     vendorId?: string;
 }

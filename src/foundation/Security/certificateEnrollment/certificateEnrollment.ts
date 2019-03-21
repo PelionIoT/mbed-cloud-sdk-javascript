@@ -5,17 +5,20 @@ import { CertificateEnrollmentEnrollResult, CertificateEnrollmentEnrollStatus } 
  */
 export interface CertificateEnrollment extends Entity {
     /**
-     *certificateName
+     *The certificate name.
+     *@example customer.dlms
      */
     readonly certificateName?: string;
 
     /**
-     *createdAt
+     *Creation UTC time RFC3339.
+     *@example 2017-01-01T00:00:00Z
      */
     readonly createdAt?: Date;
 
     /**
-     *deviceId
+     *The device ID.
+     *@example 01625daa23230a580a0100bd00000000
      */
     readonly deviceId?: string;
 
@@ -30,7 +33,8 @@ export interface CertificateEnrollment extends Entity {
     readonly enrollStatus?: CertificateEnrollmentEnrollStatus;
 
     /**
-     *updatedAt
+     *Update UTC time RFC3339.
+     *@example 2017-01-01T00:00:00Z
      */
     readonly updatedAt?: Date;
 }

@@ -4,12 +4,14 @@ import { Entity } from "../../../common/entity";
  */
 export interface ParentAccount extends Entity {
     /**
-     *adminEmail
+     *The email address of the admin user who is the contact person of the parent account.
+     *@example info@arm.com
      */
     readonly adminEmail?: string;
 
     /**
-     *adminName
+     *The name of the admin user who is the contact person of the parent account.
+     *@example J. Doe
      */
     readonly adminName?: string;
 }

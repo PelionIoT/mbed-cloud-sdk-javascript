@@ -5,47 +5,63 @@ import { DeviceEnrollmentBulkCreateStatus } from "./types";
  */
 export interface DeviceEnrollmentBulkCreate extends Entity {
     /**
-     *accountId
+     *ID
+     *@example 00005a4e027f0a580a01081c00000000
      */
     readonly accountId?: string;
 
     /**
-     *completedAt
-     */
+*The time of completing the bulk creation task.
+Null when creating bulk upload or delete.
+
+*/
     readonly completedAt?: Date;
 
     /**
-     *createdAt
-     */
+*The time of receiving the bulk creation task.
+
+*/
     readonly createdAt?: Date;
 
     /**
-     *errorsCount
-     */
+*The number of enrollment identities with failed processing.
+
+*/
     readonly errorsCount?: number;
 
     /**
-     *errorsReportFile
-     */
+*Link to error report file.
+Null when creating bulk upload or delete.
+
+*@example https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv
+*/
     readonly errorsReportFile?: string;
 
     /**
-     *fullReportFile
-     */
+*Link to full report file.
+Null when creating bulk upload or delete.
+
+*@example https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv
+*/
     readonly fullReportFile?: string;
 
     /**
-     *processedCount
-     */
+*The number of enrollment identities processed until now.
+
+*/
     readonly processedCount?: number;
 
     /**
-     *status
-     */
+*The state of the process is &#39;new&#39; at the time of creation. If the creation is still in progress, the state is shown as &#39;processing&#39;. When the request has been fully processed, the state changes to &#39;completed&#39;.
+
+*@example new
+*/
     readonly status?: DeviceEnrollmentBulkCreateStatus;
 
     /**
-     *totalCount
-     */
+*Total number of enrollment identities found in the input CSV.
+
+*@example 10
+*/
     readonly totalCount?: number;
 }

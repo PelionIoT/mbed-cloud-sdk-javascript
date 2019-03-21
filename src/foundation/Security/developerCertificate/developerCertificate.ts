@@ -4,32 +4,32 @@ import { Entity } from "../../../common/entity";
  */
 export interface DeveloperCertificate extends Entity {
     /**
-     *accountId
+     *account to which the developer certificate belongs
      */
     readonly accountId?: string;
 
     /**
-     *certificate
+     *PEM format X.509 developer certificate.
      */
     readonly certificate?: string;
 
     /**
-     *createdAt
+     *Creation UTC time RFC3339.
      */
     readonly createdAt?: Date;
 
     /**
-     *description
+     *Description for the developer certificate.
      */
     description?: string;
 
     /**
-     *name
+     *Name of the developer certificate.
      */
     name: string;
 
     /**
-     *securityFileContent
+     *Content of the security.c file that will be flashed into the device to provide the security credentials
      */
     readonly securityFileContent?: string;
 }

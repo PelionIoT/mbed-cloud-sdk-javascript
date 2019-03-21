@@ -4,17 +4,17 @@ import { Entity } from "../../../common/entity";
  */
 export interface ServerCredentials extends Entity {
     /**
-     *createdAt
+     *Creation UTC time RFC3339.
      */
     readonly createdAt?: Date;
 
     /**
-     *serverCertificate
+     *PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
      */
     readonly serverCertificate?: string;
 
     /**
-     *serverUri
+     *Server URI to which the client needs to connect to.
      */
     readonly serverUri?: string;
 }
