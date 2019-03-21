@@ -6,47 +6,55 @@ export type UserStatus = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIV
  */
 export interface UserCreateRequest {
     /**
-     *address
+     *Address.
+     *@example 110 Fulbourn Rd, Cambridge, United Kingdom
      */
     readonly address?: string;
 
     /**
-     *email
+     *The email address.
+     *@example user@arm.com
      */
     readonly email?: string;
 
     /**
-     *fullName
+     *The full name of the user.
+     *@example User Doe
      */
     readonly fullName?: string;
 
     /**
-     *loginProfiles
+     *This object represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *marketingAccepted
+     *A flag indicating that receiving marketing information has been accepted.
+     *@example true
      */
     readonly marketingAccepted?: boolean;
 
     /**
-     *password
+     *The password when creating a new user. It will be generated when not present in the request.
+     *@example PZf9eEUH43DAPE9ULINFeuj
      */
     readonly password?: string;
 
     /**
-     *phoneNumber
+     *Phone number.
+     *@example +44 (1223) 400 400
      */
     readonly phoneNumber?: string;
 
     /**
-     *termsAccepted
+     *A flag indicating that the General Terms and Conditions has been accepted.
+     *@example true
      */
     readonly termsAccepted?: boolean;
 
     /**
-     *username
+     *A username containing alphanumerical letters and -,._@+= characters.
+     *@example admin
      */
     readonly username?: string;
 }
@@ -55,42 +63,49 @@ export interface UserCreateRequest {
  */
 export interface UserUpdateRequest {
     /**
-     *address
+     *Address.
+     *@example 110 Fulbourn Rd, Cambridge, United Kingdom
      */
     readonly address?: string;
 
     /**
-     *fullName
+     *The full name of the user.
+     *@example User Doe
      */
     readonly fullName?: string;
 
     /**
-     *loginProfiles
+     *This object represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *marketingAccepted
+     *A flag indicating that receiving marketing information has been accepted.
+     *@example true
      */
     readonly marketingAccepted?: boolean;
 
     /**
-     *phoneNumber
+     *Phone number.
+     *@example +44 (1223) 400 400
      */
     readonly phoneNumber?: string;
 
     /**
-     *termsAccepted
+     *A flag indicating that the General Terms and Conditions has been accepted.
+     *@example true
      */
     readonly termsAccepted?: boolean;
 
     /**
-     *twoFactorAuthentication
+     *A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     *@example true
      */
     readonly twoFactorAuthentication?: boolean;
 
     /**
-     *username
+     *A username containing alphanumerical letters and -,._@+= characters.
+     *@example admin
      */
     readonly username?: string;
 }

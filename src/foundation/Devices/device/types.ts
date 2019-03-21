@@ -7,112 +7,126 @@ export type DeviceState = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "r
  */
 export interface DeviceCreateRequest {
     /**
-     *autoUpdate
+     *DEPRECATED: Mark this device for automatic firmware update.
      */
     readonly autoUpdate?: boolean;
 
     /**
-     *bootstrapExpirationDate
+     *The expiration date of the certificate used to connect to bootstrap server.
      */
     readonly bootstrapExpirationDate?: Date;
 
     /**
-     *bootstrappedTimestamp
+     *The timestamp of the device&#39;s most recent bootstrap process.
+     *@example 2017-05-22T12:37:55.576563Z
      */
     readonly bootstrappedTimestamp?: Date;
 
     /**
-     *caId
+     *The certificate issuer&#39;s ID.
+     *@example 00000000000000000000000000000000
      */
     readonly caId?: string;
 
     /**
-     *connectorExpirationDate
+     *The expiration date of the certificate used to connect to LwM2M server.
      */
     readonly connectorExpirationDate?: Date;
 
     /**
-     *customAttributes
+     *Up to five custom key-value attributes.
+     *@example { &#39;key&#39;: &#39;value&#39; }
      */
     readonly customAttributes?: { [key: string]: string };
 
     /**
-     *deployment
+     *DEPRECATED: The last deployment used on the device.
      */
     readonly deployment?: string;
 
     /**
-     *description
+     *The description of the device.
+     *@example description
      */
     readonly description?: string;
 
     /**
-     *deviceClass
+     *An ID representing the model and hardware revision of the device.
      */
     readonly deviceClass?: string;
 
     /**
-     *deviceExecutionMode
-     */
+*The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.
+Permitted values:
+  - 0 - unspecified execution mode (default if host_gateway invalid or not set)
+  - 1 - development devices
+  - 5 - production devices
+*/
     readonly deviceExecutionMode?: number;
 
     /**
-     *deviceKey
+     *The fingerprint of the device certificate.
+     *@example 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
      */
     readonly deviceKey?: string;
 
     /**
-     *endpointName
+     *The endpoint name given to the device.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     readonly endpointName?: string;
 
     /**
-     *endpointType
+     *The endpoint type of the device. For example, the device is a gateway.
      */
     readonly endpointType?: string;
 
     /**
-     *firmwareChecksum
+     *The SHA256 checksum of the current firmware image.
+     *@example 0000000000000000000000000000000000000000000000000000000000000000
      */
     readonly firmwareChecksum?: string;
 
     /**
-     *hostGateway
+     *The `endpoint_name` of the host gateway, if appropriate.
      */
     readonly hostGateway?: string;
 
     /**
-     *manifest
+     *DEPRECATED: The URL for the current device manifest.
      */
     readonly manifest?: string;
 
     /**
-     *mechanism
+     *The ID of the channel used to communicate with the device.
      */
     readonly mechanism?: DeviceMechanism;
 
     /**
-     *mechanismUrl
+     *The address of the connector to use.
      */
     readonly mechanismUrl?: string;
 
     /**
-     *name
+     *The name of the device.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     readonly name?: string;
 
     /**
-     *serialNumber
+     *The serial number of the device.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     readonly serialNumber?: string;
 
     /**
-     *state
+     *The current state of the device.
      */
     readonly state?: DeviceState;
 
     /**
-     *vendorId
+     *The device vendor ID.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     readonly vendorId?: string;
 }
@@ -121,47 +135,53 @@ export interface DeviceCreateRequest {
  */
 export interface DeviceUpdateRequest {
     /**
-     *autoUpdate
+     *DEPRECATED: Mark this device for automatic firmware update.
      */
     readonly autoUpdate?: boolean;
 
     /**
-     *caId
+     *The certificate issuer&#39;s ID.
+     *@example 00000000000000000000000000000000
      */
     readonly caId?: string;
 
     /**
-     *customAttributes
+     *Up to five custom key-value attributes.
+     *@example { &#39;key&#39;: &#39;value&#39; }
      */
     readonly customAttributes?: { [key: string]: string };
 
     /**
-     *description
+     *The description of the device.
+     *@example description
      */
     readonly description?: string;
 
     /**
-     *deviceKey
+     *The fingerprint of the device certificate.
+     *@example 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
      */
     readonly deviceKey?: string;
 
     /**
-     *endpointName
+     *The endpoint name given to the device.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     readonly endpointName?: string;
 
     /**
-     *endpointType
+     *The endpoint type of the device. For example, the device is a gateway.
      */
     readonly endpointType?: string;
 
     /**
-     *hostGateway
+     *The `endpoint_name` of the host gateway, if appropriate.
      */
     readonly hostGateway?: string;
 
     /**
-     *name
+     *The name of the device.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     readonly name?: string;
 }

@@ -6,32 +6,36 @@ export type TrustedCertificateStatus = "ACTIVE" | "INACTIVE";
  */
 export interface TrustedCertificateCreateRequest {
     /**
-     *certificate
+     *X509.v3 trusted certificate in PEM format.
+     *@example -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----
      */
     readonly certificate?: string;
 
     /**
-     *description
+     *Human readable description of this certificate.
+     *@example Certificate created by me.
      */
     readonly description?: string;
 
     /**
-     *enrollmentMode
+     *If true, signature is not required. Default value false.
      */
     readonly enrollmentMode?: boolean;
 
     /**
-     *name
+     *Certificate name.
+     *@example My certificate
      */
     readonly name?: string;
 
     /**
-     *service
+     *Service name where the certificate is to be used.
      */
     readonly service?: TrustedCertificateService;
 
     /**
-     *status
+     *Status of the certificate.
+     *@example ACTIVE
      */
     readonly status?: TrustedCertificateStatus;
 }
@@ -40,32 +44,36 @@ export interface TrustedCertificateCreateRequest {
  */
 export interface TrustedCertificateUpdateRequest {
     /**
-     *certificate
+     *X509.v3 trusted certificate in PEM format.
+     *@example -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----
      */
     readonly certificate?: string;
 
     /**
-     *description
+     *Human readable description of this certificate.
+     *@example Certificate created by me.
      */
     readonly description?: string;
 
     /**
-     *enrollmentMode
+     *If true, signature is not required. Default value false.
      */
     readonly enrollmentMode?: boolean;
 
     /**
-     *name
+     *Certificate name.
+     *@example My certificate
      */
     readonly name?: string;
 
     /**
-     *service
+     *Service name where the certificate is to be used.
      */
     readonly service?: TrustedCertificateService;
 
     /**
-     *status
+     *Status of the certificate.
+     *@example ACTIVE
      */
     readonly status?: TrustedCertificateStatus;
 }

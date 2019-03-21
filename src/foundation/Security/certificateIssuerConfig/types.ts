@@ -4,12 +4,16 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  */
 export interface CertificateIssuerConfigCreateRequest {
     /**
-     *certificateIssuerId
-     */
+*The ID of the certificate issuer.
+Null if Device Management internal HSM is used.
+
+*@example 01648415a2a30242ac18000500000000
+*/
     readonly certificateIssuerId?: string;
 
     /**
-     *certificateReference
+     *The certificate name to which the certificate issuer configuration applies.
+     *@example customer.dlms
      */
     readonly certificateReference: string;
 }
@@ -18,8 +22,11 @@ export interface CertificateIssuerConfigCreateRequest {
  */
 export interface CertificateIssuerConfigUpdateRequest {
     /**
-     *certificateIssuerId
-     */
+*The ID of the certificate issuer.
+Null if Device Management internal HSM is used.
+
+*@example 01648415a2a30242ac18000500000000
+*/
     readonly certificateIssuerId?: string;
 }
 /**

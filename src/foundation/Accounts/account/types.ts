@@ -7,32 +7,38 @@ export type AccountStatus = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
  */
 export interface AccountCreateRequest {
     /**
-     *addressLine1
+     *Postal address line 1.
+     *@example 110 Fulbourn Rd
      */
     readonly addressLine1?: string;
 
     /**
-     *addressLine2
+     *Postal address line 2.
+     *@example
      */
     readonly addressLine2?: string;
 
     /**
-     *adminEmail
+     *The email address of the admin user created for this account. Present only in the response for the account creation.
+     *@example admin@arm.com
      */
     readonly adminEmail?: string;
 
     /**
-     *adminFullName
+     *The full name of the admin user created for this account. Present only in the response for the account creation.
+     *@example Admin Doe
      */
     readonly adminFullName?: string;
 
     /**
-     *adminName
+     *The username of the admin user created for this account. Present only in the response for the account creation.
+     *@example admin
      */
     readonly adminName?: string;
 
     /**
-     *adminPassword
+     *The password of the admin user created for this account. Present only in the response for the account creation.
+     *@example PZf9eEUH43DAPE9ULINFeuj
      */
     readonly adminPassword?: string;
 
@@ -42,62 +48,74 @@ export interface AccountCreateRequest {
     readonly aliases?: Array<string>;
 
     /**
-     *city
+     *The city part of the postal address.
+     *@example Cambridge
      */
     readonly city?: string;
 
     /**
-     *company
+     *The name of the company.
+     *@example ARM Holdings Plc
      */
     readonly company?: string;
 
     /**
-     *contact
+     *The name of the contact person for this account.
+     *@example J. Doe
      */
     readonly contact?: string;
 
     /**
-     *contractNumber
+     *Contract number of the customer.
+     *@example 1NX25_0001
      */
     readonly contractNumber?: string;
 
     /**
-     *country
+     *The country part of the postal address.
+     *@example United Kingdom
      */
     readonly country?: string;
 
     /**
-     *customerNumber
+     *Customer number of the customer.
+     *@example 1NC25_0001
      */
     readonly customerNumber?: string;
 
     /**
-     *displayName
+     *The display name for the account.
+     *@example ARM
      */
     readonly displayName?: string;
 
     /**
-     *email
+     *The company email address for this account.
+     *@example info@arm.com
      */
     readonly email?: string;
 
     /**
-     *endMarket
+     *Account end market.
+     *@example IT
      */
     readonly endMarket?: string;
 
     /**
-     *phoneNumber
+     *The phone number of a representative of the company.
+     *@example +44 (1223) 400 400
      */
     readonly phoneNumber?: string;
 
     /**
-     *postalCode
+     *The postal code part of the postal address.
+     *@example CB1 9NJ
      */
     readonly postalCode?: string;
 
     /**
-     *state
+     *The state part of the postal address.
+     *@example
      */
     readonly state?: string;
 }
@@ -106,12 +124,14 @@ export interface AccountCreateRequest {
  */
 export interface AccountUpdateRequest {
     /**
-     *addressLine1
+     *Postal address line 1.
+     *@example 110 Fulbourn Rd
      */
     readonly addressLine1?: string;
 
     /**
-     *addressLine2
+     *Postal address line 2.
+     *@example
      */
     readonly addressLine2?: string;
 
@@ -121,67 +141,78 @@ export interface AccountUpdateRequest {
     readonly aliases?: Array<string>;
 
     /**
-     *city
+     *The city part of the postal address.
+     *@example Cambridge
      */
     readonly city?: string;
 
     /**
-     *company
+     *The name of the company.
+     *@example ARM Holdings Plc
      */
     readonly company?: string;
 
     /**
-     *contact
+     *The name of the contact person for this account.
+     *@example J. Doe
      */
     readonly contact?: string;
 
     /**
-     *contractNumber
+     *Contract number of the customer.
+     *@example 1NX25_0001
      */
     readonly contractNumber?: string;
 
     /**
-     *country
+     *The country part of the postal address.
+     *@example United Kingdom
      */
     readonly country?: string;
 
     /**
-     *customFields
+     *Account&#39;s custom properties as key-value pairs.
      */
     readonly customFields?: { [key: string]: string };
 
     /**
-     *customerNumber
+     *Customer number of the customer.
+     *@example 1NC25_0001
      */
     readonly customerNumber?: string;
 
     /**
-     *displayName
+     *The display name for the account.
+     *@example ARM
      */
     readonly displayName?: string;
 
     /**
-     *email
+     *The company email address for this account.
+     *@example info@arm.com
      */
     readonly email?: string;
 
     /**
-     *endMarket
+     *Account end market.
+     *@example IT
      */
     readonly endMarket?: string;
 
     /**
-     *expirationWarningThreshold
+     *Indicates how many days (1-180) before account expiration a notification email should be sent.
+     *@example 180
      */
     readonly expirationWarningThreshold?: string;
 
     /**
-     *idleTimeout
+     *The reference token expiration time in minutes for this account.
+     *@example 30
      */
     readonly idleTimeout?: string;
 
     /**
-     *mfaStatus
+     *The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
      */
     readonly mfaStatus?: AccountMfaStatus;
 
@@ -196,27 +227,31 @@ export interface AccountUpdateRequest {
     readonly passwordPolicy?: PasswordPolicy;
 
     /**
-     *passwordRecoveryExpiration
+     *Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.
      */
     readonly passwordRecoveryExpiration?: number;
 
     /**
-     *phoneNumber
+     *The phone number of a representative of the company.
+     *@example +44 (1223) 400 400
      */
     readonly phoneNumber?: string;
 
     /**
-     *postalCode
+     *The postal code part of the postal address.
+     *@example CB1 9NJ
      */
     readonly postalCode?: string;
 
     /**
-     *salesContact
+     *Email address of the sales contact.
+     *@example sales@arm.com
      */
     readonly salesContact?: string;
 
     /**
-     *state
+     *The state part of the postal address.
+     *@example
      */
     readonly state?: string;
 }
@@ -309,12 +344,12 @@ export interface AccountFilter {
  */
 export interface AccountListOptions extends ListOptions {
     /**
-     *format
+     *Format information for the response to the query, supported: format=breakdown.
      */
     format?: string;
 
     /**
-     *properties
+     *Property name to be returned from account specific properties.
      */
     properties?: string;
 

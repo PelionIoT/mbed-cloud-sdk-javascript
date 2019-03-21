@@ -6,6 +6,7 @@ import { ImportContainer } from "../containers/importContainer/importContainer";
 import { ClassContainer } from "../containers/classContainer/classContainer";
 import { ExportContainer } from "../containers/exportContainer/exportContainer";
 import { File as GeneratedFile } from "../common/file";
+import { getDescription } from "./generateInterface";
 
 export async function generateTypes(entity, enums, pascalKey: string, outputFolder: string, camelKey: string, entityIndex: FileContainer): Promise<FileContainer> {
     const typeContainer = new FileContainer();
@@ -30,7 +31,8 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                 const propType = getPropertyType(field, enums);
                 const key = snakeToCamel(field._key);
                 const isRequired = field.required || false;
-                const propertyContainer = new PropertyContainer(key, propType, { isInterface: true, isReadonly: true, isOptional: !isRequired });
+                const description = getDescription(field, key);
+                const propertyContainer = new PropertyContainer(key, propType, { isInterface: true, isReadonly: true, isOptional: !isRequired, description });
                 bodyParams.push(propertyContainer);
 
                 if ((field.items && field.items.foreign_key)) {
@@ -88,6 +90,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                         {
                             isInterface: true,
                             isOptional: true,
+                            description: getDescription(q, snakeToCamel(q._key)),
                         }
                     )
                 );

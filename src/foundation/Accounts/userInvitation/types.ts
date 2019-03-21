@@ -5,17 +5,18 @@ import { LoginProfile } from "../loginProfile/loginProfile";
  */
 export interface UserInvitationCreateRequest {
     /**
-     *email
+     *Email address of the invited user.
+     *@example friend@arm.com
      */
     readonly email: string;
 
     /**
-     *loginProfiles
+     *This object represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *validForDays
+     *Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.
      */
     readonly validForDays?: number;
 }

@@ -5,17 +5,20 @@ export type ApiKeyStatus = "ACTIVE" | "INACTIVE";
  */
 export interface ApiKeyCreateRequest {
     /**
-     *name
+     *The display name for the API key.
+     *@example API key gorgon
      */
     readonly name: string;
 
     /**
-     *owner
+     *The owner of this API key, who is the creator by default.
+     *@example 01619571e2e89242ac12000600000000
      */
     readonly owner?: string;
 
     /**
-     *status
+     *The status of the API key.
+     *@example ACTIVE
      */
     readonly status?: ApiKeyStatus;
 }
@@ -24,17 +27,20 @@ export interface ApiKeyCreateRequest {
  */
 export interface ApiKeyUpdateRequest {
     /**
-     *name
+     *The display name for the API key.
+     *@example API key gorgon
      */
     readonly name: string;
 
     /**
-     *owner
+     *The owner of this API key, who is the creator by default.
+     *@example 01619571e2e89242ac12000600000000
      */
     readonly owner?: string;
 
     /**
-     *status
+     *The status of the API key.
+     *@example ACTIVE
      */
     readonly status?: ApiKeyStatus;
 }
