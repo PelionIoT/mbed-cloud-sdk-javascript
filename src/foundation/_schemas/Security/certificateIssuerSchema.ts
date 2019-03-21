@@ -22,7 +22,7 @@ export const certificateIssuerSchema = (): Schema => {
             {
                 name: "issuerType",
                 apiName: "issuer_type",
-                type: "CertificateIssuerTypeEnum",
+                type: "CertificateIssuerType",
             },
             {
                 name: "name",
@@ -55,7 +55,7 @@ export const certificateIssuerSchema = (): Schema => {
                             },
                             {
                                 name: "issuerType",
-                                type: "CertificateIssuerTypeEnum",
+                                type: "CertificateIssuerType",
                             },
                             {
                                 name: "name",

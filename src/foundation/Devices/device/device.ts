@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { DeviceDeployedStateEnum, DeviceMechanismEnum, DeviceStateEnum } from "./types";
+import { DeviceDeployedState, DeviceMechanism, DeviceState } from "./types";
 /**
  *Device
  */
@@ -47,7 +47,7 @@ export interface Device extends Entity {
     /**
      *deployedState
      */
-    readonly deployedState?: DeviceDeployedStateEnum;
+    readonly deployedState?: DeviceDeployedState;
 
     /**
      *deployment
@@ -112,7 +112,7 @@ export interface Device extends Entity {
     /**
      *mechanism
      */
-    mechanism?: DeviceMechanismEnum;
+    mechanism?: DeviceMechanism;
 
     /**
      *mechanismUrl
@@ -132,7 +132,7 @@ export interface Device extends Entity {
     /**
      *state
      */
-    state?: DeviceStateEnum;
+    state?: DeviceState;
 
     /**
      *updatedAt

@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { CertificateEnrollmentEnrollResultEnum, CertificateEnrollmentEnrollStatusEnum } from "./types";
+import { CertificateEnrollmentEnrollResult, CertificateEnrollmentEnrollStatus } from "./types";
 /**
  *CertificateEnrollment
  */
@@ -22,12 +22,12 @@ export interface CertificateEnrollment extends Entity {
     /**
      *enrollResult
      */
-    readonly enrollResult?: CertificateEnrollmentEnrollResultEnum;
+    readonly enrollResult?: CertificateEnrollmentEnrollResult;
 
     /**
      *enrollStatus
      */
-    readonly enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
+    readonly enrollStatus?: CertificateEnrollmentEnrollStatus;
 
     /**
      *updatedAt

@@ -1,6 +1,6 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
 import { LoginProfile } from "../loginProfile/loginProfile";
-export type UserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type UserStatus = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
 /**
  *UserCreateRequest
  */
@@ -110,17 +110,17 @@ export interface UserStatusFilter {
     /**
      *eq
      */
-    eq?: UserStatusEnum;
+    eq?: UserStatus;
 
     /**
      *in
      */
-    in?: Array<UserStatusEnum>;
+    in?: Array<UserStatus>;
 
     /**
      *nin
      */
-    nin?: Array<UserStatusEnum>;
+    nin?: Array<UserStatus>;
 }
 /**
  *UserLoginProfileFilter
@@ -143,7 +143,7 @@ export interface UserFilter {
     /**
      *status
      */
-    status?: UserStatusEnum | UserStatusFilter;
+    status?: UserStatus | UserStatusFilter;
 
     /**
      *loginProfile

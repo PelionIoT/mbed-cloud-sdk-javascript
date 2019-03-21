@@ -87,7 +87,7 @@ export const userSchema = (): Schema => {
             {
                 name: "status",
                 apiName: "status",
-                type: "UserStatusEnum",
+                type: "UserStatus",
             },
             {
                 name: "termsAccepted",

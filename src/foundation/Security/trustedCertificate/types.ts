@@ -1,6 +1,6 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
-export type TrustedCertificateServiceEnum = "lwm2m" | "bootstrap";
-export type TrustedCertificateStatusEnum = "ACTIVE" | "INACTIVE";
+export type TrustedCertificateService = "lwm2m" | "bootstrap";
+export type TrustedCertificateStatus = "ACTIVE" | "INACTIVE";
 /**
  *TrustedCertificateCreateRequest
  */
@@ -28,12 +28,12 @@ export interface TrustedCertificateCreateRequest {
     /**
      *service
      */
-    readonly service?: TrustedCertificateServiceEnum;
+    readonly service?: TrustedCertificateService;
 
     /**
      *status
      */
-    readonly status?: TrustedCertificateStatusEnum;
+    readonly status?: TrustedCertificateStatus;
 }
 /**
  *TrustedCertificateUpdateRequest
@@ -62,12 +62,12 @@ export interface TrustedCertificateUpdateRequest {
     /**
      *service
      */
-    readonly service?: TrustedCertificateServiceEnum;
+    readonly service?: TrustedCertificateService;
 
     /**
      *status
      */
-    readonly status?: TrustedCertificateStatusEnum;
+    readonly status?: TrustedCertificateStatus;
 }
 /**
  *TrustedCertificateNameFilter
@@ -85,7 +85,7 @@ export interface TrustedCertificateServiceFilter {
     /**
      *eq
      */
-    eq?: TrustedCertificateServiceEnum;
+    eq?: TrustedCertificateService;
 }
 /**
  *TrustedCertificateExpireFilter
@@ -135,7 +135,7 @@ export interface TrustedCertificateStatusFilter {
     /**
      *eq
      */
-    eq?: TrustedCertificateStatusEnum;
+    eq?: TrustedCertificateStatus;
 }
 /**
  *TrustedCertificateIssuerFilter
@@ -176,7 +176,7 @@ export interface TrustedCertificateFilter {
     /**
      *service
      */
-    service?: TrustedCertificateServiceEnum | TrustedCertificateServiceFilter;
+    service?: TrustedCertificateService | TrustedCertificateServiceFilter;
 
     /**
      *expire
@@ -201,7 +201,7 @@ export interface TrustedCertificateFilter {
     /**
      *status
      */
-    status?: TrustedCertificateStatusEnum | TrustedCertificateStatusFilter;
+    status?: TrustedCertificateStatus | TrustedCertificateStatusFilter;
 
     /**
      *issuer

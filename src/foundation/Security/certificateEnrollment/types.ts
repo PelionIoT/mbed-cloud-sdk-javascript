@@ -1,6 +1,6 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
-export type CertificateEnrollmentEnrollResultEnum = "success" | "not_found" | "forbidden" | "failure";
-export type CertificateEnrollmentEnrollStatusEnum = "new" | "completed";
+export type CertificateEnrollmentEnrollResult = "success" | "not_found" | "forbidden" | "failure";
+export type CertificateEnrollmentEnrollStatus = "new" | "completed";
 /**
  *CertificateEnrollmentDeviceIdFilter
  */
@@ -26,12 +26,12 @@ export interface CertificateEnrollmentEnrollStatusFilter {
     /**
      *neq
      */
-    neq?: CertificateEnrollmentEnrollStatusEnum;
+    neq?: CertificateEnrollmentEnrollStatus;
 
     /**
      *eq
      */
-    eq?: CertificateEnrollmentEnrollStatusEnum;
+    eq?: CertificateEnrollmentEnrollStatus;
 }
 /**
  *CertificateEnrollmentEnrollResultFilter
@@ -40,12 +40,12 @@ export interface CertificateEnrollmentEnrollResultFilter {
     /**
      *neq
      */
-    neq?: CertificateEnrollmentEnrollResultEnum;
+    neq?: CertificateEnrollmentEnrollResult;
 
     /**
      *eq
      */
-    eq?: CertificateEnrollmentEnrollResultEnum;
+    eq?: CertificateEnrollmentEnrollResult;
 }
 /**
  *CertificateEnrollmentCreatedAtFilter
@@ -92,12 +92,12 @@ export interface CertificateEnrollmentFilter {
     /**
      *enrollStatus
      */
-    enrollStatus?: CertificateEnrollmentEnrollStatusEnum | CertificateEnrollmentEnrollStatusFilter;
+    enrollStatus?: CertificateEnrollmentEnrollStatus | CertificateEnrollmentEnrollStatusFilter;
 
     /**
      *enrollResult
      */
-    enrollResult?: CertificateEnrollmentEnrollResultEnum | CertificateEnrollmentEnrollResultFilter;
+    enrollResult?: CertificateEnrollmentEnrollResult | CertificateEnrollmentEnrollResultFilter;
 
     /**
      *createdAt

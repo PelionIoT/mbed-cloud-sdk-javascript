@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { TrustedCertificateServiceEnum, TrustedCertificateStatusEnum } from "./types";
+import { TrustedCertificateService, TrustedCertificateStatus } from "./types";
 /**
  *TrustedCertificate
  */
@@ -62,12 +62,12 @@ export interface TrustedCertificate extends Entity {
     /**
      *service
      */
-    service: TrustedCertificateServiceEnum;
+    service: TrustedCertificateService;
 
     /**
      *status
      */
-    status?: TrustedCertificateStatusEnum;
+    status?: TrustedCertificateStatus;
 
     /**
      *subject

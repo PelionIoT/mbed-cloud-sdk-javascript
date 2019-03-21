@@ -127,7 +127,7 @@ export const accountSchema = (): Schema => {
             {
                 name: "mfaStatus",
                 apiName: "mfa_status",
-                type: "AccountMfaStatusEnum",
+                type: "AccountMfaStatus",
             },
             {
                 name: "notificationEmails",
@@ -192,7 +192,7 @@ export const accountSchema = (): Schema => {
             {
                 name: "status",
                 apiName: "status",
-                type: "AccountStatusEnum",
+                type: "AccountStatus",
             },
             {
                 name: "templateId",
@@ -508,7 +508,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "mfaStatus",
-                                type: "AccountMfaStatusEnum",
+                                type: "AccountMfaStatus",
                             },
                             {
                                 name: "notificationEmails",

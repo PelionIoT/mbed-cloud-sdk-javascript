@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { ApiKeyStatusEnum } from "./types";
+import { ApiKeyStatus } from "./types";
 /**
  *ApiKey
  */
@@ -42,7 +42,7 @@ export interface ApiKey extends Entity {
     /**
      *status
      */
-    status?: ApiKeyStatusEnum;
+    status?: ApiKeyStatus;
 
     /**
      *updatedAt

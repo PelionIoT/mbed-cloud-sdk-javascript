@@ -20,7 +20,7 @@ export function generateInterface(entity: any, enums: any): ClassContainer {
         properties.push(property);
 
         if (f.enum_reference) {
-            enumImports.push(snakeToPascal(f.enum_reference));
+            enumImports.push(snakeToPascal(f.enum_reference).replace("Enum", ""));
         }
 
         if ((f.items && f.items.foreign_key)) {

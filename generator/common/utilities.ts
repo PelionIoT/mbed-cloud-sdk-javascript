@@ -28,9 +28,9 @@ const getType = (type: string, items?: any) => {
     return t;
 };
 
-// get the type of enum usinf the enum_reference
+// get the type of enum using the enum_reference
 const getEnumType = (field, enums) => {
-    const enumName = snakeToPascal(field.enum_reference);
+    const enumName = snakeToPascal(field.enum_reference).replace("Enum", "");
     enums.push(enumName);
     return enumName;
 };
@@ -83,7 +83,7 @@ const snakeToCamel = snake => {
 // };
 
 // conver snake to PascalCase
-const snakeToPascal = snake => {
+const snakeToPascal = (snake: string): string => {
     const camel = snakeToCamel(snake);
     return camel.charAt(0).toUpperCase() + camel.slice(1);
 };

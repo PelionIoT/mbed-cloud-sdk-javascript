@@ -1,7 +1,7 @@
-export type DeviceDeployedStateEnum = "development" | "production";
+export type DeviceDeployedState = "development" | "production";
 export type DeviceExecutionMode = "0" | "1" | "5";
-export type DeviceMechanismEnum = "connector" | "direct";
-export type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
+export type DeviceMechanism = "connector" | "direct";
+export type DeviceState = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 /**
  *DeviceCreateRequest
  */
@@ -89,7 +89,7 @@ export interface DeviceCreateRequest {
     /**
      *mechanism
      */
-    readonly mechanism?: DeviceMechanismEnum;
+    readonly mechanism?: DeviceMechanism;
 
     /**
      *mechanismUrl
@@ -109,7 +109,7 @@ export interface DeviceCreateRequest {
     /**
      *state
      */
-    readonly state?: DeviceStateEnum;
+    readonly state?: DeviceState;
 
     /**
      *vendorId

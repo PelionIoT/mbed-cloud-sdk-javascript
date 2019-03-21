@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { CertificateIssuerTypeEnum } from "./types";
+import { CertificateIssuerType } from "./types";
 /**
  *CertificateIssuer
  */
@@ -22,7 +22,7 @@ export interface CertificateIssuer extends Entity {
     /**
      *issuerType
      */
-    issuerType: CertificateIssuerTypeEnum;
+    issuerType: CertificateIssuerType;
 
     /**
      *name

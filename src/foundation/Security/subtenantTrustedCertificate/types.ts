@@ -1,5 +1,5 @@
-export type SubtenantTrustedCertificateServiceEnum = "lwm2m" | "bootstrap";
-export type SubtenantTrustedCertificateStatusEnum = "ACTIVE" | "INACTIVE";
+export type SubtenantTrustedCertificateService = "lwm2m" | "bootstrap";
+export type SubtenantTrustedCertificateStatus = "ACTIVE" | "INACTIVE";
 /**
  *SubtenantTrustedCertificateCreateRequest
  */
@@ -27,12 +27,12 @@ export interface SubtenantTrustedCertificateCreateRequest {
     /**
      *service
      */
-    readonly service?: SubtenantTrustedCertificateServiceEnum;
+    readonly service?: SubtenantTrustedCertificateService;
 
     /**
      *status
      */
-    readonly status?: SubtenantTrustedCertificateStatusEnum;
+    readonly status?: SubtenantTrustedCertificateStatus;
 }
 /**
  *SubtenantTrustedCertificateUpdateRequest
@@ -61,10 +61,10 @@ export interface SubtenantTrustedCertificateUpdateRequest {
     /**
      *service
      */
-    readonly service?: SubtenantTrustedCertificateServiceEnum;
+    readonly service?: SubtenantTrustedCertificateService;
 
     /**
      *status
      */
-    readonly status?: SubtenantTrustedCertificateStatusEnum;
+    readonly status?: SubtenantTrustedCertificateStatus;
 }

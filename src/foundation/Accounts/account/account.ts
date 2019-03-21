@@ -2,7 +2,7 @@ import { Entity } from "../../../common/entity";
 import { ParentAccount } from "../parentAccount/parentAccount";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
 import { Policy } from "../policy/policy";
-import { AccountMfaStatusEnum, AccountStatusEnum } from "./types";
+import { AccountMfaStatus, AccountStatus } from "./types";
 /**
  *Account
  */
@@ -130,7 +130,7 @@ export interface Account extends Entity {
     /**
      *mfaStatus
      */
-    mfaStatus?: AccountMfaStatusEnum;
+    mfaStatus?: AccountMfaStatus;
 
     /**
      *notificationEmails
@@ -195,7 +195,7 @@ export interface Account extends Entity {
     /**
      *status
      */
-    readonly status?: AccountStatusEnum;
+    readonly status?: AccountStatus;
 
     /**
      *templateId

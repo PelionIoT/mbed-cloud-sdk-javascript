@@ -42,7 +42,7 @@ export const deviceEnrollmentBulkCreateSchema = (): Schema => {
             {
                 name: "status",
                 apiName: "status",
-                type: "DeviceEnrollmentBulkCreateStatusEnum",
+                type: "DeviceEnrollmentBulkCreateStatus",
             },
             {
                 name: "totalCount",

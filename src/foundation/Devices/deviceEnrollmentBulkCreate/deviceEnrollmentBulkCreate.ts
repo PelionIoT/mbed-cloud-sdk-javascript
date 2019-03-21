@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { DeviceEnrollmentBulkCreateStatusEnum } from "./types";
+import { DeviceEnrollmentBulkCreateStatus } from "./types";
 /**
  *DeviceEnrollmentBulkCreate
  */
@@ -42,7 +42,7 @@ export interface DeviceEnrollmentBulkCreate extends Entity {
     /**
      *status
      */
-    readonly status?: DeviceEnrollmentBulkCreateStatusEnum;
+    readonly status?: DeviceEnrollmentBulkCreateStatus;
 
     /**
      *totalCount

@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { SubtenantTrustedCertificateServiceEnum, SubtenantTrustedCertificateStatusEnum } from "./types";
+import { SubtenantTrustedCertificateService, SubtenantTrustedCertificateStatus } from "./types";
 /**
  *SubtenantTrustedCertificate
  */
@@ -62,12 +62,12 @@ export interface SubtenantTrustedCertificate extends Entity {
     /**
      *service
      */
-    service: SubtenantTrustedCertificateServiceEnum;
+    service: SubtenantTrustedCertificateService;
 
     /**
      *status
      */
-    status?: SubtenantTrustedCertificateStatusEnum;
+    status?: SubtenantTrustedCertificateStatus;
 
     /**
      *subject

@@ -2,7 +2,7 @@ import { Entity } from "../../../common/entity";
 import { ActiveSession } from "../activeSession/activeSession";
 import { LoginHistory } from "../loginHistory/loginHistory";
 import { LoginProfile } from "../loginProfile/loginProfile";
-import { UserStatusEnum } from "./types";
+import { UserStatus } from "./types";
 /**
  *User
  */
@@ -90,7 +90,7 @@ export interface User extends Entity {
     /**
      *status
      */
-    status?: UserStatusEnum;
+    status?: UserStatus;
 
     /**
      *termsAccepted

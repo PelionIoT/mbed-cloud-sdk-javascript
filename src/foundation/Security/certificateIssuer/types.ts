@@ -1,4 +1,4 @@
-export type CertificateIssuerTypeEnum = "GLOBAL_SIGN" | "CFSSL_AUTH";
+export type CertificateIssuerType = "GLOBAL_SIGN" | "CFSSL_AUTH";
 /**
  *CertificateIssuerCreateRequest
  */
@@ -21,7 +21,7 @@ export interface CertificateIssuerCreateRequest {
     /**
      *issuerType
      */
-    readonly issuerType: CertificateIssuerTypeEnum;
+    readonly issuerType: CertificateIssuerType;
 
     /**
      *name

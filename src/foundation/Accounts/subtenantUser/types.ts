@@ -1,5 +1,5 @@
 import { LoginProfile } from "../loginProfile/loginProfile";
-export type SubtenantUserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type SubtenantUserStatus = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
 /**
  *SubtenantUserCreateRequest
  */

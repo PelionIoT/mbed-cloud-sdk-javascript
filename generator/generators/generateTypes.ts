@@ -13,7 +13,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
     // any enums for this entity
     const entityEnums = entity.fields.filter(f => f.enum);
     for (const _enum of entityEnums) {
-        const key = snakeToPascal(_enum.enum_reference) || snakeToPascal(_enum.api_fieldname);
+        const key = (snakeToPascal(_enum.enum_reference) || snakeToPascal(_enum.api_fieldname)).replace("Enum", "");
         const enumContainer = new EnumContainer(key, _enum.enum);
         typeContainer.addContainer(enumContainer);
     }
