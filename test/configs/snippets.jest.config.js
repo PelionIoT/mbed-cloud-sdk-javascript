@@ -7,8 +7,8 @@ config.testMatch = [
 config.collectCoverage = true;
 
 config.collectCoverageFrom = [
-    "**/src/sdk/**/*.ts",
-    "!**/src/_api/*.ts",
+    "**/src/**/*.ts",
+    "!**/src/legacy/_api/*.ts",
     "!**/node_modules/**",
 ];
 
