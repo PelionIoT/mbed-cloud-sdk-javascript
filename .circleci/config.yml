@@ -376,8 +376,8 @@ jobs:
       - run:
           name: commit changes
           command: |
-              git add src/sdk/generated
-              git commit --message "Generated code" || true
+              git add src/foundation
+              git commit --message "New Foundation Interface changes" || true
               git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
 
 workflows:
