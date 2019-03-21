@@ -15,13 +15,13 @@
 * limitations under the License.
 */
 
-import { SDK } from "../../../src/sdk";
+import { Sdk } from "../../../src";
 
 describe("customApiCall", () => {
     test("customApiCall", async () => {
         try {
             // an example: custom api call
-            const sdk = new SDK();
+            const sdk = new Sdk();
             const users = await sdk.client.CallApi({ url: "/v3/users", method: "GET", query: { limit: 2 } });
             // end of example
             expect(users).toHaveProperty("data");

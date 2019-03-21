@@ -1,4 +1,4 @@
-import { ServerCredentials, ServerCredentialsRepository } from "../../../src/sdk/entities";
+import { ServerCredentials, ServerCredentialsRepository } from "../../../src/foundation";
 import { instanceOf } from "../../functions";
 
 describe("ServerCredentials tests", () => {

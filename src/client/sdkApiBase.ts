@@ -29,6 +29,9 @@ const MIME_REGEX = /^text\/plain(;.*)?$/i;
 const VERSION = Version.isPublished ? Version.version : `${Version.version}+dev`;
 const userAgent = `${Version.packageName}-javascript / ${VERSION}`;
 
+/**
+ * @ignore internal base class for the Client
+ */
 export class SdkApiBase {
 
     private config: Config;

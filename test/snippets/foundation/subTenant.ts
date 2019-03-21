@@ -1,4 +1,4 @@
-import { Account, SubtenantUser, SubtenantTrustedCertificate, PasswordPolicy, AccountRepository, SubtenantUserRepository, SubtenantUserInvitation } from "../../../src/sdk/entities";
+import { Account, SubtenantUser, SubtenantTrustedCertificate, PasswordPolicy, AccountRepository, SubtenantUserRepository, SubtenantUserInvitation } from "../../../src/foundation";
 import { instanceOf } from "../../functions";
 
 describe("subTenants", () => {

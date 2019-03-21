@@ -1,6 +1,6 @@
 import { Instance } from "./instance";
 import { TestRunnerFoundationInstance, TestRunnerMethodInfo, TestRunnerParameters, TestRunnerMethodCallResult } from "../foundation/types";
-import { SDK } from "../../../src";
+import { Sdk } from "../../../src";
 import { Repository } from "../../../src/common/repository";
 import { Method } from "../method/method";
 import * as schemas from "../../../src/foundation/_schemas";
@@ -11,7 +11,7 @@ import { ServerError } from "../server/error";
 /**
  * Foundation Instance, wraps an instance of a Repository or SDK
  */
-export class FoundationInstance extends Instance<Repository | SDK> {
+export class FoundationInstance extends Instance<Repository | Sdk> {
 
     /**
      * Name of the foundation instance. Will be entity name or SDK
@@ -30,13 +30,13 @@ export class FoundationInstance extends Instance<Repository | SDK> {
      * @param instance Instance, either a repository or top level SDK
      * @param name name of the instance
      */
-    constructor(instance: Repository | SDK, name: string) {
+    constructor(instance: Repository | Sdk, name: string) {
         super(instance);
         this.name = name;
         this.methods = {};
 
         // if the instance is a top level sdk, get methods from top level
-        if (this.instance instanceof SDK) {
+        if (this.instance instanceof Sdk) {
             for (const prop in this.instance) {
                 if (typeof this.instance[prop] === "function") {
                     const method = new Method(prop, name);

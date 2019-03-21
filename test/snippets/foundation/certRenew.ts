@@ -1,4 +1,4 @@
-import { CertificateIssuerConfig, CertificateEnrollment, CertificateIssuerConfigRepository, DeviceRepository, CertificateEnrollmentRepository } from "../../../src/sdk/entities";
+import { CertificateIssuerConfig, CertificateEnrollment, CertificateIssuerConfigRepository, DeviceRepository, CertificateEnrollmentRepository } from "../../../src/foundation";
 import { instanceOf } from "../../functions";
 
 describe("cert renew snippets", async () => {

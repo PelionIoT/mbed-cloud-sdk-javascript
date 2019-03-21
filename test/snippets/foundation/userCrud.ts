@@ -1,4 +1,4 @@
-import { User, LoginHistory, UserRepository } from "../../../src/sdk/entities";
+import { User, LoginHistory, UserRepository } from "../../../src/foundation";
 import { instanceOf } from "../../functions";
 
 describe("userCrud", () => {

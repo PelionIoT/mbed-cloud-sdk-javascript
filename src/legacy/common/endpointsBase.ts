@@ -18,6 +18,10 @@
 import { ApiMetadata } from "./apiMetadata";
 import { SDKError } from "./sdkError";
 
+/**
+ * Internal class
+ * @ignore
+ */
 export class EndpointsBase {
 
     private lastMeta: ApiMetadata;

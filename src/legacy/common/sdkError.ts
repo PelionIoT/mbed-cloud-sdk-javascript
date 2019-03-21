@@ -15,6 +15,9 @@
 * limitations under the License.
 */
 
+/**
+ * Defines an error raised in the SDK
+ */
 export class SDKError extends Error {
 
     constructor(message: string, public innerError?: Error, public details?: string, public code?: number) {

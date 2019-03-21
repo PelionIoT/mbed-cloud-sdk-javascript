@@ -43,7 +43,7 @@ export type IncludeEnum = "totalCount";
 /**
  * Ordering options
  */
-export type OrderEnum = "ASC" | "DESC";
+export type Order = "ASC" | "DESC";
 
 /**
  * Options to use when listing objects
@@ -56,7 +56,7 @@ export interface ListOptions {
     /**
      * ASC or DESC
      */
-    order?: OrderEnum;
+    order?: Order;
     /**
      * The ID of the item after which to retrieve the next page
      */

@@ -18,6 +18,10 @@
 import { ActiveServicePackage, PreviousServicePackage, PendingServicePackage, ServicePackageQuotaHistoryServicePackage } from "../../_api/billing";
 import { ServicePackage } from "./servicePackage";
 
+/**
+ * Internal
+ * @ignore
+ */
 export const mapActive = (from: ActiveServicePackage): ServicePackage => {
     const common: any = mapCommon(from);
 
@@ -28,6 +32,10 @@ export const mapActive = (from: ActiveServicePackage): ServicePackage => {
     return new ServicePackage(common);
 };
 
+/**
+ * Internal
+ * @ignore
+ */
 export const mapPending = (from: PendingServicePackage): ServicePackage => {
     const common: any = mapCommon(from);
     common.state = "pending";
@@ -35,6 +43,10 @@ export const mapPending = (from: PendingServicePackage): ServicePackage => {
     return new ServicePackage(common);
 };
 
+/**
+ * Internal
+ * @ignore
+ */
 export const mapPrevious = (from: PreviousServicePackage): ServicePackage => {
     const common: any = mapCommon(from);
     common.endsAt = from.end_time;
@@ -45,6 +57,10 @@ export const mapPrevious = (from: PreviousServicePackage): ServicePackage => {
     return new ServicePackage(common);
 };
 
+/**
+ * Internal
+ * @ignore
+ */
 export const mapQuotaHistoryServicePackage = (from: ServicePackageQuotaHistoryServicePackage): ServicePackage => {
     return new ServicePackage({
         expiresAt: from.expires,
@@ -55,6 +71,10 @@ export const mapQuotaHistoryServicePackage = (from: ServicePackageQuotaHistorySe
     });
 };
 
+/**
+ * Internal
+ * @ignore
+ */
 const mapCommon = (from: ActiveServicePackage | PreviousServicePackage | PendingServicePackage): Partial<ServicePackage> => {
     return new ServicePackage({
         createdAt: from.created,

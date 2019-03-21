@@ -18,7 +18,12 @@
 import { ListResponse } from "../legacy/common/listResponse";
 import { ListOptions } from "../legacy/common/interfaces";
 
-// Run `execute` for all items returned from getPage, one page at a time. If any call to getPage or execute fails, the resulting promise is rejected.
+/**
+ * Run `execute` for all items returned from getPage, one page at a time. If any call to getPage or execute fails, the resulting promise is rejected.
+ * @typeparam T  object that contains an Id property
+ * @param getPage The function for receiving a page
+ * @param execute The function to execute on each item
+ */
 export const executeForAll = <T extends { id: string }>(
     getPage: (options: { after?: string }) => Promise<ListResponse<T>>,
     execute: (id: string) => Promise<void>,
@@ -40,8 +45,10 @@ export const executeForAll = <T extends { id: string }>(
 };
 
 /**
- * ## Paginator
+ * Paginator
  * Iterator-like object over an entire result set of a truncated/paginated API operation (for instance,  listConnectedDevices).
+ * @typeparam T Entity to paginate over
+ * @typeparam U ListOptions class for paginator to use
  */
 export class Paginator<T, U extends ListOptions> {
     private pageRequester: (options: U) => Promise<ListResponse<T>>;
