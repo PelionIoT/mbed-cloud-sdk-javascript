@@ -341,12 +341,8 @@ export const accountSchema = (): Schema => {
                                 type: "string",
                             },
                             {
-                                name: "format",
-                                type: "string",
-                            },
-                            {
-                                name: "properties",
-                                type: "string",
+                                name: "filter",
+                                type: "SubtenantUserFilter",
                             },
                         ],
                     },
@@ -432,6 +428,10 @@ export const accountSchema = (): Schema => {
                             {
                                 name: "maxResults",
                                 type: "string",
+                            },
+                            {
+                                name: "filter",
+                                type: "SubtenantUserFilter",
                             },
                         ],
                     },
@@ -581,6 +581,10 @@ export const accountSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                            {
+                                name: "filter",
+                                type: "SubtenantUserFilter",
+                            },
                         ],
                     },
                 ],
@@ -618,6 +622,10 @@ export const accountSchema = (): Schema => {
                             {
                                 name: "maxResults",
                                 type: "string",
+                            },
+                            {
+                                name: "filter",
+                                type: "SubtenantUserFilter",
                             },
                         ],
                     },

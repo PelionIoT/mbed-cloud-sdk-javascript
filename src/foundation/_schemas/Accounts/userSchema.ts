@@ -211,6 +211,10 @@ export const userSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                            {
+                                name: "filter",
+                                type: "UserFilter",
+                            },
                         ],
                     },
                 ],

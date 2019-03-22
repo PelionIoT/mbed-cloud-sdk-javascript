@@ -16,7 +16,7 @@ export class TrustedCertificateAdapter extends Adapter {
             certificateFingerprint: data.certificate_fingerprint,
             createdAt: data.created_at,
             description: data.description,
-            deviceExecutionMode: data.device_execution_mode,
+            deviceExecutionMode: data.device_execution_mode || 0,
             enrollmentMode: data.enrollment_mode,
             id: data.id,
             isDeveloperCertificate: data.is_developer_certificate,

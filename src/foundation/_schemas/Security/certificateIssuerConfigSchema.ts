@@ -93,6 +93,10 @@ export const certificateIssuerConfigSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                            {
+                                name: "filter",
+                                type: "CertificateIssuerConfigFilter",
+                            },
                         ],
                     },
                 ],

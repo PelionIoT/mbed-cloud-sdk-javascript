@@ -13,7 +13,7 @@ var projectRoot = path.join(__dirname, "../../../../..");
 var coverageDir = path.join(projectRoot, "coverage");
 var coverageFile = path.join(coverageDir, "int_coverage.json");
 
-var collectCoverageFrom = ["src/**/*.js", "!src/legacy/_api/**"];
+var collectCoverageFrom = ["src/**/*.js", "!src/legacy/_api/**", "!src/schema/**", "!src/foundation/_schemas/**",];
 
 if (!fs.existsSync(coverageDir)) {
     fs.mkdirSync(coverageDir);

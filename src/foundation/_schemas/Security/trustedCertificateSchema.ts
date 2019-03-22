@@ -180,6 +180,10 @@ export const trustedCertificateSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                            {
+                                name: "filter",
+                                type: "TrustedCertificateFilter",
+                            },
                         ],
                     },
                 ],

@@ -76,7 +76,8 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
             {
                 mapsForeignKeyArray,
                 mapsForeignKey,
-                foreignKeyAdapter
+                foreignKeyAdapter,
+                defaultValue: getDefaultValue(field),
             }
         );
         adapterFields.push(adapterField);
@@ -134,3 +135,15 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
 
     return adapterClass;
 }
+
+const getDefaultValue = field => {
+    if (field.type === "string") {
+        return field.default ? `"${field.default}"` : null;
+    }
+
+    if (field.type === "integer") {
+        return field.default || 0;
+    }
+
+    return null;
+};

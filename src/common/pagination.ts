@@ -217,7 +217,15 @@ export class Paginator<T, U extends ListOptions> {
 
     private browseAndConcatenateAllPages(): Promise<Array<T>> {
         if (this.hasNewPage()) {
-            return this.nextPage().then( page => this.browseAndConcatenateAllPages().then( data => page.data.length === 0 ? data : page.data.concat(data)));
+            return this.nextPage()
+                .then(page => this.browseAndConcatenateAllPages()
+                .then(data => {
+                    if (page && page.data) {
+                        return page.data.length === 0 ? data : page.data.concat(data);
+                    }
+
+                    return [];
+                }));
         }
         return Promise.resolve([]);
     }
