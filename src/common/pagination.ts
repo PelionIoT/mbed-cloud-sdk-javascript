@@ -230,7 +230,7 @@ export class Paginator<T, U extends ListOptions> {
         return Promise.resolve([]);
     }
 
-    private executeOnAllElements(execute: (element: T) => Promise<void>) {
+    private executeOnAllElements(execute: (element: T) => void) {
         if (this.hasNext()) {
             return this.next().then( element => execute(element)).then(() => this.executeOnAllElements(execute));
         }
@@ -241,7 +241,7 @@ export class Paginator<T, U extends ListOptions> {
      * @param execute method to execute on the elements
      * Note: This requires browsing the whole collection and therefore can be expensive.
      */
-    public executeForAll(execute: (element: T) => Promise<void>): Promise<void> {
+    public executeForAll(execute: (element: T) => void): Promise<void> {
         this.reset();
         return this.executeOnAllElements(execute);
     }

@@ -1,5 +1,5 @@
 /* tslint:disable: no-console */
-import { DeviceEnrollment, DeviceEnrollmentRepository, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository } from "../../../src/sdk/entities";
+import { DeviceEnrollment, DeviceEnrollmentRepository, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository } from "../../../src";
 import { createReadStream, ReadStream } from "fs";
 
 describe("Device Enrollment examples", () => {

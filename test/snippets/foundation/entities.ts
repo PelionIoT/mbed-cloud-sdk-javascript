@@ -1,5 +1,5 @@
-import { AccountRepository, ApiKeyRepository } from "../../../src/sdk/entities";
-import { Config, SDK } from "../../../src/sdk";
+import { AccountRepository, ApiKeyRepository } from "../../../src";
+import { Config, SDK } from "../../../src";
 
 describe("entities", () => {
     test("quick", async () => {
@@ -30,7 +30,7 @@ describe("entities", () => {
         try {
             // an example: using multiple api keys
             const allUsers = [];
-            [ "ak_1", "ak_2" ].forEach(async k => allUsers.concat(await new SDK(new Config({ apiKey: k })).entities().userRepository().list().all()));
+            [ "ak_1", "ak_2" ].forEach(async k => allUsers.concat(await new SDK(new Config({ apiKey: k })).foundation().userRepository().list().all()));
             // end of example
         } catch (e) {
             throw e;
@@ -41,7 +41,7 @@ describe("entities", () => {
         try {
             // an example: using custom hosts
             const config = new Config({ apiKey: "ak_1", host: "http://example" });
-            const allUsers = new SDK(config).entities().userRepository().list().all();
+            const allUsers = new SDK(config).foundation().userRepository().list().all();
             // end of example
             expect(allUsers).not.toBeNull();
         } catch (e) {
