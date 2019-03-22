@@ -125,17 +125,17 @@ export interface UserStatusFilter {
     /**
      *eq
      */
-    eq?: UserStatusEnum;
+    eq?: UserStatus;
 
     /**
      *in
      */
-    in?: Array<UserStatusEnum>;
+    in?: Array<UserStatus>;
 
     /**
      *nin
      */
-    nin?: Array<UserStatusEnum>;
+    nin?: Array<UserStatus>;
 }
 /**
  *UserLoginProfileFilter
@@ -158,7 +158,7 @@ export interface UserFilter {
     /**
      *status
      */
-    status?: UserStatusEnum | UserStatusFilter;
+    status?: UserStatus | UserStatusFilter;
 
     /**
      *loginProfile

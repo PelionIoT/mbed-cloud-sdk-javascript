@@ -137,7 +137,7 @@ export const deviceSchema = (): Schema => {
             {
                 name: "lifecycleStatus",
                 apiName: "lifecycle_status",
-                type: "DeviceLifecycleStatusEnum",
+                type: "DeviceLifecycleStatus",
             },
             {
                 name: "manifest",
@@ -341,6 +341,10 @@ export const deviceSchema = (): Schema => {
                             {
                                 name: "maxResults",
                                 type: "string",
+                            },
+                            {
+                                name: "filter",
+                                type: "DeviceFilter",
                             },
                         ],
                     },

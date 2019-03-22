@@ -262,17 +262,17 @@ export interface AccountStatusFilter {
     /**
      *eq
      */
-    eq?: AccountStatusEnum;
+    eq?: AccountStatus;
 
     /**
      *in
      */
-    in?: Array<AccountStatusEnum>;
+    in?: Array<AccountStatus>;
 
     /**
      *nin
      */
-    nin?: Array<AccountStatusEnum>;
+    nin?: Array<AccountStatus>;
 }
 /**
  *AccountTierFilter
@@ -317,7 +317,7 @@ export interface AccountFilter {
     /**
      *status
      */
-    status?: AccountStatusEnum | AccountStatusFilter;
+    status?: AccountStatus | AccountStatusFilter;
 
     /**
      *tier
@@ -424,7 +424,7 @@ export interface SubtenantTrustedCertificateStatusFilter {
     /**
      *eq
      */
-    eq?: AccountStatusEnum;
+    eq?: AccountStatus;
 }
 /**
  *SubtenantTrustedCertificateIssuerFilter
@@ -490,7 +490,7 @@ export interface SubtenantTrustedCertificateFilter {
     /**
      *status
      */
-    status?: AccountStatusEnum | SubtenantTrustedCertificateStatusFilter;
+    status?: AccountStatus | SubtenantTrustedCertificateStatusFilter;
 
     /**
      *issuer
@@ -559,17 +559,17 @@ export interface SubtenantUserStatusFilter {
     /**
      *eq
      */
-    eq?: AccountStatusEnum;
+    eq?: AccountStatus;
 
     /**
      *in
      */
-    in?: Array<AccountStatusEnum>;
+    in?: Array<AccountStatus>;
 
     /**
      *nin
      */
-    nin?: Array<AccountStatusEnum>;
+    nin?: Array<AccountStatus>;
 }
 /**
  *SubtenantUserLoginProfileFilter
@@ -592,7 +592,7 @@ export interface SubtenantUserFilter {
     /**
      *status
      */
-    status?: AccountStatusEnum | SubtenantUserStatusFilter;
+    status?: AccountStatus | SubtenantUserStatusFilter;
 
     /**
      *loginProfile

@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { DeviceDeployedStateEnum, DeviceLifecycleStatusEnum, DeviceMechanismEnum, DeviceStateEnum } from "./types";
+import { DeviceDeployedState, DeviceLifecycleStatus, DeviceMechanism, DeviceState } from "./types";
 /**
  *Device
  */
@@ -44,8 +44,8 @@ export interface Device extends Entity {
     readonly createdAt?: Date;
 
     /**
-     *Up to five custom key-value attributes.
-     *@example { &#39;key&#39;: &#39;value&#39; }
+     *Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.
+     *@example [object Object]
      */
     customAttributes?: { [key: string]: string };
 
@@ -114,47 +114,55 @@ Permitted values:
     hostGateway?: string;
 
     /**
-     *issuerFingerprint
+     *SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
+     *@example C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
      */
     issuerFingerprint?: string;
 
     /**
-     *lastOperatorSuspendedCategory
+     *The reference of the block category.
+     *@example maintenance
      */
     readonly lastOperatorSuspendedCategory?: string;
 
     /**
-     *lastOperatorSuspendedDescription
+     *The most recent description why the device was suspended or returned to service.
+     *@example Suspended for maintenance.
      */
     readonly lastOperatorSuspendedDescription?: string;
 
     /**
-     *lastOperatorSuspendedUpdatedAt
+     *The timestamp of the most recent suspension activity.
+     *@example 2017-05-22T12:37:55.576563Z
      */
     readonly lastOperatorSuspendedUpdatedAt?: Date;
 
     /**
-     *lastSystemSuspendedCategory
+     *The reference of the block category.
+     *@example maintenance
      */
     readonly lastSystemSuspendedCategory?: string;
 
     /**
-     *lastSystemSuspendedDescription
+     *The most recent description of why the device was blocked or unblocked by the system.
+     *@example A certificate in the device&#39;s certificate chain was blacklisted by the system.
      */
     readonly lastSystemSuspendedDescription?: string;
 
     /**
-     *lastSystemSuspendedUpdatedAt
+     *The timestamp of the most recent system block activity.
+     *@example 2017-05-22T12:37:55.576563Z
      */
     readonly lastSystemSuspendedUpdatedAt?: Date;
 
     /**
-     *lifecycleStatus
+     *The lifecycle status of the device.
+     *@example enabled
      */
-    readonly lifecycleStatus?: DeviceLifecycleStatusEnum;
+    readonly lifecycleStatus?: DeviceLifecycleStatus;
 
     /**
-     *manifest
+     *DEPRECATED: The URL for the current device manifest.
      */
     manifest?: string;
 
@@ -181,12 +189,13 @@ Permitted values:
     name?: string;
 
     /**
-     *operatorSuspended
+     *Is the device suspended by the operator?
      */
     readonly operatorSuspended?: boolean;
 
     /**
-     *serialNumber
+     *The serial number of the device.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     serialNumber?: string;
 
@@ -196,12 +205,13 @@ Permitted values:
     state?: DeviceState;
 
     /**
-     *systemSuspended
+     *Is the device suspended by the system?
      */
     readonly systemSuspended?: boolean;
 
     /**
-     *updatedAt
+     *The time the object was updated.
+     *@example 2017-05-22T12:37:55.576563Z
      */
     readonly updatedAt?: Date;
 
