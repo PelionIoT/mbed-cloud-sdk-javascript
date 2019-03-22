@@ -36,6 +36,7 @@ export class DeviceRepository extends Repository {
                             endpoint_type: request.endpointType,
                             firmware_checksum: request.firmwareChecksum,
                             host_gateway: request.hostGateway,
+                            issuer_fingerprint: request.issuerFingerprint,
                             manifest: request.manifest,
                             mechanism: request.mechanism,
                             mechanism_url: request.mechanismUrl,
