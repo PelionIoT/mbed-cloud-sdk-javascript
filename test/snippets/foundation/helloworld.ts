@@ -45,7 +45,7 @@ describe("hello world examples", () => {
         const sdk = new SDK();
         process.env.account_one_api_key = sdk.config.apiKey;
         process.env.account_two_api_key = sdk.config.apiKey;
-        // an example: hello_world_with_sdk_instance
+        // an example: hello_world_with_multiple_api_keys
          // cloak
         /*
         // uncloak
