@@ -6,7 +6,7 @@ import { CertificateIssuerCreateRequest } from "./types";
 import { CertificateIssuerUpdateRequest } from "./types";
 import { VerificationResponse } from "../../index";
 import { VerificationResponseAdapter } from "../../index";
-import { Paginator } from "../../../legacy/common/pagination";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**

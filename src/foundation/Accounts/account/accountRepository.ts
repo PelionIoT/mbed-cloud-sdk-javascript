@@ -3,15 +3,19 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { Account } from "./account";
 import { AccountAdapter } from "../../index";
 import { AccountCreateRequest } from "./types";
+import { extractFilter } from "../../../common/filters";
 import { AccountListOptions } from "./types";
 import { SubtenantTrustedCertificate } from "../../index";
 import { SubtenantTrustedCertificateAdapter } from "../../index";
+import { SubtenantTrustedCertificateListOptions } from "./types";
 import { AccountUpdateRequest } from "./types";
 import { SubtenantUserInvitation } from "../../index";
 import { SubtenantUserInvitationAdapter } from "../../index";
+import { SubtenantUserInvitationListOptions } from "./types";
 import { SubtenantUser } from "../../index";
 import { SubtenantUserAdapter } from "../../index";
-import { Paginator } from "../../../legacy/common/pagination";
+import { SubtenantUserListOptions } from "./types";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
@@ -68,6 +72,13 @@ export class AccountRepository extends Repository {
                             url: "/v3/accounts",
                             method: "GET",
                             query: {
+                                status__eq: extractFilter(pageOptions.filter, "status", "eq"),
+                                status__in: extractFilter(pageOptions.filter, "status", "in"),
+                                status__nin: extractFilter(pageOptions.filter, "status", "nin"),
+                                tier__eq: extractFilter(pageOptions.filter, "tier", "eq"),
+                                parent__eq: extractFilter(pageOptions.filter, "parent", "eq"),
+                                end_market__eq: extractFilter(pageOptions.filter, "endMarket", "eq"),
+                                country__like: extractFilter(pageOptions.filter, "country", "like"),
                                 after: pageOptions.after,
                                 format: pageOptions.format,
                                 include: pageOptions.include,
@@ -133,8 +144,13 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public trustedCertificates(id: string, options?: ListOptions): Paginator<SubtenantTrustedCertificate, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantTrustedCertificate>> => {
+    public trustedCertificates(
+        id: string,
+        options?: SubtenantTrustedCertificateListOptions
+    ): Paginator<SubtenantTrustedCertificate, ListOptions> {
+        const pageFunc = (
+            pageOptions: SubtenantTrustedCertificateListOptions
+        ): Promise<ListResponse<SubtenantTrustedCertificate>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -143,6 +159,25 @@ export class AccountRepository extends Repository {
                             url: "/v3/accounts/{account_id}/trusted-certificates",
                             method: "GET",
                             query: {
+                                name__eq: extractFilter(pageOptions.filter, "name", "eq"),
+                                service__eq: extractFilter(pageOptions.filter, "service", "eq"),
+                                expire__eq: extractFilter(pageOptions.filter, "expire", "eq"),
+                                device_execution_mode__eq: extractFilter(
+                                    pageOptions.filter,
+                                    "deviceExecutionMode",
+                                    "eq"
+                                ),
+                                device_execution_mode__neq: extractFilter(
+                                    pageOptions.filter,
+                                    "deviceExecutionMode",
+                                    "neq"
+                                ),
+                                owner__eq: extractFilter(pageOptions.filter, "owner", "eq"),
+                                enrollment_mode__eq: extractFilter(pageOptions.filter, "enrollmentMode", "eq"),
+                                status__eq: extractFilter(pageOptions.filter, "status", "eq"),
+                                issuer__like: extractFilter(pageOptions.filter, "issuer", "like"),
+                                subject__like: extractFilter(pageOptions.filter, "subject", "like"),
+                                valid__eq: extractFilter(pageOptions.filter, "valid", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,
@@ -208,8 +243,13 @@ export class AccountRepository extends Repository {
             }
         );
     }
-    public userInvitations(id: string, options?: ListOptions): Paginator<SubtenantUserInvitation, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUserInvitation>> => {
+    public userInvitations(
+        id: string,
+        options?: SubtenantUserInvitationListOptions
+    ): Paginator<SubtenantUserInvitation, ListOptions> {
+        const pageFunc = (
+            pageOptions: SubtenantUserInvitationListOptions
+        ): Promise<ListResponse<SubtenantUserInvitation>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -218,6 +258,7 @@ export class AccountRepository extends Repository {
                             url: "/v3/accounts/{account_id}/user-invitations",
                             method: "GET",
                             query: {
+                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
                                 after: pageOptions.after,
                                 limit: pageOptions.limit,
                                 order: pageOptions.order,
@@ -238,8 +279,8 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
-    public users(id: string, options?: ListOptions): Paginator<SubtenantUser, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantUser>> => {
+    public users(id: string, options?: SubtenantUserListOptions): Paginator<SubtenantUser, ListOptions> {
+        const pageFunc = (pageOptions: SubtenantUserListOptions): Promise<ListResponse<SubtenantUser>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -248,6 +289,11 @@ export class AccountRepository extends Repository {
                             url: "/v3/accounts/{account_id}/users",
                             method: "GET",
                             query: {
+                                email__eq: extractFilter(pageOptions.filter, "email", "eq"),
+                                status__eq: extractFilter(pageOptions.filter, "status", "eq"),
+                                status__in: extractFilter(pageOptions.filter, "status", "in"),
+                                status__nin: extractFilter(pageOptions.filter, "status", "nin"),
+                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

@@ -1,6 +1,6 @@
 import { ImportContainer } from "../containers/importContainer/importContainer";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
-import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, isEmptyFilter } from "../common/utilities";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
 import { ParameterBucketContainer } from "../containers/parameterBucketContainer/parameterBucketContainer";
@@ -116,9 +116,39 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
             parameterList.addParameters(externalParams);
 
+            const queryParams = [];
+            const pathParams = [];
+            const fileParams = [];
+            const bodyParams = [];
+
             if (paginated) {
+                const filters = method.x_filter;
+                if (!isEmptyFilter(filters)) {
+                    // add import for extract filter
+                    safeAddToList(repositoryImports, new ImportContainer(
+                        "API_WRAPPER",
+                        "../../../common/filters",
+                        [
+                            "extractFilter",
+                        ]
+                    ));
+                    Object.keys(filters).forEach(filterName => {
+                        const field = entity.fields.filter(p => p._key === filterName).pop();
+                        filters[filterName].forEach(filterOperator => {
+                            const apiFilterName = `${field ? field.api_fieldname : filterName}__${filterOperator}`;
+                            // abuse of the MethodBodyParameterContainer to create the extract filter call
+                            const queryParam = new MethodBodyParameterContainer(
+                                "",
+                                apiFilterName,
+                                `extractFilter(pageOptions.filter,"${snakeToCamel(filterName)}","${filterOperator}")`
+                            );
+                            queryParams.push(queryParam);
+                        });
+                    });
+                }
+
                 const extraQueryParams = ep.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
-                if (extraQueryParams.length > 0) {
+                if (extraQueryParams.length > 0 || !isEmptyFilter(filters)) {
                     listOptionsType = `${returns}ListOptions`;
                     parameterList.addParameters(
                         new ParameterContainer(
@@ -151,10 +181,6 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 }
             }
 
-            const queryParams = [];
-            const pathParams = [];
-            const fileParams = [];
-            const bodyParams = [];
             // internal params
             const ip = method.fields.filter(m => m.in !== undefined);
             for (const field of ip) {
@@ -277,7 +303,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                         "API_WRAPPER",
                         "../../../legacy/common/functions",
                         [
-                            "apiWrapper"
+                            "apiWrapper",
                         ]
                     ),
                     new ImportContainer(
@@ -304,7 +330,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
         if (hasPaginator) {
             repositoryClass.addImport(new ImportContainer(
                 `PAGINATOR`,
-                "../../../legacy/common/pagination",
+                "../../../common/pagination",
                 [
                     "Paginator"
                 ]

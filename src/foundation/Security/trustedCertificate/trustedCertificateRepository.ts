@@ -5,8 +5,10 @@ import { TrustedCertificateAdapter } from "../../index";
 import { TrustedCertificateCreateRequest } from "./types";
 import { DeveloperCertificate } from "../../index";
 import { DeveloperCertificateAdapter } from "../../index";
+import { extractFilter } from "../../../common/filters";
+import { TrustedCertificateListOptions } from "./types";
 import { TrustedCertificateUpdateRequest } from "./types";
-import { Paginator } from "../../../legacy/common/pagination";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
@@ -75,8 +77,8 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
-    public list(options?: ListOptions): Paginator<TrustedCertificate, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<TrustedCertificate>> => {
+    public list(options?: TrustedCertificateListOptions): Paginator<TrustedCertificate, ListOptions> {
+        const pageFunc = (pageOptions: TrustedCertificateListOptions): Promise<ListResponse<TrustedCertificate>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -85,6 +87,25 @@ export class TrustedCertificateRepository extends Repository {
                             url: "/v3/trusted-certificates",
                             method: "GET",
                             query: {
+                                name__eq: extractFilter(pageOptions.filter, "name", "eq"),
+                                service__eq: extractFilter(pageOptions.filter, "service", "eq"),
+                                expire__eq: extractFilter(pageOptions.filter, "expire", "eq"),
+                                device_execution_mode__eq: extractFilter(
+                                    pageOptions.filter,
+                                    "deviceExecutionMode",
+                                    "eq"
+                                ),
+                                device_execution_mode__neq: extractFilter(
+                                    pageOptions.filter,
+                                    "deviceExecutionMode",
+                                    "neq"
+                                ),
+                                owner__eq: extractFilter(pageOptions.filter, "owner", "eq"),
+                                enrollment_mode__eq: extractFilter(pageOptions.filter, "enrollmentMode", "eq"),
+                                status__eq: extractFilter(pageOptions.filter, "status", "eq"),
+                                issuer__like: extractFilter(pageOptions.filter, "issuer", "like"),
+                                subject__like: extractFilter(pageOptions.filter, "subject", "like"),
+                                valid__eq: extractFilter(pageOptions.filter, "valid", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

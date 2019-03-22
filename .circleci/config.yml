@@ -13,6 +13,7 @@ references:
         ignore:
         - master
         - beta
+        - /dependabot.*/
   contract_repo_branch: &contract_repo_branch
     filters:
       branches:
@@ -152,7 +153,7 @@ jobs:
   integration_test:
     working_directory: ~/build
     environment:
-      TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+      TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner
       PIPENV_VENV_IN_PROJECT: TRUE
     machine: true
     steps:
@@ -189,7 +190,12 @@ jobs:
             ${login}
       - run:
           name: Fetch the test runner
-          command: docker pull ${TESTRUNNER_DOCKER_IMAGE}
+          command: (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+              && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+              104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
+              || (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+              && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+              104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
       - run:
           name: Run the tests
           command: set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ~/build/integration.html
@@ -370,8 +376,8 @@ jobs:
       - run:
           name: commit changes
           command: |
-              git add src/sdk/generated
-              git commit --message "Generated code" || true
+              git add src/foundation
+              git commit --message "New Foundation Interface changes" || true
               git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
 
 workflows:

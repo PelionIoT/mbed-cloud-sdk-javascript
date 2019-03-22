@@ -3,7 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { DeviceEnrollment } from "./deviceEnrollment";
 import { DeviceEnrollmentAdapter } from "../../index";
 import { DeviceEnrollmentCreateRequest } from "./types";
-import { Paginator } from "../../../legacy/common/pagination";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**

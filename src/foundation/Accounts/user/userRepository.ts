@@ -3,8 +3,10 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { User } from "./user";
 import { UserAdapter } from "../../index";
 import { UserCreateRequest } from "./types";
+import { extractFilter } from "../../../common/filters";
+import { UserListOptions } from "./types";
 import { UserUpdateRequest } from "./types";
-import { Paginator } from "../../../legacy/common/pagination";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
@@ -60,8 +62,8 @@ export class UserRepository extends Repository {
             }
         );
     }
-    public list(options?: ListOptions): Paginator<User, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<User>> => {
+    public list(options?: UserListOptions): Paginator<User, ListOptions> {
+        const pageFunc = (pageOptions: UserListOptions): Promise<ListResponse<User>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -70,6 +72,11 @@ export class UserRepository extends Repository {
                             url: "/v3/users",
                             method: "GET",
                             query: {
+                                email__eq: extractFilter(pageOptions.filter, "email", "eq"),
+                                status__eq: extractFilter(pageOptions.filter, "status", "eq"),
+                                status__in: extractFilter(pageOptions.filter, "status", "in"),
+                                status__nin: extractFilter(pageOptions.filter, "status", "nin"),
+                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

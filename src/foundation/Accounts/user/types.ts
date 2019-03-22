@@ -1,3 +1,4 @@
+import { ListOptions } from "../../../legacy/common/interfaces";
 import { LoginProfile } from "../loginProfile/loginProfile";
 export type UserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
 /**
@@ -92,4 +93,69 @@ export interface UserUpdateRequest {
      *username
      */
     readonly username?: string;
+}
+/**
+ *UserEmailFilter
+ */
+export interface UserEmailFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *UserStatusFilter
+ */
+export interface UserStatusFilter {
+    /**
+     *eq
+     */
+    eq?: UserStatusEnum;
+
+    /**
+     *in
+     */
+    in?: Array<UserStatusEnum>;
+
+    /**
+     *nin
+     */
+    nin?: Array<UserStatusEnum>;
+}
+/**
+ *UserLoginProfileFilter
+ */
+export interface UserLoginProfileFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *UserFilter
+ */
+export interface UserFilter {
+    /**
+     *email
+     */
+    email?: string | UserEmailFilter;
+
+    /**
+     *status
+     */
+    status?: UserStatusEnum | UserStatusFilter;
+
+    /**
+     *loginProfile
+     */
+    loginProfile?: string | UserLoginProfileFilter;
+}
+/**
+ *UserListOptions
+ */
+export interface UserListOptions extends ListOptions {
+    /**
+     *filter
+     */
+    filter?: UserFilter;
 }

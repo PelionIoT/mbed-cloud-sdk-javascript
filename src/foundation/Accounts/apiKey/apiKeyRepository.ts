@@ -3,8 +3,10 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { ApiKey } from "./apiKey";
 import { ApiKeyAdapter } from "../../index";
 import { ApiKeyCreateRequest } from "./types";
+import { extractFilter } from "../../../common/filters";
+import { ApiKeyListOptions } from "./types";
 import { ApiKeyUpdateRequest } from "./types";
-import { Paginator } from "../../../legacy/common/pagination";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
@@ -51,8 +53,8 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
-    public list(options?: ListOptions): Paginator<ApiKey, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<ApiKey>> => {
+    public list(options?: ApiKeyListOptions): Paginator<ApiKey, ListOptions> {
+        const pageFunc = (pageOptions: ApiKeyListOptions): Promise<ListResponse<ApiKey>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -61,6 +63,8 @@ export class ApiKeyRepository extends Repository {
                             url: "/v3/api-keys",
                             method: "GET",
                             query: {
+                                key__eq: extractFilter(pageOptions.filter, "key", "eq"),
+                                owner__eq: extractFilter(pageOptions.filter, "owner", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

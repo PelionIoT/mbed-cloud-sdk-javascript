@@ -115,6 +115,9 @@ export class Method {
             } else if (parameter.type === "file") {
                 // if file then return a read stream
                 return fs.createReadStream(testRunnerParameters[foundParam]);
+            } else if (parameter.type.endsWith("Filter")) {
+                logMessage(`filter - ${JSON.stringify(testRunnerParameters[foundParam])}`);
+                return testRunnerParameters[foundParam];
             } else {
                 logMessage(`No mapping found for ${parameter.name}, returning default`);
                 return testRunnerParameters[foundParam];

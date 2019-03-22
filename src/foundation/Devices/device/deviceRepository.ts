@@ -6,7 +6,7 @@ import { DeviceCreateRequest } from "./types";
 import { CertificateEnrollment } from "../../index";
 import { CertificateEnrollmentAdapter } from "../../index";
 import { DeviceUpdateRequest } from "./types";
-import { Paginator } from "../../../legacy/common/pagination";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
@@ -36,6 +36,7 @@ export class DeviceRepository extends Repository {
                             endpoint_type: request.endpointType,
                             firmware_checksum: request.firmwareChecksum,
                             host_gateway: request.hostGateway,
+                            issuer_fingerprint: request.issuerFingerprint,
                             manifest: request.manifest,
                             mechanism: request.mechanism,
                             mechanism_url: request.mechanismUrl,

@@ -3,7 +3,9 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { UserInvitation } from "./userInvitation";
 import { UserInvitationAdapter } from "../../index";
 import { UserInvitationCreateRequest } from "./types";
-import { Paginator } from "../../../legacy/common/pagination";
+import { extractFilter } from "../../../common/filters";
+import { UserInvitationListOptions } from "./types";
+import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
@@ -50,8 +52,8 @@ export class UserInvitationRepository extends Repository {
             }
         );
     }
-    public list(options?: ListOptions): Paginator<UserInvitation, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<UserInvitation>> => {
+    public list(options?: UserInvitationListOptions): Paginator<UserInvitation, ListOptions> {
+        const pageFunc = (pageOptions: UserInvitationListOptions): Promise<ListResponse<UserInvitation>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -60,6 +62,7 @@ export class UserInvitationRepository extends Repository {
                             url: "/v3/user-invitations",
                             method: "GET",
                             query: {
+                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
                                 after: pageOptions.after,
                                 limit: pageOptions.limit,
                                 order: pageOptions.order,

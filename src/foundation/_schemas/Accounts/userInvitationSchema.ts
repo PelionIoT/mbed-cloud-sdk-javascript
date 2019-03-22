@@ -107,6 +107,10 @@ export const userInvitationSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                            {
+                                name: "filter",
+                                type: "UserInvitationFilter",
+                            },
                         ],
                     },
                 ],

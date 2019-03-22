@@ -221,6 +221,90 @@ export interface AccountUpdateRequest {
     readonly state?: string;
 }
 /**
+ *AccountStatusFilter
+ */
+export interface AccountStatusFilter {
+    /**
+     *eq
+     */
+    eq?: AccountStatusEnum;
+
+    /**
+     *in
+     */
+    in?: Array<AccountStatusEnum>;
+
+    /**
+     *nin
+     */
+    nin?: Array<AccountStatusEnum>;
+}
+/**
+ *AccountTierFilter
+ */
+export interface AccountTierFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *AccountParentFilter
+ */
+export interface AccountParentFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *AccountEndMarketFilter
+ */
+export interface AccountEndMarketFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *AccountCountryFilter
+ */
+export interface AccountCountryFilter {
+    /**
+     *like
+     */
+    like?: string;
+}
+/**
+ *AccountFilter
+ */
+export interface AccountFilter {
+    /**
+     *status
+     */
+    status?: AccountStatusEnum | AccountStatusFilter;
+
+    /**
+     *tier
+     */
+    tier?: string | AccountTierFilter;
+
+    /**
+     *parent
+     */
+    parent?: string | AccountParentFilter;
+
+    /**
+     *endMarket
+     */
+    endMarket?: string | AccountEndMarketFilter;
+
+    /**
+     *country
+     */
+    country?: AccountCountryFilter;
+}
+/**
  *AccountListOptions
  */
 export interface AccountListOptions extends ListOptions {
@@ -233,4 +317,259 @@ export interface AccountListOptions extends ListOptions {
      *properties
      */
     properties?: string;
+
+    /**
+     *filter
+     */
+    filter?: AccountFilter;
+}
+/**
+ *SubtenantTrustedCertificateNameFilter
+ */
+export interface SubtenantTrustedCertificateNameFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *SubtenantTrustedCertificateServiceFilter
+ */
+export interface SubtenantTrustedCertificateServiceFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *SubtenantTrustedCertificateExpireFilter
+ */
+export interface SubtenantTrustedCertificateExpireFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *SubtenantTrustedCertificateDeviceExecutionModeFilter
+ */
+export interface SubtenantTrustedCertificateDeviceExecutionModeFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+
+    /**
+     *neq
+     */
+    neq?: string;
+}
+/**
+ *SubtenantTrustedCertificateOwnerFilter
+ */
+export interface SubtenantTrustedCertificateOwnerFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *SubtenantTrustedCertificateEnrollmentModeFilter
+ */
+export interface SubtenantTrustedCertificateEnrollmentModeFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *SubtenantTrustedCertificateStatusFilter
+ */
+export interface SubtenantTrustedCertificateStatusFilter {
+    /**
+     *eq
+     */
+    eq?: AccountStatusEnum;
+}
+/**
+ *SubtenantTrustedCertificateIssuerFilter
+ */
+export interface SubtenantTrustedCertificateIssuerFilter {
+    /**
+     *like
+     */
+    like?: string;
+}
+/**
+ *SubtenantTrustedCertificateSubjectFilter
+ */
+export interface SubtenantTrustedCertificateSubjectFilter {
+    /**
+     *like
+     */
+    like?: string;
+}
+/**
+ *SubtenantTrustedCertificateValidFilter
+ */
+export interface SubtenantTrustedCertificateValidFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *SubtenantTrustedCertificateFilter
+ */
+export interface SubtenantTrustedCertificateFilter {
+    /**
+     *name
+     */
+    name?: string | SubtenantTrustedCertificateNameFilter;
+
+    /**
+     *service
+     */
+    service?: string | SubtenantTrustedCertificateServiceFilter;
+
+    /**
+     *expire
+     */
+    expire?: string | SubtenantTrustedCertificateExpireFilter;
+
+    /**
+     *deviceExecutionMode
+     */
+    deviceExecutionMode?: string | SubtenantTrustedCertificateDeviceExecutionModeFilter;
+
+    /**
+     *owner
+     */
+    owner?: string | SubtenantTrustedCertificateOwnerFilter;
+
+    /**
+     *enrollmentMode
+     */
+    enrollmentMode?: string | SubtenantTrustedCertificateEnrollmentModeFilter;
+
+    /**
+     *status
+     */
+    status?: AccountStatusEnum | SubtenantTrustedCertificateStatusFilter;
+
+    /**
+     *issuer
+     */
+    issuer?: SubtenantTrustedCertificateIssuerFilter;
+
+    /**
+     *subject
+     */
+    subject?: SubtenantTrustedCertificateSubjectFilter;
+
+    /**
+     *valid
+     */
+    valid?: string | SubtenantTrustedCertificateValidFilter;
+}
+/**
+ *SubtenantTrustedCertificateListOptions
+ */
+export interface SubtenantTrustedCertificateListOptions extends ListOptions {
+    /**
+     *filter
+     */
+    filter?: SubtenantTrustedCertificateFilter;
+}
+/**
+ *SubtenantUserInvitationLoginProfileFilter
+ */
+export interface SubtenantUserInvitationLoginProfileFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *SubtenantUserInvitationFilter
+ */
+export interface SubtenantUserInvitationFilter {
+    /**
+     *loginProfile
+     */
+    loginProfile?: string | SubtenantUserInvitationLoginProfileFilter;
+}
+/**
+ *SubtenantUserInvitationListOptions
+ */
+export interface SubtenantUserInvitationListOptions extends ListOptions {
+    /**
+     *filter
+     */
+    filter?: SubtenantUserInvitationFilter;
+}
+/**
+ *SubtenantUserEmailFilter
+ */
+export interface SubtenantUserEmailFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *SubtenantUserStatusFilter
+ */
+export interface SubtenantUserStatusFilter {
+    /**
+     *eq
+     */
+    eq?: AccountStatusEnum;
+
+    /**
+     *in
+     */
+    in?: Array<AccountStatusEnum>;
+
+    /**
+     *nin
+     */
+    nin?: Array<AccountStatusEnum>;
+}
+/**
+ *SubtenantUserLoginProfileFilter
+ */
+export interface SubtenantUserLoginProfileFilter {
+    /**
+     *eq
+     */
+    eq?: string;
+}
+/**
+ *SubtenantUserFilter
+ */
+export interface SubtenantUserFilter {
+    /**
+     *email
+     */
+    email?: string | SubtenantUserEmailFilter;
+
+    /**
+     *status
+     */
+    status?: AccountStatusEnum | SubtenantUserStatusFilter;
+
+    /**
+     *loginProfile
+     */
+    loginProfile?: string | SubtenantUserLoginProfileFilter;
+}
+/**
+ *SubtenantUserListOptions
+ */
+export interface SubtenantUserListOptions extends ListOptions {
+    /**
+     *filter
+     */
+    filter?: SubtenantUserFilter;
 }
