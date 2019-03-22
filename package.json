@@ -114,7 +114,7 @@
   "dependencies": {
     "@types/websocket": "0.0.40",
     "superagent": "^3.4.1",
-    "websocket": "^1.0.28"
-    "dotenv": "^7.0.0",
+    "websocket": "^1.0.28",
+    "dotenv": "^7.0.0"
   }
 }
