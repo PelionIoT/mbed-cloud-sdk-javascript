@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { DeviceDeployedState, DeviceMechanism, DeviceState } from "./types";
+import { DeviceDeployedStateEnum, DeviceLifecycleStatusEnum, DeviceMechanismEnum, DeviceStateEnum } from "./types";
 /**
  *Device
  */
@@ -89,7 +89,7 @@ Permitted values:
      *The endpoint name given to the device.
      *@example 00000000-0000-0000-0000-000000000000
      */
-    endpointName?: string;
+    readonly endpointName?: string;
 
     /**
      *The endpoint type of the device. For example, the device is a gateway.
@@ -114,7 +114,47 @@ Permitted values:
     hostGateway?: string;
 
     /**
-     *DEPRECATED: The URL for the current device manifest.
+     *issuerFingerprint
+     */
+    issuerFingerprint?: string;
+
+    /**
+     *lastOperatorSuspendedCategory
+     */
+    readonly lastOperatorSuspendedCategory?: string;
+
+    /**
+     *lastOperatorSuspendedDescription
+     */
+    readonly lastOperatorSuspendedDescription?: string;
+
+    /**
+     *lastOperatorSuspendedUpdatedAt
+     */
+    readonly lastOperatorSuspendedUpdatedAt?: Date;
+
+    /**
+     *lastSystemSuspendedCategory
+     */
+    readonly lastSystemSuspendedCategory?: string;
+
+    /**
+     *lastSystemSuspendedDescription
+     */
+    readonly lastSystemSuspendedDescription?: string;
+
+    /**
+     *lastSystemSuspendedUpdatedAt
+     */
+    readonly lastSystemSuspendedUpdatedAt?: Date;
+
+    /**
+     *lifecycleStatus
+     */
+    readonly lifecycleStatus?: DeviceLifecycleStatusEnum;
+
+    /**
+     *manifest
      */
     manifest?: string;
 
@@ -141,8 +181,12 @@ Permitted values:
     name?: string;
 
     /**
-     *The serial number of the device.
-     *@example 00000000-0000-0000-0000-000000000000
+     *operatorSuspended
+     */
+    readonly operatorSuspended?: boolean;
+
+    /**
+     *serialNumber
      */
     serialNumber?: string;
 
@@ -152,8 +196,12 @@ Permitted values:
     state?: DeviceState;
 
     /**
-     *The time the object was updated.
-     *@example 2017-05-22T12:37:55.576563Z
+     *systemSuspended
+     */
+    readonly systemSuspended?: boolean;
+
+    /**
+     *updatedAt
      */
     readonly updatedAt?: Date;
 

@@ -94,15 +94,7 @@ const safeAddToList = (list: Array<Container>, item: Container): void => {
     }
 };
 
-const ensureArray = obj => {
-    if (isEmpty(obj)) {
-        return [];
-    } else {
-        return obj;
-    }
-};
-
-const isEmpty = obj => {
+const isEmptyFilter = obj => {
     for (const key in obj) {
         if (obj.hasOwnProperty(key)) {
             return false;
@@ -122,6 +114,5 @@ export {
     snakeToCamel,
     snakeToPascal,
     safeAddToList,
-    ensureArray,
-    isEmpty,
+    isEmptyFilter,
 };

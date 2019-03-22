@@ -1,5 +1,5 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
-export type ApiKeyStatus = "ACTIVE" | "INACTIVE";
+export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
 /**
  *ApiKeyCreateRequest
  */

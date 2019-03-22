@@ -115,7 +115,7 @@ export class Method {
             } else if (parameter.type === "file") {
                 // if file then return a read stream
                 return fs.createReadStream(testRunnerParameters[foundParam]);
-            } else if (parameter.type.indexOf("Filter") > -1) {
+            } else if (parameter.type.endsWith("Filter")) {
                 logMessage(`filter - ${JSON.stringify(testRunnerParameters[foundParam])}`);
                 return testRunnerParameters[foundParam];
             } else {

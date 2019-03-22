@@ -1,6 +1,6 @@
 import { ImportContainer } from "../containers/importContainer/importContainer";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
-import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, isEmpty } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, isEmptyFilter } from "../common/utilities";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
 import { ParameterBucketContainer } from "../containers/parameterBucketContainer/parameterBucketContainer";
@@ -123,7 +123,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
             if (paginated) {
                 const filters = method.x_filter;
-                if (!isEmpty(filters)) {
+                if (!isEmptyFilter(filters)) {
                     // add import for extract filter
                     safeAddToList(repositoryImports, new ImportContainer(
                         "API_WRAPPER",
@@ -148,7 +148,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 }
 
                 const extraQueryParams = ep.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
-                if (extraQueryParams.length > 0 || !isEmpty(filters)) {
+                if (extraQueryParams.length > 0 || !isEmptyFilter(filters)) {
                     listOptionsType = `${returns}ListOptions`;
                     parameterList.addParameters(
                         new ParameterContainer(

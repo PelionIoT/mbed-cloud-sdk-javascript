@@ -1,7 +1,8 @@
 export type DeviceDeployedState = "development" | "production";
 export type DeviceExecutionMode = "0" | "1" | "5";
-export type DeviceMechanism = "connector" | "direct";
-export type DeviceState = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
+export type DeviceLifecycleStatusEnum = "enabled" | "blocked";
+export type DeviceMechanismEnum = "connector" | "direct";
+export type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 /**
  *DeviceCreateRequest
  */
@@ -93,7 +94,12 @@ Permitted values:
     readonly hostGateway?: string;
 
     /**
-     *DEPRECATED: The URL for the current device manifest.
+     *issuerFingerprint
+     */
+    readonly issuerFingerprint?: string;
+
+    /**
+     *manifest
      */
     readonly manifest?: string;
 

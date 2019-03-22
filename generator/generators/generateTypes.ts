@@ -1,5 +1,5 @@
 import { FileContainer } from "../containers/fileContainer/fileContainer";
-import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList, isEmpty } from "../common/utilities";
+import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList, isEmptyFilter } from "../common/utilities";
 import { EnumContainer } from "../containers/enumContainer/enumContainer";
 import { PropertyContainer } from "../containers/propertyContainer/propertyContainer";
 import { ImportContainer } from "../containers/importContainer/importContainer";
@@ -73,7 +73,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
         const filters = method.x_filter;
         const returns = snakeToPascal(method.return_info.type);
         const extraQueryParams = method.fields.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
-        if (extraQueryParams.length > 0 || !isEmpty(filters)) {
+        if (extraQueryParams.length > 0 || !isEmptyFilter(filters)) {
             const listOptions = new ClassContainer(
                 `${returns}ListOptions`,
                 {
@@ -95,7 +95,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                     )
                 );
             });
-            if (!isEmpty(filters)) {
+            if (!isEmptyFilter(filters)) {
                 // creat top level filter interface
                 const filterType = `${returns}Filter`;
                 const filterObj = new ClassContainer(
