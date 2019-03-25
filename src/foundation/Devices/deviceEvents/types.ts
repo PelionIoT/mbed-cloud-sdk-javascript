@@ -4,22 +4,22 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  */
 export interface DeviceEventsDateTimeFilter {
     /**
-     *in
+     *dateTime in
      */
     in?: Array<Date>;
 
     /**
-     *nin
+     *dateTime not in
      */
     nin?: Array<Date>;
 
     /**
-     *lte
+     *dateTime less than
      */
     lte?: Array<Date>;
 
     /**
-     *gte
+     *dateTime greater than
      */
     gte?: Array<Date>;
 }
@@ -28,22 +28,22 @@ export interface DeviceEventsDateTimeFilter {
  */
 export interface DeviceEventsDescriptionFilter {
     /**
-     *eq
+     *description equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *description not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *description in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *description not in
      */
     nin?: Array<string>;
 }
@@ -52,22 +52,22 @@ export interface DeviceEventsDescriptionFilter {
  */
 export interface DeviceEventsIdFilter {
     /**
-     *eq
+     *id equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *id not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *id in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *id not in
      */
     nin?: Array<string>;
 }
@@ -76,22 +76,22 @@ export interface DeviceEventsIdFilter {
  */
 export interface DeviceEventsDeviceIdFilter {
     /**
-     *eq
+     *deviceId equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *deviceId not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *deviceId in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *deviceId not in
      */
     nin?: Array<string>;
 }
@@ -100,22 +100,22 @@ export interface DeviceEventsDeviceIdFilter {
  */
 export interface DeviceEventsEventTypeFilter {
     /**
-     *eq
+     *eventType equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *eventType not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *eventType in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *eventType not in
      */
     nin?: Array<string>;
 }
@@ -124,22 +124,22 @@ export interface DeviceEventsEventTypeFilter {
  */
 export interface DeviceEventsStateChangeFilter {
     /**
-     *eq
+     *stateChange equal to
      */
     eq?: boolean;
 
     /**
-     *neq
+     *stateChange not equal to
      */
     neq?: boolean;
 
     /**
-     *in
+     *stateChange in
      */
     in?: Array<boolean>;
 
     /**
-     *nin
+     *stateChange not in
      */
     nin?: Array<boolean>;
 }
@@ -148,32 +148,32 @@ export interface DeviceEventsStateChangeFilter {
  */
 export interface DeviceEventsFilter {
     /**
-     *dateTime
+     *Filter by dateTime on DeviceEvents
      */
     dateTime?: DeviceEventsDateTimeFilter;
 
     /**
-     *description
+     *Filter by description on DeviceEvents
      */
     description?: string | DeviceEventsDescriptionFilter;
 
     /**
-     *id
+     *Filter by id on DeviceEvents
      */
     id?: string | DeviceEventsIdFilter;
 
     /**
-     *deviceId
+     *Filter by deviceId on DeviceEvents
      */
     deviceId?: string | DeviceEventsDeviceIdFilter;
 
     /**
-     *eventType
+     *Filter by eventType on DeviceEvents
      */
     eventType?: string | DeviceEventsEventTypeFilter;
 
     /**
-     *stateChange
+     *Filter by stateChange on DeviceEvents
      */
     stateChange?: boolean | DeviceEventsStateChangeFilter;
 }
@@ -182,7 +182,7 @@ export interface DeviceEventsFilter {
  */
 export interface DeviceEventsListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for DeviceEvents
      */
     filter?: DeviceEventsFilter;
 }

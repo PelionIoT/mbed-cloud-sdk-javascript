@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { Order, CallbackFn, ConnectionOptions } from "../common/interfaces";
+import { CallbackFn, ConnectionOptions, Order } from "../common/interfaces";
 
 export interface ConnectOptions extends ConnectionOptions {
     /**

@@ -4,7 +4,7 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  */
 export interface DeviceEnrollmentDenialTrustedCertificateIdFilter {
     /**
-     *eq
+     *trustedCertificateId equal to
      */
     eq?: string;
 }
@@ -13,7 +13,7 @@ export interface DeviceEnrollmentDenialTrustedCertificateIdFilter {
  */
 export interface DeviceEnrollmentDenialEndpointNameFilter {
     /**
-     *eq
+     *endpointName equal to
      */
     eq?: string;
 }
@@ -22,12 +22,12 @@ export interface DeviceEnrollmentDenialEndpointNameFilter {
  */
 export interface DeviceEnrollmentDenialFilter {
     /**
-     *trustedCertificateId
+     *Filter by trustedCertificateId on DeviceEnrollmentDenial
      */
     trustedCertificateId?: string | DeviceEnrollmentDenialTrustedCertificateIdFilter;
 
     /**
-     *endpointName
+     *Filter by endpointName on DeviceEnrollmentDenial
      */
     endpointName?: string | DeviceEnrollmentDenialEndpointNameFilter;
 }
@@ -36,7 +36,7 @@ export interface DeviceEnrollmentDenialFilter {
  */
 export interface DeviceEnrollmentDenialListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for DeviceEnrollmentDenial
      */
     filter?: DeviceEnrollmentDenialFilter;
 }

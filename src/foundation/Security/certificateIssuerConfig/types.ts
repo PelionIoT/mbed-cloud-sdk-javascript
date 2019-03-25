@@ -34,7 +34,7 @@ Null if Device Management internal HSM is used.
  */
 export interface CertificateIssuerConfigCertificateReferenceFilter {
     /**
-     *eq
+     *certificateReference equal to
      */
     eq?: string;
 }
@@ -43,7 +43,7 @@ export interface CertificateIssuerConfigCertificateReferenceFilter {
  */
 export interface CertificateIssuerConfigFilter {
     /**
-     *certificateReference
+     *Filter by certificateReference on CertificateIssuerConfig
      */
     certificateReference?: string | CertificateIssuerConfigCertificateReferenceFilter;
 }
@@ -52,7 +52,7 @@ export interface CertificateIssuerConfigFilter {
  */
 export interface CertificateIssuerConfigListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for CertificateIssuerConfig
      */
     filter?: CertificateIssuerConfigFilter;
 }

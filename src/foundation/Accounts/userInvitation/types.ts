@@ -25,7 +25,7 @@ export interface UserInvitationCreateRequest {
  */
 export interface UserInvitationLoginProfileFilter {
     /**
-     *eq
+     *loginProfile equal to
      */
     eq?: string;
 }
@@ -34,7 +34,7 @@ export interface UserInvitationLoginProfileFilter {
  */
 export interface UserInvitationFilter {
     /**
-     *loginProfile
+     *Filter by loginProfile on UserInvitation
      */
     loginProfile?: string | UserInvitationLoginProfileFilter;
 }
@@ -43,7 +43,7 @@ export interface UserInvitationFilter {
  */
 export interface UserInvitationListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for UserInvitation
      */
     filter?: UserInvitationFilter;
 }

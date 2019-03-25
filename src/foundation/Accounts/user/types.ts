@@ -114,7 +114,7 @@ export interface UserUpdateRequest {
  */
 export interface UserEmailFilter {
     /**
-     *eq
+     *email equal to
      */
     eq?: string;
 }
@@ -123,17 +123,17 @@ export interface UserEmailFilter {
  */
 export interface UserStatusFilter {
     /**
-     *eq
+     *status equal to
      */
     eq?: UserStatus;
 
     /**
-     *in
+     *status in
      */
     in?: Array<UserStatus>;
 
     /**
-     *nin
+     *status not in
      */
     nin?: Array<UserStatus>;
 }
@@ -142,7 +142,7 @@ export interface UserStatusFilter {
  */
 export interface UserLoginProfileFilter {
     /**
-     *eq
+     *loginProfile equal to
      */
     eq?: string;
 }
@@ -151,17 +151,17 @@ export interface UserLoginProfileFilter {
  */
 export interface UserFilter {
     /**
-     *email
+     *Filter by email on User
      */
     email?: string | UserEmailFilter;
 
     /**
-     *status
+     *Filter by status on User
      */
     status?: UserStatus | UserStatusFilter;
 
     /**
-     *loginProfile
+     *Filter by loginProfile on User
      */
     loginProfile?: string | UserLoginProfileFilter;
 }
@@ -170,7 +170,7 @@ export interface UserFilter {
  */
 export interface UserListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for User
      */
     filter?: UserFilter;
 }

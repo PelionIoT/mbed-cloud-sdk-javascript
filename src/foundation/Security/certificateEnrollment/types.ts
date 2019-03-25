@@ -6,7 +6,7 @@ export type CertificateEnrollmentEnrollStatus = "new" | "completed";
  */
 export interface CertificateEnrollmentDeviceIdFilter {
     /**
-     *eq
+     *deviceId equal to
      */
     eq?: string;
 }
@@ -15,7 +15,7 @@ export interface CertificateEnrollmentDeviceIdFilter {
  */
 export interface CertificateEnrollmentCertificateNameFilter {
     /**
-     *eq
+     *certificateName equal to
      */
     eq?: string;
 }
@@ -24,12 +24,12 @@ export interface CertificateEnrollmentCertificateNameFilter {
  */
 export interface CertificateEnrollmentEnrollStatusFilter {
     /**
-     *neq
+     *enrollStatus not equal to
      */
     neq?: CertificateEnrollmentEnrollStatus;
 
     /**
-     *eq
+     *enrollStatus equal to
      */
     eq?: CertificateEnrollmentEnrollStatus;
 }
@@ -38,12 +38,12 @@ export interface CertificateEnrollmentEnrollStatusFilter {
  */
 export interface CertificateEnrollmentEnrollResultFilter {
     /**
-     *neq
+     *enrollResult not equal to
      */
     neq?: CertificateEnrollmentEnrollResult;
 
     /**
-     *eq
+     *enrollResult equal to
      */
     eq?: CertificateEnrollmentEnrollResult;
 }
@@ -52,12 +52,12 @@ export interface CertificateEnrollmentEnrollResultFilter {
  */
 export interface CertificateEnrollmentCreatedAtFilter {
     /**
-     *lte
+     *createdAt less than
      */
     lte?: Date;
 
     /**
-     *gte
+     *createdAt greater than
      */
     gte?: Date;
 }
@@ -66,12 +66,12 @@ export interface CertificateEnrollmentCreatedAtFilter {
  */
 export interface CertificateEnrollmentUpdatedAtFilter {
     /**
-     *lte
+     *updatedAt less than
      */
     lte?: Date;
 
     /**
-     *gte
+     *updatedAt greater than
      */
     gte?: Date;
 }
@@ -80,32 +80,32 @@ export interface CertificateEnrollmentUpdatedAtFilter {
  */
 export interface CertificateEnrollmentFilter {
     /**
-     *deviceId
+     *Filter by deviceId on CertificateEnrollment
      */
     deviceId?: string | CertificateEnrollmentDeviceIdFilter;
 
     /**
-     *certificateName
+     *Filter by certificateName on CertificateEnrollment
      */
     certificateName?: string | CertificateEnrollmentCertificateNameFilter;
 
     /**
-     *enrollStatus
+     *Filter by enrollStatus on CertificateEnrollment
      */
     enrollStatus?: CertificateEnrollmentEnrollStatus | CertificateEnrollmentEnrollStatusFilter;
 
     /**
-     *enrollResult
+     *Filter by enrollResult on CertificateEnrollment
      */
     enrollResult?: CertificateEnrollmentEnrollResult | CertificateEnrollmentEnrollResultFilter;
 
     /**
-     *createdAt
+     *Filter by createdAt on CertificateEnrollment
      */
     createdAt?: CertificateEnrollmentCreatedAtFilter;
 
     /**
-     *updatedAt
+     *Filter by updatedAt on CertificateEnrollment
      */
     updatedAt?: CertificateEnrollmentUpdatedAtFilter;
 }
@@ -114,7 +114,7 @@ export interface CertificateEnrollmentFilter {
  */
 export interface CertificateEnrollmentListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for CertificateEnrollment
      */
     filter?: CertificateEnrollmentFilter;
 }

@@ -49,7 +49,7 @@ export interface ApiKeyUpdateRequest {
  */
 export interface ApiKeyKeyFilter {
     /**
-     *eq
+     *key equal to
      */
     eq?: string;
 }
@@ -58,7 +58,7 @@ export interface ApiKeyKeyFilter {
  */
 export interface ApiKeyOwnerFilter {
     /**
-     *eq
+     *owner equal to
      */
     eq?: string;
 }
@@ -67,12 +67,12 @@ export interface ApiKeyOwnerFilter {
  */
 export interface ApiKeyFilter {
     /**
-     *key
+     *Filter by key on ApiKey
      */
     key?: string | ApiKeyKeyFilter;
 
     /**
-     *owner
+     *Filter by owner on ApiKey
      */
     owner?: string | ApiKeyOwnerFilter;
 }
@@ -81,7 +81,7 @@ export interface ApiKeyFilter {
  */
 export interface ApiKeyListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for ApiKey
      */
     filter?: ApiKeyFilter;
 }

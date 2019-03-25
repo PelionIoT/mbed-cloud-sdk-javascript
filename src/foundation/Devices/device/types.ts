@@ -197,22 +197,22 @@ export interface DeviceUpdateRequest {
  */
 export interface DeviceAccountIdFilter {
     /**
-     *eq
+     *accountId equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *accountId not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *accountId in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *accountId not in
      */
     nin?: Array<string>;
 }
@@ -221,22 +221,22 @@ export interface DeviceAccountIdFilter {
  */
 export interface DeviceAutoUpdateFilter {
     /**
-     *eq
+     *autoUpdate equal to
      */
     eq?: boolean;
 
     /**
-     *neq
+     *autoUpdate not equal to
      */
     neq?: boolean;
 
     /**
-     *in
+     *autoUpdate in
      */
     in?: Array<boolean>;
 
     /**
-     *nin
+     *autoUpdate not in
      */
     nin?: Array<boolean>;
 }
@@ -245,22 +245,22 @@ export interface DeviceAutoUpdateFilter {
  */
 export interface DeviceBootstrappedExpirationDateFilter {
     /**
-     *in
+     *bootstrappedExpirationDate in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *bootstrappedExpirationDate not in
      */
     nin?: Array<string>;
 
     /**
-     *lte
+     *bootstrappedExpirationDate less than
      */
     lte?: Array<string>;
 
     /**
-     *gte
+     *bootstrappedExpirationDate greater than
      */
     gte?: Array<string>;
 }
@@ -269,22 +269,22 @@ export interface DeviceBootstrappedExpirationDateFilter {
  */
 export interface DeviceBootstrappedTimestampFilter {
     /**
-     *in
+     *bootstrappedTimestamp in
      */
     in?: Array<Date>;
 
     /**
-     *nin
+     *bootstrappedTimestamp not in
      */
     nin?: Array<Date>;
 
     /**
-     *lte
+     *bootstrappedTimestamp less than
      */
     lte?: Array<Date>;
 
     /**
-     *gte
+     *bootstrappedTimestamp greater than
      */
     gte?: Array<Date>;
 }
@@ -293,22 +293,22 @@ export interface DeviceBootstrappedTimestampFilter {
  */
 export interface DeviceCaIdFilter {
     /**
-     *eq
+     *caId equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *caId not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *caId in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *caId not in
      */
     nin?: Array<string>;
 }
@@ -317,22 +317,22 @@ export interface DeviceCaIdFilter {
  */
 export interface DeviceConnectorExpirationDateFilter {
     /**
-     *in
+     *connectorExpirationDate in
      */
     in?: Array<Date>;
 
     /**
-     *nin
+     *connectorExpirationDate not in
      */
     nin?: Array<Date>;
 
     /**
-     *lte
+     *connectorExpirationDate less than
      */
     lte?: Array<Date>;
 
     /**
-     *gte
+     *connectorExpirationDate greater than
      */
     gte?: Array<Date>;
 }
@@ -341,22 +341,22 @@ export interface DeviceConnectorExpirationDateFilter {
  */
 export interface DeviceCreatedAtFilter {
     /**
-     *in
+     *createdAt in
      */
     in?: Array<Date>;
 
     /**
-     *nin
+     *createdAt not in
      */
     nin?: Array<Date>;
 
     /**
-     *lte
+     *createdAt less than
      */
     lte?: Array<Date>;
 
     /**
-     *gte
+     *createdAt greater than
      */
     gte?: Array<Date>;
 }
@@ -365,12 +365,12 @@ export interface DeviceCreatedAtFilter {
  */
 export interface DeviceCustomAttributesFilter {
     /**
-     *eq
+     *customAttributes equal to
      */
     eq?: { [key: string]: string };
 
     /**
-     *neq
+     *customAttributes not equal to
      */
     neq?: { [key: string]: string };
 }
@@ -379,22 +379,22 @@ export interface DeviceCustomAttributesFilter {
  */
 export interface DeviceDeployedStateFilter {
     /**
-     *eq
+     *deployedState equal to
      */
     eq?: DeviceDeployedState;
 
     /**
-     *neq
+     *deployedState not equal to
      */
     neq?: DeviceDeployedState;
 
     /**
-     *in
+     *deployedState in
      */
     in?: Array<DeviceDeployedState>;
 
     /**
-     *nin
+     *deployedState not in
      */
     nin?: Array<DeviceDeployedState>;
 }
@@ -403,22 +403,22 @@ export interface DeviceDeployedStateFilter {
  */
 export interface DeviceDeploymentFilter {
     /**
-     *eq
+     *deployment equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *deployment not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *deployment in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *deployment not in
      */
     nin?: Array<string>;
 }
@@ -427,22 +427,22 @@ export interface DeviceDeploymentFilter {
  */
 export interface DeviceDescriptionFilter {
     /**
-     *eq
+     *description equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *description not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *description in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *description not in
      */
     nin?: Array<string>;
 }
@@ -451,22 +451,22 @@ export interface DeviceDescriptionFilter {
  */
 export interface DeviceDeviceClassFilter {
     /**
-     *eq
+     *deviceClass equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *deviceClass not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *deviceClass in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *deviceClass not in
      */
     nin?: Array<string>;
 }
@@ -475,22 +475,22 @@ export interface DeviceDeviceClassFilter {
  */
 export interface DeviceDeviceExecutionModeFilter {
     /**
-     *eq
+     *deviceExecutionMode equal to
      */
     eq?: number;
 
     /**
-     *neq
+     *deviceExecutionMode not equal to
      */
     neq?: number;
 
     /**
-     *in
+     *deviceExecutionMode in
      */
     in?: Array<number>;
 
     /**
-     *nin
+     *deviceExecutionMode not in
      */
     nin?: Array<number>;
 }
@@ -499,22 +499,22 @@ export interface DeviceDeviceExecutionModeFilter {
  */
 export interface DeviceDeviceKeyFilter {
     /**
-     *eq
+     *deviceKey equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *deviceKey not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *deviceKey in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *deviceKey not in
      */
     nin?: Array<string>;
 }
@@ -523,22 +523,22 @@ export interface DeviceDeviceKeyFilter {
  */
 export interface DeviceEndpointNameFilter {
     /**
-     *eq
+     *endpointName equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *endpointName not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *endpointName in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *endpointName not in
      */
     nin?: Array<string>;
 }
@@ -547,22 +547,22 @@ export interface DeviceEndpointNameFilter {
  */
 export interface DeviceEndpointTypeFilter {
     /**
-     *eq
+     *endpointType equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *endpointType not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *endpointType in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *endpointType not in
      */
     nin?: Array<string>;
 }
@@ -571,22 +571,22 @@ export interface DeviceEndpointTypeFilter {
  */
 export interface DeviceEnrollmentListTimestampFilter {
     /**
-     *in
+     *enrollmentListTimestamp in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *enrollmentListTimestamp not in
      */
     nin?: Array<string>;
 
     /**
-     *lte
+     *enrollmentListTimestamp less than
      */
     lte?: Array<string>;
 
     /**
-     *gte
+     *enrollmentListTimestamp greater than
      */
     gte?: Array<string>;
 }
@@ -595,22 +595,22 @@ export interface DeviceEnrollmentListTimestampFilter {
  */
 export interface DeviceFirmwareChecksumFilter {
     /**
-     *eq
+     *firmwareChecksum equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *firmwareChecksum not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *firmwareChecksum in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *firmwareChecksum not in
      */
     nin?: Array<string>;
 }
@@ -619,22 +619,22 @@ export interface DeviceFirmwareChecksumFilter {
  */
 export interface DeviceHostGatewayFilter {
     /**
-     *eq
+     *hostGateway equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *hostGateway not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *hostGateway in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *hostGateway not in
      */
     nin?: Array<string>;
 }
@@ -643,22 +643,22 @@ export interface DeviceHostGatewayFilter {
  */
 export interface DeviceIdFilter {
     /**
-     *eq
+     *id equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *id not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *id in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *id not in
      */
     nin?: Array<string>;
 }
@@ -667,22 +667,22 @@ export interface DeviceIdFilter {
  */
 export interface DeviceManifestFilter {
     /**
-     *eq
+     *manifest equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *manifest not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *manifest in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *manifest not in
      */
     nin?: Array<string>;
 }
@@ -691,22 +691,22 @@ export interface DeviceManifestFilter {
  */
 export interface DeviceManifestTimestampFilter {
     /**
-     *in
+     *manifestTimestamp in
      */
     in?: Array<Date>;
 
     /**
-     *nin
+     *manifestTimestamp not in
      */
     nin?: Array<Date>;
 
     /**
-     *lte
+     *manifestTimestamp less than
      */
     lte?: Array<Date>;
 
     /**
-     *gte
+     *manifestTimestamp greater than
      */
     gte?: Array<Date>;
 }
@@ -715,22 +715,22 @@ export interface DeviceManifestTimestampFilter {
  */
 export interface DeviceMechanismFilter {
     /**
-     *eq
+     *mechanism equal to
      */
     eq?: DeviceMechanism;
 
     /**
-     *neq
+     *mechanism not equal to
      */
     neq?: DeviceMechanism;
 
     /**
-     *in
+     *mechanism in
      */
     in?: Array<DeviceMechanism>;
 
     /**
-     *nin
+     *mechanism not in
      */
     nin?: Array<DeviceMechanism>;
 }
@@ -739,22 +739,22 @@ export interface DeviceMechanismFilter {
  */
 export interface DeviceMechanismUrlFilter {
     /**
-     *eq
+     *mechanismUrl equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *mechanismUrl not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *mechanismUrl in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *mechanismUrl not in
      */
     nin?: Array<string>;
 }
@@ -763,22 +763,22 @@ export interface DeviceMechanismUrlFilter {
  */
 export interface DeviceNameFilter {
     /**
-     *eq
+     *name equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *name not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *name in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *name not in
      */
     nin?: Array<string>;
 }
@@ -787,22 +787,22 @@ export interface DeviceNameFilter {
  */
 export interface DeviceSerialNumberFilter {
     /**
-     *eq
+     *serialNumber equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *serialNumber not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *serialNumber in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *serialNumber not in
      */
     nin?: Array<string>;
 }
@@ -811,22 +811,22 @@ export interface DeviceSerialNumberFilter {
  */
 export interface DeviceStateFilter {
     /**
-     *eq
+     *state equal to
      */
     eq?: DeviceState;
 
     /**
-     *neq
+     *state not equal to
      */
     neq?: DeviceState;
 
     /**
-     *in
+     *state in
      */
     in?: Array<DeviceState>;
 
     /**
-     *nin
+     *state not in
      */
     nin?: Array<DeviceState>;
 }
@@ -835,22 +835,22 @@ export interface DeviceStateFilter {
  */
 export interface DeviceUpdatedAtFilter {
     /**
-     *in
+     *updatedAt in
      */
     in?: Array<Date>;
 
     /**
-     *nin
+     *updatedAt not in
      */
     nin?: Array<Date>;
 
     /**
-     *lte
+     *updatedAt less than
      */
     lte?: Array<Date>;
 
     /**
-     *gte
+     *updatedAt greater than
      */
     gte?: Array<Date>;
 }
@@ -859,22 +859,22 @@ export interface DeviceUpdatedAtFilter {
  */
 export interface DeviceVendorIdFilter {
     /**
-     *eq
+     *vendorId equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *vendorId not equal to
      */
     neq?: string;
 
     /**
-     *in
+     *vendorId in
      */
     in?: Array<string>;
 
     /**
-     *nin
+     *vendorId not in
      */
     nin?: Array<string>;
 }
@@ -883,147 +883,147 @@ export interface DeviceVendorIdFilter {
  */
 export interface DeviceFilter {
     /**
-     *accountId
+     *Filter by accountId on Device
      */
     accountId?: string | DeviceAccountIdFilter;
 
     /**
-     *autoUpdate
+     *Filter by autoUpdate on Device
      */
     autoUpdate?: boolean | DeviceAutoUpdateFilter;
 
     /**
-     *bootstrappedExpirationDate
+     *Filter by bootstrappedExpirationDate on Device
      */
     bootstrappedExpirationDate?: DeviceBootstrappedExpirationDateFilter;
 
     /**
-     *bootstrappedTimestamp
+     *Filter by bootstrappedTimestamp on Device
      */
     bootstrappedTimestamp?: DeviceBootstrappedTimestampFilter;
 
     /**
-     *caId
+     *Filter by caId on Device
      */
     caId?: string | DeviceCaIdFilter;
 
     /**
-     *connectorExpirationDate
+     *Filter by connectorExpirationDate on Device
      */
     connectorExpirationDate?: DeviceConnectorExpirationDateFilter;
 
     /**
-     *createdAt
+     *Filter by createdAt on Device
      */
     createdAt?: DeviceCreatedAtFilter;
 
     /**
-     *customAttributes
+     *Filter by customAttributes on Device
      */
     customAttributes?: { [key: string]: string } | DeviceCustomAttributesFilter;
 
     /**
-     *deployedState
+     *Filter by deployedState on Device
      */
     deployedState?: DeviceDeployedState | DeviceDeployedStateFilter;
 
     /**
-     *deployment
+     *Filter by deployment on Device
      */
     deployment?: string | DeviceDeploymentFilter;
 
     /**
-     *description
+     *Filter by description on Device
      */
     description?: string | DeviceDescriptionFilter;
 
     /**
-     *deviceClass
+     *Filter by deviceClass on Device
      */
     deviceClass?: string | DeviceDeviceClassFilter;
 
     /**
-     *deviceExecutionMode
+     *Filter by deviceExecutionMode on Device
      */
     deviceExecutionMode?: number | DeviceDeviceExecutionModeFilter;
 
     /**
-     *deviceKey
+     *Filter by deviceKey on Device
      */
     deviceKey?: string | DeviceDeviceKeyFilter;
 
     /**
-     *endpointName
+     *Filter by endpointName on Device
      */
     endpointName?: string | DeviceEndpointNameFilter;
 
     /**
-     *endpointType
+     *Filter by endpointType on Device
      */
     endpointType?: string | DeviceEndpointTypeFilter;
 
     /**
-     *enrollmentListTimestamp
+     *Filter by enrollmentListTimestamp on Device
      */
     enrollmentListTimestamp?: DeviceEnrollmentListTimestampFilter;
 
     /**
-     *firmwareChecksum
+     *Filter by firmwareChecksum on Device
      */
     firmwareChecksum?: string | DeviceFirmwareChecksumFilter;
 
     /**
-     *hostGateway
+     *Filter by hostGateway on Device
      */
     hostGateway?: string | DeviceHostGatewayFilter;
 
     /**
-     *id
+     *Filter by id on Device
      */
     id?: string | DeviceIdFilter;
 
     /**
-     *manifest
+     *Filter by manifest on Device
      */
     manifest?: string | DeviceManifestFilter;
 
     /**
-     *manifestTimestamp
+     *Filter by manifestTimestamp on Device
      */
     manifestTimestamp?: DeviceManifestTimestampFilter;
 
     /**
-     *mechanism
+     *Filter by mechanism on Device
      */
     mechanism?: DeviceMechanism | DeviceMechanismFilter;
 
     /**
-     *mechanismUrl
+     *Filter by mechanismUrl on Device
      */
     mechanismUrl?: string | DeviceMechanismUrlFilter;
 
     /**
-     *name
+     *Filter by name on Device
      */
     name?: string | DeviceNameFilter;
 
     /**
-     *serialNumber
+     *Filter by serialNumber on Device
      */
     serialNumber?: string | DeviceSerialNumberFilter;
 
     /**
-     *state
+     *Filter by state on Device
      */
     state?: DeviceState | DeviceStateFilter;
 
     /**
-     *updatedAt
+     *Filter by updatedAt on Device
      */
     updatedAt?: DeviceUpdatedAtFilter;
 
     /**
-     *vendorId
+     *Filter by vendorId on Device
      */
     vendorId?: string | DeviceVendorIdFilter;
 }
@@ -1032,7 +1032,7 @@ export interface DeviceFilter {
  */
 export interface DeviceListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for Device
      */
     filter?: DeviceFilter;
 }

@@ -132,6 +132,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                                 {
                                     isInterface: true,
                                     isOptional: true,
+                                    description: `${snakeToCamel(filterName)} ${getReadableFilterOperator(filterOperator)}`,
                                 }
                             )
                         );
@@ -144,6 +145,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                             {
                                 isInterface: true,
                                 isOptional: true,
+                                description: `Filter by ${snakeToCamel(filterName)} on ${returns}`
                             }
                         )
                     );
@@ -156,7 +158,8 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                         {
                             isInterface: true,
                             isOptional: true,
-                        }
+                            description: `Filter for ${returns}`
+                        },
                     )
                 );
             }
@@ -187,3 +190,24 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
         return typeContainer;
     }
 }
+
+const getReadableFilterOperator = (filterOperator: string) => {
+    switch (filterOperator) {
+        case "eq":
+            return "equal to";
+        case "neq":
+            return "not equal to";
+        case "gte":
+            return "greater than";
+        case "lte":
+            return "less than";
+        case "in":
+            return "in";
+        case "nin":
+            return "not in";
+        case "like":
+            return "like";
+        default:
+            return "equal to";
+    }
+};
