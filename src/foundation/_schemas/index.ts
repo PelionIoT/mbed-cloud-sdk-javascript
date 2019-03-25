@@ -9,6 +9,7 @@ export { deviceSchema } from "./Devices/deviceSchema";
 export { deviceEnrollmentSchema } from "./Devices/deviceEnrollmentSchema";
 export { deviceEnrollmentBulkCreateSchema } from "./Devices/deviceEnrollmentBulkCreateSchema";
 export { deviceEnrollmentBulkDeleteSchema } from "./Devices/deviceEnrollmentBulkDeleteSchema";
+export { deviceEnrollmentDenialSchema } from "./Devices/deviceEnrollmentDenialSchema";
 export { deviceEventsSchema } from "./Devices/deviceEventsSchema";
 export { loginHistorySchema } from "./Accounts/loginHistorySchema";
 export { loginProfileSchema } from "./Accounts/loginProfileSchema";
