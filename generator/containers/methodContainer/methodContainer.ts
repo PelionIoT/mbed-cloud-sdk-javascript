@@ -40,7 +40,7 @@ export class MethodContainer extends Container {
             name: this.name,
             modifier: this.modifier,
             isStatic: this.isStatic,
-            params: this.parameterList.parameters,
+            params: this.parameterList ? this.parameterList.parameters : [],
             returns: this.returns, parameterList,
             methodBody: this.methodBody ? await this.methodBody.render() : ""
         });
