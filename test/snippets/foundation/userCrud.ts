@@ -1,4 +1,4 @@
-import { User, LoginHistory, UserRepository } from "../../../src/foundation";
+import { User, LoginHistory, UserRepository } from "../../../src";
 import { instanceOf } from "../../functions";
 
 describe("userCrud", () => {

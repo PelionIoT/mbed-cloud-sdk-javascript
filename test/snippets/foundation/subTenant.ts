@@ -1,4 +1,4 @@
-import { Account, SubtenantUser, SubtenantTrustedCertificate, PasswordPolicy, AccountRepository, SubtenantUserRepository, SubtenantUserInvitation } from "../../../src/foundation";
+import { Account, SubtenantUser, SubtenantTrustedCertificate, PasswordPolicy, AccountRepository, SubtenantUserRepository, SubtenantUserInvitation } from "../../../src";
 import { instanceOf } from "../../functions";
 
 describe("subTenants", () => {

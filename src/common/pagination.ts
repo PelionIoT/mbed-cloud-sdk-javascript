@@ -50,7 +50,7 @@ export const executeForAll = <T extends { id: string }>(
  * @typeparam T Entity to paginate over
  * @typeparam U ListOptions class for paginator to use
  */
-export class Paginator<T, U extends ListOptions> {
+export class Paginator<T, U extends ListOptions> implements AsyncIterableIterator<T> {
     private pageRequester: (options: U) => Promise<ListResponse<T>>;
     private listOptions: U;
     private currentPageIndex: number;
@@ -141,6 +141,20 @@ export class Paginator<T, U extends ListOptions> {
         }
     }
 
+    public [Symbol.asyncIterator](): AsyncIterableIterator<T> {
+        this.reset();
+        return this;
+    }
+    public return?(value?: any): Promise<IteratorResult<T>> {
+        return Promise.resolve<IteratorResult<T>>({
+            value,
+            done: true
+        });
+    }
+    public throw?(e?: any): Promise<IteratorResult<T>> {
+        throw e;
+    }
+
     /**
      * Gets collection total count (Approximate number of results according to the API).
      */
@@ -206,20 +220,37 @@ export class Paginator<T, U extends ListOptions> {
      */
     public first(): Promise<T> {
         this.reset();
-        return this.next();
+        return this.nextItem();
     }
 
     /**
      *  Gets next element in the sequence.
      */
-    public next(): Promise<T> {
+    private nextItem(): Promise<T> {
         this.currentElementIndex++;
         if (this.currentPageData) {
             const nextElement = this.fetchElementInPage(this.currentPageData, this.currentElementIndex, this.remainingElementsNumber(), false);
-            return nextElement ? Promise.resolve(nextElement) : this.nextPage().then( page => page ? this.next() : null);
+            return nextElement ? Promise.resolve(nextElement) : this.nextPage().then( page => page ? this.nextItem() : null);
         } else {
-            return this.nextPage().then( page => page ? this.next() : null);
+            return this.nextPage().then( page => page ? this.nextItem() : null);
         }
+    }
+
+    public async next(): Promise<IteratorResult<T>> {
+        if (this.hasNext()) {
+            const nextItem = await this.nextItem();
+            if (nextItem) {
+                return {
+                    value: nextItem,
+                    done: false,
+                };
+            }
+        }
+
+        return {
+            value: null,
+            done: true,
+        };
     }
 
     private browseAndConcatenateAllPages(): Promise<Array<T>> {
@@ -237,9 +268,9 @@ export class Paginator<T, U extends ListOptions> {
         return Promise.resolve([]);
     }
 
-    private executeOnAllElements(execute: (element: T) => Promise<void>) {
+    private executeOnAllElements(execute: (element: T) => void) {
         if (this.hasNext()) {
-            return this.next().then( element => execute(element)).then(() => this.executeOnAllElements(execute));
+            return this.nextItem().then( element => execute(element)).then(() => this.executeOnAllElements(execute));
         }
         return Promise.resolve();
     }
@@ -248,7 +279,7 @@ export class Paginator<T, U extends ListOptions> {
      * @param execute method to execute on the elements
      * Note: This requires browsing the whole collection and therefore can be expensive.
      */
-    public executeForAll(execute: (element: T) => Promise<void>): Promise<void> {
+    public executeForAll(execute: (element: T) => void): Promise<void> {
         this.reset();
         return this.executeOnAllElements(execute);
     }

@@ -222,13 +222,13 @@ describe("paginator", () => {
         // Moving to the next element (first)
         return paginator.next().then(element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(pageData[0]);
+            expect(element.value).toEqual(pageData[0]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
             // Moving to the next element
         }).then(() => paginator.next().then( element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(pageData[1]);
+            expect(element.value).toEqual(pageData[1]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
         })).then(() => paginator.all().then( all => {
@@ -259,13 +259,13 @@ describe("paginator", () => {
 
         return paginator.next().then( element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(firstPageData[0]);
+            expect(element.value).toEqual(firstPageData[0]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
             // Moving to the next element
         }).then(() => paginator.next().then( element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(firstPageData[1]);
+            expect(element.value).toEqual(firstPageData[1]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
         })).then(() => paginator.all().then( all => {
@@ -304,13 +304,13 @@ describe("paginator", () => {
         // Moving to the next element (first)
         return paginator.next().then( element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(firstPageData[0]);
+            expect(element.value).toEqual(firstPageData[0]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
             // Moving to the next element
         }).then(() => paginator.next().then( element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(firstPageData[1]);
+            expect(element.value).toEqual(firstPageData[1]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
         })).then(() => paginator.all().then( all => {

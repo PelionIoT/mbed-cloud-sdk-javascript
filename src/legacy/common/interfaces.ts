@@ -69,6 +69,10 @@ export interface ListOptions {
      * Number of results to retrieve
      */
     maxResults?: number;
+    /**
+     * The number of results to return in a page
+     */
+    pageSize?: number;
 }
 
 /**

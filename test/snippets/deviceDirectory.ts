@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { DeviceDirectoryApi } from "../../src/deviceDirectory/deviceDirectoryApi";
+import { DeviceDirectoryApi } from "../../src/legacy/deviceDirectory/deviceDirectoryApi";
 
 describe("deviceDirectorySnippet", () => {
 

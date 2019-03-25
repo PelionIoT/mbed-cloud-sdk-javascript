@@ -1,4 +1,4 @@
-import { ServerCredentials, ServerCredentialsRepository } from "../../../src/foundation";
+import { ServerCredentials, ServerCredentialsRepository } from "../../../src";
 import { instanceOf } from "../../functions";
 
 describe("ServerCredentials tests", () => {

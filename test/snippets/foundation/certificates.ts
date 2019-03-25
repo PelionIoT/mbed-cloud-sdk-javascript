@@ -1,4 +1,4 @@
-import { TrustedCertificate, DeveloperCertificate, TrustedCertificateRepository, DeveloperCertificateRepository } from "../../../src/foundation";
+import { TrustedCertificate, DeveloperCertificate, TrustedCertificateRepository, DeveloperCertificateRepository } from "../../../src";
 import { instanceOf } from "../../functions";
 
 describe("certificate examples", () => {
