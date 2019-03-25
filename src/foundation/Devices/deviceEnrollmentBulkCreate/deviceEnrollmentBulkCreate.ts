@@ -52,7 +52,7 @@ Null when creating bulk upload or delete.
     readonly processedCount?: number;
 
     /**
-*The state of the process is &#39;new&#39; at the time of creation. If the creation is still in progress, the state is shown as &#39;processing&#39;. When the request has been fully processed, the state changes to &#39;completed&#39;.
+*The state of the process is 'new' at the time of creation. If the creation is still in progress, the state is shown as 'processing'. When the request has been fully processed, the state changes to 'completed'.
 
 *@example new
 */

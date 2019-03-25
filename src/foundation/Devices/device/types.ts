@@ -18,13 +18,13 @@ export interface DeviceCreateRequest {
     readonly bootstrapExpirationDate?: Date;
 
     /**
-     *The timestamp of the device&#39;s most recent bootstrap process.
+     *The timestamp of the device's most recent bootstrap process.
      *@example 2017-05-22T12:37:55.576563Z
      */
     readonly bootstrappedTimestamp?: Date;
 
     /**
-     *The certificate issuer&#39;s ID.
+     *The certificate issuer's ID.
      *@example 00000000000000000000000000000000
      */
     readonly caId?: string;
@@ -147,7 +147,7 @@ export interface DeviceUpdateRequest {
     readonly autoUpdate?: boolean;
 
     /**
-     *The certificate issuer&#39;s ID.
+     *The certificate issuer's ID.
      *@example 00000000000000000000000000000000
      */
     readonly caId?: string;

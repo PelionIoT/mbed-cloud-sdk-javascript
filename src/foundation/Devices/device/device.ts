@@ -21,13 +21,13 @@ export interface Device extends Entity {
     bootstrapExpirationDate?: Date;
 
     /**
-     *The timestamp of the device&#39;s most recent bootstrap process.
+     *The timestamp of the device's most recent bootstrap process.
      *@example 2017-05-22T12:37:55.576563Z
      */
     bootstrappedTimestamp?: Date;
 
     /**
-     *The certificate issuer&#39;s ID.
+     *The certificate issuer's ID.
      *@example 00000000000000000000000000000000
      */
     caId?: string;
@@ -50,7 +50,7 @@ export interface Device extends Entity {
     customAttributes?: { [key: string]: string };
 
     /**
-     *DEPRECATED: The state of the device&#39;s deployment.
+     *DEPRECATED: The state of the device's deployment.
      */
     readonly deployedState?: DeviceDeployedState;
 

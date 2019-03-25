@@ -171,7 +171,7 @@ export interface AccountUpdateRequest {
     readonly country?: string;
 
     /**
-     *Account&#39;s custom properties as key-value pairs.
+     *Account's custom properties as key-value pairs.
      */
     readonly customFields?: { [key: string]: string };
 
@@ -212,7 +212,7 @@ export interface AccountUpdateRequest {
     readonly idleTimeout?: string;
 
     /**
-     *The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+     *The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
      */
     readonly mfaStatus?: AccountMfaStatus;
 

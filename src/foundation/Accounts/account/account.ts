@@ -97,7 +97,7 @@ export interface Account extends Entity {
     readonly createdAt?: Date;
 
     /**
-     *Account&#39;s custom properties as key-value pairs.
+     *Account's custom properties as key-value pairs.
      */
     customFields?: { [key: string]: string };
 
@@ -148,7 +148,7 @@ export interface Account extends Entity {
     readonly limits?: { [key: string]: string };
 
     /**
-     *The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+     *The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
      */
     mfaStatus?: AccountMfaStatus;
 
@@ -232,7 +232,7 @@ export interface Account extends Entity {
     readonly templateId?: string;
 
     /**
-     *The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier. Other values are reserved for the future.
+     *The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.
      *@example 1
      */
     readonly tier?: string;

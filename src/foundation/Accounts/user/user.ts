@@ -37,7 +37,7 @@ export interface User extends Entity {
     readonly creationTime?: number;
 
     /**
-     *User&#39;s account specific custom properties. The value is a string.
+     *User's account specific custom properties. The value is a string.
      */
     readonly customFields?: { [key: string]: string };
 
@@ -48,7 +48,7 @@ export interface User extends Entity {
     email: string;
 
     /**
-     *A flag indicating whether the user&#39;s email address has been verified or not.
+     *A flag indicating whether the user's email address has been verified or not.
      *@example true
      */
     readonly emailVerified?: boolean;
