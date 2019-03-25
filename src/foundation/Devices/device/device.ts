@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { DeviceDeployedStateEnum, DeviceLifecycleStatusEnum, DeviceMechanismEnum, DeviceStateEnum } from "./types";
+import { DeviceDeployedStateEnum, DeviceMechanismEnum, DeviceStateEnum } from "./types";
 /**
  *Device
  */
@@ -105,41 +105,6 @@ export interface Device extends Entity {
     issuerFingerprint?: string;
 
     /**
-     *lastOperatorSuspendedCategory
-     */
-    readonly lastOperatorSuspendedCategory?: string;
-
-    /**
-     *lastOperatorSuspendedDescription
-     */
-    readonly lastOperatorSuspendedDescription?: string;
-
-    /**
-     *lastOperatorSuspendedUpdatedAt
-     */
-    readonly lastOperatorSuspendedUpdatedAt?: Date;
-
-    /**
-     *lastSystemSuspendedCategory
-     */
-    readonly lastSystemSuspendedCategory?: string;
-
-    /**
-     *lastSystemSuspendedDescription
-     */
-    readonly lastSystemSuspendedDescription?: string;
-
-    /**
-     *lastSystemSuspendedUpdatedAt
-     */
-    readonly lastSystemSuspendedUpdatedAt?: Date;
-
-    /**
-     *lifecycleStatus
-     */
-    readonly lifecycleStatus?: DeviceLifecycleStatusEnum;
-
-    /**
      *manifest
      */
     manifest?: string;
@@ -165,11 +130,6 @@ export interface Device extends Entity {
     name?: string;
 
     /**
-     *operatorSuspended
-     */
-    readonly operatorSuspended?: boolean;
-
-    /**
      *serialNumber
      */
     serialNumber?: string;
@@ -178,11 +138,6 @@ export interface Device extends Entity {
      *state
      */
     state?: DeviceStateEnum;
-
-    /**
-     *systemSuspended
-     */
-    readonly systemSuspended?: boolean;
 
     /**
      *updatedAt
