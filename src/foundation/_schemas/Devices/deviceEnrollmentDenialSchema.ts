@@ -1,13 +1,13 @@
 import { Schema } from "../../../schema/schema";
 
-export const deviceEventsSchema = (): Schema => {
+export const deviceEnrollmentDenialSchema = (): Schema => {
     return Object.assign(new Schema(), {
-        name: "DeviceEvents",
+        name: "DeviceEnrollmentDenial",
         fields: [
             {
-                name: "changes",
-                apiName: "changes",
-                type: "{ [key: string]: string }",
+                name: "accountId",
+                apiName: "account_id",
+                type: "string",
             },
             {
                 name: "createdAt",
@@ -15,51 +15,21 @@ export const deviceEventsSchema = (): Schema => {
                 type: "Date",
             },
             {
-                name: "data",
-                apiName: "data",
-                type: "{ [key: string]: string }",
-            },
-            {
-                name: "dateTime",
-                apiName: "date_time",
-                type: "Date",
-            },
-            {
-                name: "description",
-                apiName: "description",
+                name: "endpointName",
+                apiName: "endpoint_name",
                 type: "string",
             },
             {
-                name: "deviceId",
-                apiName: "device_id",
+                name: "trustedCertificateId",
+                apiName: "trusted_certificate_id",
                 type: "string",
-            },
-            {
-                name: "eventType",
-                apiName: "event_type",
-                type: "string",
-            },
-            {
-                name: "eventTypeCategory",
-                apiName: "event_type_category",
-                type: "string",
-            },
-            {
-                name: "eventTypeDescription",
-                apiName: "event_type_description",
-                type: "string",
-            },
-            {
-                name: "stateChange",
-                apiName: "state_change",
-                type: "boolean",
             },
         ],
 
         methods: [
             {
                 name: "list",
-                returnType: "Paginator<DeviceEvents, ListOptions>",
+                returnType: "Paginator<DeviceEnrollmentDenial, ListOptions>",
                 parameters: [
                     {
                         name: "options",
@@ -88,7 +58,7 @@ export const deviceEventsSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "DeviceEventsFilter",
+                                type: "DeviceEnrollmentDenialFilter",
                             },
                         ],
                     },
@@ -96,10 +66,10 @@ export const deviceEventsSchema = (): Schema => {
             },
             {
                 name: "read",
-                returnType: "Promise<DeviceEvents>",
+                returnType: "Promise<DeviceEnrollmentDenial>",
                 parameters: [
                     {
-                        name: "deviceEventsId",
+                        name: "deviceEnrollmentDenialId",
                         position: 0,
                         type: "string",
                     },

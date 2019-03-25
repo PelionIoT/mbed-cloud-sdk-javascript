@@ -342,6 +342,10 @@ export const deviceSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                            {
+                                name: "filter",
+                                type: "DeviceFilter",
+                            },
                         ],
                     },
                 ],
