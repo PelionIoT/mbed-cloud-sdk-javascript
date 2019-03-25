@@ -29,7 +29,7 @@ describe("examples of crud using foundation interface", () => {
         // end of example
     });
 
-    test("paginator", () => {
+    test("paginator", async () => {
         const sdk = new SDK();
 
         // an example: list_entities
@@ -42,12 +42,16 @@ describe("examples of crud using foundation interface", () => {
                 order: "ASC",
                 include: "total_count",
             });
-        paginator.executeForAll(user => console.log(`${user.fullName} (${user.id}): ${user.email}`));
+
+        for await (const user of paginator) {
+            console.log(`${user.fullName} (${user.id}): ${user.email}`);
+        }
+
         console.log(`Total count: ${paginator.totalCount}`);
         // end of example
     });
 
-    test("paginator with a filter", () => {
+    test("paginator with a filter", async () => {
         const sdk = new SDK();
 
         // an example: list_entities_with_filters
@@ -65,7 +69,11 @@ describe("examples of crud using foundation interface", () => {
                     }
                 },
             });
-        paginator.executeForAll(user => console.log(`${user.fullName} (${user.id}): ${user.email}`));
+
+        for await (const user of paginator) {
+            console.log(`${user.fullName} (${user.id}): ${user.email}`);
+        }
+
         console.log(`Total count: ${paginator.totalCount}`);
         // end of example
     });
