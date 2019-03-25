@@ -14,17 +14,17 @@ export class Config {
      * The Pelion Device Management Api Key
      */
     public readonly apiKey?: string;
-    
+
     /**
      * The host, will default to "https://api.us-east-1.mbedcloud.com"
      */
     public readonly host?: string;
-    
+
     /**
      * The level of logging, will default to ERROR
      */
     public readonly logLevel?: SDKLogLevel;
-    
+
     /**
      * Initalise a new isntance of Config
      * @param options The connection options

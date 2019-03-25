@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { DeviceDeployedStateEnum, DeviceMechanismEnum, DeviceStateEnum } from "./types";
+import { DeviceDeployedState, DeviceMechanism, DeviceState } from "./types";
 /**
  *Device
  */
@@ -120,7 +120,7 @@ Permitted values:
     issuerFingerprint?: string;
 
     /**
-     *manifest
+     *DEPRECATED: The URL for the current device manifest.
      */
     manifest?: string;
 
@@ -147,7 +147,8 @@ Permitted values:
     name?: string;
 
     /**
-     *serialNumber
+     *The serial number of the device.
+     *@example 00000000-0000-0000-0000-000000000000
      */
     serialNumber?: string;
 
@@ -157,7 +158,8 @@ Permitted values:
     state?: DeviceState;
 
     /**
-     *updatedAt
+     *The time the object was updated.
+     *@example 2017-05-22T12:37:55.576563Z
      */
     readonly updatedAt?: Date;
 

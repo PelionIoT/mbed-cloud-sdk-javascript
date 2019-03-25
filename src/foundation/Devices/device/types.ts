@@ -1,8 +1,8 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
-export type DeviceDeployedStateEnum = "development" | "production";
+export type DeviceDeployedState = "development" | "production";
 export type DeviceExecutionMode = "0" | "1" | "5";
-export type DeviceMechanismEnum = "connector" | "direct";
-export type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
+export type DeviceMechanism = "connector" | "direct";
+export type DeviceState = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 /**
  *DeviceCreateRequest
  */
@@ -381,22 +381,22 @@ export interface DeviceDeployedStateFilter {
     /**
      *eq
      */
-    eq?: DeviceDeployedStateEnum;
+    eq?: DeviceDeployedState;
 
     /**
      *neq
      */
-    neq?: DeviceDeployedStateEnum;
+    neq?: DeviceDeployedState;
 
     /**
      *in
      */
-    in?: Array<DeviceDeployedStateEnum>;
+    in?: Array<DeviceDeployedState>;
 
     /**
      *nin
      */
-    nin?: Array<DeviceDeployedStateEnum>;
+    nin?: Array<DeviceDeployedState>;
 }
 /**
  *DeviceDeploymentFilter
@@ -717,22 +717,22 @@ export interface DeviceMechanismFilter {
     /**
      *eq
      */
-    eq?: DeviceMechanismEnum;
+    eq?: DeviceMechanism;
 
     /**
      *neq
      */
-    neq?: DeviceMechanismEnum;
+    neq?: DeviceMechanism;
 
     /**
      *in
      */
-    in?: Array<DeviceMechanismEnum>;
+    in?: Array<DeviceMechanism>;
 
     /**
      *nin
      */
-    nin?: Array<DeviceMechanismEnum>;
+    nin?: Array<DeviceMechanism>;
 }
 /**
  *DeviceMechanismUrlFilter
@@ -813,22 +813,22 @@ export interface DeviceStateFilter {
     /**
      *eq
      */
-    eq?: DeviceStateEnum;
+    eq?: DeviceState;
 
     /**
      *neq
      */
-    neq?: DeviceStateEnum;
+    neq?: DeviceState;
 
     /**
      *in
      */
-    in?: Array<DeviceStateEnum>;
+    in?: Array<DeviceState>;
 
     /**
      *nin
      */
-    nin?: Array<DeviceStateEnum>;
+    nin?: Array<DeviceState>;
 }
 /**
  *DeviceUpdatedAtFilter
@@ -925,7 +925,7 @@ export interface DeviceFilter {
     /**
      *deployedState
      */
-    deployedState?: DeviceDeployedStateEnum | DeviceDeployedStateFilter;
+    deployedState?: DeviceDeployedState | DeviceDeployedStateFilter;
 
     /**
      *deployment
@@ -995,7 +995,7 @@ export interface DeviceFilter {
     /**
      *mechanism
      */
-    mechanism?: DeviceMechanismEnum | DeviceMechanismFilter;
+    mechanism?: DeviceMechanism | DeviceMechanismFilter;
 
     /**
      *mechanismUrl
@@ -1015,7 +1015,7 @@ export interface DeviceFilter {
     /**
      *state
      */
-    state?: DeviceStateEnum | DeviceStateFilter;
+    state?: DeviceState | DeviceStateFilter;
 
     /**
      *updatedAt

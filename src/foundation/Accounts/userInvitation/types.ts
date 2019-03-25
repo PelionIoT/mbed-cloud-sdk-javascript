@@ -16,7 +16,7 @@ export interface UserInvitationCreateRequest {
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.
+     *Specifies how many days the invitation will be valid for.
      */
     readonly validForDays?: number;
 }
