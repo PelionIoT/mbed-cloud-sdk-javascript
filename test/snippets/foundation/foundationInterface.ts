@@ -66,7 +66,7 @@ describe("examples of crud using foundation interface", () => {
                 },
             });
         paginator.executeForAll(user => console.log(`${user.fullName} (${user.id}): ${user.email}`));
-        console.log(paginator.totalCount);
+        console.log(`Total count: ${paginator.totalCount}`);
         // end of example
     });
 
