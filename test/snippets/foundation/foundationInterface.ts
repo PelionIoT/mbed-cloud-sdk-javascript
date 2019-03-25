@@ -14,7 +14,7 @@ describe("examples of crud using foundation interface", () => {
 
         // an example: read_an_entity
         const userOne = await sdk.foundation().userRepository().read(newUser.id);
-        console.log(userOne.email);
+        console.log(`User email address: ${userOne.email}`);
         // end of example
 
         // an example: update_an_entity
@@ -43,7 +43,7 @@ describe("examples of crud using foundation interface", () => {
                 include: "total_count",
             });
         paginator.executeForAll(user => console.log(`${user.fullName} (${user.id}): ${user.email}`));
-        console.log(paginator.totalCount);
+        console.log(`Total count: ${paginator.totalCount}`);
         // end of example
     });
 
@@ -55,10 +55,6 @@ describe("examples of crud using foundation interface", () => {
             .foundation()
             .userRepository()
             .list({
-                maxResults: 10,
-                pageSize: 5,
-                order: "ASC",
-                include: "total_count",
                 filter: {
                     email: "javascript.sdk.user@arm.com",
                     status: {
@@ -71,6 +67,20 @@ describe("examples of crud using foundation interface", () => {
             });
         paginator.executeForAll(user => console.log(`${user.fullName} (${user.id}): ${user.email}`));
         console.log(paginator.totalCount);
+        // end of example
+    });
+
+    test("paginator - first entity in list", async () => {
+        const sdk = new SDK();
+
+        // an example: read_first_entity_in_list
+        const firstUserInList = await sdk
+            .foundation()
+            .userRepository()
+            .list()
+            .first();
+
+        console.log(`User email address: ${firstUserInList.email}`);
         // end of example
     });
 
