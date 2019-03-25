@@ -26,7 +26,7 @@ describe("hello world examples", () => {
         // cloak
         /*
         // uncloak
-        import { DeviceRepository, SDK } from "mbed-cloud-sdk";
+        import { SDK } from "mbed-cloud-sdk";
         // cloak
         */
         // uncloak
