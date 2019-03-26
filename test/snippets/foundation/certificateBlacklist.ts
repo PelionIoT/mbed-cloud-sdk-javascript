@@ -10,16 +10,29 @@ describe("examples of certificate blacklist", () => {
             // an example: certificate_black_listing
             const sdk = new SDK();
 
-            const trustedCert = await sdk.foundation().trustedCertificateRepository().read(myCertId);
+            const trustedCert = await sdk
+                .foundation()
+                .trustedCertificateRepository()
+                .read(myCertId);
 
             trustedCert.status = "INACTIVE";
 
-            await sdk.foundation().trustedCertificateRepository().update(trustedCert, trustedCert.id);
+            await sdk
+                .foundation()
+                .trustedCertificateRepository()
+                .update(trustedCert, trustedCert.id);
 
-            const deviceList = sdk.foundation().deviceEnrollmentDenialRepository().list({ filter: { trustedCertificateId: trustedCert.id } });
+            const deviceList = sdk
+                .foundation()
+                .deviceEnrollmentDenialRepository()
+                .list({
+                    filter: {
+                        trustedCertificateId: trustedCert.id
+                    }
+                });
 
             for await (const device of deviceList) {
-                console.log(device.id);
+                console.log(`Device endpoint name: ${device.endpointName}`);
             }
             // end of example
         } catch (e) {
