@@ -25,6 +25,11 @@ export const certificateEnrollmentSchema = (): Schema => {
                 type: "CertificateEnrollmentEnrollResultEnum",
             },
             {
+                name: "enrollResultDetail",
+                apiName: "enroll_result_detail",
+                type: "string",
+            },
+            {
                 name: "enrollStatus",
                 apiName: "enroll_status",
                 type: "CertificateEnrollmentEnrollStatusEnum",

@@ -25,6 +25,11 @@ export interface CertificateEnrollment extends Entity {
     readonly enrollResult?: CertificateEnrollmentEnrollResultEnum;
 
     /**
+     *enrollResultDetail
+     */
+    readonly enrollResultDetail?: string;
+
+    /**
      *enrollStatus
      */
     readonly enrollStatus?: CertificateEnrollmentEnrollStatusEnum;
