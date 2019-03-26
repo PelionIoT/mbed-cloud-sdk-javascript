@@ -5,7 +5,7 @@ import { Config } from "./config";
 import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate } from "../foundation";
 
 export function isDeveloperCertificateSetter(self: TrustedCertificate): void {
-    self.isDeveloperCertificate = self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
+    self.isDeveloperCertificate = self.deviceExecutionMode === 1;
 }
 
 export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
