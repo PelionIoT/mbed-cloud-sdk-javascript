@@ -9,7 +9,7 @@ import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmen
  * @ignore
  */
 export function isDeveloperCertificateSetter(self: TrustedCertificate): void {
-    self.isDeveloperCertificate = self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
+    self.isDeveloperCertificate = self.deviceExecutionMode === 1;
 }
 
 /**

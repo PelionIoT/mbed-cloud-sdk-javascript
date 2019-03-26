@@ -3,7 +3,7 @@ import { DeviceRepository, SDK } from "../../../src";
 
 describe("hello world examples", () => {
 
-    it("hello world with device repository", async () => {
+    test("hello world with device repository", async () => {
         // an example: hello_world
         // cloak
         /*
@@ -24,7 +24,7 @@ describe("hello world examples", () => {
         // end of example
     });
 
-    it("hello world with sdk", async () => {
+    test("hello world with sdk", async () => {
         // an example: hello_world_with_sdk_instance
         // cloak
         /*
@@ -47,7 +47,7 @@ describe("hello world examples", () => {
         // end of example
     });
 
-    it("hello world with multiple api keys", async () => {
+    test("hello world with multiple api keys", async () => {
         const sdk = new SDK();
         process.env.account_one_api_key = sdk.config.apiKey;
         process.env.account_two_api_key = sdk.config.apiKey;
