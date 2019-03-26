@@ -7,6 +7,11 @@ import { LoginProfileAdapter } from "../..";
  *SubtenantUser adapter
  */
 export class SubtenantUserAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): SubtenantUser {
         if (!data) {
             return null;

@@ -11,6 +11,10 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *CertificateEnrollment repository
  */
 export class CertificateEnrollmentRepository extends Repository {
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: CertificateEnrollmentListOptions): Paginator<CertificateEnrollment, ListOptions> {
         const pageFunc = (
             pageOptions: CertificateEnrollmentListOptions
@@ -51,6 +55,10 @@ export class CertificateEnrollmentRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @param id - The ID of the certificate enrollment.
+     */
     public read(id: string): Promise<CertificateEnrollment> {
         return apiWrapper(
             resultsFn => {

@@ -9,6 +9,10 @@ import { ReadStream } from "fs";
  *DeviceEnrollmentBulkDelete repository
  */
 export class DeviceEnrollmentBulkDeleteRepository extends Repository {
+    /**
+     * delete
+     * @param enrollmentIdentities - The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
+     */
     public delete(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<DeviceEnrollmentBulkDelete> {
         return apiWrapper(
             resultsFn => {
@@ -29,12 +33,24 @@ export class DeviceEnrollmentBulkDeleteRepository extends Repository {
             }
         );
     }
+    /**
+     * downloadErrorsReportFile
+     * @param model - model
+     */
     public downloadErrorsReportFile(model: DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
         return downloadErrorsReportFile(this, model);
     }
+    /**
+     * downloadFullReportFile
+     * @param model - model
+     */
     public downloadFullReportFile(model: DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
         return downloadFullReportFile(this, model);
     }
+    /**
+     * read
+     * @param id - Bulk ID
+     */
     public read(id: string): Promise<DeviceEnrollmentBulkDelete> {
         return apiWrapper(
             resultsFn => {

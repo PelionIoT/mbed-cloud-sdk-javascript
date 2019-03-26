@@ -4,6 +4,11 @@ import { DeviceEnrollmentDenial } from "./deviceEnrollmentDenial";
  *DeviceEnrollmentDenial adapter
  */
 export class DeviceEnrollmentDenialAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): DeviceEnrollmentDenial {
         if (!data) {
             return null;

@@ -9,6 +9,10 @@ import { ReadStream } from "fs";
  *DeviceEnrollmentBulkCreate repository
  */
 export class DeviceEnrollmentBulkCreateRepository extends Repository {
+    /**
+     * create
+     * @param enrollmentIdentities - The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
+     */
     public create(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<DeviceEnrollmentBulkCreate> {
         return apiWrapper(
             resultsFn => {
@@ -29,12 +33,24 @@ export class DeviceEnrollmentBulkCreateRepository extends Repository {
             }
         );
     }
+    /**
+     * downloadErrorsReportFile
+     * @param model - model
+     */
     public downloadErrorsReportFile(model: DeviceEnrollmentBulkCreate): Promise<ReadStream | Buffer | File | Blob> {
         return downloadErrorsReportFile(this, model);
     }
+    /**
+     * downloadFullReportFile
+     * @param model - model
+     */
     public downloadFullReportFile(model: DeviceEnrollmentBulkCreate): Promise<ReadStream | Buffer | File | Blob> {
         return downloadFullReportFile(this, model);
     }
+    /**
+     * read
+     * @param id - Bulk ID
+     */
     public read(id: string): Promise<DeviceEnrollmentBulkCreate> {
         return apiWrapper(
             resultsFn => {

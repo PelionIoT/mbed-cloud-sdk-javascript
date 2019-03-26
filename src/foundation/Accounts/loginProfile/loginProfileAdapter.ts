@@ -4,6 +4,11 @@ import { LoginProfile } from "./loginProfile";
  *LoginProfile adapter
  */
 export class LoginProfileAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): LoginProfile {
         if (!data) {
             return null;

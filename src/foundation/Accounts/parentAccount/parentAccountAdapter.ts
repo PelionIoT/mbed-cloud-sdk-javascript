@@ -4,6 +4,11 @@ import { ParentAccount } from "./parentAccount";
  *ParentAccount adapter
  */
 export class ParentAccountAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): ParentAccount {
         if (!data) {
             return null;

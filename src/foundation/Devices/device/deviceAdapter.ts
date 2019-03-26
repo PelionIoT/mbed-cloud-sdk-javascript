@@ -4,6 +4,11 @@ import { Device } from "./device";
  *Device adapter
  */
 export class DeviceAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): Device {
         if (!data) {
             return null;

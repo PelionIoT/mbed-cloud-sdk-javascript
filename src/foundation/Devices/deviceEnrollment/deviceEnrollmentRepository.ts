@@ -10,6 +10,10 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *DeviceEnrollment repository
  */
 export class DeviceEnrollmentRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     */
     public create(request: DeviceEnrollmentCreateRequest): Promise<DeviceEnrollment> {
         return apiWrapper(
             resultsFn => {
@@ -29,6 +33,10 @@ export class DeviceEnrollmentRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @param id - Enrollment identity.
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -48,6 +56,10 @@ export class DeviceEnrollmentRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @param options - options
+     */
     public list(options?: ListOptions): Paginator<DeviceEnrollment, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEnrollment>> => {
             pageOptions = pageOptions || {};
@@ -76,6 +88,10 @@ export class DeviceEnrollmentRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @param id - Enrollment identity.
+     */
     public read(id: string): Promise<DeviceEnrollment> {
         return apiWrapper(
             resultsFn => {

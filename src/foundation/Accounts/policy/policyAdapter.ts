@@ -4,6 +4,11 @@ import { Policy } from "./policy";
  *Policy adapter
  */
 export class PolicyAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): Policy {
         if (!data) {
             return null;

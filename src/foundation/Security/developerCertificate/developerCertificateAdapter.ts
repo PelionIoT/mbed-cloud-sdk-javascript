@@ -4,6 +4,11 @@ import { DeveloperCertificate } from "./developerCertificate";
  *DeveloperCertificate adapter
  */
 export class DeveloperCertificateAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): DeveloperCertificate {
         if (!data) {
             return null;

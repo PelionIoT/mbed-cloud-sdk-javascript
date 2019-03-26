@@ -22,6 +22,11 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *Account repository
  */
 export class AccountRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     * @param action - Action, either 'create' or 'enroll'. <ul><li>'create' creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. </li><li>'enroll' creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. </li></ul>
+     */
     public create(request: AccountCreateRequest, action?: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
@@ -62,6 +67,10 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: AccountListOptions): Paginator<Account, ListOptions> {
         const pageFunc = (pageOptions: AccountListOptions): Promise<ListResponse<Account>> => {
             pageOptions = pageOptions || {};
@@ -99,6 +108,9 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * me
+     */
     public me(options?: { include?: string; properties?: string }): Promise<Account> {
         options = options || {};
         return apiWrapper(
@@ -120,6 +132,10 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * read
+     * @param id - Account ID.
+     */
     public read(id: string, options?: { include?: string; properties?: string }): Promise<Account> {
         options = options || {};
         return apiWrapper(
@@ -144,6 +160,11 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * trustedCertificates
+     * @param id - Account ID.
+     * @param options - Options to use for the List
+     */
     public trustedCertificates(
         id: string,
         options?: SubtenantTrustedCertificateListOptions
@@ -199,6 +220,11 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - Account ID.
+     */
     public update(request: AccountUpdateRequest, id: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
@@ -243,6 +269,11 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * userInvitations
+     * @param id - Account ID.
+     * @param options - Options to use for the List
+     */
     public userInvitations(
         id: string,
         options?: SubtenantUserInvitationListOptions
@@ -279,6 +310,11 @@ export class AccountRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * users
+     * @param id - Account ID.
+     * @param options - Options to use for the List
+     */
     public users(id: string, options?: SubtenantUserListOptions): Paginator<SubtenantUser, ListOptions> {
         const pageFunc = (pageOptions: SubtenantUserListOptions): Promise<ListResponse<SubtenantUser>> => {
             pageOptions = pageOptions || {};
