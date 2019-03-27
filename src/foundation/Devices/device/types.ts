@@ -208,40 +208,30 @@ export interface DeviceAutoUpdateFilter {
      *neq
      */
     neq?: boolean;
-
-    /**
-     *in
-     */
-    in?: Array<boolean>;
-
-    /**
-     *nin
-     */
-    nin?: Array<boolean>;
 }
 /**
- *DeviceBootstrappedExpirationDateFilter
+ *DeviceBootstrapExpirationDateFilter
  */
-export interface DeviceBootstrappedExpirationDateFilter {
+export interface DeviceBootstrapExpirationDateFilter {
     /**
      *in
      */
-    in?: Array<string>;
+    in?: Array<Date>;
 
     /**
      *nin
      */
-    nin?: Array<string>;
+    nin?: Array<Date>;
 
     /**
      *lte
      */
-    lte?: Array<string>;
+    lte?: Array<Date>;
 
     /**
      *gte
      */
-    gte?: Array<string>;
+    gte?: Array<Date>;
 }
 /**
  *DeviceBootstrappedTimestampFilter
@@ -338,20 +328,6 @@ export interface DeviceCreatedAtFilter {
      *gte
      */
     gte?: Array<Date>;
-}
-/**
- *DeviceCustomAttributesFilter
- */
-export interface DeviceCustomAttributesFilter {
-    /**
-     *eq
-     */
-    eq?: { [key: string]: string };
-
-    /**
-     *neq
-     */
-    neq?: { [key: string]: string };
 }
 /**
  *DeviceDeployedStateFilter
@@ -546,28 +522,28 @@ export interface DeviceEndpointTypeFilter {
     nin?: Array<string>;
 }
 /**
- *DeviceEnrollmentListTimestampFilter
+ *DeviceEnrolmentListTimestampFilter
  */
-export interface DeviceEnrollmentListTimestampFilter {
+export interface DeviceEnrolmentListTimestampFilter {
     /**
      *in
      */
-    in?: Array<string>;
+    in?: Array<Date>;
 
     /**
      *nin
      */
-    nin?: Array<string>;
+    nin?: Array<Date>;
 
     /**
      *lte
      */
-    lte?: Array<string>;
+    lte?: Array<Date>;
 
     /**
      *gte
      */
-    gte?: Array<string>;
+    gte?: Array<Date>;
 }
 /**
  *DeviceFirmwareChecksumFilter
@@ -872,9 +848,9 @@ export interface DeviceFilter {
     autoUpdate?: boolean | DeviceAutoUpdateFilter;
 
     /**
-     *bootstrappedExpirationDate
+     *bootstrapExpirationDate
      */
-    bootstrappedExpirationDate?: DeviceBootstrappedExpirationDateFilter;
+    bootstrapExpirationDate?: DeviceBootstrapExpirationDateFilter;
 
     /**
      *bootstrappedTimestamp
@@ -895,11 +871,6 @@ export interface DeviceFilter {
      *createdAt
      */
     createdAt?: DeviceCreatedAtFilter;
-
-    /**
-     *customAttributes
-     */
-    customAttributes?: { [key: string]: string } | DeviceCustomAttributesFilter;
 
     /**
      *deployedState
@@ -942,9 +913,9 @@ export interface DeviceFilter {
     endpointType?: string | DeviceEndpointTypeFilter;
 
     /**
-     *enrollmentListTimestamp
+     *enrolmentListTimestamp
      */
-    enrollmentListTimestamp?: DeviceEnrollmentListTimestampFilter;
+    enrolmentListTimestamp?: DeviceEnrolmentListTimestampFilter;
 
     /**
      *firmwareChecksum
