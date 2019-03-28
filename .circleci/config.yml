@@ -346,7 +346,7 @@ jobs:
       - run:
           name: sync to build branch if exists or create new one
           command: |
-              git add --force lib types package.json
+              git add --force bundles lib types package.json
               git stash save
               git checkout -B build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
