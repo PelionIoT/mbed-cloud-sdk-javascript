@@ -16,6 +16,7 @@ var srcDir = "src";
 var nodeDir = "lib";
 var bundleFiles = nodeDir + "/legacy/**/index.js";
 var foundationFiles = nodeDir + "/foundation/**/index.js";
+var sdkDirectory = nodeDir + "/sdk.js";
 
 // Browser bundles
 var bundleDir = "bundles";
@@ -111,4 +112,16 @@ gulp.task("bundleFoundation", function () {
     });
 });
 
-gulp.task("default", ["bundleLegacy", "bundleFoundation"]);
+gulp.task("bundleSdk", function () {
+    return bundle(sdkDirectory, bundleDir, function (file) {
+        var name = path.dirname(file.relative);
+        console.log(name);
+
+        return {
+            fileName: "sdk.min.js",
+            standalone: `${foundationNamespace}.SDK`
+        };
+    });
+});
+
+gulp.task("default", ["bundleLegacy", "bundleFoundation", "bundleSdk"]);
