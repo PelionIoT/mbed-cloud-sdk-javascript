@@ -132,16 +132,6 @@ export interface DeviceEventsStateChangeFilter {
      *neq
      */
     neq?: boolean;
-
-    /**
-     *in
-     */
-    in?: Array<boolean>;
-
-    /**
-     *nin
-     */
-    nin?: Array<boolean>;
 }
 /**
  *DeviceEventsFilter

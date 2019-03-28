@@ -43,8 +43,6 @@ export class DeviceEventsRepository extends Repository {
                                 event_type__nin: extractFilter(pageOptions.filter, "eventType", "nin"),
                                 state_change__eq: extractFilter(pageOptions.filter, "stateChange", "eq"),
                                 state_change__neq: extractFilter(pageOptions.filter, "stateChange", "neq"),
-                                state_change__in: extractFilter(pageOptions.filter, "stateChange", "in"),
-                                state_change__nin: extractFilter(pageOptions.filter, "stateChange", "nin"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,
