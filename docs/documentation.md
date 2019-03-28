@@ -18,7 +18,6 @@ $ npm install mbed-cloud-sdk
 
 * `bundles` - minified browser scripts.
 * `lib` - Node.js modules.
-* `examples` - contains all examples.
 
 ## API keys
 
@@ -32,6 +31,9 @@ The SDKs support setting parameters through environment variables and `.env` (al
 
 ## Configuration parameters
 
+### MBED_CLOUD_SDK_API_KEY
+The user's API key for accessing this instance of mbed cloud.
+
 ### MBED_CLOUD_SDK_HOST
 The fully qualified url of the host serving the mbed cloud api (scheme, hostname, port, base path).
 The schema and hostname are required. For example:
@@ -39,31 +41,48 @@ The schema and hostname are required. For example:
 - `https://api.us-east-1.mbedcloud.com`
 - `https://my-deployment.net/mbed-api/`
 
-### MBED_CLOUD_SDK_API_KEY
-The user's API key for accessing this instance of mbed cloud.
-
 ## Usage in Node.js (CommonJS modules)
 
-To use the SDK in Node.js:
+To use a specific repository in Node.js:
 
-1. `require` this module.
-2. Create a new instance of the API you want to use.
+1. Import the repository from `mbed-cloud-sdk`.
+2. Create a new instance of the repository.
 
-For example, to list all connected devices:
+For example, to list the first 10 devices:
 
 ```JavaScript
-var MbedCloudSDK = require("mbed-cloud-sdk");
+import { DeviceRepository } from "mbed-cloud-sdk";
 
-var connect = new MbedCloudSDK.ConnectApi({
-	apiKey: "<Mbed Cloud API Key>"
-});
+// create an instance of a device repository
+const deviceList = new DeviceRepository()
+	// List the first 10 devices in your Pelion DM account
+	.list({ maxResults: 10 });
 
-connect.listConnectedDevices()
-.then(devices => {
-	devices.data.forEach(device => {
-		console.log(device.id);
-	});
-});
+for await (const device of deviceList) {
+	console.log(`Hello device ${device.name}`);
+}
+```
+
+To use the top level SDK instance in Node.js:
+
+1. Import the SDK from `mbed-cloud-sdk`.
+2. Create a new instance of the SDK.
+
+For example, to list the first 10 devices:
+
+```JavaScript
+import { SDK } from "mbed-cloud-sdk";
+
+// create an instance of the Pelion Device Management SDK
+const deviceList = new SDK()
+	.foundation()
+	.deviceRepository()
+	// List the first 10 devices in your Pelion DM account
+	.list({ maxResults: 10 });
+
+for await (const device of deviceList) {
+	console.log(`Hello device ${device.name}`);
+}
 ```
 
 ## Usage in browser (RequireJS/AMD modules, Vanilla JS/SPAs)
@@ -99,10 +118,3 @@ You can also use all bundles by including `index.min.js`:
 ```
 
 __Warning:__ It is not advisable to embed your API key into distributed code such as client-side web pages. For production scenarios, developers may want to consider using Node.js for all API calls or to proxy client-side code requests to inject the API key. You can find an example proxy server in the `examples` folder.
-
-__Note:__ [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) protects Mbed Cloud. CORS rules are a browser security feature which restricts cross-origin calls from unknown domains and is only a concern when you use the SDKs directly in a browser (not Node.js).
-If using the SDKs in a browser (perhaps for a single page web application), the domain `localhost` has been whitelisted for Mbed Cloud to enable local development. Before deploying to production, any public domain will need to be whitelisted to avoid CORS restrictions. To do this, please contact Mbed Cloud support.
-
-## Examples
-
-Please refer to the examples folder for some node and web examples.
