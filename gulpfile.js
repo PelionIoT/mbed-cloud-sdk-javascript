@@ -102,9 +102,6 @@ gulp.task("bundleFoundation", function () {
             };
         }
 
-        console.log("filename " + `foundation/${camelToKebab(name)}.min${path.extname(file.relative)}`);
-        console.log("standalone " + `${foundationNamespace}.Foundation.${pascalName}`);
-
         return {
             fileName: `foundation/${camelToKebab(name)}.min${path.extname(file.relative)}`,
             standalone: `${foundationNamespace}.Foundation.${pascalName}`
@@ -114,9 +111,6 @@ gulp.task("bundleFoundation", function () {
 
 gulp.task("bundleSdk", function () {
     return bundle(sdkDirectory, bundleDir, function (file) {
-        var name = path.dirname(file.relative);
-        console.log(name);
-
         return {
             fileName: "sdk.min.js",
             standalone: `${foundationNamespace}.SDK`
