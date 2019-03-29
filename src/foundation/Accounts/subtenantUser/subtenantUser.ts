@@ -2,98 +2,112 @@ import { Entity } from "../../../common/entity";
 import { ActiveSession } from "../activeSession/activeSession";
 import { LoginHistory } from "../loginHistory/loginHistory";
 import { LoginProfile } from "../loginProfile/loginProfile";
-import { SubtenantUserStatusEnum } from "./types";
+import { SubtenantUserStatus } from "./types";
 /**
  *SubtenantUser
  */
 export interface SubtenantUser extends Entity {
     /**
-     *accountId
+     *The ID of the account.
+     *@example 01619571e2e90242ac12000600000000
      */
     accountId: string;
 
     /**
-     *activeSessions
+     *This object represents an active user session.
      */
     readonly activeSessions?: Array<ActiveSession>;
 
     /**
-     *address
+     *Address.
+     *@example 110 Fulbourn Rd, Cambridge, United Kingdom
      */
     address?: string;
 
     /**
-     *createdAt
+     *Creation UTC time RFC3339.
+     *@example 2018-02-13T09:35:20Z
      */
     readonly createdAt?: Date;
 
     /**
-     *creationTime
+     *A timestamp of the user creation in the storage, in milliseconds.
+     *@example 1518630727683
      */
     readonly creationTime?: number;
 
     /**
-     *customFields
+     *User's account specific custom properties. The value is a string.
      */
     readonly customFields?: { [key: string]: string };
 
     /**
-     *email
+     *The email address.
+     *@example user@arm.com
      */
     email: string;
 
     /**
-     *emailVerified
+     *A flag indicating whether the user's email address has been verified or not.
+     *@example true
      */
     readonly emailVerified?: boolean;
 
     /**
-     *fullName
+     *The full name of the user.
+     *@example User Doe
      */
     fullName?: string;
 
     /**
-     *lastLoginTime
+     *A timestamp of the latest login of the user, in milliseconds.
+     *@example 1518630727688
      */
     readonly lastLoginTime?: number;
 
     /**
-     *loginHistory
+     *This object represents an entry in login history.
      */
     readonly loginHistory?: Array<LoginHistory>;
 
     /**
-     *loginProfiles
+     *This object represents a user login profile in Device Management.
      */
     loginProfiles?: Array<LoginProfile>;
 
     /**
-     *marketingAccepted
+     *A flag indicating that receiving marketing information has been accepted.
+     *@example true
      */
     marketingAccepted?: boolean;
 
     /**
-     *password
+     *The password when creating a new user. It will be generated when not present in the request.
+     *@example PZf9eEUH43DAPE9ULINFeuj
      */
     password?: string;
 
     /**
-     *passwordChangedTime
+     *A timestamp of the latest change of the user password, in milliseconds.
+     *@example 1518630727688
      */
     readonly passwordChangedTime?: number;
 
     /**
-     *phoneNumber
+     *Phone number.
+     *@example +44 (1223) 400 400
      */
     phoneNumber?: string;
 
     /**
-     *status
+     *The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     *@example ACTIVE
      */
-    status?: SubtenantUserStatusEnum;
+    status?: SubtenantUserStatus;
 
     /**
-     *termsAccepted
+     *A flag indicating that the General Terms and Conditions has been accepted.
+     *@example true
      */
     termsAccepted?: boolean;
 
@@ -103,17 +117,20 @@ export interface SubtenantUser extends Entity {
     readonly totpScratchCodes?: Array<string>;
 
     /**
-     *twoFactorAuthentication
+     *A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     *@example true
      */
     twoFactorAuthentication?: boolean;
 
     /**
-     *updatedAt
+     *Last update UTC time RFC3339.
+     *@example 2018-02-14T15:24:14Z
      */
     readonly updatedAt?: Date;
 
     /**
-     *username
+     *A username containing alphanumerical letters and -,._@+= characters.
+     *@example admin
      */
     username?: string;
 }

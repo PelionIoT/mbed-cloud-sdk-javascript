@@ -236,7 +236,7 @@ export class DeviceDirectoryApi {
      * Update a device
      *
      * Example:
-     * ```JavaScript=
+     * ```JavaScript
      * devices.updateDevice({
      *     id: '015c5ed320c0000000000001001000f0',
      *     name: 'Updated name',

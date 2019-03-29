@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export class Version {
     // TODO Autoversion currently does not support modifying this type of file. Can export once autoversion is updated
     public static readonly packageName: string = "mbed-cloud-sdk";

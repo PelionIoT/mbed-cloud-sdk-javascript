@@ -10,6 +10,11 @@ import { SubtenantTrustedCertificateUpdateRequest } from "./types";
  *SubtenantTrustedCertificate repository
  */
 export class SubtenantTrustedCertificateRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     * @param accountId - The ID of the account.
+     */
     public create(
         request: SubtenantTrustedCertificateCreateRequest,
         accountId: string
@@ -40,6 +45,11 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @param accountId - Account ID.
+     * @param id - The ID of the trusted certificate to be deleted.
+     */
     public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -60,6 +70,10 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * getDeveloperCertificateInfo
+     * @param id - ID that uniquely identifies the developer certificate.
+     */
     public getDeveloperCertificateInfo(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -79,6 +93,11 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * read
+     * @param accountId - The ID of the account.
+     * @param id - Entity ID.
+     */
     public read(accountId: string, id: string): Promise<SubtenantTrustedCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -99,6 +118,12 @@ export class SubtenantTrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param accountId - The ID of the account.
+     * @param id - Entity ID.
+     */
     public update(
         request: SubtenantTrustedCertificateUpdateRequest,
         accountId: string,

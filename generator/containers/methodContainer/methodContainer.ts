@@ -10,6 +10,7 @@ export class MethodContainer extends Container {
     public modifier: Modifiers;
     public parameterList: ParameterListContainer;
     public returns: string;
+    public description: string;
     public promise: boolean;
     public methodBody: MethodBodyContainer;
     public isStatic: boolean;
@@ -21,18 +22,20 @@ export class MethodContainer extends Container {
         promise?: boolean
         methodBody?: MethodBodyContainer,
         isStatic?: boolean,
+        description?: string,
     }) {
         super();
         this.name = name;
 
         options = options || {};
-        const { parameterList, returns, modifier, methodBody, isStatic, promise } = options;
+        const { parameterList, returns, modifier, methodBody, isStatic, promise, description } = options;
         this.promise = promise || false;
         this.modifier = modifier || "public";
         this.returns = returns ? this.promise ? `Promise<${returns}>` : returns : "void";
         this.parameterList = parameterList;
         this.methodBody = methodBody;
         this.isStatic = isStatic || false;
+        this.description = description || name;
     }
     public async render(): Promise<string> {
         const parameterList = this.parameterList ? await this.parameterList.render() : "";
@@ -42,7 +45,8 @@ export class MethodContainer extends Container {
             isStatic: this.isStatic,
             params: this.parameterList ? this.parameterList.parameters : [],
             returns: this.returns, parameterList,
-            methodBody: this.methodBody ? await this.methodBody.render() : ""
+            methodBody: this.methodBody ? await this.methodBody.render() : "",
+            description: this.description,
         });
     }
 

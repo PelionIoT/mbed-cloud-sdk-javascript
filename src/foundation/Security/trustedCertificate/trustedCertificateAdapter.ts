@@ -5,6 +5,11 @@ import { isDeveloperCertificateSetter } from "../../../common/privateFunctions";
  *TrustedCertificate adapter
  */
 export class TrustedCertificateAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): TrustedCertificate {
         if (!data) {
             return null;

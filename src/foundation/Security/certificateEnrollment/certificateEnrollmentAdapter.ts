@@ -4,6 +4,11 @@ import { CertificateEnrollment } from "./certificateEnrollment";
  *CertificateEnrollment adapter
  */
 export class CertificateEnrollmentAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): CertificateEnrollment {
         if (!data) {
             return null;

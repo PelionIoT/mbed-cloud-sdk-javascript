@@ -62,12 +62,12 @@ export const subtenantTrustedCertificateSchema = (): Schema => {
             {
                 name: "service",
                 apiName: "service",
-                type: "SubtenantTrustedCertificateServiceEnum",
+                type: "SubtenantTrustedCertificateService",
             },
             {
                 name: "status",
                 apiName: "status",
-                type: "SubtenantTrustedCertificateStatusEnum",
+                type: "SubtenantTrustedCertificateStatus",
             },
             {
                 name: "subject",
@@ -119,11 +119,11 @@ export const subtenantTrustedCertificateSchema = (): Schema => {
                             },
                             {
                                 name: "service",
-                                type: "SubtenantTrustedCertificateServiceEnum",
+                                type: "SubtenantTrustedCertificateService",
                             },
                             {
                                 name: "status",
-                                type: "SubtenantTrustedCertificateStatusEnum",
+                                type: "SubtenantTrustedCertificateStatus",
                             },
                         ],
                     },
@@ -204,11 +204,11 @@ export const subtenantTrustedCertificateSchema = (): Schema => {
                             },
                             {
                                 name: "service",
-                                type: "SubtenantTrustedCertificateServiceEnum",
+                                type: "SubtenantTrustedCertificateService",
                             },
                             {
                                 name: "status",
-                                type: "SubtenantTrustedCertificateStatusEnum",
+                                type: "SubtenantTrustedCertificateStatus",
                             },
                         ],
                     },

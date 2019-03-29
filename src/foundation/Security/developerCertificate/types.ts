@@ -3,12 +3,12 @@
  */
 export interface DeveloperCertificateCreateRequest {
     /**
-     *description
+     *Description for the developer certificate.
      */
     readonly description?: string;
 
     /**
-     *name
+     *Name of the developer certificate.
      */
     readonly name: string;
 }

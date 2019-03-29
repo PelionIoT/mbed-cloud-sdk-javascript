@@ -6,6 +6,9 @@ import { ServerCredentialsAdapter } from "../../index";
  *ServerCredentials repository
  */
 export class ServerCredentialsRepository extends Repository {
+    /**
+     * getBootstrap
+     */
     public getBootstrap(): Promise<ServerCredentials> {
         return apiWrapper(
             resultsFn => {
@@ -22,6 +25,9 @@ export class ServerCredentialsRepository extends Repository {
             }
         );
     }
+    /**
+     * getLwm2m
+     */
     public getLwm2m(): Promise<ServerCredentials> {
         return apiWrapper(
             resultsFn => {

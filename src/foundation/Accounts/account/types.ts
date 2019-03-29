@@ -1,38 +1,44 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
-export type AccountMfaStatusEnum = "enforced" | "optional";
-export type AccountStatusEnum = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
+export type AccountMfaStatus = "enforced" | "optional";
+export type AccountStatus = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
 /**
  *AccountCreateRequest
  */
 export interface AccountCreateRequest {
     /**
-     *addressLine1
+     *Postal address line 1.
+     *@example 110 Fulbourn Rd
      */
     readonly addressLine1?: string;
 
     /**
-     *addressLine2
+     *Postal address line 2.
+     *@example
      */
     readonly addressLine2?: string;
 
     /**
-     *adminEmail
+     *The email address of the admin user created for this account. Present only in the response for the account creation.
+     *@example admin@arm.com
      */
     readonly adminEmail?: string;
 
     /**
-     *adminFullName
+     *The full name of the admin user created for this account. Present only in the response for the account creation.
+     *@example Admin Doe
      */
     readonly adminFullName?: string;
 
     /**
-     *adminName
+     *The username of the admin user created for this account. Present only in the response for the account creation.
+     *@example admin
      */
     readonly adminName?: string;
 
     /**
-     *adminPassword
+     *The password of the admin user created for this account. Present only in the response for the account creation.
+     *@example PZf9eEUH43DAPE9ULINFeuj
      */
     readonly adminPassword?: string;
 
@@ -42,62 +48,74 @@ export interface AccountCreateRequest {
     readonly aliases?: Array<string>;
 
     /**
-     *city
+     *The city part of the postal address.
+     *@example Cambridge
      */
     readonly city?: string;
 
     /**
-     *company
+     *The name of the company.
+     *@example ARM Holdings Plc
      */
     readonly company?: string;
 
     /**
-     *contact
+     *The name of the contact person for this account.
+     *@example J. Doe
      */
     readonly contact?: string;
 
     /**
-     *contractNumber
+     *Contract number of the customer.
+     *@example 1NX25_0001
      */
     readonly contractNumber?: string;
 
     /**
-     *country
+     *The country part of the postal address.
+     *@example United Kingdom
      */
     readonly country?: string;
 
     /**
-     *customerNumber
+     *Customer number of the customer.
+     *@example 1NC25_0001
      */
     readonly customerNumber?: string;
 
     /**
-     *displayName
+     *The display name for the account.
+     *@example ARM
      */
     readonly displayName?: string;
 
     /**
-     *email
+     *The company email address for this account.
+     *@example info@arm.com
      */
     readonly email?: string;
 
     /**
-     *endMarket
+     *Account end market.
+     *@example IT
      */
     readonly endMarket?: string;
 
     /**
-     *phoneNumber
+     *The phone number of a representative of the company.
+     *@example +44 (1223) 400 400
      */
     readonly phoneNumber?: string;
 
     /**
-     *postalCode
+     *The postal code part of the postal address.
+     *@example CB1 9NJ
      */
     readonly postalCode?: string;
 
     /**
-     *state
+     *The state part of the postal address.
+     *@example
      */
     readonly state?: string;
 }
@@ -106,12 +124,14 @@ export interface AccountCreateRequest {
  */
 export interface AccountUpdateRequest {
     /**
-     *addressLine1
+     *Postal address line 1.
+     *@example 110 Fulbourn Rd
      */
     readonly addressLine1?: string;
 
     /**
-     *addressLine2
+     *Postal address line 2.
+     *@example
      */
     readonly addressLine2?: string;
 
@@ -121,69 +141,80 @@ export interface AccountUpdateRequest {
     readonly aliases?: Array<string>;
 
     /**
-     *city
+     *The city part of the postal address.
+     *@example Cambridge
      */
     readonly city?: string;
 
     /**
-     *company
+     *The name of the company.
+     *@example ARM Holdings Plc
      */
     readonly company?: string;
 
     /**
-     *contact
+     *The name of the contact person for this account.
+     *@example J. Doe
      */
     readonly contact?: string;
 
     /**
-     *contractNumber
+     *Contract number of the customer.
+     *@example 1NX25_0001
      */
     readonly contractNumber?: string;
 
     /**
-     *country
+     *The country part of the postal address.
+     *@example United Kingdom
      */
     readonly country?: string;
 
     /**
-     *customFields
+     *Account's custom properties as key-value pairs.
      */
     readonly customFields?: { [key: string]: string };
 
     /**
-     *customerNumber
+     *Customer number of the customer.
+     *@example 1NC25_0001
      */
     readonly customerNumber?: string;
 
     /**
-     *displayName
+     *The display name for the account.
+     *@example ARM
      */
     readonly displayName?: string;
 
     /**
-     *email
+     *The company email address for this account.
+     *@example info@arm.com
      */
     readonly email?: string;
 
     /**
-     *endMarket
+     *Account end market.
+     *@example IT
      */
     readonly endMarket?: string;
 
     /**
-     *expirationWarningThreshold
+     *Indicates how many days (1-180) before account expiration a notification email should be sent.
+     *@example 180
      */
     readonly expirationWarningThreshold?: string;
 
     /**
-     *idleTimeout
+     *The reference token expiration time in minutes for this account.
+     *@example 30
      */
     readonly idleTimeout?: string;
 
     /**
-     *mfaStatus
+     *The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
      */
-    readonly mfaStatus?: AccountMfaStatusEnum;
+    readonly mfaStatus?: AccountMfaStatus;
 
     /**
      *notificationEmails
@@ -196,27 +227,31 @@ export interface AccountUpdateRequest {
     readonly passwordPolicy?: PasswordPolicy;
 
     /**
-     *passwordRecoveryExpiration
+     *Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.
      */
     readonly passwordRecoveryExpiration?: number;
 
     /**
-     *phoneNumber
+     *The phone number of a representative of the company.
+     *@example +44 (1223) 400 400
      */
     readonly phoneNumber?: string;
 
     /**
-     *postalCode
+     *The postal code part of the postal address.
+     *@example CB1 9NJ
      */
     readonly postalCode?: string;
 
     /**
-     *salesContact
+     *Email address of the sales contact.
+     *@example sales@arm.com
      */
     readonly salesContact?: string;
 
     /**
-     *state
+     *The state part of the postal address.
+     *@example
      */
     readonly state?: string;
 }
@@ -225,26 +260,26 @@ export interface AccountUpdateRequest {
  */
 export interface AccountStatusFilter {
     /**
-     *eq
+     *status equal to
      */
-    eq?: AccountStatusEnum;
+    eq?: AccountStatus;
 
     /**
-     *in
+     *status in
      */
-    in?: Array<AccountStatusEnum>;
+    in?: Array<AccountStatus>;
 
     /**
-     *nin
+     *status not in
      */
-    nin?: Array<AccountStatusEnum>;
+    nin?: Array<AccountStatus>;
 }
 /**
  *AccountTierFilter
  */
 export interface AccountTierFilter {
     /**
-     *eq
+     *tier equal to
      */
     eq?: string;
 }
@@ -253,7 +288,7 @@ export interface AccountTierFilter {
  */
 export interface AccountParentFilter {
     /**
-     *eq
+     *parent equal to
      */
     eq?: string;
 }
@@ -262,7 +297,7 @@ export interface AccountParentFilter {
  */
 export interface AccountEndMarketFilter {
     /**
-     *eq
+     *endMarket equal to
      */
     eq?: string;
 }
@@ -271,7 +306,7 @@ export interface AccountEndMarketFilter {
  */
 export interface AccountCountryFilter {
     /**
-     *like
+     *country like
      */
     like?: string;
 }
@@ -280,27 +315,27 @@ export interface AccountCountryFilter {
  */
 export interface AccountFilter {
     /**
-     *status
+     *Filter by status on Account
      */
-    status?: AccountStatusEnum | AccountStatusFilter;
+    status?: AccountStatus | AccountStatusFilter;
 
     /**
-     *tier
+     *Filter by tier on Account
      */
     tier?: string | AccountTierFilter;
 
     /**
-     *parent
+     *Filter by parent on Account
      */
     parent?: string | AccountParentFilter;
 
     /**
-     *endMarket
+     *Filter by endMarket on Account
      */
     endMarket?: string | AccountEndMarketFilter;
 
     /**
-     *country
+     *Filter by country on Account
      */
     country?: AccountCountryFilter;
 }
@@ -309,17 +344,17 @@ export interface AccountFilter {
  */
 export interface AccountListOptions extends ListOptions {
     /**
-     *format
+     *Format information for the response to the query, supported: format=breakdown.
      */
     format?: string;
 
     /**
-     *properties
+     *Property name to be returned from account specific properties.
      */
     properties?: string;
 
     /**
-     *filter
+     *Filter for Account
      */
     filter?: AccountFilter;
 }
@@ -328,7 +363,7 @@ export interface AccountListOptions extends ListOptions {
  */
 export interface SubtenantTrustedCertificateNameFilter {
     /**
-     *eq
+     *name equal to
      */
     eq?: string;
 }
@@ -337,7 +372,7 @@ export interface SubtenantTrustedCertificateNameFilter {
  */
 export interface SubtenantTrustedCertificateServiceFilter {
     /**
-     *eq
+     *service equal to
      */
     eq?: string;
 }
@@ -346,7 +381,7 @@ export interface SubtenantTrustedCertificateServiceFilter {
  */
 export interface SubtenantTrustedCertificateExpireFilter {
     /**
-     *eq
+     *expire equal to
      */
     eq?: string;
 }
@@ -355,12 +390,12 @@ export interface SubtenantTrustedCertificateExpireFilter {
  */
 export interface SubtenantTrustedCertificateDeviceExecutionModeFilter {
     /**
-     *eq
+     *deviceExecutionMode equal to
      */
     eq?: string;
 
     /**
-     *neq
+     *deviceExecutionMode not equal to
      */
     neq?: string;
 }
@@ -369,7 +404,7 @@ export interface SubtenantTrustedCertificateDeviceExecutionModeFilter {
  */
 export interface SubtenantTrustedCertificateOwnerFilter {
     /**
-     *eq
+     *owner equal to
      */
     eq?: string;
 }
@@ -378,7 +413,7 @@ export interface SubtenantTrustedCertificateOwnerFilter {
  */
 export interface SubtenantTrustedCertificateEnrollmentModeFilter {
     /**
-     *eq
+     *enrollmentMode equal to
      */
     eq?: string;
 }
@@ -387,16 +422,16 @@ export interface SubtenantTrustedCertificateEnrollmentModeFilter {
  */
 export interface SubtenantTrustedCertificateStatusFilter {
     /**
-     *eq
+     *status equal to
      */
-    eq?: AccountStatusEnum;
+    eq?: AccountStatus;
 }
 /**
  *SubtenantTrustedCertificateIssuerFilter
  */
 export interface SubtenantTrustedCertificateIssuerFilter {
     /**
-     *like
+     *issuer like
      */
     like?: string;
 }
@@ -405,7 +440,7 @@ export interface SubtenantTrustedCertificateIssuerFilter {
  */
 export interface SubtenantTrustedCertificateSubjectFilter {
     /**
-     *like
+     *subject like
      */
     like?: string;
 }
@@ -414,7 +449,7 @@ export interface SubtenantTrustedCertificateSubjectFilter {
  */
 export interface SubtenantTrustedCertificateValidFilter {
     /**
-     *eq
+     *valid equal to
      */
     eq?: string;
 }
@@ -423,52 +458,52 @@ export interface SubtenantTrustedCertificateValidFilter {
  */
 export interface SubtenantTrustedCertificateFilter {
     /**
-     *name
+     *Filter by name on SubtenantTrustedCertificate
      */
     name?: string | SubtenantTrustedCertificateNameFilter;
 
     /**
-     *service
+     *Filter by service on SubtenantTrustedCertificate
      */
     service?: string | SubtenantTrustedCertificateServiceFilter;
 
     /**
-     *expire
+     *Filter by expire on SubtenantTrustedCertificate
      */
     expire?: string | SubtenantTrustedCertificateExpireFilter;
 
     /**
-     *deviceExecutionMode
+     *Filter by deviceExecutionMode on SubtenantTrustedCertificate
      */
     deviceExecutionMode?: string | SubtenantTrustedCertificateDeviceExecutionModeFilter;
 
     /**
-     *owner
+     *Filter by owner on SubtenantTrustedCertificate
      */
     owner?: string | SubtenantTrustedCertificateOwnerFilter;
 
     /**
-     *enrollmentMode
+     *Filter by enrollmentMode on SubtenantTrustedCertificate
      */
     enrollmentMode?: string | SubtenantTrustedCertificateEnrollmentModeFilter;
 
     /**
-     *status
+     *Filter by status on SubtenantTrustedCertificate
      */
-    status?: AccountStatusEnum | SubtenantTrustedCertificateStatusFilter;
+    status?: AccountStatus | SubtenantTrustedCertificateStatusFilter;
 
     /**
-     *issuer
+     *Filter by issuer on SubtenantTrustedCertificate
      */
     issuer?: SubtenantTrustedCertificateIssuerFilter;
 
     /**
-     *subject
+     *Filter by subject on SubtenantTrustedCertificate
      */
     subject?: SubtenantTrustedCertificateSubjectFilter;
 
     /**
-     *valid
+     *Filter by valid on SubtenantTrustedCertificate
      */
     valid?: string | SubtenantTrustedCertificateValidFilter;
 }
@@ -477,7 +512,7 @@ export interface SubtenantTrustedCertificateFilter {
  */
 export interface SubtenantTrustedCertificateListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for SubtenantTrustedCertificate
      */
     filter?: SubtenantTrustedCertificateFilter;
 }
@@ -486,7 +521,7 @@ export interface SubtenantTrustedCertificateListOptions extends ListOptions {
  */
 export interface SubtenantUserInvitationLoginProfileFilter {
     /**
-     *eq
+     *loginProfile equal to
      */
     eq?: string;
 }
@@ -495,7 +530,7 @@ export interface SubtenantUserInvitationLoginProfileFilter {
  */
 export interface SubtenantUserInvitationFilter {
     /**
-     *loginProfile
+     *Filter by loginProfile on SubtenantUserInvitation
      */
     loginProfile?: string | SubtenantUserInvitationLoginProfileFilter;
 }
@@ -504,7 +539,7 @@ export interface SubtenantUserInvitationFilter {
  */
 export interface SubtenantUserInvitationListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for SubtenantUserInvitation
      */
     filter?: SubtenantUserInvitationFilter;
 }
@@ -513,7 +548,7 @@ export interface SubtenantUserInvitationListOptions extends ListOptions {
  */
 export interface SubtenantUserEmailFilter {
     /**
-     *eq
+     *email equal to
      */
     eq?: string;
 }
@@ -522,26 +557,26 @@ export interface SubtenantUserEmailFilter {
  */
 export interface SubtenantUserStatusFilter {
     /**
-     *eq
+     *status equal to
      */
-    eq?: AccountStatusEnum;
+    eq?: AccountStatus;
 
     /**
-     *in
+     *status in
      */
-    in?: Array<AccountStatusEnum>;
+    in?: Array<AccountStatus>;
 
     /**
-     *nin
+     *status not in
      */
-    nin?: Array<AccountStatusEnum>;
+    nin?: Array<AccountStatus>;
 }
 /**
  *SubtenantUserLoginProfileFilter
  */
 export interface SubtenantUserLoginProfileFilter {
     /**
-     *eq
+     *loginProfile equal to
      */
     eq?: string;
 }
@@ -550,17 +585,17 @@ export interface SubtenantUserLoginProfileFilter {
  */
 export interface SubtenantUserFilter {
     /**
-     *email
+     *Filter by email on SubtenantUser
      */
     email?: string | SubtenantUserEmailFilter;
 
     /**
-     *status
+     *Filter by status on SubtenantUser
      */
-    status?: AccountStatusEnum | SubtenantUserStatusFilter;
+    status?: AccountStatus | SubtenantUserStatusFilter;
 
     /**
-     *loginProfile
+     *Filter by loginProfile on SubtenantUser
      */
     loginProfile?: string | SubtenantUserLoginProfileFilter;
 }
@@ -569,7 +604,7 @@ export interface SubtenantUserFilter {
  */
 export interface SubtenantUserListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for SubtenantUser
      */
     filter?: SubtenantUserFilter;
 }

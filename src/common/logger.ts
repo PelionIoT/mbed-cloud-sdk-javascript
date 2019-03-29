@@ -1,5 +1,10 @@
 import { LoggerFactoryOptions, LFService, LogGroupRule, LogLevel } from "typescript-logging";
 
+/**
+ * Get a new instance of a logger
+ * @param name The name of the logger, must be unique
+ * @param level The level of the logger
+ */
 export const loggerFactory = (name: string, level: SDKLogLevel) => {
     const options = new LoggerFactoryOptions();
     switch (level) {
@@ -29,4 +34,7 @@ export const loggerFactory = (name: string, level: SDKLogLevel) => {
     return LFService.createNamedLoggerFactory(`${name}SDKLogger`, options);
 };
 
+/**
+ * The SDK log level
+ */
 export type SDKLogLevel = "FATAL" | "ERROR" | "WARN" | "INFO" | "DEBUG" | "ALL";

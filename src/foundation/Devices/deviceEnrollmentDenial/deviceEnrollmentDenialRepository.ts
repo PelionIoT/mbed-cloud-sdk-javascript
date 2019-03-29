@@ -11,6 +11,10 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *DeviceEnrollmentDenial repository
  */
 export class DeviceEnrollmentDenialRepository extends Repository {
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: DeviceEnrollmentDenialListOptions): Paginator<DeviceEnrollmentDenial, ListOptions> {
         const pageFunc = (
             pageOptions: DeviceEnrollmentDenialListOptions
@@ -46,6 +50,10 @@ export class DeviceEnrollmentDenialRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @param deviceEnrollmentDenialId - id of the recorded failed bootstrap attempt
+     */
     public read(deviceEnrollmentDenialId: string): Promise<DeviceEnrollmentDenial> {
         return apiWrapper(
             resultsFn => {

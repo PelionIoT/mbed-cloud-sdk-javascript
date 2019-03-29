@@ -16,6 +16,10 @@
  */
 
 // Generates a random URL-friendly identifier string. Note that this is not cryptographically secure.
+/**
+ * Internal
+ * @ignore
+ */
 export const generateId = (): string => {
     return `${Date.now()}${Math.floor(Math.random() * 10000)}`;
 };

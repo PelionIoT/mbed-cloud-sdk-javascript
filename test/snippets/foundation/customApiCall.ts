@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { SDK } from "../../../src/sdk";
+import { SDK } from "../../../src";
 
 describe("customApiCall", () => {
     test("customApiCall", async () => {

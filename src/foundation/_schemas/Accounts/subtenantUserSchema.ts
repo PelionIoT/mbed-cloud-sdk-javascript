@@ -87,7 +87,7 @@ export const subtenantUserSchema = (): Schema => {
             {
                 name: "status",
                 apiName: "status",
-                type: "SubtenantUserStatusEnum",
+                type: "SubtenantUserStatus",
             },
             {
                 name: "termsAccepted",

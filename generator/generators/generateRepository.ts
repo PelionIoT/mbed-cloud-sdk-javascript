@@ -73,7 +73,10 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 hasRequest = true;
                 parameterList.addParameters(new ParameterContainer(
                     "request",
-                    `${pascalKey}${snakeToPascal(method._key)}Request`
+                    `${pascalKey}${snakeToPascal(method._key)}Request`,
+                    {
+                        description: "The entity to perform action on."
+                    }
                 ));
                 repositoryImports.push(new ImportContainer(
                     `${pascalKey.toUpperCase()}_${method._key.toUpperCase()}_REQUEST`,
@@ -101,7 +104,8 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                     fieldType,
                     {
                         isRequired: field.required,
-                        defaultValue: field.default
+                        defaultValue: field.default,
+                        description: field.description,
                     }
                 );
                 externalParams.push(parameter);
@@ -155,7 +159,8 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                             "options",
                             `${returns}ListOptions`,
                             {
-                                isRequired: false
+                                isRequired: false,
+                                description: "Options to use for the List",
                             }
                         )
                     );
@@ -279,7 +284,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                     promise: !paginated,
                     parameterList: parameterList,
                     modifier: privateMethod ? "private" : "public",
-                    methodBody: methodBody
+                    methodBody: methodBody,
                 }
             );
             repositoryMethods.push(methodContainer);

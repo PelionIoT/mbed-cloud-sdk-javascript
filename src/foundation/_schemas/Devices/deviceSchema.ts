@@ -47,7 +47,7 @@ export const deviceSchema = (): Schema => {
             {
                 name: "deployedState",
                 apiName: "deployed_state",
-                type: "DeviceDeployedStateEnum",
+                type: "DeviceDeployedState",
             },
             {
                 name: "deployment",
@@ -117,7 +117,7 @@ export const deviceSchema = (): Schema => {
             {
                 name: "mechanism",
                 apiName: "mechanism",
-                type: "DeviceMechanismEnum",
+                type: "DeviceMechanism",
             },
             {
                 name: "mechanismUrl",
@@ -137,7 +137,7 @@ export const deviceSchema = (): Schema => {
             {
                 name: "state",
                 apiName: "state",
-                type: "DeviceStateEnum",
+                type: "DeviceState",
             },
             {
                 name: "updatedAt",
@@ -231,7 +231,7 @@ export const deviceSchema = (): Schema => {
                             },
                             {
                                 name: "mechanism",
-                                type: "DeviceMechanismEnum",
+                                type: "DeviceMechanism",
                             },
                             {
                                 name: "mechanismUrl",
@@ -247,7 +247,7 @@ export const deviceSchema = (): Schema => {
                             },
                             {
                                 name: "state",
-                                type: "DeviceStateEnum",
+                                type: "DeviceState",
                             },
                             {
                                 name: "vendorId",

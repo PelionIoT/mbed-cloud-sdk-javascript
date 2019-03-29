@@ -19,6 +19,10 @@ import { ServicePackageQuotaHistoryItem } from "../../_api/billing";
 import { QuotaHistory } from "./quotaHistory";
 import { mapQuotaHistoryServicePackage } from "./servicePackageAdapter";
 
+/**
+ * Internal
+ * @ignore
+ */
 export const mapQuotaHistory = (from: ServicePackageQuotaHistoryItem): QuotaHistory => {
     return new QuotaHistory({
         id: from.id,

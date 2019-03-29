@@ -15,11 +15,34 @@
 * limitations under the License.
 */
 
-const typeMask       = parseInt("11000000", 2);
-const idLengthMask   = parseInt("00100000", 2); // Length of ID 0=8bits 1=16bits
+/**
+ * Internal
+ * @ignore
+ */
+const typeMask = parseInt("11000000", 2);
+
+/**
+ * Internal
+ * @ignore
+ */
+const idLengthMask = parseInt("00100000", 2); // Length of ID 0=8bits 1=16bits
+
+/**
+ * Internal
+ * @ignore
+ */
 const lengthTypeMask = parseInt("00011000", 2);
+
+/**
+ * Internal
+ * @ignore
+ */
 const lengthMask     = parseInt("00000111", 2);
 
+/**
+ * Internal
+ * @ignore
+ */
 const types = {
     OBJECT_INSTAN: parseInt("00000000", 2), // Object Instance with one or more TLVs
     RESOURCE_INST: parseInt("01000000", 2), // Resource Instance with Value in multi Resource TLV
@@ -27,6 +50,10 @@ const types = {
     RESOURCE_VALU: parseInt("11000000", 2),  // Resource with Value
 };
 
+/**
+ * Internal
+ * @ignore
+ */
 const lengthType = {
     ONE_BYTE: parseInt("00001000", 2), // Length is 8-bits
     TWO_BYTE: parseInt("00010000", 2), // Length is 16-bits
@@ -34,10 +61,18 @@ const lengthType = {
     OTR_BYTE: parseInt("00000000", 2),  // Length is in bits 2-0
 };
 
+/**
+ * Internal
+ * @ignore
+ */
 function findIdLength(byte): number {
     return (byte & idLengthMask) === idLengthMask ? 2 : 1;
 }
 
+/**
+ * Internal
+ * @ignore
+ */
 function findValueLength(byte): number {
     if ((byte & lengthTypeMask) === lengthType.ONE_BYTE ) {
         return 1;
@@ -50,6 +85,10 @@ function findValueLength(byte): number {
     }
 }
 
+/**
+ * Internal
+ * @ignore
+ */
 function decode(bytes, result: {} = {}, path: string = "") {
     if (!bytes || bytes.length < 1) {
         return result;
@@ -100,6 +139,10 @@ function decode(bytes, result: {} = {}, path: string = "") {
     return result;
 }
 
+/**
+ * Decode a raw tlv value
+ * @param value The raw tlv value
+ */
 export function decodeTlv(value: string): string | number | { [key: string]: string | number } {
     const bytes = value.split("").map( char => {
         return char.charCodeAt(0);

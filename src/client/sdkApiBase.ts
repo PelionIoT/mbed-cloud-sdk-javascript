@@ -21,6 +21,7 @@ import superagent = require("superagent");
 import { SDKError } from "../legacy/common/sdkError";
 import { Config } from "../common/config";
 import { Version } from "../version";
+import { isThisNode } from "../legacy/common/functions";
 
 // tslint:disable-next-line:no-var-requires
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
@@ -29,6 +30,9 @@ const MIME_REGEX = /^text\/plain(;.*)?$/i;
 const VERSION = Version.isPublished ? Version.version : `${Version.version}+dev`;
 const userAgent = `${Version.packageName}-javascript / ${VERSION}`;
 
+/**
+ * @ignore internal base class for the Client
+ */
 export class SdkApiBase {
 
     private config: Config;
@@ -169,7 +173,11 @@ export class SdkApiBase {
 
         // set header parameters
         requestOptions.headers.Authorization = this.config.apiKey;
-        requestOptions.headers["User-Agent"] = userAgent;
+
+        if (isThisNode()) {
+            requestOptions.headers["User-Agent"] = userAgent;
+        }
+
         request.set(requestOptions.headers);
 
         // set request timeout

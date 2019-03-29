@@ -15,6 +15,10 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *TrustedCertificate repository
  */
 export class TrustedCertificateRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     */
     public create(request: TrustedCertificateCreateRequest): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -39,6 +43,10 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @param id - The ID of the trusted certificate to be deleted.
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -58,6 +66,10 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * getDeveloperCertificateInfo
+     * @param id - ID that uniquely identifies the developer certificate.
+     */
     public getDeveloperCertificateInfo(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -77,6 +89,10 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: TrustedCertificateListOptions): Paginator<TrustedCertificate, ListOptions> {
         const pageFunc = (pageOptions: TrustedCertificateListOptions): Promise<ListResponse<TrustedCertificate>> => {
             pageOptions = pageOptions || {};
@@ -124,6 +140,10 @@ export class TrustedCertificateRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @param id - Entity ID.
+     */
     public read(id: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -143,6 +163,11 @@ export class TrustedCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - Entity ID.
+     */
     public update(request: TrustedCertificateUpdateRequest, id: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {

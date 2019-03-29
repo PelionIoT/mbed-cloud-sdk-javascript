@@ -13,6 +13,11 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *User repository
  */
 export class UserRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     * @param action - Action, either 'create' or 'invite'.
+     */
     public create(request: UserCreateRequest, action?: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
@@ -43,6 +48,10 @@ export class UserRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @param id - The ID of the user to be deleted.
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -62,6 +71,10 @@ export class UserRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: UserListOptions): Paginator<User, ListOptions> {
         const pageFunc = (pageOptions: UserListOptions): Promise<ListResponse<User>> => {
             pageOptions = pageOptions || {};
@@ -95,6 +108,10 @@ export class UserRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @param id - The ID of the user.
+     */
     public read(id: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
@@ -114,6 +131,11 @@ export class UserRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - The ID of the user.
+     */
     public update(request: UserUpdateRequest, id: string): Promise<User> {
         return apiWrapper(
             resultsFn => {

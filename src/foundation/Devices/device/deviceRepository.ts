@@ -15,6 +15,10 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *Device repository
  */
 export class DeviceRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     */
     public create(request: DeviceCreateRequest): Promise<Device> {
         return apiWrapper(
             resultsFn => {
@@ -56,6 +60,10 @@ export class DeviceRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @param id - id
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -75,6 +83,10 @@ export class DeviceRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: DeviceListOptions): Paginator<Device, ListOptions> {
         const pageFunc = (pageOptions: DeviceListOptions): Promise<ListResponse<Device>> => {
             pageOptions = pageOptions || {};
@@ -293,6 +305,10 @@ export class DeviceRepository extends Repository {
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @param id - The ID of the device. The device ID is used across all Device Management APIs.
+     */
     public read(id: string): Promise<Device> {
         return apiWrapper(
             resultsFn => {
@@ -312,6 +328,11 @@ export class DeviceRepository extends Repository {
             }
         );
     }
+    /**
+     * renewCertificate
+     * @param certificateName - The certificate name.
+     * @param id - The certificate enrollment ID.
+     */
     public renewCertificate(certificateName: string, id: string): Promise<CertificateEnrollment> {
         return apiWrapper(
             resultsFn => {
@@ -332,6 +353,11 @@ export class DeviceRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - The ID of the device. The device ID is used across all Device Management APIs.
+     */
     public update(request: DeviceUpdateRequest, id: string): Promise<Device> {
         return apiWrapper(
             resultsFn => {

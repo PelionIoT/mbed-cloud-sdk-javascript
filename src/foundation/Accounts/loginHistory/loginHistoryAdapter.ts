@@ -4,6 +4,11 @@ import { LoginHistory } from "./loginHistory";
  *LoginHistory adapter
  */
 export class LoginHistoryAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): LoginHistory {
         if (!data) {
             return null;

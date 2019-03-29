@@ -42,7 +42,7 @@ export const apiKeySchema = (): Schema => {
             {
                 name: "status",
                 apiName: "status",
-                type: "ApiKeyStatusEnum",
+                type: "ApiKeyStatus",
             },
             {
                 name: "updatedAt",
@@ -71,7 +71,7 @@ export const apiKeySchema = (): Schema => {
                             },
                             {
                                 name: "status",
-                                type: "ApiKeyStatusEnum",
+                                type: "ApiKeyStatus",
                             },
                         ],
                     },
@@ -160,7 +160,7 @@ export const apiKeySchema = (): Schema => {
                             },
                             {
                                 name: "status",
-                                type: "ApiKeyStatusEnum",
+                                type: "ApiKeyStatus",
                             },
                         ],
                     },
