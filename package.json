@@ -27,7 +27,7 @@
     "SDK"
   ],
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "build": "npm-run-all --parallel clean:build lint:fix --sequential compile",
