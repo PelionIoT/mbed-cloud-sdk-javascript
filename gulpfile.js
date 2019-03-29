@@ -113,7 +113,7 @@ gulp.task("bundleSdk", function () {
     return bundle(sdkDirectory, bundleDir, function (file) {
         return {
             fileName: "sdk.min.js",
-            standalone: `${foundationNamespace}.SDK`
+            standalone: foundationNamespace
         };
     });
 });

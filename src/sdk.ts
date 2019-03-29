@@ -1,11 +1,12 @@
 import { Config } from "./common/config";
 import { Factory } from "./foundation";
 import { Client } from "./client/client";
+import { ConnectionOptions } from "./legacy/common/interfaces";
 
 /**
  * Top level Sdk instance
  */
-export class Sdk {
+export class SDK {
     /**
      * The configuration for the Sdk
      */
@@ -26,8 +27,12 @@ export class Sdk {
      * @param config The configuration
      * @param client The client instance
      */
-    constructor(config?: Config, client?: Client) {
-        this.config = config || new Config(config);
+    constructor(config?: ConnectionOptions | Config, client?: Client) {
+        if (config && config instanceof Config) {
+            this.config = config;
+        } else {
+            this.config = new Config(config);
+        }
 
         this.foundation = () => new Factory(this.config);
         this.client = client || new Client(this.config);

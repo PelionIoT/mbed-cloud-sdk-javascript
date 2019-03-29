@@ -17,6 +17,6 @@
 
 export * from "./legacy";
 export * from "./foundation";
-export { Sdk } from "./sdk";
+export { SDK } from "./sdk";
 export { Client } from "./client/client";
 export { Config } from "./common/config";
