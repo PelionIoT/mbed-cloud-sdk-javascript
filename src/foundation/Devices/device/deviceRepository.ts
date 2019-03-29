@@ -103,26 +103,24 @@ export class DeviceRepository extends Repository {
                                 account_id__nin: extractFilter(pageOptions.filter, "accountId", "nin"),
                                 auto_update__eq: extractFilter(pageOptions.filter, "autoUpdate", "eq"),
                                 auto_update__neq: extractFilter(pageOptions.filter, "autoUpdate", "neq"),
-                                auto_update__in: extractFilter(pageOptions.filter, "autoUpdate", "in"),
-                                auto_update__nin: extractFilter(pageOptions.filter, "autoUpdate", "nin"),
-                                bootstrapped_expiration_date__in: extractFilter(
+                                bootstrap_expiration_date__in: extractFilter(
                                     pageOptions.filter,
-                                    "bootstrappedExpirationDate",
+                                    "bootstrapExpirationDate",
                                     "in"
                                 ),
-                                bootstrapped_expiration_date__nin: extractFilter(
+                                bootstrap_expiration_date__nin: extractFilter(
                                     pageOptions.filter,
-                                    "bootstrappedExpirationDate",
+                                    "bootstrapExpirationDate",
                                     "nin"
                                 ),
-                                bootstrapped_expiration_date__lte: extractFilter(
+                                bootstrap_expiration_date__lte: extractFilter(
                                     pageOptions.filter,
-                                    "bootstrappedExpirationDate",
+                                    "bootstrapExpirationDate",
                                     "lte"
                                 ),
-                                bootstrapped_expiration_date__gte: extractFilter(
+                                bootstrap_expiration_date__gte: extractFilter(
                                     pageOptions.filter,
-                                    "bootstrappedExpirationDate",
+                                    "bootstrapExpirationDate",
                                     "gte"
                                 ),
                                 bootstrapped_timestamp__in: extractFilter(
@@ -173,8 +171,6 @@ export class DeviceRepository extends Repository {
                                 created_at__nin: extractFilter(pageOptions.filter, "createdAt", "nin"),
                                 created_at__lte: extractFilter(pageOptions.filter, "createdAt", "lte"),
                                 created_at__gte: extractFilter(pageOptions.filter, "createdAt", "gte"),
-                                custom_attributes__eq: extractFilter(pageOptions.filter, "customAttributes", "eq"),
-                                custom_attributes__neq: extractFilter(pageOptions.filter, "customAttributes", "neq"),
                                 deployed_state__eq: extractFilter(pageOptions.filter, "deployedState", "eq"),
                                 deployed_state__neq: extractFilter(pageOptions.filter, "deployedState", "neq"),
                                 deployed_state__in: extractFilter(pageOptions.filter, "deployedState", "in"),
@@ -223,24 +219,24 @@ export class DeviceRepository extends Repository {
                                 endpoint_type__neq: extractFilter(pageOptions.filter, "endpointType", "neq"),
                                 endpoint_type__in: extractFilter(pageOptions.filter, "endpointType", "in"),
                                 endpoint_type__nin: extractFilter(pageOptions.filter, "endpointType", "nin"),
-                                enrollment_list_timestamp__in: extractFilter(
+                                enrolment_list_timestamp__in: extractFilter(
                                     pageOptions.filter,
-                                    "enrollmentListTimestamp",
+                                    "enrolmentListTimestamp",
                                     "in"
                                 ),
-                                enrollment_list_timestamp__nin: extractFilter(
+                                enrolment_list_timestamp__nin: extractFilter(
                                     pageOptions.filter,
-                                    "enrollmentListTimestamp",
+                                    "enrolmentListTimestamp",
                                     "nin"
                                 ),
-                                enrollment_list_timestamp__lte: extractFilter(
+                                enrolment_list_timestamp__lte: extractFilter(
                                     pageOptions.filter,
-                                    "enrollmentListTimestamp",
+                                    "enrolmentListTimestamp",
                                     "lte"
                                 ),
-                                enrollment_list_timestamp__gte: extractFilter(
+                                enrolment_list_timestamp__gte: extractFilter(
                                     pageOptions.filter,
-                                    "enrollmentListTimestamp",
+                                    "enrolmentListTimestamp",
                                     "gte"
                                 ),
                                 firmware_checksum__eq: extractFilter(pageOptions.filter, "firmwareChecksum", "eq"),

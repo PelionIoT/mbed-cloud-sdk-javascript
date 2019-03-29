@@ -8852,17 +8852,27 @@ entities:
     type: string
   - _key: enroll_result
     api_fieldname: enroll_result
+    description: The result of certificate enrollment request.
     enum:
     - success
+    - failure
     - not_found
     - forbidden
-    - failure
     enum_reference: certificate_enrollment_enroll_result_enum
+    example: success
+    readOnly: true
+    required: false
+    type: string
+  - _key: enroll_result_detail
+    api_fieldname: enroll_result_detail
+    description: Additional information in case of failure.
+    example: The device is currently processing too many certificate renewals.
     readOnly: true
     required: false
     type: string
   - _key: enroll_status
     api_fieldname: enroll_status
+    description: The status of certificate enrollment request.
     enum:
     - new
     - completed
@@ -8872,7 +8882,7 @@ entities:
     type: string
   - _key: id
     api_fieldname: id
-    description: The ID of the certificate enrollment.
+    description: The certificate enrollment ID.
     example: 01612df56f3b0a580a010fc700000000
     in: path
     parameter_fieldname: device-id
@@ -8890,31 +8900,29 @@ entities:
   group_id: Security
   methods:
   - _key: list
-    description: '
-
-      Get certificate enrollments list, optionally filtered.
+    description: 'Get certificate enrollments list, optionally filtered.
 
 
-      **Example usage:**
+      **Examples:**
 
 
       ```
 
-      curl -H ''authorization: Bearer <valid access token>''
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \
 
-      https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments
-
-      ```
+      -H ''Authorization: Bearer <api_key>''
 
       ```
 
-      curl -H ''authorization: Bearer <valid access token>''
-
-      https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000
 
       ```
 
-      '
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000
+      \
+
+      -H ''Authorization: Bearer <api_key>''
+
+      ```'
     drop_fields:
     - object
     - etag
@@ -8941,9 +8949,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: 'The ID of the item after which to retrieve the next page.
-
-        '
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: 01625daa23230a580a0100bd00000000
       external_param: true
@@ -8955,9 +8961,7 @@ entities:
       type: string
     - _key: include
       api_fieldname: include
-      description: 'a comma-separated list of data fields to return.
-
-        '
+      description: a comma-separated list of data fields to return.
       entity_fieldname: include
       enum:
       - total_count
@@ -8970,9 +8974,7 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: 'The number of results to be returned. Between 2 and 1000, inclusive.
-
-        '
+      description: The number of results to return (2-1000).
       entity_fieldname: limit
       external_param: true
       format: int32
@@ -8983,9 +8985,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: 'The order of results.
-
-        '
+      description: The order of results.
       entity_fieldname: order
       enum:
       - ASC
@@ -9061,15 +9061,24 @@ entities:
               type: string
             - _key: enroll_result
               api_fieldname: enroll_result
+              description: The result of certificate enrollment request.
               entity_fieldname: enroll_result
               enum:
               - success
+              - failure
               - not_found
               - forbidden
-              - failure
+              example: success
+              type: string
+            - _key: enroll_result_detail
+              api_fieldname: enroll_result_detail
+              description: Additional information in case of failure.
+              entity_fieldname: enroll_result_detail
+              example: The device is currently processing too many certificate renewals.
               type: string
             - _key: enroll_status
               api_fieldname: enroll_status
+              description: The status of certificate enrollment request.
               entity_fieldname: enroll_status
               enum:
               - new
@@ -9083,7 +9092,7 @@ entities:
               type: string
             - _key: id
               api_fieldname: id
-              description: The ID of the certificate enrollment.
+              description: The certificate enrollment ID.
               entity_fieldname: id
               example: 01612df56f3b0a580a010fc700000000
               in: path
@@ -9131,8 +9140,8 @@ entities:
           type: string
         - _key: order
           api_fieldname: order
-          description: The order of the records to return based on creation time.
-            By default ASC.
+          description: 'Record order based on creation time. Acceptable values: ASC,
+            DESC. Default: ASC.'
           entity_fieldname: order
           enum:
           - ASC
@@ -9146,9 +9155,7 @@ entities:
           type: integer
         type: object
     - _key: '400'
-      description: 'Validation error
-
-        '
+      description: Validation error.
       schema:
         properties:
         - _key: code
@@ -9156,7 +9163,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -9171,7 +9178,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -9196,7 +9203,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -9211,7 +9218,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -9236,7 +9243,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -9251,7 +9258,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -9295,18 +9302,17 @@ entities:
     description: 'Get a certificate enrollment by ID.
 
 
-      **Example usage:**
+      **Example:**
 
 
       ```
 
-      curl -H ''authorization: Bearer <valid access token>''
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000
+      \
 
-      https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000
+      -H ''Authorization: Bearer <api_key>''
 
-      ```
-
-      '
+      ```'
     drop_fields:
     - object
     - etag
@@ -9321,12 +9327,13 @@ entities:
     - certificate_name
     - enroll_status
     - enroll_result
+    - enroll_result_detail
     - updated_at
     field_renames: []
     fields:
     - _key: id
       api_fieldname: id
-      description: The ID of the certificate enrollment.
+      description: The certificate enrollment ID.
       entity_fieldname: id
       example: 01612df56f3b0a580a010fc700000000
       in: path
@@ -9377,15 +9384,24 @@ entities:
           type: string
         - _key: enroll_result
           api_fieldname: enroll_result
+          description: The result of certificate enrollment request.
           entity_fieldname: enroll_result
           enum:
           - success
+          - failure
           - not_found
           - forbidden
-          - failure
+          example: success
+          type: string
+        - _key: enroll_result_detail
+          api_fieldname: enroll_result_detail
+          description: Additional information in case of failure.
+          entity_fieldname: enroll_result_detail
+          example: The device is currently processing too many certificate renewals.
           type: string
         - _key: enroll_status
           api_fieldname: enroll_status
+          description: The status of certificate enrollment request.
           entity_fieldname: enroll_status
           enum:
           - new
@@ -9399,7 +9415,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: The ID of the certificate enrollment.
+          description: The certificate enrollment ID.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
           in: path
@@ -9427,9 +9443,7 @@ entities:
         - certificate_name
         type: object
     - _key: '400'
-      description: 'Validation error
-
-        '
+      description: Validation error.
       schema:
         properties:
         - _key: code
@@ -9437,7 +9451,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -9452,7 +9466,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -9477,7 +9491,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -9492,7 +9506,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -9517,7 +9531,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -9532,7 +9546,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -9557,7 +9571,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -9572,7 +9586,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -9879,7 +9893,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -9894,7 +9908,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -9919,7 +9933,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -9934,7 +9948,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -9959,7 +9973,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -9974,7 +9988,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10001,7 +10015,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10016,7 +10030,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10043,7 +10057,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10058,7 +10072,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10148,7 +10162,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10163,7 +10177,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10188,7 +10202,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10203,7 +10217,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10228,7 +10242,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10243,7 +10257,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10268,7 +10282,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10283,7 +10297,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10525,7 +10539,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10540,7 +10554,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10565,7 +10579,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10580,7 +10594,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10728,7 +10742,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10743,7 +10757,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10768,7 +10782,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10783,7 +10797,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10808,7 +10822,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10823,7 +10837,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -10848,7 +10862,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -10863,7 +10877,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11069,7 +11083,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11084,7 +11098,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11109,7 +11123,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11124,7 +11138,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11149,7 +11163,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11164,7 +11178,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11189,7 +11203,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11204,7 +11218,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11231,7 +11245,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11246,7 +11260,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11273,7 +11287,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11288,7 +11302,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11415,7 +11429,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11430,7 +11444,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11455,7 +11469,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11470,7 +11484,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11495,7 +11509,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11510,7 +11524,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11535,7 +11549,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11550,7 +11564,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11577,7 +11591,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11592,7 +11606,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11805,7 +11819,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11820,7 +11834,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11845,7 +11859,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11860,7 +11874,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11885,7 +11899,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11900,7 +11914,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -11928,7 +11942,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -11943,7 +11957,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12018,7 +12032,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12033,7 +12047,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12058,7 +12072,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12073,7 +12087,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12098,7 +12112,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12113,7 +12127,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12138,7 +12152,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12153,7 +12167,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12284,7 +12298,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12299,7 +12313,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12324,7 +12338,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12339,7 +12353,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12364,7 +12378,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12379,7 +12393,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12628,7 +12642,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12643,7 +12657,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12668,7 +12682,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12683,7 +12697,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12708,7 +12722,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12723,7 +12737,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12863,7 +12877,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12878,7 +12892,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12903,7 +12917,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12918,7 +12932,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12943,7 +12957,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12958,7 +12972,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -12983,7 +12997,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -12998,7 +13012,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -13152,7 +13166,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -13167,7 +13181,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -13192,7 +13206,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -13207,7 +13221,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -13232,7 +13246,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -13247,7 +13261,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -13272,7 +13286,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -13287,7 +13301,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -15147,7 +15161,7 @@ entities:
     type: string
   - _key: host_gateway
     api_fieldname: host_gateway
-    description: The `endpoint_name` of the host gateway, if appropriate.
+    description: The ID of the host gateway, if appropriate.
     example: ''
     readOnly: false
     required: false
@@ -15417,7 +15431,7 @@ entities:
       type: string
     - _key: host_gateway
       api_fieldname: host_gateway
-      description: The `endpoint_name` of the host gateway, if appropriate.
+      description: The ID of the host gateway, if appropriate.
       entity_fieldname: host_gateway
       example: ''
       in: body
@@ -15677,7 +15691,7 @@ entities:
           type: array
         host_gateway:
           api_fieldname: host_gateway
-          description: The `endpoint_name` of the host gateway, if appropriate.
+          description: The ID of the host gateway, if appropriate.
           entity_fieldname: host_gateway
           example: ''
           type: string
@@ -15850,12 +15864,10 @@ entities:
     - account_id__nin
     - auto_update__eq
     - auto_update__neq
-    - auto_update__in
-    - auto_update__nin
-    - bootstrapped_expiration_date__in
-    - bootstrapped_expiration_date__nin
-    - bootstrapped_expiration_date__lte
-    - bootstrapped_expiration_date__gte
+    - bootstrap_expiration_date__in
+    - bootstrap_expiration_date__nin
+    - bootstrap_expiration_date__lte
+    - bootstrap_expiration_date__gte
     - bootstrapped_timestamp__in
     - bootstrapped_timestamp__nin
     - bootstrapped_timestamp__lte
@@ -15872,8 +15884,6 @@ entities:
     - created_at__nin
     - created_at__lte
     - created_at__gte
-    - custom_attributes__eq
-    - custom_attributes__neq
     - deployed_state__eq
     - deployed_state__neq
     - deployed_state__in
@@ -15906,10 +15916,10 @@ entities:
     - endpoint_type__neq
     - endpoint_type__in
     - endpoint_type__nin
-    - enrollment_list_timestamp__in
-    - enrollment_list_timestamp__nin
-    - enrollment_list_timestamp__lte
-    - enrollment_list_timestamp__gte
+    - enrolment_list_timestamp__in
+    - enrolment_list_timestamp__nin
+    - enrolment_list_timestamp__lte
+    - enrolment_list_timestamp__gte
     - firmware_checksum__eq
     - firmware_checksum__neq
     - firmware_checksum__in
@@ -16158,7 +16168,7 @@ entities:
                 type: string
               type: array
             host_gateway:
-              description: The `endpoint_name` of the host gateway, if appropriate.
+              description: The ID of the host gateway, if appropriate.
               example: ''
               type: string
             id:
@@ -16280,9 +16290,7 @@ entities:
       auto_update:
       - eq
       - neq
-      - in
-      - nin
-      bootstrapped_expiration_date:
+      bootstrap_expiration_date:
       - in
       - nin
       - lte
@@ -16307,9 +16315,6 @@ entities:
       - nin
       - lte
       - gte
-      custom_attributes:
-      - eq
-      - neq
       deployed_state:
       - eq
       - neq
@@ -16350,7 +16355,7 @@ entities:
       - neq
       - in
       - nin
-      enrollment_list_timestamp:
+      enrolment_list_timestamp:
       - in
       - nin
       - lte
@@ -16636,7 +16641,7 @@ entities:
           type: array
         host_gateway:
           api_fieldname: host_gateway
-          description: The `endpoint_name` of the host gateway, if appropriate.
+          description: The ID of the host gateway, if appropriate.
           entity_fieldname: host_gateway
           example: ''
           type: string
@@ -16743,22 +16748,19 @@ entities:
     description: 'Request a certificate renewal.
 
 
-      **Example usage:**
+      **Example:**
 
 
       ```
 
-      curl -X POST
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew
+      \
 
-      -H ''authorization: Bearer <valid access token>''
+      -H ''Authorization: Bearer <api_key>'' \
 
       -H ''content-length: 0''
 
-      https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew
-
-      ```
-
-      '
+      ```'
     drop_fields:
     - object
     - etag
@@ -16772,6 +16774,7 @@ entities:
     - device_id
     - enroll_status
     - enroll_result
+    - enroll_result_detail
     - updated_at
     field_renames: []
     fields:
@@ -16790,7 +16793,7 @@ entities:
       type: string
     - _key: id
       api_fieldname: id
-      description: The ID of the certificate enrollment.
+      description: The certificate enrollment ID.
       entity_fieldname: id
       example: 01612df56f3b0a580a010fc700000000
       in: path
@@ -16839,15 +16842,24 @@ entities:
           type: string
         - _key: enroll_result
           api_fieldname: enroll_result
+          description: The result of certificate enrollment request.
           entity_fieldname: enroll_result
           enum:
           - success
+          - failure
           - not_found
           - forbidden
-          - failure
+          example: success
+          type: string
+        - _key: enroll_result_detail
+          api_fieldname: enroll_result_detail
+          description: Additional information in case of failure.
+          entity_fieldname: enroll_result_detail
+          example: The device is currently processing too many certificate renewals.
           type: string
         - _key: enroll_status
           api_fieldname: enroll_status
+          description: The status of certificate enrollment request.
           entity_fieldname: enroll_status
           enum:
           - new
@@ -16861,7 +16873,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: The ID of the certificate enrollment.
+          description: The certificate enrollment ID.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
           type: string
@@ -16887,9 +16899,7 @@ entities:
         type: object
     - _key: '400'
       description: 'Validation error: There is no certificate issuer configured for
-        this certificate.
-
-        '
+        this certificate.'
       schema:
         properties:
         - _key: code
@@ -16897,7 +16907,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -16912,7 +16922,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -16937,7 +16947,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -16952,7 +16962,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -16977,7 +16987,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -16992,7 +17002,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -17017,7 +17027,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -17032,7 +17042,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -17049,9 +17059,7 @@ entities:
         - type
         type: object
     - _key: '409'
-      description: 'Conflict. A renewal request for this certificate is in process.
-
-        '
+      description: Conflict. A renewal request for this certificate is in progress.
       schema:
         properties:
         - _key: code
@@ -17059,7 +17067,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -17074,7 +17082,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -17091,8 +17099,11 @@ entities:
         - type
         type: object
     - _key: '423'
-      description: "Either:\n- Operation not supported for this device\n- The device\
-        \ is not connected \n"
+      description: 'Either:
+
+        - Operation not supported for this device.
+
+        - The device is not connected.'
       schema:
         properties:
         - _key: code
@@ -17100,7 +17111,7 @@ entities:
           format: int32
           type: integer
         - _key: fields
-          description: A list of request fields that failed the validation.
+          description: A list of request fields that failed validation.
           items:
             properties:
             - _key: field
@@ -17115,7 +17126,7 @@ entities:
           description: Error message.
           type: string
         - _key: object
-          description: 'entity name: ''error'''
+          description: 'Entity name: `error`.'
           type: string
         - _key: request_id
           description: Request ID from JWT.
@@ -17250,7 +17261,7 @@ entities:
       type: string
     - _key: host_gateway
       api_fieldname: host_gateway
-      description: The `endpoint_name` of the host gateway, if appropriate.
+      description: The ID of the host gateway, if appropriate.
       entity_fieldname: host_gateway
       example: ''
       in: body
@@ -17446,7 +17457,7 @@ entities:
           type: array
         host_gateway:
           api_fieldname: host_gateway
-          description: The `endpoint_name` of the host gateway, if appropriate.
+          description: The ID of the host gateway, if appropriate.
           entity_fieldname: host_gateway
           example: ''
           type: string
@@ -20994,8 +21005,6 @@ entities:
     - event_type__nin
     - state_change__eq
     - state_change__neq
-    - state_change__in
-    - state_change__nin
     field_renames: []
     fields:
     - _key: after
@@ -21209,8 +21218,6 @@ entities:
       state_change:
       - eq
       - neq
-      - in
-      - nin
   - _key: read
     description: Retrieve a specific device event.
     drop_fields:

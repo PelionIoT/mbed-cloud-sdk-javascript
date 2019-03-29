@@ -132,16 +132,6 @@ export interface DeviceEventsStateChangeFilter {
      *stateChange not equal to
      */
     neq?: boolean;
-
-    /**
-     *stateChange in
-     */
-    in?: Array<boolean>;
-
-    /**
-     *stateChange not in
-     */
-    nin?: Array<boolean>;
 }
 /**
  *DeviceEventsFilter

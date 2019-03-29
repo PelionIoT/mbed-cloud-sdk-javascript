@@ -1,6 +1,6 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
-export type CertificateEnrollmentEnrollResult = "success" | "not_found" | "forbidden" | "failure";
-export type CertificateEnrollmentEnrollStatus = "new" | "completed";
+export type CertificateEnrollmentEnrollResultEnum = "success" | "failure" | "not_found" | "forbidden";
+export type CertificateEnrollmentEnrollStatusEnum = "new" | "completed";
 /**
  *CertificateEnrollmentDeviceIdFilter
  */
