@@ -1,5 +1,6 @@
 import { Config } from "./config";
 import { Client } from "../client/client";
+import { ConnectionOptions } from "../legacy/common/interfaces";
 
 /**
  * Abstract base class for a repository
@@ -20,8 +21,13 @@ export abstract class Repository {
      * @param config The configuration to use, if null then repository will initalise its own using dotenv
      * @param client The client instance to use
      */
-    constructor(config?: Config, client?: Client) {
-        this.config = config || new Config();
+    constructor(config?: ConnectionOptions | Config, client?: Client) {
+        if (config && config instanceof Config) {
+            this.config = config;
+        } else {
+            this.config = new Config(config);
+        }
+
         this.client = client || new Client(this.config);
     }
 }

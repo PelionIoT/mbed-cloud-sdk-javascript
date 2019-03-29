@@ -92,29 +92,31 @@ The files in the bundles folder are standalone modules following the [UMD](https
 Include the JavaScript bundle you need on your page from the bundles folder. For example:
 
 ```html
-<script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
+<script src="<mbed-cloud-sdk>/bundles/sdk.min.js"></script>
 ```
 
-If you are using VanillaJS, the bundles are then accessible through the global `MbedCloudSDK` namespace. For example, to list all connected devices:
+or
+
+
+```html
+<script src="<mbed-cloud-sdk>/bundles/foundation/device.min.js"></script>
+```
+
+If you are using VanillaJS, the bundles are then accessible through the global `Mbed.Cloud` namespace. For example, to list all connected devices:
 
 ```javascript
-var connect = new MbedCloudSDK.ConnectApi({
-	apiKey: "<Mbed Cloud API Key>"
+var sdk = new Mbed.Cloud.SDK({
+	apiKey,
 });
 
-connect.listConnectedDevices(function(error, result) {
-	result.data.forEach(function(device) {
-		console.log(device.id);
-	});
-});
+sdk.foundation()
+    .deviceRepository()
+    // List the first 10 devices in your Pelion DM account
+    .list({ maxResults: 10 })
+    .all()
+    .then(deviceList => console.log(deviceList));
 ```
 
 Otherwise, you should be able to load the bundles by using an AMD framework such as [RequireJS](http://requirejs.org/).
-
-You can also use all bundles by including `index.min.js`:
-
-```html
-<script src="<mbed-cloud-sdk>/bundles/index.min.js"></script>
-```
 
 __Warning:__ It is not advisable to embed your API key into distributed code such as client-side web pages. For production scenarios, developers may want to consider using Node.js for all API calls or to proxy client-side code requests to inject the API key. You can find an example proxy server in the `examples` folder.
