@@ -1,5 +1,5 @@
 import { FoundationInstance } from "./foundationInstance";
-import { Sdk, Config } from "../../../src";
+import { SDK, Config } from "../../../src";
 
 /**
  * Instance of an SDK
@@ -7,7 +7,7 @@ import { Sdk, Config } from "../../../src";
 export class SDKInstance extends FoundationInstance {
 
     constructor(config: Config) {
-        const newSdkInstance = new Sdk(config);
+        const newSdkInstance = new SDK(config);
         super(newSdkInstance, "Sdk");
     }
 }

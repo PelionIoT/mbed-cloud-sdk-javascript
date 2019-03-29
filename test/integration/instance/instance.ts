@@ -1,10 +1,10 @@
-import { Sdk } from "../../../src";
+import { SDK } from "../../../src";
 import { Repository } from "../../../src/common/repository";
 
 /**
  * Instance class. Can derrive from Repository or SDK
  */
-export class Instance<T extends Repository | Sdk> {
+export class Instance<T extends Repository | SDK> {
     /**
      * The id of the instance
      */

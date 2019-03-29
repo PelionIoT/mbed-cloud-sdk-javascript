@@ -1,11 +1,11 @@
-import { Sdk } from "../../../src";
+import { SDK } from "../../../src";
 import { UserRepository } from "../../../src/foundation";
 import { Config } from "../../../src";
 
 describe("singleEntryPoint", () => {
 
     test("global config", () => {
-        const sdk = new Sdk();
+        const sdk = new SDK();
         expect(sdk.config).not.toBeNull();
         expect(sdk.config.apiKey).toBeDefined();
     });
@@ -17,7 +17,7 @@ describe("singleEntryPoint", () => {
     });
 
     test("sdk instance", () => {
-        const sdk = new Sdk(new Config({ apiKey: "ak_1" }));
+        const sdk = new SDK(new Config({ apiKey: "ak_1" }));
         expect("Bearer ak_1").toEqual(sdk.config.apiKey);
 
         const user = sdk.foundation().userRepository();
@@ -26,23 +26,23 @@ describe("singleEntryPoint", () => {
     });
 
     test("multiple sdk instances", () => {
-        const sdk1 = new Sdk(new Config({ apiKey: "ak_1" }));
+        const sdk1 = new SDK(new Config({ apiKey: "ak_1" }));
         expect("Bearer ak_1").toEqual(sdk1.config.apiKey);
 
-        const sdk2 = new Sdk(new Config({ apiKey: "ak_2" }));
+        const sdk2 = new SDK(new Config({ apiKey: "ak_2" }));
         expect("Bearer ak_2").toEqual(sdk2.config.apiKey);
     });
 
     test("reusable config", () => {
         const config = new Config({ apiKey: "ak_1" });
-        const sdk = new Sdk(config);
+        const sdk = new SDK(config);
 
         expect("Bearer ak_1").toEqual(sdk.config.apiKey);
 
         const user = new UserRepository(config);
         expect("Bearer ak_1").toEqual(user.config.apiKey);
 
-        const sdk2 = new Sdk(config);
+        const sdk2 = new SDK(config);
         expect("Bearer ak_1").toEqual(sdk2.config.apiKey);
 
         const user2 = sdk.foundation().userRepository();
