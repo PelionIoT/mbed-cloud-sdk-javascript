@@ -57,7 +57,7 @@ export class CertificateEnrollmentRepository extends Repository {
     }
     /**
      * read
-     * @param id - The ID of the certificate enrollment.
+     * @param id - The certificate enrollment ID.
      */
     public read(id: string): Promise<CertificateEnrollment> {
         return apiWrapper(

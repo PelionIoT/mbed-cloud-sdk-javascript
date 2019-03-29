@@ -89,7 +89,7 @@ Permitted values:
     readonly firmwareChecksum?: string;
 
     /**
-     *The `endpoint_name` of the host gateway, if appropriate.
+     *The ID of the host gateway, if appropriate.
      */
     readonly hostGateway?: string;
 
@@ -182,7 +182,7 @@ export interface DeviceUpdateRequest {
     readonly endpointType?: string;
 
     /**
-     *The `endpoint_name` of the host gateway, if appropriate.
+     *The ID of the host gateway, if appropriate.
      */
     readonly hostGateway?: string;
 
@@ -235,22 +235,22 @@ export interface DeviceAutoUpdateFilter {
  */
 export interface DeviceBootstrapExpirationDateFilter {
     /**
-     *bootstrappedExpirationDate in
+     *bootstrapExpirationDate in
      */
     in?: Array<Date>;
 
     /**
-     *bootstrappedExpirationDate not in
+     *bootstrapExpirationDate not in
      */
     nin?: Array<Date>;
 
     /**
-     *bootstrappedExpirationDate less than
+     *bootstrapExpirationDate less than
      */
     lte?: Array<Date>;
 
     /**
-     *bootstrappedExpirationDate greater than
+     *bootstrapExpirationDate greater than
      */
     gte?: Array<Date>;
 }
@@ -547,22 +547,22 @@ export interface DeviceEndpointTypeFilter {
  */
 export interface DeviceEnrolmentListTimestampFilter {
     /**
-     *enrollmentListTimestamp in
+     *enrolmentListTimestamp in
      */
     in?: Array<Date>;
 
     /**
-     *enrollmentListTimestamp not in
+     *enrolmentListTimestamp not in
      */
     nin?: Array<Date>;
 
     /**
-     *enrollmentListTimestamp less than
+     *enrolmentListTimestamp less than
      */
     lte?: Array<Date>;
 
     /**
-     *enrollmentListTimestamp greater than
+     *enrolmentListTimestamp greater than
      */
     gte?: Array<Date>;
 }
@@ -869,7 +869,7 @@ export interface DeviceFilter {
     autoUpdate?: boolean | DeviceAutoUpdateFilter;
 
     /**
-     *bootstrapExpirationDate
+     *Filter by bootstrapExpirationDate on Device
      */
     bootstrapExpirationDate?: DeviceBootstrapExpirationDateFilter;
 
@@ -894,7 +894,7 @@ export interface DeviceFilter {
     createdAt?: DeviceCreatedAtFilter;
 
     /**
-     *deployedState
+     *Filter by deployedState on Device
      */
     deployedState?: DeviceDeployedState | DeviceDeployedStateFilter;
 
@@ -934,7 +934,7 @@ export interface DeviceFilter {
     endpointType?: string | DeviceEndpointTypeFilter;
 
     /**
-     *enrolmentListTimestamp
+     *Filter by enrolmentListTimestamp on Device
      */
     enrolmentListTimestamp?: DeviceEnrolmentListTimestampFilter;
 

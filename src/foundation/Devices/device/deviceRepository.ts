@@ -331,7 +331,7 @@ export class DeviceRepository extends Repository {
     /**
      * renewCertificate
      * @param certificateName - The certificate name.
-     * @param id - The ID of the certificate enrollment.
+     * @param id - The certificate enrollment ID.
      */
     public renewCertificate(certificateName: string, id: string): Promise<CertificateEnrollment> {
         return apiWrapper(

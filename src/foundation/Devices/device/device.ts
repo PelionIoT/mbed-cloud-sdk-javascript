@@ -109,7 +109,7 @@ Permitted values:
     firmwareChecksum?: string;
 
     /**
-     *The `endpoint_name` of the host gateway, if appropriate.
+     *The ID of the host gateway, if appropriate.
      */
     hostGateway?: string;
 

@@ -23,17 +23,19 @@ export interface CertificateEnrollment extends Entity {
     readonly deviceId?: string;
 
     /**
-     *enrollResult
+     *The result of certificate enrollment request.
+     *@example success
      */
     readonly enrollResult?: CertificateEnrollmentEnrollResult;
 
     /**
-     *enrollResultDetail
+     *Additional information in case of failure.
+     *@example The device is currently processing too many certificate renewals.
      */
     readonly enrollResultDetail?: string;
 
     /**
-     *enrollStatus
+     *The status of certificate enrollment request.
      */
     readonly enrollStatus?: CertificateEnrollmentEnrollStatus;
 
