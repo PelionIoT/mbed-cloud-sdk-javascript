@@ -107,7 +107,7 @@
     "tslint": "^5.14.0",
     "tslint-eslint-rules": "^5.4.0",
     "typedoc": "^0.14.2",
-    "typescript": "^3.3.4000",
+    "typescript": "^3.4.1",
     "typescript-logging": "^0.6.3",
     "winston": "^3.2.1"
   },
