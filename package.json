@@ -92,7 +92,7 @@
     "istanbul-lib-hook": "^2.0.3",
     "istanbul-lib-instrument": "^3.1.0",
     "istanbul-lib-source-maps": "^3.0.2",
-    "jest": "^23.6.0",
+    "jest": "^24.7.1",
     "memory-cache": "^0.2.0",
     "nlf": "^2.1.1",
     "npm-run-all": "^4.1.5",
