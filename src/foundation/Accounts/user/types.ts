@@ -24,12 +24,12 @@ export interface UserCreateRequest {
     readonly fullName?: string;
 
     /**
-     *Represents a user login profile in Device Management.
+     *This object represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *A flag indicating that the user has consented to receive marketing information.
+     *A flag indicating that receiving marketing information has been accepted.
      *@example true
      */
     readonly marketingAccepted?: boolean;
@@ -47,7 +47,7 @@ export interface UserCreateRequest {
     readonly phoneNumber?: string;
 
     /**
-     *A flag indicating that the user has accepted General Terms and Conditions.
+     *A flag indicating that the General Terms and Conditions has been accepted.
      *@example true
      */
     readonly termsAccepted?: boolean;
@@ -75,12 +75,12 @@ export interface UserUpdateRequest {
     readonly fullName?: string;
 
     /**
-     *Represents a user login profile in Device Management.
+     *This object represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *A flag indicating that the user has consented to receive marketing information.
+     *A flag indicating that receiving marketing information has been accepted.
      *@example true
      */
     readonly marketingAccepted?: boolean;
@@ -92,13 +92,13 @@ export interface UserUpdateRequest {
     readonly phoneNumber?: string;
 
     /**
-     *A flag indicating that the user has accepted General Terms and Conditions.
+     *A flag indicating that the General Terms and Conditions has been accepted.
      *@example true
      */
     readonly termsAccepted?: boolean;
 
     /**
-     *A flag indicating whether two-factor authentication (TOTP) has been enabled.
+     *A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      *@example true
      */
     readonly twoFactorAuthentication?: boolean;

@@ -19,25 +19,25 @@ export interface AccountCreateRequest {
     readonly addressLine2?: string;
 
     /**
-     *The email address of the admin user created for this account. Present only in the response for account creation.
+     *The email address of the admin user created for this account. Present only in the response for the account creation.
      *@example admin@arm.com
      */
     readonly adminEmail?: string;
 
     /**
-     *The full name of the admin user created for this account. Present only in the response for account creation.
+     *The full name of the admin user created for this account. Present only in the response for the account creation.
      *@example Admin Doe
      */
     readonly adminFullName?: string;
 
     /**
-     *The username of the admin user created for this account. Present only in the response for account creation.
+     *The username of the admin user created for this account. Present only in the response for the account creation.
      *@example admin
      */
     readonly adminName?: string;
 
     /**
-     *The password of the admin user created for this account. Present only in the response for account creation.
+     *The password of the admin user created for this account. Present only in the response for the account creation.
      *@example PZf9eEUH43DAPE9ULINFeuj
      */
     readonly adminPassword?: string;
@@ -102,7 +102,7 @@ export interface AccountCreateRequest {
     readonly endMarket?: string;
 
     /**
-     *The phone number of a company representative.
+     *The phone number of a representative of the company.
      *@example +44 (1223) 400 400
      */
     readonly phoneNumber?: string;
@@ -200,19 +200,19 @@ export interface AccountUpdateRequest {
     readonly endMarket?: string;
 
     /**
-     *Indicates how many days (1-180) before account expiration a notification email is sent.
+     *Indicates how many days (1-180) before account expiration a notification email should be sent.
      *@example 180
      */
     readonly expirationWarningThreshold?: string;
 
     /**
-     *The reference token expiration time, in minutes, for this account.
+     *The reference token expiration time in minutes for this account.
      *@example 30
      */
     readonly idleTimeout?: string;
 
     /**
-     *The enforcement status of multi-factor authentication, either `enforced` or `optional`.
+     *The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
      */
     readonly mfaStatus?: AccountMfaStatus;
 
@@ -227,12 +227,12 @@ export interface AccountUpdateRequest {
     readonly passwordPolicy?: PasswordPolicy;
 
     /**
-     *Indicates for how many minutes a password recovery email is valid (1-45).
+     *Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.
      */
     readonly passwordRecoveryExpiration?: number;
 
     /**
-     *The phone number of a company representative.
+     *The phone number of a representative of the company.
      *@example +44 (1223) 400 400
      */
     readonly phoneNumber?: string;
@@ -344,12 +344,12 @@ export interface AccountFilter {
  */
 export interface AccountListOptions extends ListOptions {
     /**
-     *Format information for the query response. Supported: format=breakdown.
+     *Format information for the response to the query, supported: format=breakdown.
      */
     format?: string;
 
     /**
-     *Property name returned from account-specific properties.
+     *Property name to be returned from account specific properties.
      */
     properties?: string;
 

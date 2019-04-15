@@ -11,7 +11,7 @@ import { ReadStream } from "fs";
 export class DeviceEnrollmentBulkCreateRepository extends Repository {
     /**
      * create
-     * @param enrollmentIdentities - The `CSV` file containing the enrollment IDs. The maximum file size is 10 MB.
+     * @param enrollmentIdentities - The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
      */
     public create(enrollmentIdentities: ReadStream | Buffer | File | Blob): Promise<DeviceEnrollmentBulkCreate> {
         return apiWrapper(

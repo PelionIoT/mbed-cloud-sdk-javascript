@@ -29,7 +29,7 @@ export interface UserInvitation extends Entity {
     readonly expiration?: Date;
 
     /**
-     *Represents a user login profile in Device Management.
+     *This object represents a user login profile in Device Management.
      */
     loginProfiles?: Array<LoginProfile>;
 
