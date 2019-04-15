@@ -20,13 +20,13 @@ export interface Account extends Entity {
     addressLine2?: string;
 
     /**
-     *The email address of the admin user created for this account. Present only in the response for account creation.
+     *The email address of the admin user created for this account. Present only in the response for the account creation.
      *@example admin@arm.com
      */
     adminEmail?: string;
 
     /**
-     *The full name of the admin user created for this account. Present only in the response for account creation.
+     *The full name of the admin user created for this account. Present only in the response for the account creation.
      *@example Admin Doe
      */
     adminFullName?: string;
@@ -38,19 +38,19 @@ export interface Account extends Entity {
     readonly adminId?: string;
 
     /**
-     *The admin API key created for this account. Present only in the response for account creation.
+     *The admin API key created for this account. Present only in the response for the account creation.
      *@example ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
      */
     readonly adminKey?: string;
 
     /**
-     *The username of the admin user created for this account. Present only in the response for account creation.
+     *The username of the admin user created for this account. Present only in the response for the account creation.
      *@example admin
      */
     adminName?: string;
 
     /**
-     *The password of the admin user created for this account. Present only in the response for account creation.
+     *The password of the admin user created for this account. Present only in the response for the account creation.
      *@example PZf9eEUH43DAPE9ULINFeuj
      */
     adminPassword?: string;
@@ -131,13 +131,13 @@ export interface Account extends Entity {
     readonly expiration?: Date;
 
     /**
-     *Indicates how many days (1-180) before account expiration a notification email is sent.
+     *Indicates how many days (1-180) before account expiration a notification email should be sent.
      *@example 180
      */
     expirationWarningThreshold?: string;
 
     /**
-     *The reference token expiration time, in minutes, for this account.
+     *The reference token expiration time in minutes for this account.
      *@example 30
      */
     idleTimeout?: string;
@@ -148,7 +148,7 @@ export interface Account extends Entity {
     readonly limits?: { [key: string]: string };
 
     /**
-     *The enforcement status of multi-factor authentication, either `enforced` or `optional`.
+     *The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
      */
     mfaStatus?: AccountMfaStatus;
 
@@ -158,12 +158,12 @@ export interface Account extends Entity {
     notificationEmails?: Array<string>;
 
     /**
-     *Represents parent account contact details in responses.
+     *This object represents parent account contact details in responses.
      */
     readonly parentAccount?: ParentAccount;
 
     /**
-     *The ID of the parent account, if any.
+     *The ID of the parent account, if it has any.
      *@example 01619571dad80242ac12000600000000
      */
     readonly parentId?: string;
@@ -174,18 +174,18 @@ export interface Account extends Entity {
     passwordPolicy?: PasswordPolicy;
 
     /**
-     *Indicates for how many minutes a password recovery email is valid (1-45).
+     *Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.
      */
     passwordRecoveryExpiration?: number;
 
     /**
-     *The phone number of a company representative.
+     *The phone number of a representative of the company.
      *@example +44 (1223) 400 400
      */
     phoneNumber?: string;
 
     /**
-     *Represents a feature policy. Either the feature or the resource must be specified.
+     *This object represents a feature policy. Either the feature or the resource must be specified.
      */
     readonly policies?: Array<Policy>;
 
@@ -196,13 +196,13 @@ export interface Account extends Entity {
     postalCode?: string;
 
     /**
-     *A note with the reason for account status update.
+     *A reason note for updating the status of the account
      *@example Subscription paid.
      */
     readonly reason?: string;
 
     /**
-     *A reference note for updating the status of the account.
+     *A reference note for updating the status of the account
      *@example ARM-INT-0001
      */
     readonly referenceNote?: string;
@@ -232,7 +232,7 @@ export interface Account extends Entity {
     readonly templateId?: string;
 
     /**
-     *The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.
+     *The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.
      *@example 1
      */
     readonly tier?: string;

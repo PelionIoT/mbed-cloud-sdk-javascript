@@ -70,7 +70,7 @@ export interface TrustedCertificate extends Entity {
     readonly ownerId?: string;
 
     /**
-     *Service name where the certificate is used.
+     *Service name where the certificate is to be used.
      */
     service: TrustedCertificateService;
 
