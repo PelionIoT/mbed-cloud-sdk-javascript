@@ -13,6 +13,11 @@ function logMessage(message: string): void {
     log.info(message);
 }
 
+function logMessageFromObject(message: object): void {
+    log.info(JSON.stringify(message));
+}
+
 export {
-    logMessage
+    logMessage,
+    logMessageFromObject
 };

@@ -1,6 +1,7 @@
 export { accountSchema } from "./Accounts/accountSchema";
 export { activeSessionSchema } from "./Accounts/activeSessionSchema";
 export { apiKeySchema } from "./Accounts/apiKeySchema";
+export { campaignDeviceMetadataSchema } from "./DeviceUpdate/campaignDeviceMetadataSchema";
 export { certificateEnrollmentSchema } from "./Security/certificateEnrollmentSchema";
 export { certificateIssuerSchema } from "./Security/certificateIssuerSchema";
 export { certificateIssuerConfigSchema } from "./Security/certificateIssuerConfigSchema";
@@ -11,6 +12,8 @@ export { deviceEnrollmentBulkCreateSchema } from "./Devices/deviceEnrollmentBulk
 export { deviceEnrollmentBulkDeleteSchema } from "./Devices/deviceEnrollmentBulkDeleteSchema";
 export { deviceEnrollmentDenialSchema } from "./Devices/deviceEnrollmentDenialSchema";
 export { deviceEventsSchema } from "./Devices/deviceEventsSchema";
+export { firmwareImageSchema } from "./DeviceUpdate/firmwareImageSchema";
+export { firmwareManifestSchema } from "./DeviceUpdate/firmwareManifestSchema";
 export { loginHistorySchema } from "./Accounts/loginHistorySchema";
 export { loginProfileSchema } from "./Accounts/loginProfileSchema";
 export { parentAccountSchema } from "./Accounts/parentAccountSchema";
@@ -21,6 +24,7 @@ export { subtenantTrustedCertificateSchema } from "./Security/subtenantTrustedCe
 export { subtenantUserSchema } from "./Accounts/subtenantUserSchema";
 export { subtenantUserInvitationSchema } from "./Accounts/subtenantUserInvitationSchema";
 export { trustedCertificateSchema } from "./Security/trustedCertificateSchema";
+export { updateCampaignSchema } from "./DeviceUpdate/updateCampaignSchema";
 export { userSchema } from "./Accounts/userSchema";
 export { userInvitationSchema } from "./Accounts/userInvitationSchema";
 export { verificationResponseSchema } from "./Security/verificationResponseSchema";

@@ -29,7 +29,7 @@ export interface TrustedCertificateCreateRequest {
     readonly name?: string;
 
     /**
-     *Service name where the certificate is to be used.
+     *Service name where the certificate is used.
      */
     readonly service?: TrustedCertificateService;
 
@@ -67,7 +67,7 @@ export interface TrustedCertificateUpdateRequest {
     readonly name?: string;
 
     /**
-     *Service name where the certificate is to be used.
+     *Service name where the certificate is used.
      */
     readonly service?: TrustedCertificateService;
 

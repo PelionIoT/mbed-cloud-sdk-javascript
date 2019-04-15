@@ -4,7 +4,7 @@ import { Entity } from "../../../common/entity";
  */
 export interface Policy extends Entity {
     /**
-     *Comma separated list of actions, empty string represents all actions.
+     *Comma-separated list of actions, empty string represents all actions.
      *@example GET
      */
     readonly action?: string;

@@ -193,6 +193,154 @@ export interface DeviceUpdateRequest {
     readonly name?: string;
 }
 /**
+ *DeviceLifecycleStatusFilter
+ */
+export interface DeviceLifecycleStatusFilter {
+    /**
+     *lifecycleStatus equal to
+     */
+    eq?: string;
+
+    /**
+     *lifecycleStatus not equal to
+     */
+    neq?: string;
+
+    /**
+     *lifecycleStatus in
+     */
+    in?: Array<string>;
+
+    /**
+     *lifecycleStatus not in
+     */
+    nin?: Array<string>;
+}
+/**
+ *DeviceOperatorSuspendedFilter
+ */
+export interface DeviceOperatorSuspendedFilter {
+    /**
+     *operatorSuspended equal to
+     */
+    eq?: string;
+
+    /**
+     *operatorSuspended not equal to
+     */
+    neq?: string;
+}
+/**
+ *DeviceLastOperatorSuspensionCategoryFilter
+ */
+export interface DeviceLastOperatorSuspensionCategoryFilter {
+    /**
+     *lastOperatorSuspensionCategory equal to
+     */
+    eq?: string;
+
+    /**
+     *lastOperatorSuspensionCategory not equal to
+     */
+    neq?: string;
+
+    /**
+     *lastOperatorSuspensionCategory in
+     */
+    in?: Array<string>;
+
+    /**
+     *lastOperatorSuspensionCategory not in
+     */
+    nin?: Array<string>;
+}
+/**
+ *DeviceLastOperatorSuspensionUpdatedAtFilter
+ */
+export interface DeviceLastOperatorSuspensionUpdatedAtFilter {
+    /**
+     *lastOperatorSuspensionUpdatedAt in
+     */
+    in?: Array<string>;
+
+    /**
+     *lastOperatorSuspensionUpdatedAt not in
+     */
+    nin?: Array<string>;
+
+    /**
+     *lastOperatorSuspensionUpdatedAt less than
+     */
+    lte?: Array<string>;
+
+    /**
+     *lastOperatorSuspensionUpdatedAt greater than
+     */
+    gte?: Array<string>;
+}
+/**
+ *DeviceSystemSuspendedFilter
+ */
+export interface DeviceSystemSuspendedFilter {
+    /**
+     *systemSuspended equal to
+     */
+    eq?: string;
+
+    /**
+     *systemSuspended not equal to
+     */
+    neq?: string;
+}
+/**
+ *DeviceLastSystemSuspensionCategoryFilter
+ */
+export interface DeviceLastSystemSuspensionCategoryFilter {
+    /**
+     *lastSystemSuspensionCategory equal to
+     */
+    eq?: string;
+
+    /**
+     *lastSystemSuspensionCategory not equal to
+     */
+    neq?: string;
+
+    /**
+     *lastSystemSuspensionCategory in
+     */
+    in?: Array<string>;
+
+    /**
+     *lastSystemSuspensionCategory not in
+     */
+    nin?: Array<string>;
+}
+/**
+ *DeviceLastSystemSuspensionUpdatedAtFilter
+ */
+export interface DeviceLastSystemSuspensionUpdatedAtFilter {
+    /**
+     *lastSystemSuspensionUpdatedAt in
+     */
+    in?: Array<string>;
+
+    /**
+     *lastSystemSuspensionUpdatedAt not in
+     */
+    nin?: Array<string>;
+
+    /**
+     *lastSystemSuspensionUpdatedAt less than
+     */
+    lte?: Array<string>;
+
+    /**
+     *lastSystemSuspensionUpdatedAt greater than
+     */
+    gte?: Array<string>;
+}
+/**
  *DeviceAccountIdFilter
  */
 export interface DeviceAccountIdFilter {
@@ -858,6 +1006,41 @@ export interface DeviceVendorIdFilter {
  *DeviceFilter
  */
 export interface DeviceFilter {
+    /**
+     *Filter by lifecycleStatus on Device
+     */
+    lifecycleStatus?: string | DeviceLifecycleStatusFilter;
+
+    /**
+     *Filter by operatorSuspended on Device
+     */
+    operatorSuspended?: string | DeviceOperatorSuspendedFilter;
+
+    /**
+     *Filter by lastOperatorSuspensionCategory on Device
+     */
+    lastOperatorSuspensionCategory?: string | DeviceLastOperatorSuspensionCategoryFilter;
+
+    /**
+     *Filter by lastOperatorSuspensionUpdatedAt on Device
+     */
+    lastOperatorSuspensionUpdatedAt?: DeviceLastOperatorSuspensionUpdatedAtFilter;
+
+    /**
+     *Filter by systemSuspended on Device
+     */
+    systemSuspended?: string | DeviceSystemSuspendedFilter;
+
+    /**
+     *Filter by lastSystemSuspensionCategory on Device
+     */
+    lastSystemSuspensionCategory?: string | DeviceLastSystemSuspensionCategoryFilter;
+
+    /**
+     *Filter by lastSystemSuspensionUpdatedAt on Device
+     */
+    lastSystemSuspensionUpdatedAt?: DeviceLastSystemSuspensionUpdatedAtFilter;
+
     /**
      *Filter by accountId on Device
      */

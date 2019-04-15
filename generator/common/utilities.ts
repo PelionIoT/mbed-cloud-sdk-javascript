@@ -10,6 +10,7 @@ const typeMap = {
     "date": "Date",
     "int64": "number",
     "int32": "number",
+    "filter": "{ [key: string]: string }",
     "object": "any",
     "file": "ReadStream | Buffer | File | Blob",
 };

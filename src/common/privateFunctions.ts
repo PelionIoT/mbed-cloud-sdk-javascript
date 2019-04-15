@@ -1,8 +1,8 @@
 import { ReadStream, createWriteStream, createReadStream } from "fs";
-import { isThisNode } from "../legacy/common/functions";
+import { isThisNode, encodeFilter } from "../legacy/common/functions";
 import { get as http_get } from "superagent";
 import { Config } from "./config";
-import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate } from "../foundation";
+import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate, UpdateCampaign } from "../foundation";
 
 /**
  * Internal function
@@ -30,6 +30,14 @@ export function downloadFullReportFile(self: DeviceEnrollmentBulkCreateRepositor
     return new Promise<ReadStream>((resolve, reject) => {
         return streamToFile(self.config, model.fullReportFile, resolve, reject);
     });
+}
+
+export function deviceFilterHelperSetter(self: UpdateCampaign): void {
+    if (!self.deviceFilter && self.deviceFilterHelper) {
+        self.deviceFilter = encodeFilter(self.deviceFilterHelper);
+    }
+
+    self.deviceFilterHelper = self.deviceFilterHelper || null;
 }
 
 /**

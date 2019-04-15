@@ -50,7 +50,7 @@ export class SubtenantUserRepository extends Repository {
     /**
      * delete
      * @param accountId - Account ID.
-     * @param id - The ID of the user to be deleted.
+     * @param id - The ID of the user to delete.
      */
     public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(
@@ -136,7 +136,7 @@ export class SubtenantUserRepository extends Repository {
     /**
      * validateEmail
      * @param accountId - Account ID.
-     * @param id - The ID of the user whose email is validated.
+     * @param id - The ID of the user.
      */
     public validateEmail(accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(

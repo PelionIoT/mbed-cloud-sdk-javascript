@@ -40,7 +40,7 @@ export class ApiKeyRepository extends Repository {
     }
     /**
      * delete
-     * @param id - The ID of the API key to be deleted.
+     * @param id - The ID of the API key to delete.
      */
     public delete(id: string): Promise<void> {
         return apiWrapper(

@@ -1,6 +1,7 @@
 import { Config } from "../common/config";
 import { AccountRepository } from ".";
 import { ApiKeyRepository } from ".";
+import { CampaignDeviceMetadataRepository } from ".";
 import { CertificateEnrollmentRepository } from ".";
 import { CertificateIssuerRepository } from ".";
 import { CertificateIssuerConfigRepository } from ".";
@@ -11,11 +12,14 @@ import { DeviceEnrollmentBulkCreateRepository } from ".";
 import { DeviceEnrollmentBulkDeleteRepository } from ".";
 import { DeviceEnrollmentDenialRepository } from ".";
 import { DeviceEventsRepository } from ".";
+import { FirmwareImageRepository } from ".";
+import { FirmwareManifestRepository } from ".";
 import { ServerCredentialsRepository } from ".";
 import { SubtenantTrustedCertificateRepository } from ".";
 import { SubtenantUserRepository } from ".";
 import { SubtenantUserInvitationRepository } from ".";
 import { TrustedCertificateRepository } from ".";
+import { UpdateCampaignRepository } from ".";
 import { UserRepository } from ".";
 import { UserInvitationRepository } from ".";
 
@@ -29,6 +33,9 @@ export class Factory {
     }
     public apiKeyRepository(): ApiKeyRepository {
         return new ApiKeyRepository(this._config);
+    }
+    public campaignDeviceMetadataRepository(): CampaignDeviceMetadataRepository {
+        return new CampaignDeviceMetadataRepository(this._config);
     }
     public certificateEnrollmentRepository(): CertificateEnrollmentRepository {
         return new CertificateEnrollmentRepository(this._config);
@@ -60,6 +67,12 @@ export class Factory {
     public deviceEventsRepository(): DeviceEventsRepository {
         return new DeviceEventsRepository(this._config);
     }
+    public firmwareImageRepository(): FirmwareImageRepository {
+        return new FirmwareImageRepository(this._config);
+    }
+    public firmwareManifestRepository(): FirmwareManifestRepository {
+        return new FirmwareManifestRepository(this._config);
+    }
     public serverCredentialsRepository(): ServerCredentialsRepository {
         return new ServerCredentialsRepository(this._config);
     }
@@ -74,6 +87,9 @@ export class Factory {
     }
     public trustedCertificateRepository(): TrustedCertificateRepository {
         return new TrustedCertificateRepository(this._config);
+    }
+    public updateCampaignRepository(): UpdateCampaignRepository {
+        return new UpdateCampaignRepository(this._config);
     }
     public userRepository(): UserRepository {
         return new UserRepository(this._config);
