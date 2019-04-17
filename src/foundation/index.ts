@@ -19,6 +19,7 @@ export * from "./Accounts/loginProfile";
 export * from "./Accounts/parentAccount";
 export * from "./Accounts/passwordPolicy";
 export * from "./Accounts/policy";
+export * from "./Security/preSharedKey";
 export * from "./Security/serverCredentials";
 export * from "./Security/subtenantTrustedCertificate";
 export * from "./Accounts/subtenantUser";

@@ -14,6 +14,7 @@ import { DeviceEnrollmentDenialRepository } from ".";
 import { DeviceEventsRepository } from ".";
 import { FirmwareImageRepository } from ".";
 import { FirmwareManifestRepository } from ".";
+import { PreSharedKeyRepository } from ".";
 import { ServerCredentialsRepository } from ".";
 import { SubtenantTrustedCertificateRepository } from ".";
 import { SubtenantUserRepository } from ".";
@@ -72,6 +73,9 @@ export class Factory {
     }
     public firmwareManifestRepository(): FirmwareManifestRepository {
         return new FirmwareManifestRepository(this._config);
+    }
+    public preSharedKeyRepository(): PreSharedKeyRepository {
+        return new PreSharedKeyRepository(this._config);
     }
     public serverCredentialsRepository(): ServerCredentialsRepository {
         return new ServerCredentialsRepository(this._config);
