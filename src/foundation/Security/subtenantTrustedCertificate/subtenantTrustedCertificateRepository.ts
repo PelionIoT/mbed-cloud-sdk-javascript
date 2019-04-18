@@ -48,7 +48,7 @@ export class SubtenantTrustedCertificateRepository extends Repository {
     /**
      * delete
      * @param accountId - Account ID.
-     * @param id - The ID of the trusted certificate to be deleted.
+     * @param id - The ID of the trusted certificate to delete.
      */
     public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(

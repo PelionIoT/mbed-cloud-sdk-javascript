@@ -8,7 +8,7 @@ export interface CampaignDeviceMetadata extends Entity {
      *The device's campaign ID
      *@example 015bf72fccda00000000000100100280
      */
-    campaign: string;
+    campaignId: string;
 
     /**
      *The time the campaign was created

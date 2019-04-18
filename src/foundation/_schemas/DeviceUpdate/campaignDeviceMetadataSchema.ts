@@ -5,7 +5,7 @@ export const campaignDeviceMetadataSchema = (): Schema => {
         name: "CampaignDeviceMetadata",
         fields: [
             {
-                name: "campaign",
+                name: "campaignId",
                 apiName: "campaign",
                 type: "string",
             },
@@ -57,7 +57,7 @@ export const campaignDeviceMetadataSchema = (): Schema => {
                 returnType: "Promise<CampaignDeviceMetadata>",
                 parameters: [
                     {
-                        name: "campaign",
+                        name: "campaignId",
                         position: 0,
                         type: "string",
                     },

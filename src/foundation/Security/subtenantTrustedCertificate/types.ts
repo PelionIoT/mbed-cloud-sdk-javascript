@@ -28,7 +28,7 @@ export interface SubtenantTrustedCertificateCreateRequest {
     readonly name?: string;
 
     /**
-     *Service name where the certificate is to be used.
+     *Service name where the certificate is used.
      */
     readonly service?: SubtenantTrustedCertificateService;
 
@@ -66,7 +66,7 @@ export interface SubtenantTrustedCertificateUpdateRequest {
     readonly name?: string;
 
     /**
-     *Service name where the certificate is to be used.
+     *Service name where the certificate is used.
      */
     readonly service?: SubtenantTrustedCertificateService;
 

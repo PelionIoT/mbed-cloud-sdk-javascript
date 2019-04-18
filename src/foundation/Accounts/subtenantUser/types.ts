@@ -23,12 +23,12 @@ export interface SubtenantUserCreateRequest {
     readonly fullName?: string;
 
     /**
-     *This object represents a user login profile in Device Management.
+     *Represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *A flag indicating that receiving marketing information has been accepted.
+     *A flag indicating that the user has consented to receive marketing information.
      *@example true
      */
     readonly marketingAccepted?: boolean;
@@ -46,7 +46,7 @@ export interface SubtenantUserCreateRequest {
     readonly phoneNumber?: string;
 
     /**
-     *A flag indicating that the General Terms and Conditions has been accepted.
+     *A flag indicating that the user has accepted General Terms and Conditions.
      *@example true
      */
     readonly termsAccepted?: boolean;
@@ -74,12 +74,12 @@ export interface SubtenantUserUpdateRequest {
     readonly fullName?: string;
 
     /**
-     *This object represents a user login profile in Device Management.
+     *Represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *A flag indicating that receiving marketing information has been accepted.
+     *A flag indicating that the user has consented to receive marketing information.
      *@example true
      */
     readonly marketingAccepted?: boolean;
@@ -91,13 +91,13 @@ export interface SubtenantUserUpdateRequest {
     readonly phoneNumber?: string;
 
     /**
-     *A flag indicating that the General Terms and Conditions has been accepted.
+     *A flag indicating that the user has accepted General Terms and Conditions.
      *@example true
      */
     readonly termsAccepted?: boolean;
 
     /**
-     *A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     *A flag indicating whether two-factor authentication (TOTP) has been enabled.
      *@example true
      */
     readonly twoFactorAuthentication?: boolean;

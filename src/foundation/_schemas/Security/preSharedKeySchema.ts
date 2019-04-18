@@ -1,8 +1,8 @@
 import { Schema } from "../../../schema/schema";
 
-export const firmwareManifestSchema = (): Schema => {
+export const preSharedKeySchema = (): Schema => {
     return Object.assign(new Schema(), {
-        name: "FirmwareManifest",
+        name: "PreSharedKey",
         fields: [
             {
                 name: "createdAt",
@@ -10,72 +10,28 @@ export const firmwareManifestSchema = (): Schema => {
                 type: "Date",
             },
             {
-                name: "datafileSize",
-                apiName: "datafile_size",
-                type: "number",
-            },
-            {
-                name: "datafileUrl",
-                apiName: "datafile",
+                name: "endpointName",
+                apiName: "endpoint_name",
                 type: "string",
-            },
-            {
-                name: "description",
-                apiName: "description",
-                type: "string",
-            },
-            {
-                name: "deviceClass",
-                apiName: "device_class",
-                type: "string",
-            },
-            {
-                name: "keyTableUrl",
-                apiName: "key_table",
-                type: "string",
-            },
-            {
-                name: "name",
-                apiName: "name",
-                type: "string",
-            },
-            {
-                name: "timestamp",
-                apiName: "timestamp",
-                type: "Date",
-            },
-            {
-                name: "updatedAt",
-                apiName: "updated_at",
-                type: "Date",
             },
         ],
 
         methods: [
             {
                 name: "create",
-                returnType: "Promise<FirmwareManifest>",
+                returnType: "Promise<PreSharedKey>",
                 parameters: [
                     {
-                        name: "firmwareManifestFile",
+                        name: "request",
                         position: 0,
-                        type: "ReadStream | Buffer | File | Blob",
-                    },
-                    {
-                        name: "options",
-                        position: 1,
                         type: "Object",
                         subParams: [
                             {
-                                name: "description",
+                                name: "endpointName",
                                 type: "string",
                             },
                             {
-                                name: "keyTableFile",
-                                type: "ReadStream | Buffer | File | Blob",
-                            },
-                            {
-                                name: "name",
+                                name: "secretHex",
                                 type: "string",
                             },
                         ],
@@ -87,7 +43,7 @@ export const firmwareManifestSchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "firmwareManifestId",
+                        name: "endpointName",
                         position: 0,
                         type: "string",
                     },
@@ -95,7 +51,7 @@ export const firmwareManifestSchema = (): Schema => {
             },
             {
                 name: "list",
-                returnType: "Paginator<FirmwareManifest, ListOptions>",
+                returnType: "Paginator<PreSharedKey, ListOptions>",
                 parameters: [
                     {
                         name: "options",
@@ -122,20 +78,16 @@ export const firmwareManifestSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
-                            {
-                                name: "filter",
-                                type: "FirmwareManifestFilter",
-                            },
                         ],
                     },
                 ],
             },
             {
                 name: "read",
-                returnType: "Promise<FirmwareManifest>",
+                returnType: "Promise<PreSharedKey>",
                 parameters: [
                     {
-                        name: "firmwareManifestId",
+                        name: "endpointName",
                         position: 0,
                         type: "string",
                     },

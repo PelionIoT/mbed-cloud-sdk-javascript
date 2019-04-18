@@ -14,7 +14,7 @@ export interface User extends Entity {
     readonly accountId?: string;
 
     /**
-     *This object represents an active user session.
+     *Represents an active user session.
      */
     readonly activeSessions?: Array<ActiveSession>;
 
@@ -37,7 +37,7 @@ export interface User extends Entity {
     readonly creationTime?: number;
 
     /**
-     *User's account specific custom properties. The value is a string.
+     *User's account-specific custom properties. The value is a string.
      */
     readonly customFields?: { [key: string]: string };
 
@@ -66,17 +66,17 @@ export interface User extends Entity {
     readonly lastLoginTime?: number;
 
     /**
-     *This object represents an entry in login history.
+     *Represents an entry in login history.
      */
     readonly loginHistory?: Array<LoginHistory>;
 
     /**
-     *This object represents a user login profile in Device Management.
+     *Represents a user login profile in Device Management.
      */
     loginProfiles?: Array<LoginProfile>;
 
     /**
-     *A flag indicating that receiving marketing information has been accepted.
+     *A flag indicating that the user has consented to receive marketing information.
      *@example true
      */
     marketingAccepted?: boolean;
@@ -106,7 +106,7 @@ export interface User extends Entity {
     status?: UserStatus;
 
     /**
-     *A flag indicating that the General Terms and Conditions has been accepted.
+     *A flag indicating that the user has accepted General Terms and Conditions.
      *@example true
      */
     termsAccepted?: boolean;
@@ -117,7 +117,7 @@ export interface User extends Entity {
     readonly totpScratchCodes?: Array<string>;
 
     /**
-     *A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     *A flag indicating whether two-factor authentication (TOTP) has been enabled.
      *@example true
      */
     twoFactorAuthentication?: boolean;

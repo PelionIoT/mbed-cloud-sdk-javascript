@@ -19,6 +19,7 @@ export { loginProfileSchema } from "./Accounts/loginProfileSchema";
 export { parentAccountSchema } from "./Accounts/parentAccountSchema";
 export { passwordPolicySchema } from "./Accounts/passwordPolicySchema";
 export { policySchema } from "./Accounts/policySchema";
+export { preSharedKeySchema } from "./Security/preSharedKeySchema";
 export { serverCredentialsSchema } from "./Security/serverCredentialsSchema";
 export { subtenantTrustedCertificateSchema } from "./Security/subtenantTrustedCertificateSchema";
 export { subtenantUserSchema } from "./Accounts/subtenantUserSchema";

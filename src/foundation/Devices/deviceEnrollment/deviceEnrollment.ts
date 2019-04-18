@@ -10,7 +10,7 @@ export interface DeviceEnrollment extends Entity {
     readonly accountId?: string;
 
     /**
-     *The time of claiming the device to be assigned to the account.
+     *The time the device was claimed.
      */
     readonly claimedAt?: Date;
 
@@ -20,7 +20,7 @@ export interface DeviceEnrollment extends Entity {
     readonly createdAt?: Date;
 
     /**
-     *The ID of the device in the Device Directory once it has been registered.
+     *The ID of the device in the Device Directory once it is registered.
      *@example 00005a4e027f0a580a01081c00000000
      */
     readonly enrolledDeviceId?: string;
@@ -32,7 +32,7 @@ export interface DeviceEnrollment extends Entity {
     enrollmentIdentity: string;
 
     /**
-     *The enrollment claim expiration time. If the device does not connect to Device Management before the expiration, the claim is removed without a separate notice
+     *The enrollment claim expiration time. If the device does not connect to Device Management before expiration, the claim is removed without separate notice.
      */
     readonly expiresAt?: Date;
 }

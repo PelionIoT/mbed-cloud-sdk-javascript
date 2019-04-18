@@ -35,7 +35,7 @@ export class DeveloperCertificateRepository extends Repository {
     }
     /**
      * delete
-     * @param id - The ID of the trusted certificate to be deleted.
+     * @param id - The ID of the trusted certificate to delete.
      */
     public delete(id: string): Promise<void> {
         return apiWrapper(

@@ -15,7 +15,7 @@ export class CampaignDeviceMetadataAdapter extends Adapter {
         }
         const mappedEntity = CampaignDeviceMetadataAdapter.assignDefined(instance || {}, {
             _discriminator: "CAMPAIGN_DEVICE_METADATA",
-            campaign: data.campaign,
+            campaignId: data.campaign,
             createdAt: data.created_at,
             deploymentState: data.deployment_state,
             description: data.description,
