@@ -12,6 +12,10 @@ export function isDeveloperCertificateSetter(self: TrustedCertificate): void {
     self.isDeveloperCertificate = self.deviceExecutionMode === 1;
 }
 
+export function preSharedKeyIdSetter(self: any): void {
+    self.id = self.endpointName;
+}
+
 /**
  * Internal function
  * @ignore

@@ -59,13 +59,13 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
             // TODO map date times here to remove data regex from client and stop doing hard copy
         }
         if (field.getter_custom_method || field.setter_custom_method) {
-            const customFunctionCall = new AdapterCustomFunctionCallContainer(snakeToCamel(field._key));
+            const customFunctionCall = new AdapterCustomFunctionCallContainer(snakeToCamel(field.setter_custom_method));
             adapterCustomFunctions.push(customFunctionCall);
             adapterImports.push((new ImportContainer(
                 "PRIVATE_FUNCTIONS",
                 "../../../common/privateFunctions",
                 [
-                    `${snakeToCamel(field._key)}Setter`
+                    `${snakeToCamel(field.setter_custom_method)}`
                 ]
             )));
         }

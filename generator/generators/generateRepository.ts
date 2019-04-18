@@ -192,7 +192,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 if (field.in === "query") {
                     const queryParam = new MethodBodyParameterContainer(
                         snakeToCamel(field.entity_fieldname),
-                        field.api_fieldname,
+                        field.name || field.api_fieldname,
                         paginated ? "pageOptions" : hasBucket && !!!field.required ? "options" : ""
                     );
                     queryParams.push(queryParam);
@@ -201,7 +201,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 if (field.in === "path") {
                     const pathParam = new MethodBodyParameterContainer(
                         snakeToCamel(field.entity_fieldname),
-                        field.parameter_fieldname || field.api_fieldname,
+                        field.name || field.parameter_fieldname || field.api_fieldname,
                         hasBucket && !!!field.required ? "options" : ""
                     );
                     pathParams.push(pathParam);
@@ -210,7 +210,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 if (field.in === "stream") {
                     const fileParam = new MethodBodyParameterContainer(
                         snakeToCamel(field.entity_fieldname),
-                        field.api_fieldname,
+                        field.name || field.api_fieldname,
                         hasBucket && !!!field.required ? "options" : ""
                     );
                     fileParams.push(fileParam);
@@ -219,7 +219,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 if (field.in === "body") {
                     const bodyParam = new MethodBodyParameterContainer(
                         snakeToCamel(field.entity_fieldname),
-                        field.api_fieldname,
+                        field.name || field.api_fieldname,
                         "request"
                     );
                     bodyParams.push(bodyParam);
