@@ -20,11 +20,6 @@ export const deviceSchema = (): Schema => {
                 type: "Date",
             },
             {
-                name: "bootstrappedTimestamp",
-                apiName: "bootstrapped_timestamp",
-                type: "Date",
-            },
-            {
                 name: "caId",
                 apiName: "ca_id",
                 type: "string",
@@ -88,11 +83,6 @@ export const deviceSchema = (): Schema => {
                 name: "enrolmentListTimestamp",
                 apiName: "enrolment_list_timestamp",
                 type: "Date",
-            },
-            {
-                name: "firmwareChecksum",
-                apiName: "firmware_checksum",
-                type: "string",
             },
             {
                 name: "hostGateway",

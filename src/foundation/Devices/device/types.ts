@@ -261,22 +261,22 @@ export interface DeviceBootstrappedTimestampFilter {
     /**
      *bootstrappedTimestamp in
      */
-    in?: Array<Date>;
+    in?: Array<string>;
 
     /**
      *bootstrappedTimestamp not in
      */
-    nin?: Array<Date>;
+    nin?: Array<string>;
 
     /**
      *bootstrappedTimestamp less than
      */
-    lte?: Array<Date>;
+    lte?: Array<string>;
 
     /**
      *bootstrappedTimestamp greater than
      */
-    gte?: Array<Date>;
+    gte?: Array<string>;
 }
 /**
  *DeviceCaIdFilter

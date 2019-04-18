@@ -16,7 +16,7 @@ export class UserRepository extends Repository {
     /**
      * create
      * @param request - The entity to perform action on.
-     * @param action - Action, either 'create' or 'invite'.
+     * @param action - Action, either `create` or `invite`.
      */
     public create(request: UserCreateRequest, action?: string): Promise<User> {
         return apiWrapper(
@@ -50,7 +50,7 @@ export class UserRepository extends Repository {
     }
     /**
      * delete
-     * @param id - The ID of the user to be deleted.
+     * @param id - The ID of the user to delete.
      */
     public delete(id: string): Promise<void> {
         return apiWrapper(

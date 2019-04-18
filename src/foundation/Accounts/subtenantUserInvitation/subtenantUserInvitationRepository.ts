@@ -39,7 +39,7 @@ export class SubtenantUserInvitationRepository extends Repository {
     /**
      * delete
      * @param accountId - Account ID.
-     * @param id - The ID of the invitation to be deleted.
+     * @param id - The ID of the invitation to delete.
      */
     public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(

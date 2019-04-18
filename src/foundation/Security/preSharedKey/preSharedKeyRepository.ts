@@ -36,7 +36,7 @@ export class PreSharedKeyRepository extends Repository {
     }
     /**
      * delete
-     * @param endpointName - The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
+     * @param endpointName - The unique endpoint identifier that this PSK applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
      */
     public delete(endpointName: string): Promise<void> {
         return apiWrapper(
@@ -89,7 +89,7 @@ export class PreSharedKeyRepository extends Repository {
     }
     /**
      * read
-     * @param endpointName - The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
+     * @param endpointName - The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
      */
     public read(endpointName: string): Promise<PreSharedKey> {
         return apiWrapper(
