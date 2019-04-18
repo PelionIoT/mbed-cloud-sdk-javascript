@@ -29,7 +29,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
         for (const field of method.fields) {
             if (field.in === "body") {
                 const propType = getPropertyType(field, enums);
-                const key = snakeToCamel(field._key);
+                const key = snakeToCamel(field.name || field._key);
                 const isRequired = field.required || false;
                 const description = getDescription(field, key);
                 const propertyContainer = new PropertyContainer(key, propType, { isInterface: true, isReadonly: true, isOptional: !isRequired, description });
