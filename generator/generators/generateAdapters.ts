@@ -1,6 +1,6 @@
 /* tslint:disable: no-console */
 import { AdapterFieldContainer } from "../containers/methodBodyContainers/adapter/adapterFieldContainer";
-import { snakeToCamel, snakeToPascal } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, safeAddToList } from "../common/utilities";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
@@ -61,13 +61,13 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
         if (field.getter_custom_method || field.setter_custom_method) {
             const customFunctionCall = new AdapterCustomFunctionCallContainer(snakeToCamel(field.setter_custom_method));
             adapterCustomFunctions.push(customFunctionCall);
-            adapterImports.push((new ImportContainer(
-                "PRIVATE_FUNCTIONS",
+            safeAddToList(adapterImports, new ImportContainer(
+                `${field.setter_custom_method.toUpperCase()}_PRIVATE_FUNCTIONS`,
                 "../../../common/privateFunctions",
                 [
                     `${snakeToCamel(field.setter_custom_method)}`
                 ]
-            )));
+            ));
         }
 
         const adapterField = new AdapterFieldContainer(
