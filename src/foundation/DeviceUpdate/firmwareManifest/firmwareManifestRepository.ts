@@ -1,9 +1,9 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { FirmwareManifest } from "./firmwareManifest";
+import { FirmwareManifestAdapter } from "../../index";
 import { extractFilter } from "../../../common/filters";
 import { FirmwareManifestListOptions } from "./types";
-import { FirmwareManifestAdapter } from "../../index";
 import { ReadStream } from "fs";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -12,6 +12,37 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *FirmwareManifest repository
  */
 export class FirmwareManifestRepository extends Repository {
+    /**
+     * create
+     * @param firmwareManifestFile - The manifest file to create. The API gateway enforces the account-specific file size.
+     */
+    public create(
+        firmwareManifestFile: ReadStream | Buffer | File | Blob,
+        options?: { description?: string; keyTableFile?: ReadStream | Buffer | File | Blob; name?: string }
+    ): Promise<FirmwareManifest> {
+        options = options || {};
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/firmware-manifests/",
+                        method: "POST",
+                        formParams: {
+                            description: options.description,
+                            datafile: firmwareManifestFile,
+                            key_table: options.keyTableFile,
+                            name: options.name,
+                        },
+                        contentTypes: [ "multipart/form-data" ],
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, FirmwareManifestAdapter.fromApi(data));
+            }
+        );
+    }
     /**
      * delete
      * @param id - The firmware manifest ID
@@ -117,37 +148,6 @@ export class FirmwareManifestRepository extends Repository {
                         pathParams: {
                             manifest_id: id,
                         },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, FirmwareManifestAdapter.fromApi(data));
-            }
-        );
-    }
-    /**
-     * upload
-     * @param firmwareManifestFile - The manifest file to create. The API gateway enforces the account-specific file size.
-     */
-    public upload(
-        firmwareManifestFile: ReadStream | Buffer | File | Blob,
-        options?: { description?: string; keyTableFile?: ReadStream | Buffer | File | Blob; name?: string }
-    ): Promise<FirmwareManifest> {
-        options = options || {};
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/firmware-manifests/",
-                        method: "POST",
-                        formParams: {
-                            description: options.description,
-                            datafile: firmwareManifestFile,
-                            key_table: options.keyTableFile,
-                            name: options.name,
-                        },
-                        contentTypes: [ "multipart/form-data" ],
                     },
                     resultsFn
                 );

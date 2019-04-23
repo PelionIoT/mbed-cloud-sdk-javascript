@@ -1,9 +1,9 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { FirmwareImage } from "./firmwareImage";
+import { FirmwareImageAdapter } from "../../index";
 import { extractFilter } from "../../../common/filters";
 import { FirmwareImageListOptions } from "./types";
-import { FirmwareImageAdapter } from "../../index";
 import { ReadStream } from "fs";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -12,6 +12,36 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *FirmwareImage repository
  */
 export class FirmwareImageRepository extends Repository {
+    /**
+     * create
+     * @param firmwareImageFile - The firmware image file to upload
+     */
+    public create(
+        firmwareImageFile: ReadStream | Buffer | File | Blob,
+        options?: { description?: string; name?: string }
+    ): Promise<FirmwareImage> {
+        options = options || {};
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/firmware-images/",
+                        method: "POST",
+                        formParams: {
+                            description: options.description,
+                            datafile: firmwareImageFile,
+                            name: options.name,
+                        },
+                        contentTypes: [ "multipart/form-data" ],
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, FirmwareImageAdapter.fromApi(data));
+            }
+        );
+    }
     /**
      * delete
      * @param id - The firmware image ID
@@ -113,36 +143,6 @@ export class FirmwareImageRepository extends Repository {
                         pathParams: {
                             image_id: id,
                         },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, FirmwareImageAdapter.fromApi(data));
-            }
-        );
-    }
-    /**
-     * upload
-     * @param firmwareImageFile - The firmware image file to upload
-     */
-    public upload(
-        firmwareImageFile: ReadStream | Buffer | File | Blob,
-        options?: { description?: string; name?: string }
-    ): Promise<FirmwareImage> {
-        options = options || {};
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/firmware-images/",
-                        method: "POST",
-                        formParams: {
-                            description: options.description,
-                            datafile: firmwareImageFile,
-                            name: options.name,
-                        },
-                        contentTypes: [ "multipart/form-data" ],
                     },
                     resultsFn
                 );

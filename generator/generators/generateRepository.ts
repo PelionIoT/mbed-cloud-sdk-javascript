@@ -218,7 +218,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
                 if (field.in === "body") {
                     const bodyParam = new MethodBodyParameterContainer(
-                        snakeToCamel(field.entity_fieldname),
+                        snakeToCamel(field.name || field.entity_fieldname),
                         field.name || field.api_fieldname,
                         "request"
                     );

@@ -43,6 +43,32 @@ export const firmwareImageSchema = (): Schema => {
 
         methods: [
             {
+                name: "create",
+                returnType: "Promise<FirmwareImage>",
+                parameters: [
+                    {
+                        name: "firmwareImageFile",
+                        position: 0,
+                        type: "ReadStream | Buffer | File | Blob",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "description",
+                                type: "string",
+                            },
+                            {
+                                name: "name",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
                 name: "delete",
                 returnType: "Promise<void>",
                 parameters: [
@@ -98,32 +124,6 @@ export const firmwareImageSchema = (): Schema => {
                         name: "firmwareImageId",
                         position: 0,
                         type: "string",
-                    },
-                ],
-            },
-            {
-                name: "upload",
-                returnType: "Promise<FirmwareImage>",
-                parameters: [
-                    {
-                        name: "firmwareImageFile",
-                        position: 0,
-                        type: "ReadStream | Buffer | File | Blob",
-                    },
-                    {
-                        name: "options",
-                        position: 1,
-                        type: "Object",
-                        subParams: [
-                            {
-                                name: "description",
-                                type: "string",
-                            },
-                            {
-                                name: "name",
-                                type: "string",
-                            },
-                        ],
                     },
                 ],
             },

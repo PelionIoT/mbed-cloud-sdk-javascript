@@ -53,6 +53,36 @@ export const firmwareManifestSchema = (): Schema => {
 
         methods: [
             {
+                name: "create",
+                returnType: "Promise<FirmwareManifest>",
+                parameters: [
+                    {
+                        name: "firmwareManifestFile",
+                        position: 0,
+                        type: "ReadStream | Buffer | File | Blob",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "description",
+                                type: "string",
+                            },
+                            {
+                                name: "keyTableFile",
+                                type: "ReadStream | Buffer | File | Blob",
+                            },
+                            {
+                                name: "name",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
                 name: "delete",
                 returnType: "Promise<void>",
                 parameters: [
@@ -108,36 +138,6 @@ export const firmwareManifestSchema = (): Schema => {
                         name: "firmwareManifestId",
                         position: 0,
                         type: "string",
-                    },
-                ],
-            },
-            {
-                name: "upload",
-                returnType: "Promise<FirmwareManifest>",
-                parameters: [
-                    {
-                        name: "firmwareManifestFile",
-                        position: 0,
-                        type: "ReadStream | Buffer | File | Blob",
-                    },
-                    {
-                        name: "options",
-                        position: 1,
-                        type: "Object",
-                        subParams: [
-                            {
-                                name: "description",
-                                type: "string",
-                            },
-                            {
-                                name: "keyTableFile",
-                                type: "ReadStream | Buffer | File | Blob",
-                            },
-                            {
-                                name: "name",
-                                type: "string",
-                            },
-                        ],
                     },
                 ],
             },
