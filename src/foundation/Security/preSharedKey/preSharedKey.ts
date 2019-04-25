@@ -13,5 +13,5 @@ export interface PreSharedKey extends Entity {
      *The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
      *@example my-endpoint-0001
      */
-    endpointName: string;
+    endpointName?: string;
 }
