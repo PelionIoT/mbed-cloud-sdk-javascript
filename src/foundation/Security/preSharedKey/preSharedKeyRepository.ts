@@ -36,9 +36,9 @@ export class PreSharedKeyRepository extends Repository {
     }
     /**
      * delete
-     * @param endpointName - The unique endpoint identifier that this PSK applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
+     * @param id - The Id of the pre_shared_key, shadows the endpoint_name
      */
-    public delete(endpointName: string): Promise<void> {
+    public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -46,7 +46,7 @@ export class PreSharedKeyRepository extends Repository {
                         url: "/v2/device-shared-keys/{endpoint_name}",
                         method: "DELETE",
                         pathParams: {
-                            endpoint_name: endpointName,
+                            endpoint_name: id,
                         },
                     },
                     resultsFn
@@ -89,9 +89,9 @@ export class PreSharedKeyRepository extends Repository {
     }
     /**
      * read
-     * @param endpointName - The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
+     * @param id - The Id of the pre_shared_key, shadows the endpoint_name
      */
-    public read(endpointName: string): Promise<PreSharedKey> {
+    public read(id: string): Promise<PreSharedKey> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -99,7 +99,7 @@ export class PreSharedKeyRepository extends Repository {
                         url: "/v2/device-shared-keys/{endpoint_name}",
                         method: "GET",
                         pathParams: {
-                            endpoint_name: endpointName,
+                            endpoint_name: id,
                         },
                     },
                     resultsFn

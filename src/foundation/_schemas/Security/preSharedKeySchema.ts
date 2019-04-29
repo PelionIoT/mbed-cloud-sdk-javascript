@@ -43,7 +43,7 @@ export const preSharedKeySchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "endpointName",
+                        name: "preSharedKeyId",
                         position: 0,
                         type: "string",
                     },
@@ -87,7 +87,7 @@ export const preSharedKeySchema = (): Schema => {
                 returnType: "Promise<PreSharedKey>",
                 parameters: [
                     {
-                        name: "endpointName",
+                        name: "preSharedKeyId",
                         position: 0,
                         type: "string",
                     },
