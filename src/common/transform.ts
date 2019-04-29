@@ -112,7 +112,9 @@ export function objectKeysToCamelCase(input, deep, filter) {
                     value = self(value, deep, filter);
                 }
             }
-            output[camelToSnake(key)] = value;
+            if (value !== null && value !== undefined) {
+                output[camelToSnake(key)] = value;
+            }
         }
         deep.level -= 1;
     } else {
