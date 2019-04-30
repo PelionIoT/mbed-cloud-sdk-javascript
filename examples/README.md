@@ -27,19 +27,19 @@ These examples utilise a [config.js](node/config.js) file which can read an API 
 To use environment variables, set the varaible `MBED_CLOUD_SDK_API_KEY` prior to running the application. e.g.:
 
 ```bash
-$ export MBED_CLOUD_SDK_API_KEY=<Mbed Cloud API Key>
+$ export MBED_CLOUD_SDK_API_KEY=<Pelion DM API Key>
 ```
 
 To use a command line switch, pass your API key to the program being run. e.g.:
 
 ```bash
-$ node <path to example.js> <Mbed Cloud API Key>
+$ node <path to example.js> <Pelion DM API Key>
 ```
 
 or:
 
 ```bash
-$ node <path to example.js> --apiKey=<Mbed Cloud API Key>
+$ node <path to example.js> --apiKey=<Pelion DM API Key>
 ```
 
 You can also simply edit the [config.js](node/config.js) file and add your key.
@@ -90,13 +90,13 @@ These examples utilise a [config.js](web/config.js) file which can read an API K
 To use the query string, pass your API key to the page being run. e.g.:
 
 ```
-https://www.yourserver.com/<example.html>?<Mbed Cloud API Key>
+https://www.yourserver.com/<example.html>?<Pelion DM API Key>
 ```
 
 or:
 
 ```
-https://www.yourserver.com/<example.html>?apiKey=<Mbed Cloud API Key>
+https://www.yourserver.com/<example.html>?apiKey=<Pelion DM API Key>
 ```
 
 You can also simply edit the [config.js](web/config.js) file and add your key.

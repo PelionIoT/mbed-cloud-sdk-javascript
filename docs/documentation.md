@@ -92,14 +92,14 @@ The files in the bundles folder are standalone modules following the [UMD](https
 Include the JavaScript bundle you need on your page from the bundles folder. For example:
 
 ```html
-<script src="<mbed-cloud-sdk>/bundles/sdk.min.js"></script>
+<script src="<pelion-dm-sdk>/bundles/sdk.min.js"></script>
 ```
 
 or
 
 
 ```html
-<script src="<mbed-cloud-sdk>/bundles/foundation/device.min.js"></script>
+<script src="<pelion-dm-sdk>/bundles/foundation/device.min.js"></script>
 ```
 
 If you are using VanillaJS, the bundles are then accessible through the global `Mbed.Cloud` namespace. For example, to list all connected devices:

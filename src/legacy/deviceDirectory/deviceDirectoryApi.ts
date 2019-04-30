@@ -33,7 +33,7 @@ import { ApiMetadata } from "../common/apiMetadata";
  * ## Device Directory API
  * The API can be initalized with a .env file in the working directory with the following values
  *
- * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+ * MBED_CLOUD_SDK_API_KEY=<Pelion DM API Key>
  *
  * and optionally
  *
@@ -49,18 +49,18 @@ import { ApiMetadata } from "../common/apiMetadata";
  * var PelionDMSDK = require("mbed-cloud-sdk");
  *
  * var devices = new PelionDMSDK.DeviceDirectoryApi({
- *     apiKey: "<Mbed Cloud API Key>"
+ *     apiKey: "<Pelion DM API Key>"
  * });
  * ```
  *
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/device-directory.min.js"></script>
+ * <script src="<pelion-dm-sdk>/bundles/device-directory.min.js"></script>
  *
  * <script>
  *     var devices = new MbedCloudSDK.DeviceDirectoryApi({
- *         apiKey: "<Mbed Cloud API Key>"
+ *         apiKey: "<Pelion DM API Key>"
  *     });
  * </script>
  * ```

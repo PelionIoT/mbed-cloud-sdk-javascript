@@ -30,7 +30,7 @@ export class BootstrapApi {
     /**
      * The API can be initalized with a .env file in the wroking directory with the following values
      *
-     * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+     * MBED_CLOUD_SDK_API_KEY=<Pelion DM API Key>
      *
      * and optionally
      *
@@ -45,18 +45,18 @@ export class BootstrapApi {
      * var PelionDMSDK = require("mbed-cloud-sdk");
      *
      * var bootstrap = new PelionDMSDK.BootstrapApi({
-     *     apiKey: "<Mbed Cloud API Key>"
+     *     apiKey: "<Pelion DM API Key>"
      * });
      * ```
      *
      * To create an instance of this API in the browser:
      *
      * ```html
-     * <script src="<mbed-cloud-sdk>/bundles/update.min.js"></script>
+     * <script src="<pelion-dm-sdk>/bundles/update.min.js"></script>
      *
      * <script>
      *     var bootstrap = new MbedCloudSDK.BootstrapApi({
-     *         apiKey: "<Mbed Cloud API Key>"
+     *         apiKey: "<Pelion DM API Key>"
      *     });
      * </script>
      * ```

@@ -42,7 +42,7 @@ function parseCommandLine() {
 
 // Default configuration
 var config = {
-	apiKey: "<Mbed Cloud API Key>",
+	apiKey: "<Pelion DM API Key>",
 	host: "https://api.us-east-1.mbedcloud.com"
 };
 

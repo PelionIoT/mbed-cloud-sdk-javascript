@@ -47,7 +47,7 @@ import { Logger } from "typescript-logging";
  *
  * The API can be initalized with a .env file in the working directory with the following values
  *
- * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+ * MBED_CLOUD_SDK_API_KEY=<Pelion DM API Key>
  *
  * and optionally
  *
@@ -63,18 +63,18 @@ import { Logger } from "typescript-logging";
  * var PelionDMSDK = require("mbed-cloud-sdk");
  *
  * var connect = new PelionDMSDK.ConnectApi({
- *     apiKey: "<Mbed Cloud API Key>"
+ *     apiKey: "<Pelion DM API Key>"
  * });
  * ```
  *
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
+ * <script src="<pelion-dm-sdk>/bundles/connect.min.js"></script>
  *
  * <script>
  *     var connect = new MbedCloudSDK.ConnectApi({
- *         apiKey: "<Mbed Cloud API Key>"
+ *         apiKey: "<Pelion DM API Key>"
  *     });
  * </script>
  * ```
