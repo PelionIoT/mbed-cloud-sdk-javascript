@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ describe("deviceDirectorySnippet", () => {
 
     test("listDevices", () => {
         try {
-            // an example: list devices in Mbed Cloud
+            // an example: list devices in Pelion Device Management
             const deviceDirectory = new DeviceDirectoryApi();
 
             const devices = deviceDirectory.listDevices({ order: "ASC" });
@@ -40,7 +40,7 @@ describe("deviceDirectorySnippet", () => {
 
     test("listDevicesWithFilters", () => {
         try {
-            // an example: list deregistered devices in Mbed Cloud
+            // an example: list deregistered devices in Pelion Device Management
             const deviceDirectory = new DeviceDirectoryApi();
 
             const devices = deviceDirectory.listDevices({ order: "ASC", filter: { state: { $eq: "deregistered" } } });

@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +20,11 @@ import { SDKLogLevel } from "../../common/logger";
 
 export interface ConnectionOptions {
     /**
-     * API Key for your Mbed Cloud account
+     * API Key for your Pelion Device Management account
      */
     apiKey?: string;
     /**
-     * URL for Mbed Cloud API
+     * URL for Pelion Device Management API
      */
     host?: string;
     /**

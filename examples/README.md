@@ -1,6 +1,6 @@
-# Mbed Cloud SDK Examples
+# Pelion Device Management SDK Examples
 
-These examples are designed to give developers a headstart with developing with the Mbed Cloud SDK for JavaScript.
+These examples are designed to give developers a headstart with developing with the Pelion Device Management SDK for JavaScript.
 
 They can be used as a basis for a solution or simply to understand how a feature is used.
 
@@ -52,12 +52,12 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
 
 * __Get Device Events__ [device-events.js](node/device-events.js)
 
-  This example pages all device events in Mbed Cloud and exports them to local files in [JSON](http://www.json.org/) format.
+  This example pages all device events in Pelion Device Management and exports them to local files in [JSON](http://www.json.org/) format.
 
 * __Developer Certificate Header__ [certificate-header.js](node/certificate-header.js)
 
   This example creates (or overwrites) a developer certificate.
-  This is then used to create a local `C` header file for connecting a device to Mbed Cloud Connect.
+  This is then used to create a local `C` header file for connecting a device to Pelion Device Management.
 
 * __Add Trusted Certificate__ [trusted-certificate.js](node/trusted-certificate.js)
 
@@ -66,14 +66,14 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
 
 * __Webhook Server__ [webhook-server.js](node/webhook-server.js)
 
-  This example creates a basic webhook server which registers for callbacks from Mbed Cloud and receives asynchronous notifications.
+  This example creates a basic webhook server which registers for callbacks from Pelion Device Management and receives asynchronous notifications.
   Using the callbacks, the device/resource tree of connected devices is recursed, outputting the value for each resource.
 
   __Note:__ This example requires the `express` server to be installed. Please do this by running `$ npm install express`.
 
 * __User, Key and Group Listing__ [users-keys-groups.js](node/users-keys-groups.js)
 
-  This example is a command line interface to list users, keys and groups of Mbed Cloud.
+  This example is a command line interface to list users, keys and groups of Pelion Device Management.
 
 ## Web
 
@@ -82,9 +82,6 @@ __Note:__ Some of the Node examples utilise a webhook server which must be publi
 The web bundles support the [Universal Module Definition](https://github.com/umdjs/umd) specification and as such can be loaded using [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) module loaders such as [RequireJS](http://requirejs.org/), [CommonJS](https://en.wikipedia.org/wiki/CommonJS) module loaders such as Node.js or by using [browser globals](http://vanilla-js.com/).
 
 The web examples don't use a module loader, so each bundle is available as a browser global under the `MbedCloudSDK` namespace.
-
-__Note:__ [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) protects Mbed Cloud. CORS rules are a browser security feature which restricts cross-origin calls from unknown domains and is only a concern when you use the SDKs directly in a browser (not Node.js).
-If using the SDKs in a browser (perhaps for a single page web application), the domain `localhost` has been whitelisted for Mbed Cloud to enable local development. Before deploying to production, any public domain will need to be whitelisted to avoid CORS restrictions. To do this, please contact Mbed Cloud support.
 
 ### API Keys
 
@@ -110,7 +107,7 @@ __Warning:__ Your API Key will be publicly visible in your web application when 
 
 * __Pull Notifications__ [pull-notifications.html](web/pull-notifications.html)
 
-  This example registers for callbacks from Mbed Cloud and receives asynchronous notifications.
+  This example registers for callbacks from Pelion Device Management and receives asynchronous notifications.
   Using the callbacks, the device/resource tree of connected devices is recursed, outputting the value for each resource.
 
 * __Device Management__ [device-management.html](web/device-management.html)
@@ -135,7 +132,7 @@ __Warning:__ Your API Key will be publicly visible in your web application when 
 
 ## Proxy
 
-The [proxy folder](proxy/) contains a sample project showing how API calls to Mbed Cloud can be proxied to allow injection of an API key header. This enables the production of a single-page web application using the minified JavaScript bundles _without_ the API key in use being visible to the client.
+The [proxy folder](proxy/) contains a sample project showing how API calls to Pelion Device Management can be proxied to allow injection of an API key header. This enables the production of a single-page web application using the minified JavaScript bundles _without_ the API key in use being visible to the client.
 
 __Note:__ The proxy requires the `express` server to be installed. Please do this by running `$ npm install express`.
 

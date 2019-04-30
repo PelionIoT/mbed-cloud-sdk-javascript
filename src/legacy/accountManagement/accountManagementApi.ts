@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,9 +48,9 @@ import { ApiMetadata } from "../common/apiMetadata";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var MbedCloudSDK = require("mbed-cloud-sdk");
+ * var PelionDMSDK = require("mbed-cloud-sdk");
  *
- * var accounts = new MbedCloudSDK.AccountManagementApi();
+ * var accounts = new PelionDMSDK.AccountManagementApi();
  * ```
  *
  * To create an instance of this API in the browser:
@@ -858,12 +858,12 @@ export class AccountManagementApi {
     }
 
     /**
-     * Get meta data for the last Mbed Cloud API call
+     * Get meta data for the last Pelion Device Management API call
      * @returns Promise of meta data
      */
     public getLastApiMetadata(): Promise<ApiMetadata>;
     /**
-     * Get meta data for the last Mbed Cloud API call
+     * Get meta data for the last Pelion Device Management API call
      * @param callback A function that is passed the arguments (error, meta data)
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;

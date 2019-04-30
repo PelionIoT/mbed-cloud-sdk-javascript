@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,9 +60,9 @@ import { Logger } from "typescript-logging";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var MbedCloudSDK = require("mbed-cloud-sdk");
+ * var PelionDMSDK = require("mbed-cloud-sdk");
  *
- * var connect = new MbedCloudSDK.ConnectApi({
+ * var connect = new PelionDMSDK.ConnectApi({
  *     apiKey: "<Mbed Cloud API Key>"
  * });
  * ```
@@ -225,7 +225,7 @@ export class ConnectApi extends EventEmitter {
      * var notification = {notifications: [{ep: deviceID, path: resourceURI, payload: payload}]};
      * connectApi.notify(notification);
      *
-     * connectApi.on(mbed.ConnectApi.EVENT_NOTIFICATION, function(notification) {
+     * connectApi.on(ConnectApi.EVENT_NOTIFICATION, function(notification) {
      *     // Do something with the notification
      *     console.log(notification);
      * });
@@ -328,7 +328,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * connect.startNotifications()
      * .then(() => {
-     *     console.log('Mbed Cloud SDK listening for notifications');
+     *     console.log('Pelion Device Management SDK listening for notifications');
      * })
      * .catch(error => {
      *     console.log(error);
@@ -348,7 +348,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * connect.startNotifications(function(error) {
      *     if (error) return console.log(error);
-     *     console.log('Mbed Cloud SDK listening for notifications');
+     *     console.log('Pelion Device Management SDK listening for notifications');
      * });
      * ```
      *
@@ -459,7 +459,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * connect.stopNotifications()
      * .then(() => {
-     *     console.log('Mbed Cloud SDK stopped listening for notifications');
+     *     console.log('Pelion Device Management SDK stopped listening for notifications');
      * })
      * .catch(error => {
      *     console.log(error);
@@ -476,7 +476,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * connect.stopNotifications(function(error) {
      *     if (error) throw error;
-     *     console.log('Mbed Cloud SDK stopped listening for notifications');
+     *     console.log('Pelion Device Management SDK stopped listening for notifications');
      * });
      * ```
      *
@@ -637,7 +637,7 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Deletes the callback data (effectively stopping Mbed Cloud Connect from putting notifications)
+     * Deletes the callback data
      *
      * If no webhook is registered, an exception (404) will be raised.
      *
@@ -655,7 +655,7 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteWebhook(): Promise<void>;
     /**
-     * Deletes the callback data (effectively stopping Mbed Cloud Connect from putting notifications)
+     * Deletes the callback data
      *
      * If no webhook is registered, an exception (404) will be raised.
      *
@@ -1618,12 +1618,12 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Get meta data for the last Mbed Cloud API call
+     * Get meta data for the last Pelion Device Management API call
      * @returns Promise of meta data
      */
     public getLastApiMetadata(): Promise<ApiMetadata>;
     /**
-     * Get meta data for the last Mbed Cloud API call
+     * Get meta data for the lastPelion Device Management API call
      * @param callback A function that is passed the arguments (error, meta data)
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;

@@ -3,8 +3,8 @@
   "version": "2.0.6",
   "is_published": true,
   "is_locked": false,
-  "description": "Mbed Cloud SDK for JavaScript",
-  "homepage": "https://www.mbed.com",
+  "description": "Pelion Device Management SDK for JavaScript",
+  "homepage": "https://www.pelion.com",
   "author": "Rob Moran <rob.moran@arm.com>",
   "license": "Apache-2.0",
   "types": "./types/index.d.ts",
@@ -23,7 +23,8 @@
     "url": "git://github.com/ARMmbed/mbed-cloud-sdk-javascript.git"
   },
   "keywords": [
-    "Mbed",
+    "Pelion",
+    "Device Management",
     "SDK"
   ],
   "engines": {

@@ -1,6 +1,6 @@
-# Mbed Cloud SDK for JavaScript
+# Pelion Device Management SDK for JavaScript
 
-The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to JavaScript developers.
+The Pelion Device Management SDK provides a simplified interface to the Pelion Device Management APIs by exposing functionality using conventions and paradigms familiar to JavaScript developers.
 
 ## Prerequisite
 
@@ -21,9 +21,9 @@ $ npm install mbed-cloud-sdk
 
 ## API keys
 
-Before using the SDK, you need to obtain an API key for use with Mbed Cloud.
+Before using the SDK, you need to obtain an API key for use with Pelion Device Management.
 
-You can generate this through the Mbed Cloud management console.
+You can generate this through the Pelion Device Management management console.
 
 ## Configuration
 
@@ -32,10 +32,10 @@ The SDKs support setting parameters through environment variables and `.env` (al
 ## Configuration parameters
 
 ### MBED_CLOUD_SDK_API_KEY
-The user's API key for accessing this instance of mbed cloud.
+The user's API key for accessing this instance of Pelion Device Management.
 
 ### MBED_CLOUD_SDK_HOST
-The fully qualified url of the host serving the mbed cloud api (scheme, hostname, port, base path).
+The fully qualified url of the host serving the Pelion Device Management api (scheme, hostname, port, base path).
 The schema and hostname are required. For example:
 
 - `https://api.us-east-1.mbedcloud.com`

@@ -1,5 +1,5 @@
 /*
- * Mbed Cloud JavaScript SDK
+ * Pelion Device Management JavaScript SDK
  * Copyright Arm Limited 2018
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,9 +46,9 @@ export class BillingApi {
      * To create an instance of this API in [Node.js](https://nodejs.org):
      *
      * ```JavaScript
-     * var MbedCloudSDK = require("mbed-cloud-sdk");
+     * var PelionDMSDK = require("mbed-cloud-sdk");
      *
-     * var billing = new MbedCloudSDK.BillingApi({
+     * var billing = new PelionDMSDK.BillingApi({
      *     apiKey: "<Mbed Cloud API Key>"
      * });
      * ```

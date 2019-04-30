@@ -1,6 +1,6 @@
 import { Cache } from "./cache";
 import { ServerError } from "../server/error";
-import * as MbedCloudSDK from "../../../src";
+import * as PelionDMSDK from "../../../src";
 import { reverseMapModule, mapModule } from "../mapping/argumentMapping";
 import { ConnectionOptions } from "../../../src/legacy/common/interfaces";
 import { ModuleInstance } from "../instance/moduleInstance";
@@ -9,7 +9,7 @@ export class ModuleInstanceCache extends Cache<ModuleInstance> {
     private moduleList: Array<string>;
     constructor() {
         super();
-        this.moduleList = [ ...(Object.keys(MbedCloudSDK)), "TestStubApi" ];
+        this.moduleList = [ ...(Object.keys(PelionDMSDK)), "TestStubApi" ];
     }
 
     public getModuleInstance(key: string): ModuleInstance {

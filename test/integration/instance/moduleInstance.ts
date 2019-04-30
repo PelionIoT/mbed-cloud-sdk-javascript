@@ -3,7 +3,7 @@ import { ConnectionOptions } from "../../../src/legacy/common/interfaces";
 import { mapModule, mapMethod } from "../mapping/argumentMapping";
 import { SdkModule, SuccessCallback, ErrorCallback } from "../types";
 import { TestStubApi } from "../test/testStub";
-import * as MbedCloudSDK from "../../../src";
+import * as PelionDMSDK from "../../../src";
 import { SdkApi } from "../mapping/sdkMethod";
 import { ServerError } from "../server/error";
 import { ModuleDescription } from "../server/api/serverMessages";
@@ -14,7 +14,7 @@ export class ModuleInstance extends Instance<any> {
 
     constructor(pythonName: string, config: ConnectionOptions) {
         const name: string = pythonName ? mapModule(pythonName) : "";
-        const constructor = name === "TestStubApi" ? TestStubApi : (MbedCloudSDK as any)[name];
+        const constructor = name === "TestStubApi" ? TestStubApi : (PelionDMSDK as any)[name];
         super(new constructor(config));
         this.sdkModule = { pythonName, name };
     }
