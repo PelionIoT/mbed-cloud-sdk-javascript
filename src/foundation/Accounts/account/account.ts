@@ -169,7 +169,7 @@ export interface Account extends Entity {
     readonly parentId?: string;
 
     /**
-     *passwordPolicy
+     *The password policy for this account.
      */
     passwordPolicy?: PasswordPolicy;
 

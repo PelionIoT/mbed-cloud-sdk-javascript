@@ -1944,6 +1944,17 @@ definitions:
     required:
     - hmac_hex_key
     type: object
+  ChannelMetadata:
+    properties:
+      delivery_mechanism:
+        description: Channel delivery mechanism.
+        enum:
+        - CALLBACK
+        - LONG_POLLING
+        - WEB_SOCKET
+        example: CALLBACK
+        type: string
+    type: object
   CreateCertificateIssuerConfig:
     properties:
       certificate_issuer_id:
@@ -2025,6 +2036,7 @@ definitions:
           Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
         maxLength: 500
         type: string
+        x-nullable: true
       name:
         description: Name of the developer certificate. Must be unique. Maximum 100
           characters. Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
@@ -2045,6 +2057,7 @@ definitions:
       description:
         description: Description for the developer certificate.
         type: string
+        x-nullable: true
       developer_certificate:
         description: PEM-format X.509 developer certificate.
         type: string
@@ -2082,6 +2095,7 @@ definitions:
           server.
         format: date
         type: string
+        x-nullable: true
       ca_id:
         description: The certificate issuer's ID.
         example: '00000000000000000000000000000000'
@@ -2092,6 +2106,7 @@ definitions:
           server.
         format: date
         type: string
+        x-nullable: true
       created_at:
         description: The timestamp of when the device was created in the device directory.
         example: '2017-05-22T12:37:55.576563Z'
@@ -2181,6 +2196,7 @@ definitions:
         example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
         pattern: '[A-Fa-f0-9]{64}'
         type: string
+        x-nullable: true
       manifest:
         description: 'DEPRECATED: The URL for the current device manifest.'
         example: ''
@@ -2239,14 +2255,16 @@ definitions:
       bootstrap_expiration_date:
         description: The expiration date of the certificate used to connect to bootstrap
           server.
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
+        x-nullable: true
       bootstrapped_timestamp:
         description: The timestamp of the device's most recent bootstrap process.
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
         type: string
+        x-nullable: true
       ca_id:
         description: The certificate issuer's ID.
         example: '00000000000000000000000000000000'
@@ -2255,9 +2273,10 @@ definitions:
       connector_expiration_date:
         description: The expiration date of the certificate used to connect to the
           LwM2M server.
-        example: '2017-05-22T12:37:55.576563Z'
-        format: date-time
+        example: '2017-05-22'
+        format: date
         type: string
+        x-nullable: true
       custom_attributes:
         additionalProperties:
           maxLength: 128
@@ -5284,6 +5303,7 @@ definitions:
         description: Human readable description of this certificate, no longer than
           500 characters.
         type: string
+        x-nullable: true
       enrollment_mode:
         description: Certificate is used in enrollment mode. Default value is false.
         type: boolean
@@ -5335,6 +5355,7 @@ definitions:
         description: Human readable description of this certificate.
         example: Certificate created by me.
         type: string
+        x-nullable: true
       device_execution_mode:
         description: Device execution mode where 1 means a developer certificate.
         example: 1
@@ -5369,6 +5390,7 @@ definitions:
         description: The ID of the owner.
         example: 01619571dad80242ac12000600000000
         type: string
+        x-nullable: true
       service:
         description: Service name where the certificate is used.
         enum:
@@ -5471,6 +5493,7 @@ definitions:
         description: Human readable description of this certificate, no longer than
           500 characters.
         type: string
+        x-nullable: true
       enrollment_mode:
         description: Certificate is used in enrollment mode. Default value is false.
         type: boolean
@@ -5927,6 +5950,10 @@ definitions:
         description: The time the entity was updated
         example: '2017-05-22T12:37:55.576563Z'
         format: date-time
+        type: string
+      upload_job_id:
+        description: The upload job ID.
+        example: '00000000000000000000000000000000'
         type: string
     type: object
   UploadChunkInfoPage:
@@ -7578,6 +7605,22 @@ paths:
         415:
           description: Unsupported Media Type.
       summary: Register a callback URL
+      tags:
+      - Notifications
+  /v2/notification/channel:
+    get:
+      description: "Get channel delivery mechanism.\n\n**Example:**\n\n    curl -X\
+        \ GET https://api.us-east-1.mbedcloud.com/v2/notification/channel \\\n   \
+        \ -H 'Authorization: Bearer <api_key>' \\\n"
+      operationId: getChannelMetadata
+      responses:
+        200:
+          description: Success.
+          schema:
+            $ref: '#/definitions/ChannelMetadata'
+        404:
+          description: Channel was not found.
+      summary: Get channel metadata.
       tags:
       - Notifications
   /v2/notification/pull:
@@ -15561,7 +15604,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new developer certificate to connect to the bootstrap server.
       tags:
-      - Developer certificate
+      - Device security - developer class certificates
   /v3/developer-certificates/{developerCertificateId}:
     get:
       description: 'Return an existing developer certificate (a certificate that can
@@ -15836,7 +15879,7 @@ paths:
       summary: Fetch an existing developer certificate to connect to the bootstrap
         server.
       tags:
-      - Developer certificate
+      - Device security - developer class certificates
   /v3/device-enrollment-denials:
     get:
       description: 'This produces a list of failed attempts to bootstrap using a particular
@@ -20995,7 +21038,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch all (Bootstrap and LwM2M) server credentials.
       tags:
-      - Server credentials
+      - Service security - server credentials
   /v3/server-credentials/bootstrap:
     get:
       deprecated: true
@@ -21047,7 +21090,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch bootstrap server credentials.
       tags:
-      - Server credentials
+      - Service security - server credentials
   /v3/server-credentials/lwm2m:
     get:
       deprecated: true
@@ -21099,7 +21142,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
       summary: Fetch LwM2M server credentials.
       tags:
-      - Server credentials
+      - Service security - server credentials
   /v3/service-packages:
     get:
       description: 'Get information for all service packages for the current authenticated
@@ -22813,6 +22856,63 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Details of the current user.
+      tags:
+      - Account - users
+    put:
+      consumes:
+      - application/json
+      description: 'Update user details.
+
+
+        **Example:**
+
+        ```
+
+        curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me \
+
+        -H ''Authorization: Bearer <token>'' \
+
+        -H ''content-type: application/json'' \
+
+        -d ''{"full_name": "fullname"}''
+
+        ```'
+      operationId: updateMyUser
+      parameters:
+      - description: A user object with attributes.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserUpdateReq'
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/UserInfoResp'
+        '400':
+          description: Error in input data, for example, an invalid email address.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Authentication failure.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: A user with the given ID does not exist.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '409':
+          description: A user with the given username or email already exists.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: Update user details.
       tags:
       - Account - users
   /v3/users/{user_id}:

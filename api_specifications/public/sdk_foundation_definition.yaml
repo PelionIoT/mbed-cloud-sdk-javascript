@@ -259,6 +259,7 @@ entities:
     readOnly: true
     required: false
     type: object
+    x-nullable: true
   - _key: parent_id
     api_fieldname: parent_id
     description: The ID of the parent account, if any.
@@ -269,6 +270,7 @@ entities:
     x-nullable: true
   - _key: password_policy
     api_fieldname: password_policy
+    description: The password policy for this account.
     foreign_key:
       entity: password_policy
       group: Accounts
@@ -282,6 +284,7 @@ entities:
     readOnly: false
     required: false
     type: object
+    x-nullable: true
   - _key: password_recovery_expiration
     api_fieldname: password_recovery_expiration
     description: Indicates for how many minutes a password recovery email is valid
@@ -962,6 +965,7 @@ entities:
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
+          x-nullable: true
         - _key: parent_id
           api_fieldname: parent_id
           description: The ID of the parent account, if any.
@@ -971,6 +975,7 @@ entities:
           x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
+          description: The password policy for this account.
           entity_fieldname: password_policy
           foreign_key:
             entity: password_policy
@@ -985,6 +990,7 @@ entities:
           required:
           - minimum_length
           type: object
+          x-nullable: true
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
@@ -1284,12 +1290,14 @@ entities:
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
+              x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
               x-nullable: true
             - _key: password_policy
+              description: The password policy for this account.
               foreign_key:
                 entity: password_policy
                 group: Accounts
@@ -1304,6 +1312,7 @@ entities:
               required:
               - minimum_length
               type: object
+              x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
                 is valid (1-45).
@@ -1940,12 +1949,14 @@ entities:
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
+              x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
               x-nullable: true
             - _key: password_policy
+              description: The password policy for this account.
               foreign_key:
                 entity: password_policy
                 group: Accounts
@@ -1960,6 +1971,7 @@ entities:
               required:
               - minimum_length
               type: object
+              x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
                 is valid (1-45).
@@ -2239,12 +2251,14 @@ entities:
                     example: 01619571dad80242ac12000600000000
                     type: string
                   type: object
+                  x-nullable: true
                 - _key: parent_id
                   description: The ID of the parent account, if any.
                   example: 01619571dad80242ac12000600000000
                   type: string
                   x-nullable: true
                 - _key: password_policy
+                  description: The password policy for this account.
                   foreign_key:
                     entity: password_policy
                     group: Accounts
@@ -2259,6 +2273,7 @@ entities:
                   required:
                   - minimum_length
                   type: object
+                  x-nullable: true
                 - _key: password_recovery_expiration
                   description: Indicates for how many minutes a password recovery
                     email is valid (1-45).
@@ -2925,6 +2940,7 @@ entities:
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
+          x-nullable: true
         - _key: parent_id
           api_fieldname: parent_id
           description: The ID of the parent account, if any.
@@ -2934,6 +2950,7 @@ entities:
           x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
+          description: The password policy for this account.
           entity_fieldname: password_policy
           foreign_key:
             entity: password_policy
@@ -2948,6 +2965,7 @@ entities:
           required:
           - minimum_length
           type: object
+          x-nullable: true
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
@@ -3247,12 +3265,14 @@ entities:
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
+              x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
               x-nullable: true
             - _key: password_policy
+              description: The password policy for this account.
               foreign_key:
                 entity: password_policy
                 group: Accounts
@@ -3267,6 +3287,7 @@ entities:
               required:
               - minimum_length
               type: object
+              x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
                 is valid (1-45).
@@ -3889,6 +3910,7 @@ entities:
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
+          x-nullable: true
         - _key: parent_id
           api_fieldname: parent_id
           description: The ID of the parent account, if any.
@@ -3898,6 +3920,7 @@ entities:
           x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
+          description: The password policy for this account.
           entity_fieldname: password_policy
           foreign_key:
             entity: password_policy
@@ -3912,6 +3935,7 @@ entities:
           required:
           - minimum_length
           type: object
+          x-nullable: true
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
@@ -4211,12 +4235,14 @@ entities:
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
+              x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
               x-nullable: true
             - _key: password_policy
+              description: The password policy for this account.
               foreign_key:
                 entity: password_policy
                 group: Accounts
@@ -4231,6 +4257,7 @@ entities:
               required:
               - minimum_length
               type: object
+              x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
                 is valid (1-45).
@@ -4710,13 +4737,11 @@ entities:
               description: Human readable description of this certificate.
               example: Certificate created by me.
               type: string
+              x-nullable: true
             - _key: device_execution_mode
-              _override: true
               description: Device execution mode where 1 means a developer certificate.
               example: 1
               format: int32
-              private_field: true
-              readOnly: false
               type: integer
             - _key: enrollment_mode
               description: If true, signature is not required. Default value false.
@@ -4747,6 +4772,7 @@ entities:
               description: The ID of the owner.
               example: 01619571dad80242ac12000600000000
               type: string
+              x-nullable: true
             - _key: service
               description: Service name where the certificate is used.
               enum:
@@ -5262,6 +5288,7 @@ entities:
       x-nullable: true
     - _key: password_policy
       api_fieldname: password_policy
+      description: The password policy for this account.
       entity_fieldname: password_policy
       foreign_key:
         entity: password_policy
@@ -5277,6 +5304,7 @@ entities:
         type: string
       required: false
       type: object
+      x-nullable: true
     - _key: password_recovery_expiration
       api_fieldname: password_recovery_expiration
       description: Indicates for how many minutes a password recovery email is valid
@@ -5587,6 +5615,7 @@ entities:
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
+          x-nullable: true
         - _key: parent_id
           api_fieldname: parent_id
           description: The ID of the parent account, if any.
@@ -5596,6 +5625,7 @@ entities:
           x-nullable: true
         - _key: password_policy
           api_fieldname: password_policy
+          description: The password policy for this account.
           entity_fieldname: password_policy
           foreign_key:
             entity: password_policy
@@ -5610,6 +5640,7 @@ entities:
           required:
           - minimum_length
           type: object
+          x-nullable: true
         - _key: password_recovery_expiration
           api_fieldname: password_recovery_expiration
           description: Indicates for how many minutes a password recovery email is
@@ -5909,12 +5940,14 @@ entities:
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
+              x-nullable: true
             - _key: parent_id
               description: The ID of the parent account, if any.
               example: 01619571dad80242ac12000600000000
               type: string
               x-nullable: true
             - _key: password_policy
+              description: The password policy for this account.
               foreign_key:
                 entity: password_policy
                 group: Accounts
@@ -5929,6 +5962,7 @@ entities:
               required:
               - minimum_length
               type: object
+              x-nullable: true
             - _key: password_recovery_expiration
               description: Indicates for how many minutes a password recovery email
                 is valid (1-45).
@@ -14118,6 +14152,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: id
     api_fieldname: id
     description: ID that uniquely identifies the developer certificate.
@@ -14191,6 +14226,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
+      x-nullable: true
     - _key: name
       api_fieldname: name
       description: Name of the developer certificate.
@@ -14432,6 +14468,7 @@ entities:
           description: Description for the developer certificate.
           entity_fieldname: description
           type: string
+          x-nullable: true
         - _key: developer_certificate
           api_fieldname: developer_certificate
           description: PEM-format X.509 developer certificate.
@@ -14948,6 +14985,7 @@ entities:
     - subject
     - validity
     - status
+    - device_execution_mode
     - enrollment_mode
     - certificate_fingerprint
     - valid
@@ -14957,16 +14995,6 @@ entities:
     - _key: private_key
       api_fieldname: developer_private_key
     fields:
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      description: Device execution mode where 1 means a developer certificate.
-      entity_fieldname: device_execution_mode
-      example: 1
-      format: int32
-      private_field: true
-      readOnly: false
-      type: integer
     - _key: id
       api_fieldname: id
       description: Entity ID.
@@ -15030,15 +15058,13 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           type: string
+          x-nullable: true
         - _key: device_execution_mode
-          _override: true
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
           entity_fieldname: device_execution_mode
           example: 1
           format: int32
-          private_field: true
-          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -15083,6 +15109,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -15570,6 +15597,7 @@ entities:
           description: Description for the developer certificate.
           entity_fieldname: description
           type: string
+          x-nullable: true
         - _key: developer_certificate
           api_fieldname: developer_certificate
           description: PEM-format X.509 developer certificate.
@@ -15779,7 +15807,7 @@ entities:
   - DeveloperCertificateResponseData
   - TrustedCertificateResp
   tags:
-  - Developer certificate
+  - Device security - developer class certificates
   - Device security - certificates
 - _key: device
   field_renames: []
@@ -15805,6 +15833,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: ca_id
     api_fieldname: ca_id
     description: The certificate issuer's ID.
@@ -15820,6 +15849,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: created_at
     api_fieldname: created_at
     description: The timestamp of when the device was created in the device directory.
@@ -15945,6 +15975,7 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: manifest
     api_fieldname: manifest
     description: 'DEPRECATED: The URL for the current device manifest.'
@@ -16059,6 +16090,7 @@ entities:
       parameter_fieldname: bootstrap_expiration_date
       required: false
       type: string
+      x-nullable: true
     - _key: bootstrapped_timestamp
       api_fieldname: bootstrapped_timestamp
       description: The timestamp of the device's most recent bootstrap process.
@@ -16072,6 +16104,7 @@ entities:
       required: false
       schema_param: true
       type: string
+      x-nullable: true
     - _key: ca_id
       api_fieldname: ca_id
       description: The certificate issuer's ID.
@@ -16092,6 +16125,7 @@ entities:
       parameter_fieldname: connector_expiration_date
       required: false
       type: string
+      x-nullable: true
     - _key: custom_attributes
       additionalProperties:
         maxLength: 128
@@ -16217,6 +16251,7 @@ entities:
       pattern: '[A-Fa-f0-9]{64}'
       required: false
       type: string
+      x-nullable: true
     - _key: manifest
       api_fieldname: manifest
       description: 'DEPRECATED: The URL for the current device manifest.'
@@ -16324,6 +16359,7 @@ entities:
           entity_fieldname: bootstrap_expiration_date
           format: date
           type: string
+          x-nullable: true
         ca_id:
           api_fieldname: ca_id
           description: The certificate issuer's ID.
@@ -16338,6 +16374,7 @@ entities:
           entity_fieldname: connector_expiration_date
           format: date
           type: string
+          x-nullable: true
         created_at:
           api_fieldname: created_at
           description: The timestamp of when the device was created in the device
@@ -16458,6 +16495,7 @@ entities:
           example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
           pattern: '[A-Fa-f0-9]{64}'
           type: string
+          x-nullable: true
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -16815,6 +16853,7 @@ entities:
                 to bootstrap server.
               format: date
               type: string
+              x-nullable: true
             ca_id:
               description: The certificate issuer's ID.
               example: '00000000000000000000000000000000'
@@ -16825,6 +16864,7 @@ entities:
                 to LwM2M server.
               format: date
               type: string
+              x-nullable: true
             created_at:
               description: The timestamp of when the device was created in the device
                 directory.
@@ -16916,6 +16956,7 @@ entities:
               example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
               pattern: '[A-Fa-f0-9]{64}'
               type: string
+              x-nullable: true
             manifest:
               description: 'DEPRECATED: The URL for the current device manifest.'
               example: ''
@@ -17237,6 +17278,7 @@ entities:
           entity_fieldname: bootstrap_expiration_date
           format: date
           type: string
+          x-nullable: true
         ca_id:
           api_fieldname: ca_id
           description: The certificate issuer's ID.
@@ -17251,6 +17293,7 @@ entities:
           entity_fieldname: connector_expiration_date
           format: date
           type: string
+          x-nullable: true
         created_at:
           api_fieldname: created_at
           description: The timestamp of when the device was created in the device
@@ -17371,6 +17414,7 @@ entities:
           example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
           pattern: '[A-Fa-f0-9]{64}'
           type: string
+          x-nullable: true
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -18031,6 +18075,7 @@ entities:
           entity_fieldname: bootstrap_expiration_date
           format: date
           type: string
+          x-nullable: true
         ca_id:
           api_fieldname: ca_id
           description: The certificate issuer's ID.
@@ -18045,6 +18090,7 @@ entities:
           entity_fieldname: connector_expiration_date
           format: date
           type: string
+          x-nullable: true
         created_at:
           api_fieldname: created_at
           description: The timestamp of when the device was created in the device
@@ -18165,6 +18211,7 @@ entities:
           example: C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322
           pattern: '[A-Fa-f0-9]{64}'
           type: string
+          x-nullable: true
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -24544,7 +24591,7 @@ entities:
   swagger_models:
   - ServerCredentialsResponseData
   tags:
-  - Server credentials
+  - Service security - server credentials
 - _key: subtenant_trusted_certificate
   field_renames: []
   fields:
@@ -24588,14 +24635,13 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: device_execution_mode
-    _override: true
     api_fieldname: device_execution_mode
     description: Device execution mode where 1 means a developer certificate.
     example: 1
     format: int32
-    private_field: true
-    readOnly: false
+    readOnly: true
     required: false
     type: integer
   - _key: enrollment_mode
@@ -24622,9 +24668,8 @@ entities:
     description: Whether or not this certificate is a developer certificate.
     example: true
     getter_custom_method: is_developer_certificate_getter
-    readOnly: false
+    readOnly: true
     required: false
-    setter_custom_method: is_developer_certificate_setter
     type: boolean
   - _key: issuer
     api_fieldname: issuer
@@ -24649,6 +24694,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: service
     api_fieldname: service
     description: Service name where the certificate is used.
@@ -24742,6 +24788,7 @@ entities:
     - issuer
     - subject
     - validity
+    - device_execution_mode
     - certificate_fingerprint
     - valid
     field_renames: []
@@ -24773,16 +24820,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      description: Device execution mode where 1 means a developer certificate.
-      entity_fieldname: device_execution_mode
-      example: 1
-      format: int32
-      private_field: true
-      readOnly: false
-      type: integer
+      x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
       description: If true, signature is not required. Default value false.
@@ -24799,7 +24837,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     - _key: name
       api_fieldname: name
@@ -24890,15 +24928,13 @@ entities:
           parameter_fieldname: description
           required: false
           type: string
+          x-nullable: true
         - _key: device_execution_mode
-          _override: true
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
           entity_fieldname: device_execution_mode
           example: 1
           format: int32
-          private_field: true
-          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -24952,6 +24988,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -25253,13 +25290,6 @@ entities:
       parameter_fieldname: account_id
       required: true
       type: string
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      entity_fieldname: device_execution_mode
-      private_field: true
-      readOnly: false
-      type: integer
     - _key: id
       api_fieldname: cert_id
       description: The ID of the trusted certificate to delete.
@@ -25277,7 +25307,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     group_id: Security
     method: delete
@@ -25476,13 +25506,6 @@ entities:
     - security_file_content
     field_renames: []
     fields:
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      entity_fieldname: device_execution_mode
-      private_field: true
-      readOnly: false
-      type: integer
     - _key: id
       api_fieldname: id
       description: ID that uniquely identifies the developer certificate.
@@ -25498,7 +25521,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     foreign_key:
       entity: developer_certificate
@@ -25736,6 +25759,7 @@ entities:
           description: Description for the developer certificate.
           entity_fieldname: description
           type: string
+          x-nullable: true
         - _key: developer_certificate
           api_fieldname: developer_certificate
           description: PEM-format X.509 developer certificate.
@@ -25973,6 +25997,7 @@ entities:
     - subject
     - validity
     - status
+    - device_execution_mode
     - enrollment_mode
     - certificate_fingerprint
     - valid
@@ -25987,16 +26012,6 @@ entities:
       parameter_fieldname: account_id
       required: true
       type: string
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      description: Device execution mode where 1 means a developer certificate.
-      entity_fieldname: device_execution_mode
-      example: 1
-      format: int32
-      private_field: true
-      readOnly: false
-      type: integer
     - _key: id
       api_fieldname: id
       description: Entity ID.
@@ -26013,7 +26028,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     group_id: Security
     method: get
@@ -26071,15 +26086,13 @@ entities:
           parameter_fieldname: description
           required: false
           type: string
+          x-nullable: true
         - _key: device_execution_mode
-          _override: true
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
           entity_fieldname: device_execution_mode
           example: 1
           format: int32
-          private_field: true
-          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -26133,6 +26146,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -26371,6 +26385,7 @@ entities:
     - issuer
     - subject
     - validity
+    - device_execution_mode
     - certificate_fingerprint
     - valid
     field_renames: []
@@ -26402,16 +26417,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      description: Device execution mode where 1 means a developer certificate.
-      entity_fieldname: device_execution_mode
-      example: 1
-      format: int32
-      private_field: true
-      readOnly: false
-      type: integer
+      x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
       description: If true, signature is not required. Default value false.
@@ -26437,7 +26443,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     - _key: name
       api_fieldname: name
@@ -26526,15 +26532,13 @@ entities:
           parameter_fieldname: description
           required: false
           type: string
+          x-nullable: true
         - _key: device_execution_mode
-          _override: true
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
           entity_fieldname: device_execution_mode
           example: 1
           format: int32
-          private_field: true
-          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -26588,6 +26592,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -26863,7 +26868,7 @@ entities:
   - TrustedCertificateUpdateReq
   tags:
   - Tenant device security - certificates
-  - Developer certificate
+  - Device security - developer class certificates
 - _key: subtenant_user
   field_renames:
   - _key: marketing_accepted
@@ -31056,14 +31061,13 @@ entities:
     readOnly: false
     required: false
     type: string
+    x-nullable: true
   - _key: device_execution_mode
-    _override: true
     api_fieldname: device_execution_mode
     description: Device execution mode where 1 means a developer certificate.
     example: 1
     format: int32
-    private_field: true
-    readOnly: false
+    readOnly: true
     required: false
     type: integer
   - _key: enrollment_mode
@@ -31086,9 +31090,8 @@ entities:
     description: Whether or not this certificate is a developer certificate.
     example: true
     getter_custom_method: is_developer_certificate_getter
-    readOnly: false
+    readOnly: true
     required: false
-    setter_custom_method: is_developer_certificate_setter
     type: boolean
   - _key: issuer
     api_fieldname: issuer
@@ -31111,6 +31114,7 @@ entities:
     readOnly: true
     required: false
     type: string
+    x-nullable: true
   - _key: service
     api_fieldname: service
     description: Service name where the certificate is used.
@@ -31200,6 +31204,7 @@ entities:
     - issuer
     - subject
     - validity
+    - device_execution_mode
     - certificate_fingerprint
     - valid
     field_renames: []
@@ -31222,16 +31227,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      description: Device execution mode where 1 means a developer certificate.
-      entity_fieldname: device_execution_mode
-      example: 1
-      format: int32
-      private_field: true
-      readOnly: false
-      type: integer
+      x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
       description: If true, signature is not required. Default value false.
@@ -31248,7 +31244,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     - _key: name
       api_fieldname: name
@@ -31333,15 +31329,13 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           type: string
+          x-nullable: true
         - _key: device_execution_mode
-          _override: true
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
           entity_fieldname: device_execution_mode
           example: 1
           format: int32
-          private_field: true
-          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -31386,6 +31380,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -31668,13 +31663,6 @@ entities:
     - private_key
     field_renames: []
     fields:
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      entity_fieldname: device_execution_mode
-      private_field: true
-      readOnly: false
-      type: integer
     - _key: id
       api_fieldname: cert_id
       description: The ID of the trusted certificate to delete.
@@ -31692,7 +31680,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     group_id: Security
     method: delete
@@ -31891,13 +31879,6 @@ entities:
     - security_file_content
     field_renames: []
     fields:
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      entity_fieldname: device_execution_mode
-      private_field: true
-      readOnly: false
-      type: integer
     - _key: id
       api_fieldname: id
       description: ID that uniquely identifies the developer certificate.
@@ -31913,7 +31894,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     foreign_key:
       entity: developer_certificate
@@ -32151,6 +32132,7 @@ entities:
           description: Description for the developer certificate.
           entity_fieldname: description
           type: string
+          x-nullable: true
         - _key: developer_certificate
           api_fieldname: developer_certificate
           description: PEM-format X.509 developer certificate.
@@ -32403,13 +32385,6 @@ entities:
       parameter_fieldname: after
       required: false
       type: string
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      entity_fieldname: device_execution_mode
-      private_field: true
-      readOnly: false
-      type: integer
     - _key: include
       api_fieldname: include
       description: 'Comma-separated additional data to return. Currently supported:
@@ -32428,7 +32403,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     - _key: limit
       api_fieldname: limit
@@ -32517,13 +32492,11 @@ entities:
               description: Human readable description of this certificate.
               example: Certificate created by me.
               type: string
+              x-nullable: true
             - _key: device_execution_mode
-              _override: true
               description: Device execution mode where 1 means a developer certificate.
               example: 1
               format: int32
-              private_field: true
-              readOnly: false
               type: integer
             - _key: enrollment_mode
               description: If true, signature is not required. Default value false.
@@ -32554,6 +32527,7 @@ entities:
               description: The ID of the owner.
               example: 01619571dad80242ac12000600000000
               type: string
+              x-nullable: true
             - _key: service
               description: Service name where the certificate is used.
               enum:
@@ -32803,21 +32777,12 @@ entities:
     - subject
     - validity
     - status
+    - device_execution_mode
     - enrollment_mode
     - certificate_fingerprint
     - valid
     field_renames: []
     fields:
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      description: Device execution mode where 1 means a developer certificate.
-      entity_fieldname: device_execution_mode
-      example: 1
-      format: int32
-      private_field: true
-      readOnly: false
-      type: integer
     - _key: id
       api_fieldname: id
       description: Entity ID.
@@ -32834,7 +32799,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     group_id: Security
     method: get
@@ -32886,15 +32851,13 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           type: string
+          x-nullable: true
         - _key: device_execution_mode
-          _override: true
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
           entity_fieldname: device_execution_mode
           example: 1
           format: int32
-          private_field: true
-          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -32939,6 +32902,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -33183,6 +33147,7 @@ entities:
     - issuer
     - subject
     - validity
+    - device_execution_mode
     - certificate_fingerprint
     - valid
     field_renames: []
@@ -33205,16 +33170,7 @@ entities:
       parameter_fieldname: description
       required: false
       type: string
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      description: Device execution mode where 1 means a developer certificate.
-      entity_fieldname: device_execution_mode
-      example: 1
-      format: int32
-      private_field: true
-      readOnly: false
-      type: integer
+      x-nullable: true
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
       description: If true, signature is not required. Default value false.
@@ -33240,7 +33196,7 @@ entities:
       entity_fieldname: is_developer_certificate
       example: true
       getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
+      readOnly: true
       type: boolean
     - _key: name
       api_fieldname: name
@@ -33323,15 +33279,13 @@ entities:
           entity_fieldname: description
           example: Certificate created by me.
           type: string
+          x-nullable: true
         - _key: device_execution_mode
-          _override: true
           api_fieldname: device_execution_mode
           description: Device execution mode where 1 means a developer certificate.
           entity_fieldname: device_execution_mode
           example: 1
           format: int32
-          private_field: true
-          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -33376,6 +33330,7 @@ entities:
           entity_fieldname: owner_id
           example: 01619571dad80242ac12000600000000
           type: string
+          x-nullable: true
         - _key: service
           api_fieldname: service
           description: Service name where the certificate is used.
@@ -33691,7 +33646,7 @@ entities:
   - TrustedCertificateUpdateReq
   tags:
   - Device security - certificates
-  - Developer certificate
+  - Device security - developer class certificates
 - _key: update_campaign
   field_renames: []
   fields:

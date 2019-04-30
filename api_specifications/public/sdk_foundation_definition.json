@@ -1018,6 +1018,7 @@
                       "group": "Accounts",
                       "entity": "parent_account"
                     },
+                    "x-nullable": true,
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -1050,6 +1051,8 @@
                       "group": "Accounts",
                       "entity": "password_policy"
                     },
+                    "description": "The password policy for this account.",
+                    "x-nullable": true,
                     "api_fieldname": "password_policy",
                     "entity_fieldname": "password_policy",
                     "_key": "password_policy"
@@ -1450,6 +1453,7 @@
                             "group": "Accounts",
                             "entity": "parent_account"
                           },
+                          "x-nullable": true,
                           "_key": "parent_account"
                         },
                         {
@@ -1478,6 +1482,8 @@
                             "group": "Accounts",
                             "entity": "password_policy"
                           },
+                          "description": "The password policy for this account.",
+                          "x-nullable": true,
                           "_key": "password_policy"
                         },
                         {
@@ -2322,6 +2328,7 @@
                             "group": "Accounts",
                             "entity": "parent_account"
                           },
+                          "x-nullable": true,
                           "_key": "parent_account"
                         },
                         {
@@ -2350,6 +2357,8 @@
                             "group": "Accounts",
                             "entity": "password_policy"
                           },
+                          "description": "The password policy for this account.",
+                          "x-nullable": true,
                           "_key": "password_policy"
                         },
                         {
@@ -2730,6 +2739,7 @@
                                   "group": "Accounts",
                                   "entity": "parent_account"
                                 },
+                                "x-nullable": true,
                                 "_key": "parent_account"
                               },
                               {
@@ -2758,6 +2768,8 @@
                                   "group": "Accounts",
                                   "entity": "password_policy"
                                 },
+                                "description": "The password policy for this account.",
+                                "x-nullable": true,
                                 "_key": "password_policy"
                               },
                               {
@@ -3561,6 +3573,7 @@
                       "group": "Accounts",
                       "entity": "parent_account"
                     },
+                    "x-nullable": true,
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -3593,6 +3606,8 @@
                       "group": "Accounts",
                       "entity": "password_policy"
                     },
+                    "description": "The password policy for this account.",
+                    "x-nullable": true,
                     "api_fieldname": "password_policy",
                     "entity_fieldname": "password_policy",
                     "_key": "password_policy"
@@ -3993,6 +4008,7 @@
                             "group": "Accounts",
                             "entity": "parent_account"
                           },
+                          "x-nullable": true,
                           "_key": "parent_account"
                         },
                         {
@@ -4021,6 +4037,8 @@
                             "group": "Accounts",
                             "entity": "password_policy"
                           },
+                          "description": "The password policy for this account.",
+                          "x-nullable": true,
                           "_key": "password_policy"
                         },
                         {
@@ -4802,6 +4820,7 @@
                       "group": "Accounts",
                       "entity": "parent_account"
                     },
+                    "x-nullable": true,
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -4834,6 +4853,8 @@
                       "group": "Accounts",
                       "entity": "password_policy"
                     },
+                    "description": "The password policy for this account.",
+                    "x-nullable": true,
                     "api_fieldname": "password_policy",
                     "entity_fieldname": "password_policy",
                     "_key": "password_policy"
@@ -5234,6 +5255,7 @@
                             "group": "Accounts",
                             "entity": "parent_account"
                           },
+                          "x-nullable": true,
                           "_key": "parent_account"
                         },
                         {
@@ -5262,6 +5284,8 @@
                             "group": "Accounts",
                             "entity": "password_policy"
                           },
+                          "description": "The password policy for this account.",
+                          "x-nullable": true,
                           "_key": "password_policy"
                         },
                         {
@@ -5904,6 +5928,7 @@
                         },
                         {
                           "type": "string",
+                          "x-nullable": true,
                           "example": "Certificate created by me.",
                           "description": "Human readable description of this certificate.",
                           "_key": "description"
@@ -5913,9 +5938,6 @@
                           "format": "int32",
                           "example": 1,
                           "description": "Device execution mode where 1 means a developer certificate.",
-                          "private_field": true,
-                          "readOnly": false,
-                          "_override": true,
                           "_key": "device_execution_mode"
                         },
                         {
@@ -5957,6 +5979,7 @@
                           "_key": "object"
                         },
                         {
+                          "x-nullable": true,
                           "type": "string",
                           "example": "01619571dad80242ac12000600000000",
                           "description": "The ID of the owner.",
@@ -6632,6 +6655,8 @@
                 "group": "Accounts",
                 "entity": "password_policy"
               },
+              "description": "The password policy for this account.",
+              "x-nullable": true,
               "api_fieldname": "password_policy",
               "entity_fieldname": "password_policy",
               "parameter_fieldname": "password_policy",
@@ -7019,6 +7044,7 @@
                       "group": "Accounts",
                       "entity": "parent_account"
                     },
+                    "x-nullable": true,
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -7051,6 +7077,8 @@
                       "group": "Accounts",
                       "entity": "password_policy"
                     },
+                    "description": "The password policy for this account.",
+                    "x-nullable": true,
                     "api_fieldname": "password_policy",
                     "entity_fieldname": "password_policy",
                     "_key": "password_policy"
@@ -7451,6 +7479,7 @@
                             "group": "Accounts",
                             "entity": "parent_account"
                           },
+                          "x-nullable": true,
                           "_key": "parent_account"
                         },
                         {
@@ -7479,6 +7508,8 @@
                             "group": "Accounts",
                             "entity": "password_policy"
                           },
+                          "description": "The password policy for this account.",
+                          "x-nullable": true,
                           "_key": "password_policy"
                         },
                         {
@@ -9722,6 +9753,7 @@
             "group": "Accounts",
             "entity": "parent_account"
           },
+          "x-nullable": true,
           "api_fieldname": "parent_account",
           "readOnly": true,
           "required": false,
@@ -9754,6 +9786,8 @@
             "group": "Accounts",
             "entity": "password_policy"
           },
+          "description": "The password policy for this account.",
+          "x-nullable": true,
           "api_fieldname": "password_policy",
           "readOnly": false,
           "_key": "password_policy"
@@ -18958,6 +18992,7 @@
             {
               "type": "string",
               "description": "Description for the developer certificate.",
+              "x-nullable": true,
               "api_fieldname": "description",
               "entity_fieldname": "description",
               "parameter_fieldname": "description",
@@ -19002,6 +19037,7 @@
                   {
                     "type": "string",
                     "description": "Description for the developer certificate.",
+                    "x-nullable": true,
                     "api_fieldname": "description",
                     "entity_fieldname": "description",
                     "_key": "description"
@@ -19757,18 +19793,6 @@
           ],
           "fields": [
             {
-              "type": "integer",
-              "format": "int32",
-              "example": 1,
-              "description": "Device execution mode where 1 means a developer certificate.",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
-            },
-            {
               "type": "string",
               "example": "01619571d01d0242ac12000600000000",
               "description": "Entity ID.",
@@ -19836,6 +19860,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -19847,9 +19872,6 @@
                     "format": "int32",
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
-                    "private_field": true,
-                    "readOnly": false,
-                    "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
                     "_key": "device_execution_mode"
@@ -19905,6 +19927,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -20229,6 +20252,7 @@
             "subject",
             "validity",
             "status",
+            "device_execution_mode",
             "enrollment_mode",
             "certificate_fingerprint",
             "valid"
@@ -20299,6 +20323,7 @@
                   {
                     "type": "string",
                     "description": "Description for the developer certificate.",
+                    "x-nullable": true,
                     "api_fieldname": "description",
                     "entity_fieldname": "description",
                     "_key": "description"
@@ -20680,6 +20705,7 @@
         {
           "type": "string",
           "description": "Description for the developer certificate.",
+          "x-nullable": true,
           "api_fieldname": "description",
           "readOnly": false,
           "required": false,
@@ -20723,7 +20749,7 @@
         }
       ],
       "tags": [
-        "Developer certificate",
+        "Device security - developer class certificates",
         "Device security - certificates"
       ],
       "group_id": "Security",
@@ -20756,6 +20782,7 @@
             {
               "format": "date",
               "type": "string",
+              "x-nullable": true,
               "description": "The expiration date of the certificate used to connect to bootstrap server.",
               "api_fieldname": "bootstrap_expiration_date",
               "entity_fieldname": "bootstrap_expiration_date",
@@ -20766,6 +20793,7 @@
             },
             {
               "format": "date-time",
+              "x-nullable": true,
               "example": "2017-05-22T12:37:55.576563Z",
               "type": "string",
               "description": "The timestamp of the device's most recent bootstrap process.",
@@ -20794,6 +20822,7 @@
             {
               "format": "date",
               "type": "string",
+              "x-nullable": true,
               "description": "The expiration date of the certificate used to connect to LwM2M server.",
               "api_fieldname": "connector_expiration_date",
               "entity_fieldname": "connector_expiration_date",
@@ -20937,6 +20966,7 @@
             {
               "type": "string",
               "pattern": "[A-Fa-f0-9]{64}",
+              "x-nullable": true,
               "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
               "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
               "api_fieldname": "issuer_fingerprint",
@@ -21051,6 +21081,7 @@
                   "issuer_fingerprint": {
                     "type": "string",
                     "pattern": "[A-Fa-f0-9]{64}",
+                    "x-nullable": true,
                     "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
                     "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
                     "api_fieldname": "issuer_fingerprint",
@@ -21084,6 +21115,7 @@
                   "bootstrap_expiration_date": {
                     "format": "date",
                     "type": "string",
+                    "x-nullable": true,
                     "description": "The expiration date of the certificate used to connect to bootstrap server.",
                     "api_fieldname": "bootstrap_expiration_date",
                     "entity_fieldname": "bootstrap_expiration_date"
@@ -21099,6 +21131,7 @@
                   "connector_expiration_date": {
                     "format": "date",
                     "type": "string",
+                    "x-nullable": true,
                     "description": "The expiration date of the certificate used to connect to LwM2M server.",
                     "api_fieldname": "connector_expiration_date",
                     "entity_fieldname": "connector_expiration_date"
@@ -21496,6 +21529,7 @@
                         "issuer_fingerprint": {
                           "type": "string",
                           "pattern": "[A-Fa-f0-9]{64}",
+                          "x-nullable": true,
                           "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
                           "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322"
                         },
@@ -21521,6 +21555,7 @@
                         "bootstrap_expiration_date": {
                           "format": "date",
                           "type": "string",
+                          "x-nullable": true,
                           "description": "The expiration date of the certificate used to connect to bootstrap server."
                         },
                         "ca_id": {
@@ -21532,6 +21567,7 @@
                         "connector_expiration_date": {
                           "format": "date",
                           "type": "string",
+                          "x-nullable": true,
                           "description": "The expiration date of the certificate used to connect to LwM2M server."
                         },
                         "created_at": {
@@ -22095,6 +22131,7 @@
                   "issuer_fingerprint": {
                     "type": "string",
                     "pattern": "[A-Fa-f0-9]{64}",
+                    "x-nullable": true,
                     "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
                     "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
                     "api_fieldname": "issuer_fingerprint",
@@ -22128,6 +22165,7 @@
                   "bootstrap_expiration_date": {
                     "format": "date",
                     "type": "string",
+                    "x-nullable": true,
                     "description": "The expiration date of the certificate used to connect to bootstrap server.",
                     "api_fieldname": "bootstrap_expiration_date",
                     "entity_fieldname": "bootstrap_expiration_date"
@@ -22143,6 +22181,7 @@
                   "connector_expiration_date": {
                     "format": "date",
                     "type": "string",
+                    "x-nullable": true,
                     "description": "The expiration date of the certificate used to connect to LwM2M server.",
                     "api_fieldname": "connector_expiration_date",
                     "entity_fieldname": "connector_expiration_date"
@@ -23120,6 +23159,7 @@
                   "issuer_fingerprint": {
                     "type": "string",
                     "pattern": "[A-Fa-f0-9]{64}",
+                    "x-nullable": true,
                     "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
                     "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
                     "api_fieldname": "issuer_fingerprint",
@@ -23153,6 +23193,7 @@
                   "bootstrap_expiration_date": {
                     "format": "date",
                     "type": "string",
+                    "x-nullable": true,
                     "description": "The expiration date of the certificate used to connect to bootstrap server.",
                     "api_fieldname": "bootstrap_expiration_date",
                     "entity_fieldname": "bootstrap_expiration_date"
@@ -23168,6 +23209,7 @@
                   "connector_expiration_date": {
                     "format": "date",
                     "type": "string",
+                    "x-nullable": true,
                     "description": "The expiration date of the certificate used to connect to LwM2M server.",
                     "api_fieldname": "connector_expiration_date",
                     "entity_fieldname": "connector_expiration_date"
@@ -23448,6 +23490,7 @@
         {
           "format": "date",
           "type": "string",
+          "x-nullable": true,
           "description": "The expiration date of the certificate used to connect to bootstrap server.",
           "api_fieldname": "bootstrap_expiration_date",
           "readOnly": false,
@@ -23467,6 +23510,7 @@
         {
           "format": "date",
           "type": "string",
+          "x-nullable": true,
           "description": "The expiration date of the certificate used to connect to LwM2M server.",
           "api_fieldname": "connector_expiration_date",
           "readOnly": false,
@@ -23616,6 +23660,7 @@
         {
           "type": "string",
           "pattern": "[A-Fa-f0-9]{64}",
+          "x-nullable": true,
           "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
           "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
           "api_fieldname": "issuer_fingerprint",
@@ -31593,7 +31638,7 @@
       ],
       "field_renames": [],
       "tags": [
-        "Server credentials"
+        "Service security - server credentials"
       ],
       "group_id": "Security",
       "_key": "server_credentials"
@@ -31635,6 +31680,7 @@
             },
             {
               "type": "string",
+              "x-nullable": true,
               "example": "Certificate created by me.",
               "description": "Human readable description of this certificate.",
               "api_fieldname": "description",
@@ -31643,18 +31689,6 @@
               "in": "body",
               "required": false,
               "_key": "description"
-            },
-            {
-              "type": "integer",
-              "format": "int32",
-              "example": 1,
-              "description": "Device execution mode where 1 means a developer certificate.",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
             },
             {
               "type": "boolean",
@@ -31671,8 +31705,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -31780,6 +31814,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -31794,9 +31829,6 @@
                     "format": "int32",
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
-                    "private_field": true,
-                    "readOnly": false,
-                    "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
                     "_key": "device_execution_mode"
@@ -31861,6 +31893,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -32262,6 +32295,7 @@
             "issuer",
             "subject",
             "validity",
+            "device_execution_mode",
             "certificate_fingerprint",
             "valid"
           ],
@@ -32290,15 +32324,6 @@
               "_key": "account_id"
             },
             {
-              "type": "integer",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
-            },
-            {
               "name": "cert_id",
               "in": "path",
               "description": "The ID of the trusted certificate to delete.",
@@ -32314,8 +32339,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -32583,15 +32608,6 @@
           "field_renames": [],
           "fields": [
             {
-              "type": "integer",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
-            },
-            {
               "type": "string",
               "description": "ID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
@@ -32605,8 +32621,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -32639,6 +32655,7 @@
                   {
                     "type": "string",
                     "description": "Description for the developer certificate.",
+                    "x-nullable": true,
                     "api_fieldname": "description",
                     "entity_fieldname": "description",
                     "_key": "description"
@@ -33012,18 +33029,6 @@
               "_key": "account_id"
             },
             {
-              "type": "integer",
-              "format": "int32",
-              "example": 1,
-              "description": "Device execution mode where 1 means a developer certificate.",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
-            },
-            {
               "type": "string",
               "example": "01619571d01d0242ac12000600000000",
               "description": "Entity ID.",
@@ -33038,8 +33043,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -33105,6 +33110,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -33119,9 +33125,6 @@
                     "format": "int32",
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
-                    "private_field": true,
-                    "readOnly": false,
-                    "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
                     "_key": "device_execution_mode"
@@ -33186,6 +33189,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -33517,6 +33521,7 @@
             "subject",
             "validity",
             "status",
+            "device_execution_mode",
             "enrollment_mode",
             "certificate_fingerprint",
             "valid"
@@ -33559,6 +33564,7 @@
             },
             {
               "type": "string",
+              "x-nullable": true,
               "example": "Certificate created by me.",
               "description": "Human readable description of this certificate.",
               "api_fieldname": "description",
@@ -33567,18 +33573,6 @@
               "in": "body",
               "required": false,
               "_key": "description"
-            },
-            {
-              "type": "integer",
-              "format": "int32",
-              "example": 1,
-              "description": "Device execution mode where 1 means a developer certificate.",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
             },
             {
               "type": "boolean",
@@ -33606,8 +33600,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -33715,6 +33709,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -33729,9 +33724,6 @@
                     "format": "int32",
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
-                    "private_field": true,
-                    "readOnly": false,
-                    "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
                     "_key": "device_execution_mode"
@@ -33796,6 +33788,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -34196,6 +34189,7 @@
             "issuer",
             "subject",
             "validity",
+            "device_execution_mode",
             "certificate_fingerprint",
             "valid"
           ],
@@ -34253,6 +34247,7 @@
         },
         {
           "type": "string",
+          "x-nullable": true,
           "example": "Certificate created by me.",
           "description": "Human readable description of this certificate.",
           "api_fieldname": "description",
@@ -34267,10 +34262,8 @@
           "format": "int32",
           "example": 1,
           "description": "Device execution mode where 1 means a developer certificate.",
-          "private_field": true,
-          "readOnly": false,
-          "_override": true,
           "api_fieldname": "device_execution_mode",
+          "readOnly": true,
           "required": false,
           "_key": "device_execution_mode"
         },
@@ -34300,11 +34293,10 @@
           "description": "Whether or not this certificate is a developer certificate.",
           "example": true,
           "type": "boolean",
+          "readOnly": true,
           "getter_custom_method": "is_developer_certificate_getter",
-          "setter_custom_method": "is_developer_certificate_setter",
           "_override": true,
           "api_fieldname": "is_developer_certificate",
-          "readOnly": false,
           "required": false,
           "_key": "is_developer_certificate"
         },
@@ -34329,6 +34321,7 @@
           "_key": "name"
         },
         {
+          "x-nullable": true,
           "type": "string",
           "example": "01619571dad80242ac12000600000000",
           "description": "The ID of the owner.",
@@ -34410,7 +34403,7 @@
       "field_renames": [],
       "tags": [
         "Tenant device security - certificates",
-        "Developer certificate"
+        "Device security - developer class certificates"
       ],
       "group_id": "Security",
       "_key": "subtenant_trusted_certificate"
@@ -39869,6 +39862,7 @@
             },
             {
               "type": "string",
+              "x-nullable": true,
               "example": "Certificate created by me.",
               "description": "Human readable description of this certificate.",
               "api_fieldname": "description",
@@ -39877,18 +39871,6 @@
               "in": "body",
               "required": false,
               "_key": "description"
-            },
-            {
-              "type": "integer",
-              "format": "int32",
-              "example": 1,
-              "description": "Device execution mode where 1 means a developer certificate.",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
             },
             {
               "type": "boolean",
@@ -39905,8 +39887,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -40011,6 +39993,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -40022,9 +40005,6 @@
                     "format": "int32",
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
-                    "private_field": true,
-                    "readOnly": false,
-                    "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
                     "_key": "device_execution_mode"
@@ -40080,6 +40060,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -40474,6 +40455,7 @@
             "issuer",
             "subject",
             "validity",
+            "device_execution_mode",
             "certificate_fingerprint",
             "valid"
           ],
@@ -40490,15 +40472,6 @@
           "field_renames": [],
           "fields": [
             {
-              "type": "integer",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
-            },
-            {
               "name": "cert_id",
               "in": "path",
               "description": "The ID of the trusted certificate to delete.",
@@ -40514,8 +40487,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -40783,15 +40756,6 @@
           "field_renames": [],
           "fields": [
             {
-              "type": "integer",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
-            },
-            {
               "type": "string",
               "description": "ID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
@@ -40805,8 +40769,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -40839,6 +40803,7 @@
                   {
                     "type": "string",
                     "description": "Description for the developer certificate.",
+                    "x-nullable": true,
                     "api_fieldname": "description",
                     "entity_fieldname": "description",
                     "_key": "description"
@@ -41214,15 +41179,6 @@
               "_key": "after"
             },
             {
-              "type": "integer",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
-            },
-            {
               "name": "include",
               "in": "query",
               "description": "Comma-separated additional data to return. Currently supported: total_count.",
@@ -41238,8 +41194,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -41348,6 +41304,7 @@
                         },
                         {
                           "type": "string",
+                          "x-nullable": true,
                           "example": "Certificate created by me.",
                           "description": "Human readable description of this certificate.",
                           "_key": "description"
@@ -41357,9 +41314,6 @@
                           "format": "int32",
                           "example": 1,
                           "description": "Device execution mode where 1 means a developer certificate.",
-                          "private_field": true,
-                          "readOnly": false,
-                          "_override": true,
                           "_key": "device_execution_mode"
                         },
                         {
@@ -41401,6 +41355,7 @@
                           "_key": "object"
                         },
                         {
+                          "x-nullable": true,
                           "type": "string",
                           "example": "01619571dad80242ac12000600000000",
                           "description": "The ID of the owner.",
@@ -41748,18 +41703,6 @@
           "field_renames": [],
           "fields": [
             {
-              "type": "integer",
-              "format": "int32",
-              "example": 1,
-              "description": "Device execution mode where 1 means a developer certificate.",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
-            },
-            {
               "type": "string",
               "example": "01619571d01d0242ac12000600000000",
               "description": "Entity ID.",
@@ -41774,8 +41717,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -41838,6 +41781,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -41849,9 +41793,6 @@
                     "format": "int32",
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
-                    "private_field": true,
-                    "readOnly": false,
-                    "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
                     "_key": "device_execution_mode"
@@ -41907,6 +41848,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -42231,6 +42173,7 @@
             "subject",
             "validity",
             "status",
+            "device_execution_mode",
             "enrollment_mode",
             "certificate_fingerprint",
             "valid"
@@ -42262,6 +42205,7 @@
             },
             {
               "type": "string",
+              "x-nullable": true,
               "example": "Certificate created by me.",
               "description": "Human readable description of this certificate.",
               "api_fieldname": "description",
@@ -42270,18 +42214,6 @@
               "in": "body",
               "required": false,
               "_key": "description"
-            },
-            {
-              "type": "integer",
-              "format": "int32",
-              "example": 1,
-              "description": "Device execution mode where 1 means a developer certificate.",
-              "private_field": true,
-              "readOnly": false,
-              "_override": true,
-              "api_fieldname": "device_execution_mode",
-              "entity_fieldname": "device_execution_mode",
-              "_key": "device_execution_mode"
             },
             {
               "type": "boolean",
@@ -42309,8 +42241,8 @@
               "description": "Whether or not this certificate is a developer certificate.",
               "example": true,
               "type": "boolean",
+              "readOnly": true,
               "getter_custom_method": "is_developer_certificate_getter",
-              "setter_custom_method": "is_developer_certificate_setter",
               "_override": true,
               "api_fieldname": "is_developer_certificate",
               "entity_fieldname": "is_developer_certificate",
@@ -42415,6 +42347,7 @@
                   },
                   {
                     "type": "string",
+                    "x-nullable": true,
                     "example": "Certificate created by me.",
                     "description": "Human readable description of this certificate.",
                     "api_fieldname": "description",
@@ -42426,9 +42359,6 @@
                     "format": "int32",
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
-                    "private_field": true,
-                    "readOnly": false,
-                    "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
                     "_key": "device_execution_mode"
@@ -42484,6 +42414,7 @@
                     "_key": "object"
                   },
                   {
+                    "x-nullable": true,
                     "type": "string",
                     "example": "01619571dad80242ac12000600000000",
                     "description": "The ID of the owner.",
@@ -42950,6 +42881,7 @@
             "issuer",
             "subject",
             "validity",
+            "device_execution_mode",
             "certificate_fingerprint",
             "valid"
           ],
@@ -43005,6 +42937,7 @@
         },
         {
           "type": "string",
+          "x-nullable": true,
           "example": "Certificate created by me.",
           "description": "Human readable description of this certificate.",
           "api_fieldname": "description",
@@ -43017,10 +42950,8 @@
           "format": "int32",
           "example": 1,
           "description": "Device execution mode where 1 means a developer certificate.",
-          "private_field": true,
-          "readOnly": false,
-          "_override": true,
           "api_fieldname": "device_execution_mode",
+          "readOnly": true,
           "required": false,
           "_key": "device_execution_mode"
         },
@@ -43046,11 +42977,10 @@
           "description": "Whether or not this certificate is a developer certificate.",
           "example": true,
           "type": "boolean",
+          "readOnly": true,
           "getter_custom_method": "is_developer_certificate_getter",
-          "setter_custom_method": "is_developer_certificate_setter",
           "_override": true,
           "api_fieldname": "is_developer_certificate",
-          "readOnly": false,
           "required": false,
           "_key": "is_developer_certificate"
         },
@@ -43073,6 +43003,7 @@
           "_key": "name"
         },
         {
+          "x-nullable": true,
           "type": "string",
           "example": "01619571dad80242ac12000600000000",
           "description": "The ID of the owner.",
@@ -43150,7 +43081,7 @@
       "field_renames": [],
       "tags": [
         "Device security - certificates",
-        "Developer certificate"
+        "Device security - developer class certificates"
       ],
       "group_id": "Security",
       "_key": "trusted_certificate"
