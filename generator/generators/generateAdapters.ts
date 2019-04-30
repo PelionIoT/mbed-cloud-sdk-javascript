@@ -58,7 +58,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
         if (field.format === "date-time") {
             // TODO map date times here to remove data regex from client and stop doing hard copy
         }
-        if (field.getter_custom_method || field.setter_custom_method) {
+        if (field.setter_custom_method) {
             const customFunctionCall = new AdapterCustomFunctionCallContainer(snakeToCamel(field.setter_custom_method));
             adapterCustomFunctions.push(customFunctionCall);
             safeAddToList(adapterImports, new ImportContainer(

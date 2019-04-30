@@ -1,6 +1,5 @@
 import { Adapter } from "../../../common/adapter";
 import { SubtenantTrustedCertificate } from "./subtenantTrustedCertificate";
-import { isDeveloperCertificateSetter } from "../../../common/privateFunctions";
 /**
  *SubtenantTrustedCertificate adapter
  */
@@ -35,7 +34,6 @@ export class SubtenantTrustedCertificateAdapter extends Adapter {
             valid: data.valid,
             validity: data.validity,
         });
-        isDeveloperCertificateSetter(mappedEntity);
         return mappedEntity;
     }
 }

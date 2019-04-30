@@ -38,7 +38,7 @@ export interface TrustedCertificate extends Entity {
      *Device execution mode where 1 means a developer certificate.
      *@example 1
      */
-    deviceExecutionMode?: number;
+    readonly deviceExecutionMode?: number;
 
     /**
      *If true, signature is not required. Default value false.
@@ -49,7 +49,7 @@ export interface TrustedCertificate extends Entity {
      *Whether or not this certificate is a developer certificate.
      *@example true
      */
-    isDeveloperCertificate?: boolean;
+    readonly isDeveloperCertificate?: boolean;
 
     /**
      *Issuer of the certificate.

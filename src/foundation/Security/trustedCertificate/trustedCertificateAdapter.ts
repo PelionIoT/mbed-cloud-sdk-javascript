@@ -1,6 +1,5 @@
 import { Adapter } from "../../../common/adapter";
 import { TrustedCertificate } from "./trustedCertificate";
-import { isDeveloperCertificateSetter } from "../../../common/privateFunctions";
 /**
  *TrustedCertificate adapter
  */
@@ -35,7 +34,6 @@ export class TrustedCertificateAdapter extends Adapter {
             valid: data.valid,
             validity: data.validity,
         });
-        isDeveloperCertificateSetter(mappedEntity);
         return mappedEntity;
     }
 }

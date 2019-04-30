@@ -222,7 +222,7 @@ export interface AccountUpdateRequest {
     readonly notificationEmails?: Array<string>;
 
     /**
-     *passwordPolicy
+     *The password policy for this account.
      */
     readonly passwordPolicy?: PasswordPolicy;
 
