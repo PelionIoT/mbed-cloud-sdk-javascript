@@ -138,13 +138,13 @@ export interface UserStatusFilter {
     nin?: Array<UserStatus>;
 }
 /**
- *UserLoginProfileFilter
+ *UserLoginProfilesFilter
  */
-export interface UserLoginProfileFilter {
+export interface UserLoginProfilesFilter {
     /**
-     *loginProfile equal to
+     *loginProfiles equal to
      */
-    eq?: string;
+    eq?: Array<LoginProfile>;
 }
 /**
  *UserFilter
@@ -161,9 +161,9 @@ export interface UserFilter {
     status?: UserStatus | UserStatusFilter;
 
     /**
-     *Filter by loginProfile on User
+     *Filter by loginProfiles on User
      */
-    loginProfile?: string | UserLoginProfileFilter;
+    loginProfiles?: Array<LoginProfile> | UserLoginProfilesFilter;
 }
 /**
  *UserListOptions

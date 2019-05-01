@@ -21,22 +21,22 @@ export interface UserInvitationCreateRequest {
     readonly validForDays?: number;
 }
 /**
- *UserInvitationLoginProfileFilter
+ *UserInvitationLoginProfilesFilter
  */
-export interface UserInvitationLoginProfileFilter {
+export interface UserInvitationLoginProfilesFilter {
     /**
-     *loginProfile equal to
+     *loginProfiles equal to
      */
-    eq?: string;
+    eq?: Array<LoginProfile>;
 }
 /**
  *UserInvitationFilter
  */
 export interface UserInvitationFilter {
     /**
-     *Filter by loginProfile on UserInvitation
+     *Filter by loginProfiles on UserInvitation
      */
-    loginProfile?: string | UserInvitationLoginProfileFilter;
+    loginProfiles?: Array<LoginProfile> | UserInvitationLoginProfilesFilter;
 }
 /**
  *UserInvitationListOptions
