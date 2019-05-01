@@ -8,7 +8,7 @@ import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmen
  * Internal function
  * @ignore
  */
-export function isDeveloperCertificateSetter(self: any): void {
+export function isDeveloperCertificateGetter(self: any): void {
     // tslint:disable-next-line:no-string-literal
     self["isDeveloperCertificate"] = self.deviceExecutionMode === 1;
 }
