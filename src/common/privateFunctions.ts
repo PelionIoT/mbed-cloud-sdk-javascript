@@ -2,14 +2,15 @@ import { ReadStream, createWriteStream, createReadStream } from "fs";
 import { isThisNode, encodeFilter } from "../legacy/common/functions";
 import { get as http_get } from "superagent";
 import { Config } from "./config";
-import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate, UpdateCampaign } from "../foundation";
+import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, UpdateCampaign } from "../foundation";
 
 /**
  * Internal function
  * @ignore
  */
-export function isDeveloperCertificateSetter(self: TrustedCertificate): void {
-    self.isDeveloperCertificate = self.deviceExecutionMode === 1;
+export function isDeveloperCertificateSetter(self: any): void {
+    // tslint:disable-next-line:no-string-literal
+    self["isDeveloperCertificate"] = self.deviceExecutionMode === 1;
 }
 
 export function preSharedKeyIdSetter(self: any): void {

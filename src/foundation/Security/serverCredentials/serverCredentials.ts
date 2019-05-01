@@ -9,12 +9,12 @@ export interface ServerCredentials extends Entity {
     readonly createdAt?: Date;
 
     /**
-     *PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
+     *PEM-format X.509 server certificate used to validate the server certificate received during the TLS/DTLS handshake.
      */
     readonly serverCertificate?: string;
 
     /**
-     *Server URI to which the client needs to connect to.
+     *Server URI that the client connects to.
      */
     readonly serverUri?: string;
 }
