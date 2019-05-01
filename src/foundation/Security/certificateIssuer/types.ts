@@ -25,7 +25,7 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
 
 *@example
 */
-    readonly issuerCredentials?: { [key: string]: string };
+    readonly issuerCredentials: { [key: string]: string };
 
     /**
 *The type of the certificate issuer.
