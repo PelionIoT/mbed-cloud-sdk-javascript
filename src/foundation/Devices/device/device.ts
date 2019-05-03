@@ -21,6 +21,12 @@ export interface Device extends Entity {
     bootstrapExpirationDate?: Date;
 
     /**
+     *The timestamp of the device's most recent bootstrap process.
+     *@example 2017-05-22T12:37:55.576563Z
+     */
+    readonly bootstrappedTimestamp?: Date;
+
+    /**
      *The certificate issuer's ID.
      *@example 00000000000000000000000000000000
      */
@@ -95,6 +101,12 @@ Permitted values:
      *@example 2017-05-22T12:37:55.576563Z
      */
     readonly enrolmentListTimestamp?: Date;
+
+    /**
+     *The SHA256 checksum of the current firmware image.
+     *@example 0000000000000000000000000000000000000000000000000000000000000000
+     */
+    readonly firmwareChecksum?: string;
 
     /**
      *The ID of the host gateway, if appropriate.
