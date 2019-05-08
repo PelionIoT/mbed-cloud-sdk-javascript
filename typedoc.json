@@ -14,7 +14,7 @@
     "excludePrivate": true,
     "module": "commonjs",
     "target": "es6",
-    "name": "Mbed Cloud SDK for JavaScript",
+    "name": "Pelion Device Management SDK for JavaScript",
     "readme": "docs/documentation.md",
     "theme": "docs/theme",
     "ignoreCompilerErrors": true

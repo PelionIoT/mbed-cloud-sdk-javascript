@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,7 @@ if (!express) {
 }
 
 var port = 8080;
-var mbedHost = "api.us-east-1.mbedcloud.com";
+var pelionHost = "api.us-east-1.mbedcloud.com";
 var cookieKey = "cloudKey";
 var cookieHost = "cloudHost";
 var apiPath = "/api";
@@ -104,7 +104,7 @@ app.use(apiPath, (req, res, next) => {
     });
 
     var options = {
-        host: mbedHost,
+        host: pelionHost,
         path: req.url,
         method: req.method,
         headers: req.headers

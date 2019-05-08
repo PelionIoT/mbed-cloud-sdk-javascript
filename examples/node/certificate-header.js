@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,13 +19,13 @@ var fs = require("fs");
 var path = require("path");
 var readline = require("readline");
 
-var MbedCloudSDK = require("../../index");
+var PelionDMSDK = require("../../index");
 var config = require("./config");
 
 var certificateName = "header-cert";
 var outputFile = path.join(process.cwd(), "header.h");
 
-var certificates = new MbedCloudSDK.CertificatesApi(config);
+var certificates = new PelionDMSDK.CertificatesApi(config);
 
 // Check for existing certificate with the same name
 function checkCertificate() {

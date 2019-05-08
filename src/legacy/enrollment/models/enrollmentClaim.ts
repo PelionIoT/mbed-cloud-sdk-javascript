@@ -1,5 +1,5 @@
 /*
- * Mbed Cloud JavaScript SDK
+ * Pelion Device Management JavaScript SDK
  * Copyright Arm Limited 2018
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +42,7 @@ export class EnrollmentClaim {
      */
     public readonly deviceId?: string;
     /**
-     * The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice.
+     * The enrollment claim expiration time. If the device does not connect to Pelion Device Management before the expiration, the claim is removed without a separate notice.
      */
     public readonly expiresAt: Date;
 
