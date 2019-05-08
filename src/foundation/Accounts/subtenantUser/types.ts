@@ -52,7 +52,7 @@ export interface SubtenantUserCreateRequest {
     readonly phoneNumber?: string;
 
     /**
-     *A username containing alphanumerical letters and -,._@+= characters.
+     *A username.
      *@example admin
      */
     readonly username?: string;
@@ -103,7 +103,7 @@ export interface SubtenantUserUpdateRequest {
     readonly phoneNumber?: string;
 
     /**
-     *A username containing alphanumerical letters and -,._@+= characters.
+     *A username.
      *@example admin
      */
     readonly username?: string;

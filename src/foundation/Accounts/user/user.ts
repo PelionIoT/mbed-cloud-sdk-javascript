@@ -129,7 +129,7 @@ export interface User extends Entity {
     readonly updatedAt?: Date;
 
     /**
-     *A username containing alphanumerical letters and -,._@+= characters.
+     *A username.
      *@example admin
      */
     username?: string;

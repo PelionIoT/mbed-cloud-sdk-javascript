@@ -134,13 +134,13 @@ export interface Account extends Entity {
      *Indicates how many days (1-180) before account expiration a notification email is sent.
      *@example 180
      */
-    expirationWarningThreshold?: string;
+    expirationWarningThreshold?: number;
 
     /**
      *The reference token expiration time, in minutes, for this account.
      *@example 30
      */
-    idleTimeout?: string;
+    idleTimeout?: number;
 
     /**
      *List of limits as key-value pairs if requested.
@@ -174,7 +174,7 @@ export interface Account extends Entity {
     passwordPolicy?: PasswordPolicy;
 
     /**
-     *Indicates for how many minutes a password recovery email is valid (1-45).
+     *Indicates for how many minutes a password recovery email is valid.
      */
     passwordRecoveryExpiration?: number;
 

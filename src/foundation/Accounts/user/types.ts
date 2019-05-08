@@ -53,7 +53,7 @@ export interface UserCreateRequest {
     readonly phoneNumber?: string;
 
     /**
-     *A username containing alphanumerical letters and -,._@+= characters.
+     *A username.
      *@example admin
      */
     readonly username?: string;
@@ -104,7 +104,7 @@ export interface UserUpdateRequest {
     readonly phoneNumber?: string;
 
     /**
-     *A username containing alphanumerical letters and -,._@+= characters.
+     *A username.
      *@example admin
      */
     readonly username?: string;

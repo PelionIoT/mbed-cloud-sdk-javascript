@@ -112,12 +112,12 @@ export const accountSchema = (): Schema => {
             {
                 name: "expirationWarningThreshold",
                 apiName: "expiration_warning_threshold",
-                type: "string",
+                type: "number",
             },
             {
                 name: "idleTimeout",
                 apiName: "idle_timeout",
-                type: "string",
+                type: "number",
             },
             {
                 name: "limits",
@@ -542,11 +542,11 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "expirationWarningThreshold",
-                                type: "string",
+                                type: "number",
                             },
                             {
                                 name: "idleTimeout",
-                                type: "string",
+                                type: "number",
                             },
                             {
                                 name: "mfaStatus",
