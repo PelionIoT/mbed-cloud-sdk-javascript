@@ -89,7 +89,7 @@ export class UserRepository extends Repository {
                                 status__eq: extractFilter(pageOptions.filter, "status", "eq"),
                                 status__in: extractFilter(pageOptions.filter, "status", "in"),
                                 status__nin: extractFilter(pageOptions.filter, "status", "nin"),
-                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
+                                login_profiles__eq: extractFilter(pageOptions.filter, "loginProfiles", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

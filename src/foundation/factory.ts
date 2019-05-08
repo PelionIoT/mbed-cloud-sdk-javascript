@@ -5,6 +5,8 @@ import { CampaignDeviceMetadataRepository } from ".";
 import { CertificateEnrollmentRepository } from ".";
 import { CertificateIssuerRepository } from ".";
 import { CertificateIssuerConfigRepository } from ".";
+import { DarkThemeColorRepository } from ".";
+import { DarkThemeImageRepository } from ".";
 import { DeveloperCertificateRepository } from ".";
 import { DeviceRepository } from ".";
 import { DeviceEnrollmentRepository } from ".";
@@ -14,6 +16,8 @@ import { DeviceEnrollmentDenialRepository } from ".";
 import { DeviceEventsRepository } from ".";
 import { FirmwareImageRepository } from ".";
 import { FirmwareManifestRepository } from ".";
+import { LightThemeColorRepository } from ".";
+import { LightThemeImageRepository } from ".";
 import { PreSharedKeyRepository } from ".";
 import { ServerCredentialsRepository } from ".";
 import { SubtenantTrustedCertificateRepository } from ".";
@@ -47,6 +51,12 @@ export class Factory {
     public certificateIssuerConfigRepository(): CertificateIssuerConfigRepository {
         return new CertificateIssuerConfigRepository(this._config);
     }
+    public darkThemeColorRepository(): DarkThemeColorRepository {
+        return new DarkThemeColorRepository(this._config);
+    }
+    public darkThemeImageRepository(): DarkThemeImageRepository {
+        return new DarkThemeImageRepository(this._config);
+    }
     public developerCertificateRepository(): DeveloperCertificateRepository {
         return new DeveloperCertificateRepository(this._config);
     }
@@ -73,6 +83,12 @@ export class Factory {
     }
     public firmwareManifestRepository(): FirmwareManifestRepository {
         return new FirmwareManifestRepository(this._config);
+    }
+    public lightThemeColorRepository(): LightThemeColorRepository {
+        return new LightThemeColorRepository(this._config);
+    }
+    public lightThemeImageRepository(): LightThemeImageRepository {
+        return new LightThemeImageRepository(this._config);
     }
     public preSharedKeyRepository(): PreSharedKeyRepository {
         return new PreSharedKeyRepository(this._config);

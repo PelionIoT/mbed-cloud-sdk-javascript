@@ -517,11 +517,11 @@ export interface SubtenantTrustedCertificateListOptions extends ListOptions {
     filter?: SubtenantTrustedCertificateFilter;
 }
 /**
- *SubtenantUserInvitationLoginProfileFilter
+ *SubtenantUserInvitationLoginProfilesFilter
  */
-export interface SubtenantUserInvitationLoginProfileFilter {
+export interface SubtenantUserInvitationLoginProfilesFilter {
     /**
-     *loginProfile equal to
+     *loginProfiles equal to
      */
     eq?: string;
 }
@@ -530,9 +530,9 @@ export interface SubtenantUserInvitationLoginProfileFilter {
  */
 export interface SubtenantUserInvitationFilter {
     /**
-     *Filter by loginProfile on SubtenantUserInvitation
+     *Filter by loginProfiles on SubtenantUserInvitation
      */
-    loginProfile?: string | SubtenantUserInvitationLoginProfileFilter;
+    loginProfiles?: string | SubtenantUserInvitationLoginProfilesFilter;
 }
 /**
  *SubtenantUserInvitationListOptions
@@ -572,11 +572,11 @@ export interface SubtenantUserStatusFilter {
     nin?: Array<AccountStatus>;
 }
 /**
- *SubtenantUserLoginProfileFilter
+ *SubtenantUserLoginProfilesFilter
  */
-export interface SubtenantUserLoginProfileFilter {
+export interface SubtenantUserLoginProfilesFilter {
     /**
-     *loginProfile equal to
+     *loginProfiles equal to
      */
     eq?: string;
 }
@@ -595,9 +595,9 @@ export interface SubtenantUserFilter {
     status?: AccountStatus | SubtenantUserStatusFilter;
 
     /**
-     *Filter by loginProfile on SubtenantUser
+     *Filter by loginProfiles on SubtenantUser
      */
-    loginProfile?: string | SubtenantUserLoginProfileFilter;
+    loginProfiles?: string | SubtenantUserLoginProfilesFilter;
 }
 /**
  *SubtenantUserListOptions
