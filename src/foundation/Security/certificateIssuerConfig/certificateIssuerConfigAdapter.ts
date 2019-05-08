@@ -16,9 +16,9 @@ export class CertificateIssuerConfigAdapter extends Adapter {
         const mappedEntity = CertificateIssuerConfigAdapter.assignDefined(instance || {}, {
             _discriminator: "CERTIFICATE_ISSUER_CONFIG",
             certificateIssuerId: data.certificate_issuer_id,
-            certificateReference: data.reference,
             createdAt: data.created_at,
             id: data.id,
+            reference: data.reference,
             updatedAt: data.updated_at,
         });
         return mappedEntity;

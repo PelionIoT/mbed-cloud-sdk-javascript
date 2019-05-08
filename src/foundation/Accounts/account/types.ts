@@ -256,6 +256,47 @@ export interface AccountUpdateRequest {
     readonly state?: string;
 }
 /**
+ *SubtenantApiKeyKeyFilter
+ */
+export interface SubtenantApiKeyKeyFilter {
+    /**
+     *key equal to
+     */
+    eq?: string;
+}
+/**
+ *SubtenantApiKeyOwnerFilter
+ */
+export interface SubtenantApiKeyOwnerFilter {
+    /**
+     *owner equal to
+     */
+    eq?: string;
+}
+/**
+ *SubtenantApiKeyFilter
+ */
+export interface SubtenantApiKeyFilter {
+    /**
+     *Filter by key on SubtenantApiKey
+     */
+    key?: string | SubtenantApiKeyKeyFilter;
+
+    /**
+     *Filter by owner on SubtenantApiKey
+     */
+    owner?: string | SubtenantApiKeyOwnerFilter;
+}
+/**
+ *SubtenantApiKeyListOptions
+ */
+export interface SubtenantApiKeyListOptions extends ListOptions {
+    /**
+     *Filter for SubtenantApiKey
+     */
+    filter?: SubtenantApiKeyFilter;
+}
+/**
  *AccountStatusFilter
  */
 export interface AccountStatusFilter {

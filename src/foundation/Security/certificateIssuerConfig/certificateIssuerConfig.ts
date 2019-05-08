@@ -12,16 +12,16 @@ Null if Device Management internal HSM is used.
     certificateIssuerId: string;
 
     /**
-     *The certificate name to which the certificate issuer configuration applies.
-     *@example customer.dlms
-     */
-    certificateReference: string;
-
-    /**
      *Created UTC time RFC3339.
      *@example 2017-01-01T00:00:00Z
      */
     readonly createdAt?: Date;
+
+    /**
+     *The certificate name to which the certificate issuer configuration applies.
+     *@example customer.dlms
+     */
+    reference: string;
 
     /**
      *Updated UTC time RFC3339.

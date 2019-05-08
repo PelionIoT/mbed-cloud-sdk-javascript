@@ -1,9 +1,12 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { Account } from "./account";
+import { SubtenantApiKey } from "../../index";
+import { SubtenantApiKeyAdapter } from "../../index";
+import { extractFilter } from "../../../common/filters";
+import { SubtenantApiKeyListOptions } from "./types";
 import { AccountAdapter } from "../../index";
 import { AccountCreateRequest } from "./types";
-import { extractFilter } from "../../../common/filters";
 import { AccountListOptions } from "./types";
 import { SubtenantTrustedCertificate } from "../../index";
 import { SubtenantTrustedCertificateAdapter } from "../../index";
@@ -22,6 +25,44 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *Account repository
  */
 export class AccountRepository extends Repository {
+    /**
+     * apiKeys
+     * @param id - Account ID.
+     * @param options - Options to use for the List
+     */
+    public apiKeys(id: string, options?: SubtenantApiKeyListOptions): Paginator<SubtenantApiKey, ListOptions> {
+        const pageFunc = (pageOptions: SubtenantApiKeyListOptions): Promise<ListResponse<SubtenantApiKey>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/api-keys",
+                            method: "GET",
+                            query: {
+                                key__eq: extractFilter(pageOptions.filter, "key", "eq"),
+                                owner__eq: extractFilter(pageOptions.filter, "owner", "eq"),
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                            },
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantApiKey>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantApiKeyAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
     /**
 * create
 * @param request - The entity to perform action on.

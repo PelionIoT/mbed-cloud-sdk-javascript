@@ -1,13 +1,18 @@
 import { Schema } from "../../../schema/schema";
 
-export const certificateIssuerConfigSchema = (): Schema => {
+export const campaignStatisticsSchema = (): Schema => {
     return Object.assign(new Schema(), {
-        name: "CertificateIssuerConfig",
+        name: "CampaignStatistics",
         fields: [
             {
-                name: "certificateIssuerId",
-                apiName: "certificate_issuer_id",
+                name: "campaignId",
+                apiName: "campaign_id",
                 type: "string",
+            },
+            {
+                name: "count",
+                apiName: "count",
+                type: "number",
             },
             {
                 name: "createdAt",
@@ -15,62 +20,30 @@ export const certificateIssuerConfigSchema = (): Schema => {
                 type: "Date",
             },
             {
-                name: "reference",
-                apiName: "reference",
-                type: "string",
-            },
-            {
-                name: "updatedAt",
-                apiName: "updated_at",
-                type: "Date",
+                name: "summaryStatus",
+                apiName: "summary_status",
+                type: "CampaignStatisticsSummaryStatus",
             },
         ],
 
         methods: [
             {
-                name: "create",
-                returnType: "Promise<CertificateIssuerConfig>",
+                name: "events",
+                returnType: "Paginator<CampaignStatisticsEvents, ListOptions>",
                 parameters: [
                     {
-                        name: "request",
-                        position: 0,
-                        type: "Object",
-                        subParams: [
-                            {
-                                name: "certificateIssuerId",
-                                type: "string",
-                            },
-                            {
-                                name: "reference",
-                                type: "string",
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                name: "delete",
-                returnType: "Promise<void>",
-                parameters: [
-                    {
-                        name: "certificateIssuerConfigId",
+                        name: "campaignId",
                         position: 0,
                         type: "string",
                     },
-                ],
-            },
-            {
-                name: "getDefault",
-                returnType: "Promise<CertificateIssuerConfig>",
-                parameters: [],
-            },
-            {
-                name: "list",
-                returnType: "Paginator<CertificateIssuerConfig, ListOptions>",
-                parameters: [
+                    {
+                        name: "campaignStatisticsId",
+                        position: 1,
+                        type: "string",
+                    },
                     {
                         name: "options",
-                        position: 0,
+                        position: 2,
                         type: "Object",
                         subParams: [
                             {
@@ -93,9 +66,43 @@ export const certificateIssuerConfigSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: "list",
+                returnType: "Paginator<CampaignStatistics, ListOptions>",
+                parameters: [
+                    {
+                        name: "campaignId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
+                        type: "Object",
+                        subParams: [
                             {
-                                name: "filter",
-                                type: "CertificateIssuerConfigFilter",
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
                             },
                         ],
                     },
@@ -103,32 +110,15 @@ export const certificateIssuerConfigSchema = (): Schema => {
             },
             {
                 name: "read",
-                returnType: "Promise<CertificateIssuerConfig>",
+                returnType: "Promise<CampaignStatistics>",
                 parameters: [
                     {
-                        name: "certificateIssuerConfigId",
+                        name: "campaignId",
                         position: 0,
                         type: "string",
                     },
-                ],
-            },
-            {
-                name: "update",
-                returnType: "Promise<CertificateIssuerConfig>",
-                parameters: [
                     {
-                        name: "request",
-                        position: 0,
-                        type: "Object",
-                        subParams: [
-                            {
-                                name: "certificateIssuerId",
-                                type: "string",
-                            },
-                        ],
-                    },
-                    {
-                        name: "certificateIssuerConfigId",
+                        name: "campaignStatisticsId",
                         position: 1,
                         type: "string",
                     },

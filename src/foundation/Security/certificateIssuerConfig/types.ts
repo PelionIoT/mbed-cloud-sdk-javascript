@@ -15,7 +15,7 @@ Null if Device Management internal HSM is used.
      *The certificate name to which the certificate issuer configuration applies.
      *@example customer.dlms
      */
-    readonly certificateReference: string;
+    readonly reference: string;
 }
 /**
  *CertificateIssuerConfigUpdateRequest
@@ -30,11 +30,11 @@ Null if Device Management internal HSM is used.
     readonly certificateIssuerId?: string;
 }
 /**
- *CertificateIssuerConfigCertificateReferenceFilter
+ *CertificateIssuerConfigReferenceFilter
  */
-export interface CertificateIssuerConfigCertificateReferenceFilter {
+export interface CertificateIssuerConfigReferenceFilter {
     /**
-     *certificateReference equal to
+     *reference equal to
      */
     eq?: string;
 }
@@ -43,9 +43,9 @@ export interface CertificateIssuerConfigCertificateReferenceFilter {
  */
 export interface CertificateIssuerConfigFilter {
     /**
-     *Filter by certificateReference on CertificateIssuerConfig
+     *Filter by reference on CertificateIssuerConfig
      */
-    certificateReference?: string | CertificateIssuerConfigCertificateReferenceFilter;
+    reference?: string | CertificateIssuerConfigReferenceFilter;
 }
 /**
  *CertificateIssuerConfigListOptions

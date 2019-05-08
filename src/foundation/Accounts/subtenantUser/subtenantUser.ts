@@ -60,6 +60,24 @@ export interface SubtenantUser extends Entity {
     fullName?: string;
 
     /**
+     *A flag indicating that the user has accepted General Terms and Conditions.
+     *@example true
+     */
+    isGtcAccepted?: boolean;
+
+    /**
+     *A flag indicating that the user has consented to receive marketing information.
+     *@example true
+     */
+    isMarketingAccepted?: boolean;
+
+    /**
+     *A flag indicating whether two-factor authentication (TOTP) has been enabled.
+     *@example true
+     */
+    isTotpEnabled?: boolean;
+
+    /**
      *A timestamp of the latest login of the user, in milliseconds.
      *@example 1518630727688
      */
@@ -74,12 +92,6 @@ export interface SubtenantUser extends Entity {
      *Represents a user login profile in Device Management.
      */
     loginProfiles?: Array<LoginProfile>;
-
-    /**
-     *A flag indicating that the user has consented to receive marketing information.
-     *@example true
-     */
-    marketingAccepted?: boolean;
 
     /**
      *The password when creating a new user. It will be generated when not present in the request.
@@ -106,21 +118,9 @@ export interface SubtenantUser extends Entity {
     status?: SubtenantUserStatus;
 
     /**
-     *A flag indicating that the user has accepted General Terms and Conditions.
-     *@example true
-     */
-    termsAccepted?: boolean;
-
-    /**
      *totpScratchCodes
      */
     readonly totpScratchCodes?: Array<string>;
-
-    /**
-     *A flag indicating whether two-factor authentication (TOTP) has been enabled.
-     *@example true
-     */
-    twoFactorAuthentication?: boolean;
 
     /**
      *Last update UTC time RFC3339.

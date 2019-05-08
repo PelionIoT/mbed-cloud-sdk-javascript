@@ -10,11 +10,6 @@ export const developerCertificateSchema = (): Schema => {
                 type: "string",
             },
             {
-                name: "certificate",
-                apiName: "developer_certificate",
-                type: "string",
-            },
-            {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
@@ -22,6 +17,16 @@ export const developerCertificateSchema = (): Schema => {
             {
                 name: "description",
                 apiName: "description",
+                type: "string",
+            },
+            {
+                name: "developerCertificate",
+                apiName: "developer_certificate",
+                type: "string",
+            },
+            {
+                name: "developerPrivateKey",
+                apiName: "developer_private_key",
                 type: "string",
             },
             {
