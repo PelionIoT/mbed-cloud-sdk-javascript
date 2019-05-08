@@ -16,9 +16,9 @@ export class DeveloperCertificateAdapter extends Adapter {
         const mappedEntity = DeveloperCertificateAdapter.assignDefined(instance || {}, {
             _discriminator: "DEVELOPER_CERTIFICATE",
             accountId: data.account_id,
+            certificate: data.developer_certificate,
             createdAt: data.created_at,
             description: data.description,
-            developerCertificate: data.developer_certificate,
             developerPrivateKey: data.developer_private_key,
             id: data.id,
             name: data.name,

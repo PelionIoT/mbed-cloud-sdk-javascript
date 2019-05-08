@@ -9,6 +9,11 @@ export interface DeveloperCertificate extends Entity {
     readonly accountId?: string;
 
     /**
+     *PEM-format X.509 developer certificate.
+     */
+    readonly certificate?: string;
+
+    /**
      *Creation UTC time RFC3339.
      */
     readonly createdAt?: Date;
@@ -17,11 +22,6 @@ export interface DeveloperCertificate extends Entity {
      *Description for the developer certificate.
      */
     description?: string;
-
-    /**
-     *PEM-format X.509 developer certificate.
-     */
-    readonly developerCertificate?: string;
 
     /**
      *PEM-format developer private key associated with the certificate.
