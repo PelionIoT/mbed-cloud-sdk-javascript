@@ -15,7 +15,7 @@ export class PasswordPolicyAdapter extends Adapter {
         }
         const mappedEntity = PasswordPolicyAdapter.assignDefined(instance || {}, {
             _discriminator: "PASSWORD_POLICY",
-            minimumLength: data.minimum_length,
+            minimumLength: data.minimum_length || 0,
         });
         return mappedEntity;
     }

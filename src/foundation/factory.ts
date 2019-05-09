@@ -2,6 +2,8 @@ import { Config } from "../common/config";
 import { AccountRepository } from ".";
 import { ApiKeyRepository } from ".";
 import { CampaignDeviceMetadataRepository } from ".";
+import { CampaignStatisticsRepository } from ".";
+import { CampaignStatisticsEventsRepository } from ".";
 import { CertificateEnrollmentRepository } from ".";
 import { CertificateIssuerRepository } from ".";
 import { CertificateIssuerConfigRepository } from ".";
@@ -20,6 +22,7 @@ import { LightThemeColorRepository } from ".";
 import { LightThemeImageRepository } from ".";
 import { PreSharedKeyRepository } from ".";
 import { ServerCredentialsRepository } from ".";
+import { SubtenantApiKeyRepository } from ".";
 import { SubtenantTrustedCertificateRepository } from ".";
 import { SubtenantUserRepository } from ".";
 import { SubtenantUserInvitationRepository } from ".";
@@ -41,6 +44,12 @@ export class Factory {
     }
     public campaignDeviceMetadataRepository(): CampaignDeviceMetadataRepository {
         return new CampaignDeviceMetadataRepository(this._config);
+    }
+    public campaignStatisticsRepository(): CampaignStatisticsRepository {
+        return new CampaignStatisticsRepository(this._config);
+    }
+    public campaignStatisticsEventsRepository(): CampaignStatisticsEventsRepository {
+        return new CampaignStatisticsEventsRepository(this._config);
     }
     public certificateEnrollmentRepository(): CertificateEnrollmentRepository {
         return new CertificateEnrollmentRepository(this._config);
@@ -95,6 +104,9 @@ export class Factory {
     }
     public serverCredentialsRepository(): ServerCredentialsRepository {
         return new ServerCredentialsRepository(this._config);
+    }
+    public subtenantApiKeyRepository(): SubtenantApiKeyRepository {
+        return new SubtenantApiKeyRepository(this._config);
     }
     public subtenantTrustedCertificateRepository(): SubtenantTrustedCertificateRepository {
         return new SubtenantTrustedCertificateRepository(this._config);

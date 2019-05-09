@@ -112,12 +112,12 @@ export const accountSchema = (): Schema => {
             {
                 name: "expirationWarningThreshold",
                 apiName: "expiration_warning_threshold",
-                type: "string",
+                type: "number",
             },
             {
                 name: "idleTimeout",
                 apiName: "idle_timeout",
-                type: "string",
+                type: "number",
             },
             {
                 name: "limits",
@@ -217,6 +217,48 @@ export const accountSchema = (): Schema => {
         ],
 
         methods: [
+            {
+                name: "apiKeys",
+                returnType: "Paginator<SubtenantApiKey, ListOptions>",
+                parameters: [
+                    {
+                        name: "accountId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                            {
+                                name: "filter",
+                                type: "SubtenantUserFilter",
+                            },
+                        ],
+                    },
+                ],
+            },
             {
                 name: "create",
                 returnType: "Promise<Account>",
@@ -500,11 +542,11 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "expirationWarningThreshold",
-                                type: "string",
+                                type: "number",
                             },
                             {
                                 name: "idleTimeout",
-                                type: "string",
+                                type: "number",
                             },
                             {
                                 name: "mfaStatus",

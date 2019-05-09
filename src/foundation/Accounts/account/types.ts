@@ -203,13 +203,13 @@ export interface AccountUpdateRequest {
      *Indicates how many days (1-180) before account expiration a notification email is sent.
      *@example 180
      */
-    readonly expirationWarningThreshold?: string;
+    readonly expirationWarningThreshold?: number;
 
     /**
      *The reference token expiration time, in minutes, for this account.
      *@example 30
      */
-    readonly idleTimeout?: string;
+    readonly idleTimeout?: number;
 
     /**
      *The enforcement status of multi-factor authentication, either `enforced` or `optional`.
@@ -227,7 +227,7 @@ export interface AccountUpdateRequest {
     readonly passwordPolicy?: PasswordPolicy;
 
     /**
-     *Indicates for how many minutes a password recovery email is valid (1-45).
+     *Indicates for how many minutes a password recovery email is valid.
      */
     readonly passwordRecoveryExpiration?: number;
 
@@ -254,6 +254,47 @@ export interface AccountUpdateRequest {
      *@example
      */
     readonly state?: string;
+}
+/**
+ *SubtenantApiKeyKeyFilter
+ */
+export interface SubtenantApiKeyKeyFilter {
+    /**
+     *key equal to
+     */
+    eq?: string;
+}
+/**
+ *SubtenantApiKeyOwnerFilter
+ */
+export interface SubtenantApiKeyOwnerFilter {
+    /**
+     *owner equal to
+     */
+    eq?: string;
+}
+/**
+ *SubtenantApiKeyFilter
+ */
+export interface SubtenantApiKeyFilter {
+    /**
+     *Filter by key on SubtenantApiKey
+     */
+    key?: string | SubtenantApiKeyKeyFilter;
+
+    /**
+     *Filter by owner on SubtenantApiKey
+     */
+    owner?: string | SubtenantApiKeyOwnerFilter;
+}
+/**
+ *SubtenantApiKeyListOptions
+ */
+export interface SubtenantApiKeyListOptions extends ListOptions {
+    /**
+     *Filter for SubtenantApiKey
+     */
+    filter?: SubtenantApiKeyFilter;
 }
 /**
  *AccountStatusFilter

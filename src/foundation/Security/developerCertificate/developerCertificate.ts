@@ -24,6 +24,11 @@ export interface DeveloperCertificate extends Entity {
     description?: string;
 
     /**
+     *PEM-format developer private key associated with the certificate.
+     */
+    readonly developerPrivateKey?: string;
+
+    /**
      *Name of the developer certificate.
      */
     name: string;

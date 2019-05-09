@@ -24,15 +24,21 @@ export interface UserCreateRequest {
     readonly fullName?: string;
 
     /**
-     *Represents a user login profile in Device Management.
+     *A flag indicating that the user has accepted General Terms and Conditions.
+     *@example true
      */
-    readonly loginProfiles?: Array<LoginProfile>;
+    readonly isGtcAccepted?: boolean;
 
     /**
      *A flag indicating that the user has consented to receive marketing information.
      *@example true
      */
-    readonly marketingAccepted?: boolean;
+    readonly isMarketingAccepted?: boolean;
+
+    /**
+     *Represents a user login profile in Device Management.
+     */
+    readonly loginProfiles?: Array<LoginProfile>;
 
     /**
      *The password when creating a new user. It will be generated when not present in the request.
@@ -47,13 +53,7 @@ export interface UserCreateRequest {
     readonly phoneNumber?: string;
 
     /**
-     *A flag indicating that the user has accepted General Terms and Conditions.
-     *@example true
-     */
-    readonly termsAccepted?: boolean;
-
-    /**
-     *A username containing alphanumerical letters and -,._@+= characters.
+     *A username.
      *@example admin
      */
     readonly username?: string;
@@ -75,15 +75,27 @@ export interface UserUpdateRequest {
     readonly fullName?: string;
 
     /**
-     *Represents a user login profile in Device Management.
+     *A flag indicating that the user has accepted General Terms and Conditions.
+     *@example true
      */
-    readonly loginProfiles?: Array<LoginProfile>;
+    readonly isGtcAccepted?: boolean;
 
     /**
      *A flag indicating that the user has consented to receive marketing information.
      *@example true
      */
-    readonly marketingAccepted?: boolean;
+    readonly isMarketingAccepted?: boolean;
+
+    /**
+     *A flag indicating whether two-factor authentication (TOTP) has been enabled.
+     *@example true
+     */
+    readonly isTotpEnabled?: boolean;
+
+    /**
+     *Represents a user login profile in Device Management.
+     */
+    readonly loginProfiles?: Array<LoginProfile>;
 
     /**
      *Phone number.
@@ -92,19 +104,7 @@ export interface UserUpdateRequest {
     readonly phoneNumber?: string;
 
     /**
-     *A flag indicating that the user has accepted General Terms and Conditions.
-     *@example true
-     */
-    readonly termsAccepted?: boolean;
-
-    /**
-     *A flag indicating whether two-factor authentication (TOTP) has been enabled.
-     *@example true
-     */
-    readonly twoFactorAuthentication?: boolean;
-
-    /**
-     *A username containing alphanumerical letters and -,._@+= characters.
+     *A username.
      *@example admin
      */
     readonly username?: string;
