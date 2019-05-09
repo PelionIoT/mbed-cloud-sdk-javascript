@@ -7,7 +7,7 @@ export const passwordPolicySchema = (): Schema => {
             {
                 name: "minimumLength",
                 apiName: "minimum_length",
-                type: "string",
+                type: "number",
             },
         ],
     });

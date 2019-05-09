@@ -18,12 +18,6 @@ export interface DeviceCreateRequest {
     readonly bootstrapExpirationDate?: Date;
 
     /**
-     *The timestamp of the device's most recent bootstrap process.
-     *@example 2017-05-22T12:37:55.576563Z
-     */
-    readonly bootstrappedTimestamp?: Date;
-
-    /**
      *The certificate issuer's ID.
      *@example 00000000000000000000000000000000
      */
@@ -81,12 +75,6 @@ Permitted values:
      *The endpoint type of the device. For example, the device is a gateway.
      */
     readonly endpointType?: string;
-
-    /**
-     *The SHA256 checksum of the current firmware image.
-     *@example 0000000000000000000000000000000000000000000000000000000000000000
-     */
-    readonly firmwareChecksum?: string;
 
     /**
      *The ID of the host gateway, if appropriate.
@@ -261,22 +249,22 @@ export interface DeviceBootstrappedTimestampFilter {
     /**
      *bootstrappedTimestamp in
      */
-    in?: Array<string>;
+    in?: Array<Date>;
 
     /**
      *bootstrappedTimestamp not in
      */
-    nin?: Array<string>;
+    nin?: Array<Date>;
 
     /**
      *bootstrappedTimestamp less than
      */
-    lte?: Array<string>;
+    lte?: Array<Date>;
 
     /**
      *bootstrappedTimestamp greater than
      */
-    gte?: Array<string>;
+    gte?: Array<Date>;
 }
 /**
  *DeviceCaIdFilter

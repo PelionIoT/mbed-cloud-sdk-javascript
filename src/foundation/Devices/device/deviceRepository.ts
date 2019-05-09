@@ -29,7 +29,6 @@ export class DeviceRepository extends Repository {
                         body: {
                             auto_update: request.autoUpdate,
                             bootstrap_expiration_date: request.bootstrapExpirationDate,
-                            bootstrapped_timestamp: request.bootstrappedTimestamp,
                             ca_id: request.caId,
                             connector_expiration_date: request.connectorExpirationDate,
                             custom_attributes: request.customAttributes,
@@ -40,7 +39,6 @@ export class DeviceRepository extends Repository {
                             device_key: request.deviceKey,
                             endpoint_name: request.endpointName,
                             endpoint_type: request.endpointType,
-                            firmware_checksum: request.firmwareChecksum,
                             host_gateway: request.hostGateway,
                             issuer_fingerprint: request.issuerFingerprint,
                             manifest: request.manifest,

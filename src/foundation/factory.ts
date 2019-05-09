@@ -2,9 +2,13 @@ import { Config } from "../common/config";
 import { AccountRepository } from ".";
 import { ApiKeyRepository } from ".";
 import { CampaignDeviceMetadataRepository } from ".";
+import { CampaignStatisticsRepository } from ".";
+import { CampaignStatisticsEventsRepository } from ".";
 import { CertificateEnrollmentRepository } from ".";
 import { CertificateIssuerRepository } from ".";
 import { CertificateIssuerConfigRepository } from ".";
+import { DarkThemeColorRepository } from ".";
+import { DarkThemeImageRepository } from ".";
 import { DeveloperCertificateRepository } from ".";
 import { DeviceRepository } from ".";
 import { DeviceEnrollmentRepository } from ".";
@@ -14,8 +18,11 @@ import { DeviceEnrollmentDenialRepository } from ".";
 import { DeviceEventsRepository } from ".";
 import { FirmwareImageRepository } from ".";
 import { FirmwareManifestRepository } from ".";
+import { LightThemeColorRepository } from ".";
+import { LightThemeImageRepository } from ".";
 import { PreSharedKeyRepository } from ".";
 import { ServerCredentialsRepository } from ".";
+import { SubtenantApiKeyRepository } from ".";
 import { SubtenantTrustedCertificateRepository } from ".";
 import { SubtenantUserRepository } from ".";
 import { SubtenantUserInvitationRepository } from ".";
@@ -38,6 +45,12 @@ export class Factory {
     public campaignDeviceMetadataRepository(): CampaignDeviceMetadataRepository {
         return new CampaignDeviceMetadataRepository(this._config);
     }
+    public campaignStatisticsRepository(): CampaignStatisticsRepository {
+        return new CampaignStatisticsRepository(this._config);
+    }
+    public campaignStatisticsEventsRepository(): CampaignStatisticsEventsRepository {
+        return new CampaignStatisticsEventsRepository(this._config);
+    }
     public certificateEnrollmentRepository(): CertificateEnrollmentRepository {
         return new CertificateEnrollmentRepository(this._config);
     }
@@ -46,6 +59,12 @@ export class Factory {
     }
     public certificateIssuerConfigRepository(): CertificateIssuerConfigRepository {
         return new CertificateIssuerConfigRepository(this._config);
+    }
+    public darkThemeColorRepository(): DarkThemeColorRepository {
+        return new DarkThemeColorRepository(this._config);
+    }
+    public darkThemeImageRepository(): DarkThemeImageRepository {
+        return new DarkThemeImageRepository(this._config);
     }
     public developerCertificateRepository(): DeveloperCertificateRepository {
         return new DeveloperCertificateRepository(this._config);
@@ -74,11 +93,20 @@ export class Factory {
     public firmwareManifestRepository(): FirmwareManifestRepository {
         return new FirmwareManifestRepository(this._config);
     }
+    public lightThemeColorRepository(): LightThemeColorRepository {
+        return new LightThemeColorRepository(this._config);
+    }
+    public lightThemeImageRepository(): LightThemeImageRepository {
+        return new LightThemeImageRepository(this._config);
+    }
     public preSharedKeyRepository(): PreSharedKeyRepository {
         return new PreSharedKeyRepository(this._config);
     }
     public serverCredentialsRepository(): ServerCredentialsRepository {
         return new ServerCredentialsRepository(this._config);
+    }
+    public subtenantApiKeyRepository(): SubtenantApiKeyRepository {
+        return new SubtenantApiKeyRepository(this._config);
     }
     public subtenantTrustedCertificateRepository(): SubtenantTrustedCertificateRepository {
         return new SubtenantTrustedCertificateRepository(this._config);

@@ -25,6 +25,11 @@ export const developerCertificateSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "developerPrivateKey",
+                apiName: "developer_private_key",
+                type: "string",
+            },
+            {
                 name: "name",
                 apiName: "name",
                 type: "string",

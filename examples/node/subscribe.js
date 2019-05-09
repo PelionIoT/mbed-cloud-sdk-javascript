@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,10 @@
 * limitations under the License.
 */
 
-var MbedCloudSDK = require("../../index");
+var PelionDMSDK = require("../../index");
 var config = require("./config");
 
-var connect = new MbedCloudSDK.ConnectApi(config);
+var connect = new PelionDMSDK.ConnectApi(config);
 
 // creates an observer with no filter. This will listen for all device events
 const observer = connect.subscribe.deviceStateChanges();

@@ -26,7 +26,7 @@ export class CertificateIssuerConfigRepository extends Repository {
                         method: "POST",
                         body: {
                             certificate_issuer_id: request.certificateIssuerId,
-                            reference: request.certificateReference,
+                            reference: request.reference,
                         },
                     },
                     resultsFn
@@ -96,7 +96,7 @@ export class CertificateIssuerConfigRepository extends Repository {
                             url: "/v3/certificate-issuer-configurations",
                             method: "GET",
                             query: {
-                                reference__eq: extractFilter(pageOptions.filter, "certificateReference", "eq"),
+                                reference__eq: extractFilter(pageOptions.filter, "reference", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,

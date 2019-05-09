@@ -74,7 +74,7 @@ export class UserInvitationRepository extends Repository {
                             url: "/v3/user-invitations",
                             method: "GET",
                             query: {
-                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
+                                login_profiles__eq: extractFilter(pageOptions.filter, "loginProfiles", "eq"),
                                 after: pageOptions.after,
                                 limit: pageOptions.limit,
                                 order: pageOptions.order,
