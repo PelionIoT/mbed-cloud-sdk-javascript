@@ -199,10 +199,6 @@ export class Method {
             return true;
         }
 
-        if (testRunnerParamName.toLowerCase().endsWith(paramName.toLowerCase())) {
-            return true;
-        }
-
         return false;
     }
 }
