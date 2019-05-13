@@ -34,29 +34,6 @@ export class DarkThemeColorRepository extends Repository {
         );
     }
     /**
-     * get
-     * @param reference - Color name.
-     */
-    public get(reference: string): Promise<DarkThemeColor> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/branding-colors/dark/{reference}",
-                        method: "GET",
-                        pathParams: {
-                            reference: reference,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, DarkThemeColorAdapter.fromApi(data));
-            }
-        );
-    }
-    /**
      * list
      * @param options - options
      */
@@ -81,6 +58,29 @@ export class DarkThemeColorRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    /**
+     * read
+     * @param reference - Color name.
+     */
+    public read(reference: string): Promise<DarkThemeColor> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/branding-colors/dark/{reference}",
+                        method: "GET",
+                        pathParams: {
+                            reference: reference,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, DarkThemeColorAdapter.fromApi(data));
+            }
+        );
     }
     /**
      * update

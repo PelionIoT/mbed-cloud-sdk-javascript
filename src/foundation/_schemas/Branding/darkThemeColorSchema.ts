@@ -34,17 +34,6 @@ export const darkThemeColorSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<DarkThemeColor>",
-                parameters: [
-                    {
-                        name: "reference",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "list",
                 returnType: "Paginator<DarkThemeColor, ListOptions>",
                 parameters: [
@@ -74,6 +63,17 @@ export const darkThemeColorSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<DarkThemeColor>",
+                parameters: [
+                    {
+                        name: "reference",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

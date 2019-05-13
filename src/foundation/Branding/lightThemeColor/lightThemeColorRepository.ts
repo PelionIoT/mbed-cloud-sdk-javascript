@@ -1,9 +1,9 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { LightThemeColor } from "./lightThemeColor";
-import { LightThemeColorAdapter } from "../../index";
 import { DarkThemeColor } from "../../index";
 import { DarkThemeColorAdapter } from "../../index";
+import { LightThemeColorAdapter } from "../../index";
 import { LightThemeColorUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -36,29 +36,6 @@ export class LightThemeColorRepository extends Repository {
         );
     }
     /**
-     * get
-     * @param reference - Color name.
-     */
-    public get(reference: string): Promise<LightThemeColor> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/branding-colors/light/{reference}",
-                        method: "GET",
-                        pathParams: {
-                            reference: reference,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, LightThemeColorAdapter.fromApi(data));
-            }
-        );
-    }
-    /**
      * list
      * @param options - options
      */
@@ -83,6 +60,29 @@ export class LightThemeColorRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    /**
+     * read
+     * @param reference - Color name.
+     */
+    public read(reference: string): Promise<LightThemeColor> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/branding-colors/light/{reference}",
+                        method: "GET",
+                        pathParams: {
+                            reference: reference,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, LightThemeColorAdapter.fromApi(data));
+            }
+        );
     }
     /**
      * update

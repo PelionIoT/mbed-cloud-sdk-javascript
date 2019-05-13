@@ -55,17 +55,6 @@ export const darkThemeImageSchema = (): Schema => {
                 ],
             },
             {
-                name: "get",
-                returnType: "Promise<DarkThemeImage>",
-                parameters: [
-                    {
-                        name: "reference",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "list",
                 returnType: "Paginator<DarkThemeImage, ListOptions>",
                 parameters: [
@@ -95,6 +84,17 @@ export const darkThemeImageSchema = (): Schema => {
                                 type: "string",
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: "read",
+                returnType: "Promise<DarkThemeImage>",
+                parameters: [
+                    {
+                        name: "reference",
+                        position: 0,
+                        type: "string",
                     },
                 ],
             },

@@ -68,29 +68,6 @@ export class DarkThemeImageRepository extends Repository {
         );
     }
     /**
-     * get
-     * @param reference - Name of the image.
-     */
-    public get(reference: string): Promise<DarkThemeImage> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/branding-images/dark/{reference}",
-                        method: "GET",
-                        pathParams: {
-                            reference: reference,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, DarkThemeImageAdapter.fromApi(data));
-            }
-        );
-    }
-    /**
      * list
      * @param options - options
      */
@@ -115,5 +92,28 @@ export class DarkThemeImageRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    /**
+     * read
+     * @param reference - Name of the image.
+     */
+    public read(reference: string): Promise<DarkThemeImage> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/branding-images/dark/{reference}",
+                        method: "GET",
+                        pathParams: {
+                            reference: reference,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, DarkThemeImageAdapter.fromApi(data));
+            }
+        );
     }
 }

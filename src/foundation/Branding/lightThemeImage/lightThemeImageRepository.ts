@@ -70,29 +70,6 @@ export class LightThemeImageRepository extends Repository {
         );
     }
     /**
-     * get
-     * @param reference - Name of the image.
-     */
-    public get(reference: string): Promise<LightThemeImage> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/branding-images/light/{reference}",
-                        method: "GET",
-                        pathParams: {
-                            reference: reference,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, LightThemeImageAdapter.fromApi(data));
-            }
-        );
-    }
-    /**
      * list
      * @param options - options
      */
@@ -117,5 +94,28 @@ export class LightThemeImageRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    /**
+     * read
+     * @param reference - Name of the image.
+     */
+    public read(reference: string): Promise<LightThemeImage> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/branding-images/light/{reference}",
+                        method: "GET",
+                        pathParams: {
+                            reference: reference,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, LightThemeImageAdapter.fromApi(data));
+            }
+        );
     }
 }
