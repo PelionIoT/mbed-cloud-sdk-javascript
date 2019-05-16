@@ -137,6 +137,8 @@ export class Method {
                 }
             }
             return paramObject;
+        } else if (parameter.name === "model") {
+            return testRunnerParameters;
         }
 
         logMessage(`${parameter.name} not in testrunner parameters`);
