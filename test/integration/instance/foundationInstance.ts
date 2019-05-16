@@ -81,8 +81,6 @@ export class FoundationInstance extends Instance<Repository | SDK> {
      * @param parameters parameters from TestRunner
      */
     public async executeMethod(name: string, parameters: TestRunnerParameters): Promise<TestRunnerMethodCallResult> {
-        // tslint:disable-next-line:no-console
-        console.log(name);
         const method = this.methods[name];
         if (method) {
             if (this.instance instanceof Repository) {
