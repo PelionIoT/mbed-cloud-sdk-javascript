@@ -120,3 +120,7 @@ sdk.foundation()
 Otherwise, you should be able to load the bundles by using an AMD framework such as [RequireJS](http://requirejs.org/).
 
 __Warning:__ It is not advisable to embed your API key into distributed code such as client-side web pages. For production scenarios, developers may want to consider using Node.js for all API calls or to proxy client-side code requests to inject the API key. You can find an example proxy server in the `examples` folder.
+
+## Examples
+
+Please refer to the examples folder for some node and web examples.

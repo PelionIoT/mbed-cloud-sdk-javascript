@@ -170,27 +170,39 @@ export class ConnectedDevice extends Device {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
-     * @param mimeType The mime type format of the value
+     * @param payload The payload to be sent to the device.
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
      * @returns the AsyncResponse
      */
-    public executeResource(resourcePath: string, mimeType?: string): Promise<AsyncResponse>;
+    public executeResource(resourcePath: string, payload?: any, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
-     * @param mimeType The mime type format of the value
+     * @param payload The payload to be sent to the device.
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
      * @param callback A function that is passed any error
      */
-    public executeResource(resourcePath: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public executeResource(resourcePath: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public executeResource(resourcePath: string, payload?: any, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public executeResource(resourcePath: string, payload?: any, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+        if (typeof payload === "function") {
+            callback = payload;
+            payload = null;
+        }
+        if (typeof accepts === "function") {
+            callback = accepts;
+            accepts = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
 
         return asyncStyle(done => {
-            this._connectApi.executeResource(this.id, resourcePath, mimeType, done);
+            this._connectApi.executeResource(this.id, resourcePath, mimeType, accepts, payload, done);
         }, callback);
     }
 

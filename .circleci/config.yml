@@ -378,7 +378,7 @@ jobs:
           command: |
               git add src/foundation
               git commit --message "New Foundation Interface changes" || true
-              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
+              git push -f -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
