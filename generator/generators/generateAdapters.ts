@@ -58,14 +58,15 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
         if (field.format === "date-time") {
             // TODO map date times here to remove data regex from client and stop doing hard copy
         }
-        if (field.setter_custom_method) {
-            const customFunctionCall = new AdapterCustomFunctionCallContainer(snakeToCamel(field.setter_custom_method));
+        if (field.getter_custom_method || field.setter_custom_method) {
+            const methodName = field.setter_custom_method || field.getter_custom_method;
+            const customFunctionCall = new AdapterCustomFunctionCallContainer(snakeToCamel(methodName));
             adapterCustomFunctions.push(customFunctionCall);
             safeAddToList(adapterImports, new ImportContainer(
-                `${field.setter_custom_method.toUpperCase()}_PRIVATE_FUNCTIONS`,
+                `${methodName.toUpperCase()}_PRIVATE_FUNCTIONS`,
                 "../../../common/privateFunctions",
                 [
-                    `${snakeToCamel(field.setter_custom_method)}`
+                    `${snakeToCamel(methodName)}`
                 ]
             ));
         }
@@ -142,7 +143,7 @@ const getDefaultValue = field => {
     }
 
     if (field.type === "integer") {
-        return field.default || 0;
+        return field.minimum || field.default || 0;
     }
 
     return null;

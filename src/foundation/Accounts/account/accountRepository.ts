@@ -57,8 +57,7 @@ export class AccountRepository extends Repository {
                 (data: ListResponse<SubtenantApiKey>, done) => {
                     done(null, new ListResponse(data, data.data, SubtenantApiKeyAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
@@ -146,8 +145,7 @@ export class AccountRepository extends Repository {
                 (data: ListResponse<Account>, done) => {
                     done(null, new ListResponse(data, data.data, AccountAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
@@ -258,8 +256,7 @@ export class AccountRepository extends Repository {
                 (data: ListResponse<SubtenantTrustedCertificate>, done) => {
                     done(null, new ListResponse(data, data.data, SubtenantTrustedCertificateAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
@@ -348,8 +345,7 @@ export class AccountRepository extends Repository {
                 (data: ListResponse<SubtenantUserInvitation>, done) => {
                     done(null, new ListResponse(data, data.data, SubtenantUserInvitationAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
@@ -389,8 +385,7 @@ export class AccountRepository extends Repository {
                 (data: ListResponse<SubtenantUser>, done) => {
                     done(null, new ListResponse(data, data.data, SubtenantUserAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

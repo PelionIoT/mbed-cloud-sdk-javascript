@@ -297,8 +297,7 @@ export class DeviceRepository extends Repository {
                 (data: ListResponse<Device>, done) => {
                     done(null, new ListResponse(data, data.data, DeviceAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

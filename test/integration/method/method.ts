@@ -88,6 +88,8 @@ export class Method {
                 result = await result.all();
             }
 
+            console.log(result);
+
             return {
                 payload: this.mapResult(result)
             };
@@ -196,10 +198,6 @@ export class Method {
 
     private matchParamToTestRunner(paramName: string, testRunnerParamName: string): boolean {
         if (paramName === testRunnerParamName) {
-            return true;
-        }
-
-        if (testRunnerParamName.toLowerCase().endsWith(paramName.toLowerCase())) {
             return true;
         }
 

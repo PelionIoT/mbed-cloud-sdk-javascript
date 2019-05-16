@@ -82,8 +82,7 @@ export class DeviceEnrollmentRepository extends Repository {
                 (data: ListResponse<DeviceEnrollment>, done) => {
                     done(null, new ListResponse(data, data.data, DeviceEnrollmentAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

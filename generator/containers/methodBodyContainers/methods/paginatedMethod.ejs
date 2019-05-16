@@ -42,8 +42,7 @@ resultsFn
 (data: ListResponse<<%= returns %>>, done) => {
 done(null, new ListResponse(data, data.data, <%= returns %>Adapter.fromApi));
 },
-null,
-true
+null
 );
 };
 return new Paginator(pageFunc, options);

@@ -22,6 +22,7 @@ import { SDKError } from "../legacy/common/sdkError";
 import { Config } from "../common/config";
 import { Version } from "../version";
 import { isThisNode } from "../legacy/common/functions";
+import { objectKeysToCamelCase } from "../common/transform";
 
 // tslint:disable-next-line:no-var-requires
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
@@ -211,10 +212,7 @@ export class SdkApiBase {
 
             // Remove empty or undefined json parameters
             if (body && body.constructor === {}.constructor && JSON_REGEX.test(requestOptions.contentType)) {
-                body = Object.keys(body).reduce((val, key) => {
-                    if (body[key] !== null && body[key] !== undefined) { val[key] = body[key]; }
-                    return val;
-                }, {});
+                body = objectKeysToCamelCase(body, true, null);
             }
 
             request.send(body);

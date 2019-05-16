@@ -128,8 +128,7 @@ export class FirmwareManifestRepository extends Repository {
                 (data: ListResponse<FirmwareManifest>, done) => {
                     done(null, new ListResponse(data, data.data, FirmwareManifestAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

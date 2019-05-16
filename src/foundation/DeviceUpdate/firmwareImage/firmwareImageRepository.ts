@@ -123,8 +123,7 @@ export class FirmwareImageRepository extends Repository {
                 (data: ListResponse<FirmwareImage>, done) => {
                     done(null, new ListResponse(data, data.data, FirmwareImageAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

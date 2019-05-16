@@ -86,8 +86,7 @@ export class UserInvitationRepository extends Repository {
                 (data: ListResponse<UserInvitation>, done) => {
                     done(null, new ListResponse(data, data.data, UserInvitationAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

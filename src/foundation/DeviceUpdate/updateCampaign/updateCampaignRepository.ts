@@ -118,8 +118,7 @@ export class UpdateCampaignRepository extends Repository {
                 (data: ListResponse<CampaignDeviceMetadata>, done) => {
                     done(null, new ListResponse(data, data.data, CampaignDeviceMetadataAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
@@ -194,8 +193,7 @@ export class UpdateCampaignRepository extends Repository {
                 (data: ListResponse<UpdateCampaign>, done) => {
                     done(null, new ListResponse(data, data.data, UpdateCampaignAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

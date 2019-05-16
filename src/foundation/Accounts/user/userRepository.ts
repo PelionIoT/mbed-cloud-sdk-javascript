@@ -102,8 +102,7 @@ export class UserRepository extends Repository {
                 (data: ListResponse<User>, done) => {
                     done(null, new ListResponse(data, data.data, UserAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
