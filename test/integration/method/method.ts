@@ -88,6 +88,8 @@ export class Method {
                 result = await result.all();
             }
 
+            console.log(result);
+
             return {
                 payload: this.mapResult(result)
             };

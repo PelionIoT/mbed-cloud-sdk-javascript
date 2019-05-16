@@ -49,8 +49,7 @@ export class CertificateEnrollmentRepository extends Repository {
                 (data: ListResponse<CertificateEnrollment>, done) => {
                     done(null, new ListResponse(data, data.data, CertificateEnrollmentAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

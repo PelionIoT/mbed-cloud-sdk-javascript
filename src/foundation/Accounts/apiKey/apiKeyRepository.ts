@@ -89,8 +89,7 @@ export class ApiKeyRepository extends Repository {
                 (data: ListResponse<ApiKey>, done) => {
                     done(null, new ListResponse(data, data.data, ApiKeyAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

@@ -109,8 +109,7 @@ export class CertificateIssuerConfigRepository extends Repository {
                 (data: ListResponse<CertificateIssuerConfig>, done) => {
                     done(null, new ListResponse(data, data.data, CertificateIssuerConfigAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

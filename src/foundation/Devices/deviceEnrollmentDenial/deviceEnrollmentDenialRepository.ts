@@ -44,8 +44,7 @@ export class DeviceEnrollmentDenialRepository extends Repository {
                 (data: ListResponse<DeviceEnrollmentDenial>, done) => {
                     done(null, new ListResponse(data, data.data, DeviceEnrollmentDenialAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

@@ -134,8 +134,7 @@ export class TrustedCertificateRepository extends Repository {
                 (data: ListResponse<TrustedCertificate>, done) => {
                     done(null, new ListResponse(data, data.data, TrustedCertificateAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

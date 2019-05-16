@@ -112,8 +112,7 @@ export class LightThemeImageRepository extends Repository {
                 (data: ListResponse<DarkThemeImage>, done) => {
                     done(null, new ListResponse(data, data.data, DarkThemeImageAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

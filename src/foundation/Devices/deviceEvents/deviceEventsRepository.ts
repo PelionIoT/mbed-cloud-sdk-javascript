@@ -59,8 +59,7 @@ export class DeviceEventsRepository extends Repository {
                 (data: ListResponse<DeviceEvents>, done) => {
                     done(null, new ListResponse(data, data.data, DeviceEventsAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

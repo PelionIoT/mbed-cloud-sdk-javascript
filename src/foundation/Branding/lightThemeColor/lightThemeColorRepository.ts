@@ -78,8 +78,7 @@ export class LightThemeColorRepository extends Repository {
                 (data: ListResponse<DarkThemeColor>, done) => {
                     done(null, new ListResponse(data, data.data, DarkThemeColorAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

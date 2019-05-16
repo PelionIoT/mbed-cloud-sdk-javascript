@@ -81,8 +81,7 @@ export class PreSharedKeyRepository extends Repository {
                 (data: ListResponse<PreSharedKey>, done) => {
                     done(null, new ListResponse(data, data.data, PreSharedKeyAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

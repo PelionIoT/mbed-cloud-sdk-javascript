@@ -91,8 +91,7 @@ An active certificate issuer may not be deleted.
                 (data: ListResponse<CertificateIssuer>, done) => {
                     done(null, new ListResponse(data, data.data, CertificateIssuerAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);

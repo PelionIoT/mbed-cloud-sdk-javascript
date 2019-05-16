@@ -41,8 +41,7 @@ export class CampaignStatisticsRepository extends Repository {
                 (data: ListResponse<CampaignStatisticsEvents>, done) => {
                     done(null, new ListResponse(data, data.data, CampaignStatisticsEventsAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
@@ -71,8 +70,7 @@ export class CampaignStatisticsRepository extends Repository {
                 (data: ListResponse<CampaignStatistics>, done) => {
                     done(null, new ListResponse(data, data.data, CampaignStatisticsAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
