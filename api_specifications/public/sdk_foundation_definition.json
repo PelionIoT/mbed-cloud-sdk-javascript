@@ -201,8 +201,6 @@
       "enum_name": "certificate_enrollment_enroll_result_enum",
       "values": [
         "failure",
-        "forbidden",
-        "not_found",
         "success"
       ],
       "group_id": "Security",
@@ -10038,11 +10036,11 @@
                           "_key": "updated_at"
                         },
                         {
+                          "pattern": "[\\w\\-,._@+=]{4,30}",
                           "type": "string",
                           "example": "admin",
                           "description": "A username.",
                           "x-nullable": true,
-                          "pattern": "[\\w\\-,._@+=]",
                           "_key": "username"
                         }
                       ],
@@ -15471,9 +15469,7 @@
                           "type": "string",
                           "enum": [
                             "success",
-                            "failure",
-                            "not_found",
-                            "forbidden"
+                            "failure"
                           ],
                           "description": "The result of certificate enrollment request.",
                           "example": "success",
@@ -15926,9 +15922,7 @@
                     "type": "string",
                     "enum": [
                       "success",
-                      "failure",
-                      "not_found",
-                      "forbidden"
+                      "failure"
                     ],
                     "description": "The result of certificate enrollment request.",
                     "example": "success",
@@ -16334,9 +16328,7 @@
           "type": "string",
           "enum": [
             "success",
-            "failure",
-            "not_found",
-            "forbidden"
+            "failure"
           ],
           "description": "The result of certificate enrollment request.",
           "example": "success",
@@ -24912,9 +24904,7 @@
                     "type": "string",
                     "enum": [
                       "success",
-                      "failure",
-                      "not_found",
-                      "forbidden"
+                      "failure"
                     ],
                     "description": "The result of certificate enrollment request.",
                     "example": "success",
@@ -38951,11 +38941,11 @@
               "_key": "phone_number"
             },
             {
+              "pattern": "[\\w\\-,._@+=]{4,30}",
               "type": "string",
               "example": "admin",
               "description": "A username.",
               "x-nullable": true,
-              "pattern": "[\\w\\-,._@+=]",
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -39415,11 +39405,11 @@
                     "_key": "updated_at"
                   },
                   {
+                    "pattern": "[\\w\\-,._@+=]{4,30}",
                     "type": "string",
                     "example": "admin",
                     "description": "A username.",
                     "x-nullable": true,
-                    "pattern": "[\\w\\-,._@+=]",
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -40678,11 +40668,11 @@
                     "_key": "updated_at"
                   },
                   {
+                    "pattern": "[\\w\\-,._@+=]{4,30}",
                     "type": "string",
                     "example": "admin",
                     "description": "A username.",
                     "x-nullable": true,
-                    "pattern": "[\\w\\-,._@+=]",
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -41123,11 +41113,11 @@
               "_key": "phone_number"
             },
             {
+              "pattern": "[\\w\\-,._@+=]{4,30}",
               "type": "string",
               "example": "admin",
               "description": "A username.",
               "x-nullable": true,
-              "pattern": "[\\w\\-,._@+=]",
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -41587,11 +41577,11 @@
                     "_key": "updated_at"
                   },
                   {
+                    "pattern": "[\\w\\-,._@+=]{4,30}",
                     "type": "string",
                     "example": "admin",
                     "description": "A username.",
                     "x-nullable": true,
-                    "pattern": "[\\w\\-,._@+=]",
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -42712,11 +42702,11 @@
           "_key": "updated_at"
         },
         {
+          "pattern": "[\\w\\-,._@+=]{4,30}",
           "type": "string",
           "example": "admin",
           "description": "A username.",
           "x-nullable": true,
-          "pattern": "[\\w\\-,._@+=]",
           "api_fieldname": "username",
           "parameter_fieldname": "username",
           "in": "body",
@@ -49723,11 +49713,11 @@
               "_key": "phone_number"
             },
             {
+              "pattern": "[\\w\\-,._@+=]{4,30}",
               "type": "string",
               "example": "admin",
               "description": "A username.",
               "x-nullable": true,
-              "pattern": "[\\w\\-,._@+=]",
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -50147,11 +50137,11 @@
                     "_key": "updated_at"
                   },
                   {
+                    "pattern": "[\\w\\-,._@+=]{4,30}",
                     "type": "string",
                     "example": "admin",
                     "description": "A username.",
                     "x-nullable": true,
-                    "pattern": "[\\w\\-,._@+=]",
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -51290,11 +51280,11 @@
                           "_key": "updated_at"
                         },
                         {
+                          "pattern": "[\\w\\-,._@+=]{4,30}",
                           "type": "string",
                           "example": "admin",
                           "description": "A username.",
                           "x-nullable": true,
-                          "pattern": "[\\w\\-,._@+=]",
                           "_key": "username"
                         }
                       ],
@@ -51991,11 +51981,11 @@
                     "_key": "updated_at"
                   },
                   {
+                    "pattern": "[\\w\\-,._@+=]{4,30}",
                     "type": "string",
                     "example": "admin",
                     "description": "A username.",
                     "x-nullable": true,
-                    "pattern": "[\\w\\-,._@+=]",
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -52422,11 +52412,11 @@
               "_key": "phone_number"
             },
             {
+              "pattern": "[\\w\\-,._@+=]{4,30}",
               "type": "string",
               "example": "admin",
               "description": "A username.",
               "x-nullable": true,
-              "pattern": "[\\w\\-,._@+=]",
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -52846,11 +52836,11 @@
                     "_key": "updated_at"
                   },
                   {
+                    "pattern": "[\\w\\-,._@+=]{4,30}",
                     "type": "string",
                     "example": "admin",
                     "description": "A username.",
                     "x-nullable": true,
-                    "pattern": "[\\w\\-,._@+=]",
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -53664,11 +53654,11 @@
           "_key": "updated_at"
         },
         {
+          "pattern": "[\\w\\-,._@+=]{4,30}",
           "type": "string",
           "example": "admin",
           "description": "A username.",
           "x-nullable": true,
-          "pattern": "[\\w\\-,._@+=]",
           "api_fieldname": "username",
           "readOnly": false,
           "required": false,
