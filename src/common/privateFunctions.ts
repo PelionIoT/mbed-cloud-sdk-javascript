@@ -1,7 +1,8 @@
-import { ReadStream, createWriteStream, createReadStream } from "fs";
+import { ReadStream, createWriteStream, createReadStream, PathLike } from "fs";
 import { isThisNode, encodeFilter } from "../legacy/common/functions";
 import { get as http_get } from "superagent";
 import { Config } from "./config";
+import * as path from "path";
 import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, UpdateCampaign } from "../foundation";
 
 /**
@@ -23,7 +24,7 @@ export function preSharedKeyIdSetter(self: any): void {
  */
 export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
-        return streamToFile(self.config, model.errorsReportFile, resolve, reject, "error-report.csv");
+        return streamToFile(self.config, model.errorsReportFile, resolve, reject, path.resolve(__dirname, "error-report.csv"));
     });
 }
 
@@ -49,12 +50,12 @@ export function deviceFilterHelperSetter(self: UpdateCampaign): void {
  * Internal function
  * @ignore
  */
-function streamToFile(config: Config, url: string, resolve: (value: ReadStream) => void, reject: (reason: any) => void, filePath?: string) {
+function streamToFile(config: Config, url: string, resolve: (value: ReadStream) => void, reject: (reason: any) => void, filePath?: string | PathLike) {
     if (!isThisNode()) {
         return reject("Can only download file in Node environment!");
     }
 
-    const tempPath = filePath || "report.csv";
+    const tempPath = filePath || path.resolve(__dirname, "report.csv");
     if (url && config) {
         const fileStream = createWriteStream(tempPath);
         fileStream.on("open", () => {
