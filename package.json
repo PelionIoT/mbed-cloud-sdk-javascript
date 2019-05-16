@@ -113,7 +113,7 @@
     "winston": "^3.2.1"
   },
   "dependencies": {
-    "dotenv": "^7.0.0",
+    "dotenv": "^8.0.0",
     "superagent": "^3.4.1"
   }
 }
