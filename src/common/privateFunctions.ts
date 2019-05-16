@@ -24,7 +24,7 @@ export function preSharedKeyIdSetter(self: any): void {
  */
 export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
-        return streamToFile(self.config, model.errorsReportFile, resolve, reject, path.resolve(__dirname, "error-report.csv"));
+        return streamToFile(self.config, model.errorsReportFile, resolve, reject, path.resolve(__dirname, "..", "..", "error-report.csv"));
     });
 }
 
@@ -55,7 +55,7 @@ function streamToFile(config: Config, url: string, resolve: (value: ReadStream) 
         return reject("Can only download file in Node environment!");
     }
 
-    const tempPath = filePath || path.resolve(__dirname, "report.csv");
+    const tempPath = filePath || path.resolve(__dirname, "..", "..", "report.csv");
     if (url && config) {
         const fileStream = createWriteStream(tempPath);
         fileStream.on("open", () => {
