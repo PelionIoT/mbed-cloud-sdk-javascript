@@ -2,19 +2,20 @@
     "out": "docs/docs",
     "mode": "file",
     "include": [
-        "src/**/*.ts"
+        "src/**"
     ],
     "exclude": [
         "node_modules",
-        "src/_api/**/*.ts"
+        "src/legacy/_api/**/*.ts",
+        "src/schema/**/*.ts",
+        "src/foundation/_schemas/**/*.ts"
     ],
     "excludeExternals": true,
     "excludePrivate": true,
     "module": "commonjs",
     "target": "es6",
-    "name": "Mbed Cloud SDK for JavaScript",
+    "name": "Pelion Device Management SDK for JavaScript",
     "readme": "docs/documentation.md",
     "theme": "docs/theme",
-    "ignoreCompilerErrors": true,
-    "toc": "AccountManagementApi,BillingApi,BootstrapApi,CertificatesApi,ConnectApi,DeviceDirectoryApi,EnrollmentApi,Subscribe,UpdateApi,ConnectionOptions,SDKError,ListResponse,Paginator"
+    "ignoreCompilerErrors": true
 }

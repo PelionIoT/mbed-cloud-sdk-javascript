@@ -7,13 +7,16 @@ var tap         = require("gulp-tap");
 var uglify      = require("gulp-uglify");
 
 var namespace = "MbedCloudSDK";
+var foundationNamespace = "Mbed.Cloud";
 
 // Source
 var srcDir = "src";
 
 // Node
 var nodeDir = "lib";
-var bundleFiles = nodeDir + "/**/index.js";
+var bundleFiles = nodeDir + "/legacy/**/index.js";
+var foundationFiles = nodeDir + "/foundation/**/index.js";
+var sdkDirectory = nodeDir + "/sdk.js";
 
 // Browser bundles
 var bundleDir = "bundles";
@@ -26,6 +29,7 @@ function bundle(srcFiles, destDir, optionsFn) {
     .pipe(tap(function(file) {
         var options = {};
         if (optionsFn) options = optionsFn(file);
+        // strip legacy from filename to preserve old bundles
         var fileName = options.fileName || path.basename(file.path);
 
         if (options.standalone)
@@ -57,8 +61,18 @@ function bundle(srcFiles, destDir, optionsFn) {
     .pipe(gulp.dest(destDir));
 }
 
+function camelToKebab(camel) {
+    return camel.replace(/([A-Z]+)/g, function (match) {
+        return `-${match.toLowerCase()}`;
+    });
+}
+
+function camelToPascal(camel) {
+    return camel.charAt(0).toUpperCase() + camel.slice(1);
+};
+
 // Build CommonJS modules into browser bundles
-gulp.task("bundleSource", function() {
+gulp.task("bundleLegacy", function() {
     return bundle(bundleFiles, bundleDir, function(file) {
         var name = path.dirname(file.relative);
         if (name === ".") {
@@ -68,12 +82,6 @@ gulp.task("bundleSource", function() {
             };
         }
 
-        function camelToKebab(camel) {
-            return camel.replace(/([A-Z]+)/g, function(match) {
-                return `-${match.toLowerCase()}`;
-            });
-        }
-
         return {
             fileName: `${camelToKebab(name)}.min${path.extname(file.relative)}`,
             standalone: `${namespace}.${name.charAt(0).toUpperCase()}${name.slice(1)}Api`
@@ -81,4 +89,33 @@ gulp.task("bundleSource", function() {
     });
 });
 
-gulp.task("default", ["bundleSource"]);
+gulp.task("bundleFoundation", function () {
+    return bundle(foundationFiles, bundleDir, function (file) {
+        var groupPath = path.dirname(file.relative);
+        var name = groupPath.substring(groupPath.indexOf("/") + 1);
+        var pascalName = camelToPascal(name);
+
+        if (name === ".") {
+            return {
+                fileName: "foundation/index.min.js",
+                standalone: `${foundationNamespace}.Foundation`
+            };
+        }
+
+        return {
+            fileName: `foundation/${camelToKebab(name)}.min${path.extname(file.relative)}`,
+            standalone: `${foundationNamespace}.Foundation.${pascalName}`
+        };
+    });
+});
+
+gulp.task("bundleSdk", function () {
+    return bundle(sdkDirectory, bundleDir, function (file) {
+        return {
+            fileName: "sdk.min.js",
+            standalone: foundationNamespace
+        };
+    });
+});
+
+gulp.task("default", ["bundleLegacy", "bundleFoundation", "bundleSdk"]);

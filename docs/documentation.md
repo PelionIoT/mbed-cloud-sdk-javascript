@@ -1,10 +1,10 @@
-# Mbed Cloud SDK for JavaScript
+# Pelion Device Management SDK for JavaScript
 
-The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to JavaScript developers.
+The Pelion Device Management SDK provides a simplified interface to the Pelion Device Management APIs by exposing functionality using conventions and paradigms familiar to JavaScript developers.
 
 ## Prerequisite
 
-[Node.js > v6.0.0](https://nodejs.org), which includes `npm`.
+[Node.js > v8](https://nodejs.org), which includes `npm`.
 
 ## Installation
 
@@ -18,13 +18,12 @@ $ npm install mbed-cloud-sdk
 
 * `bundles` - minified browser scripts.
 * `lib` - Node.js modules.
-* `examples` - contains all examples.
 
 ## API keys
 
-Before using the SDK, you need to obtain an API key for use with Mbed Cloud.
+Before using the SDK, you need to obtain an API key for use with Pelion Device Management.
 
-You can generate this through the Mbed Cloud management console.
+You can generate this through the Pelion Device Management management console.
 
 ## Configuration
 
@@ -32,38 +31,58 @@ The SDKs support setting parameters through environment variables and `.env` (al
 
 ## Configuration parameters
 
+### MBED_CLOUD_SDK_API_KEY
+The user's API key for accessing this instance of Pelion Device Management.
+
 ### MBED_CLOUD_SDK_HOST
-The fully qualified url of the host serving the mbed cloud api (scheme, hostname, port, base path).
+The fully qualified url of the host serving the Pelion Device Management api (scheme, hostname, port, base path).
 The schema and hostname are required. For example:
 
 - `https://api.us-east-1.mbedcloud.com`
 - `https://my-deployment.net/mbed-api/`
 
-### MBED_CLOUD_SDK_API_KEY
-The user's API key for accessing this instance of mbed cloud.
-
 ## Usage in Node.js (CommonJS modules)
 
-To use the SDK in Node.js:
+To use a specific repository in Node.js:
 
-1. `require` this module.
-2. Create a new instance of the API you want to use.
+1. Import the repository from `mbed-cloud-sdk`.
+2. Create a new instance of the repository.
 
-For example, to list all connected devices:
+For example, to list the first 10 devices:
 
 ```JavaScript
-var MbedCloudSDK = require("mbed-cloud-sdk");
+import { DeviceRepository } from "mbed-cloud-sdk";
 
-var connect = new MbedCloudSDK.ConnectApi({
-	apiKey: "<Mbed Cloud API Key>"
-});
+// create an instance of a device repository
+const deviceList = new DeviceRepository()
+	// List the first 10 devices in your Pelion DM account
+	.list({ maxResults: 10 });
 
-connect.listConnectedDevices()
-.then(devices => {
-	devices.data.forEach(device => {
-		console.log(device.id);
-	});
-});
+for await (const device of deviceList) {
+	console.log(`Hello device ${device.name}`);
+}
+```
+
+To use the top level SDK instance in Node.js:
+
+1. Import the SDK from `mbed-cloud-sdk`.
+2. Create a new instance of the SDK.
+
+For example, to list the first 10 devices:
+
+```JavaScript
+import { SDK } from "mbed-cloud-sdk";
+
+// create an instance of the Pelion Device Management SDK
+const deviceList = new SDK()
+	.foundation()
+	.deviceRepository()
+	// List the first 10 devices in your Pelion DM account
+	.list({ maxResults: 10 });
+
+for await (const device of deviceList) {
+	console.log(`Hello device ${device.name}`);
+}
 ```
 
 ## Usage in browser (RequireJS/AMD modules, Vanilla JS/SPAs)
@@ -73,30 +92,32 @@ The files in the bundles folder are standalone modules following the [UMD](https
 Include the JavaScript bundle you need on your page from the bundles folder. For example:
 
 ```html
-<script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
+<script src="<pelion-dm-sdk>/bundles/sdk.min.js"></script>
 ```
 
-If you are using VanillaJS, the bundles are then accessible through the global `MbedCloudSDK` namespace. For example, to list all connected devices:
+or
+
+
+```html
+<script src="<pelion-dm-sdk>/bundles/foundation/device.min.js"></script>
+```
+
+If you are using VanillaJS, the bundles are then accessible through the global `Mbed.Cloud` namespace. For example, to list all connected devices:
 
 ```javascript
-var connect = new MbedCloudSDK.ConnectApi({
-	apiKey: "<Mbed Cloud API Key>"
+var sdk = new Mbed.Cloud.SDK({
+	apiKey,
 });
 
-connect.listConnectedDevices(function(error, result) {
-	result.data.forEach(function(device) {
-		console.log(device.id);
-	});
-});
+sdk.foundation()
+    .deviceRepository()
+    // List the first 10 devices in your Pelion DM account
+    .list({ maxResults: 10 })
+    .all()
+    .then(deviceList => console.log(deviceList));
 ```
 
 Otherwise, you should be able to load the bundles by using an AMD framework such as [RequireJS](http://requirejs.org/).
-
-You can also use all bundles by including `index.min.js`:
-
-```html
-<script src="<mbed-cloud-sdk>/bundles/index.min.js"></script>
-```
 
 __Warning:__ It is not advisable to embed your API key into distributed code such as client-side web pages. For production scenarios, developers may want to consider using Node.js for all API calls or to proxy client-side code requests to inject the API key. You can find an example proxy server in the `examples` folder.
 

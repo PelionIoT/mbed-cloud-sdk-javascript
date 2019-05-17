@@ -13,7 +13,7 @@ var projectRoot = path.join(__dirname, "../../../../..");
 var coverageDir = path.join(projectRoot, "coverage");
 var coverageFile = path.join(coverageDir, "int_coverage.json");
 
-var collectCoverageFrom = ["src/**/*.js", "!src/_api/**"];
+var collectCoverageFrom = ["src/**/*.js", "!src/legacy/_api/**", "!src/schema/**", "!src/foundation/_schemas/**",];
 
 if (!fs.existsSync(coverageDir)) {
     fs.mkdirSync(coverageDir);
@@ -89,7 +89,7 @@ var unhookRequire = istanbulHook.hookRequire(file => {
 }, instrumentCode);
 
 // The server cannot be required so that it gets hooked by Istanbul
-var server = require("./server")
+var server = require("./server/server")
 
 // Add an exit callback to the server so that a coverage report gets generated.
 server.addExitCallback(function () {

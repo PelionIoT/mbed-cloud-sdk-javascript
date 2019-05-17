@@ -1,4 +1,4 @@
-# Mbed Cloud SDK for JavaScript
+# Pelion Device Management SDK for JavaScript
 
 [![Circle CI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript.svg?style=shield&circle-token=62ef40035b1b5442234a44ad7e74199ea582f3f4)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript/)
 [![codecov](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-javascript/branch/master/graph/badge.svg?token=9h7ZMJ0xwK)](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-javascript)

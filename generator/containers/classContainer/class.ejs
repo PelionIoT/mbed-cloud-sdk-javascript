@@ -1,0 +1,23 @@
+<%_ if (imports.length > 0) { _%>
+<%_ imports.forEach(function(i) { _%>
+<%- i %>
+<%_ }); _%>
+<%_ } _%>
+/**
+*<%= classContainer.description %>
+*/
+export <%= classContainer.isAbstract ? "abstract " : "" %><%= classContainer.isInterface ? "interface" : "class" %> <%= classContainer.name %><%= classContainer.extendsClass.length > 0 ? " extends " + classContainer.extendsClass.join() : "" %><%= classContainer.implementsClasses.length > 0 ? " implements " + classContainer.implementsClasses.join() : "" %> {
+
+<%# ---------- PROPERTIES ---------- _%>
+<%_ if (properties.length > 0) { _%>
+<%_ properties.forEach(function(property) { _%>
+<%- property %>
+<%_ }); _%>
+<%_ } _%>
+<%# ---------- METHODS ---------- _%>
+<%_ if (methods.length > 0) { _%>
+<%_ methods.forEach(function(method) { _%>
+<%- method %>
+<%_ }); _%>
+<%_ } _%>
+}
