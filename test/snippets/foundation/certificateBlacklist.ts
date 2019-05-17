@@ -5,7 +5,7 @@ describe("examples of certificate blacklist", () => {
 
     const myCertId = "016711e8061a5ad1ecb35f6800000000";
 
-    test("blacklist a trusted certificate", async () => {
+    test("certificate black listing", async () => {
         try {
             // an example: certificate_black_listing
             const sdk = new SDK();

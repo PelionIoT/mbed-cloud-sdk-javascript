@@ -1,52 +1,10 @@
+/* tslint:disable: no-console */
 import { Account, SubtenantUser, SubtenantTrustedCertificate, PasswordPolicy, AccountRepository, SubtenantUserRepository, SubtenantUserInvitation } from "../../../src";
 import { instanceOf } from "../../functions";
 
-describe("subTenants", () => {
-    it("should update user as subtenant", async () => {
-        const accountContext = new AccountRepository();
-        let myAccount: Account = null;
-        try {
-            const newAccount: Account = {
-                displayName: "new test account",
-                aliases: [
-                    "alex_test_account"
-                ],
-                endMarket: "IOT",
-                // Admin user details
-                adminFullName: "Alex Logan",
-                adminEmail: "alexadmin@admin.com",
-            };
+describe("examples of subtenant management", () => {
 
-            myAccount = await accountContext.create(newAccount);
-        } catch (e) {
-            // should throw 403, subtenant account limit reached
-            if (e.details && e.details.code === 403) {
-                myAccount = (await accountContext.list().all()).filter(a => a.displayName === "sdk test bob")[0];
-            }
-        } finally {
-            expect(instanceOf<Account>(myAccount, "ACCOUNT")).toBeTruthy();
-
-            // TODO re enable when login profiles issue is fixed
-            // // get first subtenant user
-            // const firstUser = await accountContext.users(myAccount.id).first();
-            // const userContext = new UserRepository();
-
-            // const phoneNumber = firstUser.phoneNumber;
-
-            // firstUser.phoneNumber = "117117";
-            // await userContext.update(firstUser, firstUser.id);
-
-            // expect(firstUser.phoneNumber).not.toEqual(phoneNumber);
-            // expect(firstUser.phoneNumber).toEqual("117117");
-
-            // firstUser.phoneNumber = phoneNumber;
-            // await userContext.update(firstUser, firstUser.id);
-
-            // expect(firstUser.phoneNumber).not.toEqual("117117");
-        }
-    });
-
-    test("subTenant", async () => {
+    test("creating and managing a subtenant account", async () => {
         const accountContext = new AccountRepository();
         let myAccount: Account = null;
         try {
@@ -99,32 +57,4 @@ describe("subTenants", () => {
         }
     });
 
-    it("should get account lists", async () => {
-        const accountContext = new AccountRepository();
-        const myAccount = await accountContext.me();
-
-        const user = await accountContext.users(myAccount.id).first();
-        if (user) {
-            expect(instanceOf<SubtenantUser>(user, "SUBTENANT_USER")).toBeTruthy();
-        }
-
-        const trustedCert = await accountContext.trustedCertificates(myAccount.id).first();
-        if (trustedCert) {
-            expect(instanceOf<SubtenantTrustedCertificate>(trustedCert, "SUBTENANT_TRUSTED_CERTIFICATE")).toBeTruthy();
-        }
-
-        const invitation = await accountContext.userInvitations(myAccount.id).first();
-        if (invitation) {
-            expect(instanceOf<SubtenantUserInvitation>(invitation, "SUBTENANT_USER_INVITATION")).toBeTruthy();
-        }
-    });
-
-    it("should check account password policies", async () => {
-        const accountContext = new AccountRepository();
-        (await accountContext.list().all()).forEach(a => {
-            if (a.passwordPolicy) {
-                expect(instanceOf<PasswordPolicy>(a, "PASSWORD_POLICY")).toBeTruthy();
-            }
-        });
-    });
 });
