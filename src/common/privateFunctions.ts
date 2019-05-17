@@ -77,7 +77,6 @@ function streamToFile(config: Config, url: string, resolve: (value: ReadStream) 
             return reject("No file found.");
         })
     } else {
-        const file = createReadStream(tempPath);
-        return resolve(file);
+        return reject("No url provided!");
     }
 }
