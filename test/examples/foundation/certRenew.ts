@@ -1,13 +1,14 @@
+/* tslint:disable: no-console */
 import { CertificateIssuerConfig, CertificateEnrollment, CertificateIssuerConfigRepository, DeviceRepository, CertificateEnrollmentRepository } from "../../../src";
 import { instanceOf } from "../../functions";
 
-describe("cert renew snippets", async () => {
+describe("examples of certificate renew", async () => {
 
-    it("should renew device certificate", async () => {
+    test("certificate renew", async () => {
         try {
             // an example: certificate renew
             const certificateIssuerConfigContext = new CertificateIssuerConfigRepository();
-            const myConfig = (await certificateIssuerConfigContext.list().all()).find(c => c.certificateReference === "LWM2M");
+            const myConfig = (await certificateIssuerConfigContext.list().all()).find(c => c.reference === "LWM2M");
             // cloak
             expect(instanceOf<CertificateIssuerConfig>(myConfig, "CERTIFICATE_ISSUER_CONFIG")).toBeTruthy();
             // uncloak
@@ -19,7 +20,7 @@ describe("cert renew snippets", async () => {
             // uncloak
 
             for (const device of connectedDevices) {
-                await deviceContext.renewCertificate(myConfig.certificateReference, device.id);
+                await deviceContext.renewCertificate(myConfig.reference, device.id);
             }
             // end of example
 
@@ -33,17 +34,6 @@ describe("cert renew snippets", async () => {
             throw e;
         }
 
-    });
-
-    it("should list enrollments", async () => {
-        try {
-            const certificateEnrollmentContext = new CertificateEnrollmentRepository();
-            const enrollment = await certificateEnrollmentContext.list().first();
-
-            expect(instanceOf<CertificateEnrollment>(enrollment, "CERTIFICATE_ENROLLMENT")).toBeTruthy();
-        } catch (e) {
-            throw e;
-        }
     });
 
 });

@@ -3,7 +3,7 @@ import { DeviceRepository, SDK } from "../../../src";
 
 describe("hello world examples", () => {
 
-    test("hello world with device repository", async () => {
+    test("hello world", async () => {
         // an example: hello_world
         // cloak
         /*
@@ -24,7 +24,7 @@ describe("hello world examples", () => {
         // end of example
     });
 
-    test("hello world with sdk", async () => {
+    test("hello world with sdk instance", async () => {
         // an example: hello_world_with_sdk_instance
         // cloak
         /*

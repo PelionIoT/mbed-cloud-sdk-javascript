@@ -1,9 +1,9 @@
 // tslint:disable:no-console
 import { User, SDK } from "../../../src";
 
-describe("examples of crud using foundation interface", () => {
+describe("examples of the foundation interface", () => {
 
-    test("crud a user", async () => {
+    test("create an entity", async () => {
         const sdk = new SDK();
         // an example: create_an_entity
         const newUser: User = {
@@ -29,7 +29,7 @@ describe("examples of crud using foundation interface", () => {
         // end of example
     });
 
-    test("paginator", async () => {
+    test("list entities", async () => {
         const sdk = new SDK();
 
         // an example: list_entities
@@ -51,7 +51,7 @@ describe("examples of crud using foundation interface", () => {
         // end of example
     });
 
-    test("paginator with a filter", async () => {
+    test("list entities with filters", async () => {
         const sdk = new SDK();
 
         // an example: list_entities_with_filters
@@ -78,7 +78,7 @@ describe("examples of crud using foundation interface", () => {
         // end of example
     });
 
-    test("paginator - first entity in list", async () => {
+    test("read first entity in list", async () => {
         const sdk = new SDK();
 
         // an example: read_first_entity_in_list
