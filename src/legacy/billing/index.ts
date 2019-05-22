@@ -16,4 +16,4 @@
  */
 
 import { BillingApi } from "./billingApi";
-export = BillingApi;
+export default BillingApi;

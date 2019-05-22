@@ -1,5 +1,5 @@
 import { ConnectionOptions } from "../legacy/common/interfaces";
-import dotenv = require("dotenv");
+import * as dotenv from "dotenv";
 import { SDKLogLevel } from "./logger";
 
 /**

@@ -21,7 +21,7 @@
  * Do not edit the class manually.
  */
 
-import superagent = require("superagent");
+import * as superagent from "superagent";
 import { ApiBase } from "../common/apiBase";
 import { SDKError } from "../common/sdkError";
 

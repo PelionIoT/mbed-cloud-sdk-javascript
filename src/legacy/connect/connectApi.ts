@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import superagent = require("superagent");
+import * as superagent from "superagent";
 import { EventEmitter } from "events";
 import { ListResponse } from "../common/listResponse";
 import { asyncStyle, apiWrapper, decodeBase64, encodeBase64 } from "../common/functions";

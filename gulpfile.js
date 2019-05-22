@@ -37,10 +37,15 @@ function bundle(srcFiles, destDir, optionsFn) {
         else
             console.log(`Creating ${destDir}/${fileName}`);
 
+        // use to transform exnext modules
+        // .transform(babelify.configure({
+        //     presets: ["@babel/preset-env"]
+        // }))
+
         file.contents = browserify(file.path, options)
             .ignore("buffer")
             .ignore("dotenv")
-        .bundle()
+            .bundle()
             .on("error", function (err) {
                 console.log(err);
             });

@@ -15,8 +15,7 @@
 * limitations under the License.
 */
 
-// this style of import is needed for third party packages that are being ignored by browserify
-import superagent = require("superagent");
+import * as superagent from "superagent";
 
 import { SDKError } from "../legacy/common/sdkError";
 import { Config } from "../common/config";
