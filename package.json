@@ -42,7 +42,7 @@
     "compile": "npm-run-all compile:node compile:node-es6 compile:browser",
     "compile:browser": "gulp",
     "compile:node": "tsc --declaration --declarationDir types",
-    "compile:node-es6": "tsc --p tsconfig.esnext.json",
+    "compile:node-es6": "tsc -p tsconfig.esnext.json",
     "compile:integration": "tsc -p integration.tsconfig.json",
     "compile:unit": "tsc --noEmit --target 'es5'",
     "docs": "npm-run-all clean:docs docs:build",
