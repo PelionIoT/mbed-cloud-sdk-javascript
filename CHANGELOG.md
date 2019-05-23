@@ -11,6 +11,14 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.2.0 (2019-05-23)
+==================
+
+### Features
+
+- Publish es6 modules to npm (#23052019)
+
+
 2.1.0 (2019-05-17)
 ==================
 
