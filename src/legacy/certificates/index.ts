@@ -16,4 +16,4 @@
 */
 
 import { CertificatesApi } from "./certificatesApi";
-export = CertificatesApi;
+export default CertificatesApi;

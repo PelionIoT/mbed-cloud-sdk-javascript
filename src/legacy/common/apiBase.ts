@@ -16,8 +16,8 @@
 */
 
 // this style of import is needed for third party packages that are being ignored by browserify
-import superagent = require("superagent");
-import dotenv = require("dotenv");
+import * as superagent from "superagent";
+import * as dotenv from "dotenv";
 
 import { SDKError } from "./sdkError";
 import { ConnectionOptions } from "./interfaces";

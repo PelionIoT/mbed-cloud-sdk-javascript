@@ -16,4 +16,4 @@
 */
 
 import { UpdateApi } from "./updateApi";
-export = UpdateApi;
+export default UpdateApi;

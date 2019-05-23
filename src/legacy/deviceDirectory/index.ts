@@ -16,4 +16,4 @@
 */
 
 import { DeviceDirectoryApi } from "./deviceDirectoryApi";
-export = DeviceDirectoryApi;
+export default DeviceDirectoryApi;
