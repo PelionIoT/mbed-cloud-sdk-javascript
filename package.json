@@ -112,11 +112,11 @@
     "tslint-eslint-rules": "^5.4.0",
     "typedoc": "^0.14.2",
     "typescript": "^3.4.5",
-    "typescript-logging": "^0.6.3",
     "winston": "^3.2.1"
   },
   "dependencies": {
     "dotenv": "^8.0.0",
-    "superagent": "^3.4.1"
+    "superagent": "^3.4.1",
+    "typescript-logging": "^0.6.3"
   }
 }
