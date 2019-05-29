@@ -130,7 +130,7 @@ export class ConnectedDevice extends Device {
         }
 
         return asyncStyle(done => {
-            this._connectApi.getResourceValue(this.id, resourcePath, mimeType, done);
+            this._connectApi.getResourceValue(this.id, resourcePath, 60000, mimeType, done);
         }, callback);
     }
 
@@ -161,7 +161,7 @@ export class ConnectedDevice extends Device {
         }
 
         return asyncStyle(done => {
-            this._connectApi.setResourceValue(this.id, resourcePath, value, mimeType, done);
+            this._connectApi.setResourceValue(this.id, resourcePath, value, 60000, mimeType, done);
         }, callback);
     }
 
@@ -202,7 +202,7 @@ export class ConnectedDevice extends Device {
         }
 
         return asyncStyle(done => {
-            this._connectApi.executeResource(this.id, resourcePath, mimeType, accepts, payload, done);
+            this._connectApi.executeResource(this.id, resourcePath, 60000, mimeType, accepts, payload, done);
         }, callback);
     }
 

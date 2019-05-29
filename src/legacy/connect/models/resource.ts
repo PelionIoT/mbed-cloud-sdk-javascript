@@ -142,7 +142,7 @@ export class Resource extends EventEmitter {
         }
 
         return asyncStyle(done => {
-            this._api.getResourceValue(this.deviceId, this.path, mimeType, done);
+            this._api.getResourceValue(this.deviceId, this.path, 60000, mimeType, done);
         }, callback);
     }
 
@@ -171,7 +171,7 @@ export class Resource extends EventEmitter {
         }
 
         return asyncStyle(done => {
-            this._api.setResourceValue(this.deviceId, this.path, value, mimeType, done);
+            this._api.setResourceValue(this.deviceId, this.path, value, 60000, mimeType, done);
         }, callback);
     }
 
@@ -210,7 +210,7 @@ export class Resource extends EventEmitter {
         }
 
         return asyncStyle(done => {
-            this._api.executeResource(this.deviceId, this.path, mimeType, accepts, payload, done);
+            this._api.executeResource(this.deviceId, this.path, 60000, mimeType, accepts, payload, done);
         }, callback);
     }
 
