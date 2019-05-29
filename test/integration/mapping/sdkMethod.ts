@@ -136,7 +136,7 @@ export class SdkApi {
                 }
                 onError({
                     message: message,
-                    traceback: ""
+                    traceback: e.message
                 });
 
             } else {
