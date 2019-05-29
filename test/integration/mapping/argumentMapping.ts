@@ -9,7 +9,8 @@ const specialMethodsMapping: any = {
             if (args.deviceId || args.resourcePath) {
                 args = [
                     args.deviceId,
-                    args.resourcePath
+                    args.resourcePath,
+                    args.timeout * 1000
                 ];
             }
             return args;
@@ -19,7 +20,8 @@ const specialMethodsMapping: any = {
                 args = [
                     args.deviceId,
                     args.resourcePath,
-                    args.resourceValue
+                    args.resourceValue,
+                    args.timeout * 1000
                 ];
             }
             return args;
@@ -28,7 +30,8 @@ const specialMethodsMapping: any = {
             if (args.deviceId || args.resourcePath) {
                 args = [
                     args.deviceId,
-                    args.resourcePath
+                    args.resourcePath,
+                    args.timeout * 1000
                 ];
             }
             return args;
