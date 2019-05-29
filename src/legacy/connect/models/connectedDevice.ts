@@ -110,27 +110,29 @@ export class ConnectedDevice extends Device {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getResourceValue(resourcePath: string, mimeType?: string): Promise<string | number | void>;
+    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: string): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The requested mime type format of the value
      * @param callback A function that is passed the arguments (error, value) where value is the resource value
      */
-    public getResourceValue(resourcePath: string, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
-    public getResourceValue(resourcePath: string, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
+    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
 
         return asyncStyle(done => {
-            this._connectApi.getResourceValue(this.id, resourcePath, 60000, mimeType, done);
+            this._connectApi.getResourceValue(this.id, resourcePath, timeout, mimeType, done);
         }, callback);
     }
 
@@ -140,28 +142,30 @@ export class ConnectedDevice extends Device {
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
      * @param value The value of the resource
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The mime type format of the value
      * @returns the AsyncResponse
      */
-    public setResourceValue(resourcePath: string, value: string, mimeType?: string): Promise<AsyncResponse>;
+    public setResourceValue(resourcePath: string, value: string, timeout?: number, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Sets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
      * @param value The value of the resource
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setResourceValue(resourcePath: string, value: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public setResourceValue(resourcePath: string, value: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public setResourceValue(resourcePath: string, value: string, timeout?: number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public setResourceValue(resourcePath: string, value: string, timeout?: number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
 
         return asyncStyle(done => {
-            this._connectApi.setResourceValue(this.id, resourcePath, value, 60000, mimeType, done);
+            this._connectApi.setResourceValue(this.id, resourcePath, value, timeout, mimeType, done);
         }, callback);
     }
 
@@ -171,23 +175,25 @@ export class ConnectedDevice extends Device {
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
      * @param payload The payload to be sent to the device.
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The content type of the payload
      * @param accepts The content type of an accepted response
      * @returns the AsyncResponse
      */
-    public executeResource(resourcePath: string, payload?: any, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
+    public executeResource(resourcePath: string, payload?: any, timeout?: number, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param resourcePath Resource path
      * @param payload The payload to be sent to the device.
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The content type of the payload
      * @param accepts The content type of an accepted response
      * @param callback A function that is passed any error
      */
-    public executeResource(resourcePath: string, payload?: any, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public executeResource(resourcePath: string, payload?: any, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public executeResource(resourcePath: string, payload?: any, timeout?: number, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public executeResource(resourcePath: string, payload?: any, timeout?: number, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof payload === "function") {
             callback = payload;
             payload = null;
@@ -202,7 +208,7 @@ export class ConnectedDevice extends Device {
         }
 
         return asyncStyle(done => {
-            this._connectApi.executeResource(this.id, resourcePath, 60000, mimeType, accepts, payload, done);
+            this._connectApi.executeResource(this.id, resourcePath, timeout, mimeType, accepts, payload, done);
         }, callback);
     }
 
