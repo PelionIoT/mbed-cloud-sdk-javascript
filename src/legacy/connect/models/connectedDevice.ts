@@ -126,6 +126,10 @@ export class ConnectedDevice extends Device {
      */
     public getResourceValue(resourcePath: string, timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
     public getResourceValue(resourcePath: string, timeout?: number, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -159,6 +163,10 @@ export class ConnectedDevice extends Device {
      */
     public setResourceValue(resourcePath: string, value: string, timeout?: number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
     public setResourceValue(resourcePath: string, value: string, timeout?: number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -197,6 +205,10 @@ export class ConnectedDevice extends Device {
         if (typeof payload === "function") {
             callback = payload;
             payload = null;
+        }
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
         }
         if (typeof accepts === "function") {
             callback = accepts;

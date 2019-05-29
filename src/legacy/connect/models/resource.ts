@@ -138,6 +138,10 @@ export class Resource extends EventEmitter {
      */
     public getValue(timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
     public getValue(timeout?: number, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -169,6 +173,10 @@ export class Resource extends EventEmitter {
      */
     public setValue(value: string, timeout?: number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
     public setValue(value: string, timeout?: number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -205,6 +213,10 @@ export class Resource extends EventEmitter {
         if (typeof payload === "function") {
             callback = payload;
             payload = null;
+        }
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
         }
         if (typeof accepts === "function") {
             callback = accepts;
