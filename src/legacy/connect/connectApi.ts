@@ -1119,10 +1119,11 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getResourceValue(deviceId: string, resourcePath: string, mimeType?: string): Promise<string | number | void>;
+    public getResourceValue(deviceId: string, resourcePath: string, timeout?: number, mimeType?: string): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
@@ -1141,10 +1142,15 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param mimeType The requested mime type format of the value
+     * @param timeout async request will timeout after given number of milliseconds
      * @param callback A function that is passed the arguments (error, value)
      */
-    public getResourceValue(deviceId: string, resourcePath: string, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
-    public getResourceValue(deviceId: string, resourcePath: string, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+    public getResourceValue(deviceId: string, resourcePath: string, timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
+    public getResourceValue(deviceId: string, resourcePath: string, timeout?: number, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -1159,6 +1165,15 @@ export class ConnectApi extends EventEmitter {
             }
 
             this._asyncFns[asyncId] = resultsFn;
+
+            if (callback) {
+                setTimeout(() => {
+                    if (this._asyncFns[asyncId]) {
+                        resultsFn(new SDKError(`Timeout getting async value. Timeout ${timeout}ms`), null);
+                        delete this._asyncFns[asyncId];
+                    }
+                }, timeout);
+            }
 
             const handleError = error => {
                 if (error) {
@@ -1184,7 +1199,7 @@ export class ConnectApi extends EventEmitter {
                     accept: mimeType,
                 }, handleError);
             }
-        }, null, callback);
+        }, null, callback, false, timeout);
     }
 
     /**
@@ -1209,10 +1224,11 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param value The value of the resource
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The mime type format of the value
      * @returns the AsyncResponse
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: string): Promise<AsyncResponse>;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, timeout?: number, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Sets the value of a resource
      *
@@ -1232,11 +1248,16 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param value The value of the resource
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, timeout?: number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, timeout?: number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -1252,6 +1273,15 @@ export class ConnectApi extends EventEmitter {
             }
 
             this._asyncFns[asyncId] = resultsFn;
+
+            if (callback) {
+                setTimeout(() => {
+                    if (this._asyncFns[asyncId]) {
+                        resultsFn(new SDKError(`Timeout getting async value. Timeout ${timeout}ms`), null);
+                        delete this._asyncFns[asyncId];
+                    }
+                }, timeout);
+            }
 
             const handleError = error => {
                 if (error) {
@@ -1279,7 +1309,7 @@ export class ConnectApi extends EventEmitter {
                     "payload-b64": payload,
                 }, handleError);
             }
-        }, null, callback);
+        }, null, callback, false, timeout);
     }
 
     /**
@@ -1304,11 +1334,12 @@ export class ConnectApi extends EventEmitter {
      * @param resourcePath Resource path
      * @param mimeType The mime type format of the value
      * @param payload The payload to be sent to the device.
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The content type of the payload
      * @param accepts The content type of an accepted response
      * @returns the AsyncResponse
      */
-    public executeResource(deviceId: string, resourcePath: string, payload?: any, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, timeout?: number, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
@@ -1328,15 +1359,20 @@ export class ConnectApi extends EventEmitter {
      * @param resourcePath Resource path
      * @param mimeType The mime type format of the value
      * @param payload The payload to be sent to the device.
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The content type of the payload
      * @param accepts The content type of an accepted response
      * @param callback A function that is passed any error
      */
-    public executeResource(deviceId: string, resourcePath: string, payload?: any, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public executeResource(deviceId: string, resourcePath: string, payload?: any, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, timeout?: number, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, timeout?: number, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
         if (typeof payload === "function") {
             callback = payload;
             payload = null;
+        }
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
         }
         if (typeof accepts === "function") {
             callback = accepts;
@@ -1356,6 +1392,15 @@ export class ConnectApi extends EventEmitter {
             }
 
             this._asyncFns[asyncId] = resultsFn;
+
+            if (callback) {
+                setTimeout(() => {
+                    if (this._asyncFns[asyncId]) {
+                        resultsFn(new SDKError(`Timeout getting async value. Timeout ${timeout}ms`), null);
+                        delete this._asyncFns[asyncId];
+                    }
+                }, timeout);
+            }
 
             const handleError = error => {
                 if (error) {
@@ -1385,7 +1430,7 @@ export class ConnectApi extends EventEmitter {
                     "payload-b64": encodeBase64(payload)
                 }, handleError);
             }
-        }, null, callback);
+        }, null, callback, false, timeout);
     }
 
     /**
