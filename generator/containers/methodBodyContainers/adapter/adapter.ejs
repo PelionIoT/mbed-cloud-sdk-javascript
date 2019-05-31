@@ -1,0 +1,26 @@
+if (!data) {
+return null;
+}
+<%# ---------- PROPERTIES ---------- _%>
+<%_ if (mapperMethods.length > 0) { _%>
+<%_ mapperMethods.forEach(function(method) { _%>
+<%- method %>
+<%_ }); _%>
+<%_ } _%>
+const mappedEntity = <%= enclosingClass %>.assignDefined(instance || {},
+{
+_discriminator: "<%= discriminator.toUpperCase() %>",
+<%# ---------- PROPERTIES ---------- _%>
+<%_ if (fields.length > 0) { _%>
+<%_ fields.forEach(function(field) { _%>
+<%- field %>
+<%_ }); _%>
+<%_ } _%>
+});
+<%# ---------- CUSTOM_FUNCTION_CALLS ---------- _%>
+<%_ if (customFunctionCalls.length > 0) { _%>
+<%_ customFunctionCalls.forEach(function(c) { _%>
+<%- c %>
+<%_ }); _%>
+<%_ } _%>
+return mappedEntity;

@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +15,8 @@
 * limitations under the License.
 */
 
-import { ApiBase } from "../../src/common/apiBase";
-import { SDKError } from "../../src/common/sdkError";
+import { ApiBase } from "../../src/legacy/common/apiBase";
+import { SDKError } from "../../src/legacy/common/sdkError";
 
 class Api extends ApiBase {
     public complete(error: any, response: any, acceptHeader: string, callback?: (sdkError: SDKError, data) => any) {

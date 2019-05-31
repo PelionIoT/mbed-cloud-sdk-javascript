@@ -1,5 +1,5 @@
 /*
- * Mbed Cloud JavaScript SDK
+ * Pelion Device Management JavaScript SDK
  * Copyright Arm Limited 2018
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,8 +16,8 @@
  */
 
 import { executeForAll, Paginator } from "../../src/common/pagination";
-import { ListResponse } from "../../src/common/listResponse";
-import { ListOptions } from "../../src/common/interfaces";
+import { ListResponse } from "../../src/legacy/common/listResponse";
+import { ListOptions } from "../../src/legacy/common/interfaces";
 
 interface Call<O> {
     resolve: (o: O) => Promise<void>;
@@ -222,13 +222,13 @@ describe("paginator", () => {
         // Moving to the next element (first)
         return paginator.next().then(element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(pageData[0]);
+            expect(element.value).toEqual(pageData[0]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
             // Moving to the next element
         }).then(() => paginator.next().then( element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(pageData[1]);
+            expect(element.value).toEqual(pageData[1]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
         })).then(() => paginator.all().then( all => {
@@ -259,13 +259,13 @@ describe("paginator", () => {
 
         return paginator.next().then( element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(firstPageData[0]);
+            expect(element.value).toEqual(firstPageData[0]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
             // Moving to the next element
         }).then(() => paginator.next().then( element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(firstPageData[1]);
+            expect(element.value).toEqual(firstPageData[1]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
         })).then(() => paginator.all().then( all => {
@@ -294,23 +294,23 @@ describe("paginator", () => {
             // The following returns the first page if after is not equal to the last element of the first page. Otherwise the second page is returned. The first page is filled with relevant values to stipulate that there are more pages available i.e. has_more and after are set.
             // The page also contains the total count if requested by the user.
             const pagePromise = (listOptions.after === "" + firstPageData[firstPageData.length - 1] ? Promise.resolve(new ListResponse(response, secondPageData)) : Promise.resolve(new ListResponse({ ...response, has_more: true, after: "" + firstPageData[firstPageData.length - 1] }, firstPageData)));
-            return pagePromise.then( pageResponse => listOptions.include && listOptions.include.indexOf("totalCount") > -1 ? new ListResponse({ ...pageResponse, totalCount: totalElementCount }, pageResponse.data) : pageResponse);
+            return pagePromise.then( pageResponse => listOptions.include && listOptions.include instanceof Array && listOptions.include.indexOf("totalCount") > -1 ? new ListResponse({ ...pageResponse, totalCount: totalElementCount }, pageResponse.data) : pageResponse);
         }
         const options: ListOptions = {};
         const maxResult = firstPageData.length - 3;
-        options.maxSize = maxResult;
+        options.maxResults = maxResult;
         const paginator = new Paginator(getPage, options);
         expect(paginator.hasNext()).toBeTruthy();
         // Moving to the next element (first)
         return paginator.next().then( element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(firstPageData[0]);
+            expect(element.value).toEqual(firstPageData[0]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
             // Moving to the next element
         }).then(() => paginator.next().then( element => {
             expect(element).not.toBeNull();
-            expect(element).toEqual(firstPageData[1]);
+            expect(element.value).toEqual(firstPageData[1]);
             expect(paginator.hasNext()).toBeTruthy();
             return Promise.resolve();
         })).then(() => paginator.all().then( all => {
@@ -345,7 +345,7 @@ describe("paginator", () => {
         }
         const options: ListOptions = {};
         const maxResult = firstPageData.length + 1;
-        options.maxSize = maxResult;
+        options.maxResults = maxResult;
         const expectedResult = firstPageData.concat(secondPageData.slice(0, maxResult - firstPageData.length));
         const paginator = new Paginator(getPage, options);
         return paginator.executeForAll(execute).then(() => expect(resultsExecution).toEqual(expectedResult));

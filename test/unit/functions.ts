@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { matchWithWildcard, decodeBase64, dateToBillingMonth } from "../../src/common/functions";
+import { matchWithWildcard, decodeBase64, dateToBillingMonth } from "../../src/legacy/common/functions";
 
 describe("testFunctions", () => {
 

@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +15,9 @@
 * limitations under the License.
 */
 
-import { Subscribe } from "../../src/subscribe/subscribe";
-import { DeviceEvent } from "../../src/connect/types";
-import { Resource } from "../../src/connect/models/resource";
+import { Subscribe } from "../../src/primary/subscribe/subscribe";
+import { DeviceEvent } from "../../src/legacy/connect/types";
+import { Resource } from "../../src/legacy/connect/models/resource";
 
 describe("subscribe", () => {
 

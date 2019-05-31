@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,7 +60,7 @@
 
 	// Default configuration
 	var config = {
-		apiKey: "<Mbed Cloud API Key>",
+		apiKey: "<Pelion DM API Key>",
 		host: "https://api.us-east-1.mbedcloud.com"
 	};
 

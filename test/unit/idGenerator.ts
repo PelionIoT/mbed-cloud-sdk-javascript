@@ -1,5 +1,5 @@
 /*
- * Mbed Cloud JavaScript SDK
+ * Pelion Device Management JavaScript SDK
  * Copyright Arm Limited 2018
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { generateId } from "../../src/common/idGenerator";
+import { generateId } from "../../src/legacy/common/idGenerator";
 
 describe("idGenerator", () => {
     test("generates three unique IDs", () => {

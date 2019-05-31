@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,8 @@
 * limitations under the License.
 */
 
-export { AccountManagementApi } from "./accountManagement/accountManagementApi";
-export { BillingApi } from "./billing/billingApi";
-export { BootstrapApi } from "./bootstrap/bootstrapApi";
-export { CertificatesApi } from "./certificates/certificatesApi";
-export { ConnectApi } from "./connect/connectApi";
-export { DeviceDirectoryApi } from "./deviceDirectory/deviceDirectoryApi";
-export { EnrollmentApi } from "./enrollment/enrollmentApi";
-export { UpdateApi } from "./update/updateApi";
+export * from "./legacy";
+export * from "./foundation";
+export { SDK } from "./sdk";
+export { Client } from "./client/client";
+export { Config } from "./common/config";

@@ -1,0 +1,4 @@
+/**
+*<%- property.description %>
+*/
+<%= property.isInterface ? "" : property.modifier %><%= property.isReadonly ? " readonly " : " " %><%= property.name %><%= property.isOptional ? "?" : "" %>: <%- property.type %>;

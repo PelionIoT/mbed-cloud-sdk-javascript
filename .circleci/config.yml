@@ -13,6 +13,12 @@ references:
         ignore:
         - master
         - beta
+        - /dependabot.*/
+  contract_repo_branch: &contract_repo_branch
+    filters:
+      branches:
+        only:
+        - /api-contract.*/
 
 jobs:
   build:
@@ -47,7 +53,7 @@ jobs:
       - run:
           name: Set version
           # set the version (dev)
-          command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news
+          command: pipenv run auto_version --config=scripts/auto_version.toml --news
       - run:
           name: Build the SDK
           command: npm run build
@@ -58,6 +64,7 @@ jobs:
           paths:
             - bundles
             - lib
+            - lib-es6
             - types
             - package.json
   tpip:
@@ -79,6 +86,47 @@ jobs:
           command: npm run tpip
       - store_artifacts:
           path: tpip.csv
+  docs:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: v0-package-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install SDK dependencies
+          command: npm install
+      - run:
+          name: Generate documentation
+          command: npm run docs
+      - store_artifacts:
+          path: docs/docs
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - docs/docs
+  upload_docs:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Installing aws cli
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install awscli
+      - run:
+          command: |
+                  . venv/bin/activate
+                  aws s3 sync --delete --cache-control max-age=3600 ~/build/docs/docs s3://mbed-cloud-sdk-javascript/${CIRCLE_BRANCH}/docs
+          name: upload docs to s3
   news:
     working_directory: ~/build
     docker:
@@ -96,7 +144,7 @@ jobs:
       - run:
           name: Set version
           # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news --release
+          command: pipenv run auto_version --config=scripts/auto_version.toml --news --release
       - run:
           name: Generate changelog
           command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml --release)
@@ -188,14 +236,18 @@ jobs:
           name: Install extra dependencies (node)
           command: sudo npm install -g codecov ansi-html-stream --unsafe-perm
       - run:
+          name: Run browser tests
+          command: npm run test:browser
+      - run:
           name: Run the tests
-          command: set -o pipefail && npm test 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
+          command: set -o pipefail && npm run test:node 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
       - store_artifacts:
           path: unit_tests.html
       - persist_to_workspace:
           root: ./
           paths:
             - unit_tests.html
+            - coverage
   beta_release:
     working_directory: ~/build
     environment:
@@ -217,7 +269,7 @@ jobs:
       - run:
           name: Set version
           # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version_beta.toml --news
+          command: pipenv run auto_version --config=scripts/auto_version_beta.toml
       - run:
           name: Generate changelog
           command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version_beta.toml)
@@ -248,7 +300,7 @@ jobs:
       - run:
           name: Set version
           # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version.toml --news --release
+          command: pipenv run auto_version --config=scripts/auto_version.toml --release
       - run:
           name: Generate changelog
           command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml --release)
@@ -278,7 +330,7 @@ jobs:
       - run:
           name: sync to build branch
           command: |
-              git add --force lib bundles types package.json
+              git add --force lib lib-es6 bundles types package.json
               git stash save
               git checkout build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
@@ -295,21 +347,56 @@ jobs:
       - run:
           name: sync to build branch if exists or create new one
           command: |
-              git add --force lib bundles types package.json
+              git add --force bundles lib lib-es6 types package.json
               git stash save
               git checkout -B build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
               git checkout stash -- .
               git commit --allow-empty --message "Sync Build [skip ci]"
               git push -f -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git build/${CIRCLE_BRANCH}
+  commit_back_generation:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Run generator self tests
+          command: npm run test:generator
+      - run:
+          name: Run generator
+          command: npm run generate
+      - run:
+          name: Build
+          command: npm run build
+      - run:
+          name: Test
+          command: npm test
+      - run:
+          name: commit changes
+          command: |
+              git add src/foundation
+              git commit --message "New Foundation Interface changes" || true
+              git push -f -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
 
 workflows:
   version: 2
+  generation_workflow:
+    jobs:
+      - commit_back_generation:
+          <<: *contract_repo_branch
   javascript_workflow:
     jobs:
       - build
       - tpip
       - news
+      - docs
+      - upload_docs:
+          <<: *main_branches_only
+          requires:
+            - docs
       - build_documentation:
           requires:
             - build
@@ -327,12 +414,12 @@ workflows:
           <<: *ignore_main_branches
           requires:
             - create_build_branch_gate
-      - integration_test:
-          requires:
-            - build
       - unit_test:
           requires:
             - build
+      - integration_test:
+          requires:
+            - unit_test
       - build_sync:
           <<: *main_branches_only
           requires:
