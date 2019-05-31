@@ -4,9 +4,8 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  */
 export interface CertificateIssuerConfigCreateRequest {
     /**
-*The ID of the certificate issuer.
+*Certificate issuer ID.
 Null if Device Management internal HSM is used.
-
 *@example 01648415a2a30242ac18000500000000
 */
     readonly certificateIssuerId?: string;
@@ -22,37 +21,36 @@ Null if Device Management internal HSM is used.
  */
 export interface CertificateIssuerConfigUpdateRequest {
     /**
-*The ID of the certificate issuer.
+*Certificate issuer ID.
 Null if Device Management internal HSM is used.
-
 *@example 01648415a2a30242ac18000500000000
 */
     readonly certificateIssuerId?: string;
 }
 /**
- *CertificateIssuerConfigReferenceFilter
+ *CertificateIssuerConfigCertificateIssuerConfigReferenceFilter
  */
-export interface CertificateIssuerConfigReferenceFilter {
+export interface CertificateIssuerConfigCertificateIssuerConfigReferenceFilter {
     /**
      *reference equal to
      */
     eq?: string;
 }
 /**
- *CertificateIssuerConfigFilter
+ *CertificateIssuerConfigCertificateIssuerConfigFilter
  */
-export interface CertificateIssuerConfigFilter {
+export interface CertificateIssuerConfigCertificateIssuerConfigFilter {
     /**
      *Filter by reference on CertificateIssuerConfig
      */
-    reference?: string | CertificateIssuerConfigReferenceFilter;
+    reference?: string | CertificateIssuerConfigCertificateIssuerConfigReferenceFilter;
 }
 /**
- *CertificateIssuerConfigListOptions
+ *CertificateIssuerConfigCertificateIssuerConfigListOptions
  */
-export interface CertificateIssuerConfigListOptions extends ListOptions {
+export interface CertificateIssuerConfigCertificateIssuerConfigListOptions extends ListOptions {
     /**
      *Filter for CertificateIssuerConfig
      */
-    filter?: CertificateIssuerConfigFilter;
+    filter?: CertificateIssuerConfigCertificateIssuerConfigFilter;
 }

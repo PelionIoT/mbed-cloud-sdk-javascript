@@ -1,28 +1,29 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { Device } from "./device";
+import { DeviceGroup } from "./deviceGroup";
+import { DeviceGroupAdapter } from "../../index";
+import { DeviceGroupAddDeviceRequest } from "./types";
+import { DeviceGroupCreateRequest } from "./types";
+import { Device } from "../../index";
 import { DeviceAdapter } from "../../index";
-import { DeviceAddToGroupRequest } from "./types";
-import { DeviceCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
-import { DeviceDeviceListOptions } from "./types";
-import { DeviceRemoveFromGroupRequest } from "./types";
-import { CertificateEnrollment } from "../../index";
-import { CertificateEnrollmentAdapter } from "../../index";
-import { DeviceUpdateRequest } from "./types";
+import { DeviceGroupDeviceListOptions } from "./types";
+import { DeviceGroupDeviceGroupListOptions } from "./types";
+import { DeviceGroupRemoveDeviceRequest } from "./types";
+import { DeviceGroupUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
- *Device repository
+ *DeviceGroup repository
  */
-export class DeviceRepository extends Repository {
+export class DeviceGroupRepository extends Repository {
     /**
-     * addToGroup
+     * addDevice
      * @param request - The entity to perform action on.
-     * @param deviceGroupId - The ID of the group.
+     * @param id - The ID of the group.
      */
-    public addToGroup(request: DeviceAddToGroupRequest, deviceGroupId: string): Promise<Device> {
+    public addDevice(request: DeviceGroupAddDeviceRequest, id: string): Promise<DeviceGroup> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -30,7 +31,7 @@ export class DeviceRepository extends Repository {
                         url: "/v3/device-groups/{device-group-id}/devices/add/",
                         method: "POST",
                         pathParams: {
-                            "device-group-id": deviceGroupId,
+                            "device-group-id": id,
                         },
                         body: {
                             device_id: request.deviceId,
@@ -40,7 +41,7 @@ export class DeviceRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, DeviceAdapter.fromApi(data, request));
+                done(null, DeviceGroupAdapter.fromApi(data, request));
             }
         );
     }
@@ -48,58 +49,40 @@ export class DeviceRepository extends Repository {
      * create
      * @param request - The entity to perform action on.
      */
-    public create(request: DeviceCreateRequest): Promise<Device> {
+    public create(request: DeviceGroupCreateRequest): Promise<DeviceGroup> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/devices/",
+                        url: "/v3/device-groups/",
                         method: "POST",
                         body: {
-                            auto_update: request.autoUpdate,
-                            bootstrap_expiration_date: request.bootstrapExpirationDate,
-                            ca_id: request.caId,
-                            connector_expiration_date: request.connectorExpirationDate,
                             custom_attributes: request.customAttributes,
-                            deployment: request.deployment,
                             description: request.description,
-                            device_class: request.deviceClass,
-                            device_execution_mode: request.deviceExecutionMode,
-                            device_key: request.deviceKey,
-                            endpoint_name: request.endpointName,
-                            endpoint_type: request.endpointType,
-                            host_gateway: request.hostGateway,
-                            issuer_fingerprint: request.issuerFingerprint,
-                            manifest: request.manifest,
-                            mechanism: request.mechanism,
-                            mechanism_url: request.mechanismUrl,
                             name: request.name,
-                            serial_number: request.serialNumber,
-                            state: request.state,
-                            vendor_id: request.vendorId,
                         },
                     },
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, DeviceAdapter.fromApi(data, request));
+                done(null, DeviceGroupAdapter.fromApi(data, request));
             }
         );
     }
     /**
      * delete
-     * @param id - id
+     * @param id - The ID of the group.
      */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/devices/{id}/",
+                        url: "/v3/device-groups/{device-group-id}/",
                         method: "DELETE",
                         pathParams: {
-                            id: id,
+                            "device-group-id": id,
                         },
                     },
                     resultsFn
@@ -111,17 +94,18 @@ export class DeviceRepository extends Repository {
         );
     }
     /**
-     * list
+     * devices
+     * @param id - id
      * @param options - Options to use for the List
      */
-    public list(options?: DeviceDeviceListOptions): Paginator<Device, ListOptions> {
-        const pageFunc = (pageOptions: DeviceDeviceListOptions): Promise<ListResponse<Device>> => {
+    public devices(id: string, options?: DeviceGroupDeviceListOptions): Paginator<Device, ListOptions> {
+        const pageFunc = (pageOptions: DeviceGroupDeviceListOptions): Promise<ListResponse<Device>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
                     this.client._CallApi(
                         {
-                            url: "/v3/devices/",
+                            url: "/v3/device-groups/{device-group-id}/devices/",
                             method: "GET",
                             query: {
                                 lifecycle_status__eq: extractFilter(pageOptions.filter, "lifecycleStatus", "eq"),
@@ -407,6 +391,9 @@ export class DeviceRepository extends Repository {
                                 limit: pageOptions.limit,
                                 order: pageOptions.order,
                             },
+                            pathParams: {
+                                "device-group-id": id,
+                            },
                         },
                         resultsFn
                     );
@@ -421,34 +408,90 @@ export class DeviceRepository extends Repository {
         return new Paginator(pageFunc, options);
     }
     /**
-     * read
-     * @param id - The ID of the device. The device ID is used across all Device Management APIs.
+     * list
+     * @param options - Options to use for the List
      */
-    public read(id: string): Promise<Device> {
+    public list(options?: DeviceGroupDeviceGroupListOptions): Paginator<DeviceGroup, ListOptions> {
+        const pageFunc = (pageOptions: DeviceGroupDeviceGroupListOptions): Promise<ListResponse<DeviceGroup>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/device-groups/",
+                            method: "GET",
+                            query: {
+                                id__eq: extractFilter(pageOptions.filter, "id", "eq"),
+                                id__neq: extractFilter(pageOptions.filter, "id", "neq"),
+                                id__in: extractFilter(pageOptions.filter, "id", "in"),
+                                id__nin: extractFilter(pageOptions.filter, "id", "nin"),
+                                devices_count__eq: extractFilter(pageOptions.filter, "devicesCount", "eq"),
+                                devices_count__neq: extractFilter(pageOptions.filter, "devicesCount", "neq"),
+                                devices_count__in: extractFilter(pageOptions.filter, "devicesCount", "in"),
+                                devices_count__nin: extractFilter(pageOptions.filter, "devicesCount", "nin"),
+                                devices_count__lte: extractFilter(pageOptions.filter, "devicesCount", "lte"),
+                                devices_count__gte: extractFilter(pageOptions.filter, "devicesCount", "gte"),
+                                name__eq: extractFilter(pageOptions.filter, "name", "eq"),
+                                name__neq: extractFilter(pageOptions.filter, "name", "neq"),
+                                name__in: extractFilter(pageOptions.filter, "name", "in"),
+                                name__nin: extractFilter(pageOptions.filter, "name", "nin"),
+                                custom_attributes__eq: extractFilter(pageOptions.filter, "customAttributes", "eq"),
+                                custom_attributes__neq: extractFilter(pageOptions.filter, "customAttributes", "neq"),
+                                created_at__in: extractFilter(pageOptions.filter, "createdAt", "in"),
+                                created_at__nin: extractFilter(pageOptions.filter, "createdAt", "nin"),
+                                created_at__lte: extractFilter(pageOptions.filter, "createdAt", "lte"),
+                                created_at__gte: extractFilter(pageOptions.filter, "createdAt", "gte"),
+                                updated_at__in: extractFilter(pageOptions.filter, "updatedAt", "in"),
+                                updated_at__nin: extractFilter(pageOptions.filter, "updatedAt", "nin"),
+                                updated_at__lte: extractFilter(pageOptions.filter, "updatedAt", "lte"),
+                                updated_at__gte: extractFilter(pageOptions.filter, "updatedAt", "gte"),
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<DeviceGroup>, done) => {
+                    done(null, new ListResponse(data, data.data, DeviceGroupAdapter.fromApi));
+                },
+                null,
+                true
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+     * read
+     * @param id - The group ID.
+     */
+    public read(id: string): Promise<DeviceGroup> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/devices/{id}/",
+                        url: "/v3/device-groups/{device-group-id}/",
                         method: "GET",
                         pathParams: {
-                            id: id,
+                            "device-group-id": id,
                         },
                     },
                     resultsFn
                 );
             },
             (data, done) => {
-                done(null, DeviceAdapter.fromApi(data));
+                done(null, DeviceGroupAdapter.fromApi(data));
             }
         );
     }
     /**
-     * removeFromGroup
+     * removeDevice
      * @param request - The entity to perform action on.
-     * @param deviceGroupId - The ID of the group.
+     * @param id - The ID of the group.
      */
-    public removeFromGroup(request: DeviceRemoveFromGroupRequest, deviceGroupId: string): Promise<Device> {
+    public removeDevice(request: DeviceGroupRemoveDeviceRequest, id: string): Promise<DeviceGroup> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -456,7 +499,7 @@ export class DeviceRepository extends Repository {
                         url: "/v3/device-groups/{device-group-id}/devices/remove/",
                         method: "POST",
                         pathParams: {
-                            "device-group-id": deviceGroupId,
+                            "device-group-id": id,
                         },
                         body: {
                             device_id: request.deviceId,
@@ -466,59 +509,28 @@ export class DeviceRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, DeviceAdapter.fromApi(data, request));
-            }
-        );
-    }
-    /**
-     * renewCertificate
-     * @param certificateName - The certificate name.
-     * @param id - The certificate enrollment ID.
-     */
-    public renewCertificate(certificateName: string, id: string): Promise<CertificateEnrollment> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/devices/{device-id}/certificates/{certificate-name}/renew",
-                        method: "POST",
-                        pathParams: {
-                            "certificate-name": certificateName,
-                            "device-id": id,
-                        },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, CertificateEnrollmentAdapter.fromApi(data));
+                done(null, DeviceGroupAdapter.fromApi(data, request));
             }
         );
     }
     /**
      * update
      * @param request - The entity to perform action on.
-     * @param id - The ID of the device. The device ID is used across all Device Management APIs.
+     * @param id - The group ID.
      */
-    public update(request: DeviceUpdateRequest, id: string): Promise<Device> {
+    public update(request: DeviceGroupUpdateRequest, id: string): Promise<DeviceGroup> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/devices/{id}/",
+                        url: "/v3/device-groups/{device-group-id}/",
                         method: "PUT",
                         pathParams: {
-                            id: id,
+                            "device-group-id": id,
                         },
                         body: {
-                            auto_update: request.autoUpdate,
-                            ca_id: request.caId,
                             custom_attributes: request.customAttributes,
                             description: request.description,
-                            device_key: request.deviceKey,
-                            endpoint_name: request.endpointName,
-                            endpoint_type: request.endpointType,
-                            host_gateway: request.hostGateway,
                             name: request.name,
                         },
                     },
@@ -526,7 +538,7 @@ export class DeviceRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, DeviceAdapter.fromApi(data, request));
+                done(null, DeviceGroupAdapter.fromApi(data, request));
             }
         );
     }

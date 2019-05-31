@@ -1,4 +1,5 @@
 import { Entity } from "../../../common/entity";
+import { UpdateCampaignStrategy } from "./types";
 /**
  *UpdateCampaign
  */
@@ -8,6 +9,12 @@ export interface UpdateCampaign extends Entity {
      *@example Insufficient billing credit.
      */
     readonly autostopReason?: string;
+
+    /**
+     *How the campaign adds devices. A `one-shot` campaign does not add new devices after it has started. A `continuous` campaign means that devices may be added to the campaign after it has started. The default is `one-shot`.
+     *@example one-shot
+     */
+    campaignStrategy?: UpdateCampaignStrategy;
 
     /**
      *The time the update campaign was created

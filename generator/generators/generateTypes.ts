@@ -75,7 +75,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
         const extraQueryParams = method.fields.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
         if (extraQueryParams.length > 0 || !isEmptyFilter(filters)) {
             const listOptions = new ClassContainer(
-                `${returns}ListOptions`,
+                snakeToCamel(`${pascalKey}_${returns}_list_options`),
                 {
                     isInterface: true,
                     extendsClass: [
@@ -97,7 +97,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
             });
             if (!isEmptyFilter(filters)) {
                 // creat top level filter interface
-                const filterType = `${returns}Filter`;
+                const filterType = snakeToCamel(`${pascalKey}_${returns}_filter`);
                 const filterObj = new ClassContainer(
                     filterType,
                     {
@@ -110,7 +110,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                     let filterObjType = field ? getPropertyType(field, enums) : "string";
                     let hasEqualsFilter = false;
                     let equalsFilterType = "string";
-                    const filterComparisonType = snakeToCamel(`${returns}_${filterName}_filter`);
+                    const filterComparisonType = snakeToCamel(`${pascalKey}_${returns}_${filterName}_filter`);
                     const filterComparisonObject = new ClassContainer(
                         filterComparisonType,
                         {

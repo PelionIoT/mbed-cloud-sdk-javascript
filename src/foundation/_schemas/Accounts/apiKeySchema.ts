@@ -119,7 +119,7 @@ export const apiKeySchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "ApiKeyFilter",
+                                type: "ApiKeyApiKeyFilter",
                             },
                         ],
                     },

@@ -1,23 +1,18 @@
 import { Schema } from "../../../schema/schema";
 
-export const updateCampaignSchema = (): Schema => {
+export const deviceGroupSchema = (): Schema => {
     return Object.assign(new Schema(), {
-        name: "UpdateCampaign",
+        name: "DeviceGroup",
         fields: [
-            {
-                name: "autostopReason",
-                apiName: "autostop_reason",
-                type: "string",
-            },
-            {
-                name: "campaignStrategy",
-                apiName: "campaign_strategy",
-                type: "UpdateCampaignStrategy",
-            },
             {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
+            },
+            {
+                name: "customAttributes",
+                apiName: "custom_attributes",
+                type: "{ [key: string]: string }",
             },
             {
                 name: "description",
@@ -25,19 +20,9 @@ export const updateCampaignSchema = (): Schema => {
                 type: "string",
             },
             {
-                name: "deviceFilter",
-                apiName: "device_filter",
-                type: "string",
-            },
-            {
-                name: "deviceFilterHelper",
-                apiName: "device_filter_helper",
-                type: "{ [key: string]: string }",
-            },
-            {
-                name: "finished",
-                apiName: "finished",
-                type: "Date",
+                name: "devicesCount",
+                apiName: "devices_count",
+                type: "number",
             },
             {
                 name: "name",
@@ -45,52 +30,16 @@ export const updateCampaignSchema = (): Schema => {
                 type: "string",
             },
             {
-                name: "phase",
-                apiName: "phase",
-                type: "string",
-            },
-            {
-                name: "rootManifestId",
-                apiName: "root_manifest_id",
-                type: "string",
-            },
-            {
-                name: "rootManifestUrl",
-                apiName: "root_manifest_url",
-                type: "string",
-            },
-            {
-                name: "startedAt",
-                apiName: "started_at",
-                type: "Date",
-            },
-            {
                 name: "updatedAt",
                 apiName: "updated_at",
-                type: "Date",
-            },
-            {
-                name: "when",
-                apiName: "when",
                 type: "Date",
             },
         ],
 
         methods: [
             {
-                name: "archive",
-                returnType: "Promise<UpdateCampaign>",
-                parameters: [
-                    {
-                        name: "updateCampaignId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
-                name: "create",
-                returnType: "Promise<UpdateCampaign>",
+                name: "addDevice",
+                returnType: "Promise<DeviceGroup>",
                 parameters: [
                     {
                         name: "request",
@@ -98,28 +47,38 @@ export const updateCampaignSchema = (): Schema => {
                         type: "Object",
                         subParams: [
                             {
-                                name: "campaignStrategy",
-                                type: "UpdateCampaignStrategy",
+                                name: "deviceId",
+                                type: "string",
+                            },
+                        ],
+                    },
+                    {
+                        name: "deviceGroupId",
+                        position: 1,
+                        type: "string",
+                    },
+                ],
+            },
+            {
+                name: "create",
+                returnType: "Promise<DeviceGroup>",
+                parameters: [
+                    {
+                        name: "request",
+                        position: 0,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "customAttributes",
+                                type: "{ [key: string]: string }",
                             },
                             {
                                 name: "description",
                                 type: "string",
                             },
                             {
-                                name: "deviceFilter",
-                                type: "string",
-                            },
-                            {
                                 name: "name",
                                 type: "string",
-                            },
-                            {
-                                name: "rootManifestId",
-                                type: "string",
-                            },
-                            {
-                                name: "when",
-                                type: "Date",
                             },
                         ],
                     },
@@ -130,18 +89,18 @@ export const updateCampaignSchema = (): Schema => {
                 returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "updateCampaignId",
+                        name: "deviceGroupId",
                         position: 0,
                         type: "string",
                     },
                 ],
             },
             {
-                name: "deviceMetadata",
-                returnType: "Paginator<CampaignDeviceMetadata, ListOptions>",
+                name: "devices",
+                returnType: "Paginator<Device, ListOptions>",
                 parameters: [
                     {
-                        name: "updateCampaignId",
+                        name: "deviceGroupId",
                         position: 0,
                         type: "string",
                     },
@@ -170,13 +129,17 @@ export const updateCampaignSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                            {
+                                name: "filter",
+                                type: "DeviceGroupDeviceGroupFilter",
+                            },
                         ],
                     },
                 ],
             },
             {
                 name: "list",
-                returnType: "Paginator<UpdateCampaign, ListOptions>",
+                returnType: "Paginator<DeviceGroup, ListOptions>",
                 parameters: [
                     {
                         name: "options",
@@ -205,7 +168,7 @@ export const updateCampaignSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "UpdateCampaignUpdateCampaignFilter",
+                                type: "DeviceGroupDeviceGroupFilter",
                             },
                         ],
                     },
@@ -213,40 +176,18 @@ export const updateCampaignSchema = (): Schema => {
             },
             {
                 name: "read",
-                returnType: "Promise<UpdateCampaign>",
+                returnType: "Promise<DeviceGroup>",
                 parameters: [
                     {
-                        name: "updateCampaignId",
+                        name: "deviceGroupId",
                         position: 0,
                         type: "string",
                     },
                 ],
             },
             {
-                name: "start",
-                returnType: "Promise<UpdateCampaign>",
-                parameters: [
-                    {
-                        name: "updateCampaignId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
-                name: "stop",
-                returnType: "Promise<UpdateCampaign>",
-                parameters: [
-                    {
-                        name: "updateCampaignId",
-                        position: 0,
-                        type: "string",
-                    },
-                ],
-            },
-            {
-                name: "update",
-                returnType: "Promise<UpdateCampaign>",
+                name: "removeDevice",
+                returnType: "Promise<DeviceGroup>",
                 parameters: [
                     {
                         name: "request",
@@ -254,29 +195,43 @@ export const updateCampaignSchema = (): Schema => {
                         type: "Object",
                         subParams: [
                             {
-                                name: "description",
+                                name: "deviceId",
                                 type: "string",
                             },
+                        ],
+                    },
+                    {
+                        name: "deviceGroupId",
+                        position: 1,
+                        type: "string",
+                    },
+                ],
+            },
+            {
+                name: "update",
+                returnType: "Promise<DeviceGroup>",
+                parameters: [
+                    {
+                        name: "request",
+                        position: 0,
+                        type: "Object",
+                        subParams: [
                             {
-                                name: "deviceFilter",
+                                name: "customAttributes",
+                                type: "{ [key: string]: string }",
+                            },
+                            {
+                                name: "description",
                                 type: "string",
                             },
                             {
                                 name: "name",
                                 type: "string",
                             },
-                            {
-                                name: "rootManifestId",
-                                type: "string",
-                            },
-                            {
-                                name: "when",
-                                type: "Date",
-                            },
                         ],
                     },
                     {
-                        name: "updateCampaignId",
+                        name: "deviceGroupId",
                         position: 1,
                         type: "string",
                     },

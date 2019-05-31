@@ -17,6 +17,7 @@ export class UpdateCampaignAdapter extends Adapter {
         const mappedEntity = UpdateCampaignAdapter.assignDefined(instance || {}, {
             _discriminator: "UPDATE_CAMPAIGN",
             autostopReason: data.autostop_reason,
+            campaignStrategy: data.campaign_strategy,
             createdAt: data.created_at,
             description: data.description,
             deviceFilter: data.device_filter,

@@ -2,7 +2,7 @@ import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { DeviceEvents } from "./deviceEvents";
 import { extractFilter } from "../../../common/filters";
-import { DeviceEventsListOptions } from "./types";
+import { DeviceEventsDeviceEventsListOptions } from "./types";
 import { DeviceEventsAdapter } from "../../index";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -15,8 +15,8 @@ export class DeviceEventsRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: DeviceEventsListOptions): Paginator<DeviceEvents, ListOptions> {
-        const pageFunc = (pageOptions: DeviceEventsListOptions): Promise<ListResponse<DeviceEvents>> => {
+    public list(options?: DeviceEventsDeviceEventsListOptions): Paginator<DeviceEvents, ListOptions> {
+        const pageFunc = (pageOptions: DeviceEventsDeviceEventsListOptions): Promise<ListResponse<DeviceEvents>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

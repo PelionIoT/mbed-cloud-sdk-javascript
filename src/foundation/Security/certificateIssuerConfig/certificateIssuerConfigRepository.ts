@@ -4,7 +4,7 @@ import { CertificateIssuerConfig } from "./certificateIssuerConfig";
 import { CertificateIssuerConfigAdapter } from "../../index";
 import { CertificateIssuerConfigCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
-import { CertificateIssuerConfigListOptions } from "./types";
+import { CertificateIssuerConfigCertificateIssuerConfigListOptions } from "./types";
 import { CertificateIssuerConfigUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -38,10 +38,9 @@ export class CertificateIssuerConfigRepository extends Repository {
         );
     }
     /**
-* delete
-* @param id - The ID of the certificate issuer configuration.
-
-*/
+     * delete
+     * @param id - Certificate issuer ID configuration.
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -84,9 +83,11 @@ export class CertificateIssuerConfigRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: CertificateIssuerConfigListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
+    public list(
+        options?: CertificateIssuerConfigCertificateIssuerConfigListOptions
+    ): Paginator<CertificateIssuerConfig, ListOptions> {
         const pageFunc = (
-            pageOptions: CertificateIssuerConfigListOptions
+            pageOptions: CertificateIssuerConfigCertificateIssuerConfigListOptions
         ): Promise<ListResponse<CertificateIssuerConfig>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -116,10 +117,9 @@ export class CertificateIssuerConfigRepository extends Repository {
         return new Paginator(pageFunc, options);
     }
     /**
-* read
-* @param id - The ID of the certificate issuer configuration.
-
-*/
+     * read
+     * @param id - Certificate issuer ID. configuration.
+     */
     public read(id: string): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {
@@ -140,11 +140,10 @@ export class CertificateIssuerConfigRepository extends Repository {
         );
     }
     /**
-* update
-* @param request - The entity to perform action on.
-* @param id - The ID of the certificate issuer configuration.
-
-*/
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - Certificate issuer ID. configuration.
+     */
     public update(request: CertificateIssuerConfigUpdateRequest, id: string): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {

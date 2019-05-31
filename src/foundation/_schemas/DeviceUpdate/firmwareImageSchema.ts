@@ -110,7 +110,7 @@ export const firmwareImageSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "FirmwareImageFilter",
+                                type: "FirmwareImageFirmwareImageFilter",
                             },
                         ],
                     },
