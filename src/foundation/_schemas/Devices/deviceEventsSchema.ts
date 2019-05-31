@@ -88,7 +88,7 @@ export const deviceEventsSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "DeviceEventsFilter",
+                                type: "DeviceEventsDeviceEventsFilter",
                             },
                         ],
                     },

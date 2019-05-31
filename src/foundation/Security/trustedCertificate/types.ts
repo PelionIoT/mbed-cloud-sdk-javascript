@@ -78,36 +78,36 @@ export interface TrustedCertificateUpdateRequest {
     readonly status?: TrustedCertificateStatus;
 }
 /**
- *TrustedCertificateNameFilter
+ *TrustedCertificateTrustedCertificateNameFilter
  */
-export interface TrustedCertificateNameFilter {
+export interface TrustedCertificateTrustedCertificateNameFilter {
     /**
      *name equal to
      */
     eq?: string;
 }
 /**
- *TrustedCertificateServiceFilter
+ *TrustedCertificateTrustedCertificateServiceFilter
  */
-export interface TrustedCertificateServiceFilter {
+export interface TrustedCertificateTrustedCertificateServiceFilter {
     /**
      *service equal to
      */
     eq?: TrustedCertificateService;
 }
 /**
- *TrustedCertificateExpireFilter
+ *TrustedCertificateTrustedCertificateExpireFilter
  */
-export interface TrustedCertificateExpireFilter {
+export interface TrustedCertificateTrustedCertificateExpireFilter {
     /**
      *expire equal to
      */
     eq?: string;
 }
 /**
- *TrustedCertificateDeviceExecutionModeFilter
+ *TrustedCertificateTrustedCertificateDeviceExecutionModeFilter
  */
-export interface TrustedCertificateDeviceExecutionModeFilter {
+export interface TrustedCertificateTrustedCertificateDeviceExecutionModeFilter {
     /**
      *deviceExecutionMode equal to
      */
@@ -119,119 +119,119 @@ export interface TrustedCertificateDeviceExecutionModeFilter {
     neq?: number;
 }
 /**
- *TrustedCertificateOwnerFilter
+ *TrustedCertificateTrustedCertificateOwnerFilter
  */
-export interface TrustedCertificateOwnerFilter {
+export interface TrustedCertificateTrustedCertificateOwnerFilter {
     /**
      *owner equal to
      */
     eq?: string;
 }
 /**
- *TrustedCertificateEnrollmentModeFilter
+ *TrustedCertificateTrustedCertificateEnrollmentModeFilter
  */
-export interface TrustedCertificateEnrollmentModeFilter {
+export interface TrustedCertificateTrustedCertificateEnrollmentModeFilter {
     /**
      *enrollmentMode equal to
      */
     eq?: boolean;
 }
 /**
- *TrustedCertificateStatusFilter
+ *TrustedCertificateTrustedCertificateStatusFilter
  */
-export interface TrustedCertificateStatusFilter {
+export interface TrustedCertificateTrustedCertificateStatusFilter {
     /**
      *status equal to
      */
     eq?: TrustedCertificateStatus;
 }
 /**
- *TrustedCertificateIssuerFilter
+ *TrustedCertificateTrustedCertificateIssuerFilter
  */
-export interface TrustedCertificateIssuerFilter {
+export interface TrustedCertificateTrustedCertificateIssuerFilter {
     /**
      *issuer like
      */
     like?: string;
 }
 /**
- *TrustedCertificateSubjectFilter
+ *TrustedCertificateTrustedCertificateSubjectFilter
  */
-export interface TrustedCertificateSubjectFilter {
+export interface TrustedCertificateTrustedCertificateSubjectFilter {
     /**
      *subject like
      */
     like?: string;
 }
 /**
- *TrustedCertificateValidFilter
+ *TrustedCertificateTrustedCertificateValidFilter
  */
-export interface TrustedCertificateValidFilter {
+export interface TrustedCertificateTrustedCertificateValidFilter {
     /**
      *valid equal to
      */
     eq?: boolean;
 }
 /**
- *TrustedCertificateFilter
+ *TrustedCertificateTrustedCertificateFilter
  */
-export interface TrustedCertificateFilter {
+export interface TrustedCertificateTrustedCertificateFilter {
     /**
      *Filter by name on TrustedCertificate
      */
-    name?: string | TrustedCertificateNameFilter;
+    name?: string | TrustedCertificateTrustedCertificateNameFilter;
 
     /**
      *Filter by service on TrustedCertificate
      */
-    service?: TrustedCertificateService | TrustedCertificateServiceFilter;
+    service?: TrustedCertificateService | TrustedCertificateTrustedCertificateServiceFilter;
 
     /**
      *Filter by expire on TrustedCertificate
      */
-    expire?: string | TrustedCertificateExpireFilter;
+    expire?: string | TrustedCertificateTrustedCertificateExpireFilter;
 
     /**
      *Filter by deviceExecutionMode on TrustedCertificate
      */
-    deviceExecutionMode?: number | TrustedCertificateDeviceExecutionModeFilter;
+    deviceExecutionMode?: number | TrustedCertificateTrustedCertificateDeviceExecutionModeFilter;
 
     /**
      *Filter by owner on TrustedCertificate
      */
-    owner?: string | TrustedCertificateOwnerFilter;
+    owner?: string | TrustedCertificateTrustedCertificateOwnerFilter;
 
     /**
      *Filter by enrollmentMode on TrustedCertificate
      */
-    enrollmentMode?: boolean | TrustedCertificateEnrollmentModeFilter;
+    enrollmentMode?: boolean | TrustedCertificateTrustedCertificateEnrollmentModeFilter;
 
     /**
      *Filter by status on TrustedCertificate
      */
-    status?: TrustedCertificateStatus | TrustedCertificateStatusFilter;
+    status?: TrustedCertificateStatus | TrustedCertificateTrustedCertificateStatusFilter;
 
     /**
      *Filter by issuer on TrustedCertificate
      */
-    issuer?: TrustedCertificateIssuerFilter;
+    issuer?: TrustedCertificateTrustedCertificateIssuerFilter;
 
     /**
      *Filter by subject on TrustedCertificate
      */
-    subject?: TrustedCertificateSubjectFilter;
+    subject?: TrustedCertificateTrustedCertificateSubjectFilter;
 
     /**
      *Filter by valid on TrustedCertificate
      */
-    valid?: boolean | TrustedCertificateValidFilter;
+    valid?: boolean | TrustedCertificateTrustedCertificateValidFilter;
 }
 /**
- *TrustedCertificateListOptions
+ *TrustedCertificateTrustedCertificateListOptions
  */
-export interface TrustedCertificateListOptions extends ListOptions {
+export interface TrustedCertificateTrustedCertificateListOptions extends ListOptions {
     /**
      *Filter for TrustedCertificate
      */
-    filter?: TrustedCertificateFilter;
+    filter?: TrustedCertificateTrustedCertificateFilter;
 }

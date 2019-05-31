@@ -42,9 +42,8 @@ export class CertificateIssuerRepository extends Repository {
     }
     /**
 * delete
-* @param id - Certificate issuer ID. <br> The ID of the certificate issuer.
-An active certificate issuer may not be deleted.
-
+* @param id - Certificate issuer ID.
+An active certificate issuer cannot be deleted.
 */
     public delete(id: string): Promise<void> {
         return apiWrapper(
@@ -98,7 +97,7 @@ An active certificate issuer may not be deleted.
     }
     /**
      * read
-     * @param id - The ID of the certificate issuer.
+     * @param id - Certificate issuer ID.
      */
     public read(id: string): Promise<CertificateIssuer> {
         return apiWrapper(
@@ -122,7 +121,7 @@ An active certificate issuer may not be deleted.
     /**
      * update
      * @param request - The entity to perform action on.
-     * @param id - The ID of the certificate issuer.
+     * @param id - Certificate issuer ID.
      */
     public update(request: CertificateIssuerUpdateRequest, id: string): Promise<CertificateIssuer> {
         return apiWrapper(
@@ -150,10 +149,9 @@ An active certificate issuer may not be deleted.
         );
     }
     /**
-* verify
-* @param id - Certificate issuer ID. <br> The ID of the certificate issuer.
-
-*/
+     * verify
+     * @param id - Certificate issuer ID.
+     */
     public verify(id: string): Promise<VerificationResponse> {
         return apiWrapper(
             resultsFn => {

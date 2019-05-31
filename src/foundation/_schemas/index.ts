@@ -14,6 +14,7 @@ export { deviceEnrollmentBulkCreateSchema } from "./Devices/deviceEnrollmentBulk
 export { deviceEnrollmentBulkDeleteSchema } from "./Devices/deviceEnrollmentBulkDeleteSchema";
 export { deviceEnrollmentDenialSchema } from "./Devices/deviceEnrollmentDenialSchema";
 export { deviceEventsSchema } from "./Devices/deviceEventsSchema";
+export { deviceGroupSchema } from "./Devices/deviceGroupSchema";
 export { firmwareImageSchema } from "./DeviceUpdate/firmwareImageSchema";
 export { firmwareManifestSchema } from "./DeviceUpdate/firmwareManifestSchema";
 export { loginHistorySchema } from "./Accounts/loginHistorySchema";

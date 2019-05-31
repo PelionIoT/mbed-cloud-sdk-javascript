@@ -14,6 +14,7 @@ export * from "./Devices/deviceEnrollmentBulkCreate";
 export * from "./Devices/deviceEnrollmentBulkDelete";
 export * from "./Devices/deviceEnrollmentDenial";
 export * from "./Devices/deviceEvents";
+export * from "./Devices/deviceGroup";
 export * from "./DeviceUpdate/firmwareImage";
 export * from "./DeviceUpdate/firmwareManifest";
 export * from "./Accounts/loginHistory";

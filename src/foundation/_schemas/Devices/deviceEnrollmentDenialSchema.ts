@@ -58,7 +58,7 @@ export const deviceEnrollmentDenialSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "DeviceEnrollmentDenialFilter",
+                                type: "DeviceEnrollmentDenialDeviceEnrollmentDenialFilter",
                             },
                         ],
                     },

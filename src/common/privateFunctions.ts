@@ -75,7 +75,7 @@ function streamToFile(config: Config, url: string, resolve: (value: ReadStream) 
         });
         fileStream.on("error", () => {
             return reject("No file found.");
-        })
+        });
     } else {
         return reject("No url provided!");
     }

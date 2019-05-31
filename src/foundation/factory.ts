@@ -14,6 +14,7 @@ import { DeviceEnrollmentBulkCreateRepository } from ".";
 import { DeviceEnrollmentBulkDeleteRepository } from ".";
 import { DeviceEnrollmentDenialRepository } from ".";
 import { DeviceEventsRepository } from ".";
+import { DeviceGroupRepository } from ".";
 import { FirmwareImageRepository } from ".";
 import { FirmwareManifestRepository } from ".";
 import { PreSharedKeyRepository } from ".";
@@ -76,6 +77,9 @@ export class Factory {
     }
     public deviceEventsRepository(): DeviceEventsRepository {
         return new DeviceEventsRepository(this._config);
+    }
+    public deviceGroupRepository(): DeviceGroupRepository {
+        return new DeviceGroupRepository(this._config);
     }
     public firmwareImageRepository(): FirmwareImageRepository {
         return new FirmwareImageRepository(this._config);

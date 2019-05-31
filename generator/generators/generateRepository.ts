@@ -153,11 +153,11 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
                 const extraQueryParams = ep.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
                 if (extraQueryParams.length > 0 || !isEmptyFilter(filters)) {
-                    listOptionsType = `${returns}ListOptions`;
+                    listOptionsType = snakeToCamel(`${pascalKey}_${ returns }_list_options`);
                     parameterList.addParameters(
                         new ParameterContainer(
                             "options",
-                            `${returns}ListOptions`,
+                            snakeToCamel(`${pascalKey}_${returns}_list_options`),
                             {
                                 isRequired: false,
                                 description: "Options to use for the List",
@@ -169,7 +169,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                             `${returns.toUpperCase()}_LIST_OPTIONS`,
                             "./types",
                             [
-                                `${returns}ListOptions`
+                                snakeToCamel(`${pascalKey}_${returns}_list_options`)
                             ]
                         )
                     );

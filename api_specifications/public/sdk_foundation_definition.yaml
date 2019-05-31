@@ -12230,7 +12230,7 @@ entities:
     x-nullable: true
   - _key: id
     api_fieldname: id
-    description: The ID of the certificate issuer.
+    description: Certificate issuer ID.
     example: 01234567890ABCDEF01234567890ABCDEF
     readOnly: false
     required: true
@@ -12241,21 +12241,19 @@ entities:
     api_fieldname: issuer_attributes
     description: 'General attributes for connecting the certificate issuer.
 
-      When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+      When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-      When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-      '
+      When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
     example: []
     readOnly: false
     required: false
     type: object
   - _key: issuer_type
     api_fieldname: issuer_type
-    description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-      \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-      \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
-      \ signing service.\n  The users must provide their own CFSSL host_url and credentials.\n"
+    description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are issued\
+      \ by GlobalSign service. You must provide your own GlobalSign account credentials.\n\
+      - CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n\
+      \  You must provide your own CFSSL host_url and credentials."
     enum:
     - GLOBAL_SIGN
     - CFSSL_AUTH
@@ -12275,17 +12273,17 @@ entities:
   group_id: Security
   methods:
   - _key: create
-    description: "Create a certificate issuer.\nThe maximum number of issuers is limited\
-      \ to 20 per account.\nMultiple certificate issuers of the same issuer type can\
-      \ be created, provided they have a different name. This allows verification\
-      \ of the certificate issuer configuration before activating it.\n<br>\n**Example\
-      \ usage:**\n\n```\ncurl -X POST \\\n-H 'authorization: Bearer <valid access\
-      \ token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers\
-      \ \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\"\
-      ,\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\"\
-      : null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\"\
-      ,\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\",\n   \
-      \   \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END\
+    description: "Create a certificate issuer.\n<br>\nThe maximum number of issuers\
+      \ is limited to 20 per account.\n<br>\nYou can create multiple certificate issuers\
+      \ of the same type, provided they have different names. This allows verification\
+      \ of the certificate issuer configuration before activation.\n<br>\n**Example:**\n\
+      ```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers\
+      \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
+      \ application/json;charset=UTF-8' \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\"\
+      ,\n  \"name\": \"GS Issuer\",\n  \"description\": \"Sample GlobalSign certificate\
+      \ issuer\",\n  \"issuer_attributes\": null,\n  \"issuer_credentials\": {\n \
+      \     \"api_key\": \"e510e289e6cd8947\",\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\"\
+      ,\n      \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END\
       \ CERTIFICATE-----\",\n        \"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\\
       nProc-Type: 4,ENCRYPTED\\nDEK-Info: DES-EDE3-CBC,CCAC26A4133947CB\\n\\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\\\
       nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\\\
@@ -12301,7 +12299,7 @@ entities:
       nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReEob2QlQ/WYlTor61+KFpGtcf9jAkgudT\\\
       n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\\\
       n-----END RSA PRIVATE KEY-----\",\n      \"passphrase\": \"helloworld\"\n  }\n\
-      }'\n```\n"
+      }'\n```"
     drop_fields:
     - object
     - etag
@@ -12329,11 +12327,9 @@ entities:
       api_fieldname: issuer_attributes
       description: 'General attributes for connecting the certificate issuer.
 
-        When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+        When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-        When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-        '
+        When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
       entity_fieldname: issuer_attributes
       example: []
       in: body
@@ -12344,13 +12340,11 @@ entities:
       additionalProperties:
         type: string
       api_fieldname: issuer_credentials
-      description: 'The credentials required for connecting to the certificate issuer.
+      description: 'The credentials required to connect to the certificate issuer.
 
         When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
 
-        When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
-
-        '
+        When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.'
       entity_fieldname: issuer_credentials
       example: []
       external_param: true
@@ -12362,11 +12356,10 @@ entities:
       type: object
     - _key: issuer_type
       api_fieldname: issuer_type
-      description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-        \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-        \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-        \ authenticated signing service.\n  The users must provide their own CFSSL\
-        \ host_url and credentials.\n"
+      description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are issued\
+        \ by GlobalSign service. You must provide your own GlobalSign account credentials.\n\
+        - CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n\
+        \  You must provide your own CFSSL host_url and credentials."
       entity_fieldname: issuer_type
       enum:
       - GLOBAL_SIGN
@@ -12428,7 +12421,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: The ID of the certificate issuer.
+          description: Certificate issuer ID.
           entity_fieldname: id
           example: 01234567890ABCDEF01234567890ABCDEF
           type: string
@@ -12438,21 +12431,18 @@ entities:
           api_fieldname: issuer_attributes
           description: 'General attributes for connecting the certificate issuer.
 
-            When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+            When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-            '
+            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
           entity_fieldname: issuer_attributes
           example: []
           type: object
         - _key: issuer_type
           api_fieldname: issuer_type
-          description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-            \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-            \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-            \ authenticated signing service.\n  The users must provide their own CFSSL\
-            \ host_url and credentials.\n"
+          description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are\
+            \ issued by GlobalSign service. You must provide your own GlobalSign account\
+            \ credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
+            \ signing service.\n  You must provide your own CFSSL host_url and credentials."
           entity_fieldname: issuer_type
           enum:
           - GLOBAL_SIGN
@@ -12477,9 +12467,7 @@ entities:
         type: object
     - _key: '400'
       description: 'Validation error: The data used to create the certificate issuer
-        failed validation.
-
-        '
+        failed validation.'
       schema:
         properties:
         - _key: code
@@ -12599,9 +12587,7 @@ entities:
         - type
         type: object
     - _key: '409'
-      description: 'Conflict. A certificate issuer with this name already exists.
-
-        '
+      description: Conflict. A certificate issuer with this name already exists.
       schema:
         properties:
         - _key: code
@@ -12641,9 +12627,7 @@ entities:
         - type
         type: object
     - _key: '424'
-      description: 'The request failed due to customer configured external service.
-
-        '
+      description: The request failed due to customer configured external service.
       schema:
         properties:
         - _key: code
@@ -12695,20 +12679,16 @@ entities:
 
       <br>
 
-      **Example usage:**
-
-
-      ```
-
-      curl -X DELETE \
-
-      -H ''authorization: <valid access token>'' \
-
-      https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000
+      **Example:**
 
       ```
 
-      '
+      curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000
+      \
+
+      -H ''Authorization: Bearer <valid_access_token>'' \
+
+      ```'
     drop_fields:
     - object
     - etag
@@ -12719,11 +12699,9 @@ entities:
     fields:
     - _key: id
       api_fieldname: certificate-issuer-id
-      description: 'Certificate issuer ID. <br> The ID of the certificate issuer.
+      description: 'Certificate issuer ID.
 
-        An active certificate issuer may not be deleted.
-
-        '
+        An active certificate issuer cannot be deleted.'
       entity_fieldname: id
       external_param: false
       in: path
@@ -12745,9 +12723,7 @@ entities:
     - _key: '204'
       description: Certificate issuer deleted.
     - _key: '400'
-      description: 'Validation error: An active certificate issuer cannot be deleted.
-
-        '
+      description: 'Validation error: An active certificate issuer cannot be deleted.'
       schema:
         properties:
         - _key: code
@@ -12915,10 +12891,8 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: list
-    description: 'Note: This endpoint does not implement pagination and therefore,
-      list control parameters such as `limit` or `after` will be ignored by the system.
-
-      '
+    description: '**Note:** This endpoint does not use pagination, and therefore ignores
+      list control parameters such as `limit` or `after`.'
     drop_fields:
     - object
     - etag
@@ -12932,7 +12906,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The ID of The item after which to retrieve the next page.
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: '01631667477600000000000100100374'
       external_param: true
@@ -12944,7 +12918,7 @@ entities:
     - _key: include
       api_fieldname: include
       description: 'Comma-separated list of data fields to return. Currently supported:
-        `total_count`'
+        `total_count`.'
       entity_fieldname: include
       external_param: true
       in: query
@@ -12954,9 +12928,8 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: How many objects to retrieve in the page. The minimum limit is
-        2 and the maximum is 1000. Limit values outside of this range are set to the
-        closest limit.
+      description: The number of results to return (2-1000). Values outside of this
+        range are set to the closest limit.
       entity_fieldname: limit
       example: 50
       external_param: true
@@ -12969,8 +12942,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: The order of the records based on creation time, `ASC` or `DESC`;
-        by default `ASC`.
+      description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
       entity_fieldname: order
       example: DESC
       external_param: true
@@ -13004,7 +12976,7 @@ entities:
         properties:
         - _key: after
           api_fieldname: after
-          description: The ID of The item after which to retrieve the next page.
+          description: The ID of the item after which to retrieve the next page.
           entity_fieldname: after
           example: '01631667477600000000000100100374'
           external_param: true
@@ -13038,7 +13010,7 @@ entities:
               example: '1'
               type: string
             - _key: id
-              description: The ID of the certificate issuer.
+              description: Certificate issuer ID.
               example: 01234567890ABCDEF01234567890ABCDEF
               type: string
             - _key: issuer_attributes
@@ -13046,19 +13018,17 @@ entities:
                 type: string
               description: 'General attributes for connecting the certificate issuer.
 
-                When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+                When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-                When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-                '
+                When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
               example: []
               type: object
             - _key: issuer_type
-              description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n\
-                \  Certificates are issued by GlobalSign service. The users must provide\
-                \ their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates\
-                \ are issued by CFSSL authenticated signing service.\n  The users\
-                \ must provide their own CFSSL host_url and credentials.\n"
+              description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates\
+                \ are issued by GlobalSign service. You must provide your own GlobalSign\
+                \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by\
+                \ CFSSL authenticated signing service.\n  You must provide your own\
+                \ CFSSL host_url and credentials."
               enum:
               - GLOBAL_SIGN
               - CFSSL_AUTH
@@ -13079,15 +13049,14 @@ entities:
           type: array
         - _key: has_more
           api_fieldname: has_more
-          description: Are there more results available.
+          description: More results are available.
           entity_fieldname: has_more
           example: false
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: How many objects to retrieve in the page. The minimum limit
-            is 2 and the maximum is 1000. Limit values outside of this range are set
-            to the closest limit.
+          description: The number of results to return (2-1000). Values outside of
+            this range are set to the closest limit.
           entity_fieldname: limit
           example: 50
           external_param: true
@@ -13100,14 +13069,13 @@ entities:
           type: integer
         - _key: object
           api_fieldname: object
-          description: The type of this API object is a `list`.
+          description: The type of this API object is `list`.
           entity_fieldname: object
           example: list
           type: string
         - _key: order
           api_fieldname: order
-          description: The order of the records based on creation time, `ASC` or `DESC`;
-            by default `ASC`.
+          description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
           entity_fieldname: order
           example: DESC
           external_param: true
@@ -13228,7 +13196,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: id
-      description: The ID of the certificate issuer.
+      description: Certificate issuer ID.
       entity_fieldname: id
       example: 01234567890ABCDEF01234567890ABCDEF
       in: path
@@ -13276,7 +13244,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: The ID of the certificate issuer.
+          description: Certificate issuer ID.
           entity_fieldname: id
           example: 01234567890ABCDEF01234567890ABCDEF
           type: string
@@ -13286,21 +13254,18 @@ entities:
           api_fieldname: issuer_attributes
           description: 'General attributes for connecting the certificate issuer.
 
-            When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+            When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-            '
+            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
           entity_fieldname: issuer_attributes
           example: []
           type: object
         - _key: issuer_type
           api_fieldname: issuer_type
-          description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-            \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-            \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-            \ authenticated signing service.\n  The users must provide their own CFSSL\
-            \ host_url and credentials.\n"
+          description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are\
+            \ issued by GlobalSign service. You must provide your own GlobalSign account\
+            \ credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
+            \ signing service.\n  You must provide your own CFSSL host_url and credentials."
           entity_fieldname: issuer_type
           enum:
           - GLOBAL_SIGN
@@ -13325,9 +13290,7 @@ entities:
         type: object
     - _key: '400'
       description: 'Validation error: The data used to get the certificate issuer
-        failed validation.
-
-        '
+        failed validation.'
       schema:
         properties:
         - _key: code
@@ -13495,11 +13458,12 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: update
-    description: "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\n\
-      curl -X PUT \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type:\
-      \ application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000\
-      \ \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\"\
-      ,\n  \"name\": \"GlobalSign Issuer\"\n}'\n```\n"
+    description: "Update a certificate issuer.\n<br>\n**Example:**\n\n```\ncurl -X\
+      \ PUT https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000\
+      \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
+      \ application/json;charset=UTF-8' \\\n-d '{\n  \"description\": \"Sample GlobalSign\
+      \ certificate issuer - updated.\",\n  \"name\": \"GlobalSign Issuer\"\n}'\n\
+      ```"
     drop_fields:
     - object
     - etag
@@ -13523,7 +13487,7 @@ entities:
       x-nullable: true
     - _key: id
       api_fieldname: id
-      description: The ID of the certificate issuer.
+      description: Certificate issuer ID.
       entity_fieldname: id
       example: 01234567890ABCDEF01234567890ABCDEF
       in: path
@@ -13536,11 +13500,9 @@ entities:
       api_fieldname: issuer_attributes
       description: 'General attributes for connecting the certificate issuer.
 
-        When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+        When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-        When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-        '
+        When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
       entity_fieldname: issuer_attributes
       example: []
       in: body
@@ -13551,13 +13513,11 @@ entities:
       additionalProperties:
         type: string
       api_fieldname: issuer_credentials
-      description: 'The credentials required for connecting to the certificate issuer.
+      description: 'The credentials required to connect to the certificate issuer.
 
         When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
 
-        When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
-
-        '
+        When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.'
       entity_fieldname: issuer_credentials
       example: []
       external_param: true
@@ -13618,7 +13578,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: The ID of the certificate issuer.
+          description: Certificate issuer ID.
           entity_fieldname: id
           example: 01234567890ABCDEF01234567890ABCDEF
           type: string
@@ -13628,21 +13588,18 @@ entities:
           api_fieldname: issuer_attributes
           description: 'General attributes for connecting the certificate issuer.
 
-            When the issuer_type is GLOBAL_SIGN, the value shall be empty.
+            When the issuer_type is GLOBAL_SIGN, the value is empty.
 
-            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-
-            '
+            When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.'
           entity_fieldname: issuer_attributes
           example: []
           type: object
         - _key: issuer_type
           api_fieldname: issuer_type
-          description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-            \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-            \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-            \ authenticated signing service.\n  The users must provide their own CFSSL\
-            \ host_url and credentials.\n"
+          description: "Certificate issuer type.\n- GLOBAL_SIGN:\n  Certificates are\
+            \ issued by GlobalSign service. You must provide your own GlobalSign account\
+            \ credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
+            \ signing service.\n  You must provide your own CFSSL host_url and credentials."
           entity_fieldname: issuer_type
           enum:
           - GLOBAL_SIGN
@@ -13667,9 +13624,7 @@ entities:
         type: object
     - _key: '400'
       description: 'Validation error: The data used to update the certificate issuer
-        failed validation.
-
-        '
+        failed validation.'
       schema:
         properties:
         - _key: code
@@ -13829,9 +13784,7 @@ entities:
         - type
         type: object
     - _key: '409'
-      description: 'Conflict. A certificate issuer with this name already exists.
-
-        '
+      description: Conflict. A certificate issuer with this name already exists.
       schema:
         properties:
         - _key: code
@@ -13871,9 +13824,7 @@ entities:
         - type
         type: object
     - _key: '424'
-      description: 'The request failed due to customer configured external service.
-
-        '
+      description: The request failed due to customer-configured external service.
       schema:
         properties:
         - _key: code
@@ -13921,11 +13872,8 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: verify
-    description: 'A utility API that can be used to validate the user configuration
-      before activating a certificate issuer.
-
-      Verifies that the certificate issuer is accessible and can be used to generate
-      certificates by Device Management.
+    description: 'Validates the certificate issuer by sending a signing request for
+      a test certificate. This should be done before the configuration is made active.
 
       <br>
 
@@ -13933,26 +13881,22 @@ entities:
 
       The API requests the 3rd party CA to sign a test certificate.
 
-      For some 3rd party CAs, this operation may make use of the account quota.
+      For some 3rd party CAs, this operation may use the account quota.
 
       <br>
 
-      **Example usage:**
-
+      **Example:**
 
       ```
 
-      curl -X POST \
+      curl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify
+      \
 
-      -H ''authorization: <valid access token>'' \
+      -H ''Authorization: Bearer <valid_access_token>'' \
 
       -H ''content-type: application/json;charset=UTF-8'' \
 
-      https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify
-
-      ```
-
-      '
+      ```'
     drop_fields:
     - object
     - etag
@@ -13965,9 +13909,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: certificate-issuer-id
-      description: 'Certificate issuer ID. <br> The ID of the certificate issuer.
-
-        '
+      description: Certificate issuer ID.
       entity_fieldname: id
       external_param: false
       in: path
@@ -13998,17 +13940,13 @@ entities:
         properties:
         - _key: message
           api_fieldname: message
-          description: 'Provides details in case of failure.
-
-            '
+          description: Provides details in case of failure.
           entity_fieldname: message
-          example: message describing the verification failure
+          example: Message describing the verification failure
           type: string
         - _key: successful
           api_fieldname: successful
-          description: 'Indicates whether the certificate issuer was verified successfully.
-
-            '
+          description: Indicates whether the certificate issuer was verified successfully.
           entity_fieldname: successful
           example: false
           type: boolean
@@ -14174,9 +14112,7 @@ entities:
         - type
         type: object
     - _key: '424'
-      description: 'The request failed due to customer configured external service.
-
-        '
+      description: The request failed due to customer configured external service.
       schema:
         properties:
         - _key: code
@@ -14232,17 +14168,15 @@ entities:
   - CertificateIssuerUpdateRequest
   - CertificateIssuerVerifyResponse
   tags:
-  - Certificate Issuers
+  - Device security - certificate issuers
 - _key: certificate_issuer_config
   field_renames: []
   fields:
   - _key: certificate_issuer_id
     api_fieldname: certificate_issuer_id
-    description: 'The ID of the certificate issuer.
+    description: 'Certificate issuer ID.
 
-      Null if Device Management internal HSM is used.
-
-      '
+      Null if Device Management internal HSM is used.'
     example: 01648415a2a30242ac18000500000000
     readOnly: false
     required: true
@@ -14258,9 +14192,7 @@ entities:
     type: string
   - _key: id
     api_fieldname: id
-    description: 'The ID of the certificate issuer configuration.
-
-      '
+    description: Certificate issuer ID. configuration.
     example: 01648415a2a30242ac18000500000000
     readOnly: false
     required: true
@@ -14284,12 +14216,11 @@ entities:
   group_id: Security
   methods:
   - _key: create
-    description: "Configure the certificate issuer to be used when creating the device\
-      \ custom certificates.\n<br>\n**Example usage:**\n\n```\ncurl -X POST \\\n-H\
-      \ 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8'\
-      \ \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations\
-      \ \\\n-d '{\n  \"reference\": \"customer.dlms\",\n  \"certificate_issuer_id\"\
-      : \"01621a36719d507b9d48a91b00000000\"\n}'\n```\n"
+    description: "Configure the certificate issuer to use when creating device custom\
+      \ certificates.\n<br>\n**Example:**\n\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations\
+      \ \\\n-H 'Authorization: Bearer <valid_access_token>' \\\n-H 'content-type:\
+      \ application/json;charset=UTF-8' \\\n-d '{\n  \"reference\": \"customer.dlms\"\
+      ,\n  \"certificate_issuer_id\": \"01621a36719d507b9d48a91b00000000\"\n}'\n```"
     drop_fields:
     - object
     - etag
@@ -14304,11 +14235,9 @@ entities:
     fields:
     - _key: certificate_issuer_id
       api_fieldname: certificate_issuer_id
-      description: 'The ID of the certificate issuer.
+      description: 'Certificate issuer ID.
 
-        Null if Device Management internal HSM is used.
-
-        '
+        Null if Device Management internal HSM is used.'
       entity_fieldname: certificate_issuer_id
       example: 01648415a2a30242ac18000500000000
       in: body
@@ -14346,11 +14275,9 @@ entities:
         properties:
         - _key: certificate_issuer_id
           api_fieldname: certificate_issuer_id
-          description: 'The ID of the certificate issuer.
+          description: 'Certificate issuer ID.
 
-            Null if Device Management internal HSM is used.
-
-            '
+            Null if Device Management internal HSM is used.'
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -14370,9 +14297,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: 'The ID of the certificate issuer configuration.
-
-            '
+          description: Certificate issuer ID. configuration.
           entity_fieldname: id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -14523,10 +14448,8 @@ entities:
         - type
         type: object
     - _key: '409'
-      description: 'A certificate issuer configuration with this reference already
+      description: A certificate issuer configuration with this reference already
         exists.
-
-        '
       schema:
         properties:
         - _key: code
@@ -14574,11 +14497,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: delete
-    description: 'Delete the configured certificate issuer configuration.
+    description: 'Delete certificate issuer configuration.
 
-      You can only delete the configurations of custom certificates.
-
-      '
+      You can only delete custom certificate configurations.'
     drop_fields:
     - object
     - etag
@@ -14590,9 +14511,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: certificate-issuer-configuration-id
-      description: 'The ID of the certificate issuer configuration.
-
-        '
+      description: Certificate issuer ID configuration.
       entity_fieldname: id
       external_param: false
       in: path
@@ -14782,12 +14701,9 @@ entities:
     x_deprecation: null
     x_filter: {}
   - _key: get_default
-    description: 'Provides the configured certificate issuer to be used when creating
-      device
+    description: 'Provides the configured certificate issuer used when creating device
 
-      certificates for LwM2M communication.<br>
-
-      '
+      certificates for LwM2M.'
     drop_fields:
     - object
     - etag
@@ -14822,11 +14738,9 @@ entities:
         properties:
         - _key: certificate_issuer_id
           api_fieldname: certificate_issuer_id
-          description: 'The ID of the certificate issuer.
+          description: 'Certificate issuer ID.
 
-            Null if Device Management internal HSM is used.
-
-            '
+            Null if Device Management internal HSM is used.'
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -14846,9 +14760,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: 'The ID of the certificate issuer configuration.
-
-            '
+          description: Certificate issuer ID. configuration.
           entity_fieldname: id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -15011,38 +14923,34 @@ entities:
 
       <br>
 
-      **Example usage:**
-
-
-      ```
-
-      curl \
-
-      -H ''authorization: <valid access token>'' \
-
-      -H ''content-type: application/json;charset=UTF-8'' \
-
-      https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \
+      **Example:**
 
       ```
 
-      ```
-
-      curl \
-
-      -H ''authorization: <valid access token>'' \
-
-      -H ''content-type: application/json;charset=UTF-8'' \
-
-      https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations
       \
 
+      -H ''Authorization: Bearer <valid_access_token>'' \
+
+      -H ''content-type: application/json;charset=UTF-8'' \
+
       ```
 
-      Note: This endpoint does not implement pagination and therefore, list control
-      parameters such as `limit` or `after` will be ignored by the system.
+      <br>
 
-      '
+      ```
+
+      curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms
+      \
+
+      -H ''Authorization: Bearer <valid_access_token>'' \
+
+      -H ''content-type: application/json;charset=UTF-8'' \
+
+      ```
+
+      **Note:** This endpoint does not implement pagination, and therefore ignores
+      list control parameters such as `limit` or `after`.'
     drop_fields:
     - object
     - etag
@@ -15058,7 +14966,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The ID of The item after which to retrieve the next page.
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: '01631667477600000000000100100374'
       external_param: true
@@ -15070,7 +14978,7 @@ entities:
     - _key: include
       api_fieldname: include
       description: 'Comma-separated list of data fields to return. Currently supported:
-        `total_count`'
+        `total_count`.'
       entity_fieldname: include
       external_param: true
       in: query
@@ -15080,9 +14988,8 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: How many objects to retrieve in the page. The minimum limit is
-        2 and the maximum is 1000. Limit values outside of this range are set to the
-        closest limit.
+      description: The number of results to return (2-1000). Values outside of this
+        range are set to the closest limit.
       entity_fieldname: limit
       example: 50
       external_param: true
@@ -15095,8 +15002,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: The order of the records based on creation time, `ASC` or `DESC`;
-        by default `ASC`.
+      description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
       entity_fieldname: order
       example: DESC
       external_param: true
@@ -15144,11 +15050,9 @@ entities:
               group: Security
             properties:
             - _key: certificate_issuer_id
-              description: 'The ID of the certificate issuer.
+              description: 'Certificate issuer ID.
 
-                Null if Device Management internal HSM is used.
-
-                '
+                Null if Device Management internal HSM is used.'
               example: 01648415a2a30242ac18000500000000
               type: string
               x-nullable: true
@@ -15162,9 +15066,7 @@ entities:
               example: '1'
               type: string
             - _key: id
-              description: 'The ID of the certificate issuer configuration.
-
-                '
+              description: Certificate issuer ID. configuration.
               example: 01648415a2a30242ac18000500000000
               type: string
             - _key: is_custom
@@ -15188,15 +15090,14 @@ entities:
           type: array
         - _key: has_more
           api_fieldname: has_more
-          description: Are there more results available.
+          description: More results are available.
           entity_fieldname: has_more
           example: false
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: How many objects to retrieve in the page. The minimum limit
-            is 2 and the maximum is 1000. Limit values outside of this range are set
-            to the closest limit.
+          description: The number of results to return (2-1000). Values outside of
+            this range are set to the closest limit.
           entity_fieldname: limit
           example: 50
           maximum: 1000
@@ -15204,13 +15105,13 @@ entities:
           type: integer
         - _key: object
           api_fieldname: object
-          description: The type of this API object is a `list`.
+          description: The type of this API object is `list`.
           entity_fieldname: object
           example: list
           type: string
         - _key: order
           api_fieldname: order
-          description: The creation time based order of the entries.
+          description: Record order based on creation time.
           entity_fieldname: order
           example: DESC
           type: string
@@ -15352,9 +15253,7 @@ entities:
       reference:
       - eq
   - _key: read
-    description: 'Provides the configured certificate issuer.
-
-      '
+    description: Provides the configured certificate issuer.
     drop_fields:
     - object
     - etag
@@ -15370,9 +15269,7 @@ entities:
     fields:
     - _key: id
       api_fieldname: id
-      description: 'The ID of the certificate issuer configuration.
-
-        '
+      description: Certificate issuer ID. configuration.
       entity_fieldname: id
       example: 01648415a2a30242ac18000500000000
       in: path
@@ -15399,11 +15296,9 @@ entities:
         properties:
         - _key: certificate_issuer_id
           api_fieldname: certificate_issuer_id
-          description: 'The ID of the certificate issuer.
+          description: 'Certificate issuer ID.
 
-            Null if Device Management internal HSM is used.
-
-            '
+            Null if Device Management internal HSM is used.'
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -15423,9 +15318,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: 'The ID of the certificate issuer configuration.
-
-            '
+          description: Certificate issuer ID. configuration.
           entity_fieldname: id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -15628,9 +15521,7 @@ entities:
     - notes: After retrieving the resource using the `lwm2m` method, it can modified
         using using this SDK method.
       operation_id: updateCertificateIssuerConfig
-    description: 'Update the configured certificate issuer configuration.
-
-      '
+    description: Update certificate issuer configuration.
     drop_fields:
     - object
     - etag
@@ -15645,11 +15536,9 @@ entities:
     fields:
     - _key: certificate_issuer_id
       api_fieldname: certificate_issuer_id
-      description: 'The ID of the certificate issuer.
+      description: 'Certificate issuer ID.
 
-        Null if Device Management internal HSM is used.
-
-        '
+        Null if Device Management internal HSM is used.'
       entity_fieldname: certificate_issuer_id
       example: 01648415a2a30242ac18000500000000
       in: body
@@ -15659,9 +15548,7 @@ entities:
       x-nullable: true
     - _key: id
       api_fieldname: id
-      description: 'The ID of the certificate issuer configuration.
-
-        '
+      description: Certificate issuer ID. configuration.
       entity_fieldname: id
       example: 01648415a2a30242ac18000500000000
       in: path
@@ -15688,11 +15575,9 @@ entities:
         properties:
         - _key: certificate_issuer_id
           api_fieldname: certificate_issuer_id
-          description: 'The ID of the certificate issuer.
+          description: 'Certificate issuer ID.
 
-            Null if Device Management internal HSM is used.
-
-            '
+            Null if Device Management internal HSM is used.'
           entity_fieldname: certificate_issuer_id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -15712,9 +15597,7 @@ entities:
           type: string
         - _key: id
           api_fieldname: id
-          description: 'The ID of the certificate issuer configuration.
-
-            '
+          description: Certificate issuer ID. configuration.
           entity_fieldname: id
           example: 01648415a2a30242ac18000500000000
           type: string
@@ -17787,6 +17670,68 @@ entities:
     required: false
     type: string
     x-nullable: true
+  - _key: last_operator_suspended_category
+    api_fieldname: last_operator_suspended_category
+    description: The reference of the block category.
+    example: maintenance
+    pattern: '[a-f0-9_]{32}'
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_operator_suspended_description
+    api_fieldname: last_operator_suspended_description
+    description: The most recent description why the device was suspended or returned
+      to service.
+    example: Suspended for maintenance.
+    maxLength: 2000
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_operator_suspended_updated_at
+    api_fieldname: last_operator_suspended_updated_at
+    description: The timestamp of the most recent suspension activity.
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_system_suspended_category
+    api_fieldname: last_system_suspended_category
+    description: The reference of the block category.
+    example: maintenance
+    pattern: '[a-f0-9_]{32}'
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_system_suspended_description
+    api_fieldname: last_system_suspended_description
+    description: The most recent description of why the device was blocked or unblocked
+      by the system.
+    example: A certificate in the device's certificate chain was blacklisted by the
+      system.
+    maxLength: 2000
+    readOnly: true
+    required: false
+    type: string
+  - _key: last_system_suspended_updated_at
+    api_fieldname: last_system_suspended_updated_at
+    description: The timestamp of the most recent system block activity.
+    example: '2017-05-22T12:37:55.576563Z'
+    format: date-time
+    readOnly: true
+    required: false
+    type: string
+  - _key: lifecycle_status
+    api_fieldname: lifecycle_status
+    description: The lifecycle status of the device.
+    enum:
+    - enabled
+    - blocked
+    enum_reference: device_lifecycle_status_enum
+    example: enabled
+    readOnly: true
+    required: false
+    type: string
   - _key: manifest
     api_fieldname: manifest
     description: 'DEPRECATED: The URL for the current device manifest.'
@@ -17827,6 +17772,12 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: operator_suspended
+    api_fieldname: operator_suspended
+    description: Is the device suspended by the operator?
+    readOnly: true
+    required: false
+    type: boolean
   - _key: serial_number
     api_fieldname: serial_number
     description: The serial number of the device.
@@ -17847,6 +17798,12 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: system_suspended
+    api_fieldname: system_suspended
+    description: Is the device suspended by the system?
+    readOnly: true
+    required: false
+    type: boolean
   - _key: updated_at
     api_fieldname: updated_at
     description: The time the object was updated.
@@ -18068,6 +18025,15 @@ entities:
     - type
     - groups
     - filter
+    - operator_suspended
+    - last_operator_suspended_category
+    - last_operator_suspended_description
+    - last_operator_suspended_updated_at
+    - system_suspended
+    - last_system_suspended_category
+    - last_system_suspended_description
+    - last_system_suspended_updated_at
+    - lifecycle_status
     - account_id
     - bootstrapped_timestamp
     - created_at
@@ -18498,6 +18464,60 @@ entities:
           pattern: '[A-Fa-f0-9]{64}'
           type: string
           x-nullable: true
+        last_operator_suspended_category:
+          api_fieldname: last_operator_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_operator_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_operator_suspended_description:
+          api_fieldname: last_operator_suspended_description
+          description: The most recent description why the device was suspended or
+            returned to service.
+          entity_fieldname: last_operator_suspended_description
+          example: Suspended for maintenance.
+          maxLength: 2000
+          type: string
+        last_operator_suspended_updated_at:
+          api_fieldname: last_operator_suspended_updated_at
+          description: The timestamp of the most recent suspension activity.
+          entity_fieldname: last_operator_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        last_system_suspended_category:
+          api_fieldname: last_system_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_system_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_system_suspended_description:
+          api_fieldname: last_system_suspended_description
+          description: The most recent description of why the device was blocked or
+            unblocked by the system.
+          entity_fieldname: last_system_suspended_description
+          example: A certificate in the device's certificate chain was blacklisted
+            by the system.
+          maxLength: 2000
+          type: string
+        last_system_suspended_updated_at:
+          api_fieldname: last_system_suspended_updated_at
+          description: The timestamp of the most recent system block activity.
+          entity_fieldname: last_system_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        lifecycle_status:
+          api_fieldname: lifecycle_status
+          description: The lifecycle status of the device.
+          entity_fieldname: lifecycle_status
+          enum:
+          - enabled
+          - blocked
+          example: enabled
+          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -18538,6 +18558,11 @@ entities:
           entity_fieldname: object
           example: device
           type: string
+        operator_suspended:
+          api_fieldname: operator_suspended
+          description: Is the device suspended by the operator?
+          entity_fieldname: operator_suspended
+          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -18555,6 +18580,11 @@ entities:
           - registered
           - deregistered
           type: string
+        system_suspended:
+          api_fieldname: system_suspended
+          description: Is the device suspended by the system?
+          entity_fieldname: system_suspended
+          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -18569,9 +18599,7 @@ entities:
           example: 00000000-0000-0000-0000-000000000000
           type: string
     - _key: '400'
-      description: 'Validation error: The data used to create the device did not validate.
-
-        '
+      description: 'Validation error: The data used to create the device did not validate.'
     - _key: '401'
       description: Not authenticated.
     - _key: '403'
@@ -18583,12 +18611,12 @@ entities:
       self: true
       type: device
     return_type: device
-    summary: Create a device
+    summary: Create a device.
     x_deprecation: null
     x_filter: {}
   - _key: delete
     description: Delete device. Only available for devices with a developer certificate.
-      Attempts to delete a device with a production certicate will return a 400 response.
+      Attempting to delete a device with a production certicate returns a 400 response.
     drop_fields:
     - object
     - etag
@@ -18618,7 +18646,7 @@ entities:
     - _key: '204'
       description: Device deleted.
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -18642,6 +18670,30 @@ entities:
     - data
     - has_more
     - total_count
+    - lifecycle_status__eq
+    - lifecycle_status__neq
+    - lifecycle_status__in
+    - lifecycle_status__nin
+    - operator_suspended__eq
+    - operator_suspended__neq
+    - last_operator_suspension_category__eq
+    - last_operator_suspension_category__neq
+    - last_operator_suspension_category__in
+    - last_operator_suspension_category__nin
+    - last_operator_suspension_updated_at__in
+    - last_operator_suspension_updated_at__nin
+    - last_operator_suspension_updated_at__lte
+    - last_operator_suspension_updated_at__gte
+    - system_suspended__eq
+    - system_suspended__neq
+    - last_system_suspension_category__eq
+    - last_system_suspension_category__neq
+    - last_system_suspension_category__in
+    - last_system_suspension_category__nin
+    - last_system_suspension_updated_at__in
+    - last_system_suspension_updated_at__nin
+    - last_system_suspension_updated_at__lte
+    - last_system_suspension_updated_at__gte
     - account_id__eq
     - account_id__neq
     - account_id__in
@@ -18756,7 +18808,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The ID of The item after which to retrieve the next page.
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: '01631667477600000000000100100374'
       external_param: true
@@ -18778,9 +18830,8 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: How many objects to retrieve in the page. The minimum limit is
-        2 and the maximum is 1000. Limit values outside of this range are set to the
-        closest limit.
+      description: How many objects to retrieve in the page (2-1000). Limit values
+        outside of this range are set to the closest limit.
       entity_fieldname: limit
       example: 50
       external_param: true
@@ -18793,8 +18844,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: The order of the records based on creation time, `ASC` or `DESC`;
-        by default `ASC`.
+      description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
       entity_fieldname: order
       example: DESC
       external_param: true
@@ -18971,6 +19021,46 @@ entities:
               pattern: '[A-Fa-f0-9]{64}'
               type: string
               x-nullable: true
+            last_operator_suspended_category:
+              description: The reference of the block category.
+              example: maintenance
+              pattern: '[a-f0-9_]{32}'
+              type: string
+            last_operator_suspended_description:
+              description: The most recent description why the device was suspended
+                or returned to service.
+              example: Suspended for maintenance.
+              maxLength: 2000
+              type: string
+            last_operator_suspended_updated_at:
+              description: The timestamp of the most recent suspension activity.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            last_system_suspended_category:
+              description: The reference of the block category.
+              example: maintenance
+              pattern: '[a-f0-9_]{32}'
+              type: string
+            last_system_suspended_description:
+              description: The most recent description of why the device was blocked
+                or unblocked by the system.
+              example: A certificate in the device's certificate chain was blacklisted
+                by the system.
+              maxLength: 2000
+              type: string
+            last_system_suspended_updated_at:
+              description: The timestamp of the most recent system block activity.
+              example: '2017-05-22T12:37:55.576563Z'
+              format: date-time
+              type: string
+            lifecycle_status:
+              description: The lifecycle status of the device.
+              enum:
+              - enabled
+              - blocked
+              example: enabled
+              type: string
             manifest:
               description: 'DEPRECATED: The URL for the current device manifest.'
               example: ''
@@ -18999,6 +19089,9 @@ entities:
               description: The API resource entity.
               example: device
               type: string
+            operator_suspended:
+              description: Is the device suspended by the operator?
+              type: boolean
             serial_number:
               description: The serial number of the device.
               example: 00000000-0000-0000-0000-000000000000
@@ -19012,6 +19105,9 @@ entities:
               - registered
               - deregistered
               type: string
+            system_suspended:
+              description: Is the device suspended by the system?
+              type: boolean
             updated_at:
               description: The time the object was updated.
               example: '2017-05-22T12:37:55.576563Z'
@@ -19058,7 +19154,7 @@ entities:
           format: integer
           type: integer
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -19164,6 +19260,31 @@ entities:
       - neq
       - in
       - nin
+      last_operator_suspension_category:
+      - eq
+      - neq
+      - in
+      - nin
+      last_operator_suspension_updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+      last_system_suspension_category:
+      - eq
+      - neq
+      - in
+      - nin
+      last_system_suspension_updated_at:
+      - in
+      - nin
+      - lte
+      - gte
+      lifecycle_status:
+      - eq
+      - neq
+      - in
+      - nin
       manifest:
       - eq
       - neq
@@ -19189,6 +19310,9 @@ entities:
       - neq
       - in
       - nin
+      operator_suspended:
+      - eq
+      - neq
       serial_number:
       - eq
       - neq
@@ -19199,6 +19323,9 @@ entities:
       - neq
       - in
       - nin
+      system_suspended:
+      - eq
+      - neq
       updated_at:
       - in
       - nin
@@ -19218,6 +19345,15 @@ entities:
     - groups
     - filter
     - issuer_fingerprint
+    - operator_suspended
+    - last_operator_suspended_category
+    - last_operator_suspended_description
+    - last_operator_suspended_updated_at
+    - system_suspended
+    - last_system_suspended_category
+    - last_system_suspended_description
+    - last_system_suspended_updated_at
+    - lifecycle_status
     - account_id
     - device_execution_mode
     - auto_update
@@ -19451,6 +19587,60 @@ entities:
           pattern: '[A-Fa-f0-9]{64}'
           type: string
           x-nullable: true
+        last_operator_suspended_category:
+          api_fieldname: last_operator_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_operator_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_operator_suspended_description:
+          api_fieldname: last_operator_suspended_description
+          description: The most recent description why the device was suspended or
+            returned to service.
+          entity_fieldname: last_operator_suspended_description
+          example: Suspended for maintenance.
+          maxLength: 2000
+          type: string
+        last_operator_suspended_updated_at:
+          api_fieldname: last_operator_suspended_updated_at
+          description: The timestamp of the most recent suspension activity.
+          entity_fieldname: last_operator_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        last_system_suspended_category:
+          api_fieldname: last_system_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_system_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_system_suspended_description:
+          api_fieldname: last_system_suspended_description
+          description: The most recent description of why the device was blocked or
+            unblocked by the system.
+          entity_fieldname: last_system_suspended_description
+          example: A certificate in the device's certificate chain was blacklisted
+            by the system.
+          maxLength: 2000
+          type: string
+        last_system_suspended_updated_at:
+          api_fieldname: last_system_suspended_updated_at
+          description: The timestamp of the most recent system block activity.
+          entity_fieldname: last_system_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        lifecycle_status:
+          api_fieldname: lifecycle_status
+          description: The lifecycle status of the device.
+          entity_fieldname: lifecycle_status
+          enum:
+          - enabled
+          - blocked
+          example: enabled
+          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -19491,6 +19681,11 @@ entities:
           entity_fieldname: object
           example: device
           type: string
+        operator_suspended:
+          api_fieldname: operator_suspended
+          description: Is the device suspended by the operator?
+          entity_fieldname: operator_suspended
+          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -19508,6 +19703,11 @@ entities:
           - registered
           - deregistered
           type: string
+        system_suspended:
+          api_fieldname: system_suspended
+          description: Is the device suspended by the system?
+          entity_fieldname: system_suspended
+          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -19522,7 +19722,7 @@ entities:
           example: 00000000-0000-0000-0000-000000000000
           type: string
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -19532,7 +19732,7 @@ entities:
       self: true
       type: device
     return_type: device
-    summary: Get a device
+    summary: Get a device.
     x_deprecation: null
     x_filter: {}
   - _key: remove_from_group
@@ -20144,6 +20344,15 @@ entities:
     - groups
     - filter
     - issuer_fingerprint
+    - operator_suspended
+    - last_operator_suspended_category
+    - last_operator_suspended_description
+    - last_operator_suspended_updated_at
+    - system_suspended
+    - last_system_suspended_category
+    - last_system_suspended_description
+    - last_system_suspended_updated_at
+    - lifecycle_status
     - account_id
     - device_execution_mode
     - bootstrap_expiration_date
@@ -20462,6 +20671,60 @@ entities:
           pattern: '[A-Fa-f0-9]{64}'
           type: string
           x-nullable: true
+        last_operator_suspended_category:
+          api_fieldname: last_operator_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_operator_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_operator_suspended_description:
+          api_fieldname: last_operator_suspended_description
+          description: The most recent description why the device was suspended or
+            returned to service.
+          entity_fieldname: last_operator_suspended_description
+          example: Suspended for maintenance.
+          maxLength: 2000
+          type: string
+        last_operator_suspended_updated_at:
+          api_fieldname: last_operator_suspended_updated_at
+          description: The timestamp of the most recent suspension activity.
+          entity_fieldname: last_operator_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        last_system_suspended_category:
+          api_fieldname: last_system_suspended_category
+          description: The reference of the block category.
+          entity_fieldname: last_system_suspended_category
+          example: maintenance
+          pattern: '[a-f0-9_]{32}'
+          type: string
+        last_system_suspended_description:
+          api_fieldname: last_system_suspended_description
+          description: The most recent description of why the device was blocked or
+            unblocked by the system.
+          entity_fieldname: last_system_suspended_description
+          example: A certificate in the device's certificate chain was blacklisted
+            by the system.
+          maxLength: 2000
+          type: string
+        last_system_suspended_updated_at:
+          api_fieldname: last_system_suspended_updated_at
+          description: The timestamp of the most recent system block activity.
+          entity_fieldname: last_system_suspended_updated_at
+          example: '2017-05-22T12:37:55.576563Z'
+          format: date-time
+          type: string
+        lifecycle_status:
+          api_fieldname: lifecycle_status
+          description: The lifecycle status of the device.
+          entity_fieldname: lifecycle_status
+          enum:
+          - enabled
+          - blocked
+          example: enabled
+          type: string
         manifest:
           api_fieldname: manifest
           description: 'DEPRECATED: The URL for the current device manifest.'
@@ -20502,6 +20765,11 @@ entities:
           entity_fieldname: object
           example: device
           type: string
+        operator_suspended:
+          api_fieldname: operator_suspended
+          description: Is the device suspended by the operator?
+          entity_fieldname: operator_suspended
+          type: boolean
         serial_number:
           api_fieldname: serial_number
           description: The serial number of the device.
@@ -20519,6 +20787,11 @@ entities:
           - registered
           - deregistered
           type: string
+        system_suspended:
+          api_fieldname: system_suspended
+          description: Is the device suspended by the system?
+          entity_fieldname: system_suspended
+          type: boolean
         updated_at:
           api_fieldname: updated_at
           description: The time the object was updated.
@@ -20533,9 +20806,7 @@ entities:
           example: 00000000-0000-0000-0000-000000000000
           type: string
     - _key: '400'
-      description: 'Validation error: The data used to update the device did not validate.
-
-        '
+      description: 'Validation error: The data used to update the device did not validate.'
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -20545,7 +20816,7 @@ entities:
       self: true
       type: device
     return_type: device
-    summary: Update a device
+    summary: Update a device.
     x_deprecation: null
     x_filter: {}
   primary_key_field: id
@@ -23815,7 +24086,7 @@ entities:
     type: string
   - _key: event_type_description
     api_fieldname: event_type_description
-    description: Generic description of the event
+    description: Generic description of the event.
     example: FAIL
     readOnly: true
     required: false
@@ -23870,7 +24141,7 @@ entities:
     fields:
     - _key: after
       api_fieldname: after
-      description: The ID of The item after which to retrieve the next page.
+      description: The ID of the item after which to retrieve the next page.
       entity_fieldname: after
       example: null
       external_param: true
@@ -23882,7 +24153,7 @@ entities:
     - _key: include
       api_fieldname: include
       description: 'Comma-separated list of data fields to return. Currently supported:
-        `total_count`'
+        `total_count`.'
       entity_fieldname: include
       external_param: true
       in: query
@@ -23892,9 +24163,8 @@ entities:
       type: string
     - _key: limit
       api_fieldname: limit
-      description: How many objects to retrieve in the page. The minimum limit is
-        2 and the maximum is 1000. Limit values outside of this range are set to the
-        closest limit.
+      description: How many objects to retrieve in the page (2-1000). Limit values
+        outside of this range are set to the closest limit.
       entity_fieldname: limit
       example: 1000
       external_param: true
@@ -23907,8 +24177,7 @@ entities:
       type: integer
     - _key: order
       api_fieldname: order
-      description: The order of the records based on creation time, `ASC` or `DESC`;
-        by default `ASC`.
+      description: 'Record order. Acceptable values: ASC, DESC. Default: ASC.'
       entity_fieldname: order
       example: DESC
       external_param: true
@@ -23998,7 +24267,7 @@ entities:
               example: FAIL_MANIFEST_REJECTED
               type: string
             - _key: event_type_description
-              description: Generic description of the event
+              description: Generic description of the event.
               example: FAIL
               type: string
             - _key: id
@@ -24040,7 +24309,7 @@ entities:
           example: 1
           type: integer
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -24191,7 +24460,7 @@ entities:
           type: string
         - _key: event_type_description
           api_fieldname: event_type_description
-          description: Generic description of the event
+          description: Generic description of the event.
           entity_fieldname: event_type_description
           example: FAIL
           type: string
@@ -24214,7 +24483,7 @@ entities:
         - date_time
         - id
     - _key: '400'
-      description: Bad Request.
+      description: Bad request.
     - _key: '401'
       description: Not authenticated.
     - _key: '404'
@@ -39918,6 +40187,19 @@ entities:
     readOnly: true
     required: false
     type: string
+  - _key: campaign_strategy
+    api_fieldname: campaign_strategy
+    description: How the campaign adds devices. A `one-shot` campaign does not add
+      new devices after it has started. A `continuous` campaign means that devices
+      may be added to the campaign after it has started. The default is `one-shot`.
+    enum:
+    - one-shot
+    - continuous
+    enum_reference: update_campaign_strategy_enum
+    example: one-shot
+    readOnly: false
+    required: false
+    type: string
   - _key: created_at
     api_fieldname: created_at
     description: The time the update campaign was created
@@ -40103,6 +40385,21 @@ entities:
     - updated_at
     field_renames: []
     fields:
+    - _key: campaign_strategy
+      api_fieldname: campaign_strategy
+      description: How the campaign adds devices. A `one-shot` campaign does not add
+        new devices after it has started. A `continuous` campaign means that devices
+        may be added to the campaign after it has started. The default is `one-shot`.
+      entity_fieldname: campaign_strategy
+      enum:
+      - one-shot
+      - continuous
+      enum_reference: update_campaign_strategy_enum
+      example: one-shot
+      in: body
+      parameter_fieldname: campaign_strategy
+      required: false
+      type: string
     - _key: description
       api_fieldname: description
       description: An optional description of the campaign
@@ -40188,6 +40485,18 @@ entities:
             campaign stopped.
           entity_fieldname: autostop_reason
           example: Insufficient billing credit.
+          type: string
+        campaign_strategy:
+          api_fieldname: campaign_strategy
+          description: How the campaign adds devices. A `one-shot` campaign does not
+            add new devices after it has started. A `continuous` campaign means that
+            devices may be added to the campaign after it has started. The default
+            is `one-shot`.
+          entity_fieldname: campaign_strategy
+          enum:
+          - one-shot
+          - continuous
+          example: one-shot
           type: string
         created_at:
           api_fieldname: created_at
@@ -40865,6 +41174,16 @@ entities:
                 a campaign stopped.
               example: Insufficient billing credit.
               type: string
+            campaign_strategy:
+              description: How the campaign adds devices. A `one-shot` campaign does
+                not add new devices after it has started. A `continuous` campaign
+                means that devices may be added to the campaign after it has started.
+                The default is `one-shot`.
+              enum:
+              - one-shot
+              - continuous
+              example: one-shot
+              type: string
             created_at:
               description: The time the update campaign was created
               example: '2017-05-22T12:37:55.576563Z'
@@ -41064,6 +41383,7 @@ entities:
     - groups
     - filter
     - state
+    - campaign_strategy
     - autostop_reason
     - phase
     - created_at
@@ -41123,6 +41443,18 @@ entities:
             campaign stopped.
           entity_fieldname: autostop_reason
           example: Insufficient billing credit.
+          type: string
+        campaign_strategy:
+          api_fieldname: campaign_strategy
+          description: How the campaign adds devices. A `one-shot` campaign does not
+            add new devices after it has started. A `continuous` campaign means that
+            devices may be added to the campaign after it has started. The default
+            is `one-shot`.
+          entity_fieldname: campaign_strategy
+          enum:
+          - one-shot
+          - continuous
+          example: one-shot
           type: string
         created_at:
           api_fieldname: created_at
@@ -41394,6 +41726,7 @@ entities:
     - groups
     - filter
     - state
+    - campaign_strategy
     - autostop_reason
     - phase
     - created_at
@@ -41497,6 +41830,18 @@ entities:
             campaign stopped.
           entity_fieldname: autostop_reason
           example: Insufficient billing credit.
+          type: string
+        campaign_strategy:
+          api_fieldname: campaign_strategy
+          description: How the campaign adds devices. A `one-shot` campaign does not
+            add new devices after it has started. A `continuous` campaign means that
+            devices may be added to the campaign after it has started. The default
+            is `one-shot`.
+          entity_fieldname: campaign_strategy
+          enum:
+          - one-shot
+          - continuous
+          example: one-shot
           type: string
         created_at:
           api_fieldname: created_at
@@ -46205,18 +46550,14 @@ entities:
   fields:
   - _key: message
     api_fieldname: message
-    description: 'Provides details in case of failure.
-
-      '
-    example: message describing the verification failure
+    description: Provides details in case of failure.
+    example: Message describing the verification failure
     readOnly: true
     required: false
     type: string
   - _key: successful
     api_fieldname: successful
-    description: 'Indicates whether the certificate issuer was verified successfully.
-
-      '
+    description: Indicates whether the certificate issuer was verified successfully.
     example: false
     readOnly: true
     required: false
@@ -46383,6 +46724,14 @@ enums:
   values:
   - ASC
   - DESC
+- _key: device_lifecycle_status_enum
+  entity_name: device
+  enum_name: device_lifecycle_status_enum
+  field_name: lifecycle_status
+  group_id: Devices
+  values:
+  - blocked
+  - enabled
 - _key: device_mechanism_enum
   entity_name: device
   enum_name: device_mechanism_enum
@@ -46485,6 +46834,14 @@ enums:
   values:
   - ASC
   - DESC
+- _key: update_campaign_strategy_enum
+  entity_name: update_campaign
+  enum_name: update_campaign_strategy_enum
+  field_name: campaign_strategy
+  group_id: Device_Update
+  values:
+  - continuous
+  - one-shot
 - _key: user_invitation_order_enum
   entity_name: user_invitation
   enum_name: user_invitation_order_enum
@@ -46549,6 +46906,7 @@ groups:
   - firmware_manifest
   enums:
   - campaign_device_metadata_deployment_state_enum
+  - update_campaign_strategy_enum
   - update_campaign_order_enum
   - campaign_statistics_summary_status_enum
   - campaign_statistics_id_enum
@@ -46564,6 +46922,7 @@ groups:
   - device_enrollment
   - device_enrollment_denial
   enums:
+  - device_lifecycle_status_enum
   - device_deployed_state_enum
   - device_mechanism_enum
   - device_state_enum
