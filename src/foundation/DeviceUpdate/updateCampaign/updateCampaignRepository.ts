@@ -50,7 +50,6 @@ export class UpdateCampaignRepository extends Repository {
                         url: "/v3/update-campaigns/",
                         method: "POST",
                         body: {
-                            campaign_strategy: request.campaignStrategy,
                             description: request.description,
                             device_filter: request.deviceFilter,
                             name: request.name,

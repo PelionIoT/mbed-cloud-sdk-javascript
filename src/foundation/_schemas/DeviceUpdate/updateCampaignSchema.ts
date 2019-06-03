@@ -10,11 +10,6 @@ export const updateCampaignSchema = (): Schema => {
                 type: "string",
             },
             {
-                name: "campaignStrategy",
-                apiName: "campaign_strategy",
-                type: "UpdateCampaignStrategy",
-            },
-            {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
@@ -97,10 +92,6 @@ export const updateCampaignSchema = (): Schema => {
                         position: 0,
                         type: "Object",
                         subParams: [
-                            {
-                                name: "campaignStrategy",
-                                type: "UpdateCampaignStrategy",
-                            },
                             {
                                 name: "description",
                                 type: "string",

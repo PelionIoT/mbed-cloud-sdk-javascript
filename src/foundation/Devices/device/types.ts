@@ -1,7 +1,6 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
 export type DeviceDeployedState = "development" | "production";
 export type DeviceExecutionMode = "0" | "1" | "5";
-export type DeviceLifecycleStatus = "enabled" | "blocked";
 export type DeviceMechanism = "connector" | "direct";
 export type DeviceState = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 /**
@@ -200,154 +199,6 @@ export interface DeviceUpdateRequest {
      *@example 00000000-0000-0000-0000-000000000000
      */
     readonly name?: string;
-}
-/**
- *DeviceDeviceLifecycleStatusFilter
- */
-export interface DeviceDeviceLifecycleStatusFilter {
-    /**
-     *lifecycleStatus equal to
-     */
-    eq?: DeviceLifecycleStatus;
-
-    /**
-     *lifecycleStatus not equal to
-     */
-    neq?: DeviceLifecycleStatus;
-
-    /**
-     *lifecycleStatus in
-     */
-    in?: Array<DeviceLifecycleStatus>;
-
-    /**
-     *lifecycleStatus not in
-     */
-    nin?: Array<DeviceLifecycleStatus>;
-}
-/**
- *DeviceDeviceOperatorSuspendedFilter
- */
-export interface DeviceDeviceOperatorSuspendedFilter {
-    /**
-     *operatorSuspended equal to
-     */
-    eq?: boolean;
-
-    /**
-     *operatorSuspended not equal to
-     */
-    neq?: boolean;
-}
-/**
- *DeviceDeviceLastOperatorSuspensionCategoryFilter
- */
-export interface DeviceDeviceLastOperatorSuspensionCategoryFilter {
-    /**
-     *lastOperatorSuspensionCategory equal to
-     */
-    eq?: string;
-
-    /**
-     *lastOperatorSuspensionCategory not equal to
-     */
-    neq?: string;
-
-    /**
-     *lastOperatorSuspensionCategory in
-     */
-    in?: Array<string>;
-
-    /**
-     *lastOperatorSuspensionCategory not in
-     */
-    nin?: Array<string>;
-}
-/**
- *DeviceDeviceLastOperatorSuspensionUpdatedAtFilter
- */
-export interface DeviceDeviceLastOperatorSuspensionUpdatedAtFilter {
-    /**
-     *lastOperatorSuspensionUpdatedAt in
-     */
-    in?: Array<string>;
-
-    /**
-     *lastOperatorSuspensionUpdatedAt not in
-     */
-    nin?: Array<string>;
-
-    /**
-     *lastOperatorSuspensionUpdatedAt less than
-     */
-    lte?: Array<string>;
-
-    /**
-     *lastOperatorSuspensionUpdatedAt greater than
-     */
-    gte?: Array<string>;
-}
-/**
- *DeviceDeviceSystemSuspendedFilter
- */
-export interface DeviceDeviceSystemSuspendedFilter {
-    /**
-     *systemSuspended equal to
-     */
-    eq?: boolean;
-
-    /**
-     *systemSuspended not equal to
-     */
-    neq?: boolean;
-}
-/**
- *DeviceDeviceLastSystemSuspensionCategoryFilter
- */
-export interface DeviceDeviceLastSystemSuspensionCategoryFilter {
-    /**
-     *lastSystemSuspensionCategory equal to
-     */
-    eq?: string;
-
-    /**
-     *lastSystemSuspensionCategory not equal to
-     */
-    neq?: string;
-
-    /**
-     *lastSystemSuspensionCategory in
-     */
-    in?: Array<string>;
-
-    /**
-     *lastSystemSuspensionCategory not in
-     */
-    nin?: Array<string>;
-}
-/**
- *DeviceDeviceLastSystemSuspensionUpdatedAtFilter
- */
-export interface DeviceDeviceLastSystemSuspensionUpdatedAtFilter {
-    /**
-     *lastSystemSuspensionUpdatedAt in
-     */
-    in?: Array<string>;
-
-    /**
-     *lastSystemSuspensionUpdatedAt not in
-     */
-    nin?: Array<string>;
-
-    /**
-     *lastSystemSuspensionUpdatedAt less than
-     */
-    lte?: Array<string>;
-
-    /**
-     *lastSystemSuspensionUpdatedAt greater than
-     */
-    gte?: Array<string>;
 }
 /**
  *DeviceDeviceAccountIdFilter
@@ -1015,41 +866,6 @@ export interface DeviceDeviceVendorIdFilter {
  *DeviceDeviceFilter
  */
 export interface DeviceDeviceFilter {
-    /**
-     *Filter by lifecycleStatus on Device
-     */
-    lifecycleStatus?: DeviceLifecycleStatus | DeviceDeviceLifecycleStatusFilter;
-
-    /**
-     *Filter by operatorSuspended on Device
-     */
-    operatorSuspended?: boolean | DeviceDeviceOperatorSuspendedFilter;
-
-    /**
-     *Filter by lastOperatorSuspensionCategory on Device
-     */
-    lastOperatorSuspensionCategory?: string | DeviceDeviceLastOperatorSuspensionCategoryFilter;
-
-    /**
-     *Filter by lastOperatorSuspensionUpdatedAt on Device
-     */
-    lastOperatorSuspensionUpdatedAt?: DeviceDeviceLastOperatorSuspensionUpdatedAtFilter;
-
-    /**
-     *Filter by systemSuspended on Device
-     */
-    systemSuspended?: boolean | DeviceDeviceSystemSuspendedFilter;
-
-    /**
-     *Filter by lastSystemSuspensionCategory on Device
-     */
-    lastSystemSuspensionCategory?: string | DeviceDeviceLastSystemSuspensionCategoryFilter;
-
-    /**
-     *Filter by lastSystemSuspensionUpdatedAt on Device
-     */
-    lastSystemSuspensionUpdatedAt?: DeviceDeviceLastSystemSuspensionUpdatedAtFilter;
-
     /**
      *Filter by accountId on Device
      */

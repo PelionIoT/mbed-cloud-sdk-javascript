@@ -4,8 +4,9 @@ import { Entity } from "../../../common/entity";
  */
 export interface CertificateIssuerConfig extends Entity {
     /**
-*Certificate issuer ID.
+*The ID of the certificate issuer.
 Null if Device Management internal HSM is used.
+
 *@example 01648415a2a30242ac18000500000000
 */
     certificateIssuerId: string;

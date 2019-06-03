@@ -7,6 +7,8 @@ export { campaignStatisticsEventsSchema } from "./DeviceUpdate/campaignStatistic
 export { certificateEnrollmentSchema } from "./Security/certificateEnrollmentSchema";
 export { certificateIssuerSchema } from "./Security/certificateIssuerSchema";
 export { certificateIssuerConfigSchema } from "./Security/certificateIssuerConfigSchema";
+export { darkThemeColorSchema } from "./Branding/darkThemeColorSchema";
+export { darkThemeImageSchema } from "./Branding/darkThemeImageSchema";
 export { developerCertificateSchema } from "./Security/developerCertificateSchema";
 export { deviceSchema } from "./Devices/deviceSchema";
 export { deviceEnrollmentSchema } from "./Devices/deviceEnrollmentSchema";
@@ -17,6 +19,8 @@ export { deviceEventsSchema } from "./Devices/deviceEventsSchema";
 export { deviceGroupSchema } from "./Devices/deviceGroupSchema";
 export { firmwareImageSchema } from "./DeviceUpdate/firmwareImageSchema";
 export { firmwareManifestSchema } from "./DeviceUpdate/firmwareManifestSchema";
+export { lightThemeColorSchema } from "./Branding/lightThemeColorSchema";
+export { lightThemeImageSchema } from "./Branding/lightThemeImageSchema";
 export { loginHistorySchema } from "./Accounts/loginHistorySchema";
 export { loginProfileSchema } from "./Accounts/loginProfileSchema";
 export { parentAccountSchema } from "./Accounts/parentAccountSchema";
