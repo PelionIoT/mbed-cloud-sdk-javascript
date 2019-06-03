@@ -1,8 +1,8 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { Device } from "./device";
-import { DeviceAdapter } from "../../index";
 import { DeviceAddToGroupRequest } from "./types";
+import { DeviceAdapter } from "../../index";
 import { DeviceCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
 import { DeviceDeviceListOptions } from "./types";
@@ -22,7 +22,7 @@ export class DeviceRepository extends Repository {
      * @param request - The entity to perform action on.
      * @param deviceGroupId - The ID of the group.
      */
-    public addToGroup(request: DeviceAddToGroupRequest, deviceGroupId: string): Promise<Device> {
+    public addToGroup(request: DeviceAddToGroupRequest, deviceGroupId: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -39,8 +39,8 @@ export class DeviceRepository extends Repository {
                     resultsFn
                 );
             },
-            (data, done) => {
-                done(null, DeviceAdapter.fromApi(data, request));
+            (_data, done) => {
+                done(null, null);
             }
         );
     }
@@ -359,7 +359,7 @@ export class DeviceRepository extends Repository {
      * @param request - The entity to perform action on.
      * @param deviceGroupId - The ID of the group.
      */
-    public removeFromGroup(request: DeviceRemoveFromGroupRequest, deviceGroupId: string): Promise<Device> {
+    public removeFromGroup(request: DeviceRemoveFromGroupRequest, deviceGroupId: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -376,8 +376,8 @@ export class DeviceRepository extends Repository {
                     resultsFn
                 );
             },
-            (data, done) => {
-                done(null, DeviceAdapter.fromApi(data, request));
+            (_data, done) => {
+                done(null, null);
             }
         );
     }

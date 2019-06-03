@@ -23,15 +23,24 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
         const repositoryMethods = new Array<MethodContainer>();
         for (const method of entity.methods) {
             let hasBucket = false;
+            // let isVoid = false;
             const methodName = snakeToCamel(method._key);
             const httpMethod = method.method ? method.method.toUpperCase() : "GET";
             const path = method.path;
             const paginated = !!method.pagination;
             const privateMethod = !!method.private_method;
             const customMethodCall = !!method.custom_method;
+
+            const returnType = method.return_info.type;
+            let returns: string = httpMethod === "DELETE" ? "void" : getType(returnType) || snakeToPascal(returnType);
+            if (returnType === "void") {
+                // isVoid = true;
+                returns = "void";
+            }
+
             // if method doesn't return self or a primitive type
             const foreignKey = method.return_info.self === false && getType(method.return_info.type) === undefined;
-            if (foreignKey) {
+            if (foreignKey && returnType !== "void") {
                 // add import for foreign key
                 safeAddToList(repositoryImports, new ImportContainer(
                     `${method.return_info.type} _FOREIGN_KEY_IMPORT`,
@@ -50,8 +59,6 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                     ));
                 }
             }
-            const returnType = method.return_info.type;
-            const returns: string = httpMethod === "DELETE" ? "void" : getType(returnType) || snakeToPascal(returnType);
 
             if (returns.indexOf("ReadStream") === -1 && returns !== "void" && !paginated) {
                 safeAddToList(repositoryImports, new ImportContainer(

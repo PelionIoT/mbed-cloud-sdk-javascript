@@ -1,8 +1,8 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { DeviceGroup } from "./deviceGroup";
-import { DeviceGroupAdapter } from "../../index";
 import { DeviceGroupAddDeviceRequest } from "./types";
+import { DeviceGroupAdapter } from "../../index";
 import { DeviceGroupCreateRequest } from "./types";
 import { Device } from "../../index";
 import { DeviceAdapter } from "../../index";
@@ -23,7 +23,7 @@ export class DeviceGroupRepository extends Repository {
      * @param request - The entity to perform action on.
      * @param id - The ID of the group.
      */
-    public addDevice(request: DeviceGroupAddDeviceRequest, id: string): Promise<DeviceGroup> {
+    public addDevice(request: DeviceGroupAddDeviceRequest, id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -40,8 +40,8 @@ export class DeviceGroupRepository extends Repository {
                     resultsFn
                 );
             },
-            (data, done) => {
-                done(null, DeviceGroupAdapter.fromApi(data, request));
+            (_data, done) => {
+                done(null, null);
             }
         );
     }
@@ -401,7 +401,7 @@ export class DeviceGroupRepository extends Repository {
      * @param request - The entity to perform action on.
      * @param id - The ID of the group.
      */
-    public removeDevice(request: DeviceGroupRemoveDeviceRequest, id: string): Promise<DeviceGroup> {
+    public removeDevice(request: DeviceGroupRemoveDeviceRequest, id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
@@ -418,8 +418,8 @@ export class DeviceGroupRepository extends Repository {
                     resultsFn
                 );
             },
-            (data, done) => {
-                done(null, DeviceGroupAdapter.fromApi(data, request));
+            (_data, done) => {
+                done(null, null);
             }
         );
     }

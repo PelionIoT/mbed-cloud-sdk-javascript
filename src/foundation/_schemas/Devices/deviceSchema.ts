@@ -154,7 +154,7 @@ export const deviceSchema = (): Schema => {
         methods: [
             {
                 name: "addToGroup",
-                returnType: "Promise<Device>",
+                returnType: "Promise<void>",
                 parameters: [
                     {
                         name: "request",
@@ -332,7 +332,7 @@ export const deviceSchema = (): Schema => {
             },
             {
                 name: "removeFromGroup",
-                returnType: "Promise<Device>",
+                returnType: "Promise<void>",
                 parameters: [
                     {
                         name: "request",
