@@ -11,7 +11,7 @@ export interface DeviceAddToGroupRequest {
      *deviceId
      *@example 00000000000000000000000000000000
      */
-    readonly deviceId?: string;
+    readonly deviceId: string;
 }
 /**
  *DeviceCreateRequest
@@ -143,7 +143,7 @@ export interface DeviceRemoveFromGroupRequest {
      *deviceId
      *@example 00000000000000000000000000000000
      */
-    readonly deviceId?: string;
+    readonly deviceId: string;
 }
 /**
  *DeviceUpdateRequest
