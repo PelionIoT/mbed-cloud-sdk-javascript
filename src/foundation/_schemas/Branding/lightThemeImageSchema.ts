@@ -27,18 +27,13 @@ export const lightThemeImageSchema = (): Schema => {
                 returnType: "Promise<LightThemeImage>",
                 parameters: [
                     {
-                        name: "accountId",
-                        position: 0,
-                        type: "string",
-                    },
-                    {
                         name: "image",
-                        position: 1,
+                        position: 0,
                         type: "ReadStream | Buffer | File | Blob",
                     },
                     {
                         name: "reference",
-                        position: 2,
+                        position: 1,
                         type: "string",
                     },
                 ],

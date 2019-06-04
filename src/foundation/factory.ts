@@ -24,6 +24,10 @@ import { LightThemeImageRepository } from ".";
 import { PreSharedKeyRepository } from ".";
 import { ServerCredentialsRepository } from ".";
 import { SubtenantApiKeyRepository } from ".";
+import { SubtenantDarkThemeColorRepository } from ".";
+import { SubtenantDarkThemeImageRepository } from ".";
+import { SubtenantLightThemeColorRepository } from ".";
+import { SubtenantLightThemeImageRepository } from ".";
 import { SubtenantTrustedCertificateRepository } from ".";
 import { SubtenantUserRepository } from ".";
 import { SubtenantUserInvitationRepository } from ".";
@@ -111,6 +115,18 @@ export class Factory {
     }
     public subtenantApiKeyRepository(): SubtenantApiKeyRepository {
         return new SubtenantApiKeyRepository(this._config);
+    }
+    public subtenantDarkThemeColorRepository(): SubtenantDarkThemeColorRepository {
+        return new SubtenantDarkThemeColorRepository(this._config);
+    }
+    public subtenantDarkThemeImageRepository(): SubtenantDarkThemeImageRepository {
+        return new SubtenantDarkThemeImageRepository(this._config);
+    }
+    public subtenantLightThemeColorRepository(): SubtenantLightThemeColorRepository {
+        return new SubtenantLightThemeColorRepository(this._config);
+    }
+    public subtenantLightThemeImageRepository(): SubtenantLightThemeImageRepository {
+        return new SubtenantLightThemeImageRepository(this._config);
     }
     public subtenantTrustedCertificateRepository(): SubtenantTrustedCertificateRepository {
         return new SubtenantTrustedCertificateRepository(this._config);

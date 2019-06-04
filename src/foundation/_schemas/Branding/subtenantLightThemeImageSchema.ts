@@ -1,13 +1,13 @@
 import { Schema } from "../../../schema/schema";
 
-export const darkThemeImageSchema = (): Schema => {
+export const subtenantLightThemeImageSchema = (): Schema => {
     return Object.assign(new Schema(), {
-        name: "DarkThemeImage",
+        name: "SubtenantLightThemeImage",
         fields: [
             {
                 name: "reference",
                 apiName: "reference",
-                type: "DarkThemeImageReference",
+                type: "SubtenantLightThemeImageReference",
             },
             {
                 name: "staticUri",
@@ -24,12 +24,33 @@ export const darkThemeImageSchema = (): Schema => {
         methods: [
             {
                 name: "create",
-                returnType: "Promise<DarkThemeImage>",
+                returnType: "Promise<SubtenantLightThemeImage>",
                 parameters: [
                     {
-                        name: "image",
+                        name: "accountId",
                         position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "image",
+                        position: 1,
                         type: "ReadStream | Buffer | File | Blob",
+                    },
+                    {
+                        name: "reference",
+                        position: 2,
+                        type: "string",
+                    },
+                ],
+            },
+            {
+                name: "delete",
+                returnType: "Promise<SubtenantLightThemeImage>",
+                parameters: [
+                    {
+                        name: "accountId",
+                        position: 0,
+                        type: "string",
                     },
                     {
                         name: "reference",
@@ -39,23 +60,17 @@ export const darkThemeImageSchema = (): Schema => {
                 ],
             },
             {
-                name: "delete",
-                returnType: "Promise<DarkThemeImage>",
+                name: "list",
+                returnType: "Paginator<SubtenantLightThemeImage, ListOptions>",
                 parameters: [
                     {
-                        name: "reference",
+                        name: "accountId",
                         position: 0,
                         type: "string",
                     },
-                ],
-            },
-            {
-                name: "list",
-                returnType: "Paginator<DarkThemeImage, ListOptions>",
-                parameters: [
                     {
                         name: "options",
-                        position: 0,
+                        position: 1,
                         type: "Object",
                         subParams: [
                             {
@@ -84,11 +99,16 @@ export const darkThemeImageSchema = (): Schema => {
             },
             {
                 name: "read",
-                returnType: "Promise<DarkThemeImage>",
+                returnType: "Promise<SubtenantLightThemeImage>",
                 parameters: [
                     {
-                        name: "reference",
+                        name: "accountId",
                         position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "reference",
+                        position: 1,
                         type: "string",
                     },
                 ],

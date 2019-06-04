@@ -12,23 +12,17 @@ import { ListOptions } from "../../../legacy/common/interfaces";
 export class DarkThemeImageRepository extends Repository {
     /**
      * create
-     * @param accountId - Account ID.
      * @param image - The image in PNG or JPEG format as multipart form data.
      * @param reference - Name of the image.
      */
-    public create(
-        accountId: string,
-        image: ReadStream | Buffer | File | Blob,
-        reference: string
-    ): Promise<DarkThemeImage> {
+    public create(image: ReadStream | Buffer | File | Blob, reference: string): Promise<DarkThemeImage> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart",
+                        url: "/v3/branding-images/dark/{reference}/upload-multipart",
                         method: "POST",
                         pathParams: {
-                            account_id: accountId,
                             reference: reference,
                         },
                         formParams: {

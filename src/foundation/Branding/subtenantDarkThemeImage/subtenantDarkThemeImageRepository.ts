@@ -1,28 +1,34 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { LightThemeImage } from "./lightThemeImage";
-import { LightThemeImageAdapter } from "../../index";
+import { SubtenantDarkThemeImage } from "./subtenantDarkThemeImage";
+import { SubtenantDarkThemeImageAdapter } from "../../index";
 import { ReadStream } from "fs";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
- *LightThemeImage repository
+ *SubtenantDarkThemeImage repository
  */
-export class LightThemeImageRepository extends Repository {
+export class SubtenantDarkThemeImageRepository extends Repository {
     /**
      * create
+     * @param accountId - Account ID.
      * @param image - The image in PNG or JPEG format as multipart form data.
      * @param reference - Name of the image.
      */
-    public create(image: ReadStream | Buffer | File | Blob, reference: string): Promise<LightThemeImage> {
+    public create(
+        accountId: string,
+        image: ReadStream | Buffer | File | Blob,
+        reference: string
+    ): Promise<SubtenantDarkThemeImage> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/branding-images/light/{reference}/upload-multipart",
+                        url: "/v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart",
                         method: "POST",
                         pathParams: {
+                            account_id: accountId,
                             reference: reference,
                         },
                         formParams: {
@@ -34,22 +40,24 @@ export class LightThemeImageRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, LightThemeImageAdapter.fromApi(data));
+                done(null, SubtenantDarkThemeImageAdapter.fromApi(data));
             }
         );
     }
     /**
      * delete
+     * @param accountId - Account ID.
      * @param reference - Name of the branding images (icon or picture).
      */
-    public delete(reference: string): Promise<LightThemeImage> {
+    public delete(accountId: string, reference: string): Promise<SubtenantDarkThemeImage> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/branding-images/light/{reference}/clear",
+                        url: "/v3/accounts/{account_id}/branding-images/dark/{reference}/clear",
                         method: "POST",
                         pathParams: {
+                            account_id: accountId,
                             reference: reference,
                         },
                     },
@@ -57,29 +65,33 @@ export class LightThemeImageRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, LightThemeImageAdapter.fromApi(data));
+                done(null, SubtenantDarkThemeImageAdapter.fromApi(data));
             }
         );
     }
     /**
      * list
+     * @param accountId - Account ID.
      * @param options - options
      */
-    public list(options?: ListOptions): Paginator<LightThemeImage, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<LightThemeImage>> => {
+    public list(accountId: string, options?: ListOptions): Paginator<SubtenantDarkThemeImage, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantDarkThemeImage>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
                     this.client._CallApi(
                         {
-                            url: "/v3/branding-images/light",
+                            url: "/v3/accounts/{account_id}/branding-images/dark",
                             method: "GET",
+                            pathParams: {
+                                account_id: accountId,
+                            },
                         },
                         resultsFn
                     );
                 },
-                (data: ListResponse<LightThemeImage>, done) => {
-                    done(null, new ListResponse(data, data.data, LightThemeImageAdapter.fromApi));
+                (data: ListResponse<SubtenantDarkThemeImage>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantDarkThemeImageAdapter.fromApi));
                 },
                 null
             );
@@ -88,16 +100,18 @@ export class LightThemeImageRepository extends Repository {
     }
     /**
      * read
+     * @param accountId - Account ID.
      * @param reference - Name of the image.
      */
-    public read(reference: string): Promise<LightThemeImage> {
+    public read(accountId: string, reference: string): Promise<SubtenantDarkThemeImage> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/branding-images/light/{reference}",
+                        url: "/v3/accounts/{account_id}/branding-images/dark/{reference}",
                         method: "GET",
                         pathParams: {
+                            account_id: accountId,
                             reference: reference,
                         },
                     },
@@ -105,7 +119,7 @@ export class LightThemeImageRepository extends Repository {
                 );
             },
             (data, done) => {
-                done(null, LightThemeImageAdapter.fromApi(data));
+                done(null, SubtenantDarkThemeImageAdapter.fromApi(data));
             }
         );
     }

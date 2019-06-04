@@ -1,18 +1,18 @@
 import { Schema } from "../../../schema/schema";
 
-export const darkThemeImageSchema = (): Schema => {
+export const subtenantDarkThemeColorSchema = (): Schema => {
     return Object.assign(new Schema(), {
-        name: "DarkThemeImage",
+        name: "SubtenantDarkThemeColor",
         fields: [
+            {
+                name: "color",
+                apiName: "color",
+                type: "string",
+            },
             {
                 name: "reference",
                 apiName: "reference",
-                type: "DarkThemeImageReference",
-            },
-            {
-                name: "staticUri",
-                apiName: "static_uri",
-                type: "string",
+                type: "SubtenantDarkThemeColorReference",
             },
             {
                 name: "updatedAt",
@@ -23,13 +23,13 @@ export const darkThemeImageSchema = (): Schema => {
 
         methods: [
             {
-                name: "create",
-                returnType: "Promise<DarkThemeImage>",
+                name: "delete",
+                returnType: "Promise<void>",
                 parameters: [
                     {
-                        name: "image",
+                        name: "accountId",
                         position: 0,
-                        type: "ReadStream | Buffer | File | Blob",
+                        type: "string",
                     },
                     {
                         name: "reference",
@@ -39,23 +39,17 @@ export const darkThemeImageSchema = (): Schema => {
                 ],
             },
             {
-                name: "delete",
-                returnType: "Promise<DarkThemeImage>",
+                name: "list",
+                returnType: "Paginator<SubtenantDarkThemeColor, ListOptions>",
                 parameters: [
                     {
-                        name: "reference",
+                        name: "accountId",
                         position: 0,
                         type: "string",
                     },
-                ],
-            },
-            {
-                name: "list",
-                returnType: "Paginator<DarkThemeImage, ListOptions>",
-                parameters: [
                     {
                         name: "options",
-                        position: 0,
+                        position: 1,
                         type: "Object",
                         subParams: [
                             {
@@ -84,11 +78,47 @@ export const darkThemeImageSchema = (): Schema => {
             },
             {
                 name: "read",
-                returnType: "Promise<DarkThemeImage>",
+                returnType: "Promise<SubtenantDarkThemeColor>",
                 parameters: [
                     {
-                        name: "reference",
+                        name: "accountId",
                         position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "reference",
+                        position: 1,
+                        type: "string",
+                    },
+                ],
+            },
+            {
+                name: "update",
+                returnType: "Promise<SubtenantDarkThemeColor>",
+                parameters: [
+                    {
+                        name: "request",
+                        position: 0,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "color",
+                                type: "string",
+                            },
+                            {
+                                name: "updatedAt",
+                                type: "Date",
+                            },
+                        ],
+                    },
+                    {
+                        name: "accountId",
+                        position: 1,
+                        type: "string",
+                    },
+                    {
+                        name: "reference",
+                        position: 2,
                         type: "string",
                     },
                 ],
