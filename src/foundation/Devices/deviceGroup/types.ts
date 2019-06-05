@@ -961,20 +961,6 @@ export interface DeviceGroupDeviceGroupNameFilter {
     nin?: Array<string>;
 }
 /**
- *DeviceGroupDeviceGroupCustomAttributesFilter
- */
-export interface DeviceGroupDeviceGroupCustomAttributesFilter {
-    /**
-     *customAttributes equal to
-     */
-    eq?: { [key: string]: string };
-
-    /**
-     *customAttributes not equal to
-     */
-    neq?: { [key: string]: string };
-}
-/**
  *DeviceGroupDeviceGroupCreatedAtFilter
  */
 export interface DeviceGroupDeviceGroupCreatedAtFilter {
@@ -1040,11 +1026,6 @@ export interface DeviceGroupDeviceGroupFilter {
      *Filter by name on DeviceGroup
      */
     name?: string | DeviceGroupDeviceGroupNameFilter;
-
-    /**
-     *Filter by customAttributes on DeviceGroup
-     */
-    customAttributes?: { [key: string]: string } | DeviceGroupDeviceGroupCustomAttributesFilter;
 
     /**
      *Filter by createdAt on DeviceGroup

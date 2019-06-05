@@ -39,44 +39,6 @@ export const subtenantLightThemeColorSchema = (): Schema => {
                 ],
             },
             {
-                name: "list",
-                returnType: "Paginator<SubtenantLightThemeColor, ListOptions>",
-                parameters: [
-                    {
-                        name: "accountId",
-                        position: 0,
-                        type: "string",
-                    },
-                    {
-                        name: "options",
-                        position: 1,
-                        type: "Object",
-                        subParams: [
-                            {
-                                name: "after",
-                                type: "string",
-                            },
-                            {
-                                name: "limit",
-                                type: "number",
-                            },
-                            {
-                                name: "order",
-                                type: "string",
-                            },
-                            {
-                                name: "include",
-                                type: "string",
-                            },
-                            {
-                                name: "maxResults",
-                                type: "string",
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
                 name: "read",
                 returnType: "Promise<SubtenantLightThemeColor>",
                 parameters: [

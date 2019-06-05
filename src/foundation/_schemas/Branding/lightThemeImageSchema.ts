@@ -23,22 +23,6 @@ export const lightThemeImageSchema = (): Schema => {
 
         methods: [
             {
-                name: "create",
-                returnType: "Promise<LightThemeImage>",
-                parameters: [
-                    {
-                        name: "image",
-                        position: 0,
-                        type: "ReadStream | Buffer | File | Blob",
-                    },
-                    {
-                        name: "reference",
-                        position: 1,
-                        type: "string",
-                    },
-                ],
-            },
-            {
                 name: "delete",
                 returnType: "Promise<LightThemeImage>",
                 parameters: [
@@ -89,6 +73,22 @@ export const lightThemeImageSchema = (): Schema => {
                     {
                         name: "reference",
                         position: 0,
+                        type: "string",
+                    },
+                ],
+            },
+            {
+                name: "update",
+                returnType: "Promise<LightThemeImage>",
+                parameters: [
+                    {
+                        name: "image",
+                        position: 0,
+                        type: "ReadStream | Buffer | File | Blob",
+                    },
+                    {
+                        name: "reference",
+                        position: 1,
                         type: "string",
                     },
                 ],

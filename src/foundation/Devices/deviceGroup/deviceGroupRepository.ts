@@ -346,8 +346,6 @@ export class DeviceGroupRepository extends Repository {
                                 name__neq: extractFilter(pageOptions.filter, "name", "neq"),
                                 name__in: extractFilter(pageOptions.filter, "name", "in"),
                                 name__nin: extractFilter(pageOptions.filter, "name", "nin"),
-                                custom_attributes__eq: extractFilter(pageOptions.filter, "customAttributes", "eq"),
-                                custom_attributes__neq: extractFilter(pageOptions.filter, "customAttributes", "neq"),
                                 created_at__in: extractFilter(pageOptions.filter, "createdAt", "in"),
                                 created_at__nin: extractFilter(pageOptions.filter, "createdAt", "nin"),
                                 created_at__lte: extractFilter(pageOptions.filter, "createdAt", "lte"),
