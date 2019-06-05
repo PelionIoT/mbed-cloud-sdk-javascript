@@ -2,9 +2,9 @@
 import { DeviceEnrollment, DeviceEnrollmentRepository, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository } from "../../../src";
 import { createReadStream, ReadStream } from "fs";
 
-describe("Device Enrollment examples", () => {
+describe("examples of device enrollment", () => {
 
-    it("should enroll one device", async () => {
+    test("device enrollment single", async () => {
         try {
             // an example: device enrollment single
             const enrollmentContext = new DeviceEnrollmentRepository();
@@ -26,7 +26,7 @@ describe("Device Enrollment examples", () => {
         }
     });
 
-    it("should bulk enroll devices", async () => {
+    test("device enrollment bulk", async () => {
         try {
             const pathToCsv = "/Users/alelog01/git/mbed-cloud-sdk-javascript/test/snippets/foundation/test.csv";
             // an example: device enrollment bulk
@@ -63,39 +63,6 @@ describe("Device Enrollment examples", () => {
             printFile(errorFile);
 
             // end of example
-        } catch (e) {
-            throw e;
-        }
-    });
-
-    it("should bulk delete devices", async () => {
-        try {
-            const pathToCsv = "/Users/alelog01/git/mbed-cloud-sdk-javascript/test/snippets/foundation/test.csv";
-            const bulkDeleteContext = new DeviceEnrollmentBulkDeleteRepository();
-            // uses fs readStream so this is a node only example.
-            const csv = createReadStream(pathToCsv);
-            let deleteTask = await bulkDeleteContext.delete(csv);
-            expect(deleteTask.status).toBe("new");
-
-            // call get to see current state of bulk enrollment
-            deleteTask = await bulkDeleteContext.read(deleteTask.id);
-
-            expect(deleteTask.status === "completed" || deleteTask.status === "processing").toBeTruthy();
-
-            const reportFile = await bulkDeleteContext.downloadFullReportFile(deleteTask) as ReadStream;
-            if (reportFile) {
-                expect(reportFile.readable).toBeTruthy();
-            }
-            // stream report file into string and print it
-            printFile(reportFile);
-
-            const errorFile = await bulkDeleteContext.downloadErrorsReportFile(deleteTask) as ReadStream;
-            if (errorFile) {
-                expect(errorFile.readable).toBeTruthy();
-            }
-            printFile(errorFile);
-
-            expect(reportFile.readable).toBeTruthy();
         } catch (e) {
             throw e;
         }

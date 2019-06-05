@@ -16,4 +16,4 @@
 */
 
 import { AccountManagementApi } from "./accountManagementApi";
-export = AccountManagementApi;
+export default AccountManagementApi;

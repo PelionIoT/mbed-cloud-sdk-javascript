@@ -139,7 +139,7 @@ __Note:__ The proxy requires the `express` server to be installed. Please do thi
 To start the proxy server, run the npm start command from the root of the project:
 
 ```bash
-> npm start
+> npm run start-proxy
 ```
 
 An express server should now be running at [http://localhost:8080](http://localhost:8080) which allows you to `log in` with your API key. This is simply stored as a cookie and injected into the headers of subsequent API calls.

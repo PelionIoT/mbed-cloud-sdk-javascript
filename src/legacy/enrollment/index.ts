@@ -16,4 +16,4 @@
  */
 
 import { EnrollmentApi } from "./enrollmentApi";
-export = EnrollmentApi;
+export default EnrollmentApi;
