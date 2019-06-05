@@ -211,27 +211,34 @@ export class AccountRepository extends Repository {
     /**
      * lightThemeBrandingImages
      * @param id - Account ID.
-     * @param reference - Name of the image.
+     * @param options - options
      */
-    public lightThemeBrandingImages(id: string, reference: string): Promise<SubtenantLightThemeImage> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/accounts/{account_id}/branding-images/light/{reference}",
-                        method: "GET",
-                        pathParams: {
-                            account_id: id,
-                            reference: reference,
+    public lightThemeBrandingImages(
+        id: string,
+        options?: ListOptions
+    ): Paginator<SubtenantLightThemeImage, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantLightThemeImage>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/branding-images/light",
+                            method: "GET",
+                            pathParams: {
+                                account_id: id,
+                            },
                         },
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, SubtenantLightThemeImageAdapter.fromApi(data));
-            }
-        );
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantLightThemeImage>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantLightThemeImageAdapter.fromApi));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     /**
      * list
