@@ -7,7 +7,7 @@ export interface DarkThemeImage extends Entity {
     /**
      *Name of the image.
      */
-    reference: DarkThemeImageReference;
+    reference?: DarkThemeImageReference;
 
     /**
      *The static link to the image.
