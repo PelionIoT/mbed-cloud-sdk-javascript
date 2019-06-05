@@ -30,29 +30,29 @@ Null if Device Management internal HSM is used.
     readonly certificateIssuerId?: string;
 }
 /**
- *CertificateIssuerConfigReferenceFilter
+ *CertificateIssuerConfigCertificateIssuerConfigReferenceFilter
  */
-export interface CertificateIssuerConfigReferenceFilter {
+export interface CertificateIssuerConfigCertificateIssuerConfigReferenceFilter {
     /**
      *reference equal to
      */
     eq?: string;
 }
 /**
- *CertificateIssuerConfigFilter
+ *CertificateIssuerConfigCertificateIssuerConfigFilter
  */
-export interface CertificateIssuerConfigFilter {
+export interface CertificateIssuerConfigCertificateIssuerConfigFilter {
     /**
      *Filter by reference on CertificateIssuerConfig
      */
-    reference?: string | CertificateIssuerConfigReferenceFilter;
+    reference?: string | CertificateIssuerConfigCertificateIssuerConfigReferenceFilter;
 }
 /**
- *CertificateIssuerConfigListOptions
+ *CertificateIssuerConfigCertificateIssuerConfigListOptions
  */
-export interface CertificateIssuerConfigListOptions extends ListOptions {
+export interface CertificateIssuerConfigCertificateIssuerConfigListOptions extends ListOptions {
     /**
      *Filter for CertificateIssuerConfig
      */
-    filter?: CertificateIssuerConfigFilter;
+    filter?: CertificateIssuerConfigCertificateIssuerConfigFilter;
 }

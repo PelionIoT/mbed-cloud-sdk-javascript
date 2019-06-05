@@ -2,7 +2,7 @@ import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { DeviceEnrollmentDenial } from "./deviceEnrollmentDenial";
 import { extractFilter } from "../../../common/filters";
-import { DeviceEnrollmentDenialListOptions } from "./types";
+import { DeviceEnrollmentDenialDeviceEnrollmentDenialListOptions } from "./types";
 import { DeviceEnrollmentDenialAdapter } from "../../index";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -15,9 +15,11 @@ export class DeviceEnrollmentDenialRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: DeviceEnrollmentDenialListOptions): Paginator<DeviceEnrollmentDenial, ListOptions> {
+    public list(
+        options?: DeviceEnrollmentDenialDeviceEnrollmentDenialListOptions
+    ): Paginator<DeviceEnrollmentDenial, ListOptions> {
         const pageFunc = (
-            pageOptions: DeviceEnrollmentDenialListOptions
+            pageOptions: DeviceEnrollmentDenialDeviceEnrollmentDenialListOptions
         ): Promise<ListResponse<DeviceEnrollmentDenial>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(

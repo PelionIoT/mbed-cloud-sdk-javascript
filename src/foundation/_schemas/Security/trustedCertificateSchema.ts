@@ -182,7 +182,7 @@ export const trustedCertificateSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "TrustedCertificateFilter",
+                                type: "TrustedCertificateTrustedCertificateFilter",
                             },
                         ],
                     },

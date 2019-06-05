@@ -253,7 +253,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "SubtenantUserFilter",
+                                type: "AccountSubtenantUserFilter",
                             },
                         ],
                     },
@@ -384,7 +384,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "SubtenantUserFilter",
+                                type: "AccountSubtenantUserFilter",
                             },
                         ],
                     },
@@ -473,7 +473,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "SubtenantUserFilter",
+                                type: "AccountSubtenantUserFilter",
                             },
                         ],
                     },
@@ -625,7 +625,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "SubtenantUserFilter",
+                                type: "AccountSubtenantUserFilter",
                             },
                         ],
                     },
@@ -667,7 +667,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "SubtenantUserFilter",
+                                type: "AccountSubtenantUserFilter",
                             },
                         ],
                     },

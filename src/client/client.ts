@@ -1,4 +1,4 @@
-import superagent = require("superagent");
+import * as superagent from "superagent";
 import { SdkApiBase } from "./sdkApiBase";
 import { Config } from "../common/config";
 

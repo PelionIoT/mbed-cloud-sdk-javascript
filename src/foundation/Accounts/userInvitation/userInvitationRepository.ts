@@ -4,7 +4,7 @@ import { UserInvitation } from "./userInvitation";
 import { UserInvitationAdapter } from "../../index";
 import { UserInvitationCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
-import { UserInvitationListOptions } from "./types";
+import { UserInvitationUserInvitationListOptions } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
@@ -64,8 +64,10 @@ export class UserInvitationRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: UserInvitationListOptions): Paginator<UserInvitation, ListOptions> {
-        const pageFunc = (pageOptions: UserInvitationListOptions): Promise<ListResponse<UserInvitation>> => {
+    public list(options?: UserInvitationUserInvitationListOptions): Paginator<UserInvitation, ListOptions> {
+        const pageFunc = (
+            pageOptions: UserInvitationUserInvitationListOptions
+        ): Promise<ListResponse<UserInvitation>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

@@ -40,7 +40,7 @@ function bundle(srcFiles, destDir, optionsFn) {
         file.contents = browserify(file.path, options)
             .ignore("buffer")
             .ignore("dotenv")
-        .bundle()
+            .bundle()
             .on("error", function (err) {
                 console.log(err);
             });

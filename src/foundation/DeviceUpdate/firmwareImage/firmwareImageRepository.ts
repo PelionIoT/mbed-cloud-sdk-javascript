@@ -3,7 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { FirmwareImage } from "./firmwareImage";
 import { FirmwareImageAdapter } from "../../index";
 import { extractFilter } from "../../../common/filters";
-import { FirmwareImageListOptions } from "./types";
+import { FirmwareImageFirmwareImageListOptions } from "./types";
 import { ReadStream } from "fs";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -69,8 +69,8 @@ export class FirmwareImageRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: FirmwareImageListOptions): Paginator<FirmwareImage, ListOptions> {
-        const pageFunc = (pageOptions: FirmwareImageListOptions): Promise<ListResponse<FirmwareImage>> => {
+    public list(options?: FirmwareImageFirmwareImageListOptions): Paginator<FirmwareImage, ListOptions> {
+        const pageFunc = (pageOptions: FirmwareImageFirmwareImageListOptions): Promise<ListResponse<FirmwareImage>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

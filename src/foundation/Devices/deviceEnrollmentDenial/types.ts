@@ -1,42 +1,42 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
- *DeviceEnrollmentDenialTrustedCertificateIdFilter
+ *DeviceEnrollmentDenialDeviceEnrollmentDenialTrustedCertificateIdFilter
  */
-export interface DeviceEnrollmentDenialTrustedCertificateIdFilter {
+export interface DeviceEnrollmentDenialDeviceEnrollmentDenialTrustedCertificateIdFilter {
     /**
      *trustedCertificateId equal to
      */
     eq?: string;
 }
 /**
- *DeviceEnrollmentDenialEndpointNameFilter
+ *DeviceEnrollmentDenialDeviceEnrollmentDenialEndpointNameFilter
  */
-export interface DeviceEnrollmentDenialEndpointNameFilter {
+export interface DeviceEnrollmentDenialDeviceEnrollmentDenialEndpointNameFilter {
     /**
      *endpointName equal to
      */
     eq?: string;
 }
 /**
- *DeviceEnrollmentDenialFilter
+ *DeviceEnrollmentDenialDeviceEnrollmentDenialFilter
  */
-export interface DeviceEnrollmentDenialFilter {
+export interface DeviceEnrollmentDenialDeviceEnrollmentDenialFilter {
     /**
      *Filter by trustedCertificateId on DeviceEnrollmentDenial
      */
-    trustedCertificateId?: string | DeviceEnrollmentDenialTrustedCertificateIdFilter;
+    trustedCertificateId?: string | DeviceEnrollmentDenialDeviceEnrollmentDenialTrustedCertificateIdFilter;
 
     /**
      *Filter by endpointName on DeviceEnrollmentDenial
      */
-    endpointName?: string | DeviceEnrollmentDenialEndpointNameFilter;
+    endpointName?: string | DeviceEnrollmentDenialDeviceEnrollmentDenialEndpointNameFilter;
 }
 /**
- *DeviceEnrollmentDenialListOptions
+ *DeviceEnrollmentDenialDeviceEnrollmentDenialListOptions
  */
-export interface DeviceEnrollmentDenialListOptions extends ListOptions {
+export interface DeviceEnrollmentDenialDeviceEnrollmentDenialListOptions extends ListOptions {
     /**
      *Filter for DeviceEnrollmentDenial
      */
-    filter?: DeviceEnrollmentDenialFilter;
+    filter?: DeviceEnrollmentDenialDeviceEnrollmentDenialFilter;
 }

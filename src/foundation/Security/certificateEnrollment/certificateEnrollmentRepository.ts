@@ -2,7 +2,7 @@ import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { CertificateEnrollment } from "./certificateEnrollment";
 import { extractFilter } from "../../../common/filters";
-import { CertificateEnrollmentListOptions } from "./types";
+import { CertificateEnrollmentCertificateEnrollmentListOptions } from "./types";
 import { CertificateEnrollmentAdapter } from "../../index";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -15,9 +15,11 @@ export class CertificateEnrollmentRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: CertificateEnrollmentListOptions): Paginator<CertificateEnrollment, ListOptions> {
+    public list(
+        options?: CertificateEnrollmentCertificateEnrollmentListOptions
+    ): Paginator<CertificateEnrollment, ListOptions> {
         const pageFunc = (
-            pageOptions: CertificateEnrollmentListOptions
+            pageOptions: CertificateEnrollmentCertificateEnrollmentListOptions
         ): Promise<ListResponse<CertificateEnrollment>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(

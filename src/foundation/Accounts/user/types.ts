@@ -110,18 +110,18 @@ export interface UserUpdateRequest {
     readonly username?: string;
 }
 /**
- *UserEmailFilter
+ *UserUserEmailFilter
  */
-export interface UserEmailFilter {
+export interface UserUserEmailFilter {
     /**
      *email equal to
      */
     eq?: string;
 }
 /**
- *UserStatusFilter
+ *UserUserStatusFilter
  */
-export interface UserStatusFilter {
+export interface UserUserStatusFilter {
     /**
      *status equal to
      */
@@ -138,39 +138,39 @@ export interface UserStatusFilter {
     nin?: Array<UserStatus>;
 }
 /**
- *UserLoginProfilesFilter
+ *UserUserLoginProfilesFilter
  */
-export interface UserLoginProfilesFilter {
+export interface UserUserLoginProfilesFilter {
     /**
      *loginProfiles equal to
      */
     eq?: Array<LoginProfile>;
 }
 /**
- *UserFilter
+ *UserUserFilter
  */
-export interface UserFilter {
+export interface UserUserFilter {
     /**
      *Filter by email on User
      */
-    email?: string | UserEmailFilter;
+    email?: string | UserUserEmailFilter;
 
     /**
      *Filter by status on User
      */
-    status?: UserStatus | UserStatusFilter;
+    status?: UserStatus | UserUserStatusFilter;
 
     /**
      *Filter by loginProfiles on User
      */
-    loginProfiles?: Array<LoginProfile> | UserLoginProfilesFilter;
+    loginProfiles?: Array<LoginProfile> | UserUserLoginProfilesFilter;
 }
 /**
- *UserListOptions
+ *UserUserListOptions
  */
-export interface UserListOptions extends ListOptions {
+export interface UserUserListOptions extends ListOptions {
     /**
      *Filter for User
      */
-    filter?: UserFilter;
+    filter?: UserUserFilter;
 }

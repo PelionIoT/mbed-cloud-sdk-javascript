@@ -196,7 +196,7 @@ export const updateCampaignSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "UpdateCampaignFilter",
+                                type: "UpdateCampaignUpdateCampaignFilter",
                             },
                         ],
                     },

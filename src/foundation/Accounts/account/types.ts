@@ -256,50 +256,50 @@ export interface AccountUpdateRequest {
     readonly state?: string;
 }
 /**
- *SubtenantApiKeyKeyFilter
+ *AccountSubtenantApiKeyKeyFilter
  */
-export interface SubtenantApiKeyKeyFilter {
+export interface AccountSubtenantApiKeyKeyFilter {
     /**
      *key equal to
      */
     eq?: string;
 }
 /**
- *SubtenantApiKeyOwnerFilter
+ *AccountSubtenantApiKeyOwnerFilter
  */
-export interface SubtenantApiKeyOwnerFilter {
+export interface AccountSubtenantApiKeyOwnerFilter {
     /**
      *owner equal to
      */
     eq?: string;
 }
 /**
- *SubtenantApiKeyFilter
+ *AccountSubtenantApiKeyFilter
  */
-export interface SubtenantApiKeyFilter {
+export interface AccountSubtenantApiKeyFilter {
     /**
      *Filter by key on SubtenantApiKey
      */
-    key?: string | SubtenantApiKeyKeyFilter;
+    key?: string | AccountSubtenantApiKeyKeyFilter;
 
     /**
      *Filter by owner on SubtenantApiKey
      */
-    owner?: string | SubtenantApiKeyOwnerFilter;
+    owner?: string | AccountSubtenantApiKeyOwnerFilter;
 }
 /**
- *SubtenantApiKeyListOptions
+ *AccountSubtenantApiKeyListOptions
  */
-export interface SubtenantApiKeyListOptions extends ListOptions {
+export interface AccountSubtenantApiKeyListOptions extends ListOptions {
     /**
      *Filter for SubtenantApiKey
      */
-    filter?: SubtenantApiKeyFilter;
+    filter?: AccountSubtenantApiKeyFilter;
 }
 /**
- *AccountStatusFilter
+ *AccountAccountStatusFilter
  */
-export interface AccountStatusFilter {
+export interface AccountAccountStatusFilter {
     /**
      *status equal to
      */
@@ -316,74 +316,74 @@ export interface AccountStatusFilter {
     nin?: Array<AccountStatus>;
 }
 /**
- *AccountTierFilter
+ *AccountAccountTierFilter
  */
-export interface AccountTierFilter {
+export interface AccountAccountTierFilter {
     /**
      *tier equal to
      */
     eq?: string;
 }
 /**
- *AccountParentFilter
+ *AccountAccountParentFilter
  */
-export interface AccountParentFilter {
+export interface AccountAccountParentFilter {
     /**
      *parent equal to
      */
     eq?: string;
 }
 /**
- *AccountEndMarketFilter
+ *AccountAccountEndMarketFilter
  */
-export interface AccountEndMarketFilter {
+export interface AccountAccountEndMarketFilter {
     /**
      *endMarket equal to
      */
     eq?: string;
 }
 /**
- *AccountCountryFilter
+ *AccountAccountCountryFilter
  */
-export interface AccountCountryFilter {
+export interface AccountAccountCountryFilter {
     /**
      *country like
      */
     like?: string;
 }
 /**
- *AccountFilter
+ *AccountAccountFilter
  */
-export interface AccountFilter {
+export interface AccountAccountFilter {
     /**
      *Filter by status on Account
      */
-    status?: AccountStatus | AccountStatusFilter;
+    status?: AccountStatus | AccountAccountStatusFilter;
 
     /**
      *Filter by tier on Account
      */
-    tier?: string | AccountTierFilter;
+    tier?: string | AccountAccountTierFilter;
 
     /**
      *Filter by parent on Account
      */
-    parent?: string | AccountParentFilter;
+    parent?: string | AccountAccountParentFilter;
 
     /**
      *Filter by endMarket on Account
      */
-    endMarket?: string | AccountEndMarketFilter;
+    endMarket?: string | AccountAccountEndMarketFilter;
 
     /**
      *Filter by country on Account
      */
-    country?: AccountCountryFilter;
+    country?: AccountAccountCountryFilter;
 }
 /**
- *AccountListOptions
+ *AccountAccountListOptions
  */
-export interface AccountListOptions extends ListOptions {
+export interface AccountAccountListOptions extends ListOptions {
     /**
      *Format information for the query response. Supported: format=breakdown.
      */
@@ -397,39 +397,39 @@ export interface AccountListOptions extends ListOptions {
     /**
      *Filter for Account
      */
-    filter?: AccountFilter;
+    filter?: AccountAccountFilter;
 }
 /**
- *SubtenantTrustedCertificateNameFilter
+ *AccountSubtenantTrustedCertificateNameFilter
  */
-export interface SubtenantTrustedCertificateNameFilter {
+export interface AccountSubtenantTrustedCertificateNameFilter {
     /**
      *name equal to
      */
     eq?: string;
 }
 /**
- *SubtenantTrustedCertificateServiceFilter
+ *AccountSubtenantTrustedCertificateServiceFilter
  */
-export interface SubtenantTrustedCertificateServiceFilter {
+export interface AccountSubtenantTrustedCertificateServiceFilter {
     /**
      *service equal to
      */
     eq?: string;
 }
 /**
- *SubtenantTrustedCertificateExpireFilter
+ *AccountSubtenantTrustedCertificateExpireFilter
  */
-export interface SubtenantTrustedCertificateExpireFilter {
+export interface AccountSubtenantTrustedCertificateExpireFilter {
     /**
      *expire equal to
      */
     eq?: string;
 }
 /**
- *SubtenantTrustedCertificateDeviceExecutionModeFilter
+ *AccountSubtenantTrustedCertificateDeviceExecutionModeFilter
  */
-export interface SubtenantTrustedCertificateDeviceExecutionModeFilter {
+export interface AccountSubtenantTrustedCertificateDeviceExecutionModeFilter {
     /**
      *deviceExecutionMode equal to
      */
@@ -441,162 +441,162 @@ export interface SubtenantTrustedCertificateDeviceExecutionModeFilter {
     neq?: string;
 }
 /**
- *SubtenantTrustedCertificateOwnerFilter
+ *AccountSubtenantTrustedCertificateOwnerFilter
  */
-export interface SubtenantTrustedCertificateOwnerFilter {
+export interface AccountSubtenantTrustedCertificateOwnerFilter {
     /**
      *owner equal to
      */
     eq?: string;
 }
 /**
- *SubtenantTrustedCertificateEnrollmentModeFilter
+ *AccountSubtenantTrustedCertificateEnrollmentModeFilter
  */
-export interface SubtenantTrustedCertificateEnrollmentModeFilter {
+export interface AccountSubtenantTrustedCertificateEnrollmentModeFilter {
     /**
      *enrollmentMode equal to
      */
     eq?: string;
 }
 /**
- *SubtenantTrustedCertificateStatusFilter
+ *AccountSubtenantTrustedCertificateStatusFilter
  */
-export interface SubtenantTrustedCertificateStatusFilter {
+export interface AccountSubtenantTrustedCertificateStatusFilter {
     /**
      *status equal to
      */
     eq?: AccountStatus;
 }
 /**
- *SubtenantTrustedCertificateIssuerFilter
+ *AccountSubtenantTrustedCertificateIssuerFilter
  */
-export interface SubtenantTrustedCertificateIssuerFilter {
+export interface AccountSubtenantTrustedCertificateIssuerFilter {
     /**
      *issuer like
      */
     like?: string;
 }
 /**
- *SubtenantTrustedCertificateSubjectFilter
+ *AccountSubtenantTrustedCertificateSubjectFilter
  */
-export interface SubtenantTrustedCertificateSubjectFilter {
+export interface AccountSubtenantTrustedCertificateSubjectFilter {
     /**
      *subject like
      */
     like?: string;
 }
 /**
- *SubtenantTrustedCertificateValidFilter
+ *AccountSubtenantTrustedCertificateValidFilter
  */
-export interface SubtenantTrustedCertificateValidFilter {
+export interface AccountSubtenantTrustedCertificateValidFilter {
     /**
      *valid equal to
      */
     eq?: string;
 }
 /**
- *SubtenantTrustedCertificateFilter
+ *AccountSubtenantTrustedCertificateFilter
  */
-export interface SubtenantTrustedCertificateFilter {
+export interface AccountSubtenantTrustedCertificateFilter {
     /**
      *Filter by name on SubtenantTrustedCertificate
      */
-    name?: string | SubtenantTrustedCertificateNameFilter;
+    name?: string | AccountSubtenantTrustedCertificateNameFilter;
 
     /**
      *Filter by service on SubtenantTrustedCertificate
      */
-    service?: string | SubtenantTrustedCertificateServiceFilter;
+    service?: string | AccountSubtenantTrustedCertificateServiceFilter;
 
     /**
      *Filter by expire on SubtenantTrustedCertificate
      */
-    expire?: string | SubtenantTrustedCertificateExpireFilter;
+    expire?: string | AccountSubtenantTrustedCertificateExpireFilter;
 
     /**
      *Filter by deviceExecutionMode on SubtenantTrustedCertificate
      */
-    deviceExecutionMode?: string | SubtenantTrustedCertificateDeviceExecutionModeFilter;
+    deviceExecutionMode?: string | AccountSubtenantTrustedCertificateDeviceExecutionModeFilter;
 
     /**
      *Filter by owner on SubtenantTrustedCertificate
      */
-    owner?: string | SubtenantTrustedCertificateOwnerFilter;
+    owner?: string | AccountSubtenantTrustedCertificateOwnerFilter;
 
     /**
      *Filter by enrollmentMode on SubtenantTrustedCertificate
      */
-    enrollmentMode?: string | SubtenantTrustedCertificateEnrollmentModeFilter;
+    enrollmentMode?: string | AccountSubtenantTrustedCertificateEnrollmentModeFilter;
 
     /**
      *Filter by status on SubtenantTrustedCertificate
      */
-    status?: AccountStatus | SubtenantTrustedCertificateStatusFilter;
+    status?: AccountStatus | AccountSubtenantTrustedCertificateStatusFilter;
 
     /**
      *Filter by issuer on SubtenantTrustedCertificate
      */
-    issuer?: SubtenantTrustedCertificateIssuerFilter;
+    issuer?: AccountSubtenantTrustedCertificateIssuerFilter;
 
     /**
      *Filter by subject on SubtenantTrustedCertificate
      */
-    subject?: SubtenantTrustedCertificateSubjectFilter;
+    subject?: AccountSubtenantTrustedCertificateSubjectFilter;
 
     /**
      *Filter by valid on SubtenantTrustedCertificate
      */
-    valid?: string | SubtenantTrustedCertificateValidFilter;
+    valid?: string | AccountSubtenantTrustedCertificateValidFilter;
 }
 /**
- *SubtenantTrustedCertificateListOptions
+ *AccountSubtenantTrustedCertificateListOptions
  */
-export interface SubtenantTrustedCertificateListOptions extends ListOptions {
+export interface AccountSubtenantTrustedCertificateListOptions extends ListOptions {
     /**
      *Filter for SubtenantTrustedCertificate
      */
-    filter?: SubtenantTrustedCertificateFilter;
+    filter?: AccountSubtenantTrustedCertificateFilter;
 }
 /**
- *SubtenantUserInvitationLoginProfilesFilter
+ *AccountSubtenantUserInvitationLoginProfilesFilter
  */
-export interface SubtenantUserInvitationLoginProfilesFilter {
+export interface AccountSubtenantUserInvitationLoginProfilesFilter {
     /**
      *loginProfiles equal to
      */
     eq?: string;
 }
 /**
- *SubtenantUserInvitationFilter
+ *AccountSubtenantUserInvitationFilter
  */
-export interface SubtenantUserInvitationFilter {
+export interface AccountSubtenantUserInvitationFilter {
     /**
      *Filter by loginProfiles on SubtenantUserInvitation
      */
-    loginProfiles?: string | SubtenantUserInvitationLoginProfilesFilter;
+    loginProfiles?: string | AccountSubtenantUserInvitationLoginProfilesFilter;
 }
 /**
- *SubtenantUserInvitationListOptions
+ *AccountSubtenantUserInvitationListOptions
  */
-export interface SubtenantUserInvitationListOptions extends ListOptions {
+export interface AccountSubtenantUserInvitationListOptions extends ListOptions {
     /**
      *Filter for SubtenantUserInvitation
      */
-    filter?: SubtenantUserInvitationFilter;
+    filter?: AccountSubtenantUserInvitationFilter;
 }
 /**
- *SubtenantUserEmailFilter
+ *AccountSubtenantUserEmailFilter
  */
-export interface SubtenantUserEmailFilter {
+export interface AccountSubtenantUserEmailFilter {
     /**
      *email equal to
      */
     eq?: string;
 }
 /**
- *SubtenantUserStatusFilter
+ *AccountSubtenantUserStatusFilter
  */
-export interface SubtenantUserStatusFilter {
+export interface AccountSubtenantUserStatusFilter {
     /**
      *status equal to
      */
@@ -613,39 +613,39 @@ export interface SubtenantUserStatusFilter {
     nin?: Array<AccountStatus>;
 }
 /**
- *SubtenantUserLoginProfilesFilter
+ *AccountSubtenantUserLoginProfilesFilter
  */
-export interface SubtenantUserLoginProfilesFilter {
+export interface AccountSubtenantUserLoginProfilesFilter {
     /**
      *loginProfiles equal to
      */
     eq?: string;
 }
 /**
- *SubtenantUserFilter
+ *AccountSubtenantUserFilter
  */
-export interface SubtenantUserFilter {
+export interface AccountSubtenantUserFilter {
     /**
      *Filter by email on SubtenantUser
      */
-    email?: string | SubtenantUserEmailFilter;
+    email?: string | AccountSubtenantUserEmailFilter;
 
     /**
      *Filter by status on SubtenantUser
      */
-    status?: AccountStatus | SubtenantUserStatusFilter;
+    status?: AccountStatus | AccountSubtenantUserStatusFilter;
 
     /**
      *Filter by loginProfiles on SubtenantUser
      */
-    loginProfiles?: string | SubtenantUserLoginProfilesFilter;
+    loginProfiles?: string | AccountSubtenantUserLoginProfilesFilter;
 }
 /**
- *SubtenantUserListOptions
+ *AccountSubtenantUserListOptions
  */
-export interface SubtenantUserListOptions extends ListOptions {
+export interface AccountSubtenantUserListOptions extends ListOptions {
     /**
      *Filter for SubtenantUser
      */
-    filter?: SubtenantUserFilter;
+    filter?: AccountSubtenantUserFilter;
 }

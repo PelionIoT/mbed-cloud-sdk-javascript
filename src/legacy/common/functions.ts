@@ -45,6 +45,33 @@ export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn
     }
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
+export function asyncStyleWithTimeout<T>(asyncFn: (done: CallbackFn<T>) => void, timeout: number, callbackFn?: CallbackFn<T>): Promise<T> {
+    if (callbackFn) {
+        // timeout not relevant for a callback
+        try {
+            asyncFn(callbackFn);
+        } catch (error) {
+            callbackFn(new SDKError(error.message, error));
+        }
+    } else {
+        const result = new Promise((resolve, reject) => {
+            try {
+                asyncFn((error: SDKError, response: T) => {
+                    if (error) { reject(error); } else { resolve(response); }
+                });
+            } catch (error) {
+                reject(new SDKError(error.message, error));
+            }
+        });
+
+        return promiseTimeout(timeout, result);
+    }
+}
+
 // Wrap our functions to allow error catching
 // Wraps an api function call and optionally a data transformation function to allow a single point for trapping errors
 /**
@@ -56,9 +83,9 @@ export function apiWrapper<T>(
     transformFn?: (data: any, resultsFn: (error: SDKError, result: T) => void) => void,
     callbackFn?: CallbackFn<T>,
     failOnNotFound = false,
+    timeout?: number
 ): Promise<T> {
-    // Use async style
-    return asyncStyle( done => {
+    const doneFunction = done => {
         try {
             // Call the api function
             apiFn((error, data) => {
@@ -84,7 +111,13 @@ export function apiWrapper<T>(
             // Catch any errors when running api calls
             done(new SDKError(error.message, error));
         }
-    }, callbackFn);
+    };
+
+    if (timeout) {
+        return asyncStyleWithTimeout(doneFunction, timeout, callbackFn);
+    } else {
+        return asyncStyle(doneFunction, callbackFn);
+    }
 }
 
 /**
@@ -369,7 +402,7 @@ export function promiseTimeout(ms: number, promise) {
     const timeout = new Promise((_resolve, reject) => {
         const id = setTimeout(() => {
             clearTimeout(id);
-            reject(`timed out in ${ms} ms`);
+            reject(`Timeout getting async value. Timeout ${ms}ms`);
         }, ms);
     });
 

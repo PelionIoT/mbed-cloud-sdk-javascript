@@ -4,7 +4,7 @@ import { CertificateIssuerConfig } from "./certificateIssuerConfig";
 import { CertificateIssuerConfigAdapter } from "../../index";
 import { CertificateIssuerConfigCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
-import { CertificateIssuerConfigListOptions } from "./types";
+import { CertificateIssuerConfigCertificateIssuerConfigListOptions } from "./types";
 import { CertificateIssuerConfigUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -84,9 +84,11 @@ export class CertificateIssuerConfigRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: CertificateIssuerConfigListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
+    public list(
+        options?: CertificateIssuerConfigCertificateIssuerConfigListOptions
+    ): Paginator<CertificateIssuerConfig, ListOptions> {
         const pageFunc = (
-            pageOptions: CertificateIssuerConfigListOptions
+            pageOptions: CertificateIssuerConfigCertificateIssuerConfigListOptions
         ): Promise<ListResponse<CertificateIssuerConfig>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
