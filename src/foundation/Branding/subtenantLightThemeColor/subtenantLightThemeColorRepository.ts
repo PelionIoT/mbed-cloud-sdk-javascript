@@ -3,9 +3,6 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { SubtenantLightThemeColor } from "./subtenantLightThemeColor";
 import { SubtenantLightThemeColorAdapter } from "../../index";
 import { SubtenantLightThemeColorUpdateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
-import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *SubtenantLightThemeColor repository
  */
@@ -34,35 +31,6 @@ export class SubtenantLightThemeColorRepository extends Repository {
                 done(null, null);
             }
         );
-    }
-    /**
-     * list
-     * @param accountId - Account ID.
-     * @param options - options
-     */
-    public list(accountId: string, options?: ListOptions): Paginator<SubtenantLightThemeColor, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantLightThemeColor>> => {
-            pageOptions = pageOptions || {};
-            return apiWrapper(
-                resultsFn => {
-                    this.client._CallApi(
-                        {
-                            url: "/v3/accounts/{account_id}/branding-colors/light",
-                            method: "GET",
-                            pathParams: {
-                                account_id: accountId,
-                            },
-                        },
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<SubtenantLightThemeColor>, done) => {
-                    done(null, new ListResponse(data, data.data, SubtenantLightThemeColorAdapter.fromApi));
-                },
-                null
-            );
-        };
-        return new Paginator(pageFunc, options);
     }
     /**
      * read

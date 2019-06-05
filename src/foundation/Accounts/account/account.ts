@@ -2,7 +2,7 @@ import { Entity } from "../../../common/entity";
 import { ParentAccount } from "../parentAccount/parentAccount";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
 import { Policy } from "../policy/policy";
-import { AccountMfaStatus, AccountStatus } from "./types";
+import { AccountMfaStatus, AccountReference, AccountStatus } from "./types";
 /**
  *Account
  */
@@ -202,6 +202,11 @@ export interface Account extends Entity {
     readonly reason?: string;
 
     /**
+     *Name of the image.
+     */
+    reference: AccountReference;
+
+    /**
      *A reference note for updating the status of the account.
      *@example ARM-INT-0001
      */
@@ -218,6 +223,12 @@ export interface Account extends Entity {
      *@example
      */
     state?: string;
+
+    /**
+     *The static link to the image.
+     *@example https://static.mbed.com/123456789.jpg
+     */
+    readonly staticUri?: string;
 
     /**
      *The status of the account.
@@ -238,7 +249,7 @@ export interface Account extends Entity {
     readonly tier?: string;
 
     /**
-     *Last update UTC time RFC3339.
+     *Last update time in UTC.
      *@example 2018-02-14T15:24:14Z
      */
     readonly updatedAt?: Date;

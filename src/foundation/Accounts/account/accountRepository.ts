@@ -7,6 +7,14 @@ import { extractFilter } from "../../../common/filters";
 import { AccountSubtenantApiKeyListOptions } from "./types";
 import { AccountAdapter } from "../../index";
 import { AccountCreateRequest } from "./types";
+import { SubtenantDarkThemeColor } from "../../index";
+import { SubtenantDarkThemeColorAdapter } from "../../index";
+import { SubtenantDarkThemeImage } from "../../index";
+import { SubtenantDarkThemeImageAdapter } from "../../index";
+import { SubtenantLightThemeColor } from "../../index";
+import { SubtenantLightThemeColorAdapter } from "../../index";
+import { SubtenantLightThemeImage } from "../../index";
+import { SubtenantLightThemeImageAdapter } from "../../index";
 import { AccountAccountListOptions } from "./types";
 import { SubtenantTrustedCertificate } from "../../index";
 import { SubtenantTrustedCertificateAdapter } from "../../index";
@@ -107,6 +115,121 @@ export class AccountRepository extends Repository {
             },
             (data, done) => {
                 done(null, AccountAdapter.fromApi(data, request));
+            }
+        );
+    }
+    /**
+     * darkThemeBrandingColors
+     * @param id - Account ID.
+     * @param options - options
+     */
+    public darkThemeBrandingColors(id: string, options?: ListOptions): Paginator<SubtenantDarkThemeColor, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantDarkThemeColor>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/branding-colors/dark",
+                            method: "GET",
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantDarkThemeColor>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantDarkThemeColorAdapter.fromApi));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+     * darkThemeBrandingImages
+     * @param id - Account ID.
+     * @param options - options
+     */
+    public darkThemeBrandingImages(id: string, options?: ListOptions): Paginator<SubtenantDarkThemeImage, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantDarkThemeImage>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/branding-images/dark",
+                            method: "GET",
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantDarkThemeImage>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantDarkThemeImageAdapter.fromApi));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+     * lightThemeBrandingColors
+     * @param id - Account ID.
+     * @param options - options
+     */
+    public lightThemeBrandingColors(
+        id: string,
+        options?: ListOptions
+    ): Paginator<SubtenantLightThemeColor, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantLightThemeColor>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/branding-colors/light",
+                            method: "GET",
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantLightThemeColor>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantLightThemeColorAdapter.fromApi));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+     * lightThemeBrandingImages
+     * @param id - Account ID.
+     * @param reference - Name of the image.
+     */
+    public lightThemeBrandingImages(id: string, reference: string): Promise<SubtenantLightThemeImage> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/accounts/{account_id}/branding-images/light/{reference}",
+                        method: "GET",
+                        pathParams: {
+                            account_id: id,
+                            reference: reference,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, SubtenantLightThemeImageAdapter.fromApi(data));
             }
         );
     }

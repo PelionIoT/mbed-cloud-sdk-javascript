@@ -3,9 +3,6 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { SubtenantDarkThemeColor } from "./subtenantDarkThemeColor";
 import { SubtenantDarkThemeColorAdapter } from "../../index";
 import { SubtenantDarkThemeColorUpdateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
-import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *SubtenantDarkThemeColor repository
  */
@@ -34,35 +31,6 @@ export class SubtenantDarkThemeColorRepository extends Repository {
                 done(null, null);
             }
         );
-    }
-    /**
-     * list
-     * @param accountId - Account ID.
-     * @param options - options
-     */
-    public list(accountId: string, options?: ListOptions): Paginator<SubtenantDarkThemeColor, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantDarkThemeColor>> => {
-            pageOptions = pageOptions || {};
-            return apiWrapper(
-                resultsFn => {
-                    this.client._CallApi(
-                        {
-                            url: "/v3/accounts/{account_id}/branding-colors/dark",
-                            method: "GET",
-                            pathParams: {
-                                account_id: accountId,
-                            },
-                        },
-                        resultsFn
-                    );
-                },
-                (data: ListResponse<SubtenantDarkThemeColor>, done) => {
-                    done(null, new ListResponse(data, data.data, SubtenantDarkThemeColorAdapter.fromApi));
-                },
-                null
-            );
-        };
-        return new Paginator(pageFunc, options);
     }
     /**
      * read

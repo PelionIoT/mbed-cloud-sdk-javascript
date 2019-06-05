@@ -11,34 +11,6 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  */
 export class LightThemeImageRepository extends Repository {
     /**
-     * create
-     * @param image - The image in PNG or JPEG format as multipart form data.
-     * @param reference - Name of the image.
-     */
-    public create(image: ReadStream | Buffer | File | Blob, reference: string): Promise<LightThemeImage> {
-        return apiWrapper(
-            resultsFn => {
-                this.client._CallApi(
-                    {
-                        url: "/v3/branding-images/light/{reference}/upload-multipart",
-                        method: "POST",
-                        pathParams: {
-                            reference: reference,
-                        },
-                        formParams: {
-                            image: image,
-                        },
-                        contentTypes: [ "multipart/form-data" ],
-                    },
-                    resultsFn
-                );
-            },
-            (data, done) => {
-                done(null, LightThemeImageAdapter.fromApi(data));
-            }
-        );
-    }
-    /**
      * delete
      * @param reference - Name of the branding images (icon or picture).
      */
@@ -100,6 +72,34 @@ export class LightThemeImageRepository extends Repository {
                         pathParams: {
                             reference: reference,
                         },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, LightThemeImageAdapter.fromApi(data));
+            }
+        );
+    }
+    /**
+     * update
+     * @param image - The image in PNG or JPEG format as multipart form data.
+     * @param reference - Name of the image.
+     */
+    public update(image: ReadStream | Buffer | File | Blob, reference: string): Promise<LightThemeImage> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/branding-images/light/{reference}/upload-multipart",
+                        method: "POST",
+                        pathParams: {
+                            reference: reference,
+                        },
+                        formParams: {
+                            image: image,
+                        },
+                        contentTypes: [ "multipart/form-data" ],
                     },
                     resultsFn
                 );
