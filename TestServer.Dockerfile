@@ -14,4 +14,4 @@ COPY ./integration.tsconfig.json ./integration.tsconfig.json
 RUN npm run clean:integration
 RUN npm run compile:integration
 
-ENTRYPOINT ["node", "./test/integration/build/test/integration/codeCoverage.js"]
+ENTRYPOINT ["node", "./test/integration/build/test/integration/codeCoverage.js", "&"]
