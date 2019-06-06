@@ -4,7 +4,7 @@ import { ApiKey } from "./apiKey";
 import { ApiKeyAdapter } from "../../index";
 import { ApiKeyCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
-import { ApiKeyApiKeyListOptions } from "./types";
+import { ApiKeyListOptions } from "./types";
 import { ApiKeyUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -65,8 +65,8 @@ export class ApiKeyRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: ApiKeyApiKeyListOptions): Paginator<ApiKey, ListOptions> {
-        const pageFunc = (pageOptions: ApiKeyApiKeyListOptions): Promise<ListResponse<ApiKey>> => {
+    public list(options?: ApiKeyListOptions): Paginator<ApiKey, ListOptions> {
+        const pageFunc = (pageOptions: ApiKeyListOptions): Promise<ListResponse<ApiKey>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

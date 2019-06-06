@@ -131,7 +131,7 @@ export const deviceGroupSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "DeviceGroupDeviceGroupFilter",
+                                type: "DeviceGroupFilter",
                             },
                         ],
                     },
@@ -168,7 +168,7 @@ export const deviceGroupSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "DeviceGroupDeviceGroupFilter",
+                                type: "DeviceGroupFilter",
                             },
                         ],
                     },

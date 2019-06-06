@@ -313,7 +313,7 @@ export const deviceSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "DeviceDeviceFilter",
+                                type: "DeviceFilter",
                             },
                         ],
                     },

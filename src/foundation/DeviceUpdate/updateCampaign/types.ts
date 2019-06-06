@@ -66,9 +66,9 @@ export interface UpdateCampaignUpdateRequest {
     readonly when?: Date;
 }
 /**
- *UpdateCampaignUpdateCampaignCreatedAtFilter
+ *UpdateCampaignCreatedAtFilter
  */
-export interface UpdateCampaignUpdateCampaignCreatedAtFilter {
+export interface UpdateCampaignCreatedAtFilter {
     /**
      *createdAt in
      */
@@ -90,9 +90,9 @@ export interface UpdateCampaignUpdateCampaignCreatedAtFilter {
     gte?: Array<Date>;
 }
 /**
- *UpdateCampaignUpdateCampaignDescriptionFilter
+ *UpdateCampaignDescriptionFilter
  */
-export interface UpdateCampaignUpdateCampaignDescriptionFilter {
+export interface UpdateCampaignDescriptionFilter {
     /**
      *description equal to
      */
@@ -114,9 +114,9 @@ export interface UpdateCampaignUpdateCampaignDescriptionFilter {
     nin?: Array<string>;
 }
 /**
- *UpdateCampaignUpdateCampaignDeviceFilterFilter
+ *UpdateCampaignDeviceFilterFilter
  */
-export interface UpdateCampaignUpdateCampaignDeviceFilterFilter {
+export interface UpdateCampaignDeviceFilterFilter {
     /**
      *deviceFilter equal to
      */
@@ -138,9 +138,9 @@ export interface UpdateCampaignUpdateCampaignDeviceFilterFilter {
     nin?: Array<string>;
 }
 /**
- *UpdateCampaignUpdateCampaignFinishedFilter
+ *UpdateCampaignFinishedFilter
  */
-export interface UpdateCampaignUpdateCampaignFinishedFilter {
+export interface UpdateCampaignFinishedFilter {
     /**
      *finished in
      */
@@ -162,9 +162,9 @@ export interface UpdateCampaignUpdateCampaignFinishedFilter {
     gte?: Array<Date>;
 }
 /**
- *UpdateCampaignUpdateCampaignIdFilter
+ *UpdateCampaignIdFilter
  */
-export interface UpdateCampaignUpdateCampaignIdFilter {
+export interface UpdateCampaignIdFilter {
     /**
      *id equal to
      */
@@ -186,9 +186,9 @@ export interface UpdateCampaignUpdateCampaignIdFilter {
     nin?: Array<string>;
 }
 /**
- *UpdateCampaignUpdateCampaignNameFilter
+ *UpdateCampaignNameFilter
  */
-export interface UpdateCampaignUpdateCampaignNameFilter {
+export interface UpdateCampaignNameFilter {
     /**
      *name equal to
      */
@@ -210,9 +210,9 @@ export interface UpdateCampaignUpdateCampaignNameFilter {
     nin?: Array<string>;
 }
 /**
- *UpdateCampaignUpdateCampaignRootManifestIdFilter
+ *UpdateCampaignRootManifestIdFilter
  */
-export interface UpdateCampaignUpdateCampaignRootManifestIdFilter {
+export interface UpdateCampaignRootManifestIdFilter {
     /**
      *rootManifestId equal to
      */
@@ -234,9 +234,9 @@ export interface UpdateCampaignUpdateCampaignRootManifestIdFilter {
     nin?: Array<string>;
 }
 /**
- *UpdateCampaignUpdateCampaignStartedAtFilter
+ *UpdateCampaignStartedAtFilter
  */
-export interface UpdateCampaignUpdateCampaignStartedAtFilter {
+export interface UpdateCampaignStartedAtFilter {
     /**
      *startedAt in
      */
@@ -258,9 +258,9 @@ export interface UpdateCampaignUpdateCampaignStartedAtFilter {
     gte?: Array<Date>;
 }
 /**
- *UpdateCampaignUpdateCampaignStateFilter
+ *UpdateCampaignStateFilter
  */
-export interface UpdateCampaignUpdateCampaignStateFilter {
+export interface UpdateCampaignStateFilter {
     /**
      *state equal to
      */
@@ -282,9 +282,9 @@ export interface UpdateCampaignUpdateCampaignStateFilter {
     nin?: Array<string>;
 }
 /**
- *UpdateCampaignUpdateCampaignUpdatedAtFilter
+ *UpdateCampaignUpdatedAtFilter
  */
-export interface UpdateCampaignUpdateCampaignUpdatedAtFilter {
+export interface UpdateCampaignUpdatedAtFilter {
     /**
      *updatedAt in
      */
@@ -306,9 +306,9 @@ export interface UpdateCampaignUpdateCampaignUpdatedAtFilter {
     gte?: Array<Date>;
 }
 /**
- *UpdateCampaignUpdateCampaignWhenFilter
+ *UpdateCampaignWhenFilter
  */
-export interface UpdateCampaignUpdateCampaignWhenFilter {
+export interface UpdateCampaignWhenFilter {
     /**
      *when in
      */
@@ -330,70 +330,70 @@ export interface UpdateCampaignUpdateCampaignWhenFilter {
     gte?: Array<Date>;
 }
 /**
- *UpdateCampaignUpdateCampaignFilter
+ *UpdateCampaignFilter
  */
-export interface UpdateCampaignUpdateCampaignFilter {
+export interface UpdateCampaignFilter {
     /**
      *Filter by createdAt on UpdateCampaign
      */
-    createdAt?: UpdateCampaignUpdateCampaignCreatedAtFilter;
+    createdAt?: UpdateCampaignCreatedAtFilter;
 
     /**
      *Filter by description on UpdateCampaign
      */
-    description?: string | UpdateCampaignUpdateCampaignDescriptionFilter;
+    description?: string | UpdateCampaignDescriptionFilter;
 
     /**
      *Filter by deviceFilter on UpdateCampaign
      */
-    deviceFilter?: string | UpdateCampaignUpdateCampaignDeviceFilterFilter;
+    deviceFilter?: string | UpdateCampaignDeviceFilterFilter;
 
     /**
      *Filter by finished on UpdateCampaign
      */
-    finished?: UpdateCampaignUpdateCampaignFinishedFilter;
+    finished?: UpdateCampaignFinishedFilter;
 
     /**
      *Filter by id on UpdateCampaign
      */
-    id?: string | UpdateCampaignUpdateCampaignIdFilter;
+    id?: string | UpdateCampaignIdFilter;
 
     /**
      *Filter by name on UpdateCampaign
      */
-    name?: string | UpdateCampaignUpdateCampaignNameFilter;
+    name?: string | UpdateCampaignNameFilter;
 
     /**
      *Filter by rootManifestId on UpdateCampaign
      */
-    rootManifestId?: string | UpdateCampaignUpdateCampaignRootManifestIdFilter;
+    rootManifestId?: string | UpdateCampaignRootManifestIdFilter;
 
     /**
      *Filter by startedAt on UpdateCampaign
      */
-    startedAt?: UpdateCampaignUpdateCampaignStartedAtFilter;
+    startedAt?: UpdateCampaignStartedAtFilter;
 
     /**
      *Filter by state on UpdateCampaign
      */
-    state?: string | UpdateCampaignUpdateCampaignStateFilter;
+    state?: string | UpdateCampaignStateFilter;
 
     /**
      *Filter by updatedAt on UpdateCampaign
      */
-    updatedAt?: UpdateCampaignUpdateCampaignUpdatedAtFilter;
+    updatedAt?: UpdateCampaignUpdatedAtFilter;
 
     /**
      *Filter by when on UpdateCampaign
      */
-    when?: UpdateCampaignUpdateCampaignWhenFilter;
+    when?: UpdateCampaignWhenFilter;
 }
 /**
- *UpdateCampaignUpdateCampaignListOptions
+ *UpdateCampaignListOptions
  */
-export interface UpdateCampaignUpdateCampaignListOptions extends ListOptions {
+export interface UpdateCampaignListOptions extends ListOptions {
     /**
      *Filter for UpdateCampaign
      */
-    filter?: UpdateCampaignUpdateCampaignFilter;
+    filter?: UpdateCampaignFilter;
 }

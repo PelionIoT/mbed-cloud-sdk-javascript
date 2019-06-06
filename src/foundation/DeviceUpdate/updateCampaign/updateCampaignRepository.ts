@@ -6,7 +6,7 @@ import { UpdateCampaignCreateRequest } from "./types";
 import { CampaignDeviceMetadata } from "../../index";
 import { CampaignDeviceMetadataAdapter } from "../../index";
 import { extractFilter } from "../../../common/filters";
-import { UpdateCampaignUpdateCampaignListOptions } from "./types";
+import { UpdateCampaignListOptions } from "./types";
 import { UpdateCampaignUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -127,10 +127,8 @@ export class UpdateCampaignRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: UpdateCampaignUpdateCampaignListOptions): Paginator<UpdateCampaign, ListOptions> {
-        const pageFunc = (
-            pageOptions: UpdateCampaignUpdateCampaignListOptions
-        ): Promise<ListResponse<UpdateCampaign>> => {
+    public list(options?: UpdateCampaignListOptions): Paginator<UpdateCampaign, ListOptions> {
+        const pageFunc = (pageOptions: UpdateCampaignListOptions): Promise<ListResponse<UpdateCampaign>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
