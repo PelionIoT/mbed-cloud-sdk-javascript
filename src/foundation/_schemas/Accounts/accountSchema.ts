@@ -175,11 +175,6 @@ export const accountSchema = (): Schema => {
                 type: "string",
             },
             {
-                name: "reference",
-                apiName: "reference",
-                type: "AccountReference",
-            },
-            {
                 name: "referenceNote",
                 apiName: "reference_note",
                 type: "string",
@@ -192,11 +187,6 @@ export const accountSchema = (): Schema => {
             {
                 name: "state",
                 apiName: "state",
-                type: "string",
-            },
-            {
-                name: "staticUri",
-                apiName: "static_uri",
                 type: "string",
             },
             {
@@ -479,7 +469,7 @@ export const accountSchema = (): Schema => {
             },
             {
                 name: "lightThemeBrandingImages",
-                returnType: "Promise<SubtenantLightThemeImage>",
+                returnType: "Paginator<SubtenantLightThemeImage, ListOptions>",
                 parameters: [
                     {
                         name: "accountId",
@@ -487,9 +477,31 @@ export const accountSchema = (): Schema => {
                         type: "string",
                     },
                     {
-                        name: "reference",
+                        name: "options",
                         position: 1,
-                        type: "string",
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                        ],
                     },
                 ],
             },

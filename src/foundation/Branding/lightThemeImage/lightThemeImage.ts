@@ -7,7 +7,7 @@ export interface LightThemeImage extends Entity {
     /**
      *Name of the image.
      */
-    reference: LightThemeImageReference;
+    reference?: LightThemeImageReference;
 
     /**
      *The static link to the image.
