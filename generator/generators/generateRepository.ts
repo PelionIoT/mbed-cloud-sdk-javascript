@@ -1,6 +1,6 @@
 import { ImportContainer } from "../containers/importContainer/importContainer";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
-import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, isEmptyFilter } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, isEmptyFilter, getTypeReferencePrefix } from "../common/utilities";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
 import { ParameterBucketContainer } from "../containers/parameterBucketContainer/parameterBucketContainer";
@@ -160,11 +160,11 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
                 const extraQueryParams = ep.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
                 if (extraQueryParams.length > 0 || !isEmptyFilter(filters)) {
-                    listOptionsType = snakeToCamel(`${pascalKey}_${ returns }_list_options`);
+                    listOptionsType = snakeToCamel(`${getTypeReferencePrefix(pascalKey, returns)}_list_options`);
                     parameterList.addParameters(
                         new ParameterContainer(
                             "options",
-                            snakeToCamel(`${pascalKey}_${returns}_list_options`),
+                            listOptionsType,
                             {
                                 isRequired: false,
                                 description: "Options to use for the List",
@@ -176,7 +176,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                             `${returns.toUpperCase()}_LIST_OPTIONS`,
                             "./types",
                             [
-                                snakeToCamel(`${pascalKey}_${returns}_list_options`)
+                                listOptionsType
                             ]
                         )
                     );

@@ -1,8 +1,8 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
- *FirmwareImageFirmwareImageCreatedAtFilter
+ *FirmwareImageCreatedAtFilter
  */
-export interface FirmwareImageFirmwareImageCreatedAtFilter {
+export interface FirmwareImageCreatedAtFilter {
     /**
      *createdAt in
      */
@@ -24,9 +24,9 @@ export interface FirmwareImageFirmwareImageCreatedAtFilter {
     gte?: Array<Date>;
 }
 /**
- *FirmwareImageFirmwareImageDatafileUrlFilter
+ *FirmwareImageDatafileUrlFilter
  */
-export interface FirmwareImageFirmwareImageDatafileUrlFilter {
+export interface FirmwareImageDatafileUrlFilter {
     /**
      *datafileUrl equal to
      */
@@ -48,9 +48,9 @@ export interface FirmwareImageFirmwareImageDatafileUrlFilter {
     nin?: Array<string>;
 }
 /**
- *FirmwareImageFirmwareImageDatafileChecksumFilter
+ *FirmwareImageDatafileChecksumFilter
  */
-export interface FirmwareImageFirmwareImageDatafileChecksumFilter {
+export interface FirmwareImageDatafileChecksumFilter {
     /**
      *datafileChecksum equal to
      */
@@ -72,9 +72,9 @@ export interface FirmwareImageFirmwareImageDatafileChecksumFilter {
     nin?: Array<string>;
 }
 /**
- *FirmwareImageFirmwareImageDatafileSizeFilter
+ *FirmwareImageDatafileSizeFilter
  */
-export interface FirmwareImageFirmwareImageDatafileSizeFilter {
+export interface FirmwareImageDatafileSizeFilter {
     /**
      *datafileSize equal to
      */
@@ -96,9 +96,9 @@ export interface FirmwareImageFirmwareImageDatafileSizeFilter {
     nin?: Array<number>;
 }
 /**
- *FirmwareImageFirmwareImageDescriptionFilter
+ *FirmwareImageDescriptionFilter
  */
-export interface FirmwareImageFirmwareImageDescriptionFilter {
+export interface FirmwareImageDescriptionFilter {
     /**
      *description equal to
      */
@@ -120,9 +120,9 @@ export interface FirmwareImageFirmwareImageDescriptionFilter {
     nin?: Array<string>;
 }
 /**
- *FirmwareImageFirmwareImageIdFilter
+ *FirmwareImageIdFilter
  */
-export interface FirmwareImageFirmwareImageIdFilter {
+export interface FirmwareImageIdFilter {
     /**
      *id equal to
      */
@@ -144,9 +144,9 @@ export interface FirmwareImageFirmwareImageIdFilter {
     nin?: Array<string>;
 }
 /**
- *FirmwareImageFirmwareImageNameFilter
+ *FirmwareImageNameFilter
  */
-export interface FirmwareImageFirmwareImageNameFilter {
+export interface FirmwareImageNameFilter {
     /**
      *name equal to
      */
@@ -168,9 +168,9 @@ export interface FirmwareImageFirmwareImageNameFilter {
     nin?: Array<string>;
 }
 /**
- *FirmwareImageFirmwareImageUpdatedAtFilter
+ *FirmwareImageUpdatedAtFilter
  */
-export interface FirmwareImageFirmwareImageUpdatedAtFilter {
+export interface FirmwareImageUpdatedAtFilter {
     /**
      *updatedAt in
      */
@@ -192,55 +192,55 @@ export interface FirmwareImageFirmwareImageUpdatedAtFilter {
     gte?: Array<Date>;
 }
 /**
- *FirmwareImageFirmwareImageFilter
+ *FirmwareImageFilter
  */
-export interface FirmwareImageFirmwareImageFilter {
+export interface FirmwareImageFilter {
     /**
      *Filter by createdAt on FirmwareImage
      */
-    createdAt?: FirmwareImageFirmwareImageCreatedAtFilter;
+    createdAt?: FirmwareImageCreatedAtFilter;
 
     /**
      *Filter by datafileUrl on FirmwareImage
      */
-    datafileUrl?: string | FirmwareImageFirmwareImageDatafileUrlFilter;
+    datafileUrl?: string | FirmwareImageDatafileUrlFilter;
 
     /**
      *Filter by datafileChecksum on FirmwareImage
      */
-    datafileChecksum?: string | FirmwareImageFirmwareImageDatafileChecksumFilter;
+    datafileChecksum?: string | FirmwareImageDatafileChecksumFilter;
 
     /**
      *Filter by datafileSize on FirmwareImage
      */
-    datafileSize?: number | FirmwareImageFirmwareImageDatafileSizeFilter;
+    datafileSize?: number | FirmwareImageDatafileSizeFilter;
 
     /**
      *Filter by description on FirmwareImage
      */
-    description?: string | FirmwareImageFirmwareImageDescriptionFilter;
+    description?: string | FirmwareImageDescriptionFilter;
 
     /**
      *Filter by id on FirmwareImage
      */
-    id?: string | FirmwareImageFirmwareImageIdFilter;
+    id?: string | FirmwareImageIdFilter;
 
     /**
      *Filter by name on FirmwareImage
      */
-    name?: string | FirmwareImageFirmwareImageNameFilter;
+    name?: string | FirmwareImageNameFilter;
 
     /**
      *Filter by updatedAt on FirmwareImage
      */
-    updatedAt?: FirmwareImageFirmwareImageUpdatedAtFilter;
+    updatedAt?: FirmwareImageUpdatedAtFilter;
 }
 /**
- *FirmwareImageFirmwareImageListOptions
+ *FirmwareImageListOptions
  */
-export interface FirmwareImageFirmwareImageListOptions extends ListOptions {
+export interface FirmwareImageListOptions extends ListOptions {
     /**
      *Filter for FirmwareImage
      */
-    filter?: FirmwareImageFirmwareImageFilter;
+    filter?: FirmwareImageFilter;
 }

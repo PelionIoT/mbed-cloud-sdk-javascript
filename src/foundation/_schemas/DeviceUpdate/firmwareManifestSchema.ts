@@ -124,7 +124,7 @@ export const firmwareManifestSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "FirmwareManifestFirmwareManifestFilter",
+                                type: "FirmwareManifestFilter",
                             },
                         ],
                     },

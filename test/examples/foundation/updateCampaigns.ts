@@ -1,5 +1,5 @@
 /* tslint:disable: no-console */
-import { FirmwareManifestRepository, UpdateCampaignRepository, SDK } from "../../../src";
+import { FirmwareManifestRepository, UpdateCampaignRepository, SDK, DeviceDeviceFilter } from "../../../src";
 import { encodeFilter } from "../../../src/legacy/common/functions";
 
 describe("Update campaign examples", () => {
@@ -13,9 +13,11 @@ describe("Update campaign examples", () => {
         }).first();
 
         const updateCampaignRepo = sdk.foundation().updateCampaignRepository();
-        const filter = {
+        const filter: DeviceDeviceFilter = {
             createdAt: {
-                lte: new Date(2019, 0, 1)
+                lte: [
+                    new Date(2019, 0, 1)
+                ],
             }
         };
         const campaign = await updateCampaignRepo.create({

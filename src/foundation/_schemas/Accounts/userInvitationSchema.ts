@@ -109,7 +109,7 @@ export const userInvitationSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "UserInvitationUserInvitationFilter",
+                                type: "UserInvitationFilter",
                             },
                         ],
                     },

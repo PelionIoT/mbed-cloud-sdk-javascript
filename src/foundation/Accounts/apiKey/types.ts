@@ -45,43 +45,43 @@ export interface ApiKeyUpdateRequest {
     readonly status?: ApiKeyStatus;
 }
 /**
- *ApiKeyApiKeyKeyFilter
+ *ApiKeyKeyFilter
  */
-export interface ApiKeyApiKeyKeyFilter {
+export interface ApiKeyKeyFilter {
     /**
      *key equal to
      */
     eq?: string;
 }
 /**
- *ApiKeyApiKeyOwnerFilter
+ *ApiKeyOwnerFilter
  */
-export interface ApiKeyApiKeyOwnerFilter {
+export interface ApiKeyOwnerFilter {
     /**
      *owner equal to
      */
     eq?: string;
 }
 /**
- *ApiKeyApiKeyFilter
+ *ApiKeyFilter
  */
-export interface ApiKeyApiKeyFilter {
+export interface ApiKeyFilter {
     /**
      *Filter by key on ApiKey
      */
-    key?: string | ApiKeyApiKeyKeyFilter;
+    key?: string | ApiKeyKeyFilter;
 
     /**
      *Filter by owner on ApiKey
      */
-    owner?: string | ApiKeyApiKeyOwnerFilter;
+    owner?: string | ApiKeyOwnerFilter;
 }
 /**
- *ApiKeyApiKeyListOptions
+ *ApiKeyListOptions
  */
-export interface ApiKeyApiKeyListOptions extends ListOptions {
+export interface ApiKeyListOptions extends ListOptions {
     /**
      *Filter for ApiKey
      */
-    filter?: ApiKeyApiKeyFilter;
+    filter?: ApiKeyFilter;
 }

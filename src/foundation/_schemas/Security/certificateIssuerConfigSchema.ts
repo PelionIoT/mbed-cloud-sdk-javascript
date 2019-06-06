@@ -95,7 +95,7 @@ export const certificateIssuerConfigSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "CertificateIssuerConfigCertificateIssuerConfigFilter",
+                                type: "CertificateIssuerConfigFilter",
                             },
                         ],
                     },

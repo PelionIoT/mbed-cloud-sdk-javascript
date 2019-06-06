@@ -335,9 +335,9 @@ export interface AccountSubtenantApiKeyListOptions extends ListOptions {
     filter?: AccountSubtenantApiKeyFilter;
 }
 /**
- *AccountAccountStatusFilter
+ *AccountStatusFilter
  */
-export interface AccountAccountStatusFilter {
+export interface AccountStatusFilter {
     /**
      *status equal to
      */
@@ -354,74 +354,74 @@ export interface AccountAccountStatusFilter {
     nin?: Array<AccountStatus>;
 }
 /**
- *AccountAccountTierFilter
+ *AccountTierFilter
  */
-export interface AccountAccountTierFilter {
+export interface AccountTierFilter {
     /**
      *tier equal to
      */
     eq?: string;
 }
 /**
- *AccountAccountParentFilter
+ *AccountParentFilter
  */
-export interface AccountAccountParentFilter {
+export interface AccountParentFilter {
     /**
      *parent equal to
      */
     eq?: string;
 }
 /**
- *AccountAccountEndMarketFilter
+ *AccountEndMarketFilter
  */
-export interface AccountAccountEndMarketFilter {
+export interface AccountEndMarketFilter {
     /**
      *endMarket equal to
      */
     eq?: string;
 }
 /**
- *AccountAccountCountryFilter
+ *AccountCountryFilter
  */
-export interface AccountAccountCountryFilter {
+export interface AccountCountryFilter {
     /**
      *country like
      */
     like?: string;
 }
 /**
- *AccountAccountFilter
+ *AccountFilter
  */
-export interface AccountAccountFilter {
+export interface AccountFilter {
     /**
      *Filter by status on Account
      */
-    status?: AccountStatus | AccountAccountStatusFilter;
+    status?: AccountStatus | AccountStatusFilter;
 
     /**
      *Filter by tier on Account
      */
-    tier?: string | AccountAccountTierFilter;
+    tier?: string | AccountTierFilter;
 
     /**
      *Filter by parent on Account
      */
-    parent?: string | AccountAccountParentFilter;
+    parent?: string | AccountParentFilter;
 
     /**
      *Filter by endMarket on Account
      */
-    endMarket?: string | AccountAccountEndMarketFilter;
+    endMarket?: string | AccountEndMarketFilter;
 
     /**
      *Filter by country on Account
      */
-    country?: AccountAccountCountryFilter;
+    country?: AccountCountryFilter;
 }
 /**
- *AccountAccountListOptions
+ *AccountListOptions
  */
-export interface AccountAccountListOptions extends ListOptions {
+export interface AccountListOptions extends ListOptions {
     /**
      *Format information for the query response. Supported: format=breakdown.
      */
@@ -435,7 +435,7 @@ export interface AccountAccountListOptions extends ListOptions {
     /**
      *Filter for Account
      */
-    filter?: AccountAccountFilter;
+    filter?: AccountFilter;
 }
 /**
  *AccountSubtenantTrustedCertificateNameFilter

@@ -1,8 +1,8 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
- *FirmwareManifestFirmwareManifestCreatedAtFilter
+ *FirmwareManifestCreatedAtFilter
  */
-export interface FirmwareManifestFirmwareManifestCreatedAtFilter {
+export interface FirmwareManifestCreatedAtFilter {
     /**
      *createdAt in
      */
@@ -24,9 +24,9 @@ export interface FirmwareManifestFirmwareManifestCreatedAtFilter {
     gte?: Array<Date>;
 }
 /**
- *FirmwareManifestFirmwareManifestDatafileUrlFilter
+ *FirmwareManifestDatafileUrlFilter
  */
-export interface FirmwareManifestFirmwareManifestDatafileUrlFilter {
+export interface FirmwareManifestDatafileUrlFilter {
     /**
      *datafileUrl equal to
      */
@@ -48,9 +48,9 @@ export interface FirmwareManifestFirmwareManifestDatafileUrlFilter {
     nin?: Array<string>;
 }
 /**
- *FirmwareManifestFirmwareManifestDatafileSizeFilter
+ *FirmwareManifestDatafileSizeFilter
  */
-export interface FirmwareManifestFirmwareManifestDatafileSizeFilter {
+export interface FirmwareManifestDatafileSizeFilter {
     /**
      *datafileSize equal to
      */
@@ -72,9 +72,9 @@ export interface FirmwareManifestFirmwareManifestDatafileSizeFilter {
     nin?: Array<number>;
 }
 /**
- *FirmwareManifestFirmwareManifestDescriptionFilter
+ *FirmwareManifestDescriptionFilter
  */
-export interface FirmwareManifestFirmwareManifestDescriptionFilter {
+export interface FirmwareManifestDescriptionFilter {
     /**
      *description equal to
      */
@@ -96,9 +96,9 @@ export interface FirmwareManifestFirmwareManifestDescriptionFilter {
     nin?: Array<string>;
 }
 /**
- *FirmwareManifestFirmwareManifestDeviceClassFilter
+ *FirmwareManifestDeviceClassFilter
  */
-export interface FirmwareManifestFirmwareManifestDeviceClassFilter {
+export interface FirmwareManifestDeviceClassFilter {
     /**
      *deviceClass equal to
      */
@@ -120,9 +120,9 @@ export interface FirmwareManifestFirmwareManifestDeviceClassFilter {
     nin?: Array<string>;
 }
 /**
- *FirmwareManifestFirmwareManifestIdFilter
+ *FirmwareManifestIdFilter
  */
-export interface FirmwareManifestFirmwareManifestIdFilter {
+export interface FirmwareManifestIdFilter {
     /**
      *id equal to
      */
@@ -144,9 +144,9 @@ export interface FirmwareManifestFirmwareManifestIdFilter {
     nin?: Array<string>;
 }
 /**
- *FirmwareManifestFirmwareManifestNameFilter
+ *FirmwareManifestNameFilter
  */
-export interface FirmwareManifestFirmwareManifestNameFilter {
+export interface FirmwareManifestNameFilter {
     /**
      *name equal to
      */
@@ -168,9 +168,9 @@ export interface FirmwareManifestFirmwareManifestNameFilter {
     nin?: Array<string>;
 }
 /**
- *FirmwareManifestFirmwareManifestTimestampFilter
+ *FirmwareManifestTimestampFilter
  */
-export interface FirmwareManifestFirmwareManifestTimestampFilter {
+export interface FirmwareManifestTimestampFilter {
     /**
      *timestamp in
      */
@@ -192,9 +192,9 @@ export interface FirmwareManifestFirmwareManifestTimestampFilter {
     gte?: Array<Date>;
 }
 /**
- *FirmwareManifestFirmwareManifestUpdatedAtFilter
+ *FirmwareManifestUpdatedAtFilter
  */
-export interface FirmwareManifestFirmwareManifestUpdatedAtFilter {
+export interface FirmwareManifestUpdatedAtFilter {
     /**
      *updatedAt in
      */
@@ -216,60 +216,60 @@ export interface FirmwareManifestFirmwareManifestUpdatedAtFilter {
     gte?: Array<Date>;
 }
 /**
- *FirmwareManifestFirmwareManifestFilter
+ *FirmwareManifestFilter
  */
-export interface FirmwareManifestFirmwareManifestFilter {
+export interface FirmwareManifestFilter {
     /**
      *Filter by createdAt on FirmwareManifest
      */
-    createdAt?: FirmwareManifestFirmwareManifestCreatedAtFilter;
+    createdAt?: FirmwareManifestCreatedAtFilter;
 
     /**
      *Filter by datafileUrl on FirmwareManifest
      */
-    datafileUrl?: string | FirmwareManifestFirmwareManifestDatafileUrlFilter;
+    datafileUrl?: string | FirmwareManifestDatafileUrlFilter;
 
     /**
      *Filter by datafileSize on FirmwareManifest
      */
-    datafileSize?: number | FirmwareManifestFirmwareManifestDatafileSizeFilter;
+    datafileSize?: number | FirmwareManifestDatafileSizeFilter;
 
     /**
      *Filter by description on FirmwareManifest
      */
-    description?: string | FirmwareManifestFirmwareManifestDescriptionFilter;
+    description?: string | FirmwareManifestDescriptionFilter;
 
     /**
      *Filter by deviceClass on FirmwareManifest
      */
-    deviceClass?: string | FirmwareManifestFirmwareManifestDeviceClassFilter;
+    deviceClass?: string | FirmwareManifestDeviceClassFilter;
 
     /**
      *Filter by id on FirmwareManifest
      */
-    id?: string | FirmwareManifestFirmwareManifestIdFilter;
+    id?: string | FirmwareManifestIdFilter;
 
     /**
      *Filter by name on FirmwareManifest
      */
-    name?: string | FirmwareManifestFirmwareManifestNameFilter;
+    name?: string | FirmwareManifestNameFilter;
 
     /**
      *Filter by timestamp on FirmwareManifest
      */
-    timestamp?: FirmwareManifestFirmwareManifestTimestampFilter;
+    timestamp?: FirmwareManifestTimestampFilter;
 
     /**
      *Filter by updatedAt on FirmwareManifest
      */
-    updatedAt?: FirmwareManifestFirmwareManifestUpdatedAtFilter;
+    updatedAt?: FirmwareManifestUpdatedAtFilter;
 }
 /**
- *FirmwareManifestFirmwareManifestListOptions
+ *FirmwareManifestListOptions
  */
-export interface FirmwareManifestFirmwareManifestListOptions extends ListOptions {
+export interface FirmwareManifestListOptions extends ListOptions {
     /**
      *Filter for FirmwareManifest
      */
-    filter?: FirmwareManifestFirmwareManifestFilter;
+    filter?: FirmwareManifestFilter;
 }
