@@ -21,6 +21,63 @@ references:
         - /api-contract.*/
 
 jobs:
+  #############################################################################################
+  #                                Cache Docker Images                                        #
+  #############################################################################################
+  cache_test_server_image:
+    machine:
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run:
+          command: mkdir -p ~/test_server_image
+          name: create directory for the test_server docker image
+      - run:
+          command: docker build -t testserver -f TestServer.Dockerfile .
+          name: build the test_server docker image from TestServer.Dockerfile
+      - run:
+          command: docker save -o ~/test_server_image/testserver.tar testserver
+          name: save the test_server image so it doesn't need building later
+      - persist_to_workspace:
+          root: ~/.
+          paths:
+           - test_server_image
+  cache_test_runner_image:
+    <<: *circle_python
+    environment:
+      TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Update Python Installers
+          command: sudo pip install -U setuptools pip pipenv
+      - run:
+          name: Install awscli
+          command: pipenv install awscli --python=python3.6
+      - run:
+          name: Configure Docker to use AWS
+          command: |
+            source $(pipenv --venv)/bin/activate
+            login="$(aws ecr get-login --no-include-email)"
+            ${login}
+      - run:
+          name: Fetch the test runner
+          command: (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+              && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+              104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
+              || (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+              && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+              104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
+      - run:
+          command: mkdir -p ~/test_runner_image
+          name: create directory for the test_runner docker image
+      - run:
+          command: docker save -o ~/test_runner_image/testrunner.tar ${TESTRUNNER_DOCKER_IMAGE}
+          name: save the test_runner image so it doesn't need building later
+      - persist_to_workspace:
+          root: ~/.
+          paths:
+           - test_runner_image
   build:
     working_directory: ~/build
     environment:
