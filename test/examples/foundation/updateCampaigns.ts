@@ -6,13 +6,12 @@ describe("Update campaign examples", () => {
 
     test("firmware update campaign launch", async () => {
         const sdk = new SDK();
-
-        // an example: firmware_update_campaign_launch
         const firmwareManifestRepo = sdk.foundation().firmwareManifestRepository();
         const firmwareManifest = await firmwareManifestRepo.list({
             maxResults: 2,
         }).first();
 
+        // an example: firmware_update_campaign_launch
         const updateCampaignRepo = sdk.foundation().updateCampaignRepository();
         const filter: DeviceFilter = {
             createdAt: {
