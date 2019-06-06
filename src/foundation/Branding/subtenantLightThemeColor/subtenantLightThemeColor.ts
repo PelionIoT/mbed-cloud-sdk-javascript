@@ -13,7 +13,7 @@ export interface SubtenantLightThemeColor extends Entity {
     /**
      *Color name.
      */
-    reference: SubtenantLightThemeColorReference;
+    reference?: SubtenantLightThemeColorReference;
 
     /**
      *Last update time in UTC.
