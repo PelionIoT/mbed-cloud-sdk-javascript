@@ -73,7 +73,7 @@ export const certificateEnrollmentSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "CertificateEnrollmentCertificateEnrollmentFilter",
+                                type: "CertificateEnrollmentFilter",
                             },
                         ],
                     },

@@ -1,8 +1,8 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
- *DeviceEventsDeviceEventsDateTimeFilter
+ *DeviceEventsDateTimeFilter
  */
-export interface DeviceEventsDeviceEventsDateTimeFilter {
+export interface DeviceEventsDateTimeFilter {
     /**
      *dateTime in
      */
@@ -24,9 +24,9 @@ export interface DeviceEventsDeviceEventsDateTimeFilter {
     gte?: Array<Date>;
 }
 /**
- *DeviceEventsDeviceEventsDescriptionFilter
+ *DeviceEventsDescriptionFilter
  */
-export interface DeviceEventsDeviceEventsDescriptionFilter {
+export interface DeviceEventsDescriptionFilter {
     /**
      *description equal to
      */
@@ -48,9 +48,9 @@ export interface DeviceEventsDeviceEventsDescriptionFilter {
     nin?: Array<string>;
 }
 /**
- *DeviceEventsDeviceEventsIdFilter
+ *DeviceEventsIdFilter
  */
-export interface DeviceEventsDeviceEventsIdFilter {
+export interface DeviceEventsIdFilter {
     /**
      *id equal to
      */
@@ -72,9 +72,9 @@ export interface DeviceEventsDeviceEventsIdFilter {
     nin?: Array<string>;
 }
 /**
- *DeviceEventsDeviceEventsDeviceIdFilter
+ *DeviceEventsDeviceIdFilter
  */
-export interface DeviceEventsDeviceEventsDeviceIdFilter {
+export interface DeviceEventsDeviceIdFilter {
     /**
      *deviceId equal to
      */
@@ -96,9 +96,9 @@ export interface DeviceEventsDeviceEventsDeviceIdFilter {
     nin?: Array<string>;
 }
 /**
- *DeviceEventsDeviceEventsEventTypeFilter
+ *DeviceEventsEventTypeFilter
  */
-export interface DeviceEventsDeviceEventsEventTypeFilter {
+export interface DeviceEventsEventTypeFilter {
     /**
      *eventType equal to
      */
@@ -120,9 +120,9 @@ export interface DeviceEventsDeviceEventsEventTypeFilter {
     nin?: Array<string>;
 }
 /**
- *DeviceEventsDeviceEventsStateChangeFilter
+ *DeviceEventsStateChangeFilter
  */
-export interface DeviceEventsDeviceEventsStateChangeFilter {
+export interface DeviceEventsStateChangeFilter {
     /**
      *stateChange equal to
      */
@@ -134,45 +134,45 @@ export interface DeviceEventsDeviceEventsStateChangeFilter {
     neq?: boolean;
 }
 /**
- *DeviceEventsDeviceEventsFilter
+ *DeviceEventsFilter
  */
-export interface DeviceEventsDeviceEventsFilter {
+export interface DeviceEventsFilter {
     /**
      *Filter by dateTime on DeviceEvents
      */
-    dateTime?: DeviceEventsDeviceEventsDateTimeFilter;
+    dateTime?: DeviceEventsDateTimeFilter;
 
     /**
      *Filter by description on DeviceEvents
      */
-    description?: string | DeviceEventsDeviceEventsDescriptionFilter;
+    description?: string | DeviceEventsDescriptionFilter;
 
     /**
      *Filter by id on DeviceEvents
      */
-    id?: string | DeviceEventsDeviceEventsIdFilter;
+    id?: string | DeviceEventsIdFilter;
 
     /**
      *Filter by deviceId on DeviceEvents
      */
-    deviceId?: string | DeviceEventsDeviceEventsDeviceIdFilter;
+    deviceId?: string | DeviceEventsDeviceIdFilter;
 
     /**
      *Filter by eventType on DeviceEvents
      */
-    eventType?: string | DeviceEventsDeviceEventsEventTypeFilter;
+    eventType?: string | DeviceEventsEventTypeFilter;
 
     /**
      *Filter by stateChange on DeviceEvents
      */
-    stateChange?: boolean | DeviceEventsDeviceEventsStateChangeFilter;
+    stateChange?: boolean | DeviceEventsStateChangeFilter;
 }
 /**
- *DeviceEventsDeviceEventsListOptions
+ *DeviceEventsListOptions
  */
-export interface DeviceEventsDeviceEventsListOptions extends ListOptions {
+export interface DeviceEventsListOptions extends ListOptions {
     /**
      *Filter for DeviceEvents
      */
-    filter?: DeviceEventsDeviceEventsFilter;
+    filter?: DeviceEventsFilter;
 }

@@ -21,29 +21,29 @@ export interface UserInvitationCreateRequest {
     readonly validForDays?: number;
 }
 /**
- *UserInvitationUserInvitationLoginProfilesFilter
+ *UserInvitationLoginProfilesFilter
  */
-export interface UserInvitationUserInvitationLoginProfilesFilter {
+export interface UserInvitationLoginProfilesFilter {
     /**
      *loginProfiles equal to
      */
     eq?: Array<LoginProfile>;
 }
 /**
- *UserInvitationUserInvitationFilter
+ *UserInvitationFilter
  */
-export interface UserInvitationUserInvitationFilter {
+export interface UserInvitationFilter {
     /**
      *Filter by loginProfiles on UserInvitation
      */
-    loginProfiles?: Array<LoginProfile> | UserInvitationUserInvitationLoginProfilesFilter;
+    loginProfiles?: Array<LoginProfile> | UserInvitationLoginProfilesFilter;
 }
 /**
- *UserInvitationUserInvitationListOptions
+ *UserInvitationListOptions
  */
-export interface UserInvitationUserInvitationListOptions extends ListOptions {
+export interface UserInvitationListOptions extends ListOptions {
     /**
      *Filter for UserInvitation
      */
-    filter?: UserInvitationUserInvitationFilter;
+    filter?: UserInvitationFilter;
 }

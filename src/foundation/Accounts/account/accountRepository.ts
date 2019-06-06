@@ -15,7 +15,7 @@ import { SubtenantLightThemeColor } from "../../index";
 import { SubtenantLightThemeColorAdapter } from "../../index";
 import { SubtenantLightThemeImage } from "../../index";
 import { SubtenantLightThemeImageAdapter } from "../../index";
-import { AccountAccountListOptions } from "./types";
+import { AccountListOptions } from "./types";
 import { SubtenantTrustedCertificate } from "../../index";
 import { SubtenantTrustedCertificateAdapter } from "../../index";
 import { AccountSubtenantTrustedCertificateListOptions } from "./types";
@@ -237,8 +237,8 @@ export class AccountRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: AccountAccountListOptions): Paginator<Account, ListOptions> {
-        const pageFunc = (pageOptions: AccountAccountListOptions): Promise<ListResponse<Account>> => {
+    public list(options?: AccountListOptions): Paginator<Account, ListOptions> {
+        const pageFunc = (pageOptions: AccountListOptions): Promise<ListResponse<Account>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

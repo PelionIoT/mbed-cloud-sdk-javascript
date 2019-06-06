@@ -879,9 +879,9 @@ export interface DeviceGroupDeviceListOptions extends ListOptions {
     filter?: DeviceGroupDeviceFilter;
 }
 /**
- *DeviceGroupDeviceGroupIdFilter
+ *DeviceGroupIdFilter
  */
-export interface DeviceGroupDeviceGroupIdFilter {
+export interface DeviceGroupIdFilter {
     /**
      *id equal to
      */
@@ -903,9 +903,9 @@ export interface DeviceGroupDeviceGroupIdFilter {
     nin?: Array<string>;
 }
 /**
- *DeviceGroupDeviceGroupDevicesCountFilter
+ *DeviceGroupDevicesCountFilter
  */
-export interface DeviceGroupDeviceGroupDevicesCountFilter {
+export interface DeviceGroupDevicesCountFilter {
     /**
      *devicesCount equal to
      */
@@ -937,9 +937,9 @@ export interface DeviceGroupDeviceGroupDevicesCountFilter {
     gte?: Array<number>;
 }
 /**
- *DeviceGroupDeviceGroupNameFilter
+ *DeviceGroupNameFilter
  */
-export interface DeviceGroupDeviceGroupNameFilter {
+export interface DeviceGroupNameFilter {
     /**
      *name equal to
      */
@@ -961,9 +961,9 @@ export interface DeviceGroupDeviceGroupNameFilter {
     nin?: Array<string>;
 }
 /**
- *DeviceGroupDeviceGroupCreatedAtFilter
+ *DeviceGroupCreatedAtFilter
  */
-export interface DeviceGroupDeviceGroupCreatedAtFilter {
+export interface DeviceGroupCreatedAtFilter {
     /**
      *createdAt in
      */
@@ -985,9 +985,9 @@ export interface DeviceGroupDeviceGroupCreatedAtFilter {
     gte?: Array<Date>;
 }
 /**
- *DeviceGroupDeviceGroupUpdatedAtFilter
+ *DeviceGroupUpdatedAtFilter
  */
-export interface DeviceGroupDeviceGroupUpdatedAtFilter {
+export interface DeviceGroupUpdatedAtFilter {
     /**
      *updatedAt in
      */
@@ -1009,40 +1009,40 @@ export interface DeviceGroupDeviceGroupUpdatedAtFilter {
     gte?: Array<Date>;
 }
 /**
- *DeviceGroupDeviceGroupFilter
+ *DeviceGroupFilter
  */
-export interface DeviceGroupDeviceGroupFilter {
+export interface DeviceGroupFilter {
     /**
      *Filter by id on DeviceGroup
      */
-    id?: string | DeviceGroupDeviceGroupIdFilter;
+    id?: string | DeviceGroupIdFilter;
 
     /**
      *Filter by devicesCount on DeviceGroup
      */
-    devicesCount?: number | DeviceGroupDeviceGroupDevicesCountFilter;
+    devicesCount?: number | DeviceGroupDevicesCountFilter;
 
     /**
      *Filter by name on DeviceGroup
      */
-    name?: string | DeviceGroupDeviceGroupNameFilter;
+    name?: string | DeviceGroupNameFilter;
 
     /**
      *Filter by createdAt on DeviceGroup
      */
-    createdAt?: DeviceGroupDeviceGroupCreatedAtFilter;
+    createdAt?: DeviceGroupCreatedAtFilter;
 
     /**
      *Filter by updatedAt on DeviceGroup
      */
-    updatedAt?: DeviceGroupDeviceGroupUpdatedAtFilter;
+    updatedAt?: DeviceGroupUpdatedAtFilter;
 }
 /**
- *DeviceGroupDeviceGroupListOptions
+ *DeviceGroupListOptions
  */
-export interface DeviceGroupDeviceGroupListOptions extends ListOptions {
+export interface DeviceGroupListOptions extends ListOptions {
     /**
      *Filter for DeviceGroup
      */
-    filter?: DeviceGroupDeviceGroupFilter;
+    filter?: DeviceGroupFilter;
 }

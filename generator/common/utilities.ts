@@ -104,6 +104,14 @@ const isEmptyFilter = obj => {
     return true;
 };
 
+const getTypeReferencePrefix = (entityKey: string, returnsKey: string) => {
+    if (returnsKey.toUpperCase() === entityKey.toUpperCase()) {
+        return entityKey;
+    } else {
+        return `${entityKey}_${returnsKey}`
+    }
+}
+
 export {
     typeMap,
     getType,
@@ -116,4 +124,5 @@ export {
     snakeToPascal,
     safeAddToList,
     isEmptyFilter,
+    getTypeReferencePrefix,
 };

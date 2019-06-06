@@ -213,7 +213,7 @@ export const userSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "UserUserFilter",
+                                type: "UserFilter",
                             },
                         ],
                     },

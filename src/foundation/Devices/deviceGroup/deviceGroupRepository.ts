@@ -8,7 +8,7 @@ import { Device } from "../../index";
 import { DeviceAdapter } from "../../index";
 import { extractFilter } from "../../../common/filters";
 import { DeviceGroupDeviceListOptions } from "./types";
-import { DeviceGroupDeviceGroupListOptions } from "./types";
+import { DeviceGroupListOptions } from "./types";
 import { DeviceGroupRemoveDeviceRequest } from "./types";
 import { DeviceGroupUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
@@ -322,8 +322,8 @@ export class DeviceGroupRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: DeviceGroupDeviceGroupListOptions): Paginator<DeviceGroup, ListOptions> {
-        const pageFunc = (pageOptions: DeviceGroupDeviceGroupListOptions): Promise<ListResponse<DeviceGroup>> => {
+    public list(options?: DeviceGroupListOptions): Paginator<DeviceGroup, ListOptions> {
+        const pageFunc = (pageOptions: DeviceGroupListOptions): Promise<ListResponse<DeviceGroup>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {

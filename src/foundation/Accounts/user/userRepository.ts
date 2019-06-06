@@ -4,7 +4,7 @@ import { User } from "./user";
 import { UserAdapter } from "../../index";
 import { UserCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
-import { UserUserListOptions } from "./types";
+import { UserListOptions } from "./types";
 import { UserUpdateRequest } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
@@ -75,8 +75,8 @@ export class UserRepository extends Repository {
      * list
      * @param options - Options to use for the List
      */
-    public list(options?: UserUserListOptions): Paginator<User, ListOptions> {
-        const pageFunc = (pageOptions: UserUserListOptions): Promise<ListResponse<User>> => {
+    public list(options?: UserListOptions): Paginator<User, ListOptions> {
+        const pageFunc = (pageOptions: UserListOptions): Promise<ListResponse<User>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
