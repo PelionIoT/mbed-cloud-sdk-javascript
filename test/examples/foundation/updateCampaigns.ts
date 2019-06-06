@@ -1,19 +1,20 @@
 /* tslint:disable: no-console */
-import { FirmwareManifestRepository, UpdateCampaignRepository, SDK, DeviceDeviceFilter } from "../../../src";
+import { SDK, DeviceFilter } from "../../../src";
 import { encodeFilter } from "../../../src/legacy/common/functions";
 
 describe("Update campaign examples", () => {
 
-    test("create and manage a campaign", async () => {
+    test("firmware update campaign launch", async () => {
         const sdk = new SDK();
 
+        // an example: firmware_update_campaign_launch
         const firmwareManifestRepo = sdk.foundation().firmwareManifestRepository();
         const firmwareManifest = await firmwareManifestRepo.list({
             maxResults: 2,
         }).first();
 
         const updateCampaignRepo = sdk.foundation().updateCampaignRepository();
-        const filter: DeviceDeviceFilter = {
+        const filter: DeviceFilter = {
             createdAt: {
                 lte: [
                     new Date(2019, 0, 1)
@@ -36,6 +37,7 @@ describe("Update campaign examples", () => {
         for await (const metadata of updateCampaignRepo.deviceMetadata(campaign.id)) {
             console.log(metadata);
         }
+        // end of example
     });
 
 });
