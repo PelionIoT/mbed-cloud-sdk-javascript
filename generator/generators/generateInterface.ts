@@ -16,11 +16,12 @@ export function generateInterface(entity: any, enums: any): ClassContainer {
 
         const readOnly = !!f.readOnly;
         const required = !!f.required;
-        const property = new PropertyContainer(name, type, { isInterface: true, isOptional: !required, isReadonly: readOnly, apiFieldname });
+        const description = getDescription(f, name);
+        const property = new PropertyContainer(name, type, { isInterface: true, isOptional: !required, isReadonly: readOnly, apiFieldname, description });
         properties.push(property);
 
         if (f.enum_reference) {
-            enumImports.push(snakeToPascal(f.enum_reference));
+            enumImports.push(snakeToPascal(f.enum_reference).replace("Enum", ""));
         }
 
         if ((f.items && f.items.foreign_key)) {
@@ -52,3 +53,12 @@ export function generateInterface(entity: any, enums: any): ClassContainer {
     interfaceContainer.addImport(imports);
     return interfaceContainer;
 }
+
+export const getDescription = (field, name) => {
+    const description: string = field.items ? field.items.description : field.description || name;
+    if (field.example) {
+        return description.concat(`\n*@example ${field.example}`);
+    }
+
+    return description;
+};

@@ -7,6 +7,11 @@ import { PolicyAdapter } from "../..";
  *Account adapter
  */
 export class AccountAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): Account {
         if (!data) {
             return null;
@@ -38,16 +43,16 @@ export class AccountAdapter extends Adapter {
             email: data.email,
             endMarket: data.end_market,
             expiration: data.expiration,
-            expirationWarningThreshold: data.expiration_warning_threshold,
+            expirationWarningThreshold: data.expiration_warning_threshold || 1,
             id: data.id,
-            idleTimeout: data.idle_timeout,
+            idleTimeout: data.idle_timeout || 1,
             limits: data.limits,
             mfaStatus: data.mfa_status,
             notificationEmails: data.notification_emails,
             parentAccount: ParentAccountAdapter.fromApi(data.parent_account),
             parentId: data.parent_id,
             passwordPolicy: PasswordPolicyAdapter.fromApi(data.password_policy),
-            passwordRecoveryExpiration: data.password_recovery_expiration || 0,
+            passwordRecoveryExpiration: data.password_recovery_expiration || 1,
             phoneNumber: data.phone_number,
             policies: policies,
             postalCode: data.postal_code,

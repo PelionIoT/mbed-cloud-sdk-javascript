@@ -4,7 +4,7 @@ import { Entity } from "../../../common/entity";
  */
 export interface LoginProfile extends Entity {
     /**
-     *name
+     *Name of the identity provider.
      */
     name?: string;
 }

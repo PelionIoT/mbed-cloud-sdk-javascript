@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,21 +16,24 @@
 */
 
 // this style of import is needed for third party packages that are being ignored by browserify
-import superagent = require("superagent");
-import dotenv = require("dotenv");
+import * as superagent from "superagent";
+import * as dotenv from "dotenv";
 
 import { SDKError } from "./sdkError";
 import { ConnectionOptions } from "./interfaces";
 import { Version } from "../../version";
 import { isThisNode } from "./functions";
 
-// tslint:disable-next-line:no-var-requires
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 const JSON_REGEX = /^application\/json(;.*)?$/i;
 const MIME_REGEX = /^text\/plain(;.*)?$/i;
 const VERSION = Version.isPublished ? Version.version : `${Version.version}+dev`;
 const userAgent = `${Version.packageName}-javascript / ${VERSION}`;
 
+/**
+ * Base class for a legacy api module
+ * @ignore
+ */
 export class ApiBase {
 
     private readonly ENV_API_KEY = "MBED_CLOUD_SDK_API_KEY";

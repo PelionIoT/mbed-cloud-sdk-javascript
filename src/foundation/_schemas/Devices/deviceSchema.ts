@@ -47,7 +47,7 @@ export const deviceSchema = (): Schema => {
             {
                 name: "deployedState",
                 apiName: "deployed_state",
-                type: "DeviceDeployedStateEnum",
+                type: "DeviceDeployedState",
             },
             {
                 name: "deployment",
@@ -105,41 +105,6 @@ export const deviceSchema = (): Schema => {
                 type: "string",
             },
             {
-                name: "lastOperatorSuspendedCategory",
-                apiName: "last_operator_suspended_category",
-                type: "string",
-            },
-            {
-                name: "lastOperatorSuspendedDescription",
-                apiName: "last_operator_suspended_description",
-                type: "string",
-            },
-            {
-                name: "lastOperatorSuspendedUpdatedAt",
-                apiName: "last_operator_suspended_updated_at",
-                type: "Date",
-            },
-            {
-                name: "lastSystemSuspendedCategory",
-                apiName: "last_system_suspended_category",
-                type: "string",
-            },
-            {
-                name: "lastSystemSuspendedDescription",
-                apiName: "last_system_suspended_description",
-                type: "string",
-            },
-            {
-                name: "lastSystemSuspendedUpdatedAt",
-                apiName: "last_system_suspended_updated_at",
-                type: "Date",
-            },
-            {
-                name: "lifecycleStatus",
-                apiName: "lifecycle_status",
-                type: "DeviceLifecycleStatusEnum",
-            },
-            {
                 name: "manifest",
                 apiName: "manifest",
                 type: "string",
@@ -152,7 +117,7 @@ export const deviceSchema = (): Schema => {
             {
                 name: "mechanism",
                 apiName: "mechanism",
-                type: "DeviceMechanismEnum",
+                type: "DeviceMechanism",
             },
             {
                 name: "mechanismUrl",
@@ -165,11 +130,6 @@ export const deviceSchema = (): Schema => {
                 type: "string",
             },
             {
-                name: "operatorSuspended",
-                apiName: "operator_suspended",
-                type: "boolean",
-            },
-            {
                 name: "serialNumber",
                 apiName: "serial_number",
                 type: "string",
@@ -177,12 +137,7 @@ export const deviceSchema = (): Schema => {
             {
                 name: "state",
                 apiName: "state",
-                type: "DeviceStateEnum",
-            },
-            {
-                name: "systemSuspended",
-                apiName: "system_suspended",
-                type: "boolean",
+                type: "DeviceState",
             },
             {
                 name: "updatedAt",
@@ -198,6 +153,28 @@ export const deviceSchema = (): Schema => {
 
         methods: [
             {
+                name: "addToGroup",
+                returnType: "Promise<void>",
+                parameters: [
+                    {
+                        name: "request",
+                        position: 0,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "deviceId",
+                                type: "string",
+                            },
+                        ],
+                    },
+                    {
+                        name: "deviceGroupId",
+                        position: 1,
+                        type: "string",
+                    },
+                ],
+            },
+            {
                 name: "create",
                 returnType: "Promise<Device>",
                 parameters: [
@@ -212,10 +189,6 @@ export const deviceSchema = (): Schema => {
                             },
                             {
                                 name: "bootstrapExpirationDate",
-                                type: "Date",
-                            },
-                            {
-                                name: "bootstrappedTimestamp",
                                 type: "Date",
                             },
                             {
@@ -259,10 +232,6 @@ export const deviceSchema = (): Schema => {
                                 type: "string",
                             },
                             {
-                                name: "firmwareChecksum",
-                                type: "string",
-                            },
-                            {
                                 name: "hostGateway",
                                 type: "string",
                             },
@@ -276,7 +245,7 @@ export const deviceSchema = (): Schema => {
                             },
                             {
                                 name: "mechanism",
-                                type: "DeviceMechanismEnum",
+                                type: "DeviceMechanism",
                             },
                             {
                                 name: "mechanismUrl",
@@ -292,7 +261,7 @@ export const deviceSchema = (): Schema => {
                             },
                             {
                                 name: "state",
-                                type: "DeviceStateEnum",
+                                type: "DeviceState",
                             },
                             {
                                 name: "vendorId",
@@ -342,6 +311,10 @@ export const deviceSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                            {
+                                name: "filter",
+                                type: "DeviceFilter",
+                            },
                         ],
                     },
                 ],
@@ -353,6 +326,28 @@ export const deviceSchema = (): Schema => {
                     {
                         name: "deviceId",
                         position: 0,
+                        type: "string",
+                    },
+                ],
+            },
+            {
+                name: "removeFromGroup",
+                returnType: "Promise<void>",
+                parameters: [
+                    {
+                        name: "request",
+                        position: 0,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "deviceId",
+                                type: "string",
+                            },
+                        ],
+                    },
+                    {
+                        name: "deviceGroupId",
+                        position: 1,
                         type: "string",
                     },
                 ],

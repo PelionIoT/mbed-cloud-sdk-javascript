@@ -1,10 +1,15 @@
 import { Adapter } from "../../../common/adapter";
 import { SubtenantTrustedCertificate } from "./subtenantTrustedCertificate";
-import { isDeveloperCertificateSetter } from "../../../common/privateFunctions";
+import { isDeveloperCertificateGetter } from "../../../common/privateFunctions";
 /**
  *SubtenantTrustedCertificate adapter
  */
 export class SubtenantTrustedCertificateAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): SubtenantTrustedCertificate {
         if (!data) {
             return null;
@@ -30,7 +35,7 @@ export class SubtenantTrustedCertificateAdapter extends Adapter {
             valid: data.valid,
             validity: data.validity,
         });
-        isDeveloperCertificateSetter(mappedEntity);
+        isDeveloperCertificateGetter(mappedEntity);
         return mappedEntity;
     }
 }

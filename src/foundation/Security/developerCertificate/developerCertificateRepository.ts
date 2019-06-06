@@ -9,6 +9,10 @@ import { TrustedCertificateAdapter } from "../../index";
  *DeveloperCertificate repository
  */
 export class DeveloperCertificateRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     */
     public create(request: DeveloperCertificateCreateRequest): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -29,6 +33,10 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @param id - The ID of the trusted certificate to delete.
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -48,6 +56,10 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * getTrustedCertificateInfo
+     * @param id - Entity ID.
+     */
     public getTrustedCertificateInfo(id: string): Promise<TrustedCertificate> {
         return apiWrapper(
             resultsFn => {
@@ -67,6 +79,10 @@ export class DeveloperCertificateRepository extends Repository {
             }
         );
     }
+    /**
+     * read
+     * @param id - ID that uniquely identifies the developer certificate.
+     */
     public read(id: string): Promise<DeveloperCertificate> {
         return apiWrapper(
             resultsFn => {

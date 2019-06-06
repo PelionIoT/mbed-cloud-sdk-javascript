@@ -50,6 +50,21 @@ export const userSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "isGtcAccepted",
+                apiName: "is_gtc_accepted",
+                type: "boolean",
+            },
+            {
+                name: "isMarketingAccepted",
+                apiName: "is_marketing_accepted",
+                type: "boolean",
+            },
+            {
+                name: "isTotpEnabled",
+                apiName: "is_totp_enabled",
+                type: "boolean",
+            },
+            {
                 name: "lastLoginTime",
                 apiName: "last_login_time",
                 type: "number",
@@ -63,11 +78,6 @@ export const userSchema = (): Schema => {
                 name: "loginProfiles",
                 apiName: "login_profiles",
                 type: "Array<LoginProfile>",
-            },
-            {
-                name: "marketingAccepted",
-                apiName: "is_marketing_accepted",
-                type: "boolean",
             },
             {
                 name: "password",
@@ -87,22 +97,12 @@ export const userSchema = (): Schema => {
             {
                 name: "status",
                 apiName: "status",
-                type: "UserStatusEnum",
-            },
-            {
-                name: "termsAccepted",
-                apiName: "is_gtc_accepted",
-                type: "boolean",
+                type: "UserStatus",
             },
             {
                 name: "totpScratchCodes",
                 apiName: "totp_scratch_codes",
                 type: "Array<string>",
-            },
-            {
-                name: "twoFactorAuthentication",
-                apiName: "is_totp_enabled",
-                type: "boolean",
             },
             {
                 name: "updatedAt",
@@ -139,12 +139,16 @@ export const userSchema = (): Schema => {
                                 type: "string",
                             },
                             {
-                                name: "loginProfiles",
-                                type: "Array<LoginProfile>",
+                                name: "isGtcAccepted",
+                                type: "boolean",
                             },
                             {
-                                name: "marketingAccepted",
+                                name: "isMarketingAccepted",
                                 type: "boolean",
+                            },
+                            {
+                                name: "loginProfiles",
+                                type: "Array<LoginProfile>",
                             },
                             {
                                 name: "password",
@@ -153,10 +157,6 @@ export const userSchema = (): Schema => {
                             {
                                 name: "phoneNumber",
                                 type: "string",
-                            },
-                            {
-                                name: "termsAccepted",
-                                type: "boolean",
                             },
                             {
                                 name: "username",
@@ -248,24 +248,24 @@ export const userSchema = (): Schema => {
                                 type: "string",
                             },
                             {
+                                name: "isGtcAccepted",
+                                type: "boolean",
+                            },
+                            {
+                                name: "isMarketingAccepted",
+                                type: "boolean",
+                            },
+                            {
+                                name: "isTotpEnabled",
+                                type: "boolean",
+                            },
+                            {
                                 name: "loginProfiles",
                                 type: "Array<LoginProfile>",
                             },
                             {
-                                name: "marketingAccepted",
-                                type: "boolean",
-                            },
-                            {
                                 name: "phoneNumber",
                                 type: "string",
-                            },
-                            {
-                                name: "termsAccepted",
-                                type: "boolean",
-                            },
-                            {
-                                name: "twoFactorAuthentication",
-                                type: "boolean",
                             },
                             {
                                 name: "username",

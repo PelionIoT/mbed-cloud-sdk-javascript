@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -123,26 +123,32 @@ export class Resource extends EventEmitter {
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getValue(mimeType?: string): Promise<string | number | void>;
+    public getValue(timeout?: number, mimeType?: string): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The requested mime type format of the value
      * @param callback A function that is passed the arguments (error, value) where value is the resource value
      */
-    public getValue(mimeType?: string, callback?: CallbackFn<string | number | void>): void;
-    public getValue(mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+    public getValue(timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
+    public getValue(timeout?: number, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
 
         return asyncStyle(done => {
-            this._api.getResourceValue(this.deviceId, this.path, mimeType, done);
+            this._api.getResourceValue(this.deviceId, this.path, timeout, mimeType, done);
         }, callback);
     }
 
@@ -151,27 +157,33 @@ export class Resource extends EventEmitter {
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param value The value of the resource
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The mime type format of the value
      * @returns the AsyncResponse
      */
-    public setValue(value: string, mimeType?: string): Promise<AsyncResponse>;
+    public setValue(value: string, timeout?: number, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Sets the value of a resource
      *
      * __Note:__ This method requires a notification channel to be set up
      * @param value The value of the resource
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setValue(value: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public setValue(value: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public setValue(value: string, timeout?: number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public setValue(value: string, timeout?: number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
 
         return asyncStyle(done => {
-            this._api.setResourceValue(this.deviceId, this.path, value, mimeType, done);
+            this._api.setResourceValue(this.deviceId, this.path, value, timeout, mimeType, done);
         }, callback);
     }
 
@@ -179,26 +191,44 @@ export class Resource extends EventEmitter {
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param mimeType The mime type format of the value
+     * @param payload The payload to be sent to the device.
+     * @param timeout async request will timeout after given number of milliseconds
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
      * @returns the AsyncResponse
      */
-    public execute(mimeType?: string): Promise<AsyncResponse>;
+    public execute(payload?: any, timeout?: number, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
      * __Note:__ This method requires a notification channel to be set up
-     * @param mimeType The mime type format of the value
+     * @param payload The payload to be sent to the device.
+     * @param timeout async request will timeout after given number of milliseconds
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
      * @param callback A function that is passed any error
      */
-    public execute(mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public execute(mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public execute(payload?: any, timeout?: number, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public execute(payload?: any, timeout?: number, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+        if (typeof payload === "function") {
+            callback = payload;
+            payload = null;
+        }
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
+        if (typeof accepts === "function") {
+            callback = accepts;
+            accepts = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
         }
 
         return asyncStyle(done => {
-            this._api.executeResource(this.deviceId, this.path, mimeType, done);
+            this._api.executeResource(this.deviceId, this.path, timeout, mimeType, accepts, payload, done);
         }, callback);
     }
 

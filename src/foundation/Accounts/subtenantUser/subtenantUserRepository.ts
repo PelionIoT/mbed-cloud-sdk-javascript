@@ -8,6 +8,12 @@ import { SubtenantUserUpdateRequest } from "./types";
  *SubtenantUser repository
  */
 export class SubtenantUserRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     * @param accountId - The ID of the account.
+     * @param action - Create or invite user.
+     */
     public create(request: SubtenantUserCreateRequest, accountId: string, action?: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
@@ -25,11 +31,11 @@ export class SubtenantUserRepository extends Repository {
                             address: request.address,
                             email: request.email,
                             full_name: request.fullName,
+                            is_gtc_accepted: request.isGtcAccepted,
+                            is_marketing_accepted: request.isMarketingAccepted,
                             login_profiles: request.loginProfiles,
-                            is_marketing_accepted: request.marketingAccepted,
                             password: request.password,
                             phone_number: request.phoneNumber,
-                            is_gtc_accepted: request.termsAccepted,
                             username: request.username,
                         },
                     },
@@ -41,6 +47,11 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @param accountId - Account ID.
+     * @param id - The ID of the user to delete.
+     */
     public delete(accountId: string, id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -61,6 +72,11 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
+    /**
+     * read
+     * @param accountId - The ID of the account.
+     * @param id - The ID of the user.
+     */
     public read(accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
@@ -81,6 +97,12 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param accountId - The ID of the account.
+     * @param id - The ID of the user.
+     */
     public update(request: SubtenantUserUpdateRequest, accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {
@@ -95,11 +117,11 @@ export class SubtenantUserRepository extends Repository {
                         body: {
                             address: request.address,
                             full_name: request.fullName,
+                            is_gtc_accepted: request.isGtcAccepted,
+                            is_marketing_accepted: request.isMarketingAccepted,
+                            is_totp_enabled: request.isTotpEnabled,
                             login_profiles: request.loginProfiles,
-                            is_marketing_accepted: request.marketingAccepted,
                             phone_number: request.phoneNumber,
-                            is_gtc_accepted: request.termsAccepted,
-                            is_totp_enabled: request.twoFactorAuthentication,
                             username: request.username,
                         },
                     },
@@ -111,6 +133,11 @@ export class SubtenantUserRepository extends Repository {
             }
         );
     }
+    /**
+     * validateEmail
+     * @param accountId - Account ID.
+     * @param id - The ID of the user.
+     */
     public validateEmail(accountId: string, id: string): Promise<SubtenantUser> {
         return apiWrapper(
             resultsFn => {

@@ -1,52 +1,60 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
 import { LoginProfile } from "../loginProfile/loginProfile";
-export type UserStatusEnum = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
+export type UserStatus = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
 /**
  *UserCreateRequest
  */
 export interface UserCreateRequest {
     /**
-     *address
+     *Address.
+     *@example 110 Fulbourn Rd, Cambridge, United Kingdom
      */
     readonly address?: string;
 
     /**
-     *email
+     *The email address.
+     *@example user@arm.com
      */
     readonly email?: string;
 
     /**
-     *fullName
+     *The full name of the user.
+     *@example User Doe
      */
     readonly fullName?: string;
 
     /**
-     *loginProfiles
+     *A flag indicating that the user has accepted General Terms and Conditions.
+     *@example true
+     */
+    readonly isGtcAccepted?: boolean;
+
+    /**
+     *A flag indicating that the user has consented to receive marketing information.
+     *@example true
+     */
+    readonly isMarketingAccepted?: boolean;
+
+    /**
+     *Represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *marketingAccepted
-     */
-    readonly marketingAccepted?: boolean;
-
-    /**
-     *password
+     *The password when creating a new user. It will be generated when not present in the request.
+     *@example PZf9eEUH43DAPE9ULINFeuj
      */
     readonly password?: string;
 
     /**
-     *phoneNumber
+     *Phone number.
+     *@example +44 (1223) 400 400
      */
     readonly phoneNumber?: string;
 
     /**
-     *termsAccepted
-     */
-    readonly termsAccepted?: boolean;
-
-    /**
-     *username
+     *A username.
+     *@example admin
      */
     readonly username?: string;
 }
@@ -55,42 +63,49 @@ export interface UserCreateRequest {
  */
 export interface UserUpdateRequest {
     /**
-     *address
+     *Address.
+     *@example 110 Fulbourn Rd, Cambridge, United Kingdom
      */
     readonly address?: string;
 
     /**
-     *fullName
+     *The full name of the user.
+     *@example User Doe
      */
     readonly fullName?: string;
 
     /**
-     *loginProfiles
+     *A flag indicating that the user has accepted General Terms and Conditions.
+     *@example true
+     */
+    readonly isGtcAccepted?: boolean;
+
+    /**
+     *A flag indicating that the user has consented to receive marketing information.
+     *@example true
+     */
+    readonly isMarketingAccepted?: boolean;
+
+    /**
+     *A flag indicating whether two-factor authentication (TOTP) has been enabled.
+     *@example true
+     */
+    readonly isTotpEnabled?: boolean;
+
+    /**
+     *Represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *marketingAccepted
-     */
-    readonly marketingAccepted?: boolean;
-
-    /**
-     *phoneNumber
+     *Phone number.
+     *@example +44 (1223) 400 400
      */
     readonly phoneNumber?: string;
 
     /**
-     *termsAccepted
-     */
-    readonly termsAccepted?: boolean;
-
-    /**
-     *twoFactorAuthentication
-     */
-    readonly twoFactorAuthentication?: boolean;
-
-    /**
-     *username
+     *A username.
+     *@example admin
      */
     readonly username?: string;
 }
@@ -99,7 +114,7 @@ export interface UserUpdateRequest {
  */
 export interface UserEmailFilter {
     /**
-     *eq
+     *email equal to
      */
     eq?: string;
 }
@@ -108,54 +123,54 @@ export interface UserEmailFilter {
  */
 export interface UserStatusFilter {
     /**
-     *eq
+     *status equal to
      */
-    eq?: UserStatusEnum;
+    eq?: UserStatus;
 
     /**
-     *in
+     *status in
      */
-    in?: Array<UserStatusEnum>;
+    in?: Array<UserStatus>;
 
     /**
-     *nin
+     *status not in
      */
-    nin?: Array<UserStatusEnum>;
+    nin?: Array<UserStatus>;
 }
 /**
- *UserLoginProfileFilter
+ *UserLoginProfilesFilter
  */
-export interface UserLoginProfileFilter {
+export interface UserLoginProfilesFilter {
     /**
-     *eq
+     *loginProfiles equal to
      */
-    eq?: string;
+    eq?: Array<LoginProfile>;
 }
 /**
  *UserFilter
  */
 export interface UserFilter {
     /**
-     *email
+     *Filter by email on User
      */
     email?: string | UserEmailFilter;
 
     /**
-     *status
+     *Filter by status on User
      */
-    status?: UserStatusEnum | UserStatusFilter;
+    status?: UserStatus | UserStatusFilter;
 
     /**
-     *loginProfile
+     *Filter by loginProfiles on User
      */
-    loginProfile?: string | UserLoginProfileFilter;
+    loginProfiles?: Array<LoginProfile> | UserLoginProfilesFilter;
 }
 /**
  *UserListOptions
  */
 export interface UserListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for User
      */
     filter?: UserFilter;
 }

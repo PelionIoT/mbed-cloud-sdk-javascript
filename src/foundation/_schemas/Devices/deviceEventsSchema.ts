@@ -86,6 +86,10 @@ export const deviceEventsSchema = (): Schema => {
                                 name: "maxResults",
                                 type: "string",
                             },
+                            {
+                                name: "filter",
+                                type: "DeviceEventsFilter",
+                            },
                         ],
                     },
                 ],

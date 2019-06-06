@@ -3,6 +3,7 @@ import { FoundationInstanceCache } from "../../cache/foundationInstanceCache";
 import { logMessage } from "../../logger";
 import { sendException, sendSDKError } from "../utilities";
 import { ServerError } from "../error";
+import { snakeToCamel } from "../../../../src/legacy/common/functions";
 
 export const allInstances = (app: express.Application, foundationCache: FoundationInstanceCache) => {
 
@@ -94,7 +95,7 @@ export const allInstances = (app: express.Application, foundationCache: Foundati
         }
 
         const instanceId = req.params.instanceId;
-        const methodId = req.params.methodId;
+        const methodId = snakeToCamel(req.params.methodId);
         logMessage(`Execute ${methodId} on ${instanceId}`);
         try {
             const instance = foundationCache.getInstance(instanceId);

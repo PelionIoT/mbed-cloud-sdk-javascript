@@ -7,6 +7,11 @@ import { LoginProfileAdapter } from "../..";
  *User adapter
  */
 export class UserAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): User {
         if (!data) {
             return null;
@@ -35,17 +40,17 @@ export class UserAdapter extends Adapter {
             emailVerified: data.email_verified,
             fullName: data.full_name,
             id: data.id,
+            isGtcAccepted: data.is_gtc_accepted,
+            isMarketingAccepted: data.is_marketing_accepted,
+            isTotpEnabled: data.is_totp_enabled,
             lastLoginTime: data.last_login_time || 0,
             loginHistory: loginHistory,
             loginProfiles: loginProfiles,
-            marketingAccepted: data.is_marketing_accepted,
             password: data.password,
             passwordChangedTime: data.password_changed_time || 0,
             phoneNumber: data.phone_number,
             status: data.status,
-            termsAccepted: data.is_gtc_accepted,
             totpScratchCodes: data.totp_scratch_codes,
-            twoFactorAuthentication: data.is_totp_enabled,
             updatedAt: data.updated_at,
             username: data.username,
         });

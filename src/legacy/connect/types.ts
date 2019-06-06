@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { OrderEnum, CallbackFn, ConnectionOptions } from "../common/interfaces";
+import { CallbackFn, ConnectionOptions, Order } from "../common/interfaces";
 
 export interface ConnectOptions extends ConnectionOptions {
     /**
@@ -205,7 +205,7 @@ export interface MetricsListOptions {
     /**
      * ASC or DESC
      */
-    order?: OrderEnum;
+    order?: Order;
     /**
      * The ID of the the item after which to retrieve the next page
      */

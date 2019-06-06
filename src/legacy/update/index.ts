@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,4 +16,4 @@
 */
 
 import { UpdateApi } from "./updateApi";
-export = UpdateApi;
+export default UpdateApi;

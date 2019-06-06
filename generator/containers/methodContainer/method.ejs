@@ -1,3 +1,11 @@
+/**
+* <%- description %>
+<%_ if (params.length > 0) { _%>
+<%_ params.forEach(function(parameter) { _%>
+* @param <%- parameter.name %> - <%- parameter.description %>
+<%_ }); _%>
+<%_ } _%>
+*/
 <%= modifier %><%= isStatic ? " static" : "" %> <%= name %>(<%- parameterList %>): <%- returns %> {
 <%# ---------- METHOD_BODY ---------- _%>
 <%_ if (methodBody) { _%>

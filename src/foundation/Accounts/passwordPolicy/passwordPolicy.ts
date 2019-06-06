@@ -4,7 +4,8 @@ import { Entity } from "../../../common/entity";
  */
 export interface PasswordPolicy extends Entity {
     /**
-     *minimumLength
+     *Minimum length for the password.
+     *@example 8
      */
-    readonly minimumLength?: string;
+    readonly minimumLength?: number;
 }

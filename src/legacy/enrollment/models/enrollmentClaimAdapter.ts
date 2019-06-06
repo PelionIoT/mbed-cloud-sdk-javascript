@@ -1,5 +1,5 @@
 /*
- * Mbed Cloud JavaScript SDK
+ * Pelion Device Management JavaScript SDK
  * Copyright Arm Limited 2018
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +19,10 @@ import { EnrollmentApi } from "../enrollmentApi";
 import { EnrollmentClaim } from "./enrollmentClaim";
 import { AddEnrollmentClaim } from "../types";
 
+/**
+ * Internal
+ * @ignore
+ */
 export const map = (from: ApiEnrollmentIdentity, api: EnrollmentApi): EnrollmentClaim => {
     return new EnrollmentClaim({
         accountId: from.account_id,
@@ -30,4 +34,8 @@ export const map = (from: ApiEnrollmentIdentity, api: EnrollmentApi): Enrollment
     }, api);
 };
 
+/**
+ * Internal
+ * @ignore
+ */
 export const addMap = ({ claimId }: AddEnrollmentClaim): ApiEnrollmentId => ({ enrollment_identity: claimId });

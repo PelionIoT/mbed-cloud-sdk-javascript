@@ -4,12 +4,15 @@ import { Entity } from "../../../common/entity";
  */
 export interface VerificationResponse extends Entity {
     /**
-     *message
-     */
+*Provides details in case of failure.
+
+*@example message describing the verification failure
+*/
     readonly message?: string;
 
     /**
-     *successful
-     */
+*Indicates whether the certificate issuer was verified successfully.
+
+*/
     readonly successful?: boolean;
 }

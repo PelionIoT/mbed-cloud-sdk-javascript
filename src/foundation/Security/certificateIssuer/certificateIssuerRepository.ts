@@ -13,6 +13,10 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *CertificateIssuer repository
  */
 export class CertificateIssuerRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     */
     public create(request: CertificateIssuerCreateRequest): Promise<CertificateIssuer> {
         return apiWrapper(
             resultsFn => {
@@ -36,6 +40,12 @@ export class CertificateIssuerRepository extends Repository {
             }
         );
     }
+    /**
+* delete
+* @param id - Certificate issuer ID. <br> The ID of the certificate issuer.
+An active certificate issuer may not be deleted.
+
+*/
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -55,6 +65,10 @@ export class CertificateIssuerRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @param options - options
+     */
     public list(options?: ListOptions): Paginator<CertificateIssuer, ListOptions> {
         const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateIssuer>> => {
             pageOptions = pageOptions || {};
@@ -77,12 +91,15 @@ export class CertificateIssuerRepository extends Repository {
                 (data: ListResponse<CertificateIssuer>, done) => {
                     done(null, new ListResponse(data, data.data, CertificateIssuerAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @param id - The ID of the certificate issuer.
+     */
     public read(id: string): Promise<CertificateIssuer> {
         return apiWrapper(
             resultsFn => {
@@ -102,6 +119,11 @@ export class CertificateIssuerRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - The ID of the certificate issuer.
+     */
     public update(request: CertificateIssuerUpdateRequest, id: string): Promise<CertificateIssuer> {
         return apiWrapper(
             resultsFn => {
@@ -127,6 +149,11 @@ export class CertificateIssuerRepository extends Repository {
             }
         );
     }
+    /**
+* verify
+* @param id - Certificate issuer ID. <br> The ID of the certificate issuer.
+
+*/
     public verify(id: string): Promise<VerificationResponse> {
         return apiWrapper(
             resultsFn => {

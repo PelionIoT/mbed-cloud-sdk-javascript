@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +15,13 @@
 * limitations under the License.
 */
 
-// this style of import is needed for third party packages that are being ignored by browserify
-import superagent = require("superagent");
+import * as superagent from "superagent";
 
 import { SDKError } from "../legacy/common/sdkError";
 import { Config } from "../common/config";
 import { Version } from "../version";
+import { isThisNode } from "../legacy/common/functions";
+import { objectKeysToCamelCase } from "../common/transform";
 
 // tslint:disable-next-line:no-var-requires
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
@@ -29,6 +30,9 @@ const MIME_REGEX = /^text\/plain(;.*)?$/i;
 const VERSION = Version.isPublished ? Version.version : `${Version.version}+dev`;
 const userAgent = `${Version.packageName}-javascript / ${VERSION}`;
 
+/**
+ * @ignore internal base class for the Client
+ */
 export class SdkApiBase {
 
     private config: Config;
@@ -169,7 +173,11 @@ export class SdkApiBase {
 
         // set header parameters
         requestOptions.headers.Authorization = this.config.apiKey;
-        requestOptions.headers["User-Agent"] = userAgent;
+
+        if (isThisNode()) {
+            requestOptions.headers["User-Agent"] = userAgent;
+        }
+
         request.set(requestOptions.headers);
 
         // set request timeout
@@ -203,10 +211,7 @@ export class SdkApiBase {
 
             // Remove empty or undefined json parameters
             if (body && body.constructor === {}.constructor && JSON_REGEX.test(requestOptions.contentType)) {
-                body = Object.keys(body).reduce((val, key) => {
-                    if (body[key] !== null && body[key] !== undefined) { val[key] = body[key]; }
-                    return val;
-                }, {});
+                body = objectKeysToCamelCase(body, true, null);
             }
 
             request.send(body);

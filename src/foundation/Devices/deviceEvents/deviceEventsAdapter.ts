@@ -4,6 +4,11 @@ import { DeviceEvents } from "./deviceEvents";
  *DeviceEvents adapter
  */
 export class DeviceEventsAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): DeviceEvents {
         if (!data) {
             return null;

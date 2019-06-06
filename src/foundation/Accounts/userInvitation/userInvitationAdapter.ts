@@ -5,6 +5,11 @@ import { LoginProfileAdapter } from "../..";
  *UserInvitation adapter
  */
 export class UserInvitationAdapter extends Adapter {
+    /**
+     * fromApi
+     * @param data - data
+     * @param instance - instance
+     */
     public static fromApi(data: any, instance?: any): UserInvitation {
         if (!data) {
             return null;

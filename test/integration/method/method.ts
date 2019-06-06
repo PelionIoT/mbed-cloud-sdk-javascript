@@ -92,6 +92,7 @@ export class Method {
                 payload: this.mapResult(result)
             };
         } catch (e) {
+            logMessage(e);
             throw e;
         }
     }
@@ -107,12 +108,13 @@ export class Method {
 
     private mapParameters(parameter: Parameter, testRunnerParameters: TestRunnerParameters) {
         // TODO expand cases as tests are written
-        const foundParam = Object.keys(testRunnerParameters).find(p => p === parameter.name);
+        // logMessageFromObject(parameter);
+        const foundParam = Object.keys(testRunnerParameters).find(p => this.matchParamToTestRunner(parameter.name, p));
         if (foundParam) {
             // check if parameter is primitive or array of primitives
             if (parameter.type === "string" || parameter.type === "boolean" || parameter.type === "Array<string>") {
                 return testRunnerParameters[foundParam];
-            } else if (parameter.type === "file") {
+            } else if (parameter.type.startsWith("ReadStream")) {
                 // if file then return a read stream
                 return fs.createReadStream(testRunnerParameters[foundParam]);
             } else if (parameter.type.endsWith("Filter")) {
@@ -126,7 +128,7 @@ export class Method {
             // parameter is object so now match sub params
             const paramObject = {};
             for (const subParam of parameter.subParams) {
-                const foundSubParam = Object.keys(testRunnerParameters).find(p => p === subParam.name);
+                const foundSubParam = Object.keys(testRunnerParameters).find(p => this.matchParamToTestRunner(subParam.name, p));
                 if (foundSubParam) {
                     paramObject[subParam.name] = this.mapParameters(subParam, testRunnerParameters);
                 } else {
@@ -135,6 +137,8 @@ export class Method {
                 }
             }
             return paramObject;
+        } else if (parameter.name === "model") {
+            return testRunnerParameters;
         }
 
         logMessage(`${parameter.name} not in testrunner parameters`);
@@ -190,5 +194,13 @@ export class Method {
             }
         }
         return value;
+    }
+
+    private matchParamToTestRunner(paramName: string, testRunnerParamName: string): boolean {
+        if (paramName === testRunnerParamName) {
+            return true;
+        }
+
+        return false;
     }
 }

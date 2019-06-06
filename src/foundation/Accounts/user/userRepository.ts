@@ -13,6 +13,11 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *User repository
  */
 export class UserRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     * @param action - Action, either `create` or `invite`.
+     */
     public create(request: UserCreateRequest, action?: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
@@ -27,11 +32,11 @@ export class UserRepository extends Repository {
                             address: request.address,
                             email: request.email,
                             full_name: request.fullName,
+                            is_gtc_accepted: request.isGtcAccepted,
+                            is_marketing_accepted: request.isMarketingAccepted,
                             login_profiles: request.loginProfiles,
-                            is_marketing_accepted: request.marketingAccepted,
                             password: request.password,
                             phone_number: request.phoneNumber,
-                            is_gtc_accepted: request.termsAccepted,
                             username: request.username,
                         },
                     },
@@ -43,6 +48,10 @@ export class UserRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @param id - The ID of the user to delete.
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -62,6 +71,10 @@ export class UserRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: UserListOptions): Paginator<User, ListOptions> {
         const pageFunc = (pageOptions: UserListOptions): Promise<ListResponse<User>> => {
             pageOptions = pageOptions || {};
@@ -76,7 +89,7 @@ export class UserRepository extends Repository {
                                 status__eq: extractFilter(pageOptions.filter, "status", "eq"),
                                 status__in: extractFilter(pageOptions.filter, "status", "in"),
                                 status__nin: extractFilter(pageOptions.filter, "status", "nin"),
-                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
+                                login_profiles__eq: extractFilter(pageOptions.filter, "loginProfiles", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,
@@ -89,12 +102,15 @@ export class UserRepository extends Repository {
                 (data: ListResponse<User>, done) => {
                     done(null, new ListResponse(data, data.data, UserAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @param id - The ID of the user.
+     */
     public read(id: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
@@ -114,6 +130,11 @@ export class UserRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - The ID of the user.
+     */
     public update(request: UserUpdateRequest, id: string): Promise<User> {
         return apiWrapper(
             resultsFn => {
@@ -127,11 +148,11 @@ export class UserRepository extends Repository {
                         body: {
                             address: request.address,
                             full_name: request.fullName,
+                            is_gtc_accepted: request.isGtcAccepted,
+                            is_marketing_accepted: request.isMarketingAccepted,
+                            is_totp_enabled: request.isTotpEnabled,
                             login_profiles: request.loginProfiles,
-                            is_marketing_accepted: request.marketingAccepted,
                             phone_number: request.phoneNumber,
-                            is_gtc_accepted: request.termsAccepted,
-                            is_totp_enabled: request.twoFactorAuthentication,
                             username: request.username,
                         },
                     },

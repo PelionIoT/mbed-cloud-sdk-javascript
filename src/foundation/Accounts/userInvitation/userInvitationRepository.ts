@@ -12,6 +12,10 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *UserInvitation repository
  */
 export class UserInvitationRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     */
     public create(request: UserInvitationCreateRequest): Promise<UserInvitation> {
         return apiWrapper(
             resultsFn => {
@@ -33,6 +37,10 @@ export class UserInvitationRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @param id - The ID of the invitation to delete.
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -52,6 +60,10 @@ export class UserInvitationRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: UserInvitationListOptions): Paginator<UserInvitation, ListOptions> {
         const pageFunc = (pageOptions: UserInvitationListOptions): Promise<ListResponse<UserInvitation>> => {
             pageOptions = pageOptions || {};
@@ -62,7 +74,7 @@ export class UserInvitationRepository extends Repository {
                             url: "/v3/user-invitations",
                             method: "GET",
                             query: {
-                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
+                                login_profiles__eq: extractFilter(pageOptions.filter, "loginProfiles", "eq"),
                                 after: pageOptions.after,
                                 limit: pageOptions.limit,
                                 order: pageOptions.order,
@@ -74,12 +86,15 @@ export class UserInvitationRepository extends Repository {
                 (data: ListResponse<UserInvitation>, done) => {
                     done(null, new ListResponse(data, data.data, UserInvitationAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * read
+     * @param id - The ID of the invitation.
+     */
     public read(id: string): Promise<UserInvitation> {
         return apiWrapper(
             resultsFn => {

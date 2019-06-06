@@ -1,6 +1,6 @@
 /* tslint:disable: no-console */
 import { AdapterFieldContainer } from "../containers/methodBodyContainers/adapter/adapterFieldContainer";
-import { snakeToCamel, snakeToPascal } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, safeAddToList } from "../common/utilities";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
@@ -59,15 +59,16 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
             // TODO map date times here to remove data regex from client and stop doing hard copy
         }
         if (field.getter_custom_method || field.setter_custom_method) {
-            const customFunctionCall = new AdapterCustomFunctionCallContainer(snakeToCamel(field._key));
+            const methodName = field.setter_custom_method || field.getter_custom_method;
+            const customFunctionCall = new AdapterCustomFunctionCallContainer(snakeToCamel(methodName));
             adapterCustomFunctions.push(customFunctionCall);
-            adapterImports.push((new ImportContainer(
-                "PRIVATE_FUNCTIONS",
+            safeAddToList(adapterImports, new ImportContainer(
+                `${methodName.toUpperCase()}_PRIVATE_FUNCTIONS`,
                 "../../../common/privateFunctions",
                 [
-                    `${snakeToCamel(field._key)}Setter`
+                    `${snakeToCamel(methodName)}`
                 ]
-            )));
+            ));
         }
 
         const adapterField = new AdapterFieldContainer(
@@ -142,7 +143,7 @@ const getDefaultValue = field => {
     }
 
     if (field.type === "integer") {
-        return field.default || 0;
+        return field.minimum || field.default || 0;
     }
 
     return null;

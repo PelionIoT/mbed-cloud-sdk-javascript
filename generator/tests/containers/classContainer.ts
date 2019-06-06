@@ -255,6 +255,9 @@ const classWithSingleMethodExpected =
 */
 export class MyClass {
 
+/**
+* getName
+*/
 public getName(): void {
 }
 }`;
@@ -265,8 +268,14 @@ const classWithMultipleMethodsExpected =
 */
 export class MyClass {
 
+/**
+* getName
+*/
 public getName(): void {
 }
+/**
+* getUsername
+*/
 public getUsername(): void {
 }
 }`;
@@ -282,8 +291,14 @@ export class MyClass {
 */
 public username: string;
 
+/**
+* getName
+*/
 public getName(): void {
 }
+/**
+* getUsername
+*/
 public getUsername(): void {
 }
 }`;

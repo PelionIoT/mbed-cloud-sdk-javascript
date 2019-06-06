@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,15 +28,15 @@ export class Metric {
      */
     public readonly timestamp?: Date;
     /**
-     * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.
+     * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Pelion Device Management Connect for any operaton such as registration, registration update and deregistration.
      */
     public readonly handshakes?: number;
     /**
-     * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Mbed Cloud. It can be either sent by the device (device --> Mbed cloud) or received by the device (Mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
+     * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Pelion Device Management. It can be either sent by the device (device --> Pelion Device Management) or received by the device (Pelion Device Management --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
      */
     public readonly transactions?: number;
     /**
-     * The number of observations received by Mbed Cloud Connect from the devices linked to the account. The observations are pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using Connect API endpoints.
+     * The number of observations received by Pelion Device Management Connect from the devices linked to the account. The observations are pushed from the device to Pelion Device Management Connect when you have successfully subscribed to the device resources using Connect API endpoints.
      */
     public readonly observations?: number;
     /**
@@ -48,19 +48,19 @@ export class Metric {
      */
     public readonly failedApiCalls?: number;
     /**
-     * The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using Connect API endpoints.
+     * The number of successful proxy requests from Pelion Device Management Connect to devices linked to the account. The proxy requests are made from Pelion Device Management Connect to devices when you try to read or write values to device resources using Connect API endpoints.
      */
     public readonly successfulProxyRequests?: number;
     /**
-     * The number of failed proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using Connect API endpoints.
+     * The number of failed proxy requests from Pelion Device Management Connect to devices linked to the account. The proxy requests are made from Pelion Device Management Connect to devices when you try to read or write values to device resources using Connect API endpoints.
      */
     public readonly failedProxyRequests?: number;
     /**
-     * The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using Connect API endpoints.
+     * The number of successful subscription requests from Pelion Device Management Connect to devices linked to the account. The subscription requests are made from Pelion Device Management Connect to devices when you try to subscribe to a resource path using Connect API endpoints.
      */
     public readonly successfulSubscriptionRequests?: number;
     /**
-     * The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using Connect API endpoints.
+     * The number of failed subscription requests from Pelion Device Management Connect to devices linked to the account. The subscription requests are made from Pelion Device Management Connect to devices when you try to subscribe to a resource path using Connect API endpoints.
      */
     public readonly failedSubscriptionRequests?: number;
     /**
@@ -76,19 +76,19 @@ export class Metric {
      */
     public readonly pendingBootstraps?: number;
     /**
-     * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure. The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
+     * The number of full registrations linked to the account. Full registration is the process of registering a device with the Pelion Device Management Connect by providing its lifetime and capabilities such as the resource structure. The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
      */
     public readonly fullRegistrations?: number;
     /**
-     * The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.
+     * The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Pelion Device Management Connect to update or extend the lifetime of the device.
      */
     public readonly updatedRegistrations?: number;
     /**
-     * The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.
+     * The number of expired registrations linked to the account. Pelion Device Management Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Pelion Device Management Connect no longer handles requests for a device whose registration has expired already.
      */
     public readonly expiredRegistrations?: number;
     /**
-     * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.
+     * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Pelion Device Management Connect registry. The deregistration is usually initiated by the device. Pelion Device Management Connect no longer handles requests for a deregistered device.
      */
     public readonly deletedRegistrations?: number;
 

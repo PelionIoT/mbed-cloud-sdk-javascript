@@ -1,5 +1,5 @@
 /*
- * Mbed Cloud JavaScript SDK
+ * Pelion Device Management JavaScript SDK
  * Copyright Arm Limited 2018
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +19,10 @@ import { ServicePackageQuotaHistoryItem } from "../../_api/billing";
 import { QuotaHistory } from "./quotaHistory";
 import { mapQuotaHistoryServicePackage } from "./servicePackageAdapter";
 
+/**
+ * Internal
+ * @ignore
+ */
 export const mapQuotaHistory = (from: ServicePackageQuotaHistoryItem): QuotaHistory => {
     return new QuotaHistory({
         id: from.id,

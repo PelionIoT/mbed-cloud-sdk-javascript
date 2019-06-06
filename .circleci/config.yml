@@ -53,7 +53,7 @@ jobs:
       - run:
           name: Set version
           # set the version (dev)
-          command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news
+          command: pipenv run auto_version --config=scripts/auto_version.toml --news
       - run:
           name: Build the SDK
           command: npm run build
@@ -64,6 +64,7 @@ jobs:
           paths:
             - bundles
             - lib
+            - lib-es6
             - types
             - package.json
   tpip:
@@ -143,7 +144,7 @@ jobs:
       - run:
           name: Set version
           # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version.toml --bump=patch --news --release
+          command: pipenv run auto_version --config=scripts/auto_version.toml --news --release
       - run:
           name: Generate changelog
           command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml --release)
@@ -268,7 +269,7 @@ jobs:
       - run:
           name: Set version
           # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version_beta.toml --news
+          command: pipenv run auto_version --config=scripts/auto_version_beta.toml
       - run:
           name: Generate changelog
           command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version_beta.toml)
@@ -299,7 +300,7 @@ jobs:
       - run:
           name: Set version
           # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version.toml --news --release
+          command: pipenv run auto_version --config=scripts/auto_version.toml --release
       - run:
           name: Generate changelog
           command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml --release)
@@ -329,7 +330,7 @@ jobs:
       - run:
           name: sync to build branch
           command: |
-              git add --force lib bundles types package.json
+              git add --force lib lib-es6 bundles types package.json
               git stash save
               git checkout build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
@@ -346,7 +347,7 @@ jobs:
       - run:
           name: sync to build branch if exists or create new one
           command: |
-              git add --force lib types package.json
+              git add --force bundles lib lib-es6 types package.json
               git stash save
               git checkout -B build/${CIRCLE_BRANCH}
               git merge ${CIRCLE_BRANCH} --no-commit
@@ -378,7 +379,7 @@ jobs:
           command: |
               git add src/foundation
               git commit --message "New Foundation Interface changes" || true
-              git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
+              git push -f -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}
 
 workflows:
   version: 2

@@ -1,49 +1,55 @@
 import { ListOptions } from "../../../legacy/common/interfaces";
-export type ApiKeyStatusEnum = "ACTIVE" | "INACTIVE";
+export type ApiKeyStatus = "ACTIVE" | "INACTIVE";
 /**
  *ApiKeyCreateRequest
  */
 export interface ApiKeyCreateRequest {
     /**
-     *name
+     *The display name for the API key.
+     *@example API key gorgon
      */
     readonly name: string;
 
     /**
-     *owner
+     *The owner of this API key, who is the creator by default.
+     *@example 01619571e2e89242ac12000600000000
      */
     readonly owner?: string;
 
     /**
-     *status
+     *The status of the API key.
+     *@example ACTIVE
      */
-    readonly status?: ApiKeyStatusEnum;
+    readonly status?: ApiKeyStatus;
 }
 /**
  *ApiKeyUpdateRequest
  */
 export interface ApiKeyUpdateRequest {
     /**
-     *name
+     *The display name for the API key.
+     *@example API key gorgon
      */
     readonly name: string;
 
     /**
-     *owner
+     *The owner of this API key, who is the creator by default.
+     *@example 01619571e2e89242ac12000600000000
      */
     readonly owner?: string;
 
     /**
-     *status
+     *The status of the API key.
+     *@example ACTIVE
      */
-    readonly status?: ApiKeyStatusEnum;
+    readonly status?: ApiKeyStatus;
 }
 /**
  *ApiKeyKeyFilter
  */
 export interface ApiKeyKeyFilter {
     /**
-     *eq
+     *key equal to
      */
     eq?: string;
 }
@@ -52,7 +58,7 @@ export interface ApiKeyKeyFilter {
  */
 export interface ApiKeyOwnerFilter {
     /**
-     *eq
+     *owner equal to
      */
     eq?: string;
 }
@@ -61,12 +67,12 @@ export interface ApiKeyOwnerFilter {
  */
 export interface ApiKeyFilter {
     /**
-     *key
+     *Filter by key on ApiKey
      */
     key?: string | ApiKeyKeyFilter;
 
     /**
-     *owner
+     *Filter by owner on ApiKey
      */
     owner?: string | ApiKeyOwnerFilter;
 }
@@ -75,7 +81,7 @@ export interface ApiKeyFilter {
  */
 export interface ApiKeyListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for ApiKey
      */
     filter?: ApiKeyFilter;
 }

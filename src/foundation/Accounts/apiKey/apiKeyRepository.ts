@@ -13,6 +13,10 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *ApiKey repository
  */
 export class ApiKeyRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     */
     public create(request: ApiKeyCreateRequest): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
@@ -34,6 +38,10 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
+    /**
+     * delete
+     * @param id - The ID of the API key to delete.
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -53,6 +61,10 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: ApiKeyListOptions): Paginator<ApiKey, ListOptions> {
         const pageFunc = (pageOptions: ApiKeyListOptions): Promise<ListResponse<ApiKey>> => {
             pageOptions = pageOptions || {};
@@ -77,12 +89,14 @@ export class ApiKeyRepository extends Repository {
                 (data: ListResponse<ApiKey>, done) => {
                     done(null, new ListResponse(data, data.data, ApiKeyAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * me
+     */
     public me(): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
@@ -99,6 +113,10 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
+    /**
+     * read
+     * @param id - The ID of the API key.
+     */
     public read(id: string): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {
@@ -118,6 +136,11 @@ export class ApiKeyRepository extends Repository {
             }
         );
     }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - The ID of the API key.
+     */
     public update(request: ApiKeyUpdateRequest, id: string): Promise<ApiKey> {
         return apiWrapper(
             resultsFn => {

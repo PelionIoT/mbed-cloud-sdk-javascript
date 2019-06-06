@@ -13,6 +13,10 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *CertificateIssuerConfig repository
  */
 export class CertificateIssuerConfigRepository extends Repository {
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     */
     public create(request: CertificateIssuerConfigCreateRequest): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {
@@ -22,7 +26,7 @@ export class CertificateIssuerConfigRepository extends Repository {
                         method: "POST",
                         body: {
                             certificate_issuer_id: request.certificateIssuerId,
-                            reference: request.certificateReference,
+                            reference: request.reference,
                         },
                     },
                     resultsFn
@@ -33,6 +37,11 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
+    /**
+* delete
+* @param id - The ID of the certificate issuer configuration.
+
+*/
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -52,6 +61,9 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
+    /**
+     * getDefault
+     */
     public getDefault(): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {
@@ -68,6 +80,10 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: CertificateIssuerConfigListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
         const pageFunc = (
             pageOptions: CertificateIssuerConfigListOptions
@@ -80,7 +96,7 @@ export class CertificateIssuerConfigRepository extends Repository {
                             url: "/v3/certificate-issuer-configurations",
                             method: "GET",
                             query: {
-                                reference__eq: extractFilter(pageOptions.filter, "certificateReference", "eq"),
+                                reference__eq: extractFilter(pageOptions.filter, "reference", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,
@@ -93,12 +109,16 @@ export class CertificateIssuerConfigRepository extends Repository {
                 (data: ListResponse<CertificateIssuerConfig>, done) => {
                     done(null, new ListResponse(data, data.data, CertificateIssuerConfigAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+* read
+* @param id - The ID of the certificate issuer configuration.
+
+*/
     public read(id: string): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {
@@ -118,6 +138,12 @@ export class CertificateIssuerConfigRepository extends Repository {
             }
         );
     }
+    /**
+* update
+* @param request - The entity to perform action on.
+* @param id - The ID of the certificate issuer configuration.
+
+*/
     public update(request: CertificateIssuerConfigUpdateRequest, id: string): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {

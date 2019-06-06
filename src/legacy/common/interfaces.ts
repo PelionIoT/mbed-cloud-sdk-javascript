@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +20,11 @@ import { SDKLogLevel } from "../../common/logger";
 
 export interface ConnectionOptions {
     /**
-     * API Key for your Mbed Cloud account
+     * API Key for your Pelion Device Management account
      */
     apiKey?: string;
     /**
-     * URL for Mbed Cloud API
+     * URL for Pelion Device Management API
      */
     host?: string;
     /**
@@ -43,7 +43,7 @@ export type IncludeEnum = "totalCount";
 /**
  * Ordering options
  */
-export type OrderEnum = "ASC" | "DESC";
+export type Order = "ASC" | "DESC";
 
 /**
  * Options to use when listing objects
@@ -56,7 +56,7 @@ export interface ListOptions {
     /**
      * ASC or DESC
      */
-    order?: OrderEnum;
+    order?: Order;
     /**
      * The ID of the item after which to retrieve the next page
      */
@@ -69,6 +69,10 @@ export interface ListOptions {
      * Number of results to retrieve
      */
     maxResults?: number;
+    /**
+     * The number of results to return in a page
+     */
+    pageSize?: number;
 }
 
 /**

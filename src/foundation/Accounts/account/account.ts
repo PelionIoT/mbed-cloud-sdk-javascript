@@ -2,48 +2,56 @@ import { Entity } from "../../../common/entity";
 import { ParentAccount } from "../parentAccount/parentAccount";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
 import { Policy } from "../policy/policy";
-import { AccountMfaStatusEnum, AccountStatusEnum } from "./types";
+import { AccountMfaStatus, AccountStatus } from "./types";
 /**
  *Account
  */
 export interface Account extends Entity {
     /**
-     *addressLine1
+     *Postal address line 1.
+     *@example 110 Fulbourn Rd
      */
     addressLine1?: string;
 
     /**
-     *addressLine2
+     *Postal address line 2.
+     *@example
      */
     addressLine2?: string;
 
     /**
-     *adminEmail
+     *The email address of the admin user created for this account. Present only in the response for account creation.
+     *@example admin@arm.com
      */
     adminEmail?: string;
 
     /**
-     *adminFullName
+     *The full name of the admin user created for this account. Present only in the response for account creation.
+     *@example Admin Doe
      */
     adminFullName?: string;
 
     /**
-     *adminId
+     *The ID of the admin user created for this account.
+     *@example 01619571e2e89242ac12000600000000
      */
     readonly adminId?: string;
 
     /**
-     *adminKey
+     *The admin API key created for this account. Present only in the response for account creation.
+     *@example ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
      */
     readonly adminKey?: string;
 
     /**
-     *adminName
+     *The username of the admin user created for this account. Present only in the response for account creation.
+     *@example admin
      */
     adminName?: string;
 
     /**
-     *adminPassword
+     *The password of the admin user created for this account. Present only in the response for account creation.
+     *@example PZf9eEUH43DAPE9ULINFeuj
      */
     adminPassword?: string;
 
@@ -53,84 +61,96 @@ export interface Account extends Entity {
     aliases?: Array<string>;
 
     /**
-     *city
+     *The city part of the postal address.
+     *@example Cambridge
      */
     city?: string;
 
     /**
-     *company
+     *The name of the company.
+     *@example ARM Holdings Plc
      */
     company?: string;
 
     /**
-     *contact
+     *The name of the contact person for this account.
+     *@example J. Doe
      */
     contact?: string;
 
     /**
-     *contractNumber
+     *Contract number of the customer.
+     *@example 1NX25_0001
      */
     contractNumber?: string;
 
     /**
-     *country
+     *The country part of the postal address.
+     *@example United Kingdom
      */
     country?: string;
 
     /**
-     *createdAt
+     *Creation UTC time RFC3339.
+     *@example 2018-02-13T09:35:20Z
      */
     readonly createdAt?: Date;
 
     /**
-     *customFields
+     *Account's custom properties as key-value pairs.
      */
     customFields?: { [key: string]: string };
 
     /**
-     *customerNumber
+     *Customer number of the customer.
+     *@example 1NC25_0001
      */
     customerNumber?: string;
 
     /**
-     *displayName
+     *The display name for the account.
+     *@example ARM
      */
     displayName?: string;
 
     /**
-     *email
+     *The company email address for this account.
+     *@example info@arm.com
      */
     email?: string;
 
     /**
-     *endMarket
+     *Account end market.
+     *@example IT
      */
     endMarket: string;
 
     /**
-     *expiration
+     *Expiration time of the account, as UTC time RFC3339.
      */
     readonly expiration?: Date;
 
     /**
-     *expirationWarningThreshold
+     *Indicates how many days (1-180) before account expiration a notification email is sent.
+     *@example 180
      */
-    expirationWarningThreshold?: string;
+    expirationWarningThreshold?: number;
 
     /**
-     *idleTimeout
+     *The reference token expiration time, in minutes, for this account.
+     *@example 30
      */
-    idleTimeout?: string;
+    idleTimeout?: number;
 
     /**
-     *limits
+     *List of limits as key-value pairs if requested.
      */
     readonly limits?: { [key: string]: string };
 
     /**
-     *mfaStatus
+     *The enforcement status of multi-factor authentication, either `enforced` or `optional`.
      */
-    mfaStatus?: AccountMfaStatusEnum;
+    mfaStatus?: AccountMfaStatus;
 
     /**
      *notificationEmails
@@ -138,82 +158,94 @@ export interface Account extends Entity {
     notificationEmails?: Array<string>;
 
     /**
-     *parentAccount
+     *Represents parent account contact details in responses.
      */
     readonly parentAccount?: ParentAccount;
 
     /**
-     *parentId
+     *The ID of the parent account, if any.
+     *@example 01619571dad80242ac12000600000000
      */
     readonly parentId?: string;
 
     /**
-     *passwordPolicy
+     *The password policy for this account.
      */
     passwordPolicy?: PasswordPolicy;
 
     /**
-     *passwordRecoveryExpiration
+     *Indicates for how many minutes a password recovery email is valid.
      */
     passwordRecoveryExpiration?: number;
 
     /**
-     *phoneNumber
+     *The phone number of a company representative.
+     *@example +44 (1223) 400 400
      */
     phoneNumber?: string;
 
     /**
-     *policies
+     *Represents a feature policy. Either the feature or the resource must be specified.
      */
     readonly policies?: Array<Policy>;
 
     /**
-     *postalCode
+     *The postal code part of the postal address.
+     *@example CB1 9NJ
      */
     postalCode?: string;
 
     /**
-     *reason
+     *A note with the reason for account status update.
+     *@example Subscription paid.
      */
     readonly reason?: string;
 
     /**
-     *referenceNote
+     *A reference note for updating the status of the account.
+     *@example ARM-INT-0001
      */
     readonly referenceNote?: string;
 
     /**
-     *salesContact
+     *Email address of the sales contact.
+     *@example sales@arm.com
      */
     salesContact?: string;
 
     /**
-     *state
+     *The state part of the postal address.
+     *@example
      */
     state?: string;
 
     /**
-     *status
+     *The status of the account.
+     *@example ACTIVE
      */
-    readonly status?: AccountStatusEnum;
+    readonly status?: AccountStatus;
 
     /**
-     *templateId
+     *Account template ID.
+     *@example 01619571e7160242ac12000600000000
      */
     readonly templateId?: string;
 
     /**
-     *tier
+     *The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.
+     *@example 1
      */
     readonly tier?: string;
 
     /**
-     *updatedAt
+     *Last update UTC time RFC3339.
+     *@example 2018-02-14T15:24:14Z
      */
     readonly updatedAt?: Date;
 
     /**
-     *upgradedAt
+     *Time when upgraded to commercial account in UTC format RFC3339.
+     *@example 2018-02-14T15:24:14Z
      */
     readonly upgradedAt?: Date;
 }

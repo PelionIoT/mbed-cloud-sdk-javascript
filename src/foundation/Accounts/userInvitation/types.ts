@@ -5,44 +5,45 @@ import { LoginProfile } from "../loginProfile/loginProfile";
  */
 export interface UserInvitationCreateRequest {
     /**
-     *email
+     *Email address of the invited user.
+     *@example friend@arm.com
      */
     readonly email: string;
 
     /**
-     *loginProfiles
+     *Represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *validForDays
+     *Specifies how many days the invitation will be valid for.
      */
     readonly validForDays?: number;
 }
 /**
- *UserInvitationLoginProfileFilter
+ *UserInvitationLoginProfilesFilter
  */
-export interface UserInvitationLoginProfileFilter {
+export interface UserInvitationLoginProfilesFilter {
     /**
-     *eq
+     *loginProfiles equal to
      */
-    eq?: string;
+    eq?: Array<LoginProfile>;
 }
 /**
  *UserInvitationFilter
  */
 export interface UserInvitationFilter {
     /**
-     *loginProfile
+     *Filter by loginProfiles on UserInvitation
      */
-    loginProfile?: string | UserInvitationLoginProfileFilter;
+    loginProfiles?: Array<LoginProfile> | UserInvitationLoginProfilesFilter;
 }
 /**
  *UserInvitationListOptions
  */
 export interface UserInvitationListOptions extends ListOptions {
     /**
-     *filter
+     *Filter for UserInvitation
      */
     filter?: UserInvitationFilter;
 }

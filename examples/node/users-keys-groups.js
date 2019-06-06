@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,10 @@
 * limitations under the License.
 */
 
-var MbedCloudSDK = require("../../index");
+var PelionDMSDK = require("../../index");
 var config = require("./config");
 
-var access = new MbedCloudSDK.AccountManagementApi(config);
+var access = new PelionDMSDK.AccountManagementApi(config);
 
 var options = [
     {

@@ -1,4 +1,4 @@
-import { SDK } from "../../../src/sdk";
+import { SDK } from "../../../src";
 import { UserRepository } from "../../../src/foundation";
 import { Config } from "../../../src";
 

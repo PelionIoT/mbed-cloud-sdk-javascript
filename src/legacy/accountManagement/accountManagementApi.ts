@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,7 +35,7 @@ import { ApiMetadata } from "../common/apiMetadata";
  *
  * The API can be initalized with a .env file in the wroking directory with the following values
  *
- * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+ * MBED_CLOUD_SDK_API_KEY=<Pelion DM API Key>
  *
  * and optionally
  *
@@ -48,19 +48,19 @@ import { ApiMetadata } from "../common/apiMetadata";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var MbedCloudSDK = require("mbed-cloud-sdk");
+ * var PelionDMSDK = require("mbed-cloud-sdk");
  *
- * var accounts = new MbedCloudSDK.AccountManagementApi();
+ * var accounts = new PelionDMSDK.AccountManagementApi();
  * ```
  *
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/account-management.min.js"></script>
+ * <script src="<pelion-dm-sdk>/bundles/account-management.min.js"></script>
  *
  * <script>
  *     var accounts = new MbedCloudSDK.AccountManagementApi({
- *         apiKey: "<Mbed Cloud API Key>"
+ *         apiKey: "<Pelion DM API Key>"
  *     });
  * </script>
  * ```
@@ -858,12 +858,12 @@ export class AccountManagementApi {
     }
 
     /**
-     * Get meta data for the last Mbed Cloud API call
+     * Get meta data for the last Pelion Device Management API call
      * @returns Promise of meta data
      */
     public getLastApiMetadata(): Promise<ApiMetadata>;
     /**
-     * Get meta data for the last Mbed Cloud API call
+     * Get meta data for the last Pelion Device Management API call
      * @param callback A function that is passed the arguments (error, meta data)
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;

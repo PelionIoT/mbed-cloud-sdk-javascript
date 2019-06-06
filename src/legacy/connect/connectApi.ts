@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,7 +48,7 @@ import { Logger } from "typescript-logging";
  *
  * The API can be initalized with a .env file in the working directory with the following values
  *
- * MBED_CLOUD_SDK_API_KEY=<Mbed Cloud Api Key>
+ * MBED_CLOUD_SDK_API_KEY=<Pelion DM API Key>
  *
  * and optionally
  *
@@ -61,21 +61,21 @@ import { Logger } from "typescript-logging";
  * To create an instance of this API in [Node.js](https://nodejs.org):
  *
  * ```JavaScript
- * var MbedCloudSDK = require("mbed-cloud-sdk");
+ * var PelionDMSDK = require("mbed-cloud-sdk");
  *
- * var connect = new MbedCloudSDK.ConnectApi({
- *     apiKey: "<Mbed Cloud API Key>"
+ * var connect = new PelionDMSDK.ConnectApi({
+ *     apiKey: "<Pelion DM API Key>"
  * });
  * ```
  *
  * To create an instance of this API in the browser:
  *
  * ```html
- * <script src="<mbed-cloud-sdk>/bundles/connect.min.js"></script>
+ * <script src="<pelion-dm-sdk>/bundles/connect.min.js"></script>
  *
  * <script>
  *     var connect = new MbedCloudSDK.ConnectApi({
- *         apiKey: "<Mbed Cloud API Key>"
+ *         apiKey: "<Pelion DM API Key>"
  *     });
  * </script>
  * ```
@@ -226,7 +226,7 @@ export class ConnectApi extends EventEmitter {
      * var notification = {notifications: [{ep: deviceID, path: resourceURI, payload: payload}]};
      * connectApi.notify(notification);
      *
-     * connectApi.on(mbed.ConnectApi.EVENT_NOTIFICATION, function(notification) {
+     * connectApi.on(ConnectApi.EVENT_NOTIFICATION, function(notification) {
      *     // Do something with the notification
      *     console.log(notification);
      * });
@@ -329,7 +329,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * connect.startNotifications()
      * .then(() => {
-     *     console.log('Mbed Cloud SDK listening for notifications');
+     *     console.log('Pelion Device Management SDK listening for notifications');
      * })
      * .catch(error => {
      *     console.log(error);
@@ -349,7 +349,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * connect.startNotifications(function(error) {
      *     if (error) return console.log(error);
-     *     console.log('Mbed Cloud SDK listening for notifications');
+     *     console.log('Pelion Device Management SDK listening for notifications');
      * });
      * ```
      *
@@ -413,7 +413,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * connect.stopNotifications()
      * .then(() => {
-     *     console.log('Mbed Cloud SDK stopped listening for notifications');
+     *     console.log('Pelion Device Management SDK stopped listening for notifications');
      * })
      * .catch(error => {
      *     console.log(error);
@@ -430,7 +430,7 @@ export class ConnectApi extends EventEmitter {
      * ```JavaScript
      * connect.stopNotifications(function(error) {
      *     if (error) throw error;
-     *     console.log('Mbed Cloud SDK stopped listening for notifications');
+     *     console.log('Pelion Device Management SDK stopped listening for notifications');
      * });
      * ```
      *
@@ -585,7 +585,7 @@ export class ConnectApi extends EventEmitter {
     }
 
     /**
-     * Deletes the callback data (effectively stopping Mbed Cloud Connect from putting notifications)
+     * Deletes the callback data
      *
      * If no webhook is registered, an exception (404) will be raised.
      *
@@ -603,7 +603,7 @@ export class ConnectApi extends EventEmitter {
      */
     public deleteWebhook(): Promise<void>;
     /**
-     * Deletes the callback data (effectively stopping Mbed Cloud Connect from putting notifications)
+     * Deletes the callback data
      *
      * If no webhook is registered, an exception (404) will be raised.
      *
@@ -1067,10 +1067,11 @@ export class ConnectApi extends EventEmitter {
      *
      * @param deviceId Device ID
      * @param resourcePath Resource path
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getResourceValue(deviceId: string, resourcePath: string, mimeType?: string): Promise<string | number | void>;
+    public getResourceValue(deviceId: string, resourcePath: string, timeout?: number, mimeType?: string): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
@@ -1089,10 +1090,15 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param mimeType The requested mime type format of the value
+     * @param timeout async request will timeout after given number of milliseconds
      * @param callback A function that is passed the arguments (error, value)
      */
-    public getResourceValue(deviceId: string, resourcePath: string, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
-    public getResourceValue(deviceId: string, resourcePath: string, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+    public getResourceValue(deviceId: string, resourcePath: string, timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
+    public getResourceValue(deviceId: string, resourcePath: string, timeout?: number, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -1107,6 +1113,15 @@ export class ConnectApi extends EventEmitter {
             }
 
             this._asyncFns[asyncId] = resultsFn;
+
+            if (callback) {
+                setTimeout(() => {
+                    if (this._asyncFns[asyncId]) {
+                        resultsFn(new SDKError(`Timeout getting async value. Timeout ${timeout}ms`), null);
+                        delete this._asyncFns[asyncId];
+                    }
+                }, timeout);
+            }
 
             const handleError = error => {
                 if (error) {
@@ -1132,7 +1147,7 @@ export class ConnectApi extends EventEmitter {
                     accept: mimeType,
                 }, handleError);
             }
-        }, null, callback);
+        }, null, callback, false, timeout);
     }
 
     /**
@@ -1157,10 +1172,11 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param value The value of the resource
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The mime type format of the value
      * @returns the AsyncResponse
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: string): Promise<AsyncResponse>;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, timeout?: number, mimeType?: string): Promise<AsyncResponse>;
     /**
      * Sets the value of a resource
      *
@@ -1180,11 +1196,16 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param value The value of the resource
+     * @param timeout async request will timeout after given number of milliseconds
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, timeout?: number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, timeout?: number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -1200,6 +1221,15 @@ export class ConnectApi extends EventEmitter {
             }
 
             this._asyncFns[asyncId] = resultsFn;
+
+            if (callback) {
+                setTimeout(() => {
+                    if (this._asyncFns[asyncId]) {
+                        resultsFn(new SDKError(`Timeout getting async value. Timeout ${timeout}ms`), null);
+                        delete this._asyncFns[asyncId];
+                    }
+                }, timeout);
+            }
 
             const handleError = error => {
                 if (error) {
@@ -1227,7 +1257,7 @@ export class ConnectApi extends EventEmitter {
                     "payload-b64": payload,
                 }, handleError);
             }
-        }, null, callback);
+        }, null, callback, false, timeout);
     }
 
     /**
@@ -1251,9 +1281,13 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param mimeType The mime type format of the value
+     * @param payload The payload to be sent to the device.
+     * @param timeout async request will timeout after given number of milliseconds
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
      * @returns the AsyncResponse
      */
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: string): Promise<AsyncResponse>;
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, timeout?: number, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
@@ -1272,10 +1306,26 @@ export class ConnectApi extends EventEmitter {
      * @param deviceId Device ID
      * @param resourcePath Resource path
      * @param mimeType The mime type format of the value
+     * @param payload The payload to be sent to the device.
+     * @param timeout async request will timeout after given number of milliseconds
+     * @param mimeType The content type of the payload
+     * @param accepts The content type of an accepted response
      * @param callback A function that is passed any error
      */
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public executeResource(deviceId: string, resourcePath: string, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, timeout?: number, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
+    public executeResource(deviceId: string, resourcePath: string, payload?: any, timeout?: number, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+        if (typeof payload === "function") {
+            callback = payload;
+            payload = null;
+        }
+        if (typeof timeout === "function") {
+            callback = timeout;
+            timeout = null;
+        }
+        if (typeof accepts === "function") {
+            callback = accepts;
+            accepts = null;
+        }
         if (typeof mimeType === "function") {
             callback = mimeType;
             mimeType = null;
@@ -1291,6 +1341,15 @@ export class ConnectApi extends EventEmitter {
 
             this._asyncFns[asyncId] = resultsFn;
 
+            if (callback) {
+                setTimeout(() => {
+                    if (this._asyncFns[asyncId]) {
+                        resultsFn(new SDKError(`Timeout getting async value. Timeout ${timeout}ms`), null);
+                        delete this._asyncFns[asyncId];
+                    }
+                }, timeout);
+            }
+
             const handleError = error => {
                 if (error) {
                     delete this._asyncFns[asyncId];
@@ -1305,17 +1364,21 @@ export class ConnectApi extends EventEmitter {
                     this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                         "method": "POST",
                         "uri": resourcePath,
-                        "content-type": mimeType
+                        "content-type": mimeType,
+                        "accept": accepts,
+                        "payload-b64": encodeBase64(payload)
                     }, handleError);
                 });
             } else {
                 this._endpoints.deviceRequests.createAsyncRequest(deviceId, asyncId, {
                     "method": "POST",
                     "uri": resourcePath,
-                    "content-type": mimeType
+                    "content-type": mimeType,
+                    "accept": accepts,
+                    "payload-b64": encodeBase64(payload)
                 }, handleError);
             }
-        }, null, callback);
+        }, null, callback, false, timeout);
     }
 
     /**
@@ -1712,7 +1775,7 @@ export class ConnectApi extends EventEmitter {
      */
     public getLastApiMetadata(): Promise<ApiMetadata>;
     /**
-     * Get meta data for the last Mbed Cloud API call
+     * Get meta data for the lastPelion Device Management API call
      * @param callback A function that is passed the arguments (error, meta data)
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;

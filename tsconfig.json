@@ -4,6 +4,7 @@
         "module": "commonjs",
         "outDir": "lib",
         "sourceMap": true,
+        "moduleResolution": "node",
         "lib": [
             "dom",
             "es5",

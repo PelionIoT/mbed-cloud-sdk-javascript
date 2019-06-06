@@ -1,19 +1,3 @@
-# --------------------------------------------------------------------------
-# Mbed Cloud Python SDK
-# (C) COPYRIGHT 2017 Arm Limited
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# --------------------------------------------------------------------------
 """Part of the CI process"""
 
 import os
@@ -82,9 +66,17 @@ def release(config_file):
 
 
 def post_to_slack(version):
-    # posting message to slack
-    body = {"text": ":checkered_flag: New version of :javascript: SDK released: {}".format(version)}
-    myurl = "https://hooks.slack.com/services/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"
+    """Post a message to the SDK slack channel.
+    This uses an incoming webhook which is made available by a pre-configured Slack App.
+    """
+    print("Posting a message to Slack")
+    body = {
+        "channel": "#isg-dm-sdk",
+        "username": "SDK Release Announcement",
+        "icon_emoji": ":javascript:",
+        "text": ":checkered_flag: New version of :javascript: SDK released: {}".format(version),
+    }
+    myurl = os.getenv('SLACK_NOTIFICATION_WEBHOOK')
     req = urllib.request.Request(myurl)
     req.add_header('Content-Type', 'application/json; charset=utf-8')
     jsondata = json.dumps(body)
@@ -108,5 +100,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         if sys.argv[1] == 'beta':
             main('beta')
+        if sys.argv[1] == 'slack':
+            post_to_slack(sys.argv[2])
     else:
         main()

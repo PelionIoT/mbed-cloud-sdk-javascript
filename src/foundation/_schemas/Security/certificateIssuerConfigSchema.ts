@@ -10,14 +10,14 @@ export const certificateIssuerConfigSchema = (): Schema => {
                 type: "string",
             },
             {
-                name: "certificateReference",
-                apiName: "reference",
-                type: "string",
-            },
-            {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
+            },
+            {
+                name: "reference",
+                apiName: "reference",
+                type: "string",
             },
             {
                 name: "updatedAt",
@@ -41,7 +41,7 @@ export const certificateIssuerConfigSchema = (): Schema => {
                                 type: "string",
                             },
                             {
-                                name: "certificateReference",
+                                name: "reference",
                                 type: "string",
                             },
                         ],

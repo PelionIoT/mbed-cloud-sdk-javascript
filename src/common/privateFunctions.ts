@@ -1,31 +1,61 @@
-import { ReadStream, createWriteStream, createReadStream } from "fs";
-import { isThisNode } from "../legacy/common/functions";
+import { ReadStream, createWriteStream, createReadStream, PathLike } from "fs";
+import { isThisNode, encodeFilter } from "../legacy/common/functions";
 import { get as http_get } from "superagent";
 import { Config } from "./config";
-import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, TrustedCertificate } from "../foundation";
+import * as path from "path";
+import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, UpdateCampaign } from "../foundation";
 
-export function isDeveloperCertificateSetter(self: TrustedCertificate): void {
-    self.isDeveloperCertificate = self.deviceExecutionMode ? !!self.deviceExecutionMode : false;
+/**
+ * Internal function
+ * @ignore
+ */
+export function isDeveloperCertificateGetter(self: any): void {
+    // tslint:disable-next-line:no-string-literal
+    self["isDeveloperCertificate"] = self.deviceExecutionMode === 1;
 }
 
+export function preSharedKeyIdSetter(self: any): void {
+    self.id = self.endpointName;
+}
+
+/**
+ * Internal function
+ * @ignore
+ */
 export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
-        return streamToFile(self.config, model.errorsReportFile, resolve, reject, "error-report.csv");
+        return streamToFile(self.config, model.errorsReportFile, resolve, reject, path.resolve(__dirname, "..", "..", "error-report.csv"));
     });
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function downloadFullReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
         return streamToFile(self.config, model.fullReportFile, resolve, reject);
     });
 }
 
-function streamToFile(config: Config, url: string, resolve: (value: ReadStream) => void, reject: (reason: any) => void, filePath?: string) {
+export function deviceFilterHelperSetter(self: UpdateCampaign): void {
+    if (!self.deviceFilter && self.deviceFilterHelper) {
+        self.deviceFilter = encodeFilter(self.deviceFilterHelper);
+    }
+
+    self.deviceFilterHelper = self.deviceFilterHelper || null;
+}
+
+/**
+ * Internal function
+ * @ignore
+ */
+function streamToFile(config: Config, url: string, resolve: (value: ReadStream) => void, reject: (reason: any) => void, filePath?: string | PathLike) {
     if (!isThisNode()) {
         return reject("Can only download file in Node environment!");
     }
 
-    const tempPath = filePath || "report.csv";
+    const tempPath = filePath || path.resolve(__dirname, "..", "..", "report.csv");
     if (url && config) {
         const fileStream = createWriteStream(tempPath);
         fileStream.on("open", () => {
@@ -43,8 +73,10 @@ function streamToFile(config: Config, url: string, resolve: (value: ReadStream) 
             const file = createReadStream(tempPath);
             return resolve(file);
         });
+        fileStream.on("error", () => {
+            return reject("No file found.");
+        });
     } else {
-        const file = createReadStream(tempPath);
-        return resolve(file);
+        return reject("No url provided!");
     }
 }

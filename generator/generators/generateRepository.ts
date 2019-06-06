@@ -1,6 +1,6 @@
 import { ImportContainer } from "../containers/importContainer/importContainer";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
-import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, isEmptyFilter } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, isEmptyFilter, getTypeReferencePrefix } from "../common/utilities";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
 import { ParameterBucketContainer } from "../containers/parameterBucketContainer/parameterBucketContainer";
@@ -23,15 +23,24 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
         const repositoryMethods = new Array<MethodContainer>();
         for (const method of entity.methods) {
             let hasBucket = false;
+            // let isVoid = false;
             const methodName = snakeToCamel(method._key);
             const httpMethod = method.method ? method.method.toUpperCase() : "GET";
             const path = method.path;
             const paginated = !!method.pagination;
             const privateMethod = !!method.private_method;
             const customMethodCall = !!method.custom_method;
+
+            const returnType = method.return_info.type;
+            let returns: string = httpMethod === "DELETE" ? "void" : getType(returnType) || snakeToPascal(returnType);
+            if (returnType === "void") {
+                // isVoid = true;
+                returns = "void";
+            }
+
             // if method doesn't return self or a primitive type
             const foreignKey = method.return_info.self === false && getType(method.return_info.type) === undefined;
-            if (foreignKey) {
+            if (foreignKey && returnType !== "void") {
                 // add import for foreign key
                 safeAddToList(repositoryImports, new ImportContainer(
                     `${method.return_info.type} _FOREIGN_KEY_IMPORT`,
@@ -50,8 +59,6 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                     ));
                 }
             }
-            const returnType = method.return_info.type;
-            const returns: string = httpMethod === "DELETE" ? "void" : getType(returnType) || snakeToPascal(returnType);
 
             if (returns.indexOf("ReadStream") === -1 && returns !== "void" && !paginated) {
                 safeAddToList(repositoryImports, new ImportContainer(
@@ -73,7 +80,10 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 hasRequest = true;
                 parameterList.addParameters(new ParameterContainer(
                     "request",
-                    `${pascalKey}${snakeToPascal(method._key)}Request`
+                    `${pascalKey}${snakeToPascal(method._key)}Request`,
+                    {
+                        description: "The entity to perform action on."
+                    }
                 ));
                 repositoryImports.push(new ImportContainer(
                     `${pascalKey.toUpperCase()}_${method._key.toUpperCase()}_REQUEST`,
@@ -101,7 +111,8 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                     fieldType,
                     {
                         isRequired: field.required,
-                        defaultValue: field.default
+                        defaultValue: field.default,
+                        description: field.description,
                     }
                 );
                 externalParams.push(parameter);
@@ -149,13 +160,14 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
                 const extraQueryParams = ep.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
                 if (extraQueryParams.length > 0 || !isEmptyFilter(filters)) {
-                    listOptionsType = `${returns}ListOptions`;
+                    listOptionsType = snakeToCamel(`${getTypeReferencePrefix(pascalKey, returns)}_list_options`);
                     parameterList.addParameters(
                         new ParameterContainer(
                             "options",
-                            `${returns}ListOptions`,
+                            listOptionsType,
                             {
-                                isRequired: false
+                                isRequired: false,
+                                description: "Options to use for the List",
                             }
                         )
                     );
@@ -164,7 +176,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                             `${returns.toUpperCase()}_LIST_OPTIONS`,
                             "./types",
                             [
-                                `${returns}ListOptions`
+                                listOptionsType
                             ]
                         )
                     );
@@ -187,7 +199,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 if (field.in === "query") {
                     const queryParam = new MethodBodyParameterContainer(
                         snakeToCamel(field.entity_fieldname),
-                        field.api_fieldname,
+                        field.name || field.api_fieldname,
                         paginated ? "pageOptions" : hasBucket && !!!field.required ? "options" : ""
                     );
                     queryParams.push(queryParam);
@@ -196,7 +208,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 if (field.in === "path") {
                     const pathParam = new MethodBodyParameterContainer(
                         snakeToCamel(field.entity_fieldname),
-                        field.parameter_fieldname || field.api_fieldname,
+                        field.name || field.parameter_fieldname || field.api_fieldname,
                         hasBucket && !!!field.required ? "options" : ""
                     );
                     pathParams.push(pathParam);
@@ -205,7 +217,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                 if (field.in === "stream") {
                     const fileParam = new MethodBodyParameterContainer(
                         snakeToCamel(field.entity_fieldname),
-                        field.api_fieldname,
+                        field.name || field.api_fieldname,
                         hasBucket && !!!field.required ? "options" : ""
                     );
                     fileParams.push(fileParam);
@@ -213,8 +225,8 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
                 if (field.in === "body") {
                     const bodyParam = new MethodBodyParameterContainer(
-                        snakeToCamel(field.entity_fieldname),
-                        field.api_fieldname,
+                        snakeToCamel(field.name || field.entity_fieldname),
+                        field.name || field.api_fieldname,
                         "request"
                     );
                     bodyParams.push(bodyParam);
@@ -279,7 +291,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                     promise: !paginated,
                     parameterList: parameterList,
                     modifier: privateMethod ? "private" : "public",
-                    methodBody: methodBody
+                    methodBody: methodBody,
                 }
             );
             repositoryMethods.push(methodContainer);

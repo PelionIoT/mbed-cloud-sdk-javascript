@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,14 +26,14 @@ if (!express) {
     process.exit();
 }
 
-var MbedCloudSDK = require("../../index");
+var PelionDMSDK = require("../../index");
 var config = require("./config");
 
 // ngrok http 3002
 var url = "http://2976cb8f.ngrok.io";
 var port = 3002;
 
-var connect = new MbedCloudSDK.ConnectApi(config);
+var connect = new PelionDMSDK.ConnectApi(config);
 var app = express();
 
 // Set system to await notifications for callbacks instead of emitting asyncIds

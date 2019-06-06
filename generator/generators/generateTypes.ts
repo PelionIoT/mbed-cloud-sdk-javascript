@@ -1,11 +1,12 @@
 import { FileContainer } from "../containers/fileContainer/fileContainer";
-import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList, isEmptyFilter } from "../common/utilities";
+import { snakeToPascal, getPropertyType, snakeToCamel, safeAddToList, isEmptyFilter, getTypeReferencePrefix } from "../common/utilities";
 import { EnumContainer } from "../containers/enumContainer/enumContainer";
 import { PropertyContainer } from "../containers/propertyContainer/propertyContainer";
 import { ImportContainer } from "../containers/importContainer/importContainer";
 import { ClassContainer } from "../containers/classContainer/classContainer";
 import { ExportContainer } from "../containers/exportContainer/exportContainer";
 import { File as GeneratedFile } from "../common/file";
+import { getDescription } from "./generateInterface";
 
 export async function generateTypes(entity, enums, pascalKey: string, outputFolder: string, camelKey: string, entityIndex: FileContainer): Promise<FileContainer> {
     const typeContainer = new FileContainer();
@@ -13,7 +14,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
     // any enums for this entity
     const entityEnums = entity.fields.filter(f => f.enum);
     for (const _enum of entityEnums) {
-        const key = snakeToPascal(_enum.enum_reference) || snakeToPascal(_enum.api_fieldname);
+        const key = (snakeToPascal(_enum.enum_reference) || snakeToPascal(_enum.api_fieldname)).replace("Enum", "");
         const enumContainer = new EnumContainer(key, _enum.enum);
         typeContainer.addContainer(enumContainer);
     }
@@ -28,9 +29,10 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
         for (const field of method.fields) {
             if (field.in === "body") {
                 const propType = getPropertyType(field, enums);
-                const key = snakeToCamel(field._key);
+                const key = snakeToCamel(field.name || field._key);
                 const isRequired = field.required || false;
-                const propertyContainer = new PropertyContainer(key, propType, { isInterface: true, isReadonly: true, isOptional: !isRequired });
+                const description = getDescription(field, key);
+                const propertyContainer = new PropertyContainer(key, propType, { isInterface: true, isReadonly: true, isOptional: !isRequired, description });
                 bodyParams.push(propertyContainer);
 
                 if ((field.items && field.items.foreign_key)) {
@@ -73,7 +75,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
         const extraQueryParams = method.fields.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
         if (extraQueryParams.length > 0 || !isEmptyFilter(filters)) {
             const listOptions = new ClassContainer(
-                `${returns}ListOptions`,
+                snakeToCamel(`${getTypeReferencePrefix(pascalKey, returns)}_list_options`),
                 {
                     isInterface: true,
                     extendsClass: [
@@ -88,13 +90,14 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                         {
                             isInterface: true,
                             isOptional: true,
+                            description: getDescription(q, snakeToCamel(q._key)),
                         }
                     )
                 );
             });
             if (!isEmptyFilter(filters)) {
                 // creat top level filter interface
-                const filterType = `${returns}Filter`;
+                const filterType = snakeToCamel(`${getTypeReferencePrefix(pascalKey, returns)}_filter`);
                 const filterObj = new ClassContainer(
                     filterType,
                     {
@@ -107,7 +110,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                     let filterObjType = field ? getPropertyType(field, enums) : "string";
                     let hasEqualsFilter = false;
                     let equalsFilterType = "string";
-                    const filterComparisonType = snakeToCamel(`${returns}_${filterName}_filter`);
+                    const filterComparisonType = snakeToCamel(`${getTypeReferencePrefix(pascalKey, returns)}_${filterName}_filter`);
                     const filterComparisonObject = new ClassContainer(
                         filterComparisonType,
                         {
@@ -129,6 +132,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                                 {
                                     isInterface: true,
                                     isOptional: true,
+                                    description: `${snakeToCamel(filterName)} ${getReadableFilterOperator(filterOperator)}`,
                                 }
                             )
                         );
@@ -141,6 +145,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                             {
                                 isInterface: true,
                                 isOptional: true,
+                                description: `Filter by ${snakeToCamel(filterName)} on ${returns}`
                             }
                         )
                     );
@@ -153,7 +158,8 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
                         {
                             isInterface: true,
                             isOptional: true,
-                        }
+                            description: `Filter for ${returns}`
+                        },
                     )
                 );
             }
@@ -184,3 +190,24 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
         return typeContainer;
     }
 }
+
+const getReadableFilterOperator = (filterOperator: string) => {
+    switch (filterOperator) {
+        case "eq":
+            return "equal to";
+        case "neq":
+            return "not equal to";
+        case "gte":
+            return "greater than";
+        case "lte":
+            return "less than";
+        case "in":
+            return "in";
+        case "nin":
+            return "not in";
+        case "like":
+            return "like";
+        default:
+            return "equal to";
+    }
+};

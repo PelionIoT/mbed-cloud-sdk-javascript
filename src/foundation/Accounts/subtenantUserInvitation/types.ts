@@ -4,17 +4,18 @@ import { LoginProfile } from "../loginProfile/loginProfile";
  */
 export interface SubtenantUserInvitationCreateRequest {
     /**
-     *email
+     *Email address of the invited user.
+     *@example friend@arm.com
      */
     readonly email: string;
 
     /**
-     *loginProfiles
+     *Represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;
 
     /**
-     *validForDays
+     *Specifies how many days the invitation will be valid for.
      */
     readonly validForDays?: number;
 }

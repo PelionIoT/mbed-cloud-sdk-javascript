@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,9 @@
 * limitations under the License.
 */
 
+/**
+ * Defines an error raised in the SDK
+ */
 export class SDKError extends Error {
 
     constructor(message: string, public innerError?: Error, public details?: string, public code?: number) {

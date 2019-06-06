@@ -1,5 +1,5 @@
 /*
- * Mbed Cloud JavaScript SDK
+ * Pelion Device Management JavaScript SDK
  * Copyright Arm Limited 2018
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +19,10 @@ import { BootstrapApi } from "../bootstrapApi";
 import { PreSharedKey } from "./preSharedKey";
 import { AddPreSharedKey } from "../types";
 
+/**
+ * Internal
+ * @ignore
+ */
 export const mapToSDK = (from: ConnectorPSKPartial, api: BootstrapApi): PreSharedKey => {
     return new PreSharedKey({
         endpointName: from.endpoint_name,
@@ -27,6 +31,10 @@ export const mapToSDK = (from: ConnectorPSKPartial, api: BootstrapApi): PreShare
     }, api);
 };
 
+/**
+ * Internal
+ * @ignore
+ */
 export const mapFrom = (from: AddPreSharedKey, api: BootstrapApi): PreSharedKey => {
     return new PreSharedKey({
         endpointName: from.endpointName,
@@ -34,6 +42,10 @@ export const mapFrom = (from: AddPreSharedKey, api: BootstrapApi): PreSharedKey 
     }, api);
 };
 
+/**
+ * Internal
+ * @ignore
+ */
 export const mapToSpec = (from: AddPreSharedKey): ConnectorPSKFull => {
     return {
         endpoint_name: from.endpointName,

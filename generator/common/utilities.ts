@@ -10,6 +10,7 @@ const typeMap = {
     "date": "Date",
     "int64": "number",
     "int32": "number",
+    "filter": "{ [key: string]: string }",
     "object": "any",
     "file": "ReadStream | Buffer | File | Blob",
 };
@@ -28,9 +29,9 @@ const getType = (type: string, items?: any) => {
     return t;
 };
 
-// get the type of enum usinf the enum_reference
+// get the type of enum using the enum_reference
 const getEnumType = (field, enums) => {
-    const enumName = snakeToPascal(field.enum_reference);
+    const enumName = snakeToPascal(field.enum_reference).replace("Enum", "");
     enums.push(enumName);
     return enumName;
 };
@@ -83,7 +84,7 @@ const snakeToCamel = snake => {
 // };
 
 // conver snake to PascalCase
-const snakeToPascal = snake => {
+const snakeToPascal = (snake: string): string => {
     const camel = snakeToCamel(snake);
     return camel.charAt(0).toUpperCase() + camel.slice(1);
 };
@@ -103,6 +104,14 @@ const isEmptyFilter = obj => {
     return true;
 };
 
+const getTypeReferencePrefix = (entityKey: string, returnsKey: string) => {
+    if (returnsKey.toUpperCase() === entityKey.toUpperCase()) {
+        return entityKey;
+    } else {
+        return `${entityKey}_${returnsKey}`
+    }
+}
+
 export {
     typeMap,
     getType,
@@ -115,4 +124,5 @@ export {
     snakeToPascal,
     safeAddToList,
     isEmptyFilter,
+    getTypeReferencePrefix,
 };

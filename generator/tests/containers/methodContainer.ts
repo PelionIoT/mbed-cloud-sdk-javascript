@@ -3,27 +3,48 @@ import { ParameterContainer } from "../../containers/parameterContainer/paramete
 import { ParameterListContainer } from "../../containers/parameterListContainer/parameterListContainer";
 
 const basicMethodExpected =
-`public getName(): void {
+`/**
+* getName
+*/
+public getName(): void {
 }`;
 
 const privateMethodExpected =
-`private getName(): void {
+`/**
+* getName
+*/
+private getName(): void {
 }`;
 
 const staticMethodExpected =
-`public static getName(): void {
+`/**
+* getName
+*/
+public static getName(): void {
 }`;
 
 const basicMethodReturnsStringExpected =
-`public getName(): Promise<string> {
+`/**
+* getName
+*/
+public getName(): Promise<string> {
 }`;
 
 const methodWithParametersExpected =
-`public getName(name: string): void {
+`/**
+* getName
+* @param name - name
+*/
+public getName(name: string): void {
 }`;
 
 const methodWithMultipleParametersExpected =
-`public getName(name: string,username: string): void {
+`/**
+* getName
+* @param name - name
+* @param username - username
+*/
+public getName(name: string,username: string): void {
 }`;
 
 describe("method container tests", () => {

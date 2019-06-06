@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +21,10 @@ import { decodeTlv } from "./tlvDecoder";
 
 // Inspired by https://github.com/sonnyp/polygoat
 // If a callback is passed, use that after running the passed function, otherwise return a promise chain
+/**
+ * Internal function
+ * @ignore
+ */
 export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn?: CallbackFn<T>): Promise<T> {
     if (callbackFn) {
         try {
@@ -41,16 +45,47 @@ export function asyncStyle<T>(asyncFn: (done: CallbackFn<T>) => void, callbackFn
     }
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
+export function asyncStyleWithTimeout<T>(asyncFn: (done: CallbackFn<T>) => void, timeout: number, callbackFn?: CallbackFn<T>): Promise<T> {
+    if (callbackFn) {
+        // timeout not relevant for a callback
+        try {
+            asyncFn(callbackFn);
+        } catch (error) {
+            callbackFn(new SDKError(error.message, error));
+        }
+    } else {
+        const result = new Promise((resolve, reject) => {
+            try {
+                asyncFn((error: SDKError, response: T) => {
+                    if (error) { reject(error); } else { resolve(response); }
+                });
+            } catch (error) {
+                reject(new SDKError(error.message, error));
+            }
+        });
+
+        return promiseTimeout(timeout, result);
+    }
+}
+
 // Wrap our functions to allow error catching
 // Wraps an api function call and optionally a data transformation function to allow a single point for trapping errors
+/**
+ * Internal function
+ * @ignore
+ */
 export function apiWrapper<T>(
     apiFn: (resultsFn: (error: any, data: any) => void) => void,
     transformFn?: (data: any, resultsFn: (error: SDKError, result: T) => void) => void,
     callbackFn?: CallbackFn<T>,
     failOnNotFound = false,
+    timeout?: number
 ): Promise<T> {
-    // Use async style
-    return asyncStyle( done => {
+    const doneFunction = done => {
         try {
             // Call the api function
             apiFn((error, data) => {
@@ -76,17 +111,33 @@ export function apiWrapper<T>(
             // Catch any errors when running api calls
             done(new SDKError(error.message, error));
         }
-    }, callbackFn);
-}
+    };
 
-export function encodeBase64(payload): string {
-    if (typeof btoa === "function") {
-        return btoa(payload);
+    if (timeout) {
+        return asyncStyleWithTimeout(doneFunction, timeout, callbackFn);
+    } else {
+        return asyncStyle(doneFunction, callbackFn);
     }
-
-    return Buffer.from(payload).toString("base64");
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
+export function encodeBase64(payload): string {
+    if (payload) {
+        if (typeof btoa === "function") {
+            return btoa(payload);
+        }
+
+        return Buffer.from(payload).toString("base64");
+    }
+}
+
+/**
+ * Internal function
+ * @ignore
+ */
 export function decodeBase64(payload, contentType): string | number | { [key: string]: string | number } {
     // any so can be used in .isNaN method
     let result: any = "";
@@ -133,23 +184,39 @@ export function decodeBase64(payload, contentType): string | number | { [key: st
     return !isNaN(result) ? Number(result) : result;
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function encodeInclude(include) {
     if (!include || !include.length) { return null; }
     return include.map(camelToSnake).join(",");
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function snakeToCamel(snake) {
     return snake.replace(/(\_\w)/g, match => {
         return match[1].toUpperCase();
     });
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function camelToSnake(camel) {
     return camel.replace(/([A-Z]+?)/g, match => {
         return "_" + match.toLowerCase();
     });
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function extractFilter(filter: { [key: string]: ComparisonObject<any> | string }, name: string, operator: operators = "$eq", defaultValue: any = null): any {
 
     if (filter && filter[name]) {
@@ -187,7 +254,11 @@ export function extractFilter(filter: { [key: string]: ComparisonObject<any> | s
     return defaultValue;
 }
 
-export function encodeFilter(filter: { [key: string]: ComparisonObject<any> | string | {} }, map: { from: Array<string>, to: Array<string> } = { from: [], to: [] }, nested: Array<string> = []): string {
+/**
+ * Internal function
+ * @ignore
+ */
+export function encodeFilter(filter, map: { from: Array<string>, to: Array<string> } = { from: [], to: [] }, nested: Array<string> = []): string {
     if (!filter) { return ""; }
 
     function encode(name, operator, value, prefix: string = "") {
@@ -229,6 +300,10 @@ export function encodeFilter(filter: { [key: string]: ComparisonObject<any> | st
     }).join("&");
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function decodeFilter(from: string, map: { from: Array<string>, to: Array<string> } = { from: [], to: [] }, nested: Array<string> = []): { [key: string]: ComparisonObject<any> | {} } {
     const filter: { [key: string]: ComparisonObject<any> } = {};
 
@@ -268,10 +343,18 @@ export function decodeFilter(from: string, map: { from: Array<string>, to: Array
     return filter;
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function ensureArray<T>(item: T | Array<T>): Array<T> {
     return item instanceof Array ? item : [ item ];
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function matchWithWildcard(input: string, matchWith: string): boolean {
     // if we have nothing to match with, return false
     if (matchWith === null || matchWith === undefined || matchWith === "") {
@@ -292,6 +375,10 @@ export function matchWithWildcard(input: string, matchWith: string): boolean {
     return input === matchWith;
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function dateToBillingMonth(date: Date) {
     // make sure date is actually a Date object;
     date = new Date(date);
@@ -299,15 +386,23 @@ export function dateToBillingMonth(date: Date) {
     return `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}`;
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function isThisNode(): boolean {
     return typeof window === "undefined" && typeof require === "function";
 }
 
+/**
+ * Internal function
+ * @ignore
+ */
 export function promiseTimeout(ms: number, promise) {
     const timeout = new Promise((_resolve, reject) => {
         const id = setTimeout(() => {
             clearTimeout(id);
-            reject(`timed out in ${ms} ms`);
+            reject(`Timeout getting async value. Timeout ${ms}ms`);
         }, ms);
     });
 

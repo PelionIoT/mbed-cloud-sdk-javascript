@@ -1,5 +1,5 @@
 /*
-* Mbed Cloud JavaScript SDK
+* Pelion Device Management JavaScript SDK
 * Copyright Arm Limited 2017
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { OrderEnum } from "./interfaces";
+import { Order } from "./interfaces";
 
 /**
  * ## List Response
@@ -42,7 +42,7 @@ export class ListResponse<T> {
     /**
      * Order of returned records
      */
-    public readonly order?: OrderEnum;
+    public readonly order?: Order;
     /**
      * List of results.
      */

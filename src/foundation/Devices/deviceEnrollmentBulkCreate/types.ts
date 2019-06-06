@@ -1,1 +1,1 @@
-export type DeviceEnrollmentBulkCreateStatusEnum = "new" | "processing" | "completed";
+export type DeviceEnrollmentBulkCreateStatus = "new" | "processing" | "completed";

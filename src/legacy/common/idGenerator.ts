@@ -1,5 +1,5 @@
 /*
- * Mbed Cloud JavaScript SDK
+ * Pelion Device Management JavaScript SDK
  * Copyright Arm Limited 2018
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,10 @@
  */
 
 // Generates a random URL-friendly identifier string. Note that this is not cryptographically secure.
+/**
+ * Internal
+ * @ignore
+ */
 export const generateId = (): string => {
     return `${Date.now()}${Math.floor(Math.random() * 10000)}`;
 };

@@ -1,20 +1,31 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { Account } from "./account";
+import { SubtenantApiKey } from "../../index";
+import { SubtenantApiKeyAdapter } from "../../index";
+import { extractFilter } from "../../../common/filters";
+import { AccountSubtenantApiKeyListOptions } from "./types";
 import { AccountAdapter } from "../../index";
 import { AccountCreateRequest } from "./types";
-import { extractFilter } from "../../../common/filters";
+import { SubtenantDarkThemeColor } from "../../index";
+import { SubtenantDarkThemeColorAdapter } from "../../index";
+import { SubtenantDarkThemeImage } from "../../index";
+import { SubtenantDarkThemeImageAdapter } from "../../index";
+import { SubtenantLightThemeColor } from "../../index";
+import { SubtenantLightThemeColorAdapter } from "../../index";
+import { SubtenantLightThemeImage } from "../../index";
+import { SubtenantLightThemeImageAdapter } from "../../index";
 import { AccountListOptions } from "./types";
 import { SubtenantTrustedCertificate } from "../../index";
 import { SubtenantTrustedCertificateAdapter } from "../../index";
-import { SubtenantTrustedCertificateListOptions } from "./types";
+import { AccountSubtenantTrustedCertificateListOptions } from "./types";
 import { AccountUpdateRequest } from "./types";
 import { SubtenantUserInvitation } from "../../index";
 import { SubtenantUserInvitationAdapter } from "../../index";
-import { SubtenantUserInvitationListOptions } from "./types";
+import { AccountSubtenantUserInvitationListOptions } from "./types";
 import { SubtenantUser } from "../../index";
 import { SubtenantUserAdapter } from "../../index";
-import { SubtenantUserListOptions } from "./types";
+import { AccountSubtenantUserListOptions } from "./types";
 import { Paginator } from "../../../common/pagination";
 import { ListResponse } from "../../../legacy/common/listResponse";
 import { ListOptions } from "../../../legacy/common/interfaces";
@@ -22,6 +33,51 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *Account repository
  */
 export class AccountRepository extends Repository {
+    /**
+     * apiKeys
+     * @param id - Account ID.
+     * @param options - Options to use for the List
+     */
+    public apiKeys(id: string, options?: AccountSubtenantApiKeyListOptions): Paginator<SubtenantApiKey, ListOptions> {
+        const pageFunc = (pageOptions: AccountSubtenantApiKeyListOptions): Promise<ListResponse<SubtenantApiKey>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/api-keys",
+                            method: "GET",
+                            query: {
+                                key__eq: extractFilter(pageOptions.filter, "key", "eq"),
+                                owner__eq: extractFilter(pageOptions.filter, "owner", "eq"),
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                            },
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantApiKey>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantApiKeyAdapter.fromApi));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+* create
+* @param request - The entity to perform action on.
+* @param action - Action, either `create` or `enroll`.
+<ul>
+<li>`create` creates the account where its admin user has ACTIVE status if `admin_password` was defined in the request, or RESET status if no `admin_password` was defined. If the user already exists, its status is not modified. </li>
+<li>`enroll` creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish enrollment or notify the existing user about the new account is sent to the `admin_email` defined in the request. </li></ul>
+*/
     public create(request: AccountCreateRequest, action?: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
@@ -62,6 +118,132 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * darkThemeBrandingColors
+     * @param id - Account ID.
+     * @param options - options
+     */
+    public darkThemeBrandingColors(id: string, options?: ListOptions): Paginator<SubtenantDarkThemeColor, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantDarkThemeColor>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/branding-colors/dark",
+                            method: "GET",
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantDarkThemeColor>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantDarkThemeColorAdapter.fromApi));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+     * darkThemeBrandingImages
+     * @param id - Account ID.
+     * @param options - options
+     */
+    public darkThemeBrandingImages(id: string, options?: ListOptions): Paginator<SubtenantDarkThemeImage, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantDarkThemeImage>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/branding-images/dark",
+                            method: "GET",
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantDarkThemeImage>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantDarkThemeImageAdapter.fromApi));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+     * lightThemeBrandingColors
+     * @param id - Account ID.
+     * @param options - options
+     */
+    public lightThemeBrandingColors(
+        id: string,
+        options?: ListOptions
+    ): Paginator<SubtenantLightThemeColor, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantLightThemeColor>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/branding-colors/light",
+                            method: "GET",
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantLightThemeColor>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantLightThemeColorAdapter.fromApi));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+     * lightThemeBrandingImages
+     * @param id - Account ID.
+     * @param options - options
+     */
+    public lightThemeBrandingImages(
+        id: string,
+        options?: ListOptions
+    ): Paginator<SubtenantLightThemeImage, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantLightThemeImage>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/branding-images/light",
+                            method: "GET",
+                            pathParams: {
+                                account_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: ListResponse<SubtenantLightThemeImage>, done) => {
+                    done(null, new ListResponse(data, data.data, SubtenantLightThemeImageAdapter.fromApi));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+     * list
+     * @param options - Options to use for the List
+     */
     public list(options?: AccountListOptions): Paginator<Account, ListOptions> {
         const pageFunc = (pageOptions: AccountListOptions): Promise<ListResponse<Account>> => {
             pageOptions = pageOptions || {};
@@ -93,12 +275,14 @@ export class AccountRepository extends Repository {
                 (data: ListResponse<Account>, done) => {
                     done(null, new ListResponse(data, data.data, AccountAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * me
+     */
     public me(options?: { include?: string; properties?: string }): Promise<Account> {
         options = options || {};
         return apiWrapper(
@@ -120,6 +304,10 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * read
+     * @param id - Account ID.
+     */
     public read(id: string, options?: { include?: string; properties?: string }): Promise<Account> {
         options = options || {};
         return apiWrapper(
@@ -144,12 +332,17 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * trustedCertificates
+     * @param id - Account ID.
+     * @param options - Options to use for the List
+     */
     public trustedCertificates(
         id: string,
-        options?: SubtenantTrustedCertificateListOptions
+        options?: AccountSubtenantTrustedCertificateListOptions
     ): Paginator<SubtenantTrustedCertificate, ListOptions> {
         const pageFunc = (
-            pageOptions: SubtenantTrustedCertificateListOptions
+            pageOptions: AccountSubtenantTrustedCertificateListOptions
         ): Promise<ListResponse<SubtenantTrustedCertificate>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -193,12 +386,16 @@ export class AccountRepository extends Repository {
                 (data: ListResponse<SubtenantTrustedCertificate>, done) => {
                     done(null, new ListResponse(data, data.data, SubtenantTrustedCertificateAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
     }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - Account ID.
+     */
     public update(request: AccountUpdateRequest, id: string): Promise<Account> {
         return apiWrapper(
             resultsFn => {
@@ -243,12 +440,17 @@ export class AccountRepository extends Repository {
             }
         );
     }
+    /**
+     * userInvitations
+     * @param id - Account ID.
+     * @param options - Options to use for the List
+     */
     public userInvitations(
         id: string,
-        options?: SubtenantUserInvitationListOptions
+        options?: AccountSubtenantUserInvitationListOptions
     ): Paginator<SubtenantUserInvitation, ListOptions> {
         const pageFunc = (
-            pageOptions: SubtenantUserInvitationListOptions
+            pageOptions: AccountSubtenantUserInvitationListOptions
         ): Promise<ListResponse<SubtenantUserInvitation>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
@@ -258,7 +460,7 @@ export class AccountRepository extends Repository {
                             url: "/v3/accounts/{account_id}/user-invitations",
                             method: "GET",
                             query: {
-                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
+                                login_profiles__eq: extractFilter(pageOptions.filter, "loginProfiles", "eq"),
                                 after: pageOptions.after,
                                 limit: pageOptions.limit,
                                 order: pageOptions.order,
@@ -273,14 +475,18 @@ export class AccountRepository extends Repository {
                 (data: ListResponse<SubtenantUserInvitation>, done) => {
                     done(null, new ListResponse(data, data.data, SubtenantUserInvitationAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
     }
-    public users(id: string, options?: SubtenantUserListOptions): Paginator<SubtenantUser, ListOptions> {
-        const pageFunc = (pageOptions: SubtenantUserListOptions): Promise<ListResponse<SubtenantUser>> => {
+    /**
+     * users
+     * @param id - Account ID.
+     * @param options - Options to use for the List
+     */
+    public users(id: string, options?: AccountSubtenantUserListOptions): Paginator<SubtenantUser, ListOptions> {
+        const pageFunc = (pageOptions: AccountSubtenantUserListOptions): Promise<ListResponse<SubtenantUser>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -293,7 +499,7 @@ export class AccountRepository extends Repository {
                                 status__eq: extractFilter(pageOptions.filter, "status", "eq"),
                                 status__in: extractFilter(pageOptions.filter, "status", "in"),
                                 status__nin: extractFilter(pageOptions.filter, "status", "nin"),
-                                login_profile__eq: extractFilter(pageOptions.filter, "loginProfile", "eq"),
+                                login_profiles__eq: extractFilter(pageOptions.filter, "loginProfiles", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,
                                 limit: pageOptions.limit,
@@ -309,8 +515,7 @@ export class AccountRepository extends Repository {
                 (data: ListResponse<SubtenantUser>, done) => {
                     done(null, new ListResponse(data, data.data, SubtenantUserAdapter.fromApi));
                 },
-                null,
-                true
+                null
             );
         };
         return new Paginator(pageFunc, options);
