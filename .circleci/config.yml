@@ -447,6 +447,8 @@ workflows:
           <<: *contract_repo_branch
   javascript_workflow:
     jobs:
+      - cache_test_server_image
+      - cache_test_runner_image
       - build
       - tpip
       - news
@@ -477,6 +479,8 @@ workflows:
             - build
       - integration_test:
           requires:
+            - cache_test_server_image
+            - cache_test_runner_image
             - unit_test
       - build_sync:
           <<: *main_branches_only
