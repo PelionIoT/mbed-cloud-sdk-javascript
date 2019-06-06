@@ -16,4 +16,4 @@ RUN npm run compile:integration
 
 EXPOSE 5000
 
-CMD ["node", "test/integration/build/test/integration/codeCoverage.js", "&"]
+CMD ["node", "test/integration/build/test/integration/codeCoverage.js"]
