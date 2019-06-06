@@ -1,4 +1,4 @@
-sdk_test_server:
+testserver:
     image: testserver
     environment:
       - MBED_CLOUD_SDK_HOST
@@ -10,11 +10,11 @@ sdk_test_server:
 testrunner:
     image: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner
     environment:
-      - TEST_SERVER_URL=http://sdk_test_server:80
+      - TEST_SERVER_URL=http://testserver:5000
       #folder on test server to get test files from
       - TEST_FIXTURES_DIR=/testserver/test_fixtures
     links:
-      - sdk_test_server
+      - testserver
     volumes:
       - ./results:/runner/results
       - ./test_fixtures:/runner/test_fixtures
