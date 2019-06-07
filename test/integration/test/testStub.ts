@@ -25,6 +25,6 @@ export class TestStubApi {
             modifiedDate = new Date(date);
             modifiedDate.setDate(modifiedDate.getDate() + 1);
         }
-        done(null, { ...this.options, testArgument0: testArgument0, testArgument1: testArgument1, testArgument2: testArgument2, testArgument3: modifiedDate.toISOString(), success: true });
+        done(null, { apiKey: this.options.apiKey, host: this.options.host, testArgument0: testArgument0, testArgument1: testArgument1, testArgument2: testArgument2, testArgument3: modifiedDate.toISOString(), success: true });
     }
 }
