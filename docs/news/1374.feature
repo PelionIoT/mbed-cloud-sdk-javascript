@@ -1,1 +1,0 @@
-Add support for device groups in foundation sdk.
