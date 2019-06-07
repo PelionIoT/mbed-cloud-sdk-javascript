@@ -179,9 +179,9 @@ export class ConnectApi extends EventEmitter {
         this._deviceDirectory = new DeviceDirectoryApi(options);
         this._log = loggerFactory(`connectApi${this._instanceId}`, options.logLevel).getLogger("ConnectApi");
         this._restartCount = 0;
-        // tslint:disable-next-line: no-console
-        console.log(options);
-        this._websockerUrl = options.host ? `${options.host.replace("https", "wss")}/v2/notification/websocket-connect` : null;
+        this._websockerUrl = options.host
+            ? `${options.host.replace("https", "wss")}/v2/notification/websocket-connect`
+            : "wss://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect";
 
         // make sure handle notifications keeps working
         if (options.handleNotifications) {
@@ -1873,22 +1873,13 @@ export class ConnectApi extends EventEmitter {
 
     private startWebSocket(): void {
         // start the websocket
-        try {
-            this._webSocketClient = new WebsocketClient(
-                this._websockerUrl,
-                [
-                    `pelion_${this._connectOptions.apiKey}`,
-                    `wss`
-                ],
-            );
-        } catch (e)
-        {
-            // tslint:disable-next-line: no-console
-            console.log(this._websockerUrl);
-            // tslint:disable-next-line: no-console
-            console.log(e);
-            throw e;
-        }
+        this._webSocketClient = new WebsocketClient(
+            this._websockerUrl,
+            [
+                `pelion_${this._connectOptions.apiKey}`,
+                `wss`
+            ],
+        );
 
         this._webSocketClient.onerror = async error => {
             this._log.error("error from websocket", error);
