@@ -1871,13 +1871,19 @@ export class ConnectApi extends EventEmitter {
 
     private startWebSocket(): void {
         // start the websocket
-        this._webSocketClient = new WebsocketClient(
-            this._websockerUrl,
-            [
-                `pelion_${this._connectOptions.apiKey}`,
-                `wss`
-            ],
-        );
+        try {
+            this._webSocketClient = new WebsocketClient(
+                this._websockerUrl,
+                [
+                    `pelion_${this._connectOptions.apiKey}`,
+                    `wss`
+                ],
+            );
+        } catch (e)
+        {
+            console.log(e);
+            throw e;
+        }
 
         this._webSocketClient.onerror = async error => {
             this._log.error("error from websocket", error);
