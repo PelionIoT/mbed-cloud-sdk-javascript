@@ -179,6 +179,8 @@ export class ConnectApi extends EventEmitter {
         this._deviceDirectory = new DeviceDirectoryApi(options);
         this._log = loggerFactory(`connectApi${this._instanceId}`, options.logLevel).getLogger("ConnectApi");
         this._restartCount = 0;
+        // tslint:disable-next-line: no-console
+        console.log(options);
         this._websockerUrl = options.host ? `${options.host.replace("https", "wss")}/v2/notification/websocket-connect` : null;
 
         // make sure handle notifications keeps working
