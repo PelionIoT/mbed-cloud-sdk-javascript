@@ -1882,6 +1882,8 @@ export class ConnectApi extends EventEmitter {
         } catch (e)
         {
             // tslint:disable-next-line: no-console
+            console.log(this._websockerUrl);
+            // tslint:disable-next-line: no-console
             console.log(e);
             throw e;
         }
