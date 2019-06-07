@@ -1,0 +1,1 @@
+Support websocket communication channel in connect api
