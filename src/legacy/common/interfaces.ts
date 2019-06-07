@@ -28,8 +28,8 @@ export interface ConnectionOptions {
      */
     host?: string;
     /**
-    * configure the log level for this api instance
-    */
+     * configure the log level for this api instance
+     */
     logLevel?: SDKLogLevel;
 }
 

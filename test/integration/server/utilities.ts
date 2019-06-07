@@ -42,7 +42,8 @@ export const determineInstanceConfig = (config: RunnerConnectionOptions): Connec
     // Environment configuration
     const defaultConfig: ConnectionOptions = {
         apiKey: process.env[apiKeyEnv],
-        host: process.env[hostEnv]
+        host: process.env[hostEnv],
+        logLevel: "ALL",
     };
 
     if (!config) {
@@ -61,7 +62,7 @@ export const determineInstanceConfig = (config: RunnerConnectionOptions): Connec
 
 export const sendApiError = (res: any, error: TestError): void => {
     if (error) {
-        logMessage(`Error: ${error}`);
+        logMessage(`Error: ${JSON.stringify(error)}`);
     }
     res.status(500).send(error);
 };

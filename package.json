@@ -78,6 +78,7 @@
     "@types/prettier": "^1.16.4",
     "@types/superagent": "^3.8.7",
     "@types/supertest": "^2.0.7",
+    "@types/websocket": "0.0.40",
     "body-parser": "^1.19.0",
     "browserify": "^16.2.3",
     "cross-env": "^5.2.0",
@@ -115,8 +116,9 @@
     "winston": "^3.2.1"
   },
   "dependencies": {
-    "dotenv": "^8.0.0",
     "superagent": "^3.4.1",
-    "typescript-logging": "^0.6.3"
+    "dotenv": "^8.0.0",
+    "typescript-logging": "^0.6.3",
+    "websocket": "^1.0.28"
   }
 }

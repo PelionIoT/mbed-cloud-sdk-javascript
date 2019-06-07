@@ -237,3 +237,5 @@ export interface MetricsPeriodListOptions extends MetricsListOptions {
      */
     period: TimePeriod;
 }
+
+export type websocketStatus = "connected" | "disconnected";
