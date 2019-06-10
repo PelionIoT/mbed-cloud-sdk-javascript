@@ -7,7 +7,7 @@ export interface SubtenantLightThemeImage extends Entity {
     /**
      *Name of the image.
      */
-    reference: SubtenantLightThemeImageReference;
+    reference?: SubtenantLightThemeImageReference;
 
     /**
      *The static link to the image.

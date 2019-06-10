@@ -11,6 +11,18 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.3.0 (2019-06-07)
+==================
+
+### Features
+
+- Add support for device groups in foundation sdk. (#1374)
+
+- Add support for branding in foundation sdk. (#2031)
+
+- add timeout to connect async functions (#2363)
+
+
 2.2.0 (2019-05-23)
 ==================
 

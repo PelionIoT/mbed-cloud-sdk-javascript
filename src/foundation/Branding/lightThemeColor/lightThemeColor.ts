@@ -13,7 +13,7 @@ export interface LightThemeColor extends Entity {
     /**
      *Color name.
      */
-    reference: LightThemeColorReference;
+    reference?: LightThemeColorReference;
 
     /**
      *Last update time in UTC.
