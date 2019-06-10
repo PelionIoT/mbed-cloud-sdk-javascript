@@ -284,6 +284,7 @@ jobs:
       - attach_workspace:
           at: ./
       - setup_remote_docker
+      - run: mkdir -p integration-results/coverage && mkdir -p integration-results/reports && mkdir -p integration-results/results
       - run: docker load -i ./test_runner_image/testrunner.tar
       - run: docker load -i ./test_server_image/testserver.tar
       - run: docker-compose up --exit-code-from testrunner
