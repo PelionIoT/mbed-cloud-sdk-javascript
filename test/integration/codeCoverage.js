@@ -95,15 +95,20 @@ var server = require("./server/server")
 server.addExitCallback(function () {
     if (unhookRequire) unhookRequire();
 
-    console.log("Collecting code coverage...");
-    var coverageMap = istanbulCoverage.createCoverageMap(__coverage__);
-    var sourceMaps = istanbulMaps.createSourceMapStore();
-    var transformed = sourceMaps.transformCoverage(coverageMap);
-    console.log("Writing coverage to " + coverageFile);
-    fs.writeFileSync(coverageFile, JSON.stringify(transformed.map));
+    try {
+        console.log("Collecting code coverage...");
+        var coverageMap = istanbulCoverage.createCoverageMap(__coverage__);
+        var sourceMaps = istanbulMaps.createSourceMapStore();
+        var transformed = sourceMaps.transformCoverage(coverageMap);
+        console.log("Writing coverage to " + coverageFile);
+        fs.writeFileSync(coverageFile, JSON.stringify(transformed.map));
 
-    console.log("Write final report to " + path.join(projectRoot, "reports"));
-    reporter.report();
+        console.log("Write final report to " + path.join(projectRoot, "reports"));
+        reporter.report();
+    } catch (e) {
+        console.log("error collecting coverage");
+        console.log(e);
+    }
 });
 
 // Start the SDK test server.

@@ -58,11 +58,11 @@ export const getApp = (): express.Application => {
 
     app.post("/shutdown", (_req, res, _next) => {
         logMessage("Shutting down.");
-        res.status(202).end();
         // don't call quit if self test
         if (!process.env.MBED_CLOUD_SDK_TEST_SERVER_SELF_TEST) {
             quit();
         }
+        res.status(202).end();
     });
 
     // api module endpoints
@@ -93,5 +93,5 @@ export function quit(): void {
     if (exitCallback) {
         exitCallback();
     }
-    process.exit();
+    // process.exit();
 }

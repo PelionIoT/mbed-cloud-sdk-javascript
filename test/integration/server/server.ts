@@ -6,10 +6,17 @@ const app = getApp();
 const port: number = 5000;
 
 process.on("SIGINT", () => {
+    console.log("quitting on SIGINT");
     quit();
 });
 
 process.on("SIGTERM", () => {
+    console.log("quitting on SIGTERM");
+    quit();
+});
+
+process.on("SIGHUP", () => {
+    console.log("quitting on SIGTERM");
     quit();
 });
 

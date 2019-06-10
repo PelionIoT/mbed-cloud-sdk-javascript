@@ -277,14 +277,24 @@ jobs:
   integration_test:
     docker:
       - image: circleci/python:3.6-jessie-browsers
+    environment:
+      TEST_RUNNER_SHUTDOWN_SERVER: yes
     steps:
       - checkout
       - attach_workspace:
           at: ./
       - setup_remote_docker
+      - run:
+          name: Install extra dependencies (node)
+          command: npm install -g codecov
       - run: docker load -i ./test_runner_image/testrunner.tar
       - run: docker load -i ./test_server_image/testserver.tar
       - run: docker-compose up --exit-code-from testrunner
+      - run:
+          name: Upload to codecov
+          command: codecov integration-results/reports/lcov.info
+      - store_artifacts:
+          path: integration-results
   unit_test:
     working_directory: ~/build
     docker:
