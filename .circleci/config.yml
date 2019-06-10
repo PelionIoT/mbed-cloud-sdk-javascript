@@ -284,17 +284,15 @@ jobs:
       - attach_workspace:
           at: ./
       - setup_remote_docker
-      - run:
-          name: Install extra dependencies (node)
-          command: npm install -g codecov
       - run: docker load -i ./test_runner_image/testrunner.tar
       - run: docker load -i ./test_server_image/testserver.tar
       - run: docker-compose up --exit-code-from testrunner
-      - run:
-          name: Upload to codecov
-          command: codecov integration-results/reports/lcov.info
       - store_artifacts:
           path: integration-results
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - integration-results
   unit_test:
     working_directory: ~/build
     docker:
