@@ -275,10 +275,9 @@ jobs:
   #         paths:
   #           - reports
   integration_test:
-    docker:
-      - image: circleci/python:3.6-jessie-browsers
-    environment:
-      TEST_RUNNER_SHUTDOWN_SERVER: yes
+    machine:
+      image: circleci/classic:latest
+      enabled: true
     steps:
       - checkout
       - attach_workspace:
