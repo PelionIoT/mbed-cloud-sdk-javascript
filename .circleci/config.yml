@@ -337,10 +337,6 @@ jobs:
       - run: docker-compose up --exit-code-from testrunner
       - store_artifacts:
           path: integration-results
-      - persist_to_workspace:
-          root: ./
-          paths:
-            - integration-results
   unit_test:
     working_directory: ~/build
     docker:
@@ -576,6 +572,9 @@ workflows:
             - cache_test_server_image
             - cache_test_runner_image
             - build
+      - upload_integration_coverage:
+          requires:
+            - integration_test_prod
       - build_sync:
           <<: *main_branches_only
           requires:
