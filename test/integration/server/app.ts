@@ -93,5 +93,5 @@ export function quit(): void {
     if (exitCallback) {
         exitCallback();
     }
-    process.exit();
+    // process.exit();
 }
