@@ -88,9 +88,6 @@ jobs:
       - image: circleci/python:3.7.0-stretch-node-browsers
     steps:
       - checkout
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: v0-package-cache-{{ checksum "package.json" }}
       - run:
@@ -132,9 +129,6 @@ jobs:
       - image: circleci/python:3.7.0-stretch-node-browsers
     steps:
       - checkout
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: v0-package-cache-{{ checksum "package.json" }}
       - run:
@@ -156,9 +150,6 @@ jobs:
       - image: circleci/python:3.7.0-stretch-node-browsers
     steps:
       - checkout
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
       - run:
           name: Update Python Installers
           command: sudo python -m pip install -U setuptools pip pipenv
@@ -278,9 +269,6 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
-      - run:
           name: Install codecov
           command: sudo npm install -g codecov
       - run:
@@ -297,9 +285,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: ./
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: v0-package-cache-{{ checksum "package.json" }}
       - run:
@@ -314,6 +299,9 @@ jobs:
       - run:
           name: Run browser tests
           command: npm run test:browser
+      - run:
+          name: Run generator self tests
+          command: npm run test:generator
       - run:
           name: Run the tests
           command: set -o pipefail && npm run test:node 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit-test-results/results/unit_tests.html
@@ -331,9 +319,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: ./
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
       - run:
           name: Install codecov
           command: sudo npm install -g codecov
