@@ -511,14 +511,14 @@ workflows:
           <<: *main_branches_only
           requires:
             - unit_test
-            - integration_test
+            - integration_test_prod
       - beta_release_gate:
           type: approval
           filters:
             branches:
               only: beta
           requires:
-            - integration_test
+            - integration_test_prod
             - unit_test
       - beta_release:
           requires:
@@ -529,7 +529,7 @@ workflows:
             branches:
               only: master
           requires:
-            - integration_test
+            - integration_test_prod
             - unit_test
       - release:
           requires:
