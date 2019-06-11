@@ -348,19 +348,19 @@ jobs:
           command: npm run test:browser
       - run:
           name: Run the tests
-          command: set -o pipefail && npm run test:node 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
+          command: set -o pipefail && npm run test:node 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit-test-results/results/unit_tests.html
       - store_artifacts:
-          path: unit_tests.html
+          path: unit-test-results
       - persist_to_workspace:
           root: ./
           paths:
-            - unit_tests.html
-            - coverage
+            - unit-test-results
   upload_unit_test_coverage:
     working_directory: ~/build
     docker:
       - image: circleci/node:lts
     steps:
+      - checkout
       - attach_workspace:
           at: ./
       - run:
@@ -371,7 +371,7 @@ jobs:
           command: sudo npm install -g codecov
       - run:
           name: Upload to codecov
-          command: codecov coverage/lcov.info
+          command: codecov unit-test-results/coverage/lcov.info
   beta_release:
     working_directory: ~/build
     environment:
