@@ -356,6 +356,22 @@ jobs:
           paths:
             - unit_tests.html
             - coverage
+  upload_unit_test_coverage:
+    working_directory: ~/build
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - run:
+          name: Install codecov
+          command: sudo npm install -g codecov
+      - run:
+          name: Upload to codecov
+          command: codecov coverage/lcov.info
   beta_release:
     working_directory: ~/build
     environment:
@@ -527,6 +543,9 @@ workflows:
       - unit_test:
           requires:
             - build
+      - upload_unit_test_coverage:
+          requires:
+            - unit_test
       - integration_test_os2:
           requires:
             - cache_test_server_image
