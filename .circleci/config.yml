@@ -7,6 +7,13 @@ references:
         only:
         - master
         - beta
+  main_branches_contract: &main_branches_contract
+    filters:
+      branches:
+        only:
+        - master
+        - beta
+        - /api-contract.*/
   ignore_main_branches: &ignore_main_branches
     filters:
       branches:
@@ -366,7 +373,7 @@ jobs:
           command: docker tag testserver 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:$(echo ${CIRCLE_BRANCH} | tr / -)
       - run:
           name: Push the image
-          command: docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:$(echo ${CIRCLE_BRANCH} | tr / -)
+          command: docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript
   #############################################################################################
   #                                   Beta Release                                            #
   #############################################################################################
@@ -581,10 +588,6 @@ workflows:
       - tpip
       - news
       - docs
-      - upload_test_server_container_release:
-          requires:
-            - build
-            - cache_test_server_image
       - upload_docs:
           <<: *main_branches_only
           requires:
@@ -625,6 +628,11 @@ workflows:
       - upload_integration_coverage:
           requires:
             - integration_test_prod
+      - upload_test_server_container:
+          <<: *main_branches_contract
+          requires:
+            - unit_test
+            - integration_test_prod
       - build_sync:
           <<: *main_branches_only
           requires:
@@ -644,7 +652,7 @@ workflows:
       - upload_docs_beta_release:
           requires:
             - beta_release
-      - release_gate:
+      - production_release_gate:
           type: approval
           filters:
             branches:
@@ -654,7 +662,10 @@ workflows:
             - unit_test
       - production_release:
           requires:
-            - release_gate
+            - production_release_gate
+      - upload_test_server_container_release:
+          requires:
+            - production_release
       - upload_docs_production_release:
           requires:
             - production_release
