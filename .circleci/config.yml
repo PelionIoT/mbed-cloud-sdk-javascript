@@ -353,6 +353,12 @@ jobs:
             . venv/bin/activate
             pip install awscli
       - run:
+          name: Configure Docker to use AWS
+          command: |
+            source $(pipenv --venv)/bin/activate
+            login="$(aws ecr get-login --no-include-email)"
+            ${login}
+      - run:
           name: Load test server image
           command: docker load -i ./test_server_image/testserver.tar
       - run:
