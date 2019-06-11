@@ -345,7 +345,7 @@ jobs:
           command: sudo npm install -g codecov ansi-html-stream --unsafe-perm
       - run:
           name: Create results directory
-          command: mkdir -p ~/build/unit-test-results/results && ~/build/unit-test-results/coverage
+          command: mkdir -p ~/build/unit-test-results/results && mkdir -p ~/build/unit-test-results/coverage
       - run:
           name: Run browser tests
           command: npm run test:browser
