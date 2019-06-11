@@ -347,11 +347,11 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
-          name: Installing aws cli
-          command: |
-            python -m venv venv
-            . venv/bin/activate
-            pip install awscli
+          name: Update Python Installers
+          command: sudo pip install -U setuptools pip pipenv
+      - run:
+          name: Install awscli
+          command: pipenv install awscli --python=python3.6
       - run:
           name: Configure Docker to use AWS
           command: |
