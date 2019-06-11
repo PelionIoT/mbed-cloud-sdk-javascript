@@ -299,6 +299,23 @@ jobs:
           root: ./
           paths:
             - integration-results
+  upload_integration_coverage:
+    working_directory: ~/build
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - run:
+          name: Install codecov
+          command: sudo npm install -g codecov
+      - run:
+          name: Upload to codecov
+          command: codecov integration-results/coverage/lcov.info
   integration_test_os2:
     machine:
       image: circleci/classic:latest
@@ -553,12 +570,12 @@ workflows:
           requires:
             - cache_test_server_image
             - cache_test_runner_image
-            - unit_test
+            - build
       - integration_test_prod:
           requires:
             - cache_test_server_image
             - cache_test_runner_image
-            - unit_test
+            - build
       - build_sync:
           <<: *main_branches_only
           requires:
