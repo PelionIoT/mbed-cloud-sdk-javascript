@@ -274,12 +274,19 @@ jobs:
   #         root: ./
   #         paths:
   #           - reports
-  integration_test:
+  integration_test_prod:
     machine:
       image: circleci/classic:latest
       enabled: true
     steps:
       - checkout
+      - run:
+          name: Setting up the environment for production
+          command: >
+            export MBED_CLOUD_SDK_API_KEY=${MBED_CLOUD_SDK_API_KEY_PROD}
+            && echo "export MBED_CLOUD_SDK_API_KEY=${MBED_CLOUD_SDK_API_KEY}" >> ${BASH_ENV}
+            && export MBED_CLOUD_SDK_HOST=${MBED_CLOUD_SDK_HOST_PROD}
+            && echo "export MBED_CLOUD_SDK_HOST=${MBED_CLOUD_SDK_HOST}" >> ${BASH_ENV}
       - attach_workspace:
           at: ./
       - run: mkdir -p integration-results/coverage && mkdir -p integration-results/reports && mkdir -p integration-results/results
@@ -495,7 +502,7 @@ workflows:
       - unit_test:
           requires:
             - build
-      - integration_test:
+      - integration_test_prod:
           requires:
             - cache_test_server_image
             - cache_test_runner_image

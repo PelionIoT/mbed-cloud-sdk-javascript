@@ -3,7 +3,7 @@ testserver:
     environment:
       - MBED_CLOUD_SDK_HOST
       - MBED_CLOUD_SDK_API_KEY
-      - TEST_RUNNER_SHUTDOWN_SERVER
+      - TEST_RUNNER_SHUTDOWN_SERVER=yes
     volumes:
       - ./integration-results/coverage:/testserver/coverage
       - ./integration-results/reports:/testserver/reports
