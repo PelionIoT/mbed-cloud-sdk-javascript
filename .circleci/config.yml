@@ -357,10 +357,10 @@ jobs:
           command: docker load -i ./test_server_image/testserver.tar
       - run:
           name: Tag the image
-          command: docker tag testserver 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:${CIRCLE_BRANCH}
+          command: docker tag testserver 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:(${CIRCLE_BRANCH} | tr / -)
       - run:
           name: Push the image
-          command: docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:${CIRCLE_BRANCH}
+          command: docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:(${CIRCLE_BRANCH} | tr / -)
   #############################################################################################
   #                                   Beta Release                                            #
   #############################################################################################
