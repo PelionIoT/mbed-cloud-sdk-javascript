@@ -351,7 +351,7 @@ jobs:
           command: sudo pip install -U setuptools pip pipenv
       - run:
           name: Install awscli
-          command: pipenv install awscli --python=python3.6
+          command: pipenv install awscli
       - run:
           name: Configure Docker to use AWS
           command: |
