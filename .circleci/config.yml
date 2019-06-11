@@ -338,6 +338,28 @@ jobs:
               curl -X POST --header "Content-Type: application/json" \
                -d '{"branch":"master"}' \
                https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/build?circle-token=${CIRCLE_TOKEN}
+  upload_test_server_container:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Installing aws cli
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install awscli
+      - run:
+          name: Load test server image
+          command: docker load -i ./test_server_image/testserver.tar
+      - run:
+          name: Tag the image
+          command: docker tag testserver 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:${CIRCLE_BRANCH}
+      - run:
+          name: Push the image
+          command: docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:${CIRCLE_BRANCH}
   #############################################################################################
   #                                   Beta Release                                            #
   #############################################################################################
@@ -519,6 +541,10 @@ workflows:
       - tpip
       - news
       - docs
+      - upload_test_server_container:
+          requires:
+            - build
+            - cache_test_server_image
       - upload_docs:
           <<: *main_branches_only
           requires:
