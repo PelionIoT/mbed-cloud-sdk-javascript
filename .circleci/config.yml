@@ -7,6 +7,13 @@ references:
         only:
         - master
         - beta
+  main_branches_contract: &main_branches_contract
+    filters:
+      branches:
+        only:
+        - master
+        - beta
+        - /api-contract.*/
   ignore_main_branches: &ignore_main_branches
     filters:
       branches:
@@ -21,80 +28,73 @@ references:
         - /api-contract.*/
 
 jobs:
-  build:
-    working_directory: ~/build
-    environment:
-      PIPENV_VENV_IN_PROJECT: TRUE
-    docker:
-      - image: circleci/python:3.7.0-stretch-node-browsers
+  #############################################################################################
+  #                                Cache Docker Images                                        #
+  #############################################################################################
+  cache_test_server_image:
+    machine:
+      docker_layer_caching: true
     steps:
       - checkout
       - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
+          command: mkdir -p ~/test_server_image
+          name: create directory for the test_server docker image
+      - run:
+          command: docker build -t testserver -f TestServer.Dockerfile .
+          name: build the test_server docker image from TestServer.Dockerfile
+      - run:
+          command: docker save -o ~/test_server_image/testserver.tar testserver
+          name: save the test_server image so it doesn't need building later
+      - persist_to_workspace:
+          root: ~/.
+          paths:
+           - test_server_image
+  cache_test_runner_image:
+    docker:
+      - image: circleci/python:3.6-jessie-browsers
+    environment:
+      TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner
+    steps:
+      - setup_remote_docker
       - run:
           name: Update Python Installers
-          command: sudo python -m pip install -U setuptools pip pipenv
-      - restore_cache:
-          key: v1-package-cache-{{ checksum "package.json" }}
+          command: sudo pip install -U setuptools pip pipenv
       - run:
-          name: Install Python Libraries
-          # pipenv is currently poorly behaved when installing from remote subdirectory
-          # so we simply use it as a proxy for the virtualenv
-          command: pipenv run pip install -r scripts/requirements.txt
+          name: Install awscli
+          command: pipenv install awscli --python=python3.6
       - run:
-          name: Install SDK dependencies
-          command: npm install
-      - save_cache:
-          key: v1-package-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-            - .venv
+          name: Configure Docker to use AWS
+          command: |
+            source $(pipenv --venv)/bin/activate
+            login="$(aws ecr get-login --no-include-email)"
+            ${login}
       - run:
-          name: Set version
-          # set the version (dev)
-          command: pipenv run auto_version --config=scripts/auto_version.toml --news
+          name: Fetch the test runner
+          command: (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+              && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
+              104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
+              || (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+              && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+              104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
       - run:
-          name: Build the SDK
-          command: npm run build
-      - store_artifacts:
-          path: package.json
+          command: mkdir -p ~/test_runner_image
+          name: create directory for the test_runner docker image
+      - run:
+          command: docker save -o ~/test_runner_image/testrunner.tar ${TESTRUNNER_DOCKER_IMAGE}
+          name: save the test_runner image so it doesn't need building later
       - persist_to_workspace:
-          root: ./
+          root: ~/.
           paths:
-            - bundles
-            - lib
-            - lib-es6
-            - types
-            - package.json
-  tpip:
-    working_directory: ~/build
-    docker:
-      - image: circleci/python:3.7.0-stretch-node-browsers
-    steps:
-      - checkout
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
-      - restore_cache:
-          key: v0-package-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install SDK dependencies
-          command: npm install
-      - run:
-          name: Build the Third Party Intellectual Property file
-          command: npm run tpip
-      - store_artifacts:
-          path: tpip.csv
+           - test_runner_image
+  #############################################################################################
+  #                                Documentation                                              #
+  #############################################################################################
   docs:
     working_directory: ~/build
     docker:
       - image: circleci/python:3.7.0-stretch-node-browsers
     steps:
       - checkout
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: v0-package-cache-{{ checksum "package.json" }}
       - run:
@@ -127,6 +127,72 @@ jobs:
                   . venv/bin/activate
                   aws s3 sync --delete --cache-control max-age=3600 ~/build/docs/docs s3://mbed-cloud-sdk-javascript/${CIRCLE_BRANCH}/docs
           name: upload docs to s3
+  #############################################################################################
+  #                                     TPIP                                                  #
+  #############################################################################################
+  tpip:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: v0-package-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install SDK dependencies
+          command: npm install
+      - run:
+          name: Build the Third Party Intellectual Property file
+          command: npm run tpip
+      - store_artifacts:
+          path: tpip.csv
+  #############################################################################################
+  #                                     Build                                                 #
+  #############################################################################################
+  build:
+    working_directory: ~/build
+    environment:
+      PIPENV_VENV_IN_PROJECT: TRUE
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Update Python Installers
+          command: sudo python -m pip install -U setuptools pip pipenv
+      - restore_cache:
+          key: v1-package-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install Python Libraries
+          command: pipenv run pip install -r scripts/requirements.txt
+      - run:
+          name: Install SDK dependencies
+          command: npm install
+      - save_cache:
+          key: v1-package-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+            - .venv
+      - run:
+          name: Set version
+          # set the version (dev)
+          command: pipenv run auto_version --config=scripts/auto_version.toml --news
+      - run:
+          name: Build the SDK
+          command: npm run build
+      - store_artifacts:
+          path: package.json
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - bundles
+            - lib
+            - lib-es6
+            - types
+            - package.json
+  #############################################################################################
+  #                                 Set Version                                               #
+  #############################################################################################
   news:
     working_directory: ~/build
     docker:
@@ -138,8 +204,6 @@ jobs:
           command: sudo python -m pip install -U setuptools pip pipenv
       - run:
           name: Install Python Libraries
-          # pipenv is currently poorly behaved when installing from remote subdirectory
-          # so we simply use it as a proxy for the virtualenv
           command: pipenv run pip install -r scripts/requirements.txt
       - run:
           name: Set version
@@ -151,71 +215,75 @@ jobs:
           working_directory: docs/news
       - store_artifacts:
           path: CHANGELOG.md
-  integration_test:
+  #############################################################################################
+  #                                 Integration OS2                                           #
+  #############################################################################################
+  integration_test_os2:
+    machine:
+      image: circleci/classic:latest
+      enabled: true
+    steps:
+      - checkout
+      - run:
+          name: Setting up the environment for production
+          command: >
+            export MBED_CLOUD_SDK_API_KEY=${MBED_CLOUD_SDK_API_KEY_OS2}
+            && echo "export MBED_CLOUD_SDK_API_KEY=${MBED_CLOUD_SDK_API_KEY}" >> ${BASH_ENV}
+            && export MBED_CLOUD_SDK_HOST=${MBED_CLOUD_SDK_HOST_OS2}
+            && echo "export MBED_CLOUD_SDK_HOST=${MBED_CLOUD_SDK_HOST}" >> ${BASH_ENV}
+      - attach_workspace:
+          at: ./
+      - run: mkdir -p integration-results/coverage && mkdir -p integration-results/reports && mkdir -p integration-results/results
+      - run: docker load -i ./test_runner_image/testrunner.tar
+      - run: docker load -i ./test_server_image/testserver.tar
+      - run: docker-compose up --exit-code-from testrunner
+      - store_artifacts:
+          path: integration-results
+  #############################################################################################
+  #                             Integration Production                                        #
+  #############################################################################################
+  integration_test_prod:
+    machine:
+      image: circleci/classic:latest
+      enabled: true
+    steps:
+      - checkout
+      - run:
+          name: Setting up the environment for production
+          command: >
+            export MBED_CLOUD_SDK_API_KEY=${MBED_CLOUD_SDK_API_KEY_PROD}
+            && echo "export MBED_CLOUD_SDK_API_KEY=${MBED_CLOUD_SDK_API_KEY}" >> ${BASH_ENV}
+            && export MBED_CLOUD_SDK_HOST=${MBED_CLOUD_SDK_HOST_PROD}
+            && echo "export MBED_CLOUD_SDK_HOST=${MBED_CLOUD_SDK_HOST}" >> ${BASH_ENV}
+      - attach_workspace:
+          at: ./
+      - run: mkdir -p integration-results/coverage && mkdir -p integration-results/reports && mkdir -p integration-results/results
+      - run: docker load -i ./test_runner_image/testrunner.tar
+      - run: docker load -i ./test_server_image/testserver.tar
+      - run: docker-compose up --exit-code-from testrunner
+      - store_artifacts:
+          path: integration-results
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - integration-results
+  upload_integration_coverage:
     working_directory: ~/build
-    environment:
-      TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner
-      PIPENV_VENV_IN_PROJECT: TRUE
-    machine: true
+    docker:
+      - image: circleci/node:lts
     steps:
       - checkout
       - attach_workspace:
           at: ./
-      - restore_cache:
-          key: v5-package-cache-{{ checksum "package.json" }}
       - run:
-          name: Install python3
-          command: sudo bash -c "yes | add-apt-repository ppa:jonathonf/python-3.6 && apt-get update && apt-get install -y python3.6"
-      - run:
-          name: Install node and python
-          command: |
-            sudo apt-get update -qq
-            sudo apt-get install -y nodejs openssl python3.6-dev libffi-dev libssl-dev
-      - run:
-          name: Update Python Installers
-          command: sudo pip install -U setuptools pip pipenv
-      - run:
-          name: Install extra dependencies (python)
-          command: pipenv install awscli --python=python3.6
-      - run:
-          name: Install SDK dependencies
-          command: npm install
-      - run:
-          name: Install extra dependencies (node)
-          command: npm install -g codecov ansi-html-stream --unsafe-perm
-      - run:
-          name: Configure Docker to use AWS
-          command: |
-            source $(pipenv --venv)/bin/activate
-            login="$(aws ecr get-login --no-include-email)"
-            ${login}
-      - run:
-          name: Fetch the test runner
-          command: (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
-              && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:${CIRCLE_BRANCH}
-              104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
-              || (docker pull 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-              && docker tag 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-              104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:latest)
-      - run:
-          name: Run the tests
-          command: set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ~/build/integration.html
-          working_directory: test/integration
-      - run:
-          name: Run any post-test result aggregators
-          when: always
-          command: |
-            cp -r coverage/* reports
-            cp integration.html reports
+          name: Install codecov
+          command: sudo npm install -g codecov
       - run:
           name: Upload to codecov
-          command: codecov reports/lcov.info
-      - store_artifacts:
-          path: reports
-      - persist_to_workspace:
-          root: ./
-          paths:
-            - reports
+          command: codecov integration-results/coverage/lcov.info
+  #############################################################################################
+  #                                   Unit Tests                                              #
+  #############################################################################################
   unit_test:
     working_directory: ~/build
     docker:
@@ -224,9 +292,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: ./
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: v0-package-cache-{{ checksum "package.json" }}
       - run:
@@ -236,18 +301,82 @@ jobs:
           name: Install extra dependencies (node)
           command: sudo npm install -g codecov ansi-html-stream --unsafe-perm
       - run:
+          name: Create results directory
+          command: mkdir -p ~/build/unit-test-results/results && mkdir -p ~/build/unit-test-results/coverage
+      - run:
           name: Run browser tests
           command: npm run test:browser
       - run:
+          name: Run generator self tests
+          command: npm run test:generator
+      - run:
           name: Run the tests
-          command: set -o pipefail && npm run test:node 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit_tests.html
+          command: set -o pipefail && npm run test:node 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit-test-results/results/unit_tests.html
       - store_artifacts:
-          path: unit_tests.html
+          path: unit-test-results
       - persist_to_workspace:
           root: ./
           paths:
-            - unit_tests.html
-            - coverage
+            - unit-test-results
+  upload_unit_test_coverage:
+    working_directory: ~/build
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Install codecov
+          command: sudo npm install -g codecov
+      - run:
+          name: Upload to codecov
+          command: codecov unit-test-results/coverage/lcov.info
+  #############################################################################################
+  #                                 Misc Post Build Jobs                                      #
+  #############################################################################################
+  build_documentation:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - run:
+          name: Trigger documentation build
+          command: |
+              curl -X POST --header "Content-Type: application/json" \
+               -d '{"branch":"master"}' \
+               https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/build?circle-token=${CIRCLE_TOKEN}
+  upload_test_server_container:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Update Python Installers
+          command: sudo pip install -U setuptools pip pipenv
+      - run:
+          name: Install awscli
+          command: pipenv install awscli
+      - run:
+          name: Configure Docker to use AWS
+          command: |
+            source $(pipenv --venv)/bin/activate
+            login="$(aws ecr get-login --no-include-email)"
+            ${login}
+      - run:
+          name: Load test server image
+          command: docker load -i ./test_server_image/testserver.tar
+      - run:
+          name: Tag the image
+          command: docker tag testserver 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:$(echo ${CIRCLE_BRANCH} | tr / -)
+      - run:
+          name: Push the image
+          command: docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript
+  #############################################################################################
+  #                                   Beta Release                                            #
+  #############################################################################################
   beta_release:
     working_directory: ~/build
     environment:
@@ -263,8 +392,6 @@ jobs:
           command: sudo python -m pip install -U setuptools pip pipenv
       - run:
           name: Install Python Libraries
-          # pipenv is currently poorly behaved when installing from remote subdirectory
-          # so we simply use it as a proxy for the virtualenv
           command: pipenv run pip install -r scripts/requirements.txt
       - run:
           name: Set version
@@ -279,7 +406,28 @@ jobs:
           command: |
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             pipenv run python scripts/tag_and_release.py beta
-  release:
+  upload_docs_beta_release:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Installing aws cli
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install awscli
+      - run:
+          command: |
+                  . venv/bin/activate
+                  aws s3 sync --delete --cache-control max-age=3600 ~/build/docs/docs s3://mbed-cloud-sdk-javascript/beta-release/docs
+          name: upload docs to beta-release
+  #############################################################################################
+  #                                 Production Release                                        #
+  #############################################################################################
+  production_release:
     working_directory: ~/build
     environment:
       PIPENV_VENV_IN_PROJECT: TRUE
@@ -294,8 +442,6 @@ jobs:
           command: sudo python -m pip install -U setuptools pip pipenv
       - run:
           name: Install Python Libraries
-          # pipenv is currently poorly behaved when installing from remote subdirectory
-          # so we simply use it as a proxy for the virtualenv
           command: pipenv run pip install -r scripts/requirements.txt
       - run:
           name: Set version
@@ -310,16 +456,60 @@ jobs:
           command: |
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             pipenv run python scripts/tag_and_release.py
-  build_documentation:
+  upload_docs_production_release:
+    working_directory: ~/build
     docker:
-      - image: circleci/node:jessie-browsers
+      - image: circleci/python:3.7.0-stretch-node-browsers
     steps:
+      - attach_workspace:
+          at: ./
       - run:
-          name: Trigger documentation build
+          name: Installing aws cli
           command: |
-              curl -X POST --header "Content-Type: application/json" \
-               -d '{"branch":"master"}' \
-               https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/build?circle-token=${CIRCLE_TOKEN}
+            python -m venv venv
+            . venv/bin/activate
+            pip install awscli
+      - run:
+          command: |
+                  . venv/bin/activate
+                  aws s3 sync --delete --cache-control max-age=3600 ~/build/docs/docs s3://mbed-cloud-sdk-javascript/master-release/docs
+          name: upload docs to beta-release
+  upload_test_server_container_release:
+    working_directory: ~/build
+    docker:
+      - image: circleci/python:3.7.0-stretch-node-browsers
+    steps:
+      - setup_remote_docker
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Update Python Installers
+          command: sudo pip install -U setuptools pip pipenv
+      - run:
+          name: Install awscli and autoversion
+          command: pipenv install awscli pyautoversion
+      - run:
+          name: Configure Docker to use AWS
+          command: |
+            source $(pipenv --venv)/bin/activate
+            login="$(aws ecr get-login --no-include-email)"
+            ${login}
+      - run:
+          name: Load test server image
+          command: docker load -i ./test_server_image/testserver.tar
+      - run:
+          name: Tag the image with version
+          command: docker tag testserver 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:$(pipenv run auto_version --config=scripts/auto_version.toml --release)
+      - run:
+          name: Tag the image with latest
+          command: docker tag testserver 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript:latest
+      - run:
+          name: Push the image at latest tag
+          command: docker push 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testserver-javascript
+  #############################################################################################
+  #                                      Build Branches                                       #
+  #############################################################################################
   build_sync:
     docker:
       - image: circleci/node:jessie-browsers
@@ -354,6 +544,9 @@ jobs:
               git checkout stash -- .
               git commit --allow-empty --message "Sync Build [skip ci]"
               git push -f -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git build/${CIRCLE_BRANCH}
+  #############################################################################################
+  #                                  Code Generation Jobs                                     #
+  #############################################################################################
   commit_back_generation:
     docker:
       - image: circleci/node:jessie-browsers
@@ -389,6 +582,8 @@ workflows:
           <<: *contract_repo_branch
   javascript_workflow:
     jobs:
+      - cache_test_server_image
+      - cache_test_runner_image
       - build
       - tpip
       - news
@@ -398,13 +593,9 @@ workflows:
           requires:
             - docs
       - build_documentation:
+          <<: *main_branches_only
           requires:
             - build
-          filters:
-            branches:
-              only:
-                - master
-                - beta
       - create_build_branch_gate:
           <<: *ignore_main_branches
           type: approval
@@ -417,33 +608,60 @@ workflows:
       - unit_test:
           requires:
             - build
-      - integration_test:
+      - upload_unit_test_coverage:
           requires:
             - unit_test
+      - integration_test_os2:
+          requires:
+            - cache_test_server_image
+            - cache_test_runner_image
+            - build
+      - integration_test_prod:
+          requires:
+            - cache_test_server_image
+            - cache_test_runner_image
+            - build
+      - upload_integration_coverage:
+          requires:
+            - integration_test_prod
+      - upload_test_server_container:
+          <<: *main_branches_contract
+          requires:
+            - unit_test
+            - integration_test_prod
       - build_sync:
           <<: *main_branches_only
           requires:
             - unit_test
-            - integration_test
+            - integration_test_prod
       - beta_release_gate:
           type: approval
           filters:
             branches:
               only: beta
           requires:
-            - integration_test
+            - integration_test_prod
             - unit_test
       - beta_release:
           requires:
             - beta_release_gate
-      - release_gate:
+      - upload_docs_beta_release:
+          requires:
+            - beta_release
+      - production_release_gate:
           type: approval
           filters:
             branches:
               only: master
           requires:
-            - integration_test
+            - integration_test_prod
             - unit_test
-      - release:
+      - production_release:
           requires:
-            - release_gate
+            - production_release_gate
+      - upload_test_server_container_release:
+          requires:
+            - production_release
+      - upload_docs_production_release:
+          requires:
+            - production_release
