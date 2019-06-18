@@ -4,6 +4,16 @@ export type DeviceExecutionMode = "0" | "1" | "5";
 export type DeviceMechanism = "connector" | "direct";
 export type DeviceState = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 /**
+ *DeviceAddToGroupRequest
+ */
+export interface DeviceAddToGroupRequest {
+    /**
+     *deviceId
+     *@example 00000000000000000000000000000000
+     */
+    readonly deviceId: string;
+}
+/**
  *DeviceCreateRequest
  */
 export interface DeviceCreateRequest {
@@ -124,6 +134,16 @@ Permitted values:
      *@example 00000000-0000-0000-0000-000000000000
      */
     readonly vendorId?: string;
+}
+/**
+ *DeviceRemoveFromGroupRequest
+ */
+export interface DeviceRemoveFromGroupRequest {
+    /**
+     *deviceId
+     *@example 00000000000000000000000000000000
+     */
+    readonly deviceId: string;
 }
 /**
  *DeviceUpdateRequest

@@ -1,6 +1,6 @@
 import { ImportContainer } from "../containers/importContainer/importContainer";
 import { MethodContainer } from "../containers/methodContainer/methodContainer";
-import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, isEmptyFilter } from "../common/utilities";
+import { snakeToCamel, snakeToPascal, getType, getAdditionalProperties, typeMap, safeAddToList, isEmptyFilter, getTypeReferencePrefix } from "../common/utilities";
 import { ParameterListContainer } from "../containers/parameterListContainer/parameterListContainer";
 import { ParameterContainer } from "../containers/parameterContainer/parameterContainer";
 import { ParameterBucketContainer } from "../containers/parameterBucketContainer/parameterBucketContainer";
@@ -23,15 +23,24 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
         const repositoryMethods = new Array<MethodContainer>();
         for (const method of entity.methods) {
             let hasBucket = false;
+            // let isVoid = false;
             const methodName = snakeToCamel(method._key);
             const httpMethod = method.method ? method.method.toUpperCase() : "GET";
             const path = method.path;
             const paginated = !!method.pagination;
             const privateMethod = !!method.private_method;
             const customMethodCall = !!method.custom_method;
+
+            const returnType = method.return_info.type;
+            let returns: string = httpMethod === "DELETE" ? "void" : getType(returnType) || snakeToPascal(returnType);
+            if (returnType === "void") {
+                // isVoid = true;
+                returns = "void";
+            }
+
             // if method doesn't return self or a primitive type
             const foreignKey = method.return_info.self === false && getType(method.return_info.type) === undefined;
-            if (foreignKey) {
+            if (foreignKey && returnType !== "void") {
                 // add import for foreign key
                 safeAddToList(repositoryImports, new ImportContainer(
                     `${method.return_info.type} _FOREIGN_KEY_IMPORT`,
@@ -50,8 +59,6 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                     ));
                 }
             }
-            const returnType = method.return_info.type;
-            const returns: string = httpMethod === "DELETE" ? "void" : getType(returnType) || snakeToPascal(returnType);
 
             if (returns.indexOf("ReadStream") === -1 && returns !== "void" && !paginated) {
                 safeAddToList(repositoryImports, new ImportContainer(
@@ -153,11 +160,11 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
                 const extraQueryParams = ep.filter(m => m.in === "query" && m._key !== "after" && m._key !== "include" && m._key !== "limit" && m._key !== "order");
                 if (extraQueryParams.length > 0 || !isEmptyFilter(filters)) {
-                    listOptionsType = `${returns}ListOptions`;
+                    listOptionsType = snakeToCamel(`${getTypeReferencePrefix(pascalKey, returns)}_list_options`);
                     parameterList.addParameters(
                         new ParameterContainer(
                             "options",
-                            `${returns}ListOptions`,
+                            listOptionsType,
                             {
                                 isRequired: false,
                                 description: "Options to use for the List",
@@ -169,7 +176,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
                             `${returns.toUpperCase()}_LIST_OPTIONS`,
                             "./types",
                             [
-                                `${returns}ListOptions`
+                                listOptionsType
                             ]
                         )
                     );
