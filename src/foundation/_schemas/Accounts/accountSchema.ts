@@ -253,7 +253,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "SubtenantUserFilter",
+                                type: "AccountSubtenantUserFilter",
                             },
                         ],
                     },
@@ -354,6 +354,158 @@ export const accountSchema = (): Schema => {
                 ],
             },
             {
+                name: "darkThemeBrandingColors",
+                returnType: "Paginator<SubtenantDarkThemeColor, ListOptions>",
+                parameters: [
+                    {
+                        name: "accountId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: "darkThemeBrandingImages",
+                returnType: "Paginator<SubtenantDarkThemeImage, ListOptions>",
+                parameters: [
+                    {
+                        name: "accountId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: "lightThemeBrandingColors",
+                returnType: "Paginator<SubtenantLightThemeColor, ListOptions>",
+                parameters: [
+                    {
+                        name: "accountId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: "lightThemeBrandingImages",
+                returnType: "Paginator<SubtenantLightThemeImage, ListOptions>",
+                parameters: [
+                    {
+                        name: "accountId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
                 name: "list",
                 returnType: "Paginator<Account, ListOptions>",
                 parameters: [
@@ -384,7 +536,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "SubtenantUserFilter",
+                                type: "AccountSubtenantUserFilter",
                             },
                         ],
                     },
@@ -473,7 +625,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "SubtenantUserFilter",
+                                type: "AccountSubtenantUserFilter",
                             },
                         ],
                     },
@@ -625,7 +777,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "SubtenantUserFilter",
+                                type: "AccountSubtenantUserFilter",
                             },
                         ],
                     },
@@ -667,7 +819,7 @@ export const accountSchema = (): Schema => {
                             },
                             {
                                 name: "filter",
-                                type: "SubtenantUserFilter",
+                                type: "AccountSubtenantUserFilter",
                             },
                         ],
                     },
