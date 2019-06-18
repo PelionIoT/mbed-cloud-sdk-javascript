@@ -10,6 +10,6 @@ config.collectCoverageFrom = [
     "!**/node_modules/**",
 ];
 
-config.coverageDirectory = "coverage";
+config.coverageDirectory = "unit-test-results/coverage";
 
 module.exports = config;

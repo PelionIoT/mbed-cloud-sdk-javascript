@@ -18,3 +18,5 @@ report.csv
 error-report.csv
 lcov-report
 lcov.info
+integration-results
+test_fixtures

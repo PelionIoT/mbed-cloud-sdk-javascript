@@ -1,10 +1,12 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
 import { Device } from "./device";
+import { DeviceAddToGroupRequest } from "./types";
 import { DeviceAdapter } from "../../index";
 import { DeviceCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
 import { DeviceListOptions } from "./types";
+import { DeviceRemoveFromGroupRequest } from "./types";
 import { CertificateEnrollment } from "../../index";
 import { CertificateEnrollmentAdapter } from "../../index";
 import { DeviceUpdateRequest } from "./types";
@@ -15,6 +17,33 @@ import { ListOptions } from "../../../legacy/common/interfaces";
  *Device repository
  */
 export class DeviceRepository extends Repository {
+    /**
+     * addToGroup
+     * @param request - The entity to perform action on.
+     * @param deviceGroupId - The ID of the group.
+     */
+    public addToGroup(request: DeviceAddToGroupRequest, deviceGroupId: string): Promise<void> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/device-groups/{device-group-id}/devices/add/",
+                        method: "POST",
+                        pathParams: {
+                            "device-group-id": deviceGroupId,
+                        },
+                        body: {
+                            device_id: request.deviceId,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (_data, done) => {
+                done(null, null);
+            }
+        );
+    }
     /**
      * create
      * @param request - The entity to perform action on.
@@ -322,6 +351,33 @@ export class DeviceRepository extends Repository {
             },
             (data, done) => {
                 done(null, DeviceAdapter.fromApi(data));
+            }
+        );
+    }
+    /**
+     * removeFromGroup
+     * @param request - The entity to perform action on.
+     * @param deviceGroupId - The ID of the group.
+     */
+    public removeFromGroup(request: DeviceRemoveFromGroupRequest, deviceGroupId: string): Promise<void> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/device-groups/{device-group-id}/devices/remove/",
+                        method: "POST",
+                        pathParams: {
+                            "device-group-id": deviceGroupId,
+                        },
+                        body: {
+                            device_id: request.deviceId,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (_data, done) => {
+                done(null, null);
             }
         );
     }

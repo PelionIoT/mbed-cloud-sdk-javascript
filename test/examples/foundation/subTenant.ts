@@ -18,6 +18,7 @@ describe("examples of subtenant management", () => {
                 // Admin user details
                 adminFullName: "Alex Logan",
                 adminEmail: "alexadmin@admin.com",
+                reference: "desktop_background_portrait",
             };
 
             myAccount = await accountContext.create(newAccount);

@@ -258,7 +258,7 @@ export function extractFilter(filter: { [key: string]: ComparisonObject<any> | s
  * Internal function
  * @ignore
  */
-export function encodeFilter(filter: { [key: string]: ComparisonObject<any> | string | {} }, map: { from: Array<string>, to: Array<string> } = { from: [], to: [] }, nested: Array<string> = []): string {
+export function encodeFilter(filter, map: { from: Array<string>, to: Array<string> } = { from: [], to: [] }, nested: Array<string> = []): string {
     if (!filter) { return ""; }
 
     function encode(name, operator, value, prefix: string = "") {
