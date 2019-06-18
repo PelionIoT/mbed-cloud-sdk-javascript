@@ -1,56 +1,68 @@
 /* tslint:disable: no-console */
-import { ConnectApi } from "../../../src";
+import { ConnectApi, SDK } from "../../../src";
 
 describe("connect examples", () => {
 
-    test("subscribeToDeviceStateChanges", async () => {
-        // an example: subscribing to device state changes
-        const connect = new ConnectApi();
+    test("subscribe to resource values", async () => {
+        // an example: subscribe to resource values
+        // cloak
+        /*
+        // uncloak
+        import { ConnectApi } from "mbed-cloud-sdk";
+        // cloak
+        */
+        // uncloak
 
-        const observer = connect.subscribe.deviceStateChanges();
-
-        observer.addListener(res => console.log(res));
-
-        for (let i = 0; i < 10; i++) {
-            console.log(await observer.once());
-        }
-        // end of example
-    });
-
-    test("subscribeToResourceVslueChanges", async () => {
-        // an example: subscribing to resource value changes
         const connect = new ConnectApi();
 
         const observer = connect.subscribe.resourceValues({
-            deviceId: "016*",
-            resourcePaths: [
-                "/3/0/*"
-            ],
+            deviceId: "*",
         });
 
-        observer.addListener(res => console.log(res));
-
-        for (let i = 0; i < 10; i++) {
+        while (true) {
             console.log(await observer.once());
+            // cloak
+            break;
+            // uncloak
         }
         // end of example
     });
 
-    test("getAndSetResourceValues", async () => {
-        // an example: resource values
-        const connect = new ConnectApi({
+    test("get and set a resource value", async () => {
+        // an example: get and set a resource value
+        // cloak
+        /*
+        // uncloak
+        import { ConnectApi, SDK } from "mbed-cloud-sdk";
+        // cloak
+        */
+        const sdk = new SDK();
+        // uncloak
+
+        // Use the Foundation interface to find a connected device.
+        const device = await sdk.foundation().deviceRepository().list({
+            filter: {
+                state: "registered",
+            }
+        }).first();
+
+        // Use the Legacy interface for find resources
+        const connectApi = new ConnectApi({
             autostartNotifications: true,
         });
 
-        const connectedDevice = (await connect.listConnectedDevices()).data[0];
+        // Find an observable resource
+        const resource = (await connectApi.listResources(device.id))
+            .filter(r => r.observable).pop();
 
-        const resources = await connectedDevice.listResources();
+        // Set a resource value
+        await connectApi.setResourceValue(device.id, resource.path, "12");
 
-        const observableResource = resources.filter(r => r.observable)[0];
+        // Get a resource value
+        const value = await connectApi.getResourceValue(device.id, resource.path);
+        console.log(`Device ${device.id}, path ${resource.path}, current value: ${value}`);
 
-        await connect.setResourceValue(observableResource.deviceId, observableResource.path, new Date().toString());
-
-        const newValue = await connect.getResourceValue(observableResource.deviceId, observableResource.path);
+        await connectApi.stopNotifications();
         // end of example
     });
 });
