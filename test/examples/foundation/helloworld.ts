@@ -13,14 +13,18 @@ describe("hello world examples", () => {
         */
         // uncloak
 
-        // create an instance of a device repository
-        const deviceList = new DeviceRepository()
-            // List the first 10 devices in your Pelion DM account
-            .list({ maxResults: 10 });
+        const main = async () => {
+            // create an instance of a device repository
+            const deviceList = new DeviceRepository()
+                // List the first 10 devices in your Pelion DM account
+                .list({ maxResults: 10 });
 
-        for await (const device of deviceList) {
-            console.log(`Hello device ${device.name}`);
-        }
+            for await (const device of deviceList) {
+                console.log(`Hello device ${device.name}`);
+            }
+        };
+
+        main();
         // end of example
     });
 
@@ -34,16 +38,20 @@ describe("hello world examples", () => {
         */
         // uncloak
 
-        // create an instance of the Pelion Device Management SDK
-        const deviceList = new SDK()
-            .foundation()
-            .deviceRepository()
-            // List the first 10 devices in your Pelion DM account
-            .list({ maxResults: 10 });
+        const main = async () => {
+            // create an instance of the Pelion Device Management SDK
+            const deviceList = new SDK()
+                .foundation()
+                .deviceRepository()
+                // List the first 10 devices in your Pelion DM account
+                .list({ maxResults: 10 });
 
-        for await (const device of deviceList) {
-            console.log(`Hello device ${device.name}`);
-        }
+            for await (const device of deviceList) {
+                console.log(`Hello device ${device.name}`);
+            }
+        };
+
+        main();
         // end of example
     });
 
@@ -60,25 +68,29 @@ describe("hello world examples", () => {
         */
         // uncloak
 
-        const accountOne = new SDK({ apiKey: process.env.account_one_api_key });
-        const deviceList = accountOne
-            .foundation()
-            .deviceRepository()
-            .list();
+        const main = async () => {
+            const accountOne = new SDK({ apiKey: process.env.account_one_api_key });
+            const deviceList = accountOne
+                .foundation()
+                .deviceRepository()
+                .list();
 
-        for await (const device of deviceList) {
-            console.log(`account one device ${device.name}`);
-        }
+            for await (const device of deviceList) {
+                console.log(`account one device ${device.name}`);
+            }
 
-        const accountTwo = new SDK({ apiKey: process.env.account_two_api_key });
-        accountTwo
-            .foundation()
-            .deviceRepository()
-            .list();
+            const accountTwo = new SDK({ apiKey: process.env.account_two_api_key });
+            accountTwo
+                .foundation()
+                .deviceRepository()
+                .list();
 
-        for await (const device of deviceList) {
-            console.log(`account two device ${device.name}`);
-        }
+            for await (const device of deviceList) {
+                console.log(`account two device ${device.name}`);
+            }
+        };
+
+        main();
         // end of example
     });
 
