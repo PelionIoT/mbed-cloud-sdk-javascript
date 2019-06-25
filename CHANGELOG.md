@@ -11,6 +11,14 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.3.1 (2019-06-25)
+==================
+
+### Bugfixes
+
+- Include index.es6.js in published package. (#250620191634)
+
+
 2.3.0 (2019-06-07)
 ==================
 
