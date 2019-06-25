@@ -1,8 +1,11 @@
 # Pelion Device Management SDK for JavaScript
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://spdx.org/licenses/Apache-2.0.html)
-[![Circle CI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript.svg?style=shield&circle-token=62ef40035b1b5442234a44ad7e74199ea582f3f4)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript/)
+[![version](https://img.shields.io/npm/v/mbed-cloud-sdk.svg)](https://www.npmjs.com/package/mbed-cloud-sdk)
+[![CircleCI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript/tree/master.svg?style=svg)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-javascript/tree/master)
 [![codecov](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-javascript/branch/master/graph/badge.svg?token=9h7ZMJ0xwK)](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-javascript)
+[![engine](https://img.shields.io/node/v/mbed-cloud-sdk.svg)](https://nodejs.org/en/about/releases/)
+[![downloads](https://img.shields.io/npm/dm/mbed-cloud-sdk.svg)](https://www.npmjs.com/package/mbed-cloud-sdk)
 
 The Pelion Device Management SDK provides a simplified interface to the Pelion Device Management APIs by exposing functionality using conventions and paradigms familiar to JavaScript developers.
 
@@ -21,8 +24,30 @@ $ npm install mbed-cloud-sdk
 `/node_modules/mbed-cloud-sdk` now contains:
 
 * `bundles` - minified browser scripts.
-* `lib` - Node.js modules.
-* `examples` - contains all examples.
+* `lib` - CommonJS modules.
+* `lib-es6` - ESNext modules.
+* `types` - Typescript types.
+
+### Consuming in a Typescript project
+
+To consume the SDK in a typescript project you must have the following declared in your `tsconfig.json` file.
+
+```
+{
+    "compilerOptions": {
+        "target": "es5", // es5 is the minimum but anything higher will be ok.
+        "module": "commonjs", // commonjs will work for all targets es5 or above
+        "moduleResolution": "node", // If module is es2015 or higher, then this is needed.
+        "lib": [
+            "dom",
+            "es5",
+            "es2015.promise",
+            "es2015.symbol.wellknown",
+            "es2015.core"
+        ], // These are the library files required to build the SDK.
+    }
+}
+```
 
 ## Documentation and examples
 

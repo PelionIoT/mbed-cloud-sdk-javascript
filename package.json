@@ -15,7 +15,8 @@
     "lib-es6",
     "bundles",
     "types",
-    "index.js"
+    "index.js",
+    "index.es6.js"
   ],
   "browser": {
     "./index.js": "./bundles/index.min.js"
@@ -30,7 +31,7 @@
     "SDK"
   ],
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8.16.0"
   },
   "scripts": {
     "build": "npm-run-all --parallel clean:build lint:fix --sequential compile",
@@ -44,10 +45,9 @@
     "compile:node": "tsc --declaration --declarationDir types",
     "compile:node:es6": "tsc -p tsconfig.esnext.json",
     "compile:integration": "tsc -p integration.tsconfig.json",
-    "compile:unit": "tsc --noEmit --target 'es5'",
     "docs": "npm-run-all clean:docs docs:build",
     "docs:build": "typedoc --options typedoc.json",
-    "generate": "npm-run-all \"generate:run -- {1}\" generate:format lint:fix compile:node --",
+    "generate": "npm-run-all \"generate:run -- {1}\" generate:format lint:fix compile:node compile:node:es6 --",
     "generate:run": "ts-node generator/app.ts",
     "generate:format": "prettier --write --tab-width 4 --print-width 120 --trailing-comma es5 './src/foundation/**/**/*.ts' './src/foundation/*.ts'",
     "integration": "npm-run-all clean:integration compile:integration integration:run",
@@ -74,7 +74,6 @@
     "@types/express-winston": "^3.0.3",
     "@types/jest": "^24.0.15",
     "@types/memory-cache": "^0.2.0",
-    "@types/node": "^11.11.5",
     "@types/prettier": "^1.16.4",
     "@types/superagent": "^3.8.7",
     "@types/supertest": "^2.0.7",
@@ -115,6 +114,7 @@
     "winston": "^3.2.1"
   },
   "dependencies": {
+    "@types/node": "^11.11.5",
     "dotenv": "^8.0.0",
     "superagent": "^3.4.1",
     "typescript-logging": "^0.6.3"
