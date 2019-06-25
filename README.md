@@ -24,8 +24,30 @@ $ npm install mbed-cloud-sdk
 `/node_modules/mbed-cloud-sdk` now contains:
 
 * `bundles` - minified browser scripts.
-* `lib` - Node.js modules.
-* `examples` - contains all examples.
+* `lib` - CommonJS modules.
+* `lib-es6` - ESNext modules.
+* `types` - Typescript types.
+
+### Consuming in a Typescript project
+
+To consume the SDK in a typescript project you must have the following declared in your `tsconfig.json` file.
+
+```
+{
+    "compilerOptions": {
+        "target": "es5", // es5 is the minimum but anything higher will be ok.
+        "module": "commonjs", // commonjs will work for all targets es5 or above
+        "moduleResolution": "node", // If module is es2015 or higher, then this is needed.
+        "lib": [
+            "dom",
+            "es5",
+            "es2015.promise",
+            "es2015.symbol.wellknown",
+            "es2015.core"
+        ], // These are the library files required to build the SDK.
+    }
+}
+```
 
 ## Documentation and examples
 
