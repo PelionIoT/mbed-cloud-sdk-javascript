@@ -17,9 +17,10 @@
 
 import { ConnectApi } from "../../legacy/connect/connectApi";
 import { DeviceStateObserver } from "./observers/deviceStateObserver";
-import { DeviceEvent, DeviceEventFilter, ResourceValuesFilter, NotificationData, FirstValueEnum } from "../../legacy/connect/types";
+import { DeviceEvent, DeviceEventFilter, NotificationObject, ResourceValuesFilter, NotificationData, FirstValueEnum } from "../../legacy/connect/types";
 import { Resource } from "../../legacy/connect/models/resource";
 import { ResourceValuesObserver } from "./observers/resourceValuesObserver";
+import { MasterObserver } from "./observers/masterObserver";
 
 export class Subscribe {
 
@@ -28,6 +29,8 @@ export class Subscribe {
     private deviceStateObservers: Array<DeviceStateObserver>;
 
     private resourceValueObservers: Array<ResourceValuesObserver>;
+    
+    private masterObserver: MasterObserver;
 
     constructor(_connect?: ConnectApi) {
         if (_connect) {
@@ -35,6 +38,7 @@ export class Subscribe {
         }
         this.deviceStateObservers = new Array();
         this.resourceValueObservers = new Array();
+        this.masterObserver = new MasterObserver();
     }
 
     /**
@@ -65,6 +69,15 @@ export class Subscribe {
         this.startNotifications();
         return observer;
     }
+    
+
+    /**
+     * Returns the master observer that is listening to all notifications coming from Pelion.
+     */   
+    public masterObserver(): MasterObserver {
+        this.startNotifications();
+        return this.masterOserver;
+    }
 
     /**
      * Notify all observers
@@ -81,7 +94,19 @@ export class Subscribe {
     public notifyResourceValues(data: NotificationData): void {
         this.resourceValueObservers.forEach( observer => observer.notify(data));
     }
+    
+    /**
+     * Notify the master observer
+     * @param data
+     */
+    public notifyAllNotifications(data: NotificationObject): void {
+        this.masterObserver.notify(data);
+    }
 
+        /**
+     * Notify all observers
+     * @param data
+     */
     private startNotifications(): void {
         if (this.connect) {
             this.connect.startNotifications();
