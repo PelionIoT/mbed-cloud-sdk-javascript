@@ -241,6 +241,7 @@ export class ConnectApi extends EventEmitter {
         // Data can be null
         if (!data) { return; }
 
+        this.subscribe.notifyAllNotifications(data)
         if (data.notifications) {
             data.notifications.forEach(notification => {
                 const body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
