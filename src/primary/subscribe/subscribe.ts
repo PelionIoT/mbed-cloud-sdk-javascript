@@ -74,7 +74,7 @@ export class Subscribe {
     /**
      * Returns the master observer that is listening to all notifications coming from Pelion.
      */   
-    public masterObserver(): MasterObserver {
+    public allNotifications(): MasterObserver {
         this.startNotifications();
         return this.masterOserver;
     }
