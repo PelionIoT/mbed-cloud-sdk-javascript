@@ -76,7 +76,7 @@ export class Subscribe {
      */   
     public allNotifications(): MasterObserver {
         this.startNotifications();
-        return this.masterOserver;
+        return this.masterObserver;
     }
 
     /**
