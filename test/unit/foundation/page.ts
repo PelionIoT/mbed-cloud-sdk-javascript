@@ -134,4 +134,33 @@ describe("test pure page functionality", () => {
         expect(() => page.throw(new Error("some error"))).toThrow();
     });
 
+    it("should return first item", () => {
+        const data = [1, 2, 3, 4, 5];
+        const page = new Page({}, data);
+
+        expect(page.first()).toBe(1);
+    });
+
+    it("shouldn't return first or last item if no data", () => {
+        const page = new Page({});
+
+        expect(page.first()).toBeUndefined();
+        expect(page.last()).toBeUndefined();
+    });
+
+    it("shouldn't return first or last item if empty data", () => {
+        const data = [];
+        const page = new Page({}, data);
+
+        expect(page.first()).toBeUndefined();
+        expect(page.last()).toBeUndefined();
+    });
+
+    it("should return last item", () => {
+        const data = [1, 2, 3, 4, 5];
+        const page = new Page({}, data);
+
+        expect(page.last()).toBe(5);
+    });
+
 });

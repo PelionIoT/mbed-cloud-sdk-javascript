@@ -56,6 +56,18 @@ export class Page<T> implements IterableIterator<T> {
         }
     }
 
+    public first(): T {
+        if (this.data && this.data[0]) {
+            return this.data[0];
+        }
+    }
+
+    public last(): T {
+        if (this.data && this.data[this.data.length - 1]) {
+            return this.data[this.data.length - 1];
+        }
+    }
+
     [Symbol.iterator](): IterableIterator<T> {
         return this;
     }
