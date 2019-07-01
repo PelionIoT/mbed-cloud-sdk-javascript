@@ -17,9 +17,10 @@
 
 import { ConnectApi } from "../../legacy/connect/connectApi";
 import { DeviceStateObserver } from "./observers/deviceStateObserver";
-import { DeviceEvent, DeviceEventFilter, ResourceValuesFilter, NotificationData, FirstValueEnum } from "../../legacy/connect/types";
+import { DeviceEvent, DeviceEventFilter, NotificationObject, ResourceValuesFilter, NotificationData, FirstValueEnum } from "../../legacy/connect/types";
 import { Resource } from "../../legacy/connect/models/resource";
 import { ResourceValuesObserver } from "./observers/resourceValuesObserver";
+import { MasterObserver } from "./observers/masterObserver";
 
 export class Subscribe {
 
@@ -29,12 +30,15 @@ export class Subscribe {
 
     private resourceValueObservers: Array<ResourceValuesObserver>;
 
+    private masterObserver: MasterObserver;
+
     constructor(_connect?: ConnectApi) {
         if (_connect) {
             this.connect = _connect;
         }
         this.deviceStateObservers = new Array();
         this.resourceValueObservers = new Array();
+        this.masterObserver = new MasterObserver();
     }
 
     /**
@@ -67,6 +71,14 @@ export class Subscribe {
     }
 
     /**
+     * Returns the master observer that is listening to all notifications coming from Pelion.
+     */
+    public allNotifications(): MasterObserver {
+        this.startNotifications();
+        return this.masterObserver;
+    }
+
+    /**
      * Notify all observers
      * @param data
      */
@@ -82,6 +94,18 @@ export class Subscribe {
         this.resourceValueObservers.forEach( observer => observer.notify(data));
     }
 
+    /**
+     * Notify the master observer
+     * @param data
+     */
+    public notifyAllNotifications(data: NotificationObject): void {
+        this.masterObserver.notify(data);
+    }
+
+    /**
+     * Notify all observers
+     * @param data
+     */
     private startNotifications(): void {
         if (this.connect) {
             this.connect.startNotifications();
