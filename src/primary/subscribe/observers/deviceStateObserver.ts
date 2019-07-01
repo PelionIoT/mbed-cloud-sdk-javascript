@@ -22,8 +22,6 @@ import { ensureArray } from "../../../legacy/common/functions";
 
 export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
 
-    private _subscribed: boolean = true;
-
     private filter: DeviceEventFilter;
 
     constructor(_filter?: DeviceEventFilter) {
@@ -47,7 +45,7 @@ export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
      * @param data
      */
     public notify(data: DeviceEvent<Resource>): void {
-        if (this._subscribed) {
+        if (this.subscribed) {
             if (this.filterFunc(data)) { super.notify(data); }
         }
     }
@@ -56,7 +54,7 @@ export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
      * Stop this observer from recieving notifications
      */
     public unsubscribe(): void {
-        this._subscribed = false;
+        this.subscribed = false;
         super.clearListeners();
     }
 
