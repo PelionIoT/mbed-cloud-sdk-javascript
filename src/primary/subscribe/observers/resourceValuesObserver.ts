@@ -23,8 +23,6 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
 
     public firstValue: FirstValueEnum;
 
-    private _subscribed: boolean = true;
-
     private connect: ConnectApi;
 
     private filter: ResourceValuesFilter;
@@ -54,7 +52,7 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
      * @param data
      */
     public notify(data: NotificationData): void {
-        if (this._subscribed) {
+        if (this.subscribed) {
             if (this.localPresubscriptions.length === 0) {
                 super.notify(data);
             }
@@ -69,7 +67,7 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
      * Stop this observer from recieving notifications
      */
     public unsubscribe(): void {
-        this._subscribed = false;
+        this.subscribed = false;
         super.clearListeners();
     }
 
