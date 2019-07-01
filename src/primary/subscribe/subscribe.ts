@@ -102,7 +102,7 @@ export class Subscribe {
         this.masterObserver.notify(data);
     }
 
-        /**
+    /**
      * Notify all observers
      * @param data
      */
