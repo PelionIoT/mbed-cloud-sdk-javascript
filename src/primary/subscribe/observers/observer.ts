@@ -17,7 +17,7 @@
 
 export class Observer<T> {
 
-    public subscribed: boolean = true;
+    protected subscribed: boolean;
 
     private notificationQueue: Array<T>;
 
@@ -25,12 +25,13 @@ export class Observer<T> {
 
     private filters: Array<(data: T) => boolean>;
 
-    private _waiting: Array<(data: T) => any>;
+    private waiting: Array<(data: T) => any>;
 
     constructor() {
+        this.subscribed = true;
         this.notificationQueue = new Array();
         this.callbacks = new Array();
-        this._waiting = new Array();
+        this.waiting = new Array();
         this.filters = new Array();
     }
 
@@ -43,9 +44,9 @@ export class Observer<T> {
             // notify all callbacks
             this._notifyCallbacks(data);
 
-            if (this._waiting.length > 0) {
+            if (this.waiting.length > 0) {
                 // get first function in waiting queue
-                this._waiting.shift()(data);
+                this.waiting.shift()(data);
             } else {
                 // nothing waiting so add to collection
                 this.notificationQueue.push(data);
@@ -97,7 +98,7 @@ export class Observer<T> {
         } else {
             if (callback) {
                 // add callback to waiting
-                this._waiting.push(callback);
+                this.waiting.push(callback);
             } else {
                 const promise = new Promise<T>((resolve, _reject) => {
                     // function will resolve promise when called
@@ -105,7 +106,7 @@ export class Observer<T> {
                         resolve(data);
                     };
                     // add function to waiting queue
-                    this._waiting.push(wait);
+                    this.waiting.push(wait);
                 });
 
                 return promise;

@@ -29,7 +29,7 @@ export class Subscribe {
     private deviceStateObservers: Array<DeviceStateObserver>;
 
     private resourceValueObservers: Array<ResourceValuesObserver>;
-    
+
     private masterObserver: MasterObserver;
 
     constructor(_connect?: ConnectApi) {
@@ -69,11 +69,10 @@ export class Subscribe {
         this.startNotifications();
         return observer;
     }
-    
 
     /**
      * Returns the master observer that is listening to all notifications coming from Pelion.
-     */   
+     */
     public allNotifications(): MasterObserver {
         this.startNotifications();
         return this.masterObserver;
@@ -94,7 +93,7 @@ export class Subscribe {
     public notifyResourceValues(data: NotificationData): void {
         this.resourceValueObservers.forEach( observer => observer.notify(data));
     }
-    
+
     /**
      * Notify the master observer
      * @param data
