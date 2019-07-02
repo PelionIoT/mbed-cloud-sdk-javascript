@@ -3,6 +3,7 @@ import { Page } from "./page";
 import { Entity } from "./entity";
 
 export class NewPaginator<T extends Entity, U extends ListOptions> implements AsyncIterableIterator<T> {
+    private firstItem: T;
     public readonly listOptions: U;
     public totalCount: number;
     public readonly pageSize: number;
@@ -54,6 +55,9 @@ export class NewPaginator<T extends Entity, U extends ListOptions> implements As
                     this.totalCount = page.totalCount;
                     this.currentPageAfter = page.after || page.continuationMarker || null;
                     this.listOptions.after = this.currentPageAfter;
+                    if (this.currentPageIndex === -1) {
+                        this.firstItem = page.first();
+                    }
                     this.currentPageIndex++;
 
                     return page;
@@ -95,6 +99,25 @@ export class NewPaginator<T extends Entity, U extends ListOptions> implements As
 
     public throw(e?: any): Promise<IteratorResult<T>> {
         throw e;
+    }
+
+    public async first(): Promise<T> {
+        if (this.firstItem) {
+            return this.firstItem;
+        }
+
+        this.reset();
+        return await this.nextItem();
+    }
+
+    public async all(): Promise<Array<T>> {
+        this.reset();
+        const allItems = [];
+        for await (const item of this) {
+            allItems.push(item);
+        }
+
+        return allItems;
     }
 
     private hasNextItem(): boolean {

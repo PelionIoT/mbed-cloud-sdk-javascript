@@ -259,6 +259,51 @@ describe("test paginator", () => {
         expect(index).toEqual(2);
     });
 
+    it("should get first item", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        const firstItem = await paginator.first();
+
+        expect(firstItem).toBe(fetchData.allData[0]);
+
+        const firstItemFromCache = await paginator.first();
+
+        expect(firstItemFromCache).toBe(fetchData.allData[0]);
+    });
+
+    it("should get all items", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        const allItems = await paginator.all();
+
+        expect(allItems).toHaveLength(fetchData.allData.length);
+        allItems.forEach((item, index) => {
+            expect(item).toBe(fetchData.allData[index]);
+        });
+
+        fetchData.reset();
+        const allItemsAgain = await paginator.all();
+
+        expect(allItemsAgain).toHaveLength(fetchData.allData.length);
+        allItemsAgain.forEach((item, index) => {
+            expect(item).toBe(fetchData.allData[index]);
+        });
+    });
+
     const checkPage = (page: Page<Entity>, paginator: NewPaginator<Entity, ListOptions>, after: string, index: number) => {
         expect(page).not.toBeUndefined();
         expect(page.after).toBe(after);
