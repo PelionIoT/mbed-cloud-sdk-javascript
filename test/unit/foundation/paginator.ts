@@ -76,7 +76,6 @@ describe("test paginator", () => {
         expect(paginator.pageSize).toBe(50);
         expect(paginator.totalPages).toBe(1);
         expect(paginator.currentPageIndex).toBe(-1);
-        expect(paginator.totalCount).toBe(0);
         expect(paginator.currentPage).toBeUndefined();
         expect(paginator.pages).toEqual([]);
     });
@@ -94,7 +93,7 @@ describe("test paginator", () => {
         const page = await paginator.nextPage();
 
         expect(page).not.toBeUndefined();
-        expect(paginator.totalCount).toBe(12);
+        expect(await paginator.totalCount()).toBe(12);
         checkPage(page, paginator, "AAAC", 0);
 
         expect(paginator.hasNextPage()).toBeTruthy();
@@ -112,7 +111,7 @@ describe("test paginator", () => {
 
         const page = await paginator.nextPage();
 
-        expect(paginator.totalCount).toBe(12);
+        expect(await paginator.totalCount()).toBe(12);
         checkPage(page, paginator, "AAAC", 0);
 
         expect(paginator.hasNextPage()).toBeTruthy();
@@ -302,6 +301,20 @@ describe("test paginator", () => {
         allItemsAgain.forEach((item, index) => {
             expect(item).toBe(fetchData.allData[index]);
         });
+    });
+
+    it("should get total count", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        expect(await paginator.totalCount()).toBe(12);
+        expect(await paginator.totalCount()).toBe(12);
     });
 
     const checkPage = (page: Page<Entity>, paginator: NewPaginator<Entity, ListOptions>, after: string, index: number) => {
