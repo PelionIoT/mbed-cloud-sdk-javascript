@@ -4,7 +4,7 @@ The Pelion Device Management SDK provides a simplified interface to the Pelion D
 
 ## Prerequisite
 
-[Node.js > v8](https://nodejs.org), which includes `npm`.
+[Node.js > v10.16.0 (lts)](https://nodejs.org), which includes `npm`.
 
 ## Installation
 
