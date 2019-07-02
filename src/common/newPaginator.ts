@@ -1,5 +1,5 @@
 import { ListOptions } from "../legacy/common/interfaces";
-import { Page } from "./Page";
+import { Page } from "./page";
 import { Entity } from "./entity";
 
 export class NewPaginator<T extends Entity, U extends ListOptions> implements AsyncIterableIterator<T> {
