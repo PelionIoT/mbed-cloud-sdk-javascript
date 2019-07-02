@@ -1,7 +1,7 @@
 import { ListOptions } from "../../../src/legacy/common/interfaces";
 import { NewPaginator, Page } from "../../../src";
 import { Entity } from "../../../src/common/entity";
-import { FetchPageStub } from "./fetchPageStub";
+import { FetchPageStub } from "../../fetchPageStub";
 
 describe("test paginator", () => {
 
@@ -172,6 +172,91 @@ describe("test paginator", () => {
         const paginator = new NewPaginator(null);
 
         expect(() => paginator.throw(new Error("some error"))).toThrow();
+    });
+
+    it("should iterate over items", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        let index = 0;
+        for await (const item of paginator) {
+            expect(item).not.toBeUndefined();
+            expect(item).toBe(fetchData.allData[index++]);
+        }
+
+        expect(index).toEqual(fetchData.allData.length);
+    });
+
+    it("should iterate over items and reset", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        let index = 0;
+        for await (const item of paginator) {
+            expect(item).not.toBeUndefined();
+            expect(item).toBe(fetchData.allData[index++]);
+        }
+
+        expect(index).toEqual(fetchData.allData.length);
+
+        index = 0;
+        fetchData.reset();
+        for await (const item of paginator) {
+            expect(item).not.toBeUndefined();
+            expect(item).toBe(fetchData.allData[index++]);
+        }
+
+        expect(index).toEqual(fetchData.allData.length);
+    });
+
+    it("should iterate over items when max results is smaller than amount of data", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 7,
+        };
+
+        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        let index = 0;
+        for await (const item of paginator) {
+            expect(item).not.toBeUndefined();
+            expect(item).toBe(fetchData.allData[index++]);
+        }
+
+        expect(index).toEqual(7);
+    });
+
+    it("should iterate over items when max results is smaller than amount of data and page size", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 2,
+        };
+
+        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        let index = 0;
+        for await (const item of paginator) {
+            expect(item).not.toBeUndefined();
+            expect(item).toBe(fetchData.allData[index++]);
+        }
+
+        expect(index).toEqual(2);
     });
 
     const checkPage = (page: Page<Entity>, paginator: NewPaginator<Entity, ListOptions>, after: string, index: number) => {

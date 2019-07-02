@@ -28,12 +28,20 @@ export class NewPaginator<T extends Entity, U extends ListOptions> implements As
         this.reset();
     }
 
+    public reset(): void {
+        this.currentPageIndex = -1;
+        this.currentPage = undefined;
+        this.pages = [];
+        this.listOptions.after = null;
+        this.currentItemIndex = -1;
+    }
+
     public hasNextPage(): boolean {
         if (this.currentPageIndex === -1) {
             return true;
         }
 
-        return this.currentPageIndex < this.totalPages && this.currentPage.hasMore;
+        return this.currentPageIndex < this.totalPages - 1 && this.currentPage.hasMore;
     }
 
     public async nextPage(): Promise<Page<T>> {
@@ -56,39 +64,8 @@ export class NewPaginator<T extends Entity, U extends ListOptions> implements As
         }
     }
 
-    public reset(): void {
-        this.currentPageIndex = -1;
-        this.currentPage = undefined;
-        this.pages = [];
-        this.listOptions.after = null;
-        this.currentItemIndex = -1;
-    }
-
     public [Symbol.asyncIterator](): AsyncIterableIterator<T> {
-        this.reset();
         return this;
-    }
-
-    public hasNextItem(): boolean {
-        if (this.hasNextPage()) {
-            return true;
-        }
-
-        return this.currentItemIndex < this.maxResults;
-    }
-
-    private async nextItem(): Promise<T> {
-        this.currentItemIndex++;
-        if (this.currentPage) {
-            const item = this.currentPage.next();
-            if (item.done && this.hasNextPage()) {
-                await this.nextPage();
-                const nextItem = this.currentPage.next();
-                if (!nextItem.done) {
-                    return nextItem.value;
-                }
-            }
-        }
     }
 
     public async next(): Promise<IteratorResult<T>> {
@@ -102,6 +79,7 @@ export class NewPaginator<T extends Entity, U extends ListOptions> implements As
             }
         }
 
+        this.reset();
         return {
             value: null,
             done: true,
@@ -117,5 +95,37 @@ export class NewPaginator<T extends Entity, U extends ListOptions> implements As
 
     public throw(e?: any): Promise<IteratorResult<T>> {
         throw e;
+    }
+
+    private hasNextItem(): boolean {
+        if (this.hasNextPage()) {
+            return true;
+        }
+
+        return this.currentItemIndex < this.maxResults - 1;
+    }
+
+    private async fetchNextPage(): Promise<T> {
+        await this.nextPage();
+        const nextItem = this.currentPage.next();
+        if (nextItem.value) {
+            return nextItem.value;
+        }
+    }
+
+    private async nextItem(): Promise<T> {
+        this.currentItemIndex++;
+        if (this.currentPage) {
+            const item = this.currentPage.next();
+            if (item.done && this.hasNextPage()) {
+                return await this.fetchNextPage();
+            }
+
+            if (item.value) {
+                return item.value;
+            }
+        } else {
+            return await this.fetchNextPage();
+        }
     }
 }

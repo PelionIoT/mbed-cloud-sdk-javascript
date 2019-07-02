@@ -68,7 +68,7 @@ export class Page<T> implements IterableIterator<T> {
         }
     }
 
-    [Symbol.iterator](): IterableIterator<T> {
+    public [Symbol.iterator](): IterableIterator<T> {
         return this;
     }
     public next(): IteratorResult<T> {
@@ -76,7 +76,7 @@ export class Page<T> implements IterableIterator<T> {
             return {
                 done: false,
                 value: this.data[this.currentIndex++],
-            }
+            };
         } else {
             this.currentIndex = 0;
             return {
@@ -89,7 +89,7 @@ export class Page<T> implements IterableIterator<T> {
         return {
             done: true,
             value,
-        }
+        };
     }
     public throw?(e?: any): IteratorResult<T> {
         throw e;

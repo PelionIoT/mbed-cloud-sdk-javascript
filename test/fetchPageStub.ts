@@ -1,10 +1,10 @@
-import { ListOptions } from "../../../src/legacy/common/interfaces";
-import { Page } from "../../../src";
-import { Entity } from "../../../src/common/entity";
+import { ListOptions } from "../src/legacy/common/interfaces";
+import { Page } from "../src";
+import { Entity } from "../src/common/entity";
 
 export class FetchPageStub {
 
-    private allData = [
+    public allData = [
         {
             id: "AAAA"
         },
@@ -50,20 +50,25 @@ export class FetchPageStub {
         null
     ];
 
-    private index = 0;
+    private index = -1;
 
     public getDataFunc = () => {
         return (_options: ListOptions) => {
+            this.index++;
+            // console.log("index in stub " + this.index);
             return Promise.resolve(new Page<Entity>({
                 total_count: 12,
                 has_more: this.index < 3,
                 limit: 3,
                 order: "ASC",
-                after: this.afters[this.index++],
+                after: this.afters[this.index],
             },
-                this.allData.slice(this.index * 3, (this.index * 3) + 2)
+                this.allData.slice(this.index * 3, (this.index * 3) + 3)
             ));
         };
+    }
 
+    public reset(): void {
+        this.index = -1;
     }
 }
