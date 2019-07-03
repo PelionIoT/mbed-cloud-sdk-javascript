@@ -1,3 +1,3 @@
 
 export { Page } from "./page";
-export { NewPaginator } from "./newPaginator";
+export { Paginator } from "./paginator";

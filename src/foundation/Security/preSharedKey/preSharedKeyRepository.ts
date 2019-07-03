@@ -3,8 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { PreSharedKey } from "./preSharedKey";
 import { PreSharedKeyAdapter } from "../../index";
 import { PreSharedKeyCreateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *PreSharedKey repository
@@ -62,7 +61,7 @@ export class PreSharedKeyRepository extends Repository {
      * @param options - options
      */
     public list(options?: ListOptions): Paginator<PreSharedKey, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<PreSharedKey>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<PreSharedKey>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -78,8 +77,8 @@ export class PreSharedKeyRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<PreSharedKey>, done) => {
-                    done(null, new ListResponse(data, data.data, PreSharedKeyAdapter.fromApi));
+                (data: Page<PreSharedKey>, done) => {
+                    done(null, new Page(data, data.data, PreSharedKeyAdapter.fromApi));
                 },
                 null
             );

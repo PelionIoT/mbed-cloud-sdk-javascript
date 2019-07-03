@@ -26,8 +26,7 @@ import { AccountSubtenantUserInvitationListOptions } from "./types";
 import { SubtenantUser } from "../../index";
 import { SubtenantUserAdapter } from "../../index";
 import { AccountSubtenantUserListOptions } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *Account repository
@@ -39,7 +38,7 @@ export class AccountRepository extends Repository {
      * @param options - Options to use for the List
      */
     public apiKeys(id: string, options?: AccountSubtenantApiKeyListOptions): Paginator<SubtenantApiKey, ListOptions> {
-        const pageFunc = (pageOptions: AccountSubtenantApiKeyListOptions): Promise<ListResponse<SubtenantApiKey>> => {
+        const pageFunc = (pageOptions: AccountSubtenantApiKeyListOptions): Promise<Page<SubtenantApiKey>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -62,8 +61,8 @@ export class AccountRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<SubtenantApiKey>, done) => {
-                    done(null, new ListResponse(data, data.data, SubtenantApiKeyAdapter.fromApi));
+                (data: Page<SubtenantApiKey>, done) => {
+                    done(null, new Page(data, data.data, SubtenantApiKeyAdapter.fromApi));
                 },
                 null
             );
@@ -124,7 +123,7 @@ export class AccountRepository extends Repository {
      * @param options - options
      */
     public darkThemeBrandingColors(id: string, options?: ListOptions): Paginator<SubtenantDarkThemeColor, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantDarkThemeColor>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<SubtenantDarkThemeColor>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -139,8 +138,8 @@ export class AccountRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<SubtenantDarkThemeColor>, done) => {
-                    done(null, new ListResponse(data, data.data, SubtenantDarkThemeColorAdapter.fromApi));
+                (data: Page<SubtenantDarkThemeColor>, done) => {
+                    done(null, new Page(data, data.data, SubtenantDarkThemeColorAdapter.fromApi));
                 },
                 null
             );
@@ -153,7 +152,7 @@ export class AccountRepository extends Repository {
      * @param options - options
      */
     public darkThemeBrandingImages(id: string, options?: ListOptions): Paginator<SubtenantDarkThemeImage, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantDarkThemeImage>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<SubtenantDarkThemeImage>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -168,8 +167,8 @@ export class AccountRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<SubtenantDarkThemeImage>, done) => {
-                    done(null, new ListResponse(data, data.data, SubtenantDarkThemeImageAdapter.fromApi));
+                (data: Page<SubtenantDarkThemeImage>, done) => {
+                    done(null, new Page(data, data.data, SubtenantDarkThemeImageAdapter.fromApi));
                 },
                 null
             );
@@ -185,7 +184,7 @@ export class AccountRepository extends Repository {
         id: string,
         options?: ListOptions
     ): Paginator<SubtenantLightThemeColor, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantLightThemeColor>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<SubtenantLightThemeColor>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -200,8 +199,8 @@ export class AccountRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<SubtenantLightThemeColor>, done) => {
-                    done(null, new ListResponse(data, data.data, SubtenantLightThemeColorAdapter.fromApi));
+                (data: Page<SubtenantLightThemeColor>, done) => {
+                    done(null, new Page(data, data.data, SubtenantLightThemeColorAdapter.fromApi));
                 },
                 null
             );
@@ -217,7 +216,7 @@ export class AccountRepository extends Repository {
         id: string,
         options?: ListOptions
     ): Paginator<SubtenantLightThemeImage, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<SubtenantLightThemeImage>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<SubtenantLightThemeImage>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -232,8 +231,8 @@ export class AccountRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<SubtenantLightThemeImage>, done) => {
-                    done(null, new ListResponse(data, data.data, SubtenantLightThemeImageAdapter.fromApi));
+                (data: Page<SubtenantLightThemeImage>, done) => {
+                    done(null, new Page(data, data.data, SubtenantLightThemeImageAdapter.fromApi));
                 },
                 null
             );
@@ -245,7 +244,7 @@ export class AccountRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: AccountListOptions): Paginator<Account, ListOptions> {
-        const pageFunc = (pageOptions: AccountListOptions): Promise<ListResponse<Account>> => {
+        const pageFunc = (pageOptions: AccountListOptions): Promise<Page<Account>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -272,8 +271,8 @@ export class AccountRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<Account>, done) => {
-                    done(null, new ListResponse(data, data.data, AccountAdapter.fromApi));
+                (data: Page<Account>, done) => {
+                    done(null, new Page(data, data.data, AccountAdapter.fromApi));
                 },
                 null
             );
@@ -343,7 +342,7 @@ export class AccountRepository extends Repository {
     ): Paginator<SubtenantTrustedCertificate, ListOptions> {
         const pageFunc = (
             pageOptions: AccountSubtenantTrustedCertificateListOptions
-        ): Promise<ListResponse<SubtenantTrustedCertificate>> => {
+        ): Promise<Page<SubtenantTrustedCertificate>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -383,8 +382,8 @@ export class AccountRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<SubtenantTrustedCertificate>, done) => {
-                    done(null, new ListResponse(data, data.data, SubtenantTrustedCertificateAdapter.fromApi));
+                (data: Page<SubtenantTrustedCertificate>, done) => {
+                    done(null, new Page(data, data.data, SubtenantTrustedCertificateAdapter.fromApi));
                 },
                 null
             );
@@ -451,7 +450,7 @@ export class AccountRepository extends Repository {
     ): Paginator<SubtenantUserInvitation, ListOptions> {
         const pageFunc = (
             pageOptions: AccountSubtenantUserInvitationListOptions
-        ): Promise<ListResponse<SubtenantUserInvitation>> => {
+        ): Promise<Page<SubtenantUserInvitation>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -472,8 +471,8 @@ export class AccountRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<SubtenantUserInvitation>, done) => {
-                    done(null, new ListResponse(data, data.data, SubtenantUserInvitationAdapter.fromApi));
+                (data: Page<SubtenantUserInvitation>, done) => {
+                    done(null, new Page(data, data.data, SubtenantUserInvitationAdapter.fromApi));
                 },
                 null
             );
@@ -486,7 +485,7 @@ export class AccountRepository extends Repository {
      * @param options - Options to use for the List
      */
     public users(id: string, options?: AccountSubtenantUserListOptions): Paginator<SubtenantUser, ListOptions> {
-        const pageFunc = (pageOptions: AccountSubtenantUserListOptions): Promise<ListResponse<SubtenantUser>> => {
+        const pageFunc = (pageOptions: AccountSubtenantUserListOptions): Promise<Page<SubtenantUser>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -512,8 +511,8 @@ export class AccountRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<SubtenantUser>, done) => {
-                    done(null, new ListResponse(data, data.data, SubtenantUserAdapter.fromApi));
+                (data: Page<SubtenantUser>, done) => {
+                    done(null, new Page(data, data.data, SubtenantUserAdapter.fromApi));
                 },
                 null
             );

@@ -8,8 +8,7 @@ import { DeveloperCertificateAdapter } from "../../index";
 import { extractFilter } from "../../../common/filters";
 import { TrustedCertificateListOptions } from "./types";
 import { TrustedCertificateUpdateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *TrustedCertificate repository
@@ -94,7 +93,7 @@ export class TrustedCertificateRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: TrustedCertificateListOptions): Paginator<TrustedCertificate, ListOptions> {
-        const pageFunc = (pageOptions: TrustedCertificateListOptions): Promise<ListResponse<TrustedCertificate>> => {
+        const pageFunc = (pageOptions: TrustedCertificateListOptions): Promise<Page<TrustedCertificate>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -131,8 +130,8 @@ export class TrustedCertificateRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<TrustedCertificate>, done) => {
-                    done(null, new ListResponse(data, data.data, TrustedCertificateAdapter.fromApi));
+                (data: Page<TrustedCertificate>, done) => {
+                    done(null, new Page(data, data.data, TrustedCertificateAdapter.fromApi));
                 },
                 null
             );

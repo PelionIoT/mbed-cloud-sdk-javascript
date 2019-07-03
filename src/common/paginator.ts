@@ -1,8 +1,9 @@
 import { ListOptions } from "../legacy/common/interfaces";
 import { Page } from "./page";
 import { Entity } from "./entity";
+import { isArray } from "util";
 
-export class NewPaginator<T extends Entity, U extends ListOptions> implements AsyncIterableIterator<T> {
+export class Paginator<T extends Entity, U extends ListOptions> implements AsyncIterableIterator<T> {
     private _totalCount: number;
     private firstItem: T;
     public readonly listOptions: U;
@@ -122,6 +123,11 @@ export class NewPaginator<T extends Entity, U extends ListOptions> implements As
     public async totalCount(): Promise<number> {
         if (this._totalCount === null || this._totalCount === undefined) {
             this.reset();
+            if (isArray(this.listOptions.include) && !this.listOptions.include.includes("totalCount")) {
+                this.listOptions.include.push("totalCount");
+            } else {
+                this.listOptions.include = [ "totalCount" ];
+            }
             await this.nextPage();
             this.reset();
             return this._totalCount;

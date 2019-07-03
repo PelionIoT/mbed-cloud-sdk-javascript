@@ -7,7 +7,7 @@ import { Repository } from "../../../src/common/repository";
 import { snakeToCamel, camelToSnake } from "../../../src/legacy/common/functions";
 import { logMessage } from "../logger";
 import * as fs from "fs-extra";
-import { Paginator } from "../../../src/common/pagination";
+import { Paginator } from "../../../src";
 
 /**
  * Method

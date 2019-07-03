@@ -8,8 +8,7 @@ import { CampaignDeviceMetadataAdapter } from "../../index";
 import { extractFilter } from "../../../common/filters";
 import { UpdateCampaignListOptions } from "./types";
 import { UpdateCampaignUpdateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *UpdateCampaign repository
@@ -94,7 +93,7 @@ export class UpdateCampaignRepository extends Repository {
      * @param options - options
      */
     public deviceMetadata(id: string, options?: ListOptions): Paginator<CampaignDeviceMetadata, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CampaignDeviceMetadata>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<CampaignDeviceMetadata>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -115,8 +114,8 @@ export class UpdateCampaignRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<CampaignDeviceMetadata>, done) => {
-                    done(null, new ListResponse(data, data.data, CampaignDeviceMetadataAdapter.fromApi));
+                (data: Page<CampaignDeviceMetadata>, done) => {
+                    done(null, new Page(data, data.data, CampaignDeviceMetadataAdapter.fromApi));
                 },
                 null
             );
@@ -128,7 +127,7 @@ export class UpdateCampaignRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: UpdateCampaignListOptions): Paginator<UpdateCampaign, ListOptions> {
-        const pageFunc = (pageOptions: UpdateCampaignListOptions): Promise<ListResponse<UpdateCampaign>> => {
+        const pageFunc = (pageOptions: UpdateCampaignListOptions): Promise<Page<UpdateCampaign>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -190,8 +189,8 @@ export class UpdateCampaignRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<UpdateCampaign>, done) => {
-                    done(null, new ListResponse(data, data.data, UpdateCampaignAdapter.fromApi));
+                (data: Page<UpdateCampaign>, done) => {
+                    done(null, new Page(data, data.data, UpdateCampaignAdapter.fromApi));
                 },
                 null
             );

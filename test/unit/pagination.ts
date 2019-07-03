@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { executeForAll, Paginator } from "../../src/common/pagination";
+import { executeForAll, Paginator } from "../../src/legacy/common/legacyPaginator";
 import { ListResponse } from "../../src/legacy/common/listResponse";
 import { ListOptions } from "../../src/legacy/common/interfaces";
 

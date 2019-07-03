@@ -1,5 +1,5 @@
 import { ListOptions } from "../../../src/legacy/common/interfaces";
-import { NewPaginator, Page } from "../../../src";
+import { Paginator, Page } from "../../../src";
 import { Entity } from "../../../src/common/entity";
 import { FetchPageStub } from "../../fetchPageStub";
 
@@ -10,7 +10,7 @@ describe("test paginator", () => {
             maxResults: 10,
         };
 
-        const paginator = new NewPaginator(null, options);
+        const paginator = new Paginator(null, options);
 
         expect(paginator.listOptions.maxResults).toBe(10);
     });
@@ -20,7 +20,7 @@ describe("test paginator", () => {
             maxResults: 10,
         };
 
-        const paginator = new NewPaginator(null, options);
+        const paginator = new Paginator(null, options);
 
         expect(paginator.maxResults).toBe(10);
     });
@@ -30,7 +30,7 @@ describe("test paginator", () => {
             limit: 10,
         };
 
-        const paginator = new NewPaginator(null, options);
+        const paginator = new Paginator(null, options);
 
         expect(paginator.maxResults).toBe(10);
     });
@@ -40,7 +40,7 @@ describe("test paginator", () => {
             pageSize: 10,
         };
 
-        const paginator = new NewPaginator(null, options);
+        const paginator = new Paginator(null, options);
 
         expect(paginator.pageSize).toBe(10);
     });
@@ -51,7 +51,7 @@ describe("test paginator", () => {
             pageSize: 10,
         };
 
-        const paginator = new NewPaginator(null, options);
+        const paginator = new Paginator(null, options);
 
         expect(paginator.totalPages).toBe(5);
     });
@@ -62,7 +62,7 @@ describe("test paginator", () => {
             pageSize: 50,
         };
 
-        const paginator = new NewPaginator(null, options);
+        const paginator = new Paginator(null, options);
 
         expect(paginator.totalPages).toBe(1);
     });
@@ -70,7 +70,7 @@ describe("test paginator", () => {
     it("should set defaults", () => {
         const options: ListOptions = {};
 
-        const paginator = new NewPaginator(null, options);
+        const paginator = new Paginator(null, options);
 
         expect(paginator.maxResults).toBe(50);
         expect(paginator.pageSize).toBe(50);
@@ -88,7 +88,7 @@ describe("test paginator", () => {
             maxResults: 15,
         };
 
-        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
         const page = await paginator.nextPage();
 
@@ -107,7 +107,7 @@ describe("test paginator", () => {
             maxResults: 15,
         };
 
-        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
         const page = await paginator.nextPage();
 
@@ -141,7 +141,7 @@ describe("test paginator", () => {
             maxResults: 15,
         };
 
-        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
         const page = await paginator.nextPage();
 
@@ -159,7 +159,7 @@ describe("test paginator", () => {
     });
 
     it("should return iterator result from return method", async () => {
-        const paginator = new NewPaginator(null);
+        const paginator = new Paginator(null);
 
         const iteratorResult = await paginator.return(1);
 
@@ -168,7 +168,7 @@ describe("test paginator", () => {
     });
 
     it("should throw from throw method", () => {
-        const paginator = new NewPaginator(null);
+        const paginator = new Paginator(null);
 
         expect(() => paginator.throw(new Error("some error"))).toThrow();
     });
@@ -181,7 +181,7 @@ describe("test paginator", () => {
             maxResults: 15,
         };
 
-        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
         let index = 0;
         for await (const item of paginator) {
@@ -200,7 +200,7 @@ describe("test paginator", () => {
             maxResults: 15,
         };
 
-        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
         let index = 0;
         for await (const item of paginator) {
@@ -228,7 +228,7 @@ describe("test paginator", () => {
             maxResults: 7,
         };
 
-        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
         let index = 0;
         for await (const item of paginator) {
@@ -247,7 +247,7 @@ describe("test paginator", () => {
             maxResults: 2,
         };
 
-        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
         let index = 0;
         for await (const item of paginator) {
@@ -266,7 +266,7 @@ describe("test paginator", () => {
             maxResults: 15,
         };
 
-        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
         const firstItem = await paginator.first();
 
@@ -285,7 +285,7 @@ describe("test paginator", () => {
             maxResults: 15,
         };
 
-        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
         const allItems = await paginator.all();
 
@@ -311,13 +311,15 @@ describe("test paginator", () => {
             maxResults: 15,
         };
 
-        const paginator = new NewPaginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
         expect(await paginator.totalCount()).toBe(12);
         expect(await paginator.totalCount()).toBe(12);
+
+        expect(paginator.listOptions.include).toContain("totalCount");
     });
 
-    const checkPage = (page: Page<Entity>, paginator: NewPaginator<Entity, ListOptions>, after: string, index: number) => {
+    const checkPage = (page: Page<Entity>, paginator: Paginator<Entity, ListOptions>, after: string, index: number) => {
         expect(page).not.toBeUndefined();
         expect(page.after).toBe(after);
         expect(paginator.currentPageAfter).toEqual(page.after);

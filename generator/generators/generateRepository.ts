@@ -342,18 +342,13 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
         if (hasPaginator) {
             repositoryClass.addImport(new ImportContainer(
                 `PAGINATOR`,
-                "../../../common/pagination",
+                "../../../index",
                 [
-                    "Paginator"
+                    "Paginator",
+                    "Page"
                 ]
             ));
-            repositoryClass.addImport(new ImportContainer(
-                `LIST_RESPONSE`,
-                "../../../legacy/common/listResponse",
-                [
-                    "ListResponse"
-                ]
-            ));
+
             repositoryClass.addImport(new ImportContainer(
                 `LIST_OPTIONS`,
                 "../../../legacy/common/interfaces",

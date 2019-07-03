@@ -1,4 +1,4 @@
-const pageFunc = (pageOptions: <%= listOptionsType %>): Promise<ListResponse<<%= returns %>>> => {
+const pageFunc = (pageOptions: <%= listOptionsType %>): Promise<Page<<%= returns %>>> => {
 pageOptions = pageOptions || {}
 return apiWrapper(
 resultsFn => {
@@ -39,8 +39,8 @@ method: "GET",
 resultsFn
 );
 },
-(data: ListResponse<<%= returns %>>, done) => {
-done(null, new ListResponse(data, data.data, <%= returns %>Adapter.fromApi));
+(data: Page<<%= returns %>>, done) => {
+done(null, new Page(data, data.data, <%= returns %>Adapter.fromApi));
 },
 null
 );

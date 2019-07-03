@@ -6,8 +6,7 @@ import { CertificateIssuerCreateRequest } from "./types";
 import { CertificateIssuerUpdateRequest } from "./types";
 import { VerificationResponse } from "../../index";
 import { VerificationResponseAdapter } from "../../index";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *CertificateIssuer repository
@@ -70,7 +69,7 @@ An active certificate issuer may not be deleted.
      * @param options - options
      */
     public list(options?: ListOptions): Paginator<CertificateIssuer, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CertificateIssuer>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<CertificateIssuer>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -88,8 +87,8 @@ An active certificate issuer may not be deleted.
                         resultsFn
                     );
                 },
-                (data: ListResponse<CertificateIssuer>, done) => {
-                    done(null, new ListResponse(data, data.data, CertificateIssuerAdapter.fromApi));
+                (data: Page<CertificateIssuer>, done) => {
+                    done(null, new Page(data, data.data, CertificateIssuerAdapter.fromApi));
                 },
                 null
             );

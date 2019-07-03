@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-import { ListResponse } from "../legacy/common/listResponse";
-import { ListOptions } from "../legacy/common/interfaces";
+import { ListResponse } from "./listResponse";
+import { ListOptions } from "./interfaces";
 
 /**
  * Run `execute` for all items returned from getPage, one page at a time. If any call to getPage or execute fails, the resulting promise is rejected.
@@ -170,7 +170,7 @@ export class Paginator<T, U extends ListOptions> implements AsyncIterableIterato
             if (newPageOptions.include && newPageOptions.include instanceof Array) {
                 newPageOptions.include.push("totalCount");
             } else {
-                newPageOptions.include = [ "totalCount" ];
+                newPageOptions.include = ["totalCount"];
             }
             return this.pageRequester(newPageOptions)
                 .then(page => {
@@ -230,9 +230,9 @@ export class Paginator<T, U extends ListOptions> implements AsyncIterableIterato
         this.currentElementIndex++;
         if (this.currentPageData) {
             const nextElement = this.fetchElementInPage(this.currentPageData, this.currentElementIndex, this.remainingElementsNumber(), false);
-            return nextElement ? Promise.resolve(nextElement) : this.nextPage().then( page => page ? this.nextItem() : null);
+            return nextElement ? Promise.resolve(nextElement) : this.nextPage().then(page => page ? this.nextItem() : null);
         } else {
-            return this.nextPage().then( page => page ? this.nextItem() : null);
+            return this.nextPage().then(page => page ? this.nextItem() : null);
         }
     }
 
@@ -257,20 +257,20 @@ export class Paginator<T, U extends ListOptions> implements AsyncIterableIterato
         if (this.hasNewPage()) {
             return this.nextPage()
                 .then(page => this.browseAndConcatenateAllPages()
-                .then(data => {
-                    if (page && page.data) {
-                        return page.data.length === 0 ? data : page.data.concat(data);
-                    }
+                    .then(data => {
+                        if (page && page.data) {
+                            return page.data.length === 0 ? data : page.data.concat(data);
+                        }
 
-                    return [];
-                }));
+                        return [];
+                    }));
         }
         return Promise.resolve([]);
     }
 
     private executeOnAllElements(execute: (element: T) => void) {
         if (this.hasNext()) {
-            return this.nextItem().then( element => execute(element)).then(() => this.executeOnAllElements(execute));
+            return this.nextItem().then(element => execute(element)).then(() => this.executeOnAllElements(execute));
         }
         return Promise.resolve();
     }
