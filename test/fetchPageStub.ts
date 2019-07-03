@@ -50,12 +50,11 @@ export class FetchPageStub {
         null
     ];
 
-    private index = -1;
+    public index = -1;
 
     public getDataFunc = () => {
         return (_options: ListOptions) => {
             this.index++;
-            // console.log("index in stub " + this.index);
             return Promise.resolve(new Page<Entity>({
                 total_count: 12,
                 has_more: this.index < 3,

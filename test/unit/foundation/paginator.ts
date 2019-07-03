@@ -77,7 +77,7 @@ describe("test paginator", () => {
         expect(paginator.totalPages).toBe(1);
         expect(paginator.currentPageIndex).toBe(-1);
         expect(paginator.currentPage).toBeUndefined();
-        expect(paginator.pages).toEqual([]);
+        expect(paginator.afters).toEqual([]);
     });
 
     it("should fetch one page", async () => {
@@ -154,7 +154,7 @@ describe("test paginator", () => {
 
         expect(paginator.currentPageIndex).toBe(-1);
         expect(paginator.currentPage).toBeUndefined();
-        expect(paginator.pages).toEqual([]);
+        expect(paginator.afters).toEqual([]);
         expect(paginator.listOptions.after).toBeNull();
     });
 
@@ -322,6 +322,64 @@ describe("test paginator", () => {
         expect(paginator.listOptions.include).toContain("totalCount");
     });
 
+    it("should not return previous page in start state, or at page one", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        expect(await paginator.previousPage()).toBeUndefined();
+
+        await paginator.nextPage();
+
+        expect(await paginator.previousPage()).toBeUndefined();
+    });
+
+    it("should return previous page", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        expect(await paginator.previousPage()).toBeUndefined();
+
+        const firstPage = await paginator.nextPage();
+
+        expect(await paginator.previousPage()).toBeUndefined();
+
+        const secondPage = await paginator.nextPage();
+
+        fetchData.index -= 2;
+        let firstPreviousPage = await paginator.previousPage();
+        expect(firstPreviousPage).toEqual(firstPage);
+
+        await paginator.nextPage();
+
+        const thirdPage = await paginator.nextPage();
+
+        await paginator.nextPage();
+
+        fetchData.index -= 2;
+        const thirdPreviousPage = await paginator.previousPage();
+        expect(thirdPreviousPage).toEqual(thirdPage);
+
+        fetchData.index -= 2;
+        const secondPreviousPage = await paginator.previousPage();
+        expect(secondPreviousPage).toEqual(secondPage);
+
+        fetchData.index -= 2;
+        firstPreviousPage = await paginator.previousPage();
+        expect(firstPreviousPage).toEqual(firstPage);
+    });
+
     const checkPage = (page: Page<Entity>, paginator: Paginator<Entity, ListOptions>, after: string, index: number) => {
         expect(page).not.toBeUndefined();
         expect(page.after).toBe(after);
@@ -329,7 +387,7 @@ describe("test paginator", () => {
         expect(paginator.listOptions.after).toEqual(page.after);
         expect(paginator.currentPageIndex).toBe(index);
         expect(paginator.currentPage).toBe(page);
-        expect(paginator.pages[index]).toBe(page);
+        expect(paginator.afters[index]).toBe(page.after);
     }
 
 });

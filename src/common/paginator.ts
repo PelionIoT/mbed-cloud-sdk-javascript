@@ -8,8 +8,9 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
     private _firstItem: T;
     private _currentPageIndex: number;
     private _currentPageAfter: string;
+    private _currentPageHasMore: boolean;
     private _currentPage: Page<T>;
-    private _pages: Array<Page<T>>;
+    private _afters: Array<string>;
     private _currentItemIndex: number;
     public readonly listOptions: U;
     public readonly pageSize: number;
@@ -29,8 +30,8 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
         return this._currentPage;
     }
 
-    public get pages() {
-        return this._pages;
+    public get afters() {
+        return this._afters;
     }
 
     public get currentItemIndex() {
@@ -52,7 +53,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
     public reset(): void {
         this._currentPageIndex = -1;
         this._currentPage = undefined;
-        this._pages = [];
+        this._afters = [];
         this.listOptions.after = null;
         this._currentItemIndex = -1;
     }
@@ -62,7 +63,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
             return true;
         }
 
-        return this.currentPageIndex < this.totalPages - 1 && this.currentPage.hasMore;
+        return this.currentPageIndex < this.totalPages - 1 && this._currentPageHasMore;
     }
 
     public async nextPage(): Promise<Page<T>> {
@@ -71,9 +72,10 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
                 const page = await this.fetchPageFunction(this.listOptions);
                 if (page) {
                     this._currentPage = page;
-                    this.pages.push(page);
                     this._totalCount = page.totalCount;
                     this._currentPageAfter = page.after || page.continuationMarker || null;
+                    this._currentPageHasMore = page.hasMore;
+                    this._afters.push(this._currentPageAfter);
                     this.listOptions.after = this._currentPageAfter;
                     if (this.currentPageIndex === -1) {
                         this._firstItem = page.first();
@@ -154,6 +156,23 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
         }
 
         return this._totalCount;
+    }
+
+    public async previousPage(): Promise<Page<T>> {
+        if (this._currentPageIndex < 1) {
+            return;
+        }
+
+        this._currentPageIndex -= 2;
+        const after = this._afters[this._currentPageIndex];
+        if (after) {
+            this._currentPageHasMore = true;
+            this.listOptions.after = after;
+            return await this.nextPage();
+        } else {
+            this.reset();
+            return await this.nextPage();
+        }
     }
 
     private hasNextItem(): boolean {
