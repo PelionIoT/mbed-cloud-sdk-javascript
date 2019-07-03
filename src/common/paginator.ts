@@ -15,7 +15,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
     public readonly pageSize: number;
     public readonly totalPages: number;
     public readonly maxResults: number;
-    public readonly fetchPage: (options: U) => Promise<Page<T>>;
+    public readonly fetchPageFunction: (options: U) => Promise<Page<T>>;
 
     public get currentPageIndex() {
         return this._currentPageIndex;
@@ -44,7 +44,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
         this.maxResults = options.maxResults || options.limit || 50;
         this.pageSize = options.pageSize || 50;
         this.totalPages = Math.ceil(this.maxResults / this.pageSize);
-        this.fetchPage = fetchPage;
+        this.fetchPageFunction = fetchPage;
 
         this.reset();
     }
@@ -68,7 +68,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
     public async nextPage(): Promise<Page<T>> {
         if (this.hasNextPage()) {
             try {
-                const page = await this.fetchPage(this.listOptions);
+                const page = await this.fetchPageFunction(this.listOptions);
                 if (page) {
                     this._currentPage = page;
                     this.pages.push(page);

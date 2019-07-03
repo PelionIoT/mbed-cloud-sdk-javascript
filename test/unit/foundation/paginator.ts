@@ -309,6 +309,9 @@ describe("test paginator", () => {
         const options: ListOptions = {
             pageSize: 3,
             maxResults: 15,
+            include: [
+                "someIncludeValue",
+            ]
         };
 
         const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
