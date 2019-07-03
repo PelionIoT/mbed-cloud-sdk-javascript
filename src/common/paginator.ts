@@ -5,17 +5,37 @@ import { isArray } from "util";
 
 export class Paginator<T extends Entity, U extends ListOptions> implements AsyncIterableIterator<T> {
     private _totalCount: number;
-    private firstItem: T;
+    private _firstItem: T;
+    private _currentPageIndex: number;
+    private _currentPageAfter: string;
+    private _currentPage: Page<T>;
+    private _pages: Array<Page<T>>;
+    private _currentItemIndex: number;
     public readonly listOptions: U;
     public readonly pageSize: number;
     public readonly totalPages: number;
-    public currentPageIndex: number;
-    public currentPageAfter: string;
-    public currentPage: Page<T>;
-    public pages: Array<Page<T>>;
-    public currentItemIndex: number;
     public readonly maxResults: number;
     public readonly fetchPage: (options: U) => Promise<Page<T>>;
+
+    public get currentPageIndex() {
+        return this._currentPageIndex;
+    }
+
+    public get currentPageAfter() {
+        return this._currentPageAfter;
+    }
+
+    public get currentPage() {
+        return this._currentPage;
+    }
+
+    public get pages() {
+        return this._pages;
+    }
+
+    public get currentItemIndex() {
+        return this._currentItemIndex;
+    }
 
     constructor(fetchPage: (options: U) => Promise<Page<T>>, options?: U) {
         options = options || {} as U;
@@ -30,11 +50,11 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
     }
 
     public reset(): void {
-        this.currentPageIndex = -1;
-        this.currentPage = undefined;
-        this.pages = [];
+        this._currentPageIndex = -1;
+        this._currentPage = undefined;
+        this._pages = [];
         this.listOptions.after = null;
-        this.currentItemIndex = -1;
+        this._currentItemIndex = -1;
     }
 
     public hasNextPage(): boolean {
@@ -50,15 +70,15 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
             try {
                 const page = await this.fetchPage(this.listOptions);
                 if (page) {
-                    this.currentPage = page;
+                    this._currentPage = page;
                     this.pages.push(page);
                     this._totalCount = page.totalCount;
-                    this.currentPageAfter = page.after || page.continuationMarker || null;
-                    this.listOptions.after = this.currentPageAfter;
+                    this._currentPageAfter = page.after || page.continuationMarker || null;
+                    this.listOptions.after = this._currentPageAfter;
                     if (this.currentPageIndex === -1) {
-                        this.firstItem = page.first();
+                        this._firstItem = page.first();
                     }
-                    this.currentPageIndex++;
+                    this._currentPageIndex++;
 
                     return page;
                 }
@@ -102,8 +122,8 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
     }
 
     public async first(): Promise<T> {
-        if (this.firstItem) {
-            return this.firstItem;
+        if (this._firstItem) {
+            return this._firstItem;
         }
 
         this.reset();
@@ -153,7 +173,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
     }
 
     private async nextItem(): Promise<T> {
-        this.currentItemIndex++;
+        this._currentItemIndex++;
         if (this.currentPage) {
             const item = this.currentPage.next();
             if (item.done && this.hasNextPage()) {
