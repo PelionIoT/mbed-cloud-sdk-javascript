@@ -164,18 +164,10 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
         }
 
         this._currentPageIndex -= 2;
-        const after = this._afters[this._currentPageIndex];
-        if (after) {
-            this._currentPageHasMore = true;
-            this.listOptions.after = after;
-            return await this.nextPage();
-        } else {
-            this.reset();
-            return await this.nextPage();
-        }
+        return await this.getPreviousPageAtIndex();
     }
 
-    public goToPage(number: number) {
+    public async goToPage(number: number): Promise<Page<T>> {
         if (number > this.totalPages) {
             return;
         }
@@ -185,11 +177,25 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
         }
 
         if (number < this._currentPageIndex + 1) {
-            // we're going backwards
+            const diff = (this._currentPageIndex + 1) - number;
+            this._currentPageIndex = this._currentPageIndex - diff - 2;
+            return await this.getPreviousPageAtIndex();
         } else {
             // we're going forwards
         }
 
+    }
+
+    private async getPreviousPageAtIndex(): Promise<Page<T>> {
+        const after = this._afters[this._currentPageIndex];
+        if (after) {
+            this._currentPageHasMore = true;
+            this.listOptions.after = after;
+            return await this.nextPage();
+        } else {
+            this.reset();
+            return await this.nextPage();
+        }
     }
 
     private hasNextItem(): boolean {

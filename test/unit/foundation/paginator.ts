@@ -349,7 +349,7 @@ describe("test paginator", () => {
 
         const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
 
-        expect(paginator.goToPage(5)).toBeUndefined();
+        expect(await paginator.goToPage(5)).toBeUndefined();
     });
 
     it("should return previous page", async () => {
@@ -393,6 +393,44 @@ describe("test paginator", () => {
         expect(firstPreviousPage).toEqual(firstPage);
     });
 
+    it("should return current page if gotToPage value matches current page index", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        const firstPage = await paginator.nextPage();
+
+        const goToPageOne = await paginator.goToPage(1);
+
+        expect(firstPage).toBe(goToPageOne);
+    });
+
+    it("should return a previous page from gotToPage", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        const firstPage = await paginator.nextPage();
+
+        await paginator.nextPage();
+        await paginator.nextPage();
+
+        fetchData.index = -1;
+        const goToFirstPage = await paginator.goToPage(1);
+
+        expect(goToFirstPage).toEqual(firstPage);
+    });
+
     const checkPage = (page: Page<Entity>, paginator: Paginator<Entity, ListOptions>, after: string, index: number) => {
         expect(page).not.toBeUndefined();
         expect(page.after).toBe(after);
@@ -401,6 +439,6 @@ describe("test paginator", () => {
         expect(paginator.currentPageIndex).toBe(index);
         expect(paginator.currentPage).toBe(page);
         expect(paginator.afters[index]).toBe(page.after);
-    }
+    };
 
 });
