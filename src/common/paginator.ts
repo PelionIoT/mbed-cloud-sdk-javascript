@@ -12,11 +12,15 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
     private _currentPage: Page<T>;
     private _afters: Array<string>;
     private _currentItemIndex: number;
+    private _totalPages: number;
     public readonly listOptions: U;
     public readonly pageSize: number;
-    public readonly totalPages: number;
     public readonly maxResults: number;
     public readonly fetchPageFunction: (options: U) => Promise<Page<T>>;
+
+    public get totalPages() {
+        return this._totalPages;
+    }
 
     public get currentPageIndex() {
         return this._currentPageIndex;
@@ -44,7 +48,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
         this.listOptions.limit = this.listOptions.limit || this.listOptions.pageSize;
         this.maxResults = options.maxResults || options.limit || 50;
         this.pageSize = options.pageSize || 50;
-        this.totalPages = Math.ceil(this.maxResults / this.pageSize);
+        this._totalPages = this.getTotalPages(this.maxResults, this.pageSize);
         this.fetchPageFunction = fetchPage;
 
         this.reset();
@@ -73,6 +77,9 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
                 if (page) {
                     this._currentPage = page;
                     this._totalCount = page.totalCount;
+                    if (this._totalCount && this._totalCount < this.maxResults) {
+                        this._totalPages = this.getTotalPages(this._totalCount, this.pageSize);
+                    }
                     this._currentPageAfter = page.after || page.continuationMarker || null;
                     this._currentPageHasMore = page.hasMore;
                     this._afters.push(this._currentPageAfter);
@@ -181,7 +188,21 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
             this._currentPageIndex = this._currentPageIndex - diff - 2;
             return await this.getPreviousPageAtIndex();
         } else {
-            // we're going forwards
+            const diff = number - (this._currentPageIndex + 1);
+            const targetIndex = this._currentPageIndex + diff;
+            const after = this._afters[this._currentPageIndex];
+            if (after) {
+                this._currentPageIndex = targetIndex - 1;
+                this._currentPageHasMore = true;
+                this.listOptions.after = after;
+                return await this.nextPage();
+            } else {
+                while (this._currentPageIndex < targetIndex) {
+                    await this.nextPage();
+                }
+
+                return this.currentPage;
+            }
         }
 
     }
@@ -196,6 +217,10 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
             this.reset();
             return await this.nextPage();
         }
+    }
+
+    private getTotalPages(maxResults: number, pageSize: number): number {
+        return Math.ceil(maxResults / pageSize);
     }
 
     private hasNextItem(): boolean {

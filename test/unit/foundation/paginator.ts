@@ -344,7 +344,7 @@ describe("test paginator", () => {
 
         const options: ListOptions = {
             pageSize: 3,
-            maxResults: 15,
+            maxResults: 12,
         };
 
         const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
@@ -429,6 +429,74 @@ describe("test paginator", () => {
         const goToFirstPage = await paginator.goToPage(1);
 
         expect(goToFirstPage).toEqual(firstPage);
+    });
+
+    it("should got to future pages with gotToPage", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        const pageOne = await paginator.nextPage();
+        const pageTwo = await paginator.nextPage();
+        const pageThree = await paginator.nextPage();
+        const pageFour = await paginator.nextPage();
+
+        paginator.reset();
+        fetchData.index = -1;
+        const goToThirdPage = await paginator.goToPage(3);
+        expect(goToThirdPage).toEqual(pageThree);
+
+        paginator.reset();
+        fetchData.index = -1;
+        const goToFirstPage = await paginator.goToPage(1);
+        expect(goToFirstPage).toEqual(pageOne);
+
+        paginator.reset();
+        fetchData.index = -1;
+        const goToFourthPage = await paginator.goToPage(4);
+        expect(goToFourthPage).toEqual(pageFour);
+
+        paginator.reset();
+        fetchData.index = -1;
+        const goToSecondPage = await paginator.goToPage(2);
+        expect(goToSecondPage).toEqual(pageTwo);
+    });
+
+    it("should got to future pages with gotToPage using cached afters", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        const pageOne = await paginator.nextPage();
+        const pageTwo = await paginator.nextPage();
+        const pageThree = await paginator.nextPage();
+        const pageFour = await paginator.nextPage();
+
+        fetchData.index = 0;
+        const goToSecondPage = await paginator.goToPage(2);
+        expect(goToSecondPage).toEqual(pageTwo);
+
+        fetchData.index = 1;
+        const goToThirdPage = await paginator.goToPage(3);
+        expect(goToThirdPage).toEqual(pageThree);
+
+        fetchData.index = -1;
+        const goToFirstPage = await paginator.goToPage(1);
+        expect(goToFirstPage).toEqual(pageOne);
+
+        fetchData.index = 2;
+        const goToFourthPage = await paginator.goToPage(4);
+        expect(goToFourthPage).toEqual(pageFour);
     });
 
     const checkPage = (page: Page<Entity>, paginator: Paginator<Entity, ListOptions>, after: string, index: number) => {
