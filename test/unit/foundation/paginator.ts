@@ -339,6 +339,19 @@ describe("test paginator", () => {
         expect(await paginator.previousPage()).toBeUndefined();
     });
 
+    it("should not return if gotToPage number is greater than total pages", async () => {
+        const fetchData = new FetchPageStub();
+
+        const options: ListOptions = {
+            pageSize: 3,
+            maxResults: 15,
+        };
+
+        const paginator = new Paginator<Entity, ListOptions>(fetchData.getDataFunc(), options);
+
+        expect(paginator.goToPage(5)).toBeUndefined();
+    });
+
     it("should return previous page", async () => {
         const fetchData = new FetchPageStub();
 

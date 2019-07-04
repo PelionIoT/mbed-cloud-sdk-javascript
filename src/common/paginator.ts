@@ -175,6 +175,23 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
         }
     }
 
+    public goToPage(number: number) {
+        if (number > this.totalPages) {
+            return;
+        }
+
+        if (number === this.currentPageIndex + 1) {
+            return this.currentPage;
+        }
+
+        if (number < this._currentPageIndex + 1) {
+            // we're going backwards
+        } else {
+            // we're going forwards
+        }
+
+    }
+
     private hasNextItem(): boolean {
         if (this.hasNextPage()) {
             return true;
