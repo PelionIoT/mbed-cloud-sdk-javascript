@@ -19,6 +19,8 @@ export class PolicyAdapter extends Adapter {
             allow: data.allow,
             feature: data.feature,
             inherited: data.inherited,
+            inheritedFrom: data.inherited_from,
+            inheritedType: data.inherited_type,
             resource: data.resource,
         });
         return mappedEntity;
