@@ -10,7 +10,7 @@ export class SubtenantDarkThemeColorRepository extends Repository {
     /**
      * delete
      * @param accountId - Account ID.
-     * @param reference - Color name.
+     * @param reference - The name of the branding color.
      */
     public delete(accountId: string, reference: string): Promise<void> {
         return apiWrapper(
