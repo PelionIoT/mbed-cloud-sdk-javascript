@@ -1,4 +1,5 @@
 import { Entity } from "../../../common/entity";
+import { PolicyInheritedType } from "./types";
 /**
  *Policy
  */
@@ -25,6 +26,18 @@ export interface Policy extends Entity {
      *Flag indicating whether this feature is inherited or overwritten specifically.
      */
     readonly inherited?: boolean;
+
+    /**
+     *An ID indicating where this policy is inherited from.
+     *@example 016ada3ec2d46665bf66e32e00000000
+     */
+    readonly inheritedFrom?: string;
+
+    /**
+     *Indicates the type of entity this policy is inherited from.
+     *@example account
+     */
+    readonly inheritedType?: PolicyInheritedType;
 
     /**
      *Resource that is protected by this policy.

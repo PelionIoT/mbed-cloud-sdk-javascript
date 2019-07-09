@@ -25,6 +25,16 @@ export const policySchema = (): Schema => {
                 type: "boolean",
             },
             {
+                name: "inheritedFrom",
+                apiName: "inherited_from",
+                type: "string",
+            },
+            {
+                name: "inheritedType",
+                apiName: "inherited_type",
+                type: "PolicyInheritedType",
+            },
+            {
                 name: "resource",
                 apiName: "resource",
                 type: "string",
