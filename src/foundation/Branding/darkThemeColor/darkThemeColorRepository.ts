@@ -11,7 +11,7 @@ import { ListOptions } from "../../../legacy/common/interfaces";
 export class DarkThemeColorRepository extends Repository {
     /**
      * delete
-     * @param reference - Color name.
+     * @param reference - The name of the branding color.
      */
     public delete(reference: string): Promise<void> {
         return apiWrapper(
