@@ -3,10 +3,7 @@ import { Order } from "../legacy/common/interfaces";
 export class Page<T> implements IterableIterator<T> {
     private currentIndex: number = 0;
 
-    /**
-     * List of results.
-     */
-    public readonly data?: Array<T>;
+    private _data: Array<T>;
 
     /**
      * Whether there are more results to display
@@ -38,7 +35,11 @@ export class Page<T> implements IterableIterator<T> {
      */
     public readonly continuationMarker?: string;
 
-    constructor(from: any, data?: Array<T>, mapper?: (key) => T) {
+    public get data(): Array<T> {
+        return this._data;
+    }
+
+    constructor(from: any, data?: Array<T>, mapper?: (key: T, index?: number) => T) {
         this.after = from.after;
         this.hasMore = from.has_more || from.hasMore;
         this.pageSize = ("limit" in from) ? from.limit : ("pageSize" in from) ? from.pageSize : undefined;
@@ -49,10 +50,10 @@ export class Page<T> implements IterableIterator<T> {
 
         if (mapper && data && data.length) {
             // mapping function has been provided so map the data
-            this.data = data.map(key => mapper(key)) || [];
+            this._data = data.map((key, index) => mapper(key, index)) || [];
         } else {
             // data has already been mapped so just assign it
-            this.data = data || [];
+            this._data = data || [];
         }
     }
 
@@ -66,6 +67,11 @@ export class Page<T> implements IterableIterator<T> {
         if (this.data && this.data[this.data.length - 1]) {
             return this.data[this.data.length - 1];
         }
+    }
+
+    public mapData(mapFunc: (key: T, index: number) => T): Array<T> {
+        this._data = this._data.map(mapFunc);
+        return this.data;
     }
 
     public [Symbol.iterator](): IterableIterator<T> {
