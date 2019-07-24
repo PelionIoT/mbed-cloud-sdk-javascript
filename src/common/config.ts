@@ -23,7 +23,7 @@ export class Config {
     /**
      * The level of logging, will default to ERROR
      */
-    public readonly logLevel: SDKLogLevel;
+    public readonly logLevel?: SDKLogLevel;
 
     /**
      * Initalise a new isntance of Config

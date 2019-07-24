@@ -27,7 +27,7 @@ export class SDK {
      * @param config The configuration
      * @param client The client instance
      */
-    constructor(config?: ConnectionOptions | Config, client?: Client) {
+    constructor(config?: Config, client?: Client) {
         if (config && config instanceof Config) {
             this.config = config;
         } else {
