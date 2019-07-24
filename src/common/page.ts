@@ -47,13 +47,14 @@ export class Page<T> implements IterableIterator<T> {
         // default to 0 if either is undefined
         this.totalCount = from.total_count || from.totalCount || 0;
         this.continuationMarker = from.continuation_marker || from.continuationMarker;
+        this._data = new Array<T>();
 
-        if (mapper && data && data.length) {
-            // mapping function has been provided so map the data
-            this._data = data.map((key, index) => mapper(key, index)) || [];
-        } else {
-            // data has already been mapped so just assign it
-            this._data = data || [];
+        if (data && data.length) {
+            this._data = data;
+
+            if (mapper) {
+                this.mapData(mapper);
+            }
         }
     }
 
