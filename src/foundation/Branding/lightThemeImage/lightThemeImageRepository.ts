@@ -3,8 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { LightThemeImage } from "./lightThemeImage";
 import { LightThemeImageAdapter } from "../../index";
 import { ReadStream } from "fs";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *LightThemeImage repository
@@ -38,7 +37,7 @@ export class LightThemeImageRepository extends Repository {
      * @param options - options
      */
     public list(options?: ListOptions): Paginator<LightThemeImage, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<LightThemeImage>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<LightThemeImage>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -50,8 +49,8 @@ export class LightThemeImageRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<LightThemeImage>, done) => {
-                    done(null, new ListResponse(data, data.data, LightThemeImageAdapter.fromApi));
+                (data: Page<LightThemeImage>, done) => {
+                    done(null, new Page(data, data.data, LightThemeImageAdapter.fromApi));
                 },
                 null
             );

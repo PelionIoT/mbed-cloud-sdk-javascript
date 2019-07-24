@@ -4,8 +4,7 @@ import { DeviceEnrollmentDenial } from "./deviceEnrollmentDenial";
 import { extractFilter } from "../../../common/filters";
 import { DeviceEnrollmentDenialListOptions } from "./types";
 import { DeviceEnrollmentDenialAdapter } from "../../index";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *DeviceEnrollmentDenial repository
@@ -16,9 +15,7 @@ export class DeviceEnrollmentDenialRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: DeviceEnrollmentDenialListOptions): Paginator<DeviceEnrollmentDenial, ListOptions> {
-        const pageFunc = (
-            pageOptions: DeviceEnrollmentDenialListOptions
-        ): Promise<ListResponse<DeviceEnrollmentDenial>> => {
+        const pageFunc = (pageOptions: DeviceEnrollmentDenialListOptions): Promise<Page<DeviceEnrollmentDenial>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -41,8 +38,8 @@ export class DeviceEnrollmentDenialRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<DeviceEnrollmentDenial>, done) => {
-                    done(null, new ListResponse(data, data.data, DeviceEnrollmentDenialAdapter.fromApi));
+                (data: Page<DeviceEnrollmentDenial>, done) => {
+                    done(null, new Page(data, data.data, DeviceEnrollmentDenialAdapter.fromApi));
                 },
                 null
             );

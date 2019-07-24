@@ -6,8 +6,7 @@ import { CertificateIssuerConfigCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
 import { CertificateIssuerConfigListOptions } from "./types";
 import { CertificateIssuerConfigUpdateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *CertificateIssuerConfig repository
@@ -85,9 +84,7 @@ export class CertificateIssuerConfigRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: CertificateIssuerConfigListOptions): Paginator<CertificateIssuerConfig, ListOptions> {
-        const pageFunc = (
-            pageOptions: CertificateIssuerConfigListOptions
-        ): Promise<ListResponse<CertificateIssuerConfig>> => {
+        const pageFunc = (pageOptions: CertificateIssuerConfigListOptions): Promise<Page<CertificateIssuerConfig>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -106,8 +103,8 @@ export class CertificateIssuerConfigRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<CertificateIssuerConfig>, done) => {
-                    done(null, new ListResponse(data, data.data, CertificateIssuerConfigAdapter.fromApi));
+                (data: Page<CertificateIssuerConfig>, done) => {
+                    done(null, new Page(data, data.data, CertificateIssuerConfigAdapter.fromApi));
                 },
                 null
             );

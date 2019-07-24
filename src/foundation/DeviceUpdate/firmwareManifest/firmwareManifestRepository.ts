@@ -5,8 +5,7 @@ import { FirmwareManifestAdapter } from "../../index";
 import { extractFilter } from "../../../common/filters";
 import { FirmwareManifestListOptions } from "./types";
 import { ReadStream } from "fs";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *FirmwareManifest repository
@@ -71,7 +70,7 @@ export class FirmwareManifestRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: FirmwareManifestListOptions): Paginator<FirmwareManifest, ListOptions> {
-        const pageFunc = (pageOptions: FirmwareManifestListOptions): Promise<ListResponse<FirmwareManifest>> => {
+        const pageFunc = (pageOptions: FirmwareManifestListOptions): Promise<Page<FirmwareManifest>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -125,8 +124,8 @@ export class FirmwareManifestRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<FirmwareManifest>, done) => {
-                    done(null, new ListResponse(data, data.data, FirmwareManifestAdapter.fromApi));
+                (data: Page<FirmwareManifest>, done) => {
+                    done(null, new Page(data, data.data, FirmwareManifestAdapter.fromApi));
                 },
                 null
             );

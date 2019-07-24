@@ -6,8 +6,7 @@ import { UserCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
 import { UserListOptions } from "./types";
 import { UserUpdateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *User repository
@@ -76,7 +75,7 @@ export class UserRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: UserListOptions): Paginator<User, ListOptions> {
-        const pageFunc = (pageOptions: UserListOptions): Promise<ListResponse<User>> => {
+        const pageFunc = (pageOptions: UserListOptions): Promise<Page<User>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -99,8 +98,8 @@ export class UserRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<User>, done) => {
-                    done(null, new ListResponse(data, data.data, UserAdapter.fromApi));
+                (data: Page<User>, done) => {
+                    done(null, new Page(data, data.data, UserAdapter.fromApi));
                 },
                 null
             );
