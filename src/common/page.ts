@@ -6,7 +6,7 @@ export class Page<T> implements IterableIterator<T> {
     /**
      * List of results.
      */
-    public readonly data: Array<T>;
+    public readonly data?: Array<T>;
 
     /**
      * Whether there are more results to display
