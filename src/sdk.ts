@@ -1,7 +1,6 @@
 import { Config } from "./common/config";
 import { Factory } from "./foundation";
 import { Client } from "./client/client";
-import { ConnectionOptions } from "./legacy/common/interfaces";
 
 /**
  * Top level Sdk instance
