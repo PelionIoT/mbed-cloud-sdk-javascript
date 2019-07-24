@@ -11,6 +11,15 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.4.0 (2019-07-24)
+==================
+
+### Features
+
+- Added a master observer to listen to any notifications coming from the Cloud
+  (#27062019)
+
+
 2.3.1 (2019-06-25)
 ==================
 
