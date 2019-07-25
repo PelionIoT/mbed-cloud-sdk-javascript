@@ -36,5 +36,6 @@ export class Config {
         this.host = options.host || (process && process.env[Config.ENV_HOST]) || "https://api.us-east-1.mbedcloud.com";
         this.logLevel = options.logLevel || (process && (process.env[Config.ENV_LOG_LEVEL]) as SDKLogLevel) || "WARN";
         if (this.apiKey.substr(0, 6).toLowerCase() !== "bearer") { this.apiKey = `Bearer ${this.apiKey}`; }
+        if (!this.host.startsWith("https")) this.host = `https://${this.host}`;
     }
 }
