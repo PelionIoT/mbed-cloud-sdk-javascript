@@ -53,7 +53,7 @@ export class Page<T> implements IterableIterator<T> {
             this._data = data;
 
             if (mapper) {
-                this.mapData(mapper);
+                this._data = this.mapData(mapper);
             }
         }
     }
@@ -70,9 +70,8 @@ export class Page<T> implements IterableIterator<T> {
         }
     }
 
-    public mapData(mapFunc: (key: T, index: number) => T): Array<T> {
-        this._data = this._data.map(mapFunc);
-        return this.data;
+    public mapData(mapFunc: (key: T, index?: number) => T): Array<T> {
+        return this.data.map(mapFunc);
     }
 
     public [Symbol.iterator](): IterableIterator<T> {

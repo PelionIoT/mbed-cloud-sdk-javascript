@@ -304,10 +304,14 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
 
     private async fetchNextPage(): Promise<T> {
         await this.nextPage();
-        const nextItem = this.currentPage.next();
-        if (nextItem.value) {
-            return nextItem.value;
+        if (this.currentPage) {
+            const nextItem = this.currentPage.next();
+            if (nextItem.value) {
+                return nextItem.value;
+            }
         }
+
+        return null;
     }
 
     private async nextItem(): Promise<T> {
