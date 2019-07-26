@@ -136,10 +136,12 @@ The [proxy folder](proxy/) contains a sample project showing how API calls to Pe
 
 __Note:__ The proxy requires the `express` server to be installed. Please do this by running `$ npm install express`.
 
-To start the proxy server, run the npm start command from the root of the project:
+To start the proxy server, install the dependencies, build the sdk project and run the npm start command from the root of the project:
 
 ```bash
-> npm run start-proxy
+>npm install
+>npm run build
+>npm run start-proxy
 ```
 
 An express server should now be running at [http://localhost:8080](http://localhost:8080) which allows you to `log in` with your API key. This is simply stored as a cookie and injected into the headers of subsequent API calls.
