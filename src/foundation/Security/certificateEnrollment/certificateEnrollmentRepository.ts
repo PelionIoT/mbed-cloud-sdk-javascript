@@ -4,8 +4,7 @@ import { CertificateEnrollment } from "./certificateEnrollment";
 import { extractFilter } from "../../../common/filters";
 import { CertificateEnrollmentListOptions } from "./types";
 import { CertificateEnrollmentAdapter } from "../../index";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *CertificateEnrollment repository
@@ -16,9 +15,7 @@ export class CertificateEnrollmentRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: CertificateEnrollmentListOptions): Paginator<CertificateEnrollment, ListOptions> {
-        const pageFunc = (
-            pageOptions: CertificateEnrollmentListOptions
-        ): Promise<ListResponse<CertificateEnrollment>> => {
+        const pageFunc = (pageOptions: CertificateEnrollmentListOptions): Promise<Page<CertificateEnrollment>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -46,8 +43,8 @@ export class CertificateEnrollmentRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<CertificateEnrollment>, done) => {
-                    done(null, new ListResponse(data, data.data, CertificateEnrollmentAdapter.fromApi));
+                (data: Page<CertificateEnrollment>, done) => {
+                    done(null, new Page(data, data.data, CertificateEnrollmentAdapter.fromApi));
                 },
                 null
             );

@@ -64,7 +64,7 @@ export interface ListOptions {
     /**
      * Optional fields to include
      */
-    include?: string | Array<IncludeEnum>;
+    include?: IncludeEnum | string | Array<IncludeEnum | string>;
     /**
      * Number of results to retrieve
      */

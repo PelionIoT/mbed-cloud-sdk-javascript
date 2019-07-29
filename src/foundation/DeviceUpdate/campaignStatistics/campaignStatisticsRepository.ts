@@ -4,8 +4,7 @@ import { CampaignStatistics } from "./campaignStatistics";
 import { CampaignStatisticsEvents } from "../../index";
 import { CampaignStatisticsEventsAdapter } from "../../index";
 import { CampaignStatisticsAdapter } from "../../index";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *CampaignStatistics repository
@@ -22,7 +21,7 @@ export class CampaignStatisticsRepository extends Repository {
         id: string,
         options?: ListOptions
     ): Paginator<CampaignStatisticsEvents, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CampaignStatisticsEvents>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<CampaignStatisticsEvents>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -38,8 +37,8 @@ export class CampaignStatisticsRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<CampaignStatisticsEvents>, done) => {
-                    done(null, new ListResponse(data, data.data, CampaignStatisticsEventsAdapter.fromApi));
+                (data: Page<CampaignStatisticsEvents>, done) => {
+                    done(null, new Page(data, data.data, CampaignStatisticsEventsAdapter.fromApi));
                 },
                 null
             );
@@ -52,7 +51,7 @@ export class CampaignStatisticsRepository extends Repository {
      * @param options - options
      */
     public list(campaignId: string, options?: ListOptions): Paginator<CampaignStatistics, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<CampaignStatistics>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<CampaignStatistics>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -67,8 +66,8 @@ export class CampaignStatisticsRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<CampaignStatistics>, done) => {
-                    done(null, new ListResponse(data, data.data, CampaignStatisticsAdapter.fromApi));
+                (data: Page<CampaignStatistics>, done) => {
+                    done(null, new Page(data, data.data, CampaignStatisticsAdapter.fromApi));
                 },
                 null
             );

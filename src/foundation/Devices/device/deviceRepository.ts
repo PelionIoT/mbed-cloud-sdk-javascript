@@ -10,8 +10,7 @@ import { DeviceRemoveFromGroupRequest } from "./types";
 import { CertificateEnrollment } from "../../index";
 import { CertificateEnrollmentAdapter } from "../../index";
 import { DeviceUpdateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *Device repository
@@ -115,7 +114,7 @@ export class DeviceRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: DeviceListOptions): Paginator<Device, ListOptions> {
-        const pageFunc = (pageOptions: DeviceListOptions): Promise<ListResponse<Device>> => {
+        const pageFunc = (pageOptions: DeviceListOptions): Promise<Page<Device>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -323,8 +322,8 @@ export class DeviceRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<Device>, done) => {
-                    done(null, new ListResponse(data, data.data, DeviceAdapter.fromApi));
+                (data: Page<Device>, done) => {
+                    done(null, new Page(data, data.data, DeviceAdapter.fromApi));
                 },
                 null
             );

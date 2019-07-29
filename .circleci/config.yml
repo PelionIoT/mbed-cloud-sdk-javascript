@@ -112,7 +112,7 @@ jobs:
   upload_docs:
     working_directory: ~/build
     docker:
-      - image: circleci/python:3.7.0-stretch-node-browsers
+      - image: circleci/python:3.7.0
     steps:
       - attach_workspace:
           at: ./
@@ -133,7 +133,7 @@ jobs:
   tpip:
     working_directory: ~/build
     docker:
-      - image: circleci/python:3.7.0-stretch-node-browsers
+      - image: circleci/node:lts
     steps:
       - checkout
       - restore_cache:
@@ -287,7 +287,7 @@ jobs:
   unit_test:
     working_directory: ~/build
     docker:
-      - image: circleci/python:3.7.0-stretch-node-browsers
+      - image: circleci/node:lts
     steps:
       - checkout
       - attach_workspace:

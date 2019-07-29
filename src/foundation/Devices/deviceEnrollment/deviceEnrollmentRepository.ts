@@ -3,8 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { DeviceEnrollment } from "./deviceEnrollment";
 import { DeviceEnrollmentAdapter } from "../../index";
 import { DeviceEnrollmentCreateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *DeviceEnrollment repository
@@ -61,7 +60,7 @@ export class DeviceEnrollmentRepository extends Repository {
      * @param options - options
      */
     public list(options?: ListOptions): Paginator<DeviceEnrollment, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DeviceEnrollment>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<DeviceEnrollment>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -79,8 +78,8 @@ export class DeviceEnrollmentRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<DeviceEnrollment>, done) => {
-                    done(null, new ListResponse(data, data.data, DeviceEnrollmentAdapter.fromApi));
+                (data: Page<DeviceEnrollment>, done) => {
+                    done(null, new Page(data, data.data, DeviceEnrollmentAdapter.fromApi));
                 },
                 null
             );

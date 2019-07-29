@@ -4,8 +4,7 @@ import { DeviceEvents } from "./deviceEvents";
 import { extractFilter } from "../../../common/filters";
 import { DeviceEventsListOptions } from "./types";
 import { DeviceEventsAdapter } from "../../index";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *DeviceEvents repository
@@ -16,7 +15,7 @@ export class DeviceEventsRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: DeviceEventsListOptions): Paginator<DeviceEvents, ListOptions> {
-        const pageFunc = (pageOptions: DeviceEventsListOptions): Promise<ListResponse<DeviceEvents>> => {
+        const pageFunc = (pageOptions: DeviceEventsListOptions): Promise<Page<DeviceEvents>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -56,8 +55,8 @@ export class DeviceEventsRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<DeviceEvents>, done) => {
-                    done(null, new ListResponse(data, data.data, DeviceEventsAdapter.fromApi));
+                (data: Page<DeviceEvents>, done) => {
+                    done(null, new Page(data, data.data, DeviceEventsAdapter.fromApi));
                 },
                 null
             );

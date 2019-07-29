@@ -63,6 +63,7 @@ export const getApp = (): express.Application => {
             quit();
         }
         res.status(202).end();
+        process.exit();
     });
 
     // api module endpoints

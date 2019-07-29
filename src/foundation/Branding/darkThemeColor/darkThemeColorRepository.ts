@@ -3,8 +3,7 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { DarkThemeColor } from "./darkThemeColor";
 import { DarkThemeColorAdapter } from "../../index";
 import { DarkThemeColorUpdateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *DarkThemeColor repository
@@ -38,7 +37,7 @@ export class DarkThemeColorRepository extends Repository {
      * @param options - options
      */
     public list(options?: ListOptions): Paginator<DarkThemeColor, ListOptions> {
-        const pageFunc = (pageOptions: ListOptions): Promise<ListResponse<DarkThemeColor>> => {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<DarkThemeColor>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -50,8 +49,8 @@ export class DarkThemeColorRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<DarkThemeColor>, done) => {
-                    done(null, new ListResponse(data, data.data, DarkThemeColorAdapter.fromApi));
+                (data: Page<DarkThemeColor>, done) => {
+                    done(null, new Page(data, data.data, DarkThemeColorAdapter.fromApi));
                 },
                 null
             );

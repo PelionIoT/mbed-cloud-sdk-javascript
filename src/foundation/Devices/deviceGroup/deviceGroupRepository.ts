@@ -11,8 +11,7 @@ import { DeviceGroupDeviceListOptions } from "./types";
 import { DeviceGroupListOptions } from "./types";
 import { DeviceGroupRemoveDeviceRequest } from "./types";
 import { DeviceGroupUpdateRequest } from "./types";
-import { Paginator } from "../../../common/pagination";
-import { ListResponse } from "../../../legacy/common/listResponse";
+import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../legacy/common/interfaces";
 /**
  *DeviceGroup repository
@@ -99,7 +98,7 @@ export class DeviceGroupRepository extends Repository {
      * @param options - Options to use for the List
      */
     public devices(id: string, options?: DeviceGroupDeviceListOptions): Paginator<Device, ListOptions> {
-        const pageFunc = (pageOptions: DeviceGroupDeviceListOptions): Promise<ListResponse<Device>> => {
+        const pageFunc = (pageOptions: DeviceGroupDeviceListOptions): Promise<Page<Device>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -310,8 +309,8 @@ export class DeviceGroupRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<Device>, done) => {
-                    done(null, new ListResponse(data, data.data, DeviceAdapter.fromApi));
+                (data: Page<Device>, done) => {
+                    done(null, new Page(data, data.data, DeviceAdapter.fromApi));
                 },
                 null
             );
@@ -323,7 +322,7 @@ export class DeviceGroupRepository extends Repository {
      * @param options - Options to use for the List
      */
     public list(options?: DeviceGroupListOptions): Paginator<DeviceGroup, ListOptions> {
-        const pageFunc = (pageOptions: DeviceGroupListOptions): Promise<ListResponse<DeviceGroup>> => {
+        const pageFunc = (pageOptions: DeviceGroupListOptions): Promise<Page<DeviceGroup>> => {
             pageOptions = pageOptions || {};
             return apiWrapper(
                 resultsFn => {
@@ -363,8 +362,8 @@ export class DeviceGroupRepository extends Repository {
                         resultsFn
                     );
                 },
-                (data: ListResponse<DeviceGroup>, done) => {
-                    done(null, new ListResponse(data, data.data, DeviceGroupAdapter.fromApi));
+                (data: Page<DeviceGroup>, done) => {
+                    done(null, new Page(data, data.data, DeviceGroupAdapter.fromApi));
                 },
                 null
             );
