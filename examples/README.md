@@ -10,6 +10,13 @@ Refer to the [Web](#web) section for examples of using the JavaScript browser bu
 
 The [Proxy](#proxy) section describes how a thin server can be used to inject an API key into a browser-based application, keeping the API key secret.
 
+__Note:__ Before running any example, you need to install the dependencies and build the sdk project fisrt by running these commands in the root of the project:
+
+```bash
+$ npm install
+$ npm run build
+```
+
 ## Node js
 
 ### Usage
@@ -136,11 +143,9 @@ The [proxy folder](proxy/) contains a sample project showing how API calls to Pe
 
 __Note:__ The proxy requires the `express` server to be installed. Please do this by running `$ npm install express`.
 
-To start the proxy server, install the dependencies, build the sdk project and run the npm start command from the root of the project:
+To start the proxy server, run the npm start command from the root of the project:
 
 ```bash
->npm install
->npm run build
 >npm run start-proxy
 ```
 
