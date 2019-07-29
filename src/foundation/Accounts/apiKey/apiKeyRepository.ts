@@ -7,7 +7,7 @@ import { extractFilter } from "../../../common/filters";
 import { ApiKeyListOptions } from "./types";
 import { ApiKeyUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *ApiKey repository
  */
@@ -86,7 +86,7 @@ export class ApiKeyRepository extends Repository {
                     );
                 },
                 (data: Page<ApiKey>, done) => {
-                    done(null, new Page(data, data.data, ApiKeyAdapter.fromApi));
+                    done(null, new Page(data, data.data, ApiKeyAdapter.fromApi, pageOptions));
                 },
                 null
             );

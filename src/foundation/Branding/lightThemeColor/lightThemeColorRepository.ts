@@ -4,7 +4,7 @@ import { LightThemeColor } from "./lightThemeColor";
 import { LightThemeColorAdapter } from "../../index";
 import { LightThemeColorUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *LightThemeColor repository
  */
@@ -50,7 +50,7 @@ export class LightThemeColorRepository extends Repository {
                     );
                 },
                 (data: Page<LightThemeColor>, done) => {
-                    done(null, new Page(data, data.data, LightThemeColorAdapter.fromApi));
+                    done(null, new Page(data, data.data, LightThemeColorAdapter.fromApi, pageOptions));
                 },
                 null
             );

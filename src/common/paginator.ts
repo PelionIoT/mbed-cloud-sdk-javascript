@@ -1,4 +1,4 @@
-import { ListOptions } from "../legacy/common/interfaces";
+import { ListOptions } from "./listOptions";
 import { Page } from "./page";
 import { Entity } from "./entity";
 import { isArray } from "util";

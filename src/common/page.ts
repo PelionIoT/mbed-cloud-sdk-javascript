@@ -1,7 +1,10 @@
 import { Order } from "../legacy/common/interfaces";
+import { ListOptions } from "./listOptions";
 
 export class Page<T> implements IterableIterator<T> {
     private currentIndex: number = 0;
+
+    private listOptions: ListOptions;
 
     private _data: Array<T>;
 
@@ -35,11 +38,15 @@ export class Page<T> implements IterableIterator<T> {
      */
     public readonly continuationMarker?: string;
 
+    /**
+     * The data in the page
+     */
     public get data(): Array<T> {
         return this._data;
     }
 
-    constructor(from: any, data?: Array<T>, mapper?: (key: T, index?: number) => T) {
+    constructor(from: any, data?: Array<T>, apiMapper?: (key: T, index?: number) => T, listOptions?: ListOptions) {
+        this.listOptions = listOptions || {};
         this.after = from.after;
         this.hasMore = from.has_more || from.hasMore;
         this.pageSize = ("limit" in from) ? from.limit : ("pageSize" in from) ? from.pageSize : undefined;
@@ -52,8 +59,12 @@ export class Page<T> implements IterableIterator<T> {
         if (data && data.length) {
             this._data = data;
 
-            if (mapper) {
-                this._data = this.mapData(mapper);
+            if (apiMapper) {
+                this._data = this.mapData(apiMapper);
+            }
+
+            if (this.listOptions.mapResults) {
+                this._data = this.mapData(this.listOptions.mapResults);
             }
         }
     }

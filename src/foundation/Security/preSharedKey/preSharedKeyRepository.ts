@@ -4,7 +4,7 @@ import { PreSharedKey } from "./preSharedKey";
 import { PreSharedKeyAdapter } from "../../index";
 import { PreSharedKeyCreateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *PreSharedKey repository
  */
@@ -78,7 +78,7 @@ export class PreSharedKeyRepository extends Repository {
                     );
                 },
                 (data: Page<PreSharedKey>, done) => {
-                    done(null, new Page(data, data.data, PreSharedKeyAdapter.fromApi));
+                    done(null, new Page(data, data.data, PreSharedKeyAdapter.fromApi, pageOptions));
                 },
                 null
             );
