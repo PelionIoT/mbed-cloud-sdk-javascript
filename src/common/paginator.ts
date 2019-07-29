@@ -126,7 +126,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
                     if (this._totalCount && this._totalCount < this.maxResults) {
                         this._totalPages = this.getTotalPages(this._totalCount, this.pageSize);
                     }
-                    this._currentPageAfter = page.after || page.continuationMarker || null;
+                    this._currentPageAfter = page.after;
                     this._currentPageHasMore = page.hasMore;
                     this._afters.push(this._currentPageAfter);
                     this.listOptions.after = this._currentPageAfter;

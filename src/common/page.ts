@@ -47,13 +47,12 @@ export class Page<T> implements IterableIterator<T> {
 
     constructor(from: any, data?: Array<T>, apiMapper?: (key: T, index?: number) => T, listOptions?: ListOptions) {
         this.listOptions = listOptions || {};
-        this.after = from.after;
         this.hasMore = from.has_more || from.hasMore;
+        this.continuationMarker = from.continuation_marker || from.continuationMarker;
         this.pageSize = ("limit" in from) ? from.limit : ("pageSize" in from) ? from.pageSize : undefined;
         this.order = from.order;
         // default to 0 if either is undefined
         this.totalCount = from.total_count || from.totalCount || 0;
-        this.continuationMarker = from.continuation_marker || from.continuationMarker;
         this._data = new Array<T>();
 
         if (data && data.length) {
@@ -67,6 +66,9 @@ export class Page<T> implements IterableIterator<T> {
                 this._data = this.mapData(this.listOptions.mapResults);
             }
         }
+
+        // change this stupid line
+        this.after = from.after || this.continuationMarker || (this.hasMore ? ((((this.last() as any) || {}).id) || null) : null) || null;
     }
 
     public first(): T {
