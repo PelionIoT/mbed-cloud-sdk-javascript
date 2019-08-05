@@ -35,12 +35,7 @@ export interface ListOptions {
     /**
      * mapper function to apply to all results of the pagination
      */
-    mapResults?(item: unknown, index?: number): unknown;
-
-    /**
-     * Error handler function
-     */
-    errorHandler?(): void;
+    mapResults?(item: any, index?: number): any;
 }
 
 /**

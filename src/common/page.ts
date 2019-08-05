@@ -83,7 +83,7 @@ export class Page<T> implements IterableIterator<T> {
         }
     }
 
-    public mapData(mapFunc: (key: T, index?: number) => T): Array<T> {
+    public mapData<U>(mapFunc: (key: any, index?: number) => U): Array<U> {
         return this.data.map(mapFunc);
     }
 
