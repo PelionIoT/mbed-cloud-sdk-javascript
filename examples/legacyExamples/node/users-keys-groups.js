@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-var PelionDMSDK = require("../../index");
+var PelionDMSDK = require("../../../index");
 var config = require("./config");
 
 var access = new PelionDMSDK.AccountManagementApi(config);
