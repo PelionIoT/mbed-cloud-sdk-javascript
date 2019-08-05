@@ -11,14 +11,12 @@ describe("test pure page functionality", () => {
 
     it("should create basic page", () => {
         const page = new Page({
-            after: "016378DJF",
             has_more: true,
             order: "ASC",
             total_count: 10,
             continuation_marker: "013487OPH"
         });
 
-        expect(page.after).toBe("016378DJF");
         expect(page.hasMore).toBe(true);
         expect(page.order).toBe("ASC");
         expect(page.totalCount).toBe(10);

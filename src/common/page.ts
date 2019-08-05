@@ -68,7 +68,7 @@ export class Page<T> implements IterableIterator<T> {
         }
 
         // change this stupid line
-        this.after = from.after || this.continuationMarker || (this.hasMore ? ((((this.last() as any) || {}).id) || null) : null) || null;
+        this.after = this.continuationMarker || (this.hasMore ? ((((this.last() as any) || {}).id) || null) : null) || null;
     }
 
     public first(): T {
