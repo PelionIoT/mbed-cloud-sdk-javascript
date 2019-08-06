@@ -351,7 +351,7 @@ export async function generateRepository(entity, pascalKey, _currentGroup, camel
 
             repositoryClass.addImport(new ImportContainer(
                 `LIST_OPTIONS`,
-                "../../../legacy/common/interfaces",
+                "../../../common",
                 [
                     "ListOptions"
                 ]

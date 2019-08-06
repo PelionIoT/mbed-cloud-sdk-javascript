@@ -5,7 +5,7 @@ import { extractFilter } from "../../../common/filters";
 import { DeviceEnrollmentDenialListOptions } from "./types";
 import { DeviceEnrollmentDenialAdapter } from "../../index";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *DeviceEnrollmentDenial repository
  */
@@ -39,7 +39,7 @@ export class DeviceEnrollmentDenialRepository extends Repository {
                     );
                 },
                 (data: Page<DeviceEnrollmentDenial>, done) => {
-                    done(null, new Page(data, data.data, DeviceEnrollmentDenialAdapter.fromApi));
+                    done(null, new Page(data, data.data, DeviceEnrollmentDenialAdapter.fromApi, pageOptions));
                 },
                 null
             );

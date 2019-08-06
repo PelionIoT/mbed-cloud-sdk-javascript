@@ -167,7 +167,7 @@ export async function generateTypes(entity, enums, pascalKey: string, outputFold
             safeAddToList(imports,
                 new ImportContainer(
                     "LIST_OPTIONS",
-                    "../../../legacy/common/interfaces",
+                    "../../../common",
                     [
                         "ListOptions"
                     ]

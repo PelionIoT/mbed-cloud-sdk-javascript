@@ -40,7 +40,7 @@ resultsFn
 );
 },
 (data: Page<<%= returns %>>, done) => {
-done(null, new Page(data, data.data, <%= returns %>Adapter.fromApi));
+done(null, new Page(data, data.data, <%= returns %>Adapter.fromApi, pageOptions));
 },
 null
 );

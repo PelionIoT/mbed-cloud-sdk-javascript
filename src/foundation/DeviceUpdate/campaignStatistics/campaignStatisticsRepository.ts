@@ -5,7 +5,7 @@ import { CampaignStatisticsEvents } from "../../index";
 import { CampaignStatisticsEventsAdapter } from "../../index";
 import { CampaignStatisticsAdapter } from "../../index";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *CampaignStatistics repository
  */
@@ -38,7 +38,7 @@ export class CampaignStatisticsRepository extends Repository {
                     );
                 },
                 (data: Page<CampaignStatisticsEvents>, done) => {
-                    done(null, new Page(data, data.data, CampaignStatisticsEventsAdapter.fromApi));
+                    done(null, new Page(data, data.data, CampaignStatisticsEventsAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -67,7 +67,7 @@ export class CampaignStatisticsRepository extends Repository {
                     );
                 },
                 (data: Page<CampaignStatistics>, done) => {
-                    done(null, new Page(data, data.data, CampaignStatisticsAdapter.fromApi));
+                    done(null, new Page(data, data.data, CampaignStatisticsAdapter.fromApi, pageOptions));
                 },
                 null
             );
