@@ -4,7 +4,7 @@ import { LightThemeImage } from "./lightThemeImage";
 import { LightThemeImageAdapter } from "../../index";
 import { ReadStream } from "fs";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *LightThemeImage repository
  */
@@ -50,7 +50,7 @@ export class LightThemeImageRepository extends Repository {
                     );
                 },
                 (data: Page<LightThemeImage>, done) => {
-                    done(null, new Page(data, data.data, LightThemeImageAdapter.fromApi));
+                    done(null, new Page(data, data.data, LightThemeImageAdapter.fromApi, pageOptions));
                 },
                 null
             );

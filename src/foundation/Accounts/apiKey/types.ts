@@ -1,4 +1,4 @@
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 export type ApiKeyStatus = "ACTIVE" | "INACTIVE";
 /**
  *ApiKeyCreateRequest

@@ -7,7 +7,7 @@ import { extractFilter } from "../../../common/filters";
 import { UserListOptions } from "./types";
 import { UserUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *User repository
  */
@@ -99,7 +99,7 @@ export class UserRepository extends Repository {
                     );
                 },
                 (data: Page<User>, done) => {
-                    done(null, new Page(data, data.data, UserAdapter.fromApi));
+                    done(null, new Page(data, data.data, UserAdapter.fromApi, pageOptions));
                 },
                 null
             );

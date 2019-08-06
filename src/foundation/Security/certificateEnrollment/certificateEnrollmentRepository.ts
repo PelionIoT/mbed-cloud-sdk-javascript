@@ -5,7 +5,7 @@ import { extractFilter } from "../../../common/filters";
 import { CertificateEnrollmentListOptions } from "./types";
 import { CertificateEnrollmentAdapter } from "../../index";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *CertificateEnrollment repository
  */
@@ -44,7 +44,7 @@ export class CertificateEnrollmentRepository extends Repository {
                     );
                 },
                 (data: Page<CertificateEnrollment>, done) => {
-                    done(null, new Page(data, data.data, CertificateEnrollmentAdapter.fromApi));
+                    done(null, new Page(data, data.data, CertificateEnrollmentAdapter.fromApi, pageOptions));
                 },
                 null
             );

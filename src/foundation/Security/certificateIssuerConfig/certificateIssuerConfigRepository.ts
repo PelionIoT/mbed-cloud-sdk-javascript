@@ -7,7 +7,7 @@ import { extractFilter } from "../../../common/filters";
 import { CertificateIssuerConfigListOptions } from "./types";
 import { CertificateIssuerConfigUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *CertificateIssuerConfig repository
  */
@@ -104,7 +104,7 @@ export class CertificateIssuerConfigRepository extends Repository {
                     );
                 },
                 (data: Page<CertificateIssuerConfig>, done) => {
-                    done(null, new Page(data, data.data, CertificateIssuerConfigAdapter.fromApi));
+                    done(null, new Page(data, data.data, CertificateIssuerConfigAdapter.fromApi, pageOptions));
                 },
                 null
             );

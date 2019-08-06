@@ -1,4 +1,4 @@
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 export type CertificateEnrollmentEnrollResult = "success" | "failure";
 export type CertificateEnrollmentEnrollStatus = "new" | "completed";
 /**

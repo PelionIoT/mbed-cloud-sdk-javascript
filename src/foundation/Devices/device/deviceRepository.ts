@@ -11,7 +11,7 @@ import { CertificateEnrollment } from "../../index";
 import { CertificateEnrollmentAdapter } from "../../index";
 import { DeviceUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *Device repository
  */
@@ -323,7 +323,7 @@ export class DeviceRepository extends Repository {
                     );
                 },
                 (data: Page<Device>, done) => {
-                    done(null, new Page(data, data.data, DeviceAdapter.fromApi));
+                    done(null, new Page(data, data.data, DeviceAdapter.fromApi, pageOptions));
                 },
                 null
             );
