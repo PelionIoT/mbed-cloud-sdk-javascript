@@ -9,7 +9,7 @@ import { extractFilter } from "../../../common/filters";
 import { UpdateCampaignListOptions } from "./types";
 import { UpdateCampaignUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *UpdateCampaign repository
  */
@@ -115,7 +115,7 @@ export class UpdateCampaignRepository extends Repository {
                     );
                 },
                 (data: Page<CampaignDeviceMetadata>, done) => {
-                    done(null, new Page(data, data.data, CampaignDeviceMetadataAdapter.fromApi));
+                    done(null, new Page(data, data.data, CampaignDeviceMetadataAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -190,7 +190,7 @@ export class UpdateCampaignRepository extends Repository {
                     );
                 },
                 (data: Page<UpdateCampaign>, done) => {
-                    done(null, new Page(data, data.data, UpdateCampaignAdapter.fromApi));
+                    done(null, new Page(data, data.data, UpdateCampaignAdapter.fromApi, pageOptions));
                 },
                 null
             );

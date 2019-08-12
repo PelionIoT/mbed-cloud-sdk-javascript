@@ -1,4 +1,4 @@
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 export type DeviceDeployedState = "development" | "production";
 export type DeviceExecutionMode = "0" | "1" | "5";
 export type DeviceMechanism = "connector" | "direct";

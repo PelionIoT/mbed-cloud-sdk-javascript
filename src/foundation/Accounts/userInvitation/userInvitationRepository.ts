@@ -6,7 +6,7 @@ import { UserInvitationCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
 import { UserInvitationListOptions } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *UserInvitation repository
  */
@@ -83,7 +83,7 @@ export class UserInvitationRepository extends Repository {
                     );
                 },
                 (data: Page<UserInvitation>, done) => {
-                    done(null, new Page(data, data.data, UserInvitationAdapter.fromApi));
+                    done(null, new Page(data, data.data, UserInvitationAdapter.fromApi, pageOptions));
                 },
                 null
             );

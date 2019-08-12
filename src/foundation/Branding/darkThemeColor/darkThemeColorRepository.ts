@@ -4,7 +4,7 @@ import { DarkThemeColor } from "./darkThemeColor";
 import { DarkThemeColorAdapter } from "../../index";
 import { DarkThemeColorUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *DarkThemeColor repository
  */
@@ -50,7 +50,7 @@ export class DarkThemeColorRepository extends Repository {
                     );
                 },
                 (data: Page<DarkThemeColor>, done) => {
-                    done(null, new Page(data, data.data, DarkThemeColorAdapter.fromApi));
+                    done(null, new Page(data, data.data, DarkThemeColorAdapter.fromApi, pageOptions));
                 },
                 null
             );

@@ -1,12 +1,12 @@
 import { Order } from "../legacy/common/interfaces";
+import { ListOptions } from "./listOptions";
 
 export class Page<T> implements IterableIterator<T> {
     private currentIndex: number = 0;
 
-    /**
-     * List of results.
-     */
-    public readonly data: Array<T>;
+    private listOptions: ListOptions;
+
+    private _data: Array<T>;
 
     /**
      * Whether there are more results to display
@@ -38,22 +38,37 @@ export class Page<T> implements IterableIterator<T> {
      */
     public readonly continuationMarker?: string;
 
-    constructor(from: any, data?: Array<T>, mapper?: (key) => T) {
-        this.after = from.after;
+    /**
+     * The data in the page
+     */
+    public get data(): Array<T> {
+        return this._data;
+    }
+
+    constructor(from: any, data?: Array<T>, apiMapper?: (key: T, index?: number) => T, listOptions?: ListOptions) {
+        this.listOptions = listOptions || {};
         this.hasMore = from.has_more || from.hasMore;
+        this.continuationMarker = from.continuation_marker || from.continuationMarker;
         this.pageSize = ("limit" in from) ? from.limit : ("pageSize" in from) ? from.pageSize : undefined;
         this.order = from.order;
         // default to 0 if either is undefined
         this.totalCount = from.total_count || from.totalCount || 0;
-        this.continuationMarker = from.continuation_marker || from.continuationMarker;
+        this._data = new Array<T>();
 
-        if (mapper && data && data.length) {
-            // mapping function has been provided so map the data
-            this.data = data.map(key => mapper(key)) || [];
-        } else {
-            // data has already been mapped so just assign it
-            this.data = data || [];
+        if (data && data.length) {
+            this._data = data;
+
+            if (apiMapper) {
+                this._data = this.mapData(apiMapper);
+            }
+
+            if (this.listOptions.mapResults) {
+                this._data = this.mapData(this.listOptions.mapResults);
+            }
         }
+
+        // change this stupid line
+        this.after = this.continuationMarker || (this.hasMore ? ((((this.last() as any) || {}).id) || null) : null) || null;
     }
 
     public first(): T {
@@ -66,6 +81,10 @@ export class Page<T> implements IterableIterator<T> {
         if (this.data && this.data[this.data.length - 1]) {
             return this.data[this.data.length - 1];
         }
+    }
+
+    public mapData<U>(mapFunc: (key: any, index?: number) => U): Array<U> {
+        return this.data.map(mapFunc);
     }
 
     public [Symbol.iterator](): IterableIterator<T> {

@@ -1,4 +1,4 @@
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 export type TrustedCertificateService = "lwm2m" | "bootstrap";
 export type TrustedCertificateStatus = "ACTIVE" | "INACTIVE";
 /**

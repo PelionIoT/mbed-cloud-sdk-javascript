@@ -6,7 +6,7 @@ import { extractFilter } from "../../../common/filters";
 import { FirmwareImageListOptions } from "./types";
 import { ReadStream } from "fs";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *FirmwareImage repository
  */
@@ -120,7 +120,7 @@ export class FirmwareImageRepository extends Repository {
                     );
                 },
                 (data: Page<FirmwareImage>, done) => {
-                    done(null, new Page(data, data.data, FirmwareImageAdapter.fromApi));
+                    done(null, new Page(data, data.data, FirmwareImageAdapter.fromApi, pageOptions));
                 },
                 null
             );

@@ -12,7 +12,7 @@ import { DeviceGroupListOptions } from "./types";
 import { DeviceGroupRemoveDeviceRequest } from "./types";
 import { DeviceGroupUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *DeviceGroup repository
  */
@@ -310,7 +310,7 @@ export class DeviceGroupRepository extends Repository {
                     );
                 },
                 (data: Page<Device>, done) => {
-                    done(null, new Page(data, data.data, DeviceAdapter.fromApi));
+                    done(null, new Page(data, data.data, DeviceAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -363,7 +363,7 @@ export class DeviceGroupRepository extends Repository {
                     );
                 },
                 (data: Page<DeviceGroup>, done) => {
-                    done(null, new Page(data, data.data, DeviceGroupAdapter.fromApi));
+                    done(null, new Page(data, data.data, DeviceGroupAdapter.fromApi, pageOptions));
                 },
                 null
             );

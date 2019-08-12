@@ -27,7 +27,7 @@ import { SubtenantUser } from "../../index";
 import { SubtenantUserAdapter } from "../../index";
 import { AccountSubtenantUserListOptions } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *Account repository
  */
@@ -62,7 +62,7 @@ export class AccountRepository extends Repository {
                     );
                 },
                 (data: Page<SubtenantApiKey>, done) => {
-                    done(null, new Page(data, data.data, SubtenantApiKeyAdapter.fromApi));
+                    done(null, new Page(data, data.data, SubtenantApiKeyAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -139,7 +139,7 @@ export class AccountRepository extends Repository {
                     );
                 },
                 (data: Page<SubtenantDarkThemeColor>, done) => {
-                    done(null, new Page(data, data.data, SubtenantDarkThemeColorAdapter.fromApi));
+                    done(null, new Page(data, data.data, SubtenantDarkThemeColorAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -168,7 +168,7 @@ export class AccountRepository extends Repository {
                     );
                 },
                 (data: Page<SubtenantDarkThemeImage>, done) => {
-                    done(null, new Page(data, data.data, SubtenantDarkThemeImageAdapter.fromApi));
+                    done(null, new Page(data, data.data, SubtenantDarkThemeImageAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -200,7 +200,7 @@ export class AccountRepository extends Repository {
                     );
                 },
                 (data: Page<SubtenantLightThemeColor>, done) => {
-                    done(null, new Page(data, data.data, SubtenantLightThemeColorAdapter.fromApi));
+                    done(null, new Page(data, data.data, SubtenantLightThemeColorAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -232,7 +232,7 @@ export class AccountRepository extends Repository {
                     );
                 },
                 (data: Page<SubtenantLightThemeImage>, done) => {
-                    done(null, new Page(data, data.data, SubtenantLightThemeImageAdapter.fromApi));
+                    done(null, new Page(data, data.data, SubtenantLightThemeImageAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -272,7 +272,7 @@ export class AccountRepository extends Repository {
                     );
                 },
                 (data: Page<Account>, done) => {
-                    done(null, new Page(data, data.data, AccountAdapter.fromApi));
+                    done(null, new Page(data, data.data, AccountAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -383,7 +383,7 @@ export class AccountRepository extends Repository {
                     );
                 },
                 (data: Page<SubtenantTrustedCertificate>, done) => {
-                    done(null, new Page(data, data.data, SubtenantTrustedCertificateAdapter.fromApi));
+                    done(null, new Page(data, data.data, SubtenantTrustedCertificateAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -472,7 +472,7 @@ export class AccountRepository extends Repository {
                     );
                 },
                 (data: Page<SubtenantUserInvitation>, done) => {
-                    done(null, new Page(data, data.data, SubtenantUserInvitationAdapter.fromApi));
+                    done(null, new Page(data, data.data, SubtenantUserInvitationAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -512,7 +512,7 @@ export class AccountRepository extends Repository {
                     );
                 },
                 (data: Page<SubtenantUser>, done) => {
-                    done(null, new Page(data, data.data, SubtenantUserAdapter.fromApi));
+                    done(null, new Page(data, data.data, SubtenantUserAdapter.fromApi, pageOptions));
                 },
                 null
             );
