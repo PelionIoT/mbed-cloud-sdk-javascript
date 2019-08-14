@@ -21,6 +21,7 @@ import { FirmwareImageRepository } from ".";
 import { FirmwareManifestRepository } from ".";
 import { LightThemeColorRepository } from ".";
 import { LightThemeImageRepository } from ".";
+import { PolicyGroupRepository } from ".";
 import { PreSharedKeyRepository } from ".";
 import { ServerCredentialsRepository } from ".";
 import { SubtenantApiKeyRepository } from ".";
@@ -28,6 +29,7 @@ import { SubtenantDarkThemeColorRepository } from ".";
 import { SubtenantDarkThemeImageRepository } from ".";
 import { SubtenantLightThemeColorRepository } from ".";
 import { SubtenantLightThemeImageRepository } from ".";
+import { SubtenantPolicyGroupRepository } from ".";
 import { SubtenantTrustedCertificateRepository } from ".";
 import { SubtenantUserRepository } from ".";
 import { SubtenantUserInvitationRepository } from ".";
@@ -107,6 +109,9 @@ export class Factory {
     public lightThemeImageRepository(): LightThemeImageRepository {
         return new LightThemeImageRepository(this._config);
     }
+    public policyGroupRepository(): PolicyGroupRepository {
+        return new PolicyGroupRepository(this._config);
+    }
     public preSharedKeyRepository(): PreSharedKeyRepository {
         return new PreSharedKeyRepository(this._config);
     }
@@ -127,6 +132,9 @@ export class Factory {
     }
     public subtenantLightThemeImageRepository(): SubtenantLightThemeImageRepository {
         return new SubtenantLightThemeImageRepository(this._config);
+    }
+    public subtenantPolicyGroupRepository(): SubtenantPolicyGroupRepository {
+        return new SubtenantPolicyGroupRepository(this._config);
     }
     public subtenantTrustedCertificateRepository(): SubtenantTrustedCertificateRepository {
         return new SubtenantTrustedCertificateRepository(this._config);

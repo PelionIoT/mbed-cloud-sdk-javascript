@@ -60,6 +60,11 @@ export interface SubtenantUser extends Entity {
     fullName?: string;
 
     /**
+     *groups
+     */
+    groups?: Array<string>;
+
+    /**
      *A flag indicating that the user has accepted General Terms and Conditions.
      *@example true
      */

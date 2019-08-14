@@ -50,6 +50,11 @@ export const subtenantUserSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "groups",
+                apiName: "groups",
+                type: "Array<string>",
+            },
+            {
                 name: "isGtcAccepted",
                 apiName: "is_gtc_accepted",
                 type: "boolean",
@@ -139,6 +144,10 @@ export const subtenantUserSchema = (): Schema => {
                                 type: "string",
                             },
                             {
+                                name: "groups",
+                                type: "Array<string>",
+                            },
+                            {
                                 name: "isGtcAccepted",
                                 type: "boolean",
                             },
@@ -193,6 +202,49 @@ export const subtenantUserSchema = (): Schema => {
                 ],
             },
             {
+                name: "policyGroups",
+                returnType: "Paginator<SubtenantPolicyGroup, ListOptions>",
+                parameters: [
+                    {
+                        name: "accountId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "subtenantUserId",
+                        position: 1,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 2,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
                 name: "read",
                 returnType: "Promise<SubtenantUser>",
                 parameters: [
@@ -224,6 +276,10 @@ export const subtenantUserSchema = (): Schema => {
                             {
                                 name: "fullName",
                                 type: "string",
+                            },
+                            {
+                                name: "groups",
+                                type: "Array<string>",
                             },
                             {
                                 name: "isGtcAccepted",

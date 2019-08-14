@@ -24,6 +24,7 @@ export class UserInvitationAdapter extends Adapter {
             createdAt: data.created_at,
             email: data.email,
             expiration: data.expiration,
+            groups: data.groups,
             id: data.id,
             loginProfiles: loginProfiles,
             updatedAt: data.updated_at,

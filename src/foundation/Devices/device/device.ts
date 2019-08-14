@@ -109,6 +109,11 @@ Permitted values:
     readonly firmwareChecksum?: string;
 
     /**
+     *groups
+     */
+    readonly groups?: Array<string>;
+
+    /**
      *The ID of the host gateway, if appropriate.
      */
     hostGateway?: string;
