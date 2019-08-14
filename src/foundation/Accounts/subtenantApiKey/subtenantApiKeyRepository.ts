@@ -3,7 +3,11 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { SubtenantApiKey } from "./subtenantApiKey";
 import { SubtenantApiKeyAdapter } from "../../index";
 import { SubtenantApiKeyCreateRequest } from "./types";
+import { SubtenantPolicyGroup } from "../../index";
+import { SubtenantPolicyGroupAdapter } from "../../index";
 import { SubtenantApiKeyUpdateRequest } from "./types";
+import { Paginator, Page } from "../../../index";
+import { ListOptions } from "../../../common";
 /**
  *SubtenantApiKey repository
  */
@@ -24,6 +28,7 @@ export class SubtenantApiKeyRepository extends Repository {
                             account_id: accountId,
                         },
                         body: {
+                            groups: request.groups,
                             name: request.name,
                             owner: request.owner,
                             status: request.status,
@@ -61,6 +66,47 @@ export class SubtenantApiKeyRepository extends Repository {
                 done(null, null);
             }
         );
+    }
+    /**
+     * policyGroups
+     * @param accountId - Account ID.
+     * @param id - The ID of the API key.
+     * @param options - options
+     */
+    public policyGroups(
+        accountId: string,
+        id: string,
+        options?: ListOptions
+    ): Paginator<SubtenantPolicyGroup, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<SubtenantPolicyGroup>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/accounts/{account_id}/api-keys/{apikey_id}/groups",
+                            method: "GET",
+                            query: {
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                            },
+                            pathParams: {
+                                account_id: accountId,
+                                apikey_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: Page<SubtenantPolicyGroup>, done) => {
+                    done(null, new Page(data, data.data, SubtenantPolicyGroupAdapter.fromApi, pageOptions));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     /**
      * read
@@ -105,6 +151,7 @@ export class SubtenantApiKeyRepository extends Repository {
                             apikey_id: id,
                         },
                         body: {
+                            groups: request.groups,
                             name: request.name,
                             owner: request.owner,
                             status: request.status,

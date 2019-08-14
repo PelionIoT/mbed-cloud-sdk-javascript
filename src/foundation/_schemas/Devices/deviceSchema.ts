@@ -95,6 +95,11 @@ export const deviceSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "groups",
+                apiName: "groups",
+                type: "Array<string>",
+            },
+            {
                 name: "hostGateway",
                 apiName: "host_gateway",
                 type: "string",
