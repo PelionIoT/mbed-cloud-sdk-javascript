@@ -60,6 +60,11 @@ export interface User extends Entity {
     fullName?: string;
 
     /**
+     *groups
+     */
+    groups?: Array<string>;
+
+    /**
      *A flag indicating that the user has accepted General Terms and Conditions.
      *@example true
      */

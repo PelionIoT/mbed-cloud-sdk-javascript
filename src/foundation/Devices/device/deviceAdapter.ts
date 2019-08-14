@@ -33,6 +33,7 @@ export class DeviceAdapter extends Adapter {
             endpointType: data.endpoint_type,
             enrolmentListTimestamp: data.enrolment_list_timestamp,
             firmwareChecksum: data.firmware_checksum,
+            groups: data.groups,
             hostGateway: data.host_gateway,
             id: data.id,
             issuerFingerprint: data.issuer_fingerprint,
