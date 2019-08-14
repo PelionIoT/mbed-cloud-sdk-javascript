@@ -39,6 +39,7 @@ export class SubtenantUserAdapter extends Adapter {
             email: data.email,
             emailVerified: data.email_verified,
             fullName: data.full_name,
+            groups: data.groups,
             id: data.id,
             isGtcAccepted: data.is_gtc_accepted,
             isMarketingAccepted: data.is_marketing_accepted,
