@@ -24,6 +24,7 @@ export class SubtenantUserInvitationRepository extends Repository {
                         },
                         body: {
                             email: request.email,
+                            groups: request.groups,
                             login_profiles: request.loginProfiles,
                             valid_for_days: request.validForDays,
                         },

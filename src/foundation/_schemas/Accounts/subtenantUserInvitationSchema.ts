@@ -25,6 +25,11 @@ export const subtenantUserInvitationSchema = (): Schema => {
                 type: "Date",
             },
             {
+                name: "groups",
+                apiName: "groups",
+                type: "Array<string>",
+            },
+            {
                 name: "loginProfiles",
                 apiName: "login_profiles",
                 type: "Array<LoginProfile>",
@@ -54,6 +59,10 @@ export const subtenantUserInvitationSchema = (): Schema => {
                             {
                                 name: "email",
                                 type: "string",
+                            },
+                            {
+                                name: "groups",
+                                type: "Array<string>",
                             },
                             {
                                 name: "loginProfiles",

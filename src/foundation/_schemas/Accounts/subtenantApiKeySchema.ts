@@ -20,6 +20,11 @@ export const subtenantApiKeySchema = (): Schema => {
                 type: "number",
             },
             {
+                name: "groups",
+                apiName: "groups",
+                type: "Array<string>",
+            },
+            {
                 name: "key",
                 apiName: "key",
                 type: "string",
@@ -62,6 +67,10 @@ export const subtenantApiKeySchema = (): Schema => {
                         type: "Object",
                         subParams: [
                             {
+                                name: "groups",
+                                type: "Array<string>",
+                            },
+                            {
                                 name: "name",
                                 type: "string",
                             },
@@ -99,6 +108,49 @@ export const subtenantApiKeySchema = (): Schema => {
                 ],
             },
             {
+                name: "policyGroups",
+                returnType: "Paginator<SubtenantPolicyGroup, ListOptions>",
+                parameters: [
+                    {
+                        name: "accountId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "subtenantApiKeyId",
+                        position: 1,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 2,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
                 name: "read",
                 returnType: "Promise<SubtenantApiKey>",
                 parameters: [
@@ -123,6 +175,10 @@ export const subtenantApiKeySchema = (): Schema => {
                         position: 0,
                         type: "Object",
                         subParams: [
+                            {
+                                name: "groups",
+                                type: "Array<string>",
+                            },
                             {
                                 name: "name",
                                 type: "string",
