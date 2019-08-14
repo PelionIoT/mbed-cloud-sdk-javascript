@@ -23,6 +23,11 @@ export interface SubtenantUserCreateRequest {
     readonly fullName?: string;
 
     /**
+     *groups
+     */
+    readonly groups?: Array<string>;
+
+    /**
      *A flag indicating that the user has accepted General Terms and Conditions.
      *@example true
      */
@@ -72,6 +77,11 @@ export interface SubtenantUserUpdateRequest {
      *@example User Doe
      */
     readonly fullName?: string;
+
+    /**
+     *groups
+     */
+    readonly groups?: Array<string>;
 
     /**
      *A flag indicating that the user has accepted General Terms and Conditions.

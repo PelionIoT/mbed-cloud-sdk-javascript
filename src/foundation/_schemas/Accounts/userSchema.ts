@@ -50,6 +50,11 @@ export const userSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "groups",
+                apiName: "groups",
+                type: "Array<string>",
+            },
+            {
                 name: "isGtcAccepted",
                 apiName: "is_gtc_accepted",
                 type: "boolean",
@@ -139,6 +144,10 @@ export const userSchema = (): Schema => {
                                 type: "string",
                             },
                             {
+                                name: "groups",
+                                type: "Array<string>",
+                            },
+                            {
                                 name: "isGtcAccepted",
                                 type: "boolean",
                             },
@@ -220,6 +229,44 @@ export const userSchema = (): Schema => {
                 ],
             },
             {
+                name: "policyGroups",
+                returnType: "Paginator<PolicyGroup, ListOptions>",
+                parameters: [
+                    {
+                        name: "userId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
                 name: "read",
                 returnType: "Promise<User>",
                 parameters: [
@@ -246,6 +293,10 @@ export const userSchema = (): Schema => {
                             {
                                 name: "fullName",
                                 type: "string",
+                            },
+                            {
+                                name: "groups",
+                                type: "Array<string>",
                             },
                             {
                                 name: "isGtcAccepted",

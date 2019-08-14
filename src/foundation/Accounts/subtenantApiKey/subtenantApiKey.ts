@@ -23,6 +23,11 @@ export interface SubtenantApiKey extends Entity {
     readonly creationTime?: number;
 
     /**
+     *groups
+     */
+    groups?: Array<string>;
+
+    /**
      *The API key.
      *@example ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000
      */

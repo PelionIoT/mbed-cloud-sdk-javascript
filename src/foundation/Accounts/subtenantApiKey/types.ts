@@ -4,6 +4,11 @@ export type SubtenantApiKeyStatus = "ACTIVE" | "INACTIVE";
  */
 export interface SubtenantApiKeyCreateRequest {
     /**
+     *groups
+     */
+    readonly groups?: Array<string>;
+
+    /**
      *The display name for the API key.
      *@example API key gorgon
      */
@@ -25,6 +30,11 @@ export interface SubtenantApiKeyCreateRequest {
  *SubtenantApiKeyUpdateRequest
  */
 export interface SubtenantApiKeyUpdateRequest {
+    /**
+     *groups
+     */
+    readonly groups?: Array<string>;
+
     /**
      *The display name for the API key.
      *@example API key gorgon

@@ -26,6 +26,7 @@ export { loginProfileSchema } from "./Accounts/loginProfileSchema";
 export { parentAccountSchema } from "./Accounts/parentAccountSchema";
 export { passwordPolicySchema } from "./Accounts/passwordPolicySchema";
 export { policySchema } from "./Accounts/policySchema";
+export { policyGroupSchema } from "./Accounts/policyGroupSchema";
 export { preSharedKeySchema } from "./Security/preSharedKeySchema";
 export { serverCredentialsSchema } from "./Security/serverCredentialsSchema";
 export { subtenantApiKeySchema } from "./Accounts/subtenantApiKeySchema";
@@ -33,6 +34,7 @@ export { subtenantDarkThemeColorSchema } from "./Branding/subtenantDarkThemeColo
 export { subtenantDarkThemeImageSchema } from "./Branding/subtenantDarkThemeImageSchema";
 export { subtenantLightThemeColorSchema } from "./Branding/subtenantLightThemeColorSchema";
 export { subtenantLightThemeImageSchema } from "./Branding/subtenantLightThemeImageSchema";
+export { subtenantPolicyGroupSchema } from "./Accounts/subtenantPolicyGroupSchema";
 export { subtenantTrustedCertificateSchema } from "./Security/subtenantTrustedCertificateSchema";
 export { subtenantUserSchema } from "./Accounts/subtenantUserSchema";
 export { subtenantUserInvitationSchema } from "./Accounts/subtenantUserInvitationSchema";
