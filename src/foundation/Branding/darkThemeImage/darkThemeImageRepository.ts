@@ -4,7 +4,7 @@ import { DarkThemeImage } from "./darkThemeImage";
 import { DarkThemeImageAdapter } from "../../index";
 import { ReadStream } from "fs";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *DarkThemeImage repository
  */
@@ -50,7 +50,7 @@ export class DarkThemeImageRepository extends Repository {
                     );
                 },
                 (data: Page<DarkThemeImage>, done) => {
-                    done(null, new Page(data, data.data, DarkThemeImageAdapter.fromApi));
+                    done(null, new Page(data, data.data, DarkThemeImageAdapter.fromApi, pageOptions));
                 },
                 null
             );

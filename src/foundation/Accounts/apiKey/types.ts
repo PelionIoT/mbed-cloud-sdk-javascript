@@ -1,9 +1,14 @@
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 export type ApiKeyStatus = "ACTIVE" | "INACTIVE";
 /**
  *ApiKeyCreateRequest
  */
 export interface ApiKeyCreateRequest {
+    /**
+     *groups
+     */
+    readonly groups?: Array<string>;
+
     /**
      *The display name for the API key.
      *@example API key gorgon
@@ -26,6 +31,11 @@ export interface ApiKeyCreateRequest {
  *ApiKeyUpdateRequest
  */
 export interface ApiKeyUpdateRequest {
+    /**
+     *groups
+     */
+    readonly groups?: Array<string>;
+
     /**
      *The display name for the API key.
      *@example API key gorgon

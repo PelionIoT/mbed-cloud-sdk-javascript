@@ -9,7 +9,7 @@ import { extractFilter } from "../../../common/filters";
 import { TrustedCertificateListOptions } from "./types";
 import { TrustedCertificateUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *TrustedCertificate repository
  */
@@ -131,7 +131,7 @@ export class TrustedCertificateRepository extends Repository {
                     );
                 },
                 (data: Page<TrustedCertificate>, done) => {
-                    done(null, new Page(data, data.data, TrustedCertificateAdapter.fromApi));
+                    done(null, new Page(data, data.data, TrustedCertificateAdapter.fromApi, pageOptions));
                 },
                 null
             );

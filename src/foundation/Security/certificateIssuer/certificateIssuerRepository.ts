@@ -7,7 +7,7 @@ import { CertificateIssuerUpdateRequest } from "./types";
 import { VerificationResponse } from "../../index";
 import { VerificationResponseAdapter } from "../../index";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *CertificateIssuer repository
  */
@@ -88,7 +88,7 @@ An active certificate issuer may not be deleted.
                     );
                 },
                 (data: Page<CertificateIssuer>, done) => {
-                    done(null, new Page(data, data.data, CertificateIssuerAdapter.fromApi));
+                    done(null, new Page(data, data.data, CertificateIssuerAdapter.fromApi, pageOptions));
                 },
                 null
             );

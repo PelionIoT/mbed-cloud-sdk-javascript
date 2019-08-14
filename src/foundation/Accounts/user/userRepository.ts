@@ -5,9 +5,11 @@ import { UserAdapter } from "../../index";
 import { UserCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
 import { UserListOptions } from "./types";
+import { PolicyGroup } from "../../index";
+import { PolicyGroupAdapter } from "../../index";
 import { UserUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *User repository
  */
@@ -31,6 +33,7 @@ export class UserRepository extends Repository {
                             address: request.address,
                             email: request.email,
                             full_name: request.fullName,
+                            groups: request.groups,
                             is_gtc_accepted: request.isGtcAccepted,
                             is_marketing_accepted: request.isMarketingAccepted,
                             login_profiles: request.loginProfiles,
@@ -99,7 +102,42 @@ export class UserRepository extends Repository {
                     );
                 },
                 (data: Page<User>, done) => {
-                    done(null, new Page(data, data.data, UserAdapter.fromApi));
+                    done(null, new Page(data, data.data, UserAdapter.fromApi, pageOptions));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
+    }
+    /**
+     * policyGroups
+     * @param id - The ID of the user.
+     * @param options - options
+     */
+    public policyGroups(id: string, options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<PolicyGroup>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/users/{user_id}/groups",
+                            method: "GET",
+                            query: {
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                            },
+                            pathParams: {
+                                user_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: Page<PolicyGroup>, done) => {
+                    done(null, new Page(data, data.data, PolicyGroupAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -147,6 +185,7 @@ export class UserRepository extends Repository {
                         body: {
                             address: request.address,
                             full_name: request.fullName,
+                            groups: request.groups,
                             is_gtc_accepted: request.isGtcAccepted,
                             is_marketing_accepted: request.isMarketingAccepted,
                             is_totp_enabled: request.isTotpEnabled,

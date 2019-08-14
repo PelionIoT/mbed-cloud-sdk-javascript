@@ -20,6 +20,11 @@ export const apiKeySchema = (): Schema => {
                 type: "number",
             },
             {
+                name: "groups",
+                apiName: "groups",
+                type: "Array<string>",
+            },
+            {
                 name: "key",
                 apiName: "key",
                 type: "string",
@@ -61,6 +66,10 @@ export const apiKeySchema = (): Schema => {
                         position: 0,
                         type: "Object",
                         subParams: [
+                            {
+                                name: "groups",
+                                type: "Array<string>",
+                            },
                             {
                                 name: "name",
                                 type: "string",
@@ -131,6 +140,44 @@ export const apiKeySchema = (): Schema => {
                 parameters: [],
             },
             {
+                name: "policyGroups",
+                returnType: "Paginator<PolicyGroup, ListOptions>",
+                parameters: [
+                    {
+                        name: "apiKeyId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 1,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "after",
+                                type: "string",
+                            },
+                            {
+                                name: "limit",
+                                type: "number",
+                            },
+                            {
+                                name: "order",
+                                type: "string",
+                            },
+                            {
+                                name: "include",
+                                type: "string",
+                            },
+                            {
+                                name: "maxResults",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
                 name: "read",
                 returnType: "Promise<ApiKey>",
                 parameters: [
@@ -150,6 +197,10 @@ export const apiKeySchema = (): Schema => {
                         position: 0,
                         type: "Object",
                         subParams: [
+                            {
+                                name: "groups",
+                                type: "Array<string>",
+                            },
                             {
                                 name: "name",
                                 type: "string",

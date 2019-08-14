@@ -4,7 +4,7 @@ import { DeviceEnrollment } from "./deviceEnrollment";
 import { DeviceEnrollmentAdapter } from "../../index";
 import { DeviceEnrollmentCreateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *DeviceEnrollment repository
  */
@@ -79,7 +79,7 @@ export class DeviceEnrollmentRepository extends Repository {
                     );
                 },
                 (data: Page<DeviceEnrollment>, done) => {
-                    done(null, new Page(data, data.data, DeviceEnrollmentAdapter.fromApi));
+                    done(null, new Page(data, data.data, DeviceEnrollmentAdapter.fromApi, pageOptions));
                 },
                 null
             );

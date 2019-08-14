@@ -10,6 +10,11 @@ export interface SubtenantUserInvitationCreateRequest {
     readonly email: string;
 
     /**
+     *groups
+     */
+    readonly groups?: Array<string>;
+
+    /**
      *Represents a user login profile in Device Management.
      */
     readonly loginProfiles?: Array<LoginProfile>;

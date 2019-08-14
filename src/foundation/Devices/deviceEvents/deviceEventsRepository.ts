@@ -5,7 +5,7 @@ import { extractFilter } from "../../../common/filters";
 import { DeviceEventsListOptions } from "./types";
 import { DeviceEventsAdapter } from "../../index";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *DeviceEvents repository
  */
@@ -56,7 +56,7 @@ export class DeviceEventsRepository extends Repository {
                     );
                 },
                 (data: Page<DeviceEvents>, done) => {
-                    done(null, new Page(data, data.data, DeviceEventsAdapter.fromApi));
+                    done(null, new Page(data, data.data, DeviceEventsAdapter.fromApi, pageOptions));
                 },
                 null
             );

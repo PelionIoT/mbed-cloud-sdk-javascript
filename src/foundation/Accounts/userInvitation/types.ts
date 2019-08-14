@@ -1,4 +1,4 @@
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 import { LoginProfile } from "../loginProfile/loginProfile";
 /**
  *UserInvitationCreateRequest
@@ -9,6 +9,11 @@ export interface UserInvitationCreateRequest {
      *@example friend@arm.com
      */
     readonly email: string;
+
+    /**
+     *groups
+     */
+    readonly groups?: Array<string>;
 
     /**
      *Represents a user login profile in Device Management.

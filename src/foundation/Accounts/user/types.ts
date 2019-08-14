@@ -1,4 +1,4 @@
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 import { LoginProfile } from "../loginProfile/loginProfile";
 export type UserStatus = "ENROLLING" | "INVITED" | "ACTIVE" | "RESET" | "INACTIVE";
 /**
@@ -22,6 +22,11 @@ export interface UserCreateRequest {
      *@example User Doe
      */
     readonly fullName?: string;
+
+    /**
+     *groups
+     */
+    readonly groups?: Array<string>;
 
     /**
      *A flag indicating that the user has accepted General Terms and Conditions.
@@ -73,6 +78,11 @@ export interface UserUpdateRequest {
      *@example User Doe
      */
     readonly fullName?: string;
+
+    /**
+     *groups
+     */
+    readonly groups?: Array<string>;
 
     /**
      *A flag indicating that the user has accepted General Terms and Conditions.

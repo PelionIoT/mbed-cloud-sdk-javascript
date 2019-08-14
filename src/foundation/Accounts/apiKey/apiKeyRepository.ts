@@ -5,9 +5,11 @@ import { ApiKeyAdapter } from "../../index";
 import { ApiKeyCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
 import { ApiKeyListOptions } from "./types";
+import { PolicyGroup } from "../../index";
+import { PolicyGroupAdapter } from "../../index";
 import { ApiKeyUpdateRequest } from "./types";
 import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../legacy/common/interfaces";
+import { ListOptions } from "../../../common";
 /**
  *ApiKey repository
  */
@@ -24,6 +26,7 @@ export class ApiKeyRepository extends Repository {
                         url: "/v3/api-keys",
                         method: "POST",
                         body: {
+                            groups: request.groups,
                             name: request.name,
                             owner: request.owner,
                             status: request.status,
@@ -86,7 +89,7 @@ export class ApiKeyRepository extends Repository {
                     );
                 },
                 (data: Page<ApiKey>, done) => {
-                    done(null, new Page(data, data.data, ApiKeyAdapter.fromApi));
+                    done(null, new Page(data, data.data, ApiKeyAdapter.fromApi, pageOptions));
                 },
                 null
             );
@@ -111,6 +114,41 @@ export class ApiKeyRepository extends Repository {
                 done(null, ApiKeyAdapter.fromApi(data));
             }
         );
+    }
+    /**
+     * policyGroups
+     * @param id - The ID of the API key.
+     * @param options - options
+     */
+    public policyGroups(id: string, options?: ListOptions): Paginator<PolicyGroup, ListOptions> {
+        const pageFunc = (pageOptions: ListOptions): Promise<Page<PolicyGroup>> => {
+            pageOptions = pageOptions || {};
+            return apiWrapper(
+                resultsFn => {
+                    this.client._CallApi(
+                        {
+                            url: "/v3/api-keys/{apikey_id}/groups",
+                            method: "GET",
+                            query: {
+                                after: pageOptions.after,
+                                include: pageOptions.include,
+                                limit: pageOptions.limit,
+                                order: pageOptions.order,
+                            },
+                            pathParams: {
+                                apikey_id: id,
+                            },
+                        },
+                        resultsFn
+                    );
+                },
+                (data: Page<PolicyGroup>, done) => {
+                    done(null, new Page(data, data.data, PolicyGroupAdapter.fromApi, pageOptions));
+                },
+                null
+            );
+        };
+        return new Paginator(pageFunc, options);
     }
     /**
      * read
@@ -151,6 +189,7 @@ export class ApiKeyRepository extends Repository {
                             apikey_id: id,
                         },
                         body: {
+                            groups: request.groups,
                             name: request.name,
                             owner: request.owner,
                             status: request.status,

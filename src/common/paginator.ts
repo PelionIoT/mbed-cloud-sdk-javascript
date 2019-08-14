@@ -1,4 +1,4 @@
-import { ListOptions } from "../legacy/common/interfaces";
+import { ListOptions } from "./listOptions";
 import { Page } from "./page";
 import { Entity } from "./entity";
 import { isArray } from "util";
@@ -126,7 +126,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
                     if (this._totalCount && this._totalCount < this.maxResults) {
                         this._totalPages = this.getTotalPages(this._totalCount, this.pageSize);
                     }
-                    this._currentPageAfter = page.after || page.continuationMarker || null;
+                    this._currentPageAfter = page.after;
                     this._currentPageHasMore = page.hasMore;
                     this._afters.push(this._currentPageAfter);
                     this.listOptions.after = this._currentPageAfter;
@@ -304,10 +304,14 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
 
     private async fetchNextPage(): Promise<T> {
         await this.nextPage();
-        const nextItem = this.currentPage.next();
-        if (nextItem.value) {
-            return nextItem.value;
+        if (this.currentPage) {
+            const nextItem = this.currentPage.next();
+            if (nextItem.value) {
+                return nextItem.value;
+            }
         }
+
+        return null;
     }
 
     private async nextItem(): Promise<T> {
