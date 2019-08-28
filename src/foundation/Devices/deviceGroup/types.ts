@@ -14,7 +14,7 @@ export interface DeviceGroupAddDeviceRequest {
  */
 export interface DeviceGroupCreateRequest {
     /**
-     *Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.
+     *Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.
      *@example [object Object]
      */
     readonly customAttributes?: { [key: string]: string };
@@ -46,7 +46,7 @@ export interface DeviceGroupRemoveDeviceRequest {
  */
 export interface DeviceGroupUpdateRequest {
     /**
-     *Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.
+     *Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.
      *@example [object Object]
      */
     readonly customAttributes?: { [key: string]: string };
@@ -62,6 +62,154 @@ export interface DeviceGroupUpdateRequest {
      *@example My devices
      */
     readonly name?: string;
+}
+/**
+ *DeviceGroupDeviceLifecycleStatusFilter
+ */
+export interface DeviceGroupDeviceLifecycleStatusFilter {
+    /**
+     *lifecycleStatus equal to
+     */
+    eq?: string;
+
+    /**
+     *lifecycleStatus not equal to
+     */
+    neq?: string;
+
+    /**
+     *lifecycleStatus in
+     */
+    in?: Array<string>;
+
+    /**
+     *lifecycleStatus not in
+     */
+    nin?: Array<string>;
+}
+/**
+ *DeviceGroupDeviceOperatorSuspendedFilter
+ */
+export interface DeviceGroupDeviceOperatorSuspendedFilter {
+    /**
+     *operatorSuspended equal to
+     */
+    eq?: string;
+
+    /**
+     *operatorSuspended not equal to
+     */
+    neq?: string;
+}
+/**
+ *DeviceGroupDeviceLastOperatorSuspendedCategoryFilter
+ */
+export interface DeviceGroupDeviceLastOperatorSuspendedCategoryFilter {
+    /**
+     *lastOperatorSuspendedCategory equal to
+     */
+    eq?: string;
+
+    /**
+     *lastOperatorSuspendedCategory not equal to
+     */
+    neq?: string;
+
+    /**
+     *lastOperatorSuspendedCategory in
+     */
+    in?: Array<string>;
+
+    /**
+     *lastOperatorSuspendedCategory not in
+     */
+    nin?: Array<string>;
+}
+/**
+ *DeviceGroupDeviceLastOperatorSuspendedUpdatedAtFilter
+ */
+export interface DeviceGroupDeviceLastOperatorSuspendedUpdatedAtFilter {
+    /**
+     *lastOperatorSuspendedUpdatedAt in
+     */
+    in?: Array<string>;
+
+    /**
+     *lastOperatorSuspendedUpdatedAt not in
+     */
+    nin?: Array<string>;
+
+    /**
+     *lastOperatorSuspendedUpdatedAt less than
+     */
+    lte?: Array<string>;
+
+    /**
+     *lastOperatorSuspendedUpdatedAt greater than
+     */
+    gte?: Array<string>;
+}
+/**
+ *DeviceGroupDeviceSystemSuspendedFilter
+ */
+export interface DeviceGroupDeviceSystemSuspendedFilter {
+    /**
+     *systemSuspended equal to
+     */
+    eq?: string;
+
+    /**
+     *systemSuspended not equal to
+     */
+    neq?: string;
+}
+/**
+ *DeviceGroupDeviceLastSystemSuspendedCategoryFilter
+ */
+export interface DeviceGroupDeviceLastSystemSuspendedCategoryFilter {
+    /**
+     *lastSystemSuspendedCategory equal to
+     */
+    eq?: string;
+
+    /**
+     *lastSystemSuspendedCategory not equal to
+     */
+    neq?: string;
+
+    /**
+     *lastSystemSuspendedCategory in
+     */
+    in?: Array<string>;
+
+    /**
+     *lastSystemSuspendedCategory not in
+     */
+    nin?: Array<string>;
+}
+/**
+ *DeviceGroupDeviceLastSystemSuspendedUpdatedAtFilter
+ */
+export interface DeviceGroupDeviceLastSystemSuspendedUpdatedAtFilter {
+    /**
+     *lastSystemSuspendedUpdatedAt in
+     */
+    in?: Array<string>;
+
+    /**
+     *lastSystemSuspendedUpdatedAt not in
+     */
+    nin?: Array<string>;
+
+    /**
+     *lastSystemSuspendedUpdatedAt less than
+     */
+    lte?: Array<string>;
+
+    /**
+     *lastSystemSuspendedUpdatedAt greater than
+     */
+    gte?: Array<string>;
 }
 /**
  *DeviceGroupDeviceAccountIdFilter
@@ -729,6 +877,41 @@ export interface DeviceGroupDeviceVendorIdFilter {
  *DeviceGroupDeviceFilter
  */
 export interface DeviceGroupDeviceFilter {
+    /**
+     *Filter by lifecycleStatus on Device
+     */
+    lifecycleStatus?: string | DeviceGroupDeviceLifecycleStatusFilter;
+
+    /**
+     *Filter by operatorSuspended on Device
+     */
+    operatorSuspended?: string | DeviceGroupDeviceOperatorSuspendedFilter;
+
+    /**
+     *Filter by lastOperatorSuspendedCategory on Device
+     */
+    lastOperatorSuspendedCategory?: string | DeviceGroupDeviceLastOperatorSuspendedCategoryFilter;
+
+    /**
+     *Filter by lastOperatorSuspendedUpdatedAt on Device
+     */
+    lastOperatorSuspendedUpdatedAt?: DeviceGroupDeviceLastOperatorSuspendedUpdatedAtFilter;
+
+    /**
+     *Filter by systemSuspended on Device
+     */
+    systemSuspended?: string | DeviceGroupDeviceSystemSuspendedFilter;
+
+    /**
+     *Filter by lastSystemSuspendedCategory on Device
+     */
+    lastSystemSuspendedCategory?: string | DeviceGroupDeviceLastSystemSuspendedCategoryFilter;
+
+    /**
+     *Filter by lastSystemSuspendedUpdatedAt on Device
+     */
+    lastSystemSuspendedUpdatedAt?: DeviceGroupDeviceLastSystemSuspendedUpdatedAtFilter;
+
     /**
      *Filter by accountId on Device
      */

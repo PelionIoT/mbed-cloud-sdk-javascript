@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { DeviceDeployedState, DeviceMechanism, DeviceState } from "./types";
+import { DeviceDeployedState, DeviceLifecycleStatus, DeviceMechanism, DeviceState } from "./types";
 /**
  *Device
  */
@@ -73,9 +73,9 @@ export interface Device extends Entity {
     /**
 *The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.
 Permitted values:
-  - 0 - unspecified execution mode (default if host_gateway invalid or not set)
-  - 1 - development devices
-  - 5 - production devices
+  - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.
+  - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.
+  - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.
 */
     deviceExecutionMode?: number;
 
@@ -125,6 +125,48 @@ Permitted values:
     issuerFingerprint?: string;
 
     /**
+     *The reference of the block category.
+     *@example maintenance
+     */
+    readonly lastOperatorSuspendedCategory?: string;
+
+    /**
+     *The most recent description why the device was suspended or returned to service.
+     *@example Suspended for maintenance.
+     */
+    readonly lastOperatorSuspendedDescription?: string;
+
+    /**
+     *The timestamp of the most recent suspension activity.
+     *@example 2017-05-22T12:37:55.576563Z
+     */
+    readonly lastOperatorSuspendedUpdatedAt?: Date;
+
+    /**
+     *The reference of the block category.
+     *@example maintenance
+     */
+    readonly lastSystemSuspendedCategory?: string;
+
+    /**
+     *The most recent description of why the device was blocked or unblocked by the system.
+     *@example A certificate in the device's certificate chain was blacklisted by the system.
+     */
+    readonly lastSystemSuspendedDescription?: string;
+
+    /**
+     *The timestamp of the most recent system block activity.
+     *@example 2017-05-22T12:37:55.576563Z
+     */
+    readonly lastSystemSuspendedUpdatedAt?: Date;
+
+    /**
+     *The lifecycle status of the device.
+     *@example enabled
+     */
+    readonly lifecycleStatus?: DeviceLifecycleStatus;
+
+    /**
      *DEPRECATED: The URL for the current device manifest.
      */
     manifest?: string;
@@ -152,6 +194,11 @@ Permitted values:
     name?: string;
 
     /**
+     *Is the device suspended by the operator?
+     */
+    readonly operatorSuspended?: boolean;
+
+    /**
      *The serial number of the device.
      *@example 00000000-0000-0000-0000-000000000000
      */
@@ -161,6 +208,11 @@ Permitted values:
      *The current state of the device.
      */
     state?: DeviceState;
+
+    /**
+     *Is the device suspended by the system?
+     */
+    readonly systemSuspended?: boolean;
 
     /**
      *The time the object was updated.
