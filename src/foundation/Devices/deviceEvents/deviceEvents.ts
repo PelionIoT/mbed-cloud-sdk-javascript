@@ -52,7 +52,7 @@ export interface DeviceEvents extends Entity {
     readonly eventTypeCategory?: string;
 
     /**
-     *Generic description of the event
+     *Generic description of the event.
      *@example FAIL
      */
     readonly eventTypeDescription?: string;

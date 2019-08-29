@@ -10,7 +10,7 @@ export interface DeviceGroup extends Entity {
     readonly createdAt?: Date;
 
     /**
-     *Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.
+     *Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.
      *@example [object Object]
      */
     customAttributes?: { [key: string]: string };
