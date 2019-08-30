@@ -32,10 +32,10 @@ import { camelToSnake } from "../legacy/common/functions";
   * @returns {object}
   *
   */
-export function objectKeysToCamelCase(input, deep, filter) {
+export function objectKeysToSnakeCase(input, deep, filter) {
     // tslint:disable-next-line:one-variable-per-declaration
     let idx, key, keys, last, output, self, type, value;
-    self = objectKeysToCamelCase;
+    self = objectKeysToSnakeCase;
     type = typeof deep;
 
     // Convert "deep" to a number between 0 to Infinity or keep special object.
