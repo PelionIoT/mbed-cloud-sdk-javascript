@@ -32,36 +32,16 @@ import { camelToSnake } from "../legacy/common/functions";
   * @returns {object}
   *
   */
-export function objectKeysToSnakeCase(input: object, deep, _filter) {
+export function objectKeysToSnakeCase(input: object, _deep, _filter) {
     // tslint:disable-next-line:one-variable-per-declaration
-    let idx, key, keys, last, output, self, type, value;
+    let idx, key, keys, last, output, self, value;
     self = objectKeysToSnakeCase;
-    type = typeof deep;
 
-    // Convert "deep" to a number between 0 to Infinity or keep special object.
-    if (type === "undefined" || deep === null || deep === 0 || deep === false) {
-        deep = 0; // Shallow copy
-    } else if (type === "object") {
-        if (!(deep instanceof self)) {
-            throw new TypeError('Expected "deep" to be a special object');
-        }
-    } else if (deep === true) {
-        deep = Infinity; // Deep copy
-    } else if (type === "number") {
-        if (isNaN(deep) || deep < 0) {
-            throw new RangeError(
-                'Expected "deep" to be a positive number, got ' + deep
-            );
-        }
-    } else {
-        throw new TypeError(
-            'Expected "deep" to be a boolean, number or object, got "' + type + '"'
-        );
-    }
+    let deep: any = Infinity;
 
     // Check type of input, and throw if null or not an object.
     if (input === null || typeof input !== "object") {
-        throw new TypeError('Expected "input" to be an object');
+        return {};
     }
 
     keys = Object.keys(input); // Get own keys from object

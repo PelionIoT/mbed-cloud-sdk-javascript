@@ -2,6 +2,10 @@ import { objectKeysToSnakeCase } from "../../src/common/transform";
 
 describe("test transform function", () => {
 
+    it("should return empty object if input is null", () => {
+        expect(objectKeysToSnakeCase(null, true, null)).toEqual({});
+    });
+
     it("should transform object keys to snakeCase", () => {
 
         const obj = {
