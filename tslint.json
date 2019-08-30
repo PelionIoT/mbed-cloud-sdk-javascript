@@ -4,7 +4,7 @@
         "tslint-eslint-rules"
     ],
     "rules": {
-        "array-bracket-spacing": [true, "always"],
+        "array-bracket-spacing": [false, "always"],
         "arrow-parens": [true, "ban-single-arg-parens"],
         "array-type": [true, "generic"],
         "block-spacing": [true, "always"],
