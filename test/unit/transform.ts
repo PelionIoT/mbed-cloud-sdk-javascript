@@ -3,7 +3,7 @@ import { objectKeysToSnakeCase } from "../../src/common/transform";
 describe("test transform function", () => {
 
     it("should return empty object if input is null", () => {
-        expect(objectKeysToSnakeCase(null, true, null)).toEqual({});
+        expect(objectKeysToSnakeCase(null)).toEqual({});
     });
 
     it("should transform object keys to snakeCase", () => {
@@ -16,7 +16,7 @@ describe("test transform function", () => {
         expect(obj.firstProp).not.toBeUndefined();
         expect((obj as any).first_prop).toBeUndefined();
 
-        const transformedObject = objectKeysToSnakeCase(obj, true, null);
+        const transformedObject = objectKeysToSnakeCase(obj);
 
         expect(transformedObject.first_prop).not.toBeUndefined();
         expect(transformedObject.firstProp).toBeUndefined();
@@ -40,9 +40,7 @@ describe("test transform function", () => {
         expect(obj.secondProp.twoNestedProp.threeNestedProp.nestedProp).not.toBeUndefined();
         expect((obj as any).second_prop).toBeUndefined();
 
-        const transformedObject = objectKeysToSnakeCase(obj, true, null);
-
-        console.log(transformedObject);
+        const transformedObject = objectKeysToSnakeCase(obj);
 
         expect(transformedObject.second_prop.two_nested_prop.three_nested_prop.nested_prop).not.toBeUndefined();
     });

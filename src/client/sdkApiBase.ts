@@ -211,7 +211,7 @@ export class SdkApiBase {
 
             // Remove empty or undefined json parameters
             if (body && body.constructor === {}.constructor && JSON_REGEX.test(requestOptions.contentType)) {
-                body = objectKeysToSnakeCase(body, true, null);
+                body = objectKeysToSnakeCase(body);
             }
 
             request.send(body);

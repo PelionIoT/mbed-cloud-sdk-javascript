@@ -21,18 +21,10 @@ import { camelToSnake } from "../legacy/common/functions";
   *
   * @param {object} input
   *   The source object
-  * @param {boolean|number} deep
-  *   A shallow copy is made if "deep" is undefined, null, false or 0.
-  *   A deep copy is made if "deep" is true or a positive number.
-  *   The number specifies how many levels to copy. Infinity is a valid number.
-  *   This variable is used internally during deep copy.
-  * @param {function} filter
-  *   A filter function(object) to filter objects that should be copied.
-  *   If it returns true, the copy is performed.
   * @returns {object}
   *
   */
-export function objectKeysToSnakeCase(input: object, _deep, _filter) {
+export function objectKeysToSnakeCase(input: object) {
     // tslint:disable-next-line:one-variable-per-declaration
     let idx, key, keys, last, output, self, value;
     self = objectKeysToSnakeCase;
@@ -48,27 +40,19 @@ export function objectKeysToSnakeCase(input: object, _deep, _filter) {
     last = keys.length - 1;
     output = {}; // new object
 
-    if (typeof deep === "number") {
-        // Create special object to be used during deep copy
-        deep =
-            Object.seal(
-                Object.create(
-                    self.prototype,
-                    {
-                        input: { value: [] },
-                        output: { value: [] },
-                        level: { value: -1, writable: true },
-                        max: { value: deep, writable: false }
-                    }
-                )
-            );
-    } else {
-        // Circle detection
-        idx = deep.input.indexOf(input);
-        if (~idx) {
-            return deep.output[idx];
-        }
-    }
+    // Create special object to be used during deep copy
+    deep =
+        Object.seal(
+            Object.create(
+                self.prototype,
+                {
+                    input: { value: [] },
+                    output: { value: [] },
+                    level: { value: -1, writable: true },
+                    max: { value: deep, writable: false }
+                }
+            )
+        );
 
     deep.level += 1;
     deep.input.push(input);
