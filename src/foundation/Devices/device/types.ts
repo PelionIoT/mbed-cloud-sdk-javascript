@@ -1,6 +1,7 @@
 import { ListOptions } from "../../../common";
 export type DeviceDeployedState = "development" | "production";
 export type DeviceExecutionMode = "0" | "1" | "5";
+export type DeviceLifecycleStatus = "enabled" | "blocked";
 export type DeviceMechanism = "connector" | "direct";
 export type DeviceState = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";
 /**
@@ -63,9 +64,9 @@ export interface DeviceCreateRequest {
     /**
 *The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.
 Permitted values:
-  - 0 - unspecified execution mode (default if host_gateway invalid or not set)
-  - 1 - development devices
-  - 5 - production devices
+  - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.
+  - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.
+  - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.
 */
     readonly deviceExecutionMode?: number;
 
@@ -199,6 +200,154 @@ export interface DeviceUpdateRequest {
      *@example 00000000-0000-0000-0000-000000000000
      */
     readonly name?: string;
+}
+/**
+ *DeviceLifecycleStatusFilter
+ */
+export interface DeviceLifecycleStatusFilter {
+    /**
+     *lifecycleStatus equal to
+     */
+    eq?: DeviceLifecycleStatus;
+
+    /**
+     *lifecycleStatus not equal to
+     */
+    neq?: DeviceLifecycleStatus;
+
+    /**
+     *lifecycleStatus in
+     */
+    in?: Array<DeviceLifecycleStatus>;
+
+    /**
+     *lifecycleStatus not in
+     */
+    nin?: Array<DeviceLifecycleStatus>;
+}
+/**
+ *DeviceOperatorSuspendedFilter
+ */
+export interface DeviceOperatorSuspendedFilter {
+    /**
+     *operatorSuspended equal to
+     */
+    eq?: boolean;
+
+    /**
+     *operatorSuspended not equal to
+     */
+    neq?: boolean;
+}
+/**
+ *DeviceLastOperatorSuspendedCategoryFilter
+ */
+export interface DeviceLastOperatorSuspendedCategoryFilter {
+    /**
+     *lastOperatorSuspendedCategory equal to
+     */
+    eq?: string;
+
+    /**
+     *lastOperatorSuspendedCategory not equal to
+     */
+    neq?: string;
+
+    /**
+     *lastOperatorSuspendedCategory in
+     */
+    in?: Array<string>;
+
+    /**
+     *lastOperatorSuspendedCategory not in
+     */
+    nin?: Array<string>;
+}
+/**
+ *DeviceLastOperatorSuspendedUpdatedAtFilter
+ */
+export interface DeviceLastOperatorSuspendedUpdatedAtFilter {
+    /**
+     *lastOperatorSuspendedUpdatedAt in
+     */
+    in?: Array<Date>;
+
+    /**
+     *lastOperatorSuspendedUpdatedAt not in
+     */
+    nin?: Array<Date>;
+
+    /**
+     *lastOperatorSuspendedUpdatedAt less than
+     */
+    lte?: Array<Date>;
+
+    /**
+     *lastOperatorSuspendedUpdatedAt greater than
+     */
+    gte?: Array<Date>;
+}
+/**
+ *DeviceSystemSuspendedFilter
+ */
+export interface DeviceSystemSuspendedFilter {
+    /**
+     *systemSuspended equal to
+     */
+    eq?: boolean;
+
+    /**
+     *systemSuspended not equal to
+     */
+    neq?: boolean;
+}
+/**
+ *DeviceLastSystemSuspendedCategoryFilter
+ */
+export interface DeviceLastSystemSuspendedCategoryFilter {
+    /**
+     *lastSystemSuspendedCategory equal to
+     */
+    eq?: string;
+
+    /**
+     *lastSystemSuspendedCategory not equal to
+     */
+    neq?: string;
+
+    /**
+     *lastSystemSuspendedCategory in
+     */
+    in?: Array<string>;
+
+    /**
+     *lastSystemSuspendedCategory not in
+     */
+    nin?: Array<string>;
+}
+/**
+ *DeviceLastSystemSuspendedUpdatedAtFilter
+ */
+export interface DeviceLastSystemSuspendedUpdatedAtFilter {
+    /**
+     *lastSystemSuspendedUpdatedAt in
+     */
+    in?: Array<Date>;
+
+    /**
+     *lastSystemSuspendedUpdatedAt not in
+     */
+    nin?: Array<Date>;
+
+    /**
+     *lastSystemSuspendedUpdatedAt less than
+     */
+    lte?: Array<Date>;
+
+    /**
+     *lastSystemSuspendedUpdatedAt greater than
+     */
+    gte?: Array<Date>;
 }
 /**
  *DeviceAccountIdFilter
@@ -866,6 +1015,41 @@ export interface DeviceVendorIdFilter {
  *DeviceFilter
  */
 export interface DeviceFilter {
+    /**
+     *Filter by lifecycleStatus on Device
+     */
+    lifecycleStatus?: DeviceLifecycleStatus | DeviceLifecycleStatusFilter;
+
+    /**
+     *Filter by operatorSuspended on Device
+     */
+    operatorSuspended?: boolean | DeviceOperatorSuspendedFilter;
+
+    /**
+     *Filter by lastOperatorSuspendedCategory on Device
+     */
+    lastOperatorSuspendedCategory?: string | DeviceLastOperatorSuspendedCategoryFilter;
+
+    /**
+     *Filter by lastOperatorSuspendedUpdatedAt on Device
+     */
+    lastOperatorSuspendedUpdatedAt?: DeviceLastOperatorSuspendedUpdatedAtFilter;
+
+    /**
+     *Filter by systemSuspended on Device
+     */
+    systemSuspended?: boolean | DeviceSystemSuspendedFilter;
+
+    /**
+     *Filter by lastSystemSuspendedCategory on Device
+     */
+    lastSystemSuspendedCategory?: string | DeviceLastSystemSuspendedCategoryFilter;
+
+    /**
+     *Filter by lastSystemSuspendedUpdatedAt on Device
+     */
+    lastSystemSuspendedUpdatedAt?: DeviceLastSystemSuspendedUpdatedAtFilter;
+
     /**
      *Filter by accountId on Device
      */

@@ -88,7 +88,7 @@ export class DeviceRepository extends Repository {
     }
     /**
      * delete
-     * @param id - id
+     * @param id - The ID of the device.
      */
     public delete(id: string): Promise<void> {
         return apiWrapper(
@@ -123,6 +123,94 @@ export class DeviceRepository extends Repository {
                             url: "/v3/devices/",
                             method: "GET",
                             query: {
+                                lifecycle_status__eq: extractFilter(pageOptions.filter, "lifecycleStatus", "eq"),
+                                lifecycle_status__neq: extractFilter(pageOptions.filter, "lifecycleStatus", "neq"),
+                                lifecycle_status__in: extractFilter(pageOptions.filter, "lifecycleStatus", "in"),
+                                lifecycle_status__nin: extractFilter(pageOptions.filter, "lifecycleStatus", "nin"),
+                                operator_suspended__eq: extractFilter(pageOptions.filter, "operatorSuspended", "eq"),
+                                operator_suspended__neq: extractFilter(pageOptions.filter, "operatorSuspended", "neq"),
+                                last_operator_suspended_category__eq: extractFilter(
+                                    pageOptions.filter,
+                                    "lastOperatorSuspendedCategory",
+                                    "eq"
+                                ),
+                                last_operator_suspended_category__neq: extractFilter(
+                                    pageOptions.filter,
+                                    "lastOperatorSuspendedCategory",
+                                    "neq"
+                                ),
+                                last_operator_suspended_category__in: extractFilter(
+                                    pageOptions.filter,
+                                    "lastOperatorSuspendedCategory",
+                                    "in"
+                                ),
+                                last_operator_suspended_category__nin: extractFilter(
+                                    pageOptions.filter,
+                                    "lastOperatorSuspendedCategory",
+                                    "nin"
+                                ),
+                                last_operator_suspended_updated_at__in: extractFilter(
+                                    pageOptions.filter,
+                                    "lastOperatorSuspendedUpdatedAt",
+                                    "in"
+                                ),
+                                last_operator_suspended_updated_at__nin: extractFilter(
+                                    pageOptions.filter,
+                                    "lastOperatorSuspendedUpdatedAt",
+                                    "nin"
+                                ),
+                                last_operator_suspended_updated_at__lte: extractFilter(
+                                    pageOptions.filter,
+                                    "lastOperatorSuspendedUpdatedAt",
+                                    "lte"
+                                ),
+                                last_operator_suspended_updated_at__gte: extractFilter(
+                                    pageOptions.filter,
+                                    "lastOperatorSuspendedUpdatedAt",
+                                    "gte"
+                                ),
+                                system_suspended__eq: extractFilter(pageOptions.filter, "systemSuspended", "eq"),
+                                system_suspended__neq: extractFilter(pageOptions.filter, "systemSuspended", "neq"),
+                                last_system_suspended_category__eq: extractFilter(
+                                    pageOptions.filter,
+                                    "lastSystemSuspendedCategory",
+                                    "eq"
+                                ),
+                                last_system_suspended_category__neq: extractFilter(
+                                    pageOptions.filter,
+                                    "lastSystemSuspendedCategory",
+                                    "neq"
+                                ),
+                                last_system_suspended_category__in: extractFilter(
+                                    pageOptions.filter,
+                                    "lastSystemSuspendedCategory",
+                                    "in"
+                                ),
+                                last_system_suspended_category__nin: extractFilter(
+                                    pageOptions.filter,
+                                    "lastSystemSuspendedCategory",
+                                    "nin"
+                                ),
+                                last_system_suspended_updated_at__in: extractFilter(
+                                    pageOptions.filter,
+                                    "lastSystemSuspendedUpdatedAt",
+                                    "in"
+                                ),
+                                last_system_suspended_updated_at__nin: extractFilter(
+                                    pageOptions.filter,
+                                    "lastSystemSuspendedUpdatedAt",
+                                    "nin"
+                                ),
+                                last_system_suspended_updated_at__lte: extractFilter(
+                                    pageOptions.filter,
+                                    "lastSystemSuspendedUpdatedAt",
+                                    "lte"
+                                ),
+                                last_system_suspended_updated_at__gte: extractFilter(
+                                    pageOptions.filter,
+                                    "lastSystemSuspendedUpdatedAt",
+                                    "gte"
+                                ),
                                 account_id__eq: extractFilter(pageOptions.filter, "accountId", "eq"),
                                 account_id__neq: extractFilter(pageOptions.filter, "accountId", "neq"),
                                 account_id__in: extractFilter(pageOptions.filter, "accountId", "in"),
