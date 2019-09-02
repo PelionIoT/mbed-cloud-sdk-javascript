@@ -13354,12 +13354,7 @@ entities:
     api_fieldname: certificate_name
     description: The certificate name.
     example: customer.dlms
-    external_param: true
-    in: path
     maxLength: 50
-    name: certificate-name
-    parameter_fieldname: certificate-name
-    pattern: '[\w\-]{1,10}\.[\w\-.]{1,10}'
     readOnly: true
     required: false
     type: string
@@ -13410,8 +13405,6 @@ entities:
     api_fieldname: id
     description: The certificate enrollment ID.
     example: 01612df56f3b0a580a010fc700000000
-    in: path
-    parameter_fieldname: device-id
     readOnly: false
     required: true
     type: string
@@ -13558,79 +13551,50 @@ entities:
               group: Security
             properties:
             - _key: certificate_name
-              api_fieldname: certificate-name
               description: The certificate name.
-              entity_fieldname: certificate_name
               example: customer.dlms
-              external_param: true
-              in: path
               maxLength: 50
-              name: certificate-name
-              parameter_fieldname: certificate-name
-              pattern: '[\w\-]{1,10}\.[\w\-.]{1,10}'
-              required: true
               type: string
             - _key: created_at
-              api_fieldname: created_at
               description: Creation UTC time RFC3339.
-              entity_fieldname: created_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
             - _key: device_id
-              api_fieldname: device_id
               description: The device ID.
-              entity_fieldname: device_id
               example: 01625daa23230a580a0100bd00000000
               type: string
             - _key: enroll_result
-              api_fieldname: enroll_result
               description: The result of certificate enrollment request.
-              entity_fieldname: enroll_result
               enum:
               - success
               - failure
               example: success
               type: string
             - _key: enroll_result_detail
-              api_fieldname: enroll_result_detail
               description: Additional information in case of failure.
-              entity_fieldname: enroll_result_detail
               example: The device is currently processing too many certificate renewals.
               type: string
             - _key: enroll_status
-              api_fieldname: enroll_status
               description: The status of certificate enrollment request.
-              entity_fieldname: enroll_status
               enum:
               - new
               - completed
               type: string
             - _key: etag
-              api_fieldname: etag
               description: Entity instance signature.
-              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
-              api_fieldname: id
               description: The certificate enrollment ID.
-              entity_fieldname: id
               example: 01612df56f3b0a580a010fc700000000
-              in: path
-              parameter_fieldname: device-id
-              required: true
               type: string
             - _key: object
-              api_fieldname: object
-              entity_fieldname: object
               enum:
               - certificate-enrollment
               type: string
             - _key: updated_at
-              api_fieldname: updated_at
               description: Update UTC time RFC3339.
-              entity_fieldname: updated_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
@@ -13881,13 +13845,7 @@ entities:
           description: The certificate name.
           entity_fieldname: certificate_name
           example: customer.dlms
-          external_param: true
-          in: path
           maxLength: 50
-          name: certificate-name
-          parameter_fieldname: certificate-name
-          pattern: '[\w\-]{1,10}\.[\w\-.]{1,10}'
-          required: true
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -13936,9 +13894,6 @@ entities:
           description: The certificate enrollment ID.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
-          in: path
-          parameter_fieldname: device-id
-          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -24438,6 +24393,9 @@ entities:
           description: The certificate enrollment ID.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
+          in: path
+          parameter_fieldname: certificate-enrollment-id
+          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -33194,7 +33152,7 @@ entities:
       entity_fieldname: oidc_attributes
       external_param: true
       foreign_key:
-        entity: OIDC_request
+        entity: oidc_request
         group: Accounts
       in: body
       name: oidc_attributes
@@ -33211,7 +33169,7 @@ entities:
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
         foreign_key:
-          entity: OIDC_request_claim_mapping
+          entity: oidc_request_claim_mapping
           group: Accounts
         properties:
         - _key: email
@@ -35727,7 +35685,7 @@ entities:
       entity_fieldname: oidc_attributes
       external_param: true
       foreign_key:
-        entity: OIDC_request
+        entity: oidc_request
         group: Accounts
       in: body
       name: oidc_attributes
@@ -35744,7 +35702,7 @@ entities:
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
         foreign_key:
-          entity: OIDC_request_claim_mapping
+          entity: oidc_request_claim_mapping
           group: Accounts
         properties:
         - _key: email
@@ -38694,7 +38652,7 @@ entities:
   swagger_models:
   - LoginProfile
   tags: []
-- _key: OIDC_request
+- _key: oidc_request
   field_renames: []
   fields:
   - _key: authorization_endpoint
@@ -38715,7 +38673,7 @@ entities:
     api_fieldname: claim_mapping
     description: Mapping for non-standard OIDC claim names.
     foreign_key:
-      entity: OIDC_request_claim_mapping
+      entity: oidc_request_claim_mapping
       group: Accounts
     properties:
     - _key: email
@@ -38856,7 +38814,7 @@ entities:
     enum:
     - POST
     - GET
-    enum_reference: OIDC_request_token_mode_enum
+    enum_reference: oidc_request_token_mode_enum
     readOnly: true
     required: false
     type: string
@@ -38881,7 +38839,7 @@ entities:
   swagger_models:
   - OIDCInfo
   tags: []
-- _key: OIDC_request_claim_mapping
+- _key: oidc_request_claim_mapping
   field_renames: []
   fields:
   - _key: email
@@ -41274,7 +41232,7 @@ entities:
   - PreSharedKeyWithoutSecret
   tags:
   - PreSharedKeys
-- _key: SAML2_request
+- _key: saml2_request
   field_renames: []
   fields:
   - _key: entity_descriptor
@@ -45686,7 +45644,7 @@ entities:
       entity_fieldname: oidc_attributes
       external_param: true
       foreign_key:
-        entity: OIDC_request
+        entity: oidc_request
         group: Accounts
       in: body
       name: oidc_attributes
@@ -45703,7 +45661,7 @@ entities:
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
         foreign_key:
-          entity: OIDC_request_claim_mapping
+          entity: oidc_request_claim_mapping
           group: Accounts
         properties:
         - _key: email
@@ -48508,7 +48466,7 @@ entities:
       entity_fieldname: oidc_attributes
       external_param: true
       foreign_key:
-        entity: OIDC_request
+        entity: oidc_request
         group: Accounts
       in: body
       name: oidc_attributes
@@ -48525,7 +48483,7 @@ entities:
       - _key: claim_mapping
         description: Mapping for non-standard OIDC claim names.
         foreign_key:
-          entity: OIDC_request_claim_mapping
+          entity: oidc_request_claim_mapping
           group: Accounts
         properties:
         - _key: email
@@ -69354,9 +69312,9 @@ enums:
   - desktop_background_landscape
   - desktop_background_portrait
   - desktop_background_square
-- _key: OIDC_request_token_mode_enum
-  entity_name: OIDC_request
-  enum_name: OIDC_request_token_mode_enum
+- _key: oidc_request_token_mode_enum
+  entity_name: oidc_request
+  enum_name: oidc_request_token_mode_enum
   field_name: token_request_mode
   group_id: Accounts
   values:
@@ -69679,9 +69637,9 @@ groups:
   - subtenant_policy_group
   - identity_provider
   - subtenant_identity_provider
-  - SAML2_request
-  - OIDC_request
-  - OIDC_request_claim_mapping
+  - saml2_request
+  - oidc_request
+  - oidc_request_claim_mapping
   - identity_provider_public_key
   enums:
   - policy_inherited_type_enum
@@ -69705,7 +69663,7 @@ groups:
   - subtenant_identity_provider_status_enum
   - subtenant_identity_provider_order_enum
   - subtenant_identity_provider_algorithm_enum
-  - OIDC_request_token_mode_enum
+  - oidc_request_token_mode_enum
 - _key: Branding
   entities:
   - dark_theme_color

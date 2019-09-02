@@ -19,9 +19,9 @@
         "subtenant_policy_group",
         "identity_provider",
         "subtenant_identity_provider",
-        "SAML2_request",
-        "OIDC_request",
-        "OIDC_request_claim_mapping",
+        "saml2_request",
+        "oidc_request",
+        "oidc_request_claim_mapping",
         "identity_provider_public_key"
       ],
       "enums": [
@@ -46,7 +46,7 @@
         "subtenant_identity_provider_status_enum",
         "subtenant_identity_provider_order_enum",
         "subtenant_identity_provider_algorithm_enum",
-        "OIDC_request_token_mode_enum"
+        "oidc_request_token_mode_enum"
       ],
       "_key": "Accounts"
     },
@@ -593,15 +593,15 @@
       "_key": "light_theme_image_reference_enum"
     },
     {
-      "entity_name": "OIDC_request",
+      "entity_name": "oidc_request",
       "field_name": "token_request_mode",
-      "enum_name": "OIDC_request_token_mode_enum",
+      "enum_name": "oidc_request_token_mode_enum",
       "values": [
         "GET",
         "POST"
       ],
       "group_id": "Accounts",
-      "_key": "OIDC_request_token_mode_enum"
+      "_key": "oidc_request_token_mode_enum"
     },
     {
       "entity_name": "policy_group",
@@ -18465,14 +18465,6 @@
                           "maxLength": 50,
                           "description": "The certificate name.",
                           "example": "customer.dlms",
-                          "api_fieldname": "certificate-name",
-                          "entity_fieldname": "certificate_name",
-                          "in": "path",
-                          "name": "certificate-name",
-                          "required": true,
-                          "pattern": "[\\w\\-]{1,10}\\.[\\w\\-.]{1,10}",
-                          "external_param": true,
-                          "parameter_fieldname": "certificate-name",
                           "_key": "certificate_name"
                         },
                         {
@@ -18480,16 +18472,12 @@
                           "format": "date-time",
                           "description": "Creation UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
-                          "api_fieldname": "created_at",
-                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "description": "The device ID.",
                           "example": "01625daa23230a580a0100bd00000000",
-                          "api_fieldname": "device_id",
-                          "entity_fieldname": "device_id",
                           "_key": "device_id"
                         },
                         {
@@ -18500,16 +18488,12 @@
                           ],
                           "description": "The result of certificate enrollment request.",
                           "example": "success",
-                          "api_fieldname": "enroll_result",
-                          "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
                           "type": "string",
                           "description": "Additional information in case of failure.",
                           "example": "The device is currently processing too many certificate renewals.",
-                          "api_fieldname": "enroll_result_detail",
-                          "entity_fieldname": "enroll_result_detail",
                           "_key": "enroll_result_detail"
                         },
                         {
@@ -18519,27 +18503,18 @@
                             "new",
                             "completed"
                           ],
-                          "api_fieldname": "enroll_status",
-                          "entity_fieldname": "enroll_status",
                           "_key": "enroll_status"
                         },
                         {
                           "type": "string",
                           "description": "Entity instance signature.",
                           "example": "1",
-                          "api_fieldname": "etag",
-                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "description": "The certificate enrollment ID.",
                           "example": "01612df56f3b0a580a010fc700000000",
-                          "api_fieldname": "id",
-                          "entity_fieldname": "id",
-                          "parameter_fieldname": "device-id",
-                          "in": "path",
-                          "required": true,
                           "_key": "id"
                         },
                         {
@@ -18547,8 +18522,6 @@
                           "enum": [
                             "certificate-enrollment"
                           ],
-                          "api_fieldname": "object",
-                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
@@ -18556,8 +18529,6 @@
                           "format": "date-time",
                           "description": "Update UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
-                          "api_fieldname": "updated_at",
-                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         }
                       ],
@@ -18919,12 +18890,6 @@
                     "example": "customer.dlms",
                     "api_fieldname": "certificate_name",
                     "entity_fieldname": "certificate_name",
-                    "in": "path",
-                    "name": "certificate-name",
-                    "required": true,
-                    "pattern": "[\\w\\-]{1,10}\\.[\\w\\-.]{1,10}",
-                    "external_param": true,
-                    "parameter_fieldname": "certificate-name",
                     "_key": "certificate_name"
                   },
                   {
@@ -18989,9 +18954,6 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
-                    "parameter_fieldname": "device-id",
-                    "in": "path",
-                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -19321,13 +19283,8 @@
           "description": "The certificate name.",
           "example": "customer.dlms",
           "api_fieldname": "certificate_name",
-          "in": "path",
-          "name": "certificate-name",
-          "required": false,
-          "pattern": "[\\w\\-]{1,10}\\.[\\w\\-.]{1,10}",
-          "external_param": true,
-          "parameter_fieldname": "certificate-name",
           "readOnly": true,
+          "required": false,
           "_key": "certificate_name"
         },
         {
@@ -19390,10 +19347,8 @@
           "description": "The certificate enrollment ID.",
           "example": "01612df56f3b0a580a010fc700000000",
           "api_fieldname": "id",
-          "parameter_fieldname": "device-id",
-          "in": "path",
-          "required": true,
           "readOnly": false,
+          "required": true,
           "_key": "id"
         },
         {
@@ -31960,6 +31915,9 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "certificate-enrollment-id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -43501,7 +43459,7 @@
                   ],
                   "foreign_key": {
                     "group": "Accounts",
-                    "entity": "OIDC_request_claim_mapping"
+                    "entity": "oidc_request_claim_mapping"
                   },
                   "x-nullable": true,
                   "_key": "claim_mapping"
@@ -43611,7 +43569,7 @@
               "description": "Represents OIDC specific attributes.",
               "foreign_key": {
                 "group": "Accounts",
-                "entity": "OIDC_request"
+                "entity": "oidc_request"
               },
               "name": "oidc_attributes",
               "in": "body",
@@ -47031,7 +46989,7 @@
                   ],
                   "foreign_key": {
                     "group": "Accounts",
-                    "entity": "OIDC_request_claim_mapping"
+                    "entity": "oidc_request_claim_mapping"
                   },
                   "x-nullable": true,
                   "_key": "claim_mapping"
@@ -47141,7 +47099,7 @@
               "description": "Represents OIDC specific attributes.",
               "foreign_key": {
                 "group": "Accounts",
-                "entity": "OIDC_request"
+                "entity": "oidc_request"
               },
               "name": "oidc_attributes",
               "in": "body",
@@ -51276,7 +51234,7 @@
           ],
           "foreign_key": {
             "group": "Accounts",
-            "entity": "OIDC_request_claim_mapping"
+            "entity": "oidc_request_claim_mapping"
           },
           "x-nullable": true,
           "api_fieldname": "claim_mapping",
@@ -51404,7 +51362,7 @@
           "api_fieldname": "token_request_mode",
           "readOnly": true,
           "required": false,
-          "enum_reference": "OIDC_request_token_mode_enum",
+          "enum_reference": "oidc_request_token_mode_enum",
           "_key": "token_request_mode"
         },
         {
@@ -51429,7 +51387,7 @@
       "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
-      "_key": "OIDC_request"
+      "_key": "oidc_request"
     },
     {
       "swagger_models": [
@@ -51525,7 +51483,7 @@
       "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
-      "_key": "OIDC_request_claim_mapping"
+      "_key": "oidc_request_claim_mapping"
     },
     {
       "swagger_models": [
@@ -54541,7 +54499,7 @@
       "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
-      "_key": "SAML2_request"
+      "_key": "saml2_request"
     },
     {
       "swagger_models": [
@@ -60351,7 +60309,7 @@
                   ],
                   "foreign_key": {
                     "group": "Accounts",
-                    "entity": "OIDC_request_claim_mapping"
+                    "entity": "oidc_request_claim_mapping"
                   },
                   "x-nullable": true,
                   "_key": "claim_mapping"
@@ -60461,7 +60419,7 @@
               "description": "Represents OIDC specific attributes.",
               "foreign_key": {
                 "group": "Accounts",
-                "entity": "OIDC_request"
+                "entity": "oidc_request"
               },
               "name": "oidc_attributes",
               "in": "body",
@@ -64234,7 +64192,7 @@
                   ],
                   "foreign_key": {
                     "group": "Accounts",
-                    "entity": "OIDC_request_claim_mapping"
+                    "entity": "oidc_request_claim_mapping"
                   },
                   "x-nullable": true,
                   "_key": "claim_mapping"
@@ -64344,7 +64302,7 @@
               "description": "Represents OIDC specific attributes.",
               "foreign_key": {
                 "group": "Accounts",
-                "entity": "OIDC_request"
+                "entity": "oidc_request"
               },
               "name": "oidc_attributes",
               "in": "body",

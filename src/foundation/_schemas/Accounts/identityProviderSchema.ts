@@ -66,7 +66,7 @@ export const identityProviderSchema = (): Schema => {
                             },
                             {
                                 name: "oidcAttributes",
-                                type: "any",
+                                type: "OidcRequest",
                             },
                             {
                                 name: "saml2Attributes",
@@ -207,7 +207,7 @@ export const identityProviderSchema = (): Schema => {
                             },
                             {
                                 name: "oidcAttributes",
-                                type: "any",
+                                type: "OidcRequest",
                             },
                             {
                                 name: "saml2Attributes",

@@ -66,7 +66,7 @@ export const subtenantIdentityProviderSchema = (): Schema => {
                             },
                             {
                                 name: "oidcAttributes",
-                                type: "any",
+                                type: "OidcRequest",
                             },
                             {
                                 name: "saml2Attributes",
@@ -242,7 +242,7 @@ export const subtenantIdentityProviderSchema = (): Schema => {
                             },
                             {
                                 name: "oidcAttributes",
-                                type: "any",
+                                type: "OidcRequest",
                             },
                             {
                                 name: "saml2Attributes",

@@ -1,3 +1,4 @@
+import { OidcRequest } from "../oidcRequest/oidcRequest";
 export type IdentityProviderStatus = "ACTIVE" | "SUSPENDED";
 export type IdentityProviderAlgorithm =
     | "RSA2048"
@@ -27,7 +28,7 @@ export interface IdentityProviderCreateRequest {
     /**
      *Represents OIDC specific attributes.
      */
-    readonly oidcAttributes?: any;
+    readonly oidcAttributes?: OidcRequest;
 
     /**
      *Represents SAML2 specific attributes in responses.
@@ -70,7 +71,7 @@ export interface IdentityProviderUpdateRequest {
     /**
      *Represents OIDC specific attributes.
      */
-    readonly oidcAttributes?: any;
+    readonly oidcAttributes?: OidcRequest;
 
     /**
      *Represents SAML2 specific attributes in responses.
