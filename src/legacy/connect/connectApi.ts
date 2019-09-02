@@ -41,6 +41,7 @@ import { executeForAll } from "../common/legacyPaginator";
 import { Subscribe } from "../../primary/subscribe/subscribe";
 import { loggerFactory } from "../../common/logger";
 import { Logger } from "typescript-logging";
+import { isJwt } from "../../common/utils";
 
 /**
  * ## Connect API
@@ -144,6 +145,7 @@ export class ConnectApi extends EventEmitter {
      */
     public readonly handleNotifications?: boolean;
 
+    private _config: ConnectOptions;
     private _pollRequest: superagent.SuperAgentRequest | boolean;
     // private readonly _websockerUrl: string = "";
     private _instanceId: string;
@@ -172,6 +174,7 @@ export class ConnectApi extends EventEmitter {
     constructor(options?: ConnectOptions) {
         super();
         options = options || {};
+        this._config = options;
         this._instanceId = generateId();
         // this._connectOptions = options;
         this._endpoints = new Endpoints(options);
@@ -544,19 +547,23 @@ export class ConnectApi extends EventEmitter {
     public getWebhook(callback: CallbackFn<Webhook>): void;
     public getWebhook(callback?: CallbackFn<Webhook>): Promise<Webhook> {
         return asyncStyle(done => {
-            this._endpoints.notifications.getWebhook((error, data) => {
+            if (isJwt(this._config.apiKey)) {
+                done(null, null);
+            } else {
+                this._endpoints.notifications.getWebhook((error, data) => {
 
-                if (error) {
-                    if (error.code === 404) {
-                        // No webhook
-                        return done(null, null);
+                    if (error) {
+                        if (error.code === 404) {
+                            // No webhook
+                            return done(null, null);
+                        }
+                        return done(error);
                     }
-                    return done(error);
-                }
 
-                const webhook = WebhookAdapter.map(data);
-                done(null, webhook);
-            });
+                    const webhook = WebhookAdapter.map(data);
+                    done(null, webhook);
+                });
+            }
         }, callback);
     }
 
