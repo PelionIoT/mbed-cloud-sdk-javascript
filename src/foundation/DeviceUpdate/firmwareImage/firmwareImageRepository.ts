@@ -31,7 +31,7 @@ export class FirmwareImageRepository extends Repository {
                             datafile: firmwareImageFile,
                             name: options.name,
                         },
-                        contentTypes: [ "multipart/form-data" ],
+                        contentTypes: ["multipart/form-data"],
                     },
                     resultsFn
                 );

@@ -32,7 +32,7 @@ export class FirmwareManifestRepository extends Repository {
                             key_table: options.keyTableFile,
                             name: options.name,
                         },
-                        contentTypes: [ "multipart/form-data" ],
+                        contentTypes: ["multipart/form-data"],
                     },
                     resultsFn
                 );

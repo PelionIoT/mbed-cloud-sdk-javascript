@@ -23,7 +23,7 @@ export class DeviceEnrollmentBulkDeleteRepository extends Repository {
                         formParams: {
                             enrollment_identities: enrollmentIdentities,
                         },
-                        contentTypes: [ "multipart/form-data" ],
+                        contentTypes: ["multipart/form-data"],
                     },
                     resultsFn
                 );
