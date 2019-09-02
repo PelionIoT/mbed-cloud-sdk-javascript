@@ -98,7 +98,7 @@ export class LightThemeImageRepository extends Repository {
                         formParams: {
                             image: image,
                         },
-                        contentTypes: [ "multipart/form-data" ],
+                        contentTypes: ["multipart/form-data"],
                     },
                     resultsFn
                 );

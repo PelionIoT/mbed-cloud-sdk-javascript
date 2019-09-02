@@ -81,7 +81,7 @@ export class SubtenantDarkThemeImageRepository extends Repository {
                         formParams: {
                             image: image,
                         },
-                        contentTypes: [ "multipart/form-data" ],
+                        contentTypes: ["multipart/form-data"],
                     },
                     resultsFn
                 );
