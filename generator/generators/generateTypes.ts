@@ -11,8 +11,23 @@ import { getDescription } from "./generateInterface";
 export async function generateTypes(entity, enums, pascalKey: string, outputFolder: string, camelKey: string, entityIndex: FileContainer): Promise<FileContainer> {
     const typeContainer = new FileContainer();
 
+    const methodEnums = [];
+    entity.methods.forEach(method => {
+        const enumFields = method.fields.filter(f => f.enum);
+        if (enumFields && enumFields.length) {
+            enumFields.forEach(e => methodEnums.push(e));
+        }
+    });
+
     // any enums for this entity
-    const entityEnums = entity.fields.filter(f => f.enum);
+    const entityEnums: Array<any> = entity.fields.filter(f => f.enum);
+    methodEnums.forEach(e => {
+        console.log(!entityEnums.some(f => e.enum_reference === f.enum_reference));
+        if (!entityEnums.some(f => e.enum_reference === f.enum_reference) && e._key !== "order") {
+            entityEnums.push(e);
+        }
+    });
+
     for (const _enum of entityEnums) {
         const key = (snakeToPascal(_enum.enum_reference) || snakeToPascal(_enum.api_fieldname)).replace("Enum", "");
         const enumContainer = new EnumContainer(key, _enum.enum);

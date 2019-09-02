@@ -19,6 +19,7 @@ import { DeviceEventsRepository } from ".";
 import { DeviceGroupRepository } from ".";
 import { FirmwareImageRepository } from ".";
 import { FirmwareManifestRepository } from ".";
+import { IdentityProviderRepository } from ".";
 import { LightThemeColorRepository } from ".";
 import { LightThemeImageRepository } from ".";
 import { PolicyGroupRepository } from ".";
@@ -27,6 +28,7 @@ import { ServerCredentialsRepository } from ".";
 import { SubtenantApiKeyRepository } from ".";
 import { SubtenantDarkThemeColorRepository } from ".";
 import { SubtenantDarkThemeImageRepository } from ".";
+import { SubtenantIdentityProviderRepository } from ".";
 import { SubtenantLightThemeColorRepository } from ".";
 import { SubtenantLightThemeImageRepository } from ".";
 import { SubtenantPolicyGroupRepository } from ".";
@@ -103,6 +105,9 @@ export class Factory {
     public firmwareManifestRepository(): FirmwareManifestRepository {
         return new FirmwareManifestRepository(this._config);
     }
+    public identityProviderRepository(): IdentityProviderRepository {
+        return new IdentityProviderRepository(this._config);
+    }
     public lightThemeColorRepository(): LightThemeColorRepository {
         return new LightThemeColorRepository(this._config);
     }
@@ -126,6 +131,9 @@ export class Factory {
     }
     public subtenantDarkThemeImageRepository(): SubtenantDarkThemeImageRepository {
         return new SubtenantDarkThemeImageRepository(this._config);
+    }
+    public subtenantIdentityProviderRepository(): SubtenantIdentityProviderRepository {
+        return new SubtenantIdentityProviderRepository(this._config);
     }
     public subtenantLightThemeColorRepository(): SubtenantLightThemeColorRepository {
         return new SubtenantLightThemeColorRepository(this._config);

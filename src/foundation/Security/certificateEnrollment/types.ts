@@ -1,6 +1,7 @@
 import { ListOptions } from "../../../common";
 export type CertificateEnrollmentEnrollResult = "success" | "failure";
 export type CertificateEnrollmentEnrollStatus = "new" | "completed";
+export type CertificateEnrollmentInclude = "total_count";
 /**
  *CertificateEnrollmentDeviceIdFilter
  */
