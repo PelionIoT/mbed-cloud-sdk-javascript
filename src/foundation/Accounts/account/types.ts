@@ -1,5 +1,6 @@
 import { ListOptions } from "../../../common";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
+export type AccountBusinessModel = "active_device_business_model" | "api_calls_1_business_model";
 export type AccountMfaStatus = "enforced" | "optional";
 export type AccountStatus = "ENROLLING" | "ACTIVE" | "RESTRICTED" | "SUSPENDED";
 /**
@@ -46,6 +47,12 @@ export interface AccountCreateRequest {
      *aliases
      */
     readonly aliases?: Array<string>;
+
+    /**
+     *Business model for this account. Manageable by the root admin only.
+     *@example api_calls_1_business_model
+     */
+    readonly businessModel?: AccountBusinessModel;
 
     /**
      *The city part of the postal address.
@@ -139,6 +146,12 @@ export interface AccountUpdateRequest {
      *aliases
      */
     readonly aliases?: Array<string>;
+
+    /**
+     *Business model for this account. Manageable by the root admin only.
+     *@example api_calls_1_business_model
+     */
+    readonly businessModel?: AccountBusinessModel;
 
     /**
      *The city part of the postal address.

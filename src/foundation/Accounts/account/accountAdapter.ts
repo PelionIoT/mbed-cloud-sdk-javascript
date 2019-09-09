@@ -31,6 +31,8 @@ export class AccountAdapter extends Adapter {
             adminName: data.admin_name,
             adminPassword: data.admin_password,
             aliases: data.aliases,
+            businessModel: data.business_model || "active_device_business_model",
+            businessModelHistory: data.business_model_history,
             city: data.city,
             company: data.company,
             contact: data.contact,
