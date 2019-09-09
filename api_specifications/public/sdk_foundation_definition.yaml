@@ -87,6 +87,41 @@ entities:
     readOnly: false
     required: false
     type: array
+  - _key: business_model
+    api_fieldname: business_model
+    default: active_device_business_model
+    description: Business model for this account. Manageable by the root admin only.
+    enum:
+    - active_device_business_model
+    - api_calls_1_business_model
+    enum_reference: account_business_model_enum
+    example: api_calls_1_business_model
+    readOnly: false
+    required: false
+    type: string
+  - _key: business_model_history
+    api_fieldname: business_model_history
+    description: Business model history for this account.
+    items:
+      properties:
+      - _key: business_model
+        default: active_device_business_model
+        description: Business model for this account. Manageable by the root admin
+          only.
+        enum:
+        - active_device_business_model
+        - api_calls_1_business_model
+        example: api_calls_1_business_model
+        type: string
+      - _key: updated_at
+        description: Last update UTC time RFC3339.
+        example: '2018-02-14T15:24:14Z'
+        format: date-time
+        type: string
+      type: object
+    readOnly: true
+    required: false
+    type: array
   - _key: city
     api_fieldname: city
     description: The city part of the postal address.
@@ -956,6 +991,7 @@ entities:
     - admin_id
     - admin_key
     - password_recovery_expiration
+    - business_model_history
     field_renames: []
     fields:
     - _key: action
@@ -1061,6 +1097,20 @@ entities:
       parameter_fieldname: aliases
       required: false
       type: array
+    - _key: business_model
+      api_fieldname: business_model
+      default: active_device_business_model
+      description: Business model for this account. Manageable by the root admin only.
+      entity_fieldname: business_model
+      enum: &id001
+      - active_device_business_model
+      - api_calls_1_business_model
+      enum_reference: account_business_model_enum
+      example: api_calls_1_business_model
+      in: body
+      parameter_fieldname: business_model
+      required: false
+      type: string
     - _key: city
       api_fieldname: city
       description: The city part of the postal address.
@@ -1281,6 +1331,39 @@ entities:
             pattern: '[\w\-._]{8,100}'
             type: string
           maxItems: 10
+          type: array
+        - _key: business_model
+          api_fieldname: business_model
+          default: active_device_business_model
+          description: Business model for this account. Manageable by the root admin
+            only.
+          entity_fieldname: business_model
+          enum:
+          - active_device_business_model
+          - api_calls_1_business_model
+          example: api_calls_1_business_model
+          type: string
+        - _key: business_model_history
+          api_fieldname: business_model_history
+          description: Business model history for this account.
+          entity_fieldname: business_model_history
+          items:
+            properties:
+            - _key: business_model
+              default: active_device_business_model
+              description: Business model for this account. Manageable by the root
+                admin only.
+              enum:
+              - active_device_business_model
+              - api_calls_1_business_model
+              example: api_calls_1_business_model
+              type: string
+            - _key: updated_at
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
           type: array
         - _key: city
           api_fieldname: city
@@ -1697,6 +1780,35 @@ entities:
                 pattern: '[\w\-._]{8,100}'
                 type: string
               maxItems: 10
+              type: array
+            - _key: business_model
+              default: active_device_business_model
+              description: Business model for this account. Manageable by the root
+                admin only.
+              enum:
+              - active_device_business_model
+              - api_calls_1_business_model
+              example: api_calls_1_business_model
+              type: string
+            - _key: business_model_history
+              description: Business model history for this account.
+              items:
+                properties:
+                - _key: business_model
+                  default: active_device_business_model
+                  description: Business model for this account. Manageable by the
+                    root admin only.
+                  enum:
+                  - active_device_business_model
+                  - api_calls_1_business_model
+                  example: api_calls_1_business_model
+                  type: string
+                - _key: updated_at
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
               type: array
             - _key: city
               description: The city part of the postal address.
@@ -3561,7 +3673,7 @@ entities:
     - _key: include
       api_fieldname: include
       description: 'Comma-separated additional data to return. Currently supported:
-        limits, policies, sub_accounts.'
+        limits, policies, sub_accounts, history.'
       entity_fieldname: include
       external_param: true
       in: query
@@ -3702,6 +3814,35 @@ entities:
                 pattern: '[\w\-._]{8,100}'
                 type: string
               maxItems: 10
+              type: array
+            - _key: business_model
+              default: active_device_business_model
+              description: Business model for this account. Manageable by the root
+                admin only.
+              enum:
+              - active_device_business_model
+              - api_calls_1_business_model
+              example: api_calls_1_business_model
+              type: string
+            - _key: business_model_history
+              description: Business model history for this account.
+              items:
+                properties:
+                - _key: business_model
+                  default: active_device_business_model
+                  description: Business model for this account. Manageable by the
+                    root admin only.
+                  enum:
+                  - active_device_business_model
+                  - api_calls_1_business_model
+                  example: api_calls_1_business_model
+                  type: string
+                - _key: updated_at
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
               type: array
             - _key: city
               description: The city part of the postal address.
@@ -4054,6 +4195,35 @@ entities:
                     pattern: '[\w\-._]{8,100}'
                     type: string
                   maxItems: 10
+                  type: array
+                - _key: business_model
+                  default: active_device_business_model
+                  description: Business model for this account. Manageable by the
+                    root admin only.
+                  enum:
+                  - active_device_business_model
+                  - api_calls_1_business_model
+                  example: api_calls_1_business_model
+                  type: string
+                - _key: business_model_history
+                  description: Business model history for this account.
+                  items:
+                    properties:
+                    - _key: business_model
+                      default: active_device_business_model
+                      description: Business model for this account. Manageable by
+                        the root admin only.
+                      enum:
+                      - active_device_business_model
+                      - api_calls_1_business_model
+                      example: api_calls_1_business_model
+                      type: string
+                    - _key: updated_at
+                      description: Last update UTC time RFC3339.
+                      example: '2018-02-14T15:24:14Z'
+                      format: date-time
+                      type: string
+                    type: object
                   type: array
                 - _key: city
                   description: The city part of the postal address.
@@ -4635,6 +4805,8 @@ entities:
     - admin_password
     - admin_full_name
     - password_recovery_expiration
+    - business_model
+    - business_model_history
     field_renames: []
     fields:
     - _key: include
@@ -4752,6 +4924,39 @@ entities:
             pattern: '[\w\-._]{8,100}'
             type: string
           maxItems: 10
+          type: array
+        - _key: business_model
+          api_fieldname: business_model
+          default: active_device_business_model
+          description: Business model for this account. Manageable by the root admin
+            only.
+          entity_fieldname: business_model
+          enum:
+          - active_device_business_model
+          - api_calls_1_business_model
+          example: api_calls_1_business_model
+          type: string
+        - _key: business_model_history
+          api_fieldname: business_model_history
+          description: Business model history for this account.
+          entity_fieldname: business_model_history
+          items:
+            properties:
+            - _key: business_model
+              default: active_device_business_model
+              description: Business model for this account. Manageable by the root
+                admin only.
+              enum:
+              - active_device_business_model
+              - api_calls_1_business_model
+              example: api_calls_1_business_model
+              type: string
+            - _key: updated_at
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
           type: array
         - _key: city
           api_fieldname: city
@@ -5168,6 +5373,35 @@ entities:
                 pattern: '[\w\-._]{8,100}'
                 type: string
               maxItems: 10
+              type: array
+            - _key: business_model
+              default: active_device_business_model
+              description: Business model for this account. Manageable by the root
+                admin only.
+              enum:
+              - active_device_business_model
+              - api_calls_1_business_model
+              example: api_calls_1_business_model
+              type: string
+            - _key: business_model_history
+              description: Business model history for this account.
+              items:
+                properties:
+                - _key: business_model
+                  default: active_device_business_model
+                  description: Business model for this account. Manageable by the
+                    root admin only.
+                  enum:
+                  - active_device_business_model
+                  - api_calls_1_business_model
+                  example: api_calls_1_business_model
+                  type: string
+                - _key: updated_at
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
               type: array
             - _key: city
               description: The city part of the postal address.
@@ -5697,6 +5931,8 @@ entities:
     - admin_password
     - admin_full_name
     - password_recovery_expiration
+    - business_model
+    - business_model_history
     field_renames: []
     fields:
     - _key: id
@@ -5712,7 +5948,7 @@ entities:
     - _key: include
       api_fieldname: include
       description: 'Comma-separated additional data to return. Currently supported:
-        limits, policies, sub_accounts.'
+        limits, policies, sub_accounts, history.'
       entity_fieldname: include
       external_param: true
       in: query
@@ -5822,6 +6058,39 @@ entities:
             pattern: '[\w\-._]{8,100}'
             type: string
           maxItems: 10
+          type: array
+        - _key: business_model
+          api_fieldname: business_model
+          default: active_device_business_model
+          description: Business model for this account. Manageable by the root admin
+            only.
+          entity_fieldname: business_model
+          enum:
+          - active_device_business_model
+          - api_calls_1_business_model
+          example: api_calls_1_business_model
+          type: string
+        - _key: business_model_history
+          api_fieldname: business_model_history
+          description: Business model history for this account.
+          entity_fieldname: business_model_history
+          items:
+            properties:
+            - _key: business_model
+              default: active_device_business_model
+              description: Business model for this account. Manageable by the root
+                admin only.
+              enum:
+              - active_device_business_model
+              - api_calls_1_business_model
+              example: api_calls_1_business_model
+              type: string
+            - _key: updated_at
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
           type: array
         - _key: city
           api_fieldname: city
@@ -6238,6 +6507,35 @@ entities:
                 pattern: '[\w\-._]{8,100}'
                 type: string
               maxItems: 10
+              type: array
+            - _key: business_model
+              default: active_device_business_model
+              description: Business model for this account. Manageable by the root
+                admin only.
+              enum:
+              - active_device_business_model
+              - api_calls_1_business_model
+              example: api_calls_1_business_model
+              type: string
+            - _key: business_model_history
+              description: Business model history for this account.
+              items:
+                properties:
+                - _key: business_model
+                  default: active_device_business_model
+                  description: Business model for this account. Manageable by the
+                    root admin only.
+                  enum:
+                  - active_device_business_model
+                  - api_calls_1_business_model
+                  example: api_calls_1_business_model
+                  type: string
+                - _key: updated_at
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
               type: array
             - _key: city
               description: The city part of the postal address.
@@ -7280,6 +7578,7 @@ entities:
     - admin_key
     - admin_password
     - admin_full_name
+    - business_model_history
     field_renames: []
     fields:
     - _key: address_line1
@@ -7316,6 +7615,18 @@ entities:
       parameter_fieldname: aliases
       required: false
       type: array
+    - _key: business_model
+      api_fieldname: business_model
+      default: active_device_business_model
+      description: Business model for this account. Manageable by the root admin only.
+      entity_fieldname: business_model
+      enum: *id001
+      enum_reference: account_business_model_enum
+      example: api_calls_1_business_model
+      in: body
+      parameter_fieldname: business_model
+      required: false
+      type: string
     - _key: city
       api_fieldname: city
       description: The city part of the postal address.
@@ -7651,6 +7962,39 @@ entities:
             pattern: '[\w\-._]{8,100}'
             type: string
           maxItems: 10
+          type: array
+        - _key: business_model
+          api_fieldname: business_model
+          default: active_device_business_model
+          description: Business model for this account. Manageable by the root admin
+            only.
+          entity_fieldname: business_model
+          enum:
+          - active_device_business_model
+          - api_calls_1_business_model
+          example: api_calls_1_business_model
+          type: string
+        - _key: business_model_history
+          api_fieldname: business_model_history
+          description: Business model history for this account.
+          entity_fieldname: business_model_history
+          items:
+            properties:
+            - _key: business_model
+              default: active_device_business_model
+              description: Business model for this account. Manageable by the root
+                admin only.
+              enum:
+              - active_device_business_model
+              - api_calls_1_business_model
+              example: api_calls_1_business_model
+              type: string
+            - _key: updated_at
+              description: Last update UTC time RFC3339.
+              example: '2018-02-14T15:24:14Z'
+              format: date-time
+              type: string
+            type: object
           type: array
         - _key: city
           api_fieldname: city
@@ -8067,6 +8411,35 @@ entities:
                 pattern: '[\w\-._]{8,100}'
                 type: string
               maxItems: 10
+              type: array
+            - _key: business_model
+              default: active_device_business_model
+              description: Business model for this account. Manageable by the root
+                admin only.
+              enum:
+              - active_device_business_model
+              - api_calls_1_business_model
+              example: api_calls_1_business_model
+              type: string
+            - _key: business_model_history
+              description: Business model history for this account.
+              items:
+                properties:
+                - _key: business_model
+                  default: active_device_business_model
+                  description: Business model for this account. Manageable by the
+                    root admin only.
+                  enum:
+                  - active_device_business_model
+                  - api_calls_1_business_model
+                  example: api_calls_1_business_model
+                  type: string
+                - _key: updated_at
+                  description: Last update UTC time RFC3339.
+                  example: '2018-02-14T15:24:14Z'
+                  format: date-time
+                  type: string
+                type: object
               type: array
             - _key: city
               description: The city part of the postal address.
@@ -9919,7 +10292,7 @@ entities:
       api_fieldname: status
       description: The status of the API key.
       entity_fieldname: status
-      enum: &id001
+      enum: &id002
       - ACTIVE
       - INACTIVE
       enum_reference: api_key_status_enum
@@ -11764,7 +12137,7 @@ entities:
       api_fieldname: status
       description: The status of the API key.
       entity_fieldname: status
-      enum: *id001
+      enum: *id002
       enum_reference: api_key_status_enum
       example: ACTIVE
       in: body
@@ -13354,7 +13727,12 @@ entities:
     api_fieldname: certificate_name
     description: The certificate name.
     example: customer.dlms
+    external_param: true
+    in: path
     maxLength: 50
+    name: certificate-name
+    parameter_fieldname: certificate-name
+    pattern: '[\w\-]{1,10}\.[\w\-.]{1,10}'
     readOnly: true
     required: false
     type: string
@@ -13405,6 +13783,8 @@ entities:
     api_fieldname: id
     description: The certificate enrollment ID.
     example: 01612df56f3b0a580a010fc700000000
+    in: path
+    parameter_fieldname: device-id
     readOnly: false
     required: true
     type: string
@@ -13551,50 +13931,79 @@ entities:
               group: Security
             properties:
             - _key: certificate_name
+              api_fieldname: certificate-name
               description: The certificate name.
+              entity_fieldname: certificate_name
               example: customer.dlms
+              external_param: true
+              in: path
               maxLength: 50
+              name: certificate-name
+              parameter_fieldname: certificate-name
+              pattern: '[\w\-]{1,10}\.[\w\-.]{1,10}'
+              required: true
               type: string
             - _key: created_at
+              api_fieldname: created_at
               description: Creation UTC time RFC3339.
+              entity_fieldname: created_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
             - _key: device_id
+              api_fieldname: device_id
               description: The device ID.
+              entity_fieldname: device_id
               example: 01625daa23230a580a0100bd00000000
               type: string
             - _key: enroll_result
+              api_fieldname: enroll_result
               description: The result of certificate enrollment request.
+              entity_fieldname: enroll_result
               enum:
               - success
               - failure
               example: success
               type: string
             - _key: enroll_result_detail
+              api_fieldname: enroll_result_detail
               description: Additional information in case of failure.
+              entity_fieldname: enroll_result_detail
               example: The device is currently processing too many certificate renewals.
               type: string
             - _key: enroll_status
+              api_fieldname: enroll_status
               description: The status of certificate enrollment request.
+              entity_fieldname: enroll_status
               enum:
               - new
               - completed
               type: string
             - _key: etag
+              api_fieldname: etag
               description: Entity instance signature.
+              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
+              api_fieldname: id
               description: The certificate enrollment ID.
+              entity_fieldname: id
               example: 01612df56f3b0a580a010fc700000000
+              in: path
+              parameter_fieldname: device-id
+              required: true
               type: string
             - _key: object
+              api_fieldname: object
+              entity_fieldname: object
               enum:
               - certificate-enrollment
               type: string
             - _key: updated_at
+              api_fieldname: updated_at
               description: Update UTC time RFC3339.
+              entity_fieldname: updated_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
@@ -13845,7 +14254,13 @@ entities:
           description: The certificate name.
           entity_fieldname: certificate_name
           example: customer.dlms
+          external_param: true
+          in: path
           maxLength: 50
+          name: certificate-name
+          parameter_fieldname: certificate-name
+          pattern: '[\w\-]{1,10}\.[\w\-.]{1,10}'
+          required: true
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -13894,6 +14309,9 @@ entities:
           description: The certificate enrollment ID.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
+          in: path
+          parameter_fieldname: device-id
+          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -17862,7 +18280,7 @@ entities:
       api_fieldname: reference
       description: The name of the branding color.
       entity_fieldname: reference
-      enum: &id002
+      enum: &id003
       - error_color
       - primary
       - secondary
@@ -18335,7 +18753,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id002
+      enum: *id003
       enum_reference: dark_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -18602,7 +19020,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id002
+      enum: *id003
       enum_reference: dark_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -18984,7 +19402,7 @@ entities:
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
-      enum: &id003
+      enum: &id004
       - brand_logo_portrait
       - brand_logo_square
       - brand_logo_landscape
@@ -19496,7 +19914,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id003
+      enum: *id004
       enum_reference: dark_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -19772,7 +20190,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id003
+      enum: *id004
       enum_reference: dark_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -24393,9 +24811,6 @@ entities:
           description: The certificate enrollment ID.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
-          in: path
-          parameter_fieldname: certificate-enrollment-id
-          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -33339,7 +33754,7 @@ entities:
       api_fieldname: status
       description: Status of the identity provider.
       entity_fieldname: status
-      enum: &id004
+      enum: &id005
       - ACTIVE
       - SUSPENDED
       enum_reference: identity_provider_status_enum
@@ -35872,7 +36287,7 @@ entities:
       api_fieldname: status
       description: Status of the identity provider.
       entity_fieldname: status
-      enum: *id004
+      enum: *id005
       enum_reference: identity_provider_status_enum
       in: body
       parameter_fieldname: status
@@ -36331,7 +36746,7 @@ entities:
       api_fieldname: reference
       description: The name of the branding color.
       entity_fieldname: reference
-      enum: &id005
+      enum: &id006
       - error_color
       - primary
       - secondary
@@ -36804,7 +37219,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id005
+      enum: *id006
       enum_reference: light_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -37087,7 +37502,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id005
+      enum: *id006
       enum_reference: light_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -37487,7 +37902,7 @@ entities:
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
-      enum: &id006
+      enum: &id007
       - brand_logo_portrait
       - brand_logo_square
       - brand_logo_landscape
@@ -38001,7 +38416,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id006
+      enum: *id007
       enum_reference: light_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -38280,7 +38695,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id006
+      enum: *id007
       enum_reference: light_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -41897,7 +42312,7 @@ entities:
       api_fieldname: status
       description: The status of the API key.
       entity_fieldname: status
-      enum: &id007
+      enum: &id008
       - ACTIVE
       - INACTIVE
       enum_reference: subtenant_api_key_status_enum
@@ -43254,7 +43669,7 @@ entities:
       api_fieldname: status
       description: The status of the API key.
       entity_fieldname: status
-      enum: *id007
+      enum: *id008
       enum_reference: subtenant_api_key_status_enum
       example: ACTIVE
       in: body
@@ -43692,7 +44107,7 @@ entities:
       api_fieldname: reference
       description: The name of the branding color.
       entity_fieldname: reference
-      enum: &id008
+      enum: &id009
       - error_color
       - primary
       - secondary
@@ -43918,7 +44333,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id008
+      enum: *id009
       enum_reference: subtenant_dark_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -44211,7 +44626,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id008
+      enum: *id009
       enum_reference: subtenant_dark_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -44620,7 +45035,7 @@ entities:
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
-      enum: &id009
+      enum: &id010
       - brand_logo_portrait
       - brand_logo_square
       - brand_logo_landscape
@@ -44865,7 +45280,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id009
+      enum: *id010
       enum_reference: subtenant_dark_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -45155,7 +45570,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id009
+      enum: *id010
       enum_reference: subtenant_dark_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -45831,7 +46246,7 @@ entities:
       api_fieldname: status
       description: Status of the identity provider.
       entity_fieldname: status
-      enum: &id010
+      enum: &id011
       - ACTIVE
       - SUSPENDED
       enum_reference: subtenant_identity_provider_status_enum
@@ -48653,7 +49068,7 @@ entities:
       api_fieldname: status
       description: Status of the identity provider.
       entity_fieldname: status
-      enum: *id010
+      enum: *id011
       enum_reference: subtenant_identity_provider_status_enum
       in: body
       parameter_fieldname: status
@@ -49124,7 +49539,7 @@ entities:
       api_fieldname: reference
       description: The name of the branding color.
       entity_fieldname: reference
-      enum: &id011
+      enum: &id012
       - error_color
       - primary
       - secondary
@@ -49349,7 +49764,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id011
+      enum: *id012
       enum_reference: subtenant_light_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -49642,7 +50057,7 @@ entities:
       api_fieldname: reference
       description: Color name.
       entity_fieldname: reference
-      enum: *id011
+      enum: *id012
       enum_reference: subtenant_light_theme_color_reference_enum
       in: path
       is_primary_key: true
@@ -50049,7 +50464,7 @@ entities:
       api_fieldname: reference
       description: Name of the branding images (icon or picture).
       entity_fieldname: reference
-      enum: &id012
+      enum: &id013
       - brand_logo_portrait
       - brand_logo_square
       - brand_logo_landscape
@@ -50294,7 +50709,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id012
+      enum: *id013
       enum_reference: subtenant_light_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -50582,7 +50997,7 @@ entities:
       api_fieldname: reference
       description: Name of the image.
       entity_fieldname: reference
-      enum: *id012
+      enum: *id013
       enum_reference: subtenant_light_theme_image_reference_enum
       in: path
       is_primary_key: true
@@ -52970,7 +53385,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: &id013
+      enum: &id014
       - lwm2m
       - bootstrap
       enum_reference: subtenant_trusted_certificate_service_enum
@@ -52982,7 +53397,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id014
+      enum: &id015
       - ACTIVE
       - INACTIVE
       enum_reference: subtenant_trusted_certificate_status_enum
@@ -54583,7 +54998,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: *id013
+      enum: *id014
       enum_reference: subtenant_trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -54593,7 +55008,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id014
+      enum: *id015
       enum_reference: subtenant_trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -55512,14 +55927,14 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: &id015
+          enum: &id016
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           readOnly: true
           type: string
-        required: &id016
+        required: &id017
         - id
         type: object
       parameter_fieldname: login_profiles
@@ -57603,10 +58018,10 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: *id015
+          enum: *id016
           readOnly: true
           type: string
-        required: *id016
+        required: *id017
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -59826,7 +60241,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: &id017
+      enum: &id018
       - lwm2m
       - bootstrap
       enum_reference: trusted_certificate_service_enum
@@ -59838,7 +60253,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id018
+      enum: &id019
       - ACTIVE
       - INACTIVE
       enum_reference: trusted_certificate_status_enum
@@ -61788,7 +62203,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is used.
       entity_fieldname: service
-      enum: *id017
+      enum: *id018
       enum_reference: trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -61798,7 +62213,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id018
+      enum: *id019
       enum_reference: trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -64435,14 +64850,14 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: &id019
+          enum: &id020
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           readOnly: true
           type: string
-        required: &id020
+        required: &id021
         - id
         type: object
       parameter_fieldname: login_profiles
@@ -66896,10 +67311,10 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: *id019
+          enum: *id020
           readOnly: true
           type: string
-        required: *id020
+        required: *id021
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -68952,6 +69367,14 @@ entities:
   - CertificateIssuerVerifyResponse
   tags: []
 enums:
+- _key: account_business_model_enum
+  entity_name: account
+  enum_name: account_business_model_enum
+  field_name: business_model
+  group_id: Accounts
+  values:
+  - active_device_business_model
+  - api_calls_1_business_model
 - _key: account_mfa_status_enum
   entity_name: account
   enum_name: account_mfa_status_enum
@@ -69654,6 +70077,7 @@ groups:
   - subtenant_api_key_order_enum
   - account_status_enum
   - account_mfa_status_enum
+  - account_business_model_enum
   - account_order_enum
   - policy_group_order_enum
   - subtenant_policy_group_order_enum
