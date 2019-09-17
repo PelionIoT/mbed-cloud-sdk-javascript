@@ -120,7 +120,7 @@ export class AccountRepository extends Repository {
     }
     /**
      * darkThemeBrandingColors
-     * @param id - Account ID.
+     * @param id - The ID of the account.
      * @param options - options
      */
     public darkThemeBrandingColors(id: string, options?: ListOptions): Paginator<SubtenantDarkThemeColor, ListOptions> {
@@ -149,7 +149,7 @@ export class AccountRepository extends Repository {
     }
     /**
      * darkThemeBrandingImages
-     * @param id - Account ID.
+     * @param id - The ID of the account.
      * @param options - options
      */
     public darkThemeBrandingImages(id: string, options?: ListOptions): Paginator<SubtenantDarkThemeImage, ListOptions> {
@@ -178,7 +178,7 @@ export class AccountRepository extends Repository {
     }
     /**
      * lightThemeBrandingColors
-     * @param id - Account ID.
+     * @param id - The ID of the account.
      * @param options - options
      */
     public lightThemeBrandingColors(
@@ -210,7 +210,7 @@ export class AccountRepository extends Repository {
     }
     /**
      * lightThemeBrandingImages
-     * @param id - Account ID.
+     * @param id - The ID of the account.
      * @param options - options
      */
     public lightThemeBrandingImages(

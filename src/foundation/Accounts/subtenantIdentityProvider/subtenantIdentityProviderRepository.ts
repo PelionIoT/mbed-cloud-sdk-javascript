@@ -138,7 +138,7 @@ export class SubtenantIdentityProviderRepository extends Repository {
     }
     /**
      * list
-     * @param accountId - Account ID.
+     * @param accountId - The ID of the account.
      * @param options - options
      */
     public list(accountId: string, options?: ListOptions): Paginator<SubtenantIdentityProvider, ListOptions> {

@@ -154,6 +154,11 @@ export interface Account extends Entity {
     idleTimeout?: number;
 
     /**
+     *This object represents an account limitation.
+     */
+    readonly limitations?: Array<any>;
+
+    /**
      *List of limits as key-value pairs if requested.
      */
     readonly limits?: { [key: string]: string };

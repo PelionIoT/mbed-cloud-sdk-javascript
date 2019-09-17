@@ -9,7 +9,7 @@ import { ReadStream } from "fs";
 export class SubtenantDarkThemeImageRepository extends Repository {
     /**
      * delete
-     * @param accountId - Account ID.
+     * @param accountId - The ID of the account.
      * @param reference - Name of the branding images (icon or picture).
      */
     public delete(accountId: string, reference: string): Promise<SubtenantDarkThemeImage> {
@@ -34,7 +34,7 @@ export class SubtenantDarkThemeImageRepository extends Repository {
     }
     /**
      * read
-     * @param accountId - Account ID.
+     * @param accountId - The ID of the account.
      * @param reference - Name of the image.
      */
     public read(accountId: string, reference: string): Promise<SubtenantDarkThemeImage> {
@@ -59,7 +59,7 @@ export class SubtenantDarkThemeImageRepository extends Repository {
     }
     /**
      * update
-     * @param accountId - Account ID.
+     * @param accountId - The ID of the account.
      * @param image - The image in PNG or JPEG format as multipart form data.
      * @param reference - Name of the image.
      */

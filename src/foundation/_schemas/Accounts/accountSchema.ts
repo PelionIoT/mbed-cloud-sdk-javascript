@@ -130,6 +130,11 @@ export const accountSchema = (): Schema => {
                 type: "number",
             },
             {
+                name: "limitations",
+                apiName: "limitations",
+                type: "Array<any>",
+            },
+            {
                 name: "limits",
                 apiName: "limits",
                 type: "{ [key: string]: string }",
