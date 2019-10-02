@@ -9,7 +9,7 @@ import { SubtenantLightThemeColorUpdateRequest } from "./types";
 export class SubtenantLightThemeColorRepository extends Repository {
     /**
      * delete
-     * @param accountId - Account ID.
+     * @param accountId - The ID of the account.
      * @param reference - The name of the branding color.
      */
     public delete(accountId: string, reference: string): Promise<void> {
@@ -34,7 +34,7 @@ export class SubtenantLightThemeColorRepository extends Repository {
     }
     /**
      * read
-     * @param accountId - Account ID.
+     * @param accountId - The ID of the account.
      * @param reference - Color name.
      */
     public read(accountId: string, reference: string): Promise<SubtenantLightThemeColor> {
@@ -60,7 +60,7 @@ export class SubtenantLightThemeColorRepository extends Repository {
     /**
      * update
      * @param request - The entity to perform action on.
-     * @param accountId - Account ID.
+     * @param accountId - The ID of the account.
      * @param reference - Color name.
      */
     public update(

@@ -50,6 +50,16 @@ export const accountSchema = (): Schema => {
                 type: "Array<string>",
             },
             {
+                name: "businessModel",
+                apiName: "business_model",
+                type: "AccountBusinessModel",
+            },
+            {
+                name: "businessModelHistory",
+                apiName: "business_model_history",
+                type: "Array<any>",
+            },
+            {
                 name: "city",
                 apiName: "city",
                 type: "string",
@@ -118,6 +128,11 @@ export const accountSchema = (): Schema => {
                 name: "idleTimeout",
                 apiName: "idle_timeout",
                 type: "number",
+            },
+            {
+                name: "limitations",
+                apiName: "limitations",
+                type: "Array<any>",
             },
             {
                 name: "limits",
@@ -295,6 +310,10 @@ export const accountSchema = (): Schema => {
                             {
                                 name: "aliases",
                                 type: "Array<string>",
+                            },
+                            {
+                                name: "businessModel",
+                                type: "AccountBusinessModel",
                             },
                             {
                                 name: "city",
@@ -651,6 +670,10 @@ export const accountSchema = (): Schema => {
                             {
                                 name: "aliases",
                                 type: "Array<string>",
+                            },
+                            {
+                                name: "businessModel",
+                                type: "AccountBusinessModel",
                             },
                             {
                                 name: "city",

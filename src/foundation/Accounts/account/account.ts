@@ -2,7 +2,7 @@ import { Entity } from "../../../common/entity";
 import { ParentAccount } from "../parentAccount/parentAccount";
 import { PasswordPolicy } from "../passwordPolicy/passwordPolicy";
 import { Policy } from "../policy/policy";
-import { AccountMfaStatus, AccountStatus } from "./types";
+import { AccountBusinessModel, AccountMfaStatus, AccountStatus } from "./types";
 /**
  *Account
  */
@@ -32,7 +32,7 @@ export interface Account extends Entity {
     adminFullName?: string;
 
     /**
-     *The ID of the admin user created for this account.
+     *The ID of the admin user created for this account. Present only in the response for the account creation.
      *@example 01619571e2e89242ac12000600000000
      */
     readonly adminId?: string;
@@ -59,6 +59,17 @@ export interface Account extends Entity {
      *aliases
      */
     aliases?: Array<string>;
+
+    /**
+     *Business model for this account. Manageable by the root admin only.
+     *@example api_calls_1_business_model
+     */
+    businessModel?: AccountBusinessModel;
+
+    /**
+     *businessModelHistory
+     */
+    readonly businessModelHistory?: Array<any>;
 
     /**
      *The city part of the postal address.
@@ -141,6 +152,11 @@ export interface Account extends Entity {
      *@example 30
      */
     idleTimeout?: number;
+
+    /**
+     *This object represents an account limitation.
+     */
+    readonly limitations?: Array<any>;
 
     /**
      *List of limits as key-value pairs if requested.

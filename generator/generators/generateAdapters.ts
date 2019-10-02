@@ -46,7 +46,7 @@ export async function generateAdapters(entity, pascalKey: string, camelKey: stri
         if (field.foreign_key) {
             // field is foreing key
             mapsForeignKey = true;
-            foreignKeyAdapter = `${snakeToPascal(field._key)}Adapter`;
+            foreignKeyAdapter = `${snakeToPascal(field.foreign_key.entity)}Adapter`;
             adapterImports.push(new ImportContainer(
                 `${field._key.toUpperCase()}_ADAPTER`,
                 "../..",
