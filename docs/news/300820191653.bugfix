@@ -1,1 +1,0 @@
-Add wrapper round GetWebhook to prevent calling endpoint when using a JWT

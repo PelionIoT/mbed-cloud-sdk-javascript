@@ -11,6 +11,15 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.4.1 (2019-10-02)
+==================
+
+### Bugfixes
+
+- Add wrapper round GetWebhook to prevent calling endpoint when using a JWT
+  (#300820191653)
+
+
 2.4.0 (2019-07-24)
 ==================
 
