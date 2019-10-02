@@ -6,7 +6,7 @@ import { isArray } from "util";
 /**
  * Paginator
  */
-export class Paginator<T extends Entity, U extends ListOptions> implements AsyncIterableIterator<T> {
+export class Paginator<T extends Entity, U extends ListOptions = ListOptions> implements AsyncIterableIterator<T> {
     private _totalCount: number;
     private _firstItem: T;
     private _currentPageIndex: number;
@@ -81,7 +81,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
         options = options || {} as U;
         this.listOptions = options;
         this.listOptions.limit = this.listOptions.limit || this.listOptions.pageSize;
-        this.maxResults = options.maxResults || options.limit || 50;
+        this.maxResults = options.maxResults || options.limit || Number.MAX_SAFE_INTEGER;
         this.pageSize = options.pageSize || 50;
         this._totalPages = this.getTotalPages(this.maxResults, this.pageSize);
         this.fetchPageFunction = fetchPage;

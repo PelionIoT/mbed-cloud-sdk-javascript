@@ -72,9 +72,9 @@ describe("test paginator", () => {
 
         const paginator = new Paginator(null, options);
 
-        expect(paginator.maxResults).toBe(50);
+        expect(paginator.maxResults).toBe(Number.MAX_SAFE_INTEGER);
         expect(paginator.pageSize).toBe(50);
-        expect(paginator.totalPages).toBe(1);
+        expect(paginator.totalPages).toBe(180143985094820);
         expect(paginator.currentPageIndex).toBe(-1);
         expect(paginator.currentPage).toBeUndefined();
         expect(paginator.afters).toEqual([]);
