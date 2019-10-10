@@ -3,9 +3,11 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { PolicyGroup } from "./policyGroup";
 import { ApiKey } from "../../index";
 import { ApiKeyAdapter } from "../../index";
+import { PolicyGroupAdapter } from "../../index";
+import { PolicyGroupCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
 import { PolicyGroupListOptions } from "./types";
-import { PolicyGroupAdapter } from "../../index";
+import { PolicyGroupUpdateRequest } from "./types";
 import { User } from "../../index";
 import { UserAdapter } from "../../index";
 import { PolicyGroupUserListOptions } from "./types";
@@ -49,6 +51,53 @@ export class PolicyGroupRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     */
+    public create(request: PolicyGroupCreateRequest): Promise<PolicyGroup> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/policy-groups",
+                        method: "POST",
+                        body: {
+                            members: request.members,
+                            name: request.name,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, PolicyGroupAdapter.fromApi(data, request));
+            }
+        );
+    }
+    /**
+     * delete
+     * @param id - The ID of the group to delete.
+     */
+    public delete(id: string): Promise<void> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/policy-groups/{group_id}",
+                        method: "DELETE",
+                        pathParams: {
+                            group_id: id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (_data, done) => {
+                done(null, null);
+            }
+        );
     }
     /**
      * list
@@ -102,6 +151,33 @@ export class PolicyGroupRepository extends Repository {
             },
             (data, done) => {
                 done(null, PolicyGroupAdapter.fromApi(data));
+            }
+        );
+    }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - The ID of the group.
+     */
+    public update(request: PolicyGroupUpdateRequest, id: string): Promise<PolicyGroup> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/policy-groups/{group_id}",
+                        method: "PUT",
+                        pathParams: {
+                            group_id: id,
+                        },
+                        body: {
+                            name: request.name,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, PolicyGroupAdapter.fromApi(data, request));
             }
         );
     }

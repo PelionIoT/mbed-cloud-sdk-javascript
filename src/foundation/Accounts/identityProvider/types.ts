@@ -1,4 +1,5 @@
 import { OidcRequest } from "../oidcRequest/oidcRequest";
+export type IdentityProviderType = "NATIVE" | "MBED" | "SAML2" | "OIDC";
 export type IdentityProviderStatus = "ACTIVE" | "SUSPENDED";
 export type IdentityProviderAlgorithm =
     | "RSA2048"
@@ -19,6 +20,11 @@ export interface IdentityProviderCreateRequest {
      *Description for the identity provider.
      */
     readonly description?: string;
+
+    /**
+     *Identity provider type.
+     */
+    readonly identityProviderType: IdentityProviderType;
 
     /**
      *Name of the identity provider.
@@ -62,6 +68,11 @@ export interface IdentityProviderUpdateRequest {
      *Description for the identity provider.
      */
     readonly description?: string;
+
+    /**
+     *Identity provider type.
+     */
+    readonly identityProviderType: IdentityProviderType;
 
     /**
      *Name of the identity provider.

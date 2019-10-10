@@ -1,5 +1,30 @@
 import { ListOptions } from "../../../common";
 /**
+ *SubtenantPolicyGroupCreateRequest
+ */
+export interface SubtenantPolicyGroupCreateRequest {
+    /**
+     *Represents arrays of user and API key IDs.
+     */
+    readonly members?: any;
+
+    /**
+     *The name of the group.
+     *@example Administrators
+     */
+    readonly name: string;
+}
+/**
+ *SubtenantPolicyGroupUpdateRequest
+ */
+export interface SubtenantPolicyGroupUpdateRequest {
+    /**
+     *The name of the group.
+     *@example Administrators
+     */
+    readonly name: string;
+}
+/**
  *SubtenantPolicyGroupNameFilter
  */
 export interface SubtenantPolicyGroupNameFilter {

@@ -20,6 +20,11 @@ export const identityProviderSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "identityProviderType",
+                apiName: "type",
+                type: "IdentityProviderType",
+            },
+            {
                 name: "isDefault",
                 apiName: "is_default",
                 type: "boolean",
@@ -59,6 +64,10 @@ export const identityProviderSchema = (): Schema => {
                             {
                                 name: "description",
                                 type: "string",
+                            },
+                            {
+                                name: "identityProviderType",
+                                type: "IdentityProviderType",
                             },
                             {
                                 name: "name",
@@ -200,6 +209,10 @@ export const identityProviderSchema = (): Schema => {
                             {
                                 name: "description",
                                 type: "string",
+                            },
+                            {
+                                name: "identityProviderType",
+                                type: "IdentityProviderType",
                             },
                             {
                                 name: "name",
