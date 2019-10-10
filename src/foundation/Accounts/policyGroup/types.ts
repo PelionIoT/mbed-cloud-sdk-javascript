@@ -1,5 +1,30 @@
 import { ListOptions } from "../../../common";
 /**
+ *PolicyGroupCreateRequest
+ */
+export interface PolicyGroupCreateRequest {
+    /**
+     *Represents arrays of user and API key IDs.
+     */
+    readonly members?: any;
+
+    /**
+     *The name of the group.
+     *@example Administrators
+     */
+    readonly name: string;
+}
+/**
+ *PolicyGroupUpdateRequest
+ */
+export interface PolicyGroupUpdateRequest {
+    /**
+     *The name of the group.
+     *@example Administrators
+     */
+    readonly name: string;
+}
+/**
  *PolicyGroupNameFilter
  */
 export interface PolicyGroupNameFilter {
