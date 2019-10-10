@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { IdentityProviderStatus } from "./types";
+import { IdentityProviderType, IdentityProviderStatus } from "./types";
 /**
  *IdentityProvider
  */
@@ -20,6 +20,11 @@ export interface IdentityProvider extends Entity {
      *Description for the identity provider.
      */
     description?: string;
+
+    /**
+     *Identity provider type.
+     */
+    identityProviderType: IdentityProviderType;
 
     /**
      *Flag indicating whether this is the global default identity provider.

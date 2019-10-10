@@ -24,7 +24,7 @@ export interface SubtenantPolicyGroup extends Entity {
      *The name of the group.
      *@example Administrators
      */
-    readonly name?: string;
+    name: string;
 
     /**
      *Last update UTC time RFC3339.

@@ -76,6 +76,38 @@ export const policyGroupSchema = (): Schema => {
                 ],
             },
             {
+                name: "create",
+                returnType: "Promise<PolicyGroup>",
+                parameters: [
+                    {
+                        name: "request",
+                        position: 0,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "members",
+                                type: "any",
+                            },
+                            {
+                                name: "name",
+                                type: "string",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: "delete",
+                returnType: "Promise<void>",
+                parameters: [
+                    {
+                        name: "policyGroupId",
+                        position: 0,
+                        type: "string",
+                    },
+                ],
+            },
+            {
                 name: "list",
                 returnType: "Paginator<PolicyGroup, ListOptions>",
                 parameters: [
@@ -119,6 +151,28 @@ export const policyGroupSchema = (): Schema => {
                     {
                         name: "policyGroupId",
                         position: 0,
+                        type: "string",
+                    },
+                ],
+            },
+            {
+                name: "update",
+                returnType: "Promise<PolicyGroup>",
+                parameters: [
+                    {
+                        name: "request",
+                        position: 0,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "name",
+                                type: "string",
+                            },
+                        ],
+                    },
+                    {
+                        name: "policyGroupId",
+                        position: 1,
                         type: "string",
                     },
                 ],
