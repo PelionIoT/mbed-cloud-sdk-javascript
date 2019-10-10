@@ -81,6 +81,48 @@ export const subtenantPolicyGroupSchema = (): Schema => {
                 ],
             },
             {
+                name: "create",
+                returnType: "Promise<SubtenantPolicyGroup>",
+                parameters: [
+                    {
+                        name: "request",
+                        position: 0,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "members",
+                                type: "any",
+                            },
+                            {
+                                name: "name",
+                                type: "string",
+                            },
+                        ],
+                    },
+                    {
+                        name: "accountId",
+                        position: 1,
+                        type: "string",
+                    },
+                ],
+            },
+            {
+                name: "delete",
+                returnType: "Promise<void>",
+                parameters: [
+                    {
+                        name: "accountId",
+                        position: 0,
+                        type: "string",
+                    },
+                    {
+                        name: "subtenantPolicyGroupId",
+                        position: 1,
+                        type: "string",
+                    },
+                ],
+            },
+            {
                 name: "list",
                 returnType: "Paginator<SubtenantPolicyGroup, ListOptions>",
                 parameters: [
@@ -134,6 +176,33 @@ export const subtenantPolicyGroupSchema = (): Schema => {
                     {
                         name: "subtenantPolicyGroupId",
                         position: 1,
+                        type: "string",
+                    },
+                ],
+            },
+            {
+                name: "update",
+                returnType: "Promise<SubtenantPolicyGroup>",
+                parameters: [
+                    {
+                        name: "request",
+                        position: 0,
+                        type: "Object",
+                        subParams: [
+                            {
+                                name: "name",
+                                type: "string",
+                            },
+                        ],
+                    },
+                    {
+                        name: "accountId",
+                        position: 1,
+                        type: "string",
+                    },
+                    {
+                        name: "subtenantPolicyGroupId",
+                        position: 2,
                         type: "string",
                     },
                 ],

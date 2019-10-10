@@ -3,9 +3,11 @@ import { apiWrapper } from "../../../legacy/common/functions";
 import { SubtenantPolicyGroup } from "./subtenantPolicyGroup";
 import { SubtenantApiKey } from "../../index";
 import { SubtenantApiKeyAdapter } from "../../index";
+import { SubtenantPolicyGroupAdapter } from "../../index";
+import { SubtenantPolicyGroupCreateRequest } from "./types";
 import { extractFilter } from "../../../common/filters";
 import { SubtenantPolicyGroupListOptions } from "./types";
-import { SubtenantPolicyGroupAdapter } from "../../index";
+import { SubtenantPolicyGroupUpdateRequest } from "./types";
 import { SubtenantUser } from "../../index";
 import { SubtenantUserAdapter } from "../../index";
 import { SubtenantPolicyGroupSubtenantUserListOptions } from "./types";
@@ -51,6 +53,59 @@ export class SubtenantPolicyGroupRepository extends Repository {
             );
         };
         return new Paginator(pageFunc, options);
+    }
+    /**
+     * create
+     * @param request - The entity to perform action on.
+     * @param accountId - The ID of the account this group belongs to.
+     */
+    public create(request: SubtenantPolicyGroupCreateRequest, accountId: string): Promise<SubtenantPolicyGroup> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/accounts/{account_id}/policy-groups",
+                        method: "POST",
+                        pathParams: {
+                            account_id: accountId,
+                        },
+                        body: {
+                            members: request.members,
+                            name: request.name,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, SubtenantPolicyGroupAdapter.fromApi(data, request));
+            }
+        );
+    }
+    /**
+     * delete
+     * @param accountId - Account ID.
+     * @param id - The ID of the group to delete.
+     */
+    public delete(accountId: string, id: string): Promise<void> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/accounts/{account_id}/policy-groups/{group_id}",
+                        method: "DELETE",
+                        pathParams: {
+                            account_id: accountId,
+                            group_id: id,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (_data, done) => {
+                done(null, null);
+            }
+        );
     }
     /**
      * list
@@ -113,6 +168,39 @@ export class SubtenantPolicyGroupRepository extends Repository {
             },
             (data, done) => {
                 done(null, SubtenantPolicyGroupAdapter.fromApi(data));
+            }
+        );
+    }
+    /**
+     * update
+     * @param request - The entity to perform action on.
+     * @param accountId - The ID of the account this group belongs to.
+     * @param id - The ID of the group.
+     */
+    public update(
+        request: SubtenantPolicyGroupUpdateRequest,
+        accountId: string,
+        id: string
+    ): Promise<SubtenantPolicyGroup> {
+        return apiWrapper(
+            resultsFn => {
+                this.client._CallApi(
+                    {
+                        url: "/v3/accounts/{account_id}/policy-groups/{group_id}",
+                        method: "PUT",
+                        pathParams: {
+                            account_id: accountId,
+                            group_id: id,
+                        },
+                        body: {
+                            name: request.name,
+                        },
+                    },
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                done(null, SubtenantPolicyGroupAdapter.fromApi(data, request));
             }
         );
     }

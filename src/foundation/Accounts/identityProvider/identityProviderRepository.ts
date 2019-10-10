@@ -28,6 +28,7 @@ export class IdentityProviderRepository extends Repository {
                         },
                         body: {
                             description: request.description,
+                            type: request.identityProviderType,
                             name: request.name,
                             oidc_attributes: request.oidcAttributes,
                             saml2_attributes: request.saml2Attributes,
@@ -217,6 +218,7 @@ export class IdentityProviderRepository extends Repository {
                         },
                         body: {
                             description: request.description,
+                            type: request.identityProviderType,
                             name: request.name,
                             oidc_attributes: request.oidcAttributes,
                             saml2_attributes: request.saml2Attributes,

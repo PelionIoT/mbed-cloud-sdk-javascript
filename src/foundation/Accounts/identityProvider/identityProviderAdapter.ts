@@ -19,6 +19,7 @@ export class IdentityProviderAdapter extends Adapter {
             createdAt: data.created_at,
             description: data.description,
             id: data.id,
+            identityProviderType: data.type,
             isDefault: data.is_default,
             name: data.name,
             saml2Attributes: data.saml2_attributes,
