@@ -1,8 +1,13 @@
+import { isThisNode } from "../../../legacy/common/functions";
+
 /**
  * Decodes the specified base64 string.
  * @returns An Uint8Array containing the bytes extracted from the specified base64 string.
  */
 export function decodeBase64(text: string) {
+    if (isThisNode()) {
+        return Buffer.from(text, "base64");
+    }
     // If performance matters then replace with
     // https://github.com/danguer/blog-examples/blob/master/js/base64-binary.js
     return Uint8Array.from(atob(text), x => x.charCodeAt(0));
