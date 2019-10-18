@@ -40,3 +40,19 @@ describe("Strings.decodeBase64", () => {
         expect(Array.from(result)).toEqual([65, 66, 67]);
     });
 });
+
+describe("Strings.encodeBase64", () => {
+    test("should encode a byte array", () => {
+        const data = [50, 100, 200, 250];
+
+        const encoded = Strings.encodeBase64(data);
+        expect(typeof encoded).toEqual("string");
+
+        const decoded = Strings.decodeBase64(encoded);
+        expect(Array.from(decoded)).toEqual(data);
+    });
+    test("should decode a base64 encoded string", () => {
+        const result = Strings.decodeBase64("QUJD");
+        expect(Array.from(result)).toEqual([65, 66, 67]);
+    });
+});

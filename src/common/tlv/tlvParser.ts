@@ -1,5 +1,4 @@
 // tslint:disable:max-classes-per-file
-// import { StringBuilder, Strings } from "portal-components";
 import { Serialization, StringBuilder, Strings } from ".";
 
 // http://openmobilealliance.org/release/LightweightM2M/V1_0_2-20180209-A/OMA-TS-LightweightM2M-V1_0_2-20180209-A.pdf.
@@ -300,6 +299,7 @@ export class TlvValue {
 
     private isContainer() {
         return (
+            this.value &&
             this.value.length > 0 &&
             (this.type === TlvValueType.ObjectInstance || this.type === TlvValueType.MultipleResource)
         );
@@ -549,7 +549,6 @@ enum ParserState {
 interface ParserData {
     type: TlvValueType;
     identifier: number;
-    value: any;
     identifierFieldLength: number;
     identifierField: Array<number>;
     lengthFieldLength: number;
@@ -598,7 +597,7 @@ class TlvParserImpl {
                     this.info,
                     this.currentTlvValue.type!,
                     this.currentTlvValue.identifier!,
-                    this.currentTlvValue.value!
+                    this.currentTlvValue.valueField!
                 );
 
                 state = ParserState.Type;

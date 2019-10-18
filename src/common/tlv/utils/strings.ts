@@ -14,6 +14,18 @@ export function decodeBase64(text: string) {
 }
 
 /**
+ * Encodes the specified array into a base64 string.
+ */
+export function encodeBase64(bytes: Iterable<number>) {
+    const stringToEncode = String.fromCharCode(...bytes);
+    if (isThisNode()) {
+        return Buffer.from(stringToEncode, "binary").toString("base64");
+    }
+
+    return btoa(stringToEncode);
+}
+
+/**
  * Evaluates the specified value to a string.
  * @param {unknown} value - Literal value or function to call to determine the value.
  * @param {unknown[]} functionArgs - Optional arguments to be passed to the function to
@@ -26,7 +38,7 @@ export function decodeBase64(text: string) {
  * If an object has its own `toString()` implementation then it's called instead
  * of returning its JSON representation.
  */
-export function toString(value: unknown, ...functionArgs: unknown[]): string {
+export function toString(value: unknown, ...functionArgs: Array<unknown>): string {
     if (value === null || value === undefined) {
         return "";
     }
