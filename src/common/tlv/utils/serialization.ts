@@ -1,4 +1,4 @@
-export type ByteArray = number[] | Uint8Array;
+export type ByteArray = Array<number> | Uint8Array;
 
 function isHostLittleEndian() {
     return new Uint8Array(new Uint32Array([0x01000002]).buffer)[0] === 0x02;
@@ -76,7 +76,7 @@ export function bytesToInt(bytes: ByteArray) {
  *  of 4 or 8 little endian encoded bytes.
  * @returns The floating point number encoded in the specified array.
  */
-export function bytesToFloat(bytes: number[]) {
+export function bytesToFloat(bytes: Array<number>) {
     if (bytes.length === 4) {
         return new Float32Array(new Uint32Array([bytesToUInt(bytes)]).buffer)[0];
     }

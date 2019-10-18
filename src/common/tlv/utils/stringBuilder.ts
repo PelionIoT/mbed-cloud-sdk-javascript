@@ -1,5 +1,5 @@
 export class StringBuilder {
-    private buffer: string[];
+    private buffer: Array<string>;
 
     public constructor(initialValue?: string | null | undefined) {
         this.buffer = initialValue ? [initialValue] : [];
