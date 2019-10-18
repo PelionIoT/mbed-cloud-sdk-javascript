@@ -14,6 +14,18 @@ export function decodeBase64(text: string) {
 }
 
 /**
+ * Decodes the specified base64 string.
+ * @returns The string value of the base64 string.
+ */
+export function decodeBase64AsString(text: string): string {
+    if (isThisNode()) {
+        return Buffer.from(text, "base64").toString("binary");
+    }
+
+    return atob(text);
+}
+
+/**
  * Encodes the specified array into a base64 string.
  */
 export function encodeBase64(bytes: Iterable<number>) {

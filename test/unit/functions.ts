@@ -16,6 +16,7 @@
 */
 
 import { matchWithWildcard, decodeBase64, dateToBillingMonth } from "../../src/legacy/common/functions";
+import { TlvValue } from "../../src/common/tlv";
 
 describe("testFunctions", () => {
 
@@ -76,10 +77,10 @@ describe("testPayloadDecoding", () => {
     });
 
     test("tlv", () => {
-        const payload = decodeBase64("AAA=", "tlv");
-        expect(payload).toEqual({
-            "/0": "",
-        });
+        const payload = decodeBase64("AAA=", "tlv") as IterableIterator<TlvValue>;
+        const value = payload.next().value as TlvValue;
+        expect(value.id).toEqual(0);
+        expect(value.value).toEqual([]);
     });
 });
 
