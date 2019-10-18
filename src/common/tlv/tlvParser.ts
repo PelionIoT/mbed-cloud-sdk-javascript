@@ -455,7 +455,7 @@ export class TlvParser {
      * @param info - The object which describes atributes for resources.
      * @returns An iterable object of hierarchical `TlvNode` objects.
      */
-    public static parseData(data: TlvPacketIndirect, info?: LwM2MResourceInfo) {
+    public static parseData(data: TlvPacketIndirect, info?: LwM2MResourceInfo): IterableIterator<TlvValue> {
         const parser = new TlvParser(data, info);
         return parser.parse();
     }
@@ -509,7 +509,7 @@ export class TlvParser {
      * Parses the input data stream.
      * @returns An iterable object of hierarchical `TlvNode` objects.
      */
-    public parse() {
+    public parse(): IterableIterator<TlvValue> {
         const parser = new TlvParserImpl(this.retrieveDataToParse(), this.info);
         return parser.parse();
     }
@@ -571,7 +571,7 @@ class TlvParserImpl {
         this.currentTlvValue = {};
     }
 
-    public *parse() {
+    public *parse(): IterableIterator<TlvValue> {
         this.currentTlvValue = {};
         let state = ParserState.Type;
 

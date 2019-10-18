@@ -1,4 +1,4 @@
-import { TlvParser, TlvDataType, TlvValueType } from "../../../../src/common/tlv";
+import { TlvParser, TlvDataType, TlvValueType, TlvValue } from "../../../../src/common/tlv";
 import { TlvEncoder, TlvNode } from "../../../tlvEncoder";
 
 describe("TlvValue", () => {
@@ -7,14 +7,14 @@ describe("TlvValue", () => {
             const tlv = TlvParser.parseData(
                 "CAAy6BZEDDI0LjYxMTExMDY4N+gV4wgAAAAAAAAAAOgV5AgAAAAAAAAAyOcWRUNlbHNpdXMIARDoFkQMMzQuNDQ0NDQyNzQ5CAIQ6BZEDDIyLjIyMjIyMTM3NQ=="
             );
-            const entry = tlv.next().value;
+            const entry = tlv.next().value as TlvValue;
             expect(entry.findChildById(5701).valueToString()).toEqual("Celsius");
         });
         test("should guess string 2", () => {
             const tlv = TlvParser.parseData(
                 "CAAy6BZEDDI0LjYxMTExMDY4N+gV4wgAAAAAAAAAAOgV5AgAAAAAAAAAyOcWRUNlbHNpdXMIARDoFkQMMzQuNDQ0NDQyNzQ5CAIQ6BZEDDIyLjIyMjIyMTM3NQ=="
             );
-            const instance = tlv.next().value;
+            const instance = tlv.next().value as TlvValue;
 
             expect(
                 instance
@@ -37,7 +37,7 @@ describe("TlvValue", () => {
                 "CAAy6BZEDDI0LjYxMTExMDY4N+gV4wgAAAAAAAAAAOgV5AgAAAAAAAAAyOcWRUNlbHNpdXMIARDoFkQMMzQuNDQ0NDQyNzQ5CAIQ6BZEDDIyLjIyMjIyMTM3NQ==",
                 info
             );
-            const instance = tlv.next().value;
+            const instance = tlv.next().value as TlvValue;
             const resource = instance.findChildById(5701);
 
             expect(resource.name).toEqual("Unit");
@@ -51,7 +51,7 @@ describe("TlvValue", () => {
             const data = TlvEncoder.toBase64String(root);
 
             const tlv = TlvParser.parseData(data, { objectId: "3336" } as any);
-            const entry = tlv.next().value;
+            const entry = tlv.next().value as TlvValue;
             expect(entry.valueToString()).toEqual("100 200");
         });
     });
@@ -59,7 +59,7 @@ describe("TlvValue", () => {
     describe("children", () => {
         test("should be consumed multiple times", () => {
             const tlv = TlvParser.parseData("CAAY6BbbCAAAAAAAAAAA6BbaCAAAAAAAAAAA");
-            const instance = tlv.next().value;
+            const instance = tlv.next().value as TlvValue;
 
             // Don't assume the type of tlv.children, just be sure that even
             // if it's in iterable object we can consume it multiple times
@@ -106,7 +106,7 @@ describe("TlvValue", () => {
             const tlv = TlvParser.parseData(
                 "CAAy6BZEDDI0LjYxMTExMDY4N+gV4wgAAAAAAAAAAOgV5AgAAAAAAAAAyOcWRTEyMwo0NTYIARDoFkQMMzQuNDQ0NDQyNzQ5CAIQ6BZEDDIyLjIyMjIyMTM3NQ=="
             );
-            const entry = tlv.next().value;
+            const entry = tlv.next().value as TlvValue;
 
             // Original string contains a new line character, asString() returns
             // literal content then it has to be there.
@@ -124,11 +124,11 @@ describe("TlvParser", () => {
     describe("parseData (base64)", () => {
         test("should parse a single instance", () => {
             const tlv = TlvParser.parseData("CAAY6BbbCAAAAAAAAAAA6BbaCAAAAAAAAAAA");
-            expect(tlv.next().value.type).toEqual(TlvValueType.ObjectInstance);
+            expect((tlv.next().value as TlvValue).type).toEqual(TlvValueType.ObjectInstance);
         });
         test("should parse correct number of children", () => {
             const tlv = TlvParser.parseData("CAAY6BbbCAAAAAAAAAAA6BbaCAAAAAAAAAAA");
-            const children = Array.from(tlv.next().value.children);
+            const children = Array.from((tlv.next().value as TlvValue).children);
 
             expect(children.length).toEqual(2);
         });
@@ -357,13 +357,13 @@ describe("TlvParser", () => {
             const tlv = TlvParser.parseData(
                 "CAAy6BZEDDI0LjYxMTExMDY4N+gV4wgAAAAAAAAAAOgV5AgAAAAAAAAAyOcWRUNlbHNpdXMIARDoFkQMMzQuNDQ0NDQyNzQ5CAIQ6BZEDDIyLjIyMjIyMTM3NQ=="
             );
-            const entry = tlv.next().value;
+            const entry = tlv.next().value as TlvValue;
 
             expect(entry.findChildById(5701).asString()).toEqual("Celsius");
         });
         test("should read boolean", () => {
             const tlv = TlvParser.parseData("CAAM6BbaCAAAAAAAAAAA");
-            const entry = tlv.next().value;
+            const entry = tlv.next().value as TlvValue;
 
             expect(entry.findChildById(5850).asBoolean()).toEqual(false);
         });
@@ -375,7 +375,7 @@ describe("TlvParser", () => {
     describe("parseData (array)", () => {
         test("should read boolean", () => {
             const tlv = TlvParser.parseData([8, 0, 12, 232, 22, 218, 8, 0, 0, 0, 0, 0, 0, 0, 0] as any);
-            const entry = tlv.next().value;
+            const entry = tlv.next().value as TlvValue;
             const resource = entry.findChildById(5850);
 
             expect(resource).not.toBeNull();
@@ -385,7 +385,7 @@ describe("TlvParser", () => {
     describe("parseData (function)", () => {
         test("should read boolean", () => {
             const tlv = TlvParser.parseData(() => [8, 0, 12, 232, 22, 218, 8, 0, 0, 0, 0, 0, 0, 0, 0] as any);
-            const entry = tlv.next().value;
+            const entry = tlv.next().value as TlvValue;
             const resource = entry.findChildById(5850);
 
             expect(resource).not.toBeNull();
