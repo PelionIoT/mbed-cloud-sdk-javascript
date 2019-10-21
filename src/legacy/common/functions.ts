@@ -17,7 +17,7 @@
 
 import { CallbackFn, ComparisonObject, operators } from "./interfaces";
 import { SDKError } from "./sdkError";
-import { decodeTlv } from "./tlvDecoder";
+import { TlvParser, TlvValue, Strings } from "../../common/tlv";
 
 // Inspired by https://github.com/sonnyp/polygoat
 // If a callback is passed, use that after running the passed function, otherwise return a promise chain
@@ -138,17 +138,7 @@ export function encodeBase64(payload): string {
  * Internal function
  * @ignore
  */
-export function decodeBase64(payload, contentType): string | number | { [key: string]: string | number } {
-    // any so can be used in .isNaN method
-    let result: any = "";
-
-    // Decode Base64
-    if (typeof atob === "function") {
-        result = atob(payload);
-    } else {
-        result = new Buffer(payload, "base64").toString("binary");
-    }
-
+export function decodeBase64(payload: string, contentType: string): string | number | IterableIterator<TlvValue> {
     // According to the swagger, content types can be:
     // text/plain
     // application/xml
@@ -162,25 +152,16 @@ export function decodeBase64(payload, contentType): string | number | { [key: st
     // application/vnd.oma.lwm2m+opaq
     // application/vnd.oma.lwm2m+tlv
     // application/vnd.oma.lwm2m+json
-    if (contentType) {
-        if (contentType.indexOf("tlv") > -1) {
-            // Decode tlv
-            try {
-                return decodeTlv(result);
-            // tslint:disable-next-line:no-empty
-            } catch (e) {}
-        }
-        /*
-        else if (contentType.indexOf("json") > -1) {
-            // Decode json
-            try {
-                return JSON.parse(result);
-            } catch(e) {}
-        }
-        */
+    if (contentType && contentType.indexOf("tlv") > -1) {
+        // Decode tlv
+        try {
+            return TlvParser.parseData(payload);
+        // tslint:disable-next-line:no-empty
+        } catch (e) {}
     }
 
     // if string value is a number, then return number, otherwise just return the string
+    const result = Strings.decodeBase64AsString(payload) as any;
     return !isNaN(result) ? Number(result) : result;
 }
 
