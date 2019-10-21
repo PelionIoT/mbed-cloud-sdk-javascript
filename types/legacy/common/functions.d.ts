@@ -1,5 +1,6 @@
 import { CallbackFn, ComparisonObject, operators } from "./interfaces";
 import { SDKError } from "./sdkError";
+import { TlvValue } from "../../common/tlv";
 /**
  * Internal function
  * @ignore
@@ -24,9 +25,7 @@ export declare function encodeBase64(payload: any): string;
  * Internal function
  * @ignore
  */
-export declare function decodeBase64(payload: any, contentType: any): string | number | {
-    [key: string]: string | number;
-};
+export declare function decodeBase64(payload: string, contentType: string): string | number | IterableIterator<TlvValue>;
 /**
  * Internal function
  * @ignore

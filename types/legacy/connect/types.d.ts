@@ -1,4 +1,5 @@
 import { CallbackFn, ConnectionOptions, Order } from "../common/interfaces";
+import { TlvValue } from "../../common/tlv";
 export interface ConnectOptions extends ConnectionOptions {
     /**
      * @deprecated will detect webhook usage with a call to updateWebhook
@@ -94,9 +95,7 @@ export interface ResourceValuesFilter {
 export interface NotificationData {
     path?: string;
     maxAge?: string;
-    payload?: string | number | {
-        [key: string]: string | number;
-    };
+    payload?: string | number | IterableIterator<TlvValue>;
     deviceId?: string;
     contentType?: string;
 }

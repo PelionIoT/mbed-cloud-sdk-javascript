@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 import { SDKError } from "./sdkError";
-import { decodeTlv } from "./tlvDecoder";
+import { TlvParser, Strings } from "../../common/tlv";
 // Inspired by https://github.com/sonnyp/polygoat
 // If a callback is passed, use that after running the passed function, otherwise return a promise chain
 /**
@@ -143,15 +143,6 @@ export function encodeBase64(payload) {
  * @ignore
  */
 export function decodeBase64(payload, contentType) {
-    // any so can be used in .isNaN method
-    let result = "";
-    // Decode Base64
-    if (typeof atob === "function") {
-        result = atob(payload);
-    }
-    else {
-        result = new Buffer(payload, "base64").toString("binary");
-    }
     // According to the swagger, content types can be:
     // text/plain
     // application/xml
@@ -165,25 +156,16 @@ export function decodeBase64(payload, contentType) {
     // application/vnd.oma.lwm2m+opaq
     // application/vnd.oma.lwm2m+tlv
     // application/vnd.oma.lwm2m+json
-    if (contentType) {
-        if (contentType.indexOf("tlv") > -1) {
-            // Decode tlv
-            try {
-                return decodeTlv(result);
-                // tslint:disable-next-line:no-empty
-            }
-            catch (e) { }
+    if (contentType && contentType.indexOf("tlv") > -1) {
+        // Decode tlv
+        try {
+            return TlvParser.parseData(payload);
+            // tslint:disable-next-line:no-empty
         }
-        /*
-        else if (contentType.indexOf("json") > -1) {
-            // Decode json
-            try {
-                return JSON.parse(result);
-            } catch(e) {}
-        }
-        */
+        catch (e) { }
     }
     // if string value is a number, then return number, otherwise just return the string
+    const result = Strings.decodeBase64AsString(payload);
     return !isNaN(result) ? Number(result) : result;
 }
 /**
