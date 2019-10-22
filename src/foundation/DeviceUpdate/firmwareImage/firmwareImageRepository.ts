@@ -13,7 +13,7 @@ import { ListOptions } from "../../../common";
 export class FirmwareImageRepository extends Repository {
     /**
      * create
-     * @param firmwareImageFile - The firmware image file to upload
+     * @param firmwareImageFile - The firmware image file to upload.
      */
     public create(
         firmwareImageFile: ReadStream | Buffer | File | Blob,
@@ -24,7 +24,7 @@ export class FirmwareImageRepository extends Repository {
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/firmware-images/",
+                        url: "/v3/firmware-images",
                         method: "POST",
                         formParams: {
                             description: options.description,
@@ -43,14 +43,14 @@ export class FirmwareImageRepository extends Repository {
     }
     /**
      * delete
-     * @param id - The firmware image ID
+     * @param id - The firmware image ID.
      */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/firmware-images/{image_id}/",
+                        url: "/v3/firmware-images/{image_id}",
                         method: "DELETE",
                         pathParams: {
                             image_id: id,
@@ -75,7 +75,7 @@ export class FirmwareImageRepository extends Repository {
                 resultsFn => {
                     this.client._CallApi(
                         {
-                            url: "/v3/firmware-images/",
+                            url: "/v3/firmware-images",
                             method: "GET",
                             query: {
                                 created_at__in: extractFilter(pageOptions.filter, "createdAt", "in"),
@@ -129,14 +129,14 @@ export class FirmwareImageRepository extends Repository {
     }
     /**
      * read
-     * @param id - The firmware image ID
+     * @param id - The firmware image ID.
      */
     public read(id: string): Promise<FirmwareImage> {
         return apiWrapper(
             resultsFn => {
                 this.client._CallApi(
                     {
-                        url: "/v3/firmware-images/{image_id}/",
+                        url: "/v3/firmware-images/{image_id}",
                         method: "GET",
                         pathParams: {
                             image_id: id,
