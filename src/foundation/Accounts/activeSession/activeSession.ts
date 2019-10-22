@@ -10,6 +10,12 @@ export interface ActiveSession extends Entity {
     readonly accountId?: string;
 
     /**
+     *Creation UTC time RFC3339.
+     *@example 2018-02-13T09:35:20Z
+     */
+    readonly createdAt?: Date;
+
+    /**
      *IP address of the client.
      *@example 127.0.0.1
      */
