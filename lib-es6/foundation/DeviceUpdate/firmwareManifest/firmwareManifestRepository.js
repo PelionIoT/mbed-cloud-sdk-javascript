@@ -31,12 +31,12 @@ export class FirmwareManifestRepository extends Repository {
     }
     /**
      * delete
-     * @param id - The firmware manifest ID
+     * @param id - The firmware manifest ID.
      */
     delete(id) {
         return apiWrapper(resultsFn => {
             this.client._CallApi({
-                url: "/v3/firmware-manifests/{manifest_id}/",
+                url: "/v3/firmware-manifests/{manifest_id}",
                 method: "DELETE",
                 pathParams: {
                     manifest_id: id,
@@ -108,12 +108,12 @@ export class FirmwareManifestRepository extends Repository {
     }
     /**
      * read
-     * @param id - The firmware manifest ID
+     * @param id - The firmware manifest ID.
      */
     read(id) {
         return apiWrapper(resultsFn => {
             this.client._CallApi({
-                url: "/v3/firmware-manifests/{manifest_id}/",
+                url: "/v3/firmware-manifests/{manifest_id}",
                 method: "GET",
                 pathParams: {
                     manifest_id: id,

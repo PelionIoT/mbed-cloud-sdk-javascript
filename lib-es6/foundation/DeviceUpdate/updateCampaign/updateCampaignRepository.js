@@ -10,7 +10,7 @@ import { Paginator, Page } from "../../../index";
 export class UpdateCampaignRepository extends Repository {
     /**
      * archive
-     * @param id - The campaign ID
+     * @param id - The campaign ID.
      */
     archive(id) {
         return apiWrapper(resultsFn => {
@@ -32,14 +32,17 @@ export class UpdateCampaignRepository extends Repository {
     create(request) {
         return apiWrapper(resultsFn => {
             this.client._CallApi({
-                url: "/v3/update-campaigns/",
+                url: "/v3/update-campaigns",
                 method: "POST",
                 body: {
+                    approval_required: request.approvalRequired,
+                    autostop: request.autostop,
+                    autostop_success_percent: request.autostopSuccessPercent,
+                    campaign_strategy: request.campaignStrategy,
                     description: request.description,
                     device_filter: request.deviceFilter,
                     name: request.name,
                     root_manifest_id: request.rootManifestId,
-                    when: request.when,
                 },
             }, resultsFn);
         }, (data, done) => {
@@ -48,12 +51,12 @@ export class UpdateCampaignRepository extends Repository {
     }
     /**
      * delete
-     * @param id - The ID of the update campaign
+     * @param id - The campaign ID.
      */
     delete(id) {
         return apiWrapper(resultsFn => {
             this.client._CallApi({
-                url: "/v3/update-campaigns/{campaign_id}/",
+                url: "/v3/update-campaigns/{campaign_id}",
                 method: "DELETE",
                 pathParams: {
                     campaign_id: id,
@@ -65,7 +68,7 @@ export class UpdateCampaignRepository extends Repository {
     }
     /**
      * deviceMetadata
-     * @param id - The update campaign ID
+     * @param id - The campaign ID.
      * @param options - options
      */
     deviceMetadata(id, options) {
@@ -73,7 +76,7 @@ export class UpdateCampaignRepository extends Repository {
             pageOptions = pageOptions || {};
             return apiWrapper(resultsFn => {
                 this.client._CallApi({
-                    url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/",
+                    url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata",
                     method: "GET",
                     query: {
                         after: pageOptions.after,
@@ -100,7 +103,7 @@ export class UpdateCampaignRepository extends Repository {
             pageOptions = pageOptions || {};
             return apiWrapper(resultsFn => {
                 this.client._CallApi({
-                    url: "/v3/update-campaigns/",
+                    url: "/v3/update-campaigns",
                     method: "GET",
                     query: {
                         created_at__in: extractFilter(pageOptions.filter, "createdAt", "in"),
@@ -161,12 +164,12 @@ export class UpdateCampaignRepository extends Repository {
     }
     /**
      * read
-     * @param id - The campaign ID
+     * @param id - The campaign ID.
      */
     read(id) {
         return apiWrapper(resultsFn => {
             this.client._CallApi({
-                url: "/v3/update-campaigns/{campaign_id}/",
+                url: "/v3/update-campaigns/{campaign_id}",
                 method: "GET",
                 pathParams: {
                     campaign_id: id,
@@ -178,7 +181,7 @@ export class UpdateCampaignRepository extends Repository {
     }
     /**
      * start
-     * @param id - The campaign ID
+     * @param id - The campaign ID.
      */
     start(id) {
         return apiWrapper(resultsFn => {
@@ -195,7 +198,7 @@ export class UpdateCampaignRepository extends Repository {
     }
     /**
      * stop
-     * @param id - The campaign ID
+     * @param id - The campaign ID.
      */
     stop(id) {
         return apiWrapper(resultsFn => {
@@ -213,22 +216,24 @@ export class UpdateCampaignRepository extends Repository {
     /**
      * update
      * @param request - The entity to perform action on.
-     * @param id - The campaign ID
+     * @param id - The campaign ID.
      */
     update(request, id) {
         return apiWrapper(resultsFn => {
             this.client._CallApi({
-                url: "/v3/update-campaigns/{campaign_id}/",
+                url: "/v3/update-campaigns/{campaign_id}",
                 method: "PUT",
                 pathParams: {
                     campaign_id: id,
                 },
                 body: {
+                    approval_required: request.approvalRequired,
+                    autostop: request.autostop,
+                    autostop_success_percent: request.autostopSuccessPercent,
                     description: request.description,
                     device_filter: request.deviceFilter,
                     name: request.name,
                     root_manifest_id: request.rootManifestId,
-                    when: request.when,
                 },
             }, resultsFn);
         }, (data, done) => {

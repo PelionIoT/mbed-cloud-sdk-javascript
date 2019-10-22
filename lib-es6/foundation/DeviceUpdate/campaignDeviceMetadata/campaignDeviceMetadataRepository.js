@@ -7,13 +7,13 @@ import { CampaignDeviceMetadataAdapter } from "../../index";
 export class CampaignDeviceMetadataRepository extends Repository {
     /**
      * read
-     * @param campaignId - The device's campaign ID
-     * @param id - The metadata record ID
+     * @param campaignId - The device's campaign ID.
+     * @param id - The metadata record ID.
      */
     read(campaignId, id) {
         return apiWrapper(resultsFn => {
             this.client._CallApi({
-                url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/",
+                url: "/v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}",
                 method: "GET",
                 pathParams: {
                     campaign_id: campaignId,

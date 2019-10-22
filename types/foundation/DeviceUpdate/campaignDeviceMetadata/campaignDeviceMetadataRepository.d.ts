@@ -6,8 +6,8 @@ import { CampaignDeviceMetadata } from "./campaignDeviceMetadata";
 export declare class CampaignDeviceMetadataRepository extends Repository {
     /**
      * read
-     * @param campaignId - The device's campaign ID
-     * @param id - The metadata record ID
+     * @param campaignId - The device's campaign ID.
+     * @param id - The metadata record ID.
      */
     read(campaignId: string, id: string): Promise<CampaignDeviceMetadata>;
 }

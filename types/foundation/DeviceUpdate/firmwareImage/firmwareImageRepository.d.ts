@@ -11,7 +11,7 @@ import { ListOptions } from "../../../common";
 export declare class FirmwareImageRepository extends Repository {
     /**
      * create
-     * @param firmwareImageFile - The firmware image file to upload
+     * @param firmwareImageFile - The firmware image file to upload.
      */
     create(firmwareImageFile: ReadStream | Buffer | File | Blob, options?: {
         description?: string;
@@ -19,7 +19,7 @@ export declare class FirmwareImageRepository extends Repository {
     }): Promise<FirmwareImage>;
     /**
      * delete
-     * @param id - The firmware image ID
+     * @param id - The firmware image ID.
      */
     delete(id: string): Promise<void>;
     /**
@@ -29,7 +29,7 @@ export declare class FirmwareImageRepository extends Repository {
     list(options?: FirmwareImageListOptions): Paginator<FirmwareImage, ListOptions>;
     /**
      * read
-     * @param id - The firmware image ID
+     * @param id - The firmware image ID.
      */
     read(id: string): Promise<FirmwareImage>;
 }

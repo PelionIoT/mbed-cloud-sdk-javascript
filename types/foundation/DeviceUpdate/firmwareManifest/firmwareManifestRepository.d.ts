@@ -20,7 +20,7 @@ export declare class FirmwareManifestRepository extends Repository {
     }): Promise<FirmwareManifest>;
     /**
      * delete
-     * @param id - The firmware manifest ID
+     * @param id - The firmware manifest ID.
      */
     delete(id: string): Promise<void>;
     /**
@@ -30,7 +30,7 @@ export declare class FirmwareManifestRepository extends Repository {
     list(options?: FirmwareManifestListOptions): Paginator<FirmwareManifest, ListOptions>;
     /**
      * read
-     * @param id - The firmware manifest ID
+     * @param id - The firmware manifest ID.
      */
     read(id: string): Promise<FirmwareManifest>;
 }

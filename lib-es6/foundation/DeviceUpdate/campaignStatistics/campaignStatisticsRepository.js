@@ -9,8 +9,8 @@ import { Paginator, Page } from "../../../index";
 export class CampaignStatisticsRepository extends Repository {
     /**
      * events
-     * @param campaignId - The campaign ID
-     * @param id - The summary status. For example, fail
+     * @param campaignId - The campaign ID.
+     * @param id - The summary status. For example, fail.
      * @param options - options
      */
     events(campaignId, id, options) {
@@ -18,7 +18,7 @@ export class CampaignStatisticsRepository extends Repository {
             pageOptions = pageOptions || {};
             return apiWrapper(resultsFn => {
                 this.client._CallApi({
-                    url: "/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/",
+                    url: "/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types",
                     method: "GET",
                     pathParams: {
                         campaign_id: campaignId,
@@ -33,7 +33,7 @@ export class CampaignStatisticsRepository extends Repository {
     }
     /**
      * list
-     * @param campaignId - The campaign ID
+     * @param campaignId - The campaign ID.
      * @param options - options
      */
     list(campaignId, options) {
@@ -41,7 +41,7 @@ export class CampaignStatisticsRepository extends Repository {
             pageOptions = pageOptions || {};
             return apiWrapper(resultsFn => {
                 this.client._CallApi({
-                    url: "/v3/update-campaigns/{campaign_id}/statistics/",
+                    url: "/v3/update-campaigns/{campaign_id}/statistics",
                     method: "GET",
                     pathParams: {
                         campaign_id: campaignId,
@@ -56,7 +56,7 @@ export class CampaignStatisticsRepository extends Repository {
     /**
      * read
      * @param campaignId - ID of the associated campaign.
-     * @param id - ID of the event type description
+     * @param id - ID of the event type description.
      */
     read(campaignId, id) {
         return apiWrapper(resultsFn => {

@@ -23,7 +23,7 @@ export class CampaignDeviceMetadataAdapter extends Adapter {
             id: data.id,
             mechanism: data.mechanism,
             mechanismUrl: data.mechanism_url,
-            name: data.name,
+            name: data.name || "default_object_name",
             updatedAt: data.updated_at,
         });
         return mappedEntity;
