@@ -8,6 +8,7 @@ const typeMap = {
     "array": items => "Array<" + items + ">",
     "date-time": "Date",
     "date": "Date",
+    "double": "number",
     "int64": "number",
     "int32": "number",
     "filter": "{ [key: string]: string }",

@@ -30,7 +30,7 @@ export interface UpdateCampaignCreateRequest {
      *Percent of successful device updates to auto stop the campaign.
      *@example 85.00
      */
-    readonly autostopSuccessPercent?: any;
+    readonly autostopSuccessPercent?: number;
 
     /**
      *How the campaign adds devices. A `one-shot` campaign does not add new devices after it has started. A `continuous` campaign means that devices may be added to the campaign after it has started. The default is `one-shot`.
@@ -81,7 +81,7 @@ export interface UpdateCampaignUpdateRequest {
      *Percent of successful device updates to auto stop the campaign.
      *@example 85.00
      */
-    readonly autostopSuccessPercent?: any;
+    readonly autostopSuccessPercent?: number;
 
     /**
      *An optional description of the campaign.

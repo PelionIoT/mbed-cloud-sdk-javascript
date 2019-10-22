@@ -32,7 +32,7 @@ export const updateCampaignSchema = (): Schema => {
             {
                 name: "autostopSuccessPercent",
                 apiName: "autostop_success_percent",
-                type: "any",
+                type: "number",
             },
             {
                 name: "campaignStrategy",
@@ -147,7 +147,7 @@ export const updateCampaignSchema = (): Schema => {
                             },
                             {
                                 name: "autostopSuccessPercent",
-                                type: "any",
+                                type: "number",
                             },
                             {
                                 name: "campaignStrategy",
@@ -311,7 +311,7 @@ export const updateCampaignSchema = (): Schema => {
                             },
                             {
                                 name: "autostopSuccessPercent",
-                                type: "any",
+                                type: "number",
                             },
                             {
                                 name: "description",
