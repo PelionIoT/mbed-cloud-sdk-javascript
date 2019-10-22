@@ -3,8 +3,7 @@ module.exports = {
         "^.+\\.tsx?$": "ts-jest"
     },
     "testMatch": [
-        "**/test/unit/*.ts",
-        "**/test/unit/foundation/*.ts",
+        "**/test/unit/**/*.ts",
     ],
     "moduleFileExtensions": [
         "js",
