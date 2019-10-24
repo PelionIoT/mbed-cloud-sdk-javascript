@@ -16,7 +16,7 @@
 */
 
 import { asyncStyle, apiWrapper, encodeInclude, encodeFilter } from "../common/functions";
-import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
+import { CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { AddFirmwareImageObject, AddFirmwareManifestObject, AddCampaignObject, UpdateCampaignObject, FirmwareImageListOptions, FirmwareManifestListOptions, CampaignListOptions } from "./types";
 import { FirmwareImage } from "./models/firmwareImage";
@@ -30,6 +30,7 @@ import { CampaignDeviceStateAdapter } from "./models/campaignDeviceStateAdapter"
 import { Endpoints } from "./endpoints";
 import { Filters } from "./filters";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ConfigOptions } from "../../common/config";
 
 /**
  * ## Update API
@@ -75,7 +76,7 @@ export class UpdateApi {
     /**
      * @param options connection options
      */
-    constructor(options: ConnectionOptions) {
+    constructor(options: ConfigOptions) {
         this._endpoints = new Endpoints(options);
     }
 

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
+import { CallbackFn, ListOptions } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
 import { apiWrapper, dateToBillingMonth, isThisNode } from "../common/functions";
 import { QuotaHistory } from "./models/quotaHistory";
@@ -27,6 +27,7 @@ import { mapPending, mapActive, mapPrevious } from "./models/servicePackageAdapt
 import { SDKError } from "../common/sdkError";
 import { writeFile, createWriteStream } from "fs";
 import { get as http_get } from "superagent";
+import { ConfigOptions } from "../../common/config";
 
 export class BillingApi {
     private readonly _endpoints: Endpoints;
@@ -66,7 +67,7 @@ export class BillingApi {
      * ```
      * @param options Connection objects
      */
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         this._endpoints = new Endpoints(options);
     }
 

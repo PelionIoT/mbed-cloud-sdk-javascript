@@ -15,15 +15,15 @@
 * limitations under the License.
 */
 
-import { ConnectionOptions } from "../common/interfaces";
 import { DefaultApi as DirectoryApi } from "../_api/device_directory";
 import { EndpointsBase } from "../common/endpointsBase";
+import { ConfigOptions } from "../../common/config";
 
 export class Endpoints extends EndpointsBase {
 
     public directory: DirectoryApi;
 
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         super();
         this.directory = new DirectoryApi(options, this.responseHandler.bind(this));
     }

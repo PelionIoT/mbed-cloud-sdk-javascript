@@ -15,10 +15,11 @@
 * limitations under the License.
 */
 
-import { CallbackFn, ConnectionOptions, Order } from "../common/interfaces";
+import { CallbackFn, Order } from "../common/interfaces";
 import { TlvValue } from "../../common/tlv";
+import { ConfigOptions } from "../../common/config";
 
-export interface ConnectOptions extends ConnectionOptions {
+export interface ConnectOptions extends ConfigOptions {
     /**
      * @deprecated will detect webhook usage with a call to updateWebhook
      */

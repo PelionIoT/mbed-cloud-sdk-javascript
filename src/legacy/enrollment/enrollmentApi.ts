@@ -17,12 +17,13 @@
 
 import { apiWrapper, encodeInclude, asyncStyle } from "../common/functions";
 import { Endpoints } from "./endpoints";
-import { CallbackFn, ConnectionOptions, ListOptions } from "../common/interfaces";
+import { CallbackFn, ListOptions } from "../common/interfaces";
 import { AddEnrollmentClaim } from "./types";
 import { EnrollmentClaim } from "./models/enrollmentClaim";
 import { ListResponse } from "../common/listResponse";
 import * as EnrollmentAdapter from "./models/enrollmentClaimAdapter";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ConfigOptions } from "../../common/config";
 
 export class EnrollmentApi {
     private readonly _endpoints: Endpoints;
@@ -63,7 +64,7 @@ export class EnrollmentApi {
      * ```
      * @param options Connection objects
      */
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         this._endpoints = new Endpoints(options);
     }
 

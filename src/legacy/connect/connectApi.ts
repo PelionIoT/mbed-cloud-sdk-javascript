@@ -42,6 +42,7 @@ import { Subscribe } from "../../primary/subscribe/subscribe";
 import { loggerFactory } from "../../common/logger";
 import { Logger } from "typescript-logging";
 import { isJwt } from "../../common/utils";
+import { Config } from "../..";
 
 /**
  * ## Connect API
@@ -145,7 +146,7 @@ export class ConnectApi extends EventEmitter {
      */
     public readonly handleNotifications?: boolean;
 
-    private _config: ConnectOptions;
+    private _config: Config;
     private _pollRequest: superagent.SuperAgentRequest | boolean;
     // private readonly _websockerUrl: string = "";
     private _instanceId: string;
@@ -173,8 +174,8 @@ export class ConnectApi extends EventEmitter {
      */
     constructor(options?: ConnectOptions) {
         super();
-        options = options || {};
-        this._config = options;
+        options = options || {} as ConnectOptions;
+        this._config = new Config(options);
         this._instanceId = generateId();
         // this._connectOptions = options;
         this._endpoints = new Endpoints(options);

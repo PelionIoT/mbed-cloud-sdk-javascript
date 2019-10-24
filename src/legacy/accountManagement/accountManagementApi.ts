@@ -16,7 +16,7 @@
 */
 
 import { asyncStyle, apiWrapper, encodeInclude, extractFilter } from "../common/functions";
-import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
+import { CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { Endpoints } from "./endpoints";
 import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions, GroupListOptions } from "./types";
@@ -29,6 +29,7 @@ import { UserAdapter } from "./models/userAdapter";
 import { Group } from "./models/group";
 import { GroupAdapter } from "./models/groupAdapter";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ConfigOptions } from "../../common/config";
 
 /**
  * ## Account Management API
@@ -72,7 +73,7 @@ export class AccountManagementApi {
     /**
      * @param options connection options
      */
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         this._endpoints = new Endpoints(options);
     }
 
