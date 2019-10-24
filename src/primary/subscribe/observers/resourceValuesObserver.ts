@@ -15,9 +15,10 @@
 * limitations under the License.
 */
 import { Observer } from "./observer";
-import { ResourceValuesFilter, NotificationData, PresubscriptionObject, FirstValueEnum } from "../../../legacy/connect/types";
+import { ResourceValuesFilter, PresubscriptionObject, FirstValueEnum } from "../../../legacy/connect/types";
 import { ensureArray, matchWithWildcard } from "../../../legacy/common/functions";
 import { ConnectApi } from "../../../legacy/connect/connectApi";
+import { NotificationData } from "../../notifications/notificationMessage";
 
 export class ResourceValuesObserver extends Observer<NotificationData> {
 

@@ -22,9 +22,8 @@ import { asyncStyle, apiWrapper, decodeBase64, encodeBase64 } from "../common/fu
 import { CallbackFn } from "../common/interfaces";
 import { SDKError } from "../common/sdkError";
 import { Endpoints } from "./endpoints";
-import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject, AsyncResponse, DeliveryMethod } from "./types";
-import { Webhook } from "./models/webhook";
-import { WebhookAdapter } from "./models/webhookAdapter";
+import { ConnectOptions, NotificationOptions, PresubscriptionObject, AsyncResponse, DeliveryMethod, NotificationObject } from "./types";
+import { Webhook, webhookAdapter } from "../../primary";
 import { PresubscriptionAdapter } from "./models/presubscriptionAdapter";
 import { Resource } from "./models/resource";
 import { ResourceAdapter } from "./models/resourceAdapter";
@@ -306,7 +305,7 @@ export class ConnectApi extends EventEmitter {
                 const fn = this._asyncFns[asyncID];
                 if (fn) {
                     if (response.status >= 400) {
-                        const error = new SDKError(response.error || response.status, null, null, response.status);
+                        const error = new SDKError(response.error, null, null, response.status);
                         fn(error, null);
                     } else {
                         const body = response.payload ? decodeBase64(response.payload, response.ct) : null;
@@ -560,7 +559,7 @@ export class ConnectApi extends EventEmitter {
                         return done(error);
                     }
 
-                    const webhook = WebhookAdapter.map(data);
+                    const webhook = webhookAdapter(data);
                     done(null, webhook);
                 });
             }

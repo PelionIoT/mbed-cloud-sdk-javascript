@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-export class Observer<T> {
+export class Observer<T = unknown> {
 
     protected subscribed: boolean;
 

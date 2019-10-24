@@ -17,10 +17,12 @@
 
 import { ConnectApi } from "../../legacy/connect/connectApi";
 import { DeviceStateObserver } from "./observers/deviceStateObserver";
-import { DeviceEvent, DeviceEventFilter, NotificationObject, ResourceValuesFilter, NotificationData, FirstValueEnum } from "../../legacy/connect/types";
+import { DeviceEvent, DeviceEventFilter, NotificationObject, ResourceValuesFilter, FirstValueEnum } from "../../legacy/connect/types";
 import { Resource } from "../../legacy/connect/models/resource";
 import { ResourceValuesObserver } from "./observers/resourceValuesObserver";
 import { MasterObserver } from "./observers/masterObserver";
+import { NotificationData } from "../notifications/notificationMessage";
+import { Observer } from "./observers/observer";
 
 export class Subscribe {
 
@@ -55,26 +57,39 @@ export class Subscribe {
      *
      * @param filter the deviceEventFilter
      */
-    public deviceStateChanges(filter?: DeviceEventFilter): DeviceStateObserver {
+    public async deviceStateChanges(filter?: DeviceEventFilter): Promise<DeviceStateObserver> {
         const observer = new DeviceStateObserver(filter);
         this.deviceStateObservers.push(observer);
-        this.startNotifications();
+        await this.connect.startNotifications();
 
         return observer;
     }
 
-    public resourceValues(filter?: ResourceValuesFilter, immediacy: FirstValueEnum = "OnValueUpdate" ): ResourceValuesObserver {
+    public async resourceValues(filter?: ResourceValuesFilter, immediacy: FirstValueEnum = "OnValueUpdate" ): Promise<ResourceValuesObserver> {
         const observer = new ResourceValuesObserver(filter, this.connect, immediacy);
         this.resourceValueObservers.push(observer);
-        this.startNotifications();
+        await this.connect.startNotifications();
         return observer;
+    }
+
+    public currentResourceValue(): void {
+
+    }
+
+    public listAll(): Array<Observer> {
+        const all = new Array<Observer>();
+        return all.concat(this.resourceValueObservers).concat(this.deviceStateObservers).concat(this.masterObserver);
+    }
+
+    public unsubscribeAll(): void {
+        
     }
 
     /**
      * Returns the master observer that is listening to all notifications coming from Pelion.
      */
-    public allNotifications(): MasterObserver {
-        this.startNotifications();
+    public async allNotifications(): Promise<MasterObserver> {
+        await this.connect.startNotifications();
         return this.masterObserver;
     }
 
@@ -100,15 +115,5 @@ export class Subscribe {
      */
     public notifyAllNotifications(data: NotificationObject): void {
         this.masterObserver.notify(data);
-    }
-
-    /**
-     * Notify all observers
-     * @param data
-     */
-    private startNotifications(): void {
-        if (this.connect) {
-            this.connect.startNotifications();
-        }
     }
 }

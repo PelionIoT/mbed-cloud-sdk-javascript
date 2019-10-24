@@ -16,7 +16,9 @@
 */
 
 import { CallbackFn, ConnectionOptions, Order } from "../common/interfaces";
-import { TlvValue } from "../../common/tlv";
+import { AsyncIDResponse as AsyncResponse, NotificationMessage as NotificationObject } from "../_api/mds";
+
+export { AsyncResponse, NotificationObject };
 
 export interface ConnectOptions extends ConnectionOptions {
     /**
@@ -37,33 +39,6 @@ export interface ConnectOptions extends ConnectionOptions {
     skipCleanup?: boolean;
 }
 export type DeliveryMethod = "SERVER_INITIATED" | "CLIENT_INITIATED";
-
-export interface NotificationObject {
-    /**
-     * Notifications
-     */
-    notifications?: Array<any>;
-    /**
-     * New device registration notifications
-     */
-    registrations?: Array<any>;
-    /**
-     * Device registration update notifications
-     */
-    "reg-updates"?: Array<any>;
-    /**
-     * Device deregistration notifications
-     */
-    "de-registrations"?: Array<any>;
-    /**
-     * Device registration expiry notifications
-     */
-    "registrations-expired"?: Array<any>;
-    /**
-     * Asynchronous resoonse notifications
-     */
-    "async-responses"?: Array<any>;
-}
 
 /**
  * The types of device event
@@ -116,41 +91,6 @@ export interface ResourceValuesFilter {
      * Resource Paths
      */
     resourcePaths?: Array<string>;
-}
-
-export interface NotificationData {
-    path?: string;
-    maxAge?: string;
-    payload?: string | number | IterableIterator<TlvValue>;
-    deviceId?: string;
-    contentType?: string;
-}
-
-export interface AsyncResponse {
-    /**
-     * Asynchronous response unique ID.
-     */
-    id?: string;
-    /**
-     * HTTP status code, for example 200 for OK.
-     */
-    status?: number;
-    /**
-     * Content type
-     */
-    ct?: string;
-    /**
-     * Requested data, base64 encoded.
-     */
-    payload?: string;
-    /**
-     * Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
-     */
-    "max-age"?: string;
-    /**
-     * Optional error message, describing the error.
-     */
-    error?: string;
 }
 
 export interface NotificationOptions {
