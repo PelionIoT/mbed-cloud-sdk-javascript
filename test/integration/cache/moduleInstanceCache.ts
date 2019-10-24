@@ -2,8 +2,8 @@ import { Cache } from "./cache";
 import { ServerError } from "../server/error";
 import * as PelionDMSDK from "../../../src";
 import { reverseMapModule, mapModule } from "../mapping/argumentMapping";
-import { ConnectionOptions } from "../../../src/legacy/common/interfaces";
 import { ModuleInstance } from "../instance/moduleInstance";
+import { ConfigOptions } from "../../../src/common/config";
 
 export class ModuleInstanceCache extends Cache<ModuleInstance> {
     private moduleList: Array<string>;
@@ -20,7 +20,7 @@ export class ModuleInstanceCache extends Cache<ModuleInstance> {
         return instance;
     }
 
-    public createModuleInstance(module: string, config: ConnectionOptions): ModuleInstance {
+    public createModuleInstance(module: string, config: ConfigOptions): ModuleInstance {
         const instance: ModuleInstance = new ModuleInstance(module, config);
         if (!instance.isValid()) {
             throw new ServerError(500, `Instance ("${instance.id}") of module ["${instance.sdkModule}"] cannot be stored, as invalid`);

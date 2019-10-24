@@ -1,9 +1,9 @@
 import { logMessage } from "../../logger";
 import { sendException, determineInstanceConfig } from "../utilities";
 import { ServerError } from "../error";
-import { ConnectionOptions } from "../../../../src/legacy/common/interfaces";
 import { ModuleInstanceCache } from "../../cache/moduleInstanceCache";
 import { ModuleInstance } from "../../instance/moduleInstance";
+import { ConfigOptions } from "../../../../src/common/config";
 
 const moduleIdParam: string = "moduleId";
 
@@ -16,7 +16,7 @@ export const apiModules = (app, instanceCache: ModuleInstanceCache) => {
     app.post("/modules/:moduleId/instances", (req, res, _next) => {
         const moduleId: string | undefined = req.params[moduleIdParam];
         logMessage(`Creating a module ("${moduleId}") instance`);
-        const config: ConnectionOptions = determineInstanceConfig(req.body);
+        const config: ConfigOptions = determineInstanceConfig(req.body);
         if (!moduleId) {
             sendException(res, new ServerError(400, "The module id has not been specified"));
             return;

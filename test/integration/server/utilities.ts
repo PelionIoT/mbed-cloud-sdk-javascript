@@ -1,10 +1,10 @@
 import { logMessage } from "../logger";
-import { ConnectionOptions } from "../../../src/legacy/common/interfaces";
 import { TestError } from "./api/serverMessages";
 import { ServerError } from "./error";
 import { Exception } from "../types";
 import { RunnerConnectionOptions } from "./types";
 import { SDKError } from "../../../src/legacy/common/sdkError";
+import { ConfigOptions } from "../../../src/common/config";
 
 export const sendException = (res: any, exception: Exception): void => {
     let exceptionCode: number = 500;
@@ -35,12 +35,12 @@ export const sendSDKError = (res: any, error: SDKError): void => {
     }
 };
 
-export const determineInstanceConfig = (config: RunnerConnectionOptions): ConnectionOptions => {
+export const determineInstanceConfig = (config: RunnerConnectionOptions): ConfigOptions => {
     const apiKeyEnv: string = "MBED_CLOUD_SDK_API_KEY";
     const hostEnv: string = "MBED_CLOUD_SDK_HOST";
 
     // Environment configuration
-    const defaultConfig: ConnectionOptions = {
+    const defaultConfig: ConfigOptions = {
         apiKey: process.env[apiKeyEnv],
         host: process.env[hostEnv]
     };
@@ -55,7 +55,7 @@ export const determineInstanceConfig = (config: RunnerConnectionOptions): Connec
         logMessage(`The test server could not interpret instance configuration properly: [${configStr}]. Defaulting to test server configuration.`);
         return defaultConfig;
     }
-    const instanceConfig: ConnectionOptions = { ...defaultConfig, apiKey: config.api_key, host: config.host };
+    const instanceConfig: ConfigOptions = { ...defaultConfig, apiKey: config.api_key, host: config.host };
     return instanceConfig;
 };
 
