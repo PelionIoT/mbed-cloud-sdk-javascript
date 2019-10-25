@@ -37,7 +37,7 @@ export class Config {
      * @param options The connection options
      */
     constructor(options?: ConfigOptions) {
-        options = options || {} as Config;
+        options = options || {} as ConfigOptions;
         if (dotenv && typeof dotenv.config === "function") { dotenv.config(); }
         this._apiKey = this.ensureBearer(options.apiKey || (process && process.env[Config.ENV_API_KEY]) || "default");
         this.host = options.host || (process && process.env[Config.ENV_HOST]) || "https://api.us-east-1.mbedcloud.com";
