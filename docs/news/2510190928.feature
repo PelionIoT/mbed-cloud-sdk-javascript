@@ -1,1 +1,0 @@
-Add option to supply api key as callback, for scenarious when you have a key that needs refreshing
