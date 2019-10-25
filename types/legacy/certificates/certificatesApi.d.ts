@@ -1,8 +1,9 @@
-import { ConnectionOptions, CallbackFn } from "../common/interfaces";
+import { CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { AddDeveloperCertificateObject, AddCertificateObject, UpdateCertificateObject, CertificateListOptions } from "./types";
 import { Certificate } from "./models/certificate";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ConfigOptions } from "../../common/config";
 /**
  * ## Certificates API
  * The API can be initalized with a .env file in the working directory with the following values
@@ -44,7 +45,7 @@ export declare class CertificatesApi {
     /**
      * @param options connection options
      */
-    constructor(options?: ConnectionOptions);
+    constructor(options?: ConfigOptions);
     private extendCertificate;
     /**
      * List certificates

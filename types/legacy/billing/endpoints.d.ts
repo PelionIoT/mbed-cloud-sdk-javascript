@@ -1,7 +1,7 @@
 import { EndpointsBase } from "../common/endpointsBase";
 import { DefaultApi as BillingApi } from "../_api/billing";
-import { ConnectionOptions } from "../common/interfaces";
+import { ConfigOptions } from "../../common/config";
 export declare class Endpoints extends EndpointsBase {
     readonly billing: BillingApi;
-    constructor(options?: ConnectionOptions);
+    constructor(options?: ConfigOptions);
 }

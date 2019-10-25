@@ -15,15 +15,15 @@
 * limitations under the License.
 */
 
-import { ConnectionOptions } from "../common/interfaces";
 import { DefaultApi as UpdateApi } from "../_api/update_service";
 import { EndpointsBase } from "../common/endpointsBase";
+import { ConfigOptions } from "../../common/config";
 
 export class Endpoints extends EndpointsBase {
 
     public update: UpdateApi;
 
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         super();
         this.update = new UpdateApi(options, this.responseHandler.bind(this));
     }

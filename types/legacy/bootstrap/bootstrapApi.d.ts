@@ -1,8 +1,9 @@
-import { CallbackFn, ConnectionOptions } from "../common/interfaces";
+import { CallbackFn } from "../common/interfaces";
 import { AddPreSharedKey, PskListOptions } from "./types";
 import { PreSharedKey } from "./models/preSharedKey";
 import { ApiMetadata } from "../common/apiMetadata";
 import { ListResponse } from "../common/listResponse";
+import { ConfigOptions } from "../../common/config";
 export declare class BootstrapApi {
     private readonly _endpoints;
     /**
@@ -40,7 +41,7 @@ export declare class BootstrapApi {
      * ```
      * @param options Connection objects
      */
-    constructor(options?: ConnectionOptions);
+    constructor(options?: ConfigOptions);
     /**
      * List Psks
      *

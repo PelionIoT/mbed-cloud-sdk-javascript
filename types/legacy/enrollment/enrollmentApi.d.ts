@@ -1,8 +1,9 @@
-import { CallbackFn, ConnectionOptions, ListOptions } from "../common/interfaces";
+import { CallbackFn, ListOptions } from "../common/interfaces";
 import { AddEnrollmentClaim } from "./types";
 import { EnrollmentClaim } from "./models/enrollmentClaim";
 import { ListResponse } from "../common/listResponse";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ConfigOptions } from "../../common/config";
 export declare class EnrollmentApi {
     private readonly _endpoints;
     /**
@@ -41,7 +42,7 @@ export declare class EnrollmentApi {
      * ```
      * @param options Connection objects
      */
-    constructor(options?: ConnectionOptions);
+    constructor(options?: ConfigOptions);
     /**
      * Place an enrollment claim for a device.
      *

@@ -1,4 +1,4 @@
-import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
+import { CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions, GroupListOptions } from "./types";
 import { Account } from "./models/account";
@@ -6,6 +6,7 @@ import { ApiKey } from "./models/apiKey";
 import { User } from "./models/user";
 import { Group } from "./models/group";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ConfigOptions } from "../../common/config";
 /**
  * ## Account Management API
  *
@@ -46,7 +47,7 @@ export declare class AccountManagementApi {
     /**
      * @param options connection options
      */
-    constructor(options?: ConnectionOptions);
+    constructor(options?: ConfigOptions);
     /**
      * Get details of account associated with current API key
      *

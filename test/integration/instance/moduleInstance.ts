@@ -1,5 +1,4 @@
 import { Instance } from "./instance";
-import { ConnectionOptions } from "../../../src/legacy/common/interfaces";
 import { mapModule, mapMethod } from "../mapping/argumentMapping";
 import { SdkModule, SuccessCallback, ErrorCallback } from "../types";
 import { TestStubApi } from "../test/testStub";
@@ -7,12 +6,13 @@ import * as PelionDMSDK from "../../../src";
 import { SdkApi } from "../mapping/sdkMethod";
 import { ServerError } from "../server/error";
 import { ModuleDescription } from "../server/api/serverMessages";
+import { ConfigOptions } from "../../../src/common/config";
 
 export class ModuleInstance extends Instance<any> {
 
     public sdkModule: SdkModule;
 
-    constructor(pythonName: string, config: ConnectionOptions) {
+    constructor(pythonName: string, config: ConfigOptions) {
         const name: string = pythonName ? mapModule(pythonName) : "";
         const constructor = name === "TestStubApi" ? TestStubApi : (PelionDMSDK as any)[name];
         super(new constructor(config));

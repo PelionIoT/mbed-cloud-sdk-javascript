@@ -1,6 +1,7 @@
-import { CallbackFn, ConnectionOptions, Order } from "../common/interfaces";
+import { CallbackFn, Order } from "../common/interfaces";
 import { TlvValue } from "../../common/tlv";
-export interface ConnectOptions extends ConnectionOptions {
+import { ConfigOptions } from "../../common/config";
+export interface ConnectOptions extends ConfigOptions {
     /**
      * @deprecated will detect webhook usage with a call to updateWebhook
      */

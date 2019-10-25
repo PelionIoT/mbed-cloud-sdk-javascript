@@ -16,22 +16,6 @@
 */
 
 import { SDKError } from "./sdkError";
-import { SDKLogLevel } from "../../common/logger";
-
-export interface ConnectionOptions {
-    /**
-     * API Key for your Pelion Device Management account
-     */
-    apiKey?: string;
-    /**
-     * URL for Pelion Device Management API
-     */
-    host?: string;
-    /**
-    * configure the log level for this api instance
-    */
-    logLevel?: SDKLogLevel;
-}
 
 export type CallbackFn<T> = (error: SDKError, data?: T) => any;
 

@@ -1,10 +1,11 @@
-import { ConnectionOptions, CallbackFn } from "../common/interfaces";
+import { CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject, DeviceListOptions, QueryListOptions, DeviceEventListOptions } from "./types";
 import { Device } from "./models/device";
 import { Query } from "./models/query";
 import { DeviceEvent } from "./models/deviceEvent";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ConfigOptions } from "../../common/config";
 /**
  * ## Device Directory API
  * The API can be initalized with a .env file in the working directory with the following values
@@ -46,7 +47,7 @@ export declare class DeviceDirectoryApi {
     /**
      * @param options connection objects
      */
-    constructor(options?: ConnectionOptions);
+    constructor(options?: ConfigOptions);
     /**
      * Gets a list of devices
      *

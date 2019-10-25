@@ -1,4 +1,4 @@
-import { Config } from "./config";
+import { Config, ConfigOptions } from "./config";
 import { Client } from "../client/client";
 /**
  * Abstract base class for a repository
@@ -17,5 +17,5 @@ export declare abstract class Repository {
      * @param config The configuration to use, if null then repository will initalise its own using dotenv
      * @param client The client instance to use
      */
-    constructor(config?: Config, client?: Client);
+    constructor(config?: ConfigOptions, client?: Client);
 }

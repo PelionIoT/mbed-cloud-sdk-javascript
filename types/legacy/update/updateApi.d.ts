@@ -1,4 +1,4 @@
-import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
+import { CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { AddFirmwareImageObject, AddFirmwareManifestObject, AddCampaignObject, UpdateCampaignObject, FirmwareImageListOptions, FirmwareManifestListOptions, CampaignListOptions } from "./types";
 import { FirmwareImage } from "./models/firmwareImage";
@@ -6,6 +6,7 @@ import { FirmwareManifest } from "./models/firmwareManifest";
 import { Campaign } from "./models/campaign";
 import { CampaignDeviceState } from "./models/campaignDeviceState";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ConfigOptions } from "../../common/config";
 /**
  * ## Update API
  *
@@ -48,7 +49,7 @@ export declare class UpdateApi {
     /**
      * @param options connection options
      */
-    constructor(options: ConnectionOptions);
+    constructor(options: ConfigOptions);
     /**
      * List firmware images
      *

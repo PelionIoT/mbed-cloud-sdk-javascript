@@ -40,6 +40,7 @@ import { executeForAll } from "../common/legacyPaginator";
 import { Subscribe } from "../../primary/subscribe/subscribe";
 import { loggerFactory } from "../../common/logger";
 import { isJwt } from "../../common/utils";
+import { Config } from "../..";
 /**
  * ## Connect API
  *
@@ -96,7 +97,7 @@ export class ConnectApi extends EventEmitter {
         this._asyncFns = {};
         this._notifyFns = {};
         options = options || {};
-        this._config = options;
+        this._config = new Config(options);
         this._instanceId = generateId();
         // this._connectOptions = options;
         this._endpoints = new Endpoints(options);

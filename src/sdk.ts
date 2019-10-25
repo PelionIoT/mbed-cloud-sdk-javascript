@@ -1,4 +1,4 @@
-import { Config } from "./common/config";
+import { Config, ConfigOptions } from "./common/config";
 import { Factory } from "./foundation";
 import { Client } from "./client/client";
 
@@ -26,7 +26,7 @@ export class SDK {
      * @param config The configuration
      * @param client The client instance
      */
-    constructor(config?: Config, client?: Client) {
+    constructor(config?: ConfigOptions, client?: Client) {
         if (config && config instanceof Config) {
             this.config = config;
         } else {

@@ -64,13 +64,16 @@ export class Paginator {
     get afters() {
         return this._afters;
     }
+    get currentTotalCount() {
+        return this._currentPage ? this._currentPage.totalCount : 0;
+    }
     /**
      * Reset the Paginator
      * Removes all cahced items and resets all indexes
      */
     reset() {
         this._currentPageIndex = -1;
-        this._currentPage = undefined;
+        this._currentPage = null;
         this._afters = [];
         this.listOptions.after = null;
         this._currentItemIndex = -1;

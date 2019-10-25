@@ -1,6 +1,6 @@
 import * as superagent from "superagent";
 import { SDKError } from "./sdkError";
-import { ConnectionOptions } from "./interfaces";
+import { ConfigOptions } from "../../common/config";
 /**
  * Base class for a legacy api module
  * @ignore
@@ -11,7 +11,7 @@ export declare class ApiBase {
     private readonly ENV_HOST;
     private readonly apiKey;
     private readonly host;
-    constructor(options?: ConnectionOptions, responseHandler?: (sdkError: SDKError, response: superagent.Response) => any);
+    constructor(options?: ConfigOptions, responseHandler?: (sdkError: SDKError, response: superagent.Response) => any);
     /**
      * Normalizes parameter values:
      * <ul>

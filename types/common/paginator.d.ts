@@ -50,6 +50,7 @@ export declare class Paginator<T extends Entity, U extends ListOptions> implemen
      * An array of cached after values
      */
     readonly afters: string[];
+    readonly currentTotalCount: number;
     /**
      * Create a new instance of a Paginator
      * @param fetchPage the function to fetch each page

@@ -1,7 +1,8 @@
-import { ConnectionOptions, CallbackFn, ListOptions } from "../common/interfaces";
+import { CallbackFn, ListOptions } from "../common/interfaces";
 import { QuotaHistory } from "./models/quotaHistory";
 import { ListResponse } from "../common/listResponse";
 import { ServicePackage } from "./models/servicePackage";
+import { ConfigOptions } from "../../common/config";
 export declare class BillingApi {
     private readonly _endpoints;
     /**
@@ -39,7 +40,7 @@ export declare class BillingApi {
      * ```
      * @param options Connection objects
      */
-    constructor(options?: ConnectionOptions);
+    constructor(options?: ConfigOptions);
     /**
      * Get the main billing report.
      * @param month Date object for the year and month you want a report from

@@ -72,6 +72,10 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
         return this._afters;
     }
 
+    public get currentTotalCount(): number {
+        return this._currentPage ? this._currentPage.totalCount : 0;
+    }
+
     /**
      * Create a new instance of a Paginator
      * @param fetchPage the function to fetch each page
@@ -95,7 +99,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
      */
     public reset(): void {
         this._currentPageIndex = -1;
-        this._currentPage = undefined;
+        this._currentPage = null;
         this._afters = [];
         this.listOptions.after = null;
         this._currentItemIndex = -1;

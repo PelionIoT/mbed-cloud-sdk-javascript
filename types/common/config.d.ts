@@ -1,4 +1,3 @@
-import { ConnectionOptions } from "../legacy/common/interfaces";
 import { SDKLogLevel } from "./logger";
 /**
  * Configuration class for the SDK
@@ -7,6 +6,7 @@ export declare class Config {
     private static readonly ENV_API_KEY;
     private static readonly ENV_HOST;
     private static readonly ENV_LOG_LEVEL;
+    private _apiKey;
     /**
      * The Pelion Device Management Api Key
      */
@@ -23,5 +23,20 @@ export declare class Config {
      * Initalise a new isntance of Config
      * @param options The connection options
      */
-    constructor(options?: ConnectionOptions);
+    constructor(options?: ConfigOptions);
+    private ensureBearer;
+}
+export interface ConfigOptions {
+    /**
+     * API Key for your Pelion Device Management account
+     */
+    apiKey?: string | (() => string);
+    /**
+     * URL for Pelion Device Management API
+     */
+    host?: string;
+    /**
+    * configure the log level for this api instance
+    */
+    logLevel?: SDKLogLevel;
 }
