@@ -16,13 +16,13 @@
  */
 
 import { EndpointsBase } from "../common/endpointsBase";
-import { ConnectionOptions } from "../common/interfaces";
 import { PreSharedKeysApi } from "../_api/connector_bootstrap";
+import { ConfigOptions } from "../../common/config";
 
 export class Endpoints extends EndpointsBase {
     public readonly bootstrap: PreSharedKeysApi;
 
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         super();
         this.bootstrap = new PreSharedKeysApi(options, this.responseHandler.bind(this));
     }

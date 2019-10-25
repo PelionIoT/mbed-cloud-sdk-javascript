@@ -17,12 +17,12 @@
 
 import { EndpointsBase } from "../common/endpointsBase";
 import { DefaultApi as BillingApi } from "../_api/billing";
-import { ConnectionOptions } from "../common/interfaces";
+import { ConfigOptions } from "../../common/config";
 
 export class Endpoints extends EndpointsBase {
     public readonly billing: BillingApi;
 
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         super();
         this.billing = new BillingApi(options, this.responseHandler.bind(this));
     }
