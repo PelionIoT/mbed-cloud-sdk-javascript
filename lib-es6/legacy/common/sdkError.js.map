@@ -1,0 +1,1 @@
+{"version":3,"file":"sdkError.js","sourceRoot":"","sources":["../../../src/legacy/common/sdkError.ts"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;EAeE;AAEF;;GAEG;AACH,MAAM,OAAO,QAAS,SAAQ,KAAK;IAE/B,YAAY,OAAe,EAAS,UAAkB,EAAS,OAAgB,EAAS,IAAa;QACjG,KAAK,CAAC,OAAO,CAAC,CAAC;QADiB,eAAU,GAAV,UAAU,CAAQ;QAAS,YAAO,GAAP,OAAO,CAAS;QAAS,SAAI,GAAJ,IAAI,CAAS;IAErG,CAAC;CACJ"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"webhook.js","sourceRoot":"","sources":["../../../../src/legacy/connect/models/webhook.ts"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;EAeE;AAEF;;GAEG;AACH,MAAM,OAAO,OAAO;IAUhB,YAAY,IAAuB;QAC/B,KAAK,MAAM,GAAG,IAAI,IAAI,EAAE;YACpB,IAAI,IAAI,CAAC,cAAc,CAAC,GAAG,CAAC,EAAE;gBAC1B,IAAI,CAAC,GAAG,CAAC,GAAG,IAAI,CAAC,GAAG,CAAC,CAAC;aACzB;SACJ;IACL,CAAC;CACJ"}
