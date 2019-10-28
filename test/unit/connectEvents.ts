@@ -168,7 +168,7 @@ describe("connectEvents", () => {
             done();
         });
 
-        api.notify(notifications);
+        api.notify(notifications as any);
     });
 });
 
