@@ -7,7 +7,7 @@ export const isObject = val => {
 };
 
 export const isJwt = (token: string) => {
-    if (token && token.startsWith("rt_")) {
+    if (token && token.indexOf("rt_") > -1) {
         return true;
     }
 
