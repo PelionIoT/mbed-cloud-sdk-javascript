@@ -77,7 +77,8 @@ describe("testPayloadDecoding", () => {
 
     test("tlv", () => {
         const payload = decodeBase64("AAA=", "tlv");
-        expect(payload).toBe("/0: []");
+        expect(payload).toBe(`/0: []
+`);
     });
 });
 
