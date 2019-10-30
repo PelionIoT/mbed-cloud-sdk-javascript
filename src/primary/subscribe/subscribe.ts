@@ -58,7 +58,9 @@ export class Subscribe {
     public deviceStateChanges(filter?: DeviceEventFilter): DeviceStateObserver {
         const observer = new DeviceStateObserver(filter);
         this.deviceStateObservers.push(observer);
-        this.startNotifications();
+        if (this.connect.autostartNotifications) {
+            this.startNotifications();
+        }
 
         return observer;
     }
@@ -66,7 +68,10 @@ export class Subscribe {
     public resourceValues(filter?: ResourceValuesFilter, immediacy: FirstValueEnum = "OnValueUpdate" ): ResourceValuesObserver {
         const observer = new ResourceValuesObserver(filter, this.connect, immediacy);
         this.resourceValueObservers.push(observer);
-        this.startNotifications();
+        if (this.connect.autostartNotifications) {
+            this.startNotifications();
+        }
+
         return observer;
     }
 
@@ -74,7 +79,10 @@ export class Subscribe {
      * Returns the master observer that is listening to all notifications coming from Pelion.
      */
     public allNotifications(): MasterObserver {
-        this.startNotifications();
+        if (this.connect.autostartNotifications) {
+            this.startNotifications();
+        }
+
         return this.masterObserver;
     }
 
