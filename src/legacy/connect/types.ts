@@ -16,7 +16,6 @@
  */
 
 import { CallbackFn, Order } from "../common/interfaces";
-import { TlvValue } from "../../common/tlv";
 import { ConfigOptions } from "../../common/config";
 import { NotificationMessage as NotificationObject, AsyncIDResponse as AsyncResponse } from "../_api/mds";
 
