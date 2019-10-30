@@ -54,7 +54,7 @@ export class QuotaHistory {
     public readonly reason?: string;
 
     constructor(init: Partial<QuotaHistory>) {
-        Object.keys(init).forEach( key => {
+        Object.keys(init).forEach(key => {
             this[key] = init[key];
         });
     }

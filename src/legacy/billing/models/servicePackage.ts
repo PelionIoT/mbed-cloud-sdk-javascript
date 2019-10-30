@@ -77,7 +77,7 @@ export class ServicePackage {
     public readonly state?: string;
 
     constructor(init: Partial<ServicePackage>) {
-        Object.keys(init).forEach( key => {
+        Object.keys(init).forEach(key => {
             this[key] = init[key];
         });
     }

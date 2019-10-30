@@ -37,11 +37,13 @@ export class Config {
      * @param options The connection options
      */
     constructor(options?: ConfigOptions) {
-        options = options || {} as ConfigOptions;
-        if (dotenv && typeof dotenv.config === "function") { dotenv.config(); }
+        options = options || ({} as ConfigOptions);
+        if (dotenv && typeof dotenv.config === "function") {
+            dotenv.config();
+        }
         this._apiKey = this.ensureBearer(options.apiKey || (process && process.env[Config.ENV_API_KEY]) || "default");
         this.host = options.host || (process && process.env[Config.ENV_HOST]) || "https://api.us-east-1.mbedcloud.com";
-        this.logLevel = options.logLevel || (process && (process.env[Config.ENV_LOG_LEVEL]) as SDKLogLevel) || "WARN";
+        this.logLevel = options.logLevel || (process && (process.env[Config.ENV_LOG_LEVEL] as SDKLogLevel)) || "WARN";
         if (!this.host.startsWith("https")) this.host = `https://${this.host}`;
     }
 
@@ -64,7 +66,7 @@ export interface ConfigOptions {
      */
     host?: string;
     /**
-    * configure the log level for this api instance
-    */
+     * configure the log level for this api instance
+     */
     logLevel?: SDKLogLevel;
 }

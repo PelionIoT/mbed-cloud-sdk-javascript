@@ -5,7 +5,12 @@ import { ListResponse } from "../../common/listResponse";
 import ConnectApi from "..";
 import DeviceDirectoryApi from "../../deviceDirectory";
 
-export const listConnectedDevices = (connect: ConnectApi, deviceDirectory: DeviceDirectoryApi, options?: any, callback?: CallbackFn<ListResponse<ConnectedDevice>>): Promise<ListResponse<ConnectedDevice>> => {
+export const listConnectedDevices = (
+    connect: ConnectApi,
+    deviceDirectory: DeviceDirectoryApi,
+    options?: any,
+    callback?: CallbackFn<ListResponse<ConnectedDevice>>
+): Promise<ListResponse<ConnectedDevice>> => {
     options = options || {};
     if (typeof options === "function") {
         callback = options;
@@ -16,13 +21,17 @@ export const listConnectedDevices = (connect: ConnectApi, deviceDirectory: Devic
     options.filter = options.filter || {};
     options.filter.state = "registered";
 
-    return apiWrapper(resultsFn => {
-        deviceDirectory.listDevices(options, resultsFn);
-    }, (data, done) => {
-        const devices = data.data.map(device => {
-            return new ConnectedDevice(device, connect);
-        });
+    return apiWrapper(
+        resultsFn => {
+            deviceDirectory.listDevices(options, resultsFn);
+        },
+        (data, done) => {
+            const devices = data.data.map(device => {
+                return new ConnectedDevice(device, connect);
+            });
 
-        done(null, new ListResponse<ConnectedDevice>(data, devices));
-    }, callback);
+            done(null, new ListResponse<ConnectedDevice>(data, devices));
+        },
+        callback
+    );
 };

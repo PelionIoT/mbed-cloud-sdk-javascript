@@ -3,7 +3,6 @@
  * @ignore
  */
 export class ApiMetadata {
-
     /**
      * URL of the API request
      */
@@ -49,7 +48,13 @@ export class ApiMetadata {
      */
     public readonly errorMessage?: string;
 
-    constructor(statusCode?: number, errorMessage?: string, headers?: { [key: string]: string }, body?: { [key: string]: string }, request?: { [key: string]: string }) {
+    constructor(
+        statusCode?: number,
+        errorMessage?: string,
+        headers?: { [key: string]: string },
+        body?: { [key: string]: string },
+        request?: { [key: string]: string }
+    ) {
         this.statusCode = statusCode;
         this.errorMessage = errorMessage;
 

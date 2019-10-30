@@ -105,12 +105,19 @@ export class EnrollmentApi {
      * @param callback A function that is passed the arguments (error, enrollmentClaim)
      */
     public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaim, callback: CallbackFn<EnrollmentClaim>): void;
-    public addEnrollmentClaim(enrollmentClaim: AddEnrollmentClaim, callback?: CallbackFn<EnrollmentClaim>): Promise<EnrollmentClaim> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.enrollment.createDeviceEnrollment(EnrollmentAdapter.addMap(enrollmentClaim), resultsFn);
-        }, (data, done) => {
-            done(null, EnrollmentAdapter.map(data, this));
-        }, callback);
+    public addEnrollmentClaim(
+        enrollmentClaim: AddEnrollmentClaim,
+        callback?: CallbackFn<EnrollmentClaim>
+    ): Promise<EnrollmentClaim> {
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.enrollment.createDeviceEnrollment(EnrollmentAdapter.addMap(enrollmentClaim), resultsFn);
+            },
+            (data, done) => {
+                done(null, EnrollmentAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -147,11 +154,15 @@ export class EnrollmentApi {
      */
     public getEnrollmentClaim(claimId: string, callback: CallbackFn<EnrollmentClaim>): void;
     public getEnrollmentClaim(claimId: string, callback?: CallbackFn<EnrollmentClaim>): Promise<EnrollmentClaim> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.enrollment.getDeviceEnrollment(claimId, resultsFn);
-        }, (data, done) => {
-            done(null, EnrollmentAdapter.map(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.enrollment.getDeviceEnrollment(claimId, resultsFn);
+            },
+            (data, done) => {
+                done(null, EnrollmentAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -191,23 +202,30 @@ export class EnrollmentApi {
      * @param callback A function that is passed the arguments (error, claims)
      */
     public listEnrollmentClaims(options?: ListOptions, callback?: CallbackFn<ListResponse<EnrollmentClaim>>): void;
-    public listEnrollmentClaims(options?: any, callback?: CallbackFn<ListResponse<EnrollmentClaim>>): Promise<ListResponse<EnrollmentClaim>> {
+    public listEnrollmentClaims(
+        options?: any,
+        callback?: CallbackFn<ListResponse<EnrollmentClaim>>
+    ): Promise<ListResponse<EnrollmentClaim>> {
         options = options || {};
 
         if (typeof options === "function") {
             callback = options;
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, after, order, include } = options;
-            this._endpoints.enrollment.getDeviceEnrollments(limit, order, after, encodeInclude(include), resultsFn);
-        }, (data, done) => {
-            const devices = data.data.map( device => {
-                return EnrollmentAdapter.map(device, this);
-            });
+        return apiWrapper(
+            resultsFn => {
+                const { limit, after, order, include } = options;
+                this._endpoints.enrollment.getDeviceEnrollments(limit, order, after, encodeInclude(include), resultsFn);
+            },
+            (data, done) => {
+                const devices = data.data.map(device => {
+                    return EnrollmentAdapter.map(device, this);
+                });
 
-            done(null, new ListResponse<EnrollmentClaim>(data, devices));
-        }, callback);
+                done(null, new ListResponse<EnrollmentClaim>(data, devices));
+            },
+            callback
+        );
     }
 
     /**
@@ -241,11 +259,15 @@ export class EnrollmentApi {
      */
     public deleteEnrollmentClaim(claimId: string, callback: CallbackFn<void>): void;
     public deleteEnrollmentClaim(claimId: string, callback?: CallbackFn<void>): Promise<void> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.enrollment.deleteDeviceEnrollment(claimId, resultsFn);
-        }, (data, done) => {
-            done(null, data);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.enrollment.deleteDeviceEnrollment(claimId, resultsFn);
+            },
+            (data, done) => {
+                done(null, data);
+            },
+            callback
+        );
     }
 
     /**
@@ -259,7 +281,7 @@ export class EnrollmentApi {
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;
     public getLastApiMetadata(callback?: CallbackFn<ApiMetadata>): Promise<ApiMetadata> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
     }

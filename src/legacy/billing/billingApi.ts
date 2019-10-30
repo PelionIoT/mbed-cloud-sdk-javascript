@@ -21,7 +21,12 @@ import { apiWrapper, dateToBillingMonth, isThisNode } from "../common/functions"
 import { QuotaHistory } from "./models/quotaHistory";
 import { mapQuotaHistory } from "./models/quotaHistoryAdapter";
 import { ListResponse } from "../common/listResponse";
-import { ServicePackageQuota, ServicePackagesResponse, ServicePackageQuotaHistoryResponse, BillingReportRawDataResponse } from "../_api/billing";
+import {
+    ServicePackageQuota,
+    ServicePackagesResponse,
+    ServicePackageQuotaHistoryResponse,
+    BillingReportRawDataResponse,
+} from "../_api/billing";
 import { ServicePackage } from "./models/servicePackage";
 import { mapPending, mapActive, mapPrevious } from "./models/servicePackageAdapter";
 import { SDKError } from "../common/sdkError";
@@ -90,24 +95,28 @@ export class BillingApi {
             callback = filepath;
         }
 
-        return apiWrapper( resultsFn => {
-            this._endpoints.billing.getBillingReport(dateToBillingMonth(month), resultsFn);
-        }, (data, done) => {
-            const string = JSON.stringify(data);
-            if (isThisNode()) {
-                // we're in node
-                if (filepath) {
-                    writeFile(filepath, string, "utf8", error => {
-                        if (error) {
-                            return done(new SDKError(error.message), null);
-                        }
-                        return done(null, string);
-                    });
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.billing.getBillingReport(dateToBillingMonth(month), resultsFn);
+            },
+            (data, done) => {
+                const string = JSON.stringify(data);
+                if (isThisNode()) {
+                    // we're in node
+                    if (filepath) {
+                        writeFile(filepath, string, "utf8", error => {
+                            if (error) {
+                                return done(new SDKError(error.message), null);
+                            }
+                            return done(null, string);
+                        });
+                    }
+                } else {
+                    done(null, string);
                 }
-            } else {
-                done(null, string);
-            }
-        }, callback);
+            },
+            callback
+        );
     }
 
     /**
@@ -129,11 +138,15 @@ export class BillingApi {
             callback = filepath;
         }
 
-        return apiWrapper( resultsFn => {
-            this._endpoints.billing.getBillingReportActiveDevices(dateToBillingMonth(month), resultsFn);
-        }, (data: BillingReportRawDataResponse, done) => {
-            this.streamToFile(filepath, data.url, done);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.billing.getBillingReportActiveDevices(dateToBillingMonth(month), resultsFn);
+            },
+            (data: BillingReportRawDataResponse, done) => {
+                this.streamToFile(filepath, data.url, done);
+            },
+            callback
+        );
     }
 
     /**
@@ -155,11 +168,15 @@ export class BillingApi {
             callback = filepath;
         }
 
-        return apiWrapper( resultsFn => {
-            this._endpoints.billing.getBillingReportFirmwareUpdates(dateToBillingMonth(month), resultsFn);
-        }, (data: BillingReportRawDataResponse, done) => {
-            this.streamToFile(filepath, data.url, done);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.billing.getBillingReportFirmwareUpdates(dateToBillingMonth(month), resultsFn);
+            },
+            (data: BillingReportRawDataResponse, done) => {
+                this.streamToFile(filepath, data.url, done);
+            },
+            callback
+        );
     }
 
     /**
@@ -173,23 +190,27 @@ export class BillingApi {
      */
     public getServicePackages(callback: CallbackFn<Array<ServicePackage>>): void;
     public getServicePackages(callback?: CallbackFn<Array<ServicePackage>>): Promise<Array<ServicePackage>> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.billing.getServicePackages(resultsFn);
-        }, (data: ServicePackagesResponse, done) => {
-            const list: Array<ServicePackage> = new Array();
-            if (data) {
-                if (data.pending) {
-                    list.push(mapPending(data.pending));
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.billing.getServicePackages(resultsFn);
+            },
+            (data: ServicePackagesResponse, done) => {
+                const list: Array<ServicePackage> = new Array();
+                if (data) {
+                    if (data.pending) {
+                        list.push(mapPending(data.pending));
+                    }
+                    if (data.active) {
+                        list.push(mapActive(data.active));
+                    }
+                    if (data.previous) {
+                        data.previous.forEach(p => list.push(mapPrevious(p)));
+                    }
                 }
-                if (data.active) {
-                    list.push(mapActive(data.active));
-                }
-                if (data.previous) {
-                    data.previous.forEach( p => list.push(mapPrevious(p)));
-                }
-            }
-            done(null, list);
-        }, callback);
+                done(null, list);
+            },
+            callback
+        );
     }
 
     /**
@@ -228,26 +249,33 @@ export class BillingApi {
      * @param callback
      */
     public getQuotaHistory(options?: ListOptions, callback?: CallbackFn<ListResponse<QuotaHistory>>): void;
-    public getQuotaHistory(options?: any, callback?: CallbackFn<ListResponse<QuotaHistory>>): Promise<ListResponse<QuotaHistory>> {
+    public getQuotaHistory(
+        options?: any,
+        callback?: CallbackFn<ListResponse<QuotaHistory>>
+    ): Promise<ListResponse<QuotaHistory>> {
         options = options || {};
 
         if (typeof options === "function") {
             callback = options;
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, after } = options;
-            this._endpoints.billing.getServicePackageQuotaHistory(limit, after, resultsFn);
-        }, (data: ServicePackageQuotaHistoryResponse, done) => {
-            let keys: Array<QuotaHistory>;
-            if (data && data.data && data.data.length) {
-                keys = data.data.map( key => {
-                    return mapQuotaHistory(key);
-                });
-            }
+        return apiWrapper(
+            resultsFn => {
+                const { limit, after } = options;
+                this._endpoints.billing.getServicePackageQuotaHistory(limit, after, resultsFn);
+            },
+            (data: ServicePackageQuotaHistoryResponse, done) => {
+                let keys: Array<QuotaHistory>;
+                if (data && data.data && data.data.length) {
+                    keys = data.data.map(key => {
+                        return mapQuotaHistory(key);
+                    });
+                }
 
-            done(null, new ListResponse<QuotaHistory>(data, keys));
-        }, callback);
+                done(null, new ListResponse<QuotaHistory>(data, keys));
+            },
+            callback
+        );
     }
 
     /**
@@ -261,12 +289,16 @@ export class BillingApi {
      */
     public getQuotaRemaining(callback: CallbackFn<number>): void;
     public getQuotaRemaining(callback?: CallbackFn<number>): Promise<number> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.billing.getServicePackageQuota(resultsFn);
-        }, (data: ServicePackageQuota, done) => {
-            if (data) {
-                return done(null, data.quota);
-            }
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.billing.getServicePackageQuota(resultsFn);
+            },
+            (data: ServicePackageQuota, done) => {
+                if (data) {
+                    return done(null, data.quota);
+                }
+            },
+            callback
+        );
     }
 }

@@ -82,7 +82,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
      * @param options the listOptions that are passed to every fetchPage call
      */
     constructor(fetchPage: (options: U) => Promise<Page<T>>, options?: U) {
-        options = options || {} as U;
+        options = options || ({} as U);
         this.listOptions = options;
         this.listOptions.limit = this.listOptions.limit || this.listOptions.pageSize;
         this.maxResults = options.maxResults || options.limit || 50;
@@ -175,7 +175,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
     public return(value?: any): Promise<IteratorResult<T>> {
         return Promise.resolve<IteratorResult<T>>({
             value,
-            done: true
+            done: true,
         });
     }
 
@@ -218,7 +218,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
             if (isArray(this.listOptions.include) && !this.listOptions.include.includes("totalCount")) {
                 this.listOptions.include.push("totalCount");
             } else {
-                this.listOptions.include = [ "totalCount" ];
+                this.listOptions.include = ["totalCount"];
             }
             await this.nextPage();
             this.reset();
@@ -256,7 +256,7 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
 
         if (number < this._currentPageIndex + 1) {
             // go backwards to a page we've already been to
-            const diff = (this._currentPageIndex + 1) - number;
+            const diff = this._currentPageIndex + 1 - number;
             this._currentPageIndex = this._currentPageIndex - diff - 2;
             return await this.getPreviousPageAtIndex();
         } else {
@@ -279,7 +279,6 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
                 return this.currentPage;
             }
         }
-
     }
 
     private async getPreviousPageAtIndex(): Promise<Page<T>> {

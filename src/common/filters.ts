@@ -14,7 +14,7 @@ export function extractFilter(filter, name: string, operator: string): string | 
             if ((filterObject as object).constructor === {}.constructor) {
                 const filterObjectValue = filterObject[operator] || filterObject[`$${operator}`];
                 return decode(filterObjectValue);
-            // if not an object and operator is equals, decode directly
+                // if not an object and operator is equals, decode directly
             } else if (operator === "eq" || operator === "$eq") {
                 return decode(filterObject);
             }

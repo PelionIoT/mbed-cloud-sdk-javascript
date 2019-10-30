@@ -9,9 +9,17 @@ import { Subscribe } from "../../../primary/subscribe/subscribe";
 import { Endpoints } from "../endpoints";
 import { Logger } from "typescript-logging";
 
-export const notify = (connect: ConnectApi, subscribe: Subscribe, notifyFns: { [key: string]: (data: any) => any; }, asyncFns: { [key: string]: (error: any, data: any) => any; }, data: NotificationObject) => {
+export const notify = (
+    connect: ConnectApi,
+    subscribe: Subscribe,
+    notifyFns: { [key: string]: (data: any) => any },
+    asyncFns: { [key: string]: (error: any, data: any) => any },
+    data: NotificationObject
+) => {
     // Data can be null
-    if (!data) { return; }
+    if (!data) {
+        return;
+    }
 
     subscribe.notifyAllNotifications(data);
     if (data.notifications) {
@@ -19,7 +27,9 @@ export const notify = (connect: ConnectApi, subscribe: Subscribe, notifyFns: { [
             const body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
             const path = `${notification.ep}${notification.path}`;
             const fn = notifyFns[path];
-            if (fn) { fn(body); }
+            if (fn) {
+                fn(body);
+            }
 
             connect.emit(ConnectApi.EVENT_NOTIFICATION, {
                 id: notification.ep,
@@ -92,7 +102,18 @@ export const notify = (connect: ConnectApi, subscribe: Subscribe, notifyFns: { [
     }
 };
 
-export const startNotifications = (connect: ConnectApi, pollRequest, endpoints: Endpoints, log: Logger, deliveryMethod: DeliveryMethod, subscribe: Subscribe, notifyFns: { [key: string]: (data: any) => any; }, asyncFns: { [key: string]: (error: any, data: any) => any; }, options?: any, callback?: CallbackFn<void>): Promise<void> => {
+export const startNotifications = (
+    connect: ConnectApi,
+    pollRequest,
+    endpoints: Endpoints,
+    log: Logger,
+    deliveryMethod: DeliveryMethod,
+    subscribe: Subscribe,
+    notifyFns: { [key: string]: (data: any) => any },
+    asyncFns: { [key: string]: (error: any, data: any) => any },
+    options?: any,
+    callback?: CallbackFn<void>
+): Promise<void> => {
     options = options || {};
     if (typeof options === "function") {
         callback = options;
@@ -165,7 +186,9 @@ export const startNotifications = (connect: ConnectApi, pollRequest, endpoints: 
                     // will throw the appropriate exception.
                 }
                 notify(connect, subscribe, notifyFns, asyncFns, data);
-                if (requestCallback && data["async-responses"]) { requestCallback(error, data["async-responses"]); }
+                if (requestCallback && data["async-responses"]) {
+                    requestCallback(error, data["async-responses"]);
+                }
                 // Each successful request resets these counters. TODO: we may want to keep track of them to stop trying
                 // if they occurr to often but decision is arbitrary, we may expose an ErrorHandler object (which will also
                 // include all the relevant stats) to let the caller decide what to do.
@@ -184,7 +207,13 @@ export const startNotifications = (connect: ConnectApi, pollRequest, endpoints: 
     }, callback);
 };
 
-export const stopNotifications = (endpoints: Endpoints, pollRequest: superagent.SuperAgentRequest | boolean, log: Logger, deliveryMethod: DeliveryMethod, callback?: CallbackFn<void>): Promise<void> => {
+export const stopNotifications = (
+    endpoints: Endpoints,
+    pollRequest: superagent.SuperAgentRequest | boolean,
+    log: Logger,
+    deliveryMethod: DeliveryMethod,
+    callback?: CallbackFn<void>
+): Promise<void> => {
     return asyncStyle(async done => {
         // cannot call stop notifications if using webhooks
         if (deliveryMethod === "SERVER_INITIATED") {
@@ -202,8 +231,11 @@ export const stopNotifications = (endpoints: Endpoints, pollRequest: superagent.
 
         endpoints.notifications.deleteLongPollChannel(() => {
             if (pollRequest) {
-                // tslint:disable-next-line:no-string-literal
-                if (pollRequest["abort"]) { pollRequest["abort"](); }
+                // tslint:disable-next-line: no-string-literal
+                if (pollRequest["abort"]) {
+                    // tslint:disable-next-line: no-string-literal
+                    pollRequest["abort"]();
+                }
                 pollRequest = null;
             }
             done(null, null);

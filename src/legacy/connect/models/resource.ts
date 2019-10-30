@@ -1,19 +1,19 @@
 /*
-* Pelion Device Management JavaScript SDK
-* Copyright Arm Limited 2017
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Pelion Device Management JavaScript SDK
+ * Copyright Arm Limited 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import { EventEmitter } from "events";
 import { CallbackFn } from "../../common/interfaces";
@@ -25,7 +25,6 @@ import { AsyncResponse } from "../types";
  * Resource
  */
 export class Resource extends EventEmitter {
-
     /**
      * Resource notification event which returns the notification when handling notifications, otherwise an asyncId
      * @event
@@ -63,7 +62,7 @@ export class Resource extends EventEmitter {
 
         this.on("newListener", eventName => {
             if (eventName === Resource.EVENT_NOTIFICATION) {
-                this.addSubscription( data => this.emit(Resource.EVENT_NOTIFICATION, data));
+                this.addSubscription(data => this.emit(Resource.EVENT_NOTIFICATION, data));
             }
         });
 
@@ -93,8 +92,10 @@ export class Resource extends EventEmitter {
      */
     private addSubscription(notifyFn?: (any) => any, callback?: CallbackFn<void>): void;
     private addSubscription(notifyFn?: (any) => any, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle( done => {
-            if (!this.observable) { return done(null, null); }
+        return asyncStyle(done => {
+            if (!this.observable) {
+                return done(null, null);
+            }
             this._api.addResourceSubscription(this.deviceId, this.path, notifyFn, done);
         }, callback);
     }
@@ -114,7 +115,7 @@ export class Resource extends EventEmitter {
      */
     private deleteSubscription(callback: CallbackFn<void>): void;
     private deleteSubscription(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._api.deleteResourceSubscription(this.deviceId, this.path, done);
         }, callback);
     }
@@ -137,7 +138,11 @@ export class Resource extends EventEmitter {
      * @param callback A function that is passed the arguments (error, value) where value is the resource value
      */
     public getValue(timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
-    public getValue(timeout?: number, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+    public getValue(
+        timeout?: number,
+        mimeType?: any,
+        callback?: CallbackFn<string | number | void>
+    ): Promise<string | number | void> {
         if (typeof timeout === "function") {
             callback = timeout;
             timeout = null;
@@ -172,7 +177,12 @@ export class Resource extends EventEmitter {
      * @param callback A function that is passed any error
      */
     public setValue(value: string, timeout?: number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public setValue(value: string, timeout?: number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public setValue(
+        value: string,
+        timeout?: number,
+        mimeType?: any,
+        callback?: CallbackFn<AsyncResponse>
+    ): Promise<AsyncResponse> {
         if (typeof timeout === "function") {
             callback = timeout;
             timeout = null;
@@ -208,8 +218,20 @@ export class Resource extends EventEmitter {
      * @param accepts The content type of an accepted response
      * @param callback A function that is passed any error
      */
-    public execute(payload?: any, timeout?: number, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public execute(payload?: any, timeout?: number, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public execute(
+        payload?: any,
+        timeout?: number,
+        mimeType?: string,
+        accepts?: string,
+        callback?: CallbackFn<AsyncResponse>
+    ): void;
+    public execute(
+        payload?: any,
+        timeout?: number,
+        mimeType?: any,
+        accepts?: string,
+        callback?: CallbackFn<AsyncResponse>
+    ): Promise<AsyncResponse> {
         if (typeof payload === "function") {
             callback = payload;
             payload = null;
@@ -243,8 +265,10 @@ export class Resource extends EventEmitter {
      */
     public getSubscription(callback: CallbackFn<boolean>): void;
     public getSubscription(callback?: CallbackFn<boolean>): Promise<boolean> {
-        return asyncStyle( done => {
-            if (!this.observable) { return done(null, false); }
+        return asyncStyle(done => {
+            if (!this.observable) {
+                return done(null, false);
+            }
             this._api.getResourceSubscription(this.deviceId, this.path, done);
         }, callback);
     }

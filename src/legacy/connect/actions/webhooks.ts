@@ -14,7 +14,6 @@ export const getWebhook = (config: Config, endpoints: Endpoints, callback?: Call
             done(null, null);
         } else {
             endpoints.notifications.getWebhook((error, data) => {
-
                 if (error) {
                     if (error.code === 404) {
                         // No webhook
@@ -30,7 +29,16 @@ export const getWebhook = (config: Config, endpoints: Endpoints, callback?: Call
     }, callback);
 };
 
-export const updateWebhook = (connect: ConnectApi, endpoints: Endpoints, deliveryMethod: DeliveryMethod, connectForceClear: boolean, url: string, headers?: any, forceClear?: any, callback?: CallbackFn<void>): Promise<void> => {
+export const updateWebhook = (
+    connect: ConnectApi,
+    endpoints: Endpoints,
+    deliveryMethod: DeliveryMethod,
+    connectForceClear: boolean,
+    url: string,
+    headers?: any,
+    forceClear?: any,
+    callback?: CallbackFn<void>
+): Promise<void> => {
     headers = headers || {};
     forceClear = forceClear || false;
     if (typeof forceClear === "function") {
@@ -47,19 +55,23 @@ export const updateWebhook = (connect: ConnectApi, endpoints: Endpoints, deliver
     }
 
     return asyncStyle(done => {
-
         if (deliveryMethod === "CLIENT_INITIATED") {
             return done(new SDKError("cannot update webhook if delivery method is client initiated"), null);
         }
 
         function update() {
-            endpoints.notifications.registerWebhook({
-                url: url,
-                headers: headers,
-            }, error => {
-                if (error) { return done(error); }
-                done(null, null);
-            });
+            endpoints.notifications.registerWebhook(
+                {
+                    url: url,
+                    headers: headers,
+                },
+                error => {
+                    if (error) {
+                        return done(error);
+                    }
+                    done(null, null);
+                }
+            );
         }
 
         if (connectForceClear || forceClear) {

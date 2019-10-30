@@ -3,7 +3,13 @@ import { isThisNode, encodeFilter } from "../legacy/common/functions";
 import { get as http_get } from "superagent";
 import { Config } from "./config";
 import * as path from "path";
-import { DeviceEnrollmentBulkCreate, DeviceEnrollmentBulkDelete, DeviceEnrollmentBulkCreateRepository, DeviceEnrollmentBulkDeleteRepository, UpdateCampaign } from "../foundation";
+import {
+    DeviceEnrollmentBulkCreate,
+    DeviceEnrollmentBulkDelete,
+    DeviceEnrollmentBulkCreateRepository,
+    DeviceEnrollmentBulkDeleteRepository,
+    UpdateCampaign,
+} from "../foundation";
 
 /**
  * Internal function
@@ -22,9 +28,18 @@ export function preSharedKeyIdSetter(self: any): void {
  * Internal function
  * @ignore
  */
-export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
+export function downloadErrorsReportFile(
+    self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository,
+    model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete
+): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
-        return streamToFile(self.config, model.errorsReportFile, resolve, reject, path.resolve(__dirname, "..", "..", "error-report.csv"));
+        return streamToFile(
+            self.config,
+            model.errorsReportFile,
+            resolve,
+            reject,
+            path.resolve(__dirname, "..", "..", "error-report.csv")
+        );
     });
 }
 
@@ -32,7 +47,10 @@ export function downloadErrorsReportFile(self: DeviceEnrollmentBulkCreateReposit
  * Internal function
  * @ignore
  */
-export function downloadFullReportFile(self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository, model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete): Promise<ReadStream | Buffer | File | Blob> {
+export function downloadFullReportFile(
+    self: DeviceEnrollmentBulkCreateRepository | DeviceEnrollmentBulkDeleteRepository,
+    model: DeviceEnrollmentBulkCreate | DeviceEnrollmentBulkDelete
+): Promise<ReadStream | Buffer | File | Blob> {
     return new Promise<ReadStream>((resolve, reject) => {
         return streamToFile(self.config, model.fullReportFile, resolve, reject);
     });
@@ -50,7 +68,13 @@ export function deviceFilterHelperSetter(self: UpdateCampaign): void {
  * Internal function
  * @ignore
  */
-function streamToFile(config: Config, url: string, resolve: (value: ReadStream) => void, reject: (reason: any) => void, filePath?: string | PathLike) {
+function streamToFile(
+    config: Config,
+    url: string,
+    resolve: (value: ReadStream) => void,
+    reject: (reason: any) => void,
+    filePath?: string | PathLike
+) {
     if (!isThisNode()) {
         return reject("Can only download file in Node environment!");
     }

@@ -6,35 +6,55 @@ import { MetricAdapter } from "../models/metricAdapter";
 import { apiWrapper } from "../../common/functions";
 import { Endpoints } from "../endpoints";
 
-export const listMetrics = (endpoints: Endpoints, options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback?: CallbackFn<ListResponse<Metric>>): Promise<ListResponse<Metric>> => {
-    return apiWrapper(resultsFn => {
-        function isPeriod(test: MetricsStartEndListOptions | MetricsPeriodListOptions): test is MetricsPeriodListOptions {
-            return (test as MetricsPeriodListOptions).period !== undefined;
-        }
+export const listMetrics = (
+    endpoints: Endpoints,
+    options: MetricsStartEndListOptions | MetricsPeriodListOptions,
+    callback?: CallbackFn<ListResponse<Metric>>
+): Promise<ListResponse<Metric>> => {
+    return apiWrapper(
+        resultsFn => {
+            function isPeriod(
+                test: MetricsStartEndListOptions | MetricsPeriodListOptions
+            ): test is MetricsPeriodListOptions {
+                return (test as MetricsPeriodListOptions).period !== undefined;
+            }
 
-        const { limit, after, order, include, interval } = options as MetricsListOptions;
+            const { limit, after, order, include, interval } = options as MetricsListOptions;
 
-        let start = null;
-        let end = null;
-        let period = null;
+            let start = null;
+            let end = null;
+            let period = null;
 
-        if (isPeriod(options)) {
-            period = MetricAdapter.mapTimePeriod(options.period);
-        } else {
-            start = options.start;
-            end = options.end;
-        }
+            if (isPeriod(options)) {
+                period = MetricAdapter.mapTimePeriod(options.period);
+            } else {
+                start = options.start;
+                end = options.end;
+            }
 
-        endpoints.statistics.v3MetricsGet(MetricAdapter.mapIncludes(include), MetricAdapter.mapTimePeriod(interval), start, end, period, limit, after, order, resultsFn);
-    }, (data, done) => {
-        let metrics: Array<Metric> = [];
+            endpoints.statistics.v3MetricsGet(
+                MetricAdapter.mapIncludes(include),
+                MetricAdapter.mapTimePeriod(interval),
+                start,
+                end,
+                period,
+                limit,
+                after,
+                order,
+                resultsFn
+            );
+        },
+        (data, done) => {
+            let metrics: Array<Metric> = [];
 
-        if (data.data && data.data.length) {
-            metrics = data.data.map(metric => {
-                return MetricAdapter.map(metric);
-            });
-        }
+            if (data.data && data.data.length) {
+                metrics = data.data.map(metric => {
+                    return MetricAdapter.map(metric);
+                });
+            }
 
-        done(null, new ListResponse<Metric>(data, metrics));
-    }, callback);
+            done(null, new ListResponse<Metric>(data, metrics));
+        },
+        callback
+    );
 };

@@ -4,7 +4,14 @@ import { ListResponse } from "../common/listResponse";
 import { asyncStyle } from "../common/functions";
 import { CallbackFn } from "../common/interfaces";
 import { Endpoints } from "./endpoints";
-import { ConnectOptions, NotificationObject, NotificationOptions, PresubscriptionObject, AsyncResponse, DeliveryMethod } from "./types";
+import {
+    ConnectOptions,
+    NotificationObject,
+    NotificationOptions,
+    PresubscriptionObject,
+    AsyncResponse,
+    DeliveryMethod,
+} from "./types";
 import { Webhook } from "./models/webhook";
 import { Resource } from "./models/resource";
 import { ConnectedDevice } from "./models/connectedDevice";
@@ -23,7 +30,15 @@ import { getWebhook, updateWebhook, deleteWebhook } from "./actions/webhooks";
 import { getResourceValue, setResourceValue, executeResource, getResource } from "./actions/resources";
 import { listPresubscriptions, updatePresubscriptions, deletePresubscriptions } from "./actions/preSubscriptions";
 import { listConnectedDevices } from "./actions/devices";
-import { deleteSubscriptions, listDeviceSubscriptions, deleteDeviceSubscriptions, listResources, getResourceSubscription, addResourceSubscription, deleteResourceSubscription } from "./actions/subscriptions";
+import {
+    deleteSubscriptions,
+    listDeviceSubscriptions,
+    deleteDeviceSubscriptions,
+    listResources,
+    getResourceSubscription,
+    addResourceSubscription,
+    deleteResourceSubscription,
+} from "./actions/subscriptions";
 import { listMetrics } from "./actions/metrics";
 
 /**
@@ -112,8 +127,8 @@ export class ConnectApi extends EventEmitter {
     private _instanceId: string;
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
-    private _asyncFns: { [key: string]: (error: any, data: any) => any; } = {};
-    private _notifyFns: { [key: string]: (data: any) => any; } = {};
+    private _asyncFns: { [key: string]: (error: any, data: any) => any } = {};
+    private _notifyFns: { [key: string]: (data: any) => any } = {};
     // private _connectOptions: ConnectOptions;
     // private _requestCallback: CallbackFn<Array<AsyncResponse>>;
     private _deliveryMethod?: DeliveryMethod;
@@ -134,7 +149,7 @@ export class ConnectApi extends EventEmitter {
      */
     constructor(options?: ConnectOptions) {
         super();
-        options = options || {} as ConnectOptions;
+        options = options || ({} as ConnectOptions);
         this._config = new Config(options);
         this._instanceId = generateId();
         // this._connectOptions = options;
@@ -189,7 +204,18 @@ export class ConnectApi extends EventEmitter {
      */
     public startNotifications(options?: NotificationOptions, callback?: CallbackFn<void>): void;
     public startNotifications(options?: any, callback?: CallbackFn<void>): Promise<void> {
-        return startNotifications(this, this._pollRequest, this._endpoints, this._log, this._deliveryMethod, this.subscribe, this._notifyFns, this._asyncFns, options, callback);
+        return startNotifications(
+            this,
+            this._pollRequest,
+            this._endpoints,
+            this._log,
+            this._deliveryMethod,
+            this.subscribe,
+            this._notifyFns,
+            this._asyncFns,
+            options,
+            callback
+        );
     }
 
     /**
@@ -234,7 +260,7 @@ export class ConnectApi extends EventEmitter {
      * @param forceClear Whether to clear any existing notification channel
      * @returns Promise containing any error
      */
-    public updateWebhook(url: string, headers?: { [key: string]: string; }, forceClear?: boolean): Promise<void>;
+    public updateWebhook(url: string, headers?: { [key: string]: string }, forceClear?: boolean): Promise<void>;
     /**
      * Register new webhook for incoming subscriptions.
      *
@@ -245,9 +271,23 @@ export class ConnectApi extends EventEmitter {
      * @param forceClear @deprecated please use force clear on initalisation instead
      * @param callback A function that is passed any error
      */
-    public updateWebhook(url: string, headers?: { [key: string]: string; }, forceClear?: boolean, callback?: CallbackFn<void>): void;
+    public updateWebhook(
+        url: string,
+        headers?: { [key: string]: string },
+        forceClear?: boolean,
+        callback?: CallbackFn<void>
+    ): void;
     public updateWebhook(url: string, headers?: any, forceClear?: any, callback?: CallbackFn<void>): Promise<void> {
-        return updateWebhook(this, this._endpoints, this._deliveryMethod, this.forceClear, url, headers, forceClear, callback);
+        return updateWebhook(
+            this,
+            this._endpoints,
+            this._deliveryMethod,
+            this.forceClear,
+            url,
+            headers,
+            forceClear,
+            callback
+        );
     }
 
     /**
@@ -286,7 +326,9 @@ export class ConnectApi extends EventEmitter {
      * @param callback A function that is passed (error, pre-subscriptions)
      */
     public listPresubscriptions(callback: CallbackFn<Array<PresubscriptionObject>>): void;
-    public listPresubscriptions(callback?: CallbackFn<Array<PresubscriptionObject>>): Promise<Array<PresubscriptionObject>> {
+    public listPresubscriptions(
+        callback?: CallbackFn<Array<PresubscriptionObject>>
+    ): Promise<Array<PresubscriptionObject>> {
         return listPresubscriptions(this._endpoints, callback);
     }
 
@@ -304,7 +346,10 @@ export class ConnectApi extends EventEmitter {
      * @param callback A function that is passed any error
      */
     public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback: CallbackFn<void>): void;
-    public updatePresubscriptions(subscriptions: Array<PresubscriptionObject>, callback?: CallbackFn<void>): Promise<void> {
+    public updatePresubscriptions(
+        subscriptions: Array<PresubscriptionObject>,
+        callback?: CallbackFn<void>
+    ): Promise<void> {
         return updatePresubscriptions(this._endpoints, subscriptions, callback);
     }
 
@@ -359,8 +404,14 @@ export class ConnectApi extends EventEmitter {
      * @param options list options
      * @param callback A function that is passed the arguments (error, devices)
      */
-    public listConnectedDevices(options?: DeviceListOptions, callback?: CallbackFn<ListResponse<ConnectedDevice>>): void;
-    public listConnectedDevices(options?: any, callback?: CallbackFn<ListResponse<ConnectedDevice>>): Promise<ListResponse<ConnectedDevice>> {
+    public listConnectedDevices(
+        options?: DeviceListOptions,
+        callback?: CallbackFn<ListResponse<ConnectedDevice>>
+    ): void;
+    public listConnectedDevices(
+        options?: any,
+        callback?: CallbackFn<ListResponse<ConnectedDevice>>
+    ): Promise<ListResponse<ConnectedDevice>> {
         return listConnectedDevices(this, this._deviceDirectory, options, callback);
     }
 
@@ -449,7 +500,12 @@ export class ConnectApi extends EventEmitter {
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getResourceValue(deviceId: string, resourcePath: string, timeout?: number, mimeType?: string): Promise<string | number | void>;
+    public getResourceValue(
+        deviceId: string,
+        resourcePath: string,
+        timeout?: number,
+        mimeType?: string
+    ): Promise<string | number | void>;
     /**
      * Gets the value of a resource
      *
@@ -461,9 +517,32 @@ export class ConnectApi extends EventEmitter {
      * @param timeout async request will timeout after given number of milliseconds
      * @param callback A function that is passed the arguments (error, value)
      */
-    public getResourceValue(deviceId: string, resourcePath: string, timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
-    public getResourceValue(deviceId: string, resourcePath: string, timeout?: number, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
-        return getResourceValue(this, this._endpoints, this._asyncFns, this.forceClear, this.autostartNotifications, deviceId, resourcePath, timeout, mimeType, callback);
+    public getResourceValue(
+        deviceId: string,
+        resourcePath: string,
+        timeout?: number,
+        mimeType?: string,
+        callback?: CallbackFn<string | number | void>
+    ): void;
+    public getResourceValue(
+        deviceId: string,
+        resourcePath: string,
+        timeout?: number,
+        mimeType?: any,
+        callback?: CallbackFn<string | number | void>
+    ): Promise<string | number | void> {
+        return getResourceValue(
+            this,
+            this._endpoints,
+            this._asyncFns,
+            this.forceClear,
+            this.autostartNotifications,
+            deviceId,
+            resourcePath,
+            timeout,
+            mimeType,
+            callback
+        );
     }
 
     /**
@@ -478,7 +557,13 @@ export class ConnectApi extends EventEmitter {
      * @param mimeType The mime type format of the value
      * @returns the AsyncResponse
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, timeout?: number, mimeType?: string): Promise<AsyncResponse>;
+    public setResourceValue(
+        deviceId: string,
+        resourcePath: string,
+        value: string | number,
+        timeout?: number,
+        mimeType?: string
+    ): Promise<AsyncResponse>;
     /**
      * Sets the value of a resource
      *
@@ -491,9 +576,35 @@ export class ConnectApi extends EventEmitter {
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, timeout?: number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public setResourceValue(deviceId: string, resourcePath: string, value: string | number, timeout?: number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
-        return setResourceValue(this, this._endpoints, this._asyncFns, this.forceClear, this.autostartNotifications, deviceId, resourcePath, value, timeout, mimeType, callback);
+    public setResourceValue(
+        deviceId: string,
+        resourcePath: string,
+        value: string | number,
+        timeout?: number,
+        mimeType?: string,
+        callback?: CallbackFn<AsyncResponse>
+    ): void;
+    public setResourceValue(
+        deviceId: string,
+        resourcePath: string,
+        value: string | number,
+        timeout?: number,
+        mimeType?: any,
+        callback?: CallbackFn<AsyncResponse>
+    ): Promise<AsyncResponse> {
+        return setResourceValue(
+            this,
+            this._endpoints,
+            this._asyncFns,
+            this.forceClear,
+            this.autostartNotifications,
+            deviceId,
+            resourcePath,
+            value,
+            timeout,
+            mimeType,
+            callback
+        );
     }
 
     /**
@@ -510,7 +621,14 @@ export class ConnectApi extends EventEmitter {
      * @param accepts The content type of an accepted response
      * @returns the AsyncResponse
      */
-    public executeResource(deviceId: string, resourcePath: string, payload?: any, timeout?: number, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
+    public executeResource(
+        deviceId: string,
+        resourcePath: string,
+        payload?: any,
+        timeout?: number,
+        mimeType?: string,
+        accepts?: string
+    ): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
@@ -525,9 +643,38 @@ export class ConnectApi extends EventEmitter {
      * @param accepts The content type of an accepted response
      * @param callback A function that is passed any error
      */
-    public executeResource(deviceId: string, resourcePath: string, payload?: any, timeout?: number, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public executeResource(deviceId: string, resourcePath: string, payload?: any, timeout?: number, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
-        return executeResource(this, this._endpoints, this._asyncFns, this.forceClear, this.autostartNotifications, deviceId, resourcePath, payload, timeout, mimeType, accepts, callback);
+    public executeResource(
+        deviceId: string,
+        resourcePath: string,
+        payload?: any,
+        timeout?: number,
+        mimeType?: string,
+        accepts?: string,
+        callback?: CallbackFn<AsyncResponse>
+    ): void;
+    public executeResource(
+        deviceId: string,
+        resourcePath: string,
+        payload?: any,
+        timeout?: number,
+        mimeType?: any,
+        accepts?: string,
+        callback?: CallbackFn<AsyncResponse>
+    ): Promise<AsyncResponse> {
+        return executeResource(
+            this,
+            this._endpoints,
+            this._asyncFns,
+            this.forceClear,
+            this.autostartNotifications,
+            deviceId,
+            resourcePath,
+            payload,
+            timeout,
+            mimeType,
+            accepts,
+            callback
+        );
     }
 
     /**
@@ -546,7 +693,11 @@ export class ConnectApi extends EventEmitter {
      * @param callback A function that is passed (error, subscribed) where subscribed is true or false
      */
     public getResourceSubscription(deviceId: string, resourcePath: string, callback: CallbackFn<boolean>): void;
-    public getResourceSubscription(deviceId: string, resourcePath: string, callback?: CallbackFn<boolean>): Promise<boolean> {
+    public getResourceSubscription(
+        deviceId: string,
+        resourcePath: string,
+        callback?: CallbackFn<boolean>
+    ): Promise<boolean> {
         return getResourceSubscription(this._endpoints, deviceId, resourcePath, callback);
     }
 
@@ -560,7 +711,11 @@ export class ConnectApi extends EventEmitter {
      * @param notifyFn Function to call with notification
      * @returns empty Promise
      */
-    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any): Promise<void>;
+    public addResourceSubscription(
+        deviceId: string,
+        resourcePath: string,
+        notifyFn?: (data: any) => any
+    ): Promise<void>;
     /**
      * Subscribe to a resource
      *
@@ -571,9 +726,27 @@ export class ConnectApi extends EventEmitter {
      * @param notifyFn Function to call with notification
      * @param callback A function that is passed any error
      */
-    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any, callback?: CallbackFn<void>): void;
-    public addResourceSubscription(deviceId: string, resourcePath: string, notifyFn?: (data: any) => any, callback?: CallbackFn<void>): Promise<void> {
-        return addResourceSubscription(this, this._endpoints, this._notifyFns, deviceId, resourcePath, notifyFn, callback);
+    public addResourceSubscription(
+        deviceId: string,
+        resourcePath: string,
+        notifyFn?: (data: any) => any,
+        callback?: CallbackFn<void>
+    ): void;
+    public addResourceSubscription(
+        deviceId: string,
+        resourcePath: string,
+        notifyFn?: (data: any) => any,
+        callback?: CallbackFn<void>
+    ): Promise<void> {
+        return addResourceSubscription(
+            this,
+            this._endpoints,
+            this._notifyFns,
+            deviceId,
+            resourcePath,
+            notifyFn,
+            callback
+        );
     }
 
     /**
@@ -596,7 +769,11 @@ export class ConnectApi extends EventEmitter {
      * @param callback A function that is passed any error
      */
     public deleteResourceSubscription(deviceId: string, resourcePath: string, callback: CallbackFn<void>): void;
-    public deleteResourceSubscription(deviceId: string, resourcePath: string, callback?: CallbackFn<void>): Promise<void> {
+    public deleteResourceSubscription(
+        deviceId: string,
+        resourcePath: string,
+        callback?: CallbackFn<void>
+    ): Promise<void> {
         return deleteResourceSubscription(this, this._endpoints, this._notifyFns, deviceId, resourcePath, callback);
     }
 
@@ -613,8 +790,14 @@ export class ConnectApi extends EventEmitter {
      * @param options metrics options
      * @param callback A function that is passed the return arguments (error, metrics)
      */
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback: CallbackFn<ListResponse<Metric>>): void;
-    public listMetrics(options: MetricsStartEndListOptions | MetricsPeriodListOptions, callback?: CallbackFn<ListResponse<Metric>>): Promise<ListResponse<Metric>> {
+    public listMetrics(
+        options: MetricsStartEndListOptions | MetricsPeriodListOptions,
+        callback: CallbackFn<ListResponse<Metric>>
+    ): void;
+    public listMetrics(
+        options: MetricsStartEndListOptions | MetricsPeriodListOptions,
+        callback?: CallbackFn<ListResponse<Metric>>
+    ): Promise<ListResponse<Metric>> {
         return listMetrics(this._endpoints, options, callback);
     }
 

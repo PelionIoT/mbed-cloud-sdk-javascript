@@ -49,7 +49,7 @@ export class Page<T> implements IterableIterator<T> {
         this.listOptions = listOptions || {};
         this.hasMore = from.has_more || from.hasMore;
         this.continuationMarker = from.continuation_marker || from.continuationMarker;
-        this.pageSize = ("limit" in from) ? from.limit : ("pageSize" in from) ? from.pageSize : undefined;
+        this.pageSize = "limit" in from ? from.limit : "pageSize" in from ? from.pageSize : undefined;
         this.order = from.order;
         // default to 0 if either is undefined
         this.totalCount = from.total_count || from.totalCount || 0;
@@ -68,7 +68,7 @@ export class Page<T> implements IterableIterator<T> {
         }
 
         // change this stupid line
-        this.after = this.continuationMarker || (this.hasMore ? ((((this.last() as any) || {}).id) || null) : null) || null;
+        this.after = this.continuationMarker || (this.hasMore ? ((this.last() as any) || {}).id || null : null) || null;
     }
 
     public first(): T {

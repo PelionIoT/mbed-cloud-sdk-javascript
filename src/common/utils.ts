@@ -3,7 +3,7 @@ export const isObject = val => {
         return false;
     }
 
-    return ((typeof val === "function") || (typeof val === "object"));
+    return typeof val === "function" || typeof val === "object";
 };
 
 export const isJwt = (token: string) => {
