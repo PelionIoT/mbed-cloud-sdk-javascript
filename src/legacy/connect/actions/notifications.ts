@@ -22,6 +22,29 @@ export const notify = (
     }
 
     subscribe.notifyAllNotifications(data);
+
+    if (data["async-responses"]) {
+        data["async-responses"].forEach(response => {
+            const asyncID = response.id;
+            const fn = asyncFns[asyncID];
+            if (fn) {
+                if (response.status >= 400) {
+                    const error = new SDKError(response.error, null, null, response.status);
+                    fn(error, null);
+                } else {
+                    const body = response.payload ? decodeBase64(response.payload, response.ct) : null;
+                    // if body is null, might be more useful to return the whole response
+                    if (body) {
+                        fn(null, body);
+                    } else {
+                        fn(null, response);
+                    }
+                }
+                delete asyncFns[asyncID];
+            }
+        });
+    }
+
     if (data.notifications) {
         data.notifications.forEach(notification => {
             const body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
@@ -76,28 +99,6 @@ export const notify = (
             const map = DeviceEventAdapter.mapId(deviceId, "expired");
             subscribe.notifyDeviceEvents(map);
             connect.emit(ConnectEvents.EVENT_EXPIRED, deviceId);
-        });
-    }
-
-    if (data["async-responses"]) {
-        data["async-responses"].forEach(response => {
-            const asyncID = response.id;
-            const fn = asyncFns[asyncID];
-            if (fn) {
-                if (response.status >= 400) {
-                    const error = new SDKError(response.error, null, null, response.status);
-                    fn(error, null);
-                } else {
-                    const body = response.payload ? decodeBase64(response.payload, response.ct) : null;
-                    // if body is null, might be more useful to return the whole response
-                    if (body) {
-                        fn(null, body);
-                    } else {
-                        fn(null, response);
-                    }
-                }
-                delete asyncFns[asyncID];
-            }
         });
     }
 };
