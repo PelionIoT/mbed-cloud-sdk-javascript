@@ -3,7 +3,7 @@ import { Webhook } from "../models/webhook";
 import { asyncStyle } from "../../common/functions";
 import { isJwt } from "../../../common/utils";
 import { WebhookAdapter } from "../models/webhookAdapter";
-import { SDKError, ConnectApi } from "../..";
+import { ConnectApi, SDKError } from "../../../";
 import { Config } from "../../..";
 import { Endpoints } from "../endpoints";
 import { DeliveryMethod } from "../types";

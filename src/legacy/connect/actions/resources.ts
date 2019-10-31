@@ -1,6 +1,6 @@
 import { generateId } from "../../common/idGenerator";
 import { apiWrapper, encodeBase64 } from "../../common/functions";
-import { SDKError, ConnectApi } from "../..";
+import { ConnectApi, SDKError } from "../../../";
 import { CallbackFn } from "../../common/interfaces";
 import { AsyncResponse } from "../types";
 import { Resource } from "../models/resource";

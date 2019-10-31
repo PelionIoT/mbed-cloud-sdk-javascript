@@ -1,7 +1,7 @@
 import * as superagent from "superagent";
 import { NotificationObject, DeliveryMethod, ConnectEvents } from "../types";
 import { decodeBase64, asyncStyle } from "../../common/functions";
-import { ConnectApi } from "..";
+import { ConnectApi } from "../../../";
 import { DeviceEventAdapter } from "../models/deviceEventAdapter";
 import { SDKError } from "../..";
 import { CallbackFn } from "../../common/interfaces";
