@@ -3,7 +3,7 @@ import { executeForAll } from "../../common/legacyPaginator";
 import { CallbackFn } from "../../common/interfaces";
 import { ResourceAdapter } from "../models/resourceAdapter";
 import { Resource } from "../models/resource";
-import ConnectApi from "..";
+import { ConnectApi } from "..";
 import { Endpoints } from "../endpoints";
 import { SDKError } from "../..";
 
