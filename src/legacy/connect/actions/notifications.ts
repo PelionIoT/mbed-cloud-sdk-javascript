@@ -1,5 +1,5 @@
 import * as superagent from "superagent";
-import { NotificationObject, DeliveryMethod, ConnectEvents } from "../types";
+import { NotificationObject, DeliveryMethod, ConnectEvents, AsyncResponseStatus } from "../types";
 import { decodeBase64, asyncStyle } from "../../common/functions";
 import { ConnectApi } from "../../../";
 import { DeviceEventAdapter } from "../models/deviceEventAdapter";
@@ -29,7 +29,8 @@ export const notify = (
             const fn = asyncFns[asyncID];
             if (fn) {
                 if (response.status >= 400) {
-                    const error = new SDKError(response.error, null, null, response.status);
+                    const message = AsyncResponseStatus[response.status || 400];
+                    const error = new SDKError(message, null, response.error, response.status);
                     fn(error, null);
                 } else {
                     const body = response.payload ? decodeBase64(response.payload, response.ct) : null;

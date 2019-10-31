@@ -236,3 +236,16 @@ export interface MetricsPeriodListOptions extends MetricsListOptions {
      */
     period: TimePeriod;
 }
+
+export enum AsyncResponseStatus {
+    SUCCEEDED = 200,
+    "Error: cannot read value" = 400,
+    NOT_FOUND = 404,
+    PRECONDITION_FAILED = 412,
+    ENTITY_TOO_LARGE = 413,
+    UNSUPORTED_MEDIA = 415,
+    REQUEST_EXPIRED = 429,
+    REQUEST_FAILED = 502,
+    NOT_CONNECTED = 503,
+    TIMEOUT = 504,
+}
