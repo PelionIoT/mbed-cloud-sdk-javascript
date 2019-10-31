@@ -1,0 +1,1 @@
+Prevent start notifications being called if autostart is false
