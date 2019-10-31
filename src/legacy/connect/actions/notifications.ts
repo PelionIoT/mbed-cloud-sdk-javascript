@@ -1,7 +1,7 @@
 import * as superagent from "superagent";
-import { NotificationObject, DeliveryMethod } from "../types";
+import { NotificationObject, DeliveryMethod, ConnectEvents } from "../types";
 import { decodeBase64, asyncStyle } from "../../common/functions";
-import { ConnectApi } from "../connectApi";
+import ConnectApi from "../../connect";
 import { DeviceEventAdapter } from "../models/deviceEventAdapter";
 import { SDKError } from "../..";
 import { CallbackFn } from "../../common/interfaces";
@@ -31,7 +31,7 @@ export const notify = (
                 fn(body);
             }
 
-            connect.emit(ConnectApi.EVENT_NOTIFICATION, {
+            connect.emit(ConnectEvents.EVENT_NOTIFICATION, {
                 id: notification.ep,
                 path: notification.path,
                 payload: body,
@@ -51,7 +51,7 @@ export const notify = (
         data.registrations.forEach(device => {
             const map = DeviceEventAdapter.map(device, connect, "registration");
             subscribe.notifyDeviceEvents(map);
-            connect.emit(ConnectApi.EVENT_REGISTRATION, map);
+            connect.emit(ConnectEvents.EVENT_REGISTRATION, map);
         });
     }
 
@@ -59,7 +59,7 @@ export const notify = (
         data["reg-updates"].forEach(device => {
             const map = DeviceEventAdapter.map(device, connect, "reregistration");
             subscribe.notifyDeviceEvents(map);
-            connect.emit(ConnectApi.EVENT_REREGISTRATION, map);
+            connect.emit(ConnectEvents.EVENT_REREGISTRATION, map);
         });
     }
 
@@ -67,7 +67,7 @@ export const notify = (
         data["de-registrations"].forEach(deviceId => {
             const map = DeviceEventAdapter.mapId(deviceId, "deregistration");
             subscribe.notifyDeviceEvents(map);
-            connect.emit(ConnectApi.EVENT_DEREGISTRATION, deviceId);
+            connect.emit(ConnectEvents.EVENT_DEREGISTRATION, deviceId);
         });
     }
 
@@ -75,7 +75,7 @@ export const notify = (
         data["registrations-expired"].forEach(deviceId => {
             const map = DeviceEventAdapter.mapId(deviceId, "expired");
             subscribe.notifyDeviceEvents(map);
-            connect.emit(ConnectApi.EVENT_EXPIRED, deviceId);
+            connect.emit(ConnectEvents.EVENT_EXPIRED, deviceId);
         });
     }
 

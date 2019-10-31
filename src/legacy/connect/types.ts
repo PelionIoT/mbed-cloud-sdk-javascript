@@ -39,6 +39,39 @@ export interface ConnectOptions extends ConfigOptions {
      */
     skipCleanup?: boolean;
 }
+
+export enum ConnectEvents {
+    /**
+     * Resource notification event
+     * @event
+     */
+    EVENT_NOTIFICATION = "notification",
+
+    /**
+     * List of new devices that have registered (with resources)
+     * @event
+     */
+    EVENT_REGISTRATION = "registration",
+
+    /**
+     * List of devices that have updated registration
+     * @event
+     */
+    EVENT_REREGISTRATION = "reregistration",
+
+    /**
+     * List of devices that were removed in a controlled manner
+     * @event
+     */
+    EVENT_DEREGISTRATION = "deregistration",
+
+    /**
+     * List of devices that were removed because the registration has expired
+     * @event
+     */
+    EVENT_EXPIRED = "expired",
+}
+
 export type DeliveryMethod = "SERVER_INITIATED" | "CLIENT_INITIATED";
 
 /**

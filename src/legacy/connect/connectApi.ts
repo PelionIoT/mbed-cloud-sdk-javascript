@@ -25,11 +25,11 @@ import { Subscribe } from "../../primary/subscribe/subscribe";
 import { loggerFactory } from "../../common/logger";
 import { Logger } from "typescript-logging";
 import { Config } from "../..";
-import { notify, startNotifications, stopNotifications } from "./actions/notifications";
-import { getWebhook, updateWebhook, deleteWebhook } from "./actions/webhooks";
-import { getResourceValue, setResourceValue, executeResource, getResource } from "./actions/resources";
-import { listPresubscriptions, updatePresubscriptions, deletePresubscriptions } from "./actions/preSubscriptions";
-import { listConnectedDevices } from "./actions/devices";
+import { notify, startNotifications, stopNotifications } from "./actions";
+import { getWebhook, updateWebhook, deleteWebhook } from "./actions";
+import { getResourceValue, setResourceValue, executeResource, getResource } from "./actions";
+import { listPresubscriptions, updatePresubscriptions, deletePresubscriptions } from "./actions";
+import { listConnectedDevices } from "./actions";
 import {
     deleteSubscriptions,
     listDeviceSubscriptions,
@@ -38,7 +38,7 @@ import {
     getResourceSubscription,
     addResourceSubscription,
     deleteResourceSubscription,
-} from "./actions/subscriptions";
+} from "./actions";
 import { listMetrics } from "./actions/metrics";
 
 /**
@@ -67,36 +67,6 @@ import { listMetrics } from "./actions/metrics";
  * The `webhook` and `pull-notifications` examples show how this can be done.
  */
 export class ConnectApi extends EventEmitter {
-    /**
-     * Resource notification event
-     * @event
-     */
-    public static readonly EVENT_NOTIFICATION: string = "notification";
-
-    /**
-     * List of new devices that have registered (with resources)
-     * @event
-     */
-    public static readonly EVENT_REGISTRATION: string = "registration";
-
-    /**
-     * List of devices that have updated registration
-     * @event
-     */
-    public static readonly EVENT_REREGISTRATION: string = "reregistration";
-
-    /**
-     * List of devices that were removed in a controlled manner
-     * @event
-     */
-    public static readonly EVENT_DEREGISTRATION: string = "deregistration";
-
-    /**
-     * List of devices that were removed because the registration has expired
-     * @event
-     */
-    public static readonly EVENT_EXPIRED: string = "expired";
-
     public static readonly ASYNC_KEY = "async-response-id";
     public static readonly DELAY_BETWEEN_RETRIES = 1000;
     public static readonly MAXIMUM_NUMBER_OF_RETRIES = 3;

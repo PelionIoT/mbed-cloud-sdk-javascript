@@ -16,6 +16,7 @@
 */
 
 import { ConnectApi } from "../../src/legacy/connect/connectApi";
+import { ConnectEvents } from "../../src/legacy/connect/types";
 
 describe("connectEvents", () => {
 
@@ -28,20 +29,20 @@ describe("connectEvents", () => {
     });
 
     test("should emit notification", done => {
-        api.on(ConnectApi.EVENT_NOTIFICATION, device => {
+        api.on(ConnectEvents.EVENT_NOTIFICATION, device => {
             expect(device.id).toBe("device-id");
             done();
         });
-        api.on(ConnectApi.EVENT_REGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_REGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_REREGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_REREGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_DEREGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_EXPIRED, () => {
+        api.on(ConnectEvents.EVENT_EXPIRED, () => {
             expect(false).toBeTruthy();
         });
 
@@ -51,20 +52,20 @@ describe("connectEvents", () => {
     });
 
     test("should emit registration", done => {
-        api.on(ConnectApi.EVENT_NOTIFICATION, () => {
+        api.on(ConnectEvents.EVENT_NOTIFICATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_REGISTRATION, device => {
+        api.on(ConnectEvents.EVENT_REGISTRATION, device => {
             expect(device.id).toBe("device-id");
             done();
         });
-        api.on(ConnectApi.EVENT_REREGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_REREGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_DEREGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_EXPIRED, () => {
+        api.on(ConnectEvents.EVENT_EXPIRED, () => {
             expect(false).toBeTruthy();
         });
 
@@ -74,20 +75,20 @@ describe("connectEvents", () => {
     }, 1000);
 
     test("should emit re-registration", done => {
-        api.on(ConnectApi.EVENT_NOTIFICATION, () => {
+        api.on(ConnectEvents.EVENT_NOTIFICATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_REGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_REGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_REREGISTRATION, device => {
+        api.on(ConnectEvents.EVENT_REREGISTRATION, device => {
             expect(device.id).toBe("device-id");
             done();
         });
-        api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_DEREGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_EXPIRED, () => {
+        api.on(ConnectEvents.EVENT_EXPIRED, () => {
             expect(false).toBeTruthy();
         });
 
@@ -97,20 +98,20 @@ describe("connectEvents", () => {
     }, 1000);
 
     test("should emit de-registration", done => {
-        api.on(ConnectApi.EVENT_NOTIFICATION, () => {
+        api.on(ConnectEvents.EVENT_NOTIFICATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_REGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_REGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_REREGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_REREGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_DEREGISTRATION, id => {
+        api.on(ConnectEvents.EVENT_DEREGISTRATION, id => {
             expect(id).toBe("device-id");
             done();
         });
-        api.on(ConnectApi.EVENT_EXPIRED, () => {
+        api.on(ConnectEvents.EVENT_EXPIRED, () => {
             expect(false).toBeTruthy();
         });
 
@@ -120,19 +121,19 @@ describe("connectEvents", () => {
     }, 1000);
 
     test("should emit expired", done => {
-        api.on(ConnectApi.EVENT_NOTIFICATION, () => {
+        api.on(ConnectEvents.EVENT_NOTIFICATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_REGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_REGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_REREGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_REREGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_DEREGISTRATION, () => {
             expect(false).toBeTruthy();
         });
-        api.on(ConnectApi.EVENT_EXPIRED, id => {
+        api.on(ConnectEvents.EVENT_EXPIRED, id => {
             expect(id).toBe("device-id");
             done();
         });
@@ -152,19 +153,19 @@ describe("connectEvents", () => {
             "registrations-expired": [ "1", "2" ],
         };
 
-        api.on(ConnectApi.EVENT_NOTIFICATION, () => {
+        api.on(ConnectEvents.EVENT_NOTIFICATION, () => {
             done();
         });
-        api.on(ConnectApi.EVENT_REGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_REGISTRATION, () => {
             done();
         });
-        api.on(ConnectApi.EVENT_REREGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_REREGISTRATION, () => {
             done();
         });
-        api.on(ConnectApi.EVENT_DEREGISTRATION, () => {
+        api.on(ConnectEvents.EVENT_DEREGISTRATION, () => {
             done();
         });
-        api.on(ConnectApi.EVENT_EXPIRED, () => {
+        api.on(ConnectEvents.EVENT_EXPIRED, () => {
             done();
         });
 
