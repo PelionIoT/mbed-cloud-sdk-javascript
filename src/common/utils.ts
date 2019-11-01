@@ -13,3 +13,33 @@ export const isJwt = (token: string) => {
 
     return false;
 };
+
+export const union = (array1: any[], array2: any[], equality?: (x, y) => boolean) => {
+    const res = [...array1];
+
+    if (!equality) {
+        equality = (x, y) => x === y;
+    }
+
+    for (const item of array2) {
+        if (!res.some(x => equality(x, item))) {
+            res.push(item);
+        }
+    }
+
+    return res;
+};
+
+export const arraysEqual = (array1: any[], array2: any[]) => {
+    // compare lengths - can save a lot of time
+    if (array1.length !== array2.length) {
+        return false;
+    }
+
+    for (let i = 0, l = array1.length; i < l; i++) {
+        if (array1.indexOf(array2[i]) === -1) {
+            return false;
+        }
+    }
+    return true;
+};

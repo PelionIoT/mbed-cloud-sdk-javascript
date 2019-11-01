@@ -24,8 +24,8 @@ import { TlvDataType } from "../../..";
 
 export interface ResourceDM {
     /**
-    * Related device ID
-    */
+     * Related device ID
+     */
     readonly deviceId: string;
     /**
      * Resource's URL
@@ -49,15 +49,14 @@ export interface ResourceDM {
  * Resource
  */
 export class Resource extends EventEmitter implements ResourceDM {
-
     /**
      * Resource notification event which returns the notification when handling notifications, otherwise an asyncId
      * @event
      */
     public static EVENT_NOTIFICATION: string = "notification";
     /**
-    * Related device ID
-    */
+     * Related device ID
+     */
     public readonly deviceId: string;
     /**
      * Resource's URL
@@ -177,7 +176,7 @@ export class Resource extends EventEmitter implements ResourceDM {
         }
 
         return asyncStyle(done => {
-            this._api.getResourceValue(this.deviceId, this.path, timeout, mimeType, done);
+            this._api.getResourceValue(this.deviceId, this.path, timeout, mimeType, null, null, done);
         }, callback);
     }
 

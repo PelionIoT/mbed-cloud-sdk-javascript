@@ -19,8 +19,9 @@ import { CallbackFn, Order } from "../common/interfaces";
 import { ConfigOptions } from "../../common/config";
 import { NotificationMessage as NotificationObject, AsyncIDResponse as AsyncResponse } from "../_api/mds";
 import { TlvParser } from "../../common";
-import { Resource } from "./models/resource";
+import { ResourceDM } from "./models/resource";
 import { SDKError } from "..";
+import { arraysEqual } from "../../common/utils";
 
 export { NotificationObject, AsyncResponse };
 
@@ -168,6 +169,10 @@ export interface PresubscriptionObject {
     resourcePaths?: Array<string>;
 }
 
+export const presubscriptionsEqual = (a: PresubscriptionObject, b: PresubscriptionObject) => {
+    return a.deviceId === b.deviceId && arraysEqual(a.resourcePaths, b.resourcePaths);
+};
+
 export type MetricsIncludeEnum =
     | "handshakes"
     | "transactions"
@@ -256,5 +261,5 @@ export enum AsyncResponseStatus {
 export interface AsyncResponseItem {
     fn: (error: SDKError, data: any) => any;
     tlvParser?: TlvParser;
-    resource?: Resource;
+    resource?: ResourceDM;
 }

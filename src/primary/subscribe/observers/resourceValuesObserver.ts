@@ -20,9 +20,11 @@ import {
     NotificationData,
     PresubscriptionObject,
     FirstValueEnum,
+    presubscriptionsEqual,
 } from "../../../legacy/connect/types";
 import { ensureArray, matchWithWildcard } from "../../../legacy/common/functions";
 import { ConnectApi } from "../../../legacy/connect/connectApi";
+import { union } from "../../../common/utils";
 
 export class ResourceValuesObserver extends Observer<NotificationData> {
     public firstValue: FirstValueEnum;
@@ -87,13 +89,15 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
         });
     }
 
-    private syncPresubscriptions(): void {
+    private async syncPresubscriptions(): Promise<void> {
         if (this.connect) {
-            this.connect.listPresubscriptions().then(subs => {
-                const concat = this.localPresubscriptions.concat(subs);
-                const union = concat.filter((el, i, a) => i === a.indexOf(el));
-                this.connect.updatePresubscriptions(union);
-            });
+            this.connect
+                .listPresubscriptions()
+                .then(serverPresubscriptions =>
+                    this.connect.updatePresubscriptions(
+                        this.unionOfPresubscriptions(serverPresubscriptions, this.localPresubscriptions)
+                    )
+                );
 
             if (this.firstValue === "OnValueUpdate") {
                 this.localPresubscriptions.forEach(p => {
@@ -116,5 +120,9 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
                 });
             }
         }
+    }
+
+    private unionOfPresubscriptions(server: Array<PresubscriptionObject>, local: Array<PresubscriptionObject>) {
+        return union(server, local, presubscriptionsEqual);
     }
 }

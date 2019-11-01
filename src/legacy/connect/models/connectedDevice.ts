@@ -144,7 +144,7 @@ export class ConnectedDevice extends Device {
         }
 
         return asyncStyle(done => {
-            this._connectApi.getResourceValue(this.id, resourcePath, timeout, mimeType, done);
+            this._connectApi.getResourceValue(this.id, resourcePath, timeout, mimeType, null, null, done);
         }, callback);
     }
 

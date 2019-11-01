@@ -3,9 +3,10 @@ import { apiWrapper, encodeBase64 } from "../../common/functions";
 import { ConnectApi, SDKError } from "../../../";
 import { CallbackFn } from "../../common/interfaces";
 import { AsyncResponse, AsyncResponseItem } from "../types";
-import { Resource } from "../models/resource";
+import { Resource, ResourceDM } from "../models/resource";
 import { ResourceAdapter } from "../models/resourceAdapter";
 import { Endpoints } from "../endpoints";
+import { TlvParser } from "../../../common";
 
 export const getResourceValue = (
     connect: ConnectApi,
@@ -17,6 +18,8 @@ export const getResourceValue = (
     resourcePath: string,
     timeout?: number,
     mimeType?: any,
+    resource?: ResourceDM,
+    tlvParser?: TlvParser,
     callback?: CallbackFn<string | number | void>
 ): Promise<string | number | void> => {
     if (typeof timeout === "function") {
@@ -26,6 +29,14 @@ export const getResourceValue = (
     if (typeof mimeType === "function") {
         callback = mimeType;
         mimeType = null;
+    }
+    if (typeof resource === "function") {
+        callback = resource;
+        resource = null;
+    }
+    if (typeof tlvParser === "function") {
+        callback = tlvParser;
+        tlvParser = null;
     }
 
     resourcePath = reverseNormalizePath(resourcePath);
@@ -37,7 +48,7 @@ export const getResourceValue = (
                 return resultsFn(new SDKError("webhook in use"), null);
             }
 
-            asyncFns[asyncId] = { fn: resultsFn };
+            asyncFns[asyncId] = { fn: resultsFn, resource, tlvParser };
 
             if (callback) {
                 setTimeout(() => {
@@ -148,8 +159,8 @@ export const setResourceValue = (
                         deviceId,
                         asyncId,
                         {
-                            "method": "PUT",
-                            "uri": resourcePath,
+                            method: "PUT",
+                            uri: resourcePath,
                             "content-type": mimeType,
                             "payload-b64": payload,
                         },
@@ -161,8 +172,8 @@ export const setResourceValue = (
                     deviceId,
                     asyncId,
                     {
-                        "method": "PUT",
-                        "uri": resourcePath,
+                        method: "PUT",
+                        uri: resourcePath,
                         "content-type": mimeType,
                         "payload-b64": payload,
                     },
@@ -243,10 +254,10 @@ export const executeResource = (
                         deviceId,
                         asyncId,
                         {
-                            "method": "POST",
-                            "uri": resourcePath,
+                            method: "POST",
+                            uri: resourcePath,
                             "content-type": mimeType,
-                            "accept": accepts,
+                            accept: accepts,
                             "payload-b64": encodeBase64(payload),
                         },
                         handleError
@@ -257,10 +268,10 @@ export const executeResource = (
                     deviceId,
                     asyncId,
                     {
-                        "method": "POST",
-                        "uri": resourcePath,
+                        method: "POST",
+                        uri: resourcePath,
                         "content-type": mimeType,
-                        "accept": accepts,
+                        accept: accepts,
                         "payload-b64": encodeBase64(payload),
                     },
                     handleError

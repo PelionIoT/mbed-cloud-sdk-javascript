@@ -33,7 +33,9 @@ export const notify = (
                     const error = new SDKError(message, null, response.error, response.status);
                     fn(error, null);
                 } else {
-                    const body = response.payload ? parseResourceValue(response.payload, response.ct, resource, tlvParser) : null;
+                    const body = response.payload
+                        ? parseResourceValue(response.payload, response.ct, resource, tlvParser)
+                        : null;
                     // if body is null, might be more useful to return the whole response
                     if (body) {
                         fn(null, body);

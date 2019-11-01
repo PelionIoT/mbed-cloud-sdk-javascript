@@ -14,7 +14,7 @@ import {
     AsyncResponseItem,
 } from "./types";
 import { Webhook } from "./models/webhook";
-import { Resource } from "./models/resource";
+import { Resource, ResourceDM } from "./models/resource";
 import { ConnectedDevice } from "./models/connectedDevice";
 import { MetricsStartEndListOptions, MetricsPeriodListOptions } from "./types";
 import { Metric } from "./models/metric";
@@ -41,6 +41,7 @@ import {
     deleteResourceSubscription,
 } from "./actions";
 import { listMetrics } from "./actions/metrics";
+import { TlvParser } from "../../common";
 
 /**
  * ## Connect API
@@ -475,7 +476,9 @@ export class ConnectApi extends EventEmitter {
         deviceId: string,
         resourcePath: string,
         timeout?: number,
-        mimeType?: string
+        mimeType?: string,
+        resource?: ResourceDM,
+        tlvParser?: TlvParser
     ): Promise<string | number | void>;
     /**
      * Gets the value of a resource
@@ -493,6 +496,8 @@ export class ConnectApi extends EventEmitter {
         resourcePath: string,
         timeout?: number,
         mimeType?: string,
+        resource?: ResourceDM,
+        tlvParser?: TlvParser,
         callback?: CallbackFn<string | number | void>
     ): void;
     public getResourceValue(
@@ -500,6 +505,8 @@ export class ConnectApi extends EventEmitter {
         resourcePath: string,
         timeout?: number,
         mimeType?: any,
+        resource?: ResourceDM,
+        tlvParser?: TlvParser,
         callback?: CallbackFn<string | number | void>
     ): Promise<string | number | void> {
         return getResourceValue(
@@ -512,6 +519,8 @@ export class ConnectApi extends EventEmitter {
             resourcePath,
             timeout,
             mimeType,
+            resource,
+            tlvParser,
             callback
         );
     }

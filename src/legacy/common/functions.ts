@@ -156,7 +156,9 @@ export function encodeBase64(payload): string {
 export function parseResourceValue(payload: string, contentType: string, resource?: ResourceDM, tlvParser?: TlvParser) {
     if (contentType && contentType.indexOf("tlv") > -1) {
         // Decode tlv
-        return tlvParser ? tlvParser.parseDataAndConvertToString(payload) : TlvParser.parseDataAndConvertToString(payload);
+        return tlvParser
+            ? tlvParser.parseDataAndConvertToString(payload)
+            : TlvParser.parseDataAndConvertToString(payload);
     }
 
     const decodedPayload = Strings.decodeBase64AsString(payload);
