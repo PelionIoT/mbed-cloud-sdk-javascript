@@ -440,7 +440,7 @@ export class TlvParser {
      * available when parsing starts.
      * @param info - The object which describes atributes for resources.
      */
-    public constructor(data: TlvPacketIndirect, info?: LwM2MResourceInfo) {
+    public constructor(data?: TlvPacketIndirect, info?: LwM2MResourceInfo) {
         this.info = info;
         this.data = data;
     }
