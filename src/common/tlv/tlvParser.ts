@@ -514,6 +514,14 @@ export class TlvParser {
         return parser.parse();
     }
 
+    public parseDataAndConvertToString(data: TlvPacketIndirect, customValueFormatter?: TlvCustomValueFormatter) {
+        return TlvParser.parseDataAndConvertToString(data, this.info, customValueFormatter);
+    }
+
+    public parseDataAndConvertToJson(data: TlvPacketIndirect) {
+        return TlvParser.parseDataAndConvertToJson(data, this.info);
+    }
+
     private retrieveDataToParse() {
         if (typeof this.data === "function") {
             return this.data();

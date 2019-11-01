@@ -6,6 +6,7 @@ import { Resource } from "../models/resource";
 import { ConnectApi } from "../../../";
 import { Endpoints } from "../endpoints";
 import { SDKError } from "../..";
+import { AsyncResponseItem } from "../types";
 
 export const deleteSubscriptions = (connect: ConnectApi, callback?: CallbackFn<void>): Promise<void> => {
     return asyncStyle(done => {
@@ -50,10 +51,10 @@ export const getResourceSubscription = (
 export const addResourceSubscription = (
     connect: ConnectApi,
     endpoints: Endpoints,
-    notifyFns: { [key: string]: (data: any) => any },
+    notifyFns: { [key: string]: AsyncResponseItem },
     deviceId: string,
     resourcePath: string,
-    notifyFn?: (data: any) => any,
+    notifyFn?: (error: SDKError, data: any) => any,
     callback?: CallbackFn<void>
 ): Promise<void> => {
     resourcePath = normalizePath(resourcePath);
@@ -70,7 +71,7 @@ export const addResourceSubscription = (
         (data, done) => {
             if (notifyFn) {
                 // Record the function at this path for notifications
-                notifyFns[`${deviceId}/${resourcePath}`] = notifyFn;
+                notifyFns[`${deviceId}/${resourcePath}`] = { fn: notifyFn };
             }
             handleAsync(data, done);
         },
@@ -81,7 +82,7 @@ export const addResourceSubscription = (
 export const deleteResourceSubscription = (
     connect: ConnectApi,
     endpoints: Endpoints,
-    notifyFns: { [key: string]: (data: any) => any },
+    notifyFns: { [key: string]: AsyncResponseItem },
     deviceId: string,
     resourcePath: string,
     callback?: CallbackFn<void>
@@ -108,7 +109,7 @@ export const deleteResourceSubscription = (
 
 export const deleteDeviceSubscriptions = (
     endpoints: Endpoints,
-    notifyFns: { [key: string]: (data: any) => any },
+    notifyFns: { [key: string]: AsyncResponseItem },
     deviceId: string,
     callback?: CallbackFn<void>
 ): Promise<void> => {

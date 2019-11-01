@@ -17,7 +17,8 @@
 
 import { CallbackFn, ComparisonObject, operators } from "./interfaces";
 import { SDKError } from "./sdkError";
-import { TlvParser, Strings } from "../../common/tlv";
+import { TlvParser, Strings, TlvDataType } from "../../common/tlv";
+import { ResourceDM } from "../connect/models/resource";
 
 // Inspired by https://github.com/sonnyp/polygoat
 // If a callback is passed, use that after running the passed function, otherwise return a promise chain
@@ -152,31 +153,37 @@ export function encodeBase64(payload): string {
  * Internal function
  * @ignore
  */
-export function decodeBase64(payload: string, contentType: string): string | number {
-    // According to the swagger, content types can be:
-    // text/plain
-    // application/xml
-    // application/octet-stream
-    // application/exi
-    // application/json
-    // application/link-format
-    // application/senml+json
-    // application/nanoservice-tlv
-    // application/vnd.oma.lwm2m+text
-    // application/vnd.oma.lwm2m+opaq
-    // application/vnd.oma.lwm2m+tlv
-    // application/vnd.oma.lwm2m+json
+export function parseResourceValue(payload: string, contentType: string, resource?: ResourceDM, tlvParser?: TlvParser) {
     if (contentType && contentType.indexOf("tlv") > -1) {
         // Decode tlv
-        try {
-            return TlvParser.parseDataAndConvertToString(payload);
-            // tslint:disable-next-line:no-empty
-        } catch (e) {}
+        return tlvParser ? tlvParser.parseDataAndConvertToString(payload) : TlvParser.parseDataAndConvertToString(payload);
     }
 
+    const decodedPayload = Strings.decodeBase64AsString(payload);
+
     // if string value is a number, then return number, otherwise just return the string
-    const result = Strings.decodeBase64AsString(payload) as any;
-    return !isNaN(result) ? Number(result) : result;
+    if (resource && resource.contentType) {
+        return parseValueFromType(decodedPayload, resource.contentType);
+    }
+
+    return decodedPayload;
+}
+
+export function parseValueFromType(value: string, type: TlvDataType): string | number {
+    if (type === TlvDataType.Float) {
+        return parseFloat(value) ? parseFloat(value) : value;
+    }
+    if (type === TlvDataType.Integer) {
+        return parseInt(value, 10) ? parseInt(value, 10) : value;
+    }
+    if (type === TlvDataType.Boolean) {
+        return value === "1" ? "True" : value === "0" ? "False" : value;
+    }
+    if (type === TlvDataType.Time) {
+        return new Date(+value * 1000).toString();
+    }
+
+    return value;
 }
 
 /**

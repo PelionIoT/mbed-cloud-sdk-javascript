@@ -1,6 +1,6 @@
 import * as superagent from "superagent";
-import { NotificationObject, DeliveryMethod, ConnectEvents, AsyncResponseStatus } from "../types";
-import { decodeBase64, asyncStyle } from "../../common/functions";
+import { NotificationObject, DeliveryMethod, ConnectEvents, AsyncResponseStatus, AsyncResponseItem } from "../types";
+import { parseResourceValue, asyncStyle } from "../../common/functions";
 import { ConnectApi } from "../../../";
 import { DeviceEventAdapter } from "../models/deviceEventAdapter";
 import { SDKError } from "../..";
@@ -12,8 +12,8 @@ import { Logger } from "typescript-logging";
 export const notify = (
     connect: ConnectApi,
     subscribe: Subscribe,
-    notifyFns: { [key: string]: (data: any) => any },
-    asyncFns: { [key: string]: (error: any, data: any) => any },
+    notifyFns: { [key: string]: AsyncResponseItem },
+    asyncFns: { [key: string]: AsyncResponseItem },
     data: NotificationObject
 ) => {
     // Data can be null
@@ -26,14 +26,14 @@ export const notify = (
     if (data["async-responses"]) {
         data["async-responses"].forEach(response => {
             const asyncID = response.id;
-            const fn = asyncFns[asyncID];
+            const { fn, tlvParser, resource } = asyncFns[asyncID] || {};
             if (fn) {
                 if (response.status >= 400) {
                     const message = AsyncResponseStatus[response.status || 400];
                     const error = new SDKError(message, null, response.error, response.status);
                     fn(error, null);
                 } else {
-                    const body = response.payload ? decodeBase64(response.payload, response.ct) : null;
+                    const body = response.payload ? parseResourceValue(response.payload, response.ct, resource, tlvParser) : null;
                     // if body is null, might be more useful to return the whole response
                     if (body) {
                         fn(null, body);
@@ -48,11 +48,11 @@ export const notify = (
 
     if (data.notifications) {
         data.notifications.forEach(notification => {
-            const body = notification.payload ? decodeBase64(notification.payload, notification.ct) : null;
+            const body = notification.payload ? parseResourceValue(notification.payload, notification.ct) : null;
             const path = `${notification.ep}${notification.path}`;
-            const fn = notifyFns[path];
+            const { fn } = notifyFns[path] || {};
             if (fn) {
-                fn(body);
+                fn(null, body);
             }
 
             connect.emit(ConnectEvents.EVENT_NOTIFICATION, {
@@ -111,8 +111,8 @@ export const startNotifications = (
     log: Logger,
     deliveryMethod: DeliveryMethod,
     subscribe: Subscribe,
-    notifyFns: { [key: string]: (data: any) => any },
-    asyncFns: { [key: string]: (error: any, data: any) => any },
+    notifyFns: { [key: string]: AsyncResponseItem },
+    asyncFns: { [key: string]: AsyncResponseItem },
     options?: any,
     callback?: CallbackFn<void>
 ): Promise<void> => {

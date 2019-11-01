@@ -2,7 +2,7 @@ import { generateId } from "../../common/idGenerator";
 import { apiWrapper, encodeBase64 } from "../../common/functions";
 import { ConnectApi, SDKError } from "../../../";
 import { CallbackFn } from "../../common/interfaces";
-import { AsyncResponse } from "../types";
+import { AsyncResponse, AsyncResponseItem } from "../types";
 import { Resource } from "../models/resource";
 import { ResourceAdapter } from "../models/resourceAdapter";
 import { Endpoints } from "../endpoints";
@@ -10,7 +10,7 @@ import { Endpoints } from "../endpoints";
 export const getResourceValue = (
     connect: ConnectApi,
     endpoints: Endpoints,
-    asyncFns,
+    asyncFns: { [key: string]: AsyncResponseItem },
     forceClear: boolean,
     autostartNotifications: boolean,
     deviceId: string,
@@ -37,7 +37,7 @@ export const getResourceValue = (
                 return resultsFn(new SDKError("webhook in use"), null);
             }
 
-            asyncFns[asyncId] = resultsFn;
+            asyncFns[asyncId] = { fn: resultsFn };
 
             if (callback) {
                 setTimeout(() => {
@@ -93,7 +93,7 @@ export const getResourceValue = (
 export const setResourceValue = (
     connect: ConnectApi,
     endpoints: Endpoints,
-    asyncFns,
+    asyncFns: { [key: string]: AsyncResponseItem },
     forceClear: boolean,
     autostartNotifications: boolean,
     deviceId: string,
@@ -122,7 +122,7 @@ export const setResourceValue = (
                 return resultsFn(new SDKError("webhook in use"), null);
             }
 
-            asyncFns[asyncId] = resultsFn;
+            asyncFns[asyncId] = { fn: resultsFn };
 
             if (callback) {
                 setTimeout(() => {
@@ -180,7 +180,7 @@ export const setResourceValue = (
 export const executeResource = (
     connect: ConnectApi,
     endpoints: Endpoints,
-    asyncFns,
+    asyncFns: { [key: string]: AsyncResponseItem },
     forceClear: boolean,
     autostartNotifications: boolean,
     deviceId: string,
@@ -217,7 +217,7 @@ export const executeResource = (
                 return resultsFn(new SDKError("webhook in use"), null);
             }
 
-            asyncFns[asyncId] = resultsFn;
+            asyncFns[asyncId] = { fn: resultsFn };
 
             if (callback) {
                 setTimeout(() => {

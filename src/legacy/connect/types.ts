@@ -18,6 +18,9 @@
 import { CallbackFn, Order } from "../common/interfaces";
 import { ConfigOptions } from "../../common/config";
 import { NotificationMessage as NotificationObject, AsyncIDResponse as AsyncResponse } from "../_api/mds";
+import { TlvParser } from "../../common";
+import { Resource } from "./models/resource";
+import { SDKError } from "..";
 
 export { NotificationObject, AsyncResponse };
 
@@ -248,4 +251,10 @@ export enum AsyncResponseStatus {
     REQUEST_FAILED = 502,
     NOT_CONNECTED = 503,
     TIMEOUT = 504,
+}
+
+export interface AsyncResponseItem {
+    fn: (error: SDKError, data: any) => any;
+    tlvParser?: TlvParser;
+    resource?: Resource;
 }

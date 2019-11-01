@@ -16,7 +16,7 @@
 */
 
 import { ConnectApi } from "../../src/legacy/connect/connectApi";
-import { ConnectEvents } from "../../src/legacy/connect/types";
+import { ConnectEvents, AsyncResponseItem } from "../../src/legacy/connect/types";
 
 describe("connectEvents", () => {
 
@@ -193,11 +193,13 @@ describe("notifications", () => {
         const deviceId = "device-id";
         const devicePath = "test";
         const payload = "test-payload";
-        const notifyFns = {};
+        const notifyFns: { [key: string]: AsyncResponseItem } = {};
 
-        notifyFns[`${deviceId}${devicePath}`] = value => {
-            expect(value).toBe(payload);
-            done();
+        notifyFns[`${deviceId}${devicePath}`] = {
+            fn: (_error, value) => {
+                expect(value).toBe(payload);
+                done();
+            }
         };
 
         // tslint:disable-next-line:no-string-literal
@@ -216,11 +218,13 @@ describe("notifications", () => {
 
         const asyncId = "async-id";
         const payload = "test-payload";
-        const asyncFns = {};
+        const asyncFns: { [key: string]: AsyncResponseItem } = {};
 
-        asyncFns[asyncId] = (_error, value) => {
-            expect(value).toBe(payload);
-            done();
+        asyncFns[asyncId] = {
+            fn: (_error, value) => {
+                expect(value).toBe(payload);
+                done();
+            }
         };
 
         // tslint:disable-next-line:no-string-literal

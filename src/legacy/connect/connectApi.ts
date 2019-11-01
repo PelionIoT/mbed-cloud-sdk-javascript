@@ -11,6 +11,7 @@ import {
     PresubscriptionObject,
     AsyncResponse,
     DeliveryMethod,
+    AsyncResponseItem,
 } from "./types";
 import { Webhook } from "./models/webhook";
 import { Resource } from "./models/resource";
@@ -24,7 +25,7 @@ import { generateId } from "../common/idGenerator";
 import { Subscribe } from "../../primary/subscribe/subscribe";
 import { loggerFactory } from "../../common/logger";
 import { Logger } from "typescript-logging";
-import { Config } from "../..";
+import { Config, SDKError } from "../..";
 import { notify, startNotifications, stopNotifications } from "./actions";
 import { getWebhook, updateWebhook, deleteWebhook } from "./actions";
 import { getResourceValue, setResourceValue, executeResource, getResource } from "./actions";
@@ -97,8 +98,8 @@ export class ConnectApi extends EventEmitter {
     private _instanceId: string;
     private _deviceDirectory: DeviceDirectoryApi;
     private _endpoints: Endpoints;
-    private _asyncFns: { [key: string]: (error: any, data: any) => any } = {};
-    private _notifyFns: { [key: string]: (data: any) => any } = {};
+    private _asyncFns: { [key: string]: AsyncResponseItem } = {};
+    private _notifyFns: { [key: string]: AsyncResponseItem } = {};
     // private _connectOptions: ConnectOptions;
     // private _requestCallback: CallbackFn<Array<AsyncResponse>>;
     private _deliveryMethod?: DeliveryMethod;
@@ -684,7 +685,7 @@ export class ConnectApi extends EventEmitter {
     public addResourceSubscription(
         deviceId: string,
         resourcePath: string,
-        notifyFn?: (data: any) => any
+        notifyFn?: (error: SDKError, data: any) => any
     ): Promise<void>;
     /**
      * Subscribe to a resource
@@ -699,13 +700,13 @@ export class ConnectApi extends EventEmitter {
     public addResourceSubscription(
         deviceId: string,
         resourcePath: string,
-        notifyFn?: (data: any) => any,
+        notifyFn?: (error: SDKError, data: any) => any,
         callback?: CallbackFn<void>
     ): void;
     public addResourceSubscription(
         deviceId: string,
         resourcePath: string,
-        notifyFn?: (data: any) => any,
+        notifyFn?: (error: SDKError, data: any) => any,
         callback?: CallbackFn<void>
     ): Promise<void> {
         return addResourceSubscription(

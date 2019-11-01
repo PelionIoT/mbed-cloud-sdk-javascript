@@ -19,6 +19,7 @@ import { EndpointData as apiDeviceEvent, ResourcesData as apiResourceEvent } fro
 import { DeviceEvent, DeviceEventEnum } from "../types";
 import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
+import { TlvDataType } from "../../../common";
 
 /**
  * Device Event Adapter
@@ -27,7 +28,7 @@ export class DeviceEventAdapter {
     public static mapResource(from: apiResourceEvent, deviceId: string, api: ConnectApi): Resource {
         return new Resource(
             {
-                contentType: from.ct,
+                contentType: TlvDataType[from.ct],
                 observable: from.obs,
                 type: from.rt,
                 path: from.path,

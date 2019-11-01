@@ -18,6 +18,7 @@
 import { Resource as apiResource } from "../../_api/mds";
 import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
+import { TlvDataType } from "../../..";
 
 /**
  * Resource Adapter
@@ -26,7 +27,7 @@ export class ResourceAdapter {
     public static map(from: apiResource, deviceId: string, api: ConnectApi): Resource {
         return new Resource(
             {
-                contentType: from.type,
+                contentType: TlvDataType[from.type],
                 observable: from.obs,
                 type: from.rt,
                 path: from.uri,

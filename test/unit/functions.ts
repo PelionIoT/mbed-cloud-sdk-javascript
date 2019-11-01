@@ -15,7 +15,8 @@
 * limitations under the License.
 */
 
-import { matchWithWildcard, decodeBase64, dateToBillingMonth } from "../../src/legacy/common/functions";
+import { matchWithWildcard, parseResourceValue, dateToBillingMonth } from "../../src/legacy/common/functions";
+import { TlvDataType } from "../../src";
 
 describe("testFunctions", () => {
 
@@ -66,17 +67,17 @@ describe("testFunctions", () => {
 describe("testPayloadDecoding", () => {
 
     test("string", () => {
-        const payload = decodeBase64("dGVzdA==", "text/plain");
+        const payload = parseResourceValue("dGVzdA==", "text/plain");
         expect(typeof payload).toBe("string");
     });
 
     test("number", () => {
-        const payload = decodeBase64("NQ==", "text/plain");
+        const payload = parseResourceValue("NQ==", "text/plain", { deviceId: "", path: "", contentType: TlvDataType.Integer });
         expect(typeof payload).toBe("number");
     });
 
     test("tlv", () => {
-        const payload = decodeBase64("AAA=", "tlv");
+        const payload = parseResourceValue("AAA=", "tlv");
         expect(payload).toBe(`/0: []
 `);
     });

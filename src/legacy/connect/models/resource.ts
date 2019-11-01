@@ -20,20 +20,44 @@ import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
 import { ConnectApi } from "../connectApi";
 import { AsyncResponse } from "../types";
+import { TlvDataType } from "../../..";
+
+export interface ResourceDM {
+    /**
+    * Related device ID
+    */
+    readonly deviceId: string;
+    /**
+     * Resource's URL
+     */
+    readonly path: string;
+    /**
+     * Resource's type
+     */
+    readonly type?: string;
+    /**
+     * The content type of the resource
+     */
+    readonly contentType?: TlvDataType;
+    /**
+     * Whether you can subscribe to changes for this resource
+     */
+    readonly observable?: boolean;
+}
 
 /**
  * Resource
  */
-export class Resource extends EventEmitter {
+export class Resource extends EventEmitter implements ResourceDM {
+
     /**
      * Resource notification event which returns the notification when handling notifications, otherwise an asyncId
      * @event
      */
     public static EVENT_NOTIFICATION: string = "notification";
-
     /**
-     * Related device ID
-     */
+    * Related device ID
+    */
     public readonly deviceId: string;
     /**
      * Resource's URL
@@ -42,15 +66,15 @@ export class Resource extends EventEmitter {
     /**
      * Resource's type
      */
-    public readonly type: string;
+    public readonly type?: string;
     /**
      * The content type of the resource
      */
-    public readonly contentType: string;
+    public readonly contentType?: TlvDataType;
     /**
      * Whether you can subscribe to changes for this resource
      */
-    public readonly observable: boolean;
+    public readonly observable?: boolean;
 
     constructor(init?: Partial<Resource>, private _api?: ConnectApi) {
         super();
