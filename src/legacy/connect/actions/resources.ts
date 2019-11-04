@@ -2,7 +2,7 @@ import { generateId } from "../../common/idGenerator";
 import { apiWrapper, encodeBase64 } from "../../common/functions";
 import { ConnectApi, SDKError } from "../../../";
 import { CallbackFn } from "../../common/interfaces";
-import { AsyncResponse, AsyncResponseItem } from "../types";
+import { AsyncResponse, AsyncResponseItem, LatLong } from "../types";
 import { Resource, ResourceDM } from "../models/resource";
 import { ResourceAdapter } from "../models/resourceAdapter";
 import { Endpoints } from "../endpoints";
@@ -20,8 +20,8 @@ export const getResourceValue = (
     mimeType?: any,
     resource?: ResourceDM,
     tlvParser?: TlvParser,
-    callback?: CallbackFn<string | number | void>
-): Promise<string | number | void> => {
+    callback?: CallbackFn<string | number | LatLong | void>
+): Promise<string | number | LatLong | void> => {
     if (typeof timeout === "function") {
         callback = timeout;
         timeout = null;

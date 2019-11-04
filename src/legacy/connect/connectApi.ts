@@ -12,6 +12,7 @@ import {
     AsyncResponse,
     DeliveryMethod,
     AsyncResponseItem,
+    LatLong,
 } from "./types";
 import { Webhook } from "./models/webhook";
 import { Resource, ResourceDM } from "./models/resource";
@@ -479,7 +480,7 @@ export class ConnectApi extends EventEmitter {
         mimeType?: string,
         resource?: ResourceDM,
         tlvParser?: TlvParser
-    ): Promise<string | number | void>;
+    ): Promise<string | number | LatLong | void>;
     /**
      * Gets the value of a resource
      *
@@ -498,7 +499,7 @@ export class ConnectApi extends EventEmitter {
         mimeType?: string,
         resource?: ResourceDM,
         tlvParser?: TlvParser,
-        callback?: CallbackFn<string | number | void>
+        callback?: CallbackFn<string | number | LatLong | void>
     ): void;
     public getResourceValue(
         deviceId: string,
@@ -507,8 +508,8 @@ export class ConnectApi extends EventEmitter {
         mimeType?: any,
         resource?: ResourceDM,
         tlvParser?: TlvParser,
-        callback?: CallbackFn<string | number | void>
-    ): Promise<string | number | void> {
+        callback?: CallbackFn<string | number | LatLong | void>
+    ): Promise<string | number | LatLong | void> {
         return getResourceValue(
             this,
             this._endpoints,
