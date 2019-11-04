@@ -134,9 +134,14 @@ export interface ResourceValuesFilter {
 export interface NotificationData {
     path?: string;
     maxAge?: string;
-    payload?: string | number;
+    payload?: string | number | LatLong;
     deviceId?: string;
     contentType?: string;
+}
+
+export interface LatLong {
+    latitude: number;
+    longitude: number;
 }
 
 export interface NotificationOptions {

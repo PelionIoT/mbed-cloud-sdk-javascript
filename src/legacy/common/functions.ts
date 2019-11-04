@@ -19,6 +19,7 @@ import { CallbackFn, ComparisonObject, operators } from "./interfaces";
 import { SDKError } from "./sdkError";
 import { TlvParser, Strings, TlvDataType } from "../../common/tlv";
 import { ResourceDM } from "../connect/models/resource";
+import { LatLong } from "../connect/types";
 
 // Inspired by https://github.com/sonnyp/polygoat
 // If a callback is passed, use that after running the passed function, otherwise return a promise chain
@@ -153,12 +154,18 @@ export function encodeBase64(payload): string {
  * Internal function
  * @ignore
  */
-export function parseResourceValue(payload: string, contentType: string, resource?: ResourceDM, tlvParser?: TlvParser) {
+export function parseResourceValue({ payload, contentType, resource, tlvParser, path }: { payload: string; contentType: string; resource?: ResourceDM; tlvParser?: TlvParser; path?: string }) {
+    if (path && path.startsWith("/6")) {
+        const payloadJson = getJsonParser(tlvParser)(payload);
+        const value = typeof payloadJson[0] === "object" ? payloadJson[0] : payloadJson;
+        if (value[0] && value[1]) {
+            return { latitude: value[0], longitude: value[1] } as LatLong;
+        }
+    }
+
     if (contentType && contentType.indexOf("tlv") > -1) {
         // Decode tlv
-        return tlvParser
-            ? tlvParser.parseDataAndConvertToString(payload)
-            : TlvParser.parseDataAndConvertToString(payload);
+        return getParser(tlvParser)(payload);
     }
 
     const decodedPayload = Strings.decodeBase64AsString(payload);
@@ -170,6 +177,10 @@ export function parseResourceValue(payload: string, contentType: string, resourc
 
     return decodedPayload;
 }
+
+const getParser = (tlvParser?: TlvParser) => tlvParser ? tlvParser.parseDataAndConvertToString : TlvParser.parseDataAndConvertToString;
+
+const getJsonParser = (tlvParser?: TlvParser) => tlvParser ? tlvParser.parseDataAndConvertToJson : TlvParser.parseDataAndConvertToJson;
 
 export function parseValueFromType(value: string, type: TlvDataType): string | number {
     if (type === TlvDataType.Float) {

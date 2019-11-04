@@ -67,17 +67,17 @@ describe("testFunctions", () => {
 describe("testPayloadDecoding", () => {
 
     test("string", () => {
-        const payload = parseResourceValue("dGVzdA==", "text/plain");
+        const payload = parseResourceValue({ payload: "dGVzdA==", contentType: "text/plain" });
         expect(typeof payload).toBe("string");
     });
 
     test("number", () => {
-        const payload = parseResourceValue("NQ==", "text/plain", { deviceId: "", path: "", contentType: TlvDataType.Integer });
+        const payload = parseResourceValue({ payload: "NQ==", contentType: "text/plain", resource: { deviceId: "", path: "", contentType: TlvDataType.Integer } });
         expect(typeof payload).toBe("number");
     });
 
     test("tlv", () => {
-        const payload = parseResourceValue("AAA=", "tlv");
+        const payload = parseResourceValue({ payload: "AAA=", contentType: "tlv" });
         expect(payload).toBe(`/0: []
 `);
     });
