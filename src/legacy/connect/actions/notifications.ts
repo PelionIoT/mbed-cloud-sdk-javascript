@@ -34,7 +34,7 @@ export const notify = (
                     fn(error, null);
                 } else {
                     const body = response.payload
-                        ? parseResourceValue({ payload: response.payload, contentType: response.ct, resource, tlvParser })
+                        ? parseResourceValue({ payload: response.payload, contentType: response.ct, resource, tlvParser, path: resource ? resource.path : "" })
                         : null;
                     // if body is null, might be more useful to return the whole response
                     if (body) {
@@ -50,7 +50,7 @@ export const notify = (
 
     if (data.notifications) {
         data.notifications.forEach(notification => {
-            const body = notification.payload ? parseResourceValue({ payload: notification.payload, contentType: notification.ct }) : null;
+            const body = notification.payload ? parseResourceValue({ payload: notification.payload, contentType: notification.ct, path: notification.path }) : null;
             const path = `${notification.ep}${notification.path}`;
             const { fn } = notifyFns[path] || {};
             if (fn) {
