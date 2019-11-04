@@ -36,12 +36,7 @@ export const notify = (
                     const body = response.payload
                         ? parseResourceValue({ payload: response.payload, contentType: response.ct, resource, tlvParser, path: resource ? resource.path : "" })
                         : null;
-                    // if body is null, might be more useful to return the whole response
-                    if (body) {
-                        fn(null, body);
-                    } else {
-                        fn(null, response);
-                    }
+                    fn(null, body);
                 }
                 delete asyncFns[asyncID];
             }
