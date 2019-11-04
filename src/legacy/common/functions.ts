@@ -156,7 +156,7 @@ export function encodeBase64(payload): string {
  */
 export function parseResourceValue({ payload, contentType, resource, tlvParser, path }: { payload: string; contentType: string; resource?: ResourceDM; tlvParser?: TlvParser; path?: string }) {
     if (path && path.startsWith("/6")) {
-        const payloadJson = getJsonParser(tlvParser)(payload);
+        const payloadJson = tlvParser ? tlvParser.parseDataAndConvertToJson(payload) : TlvParser.parseDataAndConvertToJson(payload);
         const value = typeof payloadJson[0] === "object" ? payloadJson[0] : payloadJson;
         if (value[0] && value[1]) {
             return { latitude: value[0], longitude: value[1] } as LatLong;
@@ -165,7 +165,7 @@ export function parseResourceValue({ payload, contentType, resource, tlvParser, 
 
     if (contentType && contentType.indexOf("tlv") > -1) {
         // Decode tlv
-        return getParser(tlvParser)(payload);
+        return tlvParser ? tlvParser.parseDataAndConvertToString(payload) : tlvParser.parseDataAndConvertToString(payload);
     }
 
     const decodedPayload = Strings.decodeBase64AsString(payload);
@@ -177,10 +177,6 @@ export function parseResourceValue({ payload, contentType, resource, tlvParser, 
 
     return decodedPayload;
 }
-
-const getParser = (tlvParser?: TlvParser) => tlvParser ? tlvParser.parseDataAndConvertToString : TlvParser.parseDataAndConvertToString;
-
-const getJsonParser = (tlvParser?: TlvParser) => tlvParser ? tlvParser.parseDataAndConvertToJson : TlvParser.parseDataAndConvertToJson;
 
 export function parseValueFromType(value: string, type: TlvDataType): string | number {
     if (type === TlvDataType.Float) {
