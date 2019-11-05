@@ -20,7 +20,7 @@ import { asyncStyle } from "../../common/functions";
 import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
 import { Device } from "../../deviceDirectory/models/device";
-import { AsyncResponse } from "../types";
+import { AsyncResponse, LatLong } from "../types";
 
 /**
  * Connected Device
@@ -112,7 +112,7 @@ export class ConnectedDevice extends Device {
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: string): Promise<string | number | void>;
+    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: string): Promise<string | number | LatLong>;
     /**
      * Gets the value of a resource
      *
@@ -126,14 +126,14 @@ export class ConnectedDevice extends Device {
         resourcePath: string,
         timeout?: number,
         mimeType?: string,
-        callback?: CallbackFn<string | number | void>
+        callback?: CallbackFn<string | number | LatLong>
     ): void;
     public getResourceValue(
         resourcePath: string,
         timeout?: number,
         mimeType?: any,
-        callback?: CallbackFn<string | number | void>
-    ): Promise<string | number | void> {
+        callback?: CallbackFn<string | number | LatLong>
+    ): Promise<string | number | LatLong> {
         if (typeof timeout === "function") {
             callback = timeout;
             timeout = null;

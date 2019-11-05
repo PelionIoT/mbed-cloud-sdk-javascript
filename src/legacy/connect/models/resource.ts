@@ -19,7 +19,7 @@ import { EventEmitter } from "events";
 import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
 import { ConnectApi } from "../connectApi";
-import { AsyncResponse } from "../types";
+import { AsyncResponse, LatLong } from "../types";
 import { TlvDataType } from "../../..";
 
 export interface ResourceDM {
@@ -151,7 +151,7 @@ export class Resource extends EventEmitter implements ResourceDM {
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getValue(timeout?: number, mimeType?: string): Promise<string | number | void>;
+    public getValue(timeout?: number, mimeType?: string): Promise<string | number | LatLong>;
     /**
      * Gets the value of a resource
      *
@@ -160,12 +160,12 @@ export class Resource extends EventEmitter implements ResourceDM {
      * @param mimeType The requested mime type format of the value
      * @param callback A function that is passed the arguments (error, value) where value is the resource value
      */
-    public getValue(timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
+    public getValue(timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | LatLong>): void;
     public getValue(
         timeout?: number,
         mimeType?: any,
-        callback?: CallbackFn<string | number | void>
-    ): Promise<string | number | void> {
+        callback?: CallbackFn<string | number | LatLong>
+    ): Promise<string | number | LatLong> {
         if (typeof timeout === "function") {
             callback = timeout;
             timeout = null;

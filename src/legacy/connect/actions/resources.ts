@@ -20,8 +20,8 @@ export const getResourceValue = (
     mimeType?: any,
     resource?: ResourceDM,
     tlvParser?: TlvParser,
-    callback?: CallbackFn<string | number | LatLong | void>
-): Promise<string | number | LatLong | void> => {
+    callback?: CallbackFn<string | number | LatLong>
+): Promise<string | number | LatLong> => {
     if (typeof timeout === "function") {
         callback = timeout;
         timeout = null;
@@ -42,7 +42,7 @@ export const getResourceValue = (
     resourcePath = reverseNormalizePath(resourcePath);
     const asyncId = generateId();
 
-    return apiWrapper(
+    return apiWrapper<string | number | LatLong>(
         async resultsFn => {
             if ((await connect.getWebhook()) && forceClear) {
                 return resultsFn(new SDKError("webhook in use"), null);

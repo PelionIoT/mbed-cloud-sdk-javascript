@@ -480,7 +480,7 @@ export class ConnectApi extends EventEmitter {
         mimeType?: string,
         resource?: ResourceDM,
         tlvParser?: TlvParser
-    ): Promise<string | number | LatLong | void>;
+    ): Promise<string | number | LatLong>;
     /**
      * Gets the value of a resource
      *
@@ -499,7 +499,7 @@ export class ConnectApi extends EventEmitter {
         mimeType?: string,
         resource?: ResourceDM,
         tlvParser?: TlvParser,
-        callback?: CallbackFn<string | number | LatLong | void>
+        callback?: CallbackFn<string | number | LatLong>
     ): void;
     public getResourceValue(
         deviceId: string,
@@ -508,8 +508,8 @@ export class ConnectApi extends EventEmitter {
         mimeType?: any,
         resource?: ResourceDM,
         tlvParser?: TlvParser,
-        callback?: CallbackFn<string | number | LatLong | void>
-    ): Promise<string | number | LatLong | void> {
+        callback?: CallbackFn<string | number | LatLong>
+    ): Promise<string | number | LatLong> {
         return getResourceValue(
             this,
             this._endpoints,
