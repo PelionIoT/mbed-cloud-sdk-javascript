@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-import { asyncStyle, apiWrapper } from "../../common/functions";
+import { apiWrapper, asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { AddApiKeyObject } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
-import { User } from "./user";
+import { AddApiKeyObject } from "../types";
 import { Group } from "./group";
+import { User } from "./user";
 
 /**
  * API Key

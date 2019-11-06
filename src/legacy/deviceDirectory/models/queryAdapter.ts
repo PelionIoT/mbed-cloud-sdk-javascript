@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-import { encodeFilter, decodeFilter } from "../../common/functions";
 import {
     DeviceQuery as apiQuery,
     DeviceQueryPostPutRequest as apiQueryAdd,
     DeviceQueryPostPutRequest as apiQueryUpdate,
 } from "../../_api/device_directory";
+import { decodeFilter, encodeFilter } from "../../common/functions";
 import { DeviceDirectoryApi } from "../deviceDirectoryApi";
 import { Filters } from "../filters";
 import { AddQueryObject, UpdateQueryObject } from "../types";

@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-import { CallbackFn, Order } from "../common/interfaces";
-import { ConfigOptions } from "../../common/config";
-import { NotificationMessage as NotificationObject, AsyncIDResponse as AsyncResponse } from "../_api/mds";
-import { TlvParser } from "../../common";
-import { ResourceDM } from "./models/resource";
 import { SDKError } from "..";
+import { TlvParser } from "../../common";
+import { ConfigOptions } from "../../common/config";
 import { arraysEqual } from "../../common/utils";
+import { AsyncIDResponse as AsyncResponse, NotificationMessage as NotificationObject } from "../_api/mds";
+import { CallbackFn, Order } from "../common/interfaces";
+import { Resource } from "./models/resource";
 
 export { NotificationObject, AsyncResponse };
 
@@ -266,5 +266,5 @@ export enum AsyncResponseStatus {
 export interface AsyncResponseItem {
     fn: (error: SDKError, data: any) => any;
     tlvParser?: TlvParser;
-    resource?: ResourceDM;
+    resource?: Resource;
 }

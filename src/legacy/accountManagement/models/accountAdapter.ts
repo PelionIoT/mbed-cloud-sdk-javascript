@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import { AccountUpdateReq as apiAccountRequest, AccountInfo as apiAccount } from "../../_api/iam";
-import { UpdateAccountObject } from "../types";
+import { AccountInfo as apiAccount, AccountUpdateReq as apiAccountRequest } from "../../_api/iam";
 import { AccountManagementApi } from "../accountManagementApi";
+import { UpdateAccountObject } from "../types";
 import { Account } from "./account";
 import { PolicyAdapter } from "./policyAdapter";
 
@@ -53,7 +53,7 @@ export class AccountAdapter {
                 status: from.status,
                 tier: from.tier,
                 limits: from.limits,
-                policies: policies,
+                policies,
                 createdAt: from.created_at,
                 upgradedAt: from.upgraded_at,
                 reason: from.reason,

@@ -15,12 +15,13 @@
  * limitations under the License.
  */
 
-import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
-import { ConnectApi } from "../connectApi";
-import { Resource } from "./resource";
+import { CallbackFn } from "../../common/interfaces";
 import { Device } from "../../deviceDirectory/models/device";
-import { AsyncResponse, LatLong } from "../types";
+import { ConnectApi } from "../connectApi";
+import { AsyncResponse } from "../types";
+import { Resource } from "./resource";
+import { ResourceValue } from "./resourceValue";
 
 /**
  * Connected Device
@@ -112,11 +113,7 @@ export class ConnectedDevice extends Device {
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getResourceValue(
-        resourcePath: string,
-        timeout?: number,
-        mimeType?: string
-    ): Promise<string | number | LatLong>;
+    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: string): Promise<ResourceValue>;
     /**
      * Gets the value of a resource
      *
@@ -130,14 +127,14 @@ export class ConnectedDevice extends Device {
         resourcePath: string,
         timeout?: number,
         mimeType?: string,
-        callback?: CallbackFn<string | number | LatLong>
+        callback?: CallbackFn<ResourceValue>
     ): void;
     public getResourceValue(
         resourcePath: string,
         timeout?: number,
         mimeType?: any,
-        callback?: CallbackFn<string | number | LatLong>
-    ): Promise<string | number | LatLong> {
+        callback?: CallbackFn<ResourceValue>
+    ): Promise<ResourceValue> {
         if (typeof timeout === "function") {
             callback = timeout;
             timeout = null;

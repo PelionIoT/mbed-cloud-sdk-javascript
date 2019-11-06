@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { EnrollmentIdentity as ApiEnrollmentIdentity, EnrollmentId as ApiEnrollmentId } from "../../_api/enrollment";
+import { EnrollmentId as ApiEnrollmentId, EnrollmentIdentity as ApiEnrollmentIdentity } from "../../_api/enrollment";
 import { EnrollmentApi } from "../enrollmentApi";
-import { EnrollmentClaim } from "./enrollmentClaim";
 import { AddEnrollmentClaim } from "../types";
+import { EnrollmentClaim } from "./enrollmentClaim";
 
 /**
  * Internal

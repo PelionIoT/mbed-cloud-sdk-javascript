@@ -1,10 +1,10 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { DarkThemeColor } from "./darkThemeColor";
-import { DarkThemeColorAdapter } from "../../index";
-import { DarkThemeColorUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../common";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { DarkThemeColorAdapter } from "../../index";
+import { DarkThemeColor } from "./darkThemeColor";
+import { DarkThemeColorUpdateRequest } from "./types";
 /**
  *DarkThemeColor repository
  */
@@ -21,7 +21,7 @@ export class DarkThemeColorRepository extends Repository {
                         url: "/v3/branding-colors/dark/{reference}",
                         method: "DELETE",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -69,7 +69,7 @@ export class DarkThemeColorRepository extends Repository {
                         url: "/v3/branding-colors/dark/{reference}",
                         method: "GET",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -93,7 +93,7 @@ export class DarkThemeColorRepository extends Repository {
                         url: "/v3/branding-colors/dark/{reference}",
                         method: "PUT",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                         body: {
                             color: request.color,

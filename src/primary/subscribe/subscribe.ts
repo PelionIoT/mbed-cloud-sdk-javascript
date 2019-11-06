@@ -16,18 +16,18 @@
  */
 
 import { ConnectApi } from "../../legacy/connect/connectApi";
-import { DeviceStateObserver } from "./observers/deviceStateObserver";
+import { Resource } from "../../legacy/connect/models/resource";
 import {
     DeviceEvent,
     DeviceEventFilter,
+    FirstValueEnum,
+    NotificationData,
     NotificationObject,
     ResourceValuesFilter,
-    NotificationData,
-    FirstValueEnum,
 } from "../../legacy/connect/types";
-import { Resource } from "../../legacy/connect/models/resource";
-import { ResourceValuesObserver } from "./observers/resourceValuesObserver";
+import { DeviceStateObserver } from "./observers/deviceStateObserver";
 import { MasterObserver } from "./observers/masterObserver";
+import { ResourceValuesObserver } from "./observers/resourceValuesObserver";
 
 export class Subscribe {
     private connect: ConnectApi;

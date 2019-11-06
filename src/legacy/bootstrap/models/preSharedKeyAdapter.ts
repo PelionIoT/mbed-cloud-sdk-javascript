@@ -19,8 +19,8 @@ import {
     PreSharedKeyWithoutSecret as ConnectorPSKPartial,
 } from "../../_api/connector_bootstrap";
 import { BootstrapApi } from "../bootstrapApi";
-import { PreSharedKey } from "./preSharedKey";
 import { AddPreSharedKey } from "../types";
+import { PreSharedKey } from "./preSharedKey";
 
 /**
  * Internal

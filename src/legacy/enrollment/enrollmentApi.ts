@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-import { apiWrapper, encodeInclude, asyncStyle } from "../common/functions";
-import { Endpoints } from "./endpoints";
-import { CallbackFn, ListOptions } from "../common/interfaces";
-import { AddEnrollmentClaim } from "./types";
-import { EnrollmentClaim } from "./models/enrollmentClaim";
-import { ListResponse } from "../common/listResponse";
-import * as EnrollmentAdapter from "./models/enrollmentClaimAdapter";
-import { ApiMetadata } from "../common/apiMetadata";
 import { ConfigOptions } from "../../common/config";
+import { ApiMetadata } from "../common/apiMetadata";
+import { apiWrapper, asyncStyle, encodeInclude } from "../common/functions";
+import { CallbackFn, ListOptions } from "../common/interfaces";
+import { ListResponse } from "../common/listResponse";
+import { Endpoints } from "./endpoints";
+import { EnrollmentClaim } from "./models/enrollmentClaim";
+import * as EnrollmentAdapter from "./models/enrollmentClaimAdapter";
+import { AddEnrollmentClaim } from "./types";
 
 export class EnrollmentApi {
     private readonly _endpoints: Endpoints;

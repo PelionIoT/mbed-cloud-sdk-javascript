@@ -1,9 +1,9 @@
+import { ConnectApi } from "../../../";
 import { apiWrapper } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { ConnectedDevice } from "../models/connectedDevice";
 import { ListResponse } from "../../common/listResponse";
-import { ConnectApi } from "../../../";
 import DeviceDirectoryApi from "../../deviceDirectory";
+import { ConnectedDevice } from "../models/connectedDevice";
 
 export const listConnectedDevices = (
     connect: ConnectApi,

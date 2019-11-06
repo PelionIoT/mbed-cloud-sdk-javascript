@@ -19,8 +19,8 @@ import { asyncStyle } from "../../common/functions";
 import { CallbackFn, ListOptions } from "../../common/interfaces";
 import { ListResponse } from "../../common/listResponse";
 import { AccountManagementApi } from "../accountManagementApi";
-import { User } from "./user";
 import { ApiKey } from "./apiKey";
+import { User } from "./user";
 
 /**
  * Group

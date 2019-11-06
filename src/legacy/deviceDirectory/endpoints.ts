@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
+import { ConfigOptions } from "../../common/config";
 import { DefaultApi as DirectoryApi } from "../_api/device_directory";
 import { EndpointsBase } from "../common/endpointsBase";
-import { ConfigOptions } from "../../common/config";
 
 export class Endpoints extends EndpointsBase {
     public directory: DirectoryApi;

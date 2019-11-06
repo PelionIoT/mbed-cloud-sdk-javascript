@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-import { PresubscriptionObject as Presubscription } from "../types";
 import { Presubscription as apiPresubscription } from "../../_api/mds";
+import { PresubscriptionObject as Presubscription } from "../types";
 
 /**
  * Presubscription Adapter

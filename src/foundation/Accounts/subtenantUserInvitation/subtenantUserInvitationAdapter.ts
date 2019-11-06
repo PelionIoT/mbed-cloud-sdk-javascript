@@ -1,6 +1,6 @@
+import { LoginProfileAdapter } from "../..";
 import { Adapter } from "../../../common/adapter";
 import { SubtenantUserInvitation } from "./subtenantUserInvitation";
-import { LoginProfileAdapter } from "../..";
 /**
  *SubtenantUserInvitation adapter
  */
@@ -26,7 +26,7 @@ export class SubtenantUserInvitationAdapter extends Adapter {
             expiration: data.expiration,
             groups: data.groups,
             id: data.id,
-            loginProfiles: loginProfiles,
+            loginProfiles,
             updatedAt: data.updated_at,
             userId: data.user_id,
         });

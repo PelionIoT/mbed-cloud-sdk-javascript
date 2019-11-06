@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
-import { AddDeviceObject } from "../types";
+import { CallbackFn } from "../../common/interfaces";
 import { DeviceDirectoryApi } from "../deviceDirectoryApi";
+import { AddDeviceObject } from "../types";
 
 /**
  * Device

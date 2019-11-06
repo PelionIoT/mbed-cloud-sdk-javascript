@@ -15,12 +15,11 @@
  * limitations under the License.
  */
 
+import { TlvDataType, TlvParser } from "../../common/tlv";
+import { Resource } from "../connect/models/resource";
+import { ResourceValue } from "../connect/models/resourceValue";
 import { CallbackFn, ComparisonObject, operators } from "./interfaces";
 import { SDKError } from "./sdkError";
-import { TlvParser, Strings, TlvDataType } from "../../common/tlv";
-import { Resource } from "../connect/models/resource";
-import { LatLong } from "../connect/types";
-import { ResourceValue } from "../connect/models/resourceValue";
 
 // Inspired by https://github.com/sonnyp/polygoat
 // If a callback is passed, use that after running the passed function, otherwise return a promise chain
@@ -157,12 +156,10 @@ export function encodeBase64(payload): string {
  */
 export function parseResourceValue({
     payload,
-    contentType,
     resource,
     tlvParser,
 }: {
     payload: string;
-    contentType: string;
     resource?: Resource;
     tlvParser?: TlvParser;
 }) {

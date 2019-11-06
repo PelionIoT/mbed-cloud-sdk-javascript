@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
+import { ConfigOptions } from "../../common/config";
 import { DefaultApi as UpdateApi } from "../_api/update_service";
 import { EndpointsBase } from "../common/endpointsBase";
-import { ConfigOptions } from "../../common/config";
 
 export class Endpoints extends EndpointsBase {
     public update: UpdateApi;

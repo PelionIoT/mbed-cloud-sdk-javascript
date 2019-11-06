@@ -1,8 +1,8 @@
-import { Resource } from "./resource";
-import { TlvValue, TlvParser, Strings } from "../../../common";
-import { LatLong } from "../types";
-import { SDKError } from "../../common/sdkError";
+import { Strings, TlvParser, TlvValue } from "../../../common";
 import { parseValueFromType } from "../../common/functions";
+import { SDKError } from "../../common/sdkError";
+import { LatLong } from "../types";
+import { Resource } from "./resource";
 
 export class ResourceValue {
     private resource: Resource;

@@ -1,15 +1,15 @@
-import { ReadStream, createWriteStream, createReadStream, PathLike } from "fs";
-import { isThisNode, encodeFilter } from "../legacy/common/functions";
-import { get as http_get } from "superagent";
-import { Config } from "./config";
+import { createReadStream, createWriteStream, PathLike, ReadStream } from "fs";
 import * as path from "path";
+import { get as http_get } from "superagent";
 import {
     DeviceEnrollmentBulkCreate,
-    DeviceEnrollmentBulkDelete,
     DeviceEnrollmentBulkCreateRepository,
+    DeviceEnrollmentBulkDelete,
     DeviceEnrollmentBulkDeleteRepository,
     UpdateCampaign,
 } from "../foundation";
+import { encodeFilter, isThisNode } from "../legacy/common/functions";
+import { Config } from "./config";
 
 /**
  * Internal function

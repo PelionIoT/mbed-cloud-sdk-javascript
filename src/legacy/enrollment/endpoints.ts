@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import { EndpointsBase } from "../common/endpointsBase";
-import { PublicAPIApi as EnrollmentApi } from "../_api/enrollment";
 import { ConfigOptions } from "../../common/config";
+import { PublicAPIApi as EnrollmentApi } from "../_api/enrollment";
+import { EndpointsBase } from "../common/endpointsBase";
 
 export class Endpoints extends EndpointsBase {
     public readonly enrollment: EnrollmentApi;

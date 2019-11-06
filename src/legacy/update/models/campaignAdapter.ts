@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-import { encodeFilter, decodeFilter } from "../../common/functions";
 import {
     UpdateCampaign as apiCampaign,
     UpdateCampaignPostRequest as apiCampaignAdd,
     UpdateCampaignPutRequest as apiCampaignUpdate,
 } from "../../_api/update_service";
+import { decodeFilter, encodeFilter } from "../../common/functions";
 import { Filters } from "../../deviceDirectory/filters";
 import { AddCampaignObject, UpdateCampaignObject } from "../types";
 import { UpdateApi } from "../updateApi";

@@ -69,8 +69,24 @@ const KNOWN_IDS = {
  * Represents a single TLV value.
  */
 export class TlvValue {
-    private _children: Array<TlvValue> | null; // Lazy iteration using _childrenIterator
-    private readonly _childrenIterator: IterableIterator<TlvValue> | null;
+    /** Gets an array with all the children of this node. */
+    public get children() {
+        // We keep the iterator to lazily evaluate children but we can't consume it twice.
+        // Accessing this property causes the internally stored children
+        // iterator to be evaluated once. Subsequent calls will not go through the
+        // iterator again. Note, however, that other public functions may cause
+        // the iterator to be evaluated (for example toString) then do not assume
+        // anything about its state (for example for validation purposes).
+        if (this._children === null) {
+            if (this._childrenIterator === null) {
+                return [];
+            }
+
+            this._children = Array.from(this._childrenIterator);
+        }
+
+        return this._children;
+    }
 
     /** Gets the type of this TLV value. */
     public readonly type: TlvValueType;
@@ -97,6 +113,8 @@ export class TlvValue {
      * and for `children.length`.
      */
     public readonly hasChildren: boolean;
+    private _children: Array<TlvValue> | null; // Lazy iteration using _childrenIterator
+    private readonly _childrenIterator: IterableIterator<TlvValue> | null;
 
     /**
      * Creates a new `TlvValue` object.
@@ -133,25 +151,6 @@ export class TlvValue {
         if (info) {
             this.updateWithExternalMetadata(info);
         }
-    }
-
-    /** Gets an array with all the children of this node. */
-    public get children() {
-        // We keep the iterator to lazily evaluate children but we can't consume it twice.
-        // Accessing this property causes the internally stored children
-        // iterator to be evaluated once. Subsequent calls will not go through the
-        // iterator again. Note, however, that other public functions may cause
-        // the iterator to be evaluated (for example toString) then do not assume
-        // anything about its state (for example for validation purposes).
-        if (this._children === null) {
-            if (this._childrenIterator === null) {
-                return [];
-            }
-
-            this._children = Array.from(this._childrenIterator);
-        }
-
-        return this._children;
     }
 
     /**

@@ -1,10 +1,10 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { DeveloperCertificate } from "./developerCertificate";
 import { DeveloperCertificateAdapter } from "../../index";
-import { DeveloperCertificateCreateRequest } from "./types";
 import { TrustedCertificate } from "../../index";
 import { TrustedCertificateAdapter } from "../../index";
+import { DeveloperCertificate } from "./developerCertificate";
+import { DeveloperCertificateCreateRequest } from "./types";
 /**
  *DeveloperCertificate repository
  */

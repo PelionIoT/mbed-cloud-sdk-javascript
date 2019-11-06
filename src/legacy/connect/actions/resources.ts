@@ -1,13 +1,13 @@
-import { generateId } from "../../common/idGenerator";
-import { apiWrapper, encodeBase64 } from "../../common/functions";
 import { ConnectApi, SDKError } from "../../../";
+import { TlvParser } from "../../../common";
+import { apiWrapper, encodeBase64 } from "../../common/functions";
+import { generateId } from "../../common/idGenerator";
 import { CallbackFn } from "../../common/interfaces";
-import { AsyncResponse, AsyncResponseItem, LatLong } from "../types";
+import { Endpoints } from "../endpoints";
 import { Resource } from "../models/resource";
 import { ResourceAdapter } from "../models/resourceAdapter";
-import { Endpoints } from "../endpoints";
-import { TlvParser } from "../../../common";
 import { ResourceValue } from "../models/resourceValue";
+import { AsyncResponse, AsyncResponseItem } from "../types";
 
 export const getResourceValue = ({
     connect,
@@ -67,7 +67,9 @@ export const getResourceValue = ({
 
             if (autostartNotifications) {
                 connect.startNotifications(null, error => {
-                    if (error) return handleError(error);
+                    if (error) {
+                        return handleError(error);
+                    }
 
                     endpoints.deviceRequests.createAsyncRequest(
                         deviceId,
@@ -152,7 +154,9 @@ export const setResourceValue = (
 
             if (autostartNotifications) {
                 connect.startNotifications(null, error => {
-                    if (error) return handleError(error);
+                    if (error) {
+                        return handleError(error);
+                    }
 
                     endpoints.deviceRequests.createAsyncRequest(
                         deviceId,
@@ -247,7 +251,9 @@ export const executeResource = (
 
             if (autostartNotifications) {
                 connect.startNotifications(null, error => {
-                    if (error) return handleError(error);
+                    if (error) {
+                        return handleError(error);
+                    }
 
                     endpoints.deviceRequests.createAsyncRequest(
                         deviceId,

@@ -15,24 +15,24 @@
  * limitations under the License.
  */
 
-import { CallbackFn, ListOptions } from "../common/interfaces";
-import { Endpoints } from "./endpoints";
-import { apiWrapper, dateToBillingMonth, isThisNode } from "../common/functions";
-import { QuotaHistory } from "./models/quotaHistory";
-import { mapQuotaHistory } from "./models/quotaHistoryAdapter";
-import { ListResponse } from "../common/listResponse";
-import {
-    ServicePackageQuota,
-    ServicePackagesResponse,
-    ServicePackageQuotaHistoryResponse,
-    BillingReportRawDataResponse,
-} from "../_api/billing";
-import { ServicePackage } from "./models/servicePackage";
-import { mapPending, mapActive, mapPrevious } from "./models/servicePackageAdapter";
-import { SDKError } from "../common/sdkError";
-import { writeFile, createWriteStream } from "fs";
+import { createWriteStream, writeFile } from "fs";
 import { get as http_get } from "superagent";
 import { ConfigOptions } from "../../common/config";
+import {
+    BillingReportRawDataResponse,
+    ServicePackageQuota,
+    ServicePackageQuotaHistoryResponse,
+    ServicePackagesResponse,
+} from "../_api/billing";
+import { apiWrapper, dateToBillingMonth, isThisNode } from "../common/functions";
+import { CallbackFn, ListOptions } from "../common/interfaces";
+import { ListResponse } from "../common/listResponse";
+import { SDKError } from "../common/sdkError";
+import { Endpoints } from "./endpoints";
+import { QuotaHistory } from "./models/quotaHistory";
+import { mapQuotaHistory } from "./models/quotaHistoryAdapter";
+import { ServicePackage } from "./models/servicePackage";
+import { mapActive, mapPending, mapPrevious } from "./models/servicePackageAdapter";
 
 export class BillingApi {
     private readonly _endpoints: Endpoints;
@@ -214,30 +214,6 @@ export class BillingApi {
     }
 
     /**
-     * Streams content from HTTP url to file path on disk
-     * @param filepath
-     * @param url
-     * @param done callback
-     */
-    private streamToFile(filepath: string, url: string, done: any) {
-        if (isThisNode() && filepath) {
-            // we're in node and want to stream a file
-            const fileStream = createWriteStream(filepath, { flags: "a+" });
-            const req = http_get(url);
-            // bugfix: https://github.com/segmentio/superagent-retry/issues/24
-            //         https://github.com/visionmedia/superagent/issues/313
-            req.pipe(fileStream).on("finish", _ => {
-                done(null, url);
-            });
-            req.on("error", error => {
-                done(new SDKError(error.message), null);
-            });
-        } else {
-            done(null, url);
-        }
-    }
-
-    /**
      * Get all quota history
      * @param options
      * @returns Promise with List Response of QuotaHistory
@@ -300,5 +276,29 @@ export class BillingApi {
             },
             callback
         );
+    }
+
+    /**
+     * Streams content from HTTP url to file path on disk
+     * @param filepath
+     * @param url
+     * @param done callback
+     */
+    private streamToFile(filepath: string, url: string, done: any) {
+        if (isThisNode() && filepath) {
+            // we're in node and want to stream a file
+            const fileStream = createWriteStream(filepath, { flags: "a+" });
+            const req = http_get(url);
+            // bugfix: https://github.com/segmentio/superagent-retry/issues/24
+            //         https://github.com/visionmedia/superagent/issues/313
+            req.pipe(fileStream).on("finish", _ => {
+                done(null, url);
+            });
+            req.on("error", error => {
+                done(new SDKError(error.message), null);
+            });
+        } else {
+            done(null, url);
+        }
     }
 }

@@ -1,10 +1,10 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { LightThemeColor } from "./lightThemeColor";
-import { LightThemeColorAdapter } from "../../index";
-import { LightThemeColorUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../common";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { LightThemeColorAdapter } from "../../index";
+import { LightThemeColor } from "./lightThemeColor";
+import { LightThemeColorUpdateRequest } from "./types";
 /**
  *LightThemeColor repository
  */
@@ -21,7 +21,7 @@ export class LightThemeColorRepository extends Repository {
                         url: "/v3/branding-colors/light/{reference}",
                         method: "DELETE",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -69,7 +69,7 @@ export class LightThemeColorRepository extends Repository {
                         url: "/v3/branding-colors/light/{reference}",
                         method: "GET",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -93,7 +93,7 @@ export class LightThemeColorRepository extends Repository {
                         url: "/v3/branding-colors/light/{reference}",
                         method: "PUT",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                         body: {
                             color: request.color,

@@ -1,18 +1,18 @@
+import { ListOptions } from "../../../common";
+import { extractFilter } from "../../../common/filters";
 import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { PolicyGroup } from "./policyGroup";
-import { ApiKey } from "../../index";
 import { ApiKeyAdapter } from "../../index";
 import { PolicyGroupAdapter } from "../../index";
-import { PolicyGroupCreateRequest } from "./types";
-import { extractFilter } from "../../../common/filters";
-import { PolicyGroupListOptions } from "./types";
-import { PolicyGroupUpdateRequest } from "./types";
-import { User } from "../../index";
+import { ApiKey } from "../../index";
 import { UserAdapter } from "../../index";
+import { User } from "../../index";
+import { PolicyGroup } from "./policyGroup";
+import { PolicyGroupUpdateRequest } from "./types";
 import { PolicyGroupUserListOptions } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
+import { PolicyGroupCreateRequest } from "./types";
+import { PolicyGroupListOptions } from "./types";
 /**
  *PolicyGroup repository
  */

@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
+import { TlvDataType } from "../../..";
 import { Resource as apiResource } from "../../_api/mds";
 import { Resource } from "./resource";
-import { TlvDataType } from "../../..";
 
 /**
  * Resource Adapter
@@ -29,7 +29,7 @@ export class ResourceAdapter {
             observable: from.obs,
             type: TlvDataType[from.type],
             path: from.uri,
-            deviceId: deviceId,
+            deviceId,
         };
     }
 }

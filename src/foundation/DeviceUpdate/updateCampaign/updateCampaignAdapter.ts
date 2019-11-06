@@ -1,6 +1,6 @@
 import { Adapter } from "../../../common/adapter";
-import { UpdateCampaign } from "./updateCampaign";
 import { deviceFilterHelperSetter } from "../../../common/privateFunctions";
+import { UpdateCampaign } from "./updateCampaign";
 /**
  *UpdateCampaign adapter
  */

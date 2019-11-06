@@ -1,11 +1,11 @@
-import { CallbackFn } from "../../common/interfaces";
-import { Webhook } from "../models/webhook";
-import { asyncStyle } from "../../common/functions";
-import { isJwt } from "../../../common/utils";
-import { WebhookAdapter } from "../models/webhookAdapter";
-import { ConnectApi, SDKError } from "../../../";
 import { Config } from "../../..";
+import { ConnectApi, SDKError } from "../../../";
+import { isJwt } from "../../../common/utils";
+import { asyncStyle } from "../../common/functions";
+import { CallbackFn } from "../../common/interfaces";
 import { Endpoints } from "../endpoints";
+import { Webhook } from "../models/webhook";
+import { WebhookAdapter } from "../models/webhookAdapter";
 import { DeliveryMethod } from "../types";
 
 export const getWebhook = (config: Config, endpoints: Endpoints, callback?: CallbackFn<Webhook>): Promise<Webhook> => {
@@ -62,8 +62,8 @@ export const updateWebhook = (
         function update() {
             endpoints.notifications.registerWebhook(
                 {
-                    url: url,
-                    headers: headers,
+                    url,
+                    headers,
                 },
                 error => {
                     if (error) {

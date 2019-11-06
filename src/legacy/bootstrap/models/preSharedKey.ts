@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-import { AddPreSharedKey } from "../types";
-import { BootstrapApi } from "../bootstrapApi";
-import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
+import { CallbackFn } from "../../common/interfaces";
+import { BootstrapApi } from "../bootstrapApi";
+import { AddPreSharedKey } from "../types";
 
 export class PreSharedKey {
     /**

@@ -1,13 +1,13 @@
 import * as superagent from "superagent";
-import { NotificationObject, DeliveryMethod, ConnectEvents, AsyncResponseStatus, AsyncResponseItem } from "../types";
-import { parseResourceValue, asyncStyle } from "../../common/functions";
-import { ConnectApi } from "../../../";
-import { DeviceEventAdapter } from "../models/deviceEventAdapter";
-import { SDKError } from "../..";
-import { CallbackFn } from "../../common/interfaces";
-import { Subscribe } from "../../../primary/subscribe/subscribe";
-import { Endpoints } from "../endpoints";
 import { Logger } from "typescript-logging";
+import { SDKError } from "../..";
+import { ConnectApi } from "../../../";
+import { Subscribe } from "../../../primary/subscribe/subscribe";
+import { asyncStyle, parseResourceValue } from "../../common/functions";
+import { CallbackFn } from "../../common/interfaces";
+import { Endpoints } from "../endpoints";
+import { DeviceEventAdapter } from "../models/deviceEventAdapter";
+import { AsyncResponseItem, AsyncResponseStatus, ConnectEvents, DeliveryMethod, NotificationObject } from "../types";
 
 export const notify = (
     connect: ConnectApi,
@@ -36,8 +36,7 @@ export const notify = (
                     const body = response.payload
                         ? parseResourceValue({
                               payload: response.payload,
-                              contentType: response.ct,
-                              resource,
+                              resource: { ...resource, contentType: response.ct },
                               tlvParser,
                           })
                         : null;
@@ -53,7 +52,7 @@ export const notify = (
             const body = notification.payload
                 ? parseResourceValue({
                       payload: notification.payload,
-                      contentType: notification.ct,
+                      resource: { contentType: notification.ct },
                   }).toString()
                 : null;
             const path = `${notification.ep}${notification.path}`;
@@ -80,7 +79,7 @@ export const notify = (
 
     if (data.registrations) {
         data.registrations.forEach(device => {
-            const map = DeviceEventAdapter.map(device, connect, "registration");
+            const map = DeviceEventAdapter.map(device, "registration");
             subscribe.notifyDeviceEvents(map);
             connect.emit(ConnectEvents.EVENT_REGISTRATION, map);
         });
@@ -88,7 +87,7 @@ export const notify = (
 
     if (data["reg-updates"]) {
         data["reg-updates"].forEach(device => {
-            const map = DeviceEventAdapter.map(device, connect, "reregistration");
+            const map = DeviceEventAdapter.map(device, "reregistration");
             subscribe.notifyDeviceEvents(map);
             connect.emit(ConnectEvents.EVENT_REREGISTRATION, map);
         });

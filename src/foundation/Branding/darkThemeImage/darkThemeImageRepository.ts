@@ -1,10 +1,10 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { DarkThemeImage } from "./darkThemeImage";
-import { DarkThemeImageAdapter } from "../../index";
 import { ReadStream } from "fs";
-import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../common";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { DarkThemeImageAdapter } from "../../index";
+import { DarkThemeImage } from "./darkThemeImage";
 /**
  *DarkThemeImage repository
  */
@@ -21,7 +21,7 @@ export class DarkThemeImageRepository extends Repository {
                         url: "/v3/branding-images/dark/{reference}/clear",
                         method: "POST",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -69,7 +69,7 @@ export class DarkThemeImageRepository extends Repository {
                         url: "/v3/branding-images/dark/{reference}",
                         method: "GET",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -93,10 +93,10 @@ export class DarkThemeImageRepository extends Repository {
                         url: "/v3/branding-images/dark/{reference}/upload-multipart",
                         method: "POST",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                         formParams: {
-                            image: image,
+                            image,
                         },
                         contentTypes: ["multipart/form-data"],
                     },

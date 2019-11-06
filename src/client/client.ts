@@ -1,6 +1,6 @@
 import * as superagent from "superagent";
-import { SdkApiBase } from "./sdkApiBase";
 import { Config } from "../common/config";
+import { SdkApiBase } from "./sdkApiBase";
 
 /**
  * Client, gives access to http client with supplied credentials
@@ -41,15 +41,15 @@ export class Client extends SdkApiBase {
 
         return this.request(
             {
-                url: url,
-                method: method,
-                headers: headers,
-                query: query,
-                formParams: formParams,
+                url,
+                method,
+                headers,
+                query,
+                formParams,
                 contentTypes: contentTypes || ["application/json"],
                 acceptTypes: acceptTypes || ["application/json"],
-                body: body,
-                pathParams: pathParams,
+                body,
+                pathParams,
             },
             callback
         );

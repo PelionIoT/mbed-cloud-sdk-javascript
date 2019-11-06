@@ -17,9 +17,9 @@
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn, ListOptions } from "../../common/interfaces";
+import { ListResponse } from "../../common/listResponse";
 import { UpdateCampaignObject } from "../types";
 import { UpdateApi } from "../updateApi";
-import { ListResponse } from "../../common/listResponse";
 import { CampaignDeviceState } from "./campaignDeviceState";
 
 /**

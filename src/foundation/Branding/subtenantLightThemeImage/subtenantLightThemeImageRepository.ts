@@ -1,8 +1,8 @@
+import { ReadStream } from "fs";
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { SubtenantLightThemeImage } from "./subtenantLightThemeImage";
 import { SubtenantLightThemeImageAdapter } from "../../index";
-import { ReadStream } from "fs";
+import { SubtenantLightThemeImage } from "./subtenantLightThemeImage";
 /**
  *SubtenantLightThemeImage repository
  */
@@ -21,7 +21,7 @@ export class SubtenantLightThemeImageRepository extends Repository {
                         method: "POST",
                         pathParams: {
                             account_id: accountId,
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -46,7 +46,7 @@ export class SubtenantLightThemeImageRepository extends Repository {
                         method: "GET",
                         pathParams: {
                             account_id: accountId,
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -76,10 +76,10 @@ export class SubtenantLightThemeImageRepository extends Repository {
                         method: "POST",
                         pathParams: {
                             account_id: accountId,
-                            reference: reference,
+                            reference,
                         },
                         formParams: {
-                            image: image,
+                            image,
                         },
                         contentTypes: ["multipart/form-data"],
                     },

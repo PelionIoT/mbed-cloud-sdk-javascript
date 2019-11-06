@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-import { apiWrapper, asyncStyle } from "../common/functions";
-import { Endpoints } from "./endpoints";
-import { CallbackFn } from "../common/interfaces";
-import { AddPreSharedKey, PskListOptions } from "./types";
-import { PreSharedKey } from "./models/preSharedKey";
-import { mapToSDK, mapToSpec, mapFrom } from "./models/preSharedKeyAdapter";
-import { ApiMetadata } from "../common/apiMetadata";
-import { ListResponse } from "../common/listResponse";
 import { ConfigOptions } from "../../common/config";
+import { ApiMetadata } from "../common/apiMetadata";
+import { apiWrapper, asyncStyle } from "../common/functions";
+import { CallbackFn } from "../common/interfaces";
+import { ListResponse } from "../common/listResponse";
+import { Endpoints } from "./endpoints";
+import { PreSharedKey } from "./models/preSharedKey";
+import { mapFrom, mapToSDK, mapToSpec } from "./models/preSharedKeyAdapter";
+import { AddPreSharedKey, PskListOptions } from "./types";
 
 export class BootstrapApi {
     private readonly _endpoints: Endpoints;

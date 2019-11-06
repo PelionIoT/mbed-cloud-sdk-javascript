@@ -15,30 +15,30 @@
  * limitations under the License.
  */
 
-import { asyncStyle, apiWrapper, encodeInclude, extractFilter } from "../common/functions";
+import { ConfigOptions } from "../../common/config";
+import { ApiMetadata } from "../common/apiMetadata";
+import { apiWrapper, asyncStyle, encodeInclude, extractFilter } from "../common/functions";
 import { CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { Endpoints } from "./endpoints";
-import {
-    UpdateAccountObject,
-    AddApiKeyObject,
-    UpdateApiKeyObject,
-    AddUserObject,
-    UpdateUserObject,
-    ApiKeyListOptions,
-    UserListOptions,
-    GroupListOptions,
-} from "./types";
 import { Account } from "./models/account";
 import { AccountAdapter } from "./models/accountAdapter";
 import { ApiKey } from "./models/apiKey";
 import { ApiKeyAdapter } from "./models/apiKeyAdapter";
-import { User } from "./models/user";
-import { UserAdapter } from "./models/userAdapter";
 import { Group } from "./models/group";
 import { GroupAdapter } from "./models/groupAdapter";
-import { ApiMetadata } from "../common/apiMetadata";
-import { ConfigOptions } from "../../common/config";
+import { User } from "./models/user";
+import { UserAdapter } from "./models/userAdapter";
+import {
+    AddApiKeyObject,
+    AddUserObject,
+    ApiKeyListOptions,
+    GroupListOptions,
+    UpdateAccountObject,
+    UpdateApiKeyObject,
+    UpdateUserObject,
+    UserListOptions,
+} from "./types";
 
 /**
  * ## Account Management API

@@ -1,11 +1,11 @@
-import { asyncStyle, apiWrapper } from "../../common/functions";
-import { executeForAll } from "../../common/legacyPaginator";
-import { CallbackFn } from "../../common/interfaces";
-import { ResourceAdapter } from "../models/resourceAdapter";
-import { Resource } from "../models/resource";
-import { ConnectApi } from "../../../";
-import { Endpoints } from "../endpoints";
 import { SDKError } from "../..";
+import { ConnectApi } from "../../../";
+import { apiWrapper, asyncStyle } from "../../common/functions";
+import { CallbackFn } from "../../common/interfaces";
+import { executeForAll } from "../../common/legacyPaginator";
+import { Endpoints } from "../endpoints";
+import { Resource } from "../models/resource";
+import { ResourceAdapter } from "../models/resourceAdapter";
 import { AsyncResponseItem } from "../types";
 
 export const deleteSubscriptions = (connect: ConnectApi, callback?: CallbackFn<void>): Promise<void> => {
@@ -132,7 +132,6 @@ export const deleteDeviceSubscriptions = (
 
 export const listResources = (
     endpoints: Endpoints,
-    connect: ConnectApi,
     deviceId: string,
     callback?: CallbackFn<Array<Resource>>
 ): Promise<Array<Resource>> => {
@@ -142,7 +141,7 @@ export const listResources = (
         },
         (data, done) => {
             const resources = data.map(resource => {
-                return ResourceAdapter.map(resource, deviceId, connect);
+                return ResourceAdapter.map(resource, deviceId);
             });
 
             done(null, resources);

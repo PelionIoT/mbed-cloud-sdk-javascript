@@ -1,8 +1,8 @@
-import { Adapter } from "../../../common/adapter";
-import { User } from "./user";
 import { ActiveSessionAdapter } from "../..";
 import { LoginHistoryAdapter } from "../..";
 import { LoginProfileAdapter } from "../..";
+import { Adapter } from "../../../common/adapter";
+import { User } from "./user";
 /**
  *User adapter
  */
@@ -31,7 +31,7 @@ export class UserAdapter extends Adapter {
         const mappedEntity = UserAdapter.assignDefined(instance || {}, {
             _discriminator: "USER",
             accountId: data.account_id,
-            activeSessions: activeSessions,
+            activeSessions,
             address: data.address,
             createdAt: data.created_at,
             creationTime: data.creation_time || 0,
@@ -45,8 +45,8 @@ export class UserAdapter extends Adapter {
             isMarketingAccepted: data.is_marketing_accepted,
             isTotpEnabled: data.is_totp_enabled,
             lastLoginTime: data.last_login_time || 0,
-            loginHistory: loginHistory,
-            loginProfiles: loginProfiles,
+            loginHistory,
+            loginProfiles,
             password: data.password,
             passwordChangedTime: data.password_changed_time || 0,
             phoneNumber: data.phone_number,

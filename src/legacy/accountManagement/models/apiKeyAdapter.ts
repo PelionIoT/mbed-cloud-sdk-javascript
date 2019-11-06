@@ -17,11 +17,11 @@
 
 import {
     ApiKeyInfoReq as apiApiKeyAdd,
-    ApiKeyUpdateReq as apiApiKeyUpdate,
     ApiKeyInfoResp as apiApiKey,
+    ApiKeyUpdateReq as apiApiKeyUpdate,
 } from "../../_api/iam";
-import { AddApiKeyObject, UpdateApiKeyObject } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
+import { AddApiKeyObject, UpdateApiKeyObject } from "../types";
 import { ApiKey } from "./apiKey";
 
 /**

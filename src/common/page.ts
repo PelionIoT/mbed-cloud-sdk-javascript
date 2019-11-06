@@ -2,11 +2,12 @@ import { Order } from "../legacy/common/interfaces";
 import { ListOptions } from "./listOptions";
 
 export class Page<T> implements IterableIterator<T> {
-    private currentIndex: number = 0;
-
-    private listOptions: ListOptions;
-
-    private _data: Array<T>;
+    /**
+     * The data in the page
+     */
+    public get data(): Array<T> {
+        return this._data;
+    }
 
     /**
      * Whether there are more results to display
@@ -37,13 +38,11 @@ export class Page<T> implements IterableIterator<T> {
      *  Entity id for fetch after it
      */
     public readonly continuationMarker?: string;
+    private currentIndex: number = 0;
 
-    /**
-     * The data in the page
-     */
-    public get data(): Array<T> {
-        return this._data;
-    }
+    private listOptions: ListOptions;
+
+    private _data: Array<T>;
 
     constructor(from: any, data?: Array<T>, apiMapper?: (key: T, index?: number) => T, listOptions?: ListOptions) {
         this.listOptions = listOptions || {};

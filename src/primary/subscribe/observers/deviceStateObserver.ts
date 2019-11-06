@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-import { Observer } from "./observer";
+import { ensureArray } from "../../../legacy/common/functions";
 import { Resource } from "../../../legacy/connect/models/resource";
 import { DeviceEvent, DeviceEventFilter } from "../../../legacy/connect/types";
-import { ensureArray } from "../../../legacy/common/functions";
+import { Observer } from "./observer";
 
 export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
     private filter: DeviceEventFilter;
@@ -28,17 +28,6 @@ export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
         if (_filter) {
             this.filter = _filter;
         }
-    }
-
-    private filterFunc(data: DeviceEvent<Resource>): boolean {
-        if (this.filter) {
-            for (const key in this.filter) {
-                if (ensureArray(this.filter[key]).indexOf(data[key]) === -1) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     /**
@@ -59,5 +48,16 @@ export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
     public unsubscribe(): void {
         this.subscribed = false;
         super.clearListeners();
+    }
+
+    private filterFunc(data: DeviceEvent<Resource>): boolean {
+        if (this.filter) {
+            for (const key in this.filter) {
+                if (ensureArray(this.filter[key]).indexOf(data[key]) === -1) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

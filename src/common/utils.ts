@@ -14,7 +14,7 @@ export const isJwt = (token: string) => {
     return false;
 };
 
-export const union = (array1: any[], array2: any[], equality?: (x, y) => boolean) => {
+export const union = (array1: Array<any>, array2: Array<any>, equality?: (x, y) => boolean) => {
     const res = [...array1];
 
     if (!equality) {
@@ -30,7 +30,7 @@ export const union = (array1: any[], array2: any[], equality?: (x, y) => boolean
     return res;
 };
 
-export const arraysEqual = (array1: any[], array2: any[]) => {
+export const arraysEqual = (array1: Array<any>, array2: Array<any>) => {
     // compare lengths - can save a lot of time
     if (array1.length !== array2.length) {
         return false;

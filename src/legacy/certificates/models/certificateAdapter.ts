@@ -15,47 +15,24 @@
  * limitations under the License.
  */
 
-import { CertificatesApi } from "../certificatesApi";
-import { Certificate } from "./certificate";
-import { AddCertificateObject, AddDeveloperCertificateObject, UpdateCertificateObject } from "../types";
 import {
-    TrustedCertificateReq as iamCertificateRequest,
-    TrustedCertificateUpdateReq as iamCertificateUpdate,
-    TrustedCertificateResp as iamCertificate,
-} from "../../_api/iam";
-import {
-    DeveloperCertificateRequestData as caCertificateRequest,
     CredentialsResponseData as serverResponse,
+    DeveloperCertificateRequestData as caCertificateRequest,
     DeveloperCertificateResponseData as developerResponse,
 } from "../../_api/connector_ca";
+import {
+    TrustedCertificateReq as iamCertificateRequest,
+    TrustedCertificateResp as iamCertificate,
+    TrustedCertificateUpdateReq as iamCertificateUpdate,
+} from "../../_api/iam";
+import { CertificatesApi } from "../certificatesApi";
+import { AddCertificateObject, AddDeveloperCertificateObject, UpdateCertificateObject } from "../types";
+import { Certificate } from "./certificate";
 
 /**
  * Certificate Adapter
  */
 export class CertificateAdapter {
-    private static map(from: iamCertificate): Partial<Certificate> {
-        return {
-            id: from.id,
-            name: from.name,
-            description: from.description,
-            type: from.device_execution_mode === 1 ? "developer" : from.service,
-            status: from.status,
-            accountId: from.account_id,
-            certificateData: from.certificate,
-            createdAt: from.created_at,
-            issuer: from.issuer,
-            subject: from.subject,
-            validity: from.validity,
-            ownerId: from.owner_id,
-            enrollmentMode: from.enrollment_mode || false,
-            serverUri: null,
-            serverCertificate: null,
-            headerFile: null,
-            developerCertificate: null,
-            developerPrivateKey: null,
-        };
-    }
-
     public static mapCertificate(from: iamCertificate, api: CertificatesApi): Certificate {
         return new Certificate(CertificateAdapter.map(from), api);
     }
@@ -115,6 +92,28 @@ export class CertificateAdapter {
         return {
             name: from.name,
             description: from.description,
+        };
+    }
+    private static map(from: iamCertificate): Partial<Certificate> {
+        return {
+            id: from.id,
+            name: from.name,
+            description: from.description,
+            type: from.device_execution_mode === 1 ? "developer" : from.service,
+            status: from.status,
+            accountId: from.account_id,
+            certificateData: from.certificate,
+            createdAt: from.created_at,
+            issuer: from.issuer,
+            subject: from.subject,
+            validity: from.validity,
+            ownerId: from.owner_id,
+            enrollmentMode: from.enrollment_mode || false,
+            serverUri: null,
+            serverCertificate: null,
+            headerFile: null,
+            developerCertificate: null,
+            developerPrivateKey: null,
         };
     }
 }

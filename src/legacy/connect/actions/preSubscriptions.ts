@@ -1,8 +1,8 @@
-import { CallbackFn } from "../../common/interfaces";
-import { PresubscriptionObject } from "../types";
 import { apiWrapper } from "../../common/functions";
-import { PresubscriptionAdapter } from "../models/presubscriptionAdapter";
+import { CallbackFn } from "../../common/interfaces";
 import { Endpoints } from "../endpoints";
+import { PresubscriptionAdapter } from "../models/presubscriptionAdapter";
+import { PresubscriptionObject } from "../types";
 
 export const listPresubscriptions = (
     endpoints: Endpoints,

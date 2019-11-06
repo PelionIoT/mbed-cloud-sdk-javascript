@@ -1,7 +1,7 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { SubtenantLightThemeColor } from "./subtenantLightThemeColor";
 import { SubtenantLightThemeColorAdapter } from "../../index";
+import { SubtenantLightThemeColor } from "./subtenantLightThemeColor";
 import { SubtenantLightThemeColorUpdateRequest } from "./types";
 /**
  *SubtenantLightThemeColor repository
@@ -21,7 +21,7 @@ export class SubtenantLightThemeColorRepository extends Repository {
                         method: "DELETE",
                         pathParams: {
                             account_id: accountId,
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -46,7 +46,7 @@ export class SubtenantLightThemeColorRepository extends Repository {
                         method: "GET",
                         pathParams: {
                             account_id: accountId,
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -76,7 +76,7 @@ export class SubtenantLightThemeColorRepository extends Repository {
                         method: "PUT",
                         pathParams: {
                             account_id: accountId,
-                            reference: reference,
+                            reference,
                         },
                         body: {
                             color: request.color,

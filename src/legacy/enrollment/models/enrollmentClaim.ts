@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-import { AddEnrollmentClaim } from "../types";
-import { EnrollmentApi } from "../enrollmentApi";
-import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
+import { CallbackFn } from "../../common/interfaces";
+import { EnrollmentApi } from "../enrollmentApi";
+import { AddEnrollmentClaim } from "../types";
 
 export class EnrollmentClaim {
     /**

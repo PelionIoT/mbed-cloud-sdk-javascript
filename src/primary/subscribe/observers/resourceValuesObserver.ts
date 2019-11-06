@@ -14,26 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Observer } from "./observer";
-import {
-    ResourceValuesFilter,
-    NotificationData,
-    PresubscriptionObject,
-    FirstValueEnum,
-    presubscriptionsEqual,
-} from "../../../legacy/connect/types";
+import { union } from "../../../common/utils";
 import { ensureArray, matchWithWildcard } from "../../../legacy/common/functions";
 import { ConnectApi } from "../../../legacy/connect/connectApi";
-import { union } from "../../../common/utils";
+import {
+    FirstValueEnum,
+    NotificationData,
+    PresubscriptionObject,
+    presubscriptionsEqual,
+    ResourceValuesFilter,
+} from "../../../legacy/connect/types";
+import { Observer } from "./observer";
 
 export class ResourceValuesObserver extends Observer<NotificationData> {
     public firstValue: FirstValueEnum;
 
+    public localPresubscriptions: Array<PresubscriptionObject>;
+
     private connect: ConnectApi;
 
     private filter: ResourceValuesFilter;
-
-    public localPresubscriptions: Array<PresubscriptionObject>;
 
     constructor(_filter?: ResourceValuesFilter, _connect?: ConnectApi, firstValue: FirstValueEnum = "OnValueUpdate") {
         super();

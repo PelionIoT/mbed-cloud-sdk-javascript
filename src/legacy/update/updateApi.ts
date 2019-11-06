@@ -15,30 +15,30 @@
  * limitations under the License.
  */
 
-import { asyncStyle, apiWrapper, encodeInclude, encodeFilter } from "../common/functions";
+import { ConfigOptions } from "../../common/config";
+import { ApiMetadata } from "../common/apiMetadata";
+import { apiWrapper, asyncStyle, encodeFilter, encodeInclude } from "../common/functions";
 import { CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
-import {
-    AddFirmwareImageObject,
-    AddFirmwareManifestObject,
-    AddCampaignObject,
-    UpdateCampaignObject,
-    FirmwareImageListOptions,
-    FirmwareManifestListOptions,
-    CampaignListOptions,
-} from "./types";
-import { FirmwareImage } from "./models/firmwareImage";
-import { FirmwareImageAdapter } from "./models/firmwareImageAdapter";
-import { FirmwareManifest } from "./models/firmwareManifest";
-import { FirmwareManifestAdapter } from "./models/firmwareManifestAdapter";
+import { Endpoints } from "./endpoints";
+import { Filters } from "./filters";
 import { Campaign } from "./models/campaign";
 import { CampaignAdapter } from "./models/campaignAdapter";
 import { CampaignDeviceState } from "./models/campaignDeviceState";
 import { CampaignDeviceStateAdapter } from "./models/campaignDeviceStateAdapter";
-import { Endpoints } from "./endpoints";
-import { Filters } from "./filters";
-import { ApiMetadata } from "../common/apiMetadata";
-import { ConfigOptions } from "../../common/config";
+import { FirmwareImage } from "./models/firmwareImage";
+import { FirmwareImageAdapter } from "./models/firmwareImageAdapter";
+import { FirmwareManifest } from "./models/firmwareManifest";
+import { FirmwareManifestAdapter } from "./models/firmwareManifestAdapter";
+import {
+    AddCampaignObject,
+    AddFirmwareImageObject,
+    AddFirmwareManifestObject,
+    CampaignListOptions,
+    FirmwareImageListOptions,
+    FirmwareManifestListOptions,
+    UpdateCampaignObject,
+} from "./types";
 
 /**
  * ## Update API

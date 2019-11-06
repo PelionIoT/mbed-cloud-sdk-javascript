@@ -15,21 +15,21 @@
  * limitations under the License.
  */
 
-import { asyncStyle, apiWrapper, encodeInclude, extractFilter } from "../common/functions";
+import { ConfigOptions } from "../../common/config";
+import { TrustedCertificateResp as iamCertificate } from "../_api/iam";
+import { ApiMetadata } from "../common/apiMetadata";
+import { apiWrapper, asyncStyle, encodeInclude, extractFilter } from "../common/functions";
 import { CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
-import { TrustedCertificateResp as iamCertificate } from "../_api/iam";
 import { Endpoints } from "./endpoints";
-import {
-    AddDeveloperCertificateObject,
-    AddCertificateObject,
-    UpdateCertificateObject,
-    CertificateListOptions,
-} from "./types";
 import { Certificate } from "./models/certificate";
 import { CertificateAdapter } from "./models/certificateAdapter";
-import { ApiMetadata } from "../common/apiMetadata";
-import { ConfigOptions } from "../../common/config";
+import {
+    AddCertificateObject,
+    AddDeveloperCertificateObject,
+    CertificateListOptions,
+    UpdateCertificateObject,
+} from "./types";
 
 /**
  * ## Certificates API
@@ -75,39 +75,6 @@ export class CertificatesApi {
      */
     constructor(options?: ConfigOptions) {
         this._endpoints = new Endpoints(options);
-    }
-
-    private extendCertificate(iamCert: iamCertificate, done: (error: any, certificate: any) => any) {
-        if (iamCert.device_execution_mode === 1) {
-            // Developer certificate
-            this._endpoints.connector.getDeveloperCertificate(iamCert.id, "", (error, data) => {
-                if (error) {
-                    return done(error, null);
-                }
-
-                const certificate = CertificateAdapter.mapDeveloperCertificate(iamCert, this, data);
-                done(null, certificate);
-            });
-
-            return;
-        }
-
-        let credentials = null;
-        this._endpoints.serverCredentials.getAllServerCredentials("", (error, data) => {
-            if (error) {
-                return done(error, null);
-            }
-
-            if (iamCert.service === "bootstrap") {
-                credentials = data.bootstrap;
-            }
-            if (iamCert.service === "lwm2m") {
-                credentials = data.lwm2m;
-            }
-
-            const certificate = CertificateAdapter.mapServerCertificate(iamCert, this, credentials);
-            done(null, certificate);
-        });
     }
 
     /**
@@ -504,5 +471,38 @@ export class CertificatesApi {
         return asyncStyle(done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
+    }
+
+    private extendCertificate(iamCert: iamCertificate, done: (error: any, certificate: any) => any) {
+        if (iamCert.device_execution_mode === 1) {
+            // Developer certificate
+            this._endpoints.connector.getDeveloperCertificate(iamCert.id, "", (error, data) => {
+                if (error) {
+                    return done(error, null);
+                }
+
+                const certificate = CertificateAdapter.mapDeveloperCertificate(iamCert, this, data);
+                done(null, certificate);
+            });
+
+            return;
+        }
+
+        let credentials = null;
+        this._endpoints.serverCredentials.getAllServerCredentials("", (error, data) => {
+            if (error) {
+                return done(error, null);
+            }
+
+            if (iamCert.service === "bootstrap") {
+                credentials = data.bootstrap;
+            }
+            if (iamCert.service === "lwm2m") {
+                credentials = data.lwm2m;
+            }
+
+            const certificate = CertificateAdapter.mapServerCertificate(iamCert, this, credentials);
+            done(null, certificate);
+        });
     }
 }

@@ -16,13 +16,13 @@
  */
 
 // this style of import is needed for third party packages that are being ignored by browserify
-import * as superagent from "superagent";
 import * as dotenv from "dotenv";
+import * as superagent from "superagent";
 
-import { SDKError } from "./sdkError";
+import { ConfigOptions } from "../../common/config";
 import { Version } from "../../version";
 import { isThisNode } from "./functions";
-import { ConfigOptions } from "../../common/config";
+import { SDKError } from "./sdkError";
 
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 const JSON_REGEX = /^application\/json(;.*)?$/i;

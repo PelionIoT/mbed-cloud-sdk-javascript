@@ -1,10 +1,10 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { DeviceEnrollmentBulkCreate } from "./deviceEnrollmentBulkCreate";
-import { DeviceEnrollmentBulkCreateAdapter } from "../../index";
+import { ReadStream } from "fs";
 import { downloadErrorsReportFile } from "../../../common/privateFunctions";
 import { downloadFullReportFile } from "../../../common/privateFunctions";
-import { ReadStream } from "fs";
+import { Repository } from "../../../common/repository";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { DeviceEnrollmentBulkCreateAdapter } from "../../index";
+import { DeviceEnrollmentBulkCreate } from "./deviceEnrollmentBulkCreate";
 /**
  *DeviceEnrollmentBulkCreate repository
  */
@@ -59,7 +59,7 @@ export class DeviceEnrollmentBulkCreateRepository extends Repository {
                         url: "/v3/device-enrollments-bulk-uploads/{id}",
                         method: "GET",
                         pathParams: {
-                            id: id,
+                            id,
                         },
                     },
                     resultsFn

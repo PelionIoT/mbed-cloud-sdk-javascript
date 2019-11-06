@@ -1,10 +1,10 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { DeviceEnrollment } from "./deviceEnrollment";
-import { DeviceEnrollmentAdapter } from "../../index";
-import { DeviceEnrollmentCreateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../common";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { DeviceEnrollmentAdapter } from "../../index";
+import { DeviceEnrollment } from "./deviceEnrollment";
+import { DeviceEnrollmentCreateRequest } from "./types";
 /**
  *DeviceEnrollment repository
  */
@@ -44,7 +44,7 @@ export class DeviceEnrollmentRepository extends Repository {
                         url: "/v3/device-enrollments/{id}",
                         method: "DELETE",
                         pathParams: {
-                            id: id,
+                            id,
                         },
                     },
                     resultsFn
@@ -98,7 +98,7 @@ export class DeviceEnrollmentRepository extends Repository {
                         url: "/v3/device-enrollments/{id}",
                         method: "GET",
                         pathParams: {
-                            id: id,
+                            id,
                         },
                     },
                     resultsFn

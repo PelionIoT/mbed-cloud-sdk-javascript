@@ -1,11 +1,11 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { CertificateEnrollment } from "./certificateEnrollment";
-import { extractFilter } from "../../../common/filters";
-import { CertificateEnrollmentListOptions } from "./types";
-import { CertificateEnrollmentAdapter } from "../../index";
-import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../common";
+import { extractFilter } from "../../../common/filters";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { CertificateEnrollmentAdapter } from "../../index";
+import { CertificateEnrollment } from "./certificateEnrollment";
+import { CertificateEnrollmentListOptions } from "./types";
 /**
  *CertificateEnrollment repository
  */

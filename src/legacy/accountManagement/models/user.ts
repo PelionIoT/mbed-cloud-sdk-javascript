@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-import { asyncStyle, apiWrapper } from "../../common/functions";
+import { apiWrapper, asyncStyle } from "../../common/functions";
 import { CallbackFn, ListOptions } from "../../common/interfaces";
 import { ListResponse } from "../../common/listResponse";
-import { UpdateUserObject, UserStatusEnum } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
+import { UpdateUserObject, UserStatusEnum } from "../types";
 import { ApiKey } from "./apiKey";
 import { Group } from "./group";
 import { LoginHistory } from "./loginHistory";

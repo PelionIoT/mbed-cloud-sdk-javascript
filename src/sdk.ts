@@ -1,6 +1,6 @@
+import { Client } from "./client/client";
 import { Config, ConfigOptions } from "./common/config";
 import { Factory } from "./foundation";
-import { Client } from "./client/client";
 
 /**
  * Top level Sdk instance

@@ -70,6 +70,10 @@
             true,
             "always"
         ],
+        "object-literal-key-quotes": [
+            true,
+            "as-needed"
+        ],
         "object-literal-shorthand": false,
         "object-literal-sort-keys": false,
         "ordered-imports": [
@@ -82,10 +86,6 @@
         "semicolon": [
             true,
             "always"
-        ],
-        "ter-indent": [
-            true,
-            4
         ],
         "ter-no-irregular-whitespace": [
             true

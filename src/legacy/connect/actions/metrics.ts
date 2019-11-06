@@ -1,10 +1,10 @@
-import { MetricsStartEndListOptions, MetricsPeriodListOptions, MetricsListOptions } from "../types";
+import { apiWrapper } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
 import { ListResponse } from "../../common/listResponse";
+import { Endpoints } from "../endpoints";
 import { Metric } from "../models/metric";
 import { MetricAdapter } from "../models/metricAdapter";
-import { apiWrapper } from "../../common/functions";
-import { Endpoints } from "../endpoints";
+import { MetricsListOptions, MetricsPeriodListOptions, MetricsStartEndListOptions } from "../types";
 
 export const listMetrics = (
     endpoints: Endpoints,

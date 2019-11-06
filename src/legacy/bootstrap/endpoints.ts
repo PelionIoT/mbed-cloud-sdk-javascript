@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import { EndpointsBase } from "../common/endpointsBase";
-import { PreSharedKeysApi } from "../_api/connector_bootstrap";
 import { ConfigOptions } from "../../common/config";
+import { PreSharedKeysApi } from "../_api/connector_bootstrap";
+import { EndpointsBase } from "../common/endpointsBase";
 
 export class Endpoints extends EndpointsBase {
     public readonly bootstrap: PreSharedKeysApi;

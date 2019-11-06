@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { ListOptions, ComparisonObject } from "../common/interfaces";
+import { ComparisonObject, ListOptions } from "../common/interfaces";
 
 export type CertificateTypeEnum = "developer" | "lwm2m" | "bootstrap";
 export type CertificateStatusEnum = "ACTIVE" | "INACTIVE";

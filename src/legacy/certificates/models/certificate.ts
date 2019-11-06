@@ -17,8 +17,8 @@
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { AddDeveloperCertificateObject, CertificateTypeEnum, CertificateStatusEnum } from "../types";
 import { CertificatesApi } from "../certificatesApi";
+import { AddDeveloperCertificateObject, CertificateStatusEnum, CertificateTypeEnum } from "../types";
 
 /**
  * Certificate
@@ -114,7 +114,7 @@ export class Certificate {
             this._api.updateCertificate(
                 {
                     id: this.id,
-                    signature: signature,
+                    signature,
                     type: this.type,
                     status: this.status,
                     certificateData: this.certificateData,

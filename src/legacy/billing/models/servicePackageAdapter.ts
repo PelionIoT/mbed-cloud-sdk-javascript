@@ -17,8 +17,8 @@
 
 import {
     ActiveServicePackage,
-    PreviousServicePackage,
     PendingServicePackage,
+    PreviousServicePackage,
     ServicePackageQuotaHistoryServicePackage,
 } from "../../_api/billing";
 import { ServicePackage } from "./servicePackage";

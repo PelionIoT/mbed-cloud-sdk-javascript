@@ -17,8 +17,8 @@
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn } from "../../common/interfaces";
-import { UpdateAccountObject, AccountStatusEnum } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
+import { AccountStatusEnum, UpdateAccountObject } from "../types";
 import { Policy } from "./policy";
 
 /**

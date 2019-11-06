@@ -15,28 +15,28 @@
  * limitations under the License.
  */
 
-import { asyncStyle, apiWrapper, encodeInclude, encodeFilter } from "../common/functions";
+import { ConfigOptions } from "../../common/config";
+import { ApiMetadata } from "../common/apiMetadata";
+import { apiWrapper, asyncStyle, encodeFilter, encodeInclude } from "../common/functions";
 import { CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
-import {
-    AddDeviceObject,
-    UpdateDeviceObject,
-    AddQueryObject,
-    UpdateQueryObject,
-    DeviceListOptions,
-    QueryListOptions,
-    DeviceEventListOptions,
-} from "./types";
-import { Device } from "./models/device";
-import { DeviceAdapter } from "./models/deviceAdapter";
-import { Query } from "./models/query";
-import { QueryAdapter } from "./models/queryAdapter";
-import { DeviceEvent } from "./models/deviceEvent";
-import { DeviceEventAdapter } from "./models/deviceEventAdapter";
 import { Endpoints } from "./endpoints";
 import { Filters } from "./filters";
-import { ApiMetadata } from "../common/apiMetadata";
-import { ConfigOptions } from "../../common/config";
+import { Device } from "./models/device";
+import { DeviceAdapter } from "./models/deviceAdapter";
+import { DeviceEvent } from "./models/deviceEvent";
+import { DeviceEventAdapter } from "./models/deviceEventAdapter";
+import { Query } from "./models/query";
+import { QueryAdapter } from "./models/queryAdapter";
+import {
+    AddDeviceObject,
+    AddQueryObject,
+    DeviceEventListOptions,
+    DeviceListOptions,
+    QueryListOptions,
+    UpdateDeviceObject,
+    UpdateQueryObject,
+} from "./types";
 
 /**
  * ## Device Directory API

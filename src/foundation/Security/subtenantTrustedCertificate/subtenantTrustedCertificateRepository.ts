@@ -1,10 +1,10 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { SubtenantTrustedCertificate } from "./subtenantTrustedCertificate";
 import { SubtenantTrustedCertificateAdapter } from "../../index";
-import { SubtenantTrustedCertificateCreateRequest } from "./types";
 import { DeveloperCertificate } from "../../index";
 import { DeveloperCertificateAdapter } from "../../index";
+import { SubtenantTrustedCertificate } from "./subtenantTrustedCertificate";
+import { SubtenantTrustedCertificateCreateRequest } from "./types";
 import { SubtenantTrustedCertificateUpdateRequest } from "./types";
 /**
  *SubtenantTrustedCertificate repository

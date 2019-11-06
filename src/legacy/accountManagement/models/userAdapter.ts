@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-import { UserInfoReq as apiUserAdd, UserUpdateReq as apiUserUpdate, UserInfoResp as apiUser } from "../../_api/iam";
-import { AddUserObject, UpdateUserObject } from "../types";
+import { UserInfoReq as apiUserAdd, UserInfoResp as apiUser, UserUpdateReq as apiUserUpdate } from "../../_api/iam";
 import { AccountManagementApi } from "../accountManagementApi";
-import { User } from "./user";
+import { AddUserObject, UpdateUserObject } from "../types";
 import { LoginHistoryAdapter } from "./loginHistoryAdapter";
+import { User } from "./user";
 
 /**
  * User Adapter

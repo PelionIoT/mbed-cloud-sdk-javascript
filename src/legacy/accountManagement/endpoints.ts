@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import { EndpointsBase } from "../common/endpointsBase";
-import { DeveloperApi, AccountAdminApi } from "../_api/iam";
 import { ConfigOptions } from "../../common/config";
+import { AccountAdminApi, DeveloperApi } from "../_api/iam";
+import { EndpointsBase } from "../common/endpointsBase";
 
 export class Endpoints extends EndpointsBase {
     public developer: DeveloperApi;

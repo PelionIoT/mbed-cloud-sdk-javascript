@@ -1,7 +1,7 @@
-import { Adapter } from "../../../common/adapter";
-import { OidcRequest } from "./oidcRequest";
 import { OidcRequestClaimMappingAdapter } from "../..";
 import { IdentityProviderPublicKeyAdapter } from "../..";
+import { Adapter } from "../../../common/adapter";
+import { OidcRequest } from "./oidcRequest";
 /**
  *OidcRequest adapter
  */
@@ -29,7 +29,7 @@ export class OidcRequestAdapter extends Adapter {
             endSessionEndpoint: data.end_session_endpoint,
             issuer: data.issuer,
             jwksUri: data.jwks_uri,
-            keys: keys,
+            keys,
             redirectUri: data.redirect_uri,
             revocationEndpoint: data.revocation_endpoint,
             scopes: data.scopes,

@@ -1,15 +1,15 @@
+import { ListOptions } from "../../../common";
+import { extractFilter } from "../../../common/filters";
 import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { UpdateCampaign } from "./updateCampaign";
 import { UpdateCampaignAdapter } from "../../index";
-import { UpdateCampaignCreateRequest } from "./types";
 import { CampaignDeviceMetadata } from "../../index";
 import { CampaignDeviceMetadataAdapter } from "../../index";
-import { extractFilter } from "../../../common/filters";
+import { UpdateCampaignCreateRequest } from "./types";
 import { UpdateCampaignListOptions } from "./types";
 import { UpdateCampaignUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
+import { UpdateCampaign } from "./updateCampaign";
 /**
  *UpdateCampaign repository
  */

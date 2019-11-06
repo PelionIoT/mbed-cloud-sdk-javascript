@@ -14,8 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Observer } from "./observer";
 import { NotificationObject } from "../../../legacy/connect/types";
+import { Observer } from "./observer";
 
 export class MasterObserver extends Observer<NotificationObject> {
     constructor() {

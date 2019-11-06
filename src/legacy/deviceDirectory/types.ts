@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { ListOptions, ComparisonObject } from "../common/interfaces";
+import { ComparisonObject, ListOptions } from "../common/interfaces";
 
 export type MechanismEnum = "connector" | "direct";
 export type DeviceStateEnum = "unenrolled" | "cloud_enrolling" | "bootstrapped" | "registered" | "deregistered";

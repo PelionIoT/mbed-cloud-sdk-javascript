@@ -1,13 +1,13 @@
+import { ListOptions } from "../../../common";
 import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { SubtenantUser } from "./subtenantUser";
 import { SubtenantUserAdapter } from "../../index";
-import { SubtenantUserCreateRequest } from "./types";
 import { SubtenantPolicyGroup } from "../../index";
 import { SubtenantPolicyGroupAdapter } from "../../index";
+import { SubtenantUser } from "./subtenantUser";
+import { SubtenantUserCreateRequest } from "./types";
 import { SubtenantUserUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
 /**
  *SubtenantUser repository
  */
@@ -26,7 +26,7 @@ export class SubtenantUserRepository extends Repository {
                         url: "/v3/accounts/{account_id}/users",
                         method: "POST",
                         query: {
-                            action: action,
+                            action,
                         },
                         pathParams: {
                             account_id: accountId,

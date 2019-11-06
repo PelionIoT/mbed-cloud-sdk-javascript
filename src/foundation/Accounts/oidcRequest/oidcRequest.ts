@@ -1,6 +1,6 @@
 import { Entity } from "../../../common/entity";
-import { OidcRequestClaimMapping } from "../oidcRequestClaimMapping/oidcRequestClaimMapping";
 import { IdentityProviderPublicKey } from "../identityProviderPublicKey/identityProviderPublicKey";
+import { OidcRequestClaimMapping } from "../oidcRequestClaimMapping/oidcRequestClaimMapping";
 import { OidcRequestTokenMode } from "./types";
 /**
  *OidcRequest

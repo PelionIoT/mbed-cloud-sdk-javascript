@@ -1,48 +1,48 @@
-import * as superagent from "superagent";
 import { EventEmitter } from "events";
-import { ListResponse } from "../common/listResponse";
+import * as superagent from "superagent";
+import { Logger } from "typescript-logging";
+import { Config, SDKError } from "../..";
+import { TlvParser } from "../../common";
+import { loggerFactory } from "../../common/logger";
+import { Subscribe } from "../../primary/subscribe/subscribe";
+import { ApiMetadata } from "../common/apiMetadata";
 import { asyncStyle } from "../common/functions";
+import { generateId } from "../common/idGenerator";
 import { CallbackFn } from "../common/interfaces";
-import { Endpoints } from "./endpoints";
+import { ListResponse } from "../common/listResponse";
+import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
+import { DeviceListOptions } from "../deviceDirectory/types";
+import { deleteWebhook, getWebhook, updateWebhook } from "./actions";
 import {
+    addResourceSubscription,
+    deleteDeviceSubscriptions,
+    deleteResourceSubscription,
+    deleteSubscriptions,
+    getResourceSubscription,
+    listDeviceSubscriptions,
+    listResources,
+} from "./actions";
+import { listConnectedDevices } from "./actions";
+import { deletePresubscriptions, listPresubscriptions, updatePresubscriptions } from "./actions";
+import { executeResource, getResource, getResourceValue, setResourceValue } from "./actions";
+import { notify, startNotifications, stopNotifications } from "./actions";
+import { listMetrics } from "./actions/metrics";
+import { Endpoints } from "./endpoints";
+import { ConnectedDevice } from "./models/connectedDevice";
+import { Metric } from "./models/metric";
+import { Resource } from "./models/resource";
+import { ResourceValue } from "./models/resourceValue";
+import { Webhook } from "./models/webhook";
+import {
+    AsyncResponse,
+    AsyncResponseItem,
     ConnectOptions,
+    DeliveryMethod,
     NotificationObject,
     NotificationOptions,
     PresubscriptionObject,
-    AsyncResponse,
-    DeliveryMethod,
-    AsyncResponseItem,
 } from "./types";
-import { Webhook } from "./models/webhook";
-import { Resource } from "./models/resource";
-import { ConnectedDevice } from "./models/connectedDevice";
-import { MetricsStartEndListOptions, MetricsPeriodListOptions } from "./types";
-import { Metric } from "./models/metric";
-import { ApiMetadata } from "../common/apiMetadata";
-import { DeviceListOptions } from "../deviceDirectory/types";
-import { DeviceDirectoryApi } from "../deviceDirectory/deviceDirectoryApi";
-import { generateId } from "../common/idGenerator";
-import { Subscribe } from "../../primary/subscribe/subscribe";
-import { loggerFactory } from "../../common/logger";
-import { Logger } from "typescript-logging";
-import { Config, SDKError } from "../..";
-import { notify, startNotifications, stopNotifications } from "./actions";
-import { getWebhook, updateWebhook, deleteWebhook } from "./actions";
-import { getResourceValue, setResourceValue, executeResource, getResource } from "./actions";
-import { listPresubscriptions, updatePresubscriptions, deletePresubscriptions } from "./actions";
-import { listConnectedDevices } from "./actions";
-import {
-    deleteSubscriptions,
-    listDeviceSubscriptions,
-    deleteDeviceSubscriptions,
-    listResources,
-    getResourceSubscription,
-    addResourceSubscription,
-    deleteResourceSubscription,
-} from "./actions";
-import { listMetrics } from "./actions/metrics";
-import { TlvParser } from "../../common";
-import { ResourceValue } from "./models/resourceValue";
+import { MetricsPeriodListOptions, MetricsStartEndListOptions } from "./types";
 
 /**
  * ## Connect API
@@ -439,7 +439,7 @@ export class ConnectApi extends EventEmitter {
      */
     public listResources(deviceId: string, callback: CallbackFn<Array<Resource>>): void;
     public listResources(deviceId: string, callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
-        return listResources(this._endpoints, this, deviceId, callback);
+        return listResources(this._endpoints, deviceId, callback);
     }
 
     /**

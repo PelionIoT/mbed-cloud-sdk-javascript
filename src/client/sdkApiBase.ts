@@ -17,11 +17,11 @@
 
 import * as superagent from "superagent";
 
-import { SDKError } from "../legacy/common/sdkError";
 import { Config } from "../common/config";
-import { Version } from "../version";
-import { isThisNode } from "../legacy/common/functions";
 import { objectKeysToSnakeCase } from "../common/transform";
+import { isThisNode } from "../legacy/common/functions";
+import { SDKError } from "../legacy/common/sdkError";
+import { Version } from "../version";
 
 // tslint:disable-next-line:no-var-requires
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;

@@ -15,35 +15,31 @@
  * limitations under the License.
  */
 
+import { TlvDataType } from "../../../common";
 import { EndpointData as apiDeviceEvent, ResourcesData as apiResourceEvent } from "../../_api/mds";
 import { DeviceEvent, DeviceEventEnum } from "../types";
-import { ConnectApi } from "../connectApi";
 import { Resource } from "./resource";
-import { TlvDataType } from "../../../common";
 
 /**
  * Device Event Adapter
  */
 export class DeviceEventAdapter {
-    public static mapResource(from: apiResourceEvent, deviceId: string, api: ConnectApi): Resource {
-        return new Resource(
-            {
-                contentType: TlvDataType[from.ct],
-                observable: from.obs,
-                type: from.rt,
-                path: from.path,
-                deviceId: deviceId,
-            },
-            api
-        );
+    public static mapResource(from: apiResourceEvent, deviceId: string): Resource {
+        return {
+            contentType: from.rt,
+            observable: from.obs,
+            type: TlvDataType[from.ct],
+            path: from.path,
+            deviceId,
+        };
     }
 
-    public static map(from: apiDeviceEvent, api: ConnectApi, event: DeviceEventEnum): DeviceEvent<Resource> {
+    public static map(from: apiDeviceEvent, event: DeviceEventEnum): DeviceEvent<Resource> {
         let resources = [];
 
         if (from && from.resources) {
             resources = from.resources.map(resource => {
-                return DeviceEventAdapter.mapResource(resource, from.ep, api);
+                return DeviceEventAdapter.mapResource(resource, from.ep);
             });
         }
 
@@ -51,8 +47,8 @@ export class DeviceEventAdapter {
             id: from.ep,
             type: from.ept,
             queueMode: from.q,
-            resources: resources,
-            event: event,
+            resources,
+            event,
         };
     }
 
@@ -60,7 +56,7 @@ export class DeviceEventAdapter {
         // map an id to a sparse DeviceEvent object for observing.
         return {
             id: from,
-            event: event,
+            event,
         };
     }
 }

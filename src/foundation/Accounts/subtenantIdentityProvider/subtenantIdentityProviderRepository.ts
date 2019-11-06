@@ -1,12 +1,12 @@
+import { ListOptions } from "../../../common";
 import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { SubtenantIdentityProvider } from "./subtenantIdentityProvider";
 import { SubtenantIdentityProviderAdapter } from "../../index";
+import { SubtenantIdentityProvider } from "./subtenantIdentityProvider";
 import { SubtenantIdentityProviderCreateRequest } from "./types";
 import { SubtenantIdentityProviderGenerateServiceProviderCertificateRequest } from "./types";
 import { SubtenantIdentityProviderUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
 /**
  *SubtenantIdentityProvider repository
  */
@@ -29,7 +29,7 @@ export class SubtenantIdentityProviderRepository extends Repository {
                         url: "/v3/accounts/{account_id}/identity-providers",
                         method: "POST",
                         query: {
-                            discovery: discovery,
+                            discovery,
                         },
                         pathParams: {
                             account_id: accountId,
@@ -241,7 +241,7 @@ export class SubtenantIdentityProviderRepository extends Repository {
                         url: "/v3/accounts/{account_id}/identity-providers/{identity_provider_id}",
                         method: "PUT",
                         query: {
-                            discovery: discovery,
+                            discovery,
                         },
                         pathParams: {
                             account_id: accountId,

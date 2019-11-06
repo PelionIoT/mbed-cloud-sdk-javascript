@@ -1,11 +1,11 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { DeviceEnrollmentDenial } from "./deviceEnrollmentDenial";
-import { extractFilter } from "../../../common/filters";
-import { DeviceEnrollmentDenialListOptions } from "./types";
-import { DeviceEnrollmentDenialAdapter } from "../../index";
-import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../common";
+import { extractFilter } from "../../../common/filters";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { DeviceEnrollmentDenialAdapter } from "../../index";
+import { DeviceEnrollmentDenial } from "./deviceEnrollmentDenial";
+import { DeviceEnrollmentDenialListOptions } from "./types";
 /**
  *DeviceEnrollmentDenial repository
  */

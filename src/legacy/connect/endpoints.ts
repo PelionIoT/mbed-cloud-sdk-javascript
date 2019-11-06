@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
+import { ConfigOptions } from "../../common/config";
+import { DeviceRequestsApi, EndpointsApi, NotificationsApi, ResourcesApi, SubscriptionsApi } from "../_api/mds";
 import { AccountApi, StatisticsApi } from "../_api/statistics";
 import { EndpointsBase } from "../common/endpointsBase";
-import { DeviceRequestsApi, EndpointsApi, NotificationsApi, ResourcesApi, SubscriptionsApi } from "../_api/mds";
-import { ConfigOptions } from "../../common/config";
 
 export class Endpoints extends EndpointsBase {
     public endpoints: EndpointsApi;
