@@ -1,16 +1,17 @@
-import { Strings, TlvParser, TlvValue } from "../../../common";
+import { TlvParser, TlvValue } from "../../../common";
 import { parseValueFromType } from "../../common/functions";
 import { SDKError } from "../../common/sdkError";
 import { LatLong } from "../types";
 import { Resource } from "./resource";
+import { decodeBase64AsString, toString } from "../../../common/tlv/utils/strings";
 
 export class ResourceValue {
-    private resource: Resource;
-    private payload: string;
     private tlvParser: TlvParser;
-    private value: string | number | LatLong | IterableIterator<TlvValue>;
     private stringValue: string;
     private jsonValue: any;
+    public readonly value: string | number | LatLong | IterableIterator<TlvValue>;
+    public readonly resource: Resource;
+    public readonly payload: string;
     constructor({
         payload,
         resource = {},
@@ -36,7 +37,7 @@ export class ResourceValue {
             this.value = new TlvParser(this.payload).parse();
         }
 
-        const decodedPayload = Strings.decodeBase64AsString(payload);
+        const decodedPayload = decodeBase64AsString(payload);
         if (resource.type) {
             this.value = parseValueFromType(decodedPayload, resource.type);
         } else {
@@ -45,10 +46,12 @@ export class ResourceValue {
     }
     public toString() {
         if (!this.stringValue) {
-            if (this.resource.contentType.indexOf("tlv") > -1) {
-                this.stringValue = this.tlvParser.parseDataAndConvertToString(this.payload);
+            if (this.resource.contentType && this.resource.contentType.indexOf("tlv") > -1) {
+                this.stringValue = this.tlvParser
+                    ? this.tlvParser.parseDataAndConvertToString(this.payload)
+                    : TlvParser.parseDataAndConvertToString(this.payload);
             } else {
-                this.stringValue = Strings.toString(this.value);
+                this.stringValue = toString(this.value);
             }
         }
 
@@ -59,8 +62,10 @@ export class ResourceValue {
             return this.jsonValue;
         }
 
-        if (this.resource.contentType.indexOf("tlv") > -1) {
-            this.jsonValue = this.tlvParser.parseDataAndConvertToJson(this.payload);
+        if (this.resource.contentType && this.resource.contentType.indexOf("tlv") > -1) {
+            this.jsonValue = this.tlvParser
+                ? this.tlvParser.parseDataAndConvertToJson(this.payload)
+                : TlvParser.parseDataAndConvertToJson(this.payload);
             return this.jsonValue;
         } else {
             throw new SDKError("Resource is not an object");
