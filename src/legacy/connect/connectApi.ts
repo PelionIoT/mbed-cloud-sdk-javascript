@@ -12,10 +12,9 @@ import {
     AsyncResponse,
     DeliveryMethod,
     AsyncResponseItem,
-    LatLong,
 } from "./types";
 import { Webhook } from "./models/webhook";
-import { Resource, ResourceDM } from "./models/resource";
+import { Resource } from "./models/resource";
 import { ConnectedDevice } from "./models/connectedDevice";
 import { MetricsStartEndListOptions, MetricsPeriodListOptions } from "./types";
 import { Metric } from "./models/metric";
@@ -43,6 +42,7 @@ import {
 } from "./actions";
 import { listMetrics } from "./actions/metrics";
 import { TlvParser } from "../../common";
+import { ResourceValue } from "./models/resourceValue";
 
 /**
  * ## Connect API
@@ -459,7 +459,7 @@ export class ConnectApi extends EventEmitter {
      */
     public getResource(deviceId: string, resourcePath: string, callback?: CallbackFn<Resource>): void;
     public getResource(deviceId: string, resourcePath: string, callback?: CallbackFn<Resource>): Promise<Resource> {
-        return getResource(this._endpoints, this, deviceId, resourcePath, callback);
+        return getResource(this._endpoints, deviceId, resourcePath, callback);
     }
 
     /**
@@ -478,9 +478,9 @@ export class ConnectApi extends EventEmitter {
         resourcePath: string,
         timeout?: number,
         mimeType?: string,
-        resource?: ResourceDM,
+        resource?: Resource,
         tlvParser?: TlvParser
-    ): Promise<string | number | LatLong>;
+    ): Promise<ResourceValue>;
     /**
      * Gets the value of a resource
      *
@@ -497,33 +497,33 @@ export class ConnectApi extends EventEmitter {
         resourcePath: string,
         timeout?: number,
         mimeType?: string,
-        resource?: ResourceDM,
+        resource?: Resource,
         tlvParser?: TlvParser,
-        callback?: CallbackFn<string | number | LatLong>
+        callback?: CallbackFn<ResourceValue>
     ): void;
     public getResourceValue(
         deviceId: string,
         resourcePath: string,
         timeout?: number,
         mimeType?: any,
-        resource?: ResourceDM,
+        resource?: Resource,
         tlvParser?: TlvParser,
-        callback?: CallbackFn<string | number | LatLong>
-    ): Promise<string | number | LatLong> {
-        return getResourceValue(
-            this,
-            this._endpoints,
-            this._asyncFns,
-            this.forceClear,
-            this.autostartNotifications,
+        callback?: CallbackFn<ResourceValue>
+    ): Promise<ResourceValue> {
+        return getResourceValue({
+            connect: this,
+            endpoints: this._endpoints,
+            asyncFns: this._asyncFns,
+            forceClear: this.forceClear,
+            autostartNotifications: this.autostartNotifications,
             deviceId,
             resourcePath,
             timeout,
             mimeType,
             resource,
             tlvParser,
-            callback
-        );
+            callback,
+        });
     }
 
     /**

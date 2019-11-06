@@ -112,7 +112,11 @@ export class ConnectedDevice extends Device {
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: string): Promise<string | number | LatLong>;
+    public getResourceValue(
+        resourcePath: string,
+        timeout?: number,
+        mimeType?: string
+    ): Promise<string | number | LatLong>;
     /**
      * Gets the value of a resource
      *

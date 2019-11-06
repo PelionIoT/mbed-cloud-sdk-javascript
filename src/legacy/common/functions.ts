@@ -18,8 +18,9 @@
 import { CallbackFn, ComparisonObject, operators } from "./interfaces";
 import { SDKError } from "./sdkError";
 import { TlvParser, Strings, TlvDataType } from "../../common/tlv";
-import { ResourceDM } from "../connect/models/resource";
+import { Resource } from "../connect/models/resource";
 import { LatLong } from "../connect/types";
+import { ResourceValue } from "../connect/models/resourceValue";
 
 // Inspired by https://github.com/sonnyp/polygoat
 // If a callback is passed, use that after running the passed function, otherwise return a promise chain
@@ -154,28 +155,18 @@ export function encodeBase64(payload): string {
  * Internal function
  * @ignore
  */
-export function parseResourceValue({ payload, contentType, resource, tlvParser, path }: { payload: string; contentType: string; resource?: ResourceDM; tlvParser?: TlvParser; path?: string }) {
-    if (path && path.startsWith("/6")) {
-        const payloadJson = tlvParser ? tlvParser.parseDataAndConvertToJson(payload) : TlvParser.parseDataAndConvertToJson(payload);
-        const value = typeof payloadJson[0] === "object" ? payloadJson[0] : payloadJson;
-        if (value[0] && value[1]) {
-            return { latitude: value[0], longitude: value[1] } as LatLong;
-        }
-    }
-
-    if (contentType && contentType.indexOf("tlv") > -1) {
-        // Decode tlv
-        return tlvParser ? tlvParser.parseDataAndConvertToString(payload) : TlvParser.parseDataAndConvertToString(payload);
-    }
-
-    const decodedPayload = Strings.decodeBase64AsString(payload);
-
-    // if string value is a number, then return number, otherwise just return the string
-    if (resource && resource.contentType) {
-        return parseValueFromType(decodedPayload, resource.contentType);
-    }
-
-    return decodedPayload;
+export function parseResourceValue({
+    payload,
+    contentType,
+    resource,
+    tlvParser,
+}: {
+    payload: string;
+    contentType: string;
+    resource?: Resource;
+    tlvParser?: TlvParser;
+}) {
+    return new ResourceValue({ payload, resource, tlvParser });
 }
 
 export function parseValueFromType(value: string, type: TlvDataType): string | number {

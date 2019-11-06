@@ -26,7 +26,7 @@ export const notify = (
     if (data["async-responses"]) {
         data["async-responses"].forEach(response => {
             const asyncID = response.id;
-            const { fn, tlvParser, resource } = asyncFns[asyncID] || {};
+            const { fn, tlvParser, resource = {} } = asyncFns[asyncID] || {};
             if (fn) {
                 if (response.status >= 400) {
                     const message = AsyncResponseStatus[response.status || 400];
@@ -34,7 +34,12 @@ export const notify = (
                     fn(error, null);
                 } else {
                     const body = response.payload
-                        ? parseResourceValue({ payload: response.payload, contentType: response.ct, resource, tlvParser, path: resource ? resource.path : "" })
+                        ? parseResourceValue({
+                              payload: response.payload,
+                              contentType: response.ct,
+                              resource,
+                              tlvParser,
+                          })
                         : null;
                     fn(null, body);
                 }
@@ -45,7 +50,12 @@ export const notify = (
 
     if (data.notifications) {
         data.notifications.forEach(notification => {
-            const body = notification.payload ? parseResourceValue({ payload: notification.payload, contentType: notification.ct, path: notification.path }) : null;
+            const body = notification.payload
+                ? parseResourceValue({
+                      payload: notification.payload,
+                      contentType: notification.ct,
+                  }).toString()
+                : null;
             const path = `${notification.ep}${notification.path}`;
             const { fn } = notifyFns[path] || {};
             if (fn) {

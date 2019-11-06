@@ -3,52 +3,51 @@ import { apiWrapper, encodeBase64 } from "../../common/functions";
 import { ConnectApi, SDKError } from "../../../";
 import { CallbackFn } from "../../common/interfaces";
 import { AsyncResponse, AsyncResponseItem, LatLong } from "../types";
-import { Resource, ResourceDM } from "../models/resource";
+import { Resource } from "../models/resource";
 import { ResourceAdapter } from "../models/resourceAdapter";
 import { Endpoints } from "../endpoints";
 import { TlvParser } from "../../../common";
+import { ResourceValue } from "../models/resourceValue";
 
-export const getResourceValue = (
-    connect: ConnectApi,
-    endpoints: Endpoints,
-    asyncFns: { [key: string]: AsyncResponseItem },
-    forceClear: boolean,
-    autostartNotifications: boolean,
-    deviceId: string,
-    resourcePath: string,
-    timeout?: number,
-    mimeType?: any,
-    resource?: ResourceDM,
-    tlvParser?: TlvParser,
-    callback?: CallbackFn<string | number | LatLong>
-): Promise<string | number | LatLong> => {
-    if (typeof timeout === "function") {
-        callback = timeout;
-        timeout = null;
-    }
-    if (typeof mimeType === "function") {
-        callback = mimeType;
-        mimeType = null;
-    }
-    if (typeof resource === "function") {
-        callback = resource;
-        resource = null;
-    }
-    if (typeof tlvParser === "function") {
-        callback = tlvParser;
-        tlvParser = null;
-    }
-
+export const getResourceValue = ({
+    connect,
+    endpoints,
+    asyncFns,
+    forceClear,
+    autostartNotifications,
+    deviceId,
+    resourcePath,
+    timeout,
+    mimeType,
+    resource,
+    tlvParser,
+    callback,
+}: {
+    connect: ConnectApi;
+    endpoints: Endpoints;
+    asyncFns: {
+        [key: string]: AsyncResponseItem;
+    };
+    forceClear: boolean;
+    autostartNotifications: boolean;
+    deviceId: string;
+    resourcePath: string;
+    timeout?: number;
+    mimeType?: any;
+    resource?: Resource;
+    tlvParser?: TlvParser;
+    callback?: CallbackFn<ResourceValue>;
+}): Promise<ResourceValue> => {
     resourcePath = reverseNormalizePath(resourcePath);
     const asyncId = generateId();
 
-    return apiWrapper<string | number | LatLong>(
+    return apiWrapper<ResourceValue>(
         async resultsFn => {
             if ((await connect.getWebhook()) && forceClear) {
                 return resultsFn(new SDKError("webhook in use"), null);
             }
 
-            asyncFns[asyncId] = { fn: resultsFn, resource, tlvParser };
+            asyncFns[asyncId] = { fn: resultsFn, resource: { ...resource, deviceId, path: resourcePath }, tlvParser };
 
             if (callback) {
                 setTimeout(() => {
@@ -287,7 +286,6 @@ export const executeResource = (
 
 export const getResource = (
     endpoints: Endpoints,
-    connect: ConnectApi,
     deviceId: string,
     resourcePath: string,
     callback?: CallbackFn<Resource>
@@ -307,7 +305,7 @@ export const getResource = (
                 return done(new SDKError("Resource not found"), null);
             }
 
-            done(null, ResourceAdapter.map(found, deviceId, connect));
+            done(null, ResourceAdapter.map(found, deviceId));
         },
         callback
     );
