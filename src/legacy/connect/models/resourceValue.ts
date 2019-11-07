@@ -68,7 +68,7 @@ export class ResourceValue {
                 : TlvParser.parseDataAndConvertToJson(this.payload);
             return this.jsonValue;
         } else {
-            throw new SDKError("Resource is not an object");
+            return {};
         }
     }
 }
