@@ -24,24 +24,10 @@ export class ResourceValue {
         this.resource = resource;
         this.tlvParser = tlvParser;
 
-        if (resource.path && resource.path.startsWith("/6")) {
-            const payloadJson = this.toJson();
-            const value = typeof payloadJson[0] === "object" ? payloadJson[0] : payloadJson;
-            if (value[0] && value[1]) {
-                this.value = { latitude: value[0], longitude: value[1] } as LatLong;
-            }
-        }
-
-        if (resource.contentType && resource.contentType.indexOf("tlv") > -1) {
-            this.value = new TlvParser(this.payload).parse();
-        }
-
-        const decodedPayload = decodeBase64AsString(payload);
-        if (resource.type) {
-            this.value = parseValueFromType(decodedPayload, resource.type);
-        } else {
-            this.value = decodedPayload;
-        }
+        this.value =
+            this.getLatLongValue(this.resource) ||
+            this.getTlvValue(this.resource) ||
+            this.getDefaultValue(this.resource, this.payload);
     }
     public toString() {
         if (!this.stringValue) {
@@ -68,6 +54,35 @@ export class ResourceValue {
             return this.jsonValue;
         } else {
             return {};
+        }
+    }
+
+    private getLatLongValue(resource: Resource) {
+        if (resource.path && resource.path.startsWith("/6")) {
+            const payloadJson = this.toJson();
+            const value = typeof payloadJson[0] === "object" ? payloadJson[0] : payloadJson;
+            if (value[0] && value[1]) {
+                return { latitude: value[0], longitude: value[1] } as LatLong;
+            }
+
+            return null;
+        }
+    }
+
+    private getTlvValue(resource: Resource) {
+        if (resource.contentType && resource.contentType.indexOf("tlv") > -1) {
+            return new TlvParser(this.payload).parse();
+        }
+
+        return null;
+    }
+
+    private getDefaultValue(resource: Resource, payload: string) {
+        const decodedPayload = decodeBase64AsString(payload);
+        if (resource.type) {
+            return parseValueFromType(decodedPayload, resource.type);
+        } else {
+            return decodedPayload;
         }
     }
 }
