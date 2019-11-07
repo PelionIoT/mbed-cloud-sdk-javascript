@@ -1,5 +1,5 @@
 import { ConnectApi } from "./connectApi";
 export { ConnectApi };
-export { ResourceValue } from "./models/resourceValue";
-export { LatLong } from "./types";
+export * from "./models/resourceValue";
+export * from "./types";
 export default ConnectApi;
