@@ -1,6 +1,5 @@
 import { TlvParser, TlvValue } from "../../../common";
 import { parseValueFromType } from "../../common/functions";
-import { SDKError } from "../../common/sdkError";
 import { LatLong } from "../types";
 import { Resource } from "./resource";
 import { decodeBase64AsString, toString } from "../../../common/tlv/utils/strings";
